@@ -6,15 +6,18 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import PETS from 'common/PETS';
 
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 import DemoPets from '../../WarlockCore/Pets';
 
 const DAMAGE_BONUS_PER_PET = 0.05;
-const HAND_OF_DOOM_SUMMON_THRESHOLD = 70;
 
+// TODO: verify it still works with new Doom
+
+// !!damage multiplier is assigned at the time of DAMAGE
+// works with dreadstalkers, imps, felguard, grimoire: felguard
+// DOESN'T work with demonic tyrant, vilefiend
 class KazzaksFinalCurse extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -24,27 +27,19 @@ class KazzaksFinalCurse extends Analyzer {
   _dooms = [
     // {id, instance, damageBonus}
   ];
-  _hasHoD = false;
   bonusDmg = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasWaist(ITEMS.KAZZAKS_FINAL_CURSE.id);
-    this._hasHoD = this.combatants.selected.hasTalent(SPELLS.HAND_OF_DOOM_TALENT.id);
   }
 
   // damage multiplier is decided when doom is CAST or REFRESHED, not when it deals damage
   on_byPlayer_applydebuff(event) {
-    if (event.ability.guid !== SPELLS.DOOM.id) {
+    if (event.ability.guid !== SPELLS.DOOM_TALENT.id) {
       return;
     }
     const pets = this.demoPets.getPets(event.timestamp);
-    // this should exclude the Wild Imps summoned by Hand of Gul'dan when it applies Doom with Hand of Doom talent
-    // while the summon events happen before apply/refreshdebuff (so it gets registered with DemoPets and ultimately is in this pets array), ingame I've tested it DOESN'T count these pets into the bonus damage
-    let justSummonedImps = 0;
-    if (this._hasHoD) {
-      justSummonedImps = pets.filter(pet => pet.summonTimestamp >= event.timestamp - HAND_OF_DOOM_SUMMON_THRESHOLD && pet.guid === PETS.WILDIMP.id).length;
-    }
-    const bonus = (pets.length - justSummonedImps) * DAMAGE_BONUS_PER_PET;
+    const bonus = pets.length * DAMAGE_BONUS_PER_PET;
     let doom = this._dooms.find(doom => doom.id === event.targetID && doom.instance === event.targetInstance);
     if (!doom) {
       doom = {
@@ -60,15 +55,11 @@ class KazzaksFinalCurse extends Analyzer {
   }
 
   on_byPlayer_refreshdebuff(event) {
-    if (event.ability.guid !== SPELLS.DOOM.id) {
+    if (event.ability.guid !== SPELLS.DOOM_TALENT.id) {
       return;
     }
     const pets = this.demoPets.getPets(event.timestamp);
-    let justSummonedImps = 0;
-    if (this._hasHoD) {
-      justSummonedImps = pets.filter(pet => pet.summonTimestamp >= event.timestamp - HAND_OF_DOOM_SUMMON_THRESHOLD && pet.guid === PETS.WILDIMP.id).length;
-    }
-    const bonus = (pets.length - justSummonedImps) * DAMAGE_BONUS_PER_PET;
+    const bonus = pets.length * DAMAGE_BONUS_PER_PET;
     const doom = this._dooms.find(doom => doom.id === event.targetID && doom.instance === event.targetInstance);
     if (!doom) {
       // shouldn't happen, we add the debuff on cast
@@ -78,7 +69,7 @@ class KazzaksFinalCurse extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.DOOM.id) {
+    if (event.ability.guid !== SPELLS.DOOM_DAMAGE.id) {
       return;
     }
     const doom = this._dooms.find(doom => doom.id === event.targetID && doom.instance === event.targetInstance);

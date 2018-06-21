@@ -6,9 +6,16 @@ const debug = false;
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
+    // TODO: remove once legendaries no longer work (can be still procced by Master Harvester)
     {
-      spell: SPELLS.SOUL_HARVEST_TALENT,
+      spell: SPELLS.SOUL_HARVEST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
+      spell: SPELLS.DARK_SOUL_INSTABILITY_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -24,44 +31,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_IMP,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    // for the sake of completeness, typically unused
-    {
-      spell: SPELLS.GRIMOIRE_VOIDWALKER,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_SUCCUBUS,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_FELHUNTER,
-      duration: 25,
+      spell: SPELLS.SUMMON_INFERNAL,
+      duration: 30,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

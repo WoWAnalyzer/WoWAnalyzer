@@ -10,12 +10,12 @@ import { Chizu, Zerotorescue } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-01-28'),
-    changes: <React.Fragment>Upgrade the spec completeness to Great!</React.Fragment>,
+    changes: 'Upgrade the spec completeness to Great!',
     contributors: [Chizu],
   },
   {
     date: new Date('2018-01-28'),
-    changes: <React.Fragment>Updated the thresholds for DOTs to be more strict.</React.Fragment>,
+    changes: 'Updated the thresholds for DOTs to be more strict.',
     contributors: [Chizu],
   },
   {
@@ -25,7 +25,7 @@ export default [
   },
   {
     date: new Date('2018-01-25'),
-    changes: <React.Fragment>Added a statistic box with information about <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} /> generation and merged the time spent on max stacks into it.</React.Fragment>,
+    changes: 'Added a statistic box with information about Tormented Souls generation and merged the time spent on max stacks into it.',
     contributors: [Chizu],
   },
   {
@@ -35,7 +35,7 @@ export default [
   },
   {
     date: new Date('2018-01-23'),
-    changes: <React.Fragment>Implemented Tier 21 set bonuses.</React.Fragment>,
+    changes: 'Implemented Tier 21 set bonuses.',
     contributors: [Chizu],
   },
   {
@@ -50,22 +50,22 @@ export default [
   },
   {
     date: new Date('2017-09-16'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon />/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon />/<SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon /> to Cooldowns tab.</React.Fragment>,
+    changes: 'Added Summon Doomguard/Summon Infernal/Grimoire of Service to Cooldowns tab.',
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-09'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} icon /> module.</React.Fragment>,
+    changes: 'Added Empowered Life Tap module.',
     contributors: [Chizu],
   },
   {
     date: new Date('2017-08-27'),
-    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module to provide more relevant info.</React.Fragment>,
+    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module to provide more relevant info.</React.Fragment>,
     contributors: [Chizu],
   },
   {
     date: new Date('2017-08-24'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module.</React.Fragment>,
     contributors: [Chizu],
   },
   {

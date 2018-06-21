@@ -14,7 +14,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const HAUNT_DAMAGE_BONUS = 0.15;
+const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
   // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though

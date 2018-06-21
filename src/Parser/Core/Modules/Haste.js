@@ -24,7 +24,7 @@ class Haste extends Analyzer {
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
+    [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.1,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
@@ -34,6 +34,8 @@ class Haste extends Analyzer {
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
+    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
+    [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:

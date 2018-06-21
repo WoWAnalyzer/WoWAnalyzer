@@ -44,16 +44,6 @@ class SoulShardTracker extends Analyzer {
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.DIMENSIONAL_RIFT_CAST.name]: {
-      id: SPELLS.DIMENSIONAL_RIFT_CAST.id,
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.name]: {
-      id: SPELLS.SOULSNATCHER_FRAGMENT_GEN.id,
-      generated: 0,
-      wasted: 0,
-    },
     [SPELLS.SOUL_CONDUIT_TALENT.name]: {
       id: SPELLS.SOUL_CONDUIT_TALENT.id,
       generated: 0,
@@ -69,18 +59,12 @@ class SoulShardTracker extends Analyzer {
   spent = {
     [SPELLS.CHAOS_BOLT.id]: 0,
     [SPELLS.RAIN_OF_FIRE_CAST.id]: 0,
+    [SPELLS.SUMMON_INFERNAL.id]: 0,
+    [SPELLS.SOUL_FIRE_TALENT.id]: 0,
     [SPELLS.SUMMON_IMP.id]: 0,
     [SPELLS.SUMMON_VOIDWALKER.id]: 0,
     [SPELLS.SUMMON_SUCCUBUS.id]: 0,
     [SPELLS.SUMMON_FELHUNTER.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 0,
-    [SPELLS.GRIMOIRE_IMP.id]: 0,
-    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 0,
-    [SPELLS.GRIMOIRE_FELHUNTER.id]: 0,
-    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 0,
   };
 
   on_soulshardfragment_gained(event) {

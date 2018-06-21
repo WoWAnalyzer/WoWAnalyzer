@@ -19,7 +19,7 @@ class SoulOfTheNetherlord extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_NETHERLORD,
-      result: <React.Fragment>This gave you the <SpellLink id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} /> talent.</React.Fragment>,
+      result: <React.Fragment>This gave you the <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> talent.</React.Fragment>,
     };
   }
 }

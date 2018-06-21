@@ -12,21 +12,25 @@ export default {
     id: 710,
     name: 'Banish',
     icon: 'spell_shadow_cripple',
+    manaCost: 300,
   },
   CREATE_HEALTHSTONE: {
     id: 6201,
     name: 'Create Healthstone',
     icon: 'warlock_-healthstone',
+    manaCost: 400,
   },
   CREATE_SOULWELL: {
     id: 29893,
     name: 'Create Soulwell',
     icon: 'spell_shadow_shadesofdarkness',
+    manaCost: 1000,
   },
   DEMONIC_GATEWAY_CAST: {
     id: 111771,
     name: 'Demonic Gateway',
     icon: 'spell_warlock_demonicportal_green',
+    manaCost: 600,
   },
   DRAIN_LIFE: {
     id: 234153,
@@ -37,16 +41,19 @@ export default {
     id: 1098,
     name: 'Enslave Demon',
     icon: 'spell_shadow_enslavedemon',
+    manaCost: 400,
   },
   EYE_OF_KILROGG: {
     id: 126,
     name: 'Eye of Kilrogg',
     icon: 'spell_shadow_evileye',
+    manaCost: 600,
   },
   FEAR_CAST: {
     id: 5782,
     name: 'Fear',
     icon: 'spell_shadow_possession',
+    manaCost: 1000,
   },
   FEAR_DEBUFF: {
     id: 118699,
@@ -58,10 +65,10 @@ export default {
     name: 'Health Funnel',
     icon: 'spell_shadow_lifedrain',
   },
-  LIFE_TAP: {
-    id: 1454,
-    name: 'Life Tap',
-    icon: 'spell_shadow_burningspirit',
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga',
   },
   SOUL_LEECH_SPELL: {
     id: 108370,
@@ -77,16 +84,6 @@ export default {
     id: 20707,
     name: 'Soulstone',
     icon: 'spell_shadow_soulgem',
-  },
-  SUMMON_DOOMGUARD_UNTALENTED: {
-    id: 18540,
-    name: 'Summon Doomguard',
-    icon: 'warlock_summon_doomguard',
-  },
-  SUMMON_INFERNAL_UNTALENTED: {
-    id: 1122,
-    name: 'Summon Infernal',
-    icon: 'spell_shadow_summoninfernal',
   },
   SUMMON_IMP: {
     id: 688,
@@ -108,71 +105,46 @@ export default {
     name: 'Summon Succubus',
     icon: 'spell_shadow_summonsuccubus',
   },
-  UNENDING_RESOLVE: {
-    id: 104773,
-    name: 'Unending Resolve',
-    icon: 'spell_shadow_demonictactics',
-  },
   UNENDING_BREATH: {
     id: 5697,
     name: 'Unending Breath',
     icon: 'spell_shadow_demonbreath',
+    manaCost: 400,
+  },
+  UNENDING_RESOLVE: {
+    id: 104773,
+    name: 'Unending Resolve',
+    icon: 'spell_shadow_demonictactics',
+    manaCost: 400,
+  },
+  // TODO: remove later once legendaries no longer work
+  // Soul Harvest (despite being removed as a talent) can still proc from The Master Harvester
+  SOUL_HARVEST: {
+    id: 196098,
+    name: 'Soul Harvest',
+    icon: 'spell_warlock_demonsoul',
   },
 
   // --------------
   // Shared talents
   // --------------
 
-  EMPOWERED_LIFE_TAP_BUFF: {
-    id: 235156,
-    name: 'Empowered Life Tap',
-    icon: 'spell_shadow_manafeed',
-  },
-  DEMONIC_CIRCLE_TALENT_SUMMON: {
+  DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
-    __ignoreDuplication: true,
     name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
+    manaCost: 400,
   },
-  DEMONIC_CIRCLE_TALENT_TELEPORT: {
+  DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
+    manaCost: 600,
   },
   MORTAL_COIL_HEAL: {
     id: 108396,
     name: 'Mortal Coil',
     icon: 'ability_warlock_mortalcoil',
-  },
-  SUMMON_DOOMGUARD_TALENTED: {
-    id: 157757,
-    name: 'Summon Doomguard',
-    icon: 'warlock_summon_doomguard',
-  },
-  SUMMON_INFERNAL_TALENTED: {
-    id: 157898,
-    name: 'Summon Infernal',
-    icon: 'spell_shadow_summoninfernal',
-  },
-  GRIMOIRE_IMP: {
-    id: 111859,
-    name: 'Grimoire: Imp',
-    icon: 'spell_shadow_summonimp',
-  },
-  GRIMOIRE_VOIDWALKER: {
-    id: 111895,
-    name: 'Grimoire: Voidwalker',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
-  GRIMOIRE_FELHUNTER: {
-    id: 111897,
-    name: 'Grimoire: Felhunter',
-    icon: 'spell_shadow_summonfelhunter',
-  },
-  GRIMOIRE_SUCCUBUS: {
-    id: 111896,
-    name: 'Grimoire: Succubus',
-    icon: 'spell_shadow_summonsuccubus',
   },
   GRIMOIRE_OF_SACRIFICE_BUFF: {
     id: 196099,
@@ -193,36 +165,24 @@ export default {
     id: 980,
     name: 'Agony',
     icon: 'spell_shadow_curseofsargeras',
+    manaCost: 200,
   },
   CORRUPTION_CAST: {
     id: 172,
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
+    manaCost: 200,
   },
   CORRUPTION_DEBUFF: {
     id: 146739,
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
   },
-  DRAIN_SOUL: {
-    id: 198590,
-    name: 'Drain Soul',
-    icon: 'spell_shadow_haunting',
-  },
-  REAP_SOULS: {
-    id: 216698,
-    name: 'Reap Souls',
-    icon: 'inv_staff_2h_artifactdeadwind_d_01',
-  },
-  WARLOCK_TORMENTED_SOULS: {
-    id: 216695,
-    name: 'Tormented Souls',
-    icon: 'inv_staff_2h_artifactdeadwind_d_01',
-  },
-  DEADWIND_HARVESTER: {
-    id: 216708,
-    name: 'Deadwind Harvester',
-    icon: 'inv_misc_2h_farmscythe_a_01',
+  SHADOW_BOLT_AFFLI: {
+    id: 232670,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+    manaCost: 400,
   },
   SEED_OF_CORRUPTION_DEBUFF: {
     id: 27243,
@@ -233,6 +193,16 @@ export default {
     id: 27285,
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction',
+  },
+  SUMMON_DARKGLARE: {
+    id: 205180,
+    name: 'Summon Darkglare',
+    icon: 'inv_beholderwarlock',
+  },
+  SUMMON_DARKGLARE_DAMAGE: {
+    id: 205231,
+    name: 'Eye Beam',
+    icon: 'inv_beholderwarlock',
   },
   UNSTABLE_AFFLICTION_CAST: {
     id: 30108,
@@ -266,12 +236,21 @@ export default {
   },
 
   // Affliction talents
-  PHANTOM_SINGULARITY_HEAL: {
+  NIGHTFALL_BUFF: {
+    id: 264571,
+    name: 'Nightfall',
+    icon: 'spell_shadow_twilight',
+  },
+  PHANTOM_SINGULARITY_DAMAGE_HEAL: {
     id: 205246,
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
   },
-
+  SHADOW_EMBRACE_DEBUFF: {
+    id: 32390,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
   // Affliction tier sets
   WARLOCK_AFFLI_T20_2P_BONUS: {
     id: 242290,
@@ -302,18 +281,6 @@ export default {
     id: 252938,
     name: 'Tormented Agony',
     icon: 'ability_warlock_improvedsoulleech',
-  },
-
-  // Affliction artifact traits
-  FATAL_ECHOES: {
-    id: 199257,
-    name: 'Fatal Echoes',
-    icon: 'inv_misc_bell_01',
-  },
-  REND_SOUL: {
-    id: 242834,
-    name: 'Rend Soul',
-    icon: 'spell_deathknight_strangulate',
   },
 
   // Affliction shard generating effects
@@ -349,48 +316,290 @@ export default {
   },
 
   // -----------
+  // DEMONOLOGY
+  // -----------
+
+  // Demonology spells
+  CALL_DREADSTALKERS: {
+    id: 104316,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  DEMONBOLT: {
+    id: 264178,
+    name: 'Demonbolt',
+    icon: 'inv__demonbolt',
+  },
+  DEMONIC_CORE_BUFF: {
+    id: 264173,
+    name: 'Demonic Core',
+    icon: 'warlock_spelldrain',
+  },
+  HAND_OF_GULDAN_CAST: {
+    id: 105174,
+    name: 'Hand of Gul\'dan',
+    icon: 'ability_warlock_handofguldan',
+  },
+  HAND_OF_GULDAN_DAMAGE: {
+    id: 86040,
+    name: 'Hand of Gul\'dan',
+    icon: 'ability_warlock_handofguldan',
+  },
+  IMPLOSION_CAST: {
+    id: 196277,
+    name: 'Implosion',
+    icon: 'inv_implosion',
+    manaCost: 400,
+  },
+  IMPLOSION_DAMAGE: {
+    id: 196278,
+    name: 'Implosion',
+    icon: 'inv_implosion',
+  },
+  SHADOW_BOLT_DEMO: {
+    id: 686,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+    manaCost: 400,
+  },
+  SUMMON_FELGUARD: {
+    id: 30146,
+    name: 'Summon Felguard',
+    icon: 'spell_shadow_summonfelguard',
+  },
+  SUMMON_DEMONIC_TYRANT: {
+    id: 265187,
+    name: 'Summon Demonic Tyrant',
+    icon: 'inv_summondemonictyrant',
+    manaCost: 400,
+  },
+  // Demonic Tyrant buff on player
+  DEMONIC_POWER: {
+    id: 265273,
+    name: 'Demonic Power',
+    icon: 'achievement_boss_argus_maleeredar',
+  },
+
+  // Pet abilities
+  // Following 2 abilities are the same for Grimoire: Felguard
+  FELSTORM_BUFF: {
+    id: 89751,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  FELSTORM_DAMAGE: {
+    id: 89753,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // TODO: check Wrathguard and Terrorguard glyphs
+  WRATHSTORM_BUFF: {
+    id: 115831,
+    name: 'Wrathstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // also important for Dreadlash talent
+  DREADBITE: {
+    id: 271971,
+    name: 'Dreadbite',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  FEL_FIREBOLT: {
+    id: 104318,
+    name: 'Fel Firebolt',
+    icon: 'spell_fel_firebolt',
+  },
+  DEMONIC_TYRANT_DAMAGE: {
+    id: 270481,
+    name: 'Demonfire',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  VILEFIEND_BILE_SPIT: {
+    id: 267997,
+    name: 'Bile Spit',
+    icon: 'spell_fel_firebolt',
+  },
+  VILEFIEND_HEADBUTT: {
+    id: 267999,
+    name: 'Headbutt',
+    icon: 'inv_argusfelstalkermountgrey',
+  },
+  // Inner Demons pet abilities
+  INNER_DEMONS_EYE_OF_GULDAN: {
+    id: 272131,
+    name: 'Eye of Gul\'dan',
+    icon: 'inv_misc_eye_01',
+  },
+  INNER_DEMONS_TOXIC_BILE: {
+    id: 272167,
+    name: 'Toxic Bile',
+    icon: 'ability_creature_poison_02',
+  },
+  INNER_DEMONS_SHADOW_SLASH: {
+    id: 272012,
+    name: 'Shadow Slash',
+    icon: 'spell_deathknight_scourgestrike',
+  },
+  INNER_DEMONS_MULTI_SLASH: {
+    id: 272172,
+    name: 'Multi-Slash',
+    icon: 'ability_rogue_murderspree',
+  },
+  // TODO: possibly even more
+  // Nether Portal pet abilities
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_FEL_BITE: {
+    id: 272435,
+    name: 'Fel Bite',
+    icon: 'artifactability_feraldruid_openwounds',
+  },
+  NETHER_PORTAL_DOUBLE_BREATH: {
+    id: 272156,
+    name: 'Double Breath',
+    icon: 'ability_warlock_shadowflame',
+  },
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_MANY_FACED_BITE: {
+    id: 272439,
+    name: 'Many Faced Bite',
+    icon: 'inv_soulhoundmount_green',
+  },
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_OVERHEAD_ASSAULT: {
+    id: 272432,
+    name: 'Overhead Assault',
+    icon: 'warrior_talent_icon_mastercleaver',
+  },
+
+  // Demonology talents
+  BILESCOURGE_BOMBERS_DAMAGE: {
+    id: 267213,
+    name: 'Bilescourge Bombers',
+    icon: 'ability_hunter_pet_bat',
+  },
+  DEMONIC_CALLING_BUFF: {
+    id: 205146,
+    name: 'Demonic Calling',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  DOOM_DAMAGE: {
+    id: 265469,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+  FROM_THE_SHADOWS_DEBUFF: {
+    id: 270569,
+    name: 'From the Shadows',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  SOUL_STRIKE_DAMAGE: {
+    id: 267964,
+    name: 'Soul Strike',
+    icon: 'inv_polearm_2h_fellord_04',
+  },
+  DEMONIC_CONSUMPTION_BUFF: {
+    id: 267972,
+    name: 'Demonic Consumption',
+    icon: 'spell_warlock_soulburn',
+  },
+
+  // Demonology shard generating effects
+  RECURRENT_RITUAL_SHARD_GEN: {
+    id: 214811,
+    name: 'Recurrent Ritual',
+    icon: 'inv_feldreadravenmount',
+  },
+  SHADOW_BOLT_SHARD_GEN: {
+    id: 194192,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  DEMONBOLT_SHARD_GEN: {
+    id: 280127,
+    name: 'Demonbolt',
+    icon: 'spell_warlock_demonbolt',
+  },
+  DOOM_SHARD_GEN: {
+    id: 272728,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+  SOUL_STRIKE_SHARD_GEN: {
+    id: 270557,
+    name: 'Soul Strike',
+    icon: 'inv_polearm_2h_fellord_04',
+  },
+
+  // Demonology Tier sets
+  WARLOCK_DEMO_T19_2P_BONUS: {
+    id: 212005,
+    name: 'Demonology Warlock T19 2P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
+  WARLOCK_DEMO_T19_4P_BONUS: {
+    id: 212007,
+    name: 'Demonology Warlock T19 4P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
+  WARLOCK_DEMO_T20_2P_BONUS: {
+    id: 242293,
+    name: 'Demonology Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BONUS: {
+    id: 242294,
+    name: 'Demonology Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BUFF: {
+    id: 246962,
+    name: 'Dreaded Haste',
+    icon: 'spell_shadow_metamorphosis',
+  },
+
+  // -----------
   // DESTRUCTION
   // -----------
 
   // Destruction spells
-  // TODO: check if all is correct (copypasta from Development tab)
-  INCINERATE: {
-    id: 29722,
-    name: 'Incinerate',
-    icon: 'spell_fire_burnout',
-    baseMana: 0.05,
-  },
-  CONFLAGRATE: {
-    id: 17962,
-    name: 'Conflagrate',
-    icon: 'spell_fire_fireball',
+  BACKDRAFT: {
+    id: 117828,
+    name: 'Backdraft',
+    icon: 'ability_warlock_backdraft',
   },
   CHAOS_BOLT: {
     id: 116858,
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
   },
-  IMMOLATE_CAST: {
+  CONFLAGRATE: {
+    id: 17962,
+    name: 'Conflagrate',
+    icon: 'spell_fire_fireball',
+    manaCost: 200,
+  },
+  HAVOC: {
+    id: 80240,
+    name: 'Havoc',
+    icon: 'ability_warlock_baneofhavoc',
+    manaCost: 400,
+  },
+  IMMOLATE: {
     id: 348,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
-    baseMana: 0.06,
+    manaCost: 300,
   },
   IMMOLATE_DEBUFF: {
     id: 157736,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
   },
-  HAVOC: {
-    id: 80240,
-    name: 'Havoc',
-    icon: 'ability_warlock_baneofhavoc',
-    baseMana: 0.08,
-  },
-  DIMENSIONAL_RIFT_CAST: {
-    id: 196586,
-    name: 'Dimensional Rift',
-    icon: 'spell_warlock_demonicportal_purple',
+  INCINERATE: {
+    id: 29722,
+    name: 'Incinerate',
+    icon: 'spell_fire_burnout',
+    manaCost: 400,
   },
   RAIN_OF_FIRE_CAST: {
     id: 5740,
@@ -402,27 +611,54 @@ export default {
     name: 'Rain of Fire',
     icon: 'spell_shadow_rainoffire',
   },
-  // Destruction talents
-  BACKDRAFT: {
-    id: 117828,
-    name: 'Backdraft',
-    icon: 'ability_warlock_backdraft',
+  SUMMON_INFERNAL: {
+    id: 1122,
+    name: 'Summon Infernal',
+    icon: 'spell_shadow_summoninfernal',
   },
+  // Infernal summon effect (dmg + stun)
+  INFERNAL_AWAKENING: {
+    id: 22703,
+    name: 'Infernal Awakening',
+    icon: 'spell_frost_stun',
+  },
+  // Infernal aura
+  INFERNAL_AURA_DAMAGE: {
+    id: 20153,
+    name: 'Immolation',
+    icon: 'spell_shadow_summoninfernal',
+  },
+
+  // Destruction talents
   ERADICATION_DEBUFF: {
     id: 196414,
     name: 'Eradication',
     icon: 'ability_warlock_eradication',
   },
+  REVERSE_ENTROPY_BUFF: {
+    id: 266030,
+    name: 'Reverse Entropy',
+    icon: 'ability_warlock_backdraftgreen',
+  },
+  INTERNAL_COMBUSTION_DAMAGE: {
+    id: 266136,
+    name: 'Internal Combustion',
+    icon: 'ability_mage_livingbomb',
+  },
+  ROARING_BLAZE_DAMAGE: {
+    id: 265931,
+    name: 'Roaring Blaze',
+    icon: 'ability_warlock_inferno',
+  },
+  GRIMOIRE_OF_SUPREMACY_BUFF: {
+    id: 266091,
+    name: 'Grimoire of Supremacy',
+    icon: 'warlock_grimoireofcommand',
+  },
   CHANNEL_DEMONFIRE_DAMAGE: {
     id: 196448,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
-  },
-  // Destruction traits
-  SOULSNATCHER_FRAGMENT_GEN: {
-    id: 196234,
-    name: 'Soulsnatcher',
-    icon: 'spell_shadow_soulleech_3',
   },
   // Destruction set bonuses
   WARLOCK_DESTRO_T20_2P_BONUS: {
@@ -485,204 +721,5 @@ export default {
     id: 213229,
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
-  },
-  // Destruction Dimensional Rift spells
-  SEARING_BOLT_RIFT: {
-    id: 243050,
-    name: 'Searing Bolt',
-    icon: 'inv_misc_volatilefire',
-  },
-  CHAOS_BARRAGE_RIFT: {
-    id: 187394,
-    name: 'Chaos Barrage',
-    icon: 'spell_warlock_demonicportal_green',
-  },
-  CHAOS_BOLT_RIFT: {
-    id: 215279,
-    name: 'Chaos Bolt',
-    icon: 'ability_warlock_chaosbolt',
-  },
-  SHADOW_BOLT_RIFT: {
-    id: 196657,
-    name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-
-  // -----------
-  // DEMONOLOGY
-  // -----------
-
-  // Demonology spells
-  DEMONIC_EMPOWERMENT: {
-    id: 193396,
-    name: 'Demonic Empowerment',
-    icon: 'spell_warlock_demonicempowerment',
-  },
-  SHADOW_BOLT: {
-    id: 686,
-    name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-  DOOM: {
-    id: 603,
-    name: 'Doom',
-    icon: 'spell_shadow_auraofdarkness',
-  },
-  CALL_DREADSTALKERS: {
-    id: 104316,
-    name: 'Call Dreadstalkers',
-    icon: 'spell_warlock_calldreadstalkers',
-  },
-  GRIMOIRE_FELGUARD: {
-    id: 111898,
-    name: 'Grimoire: Felguard',
-    icon: 'spell_shadow_summonfelguard',
-  },
-  HAND_OF_GULDAN_CAST: {
-    id: 105174,
-    name: 'Hand of Gul\'dan',
-    icon: 'ability_warlock_handofguldan',
-  },
-  HAND_OF_GULDAN_DAMAGE: {
-    id: 86040,
-    name: 'Hand of Gul\'dan',
-    icon: 'ability_warlock_handofguldan',
-  },
-  DEMONWRATH_CAST: {
-    id: 193440,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
-  },
-  DEMONWRATH_DAMAGE: {
-    id: 193439,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
-  },
-  THALKIELS_CONSUMPTION_CAST: { // also friendly fire damage to pets
-    id: 211714,
-    name: 'Thal\'kiel\'s Consumption',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
-  },
-  THALKIELS_CONSUMPTION_DAMAGE: {
-    id: 211715,
-    name: 'Thal\'kiel\'s Consumption',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
-  },
-  // Felguard's ability, triggered by our Command Demon ability
-  FELSTORM: {
-    id: 119914,
-    name: 'Felstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
-  // Felguard gets a buff when he uses Felstorm, then follows up always with cast <another Felstorm ID - 89753>, cast this ID, damage <another Felstorm ID 89753> and then always pairs up cast 89753 + damage 89753 (x targets hit)
-  FELSTORM_BUFF: {
-    id: 89751,
-    name: 'Felstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
-  WRATHSTORM_BUFF: {
-    id: 115831,
-    name: 'Wrathstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
-  SUMMON_FELGUARD: {
-    id: 30146,
-    name: 'Summon Felguard',
-    icon: 'spell_shadow_summonfelguard',
-  },
-
-  // Demonology talents
-  DEMONIC_CALLING_BUFF: {
-    id: 205146,
-    name: 'Demonic Calling',
-    icon: 'ability_warlock_impoweredimp',
-  },
-  SHADOWY_INSPIRATION_BUFF: {
-    id: 196606,
-    name: 'Shadowy Inspiration',
-    icon: 'warlock_curse_shadow',
-  },
-  IMPLOSION_DAMAGE: {
-    id: 196278,
-    name: 'Implosion',
-    icon: 'spell_shadow_shadowandflame',
-  },
-  GRIMOIRE_OF_SYNERGY_BUFF: {
-    id: 171982,
-    name: 'Grimoire of Synergy',
-    icon: 'warlock_grimoireofsacrifice',
-  },
-
-  // Demonology traits
-  THALKIELS_DISCORD: {
-    id: 211727,
-    name: 'Thal\'kiel\'s Discord',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
-  },
-
-  // Demonology shard generating effects
-  RECURRENT_RITUAL_SHARD_GEN: {
-    id: 214811,
-    name: 'Recurrent Ritual',
-    icon: 'inv_feldreadravenmount',
-  },
-  POWER_TRIP_SHARD_GEN: {
-    id: 216125,
-    name: 'Power Trip',
-    icon: 'spell_shadow_demonictactics',
-  },
-  SHADOW_BOLT_SHARD_GEN: {
-    id: 194192,
-    name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-  DEMONBOLT_SHARD_GEN: {
-    id: 196300,
-    name: 'Demonbolt',
-    icon: 'spell_warlock_demonbolt',
-  },
-  DOOM_SHARD_GEN: {
-    id: 193318,
-    name: 'Doom',
-    icon: 'spell_shadow_auraofdarkness',
-  },
-  DEMONWRATH_SHARD_GEN: {
-    id: 194379,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
-  },
-
-  // Demonology Tier sets
-  WARLOCK_DEMO_T19_2P_BONUS: {
-    id: 212005,
-    name: 'Demonology Warlock T19 2P Bonus',
-    icon: 'inv_helm_cloth_raidwarlock_q_01',
-  },
-  WARLOCK_DEMO_T19_4P_BONUS: {
-    id: 212007,
-    name: 'Demonology Warlock T19 4P Bonus',
-    icon: 'inv_helm_cloth_raidwarlock_q_01',
-  },
-  WARLOCK_DEMO_T20_2P_BONUS: {
-    id: 242293,
-    name: 'Demonology Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DEMO_T20_4P_BONUS: {
-    id: 242294,
-    name: 'Demonology Warlock T20 4P bonus',
-    icon: 'inv_chest_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DEMO_T20_4P_BUFF: {
-    id: 246962,
-    name: 'Dreaded Haste',
-    icon: 'spell_shadow_metamorphosis',
-  },
-
-  // Demonology legendary effects
-  WAKENERS_LOYALTY: {
-    id: 236200,
-    name: 'Wakener\'s Loyalty',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
   },
 };

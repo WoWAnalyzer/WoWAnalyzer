@@ -19,10 +19,7 @@ import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
-import TormentedSouls from './TormentedSouls';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
-import ReapBuffTracker from './ReapBuffTracker';
-import MaleficGrasp from '../Talents/MaleficGrasp';
 import Haunt from '../Talents/Haunt';
 import LowMana from './LowMana';
 
@@ -43,10 +40,7 @@ class Checklist extends CoreChecklist {
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
-    tormentedSouls: TormentedSouls,
 
-    reapBuffTracker: ReapBuffTracker,
-    maleficGrasp: MaleficGrasp,
     haunt: Haunt,
   };
 
@@ -73,40 +67,19 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+    // TODO: figure out what to do with this rule (only Haunt survived and it may not get picked a lot over Shadow Embrace)
     new Rule({
       name: <React.Fragment>Buff your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> as much as possible</React.Fragment>,
-      description: <React.Fragment><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> is your biggest source of damage and you should try to buff its damage as much as possible with <SpellLink id={SPELLS.REAP_SOULS.id} /> and <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} /> or <SpellLink id={SPELLS.HAUNT_TALENT.id} /> (if talented). <br />
-        If you don't have <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} />, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
+      description: <React.Fragment><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> is your biggest source of damage and you should try to buff its damage as much as possible with Reap Souls and Malefic Grasp or <SpellLink id={SPELLS.HAUNT_TALENT.id} /> (if talented). <br />
+        If you don't have Tormented Souls, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
       </React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.REAP_SOULS.id} icon /></React.Fragment>,
-            check: () => this.reapBuffTracker.positiveSuggestionThresholds,
-          }),
-          new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon /></React.Fragment>,
-            check: () => this.maleficGrasp.positiveSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id),
-          }),
-          new Requirement({
             name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /></React.Fragment>,
             check: () => this.haunt.positiveSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
-          }),
-        ];
-      },
-    }),
-    new Rule({
-      name: <React.Fragment>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} />.</React.Fragment>,
-      description: <React.Fragment>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.REAP_SOULS.id} icon /> buff.</React.Fragment>,
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'Portion of fight spent on max stacks',
-            check: () => this.tormentedSouls.suggestionThresholds,
-            valueTooltip: `${this.tormentedSouls.maxStacksSeconds} seconds on max stacks`,
           }),
         ];
       },
@@ -131,24 +104,19 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SOUL_HARVEST_TALENT,
-            when: combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
+            spell: SPELLS.SUMMON_DARKGLARE,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DARK_SOUL_MISERY_TALENT,
+            when: combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.VILE_TAINT_TALENT,
+            when: combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.PHANTOM_SINGULARITY_TALENT,
             when: combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
-            when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-            when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.GRIMOIRE_FELHUNTER,
-            when: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
           }),
         ];
       },
@@ -161,7 +129,7 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
+            spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
             when: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
@@ -177,7 +145,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Always be casting',
-      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
       You should also watch your mana and not let it drop too low as Affliction is very mana-hungry and every second spent out of mana at wrong times is a DPS loss.</React.Fragment>,
       requirements: () => {
         return [

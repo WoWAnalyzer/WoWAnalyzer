@@ -6,69 +6,35 @@ const debug = false;
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
+    // TODO: remove later once legendaries are no longer working (this can be still procced from Master Harvester)
     {
-      spell: SPELLS.SOUL_HARVEST_TALENT,
+      spell: SPELLS.SOUL_HARVEST,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
   ];
 
+  // nether portal, grimoire, demonic tyrant,
   static castCooldowns = [
     {
-      spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-      duration: 25,
+      spell: SPELLS.NETHER_PORTAL_TALENT,
+      duration: 20,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
-      duration: 25,
+      spell: SPELLS.GRIMOIRE_FELGUARD_TALENT,
+      duration: 15,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.GRIMOIRE_FELGUARD,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.SUMMON_DARKGLARE_TALENT,
-      duration: 12,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    // for the sake of completeness, typically unused
-    {
-      spell: SPELLS.GRIMOIRE_IMP,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_VOIDWALKER,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_SUCCUBUS,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_FELHUNTER,
-      duration: 25,
+      spell: SPELLS.SUMMON_DEMONIC_TYRANT,
+      duration: 15,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

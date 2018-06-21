@@ -9,14 +9,20 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class DoomUptime extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     enemies: Enemies,
   };
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.DOOM_TALENT.id);
+  }
+
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.DOOM_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -34,7 +40,7 @@ class DoomUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.DOOM.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</React.Fragment>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</React.Fragment>)
           .icon(SPELLS.DOOM.icon)
           .actual(`${formatPercentage(actual)}% Doom uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -44,7 +50,7 @@ class DoomUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.DOOM.id} />}
+        icon={<SpellIcon id={SPELLS.DOOM_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Doom uptime"
       />
