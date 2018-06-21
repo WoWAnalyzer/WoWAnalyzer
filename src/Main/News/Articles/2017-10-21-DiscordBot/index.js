@@ -1,12 +1,18 @@
 import React from 'react';
 
+import { Zerotorescue } from 'CONTRIBUTORS';
 import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
 import RegularArticle from 'Main/News/RegularArticle';
 
 import DiscordBotGif from './discord-bot.gif';
 
 export default (
-  <RegularArticle title="The WoWAnalyzer Discord bot" published="2017-12-24" bodyStyle={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+  <RegularArticle
+    title="The WoWAnalyzer Discord bot"
+    publishedAt="2017-12-24"
+    publishedBy={Zerotorescue}
+    bodyStyle={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}
+  >
     <div className="flex wrapable">
       <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
         <div className="flex">
