@@ -24,27 +24,27 @@ export default {
   EARTHBIND_TOTEM: {
     id: 2484,
     name: 'Earthbind Totem',
-    icon: 'spell_nature_strengthofearthtotem02', 
+    icon: 'spell_nature_strengthofearthtotem02',
   },
   PURGE: {
     id: 370,
     name: 'Purge',
-    icon: 'spell_nature_purge', 
+    icon: 'spell_nature_purge',
   },
   FAR_SIGHT: {
     id: 6196,
     name: 'Far Sight',
-    icon: 'spell_nature_farsight', 
+    icon: 'spell_nature_farsight',
   },
   WATER_WALKING: {
     id: 546,
     name: 'Water Walking',
-    icon: 'spell_frost_windwalkon', 
+    icon: 'spell_frost_windwalkon',
   },
   ASTRAL_RECALL: {
     id: 556,
     name: 'Astral Recall',
-    icon: 'spell_nature_astralrecal', 
+    icon: 'spell_nature_astralrecal',
   },
   STATIC_CHARGE_DEBUFF: {
     id: 118905,
@@ -72,9 +72,9 @@ export default {
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
   },
-  LIGHTNING_SURGE_TOTEM: {
+  CAPACITOR_TOTEM: {
     id: 192058,
-    name: 'Lightning Surge Totem',
+    name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
     manaCost: 2000,
   },
@@ -82,32 +82,32 @@ export default {
   HEX: {
     id: 51514,
     name: 'Hex',
-    icon: 'spell_shaman_hex', 
+    icon: 'spell_shaman_hex',
   },
   HEX_RAPTOR: {
     id: 210873,
     name: 'Hex',
-    icon: 'ability_hunter_pet_raptor', 
+    icon: 'ability_hunter_pet_raptor',
   },
   HEX_SPIDER: {
     id: 211004,
     name: 'Hex',
-    icon: 'ability_hunter_pet_spider', 
+    icon: 'ability_hunter_pet_spider',
   },
   HEX_SNAKE: {
     id: 211010,
     name: 'Hex',
-    icon: 'inv_pet_pythonblack', 
+    icon: 'inv_pet_pythonblack',
   },
   HEX_COCKROACH: {
     id: 211015,
     name: 'Hex',
-    icon: 'inv_pet_cockroach', 
+    icon: 'inv_pet_cockroach',
   },
   HEX_SKELETAL: {
     id: 269352,
     name: 'Hex',
-    icon: 'ability_mount_fossilizedraptor', 
+    icon: 'ability_mount_fossilizedraptor',
   },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
@@ -140,18 +140,12 @@ export default {
     id: 8042,
     name: 'Earth Shock',
     icon: 'spell_nature_earthshock',
-    max_maelstrom: 125, // default without talent
   },
   LAVA_BURST: {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
     manaCost: 1200,
-  },
-  LAVA_BURST_VOLCANIC_INFERNO: {
-    id: 205533,
-    name: 'Volcanic Inferno',
-    icon: 'spell_shaman_lavaflow',
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -264,11 +258,6 @@ export default {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  STORMKEEPER: {
-    id: 205495,
-    name: 'Stormkeeper',
-    icon: 'inv_hand_1h_artifactstormfist_d_01',
-  },
   FIRE_ELEMENTAL: {
     id: 198067,
     name: 'Fire Elemental',
@@ -296,16 +285,6 @@ export default {
     name: 'Icefury Overload',
     icon: 'spell_frost_iceshard',
   },
-  POWER_OF_THE_MAELSTROM: {
-    id: 191877,
-    name: 'Power of the Maelstrom',
-    icon: 'spell_fire_masterofelements',
-  },
-  ELEMENTAL_FOCUS: {
-    id: 16246,
-    name: 'Elemental Focus',
-    icon: 'spell_shadow_manaburn',
-  },
   LAVA_SURGE: {
     id: 77762,
     name: 'Lava Surge',
@@ -315,21 +294,6 @@ export default {
     id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
-  },
-  LIGHTNING_ROD_DEBUFF: {
-    id: 197209,
-    name: 'Lightning Rod Buff',
-    icon: 'inv_rod_enchantedcobalt',
-  },
-  LIGHTNING_ROD_DAMAGE: {
-    id: 197568,
-    name: 'Lightning Rod',
-    icon: 'inv_rod_enchantedcobalt',
-  },
-  NATURES_ESSENCE: {
-    id: 191580,
-    name: 'Nature\'s Essence',
-    icon: 'spell_nature_healingway',
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -792,7 +756,7 @@ export default {
   WELLSPRING_HEAL: {
     id: 197997,
     name: 'Wellspring',
-    icon: 'ability_shawaterelemental_split', 
+    icon: 'ability_shawaterelemental_split',
   },
   FLAME_SHOCK_RESTORATION: {
     id: 188838,

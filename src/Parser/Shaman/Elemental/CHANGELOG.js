@@ -1,42 +1,42 @@
 import React from 'react';
 
-import { fasib } from 'CONTRIBUTORS';
+import { fasib, HawkCorrigan, Hewhosmites } from 'CONTRIBUTORS';
 
 export default [
   {
     date: new Date('03-05-2018'),
     changes: 'Added Eye of the Twisting Nether',
-    contributors: [fasib],
+    contributors: [Hewhosmites],
   },
   {
     date: new Date('03-05-2018'),
     changes: 'Fixed Fire Elemental Precast not counting towards Casting Efficiency',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('01-20-2018'),
     changes: 'Added Smoldering Heart, first Pass at Echoes of the Great Sundering and fixed Elemental Blast',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('01-10-2018'),
     changes: 'Fixed Ankh not counting as a rezz and implemented Maelstrom Chart',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('12-26-2017'),
     changes: 'Added The Deceivers Blood Pact Legendary',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('12-26-2017'),
     changes: 'Added Mastery Values for Stat Display',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('12-19-2017'),
     changes: 'Added Lightning Rod Damage Display',
-    contributors: [fasib],
+    contributors: [HawkCorrigan],
   },
   {
     date: new Date('10-31-2017'),
