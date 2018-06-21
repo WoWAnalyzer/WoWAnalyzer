@@ -16,11 +16,16 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+    spell: SPELLS.EXECUTION_SENTENCE_TALENT,
+    summary: [
+      BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
   
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.DIVINE_HAMMER_HIT.id,
     SPELLS.UMBRAL_GLAIVE_STORM_TICK.id,
   ];
 }

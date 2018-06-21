@@ -1,9 +1,14 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
+import { Hewhosmites, Zerotorescue, Juko8} from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-06-21'),
+    changes: 'Talents and abilities updated for 8.0. Artifact traits and related analysis removed',
+    contributors: [Juko8],
+  },
 	{
 		date: new Date('2018-02-21'),
 		changes: <React.Fragment>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> module.</React.Fragment>,

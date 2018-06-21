@@ -14,11 +14,11 @@ class Abilities extends CoreAbilities {
     const combatant = this.combatants.selected;
     return [
       {
-        spell: SPELLS.WAKE_OF_ASHES,
+        spell: SPELLS.WAKE_OF_ASHES_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 45,
         isOnGCD: true,
-        enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
+        enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -26,11 +26,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WAKE_OF_ASHES,
+        spell: SPELLS.WAKE_OF_ASHES_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 45,
         isOnGCD: true,
-        enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
+        enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
@@ -61,20 +61,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HOLY_WRATH_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.HOLY_WRATH_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => 3.5 / (1 + haste),
+        cooldown: haste => 6 * 0.85 / (1 + haste),
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id),
         castEfficiency: {
@@ -85,20 +75,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.GREATER_JUDGMENT_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.ZEAL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
-        cooldown: haste => 4.5 / (1 + haste),
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -131,21 +110,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 10.5 / (1 + haste),
         isOnGCD: true,
-        enabled: !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
         },
       },
       {
-        spell: SPELLS.DIVINE_HAMMER_TALENT,
+        spell: SPELLS.HAMMER_OF_WRATH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        enabled: combatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id),
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.TEMPLARS_VERDICT,
@@ -170,7 +144,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONSECRATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 20,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.CONSECRATION_TALENT.id),
         castEfficiency: {
@@ -182,7 +156,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_OF_VENGEANCE,
         buffSpellId: SPELLS.SHIELD_OF_VENGEANCE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: ( _, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 120 : 84,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -206,6 +180,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WORD_OF_GLORY_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        charges: 2,
+        cooldown: 60,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       },
@@ -227,14 +203,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
-        cooldown: 45,
+        cooldown: 60,
         isOnGCD: true,
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 600 : 420,
         castEfficiency: {
           recommendedEfficiency: 0.1,
         },
@@ -250,7 +226,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: ( _, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.PROTECTOR_OF_THE_ASHEN_BLADE.id] || 0) * 30 ,
+        cooldown: 300,
         isOnGCD: true,
       },
       {
@@ -267,7 +243,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_SHIELD,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.DIVINE_INTERVENTION_TALENT.id) ? 300 : 240,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 300 : 210,
         isOnGCD: true, 
       },
       {

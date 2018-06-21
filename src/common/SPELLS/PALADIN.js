@@ -23,6 +23,12 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
+  JUDGMENT_CAST_ALT_2: {
+    id: 220637,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+    manaCost: 600,
+  },
   DIVINE_STEED: {
     id: 190784,
     name: 'Divine Steed',
@@ -286,21 +292,6 @@ export default {
     name: 'Blade of Justice',
     icon: 'ability_paladin_bladeofjustice',
   },
-  DIVINE_HAMMER_HIT: {
-    id: 198137,
-    name: 'Divine Hammer',
-    icon: 'spell_holy_auraoflight',
-  },
-  DIVINE_HAMMER_3_HP: {
-    id: 246345,
-    name: 'Divine Hammer',
-    icon: 'classicon_paladin',
-  },
-  DIVINE_HAMMER_2_HP: {
-    id: 228231,
-    name: 'Divine Hammer',
-    icon: 'classicon_paladin',
-  },
   DIVINE_STORM_DAMAGE: {
     id: 224239,
     name: 'Divine Storm',
@@ -310,16 +301,6 @@ export default {
     id: 53385,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
-  },
-  WAKE_OF_ASHES: {
-    id: 205273,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
-  },
-  WAKE_OF_ASHES_HP_GEN: {
-    id: 218001,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
   SHIELD_OF_VENGEANCE: {
     id: 184662,
@@ -355,16 +336,6 @@ export default {
     id: 183436,
     name: 'Retribution',
     icon: 'spell_holy_crusade',
-  },
-  RIGHTEOUS_VERDICT_BUFF: {
-    id: 238996,
-    name: 'Righteous Verdict',
-    icon: 'ability_paladin_bladeofjustice',
-  },
-  BLESSING_OF_THE_ASHBRINGER_BUFF: {
-    id: 242981,
-    name: 'Blessing Of The Ashbringer',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
   GREATER_BLESSING_OF_KINGS: {
     id: 203538,
@@ -438,53 +409,6 @@ export default {
     icon: 'ability_paladin_conviction',
   },
   // Traits:
-  // Retribution Paladin:
-  DEFLECTION: {
-    id: 184778,
-    name: 'Deflection',
-    icon: 'ability_paladin_gaurdedbythelight',
-  },
-  HIGHLORDS_JUDGMENT: {
-    id: 186941,
-    name: 'Highlords Judgment',
-    icon: 'spell_holy_righteousfury',
-  },
-  SHARPENED_EDGE: {
-    id: 184759,
-    name: 'Sharpened Edge',
-    icon: 'ability_paladin_empoweredsealstruth',
-  },
-  DELIVER_THE_JUSTICE: {
-    id: 186927,
-    name: 'Deliver the Justice',
-    icon: 'spell_holy_sealofvengeance',
-  },
-  WRATH_OF_THE_ASHBRINGER: {
-    id: 186945,
-    name: 'Wrath of the Ashbringer',
-    icon: 'ability_paladin_sanctifiedwrath',
-  },
-  RIGHTEOUS_VERDICT: {
-    id: 238062,
-    name: 'Righteous Verdict',
-    icon: 'ability_paladin_bladeofjustice',
-  },
-  MIGHT_OF_THE_TEMPLAR: {
-    id: 185368,
-    name: 'Might of the Templar',
-    icon: 'spell_holy_blessedresillience',
-  },
-  BLESSING_OF_THE_ASHBRINGER: {
-    id: 238098,
-    name: 'Blessing of the Ashbringer',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
-  },
-  PROTECTOR_OF_THE_ASHEN_BLADE: {
-    id: 186944,
-    name: 'Protector of the Ashen Blade',
-    icon: 'spell_holy_sealofprotection',
-  },
-
 	// Protection
   ARDENT_DEFENDER: {
     id: 31850,

@@ -33,7 +33,7 @@ class Tier20_2set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id)) {
       this.damageDone += GetDamageBonus(event, RET_PALADIN_T20_2SET_MODIFIER);
     }
   }
