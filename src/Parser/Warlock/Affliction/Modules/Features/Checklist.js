@@ -20,7 +20,6 @@ import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
-import Haunt from '../Talents/Haunt';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -38,8 +37,6 @@ class Checklist extends CoreChecklist {
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
-
-    haunt: Haunt,
   };
 
   rules = [
@@ -61,23 +58,6 @@ class Checklist extends CoreChecklist {
             name: <React.Fragment><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} icon /> uptime</React.Fragment>,
             check: () => this.siphonLifeUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
-          }),
-        ];
-      },
-    }),
-    // TODO: figure out what to do with this rule (only Haunt survived and it may not get picked a lot over Shadow Embrace)
-    new Rule({
-      name: <React.Fragment>Buff your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> as much as possible</React.Fragment>,
-      description: <React.Fragment><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> is your biggest source of damage and you should try to buff its damage as much as possible with Reap Souls and Malefic Grasp or <SpellLink id={SPELLS.HAUNT_TALENT.id} /> (if talented). <br />
-        If you don't have Tormented Souls, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
-      </React.Fragment>,
-      requirements: () => {
-        const combatant = this.combatants.selected;
-        return [
-          new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /></React.Fragment>,
-            check: () => this.haunt.positiveSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
           }),
         ];
       },

@@ -14,7 +14,6 @@ import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import Sniping from './Modules/Features/Sniping';
 
-import Haunt from './Modules/Talents/Haunt';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
@@ -53,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
-    haunt: Haunt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
