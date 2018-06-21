@@ -1052,5 +1052,5 @@ class Article extends React.PureComponent {
 }
 
 export default (
-  <Article title="WoWAnalyzer's first anniversary" published="2017-12-24" />
+  <Article title="WoWAnalyzer's first anniversary" publishedAt="2017-12-24" publishedBy={CONTRIBUTORS.Zerotorescue} />
 );
