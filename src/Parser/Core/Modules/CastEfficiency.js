@@ -81,9 +81,6 @@ class CastEfficiency extends Analyzer {
     };
   }
 
-  /*
-   * Time spent casting the ability
-   */
   _getTimeSpentCasting(ability){
     const mainSpellId = ability.primarySpell.id;
     const history = this.spellHistory.historyBySpellId[mainSpellId];
@@ -110,7 +107,7 @@ class CastEfficiency extends Analyzer {
   }
 
   /*
-   * Time spent waiting for the GCD where a proc reset the cooldown to finish
+   * Time spent waiting for a GCD that reset the cooldown of the spell to finish
    */
   _getTimeWaitingOnGCD(ability){
     const mainSpellId = ability.primarySpell.id;
@@ -151,8 +148,8 @@ class CastEfficiency extends Analyzer {
     const cooldown = ability.castEfficiency.disabled ? null : ability.cooldown;
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this._getCooldownInfo(ability);
-    const timeSpentCasting = cooldown && ability.charges < 2 ? this._getTimeSpentCasting(ability) : 0;
-    const timeWaitingOnGCD = cooldown && ability.charges < 2 && ability.isOnGCD ? this._getTimeWaitingOnGCD(ability) : 0;
+    const timeSpentCasting = (cooldown && ability.charges < 2) ? this._getTimeSpentCasting(ability) : 0;
+    const timeWaitingOnGCD = (cooldown && ability.charges < 2 && ability.isOnGCD) ? this._getTimeWaitingOnGCD(ability) : 0;
 
     // ability.casts is used for special cases that show the wrong number of cast events, like Penance
     // and also for splitting up differently buffed versions of the same spell

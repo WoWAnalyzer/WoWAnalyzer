@@ -47,7 +47,7 @@ class SpellHistory extends Analyzer {
     }
   }
 
-  _addTimeWaitingOnGCD(event) {
+  _eventWithTimeWaitingOnGCD(event) {
     if (!this.lastGlobalCooldown) {
       return event;
     }
@@ -81,7 +81,8 @@ class SpellHistory extends Analyzer {
   }
   on_toPlayer_updatespellusable(event) {
     const spellId = event.ability.guid;
-    this._append(spellId, this._addTimeWaitingOnGCD(event));
+    const extendedEvent = this._eventWithTimeWaitingOnGCD(event);
+    this._append(spellId, extendedEvent);
   }
   on_byPlayer_globalcooldown(event) {
     this.lastGlobalCooldown = event;
