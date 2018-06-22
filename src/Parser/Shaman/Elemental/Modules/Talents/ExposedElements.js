@@ -1,16 +1,26 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import enemy from 'Parser/Core/Entity';
+import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import SPELLS from 'common/SPELLS/SHAMAN';
-
-import { EXPOSED_ELEMENTS } from 'Parser/Shaman/Elemental/Constants';
 
 class ExposedElements extends Analyzer {
+  static dependencies = {
+    combatants : Combatants,
+    enemies : Enemies,
+  };
+
+  EXPOSED_ELEMENTS  = {
+    INCREASE : 1,
+    WINDOW_DURATION: 300,
+  };
+
   removeDebuffTimestamp = null;
   damageGained=0;
 
@@ -18,18 +28,32 @@ class ExposedElements extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.EXPOSED_ELEMENTS_TALENT.id);
   }
 
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
+
+    if(event.ability.guid !== SPELLS.LIGHTNING_BOLT.id){
+      return;
+    }
+
+    const enemy = this.enemies.getEntity(event);
+    console.log(enemy);
+    if((enemy) && (enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id))){
+      this.removeDebuffTimestamp=event.timestamp;
+    }
+  }
+
+  on_byPlayer_damage(event) {
     if(this.removeDebuffTimestamp === null)
       return;
 
-    if((event.ability.guid === SPELLS.LIGHTNING_BOLT.id) && (enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_TALENT.id))){
-      this.removeDebuffTimestamp=event.timestamp;
-      this.damageGained+=(1/EXPOSED_ELEMENTS.MULTIPLIER)*event.amount;
+    if(event.timestamp>this.removeDebuffTimestamp+this.EXPOSED_ELEMENTS.WINDOW_DURATION){
+      return;
     }
 
-    if((event.ability.guid === SPELLS.LIGHTNING_BOLT_OVERLOAD.id) && (event.timestamp<this.removeDebuffTimestamp+EXPOSED_ELEMENTS.WINDOW_DURATION)){
-      this.damageGained+=(1/EXPOSED_ELEMENTS.MULTIPLIER)*event.amount;
+    if((event.ability.guid !== SPELLS.LIGHTNING_BOLT_OVERLOAD.id) && (event.ability.guid !== SPELLS.LIGHTNING_BOLT.id)){
+      return;
     }
+    console.log("OI");
+    this.damageGained+=calculateEffectiveDamage(event,this.EXPOSED_ELEMENTS.INCREASE);
   }
 
   get damagePercent() {

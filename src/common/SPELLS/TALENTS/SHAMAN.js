@@ -43,6 +43,7 @@ export default {
   HIGH_VOLTAGE_TALENT: { id: 260890, name: "Unlimited Power", icon: "ability_vehicle_electrocharge"},
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: "Master of the Elements", icon: "spell_nature_elementalabsorption"},
   EXPOSED_ELEMENTS_TALENT: { id: 260694, name: "Exposed Elements", icon: "spell_nature_callstorm"},
+  EXPOSED_ELEMENTS_DEBUFF: { id: 269808, name: "Exposed Elements Debuff", icon: "spell_nature_callstorm"},
   // Restoration
   UNDULATION_TALENT: { id: 200071, name: "Undulation", icon: "spell_nature_healingwavelesser" },
   UNLEASH_LIFE_TALENT: { id: 73685, name: "Unleash Life", icon: "spell_shaman_unleashweapon_life", manaCost: 1000 },

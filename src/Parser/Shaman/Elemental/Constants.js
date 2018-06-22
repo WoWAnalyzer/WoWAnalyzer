@@ -16,9 +16,4 @@ export const ECHOES = {
   TRESHOLD_PERCENTAGE : 0.3,
 };
 
-export const EXPOSED_ELEMENTS  = {
-  MULTIPLIER : 2,
-  WINDOW_DURATION: 300,
-};
-
 export const CRIT_MULTIPLIER = 2.5;
