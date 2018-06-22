@@ -70,7 +70,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Wasted shards per minute',
             check: () => this.soulShardDetails.suggestionThresholds,
-            valueTooltip: `You wasted ${this.soulShardTracker.shardsWasted} shards and spent ${this.soulShardTracker.timeOnFullShardsSeconds} seconds on full shards`,
+            valueTooltip: `You wasted ${this.soulShardTracker.wasted} shards.`,
           }),
         ];
       },

@@ -37,7 +37,7 @@ class Tier20_2set extends Analyzer {
     // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
     // but with denominator 1 in this case, if this.totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this.totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
-    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id].generated;
+    const shardsGained = (this.soulShardTracker.buildersObj[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id] && this.soulShardTracker.buildersObj[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id].generated) || 0;
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}`,
