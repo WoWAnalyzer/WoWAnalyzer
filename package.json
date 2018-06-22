@@ -12,6 +12,7 @@
     "es6-error": "^4.1.1",
     "fuse.js": "^3.2.1",
     "history": "^4.7.2",
+    "jest": "^22.0.0",
     "jest-enzyme": "^6.0.2",
     "prop-types": "^15.6.2",
     "raven-js": "^3.26.3",

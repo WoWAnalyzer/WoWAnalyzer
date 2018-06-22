@@ -29,7 +29,7 @@ class CharacterSelecter extends React.PureComponent {
     }
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
     const region = this.regionInput.value;
@@ -38,26 +38,28 @@ class CharacterSelecter extends React.PureComponent {
 
     if (!region || !realm || !char) {
       alert('Please select a region, realm and player.');
-      return null;
+      return;
+    }
+    if (this.state.loading) {
+      alert('Still working...');
+      return;
     }
 
-    //checking here makes it more userfriendly and saves WCL-requests when char doesn't even exist for the bnet-api
+    // Checking here makes it more userfriendly and saves WCL-requests when char doesn't even exist for the bnet-api
     this.setState({
       loading: true,
     });
-    return fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-      .then(response => response.json())
-      .then((data) => {
-        if (data.status === 'nok') {
-          alert('Character doesn\'t exist');
-          this.setState({ loading: false });
-          return;
-        }
-        this.props.history.push(makeUrl(region, realm, char));
-      }).catch(e => {
-        this.setState({ loading: false });
-        alert('Something went wrong!');
+
+    const response = await fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
+    const data = await response.json();
+    if (data.status === 'nok') {
+      alert(`${char} of ${realm} could not be found.`);
+      this.setState({
+        loading: false,
       });
+      return;
+    }
+    this.props.history.push(makeUrl(region, realm, char));
   }
 
   render() {
@@ -99,7 +101,7 @@ class CharacterSelecter extends React.PureComponent {
             spellCheck="false"
             placeholder="Character"
           />
-          <button type="submit" className={`btn btn-primary analyze animated-button ${ this.state.loading ? 'fill-button' : ''}`}>
+          <button type="submit" className={`btn btn-primary analyze animated-button ${this.state.loading ? 'fill-button' : ''}`}>
             Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
