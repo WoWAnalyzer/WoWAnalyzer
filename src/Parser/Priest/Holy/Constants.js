@@ -20,6 +20,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
   SPELLS.OCEANS_EMBRACE,
   SPELLS.GUILTY_CONSCIENCE.id,
+  SPELLS.TRAIL_OF_LIGHT_TALENT.id,
 ];
 
 // better off making things that -dont- proc it perhaps?
@@ -43,6 +44,7 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.OCEANS_EMBRACE.id,
   SPELLS.GUILTY_CONSCIENCE.id,
   SPELLS.RENEW.id, // this is reduced in calculations, due to the initial tick proccing EoL but not the periodic ticks
+  SPELLS.TRAIL_OF_LIGHT_TALENT.id,
 ];
 
 export const ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL = [
@@ -51,7 +53,6 @@ export const ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL = [
   SPELLS.HOLY_WORD_SERENITY.id,
   SPELLS.LIGHT_OF_TUURE_TRAIT.id,
   SPELLS.BINDING_HEAL_TALENT.id,
-  SPELLS.CIRCLE_OF_HEALING_TALENT.id,
 ];
 
 export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT = [

@@ -6,7 +6,6 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.combatants.selected;
     return [
-      // HW:Sanc and HW:Serenity not included due to Serendipity causing an odd situation with their CDs
       {
         spell: SPELLS.PRAYER_OF_MENDING_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -55,6 +54,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_WORD_SALVATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 720, // reduced by Sanctify and Serenity
+        enabled: combatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -131,6 +131,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BINDING_HEAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        enabled: combatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -186,7 +187,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: combatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 60,
         isOnGCD: true,
       },
       {
@@ -206,12 +207,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 3,
         cooldown: 20,
+        enabled: combatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.SHINING_FORCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
         isOnGCD: true,
       },
     ];
