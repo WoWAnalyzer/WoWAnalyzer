@@ -34,8 +34,10 @@ export default (
 
     See our page <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#contributing">here</a> for more information about how to make a contribution on GitHub. It's important to note that all changes must first be approved in a <i>Pull Request</i> review before it can be merged to the <kbd>master</kbd> branch. Our documentation has more information on this process. One cool thing is once your changes are approved and merged they'll be deployed on the site automatically within 10 minutes.<br /><br />
 
+    If you don't have the experience coding, you can still help! Check out the contribution page above. If you believe you have a killer idea for a new feature, create a new issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> to begin the discussion and see if we can work together to implement it.<br /><br />
+
     <div style={{ fontSize: '1.5em' }}>
-      Ready to become a part of us? <Link to="/premium">Click here to go to the new Premium page.</Link>
+      Ready to be a part of us? <Link to="/premium">Click here to go to the new Premium page.</Link>
     </div><br />
 
     <figure style={{ textAlign: 'center' }}>
