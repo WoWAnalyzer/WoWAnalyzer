@@ -116,22 +116,7 @@ import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/Riftw
 import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
-import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-// Netherlight Crucible Traits
-import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
-import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
-import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
-import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
-import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
-import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
-import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
-import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
-import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
-import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
-import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
@@ -256,23 +241,6 @@ class CombatLogParser {
     diimasGlacialAegis: DiimasGlacialAegis,
     riftworldCodex: RiftworldCodex,
     eyeOfHounds: EyeOfHounds,
-
-    // Concordance of the Legionfall
-    concordance: Concordance,
-    // Netherlight Crucible Traits
-    darkSorrows: DarkSorrows,
-    tormentTheWeak: TormentTheWeak,
-    chaoticDarkness: ChaoticDarkness,
-    shadowbind: Shadowbind,
-    lightsEmbrace: LightsEmbrace,
-    infusionOfLight: InfusionOfLight,
-    secureInTheLight: SecureInTheLight,
-    shocklight: Shocklight,
-    refractiveShell: RefractiveShell,
-    murderousIntent: MurderousIntent,
-    masterOfShadows: MasterOfShadows,
-    lightSpeed: LightSpeed,
-    nlcTraits: NLCTraits,
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,

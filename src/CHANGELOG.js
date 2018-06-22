@@ -209,7 +209,7 @@ export default [
   },
   {
     date: new Date('2018-02-21'),
-    changes: <React.Fragment>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</React.Fragment>,
+    changes: `Moved Concordance of the Legionfall statistic into the Netherlight Crucible list and renamed it.`,
     contributors: [Putro],
   },
   {
