@@ -37,7 +37,7 @@ export default (
     If you don't have the experience coding, you can still help! Check out the contribution page above. If you believe you have a killer idea for a new feature, create a new issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> to begin the discussion and see if we can work together to implement it.<br /><br />
 
     <div style={{ fontSize: '1.5em' }}>
-      Ready to become a part of us? <Link to="/premium">Click here to go to the new Premium page.</Link>
+      Ready to be a part of us? <Link to="/premium">Click here to go to the new Premium page.</Link>
     </div><br />
 
     <figure style={{ textAlign: 'center' }}>
