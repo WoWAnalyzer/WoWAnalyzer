@@ -48,7 +48,6 @@ export default {
   COSMIC_RIPPLE_TALENT: { id: 238136, name: "Cosmic Ripple", icon: "spell_holy_summonlightwell" },
   SURGE_OF_LIGHT_TALENT: { id: 109186, name: "Surge of Light", icon: "spell_holy_surgeoflight" },
   BINDING_HEAL_TALENT: { id: 32546, name: "Binding Heal", icon: "spell_holy_blindingheal", manaCost: 400 },
-  PIETY_TALENT: { id: 197034, name: "Piety", icon: "ability_priest_bindingprayers" },
   APOTHEOSIS_TALENT: { id: 200183, name: "Apotheosis", icon: "ability_priest_ascension" },
   BENEDICTION_TALENT: { id: 193157, name: "Benediction", icon: "spell_monk_diffusemagic" },
   CIRCLE_OF_HEALING_TALENT: { id: 204883, name: "Circle of Healing", icon: "spell_holy_circleofrenewal", manaCost: 500 },
