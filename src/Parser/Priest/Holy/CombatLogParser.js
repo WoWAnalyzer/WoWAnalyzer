@@ -17,6 +17,7 @@ import Sanctify from './Modules/Spells/Sanctify';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 // Priest Core
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
@@ -46,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    spellUsable: SpellUsable,
+
+    // Core
     enduringRenewal: EnduringRenewal,
     masteryBreakdown: MasteryBreakdown,
     serendipity: Serendipity,

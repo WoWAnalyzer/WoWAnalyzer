@@ -199,7 +199,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PURIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 8, // give it the rshaman dispel treatment
+        cooldown: 8,
         isOnGCD: true,
       },
       {
