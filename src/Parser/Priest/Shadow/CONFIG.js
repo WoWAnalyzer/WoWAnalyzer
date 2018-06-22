@@ -2,6 +2,7 @@ import React from 'react';
 
 import { hassebewlen } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
+import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -14,7 +15,11 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Hi! Welcome to the Shadow Priest analyzer.
+      Hi! Welcome to the Shadow Priest analyzer.<br /><br />
+
+      <Warning>
+        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Shadow expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
+      </Warning>
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

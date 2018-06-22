@@ -219,10 +219,6 @@ class StatTracker extends Analyzer {
     [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
     // endregion
 
-    // region Priest
-    [SPELLS.MIND_QUICKENING.id]: { haste: 36 },
-    // endregion
-
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion

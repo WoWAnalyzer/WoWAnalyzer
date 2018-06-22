@@ -9,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
-    SPELLS.VOID_TORRENT.id,
     SPELLS.MIND_FLAY.id,
     // SPELLS.DISPERSION.id,
 
@@ -18,14 +17,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.VOID_ERUPTION.id,
     SPELLS.MIND_BLAST.id,
     SPELLS.VAMPIRIC_TOUCH.id,
-    SPELLS.SHADOW_WORD_DEATH.id,
     SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOWFIEND.id,
     SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
 
     // talents:
     SPELLS.MINDBENDER_TALENT_SHADOW.id,
-    SPELLS.POWER_INFUSION_TALENT.id,
     SPELLS.SHADOW_CRASH_TALENT.id,
     SPELLS.SHADOW_WORD_VOID_TALENT.id,
     SPELLS.MIND_BOMB_TALENT.id,

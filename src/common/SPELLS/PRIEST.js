@@ -42,7 +42,7 @@ export default {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 25300,
+    manaCost: 2500,
     atonementDuration: 15,
   },
   SMITE: {
@@ -359,9 +359,9 @@ export default {
     icon: 'spell_holy_chastise',
     manaCost: 400,
   },
-  SYMBOL_OF_HOPE: { 
-    id: 64901, 
-    name: "Symbol of Hope", 
+  SYMBOL_OF_HOPE: {
+    id: 64901,
+    name: "Symbol of Hope",
     icon: "spell_holy_symbolofhope",
   },
   // Trait related spells
@@ -423,13 +423,6 @@ export default {
   },
 
   // Shadow Spells
-
-  VOID_TORRENT: {
-    id: 205065,
-    name: 'Void Torrent',
-    icon: 'inv_knife_1h_artifactcthun_d_01',
-  },
-
   MIND_BLAST: {
     id: 8092,
     name: 'Mind Blast',
@@ -441,19 +434,11 @@ export default {
     name: 'Mind Flay',
     icon: 'spell_shadow_siphonmana',
   },
-
   VAMPIRIC_TOUCH: {
     id: 34914,
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
-
-  SHADOW_WORD_DEATH: {
-    id: 32379,
-    name: 'Shadow Word: Death',
-    icon: 'spell_shadow_demonicfortitude',
-  },
-
   VOID_ERUPTION: {
     id: 228260,
     name: 'Void Eruption',
@@ -515,6 +500,11 @@ export default {
     name: 'Shadowform',
     icon: 'spell_shadow_shadowform',
   },
+  RESURRECTION: {
+    id: 2006,
+    name: 'Resurrection',
+    icon: 'spell_holy_resurrection',
+  },
 
   MIND_VISION: {
     id: 2096,
@@ -523,7 +513,7 @@ export default {
   },
 
   MIND_SEAR: {
-    id: 234702,
+    id: 48045,
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
   },
@@ -590,33 +580,5 @@ export default {
     id: 251846,
     name: 'Shadow Priest T21 4P Bonus',
     icon: 'ability_priest_ascension',
-  },
-
-  // Shadow traits
-
-  FROM_THE_SHADOWS_TRAIT: {
-    id: 193642,
-    name: 'From the Shadows',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
-  LASH_OF_INSANITY_TRAIT: {
-    id: 238137,
-    name: 'Lash of Insanity',
-    icon: 'achievement_boss_yoggsaron_01',
-  },
-  CALL_TO_THE_VOID_MIND_FLAY: {
-    id: 237388,
-    name: 'Mind Flay',
-    icon: 'spell_shadow_mindshear',
-  },
-  FIENDING_DARK_TRAIT: {
-    id: 238065,
-    name: 'Fiending Dark',
-    icon: 'spell_shadow_shadowfiend',
-  },
-  MIND_QUICKENING: {
-    id: 240673,
-    name: 'Mind Quickening',
-    icon: 'inv_enchant_voidsphere',
   },
 };
