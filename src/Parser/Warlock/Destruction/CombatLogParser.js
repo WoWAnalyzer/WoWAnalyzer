@@ -13,7 +13,6 @@ import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 
 import Backdraft from './Modules/Features/Backdraft';
-import Shadowburn from './Modules/Talents/Shadowburn';
 import Eradication from './Modules/Talents/Eradication';
 import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
@@ -51,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     backdraft: Backdraft,
-    shadowburn: Shadowburn,
     eradication: Eradication,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,

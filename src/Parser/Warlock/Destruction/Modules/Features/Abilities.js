@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SOUL_FIRE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id),
-        cooldown: 45,
+        cooldown: 20, // TODO: further shortened via spending soul shards
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

@@ -19,12 +19,9 @@ class SoulShardEvents extends Analyzer {
   };
 
   _FRAGMENT_GENERATING_ABILITIES = {
-    [SPELLS.IMMOLATE_DEBUFF.id]: _ => 1,
+    [SPELLS.IMMOLATE_DEBUFF.id]: _ => 1, // has 50% chance of additional fragment on crit
     [SPELLS.CONFLAGRATE.id]: _ => 5,
-    // the Shadowburn itself generates 5 fragments, but leaves a debuff on target for 5 seconds, and if it dies, it generates additional 5 fragments
-    // don't know how to accurately separate these two (could do totalFragments - numberOfShadowburnCasts * 5, but this doesn't account for possible wasted fragments = inaccurate)
-    // solution would be to fabricate a dummy spell with id unused by any other ability and manipulate the event passed into processGenerators but that feels so wrong
-    [SPELLS.SHADOWBURN_TALENT.id]: _ => 5,
+    [SPELLS.SHADOWBURN_TALENT.id]: _ => 3,
     [SPELLS.INCINERATE.id]: (event) => {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
@@ -83,11 +80,6 @@ class SoulShardEvents extends Analyzer {
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
-  }
-
-  // sent from Shadowburn module when target with Shadowburn debuff dies
-  on_shadowburn_kill(event) {
-    this.processGenerators(event);
   }
 
   on_byPlayer_cast(event) {
