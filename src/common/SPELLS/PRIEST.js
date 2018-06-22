@@ -5,6 +5,19 @@
  */
 
 export default {
+  // Shared
+  HOLY_NOVA: {
+    id: 132157,
+    name: 'Holy Nova',
+    icon: 'spell_holy_holynova',
+    manaCost: 320,
+  },
+  POWER_WORD_FORTITUDE: {
+    id: 21562,
+    name: 'Power Word: Fortitude',
+    icon: 'spell_holy_wordfortitude',
+    manaCost: 800,
+  },
   // Discipline Priest:
   REVERENCE: {
     id: 271534,
@@ -77,6 +90,7 @@ export default {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
+    manaCost: 520,
   },
   LEVITATE: {
     id: 1706,
@@ -254,101 +268,101 @@ export default {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 18700,
+    manaCost: 380,
   },
-
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 30800,
+    manaCost: 560,
   },
-
   PRAYER_OF_MENDING_CAST: {
     id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
+    manaCost: 400,
   },
-
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
   },
-
   PRAYER_OF_MENDING_BUFF: {
     id: 41635,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
   },
-
   PRAYER_OF_HEALING: {
     id: 596,
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
-    manaCost: 49500,
+    manaCost: 900,
   },
-
   ECHO_OF_LIGHT: {
     id: 77489,
     name: 'Echo of Light',
     icon: 'spell_holy_aspiration',
   },
-
   RENEW: {
     id: 139,
     name: 'Renew',
     icon: 'spell_holy_renew',
-    manaCost: 22000,
+    manaCost: 340,
   },
-
   HOLY_WORD_SERENITY: {
     id: 2050,
     name: 'Holy Word: Serenity',
     icon: 'spell_holy_persuitofjustice',
-    manaCost: 44000,
+    manaCost: 800,
   },
-
   HOLY_WORD_SANCTIFY: {
     id: 34861,
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
-    manaCost: 55000,
+    manaCost: 1000,
   },
-
   DESPERATE_PRAYER: {
     id: 19236,
     name: 'Desperate Prayer',
     icon: 'spell_holy_testoffaith',
   },
-
   GUARDIAN_SPIRIT: {
     id: 47788,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-    manaCost: 9900,
+    manaCost: 180,
   },
-
   DIVINE_HYMN_CAST: {
     id: 64843,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
     manaCost: 48400,
   },
-
   DIVINE_HYMN_HEAL: {
     id: 64844,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-
   SERENDIPITY: {
     id: 63733,
     name: 'Serendipity',
     icon: 'spell_holy_serendipity',
+  },
+  HOLY_FIRE: {
+    id: 14914,
+    name: 'Holy Fire',
+    icon: 'spell_holy_searinglight',
+  },
+  HOLY_WORD_CHASTICE: {
+    id: 88625,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 400,
+  },
+  SYMBOL_OF_HOPE: { 
+    id: 64901, 
+    name: "Symbol of Hope", 
+    icon: "spell_holy_symbolofhope",
   },
 
   // Trait related spells
@@ -409,17 +423,20 @@ export default {
     name: "Blessing of T'uure",
     icon: 'inv_pet_naaru',
   },
-
   DIVINITY_BUFF: {
     id: 197030,
     name: 'Divinity',
     icon: 'ability_priest_ascendance',
   },
-
   POWER_OF_THE_NAARU_BUFF: {
     id: 196490,
     name: 'Power of the Naaru',
     icon: 'spell_holy_prayerofhealing02',
+  },
+  SPIRIT_OF_REDEMPTION_BUFF: {
+    id: 27827,
+    name: 'Spirit of Redemption',
+    icon: 'inv_enchant_essenceeternallarge',
   },
 
   // Holy Legendaries
