@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-22'),
+    changes: 'Added WoWAnalyzer Premium. See the announcement for more information.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-22'),
+    changes: 'Added "ads" to help fund further development. The "ads" will at some point in the future turn into real ads from an ad platform.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-12'),
     changes: 'Updated character selection to default to HPS or DPS as metric, depending on characters last active spec.',
     contributors: [joshinator],
