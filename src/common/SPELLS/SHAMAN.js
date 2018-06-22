@@ -593,11 +593,6 @@ export default {
     name: 'T21 4set bonus equip flag',
     icon: 'ability_shaman_ascendance',
   },
-  EXPOSED_ELEMENTS: {
-    id: 252151,
-    name: 'T21 4set bonus debuff',
-    icon: 'ability_shaman_ascendance',
-  },
   //Enhancement Traits
   ALPHA_WOLF_TRAIT: {
     id: 198434,

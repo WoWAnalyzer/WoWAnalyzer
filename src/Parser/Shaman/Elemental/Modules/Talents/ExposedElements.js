@@ -15,7 +15,7 @@ class ExposedElements extends Analyzer {
   damageGained=0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPOSED_ELEMENTS.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.EXPOSED_ELEMENTS_TALENT.id);
   }
 
   on_byPlayer_cast(event){
@@ -43,7 +43,7 @@ class ExposedElements extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.EXPOSED_ELEMENTS.id} />}
+        icon={<SpellIcon id={SPELLS.EXPOSED_ELEMENTS_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
