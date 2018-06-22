@@ -17,13 +17,8 @@ class Judgment extends Analyzer {
     enemies: Enemies,
     combatants: Combatants,
   };
-  _hasES = false;
-  totalSpender = 0;
-  spenderOutsideJudgment = 0;
-
-  on_initialized() {
-    this._hasES = this.combatants.selected.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
-  }
+  judgmentsApplied = 0;
+  judgmentsConsumed = 0;
 
   on_byPlayer_cast(event) {
     const enemy = this.enemies.getEntity(event);
@@ -36,38 +31,19 @@ class Judgment extends Analyzer {
       spellId === SPELLS.DIVINE_STORM.id ||
       spellId === SPELLS.JUSTICARS_VENGEANCE_TALENT.id) {
       if (!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)) {
-        this.spenderOutsideJudgment++;
+        return;
       }
-      this.totalSpender++;
+      this.judgmentsConsumed++;
     }
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    const enemy = this.enemies.getEntity(event);
-
-    if (!this._hasES) {
-      return;
-    }
-    if (!enemy) {
-      return;
-    }
-    if (spellId !== SPELLS.EXECUTION_SENTENCE_TALENT.id) {
-      return;
-    }
-    if (!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)) {
-      this.spenderOutsideJudgment++;
-    }
-    this.totalSpender++;
-  }
-
-  get unbuffedJudgmentPercentage() {
-    return this.spenderOutsideJudgment / this.totalSpender;
+  get percentageJudgmentsWasted() {
+    return (this.judgmentsApplied - this.judgmentsConsumed) / this.judgmentsApplied;
   }
 
   get suggestionThresholds() {
     return {
-      actual: 1 - this.unbuffedJudgmentPercentage,
+      actual: 1 - this.percentageJudgmentsWasted,
       isLessThan: {
         minor: 0.95,
         average: 0.9,

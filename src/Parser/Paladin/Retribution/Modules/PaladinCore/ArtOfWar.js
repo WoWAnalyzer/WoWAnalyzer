@@ -9,14 +9,18 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
+const ART_OF_WAR_DURATION = 10000;
+
 class AoWProcTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
-  overwrittenAoWProcs = 0;
+  consumedAoWProcs = 0;
+  wastedAoWProcs = 0;
   totalAoWProcs = 0;
+  lastAoWProcTime = null;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -26,6 +30,7 @@ class AoWProcTracker extends Analyzer {
     this.totalAoWProcs += 1;
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
       this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
+      this.lastAoWProcTime = event.timestamp;
     }
   }
 
@@ -34,17 +39,17 @@ class AoWProcTracker extends Analyzer {
     if (spellId !== SPELLS.BLADE_OF_WRATH_PROC.id) {
       return;
     }
-    this.overwrittenAoWProcs += 1;
+    this.wastedAoWProcs += 1;
     this.totalAoWProcs += 1;
   }
 
-  get missedProcsPercent() {
-    return this.overwrittenAoWProcs / this.totalAoWProcs;
+  get consumedProcsPercent() {
+    return this.consumedAoWProcs / this.totalAoWProcs;
   }
 
   get suggestionThresholds() {
     return {
-      actual: 1 - this.missedProcsPercent,
+      actual: this.consumedProcsPercent,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -54,12 +59,29 @@ class AoWProcTracker extends Analyzer {
     };
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (SPELLS.BLADE_OF_JUSTICE.id !== spellId) {
+      return;
+    }
+    if (this.lastAoWProcTime !== event.timestamp) {
+      if (this.lastAoWProcTime === null) {
+        return;
+      }
+      const AoWTimeframe = this.lastAoWProcTime + ART_OF_WAR_DURATION;
+      if (event.timestamp <= AoWTimeframe) {
+        this.consumedAoWProcs += 1;
+        this.lastAoWProcTime = null;
+      }
+    }
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You wasted {formatNumber(this.overwrittenAoWProcs)} <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> proc(s)</React.Fragment>)
+      return suggest(<React.Fragment>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs</React.Fragment>)
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(`${formatPercentage(this.missedProcsPercent)}% proc(s) missed`)
-        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);
+        .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used`)
+        .recommended(`Using >${formatPercentage(recommended)}% is recommended.`);
     });
   }
 
@@ -67,8 +89,9 @@ class AoWProcTracker extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ART_OF_WAR.id} />}
-        value={`${formatNumber(this.totalAoWProcs)}`}
-        label="Blade of Wrath procs"
+        value={`${formatPercentage(this.consumedProcsPercent)}%`}
+        label="Art of War procs used"
+        tooltip={`You got ${this.totalAoWProcs} Art of War procs and used ${this.consumedAoWProcs} of them`}
       />
     );
   }

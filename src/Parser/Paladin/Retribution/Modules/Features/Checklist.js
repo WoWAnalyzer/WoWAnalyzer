@@ -124,8 +124,8 @@ class Checklist extends CoreChecklist {
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <React.Fragment><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon /> procs consumed</React.Fragment>,
-  					check: () => this.boWProcTracker.suggestionThresholds,
+             name: <React.Fragment><SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs used</React.Fragment>,
+             check: () => this.artOfWar.suggestionThresholds,
   				}),
   			];
   		},
