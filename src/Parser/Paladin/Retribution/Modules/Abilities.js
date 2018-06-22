@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: cooldown: haste => (combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id) ? 5.1 : 6) / (1 + haste),
+        cooldown: haste => (combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id) ? 5.1 : 6) / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
