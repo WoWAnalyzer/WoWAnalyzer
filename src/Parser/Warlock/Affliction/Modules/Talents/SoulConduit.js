@@ -38,7 +38,7 @@ class SoulConduit extends Analyzer {
     // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
     // but with denominator 1 in this case, if this._totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
-    const shardsGained = (this.soulShardTracker.buildersObj[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] && this.soulShardTracker.buildersObj[SPELLS.SOUL_CONDUIT_SHARD_GEN.id].generated) || 0;
+    const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return (
       <StatisticBox

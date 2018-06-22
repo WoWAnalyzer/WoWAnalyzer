@@ -23,6 +23,10 @@ class SoulShardTracker extends ResourceTracker {
     return Object.keys(event.classResources).find(key => event.classResources[key].type === RESOURCE_TYPES.SOUL_SHARDS) || 0;
     // "technically incorrect", if find() returns 0 as a valid index, it also gets evaluated as "false", but || 0 makes it 0 anyway so it's fine
   }
+
+  getGeneratedBySpell(spellId) {
+    return (this.buildersObj[spellId] && this.buildersObj[spellId].generated) || 0;
+  }
 }
 
 export default SoulShardTracker;
