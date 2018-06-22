@@ -439,11 +439,6 @@ export default {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  RAGE_OF_THE_SLEEPER: {
-    id: 200851,
-    name: 'Rage of the Sleeper',
-    icon: 'inv_hand_1h_artifactursoc_d_01',
-  },
   MOONFIRE_BEAR: {
     id: 164812,
     name: 'Moonfire',

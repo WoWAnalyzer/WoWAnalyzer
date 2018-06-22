@@ -5,8 +5,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Ability from './Ability';
 
-const debug = false;
-
 // The amount of time after a proc has occurred when casting a filler is no longer acceptable
 const REACTION_TIME_THRESHOLD = 500;
 
@@ -110,11 +108,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARKSKIN,
         buffSpellId: SPELLS.BARKSKIN.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: (haste, selectedCombatant) => {
-          const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90;
-          const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
-          return baseCd * (1 - (cdTrait * 3 / 100));
-        },
+        cooldown: haste => combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90,
         timelineSortIndex: 9,
       },
       {
@@ -123,29 +117,15 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
-          debug && console.log(`Survival CD ${baseCd}`);
-          return baseCd;
+          return combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? baseCd - (baseCd * 0.85) : baseCd;
         },
-        charges: 3,
-        enabled: combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
-        timelineSortIndex: 9,
-      },
-      {
-        spell: SPELLS.SURVIVAL_INSTINCTS,
-        buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: (haste, selectedCombatant) => {
-          const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
-          debug && console.log(`Survival CD ${baseCd}`);
-          return baseCd;
-        },
-        charges: 2,
-        enabled: !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+        charges: combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? 3 : 2,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        isOnGCD: true,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
         timelineSortIndex: 9,
@@ -155,6 +135,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BRISTLING_FUR_TALENT.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
         timelineSortIndex: 9,
@@ -166,25 +147,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 7,
       },
       {
-        spell: SPELLS.RAGE_OF_THE_SLEEPER,
-        buffSpellId: SPELLS.RAGE_OF_THE_SLEEPER.id,
-        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        cooldown: 90,
-        timelineSortIndex: 9,
-      },
-      {
         spell: SPELLS.FRENZIED_REGENERATION,
         buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+        cooldown: haste => hastedCooldown(36, haste),
         charges: 2,
-        enabled: !combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
-        timelineSortIndex: 8,
-      },
-      {
-        spell: SPELLS.FRENZIED_REGENERATION,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        charges: 3,
-        enabled: combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
         timelineSortIndex: 8,
       },
       {
@@ -210,7 +178,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STAMPEDING_ROAR_BEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: (haste, selectedCombatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
+        cooldown: 120,
         isOnGCD: true,
       },
       {
@@ -278,12 +246,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
-        cooldown: 30,
+        cooldown: 50,
         isOnGCD: true,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        // isOnGCD: true, 0.5s GCD
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
