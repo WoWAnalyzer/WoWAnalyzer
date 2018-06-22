@@ -371,21 +371,6 @@ export default {
     icon: 'ability_priest_atonement',
   },
   // Buffs
-  BLESSING_OF_TUURE_BUFF: {
-    id: 196644,
-    name: "Blessing of T'uure",
-    icon: 'inv_pet_naaru',
-  },
-  DIVINITY_BUFF: {
-    id: 197030,
-    name: 'Divinity',
-    icon: 'ability_priest_ascendance',
-  },
-  POWER_OF_THE_NAARU_BUFF: {
-    id: 196490,
-    name: 'Power of the Naaru',
-    icon: 'spell_holy_prayerofhealing02',
-  },
   SPIRIT_OF_REDEMPTION_BUFF: {
     id: 27827,
     name: 'Spirit of Redemption',
