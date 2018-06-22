@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         buffSpellId: SPELLS.DISPERSION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: (haste, selectedCombatant) => 90 - (10 * selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]),
+        cooldown: 90,
       },
       {
         spell: SPELLS.SILENCE,
