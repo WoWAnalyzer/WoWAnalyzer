@@ -217,6 +217,12 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
         isOnGCD: true,
       },
+      {
+        spell: SPELLS.SPIRIT_OF_REDEMPTION_BUFF,
+        buffSpellId: SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: () => this.owner.fightDuration / 1000,
+      },
     ];
   }
 }

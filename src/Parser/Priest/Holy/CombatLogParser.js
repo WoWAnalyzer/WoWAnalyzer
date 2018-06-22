@@ -13,6 +13,7 @@ import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
+import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     divineHymn: DivineHymn,
     sanctify: Sanctify,
+    spiritOfRedemption: SpiritOfRedemption,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
