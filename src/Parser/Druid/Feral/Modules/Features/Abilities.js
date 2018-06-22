@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BRUTAL_SLASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // when taken, still used on single target
         enabled: combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 8 / (1 + haste),
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -92,7 +92,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
-        isOnGCD: false,
+        // 1.0 reduced by haste (possibly a bug, likely should be 1.0 fixed)
+        isOnGCD: true,
         timelineSortIndex: 22,
       },
       {
@@ -105,7 +106,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
-        isOnGCD: false,
+        // 1.0 fixed
+        isOnGCD: true,
         timelineSortIndex: 22,
       },
       {
@@ -120,28 +122,17 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 20,
       },
       {
-        spell: SPELLS.ASHAMANES_FRENZY,
+        spell: SPELLS.FERAL_FRENZY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 75,
+        enabled: combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id),
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
         },
         // 1.0 fixed
-        isOnGCD: true, 
+        isOnGCD: true,
         timelineSortIndex: 21,
       },
-      {
-        spell: SPELLS.ELUNES_GUIDANCE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.ELUNES_GUIDANCE_TALENT.id),
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: true,
-        },
-        isOnGCD: false,
-        timelineSortIndex: 23,
-      },
-
       {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -159,7 +150,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MAIM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 10,
+        cooldown: 20,
         // 1.0 fixed
         isOnGCD: true, 
         timelineSortIndex: 32,
@@ -168,7 +159,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
+        enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        cooldown: 120,
+        // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
+        isOnGCD: false,
+        isDefensive: true,
+        timelineSortIndex: 43,
+      },
+      {
+        spell: SPELLS.TIGERS_DASH_TALENT,
+        buffSpellId: SPELLS.TIGERS_DASH_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        cooldown: 45,
+        // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
         isOnGCD: false,
         isDefensive: true,
         timelineSortIndex: 43,
@@ -181,8 +185,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         // 1.0 reduced by haste
         isOnGCD: true, 
-        // setting isDefensive breaks the death recap pane. It doesn't like multiple spells in one ability?
-        //isDefensive: true,
+        isDefensive: true,
         timelineSortIndex: 44,
       },
       {
@@ -226,17 +229,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 40,
       },
       {
-        // automatically activated on leaving cat form
-        spell: SPELLS.PROTECTION_OF_ASHAMANE,
-        buffSpellId: SPELLS.PROTECTION_OF_ASHAMANE_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 30,
-        enabled: combatant.traitsBySpellId[SPELLS.PROTECTION_OF_ASHAMANE.id] > 0,
-        isOnGCD: false,
-        isDefensive: true,
-        timelineSortIndex: 41,
-      },
-      {
         spell: SPELLS.REBIRTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
@@ -270,6 +262,21 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 35,
       },
       {
+        spell: SPELLS.HIBERNATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        // 1.5 reduced by haste
+        isOnGCD: true,
+        timelineSortIndex: 36,
+      },
+      {
+        spell: SPELLS.SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        // 1.5 reduced by haste
+        isOnGCD: true,
+        timelineSortIndex: 37,
+      },
+      {
         spell: SPELLS.RENEWAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
@@ -279,21 +286,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: SPELLS.DISPLACER_BEAST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
-        cooldown: 30,
-        // 1.5 reduced by haste
-        isOnGCD: true, 
-        isDefensive: true,
-        timelineSortIndex: 42,
-      },
-      {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
-        isOnGCD: false,
+        // 0.5 fixed
+        isOnGCD: true,
         timelineSortIndex: 42,
       },
       {
