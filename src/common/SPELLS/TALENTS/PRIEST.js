@@ -14,7 +14,6 @@ export default {
   SHIELD_DISCIPLINE_TALENT: { id: 197045, name: "Shield Discipline", icon: "spell_holy_divineprotection" },
   CLARITY_OF_WILL_TALENT: { id: 152118, name: "Clarity of Will", icon: "ability_priest_clarityofwill", manaCost: 30690 },
   SHADOW_COVENANT_TALENT: { id: 204065, name: "Shadow Covenant", icon: "spell_shadow_summonvoidwalker", manaCost: 55000 },
-  DIVINITY_TALENT: { id: 197031, name: "Divinity", icon: "ability_priest_ascendance" },
   DIVINE_STAR_TALENT: { id: 110744, name: "Divine Star", icon: "spell_priest_divinestar", manaCost: 400 },
   HALO_TALENT: { id: 120517, name: "Halo", icon: "ability_priest_halo", manaCost: 540 },
   POWER_INFUSION_TALENT: { id: 10060, name: "Power Infusion", icon: "spell_holy_powerinfusion" },
