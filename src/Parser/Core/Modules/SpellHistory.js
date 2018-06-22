@@ -47,9 +47,9 @@ class SpellHistory extends Analyzer {
     }
   }
 
-  _eventWithTimeWaitingOnGCD(event) {
+  _addTimeWaitingOnGCD(event) {
     if (!this.lastGlobalCooldown) {
-      return event;
+      return;
     }
     const resetBufferMS = RESET_BUFFER_PERCENT * this.lastGlobalCooldown.duration;
     const earlyByMS = event.start + event.expectedDuration - event.timestamp;
@@ -60,7 +60,6 @@ class SpellHistory extends Analyzer {
       // if the time remaining was less than the GCD use that instead
       event.timeWaitingOnGCD = Math.min(earlyByMS, this.lastGlobalCooldown.duration);
     }
-    return event;
   }
 
   on_byPlayer_begincast(event) {
@@ -81,8 +80,8 @@ class SpellHistory extends Analyzer {
   }
   on_toPlayer_updatespellusable(event) {
     const spellId = event.ability.guid;
-    const extendedEvent = this._eventWithTimeWaitingOnGCD(event);
-    this._append(spellId, extendedEvent);
+    this._addTimeWaitingOnGCD(event);
+    this._append(spellId, event);
   }
   on_byPlayer_globalcooldown(event) {
     this.lastGlobalCooldown = event;
