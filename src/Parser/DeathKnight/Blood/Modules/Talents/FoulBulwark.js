@@ -27,7 +27,7 @@ class FoulBulwark extends Analyzer {
   get averageFoulBullwark() {
     let avgStacks = 0;
     this.boneShieldTimesByStack.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+      avgStacks += elem.length > 0 ? elem.reduce((a, b) => a + b) / this.owner.fightDuration * index : 0;
     });
     return formatPercentage(avgStacks * HP_PER_BONE_SHIELD_STACK);
   }
