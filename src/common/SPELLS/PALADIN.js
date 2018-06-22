@@ -23,7 +23,7 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
-  JUDGMENT_CAST_ALT_2: {
+  JUDGMENT_HP_ENERGIZE: {
     id: 220637,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',

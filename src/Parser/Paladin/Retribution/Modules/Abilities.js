@@ -64,20 +64,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => 6 * 0.85 / (1 + haste),
+        cooldown: cooldown: haste => (combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id) ? 5.1 : 6) / (1 + haste),
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.CRUSADER_STRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
-        cooldown: haste => 6 / (1 + haste),
-        isOnGCD: true,
-        enabled: !combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -119,6 +107,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAMMER_OF_WRATH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id),
+        cooldown: haste => 12 / (1 + haste),
         isOnGCD: true,
       },
       {
