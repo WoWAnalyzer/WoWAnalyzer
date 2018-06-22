@@ -13,10 +13,12 @@ import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
+import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 // Priest Core
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
@@ -46,6 +48,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    spellUsable: SpellUsable,
+
+    // Core
     enduringRenewal: EnduringRenewal,
     masteryBreakdown: MasteryBreakdown,
     serendipity: Serendipity,
@@ -56,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     divineHymn: DivineHymn,
     sanctify: Sanctify,
+    spiritOfRedemption: SpiritOfRedemption,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,

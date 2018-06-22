@@ -199,7 +199,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PURIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 8, // give it the rshaman dispel treatment
+        cooldown: 8,
         isOnGCD: true,
       },
       {
@@ -216,6 +216,12 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
         isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SPIRIT_OF_REDEMPTION_BUFF,
+        buffSpellId: SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: () => this.owner.fightDuration / 1000,
       },
     ];
   }
