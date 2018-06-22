@@ -292,6 +292,11 @@ export default {
     name: 'Arcane Charge',
     icon: 'spell_arcane_arcane01',
   },
+  SLOW: {
+    id: 31589,
+    name: 'Slow',
+    icon: 'spell_nature_slow',
+  },
 
   //Passives
   SHATTER: {

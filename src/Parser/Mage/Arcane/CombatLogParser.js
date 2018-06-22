@@ -11,7 +11,6 @@ import Evocation from './Modules/Features/Evocation';
 
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
-import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -28,7 +27,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     mirrorImage: MirrorImage,
-    unstableMagic: UnstableMagic,
     runeOfPower: RuneOfPower,
   };
 }
