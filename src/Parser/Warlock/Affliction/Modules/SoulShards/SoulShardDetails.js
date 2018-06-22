@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import WastedShardsIcon from 'Parser/Warlock/Shared/Images/warlock_soulshard_bw.jpg';
-import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTracker from './SoulShardTracker';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
@@ -17,7 +17,7 @@ class SoulShardDetails extends Analyzer {
   };
 
   get suggestionThresholds() {
-    const shardsWasted = this.soulShardTracker.shardsWasted;
+    const shardsWasted = this.soulShardTracker.wasted;
     const shardsWastedPerMinute = (shardsWasted / this.owner.fightDuration) * 1000 * 60;
     return {
       actual: shardsWastedPerMinute,
@@ -31,7 +31,7 @@ class SoulShardDetails extends Analyzer {
   }
 
   suggestions(when) {
-    const shardsWasted = this.soulShardTracker.shardsWasted;
+    const shardsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
@@ -42,7 +42,7 @@ class SoulShardDetails extends Analyzer {
   }
 
   statistic() {
-    const shardsWasted = this.soulShardTracker.shardsWasted;
+    const shardsWasted = this.soulShardTracker.wasted;
     return (
       <StatisticBox
         icon={(
@@ -63,9 +63,9 @@ class SoulShardDetails extends Analyzer {
       url: 'soul-shards',
       render: () => (
         <Tab>
-          <SoulShardBreakdown
-            shardsGeneratedAndWasted={this.soulShardTracker.generatedAndWasted}
-            shardsSpent={this.soulShardTracker.spent}
+          <ResourceBreakdown
+            tracker={this.soulShardTracker}
+            showSpenders
           />
         </Tab>
       ),

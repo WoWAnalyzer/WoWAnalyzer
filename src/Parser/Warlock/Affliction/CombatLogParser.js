@@ -10,8 +10,6 @@ import CorruptionUptime from './Modules/Features/CorruptionUptime';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import SoulShardTrackerV2 from './Modules/SoulShards/SoulShardTrackerV2';
-import SoulShardDetailsV2 from './Modules/SoulShards/SoulShardDetailsV2';
 import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import Sniping from './Modules/Features/Sniping';
@@ -50,8 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    soulShardTrackerV2: SoulShardTrackerV2,
-    soulShardDetailsV2: SoulShardDetailsV2,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 
