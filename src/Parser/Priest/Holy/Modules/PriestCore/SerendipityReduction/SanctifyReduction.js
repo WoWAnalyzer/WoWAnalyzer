@@ -50,9 +50,6 @@ class SanctifyReduction extends Analyzer {
     if (this.combatants.selected.hasTalent(SPELLS.PIETY_TALENT.id)) {
       this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = 1.0;
     }
-
-    // Modify Sanctify CD based on trait
-    this.maxCooldown -= ((this.combatants.selected.traitsBySpellId[SPELLS.HALLOWED_GROUND_TRAIT.id] || 0) * SPELLS.HALLOWED_GROUND_TRAIT.valuePerTrait);
   }
 
   on_byPlayer_cast(event) {

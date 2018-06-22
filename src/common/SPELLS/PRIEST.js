@@ -364,59 +364,12 @@ export default {
     name: "Symbol of Hope", 
     icon: "spell_holy_symbolofhope",
   },
-
   // Trait related spells
-  LIGHT_OF_TUURE_TRAIT: {
-    id: 208065,
-    name: "Light of T'uure",
-    icon: 'inv_staff_2h_artifactheartofkure_d_01',
-    duration: 10,
-  },
-
-  CARESS_OF_THE_NAARU_TRAIT: {
-    id: 238064,
-    name: 'Caress of the Naaru',
-    icon: 'inv_staff_2h_artifactheartofkure_d_01',
-  },
-
-  COSMIC_RIPPLE_TRAIT: {
-    id: 243241,
-    name: 'Cosmic Ripple',
-    icon: 'spell_holy_circleofrenewal',
-  },
-
-  HOLY_MENDING_TRAIT: {
-    id: 196781,
-    name: 'Holy Mending',
-    icon: 'spell_holy_divineprovidence',
-  },
-
-  RENEW_THE_FAITH_TRAIT: {
-    id: 196492,
-    name: 'Renew the Faith',
-    icon: 'spell_holy_divinehymn',
-  },
-
-  SAY_YOUR_PRAYERS_TRAIT: {
-    id: 196358,
-    name: 'Say Your Prayers',
-    icon: 'spell_holy_prayerofmendingtga',
-    coeff: 0.06,
-  },
-
-  HALLOWED_GROUND_TRAIT: {
-    id: 196429,
-    name: 'Hallowed Ground',
-    icon: 'spell_holy_divineprovidence',
-    valuePerTrait: 3333,
-  },
-
   LENIENCE: {
     id: 238063,
     name: 'Lenience',
     icon: 'ability_priest_atonement',
   },
-
   // Buffs
   BLESSING_OF_TUURE_BUFF: {
     id: 196644,
