@@ -114,7 +114,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOWFIEND,
+        spell: [SPELLS.SHADOWFIEND, SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isOnGCD: true,
@@ -128,6 +128,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_CRASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -213,6 +214,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_TORRENT_MANA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
+        isOnGCD: false,
         isUndetectable: true,
         castEfficiency: {
           suggestion: true,
@@ -269,6 +271,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURIFY_DISEASE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.SHADOWFORM,

@@ -4,41 +4,8 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-import SPELLS from 'common/SPELLS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // handled in _removebuff
-    SPELLS.MIND_FLAY.id,
-    // SPELLS.DISPERSION.id,
-
-    // rotational:
-    SPELLS.VOID_BOLT.id,
-    SPELLS.VOID_ERUPTION.id,
-    SPELLS.MIND_BLAST.id,
-    SPELLS.VAMPIRIC_TOUCH.id,
-    SPELLS.SHADOW_WORD_PAIN.id,
-    SPELLS.SHADOWFIEND.id,
-    SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
-
-    // talents:
-    SPELLS.MINDBENDER_TALENT_SHADOW.id,
-    SPELLS.SHADOW_CRASH_TALENT.id,
-    SPELLS.SHADOW_WORD_VOID_TALENT.id,
-    SPELLS.MIND_BOMB_TALENT.id,
-
-    // utility:
-    SPELLS.SHADOWFORM.id,
-    SPELLS.MIND_VISION.id,
-    SPELLS.POWER_WORD_SHIELD.id,
-    SPELLS.SHADOW_MEND.id,
-    SPELLS.DISPEL_MAGIC.id,
-    SPELLS.MASS_DISPEL.id,
-    SPELLS.LEVITATE.id,
-    SPELLS.SHACKLE_UNDEAD.id,
-    SPELLS.PURIFY_DISEASE.id,
-  ];
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -63,7 +30,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(actual).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots.</span>)
+        return suggest(<React.Fragment>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots.</React.Fragment>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
