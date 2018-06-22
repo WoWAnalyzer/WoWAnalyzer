@@ -6,16 +6,22 @@ class SoulShardTrackerV2 extends ResourceTracker {
     this.resource = RESOURCE_TYPES.SOUL_SHARDS;
   }
 
-  on_toPlayer_energize(event) {
-    if (event.resourceChangeType !== this.resource.id) {
+  on_byPlayer_cast(event) {
+    if (!this.shouldProcessCastEvent(event)) {
       return;
     }
-    if (event.resourceChange < 10) {
-      // so far all Warlock energize events have resourceChange 1 - 5
-      // classResources are in 0 - 50 range, we need to get resourceChange to same order of magnitude
-      event.resourceChange = event.resourceChange * 10;
-    }
-    super.on_toPlayer_energize && super.on_toPlayer_energize(event);
+    // only processes events where there is a Soul Shard class resource info in the event
+    // intentionally lower the resources because we get energize events ranging in numbers 0 - 5, not 0 - 50
+    const index = this._getClassResourceIndex(event);
+    event.classResources[index].amount /= 10;
+    event.classResources[index].cost /= 10;
+    event.classResources[index].max /= 10;
+    super.on_byPlayer_cast && super.on_byPlayer_cast(event);
+  }
+
+  _getClassResourceIndex(event) {
+    return Object.keys(event.classResources).find(key => event.classResources[key].type === RESOURCE_TYPES.SOUL_SHARDS) || 0;
+    // "technically incorrect", if find() returns 0 as a valid index, it also gets evaluated as "false", but || 0 makes it 0 anyway so it's fine
   }
 }
 
