@@ -11,7 +11,7 @@ import { track } from 'common/analytics';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { fetchUser } from 'actions/user';
 import { getError } from 'selectors/error';
-import RouteChangeScroller from 'Interface/RouteChangeScroller';
+// import RouteChangeScroller from 'Interface/RouteChangeScroller';
 
 import 'react-toggle/style.css';
 import './App.css';
@@ -230,7 +230,7 @@ class App extends React.Component {
           </main>
 
           <ReactTooltip html place="bottom" />
-          <RouteChangeScroller />
+          {/*<RouteChangeScroller />*/}
           <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
