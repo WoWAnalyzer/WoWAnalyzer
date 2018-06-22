@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import enemy from 'Parser/Core/Entity';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/SHAMAN';
@@ -22,7 +22,7 @@ class ExposedElements extends Analyzer {
     if(this.removeDebuffTimestamp === null)
       return;
 
-    if((event.ability.guid === SPELLS.LIGHTNING_BOLT.id) && (enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_TALENT.id)){
+    if((event.ability.guid === SPELLS.LIGHTNING_BOLT.id) && (enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_TALENT.id))){
       this.removeDebuffTimestamp=event.timestamp;
       this.damageGained+=(1/EXPOSED_ELEMENTS.MULTIPLIER)*event.amount;
     }
