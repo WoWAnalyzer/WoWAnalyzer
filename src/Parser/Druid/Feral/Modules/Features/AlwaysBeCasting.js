@@ -31,7 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     [SPELLS.SHRED.id]: 1000,
     [SPELLS.FEROCIOUS_BITE.id]: 1000,
     [SPELLS.SAVAGE_ROAR_TALENT.id]: 1000,
-    [SPELLS.FERAL_FRENZY.id]: 1000,
+    [SPELLS.FERAL_FRENZY_TALENT.id]: 1000,
     [SPELLS.MAIM.id]: 1000,
     [SPELLS.CAT_SWIPE.id]: 1000,
     [SPELLS.THRASH_FERAL.id]: 1000,
