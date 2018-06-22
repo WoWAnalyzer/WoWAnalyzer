@@ -6,6 +6,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-06-22'),
+    changes: 'Updated spells and several modules to be compatible with BFA.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-29'),
     changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
