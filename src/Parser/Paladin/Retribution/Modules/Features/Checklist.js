@@ -19,12 +19,12 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import HolyPowerDetails from '../HolyPower/HolyPowerDetails';
-import BoWProcTracker from '../PaladinCore/BoWProcTracker';
+import ArtOfWar from '../PaladinCore/ArtOfWar';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
 import SoulOfTheHighlord from '../Items/SoulOfTheHighlord';
-import Crusade from '../PaladinCore/Crusade';
+import Crusade from '../Talents/Crusade';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -39,7 +39,7 @@ class Checklist extends CoreChecklist {
     abilityTracker: AbilityTracker,
 
     holyPowerDetails: HolyPowerDetails,
-    boWProcTracker: BoWProcTracker,
+    artOfWar: ArtOfWar,
     judgment: Judgment,
     liadrins: Liadrins,
     soulOfTheHighlord: SoulOfTheHighlord,

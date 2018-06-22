@@ -352,6 +352,11 @@ export default {
     name: 'The Fires of Justice',
     icon: 'spell_holy_crusaderstrike',
   },
+  ART_OF_WAR: {
+    id: 267344,
+    name: 'Art of War',
+    icon: 'ability_paladin_artofwar',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,

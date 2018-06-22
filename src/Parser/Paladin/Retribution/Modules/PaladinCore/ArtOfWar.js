@@ -9,25 +9,21 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-class BoWProcTracker extends Analyzer {
+class AoWProcTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
-  overwrittenBoWProcs = 0;
-  totalBoWProcs = 0;
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id);
-  }
+  overwrittenAoWProcs = 0;
+  totalAoWProcs = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLADE_OF_WRATH_PROC.id) {
       return;
     }
-    this.totalBoWProcs += 1;
+    this.totalAoWProcs += 1;
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
       this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
     }
@@ -38,12 +34,12 @@ class BoWProcTracker extends Analyzer {
     if (spellId !== SPELLS.BLADE_OF_WRATH_PROC.id) {
       return;
     }
-    this.overwrittenBoWProcs += 1;
-    this.totalBoWProcs += 1;
+    this.overwrittenAoWProcs += 1;
+    this.totalAoWProcs += 1;
   }
 
   get missedProcsPercent() {
-    return this.overwrittenBoWProcs / this.totalBoWProcs;
+    return this.overwrittenAoWProcs / this.totalAoWProcs;
   }
 
   get suggestionThresholds() {
@@ -60,8 +56,8 @@ class BoWProcTracker extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You wasted {formatNumber(this.overwrittenBoWProcs)} <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon /> proc(s)</React.Fragment>)
-        .icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
+      return suggest(<React.Fragment>You wasted {formatNumber(this.overwrittenAoWProcs)} <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> proc(s)</React.Fragment>)
+        .icon(SPELLS.ART_OF_WAR.icon)
         .actual(`${formatPercentage(this.missedProcsPercent)}% proc(s) missed`)
         .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);
     });
@@ -70,8 +66,8 @@ class BoWProcTracker extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BLADE_OF_WRATH_PROC.id} />}
-        value={`${formatNumber(this.totalBoWProcs)}`}
+        icon={<SpellIcon id={SPELLS.ART_OF_WAR.id} />}
+        value={`${formatNumber(this.totalAoWProcs)}`}
         label="Blade of Wrath procs"
       />
     );
@@ -79,4 +75,4 @@ class BoWProcTracker extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
-export default BoWProcTracker;
+export default AoWProcTracker;
