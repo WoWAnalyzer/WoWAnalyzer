@@ -27,11 +27,11 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPerce
   return (
     <div className="flex wrapable" {...others}>
       <div className="flex-sub" style={{ minWidth: 350 }}>
-        {boss && boss.headshot && <img src={boss.headshot} style={{ height: '1.8em', borderRadius: 5, marginRight: 10, marginTop: '-0.2em' }} alt="Boss headshot" />}
+        {boss && boss.headshot && <img src={boss.headshot} style={{ height: '1.8em', borderRadius: 5, marginRight: 10, marginTop: '-0.2em', marginBottom: '-0.2em' }} alt="Boss headshot" />}
         {DIFFICULTIES[difficulty]} {name} {!kill && `(Wipe ${wipes})`}
       </div>
       <div className={`flex-main ${kill ? 'kill' : 'wipe'}`} style={{ whiteSpace: 'nowrap' }}>
-        <Icon style={{ fontSize: '1.8em' }} />
+        <Icon />
         {' '}{formatDuration(duration)}
         <ProgressBar percentage={kill ? 100 : (10000 - fightPercentage) / 100} height={8} />
       </div>

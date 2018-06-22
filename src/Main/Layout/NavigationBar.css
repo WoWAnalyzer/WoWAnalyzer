@@ -80,6 +80,11 @@ nav.global .selectorHeader a {
 nav.global .selectorHeader .panel {
   background: rgba(0,0,0,0.95);
 }
+nav.global .selectorHeader img, nav.global .selectorHeader svg {
+  height: 1.6em;
+  margin: 0;
+  margin-top: -0.15em;
+}
 
 /* Mobile nav bar */
 @media (max-width: 600px) {
