@@ -12,7 +12,6 @@ import { findByBossId } from 'Raids';
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
-import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
@@ -151,7 +150,6 @@ class CombatLogParser {
     cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
-    status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
@@ -311,9 +309,7 @@ class CombatLogParser {
   get fightDuration() {
     return this.currentTimestamp - this.fight.start_time;
   }
-  get finished() {
-    return this._modules.status.finished;
-  }
+  finished = false;
 
   get playersById() {
     return this.report.friendlies.reduce((obj, player) => {
@@ -322,21 +318,26 @@ class CombatLogParser {
     }, {});
   }
 
-  constructor(report, player, playerPets, fight) {
+  constructor(report, selectedPlayer, selectedFight, combatants) {
     this.report = report;
-    this.player = player;
-    this.playerPets = playerPets;
-    this.fight = fight;
-    if (fight) {
-      this._timestamp = fight.start_time;
-      this.boss = findByBossId(fight.boss);
-    } else if (process.env.NODE_ENV !== 'test') {
-      throw new Error('fight argument was empty.');
-    }
+    this.player = selectedPlayer;
+    this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
+    this.fight = selectedFight;
+    this._timestamp = selectedFight.start_time;
+    this.boss = findByBossId(selectedFight.boss);
 
     this.initializeModules({
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
+    });
+
+    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
+    this.initialize(combatants);
+  }
+  finished() {
+    this.finished = true;
+    this.fabricateEvent({
+      type: 'finished',
     });
   }
 
