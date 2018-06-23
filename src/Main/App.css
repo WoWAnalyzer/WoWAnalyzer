@@ -97,6 +97,7 @@ a:hover {
   background: #ad4b4b;
   border: 1px solid #d84141;
   outline: 0;
+  color: #ccc;
 }
 h1 {
   margin-top: 0;
@@ -687,42 +688,6 @@ table.data-table img {
   vertical-align: middle;
 }
 
-.btn.discord {
-  background: #7289DA;
-}
-.btn.discord:hover {
-  background: #5f72b3;
-}
-.btn.github {
-  background: #fff;
-  color: #000;
-  margin-right: 0;
-}
-.btn.github:hover {
-  background: #d9d9d9;
-}
-.btn.patreon {
-  background: #F96854;
-  color: #fff;
-  font-weight: 400;
-  text-transform: uppercase;
-  border-radius: 0;
-}
-.btn.patreon svg {
-  margin-top: 0;
-  margin-right: .2em;
-  font-size: 1.2em;
-}
-.btn.patreon:hover {
-  background: #e6461a;
-}
-.btn.discord, .btn.github, .btn.patreon {
-  padding: .3em 0.8em;
-  height: 2.5em;
-  line-height: 1.8em;
-  border: 0;
-  font-size: 1.1em;
-}
 .external-links .btn:not(:first-of-type) {
   margin-left: 3%;
 }

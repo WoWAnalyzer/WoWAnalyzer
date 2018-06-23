@@ -8,8 +8,9 @@ const LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can 
 class Nobundo extends Analyzer {
   discounts = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
   }
 
   on_byPlayer_heal(event) {
@@ -19,7 +20,7 @@ class Nobundo extends Analyzer {
       return;
     }
 
-    const buff = this.owner.modules.combatants.selected.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
+    const buff = this.selectedCombatant.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
 
     if (buff) {
       this.discounts += 1;

@@ -30,7 +30,8 @@ class ZevrimsHunger extends Analyzer {
   hasProcced = false;
   wastedProc = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.ZEVRIMS_HUNGER.id);
   }
 

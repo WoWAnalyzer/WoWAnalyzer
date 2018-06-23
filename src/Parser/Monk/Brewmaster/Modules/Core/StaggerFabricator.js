@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const PURIFY_BASE = 0.5;
@@ -14,17 +13,13 @@ export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
  * tick, purify, and stagger absorb generates one event.
  */
 class StaggerFabricator extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // causes an orb consumption to clear 5% of stagger
   _hasTier20_4pc = false;
   _staggerPool = 0;
 
-  on_initialized() {
-    const player = this.combatants.selected;
-    this._hasTier20_4pc = player.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
+  constructor(...args) {
+    super(...args);
+    this._hasTier20_4pc = this.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
   }
 
   get purifyPercentage() {

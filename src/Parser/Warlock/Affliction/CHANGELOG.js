@@ -9,6 +9,11 @@ import { Chizu, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-06-22'),
+    changes: 'Updated the basics of the spec for BFA.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-01-28'),
     changes: 'Upgrade the spec completeness to Great!',
     contributors: [Chizu],

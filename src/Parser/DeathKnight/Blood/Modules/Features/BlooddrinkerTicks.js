@@ -23,7 +23,8 @@ class Blooddrinker extends Analyzer {
   totalDamage = 0;
   totalHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id);
   }
 

@@ -16,7 +16,8 @@ class PromiseOfElune extends Analyzer {
   solarWrathDamage = 0;
   lunarStrikeDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.PROMISE_OF_ELUNE.id);
   }
 

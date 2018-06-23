@@ -13,7 +13,8 @@ class DrinkingHornCover extends Analyzer {
   averageTimeGained = 0;
   lastCastTime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.DRINKING_HORN_COVER.id);
   }
 

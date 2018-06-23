@@ -14,7 +14,8 @@ class RampageCancelled extends Analyzer {
   rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id]
   counter = {}
 
-  on_initialized() {    
+  constructor(...args) {
+    super(...args);
     for (let i = 0; i < this.rampage.length; i++) {
         this.counter[this.rampage[i]] = 0;
     }

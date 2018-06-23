@@ -3,7 +3,6 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import LowMana from './Modules/Features/LowMana';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
@@ -15,7 +14,6 @@ import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import Sniping from './Modules/Features/Sniping';
 
-import Haunt from './Modules/Talents/Haunt';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
@@ -41,7 +39,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     sniping: Sniping,
-    lowMana: LowMana,
     checklist: Checklist,
 
     // DoTs
@@ -55,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
-    haunt: Haunt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,

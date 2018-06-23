@@ -16,7 +16,8 @@ class SoulflayersCorruption extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.SOULFLAYERS_CORRUPTION.id);
   }
 

@@ -26,7 +26,8 @@ class Tombstone extends Analyzer {
   totalAbsorbed = 0;
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
   }
 

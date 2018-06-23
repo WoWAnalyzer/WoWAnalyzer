@@ -12,7 +12,8 @@ class Tier20_2pc extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id);
   }
 

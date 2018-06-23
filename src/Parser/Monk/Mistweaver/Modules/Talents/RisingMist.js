@@ -31,7 +31,8 @@ class RisingMist extends Analyzer {
   efCount = 0;
   evmCount = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RISING_MIST_TALENT.id);
   }
 

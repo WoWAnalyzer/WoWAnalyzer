@@ -15,7 +15,8 @@ class Cultivation extends Analyzer {
     mastery: Mastery,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const hasCultivation = this.combatants.selected.hasTalent(SPELLS.CULTIVATION_TALENT.id);
     this.active = hasCultivation;
   }

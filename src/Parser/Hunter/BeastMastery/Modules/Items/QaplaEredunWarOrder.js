@@ -27,7 +27,8 @@ class QaplaEredunWarOrder extends Analyzer {
   effectiveKillCommandReductionMs = 0;
   wastedKillCommandReductionMs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id);
   }
 

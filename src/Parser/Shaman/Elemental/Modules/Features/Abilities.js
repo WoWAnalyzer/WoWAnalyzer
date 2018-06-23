@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
     DOTS: 'Dot',
   };
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.LAVA_BURST,
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 60, //misses Static Charge CDR
       },
       {

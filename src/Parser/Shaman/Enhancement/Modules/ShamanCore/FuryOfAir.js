@@ -20,7 +20,8 @@ class FuryOfAir extends Analyzer {
   maelstromUsed = 0;
   applyTime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
   }
 

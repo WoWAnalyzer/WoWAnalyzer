@@ -31,7 +31,8 @@ class Clearcasting extends Analyzer {
   nonCCRegrowths = 0;
   totalRegrowths = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasMoC = this.combatants.selected.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
     this.procsPerCC = this.hasMoC ? 3 : 1;
   }

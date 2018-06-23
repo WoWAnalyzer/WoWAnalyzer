@@ -21,7 +21,8 @@ class PowerCordOfLethtendris extends Analyzer {
   _totalTicks = 0;
   _totalUAdamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
   }
 
@@ -36,7 +37,7 @@ class PowerCordOfLethtendris extends Analyzer {
     // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
     // but with denominator 1 in this case, if this._totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
-    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].generated;
+    const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id);
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return {
       item: ITEMS.POWER_CORD_OF_LETHTENDRIS,

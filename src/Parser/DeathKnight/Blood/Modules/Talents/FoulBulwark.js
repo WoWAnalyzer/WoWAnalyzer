@@ -16,7 +16,8 @@ class FoulBulwark extends Analyzer {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
   }
 
@@ -27,7 +28,7 @@ class FoulBulwark extends Analyzer {
   get averageFoulBullwark() {
     let avgStacks = 0;
     this.boneShieldTimesByStack.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+      avgStacks += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index;
     });
     return formatPercentage(avgStacks * HP_PER_BONE_SHIELD_STACK);
   }

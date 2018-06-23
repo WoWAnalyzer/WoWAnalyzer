@@ -17,7 +17,8 @@ class T19_4Set extends Analyzer {
     rejuvenationAttributor: RejuvenationAttributor,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
   }
 

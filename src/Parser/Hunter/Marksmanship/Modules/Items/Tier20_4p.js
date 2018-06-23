@@ -17,7 +17,8 @@ class Tier20_4p extends Analyzer {
   totalAimed = 0;
   buffedCastAndFocusAimed = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS.id);
   }
   get percentUptime() {

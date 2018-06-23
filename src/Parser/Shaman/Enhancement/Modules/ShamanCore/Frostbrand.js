@@ -13,7 +13,8 @@ class Frostbrand extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }
 

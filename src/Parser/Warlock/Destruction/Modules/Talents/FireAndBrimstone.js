@@ -22,7 +22,8 @@ class FireAndBrimstone extends Analyzer {
   generatedCleaveFragments = 0;
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
   }
 

@@ -27,7 +27,8 @@ class CombustionMarqueeBindings extends Analyzer {
 
   //Check for Marquee Bindings Item, and calculate the duration of Combustion
   //Accounts for the extra 2 seconds from Tier 21 2 Set, and 1 Second per point of Pre Ignited
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
     const hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
     if (hasTierBonus) {

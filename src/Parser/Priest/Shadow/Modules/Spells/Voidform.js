@@ -119,7 +119,7 @@ class Voidform extends Analyzer {
       excluded: false,
       averageGainedHaste: 0,
       [SPELLS.MINDBENDER_TALENT_SHADOW.id]: [],
-      [SPELLS.VOID_TORRENT.id]: [],
+      [SPELLS.VOID_TORRENT_TALENT.id]: [],
       [SPELLS.DISPERSION.id]: [],
     };
     logger(['Started voidform at:', event.timestamp], 'purple');

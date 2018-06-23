@@ -47,7 +47,7 @@ export default [
   },
   {
     date: new Date('2018-01-24'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime tracking</React.Fragment>,
+    changes: <React.Fragment>Added Ashamane's Rip uptime tracking</React.Fragment>,
     contributors: [Anatta336],
   },
   {

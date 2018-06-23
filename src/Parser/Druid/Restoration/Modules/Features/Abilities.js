@@ -5,7 +5,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.TRANQUILITY_CAST,
@@ -148,7 +148,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BEAR_FORM,
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isOnGCD: true,
+        gcd: true,
       },
     ];
   }

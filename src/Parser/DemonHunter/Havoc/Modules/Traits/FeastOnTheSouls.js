@@ -21,7 +21,8 @@ class FeastOnTheSouls extends Analyzer {
 		spellUsable: SpellUsable,
 	}
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.traitsBySpellId[SPELLS.FEAST_ON_THE_SOULS.id] > 0;
 	}
 

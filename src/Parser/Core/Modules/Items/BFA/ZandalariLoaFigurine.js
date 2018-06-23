@@ -15,7 +15,8 @@ class ZandalariLoaFigurine extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(
       ITEMS.ZANDALARI_LOA_FIGURINE.id
     );

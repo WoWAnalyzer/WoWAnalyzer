@@ -40,7 +40,8 @@ class ParselsTongue extends Analyzer {
   _fourStackStart = 0;
   _fourStackUptime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
   }
 

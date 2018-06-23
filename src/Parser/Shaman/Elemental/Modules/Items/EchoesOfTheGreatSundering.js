@@ -27,7 +27,8 @@ class EchoesOfTheGreatSundering extends Analyzer {
   state = 0; //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
   }
 

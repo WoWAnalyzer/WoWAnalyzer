@@ -32,7 +32,8 @@ class Earthwarden extends Analyzer {
   swingsMitigated = 0;
   totalSwings = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
   }
 

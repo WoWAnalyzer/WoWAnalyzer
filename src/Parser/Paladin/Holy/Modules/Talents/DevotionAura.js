@@ -51,7 +51,8 @@ class DevotionAura extends Analyzer {
 
   totalDamageTakenDuringAuraMastery = 0;
   totalDamageTakenOutsideAuraMastery = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
   }
 

@@ -26,7 +26,8 @@ class Tier21_2p extends Analyzer {
   totalRaptorStrikes = 0;
   buffedRaptorStrikes = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS.id);
   }
 

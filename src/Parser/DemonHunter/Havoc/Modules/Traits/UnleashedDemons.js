@@ -12,7 +12,8 @@ class UnleashedDemons extends Analyzer {
 		combatants: Combatants,
 	};
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] > 0;
 	}
 

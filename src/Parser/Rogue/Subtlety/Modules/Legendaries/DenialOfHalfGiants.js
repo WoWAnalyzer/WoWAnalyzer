@@ -16,7 +16,8 @@ class DenialOfHalfGiants extends Analyzer {
   durationPerCp = 0.2;
   totalValue = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.DENIAL_OF_THE_HALF_GIANTS.id);
   }
 

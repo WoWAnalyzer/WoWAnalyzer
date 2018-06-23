@@ -6,45 +6,42 @@ import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static dependencies = {
-    ...CoreAbilities.dependencies,
-  };
-
   spellbook() {
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.AIMED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.ARCANE_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.RAPID_FIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 20,
       },
       {
         spell: SPELLS.STEADY_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 20,
       },
       {
         spell: SPELLS.MULTISHOT_MM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
+        gcd: true,
+        enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -59,8 +56,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -70,8 +67,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -81,8 +78,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PIERCING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
-        enabled: this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -92,7 +89,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        isOnGCD: false,
+        gcd: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -103,7 +100,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
-        isOnGCD: false,
+        gcd: false,
         castEfficiency: {
           suggestion: true,
         },
@@ -112,75 +109,75 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.BURSTING_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.CONCUSSIVE_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.COUNTER_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: false,
+        gcd: false,
 
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        isOnGCD: false,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        gcd: false,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        isOnGCD: false,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        gcd: false,
       },
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.FLARE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        isOnGCD: true,
+        gcd: true,
       },
     ];
   }

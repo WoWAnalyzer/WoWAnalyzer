@@ -4,7 +4,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 60,
   },
   {

@@ -18,7 +18,7 @@ class AbilityTracker extends CoreAbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     if (spellId === SPELLS.POWER_WORD_SHIELD.id) {
-      const hasRapture = this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, event.timestamp);
+      const hasRapture = this.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, event.timestamp);
 
       if (hasRapture) {
         cast.raptureCasts = (cast.raptureCasts || 0) + 1;

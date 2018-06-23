@@ -27,7 +27,8 @@ class Tier20_4set extends Analyzer {
   healing = 0;
   totalBeaconHealingDuringLightsEmbrace = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
   }
 

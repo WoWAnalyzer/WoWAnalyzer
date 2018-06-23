@@ -18,7 +18,8 @@ class SeaStarOfTheDepthmother extends Analyzer {
   };
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id);
   }
 

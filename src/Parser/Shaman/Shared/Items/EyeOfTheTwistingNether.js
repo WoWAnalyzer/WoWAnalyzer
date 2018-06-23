@@ -22,7 +22,8 @@ class EyeOfTheTwistingNether extends Analyzer {
 
 	damageDone = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
 	}
 

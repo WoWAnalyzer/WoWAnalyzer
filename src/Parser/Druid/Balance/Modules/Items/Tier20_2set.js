@@ -22,7 +22,8 @@ class Tier20_2set extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T20_2SET_BONUS_BUFF.id);
   }
 

@@ -42,7 +42,8 @@ class ManaTea extends Analyzer {
   hasLifeCycles = false;
   casted = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     if (this.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
       this.hasLifeCycles = true;

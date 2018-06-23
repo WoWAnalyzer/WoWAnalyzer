@@ -19,7 +19,8 @@ class T20_4set extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id);
   }
 

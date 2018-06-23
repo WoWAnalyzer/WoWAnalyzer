@@ -22,7 +22,8 @@ class Veinrender extends Analyzer {
   rank = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.VEINRENDER_TRAIT.id];
     this.active = this.rank > 0;
   }

@@ -16,7 +16,8 @@ class LuffaWrappings extends Analyzer {
 
   damageDone = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.LUFFA_WRAPPINGS.id);
   }
 

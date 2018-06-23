@@ -69,8 +69,8 @@ class RipSnapshot extends Snapshot {
   comboLastRip = 0;
   healthFraction = {};
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     const combatant = this.combatants.selected;
     if (combatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
       this.constructor.durationOfFresh = RIP_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;

@@ -19,7 +19,8 @@ class MarchOfTheLegion extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id) && this.combatants.selected.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
   }
 

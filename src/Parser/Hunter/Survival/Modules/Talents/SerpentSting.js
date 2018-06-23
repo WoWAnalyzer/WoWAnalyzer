@@ -19,7 +19,8 @@ class SerpentSting extends Analyzer {
 
   bonusDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SERPENT_STING_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 

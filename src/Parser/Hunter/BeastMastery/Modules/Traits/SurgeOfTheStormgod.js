@@ -17,7 +17,8 @@ class SurgeOfTheStormgod extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id];
   }
 

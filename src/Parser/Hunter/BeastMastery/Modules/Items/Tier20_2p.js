@@ -26,7 +26,8 @@ class Tier20_2p extends Analyzer {
   bestialWrathBaseModifier = 0;
   currentStacks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T20_2P_BONUS.id);
     if (this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
       this.bestialWrathBaseModifier = 0.4;

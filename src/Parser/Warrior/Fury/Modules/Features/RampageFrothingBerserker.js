@@ -24,7 +24,8 @@ class RampageFrothingBerserker extends Analyzer {
   premature_counter = 0;
   reckless_abandon = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
     this.reckless_abandon = this.combatants.selected.hasTalent(SPELLS.RECKLESS_ABANDON_TALENT.id);
   }

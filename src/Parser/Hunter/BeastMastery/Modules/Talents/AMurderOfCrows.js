@@ -42,7 +42,8 @@ class AMurderOfCrows extends Analyzer {
   registeredCasts = 0;
   prepullCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && SPECS.BEAST_MASTERY_HUNTER;
   }
 

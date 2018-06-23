@@ -18,7 +18,8 @@ class SmolderingHeart extends Analyzer {
   maelstromSpent = 0;
   ascendanceCastEventIds = new Set();
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 

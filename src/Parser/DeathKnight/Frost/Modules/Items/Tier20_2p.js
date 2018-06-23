@@ -23,7 +23,8 @@ class Tier20_2p extends Analyzer {
   currentAddedDuration = 0;
   rpBanked = 0;
   
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
   }
 

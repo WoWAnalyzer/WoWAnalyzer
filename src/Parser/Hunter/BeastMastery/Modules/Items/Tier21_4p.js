@@ -23,7 +23,8 @@ class Tier21_4p extends Analyzer {
   effectiveAspectReductionMs = 0;
   wastedAspectReductionMs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id);
   }
 

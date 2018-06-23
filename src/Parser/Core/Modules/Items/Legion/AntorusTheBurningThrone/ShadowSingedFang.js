@@ -27,7 +27,8 @@ class ShadowSingedFang extends Analyzer {
 	mainProc = 0
 	critProc = 0
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasTrinket(ITEMS.SHADOW_SINGED_FANG.id);
 		if (this.active) {
 			this.mainStatBuff = calculateSecondaryStatDefault(930, 5458, this.combatants.selected.getItem(ITEMS.SHADOW_SINGED_FANG.id).itemLevel);

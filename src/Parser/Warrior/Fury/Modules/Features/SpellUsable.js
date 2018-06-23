@@ -10,7 +10,8 @@ class SpellUsable extends CoreSpellUsable {
   };
 
   hasConvergenceOfFates = false;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasConvergenceOfFates = this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id);
   }
 

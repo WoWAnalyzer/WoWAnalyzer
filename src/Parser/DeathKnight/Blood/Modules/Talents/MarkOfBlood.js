@@ -14,7 +14,8 @@ class MarkOfBlood extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id);
   }
 

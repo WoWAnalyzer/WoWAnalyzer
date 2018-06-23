@@ -14,7 +14,8 @@ class Tier21_4set extends Analyzer {
     enemies: Enemies,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.ENHANCE_SHAMAN_T21_4SET_EQUIP.id);
   }
 

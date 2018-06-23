@@ -29,7 +29,8 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
   usedProcs = 0;
   totalProcs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
   }
 

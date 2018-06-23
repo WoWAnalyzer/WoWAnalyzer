@@ -28,7 +28,8 @@ class Ascendance extends Analyzer {
     others: 0,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) || this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 

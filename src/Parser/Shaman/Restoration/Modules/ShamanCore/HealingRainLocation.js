@@ -22,7 +22,8 @@ class HealingRainLocation extends Analyzer {
   lastHealingRainTick = 0;
   firstHealingRainTick = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const hasDeluge = this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id);
     const hasRebalancers = this.combatants.selected.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
     this.active = hasDeluge || hasRebalancers;

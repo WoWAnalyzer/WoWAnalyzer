@@ -32,7 +32,8 @@ class UnstableMagic extends Analyzer {
   procs = 0;
   hitTimestamp;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	   this.active = this.combatants.selected.hasTalent(SPELLS.UNSTABLE_MAGIC_TALENT.id);
   }
 

@@ -9,13 +9,13 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.FURY_OF_THE_ILLIDARI,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (_, combatant) => 300 - combatant.owner.modules.unleashedDemons.traitCooldownReduction,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -96,7 +96,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: true,
       },
       //T21 Eye Beam
       {
@@ -104,7 +104,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
@@ -115,47 +115,50 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMONS_BITE,
         enabled: !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.CHAOS_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.ANNIHILATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.BLADE_DANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //10 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.DEATH_SWEEP,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //8 / (1+ haste),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
         cooldown: haste => 10 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.FEL_RUSH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,
-        isOnGCD: true,
+        gcd: {
+          static: 250,
+        },
       },
       {
         spell: SPELLS.VENGEFUL_RETREAT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
-        isOnGCD: true,
+        // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
+        gcd: false,
       },
       {
         spell: SPELLS.BLUR,
@@ -173,7 +176,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHAOS_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,

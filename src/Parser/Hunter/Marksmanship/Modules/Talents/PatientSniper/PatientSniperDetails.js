@@ -30,7 +30,8 @@ class PatientSniperDetails extends Analyzer {
   hasPiercingShot = false;
   vulnerableModifier = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
     this.hasPiercingShot = !!this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
     const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];

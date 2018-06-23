@@ -14,7 +14,8 @@ class ChiJi extends Analyzer {
 
   petID = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
   }
 

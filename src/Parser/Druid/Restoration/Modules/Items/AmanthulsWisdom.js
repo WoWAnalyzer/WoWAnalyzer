@@ -36,7 +36,8 @@ class AmanthulsWisdom extends Analyzer {
 
   rejuvApplications = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.AMANTHULS_WISDOM.id);
   }
 

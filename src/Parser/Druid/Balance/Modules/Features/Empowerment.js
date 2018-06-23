@@ -25,7 +25,8 @@ class Empowerment extends Analyzer {
   empowermentsWasted = 0;
   empowermentsSpent = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
   }
 

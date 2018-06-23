@@ -31,7 +31,8 @@ class AggramarsConviction extends Analyzer {
   pantheonProc = 0;
   heal = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.AGGRAMARS_CONVICTION.id);
     if(!this.active) {
       return;

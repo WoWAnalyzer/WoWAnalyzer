@@ -41,7 +41,8 @@ class SheilunsGift extends Analyzer {
 
   hasEffusiveMists = 0;
 
-  on_initialize() {
+  constructor(...args) {
+    super(...args);
     this.hasEffusiveMists = this.combatants.selected.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
   }
 
@@ -156,7 +157,7 @@ class SheilunsGift extends Analyzer {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
@@ -172,7 +173,7 @@ class SheilunsGift extends Analyzer {
           ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}
           `}
           >
-          Avg stacks used
+            Avg stacks used
           </dfn>
         )}
       />

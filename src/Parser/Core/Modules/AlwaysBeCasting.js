@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Abilities from './Abilities';
-import GlobalCooldown from './GlobalCooldown';
+// import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
 
 import Haste from './Haste';
@@ -19,19 +19,21 @@ class AlwaysBeCasting extends Analyzer {
     combatants: Combatants,
     haste: Haste,
     abilities: Abilities,
-    globalCooldown: GlobalCooldown, // triggers the globalcooldown event
+    // `GlobalCooldown` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. ABC only needs the dependency on this for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
+    // We need to do this special stuff here since the GlobalCooldown class needs ABC to be initialized in the constructor
+    // globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
   };
+
+  get globalCooldown() {
+    // Using `_modules` for this so this doesn't trigger the deprecation warning. We won't have to do this anymore when the deprecated ABILITIES_ON_GCD is finally removed.
+    return this.owner._modules.globalCooldown;
+  }
 
   /** @deprecated */
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
-  // TODO: Move static GCD array to Abilities config
-  static STATIC_GCD_ABILITIES = {
-    // Abilities which GCD is not affected by haste.
-    // [spellId]: gcd value in seconds
-  };
 
   // TODO: Move base GCD config to Abilities config since this can differ per spell
   static BASE_GCD = 1500;
@@ -77,10 +79,9 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
     const spellId = cast.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
-    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.includes(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
 
-    if (!isOnGcd) {
+    if (!isOnGCD) {
       debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }

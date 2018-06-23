@@ -16,7 +16,8 @@ class LegacyOfTheWindrunners extends Analyzer {
   };
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id];
   }
 

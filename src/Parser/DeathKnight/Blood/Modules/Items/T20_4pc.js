@@ -18,7 +18,8 @@ class T20_4pc extends Analyzer {
   deathStrikeTotal=0;
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id);
   }
 

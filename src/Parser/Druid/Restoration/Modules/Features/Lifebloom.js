@@ -17,7 +17,8 @@ class Lifebloom extends Analyzer {
 
   hasDta;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasDta = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
   }
 

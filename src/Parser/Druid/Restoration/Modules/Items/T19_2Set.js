@@ -15,7 +15,8 @@ class T19_2Set extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id);
   }
 

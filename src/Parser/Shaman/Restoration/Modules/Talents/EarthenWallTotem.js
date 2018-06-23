@@ -23,7 +23,8 @@ class EarthenWallTotem extends Analyzer {
   potentialHealing = 0;
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
   }
 

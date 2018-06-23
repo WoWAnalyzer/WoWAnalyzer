@@ -74,7 +74,7 @@ class Sniping extends Analyzer {
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
     this.active = this.totalNumOfAdds > 0;
     this.mobsSniped = this._removeDebuffs.length;
-    this._shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].generated + this.soulShardTracker.generatedAndWasted[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].generated - this._subtractBossShards;
+    this._shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id) + this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) - this._subtractBossShards;
   }
 
   get suggestionThresholds() {

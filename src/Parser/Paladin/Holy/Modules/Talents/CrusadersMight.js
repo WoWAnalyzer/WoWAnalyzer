@@ -22,7 +22,8 @@ class CrusadersMight extends Analyzer {
   effectiveLightOfDawnReductionMs = 0;
   wastedLightOfDawnReductionMs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
   }
 

@@ -10,6 +10,8 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+//TODO: Needs updating for BFA
+
 class Judgment extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -19,7 +21,8 @@ class Judgment extends Analyzer {
   totalSpender = 0;
   spenderOutsideJudgment = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this._hasES = this.combatants.selected.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
   }
 

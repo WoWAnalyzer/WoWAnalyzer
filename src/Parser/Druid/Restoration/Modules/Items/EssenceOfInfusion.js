@@ -17,7 +17,8 @@ class EssenceOfInfusion extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id);
   }
 

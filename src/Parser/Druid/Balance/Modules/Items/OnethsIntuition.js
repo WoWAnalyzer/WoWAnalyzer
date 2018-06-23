@@ -18,7 +18,8 @@ class OnethsIntuition extends Analyzer {
   starsurgeCasts = 0;
   starfallCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.ONETHS_INTUITION.id);
   }
 

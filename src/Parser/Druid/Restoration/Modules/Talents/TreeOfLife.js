@@ -78,7 +78,8 @@ class TreeOfLife extends Analyzer {
     extraWgHealing: 0,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasTol = this.combatants.selected.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
     this.hasCs = this.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id);
     this.active = this.hasTol || this.hasCs;

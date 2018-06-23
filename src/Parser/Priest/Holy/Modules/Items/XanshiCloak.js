@@ -19,7 +19,8 @@ class XanshiCloak extends Analyzer {
   manaSaved = 0;
   casts = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBack(ITEMS.XANSHI_CLOAK.id);
   }
 

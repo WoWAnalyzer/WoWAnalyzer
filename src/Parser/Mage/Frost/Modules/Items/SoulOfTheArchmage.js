@@ -17,7 +17,8 @@ class SoulOfTheArchmage extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id);
     this.hasPickedOtherTalent = this.combatants.selected.hasTalent(SPELLS.ICE_NOVA_TALENT.id) || this.combatants.selected.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
   }

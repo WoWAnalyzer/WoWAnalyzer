@@ -28,7 +28,8 @@ class Tier21_4set extends Analyzer {
 
   _bonusDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id);
   }
 

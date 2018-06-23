@@ -26,7 +26,8 @@ class EyeOfCommand extends Analyzer {
   maxStackTime = 0;
   startOfMaxStacks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.EYE_OF_COMMAND.id);
     if (this.active) {
       const itemDetails = this.combatants.selected.getItem(ITEMS.EYE_OF_COMMAND.id);

@@ -13,7 +13,8 @@ class SoulOfTheHighPriest extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
     this.hasPickedOtherTalent = this.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id) || 
                                 this.combatants.selected.hasTalent(SPELLS.SCHISM_TALENT.id);

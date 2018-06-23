@@ -1,7 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
-// import AlwaysBeCasting from './AlwaysBeCasting';
+import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
@@ -13,15 +13,14 @@ const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
-    // `alwaysBeCasting` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
-    // alwaysBeCasting: AlwaysBeCasting,
+    alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
     // For the `beginchannel` event among other things
     channeling: Channeling,
   };
 
-  /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
+  /** Set by the constructor: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
   abilitiesOnGlobalCooldown = null;
   _errors = 0;
   get errorsPerMinute() {
@@ -31,18 +30,26 @@ class GlobalCooldown extends Analyzer {
   get isAccurate() {
     return this.errorsPerMinute < 2;
   }
+  // TODO: Move this config to this class
+  get baseGCD() {
+    return this.owner._modules.alwaysBeCasting.constructor.BASE_GCD;
+  }
+  get minimumGCD() {
+    return this.owner._modules.alwaysBeCasting.constructor.MINIMUM_GCD;
+  }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Using `_modules` here so this doesn't trigger the deprecation warning. This is deprecated itself, so it should disappear "soon".
     if (this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD.length > 0) {
-      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the isOnGCD property of spells in the Abilities config instead.');
+      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the `gcd` property of spells in the Abilities config instead.');
     }
     const abilities = [
       ...this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD,
     ];
 
     this.abilities.activeAbilities
-      .filter(ability => ability.isOnGCD)
+      .filter(ability => ability.gcd)
       .forEach(ability => {
         if (ability.spell instanceof Array) {
           ability.spell.forEach(spell => {
@@ -75,10 +82,10 @@ class GlobalCooldown extends Analyzer {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
     const isCancelled = event.trigger.isCancelled;
-    if (isOnGcd && !isCancelled) {
+    if (isOnGCD && !isCancelled) {
       this.triggerGlobalCooldown(event);
     }
   }
@@ -88,9 +95,9 @@ class GlobalCooldown extends Analyzer {
    */
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
     // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
-    if (!isOnGcd) {
+    if (!isOnGCD) {
       return;
     }
 
@@ -128,8 +135,31 @@ class GlobalCooldown extends Analyzer {
    * @returns {number} The duration in milliseconds.
    */
   getCurrentGlobalCooldown(spellId = null) {
-    // Using `_modules` here so this doesn't trigger the deprecation warning. We should move the STATIC_GCD_ABILITIES to the Abilities config which would fix this.
-    return (spellId && this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner._modules.alwaysBeCasting.constructor.BASE_GCD, this.owner._modules.alwaysBeCasting.constructor.MINIMUM_GCD);
+    let staticGCD = null;
+    let baseGCD = this.baseGCD;
+    let minimumGCD = this.minimumGCD;
+    if (spellId) {
+      const ability = this.abilities.getAbility(spellId);
+      if (ability && ability.gcd) {
+        if (ability.gcd.static) {
+          staticGCD = this._resolveAbilityGcdField(ability.gcd.static);
+        }
+        if (ability.gcd.base) {
+          baseGCD = this._resolveAbilityGcdField(ability.gcd.base);
+          // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
+          minimumGCD = this._resolveAbilityGcdField(ability.gcd.minimum) || (baseGCD / 2);
+        }
+      }
+    }
+
+    return staticGCD || this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
+  }
+  _resolveAbilityGcdField(value) {
+    if (typeof value === 'function') {
+      return value.call(this.owner, this.selectedCombatant);
+    } else {
+      return value;
+    }
   }
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */

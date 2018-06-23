@@ -17,7 +17,8 @@ class T21_4pc extends Analyzer {
 
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id);
   }
 

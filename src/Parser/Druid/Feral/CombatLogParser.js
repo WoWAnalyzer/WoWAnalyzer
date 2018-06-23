@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import RakeBleed from './Modules/Normalizers/RakeBleed';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
@@ -20,8 +20,6 @@ import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
-
-import AshamanesRip from './Modules/Traits/AshamanesRip';
 
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -54,9 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
-
-    // traits
-    ashamanesRip: AshamanesRip,
 
     // items
     soulOfTheArchdruid : SoulOfTheArchdruid,

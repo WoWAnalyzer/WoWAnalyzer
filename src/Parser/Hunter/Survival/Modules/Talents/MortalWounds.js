@@ -18,7 +18,8 @@ class MortalWounds extends Analyzer {
 
   ticks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.MORTAL_WOUNDS_TALENT.id);
   }
 

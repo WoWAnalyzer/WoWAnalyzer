@@ -19,7 +19,8 @@ class Tier21_2set extends Analyzer {
 
 	damageDone = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasBuff(SPELLS.HAVOC_T21_2PC_BONUS.id);
 	}
 

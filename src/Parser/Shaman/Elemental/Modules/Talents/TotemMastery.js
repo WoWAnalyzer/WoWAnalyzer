@@ -21,7 +21,8 @@ class TotemMastery extends Analyzer {
 
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
   }
 

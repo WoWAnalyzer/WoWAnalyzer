@@ -24,7 +24,8 @@ class HighfathersMachination extends Analyzer {
   // tracks last number of stacks per player (to figure out how many stacks heal was for)
   charges = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.HIGHFATHERS_MACHINATION.id);
   }
 

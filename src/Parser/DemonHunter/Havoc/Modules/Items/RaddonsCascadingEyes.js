@@ -19,7 +19,8 @@ class RaddonsCascadingEyes extends Analyzer {
 	effectiveEyeBeamReduction = 0;
 	wastedEyeBeamReduction = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasHead(ITEMS.RADDONS_CASCADING_EYES.id);
 	}
 

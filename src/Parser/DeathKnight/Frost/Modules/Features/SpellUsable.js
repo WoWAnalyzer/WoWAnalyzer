@@ -31,7 +31,8 @@ class SpellUsable extends CoreSpellUsable {
 
   lastCritTime = -2000;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasIcecap = this.combatants.selected.hasTalent(SPELLS.ICECAP_TALENT.id);
   }
 

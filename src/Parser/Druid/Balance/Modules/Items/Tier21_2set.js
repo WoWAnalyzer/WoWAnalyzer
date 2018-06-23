@@ -21,7 +21,8 @@ class Tier21_2set extends Analyzer {
   starsurgeDamage = 0;
   starfallDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id);
   }
 

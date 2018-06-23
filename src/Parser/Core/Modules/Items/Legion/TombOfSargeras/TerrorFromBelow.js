@@ -17,7 +17,8 @@ class TerrorFromBelow extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.TERROR_FROM_BELOW.id);
   }
 

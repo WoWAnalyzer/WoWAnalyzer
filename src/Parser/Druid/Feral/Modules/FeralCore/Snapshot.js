@@ -24,7 +24,7 @@ const debug = false;
 // also applied by Incarnation: King of the Jungle, and Shadowmeld
 const PROWL_MULTIPLIER = 2.00;
 const TIGERS_FURY_MULTIPLIER = 1.15;
-const BLOODTALONS_MULTIPLIER = 1.20;
+const BLOODTALONS_MULTIPLIER = 1.25;
 
 // "[...]deal the same damage as normal but in 20% less time."
 const JAGGED_WOUNDS_MODIFIER = 0.80;
@@ -81,7 +81,8 @@ class Snapshot extends Analyzer {
     this.lastDoTCastEvent = event;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');

@@ -16,7 +16,8 @@ class Roots extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id);
   }
 

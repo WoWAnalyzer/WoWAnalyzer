@@ -18,7 +18,8 @@ class Tearstone extends Analyzer {
   wildGrowthApplications = 0;
   wildGrowthCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
   }
 

@@ -37,7 +37,8 @@ class AMurderOfCrows extends Analyzer {
   totalCrowsCasts = 0;
   crowsNotYetChecked = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.MARKSMANSHIP_HUNTER;
     this.owner.report.enemies.forEach(enemy => {
       enemy.fights.forEach(fight => {

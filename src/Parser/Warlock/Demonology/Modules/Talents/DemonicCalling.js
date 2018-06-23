@@ -19,7 +19,8 @@ class DemonicCalling extends Analyzer {
   wastedProcs = 0;
   _expectedBuffEnd = undefined;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DEMONIC_CALLING_TALENT.id);
   }
 

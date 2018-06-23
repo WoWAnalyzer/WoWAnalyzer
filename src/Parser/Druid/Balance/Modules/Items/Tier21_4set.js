@@ -22,7 +22,8 @@ class Tier21_4set extends Analyzer {
   moonfireDamage = 0;
   sunfireDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 

@@ -16,7 +16,8 @@ class DeathFromAbove extends Analyzer {
 
   failedCombos = 0;
   
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     //Everyone plays Dark Shadow, so I'm not supporting non-dark shadow and just disabling this.
     this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
       && this.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);

@@ -18,7 +18,8 @@ class RenewedFury extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RENEWED_FURY_TALENT.id);
   }
 

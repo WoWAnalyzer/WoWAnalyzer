@@ -16,7 +16,8 @@ class ScourgeStrikeEfficiency extends Analyzer {
     enemies: Enemies,
     combatants: Combatants,
   };
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = !this.combatants.selected.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
   }
   // used to track how many stacks a target has

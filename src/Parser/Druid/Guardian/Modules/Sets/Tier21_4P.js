@@ -21,7 +21,8 @@ class Tier21_4P extends Analyzer {
     return this._healing;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.GUARDIAN_TIER_21_4P_SET_BONUS.id);
   }
 

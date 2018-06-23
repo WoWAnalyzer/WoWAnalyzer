@@ -12,25 +12,21 @@ export default {
     id: 710,
     name: 'Banish',
     icon: 'spell_shadow_cripple',
-    manaCost: 300,
   },
   CREATE_HEALTHSTONE: {
     id: 6201,
     name: 'Create Healthstone',
     icon: 'warlock_-healthstone',
-    manaCost: 400,
   },
   CREATE_SOULWELL: {
     id: 29893,
     name: 'Create Soulwell',
     icon: 'spell_shadow_shadesofdarkness',
-    manaCost: 1000,
   },
   DEMONIC_GATEWAY_CAST: {
     id: 111771,
     name: 'Demonic Gateway',
     icon: 'spell_warlock_demonicportal_green',
-    manaCost: 600,
   },
   DRAIN_LIFE: {
     id: 234153,
@@ -41,19 +37,16 @@ export default {
     id: 1098,
     name: 'Enslave Demon',
     icon: 'spell_shadow_enslavedemon',
-    manaCost: 400,
   },
   EYE_OF_KILROGG: {
     id: 126,
     name: 'Eye of Kilrogg',
     icon: 'spell_shadow_evileye',
-    manaCost: 600,
   },
   FEAR_CAST: {
     id: 5782,
     name: 'Fear',
     icon: 'spell_shadow_possession',
-    manaCost: 1000,
   },
   FEAR_DEBUFF: {
     id: 118699,
@@ -109,13 +102,11 @@ export default {
     id: 5697,
     name: 'Unending Breath',
     icon: 'spell_shadow_demonbreath',
-    manaCost: 400,
   },
   UNENDING_RESOLVE: {
     id: 104773,
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
-    manaCost: 400,
   },
   // TODO: remove later once legendaries no longer work
   // Soul Harvest (despite being removed as a talent) can still proc from The Master Harvester
@@ -133,13 +124,11 @@ export default {
     id: 48018,
     name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
-    manaCost: 400,
   },
   DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
-    manaCost: 600,
   },
   MORTAL_COIL_HEAL: {
     id: 108396,
@@ -165,13 +154,11 @@ export default {
     id: 980,
     name: 'Agony',
     icon: 'spell_shadow_curseofsargeras',
-    manaCost: 200,
   },
   CORRUPTION_CAST: {
     id: 172,
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
-    manaCost: 200,
   },
   CORRUPTION_DEBUFF: {
     id: 146739,
@@ -182,7 +169,6 @@ export default {
     id: 232670,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
-    manaCost: 400,
   },
   SEED_OF_CORRUPTION_DEBUFF: {
     id: 27243,
@@ -349,7 +335,6 @@ export default {
     id: 196277,
     name: 'Implosion',
     icon: 'inv_implosion',
-    manaCost: 400,
   },
   IMPLOSION_DAMAGE: {
     id: 196278,
@@ -360,7 +345,6 @@ export default {
     id: 686,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
-    manaCost: 400,
   },
   SUMMON_FELGUARD: {
     id: 30146,
@@ -371,7 +355,6 @@ export default {
     id: 265187,
     name: 'Summon Demonic Tyrant',
     icon: 'inv_summondemonictyrant',
-    manaCost: 400,
   },
   // Demonic Tyrant buff on player
   DEMONIC_POWER: {
@@ -576,19 +559,16 @@ export default {
     id: 17962,
     name: 'Conflagrate',
     icon: 'spell_fire_fireball',
-    manaCost: 200,
   },
   HAVOC: {
     id: 80240,
     name: 'Havoc',
     icon: 'ability_warlock_baneofhavoc',
-    manaCost: 400,
   },
   IMMOLATE: {
     id: 348,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
-    manaCost: 300,
   },
   IMMOLATE_DEBUFF: {
     id: 157736,
@@ -599,7 +579,6 @@ export default {
     id: 29722,
     name: 'Incinerate',
     icon: 'spell_fire_burnout',
-    manaCost: 400,
   },
   RAIN_OF_FIRE_CAST: {
     id: 5740,

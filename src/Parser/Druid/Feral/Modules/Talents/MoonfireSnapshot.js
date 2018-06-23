@@ -29,11 +29,10 @@ class MoonfireSnapshot extends Snapshot {
 
   downgradeCastCount = 0;
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     if (!this.combatants.selected.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
       this.active = false;
-      return;
     }
   }
 

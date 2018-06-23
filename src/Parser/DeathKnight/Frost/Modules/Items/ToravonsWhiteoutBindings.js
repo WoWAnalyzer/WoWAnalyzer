@@ -16,24 +16,25 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_MODIFIER = .15;
 
-class ToravonsWhiteoutBindings extends Analyzer{
+class ToravonsWhiteoutBindings extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   bonusDamage = 0;
 
-  on_initialized(){
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.TORAVONS_WHITEOUT_BINDINGS.id);
   }
 
-  on_byPlayer_damage(event){    
-    if(event.ability.type !== SCHOOLS.ids.FROST || event.targetIsFriendly) {
+  on_byPlayer_damage(event) {
+    if (event.ability.type !== SCHOOLS.ids.FROST || event.targetIsFriendly) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.TORAVONS_WHITEOUT_BINDINGS.id)){
+    if (this.combatants.selected.hasBuff(SPELLS.TORAVONS_WHITEOUT_BINDINGS.id)) {
       this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
-    }    
+    }
   }
 
   item() {

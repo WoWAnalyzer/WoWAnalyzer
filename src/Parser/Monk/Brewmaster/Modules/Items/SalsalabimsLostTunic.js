@@ -20,7 +20,8 @@ class SalsalabimsLostTunic extends Analyzer {
 
   cooldownResets = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.SALSALABIMS_LOST_TUNIC.id);
   }
 

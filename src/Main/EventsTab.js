@@ -5,7 +5,7 @@ import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 're
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
-import InformationIcon from 'Icons/Information';
+import InformationIcon from 'Interface/Icons/Information';
 
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';

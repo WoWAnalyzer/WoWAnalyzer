@@ -23,7 +23,8 @@ class DiimasGlacialAegis extends Analyzer {
   casts = 0;
   armorbuff = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
 
     if (this.active) {

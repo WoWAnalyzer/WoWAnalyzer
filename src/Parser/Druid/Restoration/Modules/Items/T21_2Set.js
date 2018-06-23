@@ -18,7 +18,8 @@ class T21_2Set extends Analyzer {
 
   has4pc = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id);
     this.has4pc = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
   }

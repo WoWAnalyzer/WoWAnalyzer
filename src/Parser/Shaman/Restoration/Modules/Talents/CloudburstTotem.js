@@ -26,7 +26,8 @@ class CloudburstTotem extends Analyzer {
   healing = 0;
   cbtActive = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
   }
 

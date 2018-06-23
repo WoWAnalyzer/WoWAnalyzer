@@ -36,7 +36,8 @@ class SerenityReduction extends Analyzer {
   effectiveFullOvercasts = 0;
   _tempOvercast = 0.0; // Tracker of how much wasted overcast between each holy word cast
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Set up proper serendipity reduction values
     if (this.combatants.selected.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.serendipityReduction += 2000;

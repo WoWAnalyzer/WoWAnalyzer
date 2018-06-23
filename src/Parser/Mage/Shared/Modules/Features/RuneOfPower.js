@@ -22,7 +22,8 @@ class RuneOfPower extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
   }
 

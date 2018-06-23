@@ -23,7 +23,8 @@ class WayOfTheMistweaver extends Analyzer {
   rank = 0;
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.WAY_OF_THE_MISTWEAVER.id];
     this.active = this.rank > 0;
   }

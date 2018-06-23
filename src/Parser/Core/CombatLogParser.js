@@ -12,7 +12,6 @@ import { findByBossId } from 'Raids';
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
-import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
@@ -116,22 +115,7 @@ import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/Riftw
 import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
-import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-// Netherlight Crucible Traits
-import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
-import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
-import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
-import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
-import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
-import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
-import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
-import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
-import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
-import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
-import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
@@ -149,19 +133,20 @@ let _modulesDeprecatedWarningSent = false;
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
+  static internalModules = {
+    combatants: Combatants,
+  };
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
-    status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
     deathTracker: DeathTracker,
 
-    combatants: Combatants,
     enemies: Enemies,
     enemyInstances: EnemyInstances,
     pets: Pets,
@@ -257,23 +242,6 @@ class CombatLogParser {
     riftworldCodex: RiftworldCodex,
     eyeOfHounds: EyeOfHounds,
 
-    // Concordance of the Legionfall
-    concordance: Concordance,
-    // Netherlight Crucible Traits
-    darkSorrows: DarkSorrows,
-    tormentTheWeak: TormentTheWeak,
-    chaoticDarkness: ChaoticDarkness,
-    shadowbind: Shadowbind,
-    lightsEmbrace: LightsEmbrace,
-    infusionOfLight: InfusionOfLight,
-    secureInTheLight: SecureInTheLight,
-    shocklight: Shocklight,
-    refractiveShell: RefractiveShell,
-    murderousIntent: MurderousIntent,
-    masterOfShadows: MasterOfShadows,
-    lightSpeed: LightSpeed,
-    nlcTraits: NLCTraits,
-
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
 
@@ -288,6 +256,7 @@ class CombatLogParser {
   player = null;
   playerPets = null;
   fight = null;
+  combatantInfoEvents = null;
 
   _modules = {};
   _activeAnalyzers = {};
@@ -318,9 +287,7 @@ class CombatLogParser {
   get fightDuration() {
     return this.currentTimestamp - this.fight.start_time;
   }
-  get finished() {
-    return this._modules.status.finished;
-  }
+  finished = false;
 
   get playersById() {
     return this.report.friendlies.reduce((obj, player) => {
@@ -328,22 +295,29 @@ class CombatLogParser {
       return obj;
     }, {});
   }
+  get selectedCombatant() {
+    return this._modules.combatants.selected;
+  }
 
-  constructor(report, player, playerPets, fight) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents) {
     this.report = report;
-    this.player = player;
-    this.playerPets = playerPets;
-    this.fight = fight;
-    if (fight) {
-      this._timestamp = fight.start_time;
-      this.boss = findByBossId(fight.boss);
-    } else if (process.env.NODE_ENV !== 'test') {
-      throw new Error('fight argument was empty.');
-    }
+    this.player = selectedPlayer;
+    this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
+    this.fight = selectedFight;
+    this.combatantInfoEvents = combatantInfoEvents;
+    this._timestamp = selectedFight.start_time;
+    this.boss = findByBossId(selectedFight.boss);
 
     this.initializeModules({
+      ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
+    });
+  }
+  finish() {
+    this.finished = true;
+    this.fabricateEvent({
+      type: 'finished',
     });
   }
 
@@ -365,6 +339,7 @@ class CombatLogParser {
         options = null;
       }
 
+      // region Resolve dependencies
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
@@ -379,6 +354,7 @@ class CombatLogParser {
           }
         });
       }
+      // endregion
 
       if (missingDependencies.length === 0) {
         if (debugDependencyInjection) {
@@ -389,16 +365,18 @@ class CombatLogParser {
           }
         }
         const priority = Object.keys(this._modules).length;
+        // region Load Module
         // eslint-disable-next-line new-cap
         const module = new moduleClass(this, availableDependencies, priority);
-        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
+          // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+          // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
           Object.keys(options).forEach(key => {
             module[key] = options[key];
           });
         }
         this._modules[desiredModuleName] = module;
+        // endregion
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -431,31 +409,7 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-  eventHistory = [];
-  initialize(combatants) {
-    this.initializeNormalizers(combatants);
-    this.initializeAnalyzers(combatants);
-    this.triggerInitialized();
-  }
-  initializeAnalyzers(combatants) {
-    this.parseEvents(combatants);
-  }
-  triggerInitialized() {
-    this.fabricateEvent({
-      type: 'initialized',
-    });
-  }
 
-  initializeNormalizers(combatants) {
-    this.activeModules
-      .filter(module => module instanceof EventsNormalizer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        if (module.initialize) {
-          module.initialize(combatants);
-        }
-      });
-  }
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -478,6 +432,7 @@ class CombatLogParser {
   }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
+  eventHistory = [];
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -506,6 +461,7 @@ class CombatLogParser {
     // Creating arrays is expensive so we cheat and just push instead of using it immutably
     this.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
+    // TODO: This can probably be removed since we only render upon completion now
     this.eventCount += 1;
   }
   fabricateEvent(event = null, trigger = null) {

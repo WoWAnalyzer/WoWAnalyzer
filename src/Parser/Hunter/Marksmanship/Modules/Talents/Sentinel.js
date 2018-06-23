@@ -38,7 +38,8 @@ class Sentinel extends Analyzer {
   timesTicked = 0;
   lastApplicationFromSentinel = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id);
   }
 

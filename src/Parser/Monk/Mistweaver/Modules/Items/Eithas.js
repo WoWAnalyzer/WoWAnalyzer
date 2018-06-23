@@ -23,7 +23,8 @@ class Eithas extends Analyzer {
   rawHealingCleave = 0;
   rawHealingMain = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.EITHAS_LUNAR_GLIDES.id);
   }
 

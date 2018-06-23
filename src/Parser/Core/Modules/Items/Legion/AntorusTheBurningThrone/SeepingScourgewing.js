@@ -19,7 +19,8 @@ class SeepingScourgewing extends Analyzer {
   totalHits = 0;
   isolatedHits = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.SEEPING_SCOURGEWING.id);
   }
 

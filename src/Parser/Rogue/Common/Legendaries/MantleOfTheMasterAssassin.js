@@ -10,7 +10,8 @@ class MantleOfTheMasterAssassin extends Analyzer {
     combatants: Combatants,
   };
 
-	on_initialized(){
+  constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
   }
   

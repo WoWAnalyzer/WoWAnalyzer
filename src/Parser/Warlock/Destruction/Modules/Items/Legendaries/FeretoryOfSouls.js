@@ -20,7 +20,8 @@ class FeretoryOfSouls extends Analyzer {
   _totalCasts = 0;
   _totalDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.FERETORY_OF_SOULS.id);
   }
 

@@ -17,7 +17,8 @@ class SheathOfAsara extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.SHEATH_OF_ASARA.id);
   }
 

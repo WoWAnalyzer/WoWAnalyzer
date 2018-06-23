@@ -37,7 +37,8 @@ class Tier19_2p extends Analyzer {
   wastedTrueshotReductionMs = 0;
   lastFocusCost = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
   }
   on_byPlayer_cast(event) {

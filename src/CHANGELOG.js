@@ -8,6 +8,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-23'),
+    changes: 'Revamped all spells with static GCDs or base GCDs different from the class default.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-22'),
+    changes: 'Added WoWAnalyzer Premium. See the announcement for more information.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-22'),
+    changes: 'Added "ads" to help fund further development. The "ads" will at some point in the future turn into real ads from an ad platform.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-12'),
     changes: 'Updated character selection to default to HPS or DPS as metric, depending on characters last active spec.',
     contributors: [joshinator],
@@ -199,7 +214,7 @@ export default [
   },
   {
     date: new Date('2018-03-15'),
-    changes: <React.Fragment>Added Master of Combinations, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
+    changes: <React.Fragment>Added Master of Combinations, Fury of Ashamane, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -209,7 +224,7 @@ export default [
   },
   {
     date: new Date('2018-02-21'),
-    changes: <React.Fragment>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</React.Fragment>,
+    changes: `Moved Concordance of the Legionfall statistic into the Netherlight Crucible list and renamed it.`,
     contributors: [Putro],
   },
   {

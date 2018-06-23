@@ -47,7 +47,8 @@ class UnleashLife extends Analyzer {
   lastUnleashLifeTimestamp = null;
   lastUnleashLifeFeedTimestamp = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
   }
 

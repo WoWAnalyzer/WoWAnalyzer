@@ -16,7 +16,8 @@ class ThermalVoid extends Analyzer {
   buffApplied = 0;
   extraUptime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 

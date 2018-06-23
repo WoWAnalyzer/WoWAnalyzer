@@ -21,7 +21,8 @@ class StretensSleeplessShackles extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.STRETENS_SLEEPLESS_SHACKLES.id);
   }
 
