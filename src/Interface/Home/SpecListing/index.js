@@ -30,7 +30,7 @@ class SpecListing extends React.PureComponent {
               }
               return a.spec.id - b.spec.id;
             })
-            .map(config => <Spec {...config} />)}
+            .map(config => <Spec key={config.spec.id} {...config} />)}
         </main>
       </section>
     );
