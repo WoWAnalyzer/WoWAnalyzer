@@ -6,6 +6,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+    // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
     return [
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
@@ -145,7 +146,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHI_BURST_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 30,
-        gcd: true,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
       },
       {
         spell: SPELLS.LEG_SWEEP_TALENT,
