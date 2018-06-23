@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FIRE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: false,
+        gcd: null,
         cooldown: haste => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id) ? 10 / (1 + haste) : 12 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id) ? 3 : 2,
         castEfficiency: {
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COMBUSTION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -207,7 +207,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
@@ -218,7 +218,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 24,
         castEfficiency: {
           disabled: true,

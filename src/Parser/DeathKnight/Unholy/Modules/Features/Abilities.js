@@ -161,7 +161,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
-        gcd: false,
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -188,14 +188,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.CORPSE_SHIELD_TALENT,
@@ -203,7 +203,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.CORPSE_SHIELD_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ARMY_OF_THE_DEAD,
@@ -268,18 +268,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.MIND_FREEZE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DARK_COMMAND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.RUNE_1,

@@ -146,7 +146,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -159,7 +159,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_PACT_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
-        gcd: false,
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         castEfficiency: {
           suggestion: true,

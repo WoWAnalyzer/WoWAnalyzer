@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SILENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45 - (combatant.hasTalent(SPELLS.LAST_WORD_TALENT.id) ? 15 : 0),
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.VAMPIRIC_EMBRACE,
@@ -238,7 +238,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FADE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.POWER_WORD_FORTITUDE,
@@ -258,7 +258,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_TORRENT_MANA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
-        gcd: false,
+        gcd: null,
         isUndetectable: true,
         castEfficiency: {
           suggestion: true,

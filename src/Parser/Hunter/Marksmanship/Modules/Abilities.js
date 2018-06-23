@@ -107,7 +107,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -118,7 +118,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
         },
@@ -127,13 +127,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.BURSTING_SHOT,
@@ -155,19 +155,19 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COUNTER_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        gcd: false,
+        gcd: null,
 
       },
       {
@@ -175,13 +175,13 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.FREEZING_TRAP,

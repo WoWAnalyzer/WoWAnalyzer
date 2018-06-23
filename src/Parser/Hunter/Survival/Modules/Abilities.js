@@ -155,7 +155,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           extraSuggestion: <React.Fragment>You'll want to use <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible, as it's a very powerful cooldown partly due to the <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} /> trait. It should be used whenever you run out of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> stacks in your <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> windows, or there's 10s seconds remaining of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to fully utilise the pairing.</React.Fragment>,
         },
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
@@ -166,7 +166,7 @@ class Abilities extends CoreAbilities {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -178,13 +178,13 @@ class Abilities extends CoreAbilities {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.HARPOON,
@@ -198,13 +198,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MUZZLE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.FREEZING_TRAP,

@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OBLITERATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
         castEfficiency: {
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
         castEfficiency: {
@@ -50,7 +50,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PILLAR_OF_FROST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EMPOWER_RUNE_WEAPON,
-        gcd: false,
+        gcd: null,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
         castEfficiency: {
@@ -171,14 +171,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DARK_COMMAND,
@@ -221,13 +221,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 25,
       },
       {
         spell: SPELLS.MIND_FREEZE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 15,
       },
       {

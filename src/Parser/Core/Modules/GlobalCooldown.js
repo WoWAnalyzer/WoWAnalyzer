@@ -134,7 +134,7 @@ class GlobalCooldown extends Analyzer {
           // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
           minimumGCD = this._resolveAbilityGcdField(ability.gcd.minimum) || (baseGCD / 2);
         } else {
-          throw new Error(`"gcd" should either have a "static" or "base" GCD set for spell ${spellId}`);
+          throw new Error(`"gcd" should be false or an object with either a "static" or "base" GCD set (for spell ${spellId})`);
         }
       }
     }

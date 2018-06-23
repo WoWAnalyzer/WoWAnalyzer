@@ -220,7 +220,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 20,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
@@ -231,7 +231,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 24,
         castEfficiency: {
           disabled: true,
@@ -276,7 +276,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COLD_SNAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 300,
         castEfficiency: {
           disabled: true,

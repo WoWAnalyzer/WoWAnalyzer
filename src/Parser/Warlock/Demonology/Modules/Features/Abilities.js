@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
       //   spell: SPELLS.FELSTORM,
       //   category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       //   cooldown: 45,
-      //   gcd: false,
+      //   gcd: null,
       // },
       {
         spell: SPELLS.BILESCOURGE_BOMBERS_TALENT,
@@ -176,7 +176,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -190,7 +190,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,

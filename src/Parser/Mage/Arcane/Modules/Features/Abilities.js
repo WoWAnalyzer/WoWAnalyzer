@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PRESENCE_OF_MIND,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: false,
+        gcd: null,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -212,7 +212,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DISPLACEMENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 22,
         castEfficiency: {
           disabled: true,
@@ -233,7 +233,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
@@ -244,7 +244,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         cooldown: 24,
         castEfficiency: {
           disabled: true,

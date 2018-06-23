@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 120 - (120 * 0.35) : 120,
-        gcd: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -167,13 +167,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.CONCUSSIVE_SHOT,
@@ -187,13 +187,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COUNTER_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.INTIMIDATION,
@@ -207,14 +207,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
@@ -225,7 +225,7 @@ class Abilities extends CoreAbilities {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterPathFinder * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.FREEZING_TRAP,

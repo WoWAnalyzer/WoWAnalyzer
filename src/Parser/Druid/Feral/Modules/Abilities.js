@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        gcd: false,
+        gcd: null,
         timelineSortIndex: 20,
       },
       {
@@ -190,7 +190,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 120,
         // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        gcd: false,
+        gcd: null,
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 45,
         // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        gcd: false,
+        gcd: null,
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -221,7 +221,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SKULL_BASH_FERAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         timelineSortIndex: 33,
       },
       {
@@ -229,14 +229,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.PROWL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 6,
-        gcd: false,
+        gcd: null,
         timelineSortIndex: 25,
       },
       {
         spell: SPELLS.PROWL_INCARNATION,
         buffSpellId: SPELLS.PROWL_INCARNATION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: false,
+        gcd: null,
         timelineSortIndex: 26,
       },
       {
@@ -245,7 +245,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         isUndetectable: true,
-        gcd: false,
+        gcd: null,
         timelineSortIndex: 24,
       },
       {
@@ -254,7 +254,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         charges: 2,
-        gcd: false,
+        gcd: null,
         isDefensive: true,
         timelineSortIndex: 40,
       },
@@ -323,7 +323,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
         cooldown: 90,
-        gcd: false,
+        gcd: null,
         isDefensive: true,
         timelineSortIndex: 42,
       },
