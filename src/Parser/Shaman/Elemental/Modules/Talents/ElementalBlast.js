@@ -5,16 +5,12 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { ELEMENTAL_BLAST_IDS } from '../../Constants';
 
 class ElementalBlast extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   currentBuffAmount=0;
   lastFreshApply=0;
@@ -23,7 +19,7 @@ class ElementalBlast extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
   }
 
   on_toPlayer_removebuff(event) {

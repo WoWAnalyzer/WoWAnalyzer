@@ -6,14 +6,10 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Ascendance extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   numLavaBurstsCast = 0;
   numLightningBoltsCast = 0;
@@ -30,11 +26,11 @@ class Ascendance extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) || this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) || this.selectedCombatant.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 
   get rawUpdate() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) / this.owner.fightDuration;
   }
 
   get AscendanceUptime() {
@@ -42,7 +38,7 @@ class Ascendance extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)) {
       const spellId = event.ability.guid;
       if (this.numCasts[spellId] !== undefined) {
         this.numCasts[spellId] += 1;

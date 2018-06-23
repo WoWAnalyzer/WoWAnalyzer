@@ -1,20 +1,16 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
 class TheDeceiversBloodPact extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   extraMaelstrom = 0;
   counter = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.THE_DECEIVERS_BLOOD_PACT_EQUIP.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.THE_DECEIVERS_BLOOD_PACT_EQUIP.id);
   }
 
   on_byPlayer_energize(event) {
