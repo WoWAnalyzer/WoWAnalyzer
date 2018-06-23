@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import SkullIcon from 'Icons/Skull';
+import SkullIcon from 'Interface/Icons/Skull';
 
 import Icon from 'common/Icon';
 import { getReport } from 'selectors/report';
