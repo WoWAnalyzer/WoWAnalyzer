@@ -5,22 +5,20 @@ import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHeali
 
 const debug = false;
 
-const HEALING_ABILITIES_ON_GCD = [
-  SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.HOLY_LIGHT.id,
-  SPELLS.HOLY_SHOCK_CAST.id,
-  // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
-  SPELLS.LIGHT_OF_DAWN_CAST.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.BESTOW_FAITH_TALENT.id,
-  SPELLS.TYRS_DELIVERANCE_CAST.id,
-  SPELLS.HOLY_PRISM_TALENT.id,
-  SPELLS.LIGHTS_HAMMER_TALENT.id,
-  // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
-];
-
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
+  static HEALING_ABILITIES_ON_GCD = [
+    SPELLS.FLASH_OF_LIGHT.id,
+    SPELLS.HOLY_LIGHT.id,
+    SPELLS.HOLY_SHOCK_CAST.id,
+    // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
+    SPELLS.LIGHT_OF_DAWN_CAST.id,
+    SPELLS.LIGHT_OF_THE_MARTYR.id,
+    SPELLS.BESTOW_FAITH_TALENT.id,
+    SPELLS.TYRS_DELIVERANCE_CAST.id,
+    SPELLS.HOLY_PRISM_TALENT.id,
+    SPELLS.LIGHTS_HAMMER_TALENT.id,
+    // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in constructor if applicable
+  ];
 
   constructor(...args) {
     super(...args);
