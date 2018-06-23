@@ -62,6 +62,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GOREMAWS_BITE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          static: 1000,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -76,36 +79,60 @@ class Abilities extends CoreAbilities {
         // TODO: Track separately!
         // This should be used only with Symbols. 
         cooldown: 20,
+        gcd: {
+          static: 2000,
+        },
       },
       {
         spell: SPELLS.NIGHTBLADE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.EVISCERATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.BACKSTAB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
         enabled: !combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
       },
       {
         spell: SPELLS.GLOOMBLADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
       },
       {
         spell: SPELLS.SHADOWSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.SHURIKEN_STORM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.SHURIKEN_TOSS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT,
@@ -116,10 +143,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FEINT,
         buffSpellId: SPELLS.FEINT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.CRIMSON_VIAL,
         cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
       {
@@ -127,6 +160,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.EVASION.id,
         cooldown: 120,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
+        spell: SPELLS.KIDNEY_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          static: 1000,
+        },
       },
     ];
   }
