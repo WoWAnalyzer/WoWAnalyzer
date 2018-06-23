@@ -39,13 +39,14 @@ class FrenziedRegeneration extends Analyzer {
     }
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const player = this.combatants.selected;
     const wildfleshRank = player.traitsBySpellId[SPELLS.WILDFLESH_TRAIT.id];
     const versModifier = this.statTracker.currentVersatilityPercentage;
 
     this._healModifier += (wildfleshRank * WILDFLESH_MODIFIER_PER_RANK);
-    this._healModifier += versModifier; // TODO: Account for Haste buffs by asking the actual value on each event instead of in on_initialized
+    this._healModifier += versModifier; // TODO: Account for Haste buffs by asking the actual value on each event instead of in here
   }
 
   on_byPlayer_cast(event) {

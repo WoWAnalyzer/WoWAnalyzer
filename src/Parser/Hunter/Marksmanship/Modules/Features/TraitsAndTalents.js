@@ -40,7 +40,8 @@ class TraitsAndTalents extends Analyzer {
     legacyOfTheWindrunners: LegacyOfTheWindrunners,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Deactivate this module if none of the underlying modules are active.
     this.active = Object.keys(this.constructor.dependencies)
       .map(key => this[key])

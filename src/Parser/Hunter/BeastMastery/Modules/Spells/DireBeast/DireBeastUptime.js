@@ -16,7 +16,8 @@ class DireBeastUptime extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
 

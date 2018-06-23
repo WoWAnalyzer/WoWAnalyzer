@@ -19,7 +19,8 @@ class Tier21_4p extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id);
   }
 

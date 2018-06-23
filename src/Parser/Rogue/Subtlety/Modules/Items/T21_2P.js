@@ -20,7 +20,8 @@ class T21_2P extends Analyzer {
   resetMs = 0;
   wastedMs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id);
   }
 

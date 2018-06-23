@@ -22,7 +22,8 @@ class StaggerFabricator extends Analyzer {
   _hasTier20_4pc = false;
   _staggerPool = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const player = this.combatants.selected;
     this._hasTier20_4pc = player.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
   }

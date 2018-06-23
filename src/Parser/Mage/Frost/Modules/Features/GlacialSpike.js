@@ -16,7 +16,8 @@ class GlacialSpike extends Analyzer {
   overcapped = 0;
   total = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
   }
 

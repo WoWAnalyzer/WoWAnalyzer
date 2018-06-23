@@ -38,7 +38,8 @@ class DarkmoonDeckPromises extends Analyzer {
 
   manaGained = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const selectedCombatant = this.combatants.selected;
     this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
 

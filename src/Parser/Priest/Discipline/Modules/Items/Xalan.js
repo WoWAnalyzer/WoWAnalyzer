@@ -16,7 +16,8 @@ class Xalan extends Analyzer {
     return 15;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
   }
 

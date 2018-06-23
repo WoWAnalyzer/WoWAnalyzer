@@ -21,7 +21,8 @@ class Judgment extends Analyzer {
   totalSpender = 0;
   spenderOutsideJudgment = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this._hasES = this.combatants.selected.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
   }
 

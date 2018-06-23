@@ -45,7 +45,8 @@ class RejuvenationAttributor extends Analyzer {
   // 4T19 tracking stuff
   has4t19;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
     this.has4t19 = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
     this.castRejuvApplied = true;

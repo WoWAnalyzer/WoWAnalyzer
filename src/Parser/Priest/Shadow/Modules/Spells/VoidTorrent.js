@@ -23,7 +23,8 @@ class VoidTorrent extends Analyzer {
     voidform: Voidform,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
   }
 

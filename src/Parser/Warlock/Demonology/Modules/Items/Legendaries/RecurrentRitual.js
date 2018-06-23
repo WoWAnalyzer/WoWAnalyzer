@@ -12,7 +12,8 @@ class RecurrentRitual extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.RECURRENT_RITUAL.id);
   }
 

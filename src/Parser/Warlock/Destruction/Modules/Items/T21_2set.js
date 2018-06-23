@@ -19,7 +19,8 @@ class T21_2set extends Analyzer {
 
   incinerateCrits = 0; // while target is affected by the T21 2p debuff
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id);
   }
 

@@ -20,7 +20,8 @@ class TheEmeraldDreamcatcher extends Analyzer {
     return spellId === SPELLS.THE_EMERALD_DREAMCATCHER.id;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
   }
 

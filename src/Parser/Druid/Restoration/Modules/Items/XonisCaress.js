@@ -14,7 +14,8 @@ class XonisCaress extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.XONIS_CARESS.id);
   }
 

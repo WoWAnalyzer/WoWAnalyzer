@@ -15,8 +15,8 @@ class Channeling extends CoreChanneling {
   _hasCastigation = null;
   _bolt = 0;
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     this._hasCastigation = this.combatants.selected.hasTalent(
       SPELLS.CASTIGATION_TALENT.id
     );

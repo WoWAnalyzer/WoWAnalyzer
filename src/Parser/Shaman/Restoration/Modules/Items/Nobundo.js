@@ -8,7 +8,8 @@ const LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can 
 class Nobundo extends Analyzer {
   discounts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
   }
 

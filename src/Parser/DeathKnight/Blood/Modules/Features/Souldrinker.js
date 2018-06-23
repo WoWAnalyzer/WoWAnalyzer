@@ -23,7 +23,8 @@ class Souldrinker extends Analyzer {
     _soulDrinker contains for each second the %-buff
   */
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.SOULDRINKER_TRAIT.id];
   }
 

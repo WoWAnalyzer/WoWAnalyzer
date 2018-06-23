@@ -23,7 +23,8 @@ class StormstoutsLastGasp extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id);
   }
 

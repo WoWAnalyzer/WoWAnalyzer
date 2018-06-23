@@ -19,7 +19,8 @@ class FocusTracker extends Analyzer {
   _maxFocus = 0;
   totalFocusGenModifier = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.lastEventTimestamp = this.owner.fight.start_time;
     this.secondsCapped = 0;
   }

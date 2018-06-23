@@ -24,7 +24,8 @@ class SpittingCobra extends Analyzer {
   focusGain = 0;
   focusWaste = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
   }
 

@@ -18,7 +18,8 @@ class Tidecallers extends Analyzer {
   firstTickAfterBaseDuration = null;
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 

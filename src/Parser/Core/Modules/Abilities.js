@@ -37,7 +37,8 @@ class Abilities extends Analyzer {
 
   abilities = [];
   activeAbilities = [];
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.abilities = this.spellbook().map(options => new this.constructor.ABILITY_CLASS(this, options));
     this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }

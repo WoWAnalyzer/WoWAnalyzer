@@ -17,7 +17,8 @@ class AnvilHardenedWristwraps extends Analyzer {
   cdr = 0;
   wastedCDR = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.ANVIL_HARDENED_WRISTWRAPS.id);
   }
 

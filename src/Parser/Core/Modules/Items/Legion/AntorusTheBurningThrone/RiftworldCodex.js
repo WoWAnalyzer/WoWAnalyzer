@@ -33,7 +33,8 @@ class RiftworldCodex extends Analyzer {
   immolationoverhealing = 0;
   immolationdamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.RIFTWORLD_CODEX.id);
   }
 

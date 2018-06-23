@@ -29,7 +29,8 @@ class RushingJadeWind extends Analyzer {
     };
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id);
   }
 

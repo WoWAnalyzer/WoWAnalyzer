@@ -28,7 +28,8 @@ class Eradication extends Analyzer {
   _totalCDF = 0;
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.ERADICATION_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
     this._hasCDF = this.combatants.selected.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }

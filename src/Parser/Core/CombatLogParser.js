@@ -313,8 +313,6 @@ class CombatLogParser {
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
     });
-
-    this.triggerInitialized();
   }
   finish() {
     this.finished = true;
@@ -411,21 +409,6 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-  eventHistory = [];
-  triggerInitialized() {
-    if (process.env.NODE_ENV === 'development') {
-      Object.keys(this.constructor.defaultModules).forEach(moduleName => {
-        const moduleClass = this.constructor.defaultModules[moduleName];
-
-        if (moduleClass.prototype.on_initialized) {
-          console.warn(`${moduleClass.name}.on_initialized: The initialized event has been deprecated. Use the constructor instead.`);
-        }
-      });
-    }
-    this.fabricateEvent({
-      type: 'initialized',
-    });
-  }
 
   normalize(events) {
     this.activeModules
@@ -449,6 +432,7 @@ class CombatLogParser {
   }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
+  eventHistory = [];
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {

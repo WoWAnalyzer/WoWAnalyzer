@@ -22,7 +22,8 @@ class Shadowburn extends Analyzer {
 
   _expectedShadowburnDebuffEnds = []; // we can have up to 2 Shadowburn debuffs active on mobs (it has 2 charges)
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
   }
 

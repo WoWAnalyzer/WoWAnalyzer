@@ -18,7 +18,8 @@ class BoWProcTracker extends Analyzer {
   overwrittenBoWProcs = 0;
   totalBoWProcs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id);
   }
 

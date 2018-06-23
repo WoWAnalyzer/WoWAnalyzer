@@ -21,7 +21,8 @@ class NaturesEssence extends Analyzer {
   totalHits = 0;
   healTimestamp = undefined;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.NATURES_ESSENCE_TRAIT.id] > 0;
   }
 

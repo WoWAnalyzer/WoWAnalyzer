@@ -17,7 +17,8 @@ class VoidformAverageStacks extends Analyzer {
     voidform: Voidform,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
   }
 

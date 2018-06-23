@@ -29,7 +29,8 @@ class TwistOfFate extends Analyzer {
   healing = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasTwistOfFate = this.owner.modules.combatants.selected.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
     this.hasSoulOfTheHighPriest = this.owner.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
     this.active = this.hasTwistOfFate || this.hasSoulOfTheHighPriest;

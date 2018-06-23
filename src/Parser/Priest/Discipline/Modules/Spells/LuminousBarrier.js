@@ -17,7 +17,8 @@ class LuminousBarrier extends Analyzer {
   totalAbsorb = 0;
   wastedAbsorb = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
   }
 

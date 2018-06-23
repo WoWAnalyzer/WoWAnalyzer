@@ -23,7 +23,8 @@ class WhisperOfTheNathrezim extends Analyzer {
   spenderInsideBuff = 0;
   totalSpender = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBack(ITEMS.WHISPER_OF_THE_NATHREZIM.id);
   }
 

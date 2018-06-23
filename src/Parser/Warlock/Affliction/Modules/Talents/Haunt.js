@@ -27,7 +27,8 @@ class Haunt extends Analyzer {
   totalTicks = 0;
   buffedTicks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 

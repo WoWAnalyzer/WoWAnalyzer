@@ -19,7 +19,8 @@ class Lenience extends Analyzer {
     return this.totalDamageTakenDuringAtonement / (1 - LENIENCE_DR) * LENIENCE_DR;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LENIENCE.id);
   }
 

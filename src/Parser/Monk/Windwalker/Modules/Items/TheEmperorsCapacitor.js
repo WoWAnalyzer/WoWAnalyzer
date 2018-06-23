@@ -22,7 +22,8 @@ class TheEmperorsCapacitor extends Analyzer {
   damage = 0;
   chiSpenders = CHI_SPENDERS;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.THE_EMPERORS_CAPACITOR.id);
   }
 

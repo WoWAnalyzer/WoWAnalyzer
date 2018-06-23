@@ -17,7 +17,8 @@ class Restoration_Shaman_T21_2Set extends Analyzer {
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T21_2SET_BONUS_BUFF.id);
   }
 

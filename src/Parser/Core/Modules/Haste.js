@@ -46,7 +46,8 @@ class Haste extends Analyzer {
   };
 
   current = null;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);

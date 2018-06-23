@@ -34,7 +34,8 @@ class Lacerate extends Analyzer {
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       this.lacerateDuration += T20_2P_INCREASE;
     }

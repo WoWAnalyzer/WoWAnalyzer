@@ -18,7 +18,8 @@ class CobraCommander extends Analyzer {
   cobraCommanderIDs = [];
   sneakySnakeDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.COBRA_COMMANDER_TRAIT.id];
   }
 

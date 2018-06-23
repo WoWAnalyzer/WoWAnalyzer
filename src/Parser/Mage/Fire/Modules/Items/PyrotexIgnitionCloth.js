@@ -15,7 +15,8 @@ class PyrotexIgnitionCloth extends Analyzer {
 
   cooldownReduction = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.PYROTEX_IGNITION_CLOTH.id);
   }
 

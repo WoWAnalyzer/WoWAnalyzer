@@ -17,7 +17,8 @@ class T20_2pc extends Analyzer {
     return this.combatants.getBuffUptime(SPELLS.GRAVEWARDEN.id) / this.owner.fightDuration;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
   }
 

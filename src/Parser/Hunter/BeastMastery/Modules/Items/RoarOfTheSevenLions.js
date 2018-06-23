@@ -70,7 +70,8 @@ class RoarOfTheSevenLions extends Analyzer {
     },
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id);
   }
 

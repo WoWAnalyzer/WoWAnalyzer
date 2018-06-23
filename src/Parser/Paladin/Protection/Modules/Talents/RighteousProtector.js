@@ -19,7 +19,8 @@ class RighteousProtector extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
   }
 

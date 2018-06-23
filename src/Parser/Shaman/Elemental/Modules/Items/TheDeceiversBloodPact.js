@@ -12,7 +12,8 @@ class TheDeceiversBloodPact extends Analyzer {
   extraMaelstrom = 0;
   counter = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.THE_DECEIVERS_BLOOD_PACT_EQUIP.id);
   }
 

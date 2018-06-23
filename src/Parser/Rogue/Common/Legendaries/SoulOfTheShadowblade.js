@@ -10,17 +10,17 @@ class SoulOfTheShadowblade extends Analyzer {
     combatants: Combatants,
   };
 
-	on_initialized(){
-		this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_SHADOWBLADE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_SHADOWBLADE.id);
   }
-  
-	item() {
-		return {
-			item: ITEMS.SOUL_OF_THE_SHADOWBLADE,
-			result: <React.Fragment>Equipped.</React.Fragment>,
-		};
-	}
 
+  item() {
+    return {
+      item: ITEMS.SOUL_OF_THE_SHADOWBLADE,
+      result: <React.Fragment>Equipped.</React.Fragment>,
+    };
+  }
 }
 
 export default SoulOfTheShadowblade;

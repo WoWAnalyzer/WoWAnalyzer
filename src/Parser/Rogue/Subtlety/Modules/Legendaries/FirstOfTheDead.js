@@ -19,7 +19,8 @@ class FirstOfTheDead extends Analyzer {
   totalValue = 0;
   valueCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.THE_FIRST_OF_THE_DEAD.id);
   }
 

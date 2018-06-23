@@ -26,7 +26,8 @@ class SteelTrap extends Analyzer {
   bonusDamage = 0;
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
   }
 

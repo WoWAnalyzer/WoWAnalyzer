@@ -17,7 +17,8 @@ class TwinMoons extends Analyzer {
   moonfireCasts = 0;
   moonfireHits = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
   }
 

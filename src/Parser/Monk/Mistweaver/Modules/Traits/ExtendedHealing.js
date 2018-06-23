@@ -26,7 +26,8 @@ class ExtendedHealing extends Analyzer {
   rank = 0;
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.EXTENDED_HEALING.id];
     this.active = this.rank > 0;
   }

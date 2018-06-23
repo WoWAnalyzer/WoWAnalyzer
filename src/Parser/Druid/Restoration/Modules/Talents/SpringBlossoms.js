@@ -15,7 +15,8 @@ class SpringBlossoms extends Analyzer {
     mastery: Mastery,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const hasSpringBlossoms = this.combatants.selected.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
     this.active = hasSpringBlossoms;
   }

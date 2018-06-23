@@ -31,7 +31,8 @@ class Mastery extends Analyzer {
    */
   masteryBuffs = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     Object.entries(DRUID_HEAL_INFO)
       .filter(infoEntry => infoEntry[1].masteryStack)
       .forEach(infoEntry => {

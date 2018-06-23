@@ -28,7 +28,8 @@ class Lifecycles extends Analyzer {
   castsNonRedViv = 0;
   castsNonRedEnm = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
   }
 

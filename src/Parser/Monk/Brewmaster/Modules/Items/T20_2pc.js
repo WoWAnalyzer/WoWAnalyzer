@@ -23,7 +23,8 @@ class T20_2pc extends Analyzer {
   hastCastNewBrew = false;
   orbTriggeredBy2Pc = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 2pc');
   }

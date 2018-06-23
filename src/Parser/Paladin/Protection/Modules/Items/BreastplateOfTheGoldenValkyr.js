@@ -21,7 +21,8 @@ class BreatplateOfTheGoldenValkyr extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id);
   }
 

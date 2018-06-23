@@ -34,7 +34,8 @@ class HeatingUp extends Analyzer {
   hasFirestarterTalent;
   hasLegendaryBelt;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasFirestarterTalent = this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasLegendaryBelt = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
   }

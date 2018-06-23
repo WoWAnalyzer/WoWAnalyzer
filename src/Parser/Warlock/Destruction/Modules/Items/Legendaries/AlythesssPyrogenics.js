@@ -29,7 +29,8 @@ class AlythesssPyrogenics extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.ALYTHESSS_PYROGENICS.id);
   }
 

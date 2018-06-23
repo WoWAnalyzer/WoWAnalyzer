@@ -26,7 +26,8 @@ class GarothiFeedbackConduit extends Analyzer {
     return this.averageStacks * this._hastePerStack;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
     if (this.active) {
       const item = this.combatants.selected.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);

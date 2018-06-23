@@ -20,7 +20,8 @@ class AmalgamsSeventhSpine extends Analyzer {
   applications = 0;
   refreshes = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
   }
 

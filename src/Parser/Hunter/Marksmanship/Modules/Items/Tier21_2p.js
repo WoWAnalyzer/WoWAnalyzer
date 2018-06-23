@@ -52,7 +52,8 @@ class Tier21_2p extends Analyzer {
     },
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T21_2P_BONUS.id);
   }
 

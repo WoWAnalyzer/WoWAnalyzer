@@ -24,7 +24,8 @@ class Contrition extends Analyzer {
   damagePenalty = 0;
   penanceBoltEstimation;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasTalent(
       SPELLS.CONTRITION_TALENT.id
     );

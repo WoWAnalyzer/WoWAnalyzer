@@ -21,7 +21,8 @@ class T20_2set extends Analyzer {
   casts = 0;
   procs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id);
   }
 

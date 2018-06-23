@@ -23,7 +23,8 @@ class Skjoldr extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasWrists(ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id);
   }
 

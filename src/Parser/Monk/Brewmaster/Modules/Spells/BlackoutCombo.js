@@ -37,7 +37,8 @@ class BlackoutCombo extends Analyzer {
     };
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }
 

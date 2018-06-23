@@ -14,7 +14,8 @@ class ShadowSatyrsWalk extends Analyzer {
     energyTracker: EnergyTracker,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.SHADOW_SATYRS_WALK.id);
   }
 

@@ -16,7 +16,7 @@ class ResourceTracker extends Analyzer {
   buildersObj = {};
   spendersObj = {};
 
-  // TODO set this to the resource you wish to track on_initialized.. see the appropriate objects in common/RESOURCE_TYPES
+  // TODO set this to the resource you wish to track constructor.. see the appropriate objects in common/RESOURCE_TYPES
   resource;
 
   // TODO a classes 'main' resource passes the max along with events, but for other resources this may need to be defined
@@ -29,7 +29,7 @@ class ResourceTracker extends Analyzer {
   // baseRegenRate; // TODO resource's base regeneration rate in points per second
   // isRegenHasted; // TODO iff true, regeneration rate will be scaled with haste
 
-  // TODO if you wish an ability to show in results even if it wasn't used, add it using these functions on_initialized
+  // TODO if you wish an ability to show in results even if it wasn't used, add it using these functions constructor
   initBuilderAbility(spellId) {
     this.buildersObj[spellId] = { generated: 0, wasted: 0, casts: 0 };
   }

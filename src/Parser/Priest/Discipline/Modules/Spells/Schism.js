@@ -52,7 +52,8 @@ class Schism extends Analyzer {
   smiteEstimation;
 
   // Methods
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasTalent(
       SPELLS.SCHISM_TALENT.id
     );

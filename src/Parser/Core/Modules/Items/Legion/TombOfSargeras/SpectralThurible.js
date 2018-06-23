@@ -23,7 +23,8 @@ class SpectralThurible extends Analyzer {
   hits = 0;
   hitTimestamp;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
   }
 

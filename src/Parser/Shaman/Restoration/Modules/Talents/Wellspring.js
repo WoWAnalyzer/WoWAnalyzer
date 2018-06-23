@@ -16,7 +16,8 @@ class Wellspring extends Analyzer {
   };
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.WELLSPRING_TALENT.id);
   }
 

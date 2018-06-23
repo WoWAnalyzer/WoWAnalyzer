@@ -22,9 +22,6 @@ describe('Brewmaster.BlackoutCombo', () => {
     hasTalentMethod.mockReturnValue(false);
     const combatant = { selected: { hasTalent: hasTalentMethod } };
     blackoutCombo.combatants = combatant;
-    blackoutCombo.triggerEvent({
-      type: 'initialized',
-    });
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(false);
   });
@@ -33,9 +30,6 @@ describe('Brewmaster.BlackoutCombo', () => {
     hasTalentMethod.mockReturnValue(true);
     const combatant = { selected: { hasTalent: hasTalentMethod } };
     blackoutCombo.combatants = combatant;
-    blackoutCombo.triggerEvent({
-      type: 'initialized',
-    });
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(true);
   });

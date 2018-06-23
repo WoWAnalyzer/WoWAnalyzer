@@ -19,7 +19,8 @@ class BlackOxBrew extends Analyzer {
   wastedCDR = 0;
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
   }
 

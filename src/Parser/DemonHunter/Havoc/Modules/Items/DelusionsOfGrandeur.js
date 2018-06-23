@@ -31,7 +31,8 @@ class DelusionsOfGrandeur extends Analyzer {
 	lastTimestamp = 0;
 	halfMetaDuration = 15000
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
 		this.metaCooldown = this.metaCooldown - this.unleashedDemons.traitCooldownReduction;
 	}

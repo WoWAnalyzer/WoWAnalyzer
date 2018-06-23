@@ -16,7 +16,8 @@ class CyclonicBurst extends Analyzer {
   };
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.CYCLONIC_BURST_TRAIT.id];
   }
 

@@ -19,7 +19,8 @@ class SephuzsSecret extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id);
   }
 

@@ -23,7 +23,8 @@ class TarnishedSentinelMedallion extends Analyzer {
     SPELLS.SPECTRAL_BLAST.id,
   ];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
 
     if (this.active) {

@@ -24,7 +24,8 @@ class StormEarthAndFire extends Analyzer {
 
   //TODO: Implement Spiritual Focus cooldown reduction
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.ability = this.combatants.selected.hasTalent(SPELLS.SERENITY_TALENT.id) ? SPELLS.SERENITY_TALENT : SPELLS.STORM_EARTH_AND_FIRE_CAST;
     this.drinkingHornCover = this.combatants.selected.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 1 : 0;
   }

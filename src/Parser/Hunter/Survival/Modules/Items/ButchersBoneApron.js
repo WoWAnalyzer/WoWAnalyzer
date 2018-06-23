@@ -32,7 +32,8 @@ class ButchersBoneApron extends Analyzer {
   usedStacks = 0;
   butcheryCarveCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
   }
 

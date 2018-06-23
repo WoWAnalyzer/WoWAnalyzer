@@ -27,7 +27,8 @@ class AmanthulsVision extends Analyzer {
 	panthProc = 0
 	tertProc = 0
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasTrinket(ITEMS.AMANTHULS_VISION.id);
 	}
 

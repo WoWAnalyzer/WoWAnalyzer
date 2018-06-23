@@ -23,7 +23,8 @@ class InfusionOfLife extends Analyzer {
   rank = 0;
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIFE.id];
     this.active = this.rank > 0;
   }

@@ -18,7 +18,8 @@ class PrydazXavaricsMagnumOpus extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
   }
 

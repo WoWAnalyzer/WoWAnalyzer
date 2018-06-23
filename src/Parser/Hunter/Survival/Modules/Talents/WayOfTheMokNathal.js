@@ -24,7 +24,8 @@ class WayOfTheMokNathal extends Analyzer {
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
   }
 

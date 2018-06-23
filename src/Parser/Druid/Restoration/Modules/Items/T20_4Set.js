@@ -25,7 +25,8 @@ class T20_4Set extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
   }
 

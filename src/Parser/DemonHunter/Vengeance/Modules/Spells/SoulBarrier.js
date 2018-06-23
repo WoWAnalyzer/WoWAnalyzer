@@ -25,7 +25,8 @@ class SoulBarrier extends Analyzer {
   totalBuffLength = 0;
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
   }
 

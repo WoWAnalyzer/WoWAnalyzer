@@ -17,7 +17,8 @@ class AnundsSearedShackles extends Analyzer {
   bonusDmg = 0;
   buffStacksSinceLastCast = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.ANUNDS_SEARED_SHACKLES.id);
   }
 

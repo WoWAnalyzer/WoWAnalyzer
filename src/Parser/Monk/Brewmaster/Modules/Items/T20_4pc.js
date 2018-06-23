@@ -19,7 +19,8 @@ class T20_4pc extends Analyzer {
   staggerSaved = 0;
   orbsEaten = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 4pc');
   }

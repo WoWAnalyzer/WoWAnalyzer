@@ -22,7 +22,8 @@ class IntoTheFray extends Analyzer {
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }

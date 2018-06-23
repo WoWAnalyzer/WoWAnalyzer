@@ -20,7 +20,8 @@ class WhispersOfShaohao extends Analyzer {
   whispersOverHeal = 0;
   countWhispersHeal = 0;
 
-  on_initialize() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
   }
 

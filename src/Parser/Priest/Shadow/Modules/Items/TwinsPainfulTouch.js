@@ -25,7 +25,8 @@ class TwinsPainfulTouch extends Analyzer {
   totalApplied = 0;
   previousMindflayCast = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.THE_TWINS_PAINFUL_TOUCH.id);
   }
 

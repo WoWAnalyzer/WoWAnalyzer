@@ -22,7 +22,8 @@ class DragonsfireGrenade extends Analyzer {
   bonusDamage = 0;
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
   }
 

@@ -20,7 +20,8 @@ class Tier21_2Set extends Analyzer {
 
   damageDone = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARRIOR_ARMS_T21_2P_BONUS.id);
   }
 

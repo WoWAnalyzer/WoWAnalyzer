@@ -59,7 +59,8 @@ class HighTolerance extends Analyzer {
     return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
   }
 

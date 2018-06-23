@@ -17,7 +17,8 @@ class UnseenPredatorsCloak extends Analyzer {
     enemies: Enemies,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBack(ITEMS.UNSEEN_PREDATORS_CLOAK.id);
   }
 

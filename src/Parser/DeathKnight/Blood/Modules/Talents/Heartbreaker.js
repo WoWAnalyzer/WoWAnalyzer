@@ -16,7 +16,8 @@ class Heartbreaker extends Analyzer {
   hsCasts = 0;
   deathStrikeCost = 45;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
       this.deathStrikeCost -= 5;
     }

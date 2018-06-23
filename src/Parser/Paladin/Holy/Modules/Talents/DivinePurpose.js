@@ -19,7 +19,8 @@ class DivinePurpose extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const hasDivinePurpose = this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
     const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;

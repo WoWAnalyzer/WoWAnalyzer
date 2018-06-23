@@ -24,7 +24,8 @@ class Evangelism extends Analyzer {
   _previousEvangelismCast = null;
   _evangelismStatistics = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = !!this.owner.modules.combatants.selected.hasTalent(SPELLS.EVANGELISM_TALENT.id);
   }
 

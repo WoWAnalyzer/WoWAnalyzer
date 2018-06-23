@@ -41,7 +41,8 @@ class TrueAim extends Analyzer {
   maxTimeCalculated = null;
   lastDamageEvent = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.TRUE_AIM_TALENT.id);
   }
 

@@ -37,7 +37,8 @@ class DecieversGrandDesign extends Analyzer {
 
   casts = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
 
     if (this.active) {

@@ -31,7 +31,8 @@ class MementoOfAngerboda extends Analyzer {
   hasteStatProc = 0;
   masteryStatProc = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.MEMENTO_OF_ANGERBODA.id);
     if (this.active) {
       this.statBuff = calculateSecondaryStatDefault(845, 4207, this.combatants.selected.getItem(ITEMS.MEMENTO_OF_ANGERBODA.id).itemLevel);

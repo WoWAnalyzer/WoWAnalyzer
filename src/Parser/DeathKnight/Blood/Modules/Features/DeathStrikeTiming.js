@@ -10,7 +10,8 @@ class DeathStrikeTiming extends SelfHealTimingGraph {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.selfHealSpell = SPELLS.DEATH_STRIKE_HEAL;
     this.tabTitle = "Death Strike Timing";
     this.tabURL = "death-strike-timings";

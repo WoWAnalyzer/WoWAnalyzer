@@ -24,7 +24,8 @@ class KillerCobra extends Analyzer {
   effectiveKillCommandResets = 0;
   wastedKillerCobraCobraShots = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
   }
 

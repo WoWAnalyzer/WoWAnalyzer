@@ -23,7 +23,8 @@ class ProtectionOfShaohao extends Analyzer {
   rank = 0;
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.PROTECTION_OF_SHAOHAO.id];
     this.active = this.rank > 0;
   }

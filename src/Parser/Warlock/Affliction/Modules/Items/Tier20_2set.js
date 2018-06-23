@@ -22,7 +22,8 @@ class Tier20_2set extends Analyzer {
   _totalTicks = 0;
   totalUAdamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
   }
 

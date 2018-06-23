@@ -21,7 +21,7 @@ class GlobalCooldown extends Analyzer {
     channeling: Channeling,
   };
 
-  /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
+  /** Set by the constructor: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
   abilitiesOnGlobalCooldown = null;
   _errors = 0;
   get errorsPerMinute() {
@@ -32,7 +32,8 @@ class GlobalCooldown extends Analyzer {
     return this.errorsPerMinute < 2;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Using `_modules` here so this doesn't trigger the deprecation warning. This is deprecated itself, so it should disappear "soon".
     if (this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD.length > 0) {
       console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the isOnGCD property of spells in the Abilities config instead.');

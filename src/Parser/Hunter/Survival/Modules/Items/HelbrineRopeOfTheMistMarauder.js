@@ -26,7 +26,8 @@ class HelbrineRopeOfTheMistMarauder extends Analyzer {
 
   applications = 0;
   bonusDamage = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id);
   }
 

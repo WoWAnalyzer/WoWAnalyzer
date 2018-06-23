@@ -23,7 +23,8 @@ class ArchiveOfFaith extends Analyzer {
   healingChannel = 0;
   healingAbsorb = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
 
     if (this.active) {

@@ -22,8 +22,8 @@ const HEALING_ABILITIES_ON_GCD = [
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
 
     const combatant = this.combatants.selected;
 

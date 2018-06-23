@@ -17,7 +17,8 @@ class ChainOfThrayn extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
   }
 

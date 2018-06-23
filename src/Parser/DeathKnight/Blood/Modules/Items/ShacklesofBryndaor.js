@@ -16,7 +16,8 @@ class ShacklesofBryndaor extends Analyzer {
 
   dsCost = 45;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.SHACKLES_OF_BRYNDAOR.id);
     if (this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
       this.dsCost -= 5;

@@ -28,7 +28,6 @@ describe('Core/Modules/Abilities', () => {
     });
     loadSpellbook = spellbook => {
       instance.spellbook = () => spellbook;
-      instance.on_initialized();
     };
   });
 

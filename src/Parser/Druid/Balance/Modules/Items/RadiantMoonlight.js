@@ -23,7 +23,8 @@ class RadiantMoonlight extends Analyzer {
   halfMoonCasts = 0;
   fullMoonCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
   }
 

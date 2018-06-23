@@ -8,9 +8,10 @@ class MantleDamageTracker extends FilteredDamageTracker {
   static dependencies = {
     combatants: Combatants,
   };
-  
-	on_initialized(){
-		this.active = this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
   }
 
   shouldProcessEvent(event) {

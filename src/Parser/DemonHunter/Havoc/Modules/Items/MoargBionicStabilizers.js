@@ -25,7 +25,8 @@ class MoargBionicStabiliziers extends Analyzer {
 	enemiesHit = 0;
 	damagePreCalc = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasWrists(ITEMS.MOARG_BIONIC_STABILIZERS.id);
 	}
 

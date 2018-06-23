@@ -20,7 +20,8 @@ class ImpeccableFelEssence extends Analyzer {
 
   cooldownID;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.IMPECCABLE_FEL_ESSENCE.id);
     if (this.combatants.selected.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id)){
       this.cooldownID = SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id;

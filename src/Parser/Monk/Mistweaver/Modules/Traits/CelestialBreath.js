@@ -18,7 +18,8 @@ class CelestialBreath extends Analyzer {
   healingCelestialBreath = 0;
   overhealingCelestialBreath = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
   }
 

@@ -20,7 +20,8 @@ class Kindling extends Analyzer {
 
   cooldownReduction = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.KINDLING_TALENT.id);
   }
 

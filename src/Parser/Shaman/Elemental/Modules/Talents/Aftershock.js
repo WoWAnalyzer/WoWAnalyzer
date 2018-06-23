@@ -16,7 +16,8 @@ class Aftershock extends Analyzer {
 
   refund = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
   }
 

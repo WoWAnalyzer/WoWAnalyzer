@@ -13,7 +13,8 @@ class ObsidianStoneSpaulders extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
   }
 

@@ -33,7 +33,8 @@ class Tier20_4set extends Analyzer {
   flamestrikeProcs = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id);
   }
 

@@ -33,7 +33,8 @@ class EonarsCompassion extends Analyzer {
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN.id,
   ];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.EONARS_COMPASSION.id);
   }
 

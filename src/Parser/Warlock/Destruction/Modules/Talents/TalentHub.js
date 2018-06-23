@@ -17,7 +17,8 @@ class TalentHub extends Analyzer {
     soulConduit: SoulConduit,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.shadowburn.active || this.fireAndBrimstone.active || this.channelDemonfire.active || this.soulConduit.active;
   }
 

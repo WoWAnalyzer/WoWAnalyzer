@@ -16,7 +16,8 @@ class FoulBulwark extends Analyzer {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
   }
 

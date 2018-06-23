@@ -17,7 +17,8 @@ class TheShadowHuntersVoodooMask extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHead(ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id);
 
   }

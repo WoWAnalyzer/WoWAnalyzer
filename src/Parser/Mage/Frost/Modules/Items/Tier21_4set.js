@@ -20,7 +20,8 @@ class Tier21_4set extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id);
   }
 

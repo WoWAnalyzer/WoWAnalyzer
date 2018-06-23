@@ -14,7 +14,8 @@ class FrenziedRegenGoEProcs extends Analyzer {
     guardianOfElune: GuardianOfElune,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 

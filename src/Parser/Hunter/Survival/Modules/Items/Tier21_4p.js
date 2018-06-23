@@ -27,7 +27,8 @@ class Tier21_4p extends Analyzer {
   possibleBuffs = 0;
   expiredBuffs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS.id);
   }
   on_byPlayer_cast(event) {

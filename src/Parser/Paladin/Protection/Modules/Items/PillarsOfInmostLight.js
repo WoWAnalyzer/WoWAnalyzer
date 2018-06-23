@@ -21,7 +21,8 @@ class PillarsOfInmostLight extends Analyzer {
 
 	damageDone = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id);
 	}
 

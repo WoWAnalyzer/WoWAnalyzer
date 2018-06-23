@@ -17,7 +17,8 @@ class Tier21_4set extends Analyzer {
 
 	betrayersFuryBuffCount = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id);
 	}
 

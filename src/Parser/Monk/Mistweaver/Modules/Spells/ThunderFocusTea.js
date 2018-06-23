@@ -104,7 +104,8 @@ class ThunderFocusTea extends Analyzer {
   castBufferTimestamp = null;
   ftActive = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.ftActive = this.combatants.selected.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
   }
 

@@ -16,7 +16,8 @@ class Ossuary extends Analyzer {
   dsWithOS = 0;
   dsWithoutOS = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
 

@@ -30,7 +30,8 @@ class Estel extends Analyzer {
 
   avgHaste = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.ESTEL_DEJAHNAS_INSPIRATION.id);
   }
 

@@ -25,7 +25,8 @@ class UmbralMoonglaives extends Analyzer {
   shatters = 0;
   shatterHits = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.UMBRAL_MOONGLAIVES.id);
   }
 

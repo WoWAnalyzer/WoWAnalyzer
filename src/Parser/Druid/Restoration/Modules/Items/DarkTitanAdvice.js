@@ -20,7 +20,8 @@ class DarkTitanAdvice extends Analyzer {
   healingFromProcs = 0;
   lastRealBloomTimestamp = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
   }
 

@@ -33,9 +33,9 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   dots = DOTS;
   naturesBalance;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.naturesBalance = this.combatants.selected.hasTalent(SPELLS.NATURES_BALANCE_TALENT.id);
-    super.on_initialized();
   }
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.

@@ -15,7 +15,8 @@ class ContainedInfernalCore extends Analyzer {
   meteorCasts = 0;
   legendaryProcs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.CONTAINED_INFERNAL_CORE.id);
   }
 

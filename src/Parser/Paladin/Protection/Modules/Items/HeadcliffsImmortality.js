@@ -17,7 +17,8 @@ class HeadcliffsImmortality extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.HEATHCLIFFS_IMMORTALITY.id);
   }
 

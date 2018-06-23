@@ -22,7 +22,8 @@ class RefreshingJadeWind extends Analyzer {
   overhealingRJW = 0;
   castRJW = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
   }
   on_byPlayer_applybuff(event) {

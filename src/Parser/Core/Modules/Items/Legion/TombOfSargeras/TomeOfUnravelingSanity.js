@@ -22,7 +22,8 @@ class TomeOfUnravelingSanity extends Analyzer {
   damage = 0;
   procAmount = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
 
     if (this.active) {

@@ -25,7 +25,8 @@ class AngerManagement extends Analyzer {
   wastedReduction = { };
   effectiveReduction = { };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       this.wastedReduction[e] = 0;

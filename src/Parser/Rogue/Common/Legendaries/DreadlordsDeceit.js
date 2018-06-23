@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,17 +8,17 @@ class DreadlordsDeceit extends Analyzer {
     combatants: Combatants,
   };
 
-	on_initialized(){
+	constructor(...args) {
+		super(...args);
 		this.active = this.combatants.selected.hasBack(ITEMS.THE_DREADLORDS_DECEIT.id);
   }
   
 	item() {
 		return {
 			item: ITEMS.THE_DREADLORDS_DECEIT,
-			result: <React.Fragment>Equipped.</React.Fragment>,
+			result: 'Equipped.',
 		};
 	}
-
 }
 
 export default DreadlordsDeceit;

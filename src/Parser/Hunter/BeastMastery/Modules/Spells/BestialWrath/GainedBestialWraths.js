@@ -25,7 +25,8 @@ class GainedBestialWraths extends Analyzer {
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
       COOLDOWN_REDUCTION_MS = 16000;
     }

@@ -14,7 +14,8 @@ class DarkShadow extends Analyzer {
     return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
   
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
 }

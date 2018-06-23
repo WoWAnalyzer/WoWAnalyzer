@@ -24,7 +24,8 @@ class Tier21_2set extends Analyzer {
     [SPELLS.BINDING_HEAL_TALENT.id]: 0,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id);
   }
 

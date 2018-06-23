@@ -27,7 +27,8 @@ class PetrichorLagniappe extends Analyzer {
   lastCastTime = 0;
   cdReductionUsed = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
     if (this.active) {
       this.REVIVAL_BASE_COOLDOWN = 180000 - (this.combatants.selected.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10000;

@@ -23,7 +23,8 @@ class Deluge extends Analyzer {
   healing = 0;
   eventsDuringRain = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id);
   }
 

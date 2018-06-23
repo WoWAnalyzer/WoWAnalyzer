@@ -17,7 +17,8 @@ class AuraOfMercy extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
 

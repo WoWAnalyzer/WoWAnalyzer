@@ -26,7 +26,8 @@ class BoneShield extends Analyzer {
   boneShieldMitigated = 0;
   skeletalShatteringMitigated = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasSS = this.combatants.selected.traitsBySpellId[SPELLS.SKELETAL_SHATTERING_TRAIT.id];
     this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
   }

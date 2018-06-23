@@ -19,7 +19,8 @@ class ShardOfTheExodar extends Analyzer {
 
   actualCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SHARD_OF_THE_EXODAR.id);
   }
 

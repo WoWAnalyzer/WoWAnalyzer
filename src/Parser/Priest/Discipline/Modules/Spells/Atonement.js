@@ -47,7 +47,8 @@ class Atonement extends Analyzer {
     return this.currentAtonementTargets.length;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
   }
 

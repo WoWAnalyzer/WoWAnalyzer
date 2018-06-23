@@ -22,7 +22,8 @@ class AMurderOfCrows extends Analyzer {
   bonusDamage = 0;
   casts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id);
   }
 

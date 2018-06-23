@@ -13,7 +13,8 @@ const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
 class PowerWordBarrier extends Analyzer {
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = !this.owner.modules.combatants.selected.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
   }
 

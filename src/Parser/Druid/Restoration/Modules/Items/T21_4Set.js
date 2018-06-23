@@ -20,7 +20,8 @@ class T21_4Set extends Analyzer {
 
   yserasDuringAwakenedHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 

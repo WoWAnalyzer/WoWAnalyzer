@@ -31,7 +31,8 @@ class EarlyDotRefreshes extends Analyzer {
   lastCastGoodExtension = false;
   badCasts = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.dots.forEach(dot => {
       this.targets[dot.debuffId] = {};
       this.badCasts[dot.castId] = 0;

@@ -28,7 +28,8 @@ class DeathRecapTracker extends Analyzer {
     healthstone: Healthstone,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.cooldowns = this.abilities.abilities.filter(ability => (
       (
         ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE

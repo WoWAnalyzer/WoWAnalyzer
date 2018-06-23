@@ -24,7 +24,8 @@ class GuardianOfElune extends Analyzer {
   nonGoEFRegen = 0;
   GoEFRegen = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 

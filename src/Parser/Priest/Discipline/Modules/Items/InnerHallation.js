@@ -18,7 +18,8 @@ class InnerHallation extends Analyzer {
   // timestamp for power infusion if its talented & casted (to exclude mana saved):
   lastPowerInfusionCastStartTimestamp = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const selectedCombatant = this.owner.modules.combatants.selected;
     this.active = selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
   }

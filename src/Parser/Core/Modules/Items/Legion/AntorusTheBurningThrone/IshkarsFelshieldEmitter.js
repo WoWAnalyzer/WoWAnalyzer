@@ -21,7 +21,8 @@ class IshkarsFelshieldEmitter extends Analyzer {
   damageAbsorbed = 0;
   damageDealt = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const selectedCombatant = this.combatants.selected;
     this.active = selectedCombatant.hasTrinket(ITEMS.ISHKARS_FELSHIELD_EMITTER.id);
 

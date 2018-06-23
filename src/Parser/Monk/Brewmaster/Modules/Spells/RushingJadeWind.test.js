@@ -23,17 +23,11 @@ describe("Rushing Jade Wind", () => {
 
   it("should be inactive for a user without the talent", () => {
     rjw.combatants.selected = talentless_combatant;
-    rjw.triggerEvent({
-      type: 'initialized',
-    });
     expect(rjw.active).toBe(false);
   });
 
   it("should be active for a user with the talent", () => {
     rjw.combatants.selected = talented_combatant;
-    rjw.triggerEvent({
-      type: 'initialized',
-    });
     expect(rjw.active).toBe(true);
   });
 });

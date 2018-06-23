@@ -6,7 +6,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 class Nazjatar extends Analyzer {
   resets = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
   }
 

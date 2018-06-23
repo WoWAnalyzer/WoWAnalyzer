@@ -18,7 +18,8 @@ class HeartOfTheVoid extends Analyzer {
   bonusDamage = 0;
   bonusHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.HEART_OF_THE_VOID.id);
   }
 

@@ -20,7 +20,8 @@ class CordOfMaiev extends Analyzer {
   procs = 0;
   procTime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id);
   }
 

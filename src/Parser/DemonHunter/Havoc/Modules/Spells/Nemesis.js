@@ -35,7 +35,8 @@ class Nemesis extends Analyzer {
   everHadNemesisBuff = false;
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.NEMESIS_TALENT.id);
   }
 

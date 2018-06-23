@@ -23,7 +23,8 @@ class WayOfTheCobra extends Analyzer {
   damage = 0;
   amountOfSummons = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_COBRA_TALENT.id);
   }
 

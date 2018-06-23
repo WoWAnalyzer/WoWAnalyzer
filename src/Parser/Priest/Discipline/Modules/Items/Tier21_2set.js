@@ -13,7 +13,8 @@ class Tier21_2set extends Analyzer {
 
   grossTimeSaved = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id);
   }
 

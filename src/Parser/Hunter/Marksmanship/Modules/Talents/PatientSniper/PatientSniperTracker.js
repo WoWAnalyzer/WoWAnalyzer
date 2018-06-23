@@ -185,7 +185,8 @@ class PatientSniperTracker extends Analyzer {
   // Piercing Shot has 30s CD so queue isn't necessary
   lastPiercingShotTimestamp = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
   }
 

@@ -21,7 +21,8 @@ class IceTime extends Analyzer {
   hits = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.ICE_TIME.id);
   }
 

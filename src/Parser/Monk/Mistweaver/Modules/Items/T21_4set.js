@@ -17,7 +17,8 @@ class T21_4set extends Analyzer {
   boltCount = 0;
   averageBoltsPerCast = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id);
   }
 

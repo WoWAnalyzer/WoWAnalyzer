@@ -17,7 +17,8 @@ class LadyVashjsGrasp extends Analyzer {
   icyVeinsAppliedTimestamp; // the legendary applies its own buff, but it exactly tracks Icy Veins
   procs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.LADY_VASHJS_GRASP.id);
   }
 

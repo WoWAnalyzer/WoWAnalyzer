@@ -45,7 +45,8 @@ class Innervate extends Analyzer {
   lastInnervateTimestamp = 0;
   depleted = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.infusionOfNatureTraits = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
   }
 

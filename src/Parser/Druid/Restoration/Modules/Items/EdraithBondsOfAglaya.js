@@ -34,7 +34,8 @@ class EdraithBondsOfAglaya extends Analyzer {
 
   smCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.EDRAITH_BONDS_OF_AGLAYA.id);
   }
 

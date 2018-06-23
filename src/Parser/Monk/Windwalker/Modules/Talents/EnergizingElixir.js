@@ -19,7 +19,8 @@ class EnergizingElixir extends Analyzer {
   chiSaved = 0;
   eeCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
   }
 

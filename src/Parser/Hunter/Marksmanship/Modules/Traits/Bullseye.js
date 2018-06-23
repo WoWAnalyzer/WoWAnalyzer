@@ -24,7 +24,8 @@ class Bullseye extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.owner.report.enemies.forEach(enemy => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);

@@ -10,7 +10,8 @@ class SpellUsable extends CoreSpellUsable {
     globalCooldown: GlobalCooldown,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasDevastator = this.combatants.selected.hasTalent(SPELLS.DEVASTATOR_TALENT.id);  
   }
 
