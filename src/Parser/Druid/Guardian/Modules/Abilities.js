@@ -271,7 +271,6 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         isOnGCD: true,
-        timelineSortIndex: 14,
       },
       {
         spell: SPELLS.HIBERNATE,
