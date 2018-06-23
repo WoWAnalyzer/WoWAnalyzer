@@ -7,9 +7,8 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
 import reducers from 'Interface/reducers';
+import RootErrorBoundary from 'Interface/RootErrorBoundary';
 import App from 'Main/App';
-
-import RootErrorBoundary from './RootErrorBoundary';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();

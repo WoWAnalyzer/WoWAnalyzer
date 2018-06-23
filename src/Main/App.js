@@ -15,14 +15,15 @@ import RouteChangeScroller from 'Interface/RouteChangeScroller';
 import Home from 'Interface/Home';
 import NewsView from 'Interface/News/View';
 import Premium from 'Interface/Premium';
+import ApiDownBackground from 'Interface/Images/api-down-background.gif';
+import FullscreenError from 'Interface/common/FullscreenError';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
 
 import 'react-toggle/style.css';
 import './App.css';
 
-import ApiDownBackground from './Images/api-down-background.gif';
 import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
-import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
@@ -30,7 +31,6 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
 
 import Header from './Header';
-import ErrorBoundary from './ErrorBoundary';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ 'Interface/Contributor/Details').then(exports => exports.default));
 const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ 'Interface/Character/Parses').then(exports => exports.default));
