@@ -1,7 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
-import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
@@ -13,7 +12,6 @@ const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
-    alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
     // For the `beginchannel` event among other things
