@@ -157,7 +157,7 @@ class SheilunsGift extends Analyzer {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
