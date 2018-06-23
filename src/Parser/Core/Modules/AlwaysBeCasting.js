@@ -26,14 +26,9 @@ class AlwaysBeCasting extends Analyzer {
   };
 
   get globalCooldown() {
-    // Using `_modules` for this so this doesn't trigger the deprecation warning. We won't have to do this anymore when the deprecated ABILITIES_ON_GCD is finally removed.
+    // Using `_modules` for this so this doesn't trigger the deprecation warning. We won't have to do this anymore when the deprecated BASE_GCD is finally removed.
     return this.owner._modules.globalCooldown;
   }
-
-  /** @deprecated */
-  static ABILITIES_ON_GCD = [
-    // Extend this class and override this property in your spec class to implement this module.
-  ];
 
   // TODO: Move base GCD config to Abilities config since this can differ per spell
   static BASE_GCD = 1500;
