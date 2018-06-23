@@ -13,8 +13,8 @@ import SPECS from 'common/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 
-import './CharacterParses.css';
-import CharacterParsesList from './CharacterParsesList';
+import './Parses.css';
+import ParsesList from './ParsesList';
 
 const loadRealms = () => import('common/REALMS').then(exports => exports.default);
 
@@ -41,7 +41,7 @@ const ERRORS = {
 //we don't want those logs tho
 const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
-class CharacterParses extends React.Component {
+class Parses extends React.Component {
   static propTypes = {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
@@ -517,7 +517,7 @@ class CharacterParses extends React.Component {
                 )}
                 {!this.state.isLoading && errorMessage}
                 {!this.state.isLoading && (
-                  <CharacterParsesList
+                  <ParsesList
                     parses={this.filterParses}
                     class={this.state.class}
                     metric={this.state.metric}
@@ -533,4 +533,4 @@ class CharacterParses extends React.Component {
   }
 }
 
-export default CharacterParses;
+export default Parses;

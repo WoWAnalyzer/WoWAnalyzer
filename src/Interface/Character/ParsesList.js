@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-class CharacterParsesList extends React.PureComponent {
+class ParsesList extends React.PureComponent {
   static propTypes = {
     parses: PropTypes.array.isRequired,
     class: PropTypes.string.isRequired,
@@ -120,4 +120,4 @@ class CharacterParsesList extends React.PureComponent {
   }
 }
 
-export default CharacterParsesList;
+export default ParsesList;

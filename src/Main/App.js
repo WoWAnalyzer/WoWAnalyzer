@@ -33,7 +33,7 @@ import Header from './Header';
 import ErrorBoundary from './ErrorBoundary';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
-const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
+const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ 'Interface/Character/Parses').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();

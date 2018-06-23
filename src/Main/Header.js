@@ -15,7 +15,7 @@ import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedL
 
 import './Header.css';
 
-const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSelecter' */ './Character/CharacterSelecter').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch' */ 'Interface/Character/Search').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -54,7 +54,7 @@ class Header extends React.PureComponent {
                   {this.state.reportActive ? (
                     <ReportSelecter />
                   ) : (
-                    <CharacterSelecter />
+                    <CharacterSearch />
                   )}
                 </div>
               )}

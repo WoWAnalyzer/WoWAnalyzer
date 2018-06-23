@@ -7,7 +7,7 @@ import REALMS from 'common/REALMS';
 
 import makeUrl from './makeUrl';
 
-class CharacterSelecter extends React.PureComponent {
+class Search extends React.PureComponent {
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -110,4 +110,4 @@ class CharacterSelecter extends React.PureComponent {
   }
 }
 
-export default withRouter(CharacterSelecter);
+export default withRouter(Search);
