@@ -20,25 +20,9 @@ const HEALING_ABILITIES_ON_GCD = [
   SPELLS.DOWNPOUR_TALENT.id,
 ];
 
-const TOTEM_GCD = 1000; // Totems have a set GCD of 1 second
-
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
 
-  static STATIC_GCD_ABILITIES = {
-    [SPELLS.HEALING_TIDE_TOTEM_CAST.id]: TOTEM_GCD,
-    [SPELLS.SPIRIT_LINK_TOTEM.id]: TOTEM_GCD,
-    [SPELLS.HEALING_STREAM_TOTEM_CAST.id]: TOTEM_GCD,
-    [SPELLS.CLOUDBURST_TOTEM_TALENT.id]: TOTEM_GCD,
-    [SPELLS.EARTHEN_WALL_TOTEM_TALENT.id]: TOTEM_GCD,
-    [SPELLS.WIND_RUSH_TOTEM_TALENT.id]: TOTEM_GCD,
-    [SPELLS.CAPACITOR_TOTEM.id]: TOTEM_GCD,
-    [SPELLS.EARTHGRAB_TOTEM_TALENT.id]: TOTEM_GCD,
-    [SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id]: TOTEM_GCD,
-    [SPELLS.TREMOR_TOTEM.id]: TOTEM_GCD,
-    [SPELLS.EARTHBIND_TOTEM.id]: TOTEM_GCD, // Not a static GCD but 1 second - haste
-  }
-  
   suggestions(when) {
     const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;
     const deadTimePercentage = this.downtimeSuggestionThresholds;
