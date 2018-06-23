@@ -21,10 +21,9 @@ describe('BrewCDR', () => {
     parser = new CombatLogParser(
       report,
       report.friendlies.find(player => player.name === "Eisenpelz"),
-      [],
-      report.fights.find(fight => fight.id === 8)
+      report.fights.find(fight => fight.id === 8),
+      events.filter(ev => ev.type === "combatantinfo")
     );
-    parser.initialize(events.filter(ev => ev.type === "combatantinfo"));
     parser.parseEvents(events);
   });
 

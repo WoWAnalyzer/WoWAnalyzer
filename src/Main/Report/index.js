@@ -159,7 +159,7 @@ class Report extends React.Component {
       }
       timeAvailable && console.timeEnd('player event parsing');
 
-      parser.finished();
+      parser.finish();
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({

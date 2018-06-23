@@ -144,6 +144,9 @@ let _modulesDeprecatedWarningSent = false;
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
+  static internalModules = {
+    combatants: Combatants,
+  };
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
@@ -155,7 +158,6 @@ class CombatLogParser {
     damageTaken: DamageTaken,
     deathTracker: DeathTracker,
 
-    combatants: Combatants,
     enemies: Enemies,
     enemyInstances: EnemyInstances,
     pets: Pets,
@@ -270,7 +272,6 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
-
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -279,6 +280,7 @@ class CombatLogParser {
   player = null;
   playerPets = null;
   fight = null;
+  combatantInfoEvents = null;
 
   _modules = {};
   _activeAnalyzers = {};
@@ -317,24 +319,28 @@ class CombatLogParser {
       return obj;
     }, {});
   }
+  get selectedCombatant() {
+    return this._modules.combatants.selected;
+  }
 
-  constructor(report, selectedPlayer, selectedFight, combatants) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
+    this.combatantInfoEvents = combatantInfoEvents;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
 
     this.initializeModules({
+      ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
     });
 
-    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    this.initialize(combatants);
+    this.triggerInitialized();
   }
-  finished() {
+  finish() {
     this.finished = true;
     this.fabricateEvent({
       type: 'finished',
@@ -359,6 +365,7 @@ class CombatLogParser {
         options = null;
       }
 
+      // region Resolve dependencies
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
@@ -373,6 +380,7 @@ class CombatLogParser {
           }
         });
       }
+      // endregion
 
       if (missingDependencies.length === 0) {
         if (debugDependencyInjection) {
@@ -383,16 +391,18 @@ class CombatLogParser {
           }
         }
         const priority = Object.keys(this._modules).length;
+        // region Load Module
         // eslint-disable-next-line new-cap
         const module = new moduleClass(this, availableDependencies, priority);
-        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
+          // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+          // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
           Object.keys(options).forEach(key => {
             module[key] = options[key];
           });
         }
         this._modules[desiredModuleName] = module;
+        // endregion
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -426,30 +436,21 @@ class CombatLogParser {
   }
 
   eventHistory = [];
-  initialize(combatants) {
-    this.initializeNormalizers(combatants);
-    this.initializeAnalyzers(combatants);
-    this.triggerInitialized();
-  }
-  initializeAnalyzers(combatants) {
-    this.parseEvents(combatants);
-  }
   triggerInitialized() {
+    if (process.env.NODE_ENV === 'development') {
+      Object.keys(this.constructor.defaultModules).forEach(moduleName => {
+        const moduleClass = this.constructor.defaultModules[moduleName];
+
+        if (moduleClass.prototype.on_initialized) {
+          console.warn(`${moduleClass.name}.on_initialized: The initialized event has been deprecated. Use the constructor instead.`);
+        }
+      });
+    }
     this.fabricateEvent({
       type: 'initialized',
     });
   }
 
-  initializeNormalizers(combatants) {
-    this.activeModules
-      .filter(module => module instanceof EventsNormalizer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        if (module.initialize) {
-          module.initialize(combatants);
-        }
-      });
-  }
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -500,6 +501,7 @@ class CombatLogParser {
     // Creating arrays is expensive so we cheat and just push instead of using it immutably
     this.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
+    // TODO: This can probably be removed since we only render upon completion now
     this.eventCount += 1;
   }
   fabricateEvent(event = null, trigger = null) {

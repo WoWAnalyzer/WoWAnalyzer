@@ -5,15 +5,28 @@ const myModule = new MyModule();
 class MySubModule extends MyModule {}
 const mySubModule = new MySubModule();
 class EmptyCombatLogParser extends CombatLogParser {
+  static internalModules = {};
   static defaultModules = {};
   static specModules = {};
 }
 const fakeReport = {
+  friendlies: [],
   friendlyPets: [],
 };
-const fakePlayer = {};
+const fakePlayer = {
+  id: 1,
+};
 const fakeFight = {};
-const fakeCombatants = [];
+const fakeCombatants = [
+  {
+    sourceID: 1,
+    specID: 62,
+    auras: [],
+    talents: [],
+    artifact: [],
+    gear: [],
+  },
+];
 
 // This uses `_modules` on the CombatLogParser. I know I shouldn't test private properties! But using the modules property directly throws a deprecation warning for now, and this is probably only temporary. So this is only a temp fix. (lol who am I kidding)
 
@@ -217,6 +230,7 @@ describe('Core.CombatLogParser', () => {
         myChildModule: MyChildModule, // this requires MyModule, so loading this will have to be delayed
         myParentModule: MyParentModule,
       });
+      // 2 = priority
       expect(MyAlternativeModule.mock.calls[0][2]).toBe(0);
       expect(MyParentModule.mock.calls[0][2]).toBe(1);
       expect(MyChildModule.mock.calls[0][2]).toBe(2);
