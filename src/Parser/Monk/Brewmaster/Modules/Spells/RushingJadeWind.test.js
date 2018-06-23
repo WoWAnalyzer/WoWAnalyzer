@@ -2,32 +2,33 @@ import SPELLS from 'common/SPELLS';
 import RushingJadeWind from './RushingJadeWind';
 
 const talentless_combatant = {
-  hasTalent: (id) => false,
+  hasTalent: () => false,
 };
 
 const talented_combatant = {
-  hasTalent: (id) => id === SPELLS.RUSHING_JADE_WIND_TALENT.id,
+  hasTalent: id => id === SPELLS.RUSHING_JADE_WIND_TALENT.id,
+};
+const parser = {
+  byPlayer: () => true,
+  toPlayer: () => true,
+  byPlayerPet: () => false,
+  toPlayerPet: () => false,
 };
 
-describe("Rushing Jade Wind", () => {
-  let rjw;
-  beforeEach(() => {
-    rjw = new RushingJadeWind({
-      byPlayer: () => true,
-      toPlayer: () => true,
-      byPlayerPet: () => false,
-      toPlayerPet: () => false,
+describe('Rushing Jade Wind', () => {
+  it('should be inactive for a user without the talent', () => {
+    const rjw = new RushingJadeWind({
+      ...parser,
+      selectedCombatant: talentless_combatant,
     });
-    rjw.combatants = {};
-  });
-
-  it("should be inactive for a user without the talent", () => {
-    rjw.combatants.selected = talentless_combatant;
     expect(rjw.active).toBe(false);
   });
 
-  it("should be active for a user with the talent", () => {
-    rjw.combatants.selected = talented_combatant;
+  it('should be active for a user with the talent', () => {
+    const rjw = new RushingJadeWind({
+      ...parser,
+      selectedCombatant: talented_combatant,
+    });
     expect(rjw.active).toBe(true);
   });
 });

@@ -14,6 +14,9 @@ describe('DisciplinePriest.Reordering', () => {
       toPlayerPet: () => false,
       byPlayerPet: () => false,
       fight: { end_time: 0 },
+      selectedCombatant: {
+        hasBuff: () => true,
+      },
     });
   });
 

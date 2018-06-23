@@ -5,16 +5,11 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GoE_DURATION = 15000;
 const debug = false;
 
 class GuardianOfElune extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   GoEProcsTotal = 0;
   lastGoEProcTime = 0;
   consumedGoEProc = 0;
@@ -26,7 +21,7 @@ class GuardianOfElune extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

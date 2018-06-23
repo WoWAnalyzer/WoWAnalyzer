@@ -1,18 +1,14 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 // the buff events all use this spell
 export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT; 
 
 class RushingJadeWind extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   get uptimeThreshold() {
     if(!this.active) {
       return null;
@@ -31,11 +27,11 @@ class RushingJadeWind extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration;
   }
 
   // using a suggestion rather than a checklist item for this as RJW is
