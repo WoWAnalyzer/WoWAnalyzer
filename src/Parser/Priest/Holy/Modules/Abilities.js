@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PRAYER_OF_MENDING_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DIVINE_HYMN_HEAL.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SYMBOL_OF_HOPE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 300,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 720, // reduced by Sanctify and Serenity
         enabled: combatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_WORD_SANCTIFY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60, // reduced by PoH and Renew
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -73,7 +73,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_WORD_SERENITY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60, // reduced by Heal and Flash Heal
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -93,7 +93,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.HALO_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -111,62 +111,62 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RENEW,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.PRAYER_OF_HEALING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.GREATER_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.FLASH_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.BINDING_HEAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.DISPEL_MAGIC,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HOLY_FIRE,
         buffSpellId: SPELLS.HOLY_FIRE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: 10, // can be reset by Holy Nova and smite
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HOLY_NOVA,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HOLY_WORD_CHASTICE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: 60, // gets reduced by Smite
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.SMITE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.FADE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.GUARDIAN_SPIRIT,
@@ -182,25 +182,25 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEVITATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.PSYCHIC_SCREAM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 60,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.MASS_DISPEL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.PURIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.ANGELIC_FEATHER_TALENT,
@@ -208,14 +208,14 @@ class Abilities extends CoreAbilities {
         charges: 3,
         cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.SHINING_FORCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.SPIRIT_OF_REDEMPTION_BUFF,

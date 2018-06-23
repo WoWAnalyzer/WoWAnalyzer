@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MONGOOSE_BITE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLANKING_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         cooldown: haste => 6 / (1 + haste),
         castEfficiency: {
           suggestion: true,
@@ -36,19 +36,19 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CARVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        isOnGCD: true,
+        gcd: true,
         enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
       },
       {
         spell: SPELLS.FURY_OF_THE_EAGLE_TRAIT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 45,
       },
       {
         spell: SPELLS.EXPLOSIVE_TRAP_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         castEfficiency: {
           suggestion: true,
@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SPITTING_COBRA_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -105,17 +105,17 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAPTOR_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HATCHET_TOSS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.LACERATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
@@ -131,7 +131,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           extraSuggestion: <React.Fragment>You'll want to use <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible, as it's a very powerful cooldown partly due to the <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} /> trait. It should be used whenever you run out of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> stacks in your <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> windows, or there's 10s seconds remaining of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to fully utilise the pairing.</React.Fragment>,
         },
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
@@ -142,7 +142,7 @@ class Abilities extends CoreAbilities {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -154,57 +154,57 @@ class Abilities extends CoreAbilities {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 20,
       },
       {
         spell: SPELLS.MUZZLE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        isOnGCD: false,
+        gcd: false,
       },
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !combatant.hasTalent(SPELLS.CALTROPS_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.FLARE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.WING_CLIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.RANGERS_NET_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
     ];
   }

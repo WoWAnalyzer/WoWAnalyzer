@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WAKE_OF_ASHES_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: true,
         enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WAKE_OF_ASHES_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
         cooldown: haste => (combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id) ? 5.1 : 6) / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         enabled: (!combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id) && !combatant.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id)),
         castEfficiency: {
           suggestion: true,
@@ -85,7 +85,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         enabled: (combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id) || combatant.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id)),
         castEfficiency: {
           suggestion: true,
@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLADE_OF_JUSTICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 10.5 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -108,23 +108,23 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id),
         cooldown: haste => 12 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TEMPLARS_VERDICT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.DIVINE_STORM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.EXECUTION_SENTENCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 20 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSECRATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 20,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.CONSECRATION_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -155,7 +155,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUSTICARS_VENGEANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
       },
       {
@@ -163,7 +163,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.EYE_FOR_AN_EYE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       },
       {
@@ -171,21 +171,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.REPENTANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
@@ -193,7 +193,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
@@ -208,7 +208,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_FREEDOM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
@@ -216,7 +216,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 300,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
@@ -233,12 +233,12 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 300 : 210,
-        isOnGCD: true, 
+        gcd: true, 
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,

@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 9 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         charges: 3,
         enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGERS_SHIELD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
         charges: 2,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -73,7 +73,7 @@ class Abilities extends CoreAbilities {
       { // T15: Consecrated Hammer talent (Hammer of the Righteous has no cooldown)
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
       },
       {
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
         },
@@ -116,7 +116,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.EYE_OF_TYR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, combatant) => 60 * (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 0.75 : 1),
-        isOnGCD: true,
+        gcd: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -173,34 +173,34 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45 * (combatant.hasTalent(SPELLS.KNIGHT_TEMPLAR_TALENT.id) ? 0.5 : 1),
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
-        isOnGCD: true,
+        gcd: true,
         enabled: !combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
       },
       {
         spell: SPELLS.BLESSING_OF_SPELLWARDING_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
       },
       {
@@ -216,20 +216,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.CLEANSE_TOXINS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HAND_OF_RECKONING,
@@ -245,14 +245,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.REPENTANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {

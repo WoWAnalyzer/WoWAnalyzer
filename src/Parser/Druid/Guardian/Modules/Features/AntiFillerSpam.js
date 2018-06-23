@@ -40,7 +40,7 @@ class AntiFillerSpam extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const ability = this.abilities.getAbility(spellId);
-    if (!ability || !(ability.isOnGCD || ability.gcd)) {
+    if (!ability || !ability.gcd) {
       return;
     }
 

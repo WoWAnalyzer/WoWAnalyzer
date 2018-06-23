@@ -34,11 +34,6 @@ class AlwaysBeCasting extends Analyzer {
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
-  // TODO: Move static GCD array to Abilities config
-  static STATIC_GCD_ABILITIES = {
-    // Abilities which GCD is not affected by haste.
-    // [spellId]: gcd value in seconds
-  };
 
   // TODO: Move base GCD config to Abilities config since this can differ per spell
   static BASE_GCD = 1500;
@@ -84,10 +79,9 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
     const spellId = cast.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
-    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.includes(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
 
-    if (!isOnGcd) {
+    if (!isOnGCD) {
       debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }

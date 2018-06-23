@@ -148,7 +148,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BEAR_FORM,
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isOnGCD: true,
+        gcd: true,
       },
     ];
   }

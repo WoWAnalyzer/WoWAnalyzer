@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 60, //misses Static Charge CDR
       },
       {

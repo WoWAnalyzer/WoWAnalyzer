@@ -42,14 +42,14 @@ class GlobalCooldown extends Analyzer {
     super(...args);
     // Using `_modules` here so this doesn't trigger the deprecation warning. This is deprecated itself, so it should disappear "soon".
     if (this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD.length > 0) {
-      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the isOnGCD property of spells in the Abilities config instead.');
+      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the `gcd` property of spells in the Abilities config instead.');
     }
     const abilities = [
       ...this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD,
     ];
 
     this.abilities.activeAbilities
-      .filter(ability => ability.isOnGCD || ability.gcd)
+      .filter(ability => ability.gcd)
       .forEach(ability => {
         if (ability.spell instanceof Array) {
           ability.spell.forEach(spell => {
@@ -82,10 +82,10 @@ class GlobalCooldown extends Analyzer {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
     const isCancelled = event.trigger.isCancelled;
-    if (isOnGcd && !isCancelled) {
+    if (isOnGCD && !isCancelled) {
       this.triggerGlobalCooldown(event);
     }
   }
@@ -95,9 +95,9 @@ class GlobalCooldown extends Analyzer {
    */
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
     // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
-    if (!isOnGcd) {
+    if (!isOnGCD) {
       return;
     }
 
@@ -135,14 +135,10 @@ class GlobalCooldown extends Analyzer {
    * @returns {number} The duration in milliseconds.
    */
   getCurrentGlobalCooldown(spellId = null) {
-    // Using `_modules` here so this doesn't trigger the deprecation warning. We should move the STATIC_GCD_ABILITIES to the Abilities config which would fix this.
     let staticGCD = null;
     let baseGCD = this.baseGCD;
     let minimumGCD = this.minimumGCD;
     if (spellId) {
-      if (this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) {
-        staticGCD = this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId];
-      }
       const ability = this.abilities.getAbility(spellId);
       if (ability && ability.gcd) {
         if (ability.gcd.static) {

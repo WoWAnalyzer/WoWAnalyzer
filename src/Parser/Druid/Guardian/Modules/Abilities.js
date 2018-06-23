@@ -30,7 +30,7 @@ class Abilities extends CoreAbilities {
           }
           return hastedCooldown(6, haste);
         },
-        isOnGCD: true,
+        gcd: true,
         antiFillerSpam: {
           isHighPriority: true,
         },
@@ -51,7 +51,7 @@ class Abilities extends CoreAbilities {
           }
           return hastedCooldown(6, haste);
         },
-        isOnGCD: true,
+        gcd: true,
         antiFillerSpam: {
           isHighPriority: true,
         },
@@ -63,7 +63,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MOONFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         antiFillerSpam: {
           isFiller: (event, selectedCombatant, targets) => {
             if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id) && selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id)) {
@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         antiFillerSpam: {
           isFiller: (event, selectedCombatant, targets) => targets.length < 4,
         },
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MAUL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: true,
         timelineSortIndex: 5,
       },
       // Cooldowns
@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
         timelineSortIndex: 9,
@@ -135,7 +135,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BRISTLING_FUR_TALENT.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
         timelineSortIndex: 9,
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRENZIED_REGENERATION,
         buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isOnGCD: true,
+        gcd: true,
         cooldown: haste => hastedCooldown(36, haste),
         charges: 2,
         timelineSortIndex: 8,
@@ -159,7 +159,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PULVERIZE_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         antiFillerSpam: {
           // A spell must meet these conditions to be castable
           isHighPriority: ({ timestamp, targetID }, selectedCombatant, targets) => {
@@ -179,7 +179,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STAMPEDING_ROAR_BEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.GROWL,
@@ -192,67 +192,67 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BEAR_FORM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.CAT_FORM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TRAVEL_FORM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.MOONKIN_FORM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.REBIRTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.INCAPACITATING_ROAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.INTIMIDATING_ROAR_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         cooldown: 50,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // isOnGCD: true, 0.5s GCD
+        // gcd: true, 0.5s GCD
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
@@ -262,7 +262,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 180,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.TIGERS_DASH_TALENT,
@@ -270,18 +270,18 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.HIBERNATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.SOOTHE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
-        isOnGCD: true,
+        gcd: true,
       },
     ];
   }

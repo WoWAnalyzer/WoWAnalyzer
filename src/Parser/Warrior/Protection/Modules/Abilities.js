@@ -8,13 +8,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEVASTATE,
         enabled: !combatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id),
-        isOnGCD: true,
+        gcd: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },
       {
         spell: SPELLS.REVENGE,
-        isOnGCD: true,
+        gcd: true,
         buffSpellId: SPELLS.REVENGE_FREE_CAST.id,
         cooldown: haste => 3 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_SLAM,
-        isOnGCD: true,
+        gcd: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.PUNISH_DEBUFF.id,
         cooldown: haste => 9 / (1 + haste),
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.THUNDER_CLAP,
-        isOnGCD: true,
+        gcd: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 6 / (1 + haste)
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) && selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
@@ -79,7 +79,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: combatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id) ? .95 : .80,
           extraSuggestion: 'Cast Demoralizing Shout more liberally to maximize it\'s DPS boost unless you need it so survive a specific mechanic.',
         },
-        isOnGCD: true,
+        gcd: true,
         cooldown: 45,
         timelineSortIndex: 8,
       },
@@ -104,13 +104,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEROIC_LEAP,
-        isOnGCD: true,
+        gcd: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
       },
       {
         spell: SPELLS.HEROIC_THROW,
-        isOnGCD: true,
+        gcd: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
@@ -147,13 +147,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHOCKWAVE_TALENT,
         enabled: combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.STORM_BOLT_TALENT,
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 30,
       },
       {
@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: .9,
         },
-        isOnGCD: true,
+        gcd: true,
         cooldown: 90,
         timelineSortIndex: 9,
       },
@@ -172,14 +172,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IMPENDING_VICTORY_TALENT,
         enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 30,
       },
       {
         spell: SPELLS.RAVAGER_TALENT_PROTECTION,
         enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -191,7 +191,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DRAGON_ROAR_TALENT,
         enabled: combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        isOnGCD: true,
+        gcd: true,
         cooldown: 35,
         castEfficiency: {
           suggestion: true,
