@@ -23,7 +23,8 @@ class ExposedElements extends Analyzer {
   removeDebuffTimestamp = null;
   damageGained=0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.EXPOSED_ELEMENTS_TALENT.id);
   }
 
