@@ -256,6 +256,33 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
+      {
+        spell: SPELLS.DASH,
+        buffSpellId: SPELLS.DASH.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        cooldown: 180,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.TIGERS_DASH_TALENT,
+        buffSpellId: SPELLS.TIGERS_DASH_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.HIBERNATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        isOnGCD: true,
+      },
     ];
   }
 }
