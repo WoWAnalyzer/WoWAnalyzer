@@ -303,6 +303,17 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         isOnGCD: true,
       },
+      {
+        spell: SPELLS.HIBERNATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        isOnGCD: true,
+      },
     ];
   }
 }
