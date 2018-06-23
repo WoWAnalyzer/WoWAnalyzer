@@ -66,7 +66,10 @@ class App extends React.Component {
     }
 
     TooltipProvider.load();
-    props.fetchUser();
+    if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
+      // If Premium is forced (development environments), fetching the user would probably fail too
+      props.fetchUser();
+    }
   }
 
   renderError(error) {
