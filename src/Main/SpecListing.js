@@ -4,7 +4,7 @@ import FingerprintFilledIcon from 'Icons/FingerprintFilled';
 
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 import ReadableList from 'common/ReadableList';
 
 import './SpecListing.css';

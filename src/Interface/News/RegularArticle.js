@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 
 class RegularArticle extends React.PureComponent {
   static propTypes = {

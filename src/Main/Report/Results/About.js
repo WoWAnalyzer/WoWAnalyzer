@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReadableList from 'common/ReadableList';
 import parseVersionString from 'common/parseVersionString';
 import Warning from 'common/Alert/Warning';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 
 class About extends React.PureComponent {
   static propTypes = {

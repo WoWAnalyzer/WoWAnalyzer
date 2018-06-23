@@ -17,8 +17,8 @@ import { logout } from 'actions/user';
 import { getUser } from 'selectors/user';
 import PatreonButton from 'Main/PatreonButton';
 import GithubButton from 'Main/GithubButton';
+import CyclingVideo from 'Interface/common/CyclingVideo';
 
-import CyclingVideo from './CyclingVideo';
 import './index.css';
 
 const INITIAL_BACKGROUNDS = [

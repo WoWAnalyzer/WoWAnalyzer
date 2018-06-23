@@ -4,7 +4,7 @@ import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
 import ReadableList from 'common/ReadableList';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 
 import CORE_CHANGELOG from '../CHANGELOG';
 

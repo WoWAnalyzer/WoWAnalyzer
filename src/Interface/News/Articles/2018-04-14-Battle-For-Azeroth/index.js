@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import ImageArticle from 'Main/News/ImageArticle';
+import ImageArticle from '../../ImageArticle';
 
 import BackgroundImage from './Background.jpg';
 

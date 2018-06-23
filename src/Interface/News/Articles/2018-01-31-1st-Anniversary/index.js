@@ -8,12 +8,12 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import RegularArticle from 'Main/News/RegularArticle';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 import DiscordButton from 'Main/DiscordButton';
 import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
 import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
 
+import RegularArticle from '../../RegularArticle';
 import Timeline from './Timeline';
 import Item from './TimelineItem';
 import Image from './TimelineItemImage';

@@ -6,7 +6,8 @@ import PatreonIcon from 'Icons/Patreon';
 import GitHubIcon from 'Icons/GitHub';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'Main/News/RegularArticle';
+
+import RegularArticle from '../../RegularArticle';
 
 export default (
   <RegularArticle title="WoWAnalyzer Premium" publishedAt="2018-06-21" publishedBy={Zerotorescue}>

@@ -12,6 +12,8 @@ import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_
 import { fetchUser } from 'actions/user';
 import { getError } from 'selectors/error';
 import RouteChangeScroller from 'Interface/RouteChangeScroller';
+import NewsView from 'Interface/News/View';
+import Premium from 'Interface/Premium';
 
 import 'react-toggle/style.css';
 import './App.css';
@@ -24,15 +26,13 @@ import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
-import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
-import Premium from './Premium';
 
 import Header from './Header';
 import ErrorBoundary from './ErrorBoundary';
 
-const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ 'Interface/Contributor/Details').then(exports => exports.default));
 const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ 'Interface/Character/Parses').then(exports => exports.default));
 
 function isIE() {
@@ -165,7 +165,10 @@ class App extends React.Component {
         <Route
           path="/contributor/:id"
           render={({ match }) => (
-            <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
+            <ContributorDetails
+              contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
+              ownPage
+            />
           )}
         />
         <Route
@@ -174,7 +177,8 @@ class App extends React.Component {
             <CharacterParses
               region={decodeURI(match.params.region.replace(/\+/g, ' '))}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
-              name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
+              name={decodeURI(match.params.name.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route

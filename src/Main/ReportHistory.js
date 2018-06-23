@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { getReportHistory } from 'selectors/reportHistory';
 import { makePlainUrl } from 'Main/makeAnalyzerUrl';
-import { title as AboutArticleTitle } from 'Main/News/Articles/2017-01-31-About';
-import makeNewsUrl from 'Main/News/makeUrl';
+import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';
+import makeNewsUrl from 'Interface/News/makeUrl';
 
 class ReportHistory extends React.PureComponent {
   static propTypes = {

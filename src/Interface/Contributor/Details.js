@@ -7,7 +7,7 @@ import SPECS from 'common/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
-class ContributorDetails extends React.PureComponent {
+class Details extends React.PureComponent {
   static propTypes = {
     contributorId: PropTypes.string.isRequired,
     ownPage: PropTypes.bool,
@@ -299,4 +299,4 @@ class ContributorDetails extends React.PureComponent {
   }
 }
 
-export default ContributorDetails;
+export default Details;

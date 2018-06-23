@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'Main/News/RegularArticle';
+import RegularArticle from '../../RegularArticle';
 
 import ChecklistOverview from './checklist-overview.png';
 import ChecklistItem from './checklist-item.png';

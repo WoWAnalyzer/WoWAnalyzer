@@ -8,12 +8,12 @@ import MegaphoneIcon from 'Icons/Megaphone';
 import DelayRender from 'common/DelayRender';
 import { hasPremium } from 'selectors/user';
 import SectionDivider from 'Main/SectionDivider';
+import News from 'Interface/News';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
 import DiscordBanner from './Images/discord-banner.jpg';
 import SpecListing from './SpecListing';
-import News from './News';
 import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
