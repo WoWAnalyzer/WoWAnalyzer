@@ -15,7 +15,7 @@ import RouteChangeScroller from 'Interface/RouteChangeScroller';
 import Home from 'Interface/Home';
 import NewsView from 'Interface/News/View';
 import Premium from 'Interface/Premium';
-import ApiDownBackground from 'Interface/Images/api-down-background.gif';
+import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import FullscreenError from 'Interface/common/FullscreenError';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
 
