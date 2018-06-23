@@ -11,6 +11,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRANQUILITY_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (_, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -60,6 +63,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CENARION_WARD_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -69,6 +75,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLOURISH_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -77,14 +86,23 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WILD_GROWTH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.EFFLORESCENCE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REJUVENATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -110,11 +128,17 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.40,
@@ -149,6 +173,27 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: true,
+      },
+      {
+        spell: SPELLS.LIFEBLOOM_HOT_HEAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ESSENCE_OF_GHANIR,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.NATURES_CURE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }
