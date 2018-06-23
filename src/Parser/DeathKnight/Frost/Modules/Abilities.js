@@ -13,7 +13,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 300,
         castEfficiency: {
           suggestion: true,
@@ -81,12 +83,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OBLITERATE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REMORSELESS_WINTER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 20,
         castEfficiency: {
           suggestion: true,
@@ -96,37 +102,49 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_STRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.HOWLING_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FROSTSCYTHE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id),
       },
       {
         spell: SPELLS.GLACIAL_ADVANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.GLACIAL_ADVANCE_TALENT.id),
       },
       {
         spell: SPELLS.BLINDING_SLEET_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.BLINDING_SLEET_TALENT.id),
       },
       {
         spell: SPELLS.HORN_OF_WINTER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
         castEfficiency: {
@@ -137,7 +155,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAINS_OF_ICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 40,
         enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
         castEfficiency: {
@@ -164,28 +184,38 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_COMMAND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DEATH_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CONTROL_UNDEAD,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 600,
       },
       {
         spell: SPELLS.WRAITH_WALK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 60,
       },
       {

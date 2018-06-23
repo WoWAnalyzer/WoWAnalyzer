@@ -108,7 +108,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.GUARD_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.EXPEL_HARM,

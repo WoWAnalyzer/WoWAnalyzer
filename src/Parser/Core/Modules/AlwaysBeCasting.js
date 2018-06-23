@@ -30,10 +30,6 @@ class AlwaysBeCasting extends Analyzer {
     return this.owner._modules.globalCooldown;
   }
 
-  // TODO: Move base GCD config to Abilities config since this can differ per spell
-  static BASE_GCD = 1500;
-  static MINIMUM_GCD = 750;
-
   /**
    * The amount of milliseconds not spent casting anything or waiting for the GCD.
    * @type {number}

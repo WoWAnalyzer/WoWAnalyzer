@@ -12,7 +12,9 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 6,
         timelineSortIndex: 11,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
@@ -52,7 +54,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 10,
         timelineSortIndex: 17,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -65,7 +69,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         timelineSortIndex: 20,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -114,7 +120,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
         timelineSortIndex: 5,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -128,7 +136,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
@@ -169,7 +179,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_WAVE,
         timelineSortIndex: 13,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -179,7 +191,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_WAVE,
         name: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
         timelineSortIndex: 13,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
@@ -188,7 +202,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         timelineSortIndex: 14,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -198,7 +214,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         name: `Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
         timelineSortIndex: 14,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
@@ -208,14 +226,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHAIN_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         timelineSortIndex: 12,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.PURIFY_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         cooldown: 8,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FLAME_SHOCK_RESTORATION,
@@ -223,7 +245,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 60,
         cooldown: 6,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LAVA_BURST,
@@ -232,18 +256,24 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 60,
         cooldown: 8,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LIGHTNING_BOLT_RESTORATION,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 60,
       },
       {
         spell: SPELLS.CHAIN_LIGHTNING_RESTORATION,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 60,
       },
       {
@@ -251,7 +281,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GHOST_WOLF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SPIRITWALKERS_GRACE,
@@ -273,7 +305,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CAPACITOR_TOTEM,
@@ -327,14 +361,18 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH, SPELLS.HEX_SKELETAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 80,
         cooldown: 30,
       },
       {
         spell: SPELLS.EARTH_SHIELD_TALENT, 
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id),
         timelineSortIndex: 80,
       },
@@ -351,7 +389,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DOWNPOUR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 35, // CD changes depending on amount of effective targets hit (0 = 5s, 6 = 35s)
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 20,
         enabled: combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id),
         castEfficiency: {

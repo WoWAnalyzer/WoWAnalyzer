@@ -261,7 +261,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REBIRTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 60,
       },
       {

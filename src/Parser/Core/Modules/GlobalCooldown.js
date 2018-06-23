@@ -30,13 +30,6 @@ class GlobalCooldown extends Analyzer {
   get isAccurate() {
     return this.errorsPerMinute < 2;
   }
-  // TODO: Move this config to this class
-  get baseGCD() {
-    return this.owner._modules.alwaysBeCasting.constructor.BASE_GCD;
-  }
-  get minimumGCD() {
-    return this.owner._modules.alwaysBeCasting.constructor.MINIMUM_GCD;
-  }
 
   constructor(...args) {
     super(...args);
@@ -129,18 +122,19 @@ class GlobalCooldown extends Analyzer {
    */
   getCurrentGlobalCooldown(spellId = null) {
     let staticGCD = null;
-    let baseGCD = this.baseGCD;
-    let minimumGCD = this.minimumGCD;
+    let baseGCD = 1500;
+    let minimumGCD = 750;
     if (spellId) {
       const ability = this.abilities.getAbility(spellId);
       if (ability && ability.gcd) {
         if (ability.gcd.static) {
           staticGCD = this._resolveAbilityGcdField(ability.gcd.static);
-        }
-        if (ability.gcd.base) {
+        } else if (ability.gcd.base) {
           baseGCD = this._resolveAbilityGcdField(ability.gcd.base);
           // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
           minimumGCD = this._resolveAbilityGcdField(ability.gcd.minimum) || (baseGCD / 2);
+        } else {
+          throw new Error(`"gcd" should either have a "static" or "base" GCD set for spell ${spellId}`);
         }
       }
     }

@@ -40,7 +40,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 24 / (1 + haste),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -128,7 +130,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 15,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,

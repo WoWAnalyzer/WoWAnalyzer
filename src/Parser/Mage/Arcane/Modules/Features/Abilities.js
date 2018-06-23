@@ -10,27 +10,37 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ARCANE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ARCANE_MISSILES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ARCANE_BARRAGE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ARCANE_EXPLOSION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ARCANE_FAMILIAR_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 10,
         enabled: combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id),
         castEfficiency: {
@@ -41,7 +51,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUPERNOVA_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 25,
         enabled: combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id),
         castEfficiency: {
@@ -52,7 +64,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGED_UP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.CHARGED_UP_TALENT.id),
         castEfficiency: {
@@ -63,13 +77,17 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.NETHER_TEMPEST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.NETHER_TEMPEST_TALENT.id),
       },
       {
         spell: SPELLS.ARCANE_ORB_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id),
         castEfficiency: {
@@ -82,7 +100,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ARCANE_POWER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -92,7 +112,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EVOCATION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -112,7 +134,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIRROR_IMAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
         castEfficiency: {
@@ -123,7 +147,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 40,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
@@ -138,14 +164,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PRISMATIC_BARRIER,
         buffSpellId: SPELLS.PRISMATIC_BARRIER.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 25,
       },
       {
         spell: SPELLS.ICE_BLOCK,
         buffSpellId: SPELLS.ICE_BLOCK.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 240,
         castEfficiency: {
           disabled: true,
@@ -156,12 +186,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ARCANE_INTELLECT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 30,
         charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
         castEfficiency: {
@@ -171,7 +205,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLOW,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DISPLACEMENT,
@@ -185,7 +221,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLINK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 15,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
         castEfficiency: {
@@ -215,7 +253,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REMOVE_CURSE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 8,
         castEfficiency: {
           disabled: true,
@@ -224,17 +264,23 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLOW_FALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SPELL_STEAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.GREATER_INVISIBILITY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 120,
         castEfficiency: {
           disabled: true,
