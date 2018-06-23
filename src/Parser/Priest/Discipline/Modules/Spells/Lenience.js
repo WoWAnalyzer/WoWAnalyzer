@@ -12,7 +12,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 const LENIENCE_DR = 0.03;
 
 class Lenience extends Analyzer {
-
   totalDamageTakenDuringAtonement = 0;
 
   get damageReducedDuringLenience() {
@@ -21,14 +20,14 @@ class Lenience extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LENIENCE.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE.id);
   }
 
   load() {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
       .then(json => {
         console.log('Received LR damage taken', json);

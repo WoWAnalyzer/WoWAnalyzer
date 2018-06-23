@@ -20,7 +20,7 @@ class Tidecallers extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
+    this.active = this.selectedCombatant.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 
   on_heal(event) {

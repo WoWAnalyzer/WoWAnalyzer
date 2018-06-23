@@ -8,7 +8,7 @@ class Nazjatar extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
   }
 
   on_byPlayer_heal(event) {

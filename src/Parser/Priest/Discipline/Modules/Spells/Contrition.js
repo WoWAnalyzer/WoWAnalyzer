@@ -2,8 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -15,7 +13,6 @@ import { calculateOverhealing ,OffensivePenanceBoltEstimation } from '../../Spel
 
 class Contrition extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };
@@ -26,7 +23,7 @@ class Contrition extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasTalent(
+    this.active = this.selectedCombatant.hasTalent(
       SPELLS.CONTRITION_TALENT.id
     );
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(

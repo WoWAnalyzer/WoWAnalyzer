@@ -2,8 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -18,7 +16,6 @@ const EVANGELISM_DURATION = 6;
 class Evangelism extends Analyzer {
   static dependencies = {
     atonementModule: Atonement,
-    combatants: Combatants,
   };
 
   _previousEvangelismCast = null;
@@ -26,7 +23,7 @@ class Evangelism extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !!this.owner.modules.combatants.selected.hasTalent(SPELLS.EVANGELISM_TALENT.id);
+    this.active = !!this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
   }
 
   get evangelismStatistics() {

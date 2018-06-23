@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -22,7 +21,6 @@ import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
 
 class Schism extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
     statTracker: StatTracker,
     atonementDamageSource: AtonementDamageSource,
@@ -54,7 +52,7 @@ class Schism extends Analyzer {
   // Methods
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasTalent(
+    this.active = this.selectedCombatant.hasTalent(
       SPELLS.SCHISM_TALENT.id
     );
 

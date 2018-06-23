@@ -13,13 +13,12 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class LuminousBarrier extends Analyzer {
-
   totalAbsorb = 0;
   wastedAbsorb = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
   }
 
   on_byPlayer_applybuff(event) {

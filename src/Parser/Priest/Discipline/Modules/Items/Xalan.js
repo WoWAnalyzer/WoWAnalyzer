@@ -18,7 +18,7 @@ class Xalan extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
+    this.active = this.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
   }
 
   lastAtonmentAppliedTimestamp = null;

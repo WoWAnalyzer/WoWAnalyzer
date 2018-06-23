@@ -30,7 +30,7 @@ class Tier21_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_damage(event){

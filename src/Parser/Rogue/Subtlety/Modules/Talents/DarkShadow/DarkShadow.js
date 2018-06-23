@@ -2,21 +2,18 @@ import Analyzer from 'Parser/Core/Analyzer';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 
-import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
-
 class DarkShadow extends Analyzer {
   static dependencies = {
     damageTracker: DamageTracker,
-    danceDamageTracker: DanceDamageTracker,
   };
 
   get totalShadowDanceCast() {
     return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
-  
+
   constructor(...args) {
     super(...args);
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
 }
 
