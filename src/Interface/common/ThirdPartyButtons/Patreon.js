@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PatreonIcon from 'Icons/PatreonTiny';
+import PatreonIcon from 'Interface/Icons/PatreonTiny';
 
 const PatreonButton = ({ text, ...others }) => (
   <a
@@ -10,8 +10,7 @@ const PatreonButton = ({ text, ...others }) => (
     href="https://www.patreon.com/wowanalyzer"
     {...others}
   >
-    <PatreonIcon />
-    {' '}{text}
+    <PatreonIcon /> {text}
   </a>
 );
 PatreonButton.propTypes = {

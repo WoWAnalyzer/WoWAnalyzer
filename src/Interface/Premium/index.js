@@ -5,19 +5,19 @@ import ReactTooltip from 'react-tooltip';
 import Textfit from 'react-textfit';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-import PatreonIcon from 'Icons/PatreonTiny';
-import GitHubMarkIcon from 'Icons/GitHubMarkLarge';
-import PremiumIcon from 'Icons/Premium';
-import ViralContentIcon from 'Icons/ViralContent';
-import WebBannerIcon from 'Icons/WebBanner';
-import DiscordIcon from 'Icons/DiscordTiny';
-import LogoutIcon from 'Icons/Logout';
+import PatreonIcon from 'Interface/Icons/PatreonTiny';
+import GitHubMarkIcon from 'Interface/Icons/GitHubMarkLarge';
+import PremiumIcon from 'Interface/Icons/Premium';
+import ViralContentIcon from 'Interface/Icons/ViralContent';
+import WebBannerIcon from 'Interface/Icons/WebBanner';
+import DiscordIcon from 'Interface/Icons/DiscordTiny';
+import LogoutIcon from 'Interface/Icons/Logout';
+import PatreonButton from 'Interface/common/ThirdPartyButtons/Patreon';
+import GitHubButton from 'Interface/common/ThirdPartyButtons/GitHub';
+import CyclingVideo from 'Interface/common/CyclingVideo';
 
 import { logout } from 'actions/user';
 import { getUser } from 'selectors/user';
-import PatreonButton from 'Main/PatreonButton';
-import GithubButton from 'Main/GithubButton';
-import CyclingVideo from 'Interface/common/CyclingVideo';
 
 import './index.css';
 
@@ -196,7 +196,7 @@ export class Premium extends React.PureComponent {
                     <h2>GitHub</h2>
                     Improve the analysis of a spec or build a new feature to get 1 month of Premium free<dfn data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">*</dfn>.<br /><br />
 
-                    <GithubButton />
+                    <GitHubButton />
                   </div>
                 </div>
 

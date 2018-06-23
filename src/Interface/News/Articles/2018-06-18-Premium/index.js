@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PremiumIcon from 'Icons/Premium';
-import PatreonIcon from 'Icons/Patreon';
-import GitHubIcon from 'Icons/GitHub';
+import PremiumIcon from 'Interface/Icons/Premium';
+import PatreonIcon from 'Interface/Icons/Patreon';
+import GitHubIcon from 'Interface/Icons/GitHub';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
 

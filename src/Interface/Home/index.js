@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ScrollFilledIcon from 'Icons/ScrollFilled';
-import MegaphoneIcon from 'Icons/Megaphone';
+import ScrollFilledIcon from 'Interface/Icons/ScrollFilled';
+import MegaphoneIcon from 'Interface/Icons/Megaphone';
 
-import DelayRender from 'common/DelayRender';
+import DelayRender from 'Interface/common/DelayRender';
 import { hasPremium } from 'selectors/user';
 import SectionDivider from 'Main/SectionDivider';
 import News from 'Interface/News';
+import SpecListing from 'Interface/Home/SpecListing';
+import ReportHistory from 'Interface/Home/ReportHistory';
+import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
+import ChangelogPanel from 'Main/ChangelogPanel';
 
-import DiscordButton from './DiscordButton';
-import ChangelogPanel from './ChangelogPanel';
 import DiscordBanner from './Images/discord-banner.jpg';
-import SpecListing from './SpecListing';
-import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ReadableList from 'common/ReadableList';
+import ReadableList from 'Interface/common/ReadableList';
 import parseVersionString from 'common/parseVersionString';
 import Warning from 'common/Alert/Warning';
 import Contributor from 'Interface/Contributor/Button';

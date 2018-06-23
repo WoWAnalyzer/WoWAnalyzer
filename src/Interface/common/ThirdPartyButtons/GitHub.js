@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GitHubIcon from 'Icons/GitHubMarkSmall';
+import GitHubIcon from 'Interface/Icons/GitHubMarkSmall';
+
+import './ThirdPartyButtons.css';
 
 const GithubButton = ({ text, ...others }) => (
   <a
@@ -10,7 +12,7 @@ const GithubButton = ({ text, ...others }) => (
     href="https://github.com/WoWAnalyzer/WoWAnalyzer"
     {...others}
   >
-    <GitHubIcon style={{ height: '1.4em', marginTop: -2 }} /> {text}
+    <GitHubIcon /> {text}
   </a>
 );
 GithubButton.propTypes = {

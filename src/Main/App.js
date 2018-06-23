@@ -6,12 +6,13 @@ import { getLocation, push } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'common/TooltipProvider';
+import TooltipProvider from 'Interface/common/TooltipProvider';
 import { track } from 'common/analytics';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { fetchUser } from 'actions/user';
 import { getError } from 'selectors/error';
 import RouteChangeScroller from 'Interface/RouteChangeScroller';
+import Home from 'Interface/Home';
 import NewsView from 'Interface/News/View';
 import Premium from 'Interface/Premium';
 
@@ -21,7 +22,6 @@ import './App.css';
 import ApiDownBackground from './Images/api-down-background.gif';
 import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
-import Home from './Home';
 import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';

@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 
-import ChecklistIcon from 'Icons/Checklist';
-import SuggestionIcon from 'Icons/Suggestion';
-import ArmorIcon from 'Icons/Armor';
-import StatisticsIcon from 'Icons/Statistics';
+import ChecklistIcon from 'Interface/Icons/Checklist';
+import SuggestionIcon from 'Interface/Icons/Suggestion';
+import ArmorIcon from 'Interface/Icons/Armor';
+import StatisticsIcon from 'Interface/Icons/Statistics';
 
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';

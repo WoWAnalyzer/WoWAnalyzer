@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InformationIcon from 'Icons/Information';
+import InformationIcon from 'Interface/Icons/Information';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
