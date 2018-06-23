@@ -1,4 +1,5 @@
 export default {
+  'WoWAnalyzer Premium': '2018-06-18-Premium',
   'Battle for Azeroth': '2018-04-14-Battle-For-Azeroth',
   'WoWAnalyzer\'s first anniversary': '2018-01-31-1st-Anniversary',
   'Version 2.0 is here! Check your fights with the all new checklist': '2017-12-24-Version-2-0',

@@ -10,18 +10,6 @@ import CooldownOverview from 'Main/CooldownOverview';
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
-      spell: SPELLS.POWER_OF_THE_MAELSTROM,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.ELEMENTAL_FOCUS,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
       spell: SPELLS.LAVA_SURGE,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,

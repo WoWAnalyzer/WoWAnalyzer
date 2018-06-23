@@ -7,6 +7,12 @@ nav.fight {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+@media (max-width: 1200px) {
+  nav.fight {
+    display: none;
+  }
+}
+
 nav.fight::-webkit-scrollbar {
   display: none;
 }

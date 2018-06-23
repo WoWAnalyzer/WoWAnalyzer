@@ -7,7 +7,7 @@ import { formatMilliseconds } from 'common/format';
  */
 class Channeling extends CoreChanneling {
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.VOID_TORRENT.id) {
+    if (event.ability.guid === SPELLS.VOID_TORRENT_TALENT.id) {
       this.beginChannel(event);
       return;
     }
@@ -25,7 +25,7 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event, ability) {
-    if (this.isChannelingSpell(SPELLS.MIND_FLAY.id) || this.isChannelingSpell(SPELLS.VOID_TORRENT.id)) {
+    if (this.isChannelingSpell(SPELLS.MIND_FLAY.id) || this.isChannelingSpell(SPELLS.VOID_TORRENT_TALENT.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Marking', this._currentChannel.ability.name, 'as ended since we started casting something else:', event.ability.name);
       this.endChannel(event);
@@ -37,7 +37,7 @@ class Channeling extends CoreChanneling {
   // Looking at `removebuff` will includes progress towards a tick that never happened. This progress could be considered downtime as it accounts for nothing.
   // If it's ever decided to consider the time between last tick and channel ending as downtime, just change the endchannel trigger.
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.MIND_FLAY.id || event.ability.guid === SPELLS.VOID_TORRENT.id) {
+    if (event.ability.guid === SPELLS.MIND_FLAY.id || event.ability.guid === SPELLS.VOID_TORRENT_TALENT.id) {
       this.endChannel(event);
     }
   }

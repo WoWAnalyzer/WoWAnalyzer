@@ -12,12 +12,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.STORMKEEPER,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
       spell: SPELLS.BERSERKING,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,

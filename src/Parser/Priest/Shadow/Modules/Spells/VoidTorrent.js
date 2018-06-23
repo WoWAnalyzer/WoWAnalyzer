@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Voidform from './Voidform';
@@ -19,8 +19,13 @@ const VOID_TORRENT_MAX_TIME = 4000;
 
 class VoidTorrent extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     voidform: Voidform,
   };
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
+  }
 
   _voidTorrents = {};
   _previousVoidTorrentCast = null;
@@ -42,7 +47,7 @@ class VoidTorrent extends Analyzer {
 
     // due to sometimes being able to cast it at the same time as you leave voidform:
     if(this.voidform.inVoidform){
-      this.voidform.addVoidformEvent(SPELLS.VOID_TORRENT.id, {
+      this.voidform.addVoidformEvent(SPELLS.VOID_TORRENT_TALENT.id, {
         start: this.voidform.normalizeTimestamp({timestamp: this._previousVoidTorrentCast.timestamp}),
         end: this.voidform.normalizeTimestamp(event),
       });
@@ -61,14 +66,14 @@ class VoidTorrent extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOID_TORRENT.id) {
+    if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
       this.startedVoidTorrent(event);
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOID_TORRENT.id) {
+    if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
       const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
       const wastedTime = (VOID_TORRENT_MAX_TIME - TIMESTAMP_ERROR_MARGIN) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
       this.finishedVoidTorrent({ event, wastedTime });
@@ -90,8 +95,8 @@ class VoidTorrent extends Analyzer {
   suggestions(when) {
     when(this.totalWasted).isGreaterThan(this.suggestionThresholds.average)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You interrupted <SpellLink id={SPELLS.VOID_TORRENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</span>)
-          .icon(SPELLS.VOID_TORRENT.icon)
+        return suggest(<React.Fragment>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</React.Fragment>)
+          .icon(SPELLS.VOID_TORRENT_TALENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
           .recommended('No time wasted is recommended.')
           .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
@@ -101,7 +106,7 @@ class VoidTorrent extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
+        icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
         value={`${formatSeconds(this.totalWasted)} seconds`}
         label={(
           <dfn data-tip="Lost Void Torrent channeling time.">

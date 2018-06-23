@@ -17,6 +17,16 @@ export default {
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
   },
+  HIBERNATE: {
+    id: 2637,
+    name: 'Hibernate',
+    icon: 'spell_nature_sleep',
+  },
+  SOOTHE: {
+    id: 2908,
+    name: 'Soothe',
+    icon: 'ability_hunter_beastsoothe',
+  },
 
   // RESTO DRUID //
 
@@ -439,11 +449,6 @@ export default {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  RAGE_OF_THE_SLEEPER: {
-    id: 200851,
-    name: 'Rage of the Sleeper',
-    icon: 'inv_hand_1h_artifactursoc_d_01',
-  },
   MOONFIRE_BEAR: {
     id: 164812,
     name: 'Moonfire',
@@ -758,11 +763,6 @@ export default {
     name: 'Skull Bash',
     icon: 'inv_bone_skull_04',
   },
-  ASHAMANES_FRENZY: {
-    id: 210722,
-    name: 'Ashamane\'s Frenzy',
-    icon: 'inv_knife_1h_artifactfrostsaber_d_01',
-  },
   PRIMAL_FURY: {
     id: 16953,
     name: 'Primal Fury',
@@ -809,33 +809,6 @@ export default {
     id: 145152,
     name: 'Bloodtalons',
     icon: 'spell_druid_bloodythrash',
-  },
-  // Traits:
-  // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
-  ASHAMANES_BITE: {
-    id: 210702,
-    name: 'Ashamane\'s Bite',
-    icon: 'artifactability_feraldruid_ashamanesbite',
-  },
-  ASHAMANES_RIP: {
-    id: 210705,
-    name: 'Ashamane\'s Rip',
-    icon: 'artifactability_feraldruid_ashamanesbite',
-  },
-  FURY_OF_ASHAMANE: {
-    id: 240670,
-    name: 'Fury of Ashamane',
-    icon: 'ability_mount_jungletiger',
-  },
-  PROTECTION_OF_ASHAMANE: {
-    id: 210650,
-    name: 'Protection of Ashamane',
-    icon: 'ability_druid_catform',
-  },
-  PROTECTION_OF_ASHAMANE_BUFF: {
-    id: 210655,
-    name: 'Protection of Ashamane',
-    icon: 'ability_druid_catform',
   },
 
   //shared talent spells

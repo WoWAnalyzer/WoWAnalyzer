@@ -35,10 +35,9 @@ export default {
   INCARNATION_KING_OF_THE_JUNGLE_TALENT: { id: 102543, name: "Incarnation: King of the Jungle", icon: "spell_druid_incarnation" },
   JAGGED_WOUNDS_TALENT: { id: 202032, name: "Jagged Wounds", icon: "ability_druid_disembowel" },
   SABERTOOTH_TALENT: { id: 202031, name: "Sabertooth", icon: "inv_misc_monsterfang_01" },
-  BRUTAL_SLASH_TALENT: { id: 202028, name: "Brutal Slash", icon: "ability_druid_ravage", energyCost: 20 },
-  SAVAGE_ROAR_TALENT: { id: 52610, name: "Savage Roar", icon: "ability_druid_skinteeth", energyCost: 40 },
+  BRUTAL_SLASH_TALENT: { id: 202028, name: "Brutal Slash", icon: "ability_druid_ravage", energyCost: 30 },
+  SAVAGE_ROAR_TALENT: { id: 52610, name: "Savage Roar", icon: "ability_druid_skinteeth", energyCost: 30 },
   BLOODTALONS_TALENT: { id: 155672, name: "Bloodtalons", icon: "spell_druid_bloodythrash" },
-  ELUNES_GUIDANCE_TALENT: { id: 202060, name: "Elune's Guidance", icon: "spell_holy_elunesgrace" },
   GUARDIAN_AFFINITY_TALENT_FERAL: { id: 217615, name: "Guardian Affinity", icon: "talentspec_druid_feral_bear" },
   SOUL_OF_THE_FOREST_TALENT_FERAL: { id: 158476, name: "Soul of the Forest", icon: "ability_druid_manatree" },
   MOMENT_OF_CLARITY_TALENT_FERAL: { id: 236068, name: "Moment of Clarity", icon: "spell_druid_momentofclarity" },
@@ -75,4 +74,5 @@ export default {
   NEW_MOON_TALENT: { id: 274281, name: "New Moon", icon: "artifactability_balancedruid_newmoon" },
   TIGERS_DASH_TALENT: { id: 252216, name: "Tiger's Dash", icon: "ability_druid_dash_orange" },
   TWIN_MOONS_TALENT: { id: 279620, name: "Twin Moons", icon: "spell_nature_starfall" },
+  FERAL_FRENZY_TALENT: { id: 274837, name: "Feral Frenzy", icon: "ability_druid_rake", energyCost: 25 },
 };

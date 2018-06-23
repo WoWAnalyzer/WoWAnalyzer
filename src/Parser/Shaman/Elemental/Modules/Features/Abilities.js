@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STORMKEEPER,
+        spell: SPELLS.STORMKEEPER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
@@ -109,10 +109,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
-        spell: SPELLS.LIGHTNING_SURGE_TOTEM,
+        spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        cooldown: 60,
+        cooldown: 60, //misses Static Charge CDR
       },
       {
         spell: SPELLS.ASTRAL_SHIFT,

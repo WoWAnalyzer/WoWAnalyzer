@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
       },
       {
-        spell: SPELLS.LIGHTNING_SURGE_TOTEM,
+        spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         cooldown: 60,
