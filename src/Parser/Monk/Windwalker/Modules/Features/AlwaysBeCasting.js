@@ -10,32 +10,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
   static BASE_GCD = 1000;
   static MINIMUM_GCD = 750;
-  static ABILITIES_ON_GCD = [
-    // Channeled spells
-    //SPELLS.FISTS_OF_FURY_CAST.id,
-    //SPELLS.CRACKLING_JADE_LIGHTNING.id,
-
-    // rotational:
-    SPELLS.BLACKOUT_KICK.id,
-    SPELLS.RISING_SUN_KICK.id,
-    SPELLS.TIGER_PALM.id,
-    SPELLS.SPINNING_CRANE_KICK.id,
-    SPELLS.TOUCH_OF_DEATH.id,
-
-    // talents:
-    SPELLS.CHI_WAVE_TALENT.id,
-    SPELLS.CHI_BURST_TALENT.id,
-    SPELLS.LEG_SWEEP_TALENT.id,
-    SPELLS.RING_OF_PEACE_TALENT.id,
-    SPELLS.RUSHING_JADE_WIND_TALENT.id,
-    SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
-    // utility:
-    SPELLS.PARALYSIS.id,
-    SPELLS.EFFUSE.id,
-    SPELLS.TRANSCENDENCE.id,
-    SPELLS.TRANSCENDENCE_TRANSFER.id,
-    SPELLS.FLYING_SERPENT_KICK.id,
-  ];
   static STATIC_GCD_ABILITIES = {
     // Channeled spells
     [SPELLS.FISTS_OF_FURY_CAST.id]: 1000,
