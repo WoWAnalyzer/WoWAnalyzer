@@ -146,17 +146,24 @@ class GlobalCooldown extends Analyzer {
       const ability = this.abilities.getAbility(spellId);
       if (ability && ability.gcd) {
         if (ability.gcd.static) {
-          staticGCD = ability.gcd.static;
+          staticGCD = this._resolveAbilityGcdField(ability.gcd.static);
         }
         if (ability.gcd.base) {
-          baseGCD = ability.gcd.base;
+          baseGCD = this._resolveAbilityGcdField(ability.gcd.base);
           // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
-          minimumGCD = ability.gcd.minimum || (baseGCD / 2);
+          minimumGCD = this._resolveAbilityGcdField(ability.gcd.minimum) || (baseGCD / 2);
         }
       }
     }
 
     return staticGCD || this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
+  }
+  _resolveAbilityGcdField(value) {
+    if (typeof value === 'function') {
+      return value.call(this.owner, this.selectedCombatant);
+    } else {
+      return value;
+    }
   }
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */

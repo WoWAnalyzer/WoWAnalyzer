@@ -4,6 +4,9 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+
+    const standardGcd = combatant => 800 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
+
     return [
       {
         spell: SPELLS.VANISH,
@@ -36,6 +39,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_FROM_ABOVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
+        gcd: {
+          static: 2000,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -45,15 +51,24 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL_THE_BONES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
         enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spell: SPELLS.RUN_THROUGH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
       },
       {
         spell: SPELLS.SABER_SLASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
       },
       {
         spell: SPELLS.POISONED_KNIFE,
@@ -62,6 +77,30 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AMBUSH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.BLUNDERBUSS,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.PISTOL_SHOT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.BETWEEN_THE_EYES,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          static: standardGcd,
+        },
       },
       {
         spell: SPELLS.BLADE_FLURRY,
@@ -75,6 +114,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLICE_AND_DICE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
         enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
@@ -85,11 +127,17 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEINT,
         buffSpellId: SPELLS.FEINT.id,
+        gcd: {
+          static: standardGcd,
+        },
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
       {
         spell: SPELLS.CRIMSON_VIAL,
         cooldown: 30,
+        gcd: {
+          static: standardGcd,
+        },
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
       {
