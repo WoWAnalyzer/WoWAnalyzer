@@ -10,28 +10,35 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHRED,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // fixed 1.0
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 1,
       },
       {
         spell: SPELLS.RAKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // fixed 1.0
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 2,
       },
       {
         spell: SPELLS.RIP,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // fixed 1.0
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 5,
       },
       {
         spell: SPELLS.FEROCIOUS_BITE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // fixed 1.0
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 6,
       },
       {
@@ -40,7 +47,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id),
         // fixed 1.0
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 7,
       },
       {
@@ -48,7 +57,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id),
         // 1.0 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1000,
+        },
         timelineSortIndex: 3,
       },
 
@@ -56,7 +67,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.THRASH_FERAL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         // 1.0 fixed
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 10,
       },
       {
@@ -64,7 +77,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
         // 1.0 fixed
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 11,
       },
       {
@@ -77,7 +92,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         // 1.0 fixed
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 11,
       },
 
@@ -92,7 +109,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         // 1.0 reduced by haste (possibly a bug, likely should be 1.0 fixed)
-        isOnGCD: true,
+        gcd: {
+          base: 1000,
+        },
         timelineSortIndex: 22,
       },
       {
@@ -106,7 +125,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         // 1.0 fixed
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 22,
       },
       {
@@ -117,7 +138,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        isOnGCD: false,
+        gcd: false,
         timelineSortIndex: 20,
       },
       {
@@ -129,21 +150,27 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         // 1.0 fixed
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 21,
       },
       {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.0 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1000,
+        },
         timelineSortIndex: 30,
       },
       {
         spell: SPELLS.ENTANGLING_ROOTS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.0 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1000,
+        },
         timelineSortIndex: 31,
       },
       {
@@ -151,7 +178,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         // 1.0 fixed
-        isOnGCD: true, 
+        gcd: {
+          static: 1000,
+        },
         timelineSortIndex: 32,
       },
       {
@@ -161,7 +190,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 120,
         // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        isOnGCD: false,
+        gcd: false,
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -172,7 +201,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 45,
         // triggers a 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        isOnGCD: false,
+        gcd: false,
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -183,14 +212,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         // 1.0 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1000,
+        },
         isDefensive: true,
         timelineSortIndex: 44,
       },
       {
         spell: SPELLS.SKULL_BASH_FERAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: false,
+        gcd: false,
         timelineSortIndex: 33,
       },
       {
@@ -198,14 +229,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.PROWL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 6,
-        isOnGCD: false,
+        gcd: false,
         timelineSortIndex: 25,
       },
       {
         spell: SPELLS.PROWL_INCARNATION,
         buffSpellId: SPELLS.PROWL_INCARNATION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: false,
+        gcd: false,
         timelineSortIndex: 26,
       },
       {
@@ -214,7 +245,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         isUndetectable: true,
-        isOnGCD: false,
+        gcd: false,
         timelineSortIndex: 24,
       },
       {
@@ -223,14 +254,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         charges: 2,
-        isOnGCD: false,
+        gcd: false,
         isDefensive: true,
         timelineSortIndex: 40,
       },
       {
         spell: SPELLS.REBIRTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: true,
         timelineSortIndex: 60,
       },
       {
@@ -239,7 +270,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         cooldown: 50,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 34,
       },
       {
@@ -248,7 +281,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
         cooldown: 30,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 34,
       },
       {
@@ -257,14 +292,18 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 35,
       },
       {
         spell: SPELLS.HIBERNATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.5 reduced by haste
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 36,
       },
       {
@@ -272,7 +311,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
         // 1.5 reduced by haste
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 37,
       },
       {
@@ -280,7 +321,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
         cooldown: 90,
-        isOnGCD: false,
+        gcd: false,
         isDefensive: true,
         timelineSortIndex: 42,
       },
@@ -290,7 +331,9 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         // 0.5 fixed
-        isOnGCD: true,
+        gcd: {
+          static: 500,
+        },
         timelineSortIndex: 42,
       },
       {
@@ -298,7 +341,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         isDefensive: true,
         timelineSortIndex: 51,
       },
@@ -307,7 +352,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CAT_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 50,
       },
       {
@@ -317,7 +364,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90, // only has a cooldown for feral spec - not guardian or resto
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 54,
       },
       {
@@ -325,7 +374,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.TRAVEL_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 52,
       },
       {
@@ -333,7 +384,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.STAG_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 1.5 reduced by haste
-        isOnGCD: true, 
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 53,
       },
     ];
