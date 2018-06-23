@@ -16,19 +16,31 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // haste => 8 / (1 + haste)
         // TODO: Add Cooldown with stacks and Lava Surge procs
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LIGHTNING_BOLT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LIQUID_MAGMA_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id),
       },
       {
         spell: SPELLS.CHAIN_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 2 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LAVA_BEAM,
@@ -37,12 +49,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EARTHQUAKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ELEMENTAL_BLAST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
         cooldown: 12,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -52,6 +70,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
         castEfficiency: {
           suggestion: true,
@@ -62,6 +83,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORMKEEPER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -70,6 +94,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
+        gcd: {
+          base: 1500,
+        },
         enabled: !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -89,15 +116,24 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLAME_SHOCK,
         category: Abilities.SPELL_CATEGORIES.DOTS,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FROST_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ICEFURY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.ICEFURY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -107,6 +143,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EARTH_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CAPACITOR_TOTEM,

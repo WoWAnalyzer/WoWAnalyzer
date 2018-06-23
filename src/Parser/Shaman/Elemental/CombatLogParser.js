@@ -1,10 +1,9 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Overload from './Modules/Features/Overload';
 
 import FlameShock from './Modules/ShamanCore/FlameShock';
@@ -36,7 +35,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     procTracker: ProcTracker,
     flameShock: FlameShock,
