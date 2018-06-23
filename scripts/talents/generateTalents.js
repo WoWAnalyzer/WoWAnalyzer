@@ -3,7 +3,7 @@ const fs = require('fs');
 const talents = require('./talents.json');
 
 const SHARED = 'Shared';
-const TALENTS_DIRECTORY = '../common/SPELLS/TALENTS';
+const TALENTS_DIRECTORY = 'src/common/SPELLS/TALENTS';
 
 /**
  * Gets the desired category for a talent. This also mutates the `spells` argument if the talent was added previously and turns out to be a shared talent. THis can happen when specs share talents but not on the same row.
