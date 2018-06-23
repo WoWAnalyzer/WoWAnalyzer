@@ -159,20 +159,154 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SOLAR_WRATH,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.MOONFIRE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SUNFIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BEAR_FORM,
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CAT_FORM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DASH,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DISPLACER_BEAST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
+      },
+      {
+        spell: SPELLS.FEROCIOUS_BITE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.RAKE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
+      },
+      {
+        spell: SPELLS.STAG_FORM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.TRAVEL_FORM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.RIP,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHRED,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CAT_SWIPE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SWIPE_BEAR,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.URSOLS_VORTEX,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIGHTY_BASH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
+      },
+      {
+        spell: SPELLS.TYPHOON,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.TYPHOON.id),
+      },
+      {
+        spell: SPELLS.MOONKIN_FORM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.STARSURGE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL,
