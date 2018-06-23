@@ -13,7 +13,9 @@ class Abilities extends CoreAbilities {
         // This can get way too low calculated cooldown if the player has a very high amount of haste, but this is not expected for windwalkers
         cooldown: (haste, combatant) =>
           24 / (1 + haste) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -26,7 +28,9 @@ class Abilities extends CoreAbilities {
         // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 1.0 seconds.
         cooldown: (haste, combatant) =>
           (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 1 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -35,7 +39,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 24 / (1 + haste),
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -59,7 +63,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TOUCH_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -68,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 90,
+        cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -78,7 +84,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 90,
+        cooldown: 90,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
@@ -106,18 +112,22 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLACKOUT_KICK,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.TIGER_PALM,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 15,
-        isOnGCD: true,
+        gcd: true,
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -127,58 +137,77 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPINNING_CRANE_KICK,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.CHI_BURST_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: true,
       },
       {
         spell: SPELLS.LEG_SWEEP_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.RING_OF_PEACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.EFFUSE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: [SPELLS.TRANSCENDENCE, SPELLS.TRANSCENDENCE_TRANSFER],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.FLYING_SERPENT_KICK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
-        isOnGCD: true,
+        gcd: {
+          static: 1000,
+        },
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 6 / (1 + haste),
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
       },
       // Defensives
@@ -186,14 +215,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 90,
+        cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
         buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 90,
+        cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
     ];

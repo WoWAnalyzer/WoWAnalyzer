@@ -48,6 +48,13 @@ class Ability {
      * If this spell overlaps in the Spell Timeline it likes is incorrectly marked as on the GCD and should be removed.
      */
     isOnGCD: PropTypes.bool,
+    /**
+     * Whether the spell is on the GCD.
+     * If this spell overlaps in the Spell Timeline it likes is incorrectly marked as on the GCD and should be removed.
+     */
+    gcd: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
+      static: PropTypes.number,
+    })]),
     // TODO: Add properties `staticGCD` and `baseGcd` since the baseGcd can be different per spell (e.g. Brewmaster's Effuse has a 1.5sec base GCD and most other spells are 1sec)
     castEfficiency: PropTypes.shape({
       /**
@@ -163,7 +170,12 @@ class Ability {
     return this._channel;
   }
   // endregion
+  /**
+   * @deprecated Use `gcd` instead.
+   * @type {null|boolean}
+   */
   isOnGCD = null;
+  gcd = null;
   extraSuggestion = null;
   recommendedEfficiency = null;
   isDefensive = null;
