@@ -138,7 +138,7 @@ class Ability {
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.combatants.selected);
+      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.selectedCombatant);
     }
 
     return this._cooldown;
