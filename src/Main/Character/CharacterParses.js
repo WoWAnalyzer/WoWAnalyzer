@@ -73,7 +73,6 @@ class CharacterParses extends React.Component {
     this.load = this.load.bind(this);
     this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
-    this.fetchBattleNetInfo = this.fetchBattleNetInfo.bind(this);
     this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
   }
 
@@ -205,25 +204,34 @@ class CharacterParses extends React.Component {
     return ZONES.find(zone => zone.id === this.state.activeZoneID).encounters;
   }
 
-  fetchBattleNetInfo() {
+  async fetchBattleNetInfo() {
     // fetch character image and active spec from battle-net
-    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&fields=talents&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-      .then(response => response.json())
-      .then((data) => {
-        if (data.status === 'nok') {
-          alert('Character doesn\'t exist');
-          return;
-        }
-        const image = data.thumbnail.replace('-avatar.jpg', '');
-        const role = data.talents.find(e => e.selected).spec.role;
-        const metric = role === 'HEALING' ? 'hps' : 'dps';
-        this.setState({
-          image: image,
-          metric: metric,
-        }, () => {
-          this.load();
-        });
+    const response = await fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&fields=talents&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
+    const data = await response.json();
+
+    if (data.status === 'nok') {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.CHARACTER_NOT_FOUND,
       });
+      return;
+    }
+    if (!data.thumbnail) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.UNEXPECTED,
+      });
+      return;
+    }
+    const image = data.thumbnail.replace('-avatar.jpg', '');
+    const role = data.talents.find(e => e.selected).spec.role;
+    const metric = role === 'HEALING' ? 'hps' : 'dps';
+    this.setState({
+      image: image,
+      metric: metric,
+    }, () => {
+      this.load();
+    });
   }
 
   async load(refresh = false) {
@@ -312,7 +320,6 @@ class CharacterParses extends React.Component {
   }
 
   render() {
-
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (

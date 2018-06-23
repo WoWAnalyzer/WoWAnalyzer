@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.INFUSION_OF_LIGHT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
-          const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+          const swCdr = (hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id)) ? 0.5 : 0;
           return 9 / (1 + haste) * (1 - swCdr);
         },
         isOnGCD: true,
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_PROTECTION,
         buffSpellId: SPELLS.DIVINE_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60 * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
+        cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_SHIELD,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (5 * 60) * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
+        cooldown: (5 * 60) * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         isOnGCD: true,
         timelineSortIndex: 46,
         isDefensive: true,
@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAY_ON_HANDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 600 * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
+        cooldown: 600 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,

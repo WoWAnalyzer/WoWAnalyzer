@@ -361,7 +361,7 @@ class Report extends React.Component {
     return (
       <React.Fragment>
         <FightNavigationBar />
-        <div style={{ marginLeft: 60 }}>
+        <div className="container">
           {!parser && <ActivityIndicator text="Initializing analyzer..." />}
           {parser && (
             <Results
