@@ -295,6 +295,11 @@ export default {
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
   },
+  EXPOSED_ELEMENTS_DEBUFF: {
+    id: 269808,
+    name: "Exposed Elements Debuff",
+    icon: "spell_nature_callstorm",
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 226180,
@@ -591,11 +596,6 @@ export default {
   ENHANCE_SHAMAN_T21_4SET_EQUIP: {
     id: 251761,
     name: 'T21 4set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  EXPOSED_ELEMENTS: {
-    id: 252151,
-    name: 'T21 4set bonus debuff',
     icon: 'ability_shaman_ascendance',
   },
   //Enhancement Traits
