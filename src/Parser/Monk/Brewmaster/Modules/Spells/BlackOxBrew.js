@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
   static dependencies = {

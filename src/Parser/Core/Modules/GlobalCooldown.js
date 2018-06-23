@@ -137,19 +137,26 @@ class GlobalCooldown extends Analyzer {
   getCurrentGlobalCooldown(spellId = null) {
     // Using `_modules` here so this doesn't trigger the deprecation warning. We should move the STATIC_GCD_ABILITIES to the Abilities config which would fix this.
     let staticGCD = null;
+    let baseGCD = this.baseGCD;
+    let minimumGCD = this.minimumGCD;
     if (spellId) {
       if (this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) {
         staticGCD = this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId];
       }
       const ability = this.abilities.getAbility(spellId);
-      if (ability) {
-        if (ability.gcd && ability.gcd.static) {
+      if (ability && ability.gcd) {
+        if (ability.gcd.static) {
           staticGCD = ability.gcd.static;
+        }
+        if (ability.gcd.base) {
+          baseGCD = ability.gcd.base;
+          // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
+          minimumGCD = ability.gcd.minimum || (baseGCD / 2);
         }
       }
     }
 
-    return staticGCD || this.constructor.calculateGlobalCooldown(this.haste.current, this.baseGCD, this.minimumGCD);
+    return staticGCD || this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
   }
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
