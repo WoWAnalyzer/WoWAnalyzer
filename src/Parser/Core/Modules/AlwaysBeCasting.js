@@ -3,7 +3,6 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Abilities from './Abilities';
@@ -16,7 +15,6 @@ const debug = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     haste: Haste,
     abilities: Abilities,
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
