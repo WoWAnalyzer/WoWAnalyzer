@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DelayRender from 'common/DelayRender';
+import DelayRender from 'Interface/common/DelayRender';
 
 export default function lazyLoadComponent(load) {
   class ComponentLazyLoader extends React.PureComponent {

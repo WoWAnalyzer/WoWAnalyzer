@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import UpArrow from 'Icons/UpArrow';
+import UpArrow from 'Interface/Icons/UpArrow';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 

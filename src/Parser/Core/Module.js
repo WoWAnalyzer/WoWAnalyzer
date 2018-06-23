@@ -10,6 +10,9 @@ class Module {
   active = true;
   /** @var number This module's execution priority, this makes sure dependencies are executed before modules that depend on them. */
   priority = 0;
+  get selectedCombatant() {
+    return this.owner.selectedCombatant;
+  }
   /**
    * @param {CombatLogParser} parser
    * @param {object} dependencies
@@ -24,7 +27,7 @@ class Module {
     this.priority = priority;
 
     if (dependencies) {
-      Object.keys(dependencies).forEach((key) => {
+      Object.keys(dependencies).forEach(key => {
         this[key] = dependencies[key];
       });
     }

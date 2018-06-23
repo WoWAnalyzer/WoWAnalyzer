@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DiscordLogo from 'Icons/DiscordTiny';
-import GithubLogo from 'Icons/GitHubMarkSmall';
-import PatreonIcon from 'Icons/PatreonTiny';
+import DiscordLogo from 'Interface/Icons/DiscordTiny';
+import GithubLogo from 'Interface/Icons/GitHubMarkSmall';
+import PatreonIcon from 'Interface/Icons/PatreonTiny';
 
 import './style.css';
 

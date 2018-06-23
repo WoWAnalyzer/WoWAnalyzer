@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PatreonIcon from 'Icons/PatreonTiny';
-import DiscordIcon from 'Icons/DiscordTiny';
-import GitHubIcon from 'Icons/GitHubMarkSmall';
-import PremiumIcon from 'Icons/Premium';
+import PatreonIcon from 'Interface/Icons/PatreonTiny';
+import DiscordIcon from 'Interface/Icons/DiscordTiny';
+import GitHubIcon from 'Interface/Icons/GitHubMarkSmall';
+import PremiumIcon from 'Interface/Icons/Premium';
 
 import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
