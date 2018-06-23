@@ -25,7 +25,8 @@ class RuneStrike extends Analyzer {
   badCasts = 0;
   goodCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id);
   }
 

@@ -27,7 +27,8 @@ class TyelcaFerrenMarcussStature extends Analyzer {
 	damageDone = 0;
 	healingDone = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasLegs(ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id);
 	}
 

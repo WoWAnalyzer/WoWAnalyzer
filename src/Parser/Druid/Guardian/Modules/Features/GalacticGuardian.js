@@ -21,7 +21,8 @@ class GalacticGuardian extends Analyzer {
   overwrittenGGProc = 0;
   nonGGMoonFire = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
   }
 

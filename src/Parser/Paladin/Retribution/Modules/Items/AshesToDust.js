@@ -18,7 +18,8 @@ class AshesToDust extends Analyzer {
 
   damageDone = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.ASHES_TO_DUST.id) && this.combatants.selected.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id);
   }
 

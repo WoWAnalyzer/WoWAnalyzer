@@ -1,10 +1,9 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Overload from './Modules/Features/Overload';
 
 import FlameShock from './Modules/ShamanCore/FlameShock';
@@ -14,6 +13,7 @@ import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
 import Ascendance from './Modules/Talents/Ascendance';
 import TotemMastery from './Modules/Talents/TotemMastery';
+import ExposedElements from './Modules/Talents/ExposedElements';
 
 import Tier21_2Set from './Modules/Items/Tier21_2set.js';
 import Tier21_4Set from './Modules/Items/Tier21_4set.js';
@@ -35,7 +35,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     procTracker: ProcTracker,
     flameShock: FlameShock,
@@ -47,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBlast: ElementalBlast,
     ascendance: Ascendance,
     totemMastery: TotemMastery,
+    exposedElements: ExposedElements,
 
     // Legendaries:
     theDeceiversBloodPact: TheDeceiversBloodPact,

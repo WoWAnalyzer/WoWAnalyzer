@@ -19,7 +19,8 @@ class ShatteredFragmentsOfSindragosa extends Analyzer {
   cometStormCasts = 0;
   legendaryProcs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHead(ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id);
   }
 

@@ -11,5 +11,6 @@ export default function getParserMock() {
       start_time: 0,
     },
     playerId: 1,
+    selectedCombatant: {},
   };
 }

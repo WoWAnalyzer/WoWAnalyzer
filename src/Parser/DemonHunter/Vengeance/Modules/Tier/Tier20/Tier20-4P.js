@@ -15,7 +15,8 @@ class Tier204PBonus extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.VENG_DH_T20_4P_BONUS.id);
   }
 

@@ -26,7 +26,8 @@ class Backdraft extends Analyzer {
   _expectedBuffEnd = 0;
   wastedStacks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this._maxStacks = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
     this._stacksPerApplication = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 2 : 1;
   }

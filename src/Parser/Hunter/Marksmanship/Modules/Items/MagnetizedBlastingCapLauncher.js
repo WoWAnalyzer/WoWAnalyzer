@@ -20,7 +20,8 @@ class MagnetizedBlastingCapLauncher extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id);
   }
 

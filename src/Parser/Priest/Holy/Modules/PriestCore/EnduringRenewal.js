@@ -30,7 +30,8 @@ class EnduringRenewal extends Analyzer {
   // all renew healing after timestamp + baase duraation should be a result of
   // Enduring Renewal
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
     this._usingLegendaryLegs = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
     this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);

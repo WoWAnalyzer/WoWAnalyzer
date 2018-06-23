@@ -14,7 +14,8 @@ class T21_2set extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARRIOR_FURY_T21_2P_BONUS.id);
   }
 

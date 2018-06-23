@@ -13,7 +13,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
   }
 

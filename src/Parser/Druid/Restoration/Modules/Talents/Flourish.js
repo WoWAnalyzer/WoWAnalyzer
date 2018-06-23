@@ -51,7 +51,8 @@ class Flourish extends Analyzer {
   increasedRateRegrowthHealing = 0;
   increasedRateDreamerHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FLOURISH_TALENT.id);
     this.hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
   }

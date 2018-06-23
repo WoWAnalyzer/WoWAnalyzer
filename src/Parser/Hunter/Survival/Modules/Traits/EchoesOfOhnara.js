@@ -15,7 +15,8 @@ class EchoesOfOhnara extends Analyzer {
   };
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.ECHOES_OF_OHNARA_TRAIT.id];
   }
 

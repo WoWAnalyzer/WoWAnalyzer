@@ -40,7 +40,8 @@ class RuneTracker extends ResourceTracker {
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];

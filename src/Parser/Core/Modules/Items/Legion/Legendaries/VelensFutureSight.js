@@ -30,7 +30,8 @@ class VelensFutureSight extends Analyzer {
     return this.healingIncreaseHealing + this.overhealHealing;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
 
     if (this.active) {

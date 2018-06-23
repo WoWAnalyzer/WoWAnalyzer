@@ -23,7 +23,8 @@ class SplittingIce extends Analyzer {
 
   castTarget; // player's last directly targeted foe, used to tell which hit was on primary target
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	   this.active = this.combatants.selected.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
      this.hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
      this.hasEbonbolt = this.combatants.selected.hasTalent(SPELLS.EBONBOLT_TALENT.id);

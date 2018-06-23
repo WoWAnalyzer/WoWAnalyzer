@@ -43,7 +43,8 @@ class SoulOfTheForest extends Analyzer {
   wildGrowthTargets = [];
   rejuvenationDuration = REJUVENATION_BASE_DURATION;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasSotf = this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
     this.hasSota = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
     this.active = this.hasSotf || this.hasSota;

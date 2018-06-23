@@ -65,7 +65,8 @@ class DarkmoonDeckImmortality extends Analyzer {
     return (this._totalArmor + this.currentArmor * (this.owner.currentTimestamp - this._lastBuffChange)) / (this.owner.fightDuration - this.deathTracker.totalTimeDead);
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const selected = this.combatants.selected;
     this.active = selected.hasTrinket(ITEMS.DARKMOON_DECK_IMMORTALITY.id);
 

@@ -29,7 +29,8 @@ class FlashFlood extends Analyzer {
   timeSaved = 0;
   beginCastGlobalCooldown = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
   }
 

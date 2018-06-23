@@ -24,7 +24,8 @@ class Bloodworms extends Analyzer {
   bloodworm = [];
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
   }
 

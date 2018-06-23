@@ -26,7 +26,8 @@ class DireBeast extends Analyzer {
   badDBCasts = 0;
   remainingBestialWrathCooldown = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
   on_byPlayer_cast(event) {

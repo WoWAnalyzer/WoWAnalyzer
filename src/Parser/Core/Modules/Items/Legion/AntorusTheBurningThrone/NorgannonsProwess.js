@@ -36,7 +36,8 @@ class NorgannonsProwess extends Analyzer {
   pantheonProc = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.NORGANNONS_PROWESS.id);
     if(this.active) {
       this.intBuff = calculatePrimaryStat(940, 11483, this.combatants.selected.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);

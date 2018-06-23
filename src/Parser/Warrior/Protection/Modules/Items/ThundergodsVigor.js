@@ -20,7 +20,8 @@ class ThundergodsVigor extends Analyzer {
   effectiveReduction = 0;
   wastedReduction = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.THUNDERGODS_VIGOR.id);
   }
 

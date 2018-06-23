@@ -34,7 +34,8 @@ class Guard extends Analyzer {
     return this.combatants.selected.hasBuff(SPELLS.GUARD_TALENT.id);
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GUARD_TALENT.id);
   }
 

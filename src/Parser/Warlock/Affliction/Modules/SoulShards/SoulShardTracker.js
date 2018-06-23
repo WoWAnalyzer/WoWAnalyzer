@@ -2,7 +2,8 @@ import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class SoulShardTracker extends ResourceTracker {
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.SOUL_SHARDS;
   }
 

@@ -34,7 +34,8 @@ class BlinkStrikes extends Analyzer {
   damage = 0;
   currentDireBeasts = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BLINK_STRIKES_TALENT.id);
   }
 

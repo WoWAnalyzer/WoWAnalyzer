@@ -14,7 +14,8 @@ class DemonReborn extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
   	this.active = this.combatants.selected.hasTalent(SPELLS.DEMON_REBORN_TALENT.id);
   }
 

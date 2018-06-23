@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ComboPointDetails from '../Common/Resources/ComboPointDetails';

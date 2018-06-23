@@ -16,7 +16,8 @@ class CallOfTheHunter extends Analyzer {
   };
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.CALL_OF_THE_HUNTER_TRAIT.id];
   }
 

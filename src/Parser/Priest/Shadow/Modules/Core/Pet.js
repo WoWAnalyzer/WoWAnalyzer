@@ -10,7 +10,8 @@ class Pet extends Analyzer {
   _sourceId = null;
   _pets = {}
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this._pets = this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.player.id);
 
     if (this._pet !== undefined) {

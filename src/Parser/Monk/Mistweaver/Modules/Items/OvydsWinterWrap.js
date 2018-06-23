@@ -22,7 +22,8 @@ class OvydsWinterWrap extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
   }
 

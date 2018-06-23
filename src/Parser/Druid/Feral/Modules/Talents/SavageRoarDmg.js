@@ -21,7 +21,8 @@ class SavageRoar extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
   }
 

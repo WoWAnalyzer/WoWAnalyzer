@@ -13,7 +13,8 @@ class Tier20_2set extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.ENHANCE_SHAMAN_T20_2SET_EQUIP.id);
   }
 

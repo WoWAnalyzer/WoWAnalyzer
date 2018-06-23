@@ -17,7 +17,8 @@ class Jonat extends Analyzer {
   };
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
   }
 

@@ -329,7 +329,8 @@ class StatTracker extends Analyzer {
   _pullStats = {};
   _currentStats = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // TODO: Use combatantinfo event directly
     this._pullStats = {
       strength: this.combatants.selected._combatantInfo.strength,

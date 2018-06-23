@@ -27,7 +27,8 @@ class AngerOfTheHalfGiants extends Analyzer {
 
 	_hasDemonBlades = false;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasFinger(ITEMS.ANGER_OF_THE_HALF_GIANTS.id);
 		if(this.active) {
 			this._hasDemonBlades = this.combatants.selected.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);

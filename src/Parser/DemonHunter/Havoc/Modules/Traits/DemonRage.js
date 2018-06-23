@@ -29,7 +29,8 @@ class DemonRage extends Analyzer {
   rank = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DEMON_RAGE.id];
     this.active = this.rank > 0;
   }

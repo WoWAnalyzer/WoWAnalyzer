@@ -11,7 +11,8 @@ class ComboPointTracker extends ResourceTracker {
 
   castToMaxCpTimestamp;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.COMBO_POINTS;
 
     this.maxResource = 5;

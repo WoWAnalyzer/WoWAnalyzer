@@ -21,7 +21,8 @@ class PowerCordOfLethtendris extends Analyzer {
   _totalTicks = 0;
   _totalUAdamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
   }
 

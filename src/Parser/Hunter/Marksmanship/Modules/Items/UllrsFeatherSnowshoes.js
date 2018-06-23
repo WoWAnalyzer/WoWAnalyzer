@@ -32,7 +32,8 @@ class UllrsFeatherSnowshoes extends Analyzer {
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.ULLRS_FEATHER_SNOWSHOES.id);
   }
   on_byPlayer_cast(event) {

@@ -20,7 +20,8 @@ class ZenkaramIridisAnadem extends Analyzer {
   bonusDamage = 0;
   bonusHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHead(ITEMS.ZENKARAM_IRIDIS_ANADEM.id);
   }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SkullIcon from 'Icons/Skull';
-import CancelIcon from 'Icons/Cancel';
+import SkullIcon from 'Interface/Icons/Skull';
+import CancelIcon from 'Interface/Icons/Cancel';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import { findByBossId } from 'Raids';
 

@@ -20,7 +20,8 @@ class FrizzosFingertrap extends Analyzer {
 
   spreadLacerates = 0;
   castTimestamp = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.FRIZZOS_FINGERTRAP.id);
   }
   on_byPlayer_cast(event) {

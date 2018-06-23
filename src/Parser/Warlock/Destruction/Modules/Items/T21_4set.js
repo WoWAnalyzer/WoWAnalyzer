@@ -16,7 +16,8 @@ class T21_4set extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id);
   }
 

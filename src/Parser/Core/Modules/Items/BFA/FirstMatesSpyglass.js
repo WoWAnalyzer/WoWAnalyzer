@@ -22,7 +22,8 @@ class FirstMatesSpyglass extends Analyzer {
   timesHit = 0;
   timesCrit = 0;
     
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(
       ITEMS.FIRST_MATES_SPYGLASS.id
     );

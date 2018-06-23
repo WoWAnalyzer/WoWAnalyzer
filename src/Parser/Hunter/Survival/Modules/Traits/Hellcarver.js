@@ -21,7 +21,8 @@ class Hellcarver extends Analyzer {
   damagePreCalc = 0;
   modifier = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id];
     if (this.rank > 0) {
       this.active = true;

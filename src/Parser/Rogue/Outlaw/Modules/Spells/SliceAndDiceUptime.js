@@ -14,7 +14,8 @@ class SliceAndDiceUptime extends Analyzer {
     combatants: Combatants,
   };
   
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
   }
 

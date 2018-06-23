@@ -17,7 +17,8 @@ class DoomUptime extends Analyzer {
     enemies: Enemies,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DOOM_TALENT.id);
   }
 

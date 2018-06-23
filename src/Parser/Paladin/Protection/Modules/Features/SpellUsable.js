@@ -9,7 +9,8 @@ class SpellUsable extends CoreSpellUsable {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasCrusadersJudgment = this.combatants.selected.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id);
   }
 

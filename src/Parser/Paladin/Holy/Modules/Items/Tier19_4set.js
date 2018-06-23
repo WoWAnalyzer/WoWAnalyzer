@@ -25,7 +25,8 @@ class Tier19_4set extends Analyzer {
   bonusIolProcsUsed = 0;
   bonusIolProcsUsedOnFol = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
   }
 

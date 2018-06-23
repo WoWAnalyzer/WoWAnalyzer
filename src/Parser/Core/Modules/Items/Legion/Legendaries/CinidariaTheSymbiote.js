@@ -20,7 +20,8 @@ class CinidariaTheSymbiote extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.CINIDARIA_THE_SYMBIOTE.id);
   }
 

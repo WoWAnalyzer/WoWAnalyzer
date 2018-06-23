@@ -23,7 +23,8 @@ class PiercingShot extends Analyzer {
   inVulnerablePiercing = 0;
   totalPiercing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
   }
 

@@ -36,7 +36,8 @@ class EyeOfHounds extends Analyzer {
   stamUptime = 0;
   strUptime = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.EYE_OF_HOUNDS.id);
     if (this.active) {
       const iLvl = this.combatants.selected.getItem(ITEMS.EYE_OF_HOUNDS.id).itemLevel;

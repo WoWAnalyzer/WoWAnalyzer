@@ -17,7 +17,8 @@ class Overload extends Analyzer {
 
   spells = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
 
     this.getAbility = spellId => this.abilityTracker.getAbility(spellId);

@@ -16,7 +16,8 @@ class RapidDecomposition extends Analyzer {
   dndDamage = 0;
   totalDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
   }
 

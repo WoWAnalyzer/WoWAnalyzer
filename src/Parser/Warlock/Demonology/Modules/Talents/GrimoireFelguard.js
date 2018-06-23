@@ -20,7 +20,8 @@ class GrimoireFelguard extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 

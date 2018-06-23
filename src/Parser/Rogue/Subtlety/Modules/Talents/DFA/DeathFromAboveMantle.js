@@ -19,7 +19,8 @@ class DeathFromAboveMantle extends Analyzer {
 		combatants: Combatants,
     };    
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
         this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
         && this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
     }

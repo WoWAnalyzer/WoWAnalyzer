@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import { hasPremium } from 'selectors/user';
-import Ad from 'Main/Ad';
+import Ad from 'Interface/common/Ad';
+import makeNewsUrl from 'Interface/News/makeUrl';
+import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from 'Interface/News/Articles/2017-01-31-UnlistedLogs';
 
 import ReportSelecter from './ReportSelecter';
-import makeNewsUrl from './News/makeUrl';
-import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
-import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 // import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
 
-const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSelecter' */ './Character/CharacterSelecter').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch' */ 'Interface/Character/Search').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -54,7 +54,7 @@ class Header extends React.PureComponent {
                   {this.state.reportActive ? (
                     <ReportSelecter />
                   ) : (
-                    <CharacterSelecter />
+                    <CharacterSearch />
                   )}
                 </div>
               )}

@@ -20,7 +20,8 @@ class Tier21_4set extends Analyzer {
   healing = 0;
   procUsed = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PRIEST_T21_4SET_BONUS_BUFF.id);
   }
 

@@ -34,7 +34,8 @@ class CrticalChaos extends Analyzer {
 	damage = 0;
   chaosStrikeCrit = false;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
  		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CRITICAL_CHAOS.id];
  		this.active = this.rank > 0;
 

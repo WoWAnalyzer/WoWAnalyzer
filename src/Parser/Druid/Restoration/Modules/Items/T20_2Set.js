@@ -27,7 +27,8 @@ class T20_2Set extends Analyzer {
   freeSwiftmends = 0;
   swiftmendHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
     if (this.combatants.selected.hasTalent(SPELLS.PROSPERITY_TALENT.id)) {

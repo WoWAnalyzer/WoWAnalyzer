@@ -23,7 +23,8 @@ class SmolderingTitanguard extends Analyzer {
   healing = 0;
   overhealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.SMOLDERING_TITANGUARD.id);
 
     if (this.active) {

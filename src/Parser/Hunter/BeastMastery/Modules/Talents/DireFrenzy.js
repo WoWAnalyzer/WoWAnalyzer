@@ -40,7 +40,8 @@ class DireFrenzy extends Analyzer {
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
   }
 

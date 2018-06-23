@@ -25,7 +25,8 @@ class Tier21_2p extends Analyzer {
   howlingblastDamage = 0;
   frostscytheDamage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id);
   }
 

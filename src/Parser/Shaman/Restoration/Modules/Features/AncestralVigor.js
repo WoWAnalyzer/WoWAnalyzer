@@ -19,7 +19,8 @@ class AncestralVigor extends Analyzer {
 
   loaded = false;
   totalLifeSaved = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = !!this.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 

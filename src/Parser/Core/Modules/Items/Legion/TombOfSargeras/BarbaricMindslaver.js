@@ -18,7 +18,8 @@ class BarbaricMindslaver extends Analyzer {
   };
   healing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.BARBARIC_MINDSLAVER.id);
   }
 

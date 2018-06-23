@@ -19,7 +19,8 @@ class MirrorImage extends Analyzer {
   mirrorImagesId;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	   this.active = this.combatants.selected.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
   }
 

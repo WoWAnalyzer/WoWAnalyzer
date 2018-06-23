@@ -34,7 +34,8 @@ class DamageTakenTable extends Analyzer {
     return vals;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = false;
   }
 

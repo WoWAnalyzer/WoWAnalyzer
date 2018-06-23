@@ -13,7 +13,8 @@ class SoulOfTheHighlord extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     this.talentGained = SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id;
     this.option1 = SPELLS.CRUSADE_TALENT.id;

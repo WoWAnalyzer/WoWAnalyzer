@@ -18,7 +18,8 @@ class SoulConduit extends Analyzer {
     combatants: Combatants,
     };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
   }
 

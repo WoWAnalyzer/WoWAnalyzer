@@ -15,7 +15,8 @@ class BuffedHOTP extends Analyzer {
   BuffedHOTP = 0;
   NonBuffedHOTP = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id);
   }
 

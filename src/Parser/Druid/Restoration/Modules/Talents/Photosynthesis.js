@@ -24,7 +24,8 @@ class Photosynthesis extends Analyzer {
 
   lastRealBloomTimestamp = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
   }
 

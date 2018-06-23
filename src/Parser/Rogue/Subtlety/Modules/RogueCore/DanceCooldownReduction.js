@@ -12,7 +12,8 @@ class DanceCooldownReduction extends Analyzer {
 
   danceReduction;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.danceReduction = this.combatants.selected.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 2500 : 1500;
   }
 

@@ -20,7 +20,8 @@ class Barrage extends Analyzer {
   volleyApplied = 0;
   deaths = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id);
   }
 

@@ -34,7 +34,8 @@ class Downpour extends Analyzer {
   downpourHitsSum = 0;
   downpourTimestamp = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
   }
 

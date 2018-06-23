@@ -11,7 +11,8 @@ class ChiTracker extends ResourceTracker {
 
   maxChi = 5;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.CHI;
 
     if (this.combatants.selected.hasTalent(SPELLS.ASCENSION_TALENT.id)) {

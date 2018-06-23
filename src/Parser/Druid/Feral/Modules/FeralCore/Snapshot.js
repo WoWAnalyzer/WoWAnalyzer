@@ -81,7 +81,8 @@ class Snapshot extends Analyzer {
     this.lastDoTCastEvent = event;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');

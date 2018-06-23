@@ -27,7 +27,8 @@ class IronFur extends Analyzer {
     return this._ironfurDuration;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const ueRank = this.combatants.selected.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
     this._ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
   }

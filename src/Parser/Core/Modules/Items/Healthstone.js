@@ -27,7 +27,8 @@ class Healthstone extends Analyzer {
   maxCasts = 1;
   lastDeathWithHealthstoneReady = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.abilities.add({
       spell: HEALTHSTONE_SPELLS,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,

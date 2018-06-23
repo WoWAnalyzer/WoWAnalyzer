@@ -20,7 +20,8 @@ class VialOfCeaselessToxins extends Analyzer {
   damage = 0;
   totalCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
 
     if (this.active) {

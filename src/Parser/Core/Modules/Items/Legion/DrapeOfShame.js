@@ -29,7 +29,8 @@ class DrapeOfShame extends Analyzer {
   healing = 0;
   equippedItem = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.equippedItem = this.combatants.selected.getItem(ITEMS.DRAPE_OF_SHAME.id);
     this.active = !!this.equippedItem;
 

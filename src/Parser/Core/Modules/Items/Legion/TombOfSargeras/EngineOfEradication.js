@@ -31,7 +31,8 @@ class EngineOfEradication extends Analyzer {
   procAmount = null;
   lastAppliedTimestamp = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
     if(this.active) {
       this.procAmount = calculatePrimaryStat(900, 5424, this.combatants.selected.getItem(ITEMS.ENGINE_OF_ERADICATION.id).itemLevel);

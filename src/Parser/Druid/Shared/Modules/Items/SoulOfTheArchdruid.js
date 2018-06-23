@@ -17,7 +17,8 @@ class SoulOfTheArchdruid extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
 
     switch (this.combatants.selected.spec) {

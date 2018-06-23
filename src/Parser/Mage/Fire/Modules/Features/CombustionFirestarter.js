@@ -24,7 +24,8 @@ class CombustionFirestarter extends Analyzer {
   combustionCasted = false;
   combustionDuringFirestarter = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
   }
 

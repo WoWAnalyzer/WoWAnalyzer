@@ -22,7 +22,8 @@ class WillOfTheNecropolis extends Analyzer {
   nextEvent = false;
 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
   }
 

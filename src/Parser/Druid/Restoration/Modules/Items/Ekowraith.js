@@ -19,7 +19,8 @@ class Ekowraith extends Analyzer {
   damageReduction = 0;
   hasGuardianAffinity = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id);
     this.hasGuardianAffinity = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id);
   }

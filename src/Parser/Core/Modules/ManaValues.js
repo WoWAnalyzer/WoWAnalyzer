@@ -15,7 +15,8 @@ class ManaValues extends Analyzer {
   maxMana = 110000;
   manaUpdates = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.spec.role === ROLES.HEALER;
   }
 

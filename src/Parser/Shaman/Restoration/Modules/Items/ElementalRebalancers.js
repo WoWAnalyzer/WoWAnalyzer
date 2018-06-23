@@ -23,7 +23,8 @@ class ElementalRebalancers extends Analyzer {
   healing = 0;
   eventsDuringRain = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
   }
 

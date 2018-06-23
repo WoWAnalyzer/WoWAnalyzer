@@ -26,7 +26,8 @@ class KiljaedensBurningWish extends Analyzer {
   hits = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
 
     if (this.active) {

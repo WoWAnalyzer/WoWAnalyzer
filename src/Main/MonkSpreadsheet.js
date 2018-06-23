@@ -48,24 +48,24 @@ class MonkSpreadsheet extends React.Component {
           <table style={styles.table}>
             <tr><td>{Math.floor(parser.fightDuration / 1000 / 60)}</td></tr>
             <tr><td>{Math.floor((parser.fightDuration / 1000) % 60)}</td></tr>
-            <tr style={styles.cellBorder}><td>{parser.modules.manaValues.endingMana}</td></tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.damageTaken.total.regular / parser.fightDuration * 1000).toFixed(2)}</td></tr>
-            <tr style={styles.cellBorder}><td>{parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{((parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr><td>{((parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr><td>{((parser.modules.thunderFocusTea.castsTftEf / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr><td>{((parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr><td>{((parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr style={styles.cellBorder}><td>{parser.modules.upliftingTrance.UTProcsTotal}</td></tr>
-            <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal) || 0).toFixed(4)}</td></tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedViv / (parser.modules.lifecycles.castsRedViv + parser.modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
-            <tr><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
-            <tr style={styles.cellBorder}><td>{parser.modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
-            <tr style={styles.cellBorder}><td>{((parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78)) || 0).toFixed(4)}</td></tr>
-            <tr style={styles.cellBorder}><td>{(((parser.modules.essenceFontMastery.healEF / 2) / parser.modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
-            <tr style={styles.cellBorder}><td>{((parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF) || 0).toFixed(2)}</td></tr>
-            <tr><td>{((parser.modules.chiBurst.targetsChiBurst / parser.modules.chiBurst.castChiBurst) || 0).toFixed(2)}</td></tr>
+            <tr style={styles.cellBorder}><td>{parser._modules.manaValues.endingMana}</td></tr>
+            <tr style={styles.cellBorder}><td>{(parser._modules.damageTaken.total.regular / parser.fightDuration * 1000).toFixed(2)}</td></tr>
+            <tr style={styles.cellBorder}><td>{parser._modules.thunderFocusTea.castsTft}</td></tr>
+            <tr><td>{((parser._modules.thunderFocusTea.castsTftEff / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser._modules.thunderFocusTea.castsTftEnm / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser._modules.thunderFocusTea.castsTftEf / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser._modules.thunderFocusTea.castsTftRem / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser._modules.thunderFocusTea.castsTftViv / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr style={styles.cellBorder}><td>{parser._modules.upliftingTrance.UTProcsTotal}</td></tr>
+            <tr><td>{(1 - (parser._modules.upliftingTrance.consumedUTProc / parser._modules.upliftingTrance.UTProcsTotal) || 0).toFixed(4)}</td></tr>
+            <tr style={styles.cellBorder}><td>{(parser._modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
+            <tr style={styles.cellBorder}><td>{(parser._modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser._modules.lifecycles.castsRedViv / (parser._modules.lifecycles.castsRedViv + parser._modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
+            <tr><td>{(parser._modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser._modules.lifecycles.castsRedEnm / (parser._modules.lifecycles.castsRedEnm + parser._modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
+            <tr style={styles.cellBorder}><td>{parser._modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
+            <tr style={styles.cellBorder}><td>{((parser._modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser._modules.refreshingJadeWind.healsRJW / parser._modules.refreshingJadeWind.castRJW) / 78)) || 0).toFixed(4)}</td></tr>
+            <tr style={styles.cellBorder}><td>{(((parser._modules.essenceFontMastery.healEF / 2) / parser._modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
+            <tr style={styles.cellBorder}><td>{((parser._modules.essenceFont.targetsEF / parser._modules.essenceFont.castEF) || 0).toFixed(2)}</td></tr>
+            <tr><td>{((parser._modules.chiBurst.targetsChiBurst / parser._modules.chiBurst.castChiBurst) || 0).toFixed(2)}</td></tr>
           </table>
         </div>
       </div>

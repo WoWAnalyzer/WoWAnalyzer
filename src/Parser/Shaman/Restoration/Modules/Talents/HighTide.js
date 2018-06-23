@@ -22,7 +22,8 @@ class HighTide extends Analyzer {
   chainHealFeedBounce = 0;
   chainHealFeedTimestamp = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
   }
 

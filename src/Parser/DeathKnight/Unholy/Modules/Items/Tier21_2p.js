@@ -15,7 +15,8 @@ class Tier21_2p extends Analyzer {
 
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id);
   }
 

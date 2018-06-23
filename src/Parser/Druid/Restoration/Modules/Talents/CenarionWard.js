@@ -14,7 +14,8 @@ class CenarionWard extends Analyzer {
     mastery: Mastery,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
     this.active = hasCenarionWard;
   }

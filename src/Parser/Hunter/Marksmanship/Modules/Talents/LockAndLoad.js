@@ -30,7 +30,8 @@ class LockAndLoad extends Analyzer {
   wastedInstants = 0;
   _currentStacks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 

@@ -19,7 +19,8 @@ class KoralonsBurningTouch extends Analyzer {
   badCasts = 0;
   totalCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
   }
 

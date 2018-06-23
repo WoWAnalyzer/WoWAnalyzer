@@ -8,7 +8,8 @@ class ComboPointTracker extends ResourceTracker {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.COMBO_POINTS;
   }
 }

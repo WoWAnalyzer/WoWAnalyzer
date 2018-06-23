@@ -39,7 +39,8 @@ class CharmOfTheRisingTide extends Analyzer {
   _stacksFallTimestamp = undefined;
   _fullPowerActive = false;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.CHARM_OF_THE_RISING_TIDE.id);
     if (this.active) {
       const itemDetails = this.combatants.selected.getItem(ITEMS.CHARM_OF_THE_RISING_TIDE.id);

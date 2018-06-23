@@ -28,7 +28,8 @@ class MasteryEffectiveness extends Analyzer {
   masteryHealEvents = [];
 
   hasBeaconOfTheLightbringer = false;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasBeaconOfTheLightbringer = this.combatants.selected.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
   }
 

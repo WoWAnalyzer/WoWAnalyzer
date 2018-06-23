@@ -20,7 +20,8 @@ class Ironbark extends Analyzer {
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const aotaRanks = this.combatants.selected.traitsBySpellId[SPELLS.ARMOR_OF_THE_ANCIENTS.id];
     this.ironbarkDr = IRONBARK_BASE_DR + (AOTA_BONUS_DR * aotaRanks);
   }

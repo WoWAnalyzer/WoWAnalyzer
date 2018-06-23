@@ -14,7 +14,8 @@ class Tier21_2set extends Analyzer {
 
   extraDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.ELEMENTAL_SHAMAN_T21_2SET_BUFF.id);
   }
 

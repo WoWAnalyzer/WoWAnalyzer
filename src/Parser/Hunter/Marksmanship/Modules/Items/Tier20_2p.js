@@ -23,7 +23,8 @@ class Tier20_2p extends Analyzer {
   buffedAimed = 0;
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS.id);
   }
   on_byPlayer_damage(event) {

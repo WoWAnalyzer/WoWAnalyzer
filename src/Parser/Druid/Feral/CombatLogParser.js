@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import RakeBleed from './Modules/Normalizers/RakeBleed';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 

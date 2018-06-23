@@ -43,7 +43,8 @@ class ChaosTheory extends Analyzer {
 	lastCastTimestamp = 0;
 	lastApplybuffTimestamp = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasBack(ITEMS.CHAOS_THEORY.id);
 	}
 

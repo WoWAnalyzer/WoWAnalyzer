@@ -24,7 +24,8 @@ class DuskwalkersFootpads extends Analyzer {
   totalReduction = 0;
   wastedReduction = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
   }
 

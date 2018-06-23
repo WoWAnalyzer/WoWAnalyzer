@@ -32,7 +32,8 @@ class HotTracker extends Analyzer {
   // }
   hots = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
   }
 

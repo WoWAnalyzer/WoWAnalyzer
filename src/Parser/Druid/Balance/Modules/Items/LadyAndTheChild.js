@@ -14,7 +14,8 @@ class LadyAndTheChild extends Analyzer {
   moonfireCasts = 0;
   moonfireHits = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id);
   }
 

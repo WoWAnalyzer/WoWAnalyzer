@@ -21,7 +21,8 @@ class MagtheridonsBanishedBracers extends Analyzer {
   damage = 0;
   stackCount = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.MAGTHERIDONS_BANISHED_BRACERS.id);
   }
 

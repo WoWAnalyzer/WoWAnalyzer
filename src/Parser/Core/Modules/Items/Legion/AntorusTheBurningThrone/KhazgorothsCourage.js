@@ -30,7 +30,8 @@ class KhazgorothsCourage extends Analyzer {
   secondaryRating = 0;
   activeBuffStatName = 'none';
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.KHAZGOROTHS_COURAGE.id);
     if (this.active) {
       const itemDetails = this.combatants.selected.getItem(ITEMS.KHAZGOROTHS_COURAGE.id);

@@ -33,7 +33,8 @@ class SpiritOfTheCrane extends Analyzer {
   manaReturnSotc = 0;
   sotcWasted = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
   }
 

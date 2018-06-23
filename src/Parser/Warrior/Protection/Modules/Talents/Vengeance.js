@@ -20,7 +20,8 @@ class Vengeance extends Analyzer {
   ignoreBuffsOverwritten = 0;
   revengeBuffsOverwritten = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.VENGEANCE_TALENT.id);
   }
 

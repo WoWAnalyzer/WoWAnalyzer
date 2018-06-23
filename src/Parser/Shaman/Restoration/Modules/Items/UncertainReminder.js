@@ -38,7 +38,8 @@ class UncertainReminder extends Analyzer {
   urgencyHealing = 0;
   hasteHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.

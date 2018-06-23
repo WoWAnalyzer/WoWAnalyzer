@@ -159,7 +159,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.splice(index, 1);
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
     this.lastCBT = this.addNewCooldown({
       spell: SPELLS.CLOUDBURST_TOTEM_TALENT,

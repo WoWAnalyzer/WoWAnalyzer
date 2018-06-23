@@ -21,7 +21,8 @@ class T20_2set extends Analyzer {
   _totalDamage = 0;
   _bonusFragments = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
   }
 

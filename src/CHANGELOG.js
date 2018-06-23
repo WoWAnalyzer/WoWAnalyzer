@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-23'),
+    changes: 'Revamped all spells with static GCDs or base GCDs different from the class default.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-22'),
     changes: 'Added WoWAnalyzer Premium. See the announcement for more information.',
     contributors: [Zerotorescue],

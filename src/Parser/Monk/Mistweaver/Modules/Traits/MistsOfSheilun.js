@@ -16,7 +16,8 @@ class MistsOfSheilun extends Analyzer {
   healingMistsOfSheilun = 0;
   overhealingMistsOfSheilun = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
   }
 

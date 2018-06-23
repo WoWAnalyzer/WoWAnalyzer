@@ -16,7 +16,8 @@ class TrousersOfAnjuna extends Analyzer {
   overhealing = 0;
   absorbed = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 

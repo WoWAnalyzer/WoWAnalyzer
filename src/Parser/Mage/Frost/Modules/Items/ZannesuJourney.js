@@ -21,7 +21,8 @@ class ZannesuJourney extends Analyzer {
   damage = 0;
   stackCount = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWaist(ITEMS.ZANNESU_JOURNEY.id);
   }
 

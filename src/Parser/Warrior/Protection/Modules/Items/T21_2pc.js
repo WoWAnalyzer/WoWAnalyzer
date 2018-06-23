@@ -18,7 +18,8 @@ class T21_2pc extends Analyzer {
 
   resets = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.PROTECTION_WARRIOR_T21_2P_BONUS.id);
   }
 

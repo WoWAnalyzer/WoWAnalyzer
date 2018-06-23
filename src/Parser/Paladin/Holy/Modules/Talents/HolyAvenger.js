@@ -30,7 +30,8 @@ class HolyAvenger extends Analyzer {
   regularHealing = 0;
   holyShockHealing = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
   }
 

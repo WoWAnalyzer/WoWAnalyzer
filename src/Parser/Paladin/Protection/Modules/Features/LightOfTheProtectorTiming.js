@@ -10,7 +10,8 @@ class LightOfTheProtectorTiming extends SelfHealTimingGraph {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.selfHealSpell = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) ?
       SPELLS.HAND_OF_THE_PROTECTOR_TALENT:
       SPELLS.LIGHT_OF_THE_PROTECTOR;

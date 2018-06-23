@@ -19,7 +19,8 @@ class CombustionCharges extends Analyzer {
   lowPhoenixFlamesCharges = 0;
   lowFireBlastCharges = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hasPhoenixFlames = this.combatants.selected.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
     this.hasFlameOn = this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id);
   }

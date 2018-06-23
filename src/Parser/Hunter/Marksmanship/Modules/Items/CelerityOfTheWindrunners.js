@@ -16,7 +16,8 @@ class CelerityOfTheWindrunners extends Analyzer {
     combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBack(ITEMS.CELERITY_OF_THE_WINDRUNNERS.id);
   }
 

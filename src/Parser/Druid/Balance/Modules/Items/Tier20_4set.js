@@ -22,7 +22,8 @@ class Tier20_4set extends Analyzer {
   currentUptime = 0;
   currentProccValue = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id);
   }
 

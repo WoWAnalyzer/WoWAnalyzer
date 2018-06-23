@@ -16,7 +16,8 @@ class MKIIGyroscopicStabilizer extends Analyzer {
 
   usedBuffs = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasHands(ITEMS.MKII_GYROSCOPIC_STABILIZER.id);
   }
   on_byPlayer_removebuff(event) {

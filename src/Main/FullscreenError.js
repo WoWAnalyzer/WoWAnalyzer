@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
+import GithubButton from 'Interface/common/ThirdPartyButtons/GitHub';
+import PatreonButton from 'Interface/common/ThirdPartyButtons/Patreon';
+
 import AppBackgroundImage from './AppBackgroundImage';
-import DiscordButton from './DiscordButton';
-import GithubButton from './GithubButton';
-import PatreonButton from './PatreonButton';
 
 const FullscreenError = ({ error, details, background, children, errorDetails }) => {
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.

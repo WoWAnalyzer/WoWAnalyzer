@@ -22,7 +22,8 @@ class AcridCatalystInjector extends Analyzer {
 	oneStatBuff = 0
 	threeStatBuff = 0
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasTrinket(ITEMS.ACRID_CATALYST_INJECTOR.id);
 		if (this.active) {
 			this.threeStatBuff = calculateSecondaryStatDefault(955, 2397, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);

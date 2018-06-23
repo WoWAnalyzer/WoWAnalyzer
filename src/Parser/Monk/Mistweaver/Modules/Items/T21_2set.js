@@ -16,7 +16,8 @@ class T21_2set extends Analyzer {
 
   tranquilMistCount = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id);
   }
 

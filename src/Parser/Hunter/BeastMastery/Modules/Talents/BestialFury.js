@@ -25,7 +25,8 @@ class BestialFury extends Analyzer {
 
   bonusDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 

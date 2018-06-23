@@ -58,7 +58,8 @@ class SoulShardEvents extends Analyzer {
   _hasT20_2p = false;
   _currentFragments = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this._currentFragments = 30; // on the start of the fight we should have 3 soul shards (30 fragments) by default
   }

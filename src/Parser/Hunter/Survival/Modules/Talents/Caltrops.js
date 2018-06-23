@@ -27,7 +27,8 @@ class Caltrops extends Analyzer {
   bonusDamage = 0;
   caltropsCasts = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id);
   }
 

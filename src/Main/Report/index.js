@@ -89,11 +89,6 @@ class Report extends React.Component {
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
-  createParser(ParserClass, report, fight, player) {
-    const playerPets = this.getPlayerPetsFromReport(report, player.id);
-
-    return new ParserClass(report, player, playerPets, fight);
-  }
   async setStatePromise(newState) {
     return new Promise((resolve, reject) => {
       this.setState(newState, resolve);
@@ -107,9 +102,7 @@ class Report extends React.Component {
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
     const parserClass = await config.parser();
-    const parser = this.createParser(parserClass, report, fight, player);
-    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.initialize(combatants);
+    const parser = new parserClass(report, player, fight, combatants);
     await this.setStatePromise({
       config,
       parser,
@@ -167,9 +160,7 @@ class Report extends React.Component {
       }
       timeAvailable && console.timeEnd('player event parsing');
 
-      parser.fabricateEvent({
-        type: 'finished',
-      });
+      parser.finish();
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
@@ -326,9 +317,6 @@ class Report extends React.Component {
       return report.friendlies.find(friendly => friendly.id === Number(playerName));
     }
     return fetchByNameAttempt;
-  }
-  getPlayerPetsFromReport(report, playerId) {
-    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
   }
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({

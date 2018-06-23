@@ -15,10 +15,9 @@ class Mindbender extends Pet {
   _pet = PETS.MINDBENDER;
   _mindbenders = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
-
-    super.on_initialized();
   }
 
   get suggestionStackThresholds() {

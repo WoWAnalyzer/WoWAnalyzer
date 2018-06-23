@@ -15,7 +15,8 @@ class RageTracker extends ResourceTracker {
 
   vengeanceRageSaved = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.RAGE;
   }
 

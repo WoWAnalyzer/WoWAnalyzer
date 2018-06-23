@@ -16,7 +16,8 @@ class T21_4set extends Analyzer {
   rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id];
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS.id);
   }
 

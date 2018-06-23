@@ -17,7 +17,8 @@ class CarafeOfSearingLight extends Analyzer {
   damage = 0;
   manaGained = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTrinket(ITEMS.CARAFE_OF_SEARING_LIGHT.id);
 
     if (this.active) {

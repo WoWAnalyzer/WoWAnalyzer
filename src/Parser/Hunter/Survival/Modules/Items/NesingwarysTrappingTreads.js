@@ -21,7 +21,8 @@ class NesingwarysTrappingTreads extends Analyzer {
   focusGain = 0;
   possibleGain = 0;
   focusWaste = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id);
   }
 

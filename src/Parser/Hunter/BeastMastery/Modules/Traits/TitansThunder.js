@@ -36,7 +36,8 @@ class TitansThunder extends Analyzer {
   weirdCast = 0;
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id];
   }
 

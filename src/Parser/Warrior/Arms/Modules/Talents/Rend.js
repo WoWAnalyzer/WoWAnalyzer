@@ -18,7 +18,8 @@ class RendAnalyzer extends Analyzer {
   rends = 0;
   rendsInExecuteRange = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
 		this.active = this.combatants.selected.hasTalent(SPELLS.REND_TALENT.id);
 	}
 

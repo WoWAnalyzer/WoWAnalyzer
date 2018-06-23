@@ -16,7 +16,8 @@ class FuryTracker extends ResourceTracker {
 	totalCooldownReduction = 0;
 	totalCooldownReductionWasted = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.resource = RESOURCE_TYPES.FURY;
 	}
 

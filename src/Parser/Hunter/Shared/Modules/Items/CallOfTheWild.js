@@ -59,7 +59,8 @@ class CallOfTheWild extends Analyzer {
   //t214p reduction
   tier21WildCDR = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
     //handles preemptively lowered cooldown if the SV player has this trait
     if (this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id]) {

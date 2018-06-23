@@ -19,7 +19,8 @@ class TrickShotCleave extends Analyzer {
   _primaryTargets = [];
   bonusCleaveDmg = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
   }
 

@@ -63,7 +63,8 @@ class VantusRune extends Analyzer {
   };
 
   activeRune = null;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const boss = this.owner.boss;
 
     /** @var {number|null} */
