@@ -1,7 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
-// import AlwaysBeCasting from './AlwaysBeCasting';
+import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
@@ -13,8 +13,7 @@ const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
-    // `alwaysBeCasting` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
-    // alwaysBeCasting: AlwaysBeCasting,
+    alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
     // For the `beginchannel` event among other things
