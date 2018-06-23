@@ -78,6 +78,11 @@ export default {
     icon: 'spell_nature_brilliance',
     manaCost: 2000,
   },
+  EARTH_ELEMENTAL: {
+    id: 198103,
+    name: 'Earth Elemental',
+    icon: 'spell_nature_earthelemental_totem',
+  },
   // Hex and its variations
   HEX: {
     id: 51514,

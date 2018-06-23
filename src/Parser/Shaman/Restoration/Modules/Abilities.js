@@ -346,6 +346,13 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         isUndetectable: true,
       },
+      {
+        spell: SPELLS.EARTH_ELEMENTAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 300,
+        isOnGCD: true,
+        timelineSortIndex: 80,
+      },
     ];
   }
 }
