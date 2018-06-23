@@ -13,7 +13,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IMMOLATION_AURA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -36,7 +38,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SOUL_CARVER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 40,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -48,7 +52,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -60,7 +66,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -72,7 +80,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_DEVASTATION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -85,7 +95,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -107,7 +119,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRACTURE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FIERY_BRAND,
@@ -130,28 +144,39 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.THROW_GLAIVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 3,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SHEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SOUL_CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SPIRIT_BOMB_TALENT,
         buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SIGIL_OF_FLAME,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -168,19 +193,25 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SIGIL_OF_SILENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SIGIL_OF_MISERY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.IMPRISON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.TORMENT,
@@ -197,7 +228,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.SIGIL_OF_CHAINS_TALENT.id),
         cooldown: 90,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DEMONIC_INFUSION_TALENT,
