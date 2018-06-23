@@ -7,9 +7,10 @@ class Abilities extends CoreAbilities {
   static dependencies = {
     masterAssassin: MasterAssassin,
     combatants: Combatants,
-  }
+  };
+
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.VANISH,

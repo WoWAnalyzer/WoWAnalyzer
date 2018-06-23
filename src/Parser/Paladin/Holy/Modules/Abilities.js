@@ -8,7 +8,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
       {

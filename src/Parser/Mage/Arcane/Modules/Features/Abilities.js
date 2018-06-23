@@ -4,7 +4,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       // Rotational spells
       {

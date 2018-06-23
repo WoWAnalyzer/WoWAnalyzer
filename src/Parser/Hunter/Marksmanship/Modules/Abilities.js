@@ -6,11 +6,8 @@ import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static dependencies = {
-    ...CoreAbilities.dependencies,
-  };
-
   spellbook() {
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.AIMED_SHOT,
@@ -44,7 +41,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -59,7 +56,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -70,7 +67,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -81,7 +78,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PIERCING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
-        enabled: this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -155,13 +152,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
         isOnGCD: false,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
         isOnGCD: false,
       },
       {

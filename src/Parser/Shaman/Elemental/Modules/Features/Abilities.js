@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
     DOTS: 'Dot',
   };
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.LAVA_BURST,

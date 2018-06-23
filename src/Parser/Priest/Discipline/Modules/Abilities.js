@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
   };
 
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.PENANCE,

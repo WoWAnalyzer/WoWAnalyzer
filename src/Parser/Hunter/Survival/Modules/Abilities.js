@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.MONGOOSE_BITE,
@@ -36,7 +37,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CARVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
       },
       {
         spell: SPELLS.FURY_OF_THE_EAGLE_TRAIT,
@@ -48,7 +49,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXPLOSIVE_TRAP_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
@@ -59,7 +60,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -69,9 +70,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
+        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -83,7 +84,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -94,7 +95,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -120,9 +121,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
-          const hasEmbrace = this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
+          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
           const cooldownAfterEmbrace = hasEmbrace ? 120 - (120 * 0.2) : 120;
-          const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
+          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
         castEfficiency: {
@@ -136,9 +137,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasEmbrace = this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
+          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
           const cooldownAfterEmbrace = hasEmbrace ? 180 - (180 * 0.2) : 180;
-          const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
+          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
         isOnGCD: false,
@@ -148,9 +149,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: () => {
-          const hasEmbrace = this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
+          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
           const cooldownAfterEmbrace = hasEmbrace ? 180 - (180 * 0.2) : 180;
-          const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
+          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
         isOnGCD: false,
@@ -182,15 +183,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
+        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        enabled: !combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
+        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        enabled: !combatant.hasTalent(SPELLS.CALTROPS_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -202,7 +203,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WING_CLIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.RANGERS_NET_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.RANGERS_NET_TALENT.id),
         isOnGCD: true,
       },
     ];

@@ -4,7 +4,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.ICEBOUND_FORTITUDE,
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GOREFIENDS_GRASP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        cooldown: this.combatants.selected.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        cooldown: combatant.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
         timelineSortIndex: 11,
       },
       {
