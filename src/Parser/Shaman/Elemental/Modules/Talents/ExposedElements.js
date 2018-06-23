@@ -9,16 +9,15 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
+const EXPOSED_ELEMENTS  = {
+  INCREASE : 1,
+  WINDOW_DURATION: 300,
+};
 
 class ExposedElements extends Analyzer {
   static dependencies = {
     combatants : Combatants,
     enemies : Enemies,
-  };
-
-  EXPOSED_ELEMENTS  = {
-    INCREASE : 1,
-    WINDOW_DURATION: 300,
   };
 
   removeDebuffTimestamp = null;
@@ -29,14 +28,12 @@ class ExposedElements extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-
     if(event.ability.guid !== SPELLS.LIGHTNING_BOLT.id){
       return;
     }
 
     const enemy = this.enemies.getEntity(event);
-    console.log(enemy);
-    if((enemy) && (enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id))){
+    if(enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id)){
       this.removeDebuffTimestamp=event.timestamp;
     }
   }
@@ -45,15 +42,14 @@ class ExposedElements extends Analyzer {
     if(this.removeDebuffTimestamp === null)
       return;
 
-    if(event.timestamp>this.removeDebuffTimestamp+this.EXPOSED_ELEMENTS.WINDOW_DURATION){
+    if(event.timestamp>this.removeDebuffTimestamp+EXPOSED_ELEMENTS.WINDOW_DURATION){
       return;
     }
 
     if((event.ability.guid !== SPELLS.LIGHTNING_BOLT_OVERLOAD.id) && (event.ability.guid !== SPELLS.LIGHTNING_BOLT.id)){
       return;
     }
-    console.log("OI");
-    this.damageGained+=calculateEffectiveDamage(event,this.EXPOSED_ELEMENTS.INCREASE);
+    this.damageGained+=calculateEffectiveDamage(event, EXPOSED_ELEMENTS.INCREASE);
   }
 
   get damagePercent() {
