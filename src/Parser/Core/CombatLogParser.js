@@ -128,8 +128,6 @@ import EventsNormalizer from './EventsNormalizer';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 
-let _modulesDeprecatedWarningSent = false;
-
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
@@ -260,13 +258,6 @@ class CombatLogParser {
 
   _modules = {};
   _activeAnalyzers = {};
-  get modules() {
-    if (!_modulesDeprecatedWarningSent) {
-      console.warn('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprecatedWarningSent = true;
-    }
-    return this._modules;
-  }
   get activeModules() {
     return Object.keys(this._modules)
       .map(key => this._modules[key])
@@ -524,16 +515,16 @@ class CombatLogParser {
         <TimelineTab
           start={this.fight.start_time}
           end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-          historyBySpellId={this.modules.spellHistory.historyBySpellId}
-          globalCooldownHistory={this.modules.globalCooldown.history}
-          channelHistory={this.modules.channeling.history}
-          abilities={this.modules.abilities}
-          abilityTracker={this.modules.abilityTracker}
-          deaths={this.modules.deathTracker.deaths}
-          resurrections={this.modules.deathTracker.resurrections}
-          isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
-          isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
-          buffEvents={this.modules.timelineBuffEvents.buffHistoryBySpellId}
+          historyBySpellId={this._modules.spellHistory.historyBySpellId}
+          globalCooldownHistory={this._modules.globalCooldown.history}
+          channelHistory={this._modules.channeling.history}
+          abilities={this._modules.abilities}
+          abilityTracker={this._modules.abilityTracker}
+          deaths={this._modules.deathTracker.deaths}
+          resurrections={this._modules.deathTracker.resurrections}
+          isAbilityCooldownsAccurate={this._modules.spellUsable.isAccurate}
+          isGlobalCooldownAccurate={this._modules.globalCooldown.isAccurate}
+          buffEvents={this._modules.timelineBuffEvents.buffHistoryBySpellId}
         />
       ),
     });

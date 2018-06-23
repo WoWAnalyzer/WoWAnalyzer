@@ -278,7 +278,7 @@ class DevelopmentTab extends React.Component {
 
     window.parser = parser;
 
-    const combatant = parser.modules.combatants.selected;
+    const combatant = parser._modules.combatants.selected;
 
     return (
       <div>
@@ -293,25 +293,25 @@ class DevelopmentTab extends React.Component {
             <div className="col-md-6">
               Modules:
               <ul className="list">
-                {Object.keys(parser.modules)
+                {Object.keys(parser._modules)
                   .map(moduleName => (
                     <li key={moduleName} className="flex">
                       <div className="flex-main">
-                        <Code dump={parser.modules[moduleName]}>{moduleName}</Code>
+                        <Code dump={parser._modules[moduleName]}>{moduleName}</Code>
                       </div>
-                      <div className="flex-main" style={{ color: parser.modules[moduleName].active ? 'green' : 'red' }}>
-                        {parser.modules[moduleName].active ? 'Active' : 'Inactive'}
+                      <div className="flex-main" style={{ color: parser._modules[moduleName].active ? 'green' : 'red' }}>
+                        {parser._modules[moduleName].active ? 'Active' : 'Inactive'}
                       </div>
                     </li>
                   ))}
               </ul>
-              Access them in the console with: <code>parser.modules.*moduleName*</code> or by clicking on the names.
+              Access them in the console with: <code>parser._modules.*moduleName*</code> or by clicking on the names.
             </div>
             <div className="col-md-6">
               Pre-combat buffs:
               <ul className="list">
                 {combatant._combatantInfo.auras.map((aura, i) => {
-                  const source = parser.modules.combatants.players[aura.source];
+                  const source = parser._modules.combatants.players[aura.source];
                   const spec = source && SPECS[source.specId];
                   const specClassName = spec && spec.className.replace(' ', '');
 
@@ -326,12 +326,12 @@ class DevelopmentTab extends React.Component {
                 })}
               </ul>
             </div>
-            {parser.modules.abilityTracker && (
+            {parser._modules.abilityTracker && (
               <div className="col-md-6">
                 All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
                 <ul className="list">
-                  {Object.keys(parser.modules.abilityTracker.abilities)
-                    .map(key => parser.modules.abilityTracker.abilities[key])
+                  {Object.keys(parser._modules.abilityTracker.abilities)
+                    .map(key => parser._modules.abilityTracker.abilities[key])
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
                     .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
                 </ul>
