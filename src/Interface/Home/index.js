@@ -6,7 +6,7 @@ import ScrollFilledIcon from 'Interface/Icons/ScrollFilled';
 import MegaphoneIcon from 'Interface/Icons/Megaphone';
 
 import DelayRender from 'Interface/common/DelayRender';
-import { hasPremium } from 'selectors/user';
+import { hasPremium } from 'Interface/selectors/user';
 import SectionDivider from 'Main/SectionDivider';
 import News from 'Interface/News';
 import SpecListing from 'Interface/Home/SpecListing';

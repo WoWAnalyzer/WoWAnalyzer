@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
-import { fetchReport } from 'actions/report';
-import { getReport } from 'selectors/report';
+import { fetchReport } from 'Interface/actions/report';
+import { getReport } from 'Interface/selectors/report';
 
 import FightSelectionList from './FightSelectionList';
 import makeAnalyzerUrl from '../makeAnalyzerUrl';

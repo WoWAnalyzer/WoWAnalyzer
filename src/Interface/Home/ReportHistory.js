@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getReportHistory } from 'selectors/reportHistory';
+import { getReportHistory } from 'Interface/selectors/reportHistory';
 import { makePlainUrl } from 'Main/makeAnalyzerUrl';
 import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';
 import makeNewsUrl from 'Interface/News/makeUrl';

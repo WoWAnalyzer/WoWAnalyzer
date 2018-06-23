@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import { hasPremium } from 'selectors/user';
+import { hasPremium } from 'Interface/selectors/user';
 import Ad from 'Interface/common/Ad';
 import makeNewsUrl from 'Interface/News/makeUrl';
 import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';

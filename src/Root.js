@@ -6,8 +6,9 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
-import App from './Main/App';
-import reducers from './reducers';
+import reducers from 'Interface/reducers';
+import App from 'Main/App';
+
 import RootErrorBoundary from './RootErrorBoundary';
 
 // Create a history of your choosing (we're using a browser history in this case)

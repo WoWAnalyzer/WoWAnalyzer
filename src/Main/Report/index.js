@@ -8,17 +8,17 @@ import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } 
 import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
-import { getCombatants } from 'selectors/combatants';
-import { getError } from 'selectors/error';
-import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'selectors/url/report';
-import { getArticleId } from 'selectors/url/news';
-import { getReport } from 'selectors/report';
-import { getFightById } from 'selectors/fight';
-import { fetchReport } from 'actions/report';
-import { setReportProgress } from 'actions/reportProgress';
-import { fetchCombatants } from 'actions/combatants';
-import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'actions/error';
-import { appendReportHistory } from 'actions/reportHistory';
+import { getCombatants } from 'Interface/selectors/combatants';
+import { getError } from 'Interface/selectors/error';
+import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
+import { getArticleId } from 'Interface/selectors/url/news';
+import { getReport } from 'Interface/selectors/report';
+import { getFightById } from 'Interface/selectors/fight';
+import { fetchReport } from 'Interface/actions/report';
+import { setReportProgress } from 'Interface/actions/reportProgress';
+import { fetchCombatants } from 'Interface/actions/combatants';
+import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
+import { appendReportHistory } from 'Interface/actions/reportHistory';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import makeAnalyzerUrl from 'Main/makeAnalyzerUrl';
 

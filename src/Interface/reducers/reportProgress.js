@@ -1,4 +1,4 @@
-import { SET_REPORT_PROGRESS } from 'actions/reportProgress';
+import { SET_REPORT_PROGRESS } from 'Interface/actions/reportProgress';
 
 export default function report(state = null, action) {
   switch (action.type) {

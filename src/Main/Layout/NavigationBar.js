@@ -7,12 +7,11 @@ import PatreonIcon from 'Interface/Icons/PatreonTiny';
 import DiscordIcon from 'Interface/Icons/DiscordTiny';
 import GitHubIcon from 'Interface/Icons/GitHubMarkSmall';
 import PremiumIcon from 'Interface/Icons/Premium';
-
-import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
-import { getReport } from 'selectors/report';
-import { getFightById } from 'selectors/fight';
-import { getReportProgress } from 'selectors/reportProgress';
-import { getUser } from 'selectors/user';
+import { getFightId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
+import { getReport } from 'Interface/selectors/report';
+import { getFightById } from 'Interface/selectors/fight';
+import { getReportProgress } from 'Interface/selectors/reportProgress';
+import { getUser } from 'Interface/selectors/user';
 
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
