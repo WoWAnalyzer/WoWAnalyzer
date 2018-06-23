@@ -5,7 +5,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
 
-    const standardGcd = combatant => 800 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
+    const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
 
     return [
       {
