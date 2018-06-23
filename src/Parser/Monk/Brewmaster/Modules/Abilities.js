@@ -28,7 +28,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        gcd: true,
+        gcd: {
+          base: 1000,
+        },
       },
       {
         spell: SPELLS.BLACKOUT_STRIKE,
