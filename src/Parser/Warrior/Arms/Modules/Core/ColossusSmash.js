@@ -5,13 +5,8 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class ColossusSmashAnalyzer extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   colossusSmashes = 0;
   shatteredColossusOverlaps = 0;
 
@@ -22,7 +17,7 @@ class ColossusSmashAnalyzer extends Analyzer {
     
     this.colossusSmashes += 1;
     // Ignore the cast if the player didn't have shattered defenses.
-    if(!this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id)) {
+    if(!this.selectedCombatant.hasBuff(SPELLS.SHATTERED_DEFENSES.id)) {
       return;
     }
     // If the player used colossus smash when shattered defenses was active increment the counter.

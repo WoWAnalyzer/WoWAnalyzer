@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -13,7 +12,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Havoc extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   damage = 0;

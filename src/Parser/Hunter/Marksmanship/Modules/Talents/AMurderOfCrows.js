@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -25,7 +24,6 @@ const EXECUTE_PERCENT = 0.2;
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -39,7 +37,7 @@ class AMurderOfCrows extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.MARKSMANSHIP_HUNTER;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.MARKSMANSHIP_HUNTER;
     this.owner.report.enemies.forEach(enemy => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);

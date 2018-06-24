@@ -1,14 +1,9 @@
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
 class ComboPointTracker extends ResourceTracker {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   castToMaxCpTimestamp;
 
   constructor(...args) {

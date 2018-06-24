@@ -19,7 +19,7 @@ class Lifebloom extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasDta = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
+    this.hasDta = this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
   }
 
   get uptime() {

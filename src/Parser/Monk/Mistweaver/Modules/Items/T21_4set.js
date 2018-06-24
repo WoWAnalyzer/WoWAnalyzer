@@ -4,13 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 class T21_4set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -19,7 +17,7 @@ class T21_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id);
   }
 
   on_byPlayer_heal(event) {

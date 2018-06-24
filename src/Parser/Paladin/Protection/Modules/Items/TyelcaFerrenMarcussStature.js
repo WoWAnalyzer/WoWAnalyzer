@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -20,16 +19,12 @@ const TYELCA_EXTRA_JUMPS = 2;
 const AVENGERS_SHIELD_JUMPS = 3;
 
 class TyelcaFerrenMarcussStature extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	}
-
 	damageDone = 0;
 	healingDone = 0;
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasLegs(ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id);
+		this.active = this.selectedCombatant.hasLegs(ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id);
 	}
 
 	on_byPlayer_cast(event) {

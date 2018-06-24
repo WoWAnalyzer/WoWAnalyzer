@@ -1,5 +1,5 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 
 /**
@@ -8,19 +8,16 @@ import SPELLS from 'common/SPELLS';
 **/
 
 class UnleashedDemons extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	};
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] > 0;
+		this.active = this.selectedCombatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] > 0;
 	}
 
 	metamorphosisCDReduction = 0;
 
 	get traitCooldownReduction() {
-		const rank = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id];
+		const rank = this.selectedCombatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id];
 
 		if (rank < 4) {
 			this.metamorphosisCDReduction = rank * 20;

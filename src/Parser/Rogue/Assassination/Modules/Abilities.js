@@ -1,12 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import MasterAssassin from './Traits/MasterAssassin';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
     masterAssassin: MasterAssassin,
-    combatants: Combatants,
   };
 
   spellbook() {

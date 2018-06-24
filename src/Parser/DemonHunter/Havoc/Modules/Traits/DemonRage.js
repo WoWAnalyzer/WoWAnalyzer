@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -22,16 +21,12 @@ const DEMON_RAGE_SPELLS = [
 */
 
 class DemonRage extends Analyzer {
-	static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DEMON_RAGE.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.DEMON_RAGE.id];
     this.active = this.rank > 0;
   }
 

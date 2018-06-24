@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;
@@ -16,7 +15,6 @@ const HP_THRESHOLD = 0.7;
 
 class FrenziedRegeneration extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -41,7 +39,7 @@ class FrenziedRegeneration extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const player = this.combatants.selected;
+    const player = this.selectedCombatant;
     const wildfleshRank = player.traitsBySpellId[SPELLS.WILDFLESH_TRAIT.id];
     const versModifier = this.statTracker.currentVersatilityPercentage;
 
@@ -59,7 +57,7 @@ class FrenziedRegeneration extends Analyzer {
       const damageTakenInWindow = this.damageEventsInWindow.reduce((total, event) => total + event.damage, 0);
 
       // TODO: is event ordering consistent here? (this cast event needs to happen before GoE removebuff)
-      const goeModifier = this.combatants.selected.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id) ? 1.2 : 1;
+      const goeModifier = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id) ? 1.2 : 1;
 
       const healAmount = damageTakenInWindow * this.healModifier * goeModifier;
       const healAsPercentHP = healAmount / event.maxHitPoints;

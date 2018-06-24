@@ -2,18 +2,14 @@ import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const MAX_NUMBER_OF_LEGENDARIES = 2;
 
 class LegendaryCountChecker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get legendaries() {
-    return Object.values(this.combatants.selected.gear).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY);
+    return Object.values(this.selectedCombatant.gear).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY);
   }
   get equipped() {
     return this.legendaries.length;

@@ -1,12 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Analyzer from 'Parser/Core/Analyzer';
 
 class RestlessBlades extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -15,7 +13,7 @@ class RestlessBlades extends Analyzer {
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
 
     let cdr = 500;
-    if(this.combatants.selected.hasBuff(SPELLS.TRUE_BEARING.id))
+    if(this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id))
       {cdr = 1500;}
     const amount = cdr*spent;
 

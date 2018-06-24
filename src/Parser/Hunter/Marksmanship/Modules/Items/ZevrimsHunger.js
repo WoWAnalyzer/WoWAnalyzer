@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 /**
@@ -20,7 +19,6 @@ const debug = false;
 
 class ZevrimsHunger extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -32,12 +30,12 @@ class ZevrimsHunger extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.ZEVRIMS_HUNGER.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.ZEVRIMS_HUNGER.id);
   }
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    if (this.hasProcced && this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && APPLICATORS.includes(spellID)) {
+    if (this.hasProcced && this.selectedCombatant.hasBuff(SPELLS.MARKING_TARGETS.id) && APPLICATORS.includes(spellID)) {
       this.wastedProc++;
       debug && console.log("there was a wasted proc at timestamp: ", event.timestamp);
       this.hasProcced = false;

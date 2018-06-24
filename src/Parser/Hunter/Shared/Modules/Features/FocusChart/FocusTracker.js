@@ -1,11 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Haste from 'Parser/Core/Modules/Haste';
 
 class FocusTracker extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     haste: Haste,
   };
 

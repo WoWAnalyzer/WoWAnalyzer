@@ -5,14 +5,12 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import DreamerAttributor from '../Core/HotTracking/DreamerAttributor';
 
 class T21_2Set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     dreamerAttributor: DreamerAttributor,
   };
 
@@ -20,8 +18,8 @@ class T21_2Set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id);
-    this.has4pc = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id);
+    this.has4pc = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 
   get directHealing() {

@@ -2,28 +2,23 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
 class DenialOfHalfGiants extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   durationPerCp = 0.2;
   totalValue = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.DENIAL_OF_THE_HALF_GIANTS.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.DENIAL_OF_THE_HALF_GIANTS.id);
   }
 
   on_byPlayer_spendresource(event) {
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
-    if (!this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) return;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_BLADES.id)) return;
 
     const spent = event.resourceChange;
 

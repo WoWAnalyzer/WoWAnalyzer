@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -17,7 +16,6 @@ const CRIT_TO_HIT_MODIFIER_VOIDBOLT = 2.0; // voidbolt does not profit from t21 
 
 class Tier21_4set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -25,12 +23,12 @@ class Tier21_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
 
     if (spellId !== SPELLS.MIND_BLAST.id && spellId !== SPELLS.MIND_FLAY.id && spellId !== SPELLS.VOID_BOLT.id) {
       return;

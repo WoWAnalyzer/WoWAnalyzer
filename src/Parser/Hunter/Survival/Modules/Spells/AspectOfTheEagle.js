@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/SixStackBites';
@@ -17,7 +16,6 @@ const MINIMUM_TIME_REMAINING = 9000;
 class AspectOfTheEagle extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     sixStackBites: SixStackBites,
   };
 
@@ -30,7 +28,7 @@ class AspectOfTheEagle extends Analyzer {
       return;
     }
     this.aspectCasts++;
-    if (!this.combatants.selected.hasBuff(SPELLS.MONGOOSE_FURY.id) || this.sixStackBites.mongooseFuryEndTimestamp < event.timestamp + MINIMUM_TIME_REMAINING) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id) || this.sixStackBites.mongooseFuryEndTimestamp < event.timestamp + MINIMUM_TIME_REMAINING) {
       this.badAspectCasts++;
     }
   }

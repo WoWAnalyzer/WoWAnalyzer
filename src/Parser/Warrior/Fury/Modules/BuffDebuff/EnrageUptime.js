@@ -7,15 +7,11 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class EnrageUptime extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get enrageUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {

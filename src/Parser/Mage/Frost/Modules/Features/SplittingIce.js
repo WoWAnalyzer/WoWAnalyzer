@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -14,10 +13,6 @@ const DAMAGE_BONUS = 0.05;
 const GLACIAL_SPIKE_BONUS_PORTION = 0.65; // GS benefits from Icicles in it, but totals less than the full 5%. This number currently a guess.
 
 class SplittingIce extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-	}
-
   cleaveDamage = 0; // all damage to secondary target
   boostDamage = 0; // damage to primary target attributable to boost
 
@@ -25,9 +20,9 @@ class SplittingIce extends Analyzer {
 
   constructor(...args) {
     super(...args);
-	   this.active = this.combatants.selected.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
-     this.hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
-     this.hasEbonbolt = this.combatants.selected.hasTalent(SPELLS.EBONBOLT_TALENT.id);
+	   this.active = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
+     this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

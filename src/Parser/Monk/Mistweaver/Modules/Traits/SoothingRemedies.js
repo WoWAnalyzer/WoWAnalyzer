@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const SOOTHING_REMEDIES_HEALING_INCREASE = 0.03;
 
@@ -16,16 +15,12 @@ const SOOTHING_REMEDIES_HEALING_INCREASE = 0.03;
  * Increases healing done by Soothing Mist by 3%.
  */
 class SoothingRemedies extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SOOTHING_REMEDIES.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.SOOTHING_REMEDIES.id];
     this.active = this.rank > 0;
   }
 

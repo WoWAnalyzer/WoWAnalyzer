@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatMilliseconds } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -17,16 +16,12 @@ const DAMAGE_SPELLS = [
 const debug = false;
 
 class CombustionFirestarter extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   combustionCasted = false;
   combustionDuringFirestarter = false;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -40,7 +35,7 @@ class CombustionFirestarter extends Analyzer {
   //The Combustion Cast/Apply Buff event uses the Players Health/Max Health instead of the target, so we need to check the first direct damage event during combustion to get the target's health. If above 90% then Combustion was cast during Firestarter, which is a waste.
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!DAMAGE_SPELLS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) || !this.combustionCasted) {
+    if (!DAMAGE_SPELLS.includes(spellId) || !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || !this.combustionCasted) {
       return;
     }
     this.combustionCasted = false;

@@ -5,25 +5,21 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Aimed Shot reduces the cast time of your next Aimed Shot by 8% and reduces its Focus cost by 8%.
  */
 class Tier20_4p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   totalAimed = 0;
   buffedCastAndFocusAimed = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS.id);
   }
   get percentUptime() {
     //This calculates the uptime over the course of the encounter of the 4 p bonus
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id) / this.owner.fightDuration;
+    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id) / this.owner.fightDuration;
 
     return uptime;
   }
@@ -32,7 +28,7 @@ class Tier20_4p extends Analyzer {
     if (event.ability.guid !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
       this.buffedCastAndFocusAimed += 1;
     }
     this.totalAimed += 1;

@@ -2,15 +2,9 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 const debug = false;
 
 class MistsOfSheilun extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   procsMistsOfSheilun = 0;
   healsMistsOfSheilun = 0;
   healingMistsOfSheilun = 0;
@@ -18,7 +12,7 @@ class MistsOfSheilun extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

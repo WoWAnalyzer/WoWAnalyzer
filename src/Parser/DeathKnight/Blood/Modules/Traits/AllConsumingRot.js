@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -15,16 +14,12 @@ const ALL_CONSUMING_ROT_INCREASE = 0.04;
  * Increases the damage of Death and Decay by 4%
  */
 class AllConsumingRot extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.ALL_CONSUMING_ROT_TRAIT.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.ALL_CONSUMING_ROT_TRAIT.id];
     this.active = this.rank > 0;
   }
 

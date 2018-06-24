@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -14,12 +13,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class SiphonLifeUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
   }
 
   get uptime() {

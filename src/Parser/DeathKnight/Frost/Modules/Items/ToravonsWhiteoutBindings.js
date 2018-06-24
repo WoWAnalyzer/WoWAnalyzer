@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -17,22 +16,18 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const DAMAGE_MODIFIER = .15;
 
 class ToravonsWhiteoutBindings extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDamage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.TORAVONS_WHITEOUT_BINDINGS.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.TORAVONS_WHITEOUT_BINDINGS.id);
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.type !== SCHOOLS.ids.FROST || event.targetIsFriendly) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.TORAVONS_WHITEOUT_BINDINGS.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.TORAVONS_WHITEOUT_BINDINGS.id)) {
       this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
     }
   }

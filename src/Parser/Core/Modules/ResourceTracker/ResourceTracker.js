@@ -1,15 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 /*
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
  * Extend it by following the instructions in the TODO comments below
  */
 class ResourceTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   current = 0;
 
   // stores resource gained/spent/wasted by ability ID

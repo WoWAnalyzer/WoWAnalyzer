@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
@@ -27,7 +26,6 @@ const BLINK_STRIKES_NOT_AFFECTED_PETS = [
  */
 class BlinkStrikes extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     pets: CorePets,
   };
 
@@ -36,7 +34,7 @@ class BlinkStrikes extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLINK_STRIKES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLINK_STRIKES_TALENT.id);
   }
 
   on_byPlayer_summon(event) {

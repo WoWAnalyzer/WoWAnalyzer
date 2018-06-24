@@ -5,21 +5,16 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class TwinMoons extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   moonfireCasts = 0;
   moonfireHits = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

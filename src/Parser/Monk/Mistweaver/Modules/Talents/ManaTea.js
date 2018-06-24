@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -20,7 +19,6 @@ const manaTeaReduction = 0.5;
 
 class ManaTea extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -44,8 +42,8 @@ class ManaTea extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    if (this.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
       this.hasLifeCycles = true;
     }
   }
@@ -61,7 +59,7 @@ class ManaTea extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (this.combatants.selected.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
       debug && console.log('Mana Tea Buff present');
       if (SPELLS.EFFUSE.id === spellId) {
         this.addToManaSaved(SPELLS.EFFUSE.manaPerc, spellId);
@@ -129,16 +127,16 @@ class ManaTea extends Analyzer {
 
   addToManaSaved(spellBaseMana, spellId) {
     // If we cast TFT -> Viv, mana cost of Viv is 0
-    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
       this.nonManaCasts += 1;
       return;
     }
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if (this.hasLifeCycles) {
-      if (this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
+      if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
         debug && console.log('LC Viv Cast');
-      } else if ((this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
+      } else if ((this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
       } else {
         this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));

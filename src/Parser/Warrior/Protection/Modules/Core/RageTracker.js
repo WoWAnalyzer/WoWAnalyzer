@@ -1,4 +1,3 @@
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
@@ -9,7 +8,6 @@ const IGNORE_PAIN_MAX_COST = 60;
 
 class RageTracker extends ResourceTracker {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -27,13 +25,13 @@ class RageTracker extends ResourceTracker {
     let cost = this.getResource(event).cost / 10;
     const abilityId = event.ability.guid;
     if (abilityId === SPELLS.REVENGE.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {
         const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
         this.vengeanceRageSaved += cost - newCost;
         cost = newCost;
       }
     } else if (abilityId === SPELLS.IGNORE_PAIN.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
         const currentRage = this.getResource(event).amount / 10;
         const newCost = currentRage >= IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) ? IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) : currentRage;
         const normalCost = currentRage >= IGNORE_PAIN_MAX_COST ? IGNORE_PAIN_MAX_COST : currentRage;

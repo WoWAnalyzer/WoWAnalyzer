@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -9,15 +8,11 @@ import SpellIcon from 'common/SpellIcon';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 class Tier21_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id);
   }
 
   on_byPlayer_damage(event){

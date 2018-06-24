@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -11,15 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * electricity that deals (Ranged attack power * 2) Nature damage to all nearby enemies.
  */
 class SurgeOfTheStormgod extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {

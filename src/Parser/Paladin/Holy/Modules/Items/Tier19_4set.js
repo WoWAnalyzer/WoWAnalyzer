@@ -27,7 +27,7 @@ class Tier19_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
   }
 
   iolProcsUsedSinceLastHolyShock = 0;
@@ -43,7 +43,7 @@ class Tier19_4set extends Analyzer {
     }
 
     if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === SPELLS.HOLY_LIGHT.id) {
-      const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+      const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
 
       if (hasIol) {
         this.iolProcsUsedSinceLastHolyShock += 1;
@@ -84,7 +84,7 @@ class Tier19_4set extends Analyzer {
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', event, 'for heal:', event.originalHeal);
       return;
     }
-    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.originalHeal.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.originalHeal.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
     if (!hasIol) {
       return;
     }

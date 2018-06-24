@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
@@ -19,7 +18,6 @@ import SpellIcon from 'common/SpellIcon';
 //TODO: Dig through logs and find average uptimes and make suggestions for this
 class EaglesBite extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -27,7 +25,7 @@ class EaglesBite extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.EAGLES_BITE_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.EAGLES_BITE_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {

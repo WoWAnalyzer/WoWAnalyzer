@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -9,10 +8,6 @@ import { formatPercentage } from 'common/format';
 import { SMOLDERING } from '../../Constants';
 
 class SmolderingHeart extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   smolderingProcs = 0;
   smolderingDuration = 0;
   maelstromSpent = 0;
@@ -20,7 +15,7 @@ class SmolderingHeart extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
+    this.active = this.selectedCombatant.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 
   smoldering_uptime() {

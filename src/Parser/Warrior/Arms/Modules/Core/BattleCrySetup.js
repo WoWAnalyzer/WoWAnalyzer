@@ -4,8 +4,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import BattleCryAnalyzer from './BattleCry';
 
 /**
@@ -13,14 +11,10 @@ import BattleCryAnalyzer from './BattleCry';
  * @extends BattleCryAnalyzer
  */
 class BattleCrySetupAnalyzer extends BattleCryAnalyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   shatteredSetups = 0;
 
   startBattleCry(event) {
-    const shatteredSetup = this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id);
+    const shatteredSetup = this.selectedCombatant.hasBuff(SPELLS.SHATTERED_DEFENSES.id);
 
     if(shatteredSetup) {
       this.shatteredSetups += 1;

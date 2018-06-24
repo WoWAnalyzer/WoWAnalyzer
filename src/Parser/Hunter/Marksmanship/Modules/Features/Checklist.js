@@ -4,7 +4,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -28,7 +27,6 @@ import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/Vulner
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
 
     //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -60,7 +58,7 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be used as often as possible (unless nearing execute). <SpellLink id={SPELLS.WINDBURST.id} /> should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WINDBURST,

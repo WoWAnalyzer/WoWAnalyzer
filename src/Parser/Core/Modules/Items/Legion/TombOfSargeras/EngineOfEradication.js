@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const BASE_DURATION = 12000;
 const ORB_DURATION = 3000;
@@ -23,19 +22,15 @@ const MAJOR = 0.50;
  * Equip: Your auto attacks have a chance to increase your Strength or Agility, based on your specialization, by 4,942 for 12 sec, and expel orbs of fel energy. Collecting an orb increases the duration of this effect by 3 sec. (Approximately 1 procs per minute)
  */
 class EngineOfEradication extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   applicationDurations = [];
   procAmount = null;
   lastAppliedTimestamp = null;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
     if(this.active) {
-      this.procAmount = calculatePrimaryStat(900, 5424, this.combatants.selected.getItem(ITEMS.ENGINE_OF_ERADICATION.id).itemLevel);
+      this.procAmount = calculatePrimaryStat(900, 5424, this.selectedCombatant.getItem(ITEMS.ENGINE_OF_ERADICATION.id).itemLevel);
     }
   }
 
@@ -88,7 +83,7 @@ class EngineOfEradication extends Analyzer {
         <li>Avg Orbs collected: <b>${this.averageOrbsCollected.toFixed(1)}</b></li>
         </ul>
         `}>
-        {this.averageStatGain.toFixed(0)} average {this.combatants.selected.spec.primaryStat}
+        {this.averageStatGain.toFixed(0)} average {this.selectedCombatant.spec.primaryStat}
         </dfn>
       ),
     };

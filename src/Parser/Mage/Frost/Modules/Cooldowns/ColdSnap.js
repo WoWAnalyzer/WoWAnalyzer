@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -11,9 +10,7 @@ const ABILITY_RESETS = [
   ];
 
 class ColdSnap extends Analyzer {
-
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	}
 

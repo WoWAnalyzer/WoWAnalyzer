@@ -17,7 +17,7 @@ class TalentsDisplay extends Analyzer {
 
   // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
   render() {
-    const talents = this.combatants.selected.talents;
+    const talents = this.selectedCombatant.talents;
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     return (

@@ -6,7 +6,6 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -23,20 +22,16 @@ const HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE = 0.3;
  * This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
  */
 class HolyAvenger extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   regularHealing = 0;
   holyShockHealing = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
   }
 
   on_byPlayer_heal(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.timestamp)) {
       const effectiveHealing = (event.amount + (event.absorbed || 0));
       this.regularHealing += effectiveHealing - effectiveHealing / (1 + HOLY_AVENGER_HASTE_INCREASE);
 
@@ -47,7 +42,7 @@ class HolyAvenger extends Analyzer {
     }
   }
   on_beacon_heal(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.originalHeal.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.originalHeal.timestamp)) {
       const effectiveHealing = (event.amount + (event.absorbed || 0));
       this.regularHealing += effectiveHealing - effectiveHealing / (1 + HOLY_AVENGER_HASTE_INCREASE);
 

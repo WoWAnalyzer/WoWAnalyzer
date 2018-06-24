@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 /**
@@ -11,10 +10,6 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  * Equip: Your healing effects have a chance to apply a charge of Highfather's Timekeeping for 1 min, max 5 charges. When the ally falls below 50% health, Highfather's Timekeeping is consumed to instantly heal them for 216140 health per charge.
  */
 class HighfathersMachination extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
 
   proccedCharges = 0;
@@ -26,7 +21,7 @@ class HighfathersMachination extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.HIGHFATHERS_MACHINATION.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.HIGHFATHERS_MACHINATION.id);
   }
 
   on_byPlayer_heal(event) {

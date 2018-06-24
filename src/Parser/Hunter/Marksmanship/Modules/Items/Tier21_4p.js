@@ -5,17 +5,12 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
  * Marked Shot has a 50% chance to fire at up to 3 additional targets hit by Marked Shot an additional time.
  */
 class Tier21_4p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   markedShotHitTargets = [];
   tierProcs = 0;
   damage = 0;
@@ -24,7 +19,7 @@ class Tier21_4p extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T21_4P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T21_4P_BONUS.id);
   }
 
   on_byPlayer_cast(event) {

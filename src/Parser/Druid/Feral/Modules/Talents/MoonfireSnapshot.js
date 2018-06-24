@@ -31,7 +31,7 @@ class MoonfireSnapshot extends Snapshot {
 
   constructor(...args) {
     super(...args);
-    if (!this.combatants.selected.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
       this.active = false;
     }
   }

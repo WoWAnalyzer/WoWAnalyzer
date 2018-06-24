@@ -4,16 +4,11 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const HEAL_WINDOW_MS = 500;
 const RECOMMENDED_HIT_THRESHOLD = 3;
 
 class NaturesEssence extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   casts = 0;
   castsWithTargetsHit = []; // index is number of targets hit, value is number of casts that hit that many targets
 
@@ -23,7 +18,7 @@ class NaturesEssence extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.NATURES_ESSENCE_TRAIT.id] > 0;
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.NATURES_ESSENCE_TRAIT.id] > 0;
   }
 
   on_byPlayer_heal(event) {

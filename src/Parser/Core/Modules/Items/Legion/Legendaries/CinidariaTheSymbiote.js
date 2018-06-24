@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -17,12 +16,11 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 class CinidariaTheSymbiote extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.CINIDARIA_THE_SYMBIOTE.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.CINIDARIA_THE_SYMBIOTE.id);
   }
 
   item() {

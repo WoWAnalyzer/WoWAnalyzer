@@ -3,15 +3,10 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemManaGained from 'Main/ItemManaGained';
 
 class XanshiCloak extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _xanshiActive = false;
   healing = 0;
   overhealing = 0;
@@ -21,7 +16,7 @@ class XanshiCloak extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBack(ITEMS.XANSHI_CLOAK.id);
+    this.active = this.selectedCombatant.hasBack(ITEMS.XANSHI_CLOAK.id);
   }
 
   on_byPlayer_removebuff(event) {

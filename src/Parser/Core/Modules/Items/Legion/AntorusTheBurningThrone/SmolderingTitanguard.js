@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -15,7 +14,6 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  */
 class SmolderingTitanguard extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -25,7 +23,7 @@ class SmolderingTitanguard extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.SMOLDERING_TITANGUARD.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SMOLDERING_TITANGUARD.id);
 
     if (this.active) {
       this.abilities.add({

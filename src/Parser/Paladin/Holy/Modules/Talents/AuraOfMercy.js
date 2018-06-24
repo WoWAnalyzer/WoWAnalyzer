@@ -7,19 +7,17 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AuraOfMercy extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
 
   get healing() {

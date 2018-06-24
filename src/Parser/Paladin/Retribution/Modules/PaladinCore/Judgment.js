@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -15,7 +14,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Judgment extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
   _hasES = false;
   totalSpender = 0;
@@ -23,7 +21,7 @@ class Judgment extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this._hasES = this.combatants.selected.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
+    this._hasES = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

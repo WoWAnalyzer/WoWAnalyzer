@@ -2,23 +2,18 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_MODIFIER = 0.08;
 
 class PromiseOfElune extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   solarWrathDamage = 0;
   lunarStrikeDamage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFeet(ITEMS.PROMISE_OF_ELUNE.id);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.PROMISE_OF_ELUNE.id);
   }
 
   on_byPlayer_damage(event) {

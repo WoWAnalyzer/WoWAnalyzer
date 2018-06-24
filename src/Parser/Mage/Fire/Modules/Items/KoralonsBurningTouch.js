@@ -5,14 +5,12 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const debug = false;
 
 class KoralonsBurningTouch extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -21,7 +19,7 @@ class KoralonsBurningTouch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
   }
 
   on_byPlayer_damage(event) {

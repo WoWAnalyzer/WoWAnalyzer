@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const ESSENCE_OF_THE_MIST_HEALING_INCREASE = 0.05;
 
@@ -16,16 +15,12 @@ const ESSENCE_OF_THE_MIST_HEALING_INCREASE = 0.05;
  * Increases healing done by Essence Font by 5%.
  */
 class EssenceOfTheMist extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.ESSENCE_OF_THE_MIST.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.ESSENCE_OF_THE_MIST.id];
     this.active = this.rank > 0;
   }
 

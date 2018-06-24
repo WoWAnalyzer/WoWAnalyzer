@@ -6,13 +6,11 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class HealingSurge extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   get suggestedThreshold(){

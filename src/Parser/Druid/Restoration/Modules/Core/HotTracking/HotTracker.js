@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
@@ -27,7 +26,6 @@ const healDebug = false; // logs tracking HoT heals
  */
 class HotTracker extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     mastery: Mastery,
     haste: Haste,
   };
@@ -427,11 +425,11 @@ class HotTracker extends Analyzer {
   _generateHotInfo() { // must be generated dynamically because it reads from traits
     return {
       [SPELLS.REJUVENATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
         tickPeriod: 3000,
       },
       [SPELLS.REJUVENATION_GERMINATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
         tickPeriod: 3000,
       },
       [SPELLS.REGROWTH.id]: {

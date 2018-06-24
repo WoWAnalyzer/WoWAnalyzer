@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -15,7 +14,6 @@ const FRAGMENTS_PER_SHARD = 10;
 class SoulShardEvents extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   _FRAGMENT_GENERATING_ABILITIES = {
@@ -63,7 +61,7 @@ class SoulShardEvents extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
+    this._hasT20_2p = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this._currentFragments = 30; // on the start of the fight we should have 3 soul shards (30 fragments) by default
   }
 

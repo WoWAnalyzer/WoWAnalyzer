@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS/OTHERS';
 import SPELLS from 'common/SPELLS/OTHERS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -16,17 +15,13 @@ import { formatNumber, formatPercentage } from 'common/format';
  *
  */
 class GolgannethsVitality extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
   normalDamage = 0;
   empoweredDamage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.GOLGANNETHS_VITALITY.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.GOLGANNETHS_VITALITY.id);
   }
 
   on_byPlayer_damage(event) {
@@ -42,11 +37,11 @@ class GolgannethsVitality extends Analyzer {
   }
 
   get empoweredProcUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF.id) / this.owner.fightDuration;
   }
 
   get normalProcUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH.id) / this.owner.fightDuration;
   }
 
   item() {

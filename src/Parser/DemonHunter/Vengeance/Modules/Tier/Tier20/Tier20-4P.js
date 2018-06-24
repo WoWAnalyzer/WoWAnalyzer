@@ -1,27 +1,23 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'Parser/Core/Analyzer';
-
 import { formatPercentage, formatDuration } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Tier204PBonus extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.VENG_DH_T20_4P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.VENG_DH_T20_4P_BONUS.id);
   }
 
   suggestions(when) {
-    const sigilOfVersatilityPercentage = this.combatants.selected.getBuffUptime(SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id) / this.owner.fightDuration;
+    const sigilOfVersatilityPercentage = this.selectedCombatant.getBuffUptime(SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id) / this.owner.fightDuration;
 
     when(sigilOfVersatilityPercentage).isLessThan(0.90)
     .addSuggestion((suggest, actual, recommended) => {
@@ -35,7 +31,7 @@ class Tier204PBonus extends Analyzer {
   }
 
   statistic() {
-    const sigilOfVersatility = this.combatants.selected.getBuffUptime(SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id);
+    const sigilOfVersatility = this.selectedCombatant.getBuffUptime(SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id);
 
     const sigilOfVersatilityPercentage = sigilOfVersatility / this.owner.fightDuration;
 

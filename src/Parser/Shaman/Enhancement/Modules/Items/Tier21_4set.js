@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -10,13 +9,12 @@ import { formatPercentage } from 'common/format';
 
 class Tier21_4set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.ENHANCE_SHAMAN_T21_4SET_EQUIP.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.ENHANCE_SHAMAN_T21_4SET_EQUIP.id);
   }
 
   item() {
