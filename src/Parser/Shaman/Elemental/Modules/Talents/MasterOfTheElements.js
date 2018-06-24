@@ -37,7 +37,7 @@ class MasterOfTheElements extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EXPOSED_ELEMENTS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
