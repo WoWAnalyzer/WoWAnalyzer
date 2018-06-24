@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Haste from 'Parser/Core/Modules/Haste';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
 
@@ -26,6 +27,7 @@ const healDebug = false; // logs tracking HoT heals
  */
 class HotTracker extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     mastery: Mastery,
     haste: Haste,
   };
