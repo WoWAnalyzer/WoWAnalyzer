@@ -300,6 +300,11 @@ export default {
     name: "Exposed Elements Debuff",
     icon: "spell_nature_callstorm",
   },
+  MASTER_OF_THE_ELEMENTS_BUFF: {
+    id: 260734,
+    name: "Master Of The Elements Buff",
+    icon: "spell_nature_elementalabsorption",
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 226180,

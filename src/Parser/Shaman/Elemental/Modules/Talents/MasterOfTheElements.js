@@ -41,7 +41,7 @@ class MasterOfTheElements extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id)){
       return;
     }
     if(event.ability.guid === SPELLS.LAVA_BURST.id){
