@@ -9,7 +9,7 @@ import { tsabo, Cloake, Hewhosmites } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-03-1'),
+    date: new Date('2018-03-01'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id} icon /></React.Fragment>,
     contributors: [Hewhosmites],
   },

@@ -67,10 +67,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_WORD_DEATH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 9,
+        charges: 2,
         gcd: {
           base: 1500,
         },
-        charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHADOW_WORD_DEATH_TALENT.id),
       },
       {
@@ -155,16 +155,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
       },
       {
         spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 240,
+        cooldown: 4 * 60,
         gcd: {
           base: 1500,
         },
@@ -231,6 +231,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LEAP_OF_FAITH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
+        gcd: null,
       },
       {
         spell: SPELLS.FADE,

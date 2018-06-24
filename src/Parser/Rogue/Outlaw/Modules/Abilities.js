@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         buffSpellId: SPELLS.RIPOSTE.id,
         cooldown: 120,
-        gcd: false,
+        gcd: null,
       },
       // Others
       {
