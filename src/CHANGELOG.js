@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-24'),
+    changes: 'The report history panel will be hidden where there are no entries.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-22'),
     changes: 'Added WoWAnalyzer Premium. See the announcement for more information.',
     contributors: [Zerotorescue],
