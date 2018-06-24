@@ -42,7 +42,7 @@ class Home extends React.PureComponent {
 
           <div className="row">
             <div className="col-lg-8 col-md-7">
-              <News />
+              <News topAnchor="Announcements" />
             </div>
             <div className="col-lg-4 col-md-5">
               <ReportHistory />
