@@ -249,7 +249,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PICK_POCKET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 0.5,
+        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
     ];
   }

@@ -20,7 +20,7 @@ export default {
       </Warning>
       <br />
       <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Shadow expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.<br /><br />
+        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Outlaw expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.<br /><br />
 
         This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
       </Warning>
