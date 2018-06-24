@@ -7,17 +7,18 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import WastedShardsIcon from 'Parser/Warlock/Shared/Images/warlock_soulshard_bw.jpg';
 import SoulShardBreakdown from './SoulShardBreakdown';
-import SoulShardTracker from './SoulShardTracker';
+import SoulShardTrackerV2 from './SoulShardTrackerV2';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetailsV2 extends Analyzer {
   static dependencies = {
-    soulShardTracker: SoulShardTracker,
+    soulShardTrackerV2: SoulShardTrackerV2,
   };
 
   get suggestionThresholds() {
-    const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
+    const fragmentsWasted = this.soulShardTrackerV2.wasted;
     const fragmentsWastedPerMinute = (fragmentsWasted / this.owner.fightDuration) * 1000 * 60;
 
     // Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliable and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
@@ -33,7 +34,7 @@ class SoulShardDetailsV2 extends Analyzer {
   }
 
   suggestions(when) {
-    const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
+    const fragmentsWasted = this.soulShardTrackerV2.wasted;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
@@ -44,7 +45,7 @@ class SoulShardDetailsV2 extends Analyzer {
   }
 
   statistic() {
-    const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
+    const fragmentsWasted = this.soulShardTrackerV2.wasted;
     return (
       <StatisticBox
         icon={(
@@ -61,13 +62,13 @@ class SoulShardDetailsV2 extends Analyzer {
 
   tab() {
     return {
-      title: 'Soul Shard usage',
-      url: 'soul-shards',
+      title: 'SS2',
+      url: 'soul-shards-2',
       render: () => (
         <Tab>
-          <SoulShardBreakdown
-            fragmentsGeneratedAndWasted={this.soulShardTracker.generatedAndWasted}
-            fragmentsSpent={this.soulShardTracker.spent}
+          <ResourceBreakdown
+            tracker={this.soulShardTrackerV2}
+            showSpenders
           />
         </Tab>
       ),
