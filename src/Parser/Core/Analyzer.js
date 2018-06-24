@@ -77,9 +77,10 @@ class Analyzer extends Module {
   }
   /**
    * Called for every single event.
+   * @param {string} eventType
    * @param {object} event
    */
-  on_event(event) {}
+  on_event(eventType, event) {}
   // region damage
   /**
    * Called when someone deals/takes damage.

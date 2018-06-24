@@ -4,11 +4,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import SPELLS from 'common/SPELLS';
 import WastedShardsIcon from 'Parser/Warlock/Shared/Images/warlock_soulshard_bw.jpg';
 import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTrackerV2 from './SoulShardTrackerV2';
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
+import Warning from 'common/Alert/Warning';
 
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
 
@@ -66,6 +67,9 @@ class SoulShardDetailsV2 extends Analyzer {
       url: 'soul-shards-2',
       render: () => (
         <Tab>
+          <Warning style={{ marginLeft: 0, marginRight: 0 }}>
+            Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in.
+          </Warning>
           <ResourceBreakdown
             tracker={this.soulShardTrackerV2}
             showSpenders
