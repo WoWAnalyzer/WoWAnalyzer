@@ -244,7 +244,7 @@ class Parses extends React.Component {
     // TODO: Can we make this return results more reliably?
     const realmsInRegion = realms[this.props.region];
     const lowerCaseRealm = this.props.realm.toLowerCase();
-    const realm = realmsInRegion ? realmsInRegion.realms.find(elem => elem.name.toLowerCase() === lowerCaseRealm) : null;
+    const realm = realmsInRegion ? realmsInRegion.find(elem => elem.name.toLowerCase() === lowerCaseRealm) : null;
     if (!realm) {
       console.warn('Realm could not be found: ' + this.props.realm + '. This generally indicates a bug.');
     }

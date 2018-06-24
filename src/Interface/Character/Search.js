@@ -79,7 +79,7 @@ class Search extends React.PureComponent {
             )}
           </select>
           <SelectSearch
-            options={REALMS[this.state.currentRegion].realms.map(elem => ({
+            options={REALMS[this.state.currentRegion].map(elem => ({
               value: elem.name,
               name: elem.name,
             }))}
