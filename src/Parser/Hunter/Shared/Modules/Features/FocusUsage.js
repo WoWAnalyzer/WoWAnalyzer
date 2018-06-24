@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 const CHART_SIZE = 100;
@@ -40,10 +39,6 @@ const LIST_OF_FOCUS_SPENDERS = [
 ];
 
 class FocusUsage extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   focusSpenderCasts = {
     //BEAST MASTERY
     [SPELLS.COBRA_SHOT.id]: {

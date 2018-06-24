@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
@@ -23,7 +22,6 @@ const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
  */
 class FillerFlashOfLight extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
@@ -45,7 +43,7 @@ class FillerFlashOfLight extends Analyzer {
   _isInefficientCastEvent(event) {
     // If there is a lot of healing to be done in short window of time using your IoL proc before casting HS makes sense.
     // The `-1` buffer time is to properly handle chain-casting and IoL buffs; when chain casting the first FoL will consume the IoL buff on the `cast` event and that exact same frame will have the `begincast` event. Because `hasBuff` looks at the timestamp rather than event order, it would otherwise include the buff.
-    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, -1);
+    const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, -1);
     if (hasIol) {
       return false;
     }

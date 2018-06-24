@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { HIGH_TOLERANCE_HASTE_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/HighTolerance';
 import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
@@ -12,7 +11,6 @@ const debug = false;
 
 class Haste extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -53,7 +51,7 @@ class Haste extends Analyzer {
     this._triggerChangeHaste(null, null, this.current);
 
     // TODO: Move this to the Sephuz module
-    if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
+    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
     }
@@ -172,7 +170,7 @@ class Haste extends Analyzer {
   _getHasteValue(value, hasteBuff) {
     const { itemId } = hasteBuff;
     if (typeof value === 'function') {
-      const selectedCombatant = this.combatants.selected;
+      const selectedCombatant = this.selectedCombatant;
       let itemDetails;
       if (itemId) {
         itemDetails = selectedCombatant.getItem(itemId);

@@ -10,7 +10,6 @@ import { formatPercentage } from 'common/format';
 import { CRIT_MULTIPLIER, ECHOES } from '../../Constants.js';
 
 class EchoesOfTheGreatSundering extends Analyzer {
-
   echoesProcsCounter = 0;
   unbuffedBaseDamageSum = 0;
   buffedBaseDamageSum = 0;

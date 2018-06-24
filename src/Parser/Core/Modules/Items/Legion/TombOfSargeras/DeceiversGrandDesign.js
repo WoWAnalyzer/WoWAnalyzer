@@ -39,7 +39,7 @@ class DecieversGrandDesign extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
 
     if (this.active) {
       this.abilities.add({

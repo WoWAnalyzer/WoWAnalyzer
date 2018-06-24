@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatPercentage } from 'common/format';
@@ -16,12 +15,11 @@ const SERAPHIM_STAT_BUFF = 5500;
 class Seraphim extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    combatants: Combatants,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.SERAPHIM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -36,7 +34,7 @@ class Seraphim extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.SERAPHIM_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.SERAPHIM_TALENT.id) / this.owner.fightDuration;
   }
 
   statistic() {

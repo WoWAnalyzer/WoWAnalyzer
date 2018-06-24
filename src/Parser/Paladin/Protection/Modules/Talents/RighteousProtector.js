@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,14 +13,13 @@ const REDUCTION_TIME = 3000; // ms
  */
 class RighteousProtector extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
   }
 
   lightOfTheProtectorReduced = 0;
@@ -35,7 +33,7 @@ class RighteousProtector extends Analyzer {
     }
 
     let LOTP_ID = SPELLS.LIGHT_OF_THE_PROTECTOR.id;
-    if (this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
       LOTP_ID = SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id;
     }
 
@@ -56,7 +54,7 @@ class RighteousProtector extends Analyzer {
   }
 
   statistic() {
-    const lotpName = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) ? 'Hand of the Protector' : 'Light of the Protector';
+    const lotpName = this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) ? 'Hand of the Protector' : 'Light of the Protector';
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id} />}

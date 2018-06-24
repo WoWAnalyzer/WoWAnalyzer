@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -13,7 +12,6 @@ const PUNISH_DAMAGE_INCREASE = 0.2;
 
 class Punish extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -21,7 +19,7 @@ class Punish extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.PUNISH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PUNISH_TALENT.id);
   }
 
   get uptime() {

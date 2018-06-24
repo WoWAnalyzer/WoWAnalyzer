@@ -10,52 +10,70 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.COLOSSUS_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 20 - 8 : 20,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.EXECUTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SLAM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.REND_TALENT.id),
       },
       {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WHIRLWIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BLADESTORM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 90,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WARBREAKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BATTLE_CRY,

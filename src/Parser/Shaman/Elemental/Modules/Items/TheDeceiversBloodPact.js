@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
 class TheDeceiversBloodPact extends Analyzer {
-
   extraMaelstrom = 0;
   counter = 0;
 

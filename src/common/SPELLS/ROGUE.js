@@ -43,6 +43,16 @@ export default {
     name: 'Sprint',
     icon: 'ability_rogue_sprint',
   },
+  TRICKS_OF_THE_TRADE: {
+    id: 57934,
+    name: 'Tricks of the Trade',
+    icon: 'ability_rogue_tricksofthetrade',
+  },
+  STEALTH: {
+    id: 1784,
+    name: 'Stealth',
+    icon: 'ability_stealth',
+  },
   VANISH: {
     id: 1856,
     name: 'Vanish',
@@ -58,6 +68,11 @@ export default {
     name: 'Sap',
     icon: 'ability_sap',
   },
+  SHROUD_OF_CONCEALMENT: {
+    id: 114018,
+    name: 'Shroud of Concealment',
+    icon: 'ability_rogue_shroudofconcealment',
+  },
   CHEAP_SHOT: {
     id: 1833,
     name: 'Cheap Shot',
@@ -67,6 +82,31 @@ export default {
     id: 408,
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
+  },
+  DISTRACT: {
+    id: 1725,
+    name: 'Distract',
+    icon: 'ability_rogue_distract',
+  },
+  GOUGE: {
+    id: 1776,
+    name: 'Gouge',
+    icon: 'ability_gouge',
+  },
+  GRAPPLING_HOOK: {
+    id: 195457,
+    name: 'Grappling Hook',
+    icon: 'ability_rogue_grapplinghook',
+  },
+  PICK_LOCK: {
+    id: 1804,
+    name: 'Pick Lock',
+    icon: 'spell_nature_moonkey',
+  },
+  PICK_POCKET: {
+    id: 921,
+    name: 'Pick Pocket',
+    icon: 'inv_misc_bag_11',
   },
 
   // Subtlety spells
@@ -417,10 +457,25 @@ export default {
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
   },
+  BLIND: {
+    id: 2094,
+    name: 'Blind',
+    icon: 'spell_shadow_mindsteal',
+  },
   ROLL_THE_BONES: {
     id: 193316,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
+  },
+  DISPATCH: {
+    id: 2098,
+    name: 'Dispatch',
+    icon: 'ability_rogue_waylay',
+  },
+  SINISTER_STRIKE: {
+    id: 193315,
+    name: 'Sinister Strike',
+    icon: 'spell_shadow_ritualofsacrifice',
   },
 
   //CDs
@@ -428,21 +483,6 @@ export default {
     id: 13750,
     name: 'Adrenaline Rush',
     icon: 'spell_shadow_shadowworddominate',
-  },
-  CURSE_OF_THE_DREADBLADES: {
-    id: 202665,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
-  },
-  CURSE_OF_THE_DREADBLADES_DAMAGE: {
-    id: 202669,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
-  },
-  CURSE_OF_THE_DREADBLADES_CP: {
-    id: 202668,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
   },
 
   //Other

@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
@@ -11,10 +10,6 @@ const DOORWAYACTIVETIME = 15000;
 const CHIJIACTIVETIME = 45000;
 
 class DoorwayToNowhere extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
   healingOverlap = 0;
   doorwayActive = 0;
@@ -24,7 +19,7 @@ class DoorwayToNowhere extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
+    this.active = this.selectedCombatant.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
   }
 
   on_byPlayer_summon(event) {

@@ -7,22 +7,20 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DivinePurpose extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
+  static dependencies = {    
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
 
   constructor(...args) {
     super(...args);
-    const hasDivinePurpose = this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 

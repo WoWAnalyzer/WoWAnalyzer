@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -13,13 +12,12 @@ import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
 
 class T19_4Set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     rejuvenationAttributor: RejuvenationAttributor,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
   }
 
   get directHealing() {

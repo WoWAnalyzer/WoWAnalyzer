@@ -6,23 +6,18 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWcl';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const IRONBARK_BASE_DR = 0.20;
 const AOTA_BONUS_DR = 0.02;
 
 class Ironbark extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   ironbarkDr = 0;
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
 
   constructor(...args) {
     super(...args);
-    const aotaRanks = this.combatants.selected.traitsBySpellId[SPELLS.ARMOR_OF_THE_ANCIENTS.id];
+    const aotaRanks = this.selectedCombatant.traitsBySpellId[SPELLS.ARMOR_OF_THE_ANCIENTS.id];
     this.ironbarkDr = IRONBARK_BASE_DR + (AOTA_BONUS_DR * aotaRanks);
   }
 
@@ -40,7 +35,7 @@ class Ironbark extends Analyzer {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
       .then((json) => {
         if (json.status === 400 || json.status === 401) {

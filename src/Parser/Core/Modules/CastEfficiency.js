@@ -11,7 +11,6 @@ import CastEfficiencyComponent from 'Main/CastEfficiency';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
-import Combatants from './Combatants';
 import Haste from './Haste';
 
 const DEFAULT_RECOMMENDED = 0.80;
@@ -21,7 +20,6 @@ const DEFAULT_MAJOR_DOWNSTEP = 0.15;
 class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,

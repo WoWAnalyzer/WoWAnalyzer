@@ -3,18 +3,12 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
 
 class MasteryBreakdown extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _tickMode = {};
   _healValByTargetId = {};
   _maxHealVal = {};

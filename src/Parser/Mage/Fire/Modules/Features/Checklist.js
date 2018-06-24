@@ -9,7 +9,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -29,7 +28,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
 
@@ -70,17 +68,17 @@ class Checklist extends CoreChecklist {
       name: 'Manage Your Procs',
       description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> (if talented) guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id} /> to <SpellLink id={SPELLS.HOT_STREAK.id} />. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: "Fire Blast used with Heating Up",
             check: () => this.heatingUp.fireBlastUtilSuggestionThresholds,
-            tooltip: `Because Fire Blast is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then you dont gain anything. The only exception to this is during ${this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
+            tooltip: `Because Fire Blast is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then you dont gain anything. The only exception to this is during ${this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
           }),
           new Requirement({
             name: "Phoenix Flames used with Heating Up",
             check: () => this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
-            tooltip: `Because Phoenix Flames is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then it does nothing. The only exception to this is during ${this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
+            tooltip: `Because Phoenix Flames is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then it does nothing. The only exception to this is during ${this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
             when: combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id),
           }),
           new Requirement({
@@ -105,7 +103,7 @@ class Checklist extends CoreChecklist {
       name: 'Maximize Combustion Effectiveness',
       description: <React.Fragment><SpellLink id={SPELLS.COMBUSTION.id} /> is the only major cooldown that Fire Mage has and it plays a massive role in your performance. Therefore it is important that you are utilizing Combustion properly to avoid missing out on a large amount of damage.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: "Cast with 2 Phoenix Flames Charges",
@@ -129,7 +127,7 @@ class Checklist extends CoreChecklist {
       name: 'Use Your Cooldowns',
       description: <React.Fragment>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.COMBUSTION,
@@ -158,7 +156,7 @@ class Checklist extends CoreChecklist {
       name: 'Utilize your talents',
       description: <React.Fragment>Talent choice can effect playstyle, it is important to use your talents to their fullest.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: "Rune of Power Effective Time Per Cast",

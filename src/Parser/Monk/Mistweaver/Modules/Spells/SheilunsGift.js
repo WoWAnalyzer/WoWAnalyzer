@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -23,7 +22,6 @@ function getOverhealingPercentage(ability) {
 
 class SheilunsGift extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -43,7 +41,7 @@ class SheilunsGift extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasEffusiveMists = this.combatants.selected.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
+    this.hasEffusiveMists = this.selectedCombatant.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

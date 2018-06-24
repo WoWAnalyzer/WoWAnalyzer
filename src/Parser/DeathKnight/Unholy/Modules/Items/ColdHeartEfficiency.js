@@ -7,7 +7,6 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
   
 const coldHeartMaxStack = 20;
@@ -22,11 +21,10 @@ const maxDurationAtMaxStacksAllowed = 4000;
 
 class ColdHeartEfficiency extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
   };
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasChest(ITEMS.COLD_HEART.id);
+    this.active = this.selectedCombatant.hasChest(ITEMS.COLD_HEART.id);
   }
 
   totalColdHeartCasts = 0;

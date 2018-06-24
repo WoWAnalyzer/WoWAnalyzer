@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -15,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 */
 class DiimasGlacialAegis extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -25,10 +23,10 @@ class DiimasGlacialAegis extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
 
     if (this.active) {
-      this.armorbuff = calculateSecondaryStatDefault(930, 4045, this.combatants.selected.getItem(ITEMS.DIIMAS_GLACIAL_AEGIS.id).itemLevel);
+      this.armorbuff = calculateSecondaryStatDefault(930, 4045, this.selectedCombatant.getItem(ITEMS.DIIMAS_GLACIAL_AEGIS.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.CHILLING_NOVA,
@@ -59,7 +57,7 @@ class DiimasGlacialAegis extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FROZEN_ARMOR.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FROZEN_ARMOR.id) / this.owner.fightDuration;
   }
 
   item() {

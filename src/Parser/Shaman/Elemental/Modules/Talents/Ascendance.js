@@ -10,7 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Ascendance extends Analyzer {
-
   numLavaBurstsCast = 0;
   numLightningBoltsCast = 0;
   numOtherCasts = 0;

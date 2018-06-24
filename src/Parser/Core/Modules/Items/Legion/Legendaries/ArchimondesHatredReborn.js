@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -14,7 +13,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  */
 class ArchimondesHatredReborn extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -23,7 +21,7 @@ class ArchimondesHatredReborn extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
 
     if (this.active) {
       this.abilities.add({

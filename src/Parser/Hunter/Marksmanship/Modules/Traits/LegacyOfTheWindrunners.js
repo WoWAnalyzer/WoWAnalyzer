@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
@@ -11,14 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Aimed Shot has a chance to coalesce 6 extra Wind Arrows that also shoot your target.
  */
 class LegacyOfTheWindrunners extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {

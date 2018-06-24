@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -17,16 +16,15 @@ const VENDETTA_CDR_PER_ENERGY = 1 / 65;
 
 class DuskwalkersFootpads extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
-      };
+  };
 
   totalReduction = 0;
   wastedReduction = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
   }
 
   on_byPlayer_spendresource(event) {

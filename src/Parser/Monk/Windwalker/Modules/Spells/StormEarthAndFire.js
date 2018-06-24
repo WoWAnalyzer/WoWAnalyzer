@@ -4,14 +4,12 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class StormEarthAndFire extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -26,14 +24,14 @@ class StormEarthAndFire extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.ability = this.combatants.selected.hasTalent(SPELLS.SERENITY_TALENT.id) ? SPELLS.SERENITY_TALENT : SPELLS.STORM_EARTH_AND_FIRE_CAST;
-    this.drinkingHornCover = this.combatants.selected.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 1 : 0;
+    this.ability = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id) ? SPELLS.SERENITY_TALENT : SPELLS.STORM_EARTH_AND_FIRE_CAST;
+    this.drinkingHornCover = this.selectedCombatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 1 : 0;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (!this.combatants.selected.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) && !this.combatants.selected.hasBuff(SPELLS.SERENITY_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) && !this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
     switch (spellId) {
@@ -78,7 +76,7 @@ class StormEarthAndFire extends Analyzer {
   }
 
   whirlingDragonPunchStatistic() {
-    if (this.combatants.selected.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
       return (
         <div className="flex">
           <div className="flex-main">

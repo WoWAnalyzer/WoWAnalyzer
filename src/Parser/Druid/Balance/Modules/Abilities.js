@@ -12,40 +12,52 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARSURGE_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 2,
       },
       {
         spell: SPELLS.STARFALL_CAST,
         buffSpellId: SPELLS.STELLAR_EMPOWERMENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 3,
       },
       {
         spell: SPELLS.SOLAR_WRATH_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 4,
       },
       {
         spell: SPELLS.LUNAR_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 5,
       },
       {
         spell: SPELLS.MOONFIRE,
         buffSpellId: SPELLS.MOONFIRE_BEAR.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 6,
       },
       {
         spell: SPELLS.SUNFIRE_CAST,
         buffSpellId: SPELLS.SUNFIRE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 7,
       },
       {
@@ -53,7 +65,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.STELLAR_FLARE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 8,
       },
 
@@ -64,7 +78,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -77,7 +93,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -101,7 +119,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.FORCE_OF_NATURE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -112,7 +132,9 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.NEW_MOON_TALENT, SPELLS.HALF_MOON, SPELLS.FULL_MOON],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -133,7 +155,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.FURY_OF_ELUNE_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -146,7 +170,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.70,
@@ -182,14 +208,18 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 14,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        //gcd: true, 0.5s gcd
+        gcd: {
+          static: 500,
+        },
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         timelineSortIndex: 14,
       },
@@ -198,26 +228,34 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 50,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ENTANGLING_ROOTS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DASH,
@@ -225,7 +263,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 180,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SOLAR_BEAM,
@@ -236,12 +276,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.REMOVE_CORRUPTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REBIRTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.GROWL,
@@ -252,67 +296,89 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BEAR_FORM,
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CAT_FORM,
         buffSpellId: SPELLS.CAT_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.MOONKIN_FORM,
         buffSpellId: SPELLS.MOONKIN_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.TRAVEL_FORM,
         buffSpellId: SPELLS.TRAVEL_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
         buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 36,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id),
       },
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REJUVENATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WILD_GROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.HIBERNATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SOOTHE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

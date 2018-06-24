@@ -3,9 +3,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static BASE_GCD = 1000;
-  static MINIMUM_GCD = 500; // assumed to be 50% of base, but unverified
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

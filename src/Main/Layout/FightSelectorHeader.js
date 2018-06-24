@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
-import { getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
-import { getReport } from 'selectors/report';
-import { getFightById } from 'selectors/fight';
+import { getFightId, getPlayerId, getPlayerName } from 'Interface/selectors/url/report';
+import { getReport } from 'Interface/selectors/report';
+import { getFightById } from 'Interface/selectors/fight';
 import getFightName from 'common/getFightName';
 
 import SelectorBase from './SelectorBase';

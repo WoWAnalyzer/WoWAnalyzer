@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import { SMOLDERING } from '../../Constants';
 
 class SmolderingHeart extends Analyzer {
-
   smolderingProcs = 0;
   smolderingDuration = 0;
   maelstromSpent = 0;

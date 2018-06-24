@@ -11,7 +11,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { ELEMENTAL_BLAST_IDS } from '../../Constants';
 
 class ElementalBlast extends Analyzer {
-
   currentBuffAmount=0;
   lastFreshApply=0;
   resultDuration=0;
@@ -41,15 +40,15 @@ class ElementalBlast extends Analyzer {
   }
 
   get hasteUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
   }
 
   get critUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
   }
 
   get masteryUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
   }
 
   get elementalBlastUptime() {

@@ -3,16 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 import CHI_SPENDERS from '../../Constants';
 
 class TheEmperorsCapacitor extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   totalStacks = 0;
   currentStacks = 0;
   stacksUsed = 0;
@@ -24,7 +20,7 @@ class TheEmperorsCapacitor extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasChest(ITEMS.THE_EMPERORS_CAPACITOR.id);
+    this.active = this.selectedCombatant.hasChest(ITEMS.THE_EMPERORS_CAPACITOR.id);
   }
 
   on_byPlayer_applybuff(event) {

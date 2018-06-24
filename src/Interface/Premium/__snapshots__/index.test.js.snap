@@ -159,7 +159,9 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
                 className="btn btn-block patreon-login"
                 href="/login/patreon"
               >
-                <Icon />
+                <Icon
+                  colored={false}
+                />
                  Patreon
               </a>
             </div>
@@ -468,6 +470,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
                   className="logo"
                 >
                   <Icon
+                    colored={false}
                     style={
                       Object {
                         "marginTop": 0,
@@ -584,7 +587,9 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
                 className="btn btn-block patreon-login"
                 href="/login/patreon"
               >
-                <Icon />
+                <Icon
+                  colored={false}
+                />
                  Patreon
               </a>
             </div>
@@ -951,7 +956,9 @@ exports[`Premium matches snapshot when logged out 1`] = `
                 className="btn btn-block patreon-login"
                 href="/login/patreon"
               >
-                <Icon />
+                <Icon
+                  colored={false}
+                />
                  Patreon
               </a>
             </div>

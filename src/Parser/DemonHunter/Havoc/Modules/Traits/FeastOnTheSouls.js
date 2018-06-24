@@ -1,7 +1,6 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -17,13 +16,12 @@ const FEAST_ON_THE_SOULS_CDR = 5000;
 
 class FeastOnTheSouls extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	}
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.traitsBySpellId[SPELLS.FEAST_ON_THE_SOULS.id] > 0;
+		this.active = this.selectedCombatant.traitsBySpellId[SPELLS.FEAST_ON_THE_SOULS.id] > 0;
 	}
 
 	totalCooldownReduction = 0;
@@ -32,7 +30,7 @@ class FeastOnTheSouls extends Analyzer {
 
 	//This one works if they have this talent but the on heal event doesnt pick up every consome soul so we do both
 	on_byPlayer_energize(event) {
-		if(!this.combatants.selected.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
+		if(!this.selectedCombatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
 			return;
 		}
 		const spellId = event.ability.guid;
@@ -50,7 +48,7 @@ class FeastOnTheSouls extends Analyzer {
 	}
 
 	on_byPlayer_heal(event) {
-		if(this.combatants.selected.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
+		if(this.selectedCombatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
 			return;
 		}
 		const spellId = event.ability.guid;

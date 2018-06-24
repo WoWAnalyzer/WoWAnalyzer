@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -13,14 +12,10 @@ import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
 class Retribution extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
 
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.RETRIBUTION_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RETRIBUTION_BUFF.id)) {
       return;
     }
     if (event.targetIsFriendly) {

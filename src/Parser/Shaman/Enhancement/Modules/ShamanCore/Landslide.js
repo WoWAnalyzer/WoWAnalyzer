@@ -4,22 +4,18 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Landslide extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
   }
 
   suggestions(when) {
-    const landslideUptime = this.combatants.selected.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
+    const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
 
     when(landslideUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -32,7 +28,7 @@ class Landslide extends Analyzer {
   }
 
   statistic() {
-    const landslideUptime = this.combatants.selected.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
+    const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
     return (
       (<StatisticBox
         icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}

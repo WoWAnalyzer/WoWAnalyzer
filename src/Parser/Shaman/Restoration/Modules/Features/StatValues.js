@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 
@@ -19,7 +18,6 @@ const BUFFER_MS = 100;
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
     statTracker: StatTracker,
-    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     masteryEffectiveness: MasteryEffectiveness,
   };
@@ -37,7 +35,7 @@ class StatValues extends BaseHealerStatValues {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
       critChanceBreakdown.baseCritChance += 0.4;

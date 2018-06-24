@@ -9,7 +9,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Aftershock extends Analyzer {
-
   refund = 0;
 
   constructor(...args) {

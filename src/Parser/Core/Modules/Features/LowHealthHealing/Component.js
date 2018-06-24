@@ -13,25 +13,21 @@ import SpecIcon from 'common/SpecIcon';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {
-    parser: PropTypes.object.isRequired,
+    healEvents: PropTypes.array.isRequired,
+    fightStart: PropTypes.number.isRequired,
+    combatants: PropTypes.object.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.state,
-      maxPlayerHealthPercentage: 0.35,
-      minHealOfMaxHealthPercentage: 0.1,
-    };
-  }
+  state = {
+    maxPlayerHealthPercentage: 0.35,
+    minHealOfMaxHealthPercentage: 0.1,
+  };
 
   componentDidUpdate() {
     ReactTooltip.rebuild();
   }
 
   render() {
-    const { parser } = this.props;
-    const fightStart = parser.fight.start_time;
+    const { fightStart, combatants, healEvents } = this.props;
 
     let total = 0;
     let count = 0;
@@ -92,8 +88,7 @@ class LowHealthHealing extends React.Component {
           </thead>
           <tbody>
             {
-              parser.eventHistory
-                .filter(event => event.type === 'heal' && (parser.byPlayer(event) || parser.byPlayerPet(event)))
+              healEvents
                 .map(event => {
                   const effectiveHealing = event.amount + (event.absorbed || 0);
                   const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
@@ -110,7 +105,7 @@ class LowHealthHealing extends React.Component {
                   bigHealCount += 1;
                   totalBigHealing += effectiveHealing;
 
-                  const combatant = parser.modules.combatants.getEntity(event);
+                  const combatant = combatants.getEntity(event);
                   if (!combatant) {
                     console.error('Missing combatant for event:', event);
                     return null; // pet or something

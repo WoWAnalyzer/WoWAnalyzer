@@ -14,7 +14,6 @@ const BUFF_TOTEM_EMBER_SPELL_ID = 210657;
 const BUFF_TOTEM_TAILWIND_SPELL_ID = 210660;
 
 class TotemMastery extends Analyzer {
-
   casts = 0;
 
   constructor(...args) {
@@ -24,9 +23,9 @@ class TotemMastery extends Analyzer {
 
   get minUptime() {
     return Math.min(
-      this.combatants.selected.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
-      this.combatants.selected.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
-      this.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID)
+      this.selectedCombatant.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
+      this.selectedCombatant.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
+      this.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID)
     ) / this.owner.fightDuration;
   }
 

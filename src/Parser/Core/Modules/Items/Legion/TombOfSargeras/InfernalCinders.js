@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
@@ -11,15 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Equip: Your melee attacks have a chance to deal an additional 82910 Fire damage. The critical strike chance of this damage is increased by 10% for each ally within 10 yds who bears this item.
  */
 class InfernalCinders extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.INFERNAL_CINDERS.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.INFERNAL_CINDERS.id);
   }
 
   on_byPlayer_damage(event) {

@@ -1,21 +1,17 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 // Master Assassin: Reduces the cooldown of Vendetta by 10 sec. (Has dimishing returns past rank 3.)
 
 class MasterAssassin extends Analyzer {
-    static dependencies = {
-        combatants: Combatants,
-    };
 
   constructor(...args) {
     super(...args);
-      this.active = this.combatants.selected.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id] > 0;
+      this.active = this.selectedCombatant.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id] > 0;
   }
 
   get traitCooldownReduction() {
-    const rank = this.combatants.selected.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id];
+    const rank = this.selectedCombatant.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id];
     let cdReduction = 0;
 
     if (rank < 4) {

@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
@@ -26,7 +25,6 @@ const CHART_SIZE = 75;
 
 class UnleashLife extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
   healing = 0;
@@ -49,7 +47,7 @@ class UnleashLife extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
   }
 
   on_byPlayer_heal(event) {
@@ -74,7 +72,7 @@ class UnleashLife extends Analyzer {
       (spellId === SPELLS.CHAIN_HEAL.id) ||
       (spellId === SPELLS.RIPTIDE.id && !event.tick && this.unleashLifeHealRemaining> 0)
     ) {
-      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+      const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
       if (hasUnleashLife) {
         this.healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
@@ -96,7 +94,7 @@ class UnleashLife extends Analyzer {
       this.lastUnleashLifeTimestamp = event.timestamp;
     }
 
-    const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+    const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
     if(!hasUnleashLife) {
       return;
@@ -138,7 +136,7 @@ class UnleashLife extends Analyzer {
       return;
     }
 
-    const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, 0, BUFFER_MS);
+    const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, 0, BUFFER_MS);
 
     // Saving the buffed riptide target to track the healing done on.
     if (hasUnleashLife) {
@@ -168,7 +166,7 @@ class UnleashLife extends Analyzer {
       (spellId === SPELLS.CHAIN_HEAL.id) ||
       (spellId === SPELLS.RIPTIDE.id && !event.tick && this.unleashLifeFeedRemaining> 0)
     ) {
-      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+      const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
       if (hasUnleashLife) {
         this.healing += event.feed * UNLEASH_LIFE_HEALING_INCREASE;

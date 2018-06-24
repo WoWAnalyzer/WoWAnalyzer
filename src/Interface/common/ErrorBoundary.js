@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { captureException } from 'common/errorLogger';
-
-import FullscreenError from 'Main/FullscreenError';
+import FullscreenError from 'Interface/common/FullscreenError';
 
 import ApiDownBackground from './Images/api-down-background.gif';
 
@@ -45,9 +44,11 @@ class ErrorBoundary extends React.Component {
           errorDetails={(
             <React.Fragment>
               <p>{this.state.error.message}</p>
-              <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-                {this.state.error.stack}
-              </pre>
+              {this.state.error.stack && (
+                <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+                  {this.state.error.stack}
+                </pre>
+              )}
               {this.state.errorDetails && (
                 <pre style={{ color: 'red' }}>
                   {this.state.errorDetails}

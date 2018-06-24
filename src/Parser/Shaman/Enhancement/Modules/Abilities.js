@@ -121,7 +121,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 60,
       },
       {

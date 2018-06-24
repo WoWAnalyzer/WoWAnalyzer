@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS/HUNTER';
 import TALENTS from 'common/SPELLS/TALENTS/HUNTER';
@@ -19,7 +18,6 @@ import ResourceIcon from 'common/ResourceIcon';
  */
 class Trueshot extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -64,7 +62,7 @@ class Trueshot extends Analyzer {
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
       this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
-      if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_BUFF.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.BULLSEYE_BUFF.id, event.timestamp)) {
         this.executeTrueshots += 1;
       }
     }
@@ -80,7 +78,7 @@ class Trueshot extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
-    if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
     }
     if (isCrit) {
@@ -151,7 +149,7 @@ class Trueshot extends Analyzer {
   }
 
   get uptimePerCast() {
-    return (this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000;
+    return (this.selectedCombatant.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000;
   }
   get aimedShotThreshold() {
     return {

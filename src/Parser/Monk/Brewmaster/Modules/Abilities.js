@@ -28,7 +28,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        gcd: true,
+        gcd: {
+          base: 1000,
+        },
       },
       {
         spell: SPELLS.BLACKOUT_STRIKE,
@@ -84,7 +86,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 14 / (1 + haste),
         charges: 3,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
@@ -95,7 +97,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.GUARD_TALENT,
@@ -106,7 +108,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.GUARD_TALENT.id),
-        gcd: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.EXPEL_HARM,
@@ -120,14 +124,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 420,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.HEALING_ELIXIR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
@@ -135,14 +139,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ZEN_MEDITATION,
         buffSpellId: SPELLS.ZEN_MEDITATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
-        gcd: false,
+        gcd: null,
       },
       // Utility
       {
@@ -167,14 +171,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ROLL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.TRANSCENDENCE,
@@ -196,7 +200,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
         cooldown: 180,
-        gcd: false,
+        gcd: null,
       },
       {
         spell: SPELLS.SUMMON_BLACK_OX_STATUE_TALENT,

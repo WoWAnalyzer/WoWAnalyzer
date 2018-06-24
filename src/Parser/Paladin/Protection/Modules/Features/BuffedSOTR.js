@@ -4,12 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class BuffedSOTR extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
-    combatants: Combatants,
+    abilityTracker: AbilityTracker,    
   };
 
   BuffedSOTR = 0;
@@ -20,7 +18,7 @@ class BuffedSOTR extends Analyzer {
     if (spellId !== SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
       this.BuffedSOTR += 1;
     } else {
       this.NonBuffedSOTR += 1;

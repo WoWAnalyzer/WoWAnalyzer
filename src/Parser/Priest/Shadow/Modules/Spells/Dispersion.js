@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Voidform from './Voidform';
 
@@ -16,7 +15,6 @@ const DISPERSION_UPTIME_MS = 6000;
 
 class Disperion extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     voidform: Voidform,
   };
 
@@ -62,7 +60,7 @@ class Disperion extends Analyzer {
   }
 
   suggestions(when) {
-    const dispersionUptime = this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id);
+    const dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
     const maxDispersiontime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
     const dispersedTime = dispersionUptime / this.maxUptime;
 

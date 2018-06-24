@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const COALESCING_MISTS_HEALING_INCREASE = 0.03;
 
@@ -16,16 +15,12 @@ const COALESCING_MISTS_HEALING_INCREASE = 0.03;
  * Increases healing done by Effuse by 3%.
  */
 class CoalescingMists extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.COALESCING_MISTS.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.COALESCING_MISTS.id];
     this.active = this.rank > 0;
   }
 

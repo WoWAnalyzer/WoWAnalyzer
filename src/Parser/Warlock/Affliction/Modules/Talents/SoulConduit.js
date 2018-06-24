@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -17,7 +16,6 @@ const TICKS_PER_UA = 4;
 class SoulConduit extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
-    combatants: Combatants,
   };
 
   _totalTicks = 0;
@@ -25,7 +23,7 @@ class SoulConduit extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

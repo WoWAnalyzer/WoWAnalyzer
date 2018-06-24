@@ -5,19 +5,15 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class SoulOfTheHighPriest extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
-    this.hasPickedOtherTalent = this.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id) || 
-                                this.combatants.selected.hasTalent(SPELLS.SCHISM_TALENT.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
+    this.hasPickedOtherTalent = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) || 
+                                this.selectedCombatant.hasTalent(SPELLS.SCHISM_TALENT.id);
   }
 
   item() {

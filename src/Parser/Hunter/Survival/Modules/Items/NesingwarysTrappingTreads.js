@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
@@ -14,16 +13,12 @@ import { formatNumber } from 'common/format';
 const FOCUS_PER_PROC = 25;
 
 class NesingwarysTrappingTreads extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   focusGain = 0;
   possibleGain = 0;
   focusWaste = 0;
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id);
   }
 
   on_toPlayer_energize(event) {

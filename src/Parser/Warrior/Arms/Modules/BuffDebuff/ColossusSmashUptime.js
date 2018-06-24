@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -13,14 +12,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class ColossusSmashUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   suggestions(when) {
     const colossusSmashUptime = this.enemies.getBuffUptime(SPELLS.COLOSSUS_SMASH_DEBUFF.id) / this.owner.fightDuration;
     let threshold = 0.50;
 
-    if (this.combatants.selected.hasTalent(SPELLS.TITANIC_MIGHT_TALENT)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT)) {
       threshold = 0.95;
     }
 

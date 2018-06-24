@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -13,14 +12,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const AC_DAMAGE_BONUS = 0.15;
 
 class AbsoluteCorruption extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   bonusDmg = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

@@ -5,13 +5,11 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import RageTracker from '../Core/RageTracker';
 
 class Vengeance extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     rageTracker: RageTracker,
   };
 
@@ -22,7 +20,7 @@ class Vengeance extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.VENGEANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.VENGEANCE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -30,22 +28,22 @@ class Vengeance extends Analyzer {
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id) && event.ability.guid === SPELLS.REVENGE.id) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id) && event.ability.guid === SPELLS.REVENGE.id) {
       this.ignoreBuffsOverwritten += 1;
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_REVENGE.id) && event.ability.guid === SPELLS.IGNORE_PAIN.id) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id) && event.ability.guid === SPELLS.IGNORE_PAIN.id) {
       this.revengeBuffsOverwritten += 1;
       return;
     }
 
-    if (event.ability.guid === SPELLS.REVENGE.id && this.combatants.selected.hasBuff(SPELLS.VENGEANCE_REVENGE.id)) {
+    if (event.ability.guid === SPELLS.REVENGE.id && this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id)) {
       this.buffedRevengeCasts += 1;
       return;
     }
 
-    if (event.ability.guid === SPELLS.IGNORE_PAIN.id && this.combatants.selected.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id)) {
+    if (event.ability.guid === SPELLS.IGNORE_PAIN.id && this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id)) {
       this.buffedIgnoreCasts += 1;
       return;
     }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -18,10 +17,6 @@ const debug = false;
 const PROC_CHANCE = 0.08;
 
 class LockAndLoad extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   fullLNLProcs = 0;
   halfLNLProcs = 0;
   noGainLNLProcs = 0;
@@ -32,7 +27,7 @@ class LockAndLoad extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -49,7 +44,7 @@ class LockAndLoad extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id, event.timestamp)) {
       return;
     }
     if (spellId !== SPELLS.AIMED_SHOT.id) {

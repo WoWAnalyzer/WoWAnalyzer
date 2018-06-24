@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import SpellIcon from 'common/SpellIcon';
@@ -13,7 +12,6 @@ import SoulShardEvents from '../SoulShards/SoulShardEvents';
 
 class FireAndBrimstone extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     soulShardEvents: SoulShardEvents,
   };
 
@@ -24,7 +22,7 @@ class FireAndBrimstone extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

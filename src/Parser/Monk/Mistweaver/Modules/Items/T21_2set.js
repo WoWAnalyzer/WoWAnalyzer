@@ -3,14 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 class T21_2set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -18,7 +16,7 @@ class T21_2set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id);
   }
 
   on_byPlayer_applybuff(event) {

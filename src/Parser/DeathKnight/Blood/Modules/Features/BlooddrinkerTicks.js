@@ -3,7 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
 
@@ -12,7 +11,6 @@ const BLOODDRINKER_TICKS_PER_CAST = 4;
 class Blooddrinker extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   _totalTicks = 0;
@@ -25,7 +23,7 @@ class Blooddrinker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -10,7 +9,6 @@ const SHADOWBURN_KILL = 'Shadowburn kill';
 class SoulShardTracker extends Analyzer {
   static dependencies = {
     soulShardEvents: SoulShardEvents,
-    combatants: Combatants,
   };
 
   fragmentsGained = 0;

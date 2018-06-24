@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -15,15 +14,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const PILLARS_OF_INMOST_LIGHT_MODIFIER = 3;
 
 class PillarsOfInmostLight extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	}
-
 	damageDone = 0;
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id);
+		this.active = this.selectedCombatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id);
 	}
 
 	on_byPlayer_damage(event) {

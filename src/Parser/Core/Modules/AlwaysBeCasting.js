@@ -3,11 +3,10 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Abilities from './Abilities';
-// import GlobalCooldown from './GlobalCooldown';
+import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
 
 import Haste from './Haste';
@@ -16,23 +15,11 @@ const debug = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     haste: Haste,
     abilities: Abilities,
-    // `GlobalCooldown` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. ABC only needs the dependency on this for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
-    // We need to do this special stuff here since the GlobalCooldown class needs ABC to be initialized in the constructor
-    // globalCooldown: GlobalCooldown, // triggers the globalcooldown event
+    globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
   };
-
-  get globalCooldown() {
-    // Using `_modules` for this so this doesn't trigger the deprecation warning. We won't have to do this anymore when the deprecated BASE_GCD is finally removed.
-    return this.owner._modules.globalCooldown;
-  }
-
-  // TODO: Move base GCD config to Abilities config since this can differ per spell
-  static BASE_GCD = 1500;
-  static MINIMUM_GCD = 750;
 
   /**
    * The amount of milliseconds not spent casting anything or waiting for the GCD.

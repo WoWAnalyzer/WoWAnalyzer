@@ -6,10 +6,6 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
-  static BASE_GCD = 1000;
-  static MINIMUM_GCD = 750;
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

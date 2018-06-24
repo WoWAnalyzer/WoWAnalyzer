@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -15,7 +14,6 @@ const TICKS_PER_UA = 4;
 class PowerCordOfLethtendris extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
-    combatants: Combatants,
   };
 
   _totalTicks = 0;
@@ -23,7 +21,7 @@ class PowerCordOfLethtendris extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
   }
 
   on_byPlayer_damage(event) {

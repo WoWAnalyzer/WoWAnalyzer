@@ -4,31 +4,26 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
 
 class Ossuary extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   dsWithOS = 0;
   dsWithoutOS = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) return;
 
-    if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
       this.dsWithOS += 1;
     } else {
       this.dsWithoutOS += 1;

@@ -4,13 +4,8 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class TheEmeraldDreamcatcher extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   dreamcatcherBuffDropped = 0;
   totalCasts = 0;
   discounts = 0;
@@ -22,7 +17,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
+    this.active = this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
   }
 
   on_toPlayer_removebuff(event) {
@@ -35,7 +30,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
       return;
     } 
     this.totalCasts++;
-    const buff = this.combatants.selected.getBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id);
+    const buff = this.selectedCombatant.getBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id);
     if (buff){
       this.discounts += buff.stacks;
     }

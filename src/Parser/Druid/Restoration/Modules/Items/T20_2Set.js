@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -16,7 +15,6 @@ const debug = false;
 
 class T20_2Set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     healingDone: HealingDone,
   };
 
@@ -29,9 +27,9 @@ class T20_2Set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
-    if (this.combatants.selected.hasTalent(SPELLS.PROSPERITY_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.PROSPERITY_TALENT.id)) {
       this.swiftmendCooldown = 27;
     }
   }

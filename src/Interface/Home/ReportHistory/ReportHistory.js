@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getReportHistory } from 'selectors/reportHistory';
 import { makePlainUrl } from 'Main/makeAnalyzerUrl';
-import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';
-import makeNewsUrl from 'Interface/News/makeUrl';
 
 class ReportHistory extends React.PureComponent {
   static propTypes = {
@@ -43,7 +39,7 @@ class ReportHistory extends React.PureComponent {
         ))}
         {reportHistory.length === 0 && (
           <li style={{ padding: '10px 22px' }}>
-            You haven't viewed a report yet. Not sure where to start? <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer.</Link>
+            You haven't viewed anything yet.
           </li>
         )}
       </ul>
@@ -51,7 +47,4 @@ class ReportHistory extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  reportHistory: getReportHistory(state),
-});
-export default connect(mapStateToProps, null)(ReportHistory);
+export default ReportHistory;
