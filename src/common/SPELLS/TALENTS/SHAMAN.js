@@ -31,7 +31,7 @@ export default {
   // Elemental
   EARTHEN_RAGE_TALENT: { id: 170374, name: "Earthen Rage", icon: "ability_earthen_pillar" },
   TOTEM_MASTERY_TALENT: { id: 210643, name: "Totem Mastery", icon: "spell_nature_wrathofair_totem" },
-  AFTERSHOCK_TALENT: { id: 210707, name: "Aftershock", icon: "spell_nature_stormreach" },
+  AFTERSHOCK_TALENT: { id: 273221, name: "Aftershock", icon: "spell_nature_stormreach" },
   PRIMAL_ELEMENTALIST_TALENT: { id: 117013, name: "Primal Elementalist", icon: "shaman_talent_primalelementalist" },
   ELEMENTAL_BLAST_TALENT: { id: 117014, name: "Elemental Blast", icon: "shaman_talent_elementalblast" },
   LIQUID_MAGMA_TOTEM_TALENT: { id: 192222, name: "Liquid Magma Totem", icon: "spell_shaman_spewlava" },
@@ -39,7 +39,7 @@ export default {
   ICEFURY_TALENT: { id: 210714, name: "Icefury", icon: "spell_frost_iceshard" },
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: "Ascendance", icon: "spell_fire_elementaldevastation" },
   UNLIMITED_POWER_TALENT: { id: 260895, name: "Unlimited Power", icon: " "},
-  STORMKEEPER_TALENT: { id: 191643, name: "Stormkeeper", icon: "ability_thunderking_lightningwhip"},
+  STORMKEEPER_TALENT: { id: 191634, name: "Stormkeeper", icon: "ability_thunderking_lightningwhip"},
   HIGH_VOLTAGE_TALENT: { id: 260890, name: "Unlimited Power", icon: "ability_vehicle_electrocharge"},
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: "Master of the Elements", icon: "spell_nature_elementalabsorption"},
   EXPOSED_ELEMENTS_TALENT: { id: 260694, name: "Exposed Elements", icon: "spell_nature_callstorm"},
