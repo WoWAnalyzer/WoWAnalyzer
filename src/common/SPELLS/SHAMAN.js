@@ -264,7 +264,7 @@ export default {
     icon: 'spell_fire_elemental_totem',
   },
   SUMMON_FIRE_ELEMENTAL: {
-    id:188592,
+    id: 263819,
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
