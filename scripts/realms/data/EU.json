@@ -37,12 +37,12 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Aggra (Portugiesisch)",
-		"slug": "aggra-portugiesisch",
+		"name": "Aggra (Português)",
+		"slug": "aggra-portugues",
 		"battlegroup": "Misery",
 		"locale": "pt_PT",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["aggra-portugiesisch", "grim-batol"]
+		"connected_realms": ["aggra-portugues", "grim-batol"]
 	}, {
 		"type": "pve",
 		"population": "medium",
@@ -114,7 +114,7 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Aman'thul",
+		"name": "Aman'Thul",
 		"slug": "amanthul",
 		"battlegroup": "Reckoning / Abrechnung",
 		"locale": "de_DE",
@@ -264,17 +264,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["khazgoroth", "arygos"]
 	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "Ashenvale",
-		"slug": "ashenvale",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["ashenvale"]
-	}, {
 		"type": "pve",
 		"population": "medium",
 		"queue": false,
@@ -318,17 +307,6 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["azshara", "kragjin"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Azuregos",
-		"slug": "azuregos",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["azuregos"]
 	}, {
 		"type": "pve",
 		"population": "medium",
@@ -396,17 +374,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["blackrock"]
 	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Blackscar",
-		"slug": "blackscar",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["blackscar"]
-	}, {
 		"type": "pve",
 		"population": "medium",
 		"queue": false,
@@ -472,28 +439,6 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["arthas", "kelthuzad", "wrathbringer", "blutkessel", "veklor"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Booty Bay",
-		"slug": "booty-bay",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["booty-bay", "deathweaver"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Borean Tundra",
-		"slug": "borean-tundra",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["borean-tundra"]
 	}, {
 		"type": "pvp",
 		"population": "medium",
@@ -615,17 +560,6 @@
 		"locale": "en_GB",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["daggerspine", "sunstrider", "ahnqiraj", "talnivarr", "trollbane", "chromaggus", "laughing-skull", "balnazzar", "shattered-halls", "boulderfist"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Colinas Pardas",
-		"slug": "colinas-pardas",
-		"battlegroup": "Cruelty / Crueldad",
-		"locale": "es_ES",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["colinas-pardas", "los-errantes", "tyrande"]
 	}, {
 		"type": "rp",
 		"population": "medium",
@@ -760,28 +694,6 @@
 		"connected_realms": ["die-arguswacht", "die-todeskrallen", "das-syndikat", "kult-der-verdammten", "das-konsortium", "der-abyssische-rat"]
 	}, {
 		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Deathguard",
-		"slug": "deathguard",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["deathguard"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Deathweaver",
-		"slug": "deathweaver",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["booty-bay", "deathweaver"]
-	}, {
-		"type": "pvp",
 		"population": "medium",
 		"queue": false,
 		"status": true,
@@ -791,17 +703,6 @@
 		"locale": "en_GB",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["deathwing", "lightnings-blade", "the-maelstrom", "karazhan"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Deephome",
-		"slug": "deephome",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["razuvious", "deephome"]
 	}, {
 		"type": "rppvp",
 		"population": "high",
@@ -825,17 +726,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["dentarg", "tarren-mill"]
 	}, {
-		"type": "rppvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "Der Abyssische Rat",
-		"slug": "der-abyssische-rat",
-		"battlegroup": "Glutsturm / Emberstorm",
-		"locale": "de_DE",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["die-arguswacht", "die-todeskrallen", "das-syndikat", "kult-der-verdammten", "das-konsortium", "der-abyssische-rat"]
-	}, {
 		"type": "rp",
 		"population": "low",
 		"queue": false,
@@ -857,6 +747,17 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["der-mithrilorden", "der-rat-von-dalaran"]
+	}, {
+		"type": "rppvp",
+		"population": "medium",
+		"queue": false,
+		"status": true,
+		"name": "Der abyssische Rat",
+		"slug": "der-abyssische-rat",
+		"battlegroup": "Glutsturm / Emberstorm",
+		"locale": "de_DE",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["die-arguswacht", "die-todeskrallen", "das-syndikat", "kult-der-verdammten", "das-konsortium", "der-abyssische-rat"]
 	}, {
 		"type": "pvp",
 		"population": "medium",
@@ -1155,17 +1056,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["eredar"]
 	}, {
-		"type": "pve",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "Eversong",
-		"slug": "eversong",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["eversong"]
-	}, {
 		"type": "pvp",
 		"population": "low",
 		"queue": false,
@@ -1198,17 +1088,6 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["anetheron", "nathrezim", "kiljaeden", "guldan", "festung-der-sturme", "rajaxx"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Fordragon",
-		"slug": "fordragon",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["fordragon"]
 	}, {
 		"type": "rp",
 		"population": "low",
@@ -1265,17 +1144,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["frostwolf"]
 	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Galakrond",
-		"slug": "galakrond",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["galakrond"]
-	}, {
 		"type": "pvp",
 		"population": "medium",
 		"queue": false,
@@ -1331,28 +1199,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["gilneas", "ulduar"]
 	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Goldrinn",
-		"slug": "goldrinn",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["goldrinn"]
-	}, {
-		"type": "pvp",
-		"population": "full",
-		"queue": false,
-		"status": true,
-		"name": "Gordunni",
-		"slug": "gordunni",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["gordunni"]
-	}, {
 		"type": "pvp",
 		"population": "medium",
 		"queue": false,
@@ -1365,17 +1211,6 @@
 		"connected_realms": ["nefarian", "mannoroth", "gorgonnash", "destromath", "nerathor"]
 	}, {
 		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Greymane",
-		"slug": "greymane",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["lich-king", "greymane"]
-	}, {
-		"type": "pvp",
 		"population": "medium",
 		"queue": false,
 		"status": true,
@@ -1384,18 +1219,7 @@
 		"battlegroup": "Misery",
 		"locale": "en_GB",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["aggra-portugiesisch", "grim-batol"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Grom",
-		"slug": "grom",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["grom", "thermaplugg"]
+		"connected_realms": ["aggra-portugues", "grim-batol"]
 	}, {
 		"type": "pvp",
 		"population": "medium",
@@ -1452,17 +1276,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["aggramar", "hellscream"]
 	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "Howling Fjord",
-		"slug": "howling-fjord",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["howling-fjord"]
-	}, {
 		"type": "pve",
 		"population": "full",
 		"queue": false,
@@ -1500,7 +1313,7 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Kael'Thas",
+		"name": "Kael'thas",
 		"slug": "kaelthas",
 		"battlegroup": "Embuscade / Hinterhalt",
 		"locale": "fr_FR",
@@ -1716,17 +1529,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["confrerie-du-thorium", "les-sentinelles", "les-clairvoyants"]
 	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Lich King",
-		"slug": "lich-king",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["lich-king", "greymane"]
-	}, {
 		"type": "pve",
 		"population": "medium",
 		"queue": false,
@@ -1769,7 +1571,7 @@
 		"battlegroup": "Cruelty / Crueldad",
 		"locale": "es_ES",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["colinas-pardas", "los-errantes", "tyrande"]
+		"connected_realms": ["spirestone", "los-errantes", "tyrande"]
 	}, {
 		"type": "pve",
 		"population": "medium",
@@ -2189,17 +1991,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["scarshield-legion", "the-venture-co", "defias-brotherhood", "sporeggar", "ravenholdt"]
 	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Razuvious",
-		"slug": "razuvious",
-		"battlegroup": "Sturmangriff / Charge",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["razuvious", "deephome"]
-	}, {
 		"type": "pve",
 		"population": "high",
 		"queue": false,
@@ -2366,17 +2157,6 @@
 		"connected_realms": ["alakir", "xavius", "skullcrusher"]
 	}, {
 		"type": "pvp",
-		"population": "full",
-		"queue": false,
-		"status": true,
-		"name": "Soulflayer",
-		"slug": "soulflayer",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["soulflayer"]
-	}, {
-		"type": "pvp",
 		"population": "medium",
 		"queue": false,
 		"status": true,
@@ -2386,6 +2166,17 @@
 		"locale": "en_GB",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["dragonmaw", "stormreaver", "spinebreaker", "haomarush", "vashj"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Spirestone",
+		"slug": "spirestone",
+		"battlegroup": "Cruelty / Crueldad",
+		"locale": "es_ES",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["spirestone", "los-errantes", "tyrande"]
 	}, {
 		"type": "rppvp",
 		"population": "high",
@@ -2607,17 +2398,6 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["dethecus", "terrordar", "onyxia", "theradras", "mugthol"]
 	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "Thermaplugg",
-		"slug": "thermaplugg",
-		"battlegroup": "Vindication",
-		"locale": "ru_RU",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["grom", "thermaplugg"]
-	}, {
 		"type": "pve",
 		"population": "high",
 		"queue": false,
@@ -2737,7 +2517,7 @@
 		"battlegroup": "Cruelty / Crueldad",
 		"locale": "es_ES",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["colinas-pardas", "los-errantes", "tyrande"]
+		"connected_realms": ["spirestone", "los-errantes", "tyrande"]
 	}, {
 		"type": "pve",
 		"population": "medium",
@@ -2936,5 +2716,225 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["nazjatar", "frostmourne", "zuluhed", "anubarak", "dalvengyr"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Азурегос",
+		"slug": "азурегос",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["азурегос"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Борейская тундра",
+		"slug": "бореиская-тундра",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["бореиская-тундра"]
+	}, {
+		"type": "pve",
+		"population": "n/a",
+		"queue": false,
+		"status": true,
+		"name": "Вечная Песня",
+		"slug": "вечная-песня",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["вечная-песня"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Галакронд",
+		"slug": "галакронд",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["галакронд"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Голдринн",
+		"slug": "голдринн",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["голдринн"]
+	}, {
+		"type": "pvp",
+		"population": "full",
+		"queue": false,
+		"status": true,
+		"name": "Гордунни",
+		"slug": "гордунни",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["гордунни"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Гром",
+		"slug": "гром",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["гром", "термоштепсель"]
+	}, {
+		"type": "pve",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Дракономор",
+		"slug": "дракономор",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["дракономор"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Король-лич",
+		"slug": "корольлич",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["корольлич", "седогрив"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Пиратская бухта",
+		"slug": "пиратская-бухта",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["пиратская-бухта", "ткач-смерти"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Подземье",
+		"slug": "подземье",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["разувии", "подземье"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Разувий",
+		"slug": "разувии",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["разувии", "подземье"]
+	}, {
+		"type": "pvp",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Ревущий фьорд",
+		"slug": "ревущии-фьорд",
+		"battlegroup": "Sturmangriff / Charge",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["ревущии-фьорд"]
+	}, {
+		"type": "pvp",
+		"population": "full",
+		"queue": false,
+		"status": true,
+		"name": "Свежеватель Душ",
+		"slug": "свежеватель-душ",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["свежеватель-душ"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Седогрив",
+		"slug": "седогрив",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["корольлич", "седогрив"]
+	}, {
+		"type": "pvp",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Страж Смерти",
+		"slug": "страж-смерти",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["страж-смерти"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Термоштепсель",
+		"slug": "термоштепсель",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["гром", "термоштепсель"]
+	}, {
+		"type": "pvp",
+		"population": "low",
+		"queue": false,
+		"status": true,
+		"name": "Ткач Смерти",
+		"slug": "ткач-смерти",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["пиратская-бухта", "ткач-смерти"]
+	}, {
+		"type": "pvp",
+		"population": "high",
+		"queue": false,
+		"status": true,
+		"name": "Черный Шрам",
+		"slug": "черныи-шрам",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["черныи-шрам"]
+	}, {
+		"type": "pvp",
+		"population": "medium",
+		"queue": false,
+		"status": true,
+		"name": "Ясеневый лес",
+		"slug": "ясеневыи-лес",
+		"battlegroup": "Vindication",
+		"locale": "ru_RU",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["ясеневыи-лес"]
 	}]
 }
