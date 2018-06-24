@@ -1,4 +1,4 @@
-import { SET_REPORT } from 'actions/report';
+import { SET_REPORT } from 'Interface/actions/report';
 
 export default function report(state = null, action) {
   switch (action.type) {

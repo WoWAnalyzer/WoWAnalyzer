@@ -1,5 +1,6 @@
-.spec-listing > header {
-  margin-bottom: 2em;
+.spec-listing {
+  background: rgba(0, 0, 0, 0.1);
+  padding-top: 1.5em;
 }
 .spec-listing > main {
   display: flex;

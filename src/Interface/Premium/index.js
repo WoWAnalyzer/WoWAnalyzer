@@ -16,8 +16,8 @@ import PatreonButton from 'Interface/common/ThirdPartyButtons/Patreon';
 import GitHubButton from 'Interface/common/ThirdPartyButtons/GitHub';
 import CyclingVideo from 'Interface/common/CyclingVideo';
 
-import { logout } from 'actions/user';
-import { getUser } from 'selectors/user';
+import { logout } from 'Interface/actions/user';
+import { getUser } from 'Interface/selectors/user';
 
 import './index.css';
 

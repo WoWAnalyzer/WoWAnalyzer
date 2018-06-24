@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { hasPremium } from 'selectors/user';
+import { hasPremium } from 'Interface/selectors/user';
 import Ad from 'Interface/common/Ad';
 
 import './SectionDivider.css';
