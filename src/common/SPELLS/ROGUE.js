@@ -482,6 +482,13 @@ export default {
     icon: 'ability_warrior_punishingblow',
   },
 
+  // Passive
+  COMBAT_POTENCY: {
+    id: 61329,
+    name: 'Combat Potency',
+    icon: 'inv_weapon_shortblade_38',
+  },
+
   //Buffs
   JOLLY_ROGER: {
     id: 199603,
@@ -525,11 +532,6 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
-  },
-  COMBAT_POTENCY: {
-    id: 35546,
-    name: 'Combat Potency',
-    icon: 'inv_weapon_shortblade_38',
   },
   GREED_1: {
     id: 202822,
