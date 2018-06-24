@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import SkullIcon from 'Interface/Icons/Skull';
 
 import Icon from 'common/Icon';
-import { getReport } from 'selectors/report';
-import { getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
+import { getReport } from 'Interface/selectors/report';
+import { getFightId, getPlayerId, getPlayerName } from 'Interface/selectors/url/report';
 import { findByBossId } from 'Raids';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import getWipeCount from 'common/getWipeCount';
