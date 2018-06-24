@@ -3,6 +3,7 @@
 export default {
   // Shared
   ELABORATE_PLANNING_TALENT: { id: 193640, name: "Elaborate Planning", icon: "inv_misc_map08" },
+  BLINDSIDE_TALENT: { id: 111240, name: "Blindside", icon: "ability_rogue_focusedattacks" },
   NIGHTSTALKER_TALENT: { id: 14062, name: "Nightstalker", icon: "ability_stealth" },
   SUBTERFUGE_TALENT: { id: 108208, name: "Subterfuge", icon: "rogue_subterfuge" },
   SHADOW_FOCUS_TALENT: { id: 108209, name: "Shadow Focus", icon: "rogue_shadowfocus" },
@@ -24,6 +25,7 @@ export default {
   INTERNAL_BLEEDING_TALENT: { id: 154904, name: "Internal Bleeding", icon: "ability_rogue_bloodsplatter" },
   TOXIC_BLADE_TALENT: { id: 245388, name: "Toxic Blade", icon: "inv_weapon_shortblade_62", energyCost: 20 },
   VENOM_RUSH_TALENT: { id: 152152, name: "Venom Rush", icon: "rogue_venomzest" },
+  CRIMSON_TEMPEST_TALENT: { id: 121411, name: "Crimson Tempest", icon: "inv_knife_1h_cataclysm_c_05" },
   // Outlaw
   GHOSTLY_STRIKE_TALENT: { id: 196937, name: "Ghostly Strike", icon: "ability_creature_cursed_02", energyCost: 30 },
   SWORDMASTER_TALENT: { id: 200733, name: "Swordmaster", icon: "inv_sword_97" },

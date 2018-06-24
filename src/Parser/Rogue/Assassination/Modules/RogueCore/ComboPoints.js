@@ -38,6 +38,20 @@ class ComboPoints extends Analyzer {
       major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.FAN_OF_KNIVES),
     });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.BLINDSIDE_TALENT, // 1 CP
+      minor: 0,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.BLINDSIDE_TALENT),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.TOXIC_BLADE_TALENT, // 1 CP
+      minor: 0,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.TOXIC_BLADE_TALENT),
+    });
   }
 }
 
