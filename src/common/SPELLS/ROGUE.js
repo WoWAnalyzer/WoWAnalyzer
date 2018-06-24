@@ -420,10 +420,10 @@ export default {
   //Outlaw
 
   //Builders
-  SABER_SLASH: {
+  SINISTER_STRIKE: {
     id: 193315,
-    name: 'Saber Slash',
-    icon: 'ability_rogue_sabreslash',
+    name: 'Sinister Strike',
+    icon: 'spell_shadow_ritualofsacrifice',
   },
   SABER_SLASH_PROC: {
     id: 197834,
@@ -435,11 +435,6 @@ export default {
     name: 'Pistol Shot',
     icon: 'ability_rogue_pistolshot',
   },
-  BLUNDERBUSS: {
-    id: 202895,
-    name: 'Blunderbuss',
-    icon: 'inv_weapon_rifle_07',
-  },
   AMBUSH: {
     id: 8676,
     name: 'Ambush',
@@ -447,9 +442,9 @@ export default {
   },
 
   //Finishers
-  RUN_THROUGH: {
+  DISPATCH: {
     id: 2098,
-    name: 'Run Through',
+    name: 'Dispatch',
     icon: 'ability_rogue_waylay',
   },
   BETWEEN_THE_EYES: {
@@ -466,16 +461,6 @@ export default {
     id: 193316,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
-  },
-  DISPATCH: {
-    id: 2098,
-    name: 'Dispatch',
-    icon: 'ability_rogue_waylay',
-  },
-  SINISTER_STRIKE: {
-    id: 193315,
-    name: 'Sinister Strike',
-    icon: 'spell_shadow_ritualofsacrifice',
   },
 
   //CDs
