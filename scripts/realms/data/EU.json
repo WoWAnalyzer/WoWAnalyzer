@@ -37,12 +37,12 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Aggra (Português)",
-		"slug": "aggra-portugues",
+		"name": "Aggra (Portugiesisch)",
+		"slug": "aggra-portugiesisch",
 		"battlegroup": "Misery",
 		"locale": "pt_PT",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["aggra-portugues", "grim-batol"]
+		"connected_realms": ["aggra-portugiesisch", "grim-batol"]
 	}, {
 		"type": "pve",
 		"population": "medium",
@@ -114,7 +114,7 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Aman'Thul",
+		"name": "Aman'thul",
 		"slug": "amanthul",
 		"battlegroup": "Reckoning / Abrechnung",
 		"locale": "de_DE",
@@ -796,12 +796,12 @@
 		"population": "low",
 		"queue": false,
 		"status": true,
-		"name": "Deepholm",
-		"slug": "deepholm",
+		"name": "Deephome",
+		"slug": "deephome",
 		"battlegroup": "Sturmangriff / Charge",
 		"locale": "ru_RU",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["razuvious", "deepholm"]
+		"connected_realms": ["razuvious", "deephome"]
 	}, {
 		"type": "rppvp",
 		"population": "high",
@@ -825,6 +825,17 @@
 		"timezone": "Europe/Paris",
 		"connected_realms": ["dentarg", "tarren-mill"]
 	}, {
+		"type": "rppvp",
+		"population": "medium",
+		"queue": false,
+		"status": true,
+		"name": "Der Abyssische Rat",
+		"slug": "der-abyssische-rat",
+		"battlegroup": "Glutsturm / Emberstorm",
+		"locale": "de_DE",
+		"timezone": "Europe/Paris",
+		"connected_realms": ["die-arguswacht", "die-todeskrallen", "das-syndikat", "kult-der-verdammten", "das-konsortium", "der-abyssische-rat"]
+	}, {
 		"type": "rp",
 		"population": "low",
 		"queue": false,
@@ -846,17 +857,6 @@
 		"locale": "de_DE",
 		"timezone": "Europe/Paris",
 		"connected_realms": ["der-mithrilorden", "der-rat-von-dalaran"]
-	}, {
-		"type": "rppvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "Der abyssische Rat",
-		"slug": "der-abyssische-rat",
-		"battlegroup": "Glutsturm / Emberstorm",
-		"locale": "de_DE",
-		"timezone": "Europe/Paris",
-		"connected_realms": ["die-arguswacht", "die-todeskrallen", "das-syndikat", "kult-der-verdammten", "das-konsortium", "der-abyssische-rat"]
 	}, {
 		"type": "pvp",
 		"population": "medium",
@@ -1384,7 +1384,7 @@
 		"battlegroup": "Misery",
 		"locale": "en_GB",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["aggra-portugues", "grim-batol"]
+		"connected_realms": ["aggra-portugiesisch", "grim-batol"]
 	}, {
 		"type": "pvp",
 		"population": "low",
@@ -1500,7 +1500,7 @@
 		"population": "medium",
 		"queue": false,
 		"status": true,
-		"name": "Kael'thas",
+		"name": "Kael'Thas",
 		"slug": "kaelthas",
 		"battlegroup": "Embuscade / Hinterhalt",
 		"locale": "fr_FR",
@@ -2198,7 +2198,7 @@
 		"battlegroup": "Sturmangriff / Charge",
 		"locale": "ru_RU",
 		"timezone": "Europe/Paris",
-		"connected_realms": ["razuvious", "deepholm"]
+		"connected_realms": ["razuvious", "deephome"]
 	}, {
 		"type": "pve",
 		"population": "high",
