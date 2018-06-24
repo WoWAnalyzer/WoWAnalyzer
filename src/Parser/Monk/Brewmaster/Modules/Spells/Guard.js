@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StaggerFabricator from '../Core/StaggerFabricator';
 
 const GUARD_DURATION = 15000;
@@ -20,7 +19,6 @@ const GUARD_REMOVESTAGGER_REASON = {
 
 class Guard extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     fab: StaggerFabricator,
   };
 
@@ -31,11 +29,12 @@ class Guard extends Analyzer {
   _lastApplication = 0;
 
   get _hasGuard() {
-    return this.combatants.selected.hasBuff(SPELLS.GUARD_TALENT.id);
+    return this.selectedCombatant.hasBuff(SPELLS.GUARD_TALENT.id);
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GUARD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARD_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

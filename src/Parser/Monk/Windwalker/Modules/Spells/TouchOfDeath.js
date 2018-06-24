@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import SpellIcon from 'common/SpellIcon';
@@ -15,7 +14,6 @@ const GALE_BURST_VALUE = 0.1;
 
 class TouchOfDeath extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
@@ -44,7 +42,7 @@ class TouchOfDeath extends Analyzer {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
-    const sefMultiplier = this.combatants.selected.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+    const sefMultiplier = this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
     if (!enemy) {
       return;
     }

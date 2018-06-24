@@ -5,7 +5,7 @@ function paq() {
   return window._paq;
 }
 function installed() {
-  return !!window._paq;
+  return !!paq();
 }
 function push(...args) {
   return paq().push(...args);

@@ -24,8 +24,9 @@ class EarthShield extends Analyzer {
   healing = 0;
   buffHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

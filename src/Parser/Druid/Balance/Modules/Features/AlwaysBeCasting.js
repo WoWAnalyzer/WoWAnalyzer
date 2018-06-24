@@ -5,7 +5,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,

@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -14,11 +13,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class StellarFlareUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
   get suggestionThresholds() {

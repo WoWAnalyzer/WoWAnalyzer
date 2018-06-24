@@ -2,30 +2,28 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
-/*
-* Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
-*/
-
 const VENDETTA_CDR_PER_ENERGY = 1 / 65;
 
+/**
+* Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
+*/
 class DuskwalkersFootpads extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
-      };
+  };
 
   totalReduction = 0;
   wastedReduction = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
   }
 
   on_byPlayer_spendresource(event) {

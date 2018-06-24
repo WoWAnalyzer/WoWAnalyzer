@@ -1,13 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
+//TODO: refactor all trackers to use Core ResourceTracker
 class SoulShardTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   shardsWasted = 0;
   shardsSpent = 0;
 
@@ -22,23 +18,7 @@ class SoulShardTracker extends Analyzer {
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.DEMONWRATH_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SHADOWFLAME_TALENT.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SHADOW_BOLT_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
     [SPELLS.DOOM_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.POWER_TRIP_SHARD_GEN.id]: {
       generated: 0,
       wasted: 0,
     },
@@ -47,6 +27,10 @@ class SoulShardTracker extends Analyzer {
       wasted: 0,
     },
     [SPELLS.RECURRENT_RITUAL_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.SOUL_STRIKE_SHARD_GEN.id]: {
       generated: 0,
       wasted: 0,
     },
@@ -60,22 +44,16 @@ class SoulShardTracker extends Analyzer {
   spent = {
     [SPELLS.HAND_OF_GULDAN_CAST.id]: 0,
     [SPELLS.CALL_DREADSTALKERS.id]: 0,
-    [SPELLS.GRIMOIRE_FELGUARD.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_DARKGLARE_TALENT.id]: 0,
+    [SPELLS.BILESCOURGE_BOMBERS_TALENT.id]: 0,
+    [SPELLS.SUMMON_VILEFIEND_TALENT.id]: 0,
+    [SPELLS.GRIMOIRE_FELGUARD_TALENT.id]: 0,
+    [SPELLS.NETHER_PORTAL_TALENT.id]: 0,
     [SPELLS.SUMMON_FELGUARD.id]: 0,
     // unused
     [SPELLS.SUMMON_IMP.id]: 0,
     [SPELLS.SUMMON_VOIDWALKER.id]: 0,
     [SPELLS.SUMMON_SUCCUBUS.id]: 0,
     [SPELLS.SUMMON_FELHUNTER.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 0,
-    [SPELLS.GRIMOIRE_IMP.id]: 0,
-    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 0,
-    [SPELLS.GRIMOIRE_FELHUNTER.id]: 0,
-    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 0,
   };
 
   on_toPlayer_energize(event) {
@@ -84,7 +62,7 @@ class SoulShardTracker extends Analyzer {
       return;
     }
     let targetSpellId = spellId;
-    if (spellId === SPELLS.DOOM_SHARD_GEN.id && this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id)) {
+    if (spellId === SPELLS.DOOM_SHARD_GEN.id && this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id)) {
       // check if it's a proc
       if (!this._firstDoomEnergize) {
         this._firstDoomEnergize = true;
@@ -98,7 +76,7 @@ class SoulShardTracker extends Analyzer {
     this.shardsWasted += (event.waste || 0);
   }
   on_byPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.DOOM.id) {
+    if (event.ability.guid === SPELLS.DOOM_DAMAGE.id) {
       this._firstDoomEnergize = false; // reset
     }
   }
@@ -108,7 +86,7 @@ class SoulShardTracker extends Analyzer {
       return;
     }
     let shardsSpent;
-    if (spellId === SPELLS.CALL_DREADSTALKERS.id && this.combatants.selected.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id, event.timestamp)) {
+    if (spellId === SPELLS.CALL_DREADSTALKERS.id && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id, event.timestamp)) {
       shardsSpent = 0;
     }
     else {

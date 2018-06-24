@@ -7,17 +7,14 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Voidform from './Voidform';
 
 const DISPERSION_BASE_CD = 90;
-const DISPERSION_REDUCTION_CD_PER_TRAIT = 10;
 const DISPERSION_UPTIME_MS = 6000;
 
 class Disperion extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     voidform: Voidform,
   };
 
@@ -63,8 +60,8 @@ class Disperion extends Analyzer {
   }
 
   suggestions(when) {
-    const dispersionUptime = this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id);
-    const maxDispersiontime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD - (DISPERSION_REDUCTION_CD_PER_TRAIT * this.combatants.selected.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]), this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
+    const dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
+    const maxDispersiontime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
     const dispersedTime = dispersionUptime / this.maxUptime;
 
 

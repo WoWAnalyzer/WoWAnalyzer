@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -15,18 +14,15 @@ import { formatPercentage } from 'common/format';
 */
 
 class RampageFrothingBerserker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   last_timestamp = null;
   casts_counter = 0;
   premature_counter = 0;
   reckless_abandon = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
-    this.reckless_abandon = this.combatants.selected.hasTalent(SPELLS.RECKLESS_ABANDON_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
+    this.reckless_abandon = this.selectedCombatant.hasTalent(SPELLS.RECKLESS_ABANDON_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -34,13 +30,13 @@ class RampageFrothingBerserker extends Analyzer {
       const rage = Math.floor(event.classResources[0].amount / 10);
       
       // Ignore any free casts due to Massacre talent
-      if(this.combatants.selected.hasBuff(SPELLS.MASSACRE.id)) {
+      if(this.selectedCombatant.hasBuff(SPELLS.MASSACRE.id)) {
         return;
       }
       
       this.casts_counter++;
 
-      if (rage < 100 && !this.combatants.selected.hasBuff(SPELLS.BATTLE_CRY.id)) {
+      if (rage < 100 && !this.selectedCombatant.hasBuff(SPELLS.BATTLE_CRY.id)) {
         this.premature_counter++;
         this.last_timestamp = event.timestamp;
       }
@@ -77,7 +73,7 @@ class RampageFrothingBerserker extends Analyzer {
       const prematureCastRatio = this.premature_counter / this.casts_counter;
       
       // Frothing Berserker users should cast Rampage at 100 rage only
-      if(this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
+      if(this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
         when(prematureCastRatio).isGreaterThan(minor)
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</React.Fragment>)

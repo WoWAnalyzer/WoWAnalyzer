@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellManaCost from 'Parser/Core/Modules/SpellManaCost';
 import ItemManaGained from 'Main/ItemManaGained';
 
@@ -30,7 +29,6 @@ const BASE_MANA_REDUCTION_PER_CARD = {
 class DarkmoonDeckPromises extends Analyzer {
   static dependencies = {
     spellManaCost: SpellManaCost, // we need this to add `manaCost` to the `event`
-    combatants: Combatants,
   };
 
   MANA_REDUCTION_PER_CARD = {};
@@ -38,8 +36,9 @@ class DarkmoonDeckPromises extends Analyzer {
 
   manaGained = 0;
 
-  on_initialized() {
-    const selectedCombatant = this.combatants.selected;
+  constructor(...args) {
+    super(...args);
+    const selectedCombatant = this.selectedCombatant;
     this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
 
     if (this.active) {

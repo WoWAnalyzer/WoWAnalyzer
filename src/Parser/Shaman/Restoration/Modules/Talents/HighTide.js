@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const HEAL_WINDOW_MS = 100;
@@ -13,17 +12,15 @@ const bounceReduction = 0.7;
 const bounceReductionHighTide = 0.85;
 
 class HighTide extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   healing = 0;
   chainHealBounce = 0;
   chainHealTimestamp = 0;
   chainHealFeedBounce = 0;
   chainHealFeedTimestamp = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

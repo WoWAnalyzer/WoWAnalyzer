@@ -12,7 +12,8 @@ class BoneShieldStacksBySeconds extends Analyzer {
   lastBoneShieldStack = 0;
   lastBoneShieldUpdate = this.owner.fight.start_time;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.boneShieldStacks = Array.from({length: MAX_BONE_SHIELD_STACKS + 1}, x => []);
   }
 

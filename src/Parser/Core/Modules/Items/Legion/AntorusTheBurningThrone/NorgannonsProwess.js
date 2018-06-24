@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
@@ -27,19 +26,16 @@ const NORGANNONS_COMMAND_SPELLS = new Set([
 ]);
 
 class NorgannonsProwess extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   intProc = 0;
   intBuff = 0;
   pantheonProc = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.NORGANNONS_PROWESS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.NORGANNONS_PROWESS.id);
     if(this.active) {
-      this.intBuff = calculatePrimaryStat(940, 11483, this.combatants.selected.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);
+      this.intBuff = calculatePrimaryStat(940, 11483, this.selectedCombatant.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);
     }
   }
 
@@ -72,7 +68,7 @@ class NorgannonsProwess extends Analyzer {
   }
 
   get intUptimePercent() {
-    return this.combatants.selected.getBuffUptime(SPELLS.RUSH_OF_KNOWLEDGE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.RUSH_OF_KNOWLEDGE.id) / this.owner.fightDuration;
   }
 
   item() {

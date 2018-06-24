@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import getFightName from 'common/getFightName';
-import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
-import { getFightById } from 'selectors/fight';
-import { getReport } from 'selectors/report';
+import { getFightId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
+import { getFightById } from 'Interface/selectors/fight';
+import { getReport } from 'Interface/selectors/report';
 
 const fightShape = {
   start_time: PropTypes.number.isRequired,

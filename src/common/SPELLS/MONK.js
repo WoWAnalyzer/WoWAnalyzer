@@ -429,11 +429,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
-  EXPLODING_KEG: {
-    id: 214326,
-    name: 'Exploding Keg',
-    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
-  },
   STAGGER: {
     id: 115069,
     name: 'Stagger',

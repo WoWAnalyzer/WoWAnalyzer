@@ -5,7 +5,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownTracker from '../Features/CooldownThroughputTracker';
 
@@ -21,16 +20,16 @@ class Bullseye extends Analyzer {
   EXECUTE_PERCENT = .2;
   static dependencies = {
     cooldownTracker: CooldownTracker,
-    combatants: Combatants,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.owner.report.enemies.forEach(enemy => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
       });
     });
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.BULLSEYE_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.BULLSEYE_TRAIT.id];
   }
   on_byPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.BULLSEYE_BUFF.id) {

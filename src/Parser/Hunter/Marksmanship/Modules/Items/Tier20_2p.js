@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -16,20 +15,18 @@ const T20_2P_CRIT_DMG_BONUS = 0.1;
  * Casting two Aimed Shots in a row increases your critical strike damage by 10% for 6 sec.
  */
 class Tier20_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   totalAimed = 0;
   buffedAimed = 0;
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS.id);
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id, event.timestamp)) {
       if (isCrit) {
         this.bonusDmg += getDamageBonus(event, T20_2P_CRIT_DMG_BONUS);
       }

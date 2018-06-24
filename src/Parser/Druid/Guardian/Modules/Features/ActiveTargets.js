@@ -1,6 +1,5 @@
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 /*
@@ -11,10 +10,6 @@ import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 const ACTIVITY_THRESHOLD = 3000;
 
 class ActiveTargets extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   /* Targets are considered inactive by default.  Once they are part of a damage event,
    * they become active.  If they are not part of another damage event before a certain
    * amount of time has passed, they are considered inactive again.

@@ -5,19 +5,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class GlacialSpike extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   overcapped = 0;
   total = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
   }
 
   on_toPlayer_changebuffstack(event) {

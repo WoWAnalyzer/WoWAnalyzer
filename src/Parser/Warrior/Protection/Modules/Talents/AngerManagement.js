@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -17,7 +16,6 @@ const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
 
 class AngerManagement extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -25,8 +23,9 @@ class AngerManagement extends Analyzer {
   wastedReduction = { };
   effectiveReduction = { };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;

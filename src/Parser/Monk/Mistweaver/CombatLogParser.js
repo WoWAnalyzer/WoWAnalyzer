@@ -14,7 +14,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 import MonkSpreadsheet from 'Main/MonkSpreadsheet';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import GlobalCooldown from './Modules/Core/GlobalCooldown';

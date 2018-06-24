@@ -1,23 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds } from 'common/format';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Channeling extends CoreChanneling {
   static dependencies = {
     ...CoreChanneling.dependencies,
-    combatants: Combatants,
   };
 
   _previousPenanceTimestamp = 0;
   _hasCastigation = null;
   _bolt = 0;
 
-  on_initialized() {
-    super.on_initialized();
-    this._hasCastigation = this.combatants.selected.hasTalent(
+  constructor(...args) {
+    super(...args);
+    this._hasCastigation = this.selectedCombatant.hasTalent(
       SPELLS.CASTIGATION_TALENT.id
     );
   }

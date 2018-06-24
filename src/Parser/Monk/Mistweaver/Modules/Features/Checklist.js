@@ -11,7 +11,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -35,8 +34,7 @@ import SheilunsGift from '../Spells/SheilunsGift';
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    castEfficiency: CastEfficiency,
-    combatants: Combatants,
+    castEfficiency: CastEfficiency,    
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     velensFutureSight: VelensFutureSight,
@@ -78,7 +76,7 @@ class Checklist extends CoreChecklist {
       name: 'Use cooldowns effectively',
       description: <React.Fragment>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.THUNDER_FOCUS_TEA,
@@ -119,7 +117,7 @@ class Checklist extends CoreChecklist {
       name: <React.Fragment>Position yourself well to maximize your most effective spells</React.Fragment>,
       description: <React.Fragment>Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} /> has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both <SpellLink id={SPELLS.ESSENCE_FONT.id} /> and other spells such as <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</React.Fragment>,
@@ -142,7 +140,7 @@ class Checklist extends CoreChecklist {
       name: 'Pick the right tools for the fight',
       description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
@@ -211,7 +209,7 @@ class Checklist extends CoreChecklist {
       name: 'Use your defensive cooldowns effectively',
       description: <React.Fragment>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} /> on Charged Blasts during the Imonar the Soulhunter encounter.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIFE_COCOON,

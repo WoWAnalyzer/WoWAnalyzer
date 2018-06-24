@@ -10,7 +10,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -30,7 +29,6 @@ class Checklist extends CoreChecklist {
 	static dependencies = {
     abilities: Abilities,
 		castEfficiency: CastEfficiency,
-    combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
@@ -64,7 +62,7 @@ class Checklist extends CoreChecklist {
   		name: 'Use core abilities as often as possible',
   		description:<React.Fragment>Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon />, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon />, and <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon /> should be used as often as possible.</React.Fragment>,
   		requirements: () => {
-  			const combatant = this.combatants.selected;
+  			const combatant = this.selectedCombatant;
   			return [
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.ZEAL_TALENT,
@@ -88,7 +86,7 @@ class Checklist extends CoreChecklist {
   		name: 'Use your cooldowns',
   		description: <React.Fragment>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> and <SpellLink id={SPELLS.WAKE_OF_ASHES_TALENT.id} /> on cooldown.</React.Fragment>,
   		requirements: () => {
-  			const combatant = this.combatants.selected;
+  			const combatant = this.selectedCombatant;
   			return [
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.CRUSADE_TALENT,

@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from "common/format";
@@ -16,15 +15,15 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 class PiercingShot extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
 
   };
   damage = 0;
   inVulnerablePiercing = 0;
   totalPiercing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

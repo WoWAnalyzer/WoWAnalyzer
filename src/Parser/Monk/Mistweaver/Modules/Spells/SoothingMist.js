@@ -4,17 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
 class SoothingMist extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   soomTicks = 0;
 
   on_byPlayer_heal(event) {
@@ -29,7 +23,7 @@ class SoothingMist extends Analyzer {
     if (debug) {
       console.log(`SooM Ticks: ${this.soomTicks}`);
       console.log('SooM Perc Uptime: ', (this.soomTicks * 2 / this.owner.fightDuration * 1000));
-      console.log('SooM Buff Update: ', this.combatants.selected.getBuffUptime(SPELLS.SOOTHING_MIST.id), ' Percent: ', this.combatants.selected.getBuffUptime(SPELLS.SOOTHING_MIST.id) / this.owner.fightDuration);
+      console.log('SooM Buff Update: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id), ' Percent: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id) / this.owner.fightDuration);
     }
   }
 

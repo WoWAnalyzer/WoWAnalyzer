@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -8,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 class InitialMarrowrendCast extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -22,7 +20,7 @@ class InitialMarrowrendCast extends Analyzer {
     }
 
     this.firstMRCast = true;
-    if (!this.combatants.selected.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
       this.firstMRCastWithoutDRW = true;
     }
   }

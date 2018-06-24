@@ -11,7 +11,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -31,7 +30,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     beaconHealing: BeaconHealing,
@@ -246,7 +244,7 @@ class Checklist extends CoreChecklist {
       name: 'Avoid overhealing',
       description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it\'s still inefficient. Overhealing might be unavoidable when there\'s not a lot of damage taken (such as in normal mode) or when bringing too many healers.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} />,

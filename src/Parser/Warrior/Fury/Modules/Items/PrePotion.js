@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -21,9 +20,6 @@ const SECOND_POTIONS = [
 ];
 
 class PrePotion extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   usedPrePotion = false;
   usedSecondPotion = false;
 

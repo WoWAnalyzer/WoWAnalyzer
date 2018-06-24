@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus'; // relative path would be long and ugly
@@ -14,9 +13,6 @@ const debug = false;
   * Gain the patience of a veteran sniper, increasing the damage bonus of Vulnerable by 6% every 1 sec.
   */
 class PatientSniperTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   /*
   A module to track the effectiveness of the Patient Sniper talent
   > Apply Vulnerable
@@ -185,8 +181,9 @@ class PatientSniperTracker extends Analyzer {
   // Piercing Shot has 30s CD so queue isn't necessary
   lastPiercingShotTimestamp = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event) {
@@ -223,7 +220,7 @@ class PatientSniperTracker extends Analyzer {
       return;
     }
 
-    const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
+    const hasTS = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
 
     if (spellId === SPELLS.PIERCING_SHOT_TALENT.id) {
       this.lastPiercingShotTimestamp = event.timestamp;
@@ -320,7 +317,7 @@ class PatientSniperTracker extends Analyzer {
 
     // "categorize" the damage bonus into respective window
     if (timeIntoVulnerable !== undefined) {
-      const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
+      const hasTS = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
       if (hasTS) {
         this.patientSniper[spellId].TS.seconds[timeIntoVulnerable].damage += bonus;
       } else {

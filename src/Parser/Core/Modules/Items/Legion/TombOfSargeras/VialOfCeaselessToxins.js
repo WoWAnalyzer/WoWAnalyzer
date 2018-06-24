@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
@@ -13,15 +12,15 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  */
 class VialOfCeaselessToxins extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
   damage = 0;
   totalCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
 
     if (this.active) {
       this.abilities.add({

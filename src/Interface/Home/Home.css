@@ -1,0 +1,17 @@
+.app > main > section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+section {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
+}
+section:first-child {
+  margin-top: 0;
+}
+section header h1 {
+  font-size: 3em;
+  margin: 0 0 0.7em;
+  text-align: center;
+}

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
 
@@ -39,7 +39,8 @@ class HotTracker extends Analyzer {
   // }
   hots = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
   }
 
@@ -426,11 +427,11 @@ class HotTracker extends Analyzer {
   _generateHotInfo() { // must be generated dynamically because it reads from traits
     return {
       [SPELLS.REJUVENATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
         tickPeriod: 3000,
       },
       [SPELLS.REJUVENATION_GERMINATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
         tickPeriod: 3000,
       },
       [SPELLS.REGROWTH.id]: {

@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -19,7 +18,6 @@ const PANDEMIC_WINDOW = 0.3;
 // See /Parser/Druid/Balance/Modules/Features/EarlyDotRefreshes.js for an example implementation.
 class EarlyDotRefreshes extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
@@ -31,7 +29,8 @@ class EarlyDotRefreshes extends Analyzer {
   lastCastGoodExtension = false;
   badCasts = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.dots.forEach(dot => {
       this.targets[dot.debuffId] = {};
       this.badCasts[dot.castId] = 0;

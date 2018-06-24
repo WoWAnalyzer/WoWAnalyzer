@@ -4,8 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
@@ -13,17 +11,14 @@ const debug = false;
 const TARGETSPERCAST = 78;
 
 class RefreshingJadeWind extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healsRJW = 0;
   healingRJW = 0;
   overhealingRJW = 0;
   castRJW = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;

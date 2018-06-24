@@ -1,12 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 class AlphaWolf extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  }
 
   feralSpiritCastCount = 0;
   feralSpiritCastFlag = false;

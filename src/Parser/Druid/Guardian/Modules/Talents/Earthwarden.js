@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
@@ -23,7 +22,6 @@ const ABILITIES_THAT_CONSUME_EW = [
 
 class Earthwarden extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     damageTaken: DamageTaken,
   };
@@ -32,8 +30,9 @@ class Earthwarden extends Analyzer {
   swingsMitigated = 0;
   totalSwings = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
   }
 
   on_toPlayer_damage(event) {

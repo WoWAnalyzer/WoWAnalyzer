@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import StatisticBox from 'Main/StatisticBox';
@@ -18,7 +17,6 @@ import { formatNumber, formatPercentage } from 'common/format';
  */
 class ButcheryCarve extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hellcarver: Hellcarver,
   };
 
@@ -61,7 +59,7 @@ class ButcheryCarve extends Analyzer {
   }
 
   suggestions(when) {
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+    const spellLink = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     when(this.averageTargetsThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>Your <SpellLink id={spellLink.id} /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} />. <strong>Note:</strong> that when using <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> it can be worth using <SpellLink id={spellLink.id} /> on single-target when at 10 stacks, however it's generally recommended to use a different legendary if possible for largely single-target fights.</React.Fragment>)
         .icon(spellLink.icon)
@@ -73,7 +71,7 @@ class ButcheryCarve extends Analyzer {
   statistic() {
     if (this.bonusDamage > 0) {
       // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
-      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      const spellLink = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
       const tooltipText = this.hellcarver.hellcarverRanks > 0 ? `${this.hellcarver.hellcarverRanks} ranks of Hellcarver increased ${spellLink.name} damage by ${formatPercentage(this.hellcarver.hellcarverModifierPrTarget)}% per additional target hit. <br/> This contributed with ${formatNumber(this.hellcarver.damageContribution)} of the total damage that ${spellLink.name} dealt, this is the same as ${formatNumber(this.hellcarver.damageContribution / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.hellcarver.damageContribution))}% of your total damage` : ``;
       return (
         <StatisticBox
@@ -89,7 +87,7 @@ class ButcheryCarve extends Analyzer {
   subStatistic() {
     if (this.bonusDamage > 0) {
       // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
-      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      const spellLink = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
       return (
         <div className="flex">
           <div className="flex-main">

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import StatisticBox from 'Main/StatisticBox';
@@ -21,11 +20,6 @@ const TIME_BETWEEN_TICKS = 6000;
 const TICKS_PER_CAST = 4;
 
 class Sentinel extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-
-  };
-
   applyDebuffTimestamp = null;
   sentinelCasts = 0;
   sentinelTicks = 0;
@@ -38,8 +32,9 @@ class Sentinel extends Analyzer {
   timesTicked = 0;
   lastApplicationFromSentinel = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SENTINEL_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

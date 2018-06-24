@@ -4,14 +4,12 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 30000;
 
 class RadiantMoonlight extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -23,8 +21,9 @@ class RadiantMoonlight extends Analyzer {
   halfMoonCasts = 0;
   fullMoonCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
   }
 
   on_byPlayer_cast(event) {

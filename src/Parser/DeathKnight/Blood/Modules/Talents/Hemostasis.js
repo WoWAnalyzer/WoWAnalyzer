@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -12,10 +11,6 @@ const MAX_BUFF_STACKS = 5;
 const PERCENT_BUFF = 0.08;
 
 class Hemostasis extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   buffedDeathStrikes = 0;
   unbuffedDeathStrikes = 0;
   buffStack = 0;
@@ -24,8 +19,9 @@ class Hemostasis extends Analyzer {
   damage=0;
   heal=0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HEMOSTASIS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HEMOSTASIS_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

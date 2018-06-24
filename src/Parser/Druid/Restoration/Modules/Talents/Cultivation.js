@@ -6,17 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Mastery from '../Core/Mastery';
 
 class Cultivation extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     mastery: Mastery,
   };
 
-  on_initialized() {
-    const hasCultivation = this.combatants.selected.hasTalent(SPELLS.CULTIVATION_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    const hasCultivation = this.selectedCombatant.hasTalent(SPELLS.CULTIVATION_TALENT.id);
     this.active = hasCultivation;
   }
 

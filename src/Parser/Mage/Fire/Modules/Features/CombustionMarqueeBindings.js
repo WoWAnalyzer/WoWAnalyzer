@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -13,7 +12,6 @@ const debug = true;
 
 class CombustionMarqueeBindings extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
@@ -27,9 +25,10 @@ class CombustionMarqueeBindings extends Analyzer {
 
   //Check for Marquee Bindings Item, and calculate the duration of Combustion
   //Accounts for the extra 2 seconds from Tier 21 2 Set, and 1 Second per point of Pre Ignited
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
-    const hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
+    const hasTierBonus = this.selectedCombatant.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
     if (hasTierBonus) {
       this.combustionDuration = 12 * 1000;
     } else {
@@ -54,7 +53,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (spellId === SPELLS.COMBUSTION.id) {
       this.combustionCastTimestamp = event.timestamp;
       //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
-      if (this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
         this.expectedPyroblastCasts += 1;
         debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
@@ -73,7 +72,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       return;
     }
-    if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id)) {
+    if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
       this.actualPyroblastCasts += 1;
       this.buffUsedDuringCombustion = true;
       debug && console.log("Pyroblast Hard Cast During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));

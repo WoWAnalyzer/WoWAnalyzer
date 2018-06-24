@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -13,12 +12,22 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Judgment extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
+<<<<<<< HEAD
   templarsVerdictConsumptions = 0;
   divineStormConsumptions = 0;
   justicarsVengeanceConsumptions = 0;
   judgmentsApplied = 0;
+=======
+  _hasES = false;
+  totalSpender = 0;
+  spenderOutsideJudgment = 0;
+
+  constructor(...args) {
+    super(...args);
+    this._hasES = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
+  }
+>>>>>>> upstream/bfa
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;

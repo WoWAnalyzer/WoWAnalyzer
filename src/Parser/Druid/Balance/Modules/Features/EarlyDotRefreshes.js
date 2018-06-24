@@ -5,7 +5,7 @@ import suggest from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesSugg
 
 const DOTS = [
   {
-    name: "Stellar Flare",
+    name: 'Stellar Flare',
     debuffId: SPELLS.STELLAR_FLARE_TALENT.id,
     castId: SPELLS.STELLAR_FLARE_TALENT.id,
     duration: 24000,
@@ -15,11 +15,9 @@ const DOTS = [
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   dots = DOTS;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
-    if(this.active) {
-      super.on_initialized();
-    }
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
   get suggestionThresholdsStellarFlare() {

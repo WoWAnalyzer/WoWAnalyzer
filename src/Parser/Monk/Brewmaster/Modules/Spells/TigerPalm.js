@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../Core/SharedBrews';
@@ -10,7 +9,6 @@ const TIGER_PALM_REDUCTION = 1000;
 
 class TigerPalm extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     boc: BlackoutCombo,
     brews: SharedBrews,
     statTracker: StatTracker,
@@ -32,7 +30,7 @@ class TigerPalm extends Analyzer {
   }
 
   get bocEmpoweredThreshold() {
-    if(!this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
+    if(!this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
       return null;
     } 
     return {

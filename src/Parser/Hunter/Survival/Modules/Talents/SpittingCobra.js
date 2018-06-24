@@ -5,7 +5,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber } from 'common/format';
 
@@ -15,7 +14,6 @@ import { formatNumber } from 'common/format';
 class SpittingCobra extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -24,8 +22,9 @@ class SpittingCobra extends Analyzer {
   focusGain = 0;
   focusWaste = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

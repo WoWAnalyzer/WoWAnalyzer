@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 //import Abilities from '../Abilities';
@@ -25,14 +24,14 @@ const ICECAP_ABILITIES = [
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
     globalCooldown: GlobalCooldown,
   };
 
   lastCritTime = -2000;
 
-  on_initialized() {
-    this.hasIcecap = this.combatants.selected.hasTalent(SPELLS.ICECAP_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.hasIcecap = this.selectedCombatant.hasTalent(SPELLS.ICECAP_TALENT.id);
   }
 
   on_byPlayer_damage(event){

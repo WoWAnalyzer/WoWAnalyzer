@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
@@ -15,7 +14,6 @@ const debug = false;
  */
 class ArchiveOfFaith extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -23,8 +21,9 @@ class ArchiveOfFaith extends Analyzer {
   healingChannel = 0;
   healingAbsorb = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
 
     if (this.active) {
       this.abilities.add({

@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -14,7 +13,6 @@ const MAXCHARGES = 5;
 
 class Tombstone extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     damageTracker: DamageTracker,
   };
 
@@ -26,8 +24,9 @@ class Tombstone extends Analyzer {
   totalAbsorbed = 0;
 
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
   }
 
   get wastedCasts() {

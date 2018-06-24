@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const WAY_OF_THE_MISTWEAVER_HEALING_INCREASE = 0.03;
 
@@ -16,15 +15,12 @@ const WAY_OF_THE_MISTWEAVER_HEALING_INCREASE = 0.03;
  * Increases healing done by Eveloping Mist by 3%.
  */
 class WayOfTheMistweaver extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.WAY_OF_THE_MISTWEAVER.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.WAY_OF_THE_MISTWEAVER.id];
     this.active = this.rank > 0;
   }
 

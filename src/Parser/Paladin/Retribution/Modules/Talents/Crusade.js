@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -11,12 +10,12 @@ const CAST_BUFFER = 500;
 
 class Crusade extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		abilityTracker: AbilityTracker,
 	};
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasTalent(SPELLS.CRUSADE_TALENT.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
 	}
 
 	crusadeCastTimestamp = 0;

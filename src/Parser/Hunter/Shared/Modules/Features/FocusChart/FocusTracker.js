@@ -1,11 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Haste from 'Parser/Core/Modules/Haste';
 
 class FocusTracker extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     haste: Haste,
   };
 
@@ -19,7 +17,8 @@ class FocusTracker extends Analyzer {
   _maxFocus = 0;
   totalFocusGenModifier = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.lastEventTimestamp = this.owner.fight.start_time;
     this.secondsCapped = 0;
   }

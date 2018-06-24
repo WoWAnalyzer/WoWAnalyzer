@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -11,13 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Aimed Shot, Arcane Shot, Marked Shot, and Multi-Shot have 20% increased critical strike chance against targets above 80% Health, and those critical strikes deal an additional 30% damage over 8 sec.
  */
 class CarefulAim extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
