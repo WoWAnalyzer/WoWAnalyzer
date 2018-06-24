@@ -12,9 +12,9 @@ const debug = false;
 
 /**
  * Gain one of the following talents based on your specialization:
- * Beast Mastery: Bestial Fury
+ * Beast Mastery: Thrill of the Hunt
  * Marksmanship: Lock and Load
- * Survival: Serpent Sting
+ * Survival: Viper's Venom
  */
 class SoulOfTheHuntmaster extends Analyzer {
   hasPickedOtherTalent = false;
@@ -30,20 +30,20 @@ class SoulOfTheHuntmaster extends Analyzer {
       case SPECS.MARKSMANSHIP_HUNTER:
         debug && console.log('SPEC DETECTED AS MM');
         this.talentGained = SPELLS.LOCK_AND_LOAD_TALENT.id;
-        this.option1 = SPELLS.TRUE_AIM_TALENT.id;
-        this.option2 = SPELLS.BLACK_ARROW_TALENT.id;
+        this.option1 = SPELLS.CALLING_THE_SHOTS_TALENT.id;
+        this.option2 = SPELLS.PIERCING_SHOT_TALENT.id;
         break;
       case SPECS.BEAST_MASTERY_HUNTER:
         debug && console.log('SPEC DETECTED AS BM');
-        this.talentGained = SPELLS.BESTIAL_FURY_TALENT.id;
-        this.option1 = SPELLS.ONE_WITH_THE_PACK_TALENT.id;
-        this.option2 = SPELLS.BLINK_STRIKES_TALENT.id;
+        this.talentGained = SPELLS.THRILL_OF_THE_HUNT_TALENT.id;
+        this.option1 = SPELLS.VENOMOUS_BITE_TALENT.id;
+        this.option2 = SPELLS.A_MURDER_OF_CROWS_TALENT.id;
         break;
       case SPECS.SURVIVAL_HUNTER:
         debug && console.log('SPEC DETECTED AS SV');
-        this.talentGained = SPELLS.SERPENT_STING_TALENT.id;
-        this.option1 = SPELLS.BUTCHERY_TALENT.id;
-        this.option2 = SPELLS.DRAGONSFIRE_GRENADE_TALENT.id;
+        this.talentGained = SPELLS.VIPERS_VENOM_TALENT.id;
+        this.option1 = SPELLS.TERMS_OF_ENGAGEMENT_TALENT.id;
+        this.option2 = SPELLS.ALPHA_PREDATOR_TALENT.id;
         break;
       default:
         debug && console.log('NO SPEC DETECTED');
