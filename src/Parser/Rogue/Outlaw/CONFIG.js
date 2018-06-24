@@ -16,13 +16,12 @@ export default {
   description: (
     <React.Fragment>
       <Warning>
-        Hey there! Right now the Protection Paladin parser only holds basic functionality. What we do show should be good to use, but it does not show the complete picture.
+        Hey there! A good basis has been implemented for this spec, but it needs to be fleshed out more to provide all the feedback possible.<br /><br />
+        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
       </Warning>
       <br />
       <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Outlaw expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.<br /><br />
-
-        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
+        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Outlaw expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
       </Warning>
     </React.Fragment>
   ),
