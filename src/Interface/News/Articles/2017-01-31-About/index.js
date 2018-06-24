@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
 import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
