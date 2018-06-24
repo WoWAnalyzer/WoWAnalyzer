@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -20,10 +19,6 @@ const TOLERANCE_WINDOW_MS = 100;
  * The buff fall seems to always happen after the cast, so we can use that to tell the difference between buff consumed and buff expired.
  */
 class Tier20_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   lastCastTimestamp; // last cast timestamp of pyroblast or flamestrike... used close to buff falloff indicates proc consumed
   flamestrikeHitTimestamp; // used to associate multiple hits of same flamestrike cast
   boostNextHit = false; // set true when a proc has just been consumed, indicating next relevant damage event should be boosted
@@ -35,7 +30,7 @@ class Tier20_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_cast(event) {

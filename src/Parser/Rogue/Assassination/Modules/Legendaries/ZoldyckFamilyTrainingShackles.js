@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -35,15 +34,11 @@ const ZOLDYCK_FAMILY_TRAINING_SHACKLES = {
 };
 
 class ZoldyckFamilyTrainingShackles extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDamage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id);
   }
 
   on_byPlayer_damage(event) {

@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 const debug = false;
@@ -15,10 +14,6 @@ const UE_DURATION_PER_RANK = 0.5;
 const GUARDIAN_OF_ELUNE_DURATION = 2;
 
 class IronFur extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _stacksTimeline = [];
   _hitsPerStack = [];
   _ironfurDuration = IRONFUR_BASE_DURATION;
@@ -29,7 +24,7 @@ class IronFur extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const ueRank = this.combatants.selected.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
+    const ueRank = this.selectedCombatant.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
     this._ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
   }
 
@@ -89,7 +84,7 @@ class IronFur extends Analyzer {
     }
 
     const timestamp = event.timestamp;
-    const hasGoE = this.combatants.selected.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id, timestamp);
+    const hasGoE = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id, timestamp);
     const duration = (this.ironfurDuration + (hasGoE ? GUARDIAN_OF_ELUNE_DURATION : 0)) * 1000;
 
     this.addStack(timestamp, timestamp + duration);
@@ -171,7 +166,7 @@ class IronFur extends Analyzer {
   }
 
   statistic() {
-    const totalIronFurTime = this.combatants.selected.getBuffUptime(SPELLS.IRONFUR.id);
+    const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
     const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => (
       str + `<li>${stackCount} stack${stackCount !== 1 ? 's' : ''}: ${formatPercentage(uptime)}%</li>`
     ), '');

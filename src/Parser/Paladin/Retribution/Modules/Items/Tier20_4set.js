@@ -6,23 +6,18 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Tier20_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   holyPowerGained = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id);
   }
 
   benefitsFrom4Pc(event) {
     this.spellId = event.ability.guid;
-    return this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id)
+    return this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id)
       && (this.spellId === SPELLS.BLADE_OF_JUSTICE.id);
   }
 

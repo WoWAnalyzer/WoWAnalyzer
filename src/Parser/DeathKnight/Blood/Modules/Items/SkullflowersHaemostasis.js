@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -13,13 +12,9 @@ const PERCENT_BUFF=0.2;
 
 class SkullflowersHaemostasis extends Analyzer {
 
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasShoulder(ITEMS.SKULLFLOWERS_HAEMOSTASIS.id);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.SKULLFLOWERS_HAEMOSTASIS.id);
   }
 
   buffStack = 0;
@@ -31,7 +26,7 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid === SPELLS.BLOOD_BOIL.id) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.DANCING_RUNE_WEAPON.id) && this.buffStack + 3 > MAX_BUFF_STACKS){
+    if(this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON.id) && this.buffStack + 3 > MAX_BUFF_STACKS){
       this.wastedBuff += MAX_BUFF_STACKS - (3 + this.buffStack);
     } else if(this.buffStack === MAX_BUFF_STACKS) {
       this.wastedBuff += 1;

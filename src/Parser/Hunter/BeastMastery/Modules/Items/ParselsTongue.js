@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import { formatPercentage } from 'common/format';
@@ -26,7 +25,6 @@ const MAX_STACKS = 4;
 
 class ParselsTongue extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -42,7 +40,7 @@ class ParselsTongue extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
+    this.active = this.selectedCombatant.hasChest(ITEMS.PARSELS_TONGUE.id);
   }
 
   on_byPlayer_cast(event) {
@@ -95,7 +93,7 @@ class ParselsTongue extends Analyzer {
 
   on_byPlayer_damage(event) {
     const parselsModifier = DAMAGE_INCREASE_PER_STACK * this._currentStacks;
-    if (!this.combatants.selected.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, parselsModifier);
@@ -103,7 +101,7 @@ class ParselsTongue extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     const parselsModifier = DAMAGE_INCREASE_PER_STACK * this._currentStacks;
-    if (!this.combatants.selected.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, parselsModifier);
@@ -131,7 +129,7 @@ class ParselsTongue extends Analyzer {
   }
 
   get buffUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageTimeBetweenRefresh() {

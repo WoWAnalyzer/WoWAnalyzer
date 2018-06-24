@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -16,7 +15,6 @@ const furyIcon = 'inv_helm_leather_raiddemonhuntermythic_r_01';
 class FuryDetails extends Analyzer {
   static dependencies = {
     furyTracker: FuryTracker,
-    combatants: Combatants,
   };
 
   get wastedFuryPercent() {
@@ -24,7 +22,7 @@ class FuryDetails extends Analyzer {
   }
 
   get suggestionThresholds() {
-    if (this.combatants.selected.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
       return {
         actual: this.wastedFuryPercent,
         isGreaterThan: {

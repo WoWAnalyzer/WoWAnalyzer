@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -28,7 +27,6 @@ const BESTIAL_WRATH_DURATION = 15000;
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -44,7 +42,7 @@ class AMurderOfCrows extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && SPECS.BEAST_MASTERY_HUNTER;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && SPECS.BEAST_MASTERY_HUNTER;
   }
 
   on_byPlayer_damage(event) {
@@ -76,16 +74,16 @@ class AMurderOfCrows extends Analyzer {
       this.totalCrowsCasts += 1;
       const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
       if (bestialWrathIsOnCooldown) {
-        if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < ALLOW_EARLY_USE) {
+        if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < ALLOW_EARLY_USE) {
           this.goodCrowsCasts += 1;
           return;
         }
       }
-      if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_CROWS)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_CROWS)) {
         this.goodCrowsCasts += 1;
-      } else if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp > (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_CROWS)) {
+      } else if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp > (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_CROWS)) {
         this.shouldHaveSavedCrows += 1;
-      } else if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+      } else if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
         if (!bestialWrathIsOnCooldown) {
           this.goodCrowsCasts += 1;
           return;

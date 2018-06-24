@@ -5,18 +5,16 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Mastery from '../Core/Mastery';
 
 class CenarionWard extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     mastery: Mastery,
   };
 
   constructor(...args) {
     super(...args);
-    const hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    const hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
     this.active = hasCenarionWard;
   }
 

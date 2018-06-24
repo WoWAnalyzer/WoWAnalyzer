@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -15,16 +14,12 @@ const BONEBREAKER_INCREASE = 0.08;
  * Increases the damage of Marrorend by 8%
  */
 class Bonebreaker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.BONEBREAKER_TRAIT.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.BONEBREAKER_TRAIT.id];
     this.active = this.rank > 0;
   }
 

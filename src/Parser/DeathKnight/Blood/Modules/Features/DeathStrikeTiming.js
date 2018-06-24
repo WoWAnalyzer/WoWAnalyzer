@@ -1,14 +1,9 @@
 import React from 'react';
 
 import SelfHealTimingGraph from 'Parser/Core/Modules/Features/SelfHealTimingGraph';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 class DeathStrikeTiming extends SelfHealTimingGraph {
-
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);

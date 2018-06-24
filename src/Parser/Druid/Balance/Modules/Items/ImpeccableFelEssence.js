@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AstralPowerTracker from '../ResourceTracker/AstralPowerTracker';
 
@@ -13,7 +12,6 @@ import AstralPowerTracker from '../ResourceTracker/AstralPowerTracker';
  */
 class ImpeccableFelEssence extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     astralPowerTracker: AstralPowerTracker,
   };
@@ -22,8 +20,8 @@ class ImpeccableFelEssence extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.IMPECCABLE_FEL_ESSENCE.id);
-    if (this.combatants.selected.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id)){
+    this.active = this.selectedCombatant.hasFinger(ITEMS.IMPECCABLE_FEL_ESSENCE.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id)){
       this.cooldownID = SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id;
     } else {
       this.cooldownID = SPELLS.CELESTIAL_ALIGNMENT.id;

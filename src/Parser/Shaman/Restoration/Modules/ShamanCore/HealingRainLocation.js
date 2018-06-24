@@ -24,8 +24,8 @@ class HealingRainLocation extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasDeluge = this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id);
-    const hasRebalancers = this.combatants.selected.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
+    const hasDeluge = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
+    const hasRebalancers = this.selectedCombatant.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
     this.active = hasDeluge || hasRebalancers;
   }
 

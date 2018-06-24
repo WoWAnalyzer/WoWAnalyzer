@@ -1,7 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PROC_INTERVAL_MS = 10000;
 
@@ -10,16 +9,12 @@ const PROC_INTERVAL_MS = 10000;
  * While Icy Veins is active, you gain 1 charge of Fingers of Frost every 10 sec.
  */
 class LadyVashjsGrasp extends Analyzer {
-  static dependencies = {
-		combatants: Combatants,
-	};
-
   icyVeinsAppliedTimestamp; // the legendary applies its own buff, but it exactly tracks Icy Veins
   procs = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasHands(ITEMS.LADY_VASHJS_GRASP.id);
+    this.active = this.selectedCombatant.hasHands(ITEMS.LADY_VASHJS_GRASP.id);
   }
 
   on_byPlayer_applybuff(event) {

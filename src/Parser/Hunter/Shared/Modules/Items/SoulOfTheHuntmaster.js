@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -18,10 +17,6 @@ const debug = false;
  * Survival: Serpent Sting
  */
 class SoulOfTheHuntmaster extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   hasPickedOtherTalent = false;
   talentGained = 0;
   option1 = 0;
@@ -29,9 +24,9 @@ class SoulOfTheHuntmaster extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
     //Checks which spec has the ring equipped and then sets option1 or option2 accordingly - aswell as sets up the check for if they've picked another talent
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.MARKSMANSHIP_HUNTER:
         debug && console.log('SPEC DETECTED AS MM');
         this.talentGained = SPELLS.LOCK_AND_LOAD_TALENT.id;
@@ -54,7 +49,7 @@ class SoulOfTheHuntmaster extends Analyzer {
         debug && console.log('NO SPEC DETECTED');
         break;
     }
-    if (this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2)) {
+    if (this.selectedCombatant.hasTalent(this.option1) || this.selectedCombatant.hasTalent(this.option2)) {
       this.hasPickedOtherTalent = true;
     }
   }

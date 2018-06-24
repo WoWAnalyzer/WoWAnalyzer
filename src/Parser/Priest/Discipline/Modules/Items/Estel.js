@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Atonement from '../Spells/Atonement';
 
@@ -12,7 +11,6 @@ const DEBUG = false;
 
 class Estel extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     atonementModule: Atonement,
   };
 
@@ -32,7 +30,7 @@ class Estel extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasChest(ITEMS.ESTEL_DEJAHNAS_INSPIRATION.id);
+    this.active = this.selectedCombatant.hasChest(ITEMS.ESTEL_DEJAHNAS_INSPIRATION.id);
   }
 
   get timePerHastePercentage() {
@@ -79,7 +77,7 @@ class Estel extends Analyzer {
   }
 
   item() {
-    const uptimePercent = (this.combatants.selected.getBuffUptime(SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) / this.owner.fightDuration) || 0;
+    const uptimePercent = (this.selectedCombatant.getBuffUptime(SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) / this.owner.fightDuration) || 0;
     const avgHaste = (this.avgHaste / 100) || 0;
 
     return {

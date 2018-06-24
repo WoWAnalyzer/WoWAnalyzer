@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
@@ -13,11 +12,6 @@ const CAST_BUFFER = 250;
 const debug = false;
 
 class MarqueeBindingsOfTheSunKing extends Analyzer {
-
-  static dependencies = {
-		combatants: Combatants,
-	};
-
   damage = 0;
   beginCastTimestamp = 0;
   castTimestamp = 0;
@@ -31,7 +25,7 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -91,7 +85,7 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     this.castTimestamp = event.timestamp;
     const castTime = this.castTimestamp - this.beginCastTimestamp;
     //Checks the begincast and cast timestamps to determine if it is instant cast or not. This doesnt matter for ABT and ToS because hot streak pyroblasts dont have a begincast, but in Nighthold they do. So this needs to remain for backwards compatibility
-    if (castTime >= CAST_BUFFER && this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
+    if (castTime >= CAST_BUFFER && this.selectedCombatant.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
       this.isBuffed = true;
       this.buffUsed = true;
       debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
@@ -121,7 +115,7 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
   }
 
   on_finished() {
-    if (this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
       const adjustedFightEnding = this.owner.currentTimestamp - 7500;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {
         this.wastedProcs += 1;

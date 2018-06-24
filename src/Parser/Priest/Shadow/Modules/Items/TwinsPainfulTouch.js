@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Voidform from '../Spells/Voidform';
@@ -17,7 +16,6 @@ function formatNumber(amount, decimals = 1) {
 
 class TwinsPainfulTouch extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
     voidform: Voidform,
   };
@@ -27,12 +25,12 @@ class TwinsPainfulTouch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.THE_TWINS_PAINFUL_TOUCH.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.THE_TWINS_PAINFUL_TOUCH.id);
   }
 
   on_byPlayer_applydebuff(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.MIND_FLAY.id && this.combatants.selected.hasBuff(SPELLS.THE_TWINS_PAINFUL_TOUCH.id)) {
+    if (spellID === SPELLS.MIND_FLAY.id && this.selectedCombatant.hasBuff(SPELLS.THE_TWINS_PAINFUL_TOUCH.id)) {
       this.previousMindflayCast = event.timestamp;
       return;
     }

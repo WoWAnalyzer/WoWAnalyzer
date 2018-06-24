@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // Unstable Magic cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
@@ -22,10 +21,6 @@ const PROCS = [
 ];
 
 class UnstableMagic extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-	}
-
   proccerHits = 0;
   damage = 0;
   hits = 0;
@@ -34,7 +29,7 @@ class UnstableMagic extends Analyzer {
 
   constructor(...args) {
     super(...args);
-	   this.active = this.combatants.selected.hasTalent(SPELLS.UNSTABLE_MAGIC_TALENT.id);
+	   this.active = this.selectedCombatant.hasTalent(SPELLS.UNSTABLE_MAGIC_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

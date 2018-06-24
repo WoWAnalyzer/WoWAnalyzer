@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -20,7 +19,6 @@ const HARDCAST_HITS = [
 
 class WintersChillTracker extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: EnemyInstances,
   };
 

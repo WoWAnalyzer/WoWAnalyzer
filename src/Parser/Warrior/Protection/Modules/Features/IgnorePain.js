@@ -1,14 +1,10 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class IgnorePain extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.IGNORE_PAIN.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.IGNORE_PAIN.id) / this.owner.fightDuration;
   }
 
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -14,7 +13,6 @@ const CHAOS_BOLT_COST = 20;
 class FeretoryOfSouls extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
-    combatants: Combatants,
   };
 
   _totalCasts = 0;
@@ -22,7 +20,7 @@ class FeretoryOfSouls extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.FERETORY_OF_SOULS.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.FERETORY_OF_SOULS.id);
   }
 
   on_byPlayer_damage(event) {

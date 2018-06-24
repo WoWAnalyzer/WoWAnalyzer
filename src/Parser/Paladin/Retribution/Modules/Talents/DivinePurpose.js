@@ -6,24 +6,20 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DivinePurpose extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    const hasDivinePurpose = this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id);
-    const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id);
+    const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
   get divinePurposeProcs() {
-    return this.combatants.selected.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_BUFF.id);
+    return this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_BUFF.id);
   }
 
   statistic() {

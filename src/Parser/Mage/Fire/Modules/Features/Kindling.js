@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -14,7 +13,6 @@ const CRIT_REDUCTION_MS = 1000;
 
 class Kindling extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -22,7 +20,7 @@ class Kindling extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.KINDLING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.KINDLING_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

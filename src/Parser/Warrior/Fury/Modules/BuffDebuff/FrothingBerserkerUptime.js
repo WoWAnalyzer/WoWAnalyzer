@@ -7,20 +7,15 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class FrothingBerserkerUptime extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
   }
   
   get frothingBerserkerUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FROTHING_BERSERKER.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FROTHING_BERSERKER.id) / this.owner.fightDuration;
   }
   
   get suggestionThresholds() {

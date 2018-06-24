@@ -8,12 +8,10 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class DesperatePrayer extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -40,7 +38,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(!this.combatants.selected.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
+    if(!this.selectedCombatant.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
       return;
     }
 

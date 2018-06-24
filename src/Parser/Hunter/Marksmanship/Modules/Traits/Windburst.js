@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -10,14 +9,13 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
  */
 class Windburst extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
   casts = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.WINDBURST.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.WINDBURST.id];
   }
 
   on_byPlayer_damage(event) {

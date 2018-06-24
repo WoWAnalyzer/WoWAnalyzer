@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
@@ -20,7 +19,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class AimedInVulnerableTracker extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
   totalAimed = 0;
@@ -41,7 +39,7 @@ class AimedInVulnerableTracker extends Analyzer {
       this.inVulnerabilityAimed += 1;
     } else {
       const windburstIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.WINDBURST.id);
-      if (windburstIsOnCooldown && !this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0].amount > 105) {
+      if (windburstIsOnCooldown && !this.selectedCombatant.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0].amount > 105) {
         this.focusDumpAimed += 1;
       }
       this.outsideVulnerabilityAimed += 1;

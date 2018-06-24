@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
@@ -23,8 +22,7 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.4;
  * https://github.com/WoWAnalyzer/WoWAnalyzer/issues/657
  */
 class StatValues extends BaseHealerStatValues {
-  static dependencies = {
-    combatants: Combatants,
+  static dependencies = {    
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
     masteryEffectiveness: MasteryEffectiveness, // this added the `masteryEffectiveness` property to spells that are affected by Mastery
@@ -58,7 +56,7 @@ class StatValues extends BaseHealerStatValues {
     // eslint-disable-next-line prefer-const
     let { baseCritChance, ratingCritChance } = super._getCritChance(event);
 
-    if (this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
       // Avenging Wrath increases the crit chance by 30%, this 30% does not add to the rating contribution since it's unaffected by stats.
       baseCritChance += 0.3;
     }
@@ -84,7 +82,7 @@ class StatValues extends BaseHealerStatValues {
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return 0;
     }
-    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
     if (!hasIol) {
       return 0;
     }

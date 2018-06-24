@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -11,15 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * power) * (1 * 0.96 * 1.06)) Nature damage.
  */
 class Thunderslash extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.THUNDERSLASH_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.THUNDERSLASH_TRAIT.id];
   }
 
   on_byPlayerPet_damage(event) {

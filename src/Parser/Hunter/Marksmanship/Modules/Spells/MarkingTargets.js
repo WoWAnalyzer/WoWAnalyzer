@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -19,9 +18,6 @@ const MARKING_TARGETS_DURATION = 15000;
 const APPLICATORS = [SPELLS.ARCANE_SHOT.id, SPELLS.SIDEWINDERS_TALENT.id, SPELLS.SIDEWINDERS_CAST.id, SPELLS.MULTISHOT.id];
 
 class MarkingTargets extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   overwrittenProcs = 0;
   _totalPossible = 0;
   usedProcs = 0;
@@ -42,10 +38,10 @@ class MarkingTargets extends Analyzer {
 
   on_toPlayer_applybuff(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.TRUESHOT.id && this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id)) {
+    if (spellID === SPELLS.TRUESHOT.id && this.selectedCombatant.hasBuff(SPELLS.MARKING_TARGETS.id)) {
       this.timesEnteredTrueshotWithMarkingTargets++;
     }
-    if (spellID !== SPELLS.MARKING_TARGETS.id || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (spellID !== SPELLS.MARKING_TARGETS.id || this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     this.buffApplication = event.timestamp;
@@ -54,7 +50,7 @@ class MarkingTargets extends Analyzer {
 
   on_toPlayer_refreshbuff(event) {
     const spellID = event.ability.guid;
-    if (spellID !== SPELLS.MARKING_TARGETS.id || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (spellID !== SPELLS.MARKING_TARGETS.id || this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     if (this.buffActiveWhenLeavingTrueshot) {
@@ -69,11 +65,11 @@ class MarkingTargets extends Analyzer {
 
   on_toPlayer_removebuff(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.TRUESHOT.id && this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id)) {
+    if (spellID === SPELLS.TRUESHOT.id && this.selectedCombatant.hasBuff(SPELLS.MARKING_TARGETS.id)) {
       this.buffActiveWhenLeavingTrueshot = true;
       this.timesLeftTrueshotWithMarkingTargets++;
     }
-    if (spellID !== SPELLS.MARKING_TARGETS.id || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (spellID !== SPELLS.MARKING_TARGETS.id || this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     if (event.timestamp >= this.buffApplication + MARKING_TARGETS_DURATION) {
@@ -87,7 +83,7 @@ class MarkingTargets extends Analyzer {
     if (!APPLICATORS.includes(spellID)) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MARKING_TARGETS.id) || this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     this.specificCast = event.ability;
@@ -99,7 +95,7 @@ class MarkingTargets extends Analyzer {
     if (spellID !== SPELLS.HUNTERS_MARK_DEBUFF.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       this.trueshotHuntersMarkWasted++; //counts any while under the effects of Trueshot
       if (event.timestamp > this.lastTrueshotRefresh + MS_BUFFER) { //counts once per cast to ensure that Sidewinders/Multi Shot hitting several mobs isn't counted more than needed.
         this.trueshotRefreshCasts++;

@@ -4,15 +4,11 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
 class Shield_Block extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   lastShield_BlockBuffApplied = 0;
   physicalHitsWithShield_Block = 0;

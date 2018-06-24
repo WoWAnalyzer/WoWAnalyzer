@@ -5,20 +5,15 @@ import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 // Chaos Bolt will deal an additional 12% of its direct damage caused to the target over 4 sec.
 class T21_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

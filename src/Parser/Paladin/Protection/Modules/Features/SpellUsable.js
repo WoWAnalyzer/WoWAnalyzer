@@ -1,17 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
   };
 
   constructor(...args) {
     super(...args);
-    this.hasCrusadersJudgment = this.combatants.selected.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id);
+    this.hasCrusadersJudgment = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id);
   }
 
   lastPotentialTriggerForAvengersShield = null;

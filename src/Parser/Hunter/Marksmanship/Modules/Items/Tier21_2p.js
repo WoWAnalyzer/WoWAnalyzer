@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -15,9 +14,6 @@ const T21_2P_DMG_BONUS = 0.3;
  * Your Focus generating attacks deal 30% more damage and generate 25% more Focus.
  */
 class Tier21_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   focusGeneratorCasts = {
     [SPELLS.ARCANE_SHOT_FOCUSMODULE.id]: {
       casts: 0,
@@ -54,7 +50,7 @@ class Tier21_2p extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T21_2P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T21_2P_BONUS.id);
   }
 
   on_byPlayer_energize(event) {

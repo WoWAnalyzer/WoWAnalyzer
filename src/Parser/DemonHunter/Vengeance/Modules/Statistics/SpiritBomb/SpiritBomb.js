@@ -1,27 +1,25 @@
 import React from 'react';
 
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'Parser/Core/Analyzer';
-
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SpiritBomb extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     enemies: Enemies,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
   suggestions(when) {

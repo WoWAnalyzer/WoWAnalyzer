@@ -9,7 +9,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -33,7 +32,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     moonfireUptime: MoonfireUptime,
@@ -125,12 +123,12 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Solar Empowerment efficiency',
             check: () => this.solarEmpowerment.suggestionThresholds,
-            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
+            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
           new Requirement({
             name: 'Lunar Empowerment efficiency',
             check: () => this.lunarEmpowerment.suggestionThresholds,
-            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
+            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
         ];
       },

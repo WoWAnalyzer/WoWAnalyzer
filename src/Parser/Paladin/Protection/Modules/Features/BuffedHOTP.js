@@ -4,12 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class BuffedHOTP extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   BuffedHOTP = 0;
@@ -17,7 +15,7 @@ class BuffedHOTP extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -25,7 +23,7 @@ class BuffedHOTP extends Analyzer {
     if (spellId !== SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
       this.BuffedHOTP += 1;
     } else {
       this.NonBuffedHOTP += 1;

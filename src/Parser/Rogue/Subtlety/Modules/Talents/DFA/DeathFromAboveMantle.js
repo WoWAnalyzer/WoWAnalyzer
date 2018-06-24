@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -16,13 +15,12 @@ class DeathFromAboveMantle extends Analyzer {
 	static dependencies = {
         damageTracker: DamageTracker,
         mantleDamageTracker: MantleDamageTracker,
-		combatants: Combatants,
     };    
 
 	constructor(...args) {
     super(...args);
-        this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
-        && this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
+        this.active = this.selectedCombatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
+        && this.selectedCombatant.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
     }
     
 	suggestions(when) {

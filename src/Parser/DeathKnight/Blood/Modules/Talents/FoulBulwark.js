@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatDuration, formatPercentage } from 'common/format';
 import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 
@@ -12,13 +11,12 @@ const HP_PER_BONE_SHIELD_STACK = 0.02;
 
 class FoulBulwark extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
   }
 
   get boneShieldTimesByStack() {

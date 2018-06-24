@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -18,7 +17,6 @@ const DAMAGE_MODIFIER = .1;
  */
 class KoltirasNewfoundWill extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     runeTracker: RuneTracker,
   };
 
@@ -26,7 +24,7 @@ class KoltirasNewfoundWill extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.KOLTIRAS_NEWFOUND_WILL.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.KOLTIRAS_NEWFOUND_WILL.id);
   }
 
   on_byPlayer_damage(event) {

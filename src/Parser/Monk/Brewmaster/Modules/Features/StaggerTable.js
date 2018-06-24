@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
@@ -11,7 +10,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 class StaggerTable extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     stats: StatTracker,
   };
 
@@ -52,7 +50,7 @@ class StaggerTable extends Analyzer {
     this._staggerData.push({
       timestamp: absorbEvent.timestamp,
       amount: absorbEvent.amount,
-      hasISB: this.combatants.selected.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id, absorbEvent.timestamp),
+      hasISB: this.selectedCombatant.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id, absorbEvent.timestamp),
       rawDamage: dmgEvent.amount + (dmgEvent.absorbed || 0),
       abilityId: dmgEvent.ability.guid,
       abilityType: dmgEvent.ability.type,

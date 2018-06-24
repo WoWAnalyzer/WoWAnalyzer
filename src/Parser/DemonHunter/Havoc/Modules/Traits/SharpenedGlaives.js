@@ -1,13 +1,11 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
 import SPELLS from 'common/SPELLS';
-
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
 const SHARPENED_GLAIVES_INCREASE = 0.05;
 
@@ -17,16 +15,12 @@ const SHARPENED_GLAIVES_INCREASE = 0.05;
 */
 
 class SharpenedGlaives extends Analyzer {
-	static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SHARPENED_GLAIVES.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.SHARPENED_GLAIVES.id];
     this.active = this.rank > 0;
   }
 

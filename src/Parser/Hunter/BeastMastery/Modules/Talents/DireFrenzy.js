@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -22,11 +21,6 @@ const MAX_DIRE_FRENZY_STACKS = 3;
 const DIRE_FRENZY_DURATION = 8000;
 
 class DireFrenzy extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
   buffStart = 0;
   buffEnd = 0;
@@ -42,7 +36,7 @@ class DireFrenzy extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -144,7 +138,7 @@ class DireFrenzy extends Analyzer {
 
   get percentPlayerUptime() {
     //This calculates the uptime over the course of the encounter of Dire Frenzy for the player
-    return (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_4.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_5.id)) / this.owner.fightDuration;
+    return (this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_4.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_5.id)) / this.owner.fightDuration;
   }
 
   get direFrenzyUptimeThreshold() {

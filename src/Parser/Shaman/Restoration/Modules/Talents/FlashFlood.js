@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 const FLASH_FLOOD_HASTE = 0.2;
@@ -21,7 +20,6 @@ const SPELLS_CONSUMING_FLASH_FLOOD = [
 
 class FlashFlood extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     globalCooldown: GlobalCooldown,
   };
 
@@ -31,7 +29,7 @@ class FlashFlood extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
   }
 
   on_byPlayer_begincast(event) {
@@ -44,7 +42,7 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    const hasFlashFlood = this.combatants.selected.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp);
+    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp);
     if(!hasFlashFlood) {
       return;
     }

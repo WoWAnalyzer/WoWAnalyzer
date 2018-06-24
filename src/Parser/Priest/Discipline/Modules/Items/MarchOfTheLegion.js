@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import isAtonement from '../Core/isAtonement';
@@ -13,7 +12,6 @@ import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 class MarchOfTheLegion extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     atonementDamageSource: AtonementDamageSource,
   };
 
@@ -21,7 +19,7 @@ class MarchOfTheLegion extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id) && this.combatants.selected.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id) && this.selectedCombatant.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
   }
 
   on_byPlayer_heal(event) {

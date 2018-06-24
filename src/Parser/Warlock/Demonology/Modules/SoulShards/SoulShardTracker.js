@@ -1,14 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
 //TODO: refactor all trackers to use Core ResourceTracker
 class SoulShardTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   shardsWasted = 0;
   shardsSpent = 0;
 
@@ -67,7 +62,7 @@ class SoulShardTracker extends Analyzer {
       return;
     }
     let targetSpellId = spellId;
-    if (spellId === SPELLS.DOOM_SHARD_GEN.id && this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id)) {
+    if (spellId === SPELLS.DOOM_SHARD_GEN.id && this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id)) {
       // check if it's a proc
       if (!this._firstDoomEnergize) {
         this._firstDoomEnergize = true;
@@ -91,7 +86,7 @@ class SoulShardTracker extends Analyzer {
       return;
     }
     let shardsSpent;
-    if (spellId === SPELLS.CALL_DREADSTALKERS.id && this.combatants.selected.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id, event.timestamp)) {
+    if (spellId === SPELLS.CALL_DREADSTALKERS.id && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id, event.timestamp)) {
       shardsSpent = 0;
     }
     else {

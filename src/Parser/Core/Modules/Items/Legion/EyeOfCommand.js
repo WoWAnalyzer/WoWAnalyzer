@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 
 /**
@@ -16,10 +15,6 @@ import { formatPercentage } from 'common/format';
 const MAX_STACKS = 10;
 
 class EyeOfCommand extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   critPerStack = 0;
   currentStacks = 0;
   _totalStacks = 0;
@@ -28,9 +23,9 @@ class EyeOfCommand extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.EYE_OF_COMMAND.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.EYE_OF_COMMAND.id);
     if (this.active) {
-      const itemDetails = this.combatants.selected.getItem(ITEMS.EYE_OF_COMMAND.id);
+      const itemDetails = this.selectedCombatant.getItem(ITEMS.EYE_OF_COMMAND.id);
       this.critPerStack = calculateSecondaryStatDefault(865, 151, itemDetails.itemLevel);
     }
   }
@@ -81,7 +76,7 @@ class EyeOfCommand extends Analyzer {
     return this.maxStackTime / this.owner.fightDuration;
   }
   get totalBuffUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.LEGIONS_GAZE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.LEGIONS_GAZE.id) / this.owner.fightDuration;
   }
   item() {
     return {

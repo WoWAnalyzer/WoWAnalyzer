@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
@@ -29,7 +28,6 @@ const AFFECTED_ABILITIES = [
 
 class Tier19_2p extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -39,7 +37,7 @@ class Tier19_2p extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
