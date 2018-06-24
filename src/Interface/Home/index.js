@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 
 import ScrollFilledIcon from 'Interface/Icons/ScrollFilled';
 import MegaphoneIcon from 'Interface/Icons/Megaphone';
+import DiscordIcon from 'Interface/Icons/DiscordTiny';
+import GitHubIcon from 'Interface/Icons/GitHubMarkLarge';
+import PatreonIcon from 'Interface/Icons/PatreonTiny';
+import TwitterIcon from 'Interface/Icons/Twitter';
 
 import DelayRender from 'Interface/common/DelayRender';
 import { hasPremium } from 'Interface/selectors/user';
@@ -105,6 +109,21 @@ class Home extends React.PureComponent {
                   </div>
                 </div>
               )}
+
+              <div>
+                <a href="https://wowanalyzer.com/discord" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 24 }}>
+                  <DiscordIcon style={{ fontSize: '1.4em', color: '#7289DA' }} /> Discord
+                </a><br />
+                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 24 }}>
+                  <GitHubIcon style={{ fontSize: '1.4em', color: '#fff' }} /> GitHub
+                </a><br />
+                <a href="https://www.patreon.com/wowanalyzer" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 24 }}>
+                  <PatreonIcon style={{ fontSize: '1.4em' }} colored /> Patreon
+                </a><br />
+                <a href="https://www.twitter.com/wowanalyzer" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 24 }}>
+                  <TwitterIcon style={{ fontSize: '1.4em' }} colored /> @WoWAnalyzer
+                </a>
+              </div>
             </div>
             <div className="col-lg-8 col-md-7">
               <News topAnchor="Announcements" />
