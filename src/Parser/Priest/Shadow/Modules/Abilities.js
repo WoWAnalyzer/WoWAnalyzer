@@ -18,9 +18,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-            return calculateMaxCasts(cooldown, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-          },
+          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
         },
       },
       {

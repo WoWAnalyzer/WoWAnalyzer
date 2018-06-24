@@ -7,7 +7,13 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
+import UnleashedDemons from './Traits/UnleashedDemons';
+
 class Abilities extends CoreAbilities {
+  static dependencies = {
+    unleashedDemons: UnleashedDemons,
+  };
+
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
@@ -27,7 +33,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 300 - combatant.owner.modules.unleashedDemons.traitCooldownReduction,
+        cooldown: 300 - this.unleashedDemons.traitCooldownReduction,
         gcd: {
           base: 1500,
         },
