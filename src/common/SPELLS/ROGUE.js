@@ -267,6 +267,21 @@ export default {
   },
 
   //Assassination
+  DEADLY_POISON: {
+    id: 2823,
+    name: 'Deadly Poison',
+    icon: 'ability_rogue_dualweild',
+  },
+  WOUND_POISON: {
+    id: 8679,
+    name: 'Wound Poison',
+    icon: 'inv_misc_herb_16',
+  },
+  CRIPPLING_POISON: {
+    id: 3408,
+    name: 'Crippling Poison',
+    icon: 'ability_poisonsting',
+  },
 
   //Builders
   MUTILATE: {

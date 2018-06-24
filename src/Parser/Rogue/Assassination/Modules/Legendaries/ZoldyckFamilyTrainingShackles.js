@@ -8,10 +8,6 @@ import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
-* Equip: Your Poisons and Bleeds deal 30% increased damage to targets below 30% health.
-*/
-
 const POISONS_AND_BLEEDS = [
   SPELLS.DEADLY_POISON_PROC.id,
   SPELLS.DEADLY_POISON_DOT.id,
@@ -33,6 +29,9 @@ const ZOLDYCK_FAMILY_TRAINING_SHACKLES = {
   HEALTH_PERCENT: .3,
 };
 
+/**
+ * Equip: Your Poisons and Bleeds deal 30% increased damage to targets below 30% health.
+ */
 class ZoldyckFamilyTrainingShackles extends Analyzer {
   bonusDamage = 0;
 

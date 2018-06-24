@@ -8,12 +8,11 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
-/*
-* Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
-*/
-
 const VENDETTA_CDR_PER_ENERGY = 1 / 65;
 
+/**
+* Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
+*/
 class DuskwalkersFootpads extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,

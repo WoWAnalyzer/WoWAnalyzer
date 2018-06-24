@@ -1,29 +1,208 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import MasterAssassin from './Traits/MasterAssassin';
 
 class Abilities extends CoreAbilities {
-  static dependencies = {
-    masterAssassin: MasterAssassin,
-  };
-
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+      // Rotational
+      {
+        spell: SPELLS.ENVENOM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.GARROTE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 6,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.MUTILATE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.POISONED_KNIFE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.RUPTURE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      // Rotational AOE
+      {
+        spell: SPELLS.FAN_OF_KNIVES,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          static: 1000,
+        },
+      },
+      // Cooldowns
+      {
+        spell: SPELLS.VENDETTA,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
       {
         spell: SPELLS.VANISH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
       },
+      // Defensive
       {
-        spell: SPELLS.VENDETTA, // TODO: Reduced by Convergence of Fates
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120 - this.masterAssassin.traitCooldownReduction,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 1.0,
+        spell: SPELLS.CLOAK_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.CRIMSON_VIAL,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
         },
       },
+      {
+        spell: SPELLS.EVASION,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.EVASION.id,
+        cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.FEINT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.FEINT.id,
+        cooldown: 15,
+        gcd: {
+          static: 1000,
+        },
+      },
+      // Others
+      {
+        spell: SPELLS.DEADLY_POISON,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+      },
+      {
+        spell: SPELLS.WOUND_POISON,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+      },
+      {
+        spell: SPELLS.CRIPPLING_POISON,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+      },
+      // Utility
+      {
+        spell: SPELLS.SHADOWSTEP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SPRINT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.TRICKS_OF_THE_TRADE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.STEALTH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 2,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.BLIND,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 120,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHEAP_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.DISTRACT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.KICK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.KIDNEY_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.SAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.SHROUD_OF_CONCEALMENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 6 * 60,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.PICK_LOCK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.PICK_POCKET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
+      },
+
+
+
+
+
+
+
+
+
+
+
+
       {
         spell: SPELLS.TOXIC_BLADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -66,59 +245,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id),
       },
       {
-        spell: SPELLS.RUPTURE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.ENVENOM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.MUTILATE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.POISONED_KNIFE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.FAN_OF_KNIVES,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.GARROTE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
-      },
-      {
-        spell: SPELLS.FEINT,
-        buffSpellId: SPELLS.FEINT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: {
-          static: 1000,
-        },
       },
       {
         spell: SPELLS.CRIMSON_VIAL,
@@ -127,20 +256,6 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      },
-      {
-        spell: SPELLS.EVASION,
-        buffSpellId: SPELLS.EVASION.id,
-        cooldown: 120,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      },
-      {
-        spell: SPELLS.KIDNEY_SHOT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 20,
-        gcd: {
-          static: 1000,
-        },
       },
     ];
   }
