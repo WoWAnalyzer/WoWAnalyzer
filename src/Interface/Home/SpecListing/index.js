@@ -15,7 +15,7 @@ class SpecListing extends React.PureComponent {
         <header>
           <div className="row">
             <div className="col-md-12">
-              <h1><FingerprintFilledIcon /> Specializations</h1>
+              <h1 id="Specializations"><FingerprintFilledIcon /> Specializations</h1>
             </div>
           </div>
         </header>

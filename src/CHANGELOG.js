@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-06-24'),
+    changes: 'Added an "About WoWAnalyzer" panel to the home page and updated the announcement.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-24'),
     changes: 'The report history panel will be hidden where there are no entries.',
     contributors: [Zerotorescue],
   },
