@@ -18,21 +18,28 @@ class ComboPoints extends Analyzer {
 
   suggestions(when) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.MUTILATE,
+      spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
+      minor: 0,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.MARKED_FOR_DEATH_TALENT),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.MUTILATE, // 2 CP
       minor: 0,
       avg: 0.05,
       major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.MUTILATE),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GARROTE,
+      spell: SPELLS.GARROTE, // 1 CP
       minor: 0,
       avg: 0.1,
       major: 0.2,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GARROTE),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.FAN_OF_KNIVES,
+      spell: SPELLS.FAN_OF_KNIVES, // 1 CP
       minor: 0,
       avg: 0.05,
       major: 0.1,
@@ -46,11 +53,25 @@ class ComboPoints extends Analyzer {
       extraSuggestion: this.makeExtraSuggestion(SPELLS.BLINDSIDE_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.POISONED_KNIFE, // 1 CP
+      minor: 0,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.POISONED_KNIFE),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.TOXIC_BLADE_TALENT, // 1 CP
       minor: 0,
       avg: 0.05,
       major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.TOXIC_BLADE_TALENT),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.CHEAP_SHOT, // 2 CP
+      minor: 0,
+      avg: 0.1,
+      major: 0.2,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.CHEAP_SHOT),
     });
   }
 }

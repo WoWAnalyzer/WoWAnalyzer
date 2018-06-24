@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GARROTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
+        cooldown: 6, // TODO: Subterfuge
         gcd: {
           static: 1000,
         },
