@@ -27,13 +27,13 @@ class Tier21_2p extends Analyzer {
   focusGeneratorCasts = {
     [SPELLS.STEADY_SHOT_FOCUS.id]: {
       casts: 0,
-      baselineFocusGain: 8,
+      baselineFocusGain: 10,
       actualGain: 0,
       potentialGain: 0,
     },
     [SPELLS.RAPID_FIRE_FOCUS.id]: {
       casts: 0,
-      baselineFocusGain: 8,
+      baselineFocusGain: 1,
       actualGain: 0,
       potentialGain: 0,
     },

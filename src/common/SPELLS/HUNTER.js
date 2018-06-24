@@ -618,8 +618,12 @@ export default {
     name: 'Trick Shots',
     icon: 'ability_hunter_focusfire',
   },
+  LONE_WOLF_BUFF: {
+    id: 164273,
+    name: 'Lone Wolf',
+    icon: 'spell_hunter_lonewolf',
+  },
 
-  //TODO: Survival needs to be run through for BFA changes
   //Survival:
   ASPECT_OF_THE_EAGLE: {
     id: 186289,
