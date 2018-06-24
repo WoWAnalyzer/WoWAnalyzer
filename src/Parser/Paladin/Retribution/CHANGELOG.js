@@ -5,6 +5,11 @@ import { Hewhosmites, Zerotorescue, Juko8} from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-06-24'),
+    changes: <React.Fragment>Updated modules for <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /></React.Fragment>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-06-21'),
     changes: 'Talents and abilities updated for 8.0. Artifact traits and related analysis removed',
     contributors: [Juko8],

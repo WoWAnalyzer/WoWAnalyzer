@@ -18,12 +18,12 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import HolyPowerDetails from '../HolyPower/HolyPowerDetails';
-import BoWProcTracker from '../PaladinCore/BoWProcTracker';
+import ArtOfWar from '../PaladinCore/ArtOfWar';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
 import SoulOfTheHighlord from '../Items/SoulOfTheHighlord';
-import Crusade from '../PaladinCore/Crusade';
+import Crusade from '../Talents/Crusade';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -37,7 +37,7 @@ class Checklist extends CoreChecklist {
     abilityTracker: AbilityTracker,
 
     holyPowerDetails: HolyPowerDetails,
-    boWProcTracker: BoWProcTracker,
+    artOfWar: ArtOfWar,
     judgment: Judgment,
     liadrins: Liadrins,
     soulOfTheHighlord: SoulOfTheHighlord,
@@ -122,8 +122,8 @@ class Checklist extends CoreChecklist {
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <React.Fragment><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon /> procs consumed</React.Fragment>,
-  					check: () => this.boWProcTracker.suggestionThresholds,
+             name: <React.Fragment><SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs used</React.Fragment>,
+             check: () => this.artOfWar.suggestionThresholds,
   				}),
   			];
   		},
