@@ -15,7 +15,7 @@ import ReportSelecter from './ReportSelecter';
 
 import './Header.css';
 
-const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch' */ 'Interface/Character/Search').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'Interface/Character/Search').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
