@@ -531,6 +531,11 @@ export default {
     name: 'Steady Shot',
     icon: 'ability_hunter_steadyshot',
   },
+  STEADY_SHOT_FOCUS: {
+    id: 77443,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
@@ -553,6 +558,11 @@ export default {
   },
   RAPID_FIRE_DAMAGE: {
     id: 257045,
+    name: 'Rapid Fire',
+    icon: 'ability_hunter_efficiency',
+  },
+  RAPID_FIRE_FOCUS: {
+    id: 263585,
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
@@ -611,15 +621,50 @@ export default {
 
   //TODO: Survival needs to be run through for BFA changes
   //Survival:
-  MONGOOSE_BITE: {
-    id: 190928,
-    name: 'Mongoose Bite',
-    icon: 'ability_hunter_mongoosebite',
+  ASPECT_OF_THE_EAGLE: {
+    id: 186289,
+    name: 'Aspect of the Eagle',
+    icon: 'spell_hunter_aspectoftheironhawk',
+  },
+  CARVE: {
+    id: 187708,
+    name: 'Carve',
+    icon: 'ability_hunter_carve',
+  },
+  COORDINATED_ASSAULT: {
+    id: 266779,
+    name: 'Coordinated Assault',
+    icon: 'inv_coordinatedassault',
+  },
+  HARPOON: {
+    id: 190925,
+    name: 'Harpoon',
+    icon: 'ability_hunter_harpoon',
+  },
+  KILL_COMMAND_SV: {
+    id: 259489,
+    name: 'Kill Command',
+    icon: '',
+  },
+  MUZZLE: {
+    id: 187707,
+    name: 'Muzzle',
+    icon: 'ability_hunter_negate',
+  },
+  WILDFIRE_BOMB: {
+    id: 259495,
+    name: 'Wildfire Bomb',
+    icon: 'inv_wildfirebomb',
   },
   RAPTOR_STRIKE: {
     id: 186270,
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
+  },
+  SERPENT_STING_SV: {
+    id: 259491,
+    name: 'Serpent Sting',
+    icon: 'spell_hunter_exoticmunitions_poisoned',
   },
   EXPLOSIVE_TRAP_DAMAGE: {
     id: 13812,
@@ -641,45 +686,21 @@ export default {
     name: 'Lacerate',
     icon: 'ability_hunter_laceration',
   },
-  CARVE: {
-    id: 187708,
-    name: 'Carve',
-    icon: 'ability_hunter_carve',
-  },
+
   CALTROPS_DAMAGE: {
     id: 194279,
     name: 'Caltrops',
     icon: 'ability_ironmaidens_incindiarydevice',
-  },
-  ASPECT_OF_THE_EAGLE: {
-    id: 186289,
-    name: 'Aspect of the Eagle',
-    icon: 'spell_hunter_aspectoftheironhawk',
-  },
-  FLANKING_STRIKE: {
-    id: 202800,
-    name: 'Flanking Strike',
-    icon: 'ability_hunter_invigeration',
   },
   HATCHET_TOSS: {
     id: 193265,
     name: 'Hatchet Toss',
     icon: 'ability_hunter_hatchettoss',
   },
-  HARPOON: {
-    id: 190925,
-    name: 'Harpoon',
-    icon: 'ability_hunter_harpoon',
-  },
   HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
     id: 190927,
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
-  },
-  MUZZLE: {
-    id: 187707,
-    name: 'Muzzle',
-    icon: 'ability_hunter_negate',
   },
   WING_CLIP: {
     id: 195645,
@@ -688,16 +709,6 @@ export default {
   },
 
   //Survival talent buff/debuffs:
-  MOKNATHAL_TACTICS: {
-    id: 201081,
-    name: 'Mok\'Nathal Tactics',
-    icon: 'achievement_character_orc_male_brn',
-  },
-  SERPENT_STING_DEBUFF_LIVE: {
-    id: 118253,
-    name: 'Serpent Sting',
-    icon: 'ability_hunter_serpentswiftness',
-  },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
     name: 'Steel Trap',
@@ -717,11 +728,6 @@ export default {
     id: 194859,
     name: 'Dragonsfire Grenade',
     icon: 'spell_fire_incinerate',
-  },
-  THROWING_AXES_DAMAGE: {
-    id: 200167,
-    name: 'Throwing Axes',
-    icon: 'inv_throwingaxepvp320_07',
   },
 
   //Shared BFA buffs/debuffs/misc

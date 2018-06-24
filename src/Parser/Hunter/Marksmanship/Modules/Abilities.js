@@ -37,7 +37,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20,
       },
       {
         spell: SPELLS.MULTISHOT_MM,

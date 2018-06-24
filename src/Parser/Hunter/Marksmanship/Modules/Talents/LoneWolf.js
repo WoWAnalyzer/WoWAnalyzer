@@ -7,7 +7,7 @@ import SpellLink from "common/SpellLink";
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-const LONE_WOLF_MODIFIER = 0.18;
+const LONE_WOLF_MODIFIER = 0.10;
 
 /**
  * Increases your damage by 18%, but you can no longer use Call Pet.
