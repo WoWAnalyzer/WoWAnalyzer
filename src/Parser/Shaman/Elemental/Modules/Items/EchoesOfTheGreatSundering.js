@@ -79,7 +79,6 @@ class EchoesOfTheGreatSundering extends Analyzer {
             this.buffedEarthquakeDamage += event.amount;
             this.buffedBaseDamageSum += baseDamage;
             this.buffedTickCounter++;
-            console.log(this.buffedBaseDamageSum);
             return;
           }
         }
@@ -89,7 +88,6 @@ class EchoesOfTheGreatSundering extends Analyzer {
             this.unbuffedEarthquakeDamage += event.amount;
             this.unbuffedBaseDamageSum += baseDamage;
             this.unbuffedTickCounter++;
-            console.log(this.unbuffedBaseDamageSum);
             return;
           }
         }
