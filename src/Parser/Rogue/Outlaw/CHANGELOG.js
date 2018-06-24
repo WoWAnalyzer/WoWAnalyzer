@@ -1,10 +1,10 @@
-import { tsabo } from 'CONTRIBUTORS';
+import { tsabo, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
     date: new Date('2018-06-24'),
     changes: 'Update all abilities to new BFA values.',
-    contributors: [tsabo],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-12'),

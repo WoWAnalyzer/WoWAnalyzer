@@ -5,9 +5,14 @@ import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
-import { tsabo, Cloake, Hewhosmites } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-06-24'),
+    changes: 'Update all abilities to new BFA values.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-03-01'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id} icon /></React.Fragment>,
