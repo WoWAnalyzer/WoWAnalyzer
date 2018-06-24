@@ -13,21 +13,10 @@ class Judgment extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-<<<<<<< HEAD
   templarsVerdictConsumptions = 0;
   divineStormConsumptions = 0;
   justicarsVengeanceConsumptions = 0;
   judgmentsApplied = 0;
-=======
-  _hasES = false;
-  totalSpender = 0;
-  spenderOutsideJudgment = 0;
-
-  constructor(...args) {
-    super(...args);
-    this._hasES = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
-  }
->>>>>>> upstream/bfa
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;

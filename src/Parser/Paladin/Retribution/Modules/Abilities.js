@@ -224,15 +224,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
-<<<<<<< HEAD
         cooldown: 45,
         isOnGCD: true,
-=======
-        cooldown: 60,
         gcd: {
           base: 1500,
         },
->>>>>>> upstream/bfa
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
