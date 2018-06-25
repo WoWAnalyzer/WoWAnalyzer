@@ -25,6 +25,7 @@ import Whisper from '../Items/WhisperOfTheNathrezim';
 import SoulOfTheHighlord from '../Items/SoulOfTheHighlord';
 import Crusade from '../Talents/Crusade';
 import Inquisition from '../Talents/Inquisition';
+import RighteousVerdict from '../Talents/RighteousVerdict';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -45,6 +46,7 @@ class Checklist extends CoreChecklist {
     whisper: Whisper,
     crusade: Crusade,
     inquisition: Inquisition,
+    righteousVerdict: RighteousVerdict,
 	};
 
   rules = [
@@ -132,12 +134,17 @@ class Checklist extends CoreChecklist {
             check: () => this.inquisition.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.INQUISITION_TALENT.id),
           }),
+          new Requirement({
+            name: <React.Fragment></React.Fragment>,
+            check: () => this.righteousVerdict.suggestionThresholds,
+            when: combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id),
+          }),
         ];
       },
     }),
   	new Rule({
   		name: 'Use your Holy Power efficently',
-  		description: "Holy Power is your main resource, it's very important not to not waste it.",
+  		description: "Holy Power is your main resource, it's very important not to waste it.",
   		requirements: () => {
   			return [
   				new Requirement({
