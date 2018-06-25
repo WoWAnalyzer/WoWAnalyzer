@@ -225,7 +225,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
-        isOnGCD: true,
         gcd: {
           base: 1500,
         },
