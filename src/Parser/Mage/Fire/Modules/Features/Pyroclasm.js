@@ -181,7 +181,7 @@ class Pyroclasm extends Analyzer {
   suggestions(when) {
     when(this.procUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
+        return suggest(<React.Fragment>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast <SpellLink id={SPELLS.PYROBLAST.id} /> casts deal triple damage, so try and use them as quickly as possible to avoid losing over overwriting the procs.</React.Fragment>)
           .icon(SPELLS.PYROCLASM_TALENT.icon)
           .actual(`${formatPercentage(this.procUtilization)}% Utilization`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

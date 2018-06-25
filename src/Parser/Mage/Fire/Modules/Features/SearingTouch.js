@@ -26,13 +26,14 @@ class SearingTouch extends Analyzer {
     if (spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id) {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
-    }
-    if (this.healthPercent < .30) {
-      this.totalCasts += 1;
-    }
-    if (spellId === SPELLS.FIREBALL.id && this.healthPercent < .15) {
-      this.badCasts += 1;
-      debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+
+      if (this.healthPercent < .30) {
+        this.totalCasts += 1;
+      }
+      if (spellId === SPELLS.FIREBALL.id && this.healthPercent < .30) {
+        this.badCasts += 1;
+        debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      }
     }
   }
 
@@ -59,7 +60,7 @@ class SearingTouch extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> you should always make sure you are using Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</React.Fragment>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);
