@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
-import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
+import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
+import Snapshot from '../FeralCore/Snapshot';
 
 /**
  * Identify inefficient refreshes of the Rake DoT:
@@ -18,7 +19,6 @@ import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCor
  */
 const FORGIVE_PROWL_LOSS_TIME = 1000;
 
-const RAKE_BASE_DURATION = 15000;
 class RakeSnapshot extends Snapshot {
   static spellCastId = SPELLS.RAKE.id;
   static debuffId = SPELLS.RAKE_BLEED.id;

@@ -6,6 +6,7 @@ import RakeBleed from './Modules/Normalizers/RakeBleed';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
@@ -20,6 +21,7 @@ import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
+import Predator from './Modules/Talents/Predator';
 
 import AshamanesRip from './Modules/Traits/AshamanesRip';
 
@@ -38,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ferociousBiteEnergy: FerociousBiteEnergy,
+    spellUsable: SpellUsable,
 
     // bleeds
     rakeUptime: RakeUptime,
@@ -50,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
     savageRoarDmg: SavageRoarDmg,
+    predator: Predator,
 
     // resources
     comboPointTracker: ComboPointTracker,

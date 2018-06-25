@@ -6,8 +6,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
-import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
+import Snapshot from '../FeralCore/Snapshot';
 import ComboPointTracker from '../ComboPoints/ComboPointTracker';
+import { RIP_BASE_DURATION, BITE_EXECUTE_RANGE, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
 
 const debug = false;
 
@@ -36,9 +37,7 @@ const debug = false;
  * Casting the 4 combo point rip was a mistake. But early-refreshing it with a non-buffed 5 combo point rip is also an error.
  */
 
-const RIP_BASE_DURATION = 24000;
 const RIP_POWER_PER_COMBO = 0.20;
-const BITE_EXECUTE_RANGE = 0.25;
 
 class RipSnapshot extends Snapshot {
   static dependencies = {
