@@ -24,7 +24,7 @@ class RighteousVerdict extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id) {
+    if (spellId === SPELLS.TEMPLARS_VERDICT.id) {
       if (this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
         this.spenderInsideBuff++;
       }
@@ -40,20 +40,6 @@ class RighteousVerdict extends Analyzer {
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
       this.damageDone += GetDamageBonus(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
-        value={this.damageDone}
-        label="Damage Done"
-        tooltip={`
-           The effective damage contributed by Righteous Verdict.<br/>
-           Total Damage: ${formatNumber(this.damageDone)}<br/>
-           Buffed Casts: ${formatNumber(this.spenderInsideBuff)} (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)`}
-      />
-    );
   }
 
   get suggestionThresholds() {
@@ -75,6 +61,20 @@ class RighteousVerdict extends Analyzer {
         .actual(`${formatPercentage(actual)}% of Templars Verdicts with the buff`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
+        value={this.damageDone}
+        label="Damage Done"
+        tooltip={`
+           The effective damage contributed by Righteous Verdict.<br/>
+           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)<br/>
+           Buffed Casts: ${formatNumber(this.spenderInsideBuff)}`}
+      />
+    );
   }
   statisticOrder = STATISTIC_ORDER.CORE(7);
 }

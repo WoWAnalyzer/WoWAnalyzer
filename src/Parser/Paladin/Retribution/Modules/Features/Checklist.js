@@ -135,7 +135,7 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.INQUISITION_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment></React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency</React.Fragment>,
             check: () => this.righteousVerdict.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id),
           }),
