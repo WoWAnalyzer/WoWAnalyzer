@@ -34,6 +34,7 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.MONGOOSE_BITE_TALENT.id,
   SPELLS.WING_CLIP.id,
   SPELLS.CHAKRAMS_TALENT.id,
+  SPELLS.SERPENT_STING_SV.id,
   //shared
   SPELLS.REVIVE_PET_AND_MEND_PET.id,
   SPELLS.A_MURDER_OF_CROWS_TALENT.id,
@@ -140,6 +141,12 @@ class FocusUsage extends Analyzer {
       focusUsed: 0,
       name: SPELLS.WING_CLIP.name,
       color: '#ecda4c',
+    },
+    [SPELLS.SERPENT_STING_SV.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.SERPENT_STING_SV.name,
+      color: '#ecd1b6',
     },
     [SPELLS.MONGOOSE_BITE_TALENT.id]: {
       casts: 0,
