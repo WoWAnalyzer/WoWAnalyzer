@@ -8,11 +8,8 @@ import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import Havoc from './Modules/Features/Havoc';
 
 
-import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import SoulShardTrackerV2 from './Modules/SoulShards/SoulShardTrackerV2';
-import SoulShardDetailsV2 from './Modules/SoulShards/SoulShardDetailsV2';
 
 import Backdraft from './Modules/Features/Backdraft';
 import Eradication from './Modules/Talents/Eradication';
@@ -46,11 +43,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     havoc: Havoc,
-    soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    soulShardTrackerV2: SoulShardTrackerV2,
-    soulShardDetailsV2: SoulShardDetailsV2,
 
     // Talents
     backdraft: Backdraft,

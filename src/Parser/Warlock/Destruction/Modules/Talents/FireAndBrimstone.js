@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import SpellIcon from 'common/SpellIcon';
@@ -9,14 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
-import SoulShardEvents from '../SoulShards/SoulShardEvents';
-
 class FireAndBrimstone extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-    soulShardEvents: SoulShardEvents,
-  };
-
   _primaryTargets = [];
 
   generatedCleaveFragments = 0;
@@ -24,7 +16,7 @@ class FireAndBrimstone extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -38,6 +30,7 @@ class FireAndBrimstone extends Analyzer {
     });
   }
 
+  // TODO: verify how this works on BFA (if still on cast or damage or how)
   on_soulshardfragment_gained(event) {
     if (event.ability.guid !== SPELLS.INCINERATE.id) {
       return;
