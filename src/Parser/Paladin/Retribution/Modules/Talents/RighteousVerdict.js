@@ -72,7 +72,7 @@ class RighteousVerdict extends Analyzer {
         label="Damage Done"
         tooltip={`
            The effective damage contributed by Righteous Verdict.<br/>
-           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)<br/>
+           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} %)<br/>
            Buffed Casts: ${formatNumber(this.spendersInsideBuff)} (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)`}
       />
     );
