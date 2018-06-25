@@ -13,6 +13,7 @@ import DivinePurpose from './Modules/Talents/DivinePurpose';
 import ArtOfWar from './Modules/PaladinCore/ArtOfWar';
 import Retribution from './Modules/PaladinCore/Retribution';
 import Crusade from './Modules/Talents/Crusade';
+import Inquisition from './Modules/Talents/Inquisition';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
+    inquisition: Inquisition,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
