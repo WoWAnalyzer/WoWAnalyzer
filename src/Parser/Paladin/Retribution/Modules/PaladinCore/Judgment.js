@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -12,7 +11,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Judgment extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
   templarsVerdictConsumptions = 0;
@@ -83,7 +81,7 @@ class Judgment extends Analyzer {
   }
 
   statistic() {
-    const justicarsVengeanceText = this.combatants.selected.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
+    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
