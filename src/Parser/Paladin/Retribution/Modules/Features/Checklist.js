@@ -94,7 +94,7 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT} icon /> buff</React.Fragment>,
+            name: <React.Fragment>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> buff</React.Fragment>,
             check: () => this.crusade.suggestionThresholds,
             when: this.crusade.active,
           }),
