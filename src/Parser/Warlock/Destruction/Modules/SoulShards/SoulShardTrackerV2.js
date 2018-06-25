@@ -5,7 +5,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
-const debug = true;
+const debug = false;
 
 const DAMAGE_GENERATORS = {
   [SPELLS.IMMOLATE_DEBUFF.id]: () => 1, // has 50% chance of additional fragment on crit
@@ -67,18 +67,21 @@ class SoulShardTrackerV2 extends ResourceTracker {
         debug && console.log(`Missing ${missingFragments} fragments, Immolate critted ${this.immolateCrits}x, Rain of Fire hit ${this.rainOfFireHits}x`);
         if (!this.hasInferno) {
           // if we're not running Inferno, there's no other way to get random fragments than Immolate
-          debug && console.log('Adding all to Immolate');
-          this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, missingFragments);
+          // ... or it's an Infernal bug again, we can't account more fragments than there were events possibly causing them
+          debug && console.log(`Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`);
+          this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, Math.min(missingFragments, this.immolateCrits));
         }
         else {
           const distribution = this._getRandomFragmentDistribution(this.immolateCrits, this.rainOfFireHits, missingFragments);
-          debug && console.log(`Adding ${distribution.immolate} to Immolate, ${distribution.rainOfFire} to Rain of Fire`);
-          if (distribution.immolate > 0) {
+          const actualImmolate = Math.min(distribution.immolate, this.immolateCrits);
+          const actualRain = Math.min(distribution.rainOfFire, this.rainOfFireHits);
+          debug && console.log(`Adding ${actualImmolate} to Immolate, ${actualRain} to Rain of Fire`);
+          if (actualImmolate > 0) {
             // so we don't get "empty" energizes, meaning 0 generated, 0 wasted but still 1 cast
-            this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, distribution.immolate);
+            this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, actualImmolate);
           }
-          if (distribution.rainOfFire > 0) {
-            this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, distribution.rainOfFire);
+          if (actualRain > 0) {
+            this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, actualRain);
           }
         }
       }

@@ -68,7 +68,8 @@ class SoulShardDetailsV2 extends Analyzer {
       render: () => (
         <Tab>
           <Warning style={{ marginLeft: 0, marginRight: 0 }}>
-            Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in.
+            Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in. <br />
+            Summon Infernal also has a very inconsistent shard generation which might mess up the tracking as well. Take this tab with a grain of salt.
           </Warning>
           <ResourceBreakdown
             tracker={this.soulShardTrackerV2}
