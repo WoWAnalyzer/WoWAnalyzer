@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -14,15 +13,11 @@ import SpellLink from 'common/SpellLink';
 const MS_BUFFER = 50;
 
 class FrizzosFingertrap extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   spreadLacerates = 0;
   castTimestamp = 0;
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.FRIZZOS_FINGERTRAP.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.FRIZZOS_FINGERTRAP.id);
   }
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;

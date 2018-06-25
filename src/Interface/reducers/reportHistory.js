@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 
-import { APPEND_REPORT_HISTORY } from 'actions/reportHistory';
+import { APPEND_REPORT_HISTORY } from 'Interface/actions/reportHistory';
 
 const MAX_ITEMS = 5;
 const cookies = new Cookies();

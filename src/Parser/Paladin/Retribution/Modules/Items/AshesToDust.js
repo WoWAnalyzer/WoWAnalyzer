@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -12,7 +11,6 @@ const ASHES_TO_DUST_MODIFIER = 0.15;
 
 class AshesToDust extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -20,7 +18,7 @@ class AshesToDust extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasShoulder(ITEMS.ASHES_TO_DUST.id) && this.combatants.selected.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && this.selectedCombatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

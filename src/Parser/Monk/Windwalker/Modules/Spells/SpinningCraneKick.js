@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -10,7 +9,6 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     statTracker: StatTracker,
   };

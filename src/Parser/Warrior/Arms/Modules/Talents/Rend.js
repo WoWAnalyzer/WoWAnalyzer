@@ -5,13 +5,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import ExecuteRange from '../Features/ExecuteRange';
 
 class RendAnalyzer extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     executeRange: ExecuteRange,
   };
 
@@ -20,7 +18,7 @@ class RendAnalyzer extends Analyzer {
 
   constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasTalent(SPELLS.REND_TALENT.id);
+		this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
 	}
 
   on_byPlayer_cast(event) {

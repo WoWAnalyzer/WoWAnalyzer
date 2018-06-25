@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FullscreenError from 'Main/FullscreenError';
-import ErrorBoundary from 'Main/ErrorBoundary';
-import ApiDownBackground from 'Main/Images/api-down-background.gif';
+import FullscreenError from 'Interface/common/FullscreenError';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
+import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 
 class RootErrorBoundary extends React.Component {
   static propTypes = {

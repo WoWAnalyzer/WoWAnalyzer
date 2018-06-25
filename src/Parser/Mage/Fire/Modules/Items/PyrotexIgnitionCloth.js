@@ -2,14 +2,12 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COMBUST_REDUCTION_MS = 9000;
 
 class PyrotexIgnitionCloth extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -17,7 +15,7 @@ class PyrotexIgnitionCloth extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasHands(ITEMS.PYROTEX_IGNITION_CLOTH.id);
+    this.active = this.selectedCombatant.hasHands(ITEMS.PYROTEX_IGNITION_CLOTH.id);
   }
 
   on_byPlayer_cast(event) {

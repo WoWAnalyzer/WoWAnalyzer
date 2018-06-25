@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import DanceDamageTracker from './../RogueCore/DanceDamageTracker';
@@ -16,7 +15,6 @@ class CastsInShadowDance extends Analyzer {
   static dependencies = {
     damageTracker: DamageTracker,
     danceDamageTracker: DanceDamageTracker,
-    combatants: Combatants,
   };
 
   suggestions(when) {    
@@ -26,7 +24,7 @@ class CastsInShadowDance extends Analyzer {
   }
   
   statistic() {
-    const shadowDanceUptime = this.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
+    const shadowDanceUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} />}

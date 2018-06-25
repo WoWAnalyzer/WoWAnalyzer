@@ -6,14 +6,12 @@ import SpellLink from 'common/SpellLink';
 import { formatDuration } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
 class ThundergodsVigor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -22,7 +20,7 @@ class ThundergodsVigor extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.THUNDERGODS_VIGOR.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.THUNDERGODS_VIGOR.id);
   }
 
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
@@ -31,14 +30,13 @@ const AFFECTED_SPELLS = new Set([
 class OdrShawlOfTheYmirjar extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   bonusDmg = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBack(ITEMS.ODR_SHAWL_OF_THE_YMIRJAR.id);
+    this.active = this.selectedCombatant.hasBack(ITEMS.ODR_SHAWL_OF_THE_YMIRJAR.id);
   }
 
   on_byPlayer_damage(event) {

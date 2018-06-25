@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const FULL_POWER_STACKS = 10;
@@ -32,7 +31,6 @@ const FULL_POWER_APPLY_WINDOW_MS = 2000;
 class CharmOfTheRisingTide extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
-    combatants: Combatants,
   };
 
   hastePerStack = 0;
@@ -41,9 +39,9 @@ class CharmOfTheRisingTide extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.CHARM_OF_THE_RISING_TIDE.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.CHARM_OF_THE_RISING_TIDE.id);
     if (this.active) {
-      const itemDetails = this.combatants.selected.getItem(ITEMS.CHARM_OF_THE_RISING_TIDE.id);
+      const itemDetails = this.selectedCombatant.getItem(ITEMS.CHARM_OF_THE_RISING_TIDE.id);
       this.hastePerStack = calculateSecondaryStatDefault(900, 576, itemDetails.itemLevel);
     }
   }

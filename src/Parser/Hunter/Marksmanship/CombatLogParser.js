@@ -15,7 +15,7 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from "./Modules/Items/Tier19_2p";
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
-
+import LoneWolf from './Modules/Spells/LoneWolf';
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -33,8 +33,8 @@ import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
 import ZevrimsHunger from './Modules/Items/ZevrimsHunger';
 
-
-
+//Traits and Talents
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +75,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     trueshot: Trueshot,
+    loneWolf: LoneWolf,
+
+    //Traits and talents
+    traitsAndTalents: TraitsAndTalents,
   };
 }
 

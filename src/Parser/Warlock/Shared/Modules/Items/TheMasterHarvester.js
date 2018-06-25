@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -12,25 +11,21 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const SOUL_HARVEST_DAMAGE_BONUS = 0.2;
 
 class TheMasterHarvester extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
+    this.active = this.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this.bonusDmg += calculateEffectiveDamage(event, SOUL_HARVEST_DAMAGE_BONUS);
     }
   }
 
   on_byPlayerPet_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this.bonusDmg += calculateEffectiveDamage(event, SOUL_HARVEST_DAMAGE_BONUS);
     }
   }

@@ -7,7 +7,6 @@ import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
@@ -27,7 +26,6 @@ export const ARMOR_INT_BONUS = .05;
  */
 class BaseHealerStatValues extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };

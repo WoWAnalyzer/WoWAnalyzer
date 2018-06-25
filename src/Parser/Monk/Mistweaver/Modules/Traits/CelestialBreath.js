@@ -1,17 +1,10 @@
 import SPELLS from 'common/SPELLS';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 
 const debug = false;
 
 class CelestialBreath extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   procsCelestialBreath = 0;
   procsCelestialBreathRemove = 0;
   healsCelestialBreath = 0;
@@ -20,7 +13,7 @@ class CelestialBreath extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

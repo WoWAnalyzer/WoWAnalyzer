@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const EXTENDED_HEALING_HEALING_INCREASE = 0.05;
 
@@ -19,16 +18,12 @@ const EXTENDED_HEALING_HEALING_INCREASE = 0.05;
  */
 
 class ExtendedHealing extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
   constructor(...args) {
     super(...args);
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.EXTENDED_HEALING.id];
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.EXTENDED_HEALING.id];
     this.active = this.rank > 0;
   }
 

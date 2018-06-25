@@ -3,6 +3,7 @@
 export default {
   // Shared
   ELABORATE_PLANNING_TALENT: { id: 193640, name: "Elaborate Planning", icon: "inv_misc_map08" },
+  BLINDSIDE_TALENT: { id: 111240, name: "Blindside", icon: "ability_rogue_focusedattacks" },
   NIGHTSTALKER_TALENT: { id: 14062, name: "Nightstalker", icon: "ability_stealth" },
   SUBTERFUGE_TALENT: { id: 108208, name: "Subterfuge", icon: "rogue_subterfuge" },
   SHADOW_FOCUS_TALENT: { id: 108209, name: "Shadow Focus", icon: "rogue_shadowfocus" },
@@ -17,6 +18,8 @@ export default {
   MARKED_FOR_DEATH_TALENT: { id: 137619, name: "Marked for Death", icon: "achievement_bg_killingblow_berserker" },
   DEATH_FROM_ABOVE_TALENT: { id: 152150, name: "Death from Above", icon: "spell_rogue_deathfromabove", energyCost: 25 },
   // Assassination
+  POISON_BOMB_TALENT: { id: 255544, name: "Poison Bomb", icon: "rogue_paralytic_poison" },
+  MASTER_ASSASSIN_TALENT: { id: 255989, name: "Master Assassin", icon: "ability_criticalstrike" },
   MASTER_POISONER_TALENT: { id: 196864, name: "Master Poisoner", icon: "ability_creature_poison_06" },
   HEMORRHAGE_TALENT: { id: 16511, name: "Hemorrhage", icon: "spell_shadow_lifedrain", energyCost: 30 },
   LEECHING_POISON_TALENT: { id: 108211, name: "Leeching Poison", icon: "rogue_leeching_poison" },
@@ -24,19 +27,22 @@ export default {
   INTERNAL_BLEEDING_TALENT: { id: 154904, name: "Internal Bleeding", icon: "ability_rogue_bloodsplatter" },
   TOXIC_BLADE_TALENT: { id: 245388, name: "Toxic Blade", icon: "inv_weapon_shortblade_62", energyCost: 20 },
   VENOM_RUSH_TALENT: { id: 152152, name: "Venom Rush", icon: "rogue_venomzest" },
+  CRIMSON_TEMPEST_TALENT: { id: 121411, name: "Crimson Tempest", icon: "inv_knife_1h_cataclysm_c_05" },
   // Outlaw
   GHOSTLY_STRIKE_TALENT: { id: 196937, name: "Ghostly Strike", icon: "ability_creature_cursed_02", energyCost: 30 },
   SWORDMASTER_TALENT: { id: 200733, name: "Swordmaster", icon: "inv_sword_97" },
   QUICK_DRAW_TALENT: { id: 196938, name: "Quick Draw", icon: "inv_weapon_rifle_40" },
-  GRAPPLING_HOOK_TALENT: { id: 195457, name: "Grappling Hook", icon: "ability_rogue_grapplinghook" },
   ACROBATIC_STRIKES_TALENT: { id: 196924, name: "Acrobatic Strikes", icon: "spell_warrior_wildstrike" },
+  RETRACTABLE_HOOK_TALENT: { id: 256188, name: "Retractable Hook", icon: "ability_rogue_grapplinghook" },
   HIT_AND_RUN_TALENT: { id: 196922, name: "Hit and Run", icon: "ability_rogue_fleetfooted" },
   IRON_STOMACH_TALENT: { id: 193546, name: "Iron Stomach", icon: "inv_misc_organ_11" },
   PARLEY_TALENT: { id: 199743, name: "Parley", icon: "achievement_character_human_male" },
   DIRTY_TRICKS_TALENT: { id: 108216, name: "Dirty Tricks", icon: "ability_rogue_dirtydeeds" },
+  BLINDING_POWDER_TALENT: { id: 256165, name: "Blinding Powder", icon: "inv_misc_ammo_gunpowder_06" },
   CANNONBALL_BARRAGE_TALENT: { id: 185767, name: "Cannonball Barrage", icon: "ability_rogue_cannonballbarrage" },
   KILLING_SPREE_TALENT: { id: 51690, name: "Killing Spree", icon: "ability_rogue_murderspree" },
   SLICE_AND_DICE_TALENT: { id: 5171, name: "Slice and Dice", icon: "ability_rogue_slicedice", energyCost: 25 },
+  BLADE_RUSH_TALENT: { id: 271877, name: "Blade Rush", icon: "ability_arakkoa_spinning_blade" },
   // Subtlety
   MASTER_OF_SUBTLETY_TALENT: { id: 31223, name: "Master of Subtlety", icon: "ability_rogue_masterofsubtlety" },
   WEAPONMASTER_TALENT: { id: 193537, name: "Weaponmaster", icon: "ability_ironmaidens_bladerush" },

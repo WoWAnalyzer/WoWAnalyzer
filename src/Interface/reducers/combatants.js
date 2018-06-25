@@ -1,5 +1,5 @@
-import { SET_COMBATANTS } from 'actions/combatants';
-import { SET_REPORT } from 'actions/report';
+import { SET_COMBATANTS } from 'Interface/actions/combatants';
+import { SET_REPORT } from 'Interface/actions/report';
 
 export default function combatants(state = null, action) {
   switch (action.type) {

@@ -13,7 +13,7 @@ import StatisticsIcon from 'Interface/Icons/Statistics';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import { getResultTab } from 'selectors/url/report';
+import { getResultTab } from 'Interface/selectors/url/report';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';

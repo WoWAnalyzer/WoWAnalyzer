@@ -2,15 +2,10 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from "Parser/Core/Modules/Combatants";
 import SpellLink from 'common/SpellLink'; 
 
 //DfA needs to be used with both Symbols of Death and Shadow Dance (Dark Shadow).
 class DeathFromAbove extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   dfaTimestamp = 0;
   dfaMaxWindow = 3000;
 
@@ -19,8 +14,8 @@ class DeathFromAbove extends Analyzer {
   constructor(...args) {
     super(...args);
     //Everyone plays Dark Shadow, so I'm not supporting non-dark shadow and just disabling this.
-    this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
-      && this.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
+      && this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
   
   
@@ -42,8 +37,8 @@ class DeathFromAbove extends Analyzer {
     if(spellId !== SPELLS.EVISCERATE.id) return;
 
     //If the Dfa Eviscerate hits without Symbols or Dark Shadow Dance - we have a problem!
-    if (!this.combatants.selected.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id) 
-    || !this.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id) 
+    || !this.selectedCombatant.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id)) {
       this.failedCombos += 1;    
     }   
   }

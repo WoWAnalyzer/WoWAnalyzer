@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../Core/SharedBrews';
 
@@ -9,7 +8,6 @@ const BOC_KEG_SMASH_REDUCTION = 2000;
 
 class KegSmash extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     boc: BlackoutCombo,
     brews: SharedBrews,
   };

@@ -1,30 +1,24 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellLink from "common/SpellLink";
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-const LONE_WOLF_MODIFIER = 0.18;
+const LONE_WOLF_MODIFIER = 0.10;
 
 /**
- * Increases your damage by 18%, but you can no longer use Call Pet.
+ * Increases your damage by 10% when you do not have an active pet.
  */
 class LoneWolf extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.LONE_WOLF_TALENT.id);
-  }
-
   on_byPlayer_damage(event) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
+      return;
+    }
     if (event.targetIsFriendly) {
       // Friendly fire does not get increased
       return;
@@ -36,7 +30,7 @@ class LoneWolf extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LONE_WOLF_TALENT.id} />
+          <SpellLink id={SPELLS.LONE_WOLF_BUFF.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

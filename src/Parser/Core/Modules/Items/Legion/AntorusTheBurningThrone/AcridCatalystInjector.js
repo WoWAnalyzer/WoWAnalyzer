@@ -6,7 +6,6 @@ import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /*
 * Acrid Catalyst Injector -
@@ -15,25 +14,21 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 
 class AcridCatalystInjector extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	};
-
 	oneStatBuff = 0
 	threeStatBuff = 0
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasTrinket(ITEMS.ACRID_CATALYST_INJECTOR.id);
+		this.active = this.selectedCombatant.hasTrinket(ITEMS.ACRID_CATALYST_INJECTOR.id);
 		if (this.active) {
-			this.threeStatBuff = calculateSecondaryStatDefault(955, 2397, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
-			this.oneStatBuff = calculateSecondaryStatDefault(955, 210, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
+			this.threeStatBuff = calculateSecondaryStatDefault(955, 2397, this.selectedCombatant.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
+			this.oneStatBuff = calculateSecondaryStatDefault(955, 210, this.selectedCombatant.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
 		}
 	}
 
 	averageStatGain(spellId) {
-		const averageStacks = this.combatants.selected.getStackWeightedBuffUptime(spellId) / this.owner.fightDuration;
-		const cycleUptime = this.combatants.selected.getBuffUptime(SPELLS.CYCLE_OF_THE_LEGION.id) / this.owner.fightDuration;
+		const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(spellId) / this.owner.fightDuration;
+		const cycleUptime = this.selectedCombatant.getBuffUptime(SPELLS.CYCLE_OF_THE_LEGION.id) / this.owner.fightDuration;
 
 		return averageStacks * this.oneStatBuff + cycleUptime * this.threeStatBuff;
 	}

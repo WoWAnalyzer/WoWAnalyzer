@@ -5,20 +5,15 @@ import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const LUFFA_DAMAGE_MODIFIER = 0.25;
 
 class LuffaWrappings extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damageDone = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.LUFFA_WRAPPINGS.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.LUFFA_WRAPPINGS.id);
   }
 
   on_byPlayer_damage(event) {

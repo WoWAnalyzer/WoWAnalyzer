@@ -4,19 +4,15 @@ import ItemLink from 'common/ItemLink';
 import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const MAX_LEGENDARY_ILVL = 1000;
 const debug = false;
 
 class LegendaryUpgradeChecker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get legendaries() {
-    return Object.values(this.combatants.selected.gear).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY);
+    return Object.values(this.selectedCombatant.gear).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY);
   }
   get upgradedLegendaries() {
     return this.legendaries.filter(item => item.itemLevel >= MAX_LEGENDARY_ILVL);

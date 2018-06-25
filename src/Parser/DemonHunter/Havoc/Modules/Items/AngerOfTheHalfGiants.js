@@ -7,7 +7,6 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import FuryTracker from '../ResourceTracker/FuryTracker';
 
@@ -22,16 +21,15 @@ class AngerOfTheHalfGiants extends Analyzer {
 	static dependencies = {
 		furyTracker: FuryTracker,
 		abilityTracker: AbilityTracker,
-		combatants: Combatants,
 	};
 
 	_hasDemonBlades = false;
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasFinger(ITEMS.ANGER_OF_THE_HALF_GIANTS.id);
+		this.active = this.selectedCombatant.hasFinger(ITEMS.ANGER_OF_THE_HALF_GIANTS.id);
 		if(this.active) {
-			this._hasDemonBlades = this.combatants.selected.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
+			this._hasDemonBlades = this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
 		}
 	}
 

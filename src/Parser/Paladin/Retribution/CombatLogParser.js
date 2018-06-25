@@ -10,9 +10,9 @@ import Checklist from './Modules/Features/Checklist';
 import Judgment from './Modules/PaladinCore/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
-import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';
+import ArtOfWar from './Modules/PaladinCore/ArtOfWar';
 import Retribution from './Modules/PaladinCore/Retribution';
-import Crusade from './Modules/PaladinCore/Crusade';
+import Crusade from './Modules/Talents/Crusade';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
@@ -32,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     haste: Haste,
     // PaladinCore
     damageDone: [DamageDone, { showStatistic: true }],
+    artOfWar: ArtOfWar,
 
     // Features
     abilities: Abilities,
@@ -40,11 +41,10 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     judgment: Judgment,
     retribution: Retribution,
-    crusade: Crusade,
     
     // Talents
     divinePurpose: DivinePurpose,
-    boWProcTracker: BoWProcTracker,
+    crusade: Crusade,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

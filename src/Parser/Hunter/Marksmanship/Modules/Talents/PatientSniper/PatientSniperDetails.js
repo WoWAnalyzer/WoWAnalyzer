@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -23,7 +22,6 @@ const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 class PatientSniperDetails extends Analyzer {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -32,9 +30,9 @@ class PatientSniperDetails extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
-    this.hasPiercingShot = !!this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
-    const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
+    this.hasPiercingShot = !!this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+    const unerringArrowsRank = this.selectedCombatant.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
     this.vulnerableModifier = VULNERABLE_BONUS + unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
   }
 

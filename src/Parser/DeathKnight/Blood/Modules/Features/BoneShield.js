@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -15,7 +14,6 @@ const BONE_SHIELD_DR = 0.16;
 class BoneShield extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
@@ -28,8 +26,8 @@ class BoneShield extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasSS = this.combatants.selected.traitsBySpellId[SPELLS.SKELETAL_SHATTERING_TRAIT.id];
-    this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
+    this.hasSS = this.selectedCombatant.traitsBySpellId[SPELLS.SKELETAL_SHATTERING_TRAIT.id];
+    this.hasSD = this.selectedCombatant.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
   }
 
   get boneShieldAbsorbTooltip() {
@@ -52,7 +50,7 @@ class BoneShield extends Analyzer {
 
   on_toPlayer_damage(event) {
 
-    if (!this.combatants.selected.hasBuff(SPELLS.BONE_SHIELD.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BONE_SHIELD.id)) {
       return;
     }
 
@@ -66,7 +64,7 @@ class BoneShield extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds() {

@@ -5,14 +5,12 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 300;
 
 class RaddonsCascadingEyes extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	};
 
@@ -21,7 +19,7 @@ class RaddonsCascadingEyes extends Analyzer {
 
 	constructor(...args) {
     super(...args);
-		this.active = this.combatants.selected.hasHead(ITEMS.RADDONS_CASCADING_EYES.id);
+		this.active = this.selectedCombatant.hasHead(ITEMS.RADDONS_CASCADING_EYES.id);
 	}
 
 	on_byPlayer_damage(event) {

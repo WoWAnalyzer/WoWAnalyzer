@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import StatisticBox from "Main/StatisticBox";
@@ -16,7 +15,6 @@ import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 class KillerCobra extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
@@ -26,12 +24,12 @@ class KillerCobra extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
     if (spellId !== SPELLS.COBRA_SHOT.id) {

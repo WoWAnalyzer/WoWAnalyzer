@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
@@ -22,7 +21,6 @@ const DAMAGE_BONUS = 0.15;
 // When you cast Unstable Affliction or Seed of Corruption, all targets within 60 yards suffering from your Agony take 15% increased damage from your Corruption and Agony for 8 sec.
 class Tier21_4set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -30,7 +28,7 @@ class Tier21_4set extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

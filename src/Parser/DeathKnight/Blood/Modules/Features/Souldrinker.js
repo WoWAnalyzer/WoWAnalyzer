@@ -3,12 +3,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Souldrinker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   avgSoulDrinker = 0;
   _soulDrinker = [];
@@ -25,7 +21,7 @@ class Souldrinker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.SOULDRINKER_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.SOULDRINKER_TRAIT.id];
   }
 
   on_byPlayer_heal(event) {

@@ -1,9 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 
 // We are giving a buffer of 75% of CD due to the fact that the large
@@ -13,10 +10,6 @@ const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 const FULL_OVERCAST_LENIENCE = 0.75;
 
 class SerenityReduction extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // Holy Word reduction spells (aka things that apply the respective Serendipity)
   serendipityProccers = {
     [SPELLS.GREATER_HEAL.id]: 1.0,
@@ -39,10 +32,10 @@ class SerenityReduction extends Analyzer {
   constructor(...args) {
     super(...args);
     // Set up proper serendipity reduction values
-    if (this.combatants.selected.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.serendipityReduction += 2000;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.id)) {
       this.serendipityReduction += 1000;
       this.holy_t20_2p_active = true;
     }

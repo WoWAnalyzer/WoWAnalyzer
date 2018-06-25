@@ -38,7 +38,7 @@ class RakeSnapshot extends Snapshot {
 
   constructor(...args) {
     super(...args);
-    if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
       this.constructor.durationOfFresh = RAKE_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
     }
   }

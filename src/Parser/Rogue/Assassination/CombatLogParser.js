@@ -27,10 +27,6 @@ import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import DuskwalkersFootpads from './Modules/Legendaries/DuskwalkersFootpads';
 import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTrainingShackles';
 
-//Traits
-import MasterAssassin from './Modules/Traits/MasterAssassin';
-
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -65,9 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
 
     //Talents
-
-    //Traits
-    masterAssassin: MasterAssassin,
   };
 }
 

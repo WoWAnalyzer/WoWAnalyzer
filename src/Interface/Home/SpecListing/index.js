@@ -15,7 +15,7 @@ class SpecListing extends React.PureComponent {
         <header>
           <div className="row">
             <div className="col-md-12">
-              <h1><FingerprintFilledIcon /> Specializations</h1>
+              <h1 id="Specializations"><FingerprintFilledIcon /> Specializations</h1>
             </div>
           </div>
         </header>
@@ -30,7 +30,7 @@ class SpecListing extends React.PureComponent {
               }
               return a.spec.id - b.spec.id;
             })
-            .map(config => <Spec {...config} />)}
+            .map(config => <Spec key={config.spec.id} {...config} />)}
         </main>
       </section>
     );

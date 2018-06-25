@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getPlayerName } from 'selectors/url/report';
+import { getPlayerName } from 'Interface/selectors/url/report';
 
 import SelectorBase from './SelectorBase';
 import PlayerSelectionList from '../Report/PlayerSelectionList';

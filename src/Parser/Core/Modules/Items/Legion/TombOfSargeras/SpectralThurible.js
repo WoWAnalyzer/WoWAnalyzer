@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 // Spear appears to be kinda slow, saw hits from same spear seperated by upto a half second. Setting to full second to be safe.
@@ -14,10 +13,6 @@ const HIT_WINDOW_MS = 1000;
  * Equip: Your ranged attacks and spells have a chance to conjure a Spear of Anguish. After 3 sec the spear launches towards its target, dealing 294407 Shadow damage to all enemies it passes through.
  */
 class SpectralThurible extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
   procs = 0;
   hits = 0;
@@ -25,7 +20,7 @@ class SpectralThurible extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
   }
 
   on_byPlayer_damage(event) {

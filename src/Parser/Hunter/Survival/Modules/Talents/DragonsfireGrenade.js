@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -15,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 class DragonsfireGrenade extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -24,7 +22,7 @@ class DragonsfireGrenade extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

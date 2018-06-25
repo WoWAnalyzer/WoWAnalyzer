@@ -12,6 +12,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AIMED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 12 / (1 + haste),
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -37,7 +39,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20,
       },
       {
         spell: SPELLS.MULTISHOT_MM,

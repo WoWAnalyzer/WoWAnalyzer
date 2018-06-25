@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/HUNTER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPECS from 'common/SPECS';
@@ -28,7 +27,6 @@ const TIER_COOLDOWN_REDUCTION_MS = 3000;
 
 class CallOfTheWild extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -61,15 +59,15 @@ class CallOfTheWild extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
     //handles preemptively lowered cooldown if the SV player has this trait
-    if (this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id]) {
+    if (this.selectedCombatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id]) {
       this.baseEagleCooldown *= (1 - EMBRACE_CDR);
       this.baseCheetahCooldown *= (1 - EMBRACE_CDR);
       this.baseTurtleCooldown *= (1 - EMBRACE_CDR);
     }
     //handles preemptively lowered cooldown if the BM player has this trait
-    if (this.combatants.selected.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id]) {
+    if (this.selectedCombatant.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id]) {
       this.baseCheetahCooldown *= (1 - PATHFINDER_CDR);
     }
     this.eagleCooldownWithBracers = this.baseEagleCooldown * (1 - COTW_CDR);
@@ -109,7 +107,7 @@ class CallOfTheWild extends Analyzer {
       this.lastWildCastTime = event.timestamp;
       this.tier21WildCDR = 0;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id) && spellId === SPELLS.KILL_COMMAND.id) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id) && spellId === SPELLS.KILL_COMMAND.id) {
       const aspectIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.ASPECT_OF_THE_WILD.id);
       if (aspectIsOnCooldown) {
         const remainingMs = this.spellUsable.cooldownRemaining(SPELLS.ASPECT_OF_THE_WILD.id);
@@ -132,7 +130,7 @@ class CallOfTheWild extends Analyzer {
     tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${(this.cheetahCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.cheetahCDR / this.baseCheetahCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / this.baseTurtleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul>` : ``;
-    tooltipText += ((this.wildCDR > 0) && this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) ? `<li>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.</li>` : ``;
+    tooltipText += ((this.wildCDR > 0) && this.selectedCombatant.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) ? `<li>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.</li>` : ``;
     tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${this.aspectOfTheWildCastsGained.toFixed(2)}</li></ul>` : ``;
     tooltipText += `</ul>`;
     return {
@@ -146,8 +144,8 @@ class CallOfTheWild extends Analyzer {
   }
 
   get suggestionsThresholds() {
-    if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
-      if (this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) {
+    if (this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
+      if (this.selectedCombatant.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) {
         return {
           actual: this.aspectOfTheWildCastsGained,
           isLessThan: {

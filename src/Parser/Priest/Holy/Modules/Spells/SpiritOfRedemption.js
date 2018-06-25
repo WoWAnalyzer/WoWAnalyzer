@@ -1,11 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 class SpiritOfRedemption extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;

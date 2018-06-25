@@ -12,12 +12,9 @@ describe('Core.IronFur', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
-    }, {
-      combatants: {
-        selected: {
-          traitsBySpellId: { [SPELLS.URSOCS_ENDURANCE.id]: 0 },
-          hasBuff: () => true,
-        },
+      selectedCombatant: {
+        traitsBySpellId: { [SPELLS.URSOCS_ENDURANCE.id]: 0 },
+        hasBuff: () => true,
       },
     });
   });

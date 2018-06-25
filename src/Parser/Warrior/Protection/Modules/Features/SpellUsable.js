@@ -1,18 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
     globalCooldown: GlobalCooldown,
   };
 
   constructor(...args) {
     super(...args);
-    this.hasDevastator = this.combatants.selected.hasTalent(SPELLS.DEVASTATOR_TALENT.id);  
+    this.hasDevastator = this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id);  
   }
 
   lastPotentialTriggerForShieldSlam = null;

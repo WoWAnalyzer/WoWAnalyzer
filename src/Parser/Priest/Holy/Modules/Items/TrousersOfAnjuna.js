@@ -3,14 +3,9 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 class TrousersOfAnjuna extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _validAfterByPlayer = {};
   healing = 0;
   overhealing = 0;
@@ -18,7 +13,7 @@ class TrousersOfAnjuna extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+    this.active = this.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 
   on_byPlayer_removebuff(event) {

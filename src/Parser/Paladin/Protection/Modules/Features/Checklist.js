@@ -4,7 +4,6 @@ import CoreChecklist, { Rule } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -15,7 +14,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
@@ -33,11 +31,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLESSED_HAMMER_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-            when: this.combatants.selected.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGERS_SHIELD,
@@ -62,7 +60,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SERAPHIM_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
           }),
         ];
       },
@@ -75,11 +73,11 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
-            when: !this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
+            when: !this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EYE_OF_TYR,

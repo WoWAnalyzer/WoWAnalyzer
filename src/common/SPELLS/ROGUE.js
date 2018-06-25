@@ -43,6 +43,16 @@ export default {
     name: 'Sprint',
     icon: 'ability_rogue_sprint',
   },
+  TRICKS_OF_THE_TRADE: {
+    id: 57934,
+    name: 'Tricks of the Trade',
+    icon: 'ability_rogue_tricksofthetrade',
+  },
+  STEALTH: {
+    id: 1784,
+    name: 'Stealth',
+    icon: 'ability_stealth',
+  },
   VANISH: {
     id: 1856,
     name: 'Vanish',
@@ -58,6 +68,11 @@ export default {
     name: 'Sap',
     icon: 'ability_sap',
   },
+  SHROUD_OF_CONCEALMENT: {
+    id: 114018,
+    name: 'Shroud of Concealment',
+    icon: 'ability_rogue_shroudofconcealment',
+  },
   CHEAP_SHOT: {
     id: 1833,
     name: 'Cheap Shot',
@@ -67,6 +82,31 @@ export default {
     id: 408,
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
+  },
+  DISTRACT: {
+    id: 1725,
+    name: 'Distract',
+    icon: 'ability_rogue_distract',
+  },
+  GOUGE: {
+    id: 1776,
+    name: 'Gouge',
+    icon: 'ability_gouge',
+  },
+  GRAPPLING_HOOK: {
+    id: 195457,
+    name: 'Grappling Hook',
+    icon: 'ability_rogue_grapplinghook',
+  },
+  PICK_LOCK: {
+    id: 1804,
+    name: 'Pick Lock',
+    icon: 'spell_nature_moonkey',
+  },
+  PICK_POCKET: {
+    id: 921,
+    name: 'Pick Pocket',
+    icon: 'inv_misc_bag_11',
   },
 
   // Subtlety spells
@@ -227,6 +267,21 @@ export default {
   },
 
   //Assassination
+  DEADLY_POISON: {
+    id: 2823,
+    name: 'Deadly Poison',
+    icon: 'ability_rogue_dualweild',
+  },
+  WOUND_POISON: {
+    id: 8679,
+    name: 'Wound Poison',
+    icon: 'inv_misc_herb_16',
+  },
+  CRIPPLING_POISON: {
+    id: 3408,
+    name: 'Crippling Poison',
+    icon: 'ability_poisonsting',
+  },
 
   //Builders
   MUTILATE: {
@@ -380,10 +435,10 @@ export default {
   //Outlaw
 
   //Builders
-  SABER_SLASH: {
+  SINISTER_STRIKE: {
     id: 193315,
-    name: 'Saber Slash',
-    icon: 'ability_rogue_sabreslash',
+    name: 'Sinister Strike',
+    icon: 'spell_shadow_ritualofsacrifice',
   },
   SABER_SLASH_PROC: {
     id: 197834,
@@ -395,11 +450,6 @@ export default {
     name: 'Pistol Shot',
     icon: 'ability_rogue_pistolshot',
   },
-  BLUNDERBUSS: {
-    id: 202895,
-    name: 'Blunderbuss',
-    icon: 'inv_weapon_rifle_07',
-  },
   AMBUSH: {
     id: 8676,
     name: 'Ambush',
@@ -407,15 +457,20 @@ export default {
   },
 
   //Finishers
-  RUN_THROUGH: {
+  DISPATCH: {
     id: 2098,
-    name: 'Run Through',
+    name: 'Dispatch',
     icon: 'ability_rogue_waylay',
   },
   BETWEEN_THE_EYES: {
     id: 199804,
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
+  },
+  BLIND: {
+    id: 2094,
+    name: 'Blind',
+    icon: 'spell_shadow_mindsteal',
   },
   ROLL_THE_BONES: {
     id: 193316,
@@ -429,21 +484,6 @@ export default {
     name: 'Adrenaline Rush',
     icon: 'spell_shadow_shadowworddominate',
   },
-  CURSE_OF_THE_DREADBLADES: {
-    id: 202665,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
-  },
-  CURSE_OF_THE_DREADBLADES_DAMAGE: {
-    id: 202669,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
-  },
-  CURSE_OF_THE_DREADBLADES_CP: {
-    id: 202668,
-    name: 'Curse of the Dreadblades',
-    icon: 'inv_sword_1h_artifactskywall_d_01dual',
-  },
 
   //Other
   BLADE_FLURRY: {
@@ -455,6 +495,13 @@ export default {
     id: 22482,
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
+  },
+
+  // Passive
+  COMBAT_POTENCY: {
+    id: 61329,
+    name: 'Combat Potency',
+    icon: 'inv_weapon_shortblade_38',
   },
 
   //Buffs
@@ -500,11 +547,6 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
-  },
-  COMBAT_POTENCY: {
-    id: 35546,
-    name: 'Combat Potency',
-    icon: 'inv_weapon_shortblade_38',
   },
   GREED_1: {
     id: 202822,

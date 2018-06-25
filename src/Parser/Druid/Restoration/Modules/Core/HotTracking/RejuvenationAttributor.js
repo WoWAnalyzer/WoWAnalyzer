@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HotTracker from './HotTracker';
 
@@ -17,7 +16,6 @@ const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> 
  */
 class RejuvenationAttributor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -47,8 +45,8 @@ class RejuvenationAttributor extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
-    this.has4t19 = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
+    this.hasTearstone = this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
+    this.has4t19 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
     this.castRejuvApplied = true;
   }
 
@@ -66,7 +64,7 @@ class RejuvenationAttributor extends Analyzer {
     }
 
     // check for PotA proc
-    //const hadPota = this.combatants.selected.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
+    //const hadPota = this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
     const hadPota = this.potaFallTimestamp && this.potaFallTimestamp + BUFFER_MS > event.timestamp;
     if (spellId === SPELLS.REJUVENATION.id && hadPota) {
       this.lastPotaRejuvTimestamp = event.timestamp;

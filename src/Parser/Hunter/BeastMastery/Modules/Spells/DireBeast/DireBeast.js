@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from "common/SPELLS";
 import StatisticBox from "Main/StatisticBox";
@@ -18,7 +17,6 @@ const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
 
 class DireBeast extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -28,7 +26,7 @@ class DireBeast extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;

@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -24,7 +23,6 @@ const maxHits = 6;
 
 class Downpour extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
@@ -36,7 +34,7 @@ class Downpour extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

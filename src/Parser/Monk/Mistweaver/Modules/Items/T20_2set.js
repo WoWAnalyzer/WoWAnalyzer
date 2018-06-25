@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemManaGained from 'Main/ItemManaGained';
 
@@ -13,17 +12,13 @@ const BASEMANA = 1100000;
 const TWOSET_MANA_REDUCTION = 0.75;
 
 class T20_2set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   manaSaved = 0;
   casts = 0;
   procs = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id);
   }
 
   on_byPlayer_cast(event) {
@@ -32,7 +27,7 @@ class T20_2set extends Analyzer {
     if (spellId !== SPELLS.ENVELOPING_MISTS.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
       this.casts += 1;
       this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOSET_MANA_REDUCTION;
     }

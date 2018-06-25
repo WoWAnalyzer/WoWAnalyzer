@@ -5,20 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 
 /**
 * Equip: When you use Envenom, your Deadly and Wound poisons have 35% increased chance to critically strike for 6 sec.
 */
-
 class T21_2P extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   get percentUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
   }
 
   item() {

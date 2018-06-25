@@ -17,7 +17,7 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
   get suggestionThresholdsStellarFlare() {

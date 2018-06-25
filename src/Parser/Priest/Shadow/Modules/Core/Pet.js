@@ -1,11 +1,6 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Pet extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _damageDone = 0;
   _sourceId = null;
   _pets = {}

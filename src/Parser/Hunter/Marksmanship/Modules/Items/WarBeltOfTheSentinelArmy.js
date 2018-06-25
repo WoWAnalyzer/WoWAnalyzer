@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
@@ -17,10 +16,6 @@ const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
  * Equip: Each enemy you hit with Multi-Shot increases the damage of your next Aimed Shot by 10%, stacking up to 20 times.
  */
 class WarBeltOfTheSentinelArmy extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _currentStacks = 0;
   usedBeltStacks = 0;
   unCappedBeltStacks = 0;
@@ -30,7 +25,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasWaist(ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -57,7 +52,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const beltModifier = WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS * this._currentStacks;
-    if (!this.combatants.selected.hasBuff(SPELLS.SENTINELS_SIGHT.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SENTINELS_SIGHT.id, event.timestamp)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {

@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 
@@ -14,7 +15,6 @@ import PainbringerStacksBySeconds from './PainbringerTimesByStacks';
 
 class Painbringer extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
     painbringerTimesByStacks: PainbringerTimesByStacks,
     painbringerStacksBySeconds: PainbringerStacksBySeconds,
@@ -29,7 +29,7 @@ class Painbringer extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.PAINBRINGER_Buff.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.PAINBRINGER_Buff.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds() {

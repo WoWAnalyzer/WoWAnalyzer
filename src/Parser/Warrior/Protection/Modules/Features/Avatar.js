@@ -4,25 +4,21 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 
 class Avatar extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   bonusDmg = 0;
 
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.AVATAR_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
       return;
     } 
     

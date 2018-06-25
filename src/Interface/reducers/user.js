@@ -1,4 +1,4 @@
-import { SET_USER } from 'actions/user';
+import { SET_USER } from 'Interface/actions/user';
 
 export default function user(state = null, action) {
   switch (action.type) {

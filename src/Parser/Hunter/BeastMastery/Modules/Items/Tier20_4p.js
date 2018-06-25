@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -18,17 +17,13 @@ const debug = false;
  */
 
 class Tier20_4p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
   bestialWrathBaseModifier = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T20_4P_BONUS.id);
-    if (this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T20_4P_BONUS.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
       this.bestialWrathBaseModifier = 0.4;
     } else {
       this.bestialWrathBaseModifier = 0.25;
@@ -37,7 +32,7 @@ class Tier20_4p extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
     if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.COBRA_SHOT.id) {
@@ -49,7 +44,7 @@ class Tier20_4p extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
     if (spellId !== SPELLS.KILL_COMMAND_PET.id) {

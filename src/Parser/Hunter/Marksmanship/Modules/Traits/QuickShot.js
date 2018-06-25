@@ -1,22 +1,18 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 /**
  * Reduces the cooldown of Trueshot by 10 sec. (has diminished returns)
  */
 class QuickShot extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SHOT_TRAIT.id];
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.QUICK_SHOT_TRAIT.id];
   }
 
   get traitCooldownReduction() {
-    const player = this.combatants.selected;
+    const player = this.selectedCombatant;
     const quickShotRank = player.traitsBySpellId[SPELLS.QUICK_SHOT_TRAIT.id];
     let trueshotReduction = 0;
     //Calculates the reduction in cooldown on Trueshot, based upon the rank of the trait Quick Shot. Each rank gives diminishing values, the more ranks you get. Rank 1-3 is 10 each, then each switch case is for the subsequential 4 possibilities.

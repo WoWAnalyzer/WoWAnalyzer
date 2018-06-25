@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -16,10 +15,6 @@ const BUFF_DURATION = 10000;
 const REMOVEBUFF_TOLERANCE = 20;
 
 class Backdraft extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _maxStacks = 2;
   _stacksPerApplication = 1;
   _currentStacks = 0;
@@ -28,8 +23,8 @@ class Backdraft extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this._maxStacks = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
-    this._stacksPerApplication = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 2 : 1;
+    this._maxStacks = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
+    this._stacksPerApplication = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 2 : 1;
   }
 
   on_byPlayer_cast(event) {

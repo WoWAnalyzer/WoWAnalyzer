@@ -6,17 +6,13 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 800;
 
 const AFFECTED_ABILITIES = [
   SPELLS.AIMED_SHOT.id,
-  SPELLS.MARKED_SHOT.id,
   SPELLS.ARCANE_SHOT.id,
-  SPELLS.MULTISHOT.id,
-  SPELLS.SIDEWINDERS_TALENT.id,
   SPELLS.BURSTING_SHOT.id,
 ];
 
@@ -25,7 +21,6 @@ const AFFECTED_ABILITIES = [
  */
 class UllrsFeatherSnowshoes extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -34,7 +29,7 @@ class UllrsFeatherSnowshoes extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFeet(ITEMS.ULLRS_FEATHER_SNOWSHOES.id);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.ULLRS_FEATHER_SNOWSHOES.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;

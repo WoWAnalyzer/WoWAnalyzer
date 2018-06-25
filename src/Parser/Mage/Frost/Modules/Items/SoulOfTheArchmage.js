@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 /**
@@ -13,14 +12,11 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
  * Gain the Frozen Touch talent
  */
 class SoulOfTheArchmage extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
-    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id);
-    this.hasPickedOtherTalent = this.combatants.selected.hasTalent(SPELLS.ICE_NOVA_TALENT.id) || this.combatants.selected.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id);
+    this.hasPickedOtherTalent = this.selectedCombatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id) || this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
   }
 
   item() {
