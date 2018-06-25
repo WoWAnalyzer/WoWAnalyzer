@@ -52,7 +52,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Always be casting',
-      description: <React.Fragment>You should try to avoid doing nothing during the fight. If you have to move, use your <SpellLink id={SPELLS.DIVINE_STEED.id} icon /> to minimize downtime. Also use ranged abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon /> if out of melee range for extended periods.</React.Fragment>,
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. If you have to move, use your <SpellLink id={SPELLS.DIVINE_STEED.id} icon /> to minimize downtime. Also use ranged abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon /> if you are out of melee range for extended periods of time.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -98,7 +98,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <React.Fragment>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> buff</React.Fragment>,
             check: () => this.crusade.suggestionThresholds,
-            when: this.crusade.active,
+            when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGING_WRATH,

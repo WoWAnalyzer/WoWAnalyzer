@@ -27,6 +27,10 @@ class Inquisition extends Analyzer {
     return this.owner.getPercentageOfTotalDamageDone(this.buffedDamage);
   }
 
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.INQUISITION_TALENT.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.efficiency,
@@ -53,8 +57,8 @@ class Inquisition extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INQUISITION_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)}%`}
-        label="Buffed Damage"
-        tooltip="The relative amount of damage done while Inquisition was active"
+        label="Damage done while buffed"
+        tooltip={`Relative amount of damage done while Inquisition was active. You had Inquisition active for ${formatPercentage(this.uptime)}% of the fight`}
       />
     );
   }

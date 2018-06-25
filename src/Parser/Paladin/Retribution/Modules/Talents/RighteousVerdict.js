@@ -8,14 +8,14 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const RIGHTEOUS_VERDICT_MODIFIER = 0.15;
 
 class RighteousVerdict extends Analyzer {
   damageDone = 0;
-  spenderInsideBuff = 0;
-  totalSpender = 0;
+  spendersInsideBuff = 0;
+  totalSpenders = 0;
 
   constructor(...args) {
     super(...args);
@@ -24,11 +24,12 @@ class RighteousVerdict extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.TEMPLARS_VERDICT.id) {
-      if (this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
-        this.spenderInsideBuff++;
-      }
-      this.totalSpender++;
+    if (spellId !== SPELLS.TEMPLARS_VERDICT.id) {
+      return;
+    }
+    this.totalSpenders++;
+    if (this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
+      this.spendersInsideBuff++; 
     }
   }
 
@@ -38,13 +39,13 @@ class RighteousVerdict extends Analyzer {
       return;
     }
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
-      this.damageDone += GetDamageBonus(event, RIGHTEOUS_VERDICT_MODIFIER);
+      this.damageDone += calculateEffectiveDamage(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.spenderInsideBuff / this.totalSpender,
+      actual: this.spendersInsideBuff / this.totalSpenders,
       isLessThan: {
         minor: 0.80,
         average: 0.75,
@@ -67,12 +68,12 @@ class RighteousVerdict extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
-        value={this.damageDone}
+        value={formatNumber(this.damageDone)}
         label="Damage Done"
         tooltip={`
            The effective damage contributed by Righteous Verdict.<br/>
-           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)<br/>
-           Buffed Casts: ${formatNumber(this.spenderInsideBuff)}`}
+           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)<br/>
+           Buffed Casts: ${formatNumber(this.spendersInsideBuff)} (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)`}
       />
     );
   }
