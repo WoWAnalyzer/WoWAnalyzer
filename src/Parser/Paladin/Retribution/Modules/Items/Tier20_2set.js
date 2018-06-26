@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Haste from 'Parser/Core/Modules/Haste';
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
@@ -33,7 +33,7 @@ class Tier20_2set extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id)) {
-      this.damageDone += GetDamageBonus(event, RET_PALADIN_T20_2SET_MODIFIER);
+      this.damageDone += calculateEffectiveDamage(event, RET_PALADIN_T20_2SET_MODIFIER);
     }
   }
 

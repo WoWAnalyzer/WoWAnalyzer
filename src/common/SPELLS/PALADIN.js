@@ -357,6 +357,11 @@ export default {
     name: 'Art of War',
     icon: 'ability_paladin_artofwar',
   },
+  RIGHTEOUS_VERDICT_BUFF: {
+    id: 267611,
+    name: 'Righteous Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
