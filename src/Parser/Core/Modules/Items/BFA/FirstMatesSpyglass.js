@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { formatPercentage } from 'common/format';
@@ -14,7 +13,6 @@ import { formatPercentage } from 'common/format';
  */
 class FirstMatesSpyglass extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
   
@@ -22,8 +20,9 @@ class FirstMatesSpyglass extends Analyzer {
   timesHit = 0;
   timesCrit = 0;
     
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(
       ITEMS.FIRST_MATES_SPYGLASS.id
     );
     if (this.active) {
@@ -47,7 +46,7 @@ class FirstMatesSpyglass extends Analyzer {
   }
   
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {
@@ -59,7 +58,7 @@ class FirstMatesSpyglass extends Analyzer {
   }
   
   on_byPlayer_heal(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
     }      
     if (event.hitType !== HIT_TYPES.CRIT) {
@@ -71,7 +70,7 @@ class FirstMatesSpyglass extends Analyzer {
   }
   
   get totalBuffUptime() {
-      return this.combatants.selected.getBuffUptime(SPELLS.SPYGLASS_SIGHT.id) / this.owner.fightDuration;
+      return this.selectedCombatant.getBuffUptime(SPELLS.SPYGLASS_SIGHT.id) / this.owner.fightDuration;
   }
   
   item() {

@@ -4,58 +4,76 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.COLOSSUS_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 20 - 8 : 20,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.EXECUTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SLAM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.REND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.REND_TALENT.id),
       },
       {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WHIRLWIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BLADESTORM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 90,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WARBREAKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BATTLE_CRY,

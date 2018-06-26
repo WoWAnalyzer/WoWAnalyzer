@@ -118,7 +118,7 @@ const VoidformGraph = ({
   endOfVoidformData[Math.round(voidform.duration / RESOLUTION_MS)] = 100;
   endOfVoidformData[Math.round(voidform.duration / RESOLUTION_MS) + 1] = 100;
 
-  fillData(voidTorrentData, voidform[SPELLS.VOID_TORRENT.id]);
+  fillData(voidTorrentData, voidform[SPELLS.VOID_TORRENT_TALENT.id]);
   fillData(mindbenderData, voidform[SPELLS.MINDBENDER_TALENT_SHADOW.id]);
   fillData(dispersionData, voidform[SPELLS.DISPERSION.id]);
 

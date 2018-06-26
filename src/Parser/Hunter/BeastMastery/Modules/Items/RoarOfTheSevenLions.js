@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
@@ -30,7 +29,6 @@ const STARTING_FOCUS = 120;
 
 class RoarOfTheSevenLions extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     timeFocusCapped: TimeFocusCapped,
   };
 
@@ -70,13 +68,14 @@ class RoarOfTheSevenLions extends Analyzer {
     },
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
     //If the spell cast isn't one of the focus spenders of BM, we're not interested in it
@@ -86,8 +85,8 @@ class RoarOfTheSevenLions extends Analyzer {
     this.lastFocusCost = event.classResources[0].cost || 0;
     if (spellId === SPELLS.COBRA_SHOT.id) {
       this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
-      if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
-        this.lastFocusCost -= this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
+      if (this.selectedCombatant.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
+        this.lastFocusCost -= this.selectedCombatant.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
       }
     }
     this.focusSpenderCasts[spellId].casts += 1;
@@ -130,7 +129,7 @@ class RoarOfTheSevenLions extends Analyzer {
   }
 
   get focusSavedThreshold() {
-    if (this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
       return {
         actual: this.focusSavedPercentOfAvailable,
         isLessThan: {

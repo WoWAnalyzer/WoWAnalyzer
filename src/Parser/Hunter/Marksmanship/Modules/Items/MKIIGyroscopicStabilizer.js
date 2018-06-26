@@ -4,20 +4,16 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Equip: Your Aimed Shot grants you gyroscopic stabilization, increasing the critical strike chance of your next Aimed Shot by 15% and making it castable while moving.
  */
 class MKIIGyroscopicStabilizer extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   usedBuffs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHands(ITEMS.MKII_GYROSCOPIC_STABILIZER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.MKII_GYROSCOPIC_STABILIZER.id);
   }
   on_byPlayer_removebuff(event) {
     const buffId = event.ability.guid;

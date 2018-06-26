@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TickIcon from 'Icons/Tick';
-import CrossIcon from 'Icons/Cross';
-import ChevronIcon from 'Icons/Chevron';
-import InformationIcon from 'Icons/Information';
+import TickIcon from 'Interface/Icons/Tick';
+import CrossIcon from 'Interface/Icons/Cross';
+import ChevronIcon from 'Interface/Icons/Chevron';
+import InformationIcon from 'Interface/Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';

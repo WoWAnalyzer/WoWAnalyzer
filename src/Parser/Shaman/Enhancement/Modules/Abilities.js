@@ -4,7 +4,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
@@ -20,6 +20,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DOOM_WINDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -29,6 +32,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
         cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -37,6 +43,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FERAL_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -44,6 +53,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHTNING_BOLT,
         category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WIND_SHEAR,
@@ -52,23 +64,38 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROCKBITER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FROSTBRAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id), // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FLAMETONGUE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.STORMSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.LAVA_LASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.WINDSTRIKE,
@@ -77,6 +104,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRASH_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FERAL_LUNGE,
@@ -89,16 +119,34 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
       },
       {
-        spell: SPELLS.LIGHTNING_SURGE_TOTEM,
+        spell: SPELLS.CAPACITOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 60,
-  },
-  {
+      },
+      {
         spell: SPELLS.ASTRAL_SHIFT,
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
+        spell: SPELLS.FURY_OF_AIR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id),
+      },
+      {
+        spell: SPELLS.SUNDERING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SUNDERING_TALENT.id),
       },
     ];
   }

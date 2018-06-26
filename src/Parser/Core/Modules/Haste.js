@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { HIGH_TOLERANCE_HASTE_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/HighTolerance';
 import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
@@ -12,7 +11,6 @@ const debug = false;
 
 class Haste extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -24,7 +22,7 @@ class Haste extends Analyzer {
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
+    [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.1,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
@@ -34,6 +32,8 @@ class Haste extends Analyzer {
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
+    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
+    [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
@@ -44,13 +44,14 @@ class Haste extends Analyzer {
   };
 
   current = null;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);
 
     // TODO: Move this to the Sephuz module
-    if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
+    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
     }
@@ -169,7 +170,7 @@ class Haste extends Analyzer {
   _getHasteValue(value, hasteBuff) {
     const { itemId } = hasteBuff;
     if (typeof value === 'function') {
-      const selectedCombatant = this.combatants.selected;
+      const selectedCombatant = this.selectedCombatant;
       let itemDetails;
       if (itemId) {
         itemDetails = selectedCombatant.getItem(itemId);

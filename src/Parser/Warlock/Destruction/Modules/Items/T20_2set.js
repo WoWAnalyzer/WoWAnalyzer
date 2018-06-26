@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -14,15 +13,15 @@ const CHAOS_BOLT_COST = 20;
 class T20_2set extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   _totalCasts = 0;
   _totalDamage = 0;
   _bonusFragments = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

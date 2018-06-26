@@ -5,28 +5,24 @@ import SPELLS from 'common/SPELLS';
 import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Erratic Metronome -
  * Equip: Your damaging spells have a chance to grant you 657 Haste for 12 sec, stacking up to 5 times. Stacking does not refresh duration.
  */
 class ErraticMetronome extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
+  procAmount = null;
 
-  procAmount;
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.ERRATIC_METRONOME.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.ERRATIC_METRONOME.id);
     if (this.active) {
-      this.procAmount = calculatePrimaryStat(870, 657, this.combatants.selected.getItem(ITEMS.ERRATIC_METRONOME.id).itemLevel);
+      this.procAmount = calculatePrimaryStat(870, 657, this.selectedCombatant.getItem(ITEMS.ERRATIC_METRONOME.id).itemLevel);
     }
   }
 
   get averageStacks() {
-    return this.combatants.selected.getStackWeightedBuffUptime(SPELLS.ACCELERANDO.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.ACCELERANDO.id) / this.owner.fightDuration;
   }
 
   get averageHaste() {
@@ -43,7 +39,6 @@ class ErraticMetronome extends Analyzer {
       ),
     };
   }
-
 }
 
 export default ErraticMetronome;

@@ -11,6 +11,9 @@ describe('Brewmaster.T20_2pc', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
+      selectedCombatant: {
+        hasBuff: () => true,
+      },
     });
   });
   it('tracks the number of orbs spawned by the T202pc', () => {

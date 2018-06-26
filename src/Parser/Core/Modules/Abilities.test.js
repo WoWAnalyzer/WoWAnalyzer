@@ -7,29 +7,17 @@ import Ability from './Ability';
 describe('Core/Modules/Abilities', () => {
   let instance;
   let parserMock;
-  let combatantsMock;
   let hasteMock;
-  let loadSpellbook;
   beforeEach(() => {
     // Reset mocks:
     parserMock = getParserMock();
-    combatantsMock = {
-      selected: {
-
-      },
-    };
     hasteMock = {
       current: 0,
     };
 
     instance = new Abilities(parserMock, {
-      combatants: combatantsMock,
       haste: hasteMock,
     });
-    loadSpellbook = spellbook => {
-      instance.spellbook = () => spellbook;
-      instance.on_initialized();
-    };
   });
 
   describe('getAbility', () => {
@@ -37,7 +25,7 @@ describe('Core/Modules/Abilities', () => {
       const holyShock = {
         spell: SPELLS.HOLY_SHOCK_CAST,
       };
-      loadSpellbook([
+      instance.loadSpellbook([
         {
           spell: SPELLS.LIGHT_OF_DAWN_CAST,
         },
@@ -57,7 +45,7 @@ describe('Core/Modules/Abilities', () => {
         cooldown: 8,
         enabled: true,
       };
-      loadSpellbook([
+      instance.loadSpellbook([
         {
           spell: SPELLS.HOLY_SHOCK_CAST,
           cooldown: 9,

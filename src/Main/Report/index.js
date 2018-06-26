@@ -8,17 +8,17 @@ import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } 
 import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
-import { getCombatants } from 'selectors/combatants';
-import { getError } from 'selectors/error';
-import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'selectors/url/report';
-import { getArticleId } from 'selectors/url/news';
-import { getReport } from 'selectors/report';
-import { getFightById } from 'selectors/fight';
-import { fetchReport } from 'actions/report';
-import { setReportProgress } from 'actions/reportProgress';
-import { fetchCombatants } from 'actions/combatants';
-import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'actions/error';
-import { appendReportHistory } from 'actions/reportHistory';
+import { getCombatants } from 'Interface/selectors/combatants';
+import { getError } from 'Interface/selectors/error';
+import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
+import { getArticleId } from 'Interface/selectors/url/news';
+import { getReport } from 'Interface/selectors/report';
+import { getFightById } from 'Interface/selectors/fight';
+import { fetchReport } from 'Interface/actions/report';
+import { setReportProgress } from 'Interface/actions/reportProgress';
+import { fetchCombatants } from 'Interface/actions/combatants';
+import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
+import { appendReportHistory } from 'Interface/actions/reportHistory';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import makeAnalyzerUrl from 'Main/makeAnalyzerUrl';
 
@@ -89,11 +89,6 @@ class Report extends React.Component {
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
-  createParser(ParserClass, report, fight, player) {
-    const playerPets = this.getPlayerPetsFromReport(report, player.id);
-
-    return new ParserClass(report, player, playerPets, fight);
-  }
   async setStatePromise(newState) {
     return new Promise((resolve, reject) => {
       this.setState(newState, resolve);
@@ -107,9 +102,7 @@ class Report extends React.Component {
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
     const parserClass = await config.parser();
-    const parser = this.createParser(parserClass, report, fight, player);
-    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.initialize(combatants);
+    const parser = new parserClass(report, player, fight, combatants);
     await this.setStatePromise({
       config,
       parser,
@@ -167,9 +160,7 @@ class Report extends React.Component {
       }
       timeAvailable && console.timeEnd('player event parsing');
 
-      parser.fabricateEvent({
-        type: 'finished',
-      });
+      parser.finish();
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
@@ -327,9 +318,6 @@ class Report extends React.Component {
     }
     return fetchByNameAttempt;
   }
-  getPlayerPetsFromReport(report, playerId) {
-    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
-  }
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
@@ -361,7 +349,7 @@ class Report extends React.Component {
     return (
       <React.Fragment>
         <FightNavigationBar />
-        <div style={{ marginLeft: 60 }}>
+        <div className="container">
           {!parser && <ActivityIndicator text="Initializing analyzer..." />}
           {parser && (
             <Results

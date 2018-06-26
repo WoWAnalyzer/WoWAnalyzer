@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import DreamerAttributor from '../Core/HotTracking/DreamerAttributor';
@@ -14,21 +13,21 @@ const T21_4SET_YSERAS_BOOST = 5;
 
 class T21_4Set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     dreamerAttributor: DreamerAttributor,
   };
 
   yserasDuringAwakenedHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if (this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) &&
+    if (this.selectedCombatant.hasBuff(SPELLS.AWAKENED.id) &&
       (spellId === SPELLS.YSERAS_GIFT_OTHERS.id || spellId === SPELLS.YSERAS_GIFT_SELF.id)) {
       this.yserasDuringAwakenedHealing += amount;
     }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -17,13 +16,13 @@ const SHADOWBURN_KILL = 'Shadowburn kill';
 class Shadowburn extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
-    combatants: Combatants,
   };
 
   _expectedShadowburnDebuffEnds = []; // we can have up to 2 Shadowburn debuffs active on mobs (it has 2 charges)
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event) {

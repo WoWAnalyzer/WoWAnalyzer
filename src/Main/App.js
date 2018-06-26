@@ -6,33 +6,34 @@ import { getLocation, push } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'common/TooltipProvider';
+import TooltipProvider from 'Interface/common/TooltipProvider';
 import { track } from 'common/analytics';
-import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
-import { fetchUser } from 'actions/user';
-import { getError } from 'selectors/error';
+// import RouteChangeScroller from 'Interface/RouteChangeScroller';
+import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'Interface/actions/error';
+import { fetchUser } from 'Interface/actions/user';
+import { getError } from 'Interface/selectors/error';
+import Home from 'Interface/Home';
+import NewsView from 'Interface/News/View';
+import Premium from 'Interface/Premium';
+import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
+import FullscreenError from 'Interface/common/FullscreenError';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
 
 import 'react-toggle/style.css';
 import './App.css';
 
-import ApiDownBackground from './Images/api-down-background.gif';
 import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
-import Home from './Home';
-import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
-import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
-import Premium from './Premium';
 
 import Header from './Header';
-import ErrorBoundary from './ErrorBoundary';
 
-const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
-const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ 'Interface/Contributor/Details').then(exports => exports.default));
+const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ 'Interface/Character/Parses').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -65,7 +66,10 @@ class App extends React.Component {
     }
 
     TooltipProvider.load();
-    props.fetchUser();
+    if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
+      // If Premium is forced (development environments), fetching the user would probably fail too
+      props.fetchUser();
+    }
   }
 
   renderError(error) {
@@ -164,7 +168,10 @@ class App extends React.Component {
         <Route
           path="/contributor/:id"
           render={({ match }) => (
-            <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
+            <ContributorDetails
+              contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
+              ownPage
+            />
           )}
         />
         <Route
@@ -173,7 +180,8 @@ class App extends React.Component {
             <CharacterParses
               region={decodeURI(match.params.region.replace(/\+/g, ' '))}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
-              name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
+              name={decodeURI(match.params.name.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route
@@ -229,6 +237,7 @@ class App extends React.Component {
           </main>
 
           <ReactTooltip html place="bottom" />
+          {/*<RouteChangeScroller />*/}
           <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}

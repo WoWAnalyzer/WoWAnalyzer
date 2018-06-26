@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 /**
@@ -12,14 +11,11 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  * Equip: Every 30 sec, gain an absorb shield for 25% of your maximum health for 30 sec.
  */
 class PrydazXavaricsMagnumOpus extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
   }
 
   on_byPlayer_absorbed(event) {

@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PROTECTION_OF_SHAOHAO_HEALING_INCREASE = 0.05;
 
@@ -16,15 +15,12 @@ const PROTECTION_OF_SHAOHAO_HEALING_INCREASE = 0.05;
  * Increases absorb amount by Life Cocoon by 5%.
  */
 class ProtectionOfShaohao extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.PROTECTION_OF_SHAOHAO.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.PROTECTION_OF_SHAOHAO.id];
     this.active = this.rank > 0;
   }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -13,14 +12,12 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * If there are no other Vulnerable targets, the damage of your next Aimed Shot is increased by 15%.
  */
 class TrickShotCleave extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   _primaryTargets = [];
   bonusCleaveDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

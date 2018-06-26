@@ -6,54 +6,50 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
 /**
  * Gain one of the following talents based on your specialization:
- * Beast Mastery: Bestial Fury
+ * Beast Mastery: Thrill of the Hunt
  * Marksmanship: Lock and Load
- * Survival: Serpent Sting
+ * Survival: Viper's Venom
  */
 class SoulOfTheHuntmaster extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   hasPickedOtherTalent = false;
   talentGained = 0;
   option1 = 0;
   option2 = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
     //Checks which spec has the ring equipped and then sets option1 or option2 accordingly - aswell as sets up the check for if they've picked another talent
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.MARKSMANSHIP_HUNTER:
         debug && console.log('SPEC DETECTED AS MM');
         this.talentGained = SPELLS.LOCK_AND_LOAD_TALENT.id;
-        this.option1 = SPELLS.TRUE_AIM_TALENT.id;
-        this.option2 = SPELLS.BLACK_ARROW_TALENT.id;
+        this.option1 = SPELLS.CALLING_THE_SHOTS_TALENT.id;
+        this.option2 = SPELLS.PIERCING_SHOT_TALENT.id;
         break;
       case SPECS.BEAST_MASTERY_HUNTER:
         debug && console.log('SPEC DETECTED AS BM');
-        this.talentGained = SPELLS.BESTIAL_FURY_TALENT.id;
-        this.option1 = SPELLS.ONE_WITH_THE_PACK_TALENT.id;
-        this.option2 = SPELLS.BLINK_STRIKES_TALENT.id;
+        this.talentGained = SPELLS.THRILL_OF_THE_HUNT_TALENT.id;
+        this.option1 = SPELLS.VENOMOUS_BITE_TALENT.id;
+        this.option2 = SPELLS.A_MURDER_OF_CROWS_TALENT.id;
         break;
       case SPECS.SURVIVAL_HUNTER:
         debug && console.log('SPEC DETECTED AS SV');
-        this.talentGained = SPELLS.SERPENT_STING_TALENT.id;
-        this.option1 = SPELLS.BUTCHERY_TALENT.id;
-        this.option2 = SPELLS.DRAGONSFIRE_GRENADE_TALENT.id;
+        this.talentGained = SPELLS.VIPERS_VENOM_TALENT.id;
+        this.option1 = SPELLS.TERMS_OF_ENGAGEMENT_TALENT.id;
+        this.option2 = SPELLS.ALPHA_PREDATOR_TALENT.id;
         break;
       default:
         debug && console.log('NO SPEC DETECTED');
         break;
     }
-    if (this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2)) {
+    if (this.selectedCombatant.hasTalent(this.option1) || this.selectedCombatant.hasTalent(this.option2)) {
       this.hasPickedOtherTalent = true;
     }
   }

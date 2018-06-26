@@ -21,8 +21,9 @@ class Tier19_2set extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {

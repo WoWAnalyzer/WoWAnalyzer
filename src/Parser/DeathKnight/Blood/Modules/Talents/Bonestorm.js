@@ -5,18 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Bonestorm extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bsCasts = [];
   totalBonestormDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

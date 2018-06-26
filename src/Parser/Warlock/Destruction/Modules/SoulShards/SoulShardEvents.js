@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -11,10 +10,10 @@ const debug = false;
 const MAX_FRAGMENTS = 50;
 const FRAGMENTS_PER_SHARD = 10;
 
+// TODO: Revisit this - check fragment numbers in generators, account for perhaps Inferno (rain of fire can generate a fragment), also Fire and Brimstone cleave
 class SoulShardEvents extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   _FRAGMENT_GENERATING_ABILITIES = {
@@ -39,39 +38,30 @@ class SoulShardEvents extends Analyzer {
       }
       return rawFragments;
     },
-    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: _ => 3,
     // can refund more shards
     [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: event => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
     // these can refund only one shard at a time
-    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: _ => 10,
     [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: _ => 10,
   };
 
   _FRAGMENT_SPENDING_ABILITIES = {
     [SPELLS.CHAOS_BOLT.id]: 20,
     [SPELLS.RAIN_OF_FIRE_CAST.id]: 30,
-    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 10,
-    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 10,
-    [SPELLS.GRIMOIRE_IMP.id]: 10,
+    [SPELLS.SUMMON_INFERNAL.id]: 10,
     [SPELLS.SUMMON_IMP.id]: 10,
+    [SPELLS.SOUL_FIRE_TALENT.id]: 10,
     // most likely unused but should be accounted for
-    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 10,
-    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 10,
-    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 10,
-    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 10,
-    [SPELLS.GRIMOIRE_FELHUNTER.id]: 10,
     [SPELLS.SUMMON_VOIDWALKER.id]: 10,
     [SPELLS.SUMMON_SUCCUBUS.id]: 10,
     [SPELLS.SUMMON_FELHUNTER.id]: 10,
   };
 
-
   _hasT20_2p = false;
   _currentFragments = 0;
 
-
-  on_initialized() {
-    this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this._hasT20_2p = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this._currentFragments = 30; // on the start of the fight we should have 3 soul shards (30 fragments) by default
   }
 
@@ -101,9 +91,7 @@ class SoulShardEvents extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
-      this.processGenerators(event);
-    } else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }

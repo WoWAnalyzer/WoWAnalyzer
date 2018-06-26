@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
@@ -19,7 +18,6 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
  */
 class VelensFutureSight extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -30,8 +28,9 @@ class VelensFutureSight extends Analyzer {
     return this.healingIncreaseHealing + this.overhealHealing;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
 
     if (this.active) {
       this.abilities.add({
@@ -63,7 +62,7 @@ class VelensFutureSight extends Analyzer {
     if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId)) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
       return;
     }
 

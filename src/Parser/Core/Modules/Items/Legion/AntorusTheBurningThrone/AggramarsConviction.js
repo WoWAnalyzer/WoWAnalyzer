@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 /**
@@ -22,22 +21,19 @@ export const VERSATILITY_BASE = 4354;
 export const BASE_ILVL = 940;
 
 class AggramarsConviction extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   versatility = 0;
   versProc = 0;
   pantheonProc = 0;
   heal = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.AGGRAMARS_CONVICTION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.AGGRAMARS_CONVICTION.id);
     if(!this.active) {
       return;
     }
 
-    const item = this.combatants.selected.getItem(ITEMS.AGGRAMARS_CONVICTION.id);
+    const item = this.selectedCombatant.getItem(ITEMS.AGGRAMARS_CONVICTION.id);
     this.versatility = calculateSecondaryStatDefault(BASE_ILVL, VERSATILITY_BASE, item.itemLevel);
   }
 
@@ -70,7 +66,7 @@ class AggramarsConviction extends Analyzer {
   }
 
   item() {
-    const versUptimePercent = this.combatants.selected.getBuffUptime(SPELLS.CELESTIAL_BULWARK.id) / this.owner.fightDuration;
+    const versUptimePercent = this.selectedCombatant.getBuffUptime(SPELLS.CELESTIAL_BULWARK.id) / this.owner.fightDuration;
     const avgVers = this.versatility * versUptimePercent;
 
     return {

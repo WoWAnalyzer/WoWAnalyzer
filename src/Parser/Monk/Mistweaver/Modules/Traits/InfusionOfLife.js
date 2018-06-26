@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const INFUSION_OF_LIFE_HEALING_INCREASE = 0.05;
 
@@ -16,15 +15,12 @@ const INFUSION_OF_LIFE_HEALING_INCREASE = 0.05;
  * Increases healing done by Vivify by 5%.
  */
 class InfusionOfLife extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   healing = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIFE.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.INFUSION_OF_LIFE.id];
     this.active = this.rank > 0;
   }
 

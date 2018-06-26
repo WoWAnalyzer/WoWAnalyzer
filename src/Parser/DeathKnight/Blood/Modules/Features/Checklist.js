@@ -9,7 +9,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -35,7 +34,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
@@ -69,20 +67,20 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEATH_AND_DECAY,
-            when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</React.Fragment>,
             check: () => this.crimsonScourge.efficiencySuggestionThresholds,
-            when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+            when: !this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOODDRINKER_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_STRIKE_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
           }),
         ];
       },
@@ -134,7 +132,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</React.Fragment>,
             check: () => this.bonestorm.suggestionThresholds,
-            when: this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),
         ];
       },
@@ -150,7 +148,7 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime</React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
             check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
@@ -159,7 +157,7 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id} /> Uptime</React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id),
             check: () => this.ossuary.uptimeSuggestionThresholds,
           }),
         ];
@@ -185,11 +183,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_TAP_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOMBSTONE_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
           }),
         ];
       },

@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const REDUCTION_TIME_PER_HIT = 3000; // ms
@@ -16,13 +15,13 @@ const REDUCTION_TIME_PER_HIT = 3000; // ms
 */
 class BreatplateOfTheGoldenValkyr extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id);
   }
 
   ancientKingsReduced = 0;

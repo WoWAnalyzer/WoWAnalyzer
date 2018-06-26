@@ -5,19 +5,18 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
 class Ascendance extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
   }
 
   on_byPlayer_heal(event) {

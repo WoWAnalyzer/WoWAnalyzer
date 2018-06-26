@@ -4,8 +4,8 @@ import Empowerment from './Empowerment';
 
 class LunarEmpowerment extends Empowerment {
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     this.empoweredSpell = SPELLS.LUNAR_STRIKE;
     this.empowermentPrefix = 'Lunar';
     this.spellGenerateAmount = 12;

@@ -3,20 +3,17 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
  * Your basic attacks have a chance to trigger two rapid additional blows.
  */
 class TalonStrike extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.TALON_STRIKE_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.TALON_STRIKE_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {

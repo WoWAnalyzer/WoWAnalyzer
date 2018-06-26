@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -16,13 +15,11 @@ const TRICK_SHOT_MODIFIER = 0.15;
  * If there are no other Vulnerable targets, the damage of your next Aimed Shot is increased by 15%.
  */
 class TrickShot extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
@@ -30,7 +27,7 @@ class TrickShot extends Analyzer {
     if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)) {
       this.bonusDmg += getDamageBonus(event, TRICK_SHOT_MODIFIER);
     }
   }

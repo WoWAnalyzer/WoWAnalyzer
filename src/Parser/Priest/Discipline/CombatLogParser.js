@@ -4,7 +4,7 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';

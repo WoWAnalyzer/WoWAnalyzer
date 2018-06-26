@@ -1,11 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Channeling extends CoreChanneling {
-	static dependencies = {
-		combatants: Combatants,
-	}
 
 	cancelChannel(event, ability) {
 		if(this.isChannelingSpell(SPELLS.EYE_BEAM.id)) {
@@ -20,7 +16,7 @@ class Channeling extends CoreChanneling {
 
 	//Eye Beam w/o the meta buff
 	on_byPlayer_applybuff(event) {
-		if(!this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
+		if(!this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
 		const spellId = event.ability.guid;
@@ -33,7 +29,7 @@ class Channeling extends CoreChanneling {
 
 	//Eye beam with the meta buff
 	on_byPlayer_cast(event) {
-		if(this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
+		if(this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
 		const spellId = event.ability.guid;

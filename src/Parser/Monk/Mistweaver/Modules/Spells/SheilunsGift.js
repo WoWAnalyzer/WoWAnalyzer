@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -23,7 +22,6 @@ function getOverhealingPercentage(ability) {
 
 class SheilunsGift extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -41,8 +39,9 @@ class SheilunsGift extends Analyzer {
 
   hasEffusiveMists = 0;
 
-  on_initialize() {
-    this.hasEffusiveMists = this.combatants.selected.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
+  constructor(...args) {
+    super(...args);
+    this.hasEffusiveMists = this.selectedCombatant.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {
@@ -156,7 +155,7 @@ class SheilunsGift extends Analyzer {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
@@ -172,7 +171,7 @@ class SheilunsGift extends Analyzer {
           ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}
           `}
           >
-          Avg stacks used
+            Avg stacks used
           </dfn>
         )}
       />

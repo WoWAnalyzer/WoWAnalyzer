@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -17,15 +16,12 @@ const CHAOS_VISION_INCREASE = 0.06;
 */
 
 class ChaosVision extends Analyzer {
-	static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CHAOS_VISION.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.CHAOS_VISION.id];
     this.active = this.rank > 0;
   }
 

@@ -5,20 +5,19 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import RuneTracker from '../../../Shared/RuneTracker';
 
 class T21_4pc extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     runeTracker: RuneTracker,
   };
 
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id);
   }
 
   get runesGained() {

@@ -1,19 +1,17 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
-
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DemonSpikes extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -26,7 +24,7 @@ class DemonSpikes extends Analyzer {
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
       this.hitsWithDS += 1;
     }else{
       this.hitsWithoutDS += 1;
@@ -43,7 +41,7 @@ class DemonSpikes extends Analyzer {
   }
 
   statistic() {
-    const demonSpikesUptime = this.combatants.selected.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
+    const demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
 
     const demonSpikesUptimePercentage = demonSpikesUptime / this.owner.fightDuration;
 

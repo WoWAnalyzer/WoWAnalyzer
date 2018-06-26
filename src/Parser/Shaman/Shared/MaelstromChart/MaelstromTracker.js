@@ -12,7 +12,8 @@ class MaelstromTracker extends Analyzer {
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxMaelstrom = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.lastEventTimestamp = this.owner.fight.start_time;
   }
 

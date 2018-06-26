@@ -6,25 +6,21 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { BREWS, GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const debug = false;
 const SUMMON_LATENCY = 5;
 
 class T20_2pc extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  }
-
   lastTrigger = 0;
   lastOrb = 0;
   brewCount = 0;
   hastCastNewBrew = false;
   orbTriggeredBy2Pc = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 2pc');
   }
 

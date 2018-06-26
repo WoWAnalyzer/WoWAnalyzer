@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage, formatNumber } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemHealingDone from 'Main/ItemHealingDone';
@@ -15,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 */
 class RiftworldCodex extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -33,8 +31,9 @@ class RiftworldCodex extends Analyzer {
   immolationoverhealing = 0;
   immolationdamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.RIFTWORLD_CODEX.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.RIFTWORLD_CODEX.id);
   }
 
   countProcs(event) {

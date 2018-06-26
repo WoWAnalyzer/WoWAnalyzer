@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -12,8 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const COOLDOWN_REDUCTION_MS = 1500;
 
 class CrusadersMight extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
+  static dependencies = {    
     spellUsable: SpellUsable,
   };
 
@@ -22,8 +20,9 @@ class CrusadersMight extends Analyzer {
   effectiveLightOfDawnReductionMs = 0;
   wastedLightOfDawnReductionMs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

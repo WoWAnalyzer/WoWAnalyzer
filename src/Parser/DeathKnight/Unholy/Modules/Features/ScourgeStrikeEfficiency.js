@@ -7,17 +7,16 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
-  on_initialized() {
-    this.active = !this.combatants.selected.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
   }
   // used to track how many stacks a target has
   targets = {};

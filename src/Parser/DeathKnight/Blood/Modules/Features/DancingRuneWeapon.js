@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const ALLOWED_CASTS_DURING_DRW = [
@@ -16,21 +15,20 @@ const ALLOWED_CASTS_DURING_DRW = [
 
 class DancingRuneWeapon extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
   castsDuringDRW = [];
 
   on_byPlayer_cast(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
       return;
     }
 
     //push all casts during DRW that were on the GCD in array
     if (event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
       this.abilities.getAbility(event.ability.guid) !== undefined &&
-      this.abilities.getAbility(event.ability.guid).isOnGCD === true) {
+      this.abilities.getAbility(event.ability.guid).gcd) {
       this.castsDuringDRW.push(event.ability.guid);
     }
   }

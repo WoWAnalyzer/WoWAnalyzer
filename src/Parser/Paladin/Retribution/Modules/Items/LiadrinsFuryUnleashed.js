@@ -6,17 +6,16 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HolyPowerTracker from '../HolyPower/HolyPowerTracker';
 
 class LiadrinsFuryUnleashed extends Analyzer {
   static dependencies = {
     holyPowerTracker: HolyPowerTracker,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
   }
 
   get liadrinsHP() {

@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -19,10 +18,6 @@ const TRUE_AIM_MODIFIER = 0.02;
  */
 
 class TrueAim extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   //stack counters
   _currentStacks = 0;
   startOfMaxStacks = 0;
@@ -41,8 +36,9 @@ class TrueAim extends Analyzer {
   maxTimeCalculated = null;
   lastDamageEvent = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.TRUE_AIM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRUE_AIM_TALENT.id);
   }
 
   on_byPlayer_applydebuffstack(event) {
@@ -114,10 +110,10 @@ class TrueAim extends Analyzer {
 
   statistic() {
     const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
-    let tooltipText = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id) ? `You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter.<br /> Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.<br/>` : ``;
-    tooltipText += this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `You reset True Aim ${this.totalTimesDropped} times over the course of the encounter.` : ``;
+    let tooltipText = this.selectedCombatant.hasTalent(SPELLS.TRICK_SHOT_TALENT.id) ? `You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter.<br /> Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.<br/>` : ``;
+    tooltipText += this.selectedCombatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `You reset True Aim ${this.totalTimesDropped} times over the course of the encounter.` : ``;
     tooltipText += `True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}. <ul><li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>`;
-    tooltipText += this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `` : `<li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>`;
+    tooltipText += this.selectedCombatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `` : `<li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>`;
     tooltipText += `</ul>`;
     return (
       <StatisticBox

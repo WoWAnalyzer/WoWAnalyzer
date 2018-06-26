@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ComboPointDetails from '../Common/Resources/ComboPointDetails';
@@ -26,10 +26,6 @@ import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
 import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import DuskwalkersFootpads from './Modules/Legendaries/DuskwalkersFootpads';
 import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTrainingShackles';
-
-//Traits
-import MasterAssassin from './Modules/Traits/MasterAssassin';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,9 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
 
     //Talents
-
-    //Traits
-    masterAssassin: MasterAssassin,
   };
 }
 

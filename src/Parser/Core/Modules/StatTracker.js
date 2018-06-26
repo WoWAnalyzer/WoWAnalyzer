@@ -5,7 +5,6 @@ import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondary
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 
@@ -13,9 +12,6 @@ const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -200,22 +196,8 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Misc
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
-      strength: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id]: { // check numbers
-      agility: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
-      intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
-      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
-    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 27 },
-    [SPELLS.MURDEROUS_INTENT_BUFF.id]: { versatility: 2500 },
     // Antorus: Argus the Unmaker debuffs
     [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
     [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
@@ -231,10 +213,6 @@ class StatTracker extends Analyzer {
 
     // region Mage
     [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
-    // endregion
-
-    // region Priest
-    [SPELLS.MIND_QUICKENING.id]: { haste: 36 },
     // endregion
 
     // region Paladin
@@ -347,21 +325,22 @@ class StatTracker extends Analyzer {
   _pullStats = {};
   _currentStats = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // TODO: Use combatantinfo event directly
     this._pullStats = {
-      strength: this.combatants.selected._combatantInfo.strength,
-      agility: this.combatants.selected._combatantInfo.agility,
-      intellect: this.combatants.selected._combatantInfo.intellect,
-      stamina: this.combatants.selected._combatantInfo.stamina,
-      crit: this.combatants.selected._combatantInfo.critSpell,
-      haste: this.combatants.selected._combatantInfo.hasteSpell,
-      mastery: this.combatants.selected._combatantInfo.mastery,
-      versatility: this.combatants.selected._combatantInfo.versatilityHealingDone,
-      avoidance: this.combatants.selected._combatantInfo.avoidance,
-      leech: this.combatants.selected._combatantInfo.leech,
-      speed: this.combatants.selected._combatantInfo.speed,
-      armor: this.combatants.selected._combatantInfo.armor,
+      strength: this.selectedCombatant._combatantInfo.strength,
+      agility: this.selectedCombatant._combatantInfo.agility,
+      intellect: this.selectedCombatant._combatantInfo.intellect,
+      stamina: this.selectedCombatant._combatantInfo.stamina,
+      crit: this.selectedCombatant._combatantInfo.critSpell,
+      haste: this.selectedCombatant._combatantInfo.hasteSpell,
+      mastery: this.selectedCombatant._combatantInfo.mastery,
+      versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
+      avoidance: this.selectedCombatant._combatantInfo.avoidance,
+      leech: this.selectedCombatant._combatantInfo.leech,
+      speed: this.selectedCombatant._combatantInfo.speed,
+      armor: this.selectedCombatant._combatantInfo.armor,
     };
 
     this.applySpecModifiers();
@@ -375,7 +354,7 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers() {
-    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => {
       this._pullStats[stat] *= multiplier;
     });
@@ -383,7 +362,7 @@ class StatTracker extends Analyzer {
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
-      const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
+      const rank = this.selectedCombatant.traitsBySpellId[spellId] || 0;
       Object.entries(modifiers).forEach(([stat, multiplier]) => {
         this._pullStats[stat] *= 1 + multiplier * rank;
       });
@@ -478,7 +457,7 @@ class StatTracker extends Analyzer {
    */
   get baseCritPercentage() {
     const standard = 0.05;
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER:
@@ -505,7 +484,7 @@ class StatTracker extends Analyzer {
     return 0;
   }
   get baseMasteryPercentage() {
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.HOLY_PALADIN:
         return 0.12;
       case SPECS.HOLY_PRIEST:
@@ -601,7 +580,7 @@ class StatTracker extends Analyzer {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 72 * 100 / this.combatants.selected.spec.masteryCoefficient;
+    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
@@ -759,10 +738,10 @@ class StatTracker extends Analyzer {
     if (statVal === undefined) {
       return 0;
     } else if (typeof statVal === 'function') {
-      const selectedCombatant = this.combatants.selected;
+      const selectedCombatant = this.selectedCombatant;
       let itemDetails;
       if (buffObj.itemId) {
-        itemDetails = this.combatants.selected.getItem(buffObj.itemId);
+        itemDetails = this.selectedCombatant.getItem(buffObj.itemId);
         if (!itemDetails) {
           console.warn('Failed to retrieve item information for item with ID:', buffObj.itemId,
             ' ...unable to handle stats buff, making no stat change.');

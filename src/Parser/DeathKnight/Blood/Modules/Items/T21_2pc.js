@@ -6,14 +6,12 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_PER_STACK_MS = 3000;
 
 class T21_2pc extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -22,8 +20,9 @@ class T21_2pc extends Analyzer {
   wastedReduction = 0;
   dancingRuneWeaponCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id);
   }
 
   get averageReduction() {

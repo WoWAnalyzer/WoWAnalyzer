@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const DURATION_WORTH_CASTING_MS = 8000;
@@ -14,7 +13,6 @@ const DURATION_WORTH_CASTING_MS = 8000;
 class CrimsonScourge extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -29,7 +27,7 @@ class CrimsonScourge extends Analyzer {
     if (spellId !== SPELLS.DEATH_AND_DECAY.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
       this.freeDeathAndDecayCounter += 1;
       if(this.endOfCombatCast){
         this.endOfCombatCast = false;
@@ -89,7 +87,7 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
+    if(this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {

@@ -5,8 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
@@ -16,9 +14,6 @@ const debug = false;
 const CHART_SIZE = 75;
 
 class ThunderFocusTea extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   legend(items, total) {
     const numItems = items.length;
@@ -104,8 +99,9 @@ class ThunderFocusTea extends Analyzer {
   castBufferTimestamp = null;
   ftActive = false;
 
-  on_initialized() {
-    this.ftActive = this.combatants.selected.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -124,7 +120,7 @@ class ThunderFocusTea extends Analyzer {
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
       if (SPELLS.VIVIFY.id === spellId && !event.classResources.cost) {
         this.castsUnderTft += 1;
         this.castsTftViv += 1;

@@ -10,20 +10,12 @@ import Checklist from './Modules/Features/Checklist';
 import Judgment from './Modules/PaladinCore/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
-import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';
+import ArtOfWar from './Modules/PaladinCore/ArtOfWar';
 import Retribution from './Modules/PaladinCore/Retribution';
-import BlessingOfTheAshbringer from './Modules/PaladinCore/BlessingOfTheAshbringer';
-import Crusade from './Modules/PaladinCore/Crusade';
+import Crusade from './Modules/Talents/Crusade';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
-
-import RelicTraits from './Modules/Traits/RelicTraits';
-import MightOfTheTemplar from './Modules/Traits/MightOfTheTemplar';
-import HighlordsJudgment from './Modules/Traits/HighlordsJudgment';
-import DeliverTheJustice from './Modules/Traits/DeliverTheJustice';
-import RighteousVerdict from './Modules/Traits/RighteousVerdict';
-import WrathOfTheAshbringer from './Modules/Traits/WrathOfTheAshbringer';
 
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
@@ -40,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     haste: Haste,
     // PaladinCore
     damageDone: [DamageDone, { showStatistic: true }],
+    artOfWar: ArtOfWar,
 
     // Features
     abilities: Abilities,
@@ -48,24 +41,14 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     judgment: Judgment,
     retribution: Retribution,
-    blessingOfTheAshbringer: BlessingOfTheAshbringer,
-    crusade: Crusade,
     
     // Talents
     divinePurpose: DivinePurpose,
-    boWProcTracker: BoWProcTracker,
+    crusade: Crusade,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
-
-    // Traits
-    relicTraits: RelicTraits,
-    mightOfTheTemplar: MightOfTheTemplar,
-    highlordsJudgment: HighlordsJudgment,
-    deliverTheJustice: DeliverTheJustice,
-    righteousVerdict: RighteousVerdict,
-    wrathOfTheAshbringer: WrathOfTheAshbringer,
 
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,

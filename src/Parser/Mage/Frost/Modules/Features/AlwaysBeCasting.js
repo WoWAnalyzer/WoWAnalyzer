@@ -8,10 +8,9 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-
-get deadTimePercentage() {
-  return this.totalTimeWasted / this.owner.fightDuration;
-}
+  get deadTimePercentage() {
+    return this.totalTimeWasted / this.owner.fightDuration;
+  }
 
   get downtimeSuggestionThresholds() {
     return {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
@@ -11,13 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * The trail of wind left by Windburst deals (300% of Attack power) damage every 1 sec to enemies within, and reduces their movement speed by 50%.
  */
 class CyclonicBurst extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.CYCLONIC_BURST_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.CYCLONIC_BURST_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {

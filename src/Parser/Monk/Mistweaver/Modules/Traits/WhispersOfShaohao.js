@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SheilunsGift from '../../Modules/Spells/SheilunsGift';
@@ -12,7 +11,6 @@ const debug = false;
 
 class WhispersOfShaohao extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     sheilunsGift: SheilunsGift,
   };
 
@@ -20,8 +18,9 @@ class WhispersOfShaohao extends Analyzer {
   whispersOverHeal = 0;
   countWhispersHeal = 0;
 
-  on_initialize() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
   }
 
   on_byPlayer_heal(event) {

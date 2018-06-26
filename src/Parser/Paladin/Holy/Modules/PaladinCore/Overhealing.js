@@ -7,13 +7,11 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import DivinePurpose from '../Talents/DivinePurpose';
 
 class Overhealing extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
     divinePurpose: DivinePurpose,

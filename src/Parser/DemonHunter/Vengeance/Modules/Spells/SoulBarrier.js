@@ -1,17 +1,18 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
+
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SoulBarrier extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     damageTracker: DamageTracker,
     enemies: Enemies,
   };
@@ -25,12 +26,13 @@ class SoulBarrier extends Analyzer {
   totalBuffLength = 0;
 
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration;
   }
 
   on_toPlayer_applybuff(event) {

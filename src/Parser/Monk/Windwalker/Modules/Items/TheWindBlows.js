@@ -11,7 +11,8 @@ class TheWindBlows extends Analyzer {
   };
   freeBlackoutKicks = 0; 
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id);
   }
 

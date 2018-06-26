@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const NEMESIS_BUFF_IDS = [
@@ -28,19 +27,19 @@ const NEMESIS_DAMAGE_MODIFIER = 0.25;
 
 class Nemesis extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
   everHadNemesisBuff = false;
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.NEMESIS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.NEMESIS_TALENT.id);
   }
 
   get hasNemesisBuff() {
-    const buffs = this.combatants.selected.activeBuffs();
+    const buffs = this.selectedCombatant.activeBuffs();
     return buffs.some(buff => NEMESIS_BUFF_IDS.includes(buff.ability.guid));
   }
 
@@ -59,7 +58,7 @@ class Nemesis extends Analyzer {
 
   get nemesisUptimePercent() {
     const enemyUptime = this.enemies.getBuffUptime(SPELLS.NEMESIS_TALENT.id);
-    const playerUptime = NEMESIS_BUFF_IDS.reduce((uptime, spellId) => uptime + this.combatants.selected.getBuffUptime(spellId), 0);
+    const playerUptime = NEMESIS_BUFF_IDS.reduce((uptime, spellId) => uptime + this.selectedCombatant.getBuffUptime(spellId), 0);
     return (enemyUptime + playerUptime) / this.owner.fightDuration;
   }
 

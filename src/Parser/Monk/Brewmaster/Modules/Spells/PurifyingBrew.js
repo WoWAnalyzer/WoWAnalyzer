@@ -3,7 +3,6 @@ import React from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -12,7 +11,6 @@ import SharedBrews from '../Core/SharedBrews';
 class PurifyingBrew extends Analyzer {
   static dependencies = {
     brews: SharedBrews,
-    combatants: Combatants,
   };
 
   purifyAmounts = [];
@@ -66,7 +64,7 @@ class PurifyingBrew extends Analyzer {
       return;
     }
     this.purifyAmounts.push(event.amount);
-    if (this.combatants.selected.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped) {
       this.heavyPurifies += 1;
     }
     this._heavyStaggerDropped = false;

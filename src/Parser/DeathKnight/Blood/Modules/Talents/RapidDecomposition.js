@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -8,16 +7,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class RapidDecomposition extends Analyzer {
 
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bpDamage = 0;
   dndDamage = 0;
   totalDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

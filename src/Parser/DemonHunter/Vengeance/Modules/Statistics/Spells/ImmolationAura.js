@@ -2,21 +2,19 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
   statistic() {
-    const immolationAuraUptime = this.combatants.selected.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
+    const immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
