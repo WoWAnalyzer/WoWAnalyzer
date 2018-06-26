@@ -38,6 +38,7 @@ class TraitsAndTalents extends Analyzer {
         {this.volley.active && this.volley.subStatistic()}
         {this.explosiveShot.active && this.explosiveShot.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
+        {this.piercingShot.active && this.piercingShot.subStatistic()}
         {}
       </StatisticsListBox>
 
