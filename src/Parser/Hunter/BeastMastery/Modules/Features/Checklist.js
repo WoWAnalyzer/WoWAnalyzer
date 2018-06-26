@@ -55,7 +55,6 @@ class Checklist extends CoreChecklist {
     timeFocusCapped: TimeFocusCapped,
 
     //talents
-    aMurderOfCrows: AMurderOfCrows,
     killerCobra: KillerCobra,
     aspectOfTheBeast: AspectOfTheBeast,
 
