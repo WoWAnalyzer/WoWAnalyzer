@@ -5,6 +5,11 @@ import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import { RAKE_BASE_DURATION, RIP_BASE_DURATION, THRASH_FERAL_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
+const BLEED_BASE_DURATIONS = {
+  [SPELLS.RAKE.id]: RAKE_BASE_DURATION,
+  [SPELLS.RIP.id]: RIP_BASE_DURATION,
+  [SPELLS.THRASH_FERAL.id]: THRASH_FERAL_BASE_DURATION,
+};
 
 /**
  * Predator:
@@ -22,12 +27,6 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
     combatants: Combatants,
   };
-
-  static bleedBaseDurations = {
-    [SPELLS.RAKE.id]: RAKE_BASE_DURATION,
-    [SPELLS.RIP.id]: RIP_BASE_DURATION,
-    [SPELLS.THRASH_FERAL.id]: THRASH_FERAL_BASE_DURATION,
-  }
 
   earlyCastsOfTigersFury = 0;
 
@@ -60,7 +59,7 @@ class SpellUsable extends CoreSpellUsable {
     if (!this.activeBleedsExpire[target]) {
       this.activeBleedsExpire[target] = {};
     }
-    const duration = this.constructor.bleedBaseDurations[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
+    const duration = BLEED_BASE_DURATIONS[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
     this.activeBleedsExpire[target][spellId] = event.timestamp + duration;
   }
 
@@ -78,8 +77,8 @@ class SpellUsable extends CoreSpellUsable {
     }
     // existingExpire may be null if combat log missed the original applydebuff
     const existingExpire = this.activeBleedsExpire[target][spellId];
-    const remainingOnPrevious = Math.max(0, existingExpire ? (event.timestamp - existingExpire) : 0);
-    const durationWithoutPandemic = this.constructor.bleedBaseDurations[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
+    const remainingOnPrevious = Math.max(0, existingExpire ? (existingExpire - event.timestamp) : 0);
+    const durationWithoutPandemic = BLEED_BASE_DURATIONS[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
     const pandemic = Math.min(durationWithoutPandemic * PANDEMIC_FRACTION, remainingOnPrevious);
     this.activeBleedsExpire[target][spellId] = event.timestamp + durationWithoutPandemic + pandemic;
   }
@@ -104,7 +103,7 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   isBleed(spellId) {
-    return !!Object.keys(this.constructor.bleedBaseDurations).includes(spellId.toString());
+    return !!Object.keys(BLEED_BASE_DURATIONS).includes(spellId.toString());
   }
 
   beginCooldown(spellId, timestamp) {
