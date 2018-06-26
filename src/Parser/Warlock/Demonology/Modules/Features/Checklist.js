@@ -39,7 +39,6 @@ class Checklist extends CoreChecklist{
   rules = [
     new Rule({
       name: 'Use your core spells',
-      description: 'Make sure you\'re following your rotation closely in order to maximize DPS.',
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
@@ -128,7 +127,7 @@ class Checklist extends CoreChecklist{
 
     new Rule({
       name: 'Always be casting',
-      description: 'Avoid doing nothing at any point during the fight. Use filler spells like Shadowbolt and Demonwrath when moving.',
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
