@@ -6,6 +6,7 @@ import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
 import Analyzer from 'Parser/Core/Analyzer';
 
 import AMurderOfCrows from 'Parser/Hunter/Shared/Modules/Talents/AMurderOfCrows';
+import Barrage from 'Parser/Hunter/Shared/Modules/Talents/Barrage';
 import LoneWolf from '../Spells/LoneWolf';
 import Volley from '../Talents/Volley';
 import ExplosiveShot from '../Talents/ExplosiveShot';
@@ -18,6 +19,7 @@ class TraitsAndTalents extends Analyzer {
     explosiveShot: ExplosiveShot,
     aMurderOfCrows: AMurderOfCrows,
     piercingShot: PiercingShot,
+    barrage: Barrage,
   };
 
   constructor(...args) {
@@ -39,6 +41,7 @@ class TraitsAndTalents extends Analyzer {
         {this.explosiveShot.active && this.explosiveShot.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.piercingShot.active && this.piercingShot.subStatistic()}
+        {this.barrage.active && this.barrage.subStatistic()}
         {}
       </StatisticsListBox>
 

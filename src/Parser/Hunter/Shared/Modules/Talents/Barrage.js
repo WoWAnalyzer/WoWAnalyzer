@@ -12,9 +12,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  */
 class Barrage extends Analyzer {
   damage = 0;
-  volleyRemoved = -1;
-  volleyApplied = 0;
-  deaths = 0;
 
   constructor(...args) {
     super(...args);

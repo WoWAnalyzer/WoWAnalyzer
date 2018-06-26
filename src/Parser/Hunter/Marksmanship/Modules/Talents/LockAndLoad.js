@@ -9,10 +9,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ITEMS from "common/ITEMS/HUNTER";
 
 /**
- * Your ranged auto attacks have a 8% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
  */
 
-const PROC_CHANCE = 0.08;
+const PROC_CHANCE = 0.05;
 
 class LockAndLoad extends Analyzer {
   hasLnLBuff = false;
