@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
