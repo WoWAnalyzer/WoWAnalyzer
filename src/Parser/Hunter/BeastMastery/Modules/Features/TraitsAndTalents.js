@@ -6,7 +6,7 @@ import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Barrage from 'Parser/Hunter/Shared/Modules/Talents/Barrage';
-import Volley from 'Parser/Hunter/Shared/Modules/Talents/Volley';
+import Volley from 'Parser/Hunter/Marksmanship/Modules/Talents/Volley';
 import AMurderOfCrows from '../Talents/AMurderOfCrows';
 import BestialFury from '../Talents/BestialFury';
 import TitansThunder from '../Traits/TitansThunder';

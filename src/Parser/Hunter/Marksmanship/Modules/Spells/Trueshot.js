@@ -4,7 +4,6 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import SPELLS from 'common/SPELLS/HUNTER';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
@@ -12,7 +11,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 
 /**
- * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
+ * Immediately gain 1 charge of Aimed Shot, and gain 30% Haste for 15 sec.
  * Lasts 15 sec.
  */
 class Trueshot extends Analyzer {
@@ -194,7 +193,7 @@ class Trueshot extends Analyzer {
       style: 'decimal',
     };
   }
-
+/** Commenting out for now until we've theorycrafted more into how to optimally utilize Trueshot - not deleting for now in case of possible recycling of some code.
   suggestions(when) {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</React.Fragment>)
@@ -220,7 +219,7 @@ class Trueshot extends Analyzer {
         .actual(`You had an average of ${actual} seconds of Trueshot uptime per cast`)
         .recommended(`15 seconds uptime per cast is recommended`);
     });
-  }
+  }*/
   statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 

@@ -1,10 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -13,10 +11,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Damage increased against targets with Vulnerable.
  */
 class PiercingShot extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
 
-  };
   damage = 0;
   inVulnerablePiercing = 0;
   totalPiercing = 0;
@@ -24,17 +19,6 @@ class PiercingShot extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.PIERCING_SHOT_TALENT.id) {
-      return;
-    }
-    const enemy = this.enemies.getEntity(event);
-    if (enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
-      this.inVulnerablePiercing += 1;
-    }
-    this.totalPiercing += 1;
   }
 
   on_byPlayer_damage(event) {
@@ -55,17 +39,6 @@ class PiercingShot extends Analyzer {
         </div>
       </div>
     );
-  }
-  suggestions(when) {
-    const percentPiercingInsideVulnerability = this.inVulnerablePiercing / this.totalPiercing;
-    when(percentPiercingInsideVulnerability).isLessThan(1)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You should be casting all of your <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />s inside <SpellLink id={SPELLS.VULNERABLE.id} /> to ensure it does the most damage it possible can. </React.Fragment>)
-          .icon(SPELLS.PIERCING_SHOT_TALENT.icon)
-          .actual(`${formatPercentage(1 - percentPiercingInsideVulnerability)}% were outside Vulnerable`)
-          .recommended(`${formatPercentage(recommended)}% of total Piercing Shots inside Vulnerable is recommended`)
-          .major(true);
-      });
   }
 }
 
