@@ -16,7 +16,7 @@ class RecurrentRitual extends Analyzer {
   }
 
   item() {
-    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.RECURRENT_RITUAL_SHARD_GEN.id].generated;
+    const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.RECURRENT_RITUAL_SHARD_GEN.id);
     return {
       item: ITEMS.RECURRENT_RITUAL,
       result: `${shardsGained} Soul Shard Fragments gained`,
