@@ -24,21 +24,16 @@ class SearingTouch extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id) {
-      this.currentHealth = event.hitPoints;
-      this.maxHealth = event.maxHitPoints;
+      const healthPercent = event.hitPoints / event.maxHitPoints;
 
-      if (this.healthPercent < .30) {
+      if (healthPercent < .30) {
         this.totalCasts += 1;
       }
-      if (spellId === SPELLS.FIREBALL.id && this.healthPercent < .30) {
+      if (spellId === SPELLS.FIREBALL.id && healthPercent < .30) {
         this.badCasts += 1;
         debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
     }
-  }
-
-  get healthPercent() {
-    return this.currentHealth / this.maxHealth;
   }
 
   get scorchUtil() {
