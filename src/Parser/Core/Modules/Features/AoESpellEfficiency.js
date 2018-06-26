@@ -1,35 +1,24 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 
 /*
-
+  Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
 */
 
 class AoESpellEfficiency extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
-  ability = SPELLS.CONSUMPTION_TALENT;
-
   bonusDmg = 0;
-  spellCooldown = 0;
   casts = [];
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(this.ability.id);
-    this.spellCooldown = this.abilities.getAbility(this.ability.id).cooldown;
-  }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== this.ability.id) {
@@ -52,15 +41,17 @@ class AoESpellEfficiency extends Analyzer {
   }
 
   get maxCasts() {
-    return Math.ceil(calculateMaxCasts(this.spellCooldown, this.owner.fightDuration));
+    const cooldown = this.abilities.getAbility(this.ability.id).cooldown;
+    return Math.ceil(calculateMaxCasts(cooldown, this.owner.fightDuration));
   }
 
   get possibleHits() {
+    const cooldown = this.abilities.getAbility(this.ability.id).cooldown;
     let lastCast = this.owner.fight.start_time;
     let missedCasts = 0;
 
     this.casts.forEach((element, index) => {
-      if (element.timestamp - lastCast >= this.spellCooldown * 1000 && element.hits === 1) {
+      if (element.timestamp - lastCast >= cooldown * 1000 && element.hits === 1) {
         missedCasts += 1;
       }
       lastCast = element.timestamp;

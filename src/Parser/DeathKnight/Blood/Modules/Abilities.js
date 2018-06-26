@@ -204,7 +204,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WRAITH_WALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 60,
         timelineSortIndex: 14,
       },

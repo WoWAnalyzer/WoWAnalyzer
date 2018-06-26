@@ -127,7 +127,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <React.Fragment>Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> hits</React.Fragment>,
             check: () => this.consumption.hitSuggestionThreshold, 
-            when: this.combatants.selected.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</React.Fragment>,
