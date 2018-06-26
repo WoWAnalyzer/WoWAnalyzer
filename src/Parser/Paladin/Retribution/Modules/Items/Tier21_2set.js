@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const RET_PALADIN_T21_2SET_MODIFIER = 0.4;
@@ -25,7 +25,7 @@ class Tier21_2set extends Analyzer {
     if (spellId !== SPELLS.JUDGMENT_CAST.id) {
       return;
     }
-    this.damageDone += GetDamageBonus(event, RET_PALADIN_T21_2SET_MODIFIER);
+    this.damageDone += calculateEffectiveDamage(event, RET_PALADIN_T21_2SET_MODIFIER);
   }
 
   item() {

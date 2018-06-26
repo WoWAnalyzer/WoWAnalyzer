@@ -12,7 +12,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-
 class HitCombo extends Analyzer {
 
   constructor(...args) {
