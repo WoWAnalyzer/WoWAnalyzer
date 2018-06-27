@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWcl';
-import ActivityIndicator from 'Main/ActivityIndicator';
-import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
-import ArmoryLogo from 'Main/Images/Armory-logo.png';
-import WipefestLogo from 'Main/Images/Wipefest-logo.png';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
+import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
+import ArmoryLogo from 'Interface/Images/Armory-logo.png';
+import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
 import SPECS from 'common/SPECS';

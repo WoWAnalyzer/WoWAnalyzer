@@ -10,7 +10,7 @@ import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
 import Contributor from 'Interface/Contributor/Button';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
-import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
+import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
 import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
 
 import RegularArticle from '../../RegularArticle';

@@ -15,8 +15,8 @@ import SectionDivider from 'Main/SectionDivider';
 import News from 'Interface/News';
 import SpecListing from 'Interface/Home/SpecListing';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
+import MasteryRadiusImage from 'Interface/Images/mastery-radius.png';
 import ChangelogPanel from 'Main/ChangelogPanel';
-import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
 
 import DiscordBanner from './Images/discord-banner.jpg';
 import ReportHistory from './ReportHistory/Panel';
