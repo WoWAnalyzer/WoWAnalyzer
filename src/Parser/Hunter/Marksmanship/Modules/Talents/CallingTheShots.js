@@ -34,6 +34,7 @@ class CallingTheShots extends Analyzer {
       if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < COOLDOWN_REDUCTION_MS) {
         const effectiveReductionMs = this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id);
         this.effectiveTrueshotReductionMs += effectiveReductionMs;
+        this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, effectiveReductionMs);
         this.wastedTrueshotReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
       } else {
         const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
