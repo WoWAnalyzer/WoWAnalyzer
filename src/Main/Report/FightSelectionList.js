@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import getWipeCount from 'common/getWipeCount';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import Fight from './Fight';
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class FightSelectionList extends Component {
   static propTypes = {
