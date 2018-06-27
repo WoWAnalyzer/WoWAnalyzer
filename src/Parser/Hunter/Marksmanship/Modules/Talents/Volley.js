@@ -2,65 +2,48 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS/index';
+import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ITEMS from "common/ITEMS/HUNTER";
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import StatisticBox from 'Main/StatisticBox';
 
 /**
- * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ * Your auto-shots have a 10% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
  */
 
-const PROC_CHANCE = 0.05;
+const PROC_CHANCE = 0.1;
+const BUFFER_MS = 100;
 
-class LockAndLoad extends Analyzer {
-  hasLnLBuff = false;
-  noGainLNLProcs = 0;
-  totalProcs = 0;
+class Volley extends Analyzer {
+
+  damage = 0;
   autoShots = 0;
-  wastedInstants = 0;
+  procs = 0;
+  lastVolleyHit = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
-  }
-
-  on_byPlayer_applybuff(event) {
-    const buffId = event.ability.guid;
-    if (buffId !== SPELLS.LOCK_AND_LOAD_BUFF.id) {
-      return;
-    }
-    this.totalProcs += 1;
-    this.hasLnLBuff = true;
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id, event.timestamp) || spellId !== SPELLS.AIMED_SHOT.id) {
-      return;
-    }
-    this.hasLnLBuff = false;
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    const buffId = event.ability.guid;
-    if (buffId !== SPELLS.LOCK_AND_LOAD_BUFF.id) {
-      return;
-    }
-    if (this.hasLnLBuff) {
-      this.noGainLNLProcs += 1;
-      this.wastedInstants += 1;
-    }
-    this.totalProcs += 1;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.VOLLEY_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.AUTO_SHOT.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.VOLLEY_DAMAGE.id && spellId !== SPELLS.AUTO_SHOT.id) {
       return;
     }
-    this.autoShots += 1;
+    if (spellId === SPELLS.VOLLEY_DAMAGE.id) {
+      this.damage += event.amount + (event.absorbed || 0);
+      if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
+        this.procs++;
+        this.lastVolleyHit = event.timestamp;
+      }
+    }
+    if (spellId === SPELLS.AUTO_SHOT.id) {
+      this.autoShots += 1;
+    }
   }
 
   get expectedProcs() {
@@ -122,7 +105,7 @@ class LockAndLoad extends Analyzer {
 
   statistic() {
     const binomCalc = this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE);
-    let tooltipText = `You had ${this.noGainLNLProcs} ${this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
+    let tooltipText = `You had ${this.procs} ${this.procs > 1 ? `procs` : `proc`} procs. <br/> You had ${formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.procs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
     //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
     tooltipText += binomCalc === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
     tooltipText += binomCalc === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
@@ -132,15 +115,28 @@ class LockAndLoad extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
-        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
-        label="lost LnL stacks"
+        icon={<SpellIcon id={SPELLS.VOLLEY_TALENT.id} />}
+        value={`${this.procs}`}
+        label="Volley procs"
         tooltip={tooltipText}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
+  statisticOrder = STATISTIC_ORDER.CORE(13);
+
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.VOLLEY_TALENT.id} />
+        </div>
+        <div className="flex-sub text-right">
+          <ItemDamageDone amount={this.damage} />
+        </div>
+      </div>
+    );
+  }
 
 }
 
-export default LockAndLoad;
+export default Volley;

@@ -11,8 +11,9 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.MONGOOSE_BITE,
+        spell: SPELLS.MONGOOSE_BITE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -25,33 +26,12 @@ class Abilities extends CoreAbilities {
         },*/
       },
       {
-        spell: SPELLS.FLANKING_STRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: haste => 6 / (1 + haste),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .85,
-          extraSuggestion: <React.Fragment> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />.</React.Fragment>,
-        },
-      },
-      {
         spell: SPELLS.CARVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
-      },
-      {
-        spell: SPELLS.FURY_OF_THE_EAGLE_TRAIT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
       },
       {
         spell: SPELLS.EXPLOSIVE_TRAP_CAST,
@@ -63,7 +43,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
-          extraSuggestion: <React.Fragment> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> resets, in which case you'd ignore this suggestion. </React.Fragment>,
         },
       },
       {
@@ -146,14 +125,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
           const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
-          const cooldownAfterEmbrace = hasEmbrace ? 120 - (120 * 0.2) : 120;
+          const cooldownAfterEmbrace = hasEmbrace ? 90 - (90 * 0.2) : 90;
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: <React.Fragment>You'll want to use <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible, as it's a very powerful cooldown partly due to the <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} /> trait. It should be used whenever you run out of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> stacks in your <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> windows, or there's 10s seconds remaining of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to fully utilise the pairing.</React.Fragment>,
         },
         gcd: null,
       },
@@ -219,7 +197,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
-        enabled: !combatant.hasTalent(SPELLS.CALTROPS_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -235,7 +212,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WING_CLIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.RANGERS_NET_TALENT.id),
         gcd: {
           base: 1500,
         },

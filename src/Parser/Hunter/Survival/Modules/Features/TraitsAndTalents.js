@@ -10,7 +10,7 @@ import SteelTrap from 'Parser/Hunter/Survival/Modules/Talents/SteelTrap';
 import ExplosiveTrap from 'Parser/Hunter/Survival/Modules/Spells/ExplosiveTrap';
 import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
 import SerpentSting from 'Parser/Hunter/Survival/Modules/Talents/SerpentSting';
-import AMurderOfCrows from 'Parser/Hunter/Survival/Modules/Talents/AMurderOfCrows';
+import AMurderOfCrows from 'Parser/Hunter/Shared/Modules/Talents/AMurderOfCrows';
 import DragonsfireGrenade from 'Parser/Hunter/Survival/Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from 'Parser/Hunter/Survival/Modules/Talents/ThrowingAxes';
 import EaglesBite from 'Parser/Hunter/Survival/Modules/Traits/EaglesBite';

@@ -22,12 +22,12 @@ class AMurderOfCrows extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
       return;
     }
     this.casts++;
@@ -35,12 +35,12 @@ class AMurderOfCrows extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
       return;
     }
     if (this.casts === 0) {
       this.casts++;
-      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id, this.owner.fight.start_time);
+      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
@@ -49,7 +49,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} />
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

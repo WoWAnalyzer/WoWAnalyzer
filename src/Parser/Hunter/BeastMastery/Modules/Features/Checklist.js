@@ -22,7 +22,6 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
 
 //Talents
-import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
 import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
@@ -56,7 +55,6 @@ class Checklist extends CoreChecklist {
     timeFocusCapped: TimeFocusCapped,
 
     //talents
-    aMurderOfCrows: AMurderOfCrows,
     killerCobra: KillerCobra,
     aspectOfTheBeast: AspectOfTheBeast,
 
