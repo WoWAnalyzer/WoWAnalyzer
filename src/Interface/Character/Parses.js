@@ -26,6 +26,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
+const OMIT_PARTITION = 0;
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
@@ -59,6 +60,7 @@ class Parses extends React.Component {
       activeZoneID: ZONE_DEFAULT_ANTORUS,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
+      partition: OMIT_PARTITION,
       metric: 'dps',
       image: null,
       parses: [],
@@ -73,7 +75,7 @@ class Parses extends React.Component {
     this.load = this.load.bind(this);
     this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
-    this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
+    this.updateZoneMetricBossPartition = this.updateZoneMetricBossPartition.bind(this);
   }
 
   componentDidMount() {
@@ -84,11 +86,12 @@ class Parses extends React.Component {
     return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
   }
 
-  updateZoneMetricBoss(zone, metric, boss) {
+  updateZoneMetricBossPartition(zone, metric, boss, partition) {
     this.setState({
       activeZoneID: zone,
       metric: metric,
       activeEncounter: boss,
+      partition: partition,
     }, () => {
       this.load();
     });
@@ -253,9 +256,12 @@ class Parses extends React.Component {
     const urlEncodedName = encodeURIComponent(this.props.name);
     const urlEncodedRealm = encodeURIComponent(realmSlug);
 
+    const partition = this.state.partition === OMIT_PARTITION ? undefined : this.state.partition;
+
     return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
+      partition: partition,
       _: refresh ? +new Date() : undefined,
     })
       .then(rawParses => {
@@ -412,7 +418,7 @@ class Parses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.activeZoneID}
-                    onChange={e => this.updateZoneMetricBoss(Number(e.target.value), this.state.metric, BOSS_DEFAULT_ALL_BOSSES)}
+                    onChange={e => this.updateZoneMetricBossPartition(Number(e.target.value), this.state.metric, BOSS_DEFAULT_ALL_BOSSES, OMIT_PARTITION)}
                   >
                     {Object.values(ZONES).reverse().map(elem =>
                       <option key={elem.id} value={elem.id}>{elem.name}</option>
@@ -433,7 +439,7 @@ class Parses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.metric}
-                    onChange={e => this.updateZoneMetricBoss(this.state.activeZoneID, e.target.value, this.state.activeEncounter)}
+                    onChange={e => this.updateZoneMetricBossPartition(this.state.activeZoneID, e.target.value, this.state.activeEncounter, this.state.partition)}
                   >
                     <option defaultValue value="dps">DPS</option>
                     <option value="hps">HPS</option>
@@ -448,6 +454,20 @@ class Parses extends React.Component {
                     <option value={ORDER_BY.DPS}>DPS / HPS</option>
                     <option value={ORDER_BY.PERCENTILE}>Percentile</option>
                   </select>
+                  {ZONES.find(e => e.id === this.state.activeZoneID).partitions &&
+                    <div>
+                      Partition:
+                      <select
+                        className="form-control"
+                        value={this.state.partition}
+                        onChange={e => this.updateZoneMetricBossPartition(this.state.activeZoneID, this.state.metric, this.state.activeEncounter, e.target.value)}
+                      >
+                        {ZONES.find(e => e.id === this.state.activeZoneID).partitions.map(e =>
+                          <option key={e.id} value={e.id}>{e.name}</option>
+                        )}
+                      </select>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
