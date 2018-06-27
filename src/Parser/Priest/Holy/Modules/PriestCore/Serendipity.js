@@ -30,7 +30,7 @@ class Serendipity extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.SERENDIPITY.id} />}
+        icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
         value={`${formatPercentage(percWastedVersusTotal)}%`}
         label="Wasted Serendipity"
         tooltip={
@@ -48,7 +48,7 @@ class Serendipity extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         // This wording is somewhat poor but I can't figure out a good alternative for it.
         return suggest('You held onto Holy Words too long. Try to cast Holy Words if you think you won\'t need them before they come up again instead of using filler heals.')
-          .icon(SPELLS.SERENDIPITY.icon)
+          .icon(SPELLS.HOLY_WORDS.icon)
           .actual(`${totalFullOvercast} missed casts.`)
           .recommended('It is recommended to miss none.')
           .regular(recommended + 1).major(recommended + 2);

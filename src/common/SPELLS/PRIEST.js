@@ -343,9 +343,9 @@ export default {
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-  SERENDIPITY: {
+  HOLY_WORDS: {
     id: 63733,
-    name: 'Serendipity',
+    name: 'Holy Words',
     icon: 'spell_holy_serendipity',
   },
   HOLY_FIRE: {
