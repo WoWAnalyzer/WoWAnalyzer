@@ -7,9 +7,9 @@ import { getFightId, getPlayerId, getPlayerName } from 'Interface/selectors/url/
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import getFightName from 'common/getFightName';
+import FightSelectionList from 'Main/Report/FightSelectionList';
 
 import SelectorBase from './SelectorBase';
-import FightSelectionList from '../Report/FightSelectionList';
 
 class FightSelectorHeader extends SelectorBase {
   static propTypes = {

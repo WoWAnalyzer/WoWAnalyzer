@@ -12,8 +12,8 @@ import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import { getReportProgress } from 'Interface/selectors/reportProgress';
 import { getUser } from 'Interface/selectors/user';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelectorHeader from './PlayerSelectorHeader';
 import LoadingBar from './LoadingBar';

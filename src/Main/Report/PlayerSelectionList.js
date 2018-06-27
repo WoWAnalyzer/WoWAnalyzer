@@ -11,9 +11,8 @@ import { getFightId } from 'Interface/selectors/url/report';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import { getCombatants } from 'Interface/selectors/combatants';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Main/ActivityIndicator';
-
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 

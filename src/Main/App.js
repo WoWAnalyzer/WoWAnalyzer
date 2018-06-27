@@ -12,22 +12,21 @@ import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_
 import { fetchUser } from 'Interface/actions/user';
 import { getError } from 'Interface/selectors/error';
 import RouteChangeScroller from 'Interface/RouteChangeScroller';
-import Home from 'Interface/Home';
-import NewsView from 'Interface/News/View';
-import Premium from 'Interface/Premium';
+import DocumentTitleUpdater from 'Interface/DocumentTitleUpdater';
 import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import FullscreenError from 'Interface/common/FullscreenError';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
+import NavigationBar from 'Interface/Layout/NavigationBar';
+import Footer from 'Interface/Layout/Footer';
+import Home from 'Interface/Home';
+import NewsView from 'Interface/News/View';
+import Premium from 'Interface/Premium';
+import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
 
 import 'react-toggle/style.css';
 import './App.css';
 
-import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
-
-import NavigationBar from './Layout/NavigationBar';
-import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
-import Footer from './Layout/Footer';
-import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
 
 import Header from './Header';
