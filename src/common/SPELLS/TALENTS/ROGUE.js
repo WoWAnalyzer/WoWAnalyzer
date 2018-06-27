@@ -53,4 +53,6 @@ export default {
   DARK_SHADOW_TALENT: { id: 245687, name: "Dark Shadow", icon: "spell_warlock_demonsoul" },
   ENVELOPING_SHADOWS_TALENT: { id: 238104, name: "Enveloping Shadows", icon: "ability_rogue_envelopingshadows" },
   MASTER_OF_SHADOWS_TALENT: { id: 196976, name: "Master of Shadows", icon: "spell_shadow_charm" },
+  SECRET_TECHNIQUE_TALENT: { id: 280719, name: "Secret Technique", icon: "ability_rogue_sinistercalling" },
+  SHURIKEN_TORNADO_TALENT: { id: 277925, name: "Shuriken Tornado", icon: "ability_rogue_throwingspecialization" },
 };

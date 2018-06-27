@@ -1,102 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.VANISH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-      },
-      {
-        spell: SPELLS.SHADOW_BLADES, // TODO: Reduced by Convergence of Fates
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 1.0,
-          extraSuggestion: 'In most cases should be used on cooldown',
-        },
-      },
-      {
-        spell: SPELLS.SYMBOLS_OF_DEATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0)),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: 'This is the most important rotational ability, try to always use it on cooldown.',
-        },
-      },
-      {
-        spell: SPELLS.SHADOW_DANCE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        charges: 3,
-        enabled: combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
-        },
-      },
-      {
-        spell: SPELLS.SHADOW_DANCE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        charges: 2,
-        enabled: !combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
-        },
-      },
-      {
-        spell: SPELLS.GOREMAWS_BITE,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          // TODO: Track usage separately, not during Dance and with at least 50 energy missing.
-          extraSuggestion: 'Use as often as possible without wasting Combo Points and Energy.',
-        },
-      },
-      //No recommendations
-      {
-        spell: SPELLS.DEATH_FROM_ABOVE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // TODO: Track separately!
-        // This should be used only with Symbols. 
-        cooldown: 20,
-        gcd: {
-          static: 2000,
-        },
-      },
-      {
-        spell: SPELLS.NIGHTBLADE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.EVISCERATE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
+      // Rotational
       {
         spell: SPELLS.BACKSTAB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -114,15 +23,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
       },
       {
-        spell: SPELLS.SHADOWSTRIKE,
+        spell: SPELLS.EVISCERATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.SHURIKEN_STORM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        // Requires Stealth
+        spell: SPELLS.SHADOWSTRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
         },
@@ -135,31 +45,175 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MARKED_FOR_DEATH_TALENT,
+        spell: SPELLS.SYMBOLS_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+        cooldown: 30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0),
+        castEfficiency: {
+          suggestion: true,
+          extraSuggestion: 'This is the most important rotational ability, try to always use it on cooldown.',
+        },
       },
+      // Rotational AOE
       {
-        spell: SPELLS.FEINT,
-        buffSpellId: SPELLS.FEINT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        spell: SPELLS.SHURIKEN_STORM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           static: 1000,
         },
       },
+      // Cooldowns
       {
-        spell: SPELLS.CRIMSON_VIAL,
+        spell: SPELLS.SHADOW_BLADES,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          extraSuggestion: 'In most cases should be used on cooldown.',
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_DANCE,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        charges: 2 + (combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1 : 0),
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
+        },
+      },
+      {
+        spell: SPELLS.VANISH,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.MARKED_FOR_DEATH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        gcd: null,
+        enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+      },
+      {
+        spell: SPELLS.SECRET_TECHNIQUE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         gcd: {
           static: 1000,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id),
+      },
+      {
+        spell: SPELLS.SHURIKEN_TORNADO_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(SPELLS.SHURIKEN_TORNADO_TALENT.id),
+      },
+      // Defensive
+      {
+        spell: SPELLS.CLOAK_OF_SHADOWS,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.CLOAK_OF_SHADOWS.id,
+        cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.CRIMSON_VIAL,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 30,
+        gcd: {
+          base: 1000,
+        },
       },
       {
         spell: SPELLS.EVASION,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         buffSpellId: SPELLS.EVASION.id,
         cooldown: 120,
+      },
+      {
+        spell: SPELLS.FEINT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.FEINT.id,
+        cooldown: 15,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.NIGHTBLADE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      // Utility
+      {
+        spell: SPELLS.SHADOWSTEP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        charges: 2,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SPRINT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.TRICKS_OF_THE_TRADE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.STEALTH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 2,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.BLIND,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 120,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHEAP_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.DISTRACT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.KICK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+        gcd: null,
       },
       {
         spell: SPELLS.KIDNEY_SHOT,
@@ -168,6 +222,27 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+      },
+      {
+        spell: SPELLS.SHROUD_OF_CONCEALMENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 6 * 60,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
+        spell: SPELLS.SAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.PICK_LOCK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.PICK_POCKET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
     ];
   }

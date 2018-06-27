@@ -23,7 +23,7 @@ import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
 import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
 import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
 import T21_2P from './Modules/Items/T21_2P';
-import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
+import DeepeningShadows from './Modules/RogueCore/DeepeningShadows';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
@@ -57,7 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mantleDamageTracker: MantleDamageTracker,
 
     //Core
-    danceCooldownReduction: DanceCooldownReduction,
+    danceCooldownReduction: DeepeningShadows,
 
     //Items
     t21_2P: T21_2P,

@@ -163,11 +163,6 @@ export default {
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
   },
-  GOREMAWS_BITE: {
-    id: 209782,
-    name: 'Goremaw\'s Bite',
-    icon: 'inv_knife_1h_artifactfangs_d_01',
-  },
   // Triggered damage
   SHADOW_NOVA: {
     id: 197800,
@@ -192,20 +187,10 @@ export default {
     icon: 'ability_rogue_shurikenstorm',
   },
   // ENERGY REGEN
-  GOREMAWS_BITE_ENERGY: {
-    id: 220901,
-    name: 'Goremaw\'s Bite',
-    icon: 'inv_knife_1h_artifactfangs_d_01',
-  },
   RELENTLESS_STRIKES: {
     id: 98440,
     name: 'Relentless Strikes',
     icon: 'ability_warrior_decisivestrike',
-  },
-  ENERGETIC_STABBING: {
-    id: 197237,
-    name: 'Energetic Stabbing',
-    icon: 'inv_knife_1h_pvppandarias3_c_02',
   },
   SHADOW_SATYRS_WALK_ENERGY_BASE: {
     id: 224914,
@@ -381,32 +366,15 @@ export default {
     name: 'Poison Bomb',
     icon: 'rogue_paralytic_poison',
   },
-  VENOMOUS_VIM: {
-    id: 51637,
-    name: 'Venomous Vim',
-    icon: 'ability_rogue_venomouswounds',
-  },
   URGE_TO_KILL: {
     id: 242164,
     name: 'Urge to Kill',
-    icon: 'ability_rogue_improvedrecuperate',
-  },
-  SEAL_FATE: {
-    id: 14189,
-    name: 'Seal Fate',
     icon: 'ability_rogue_improvedrecuperate',
   },
   POISON_KNIVES: {
     id: 192380,
     name: 'Poison Knives',
     icon: 'ability_rogue_dualweild',
-  },
-
-  //Artifact Traits
-  MASTER_ASSASSIN: {
-    id: 192349,
-    name: 'Master Assassin',
-    icon: 'ability_rogue_deadliness',
   },
 
   //Tier

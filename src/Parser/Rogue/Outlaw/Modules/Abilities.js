@@ -133,7 +133,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
         gcd: {
-          static: standardGcd,
+          base: 1000, // Adrenaline Rush doesn't decrease this, but Haste does
         },
       },
       {
@@ -231,16 +231,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SAP,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
         spell: SPELLS.SHROUD_OF_CONCEALMENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 6 * 60,
         gcd: {
-          static: standardGcd,
+          base: 1000,
         },
+      },
+      {
+        spell: SPELLS.SAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
         spell: SPELLS.PICK_LOCK,
