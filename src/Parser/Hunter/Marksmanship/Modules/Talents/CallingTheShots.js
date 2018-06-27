@@ -32,13 +32,10 @@ class CallingTheShots extends Analyzer {
     }
     if (this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id)) {
       if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < COOLDOWN_REDUCTION_MS) {
-        const effectiveReductionMs = this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id);
-        this.effectiveTrueshotReductionMs += effectiveReductionMs;
-        this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, effectiveReductionMs);
+        const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
         this.wastedTrueshotReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
       } else {
-        const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
-        this.effectiveTrueshotReductionMs += reductionMs;
+        this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
       }
     } else {
       this.wastedTrueshotReductionMs += COOLDOWN_REDUCTION_MS;
