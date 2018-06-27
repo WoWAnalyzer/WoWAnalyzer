@@ -16,7 +16,6 @@ export default {
   ALACRITY_TALENT: { id: 193539, name: "Alacrity", icon: "ability_paladin_speedoflight" },
   EXSANGUINATE_TALENT: { id: 200806, name: "Exsanguinate", icon: "ability_deathwing_bloodcorruption_earth", energyCost: 25 },
   MARKED_FOR_DEATH_TALENT: { id: 137619, name: "Marked for Death", icon: "achievement_bg_killingblow_berserker" },
-  DEATH_FROM_ABOVE_TALENT: { id: 152150, name: "Death from Above", icon: "spell_rogue_deathfromabove", energyCost: 25 },
   // Assassination
   POISON_BOMB_TALENT: { id: 255544, name: "Poison Bomb", icon: "rogue_paralytic_poison" },
   MASTER_ASSASSIN_TALENT: { id: 255989, name: "Master Assassin", icon: "ability_criticalstrike" },
