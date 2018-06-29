@@ -77,7 +77,7 @@ class Checklist extends CoreChecklist {
             check: () => this.shieldOfTheRighteous.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> efficiency</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> uptime</React.Fragment>,
             check: () => this.consecration.uptimeSuggestionThresholds,
           }),
         ];
