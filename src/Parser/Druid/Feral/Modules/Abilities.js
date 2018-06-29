@@ -176,8 +176,15 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 120,
-        // 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        gcd: null,
+        gcd: (combatant => {
+          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
+            // off the GCD if player is already in cat form
+            return null;
+          }
+          return {
+            static: 1500,
+          };
+        }),
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -187,8 +194,15 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 45,
-        // 1.5 fixed GCD if used when not in cat form (which is rare for a Feral druid)
-        gcd: null,
+        gcd: (combatant => {
+          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
+            // off the GCD if player is already in cat form
+            return null;
+          }
+          return {
+            static: 1500,
+          };
+        }),
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -198,13 +212,10 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.STAMPEDING_ROAR_CAT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        // 1.0 reduced by haste if cast in cat form (most common for a Feral druid)
-        // 1.5 reduced by haste if cast in bear form
-        // 1.5 fixed if cast in any other form, including caster
         gcd: (combatant => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             return {
-          base: 1000,
+              base: 1000,
             };
           }
           if (combatant.hasBuff(SPELLS.BEAR_FORM.id)) {
