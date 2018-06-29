@@ -123,7 +123,8 @@ class GlobalCooldown extends Analyzer {
   getCurrentGlobalCooldown(spellId) {
     const ability = this.abilities.getAbility(spellId);
     if (!ability || !ability.gcd) {
-      return this.constructor.calculateGlobalCooldown(this.haste.current);
+      // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
+      return 0;
     }
     const resolvedGcd = (typeof ability.gcd === 'function') ? ability.gcd.call(this.owner, this.selectedCombatant) : ability.gcd;
     if (!resolvedGcd) {
