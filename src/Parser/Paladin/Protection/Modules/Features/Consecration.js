@@ -7,7 +7,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Consecration extends Analyzer {
   get uptime() {
-    console.info(this.selectedCombatant.getBuffUptime(SPELLS.CONSECRATION_BUFF.id));
     return this.selectedCombatant.getBuffUptime(SPELLS.CONSECRATION_BUFF.id) / this.owner.fightDuration;
   }
 
