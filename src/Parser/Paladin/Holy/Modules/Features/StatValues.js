@@ -61,8 +61,8 @@ class StatValues extends BaseHealerStatValues {
       baseCritChance += 0.3;
     }
     if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
-      // Holy Shock has a base 25% crit chance
-      baseCritChance += 0.25;
+      // Holy Shock has a base 30% crit chance
+      baseCritChance += 0.3;
     }
 
     return { baseCritChance, ratingCritChance };

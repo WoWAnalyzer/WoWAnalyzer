@@ -8,8 +8,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-29'),
+    changes: <React.Fragment>Updated the crit bonus for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> to 30% (up from 25%).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-11'),
-    changes: <React.Fragment>Update stat values to consider the crit changes for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> (lowers the stat value of crit).</React.Fragment>,
+    changes: <React.Fragment>Updated stat values to consider the crit changes for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> (lowers the stat value of crit).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
