@@ -23,6 +23,7 @@ class RageTracker extends ResourceTracker {
   }
 
   getReducedCost(event) {
+
     if (!this.getResource(event).cost) {
       return 0;
     }
