@@ -68,14 +68,14 @@ class HuntersMark extends Analyzer {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy && !enemy.hasBuff(SPELLS.HUNTERS_MARK_DEBUFF.id, event.timestamp)) {
+    if (!enemy && !enemy.hasBuff(SPELLS.HUNTERS_MARK_TALENT.id, event.timestamp)) {
       return;
     }
     this.damage += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
   }
 
   get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK_DEBUFF.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK_TALENT.id) / this.owner.fightDuration;
   }
 
   statistic() {

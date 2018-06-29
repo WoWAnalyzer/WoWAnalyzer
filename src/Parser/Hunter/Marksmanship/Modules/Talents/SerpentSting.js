@@ -7,30 +7,31 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
- * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
+ * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
  */
 
-class PiercingShot extends Analyzer {
+class SerpentSting extends Analyzer {
 
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
+    if (spellId !== SPELLS.SERPENT_STING_TALENT.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />
+          <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />
@@ -40,4 +41,4 @@ class PiercingShot extends Analyzer {
   }
 }
 
-export default PiercingShot;
+export default SerpentSting;
