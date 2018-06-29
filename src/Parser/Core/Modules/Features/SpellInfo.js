@@ -94,4 +94,11 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.VAMPIRIC_SPEED_HEAL.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
 };
