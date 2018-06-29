@@ -139,7 +139,7 @@ export default {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 1500,
+    manaCost: 1400,
   },
   MARAADS_DYING_BREATH_BUFF: {
     id: 234862,
