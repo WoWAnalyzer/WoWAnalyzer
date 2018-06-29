@@ -4,7 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Channeling from '../../Hunter/Shared/Modules/Features/Channeling';
+import Channeling from './Modules/Features/Channeling';
 
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 import Evocation from './Modules/Features/Evocation';
