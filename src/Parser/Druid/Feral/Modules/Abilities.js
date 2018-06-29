@@ -148,18 +148,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // 1.0 hasted in cat form, 1.5 hasted in caster (which is rarer for Feral)
         gcd: {
-          base: 1000,
+          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
         },
         timelineSortIndex: 30,
       },
       {
         spell: SPELLS.ENTANGLING_ROOTS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // 1.0 hasted in cat form, 1.5 hasted in caster (which is rarer for Feral)
         gcd: {
-          base: 1000,
+          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
         },
         timelineSortIndex: 31,
       },
@@ -203,9 +201,21 @@ class Abilities extends CoreAbilities {
         // 1.0 reduced by haste if cast in cat form (most common for a Feral druid)
         // 1.5 reduced by haste if cast in bear form
         // 1.5 fixed if cast in any other form, including caster
-        gcd: {
+        gcd: (combatant => {
+          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
+            return {
           base: 1000,
-        },
+            };
+          }
+          if (combatant.hasBuff(SPELLS.BEAR_FORM.id)) {
+            return {
+              base: 1500,
+            };
+          }
+          return {
+            static: 1500,
+          };
+        }),
         isDefensive: true,
         timelineSortIndex: 44,
       },
