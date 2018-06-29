@@ -623,6 +623,11 @@ export default {
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
   },
+  HUNTERS_MARK_DEBUFF: {
+    id: 257284,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
 
   //Survival:
   ASPECT_OF_THE_EAGLE: {
