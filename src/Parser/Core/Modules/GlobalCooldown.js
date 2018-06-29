@@ -117,11 +117,11 @@ class GlobalCooldown extends Analyzer {
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
    * Typically you should first use isOnGlobalCooldown to check if the spell is on the GCD at all. This function gives
    * a default GCD value if there's no GCD defined for the given spellId.
-   * @param spellId
+   * @param {number} spellId
    * @returns {number} The duration in milliseconds.
    */
-  getCurrentGlobalCooldown(spellId = null) {
-    const ability = spellId ? this.abilities.getAbility(spellId) : null;
+  getCurrentGlobalCooldown(spellId) {
+    const ability = this.abilities.getAbility(spellId);
     if (!ability || !ability.gcd) {
       return this.constructor.calculateGlobalCooldown(this.haste.current);
     }
