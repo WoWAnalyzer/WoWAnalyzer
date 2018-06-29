@@ -24,7 +24,7 @@ import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysB
 //Talents
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 
 //Spells
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';

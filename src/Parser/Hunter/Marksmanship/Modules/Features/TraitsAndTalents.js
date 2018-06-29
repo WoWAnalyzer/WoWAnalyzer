@@ -11,6 +11,8 @@ import LoneWolf from '../Spells/LoneWolf';
 import Volley from '../Talents/Volley';
 import ExplosiveShot from '../Talents/ExplosiveShot';
 import PiercingShot from '../Talents/PiercingShot';
+import HuntersMark from '../Talents/HuntersMark';
+import SerpentSting from '../Talents/SerpentSting';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
@@ -20,6 +22,8 @@ class TraitsAndTalents extends Analyzer {
     aMurderOfCrows: AMurderOfCrows,
     piercingShot: PiercingShot,
     barrage: Barrage,
+    huntersMark: HuntersMark,
+    serpentSting: SerpentSting,
   };
 
   constructor(...args) {
@@ -42,6 +46,8 @@ class TraitsAndTalents extends Analyzer {
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.piercingShot.active && this.piercingShot.subStatistic()}
         {this.barrage.active && this.barrage.subStatistic()}
+        {this.huntersMark.active && this.huntersMark.subStatistic()}
+        {this.serpentSting.active && this.serpentSting.subStatistic()}
         {}
       </StatisticsListBox>
 

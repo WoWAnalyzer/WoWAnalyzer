@@ -10,7 +10,7 @@ import Volley from 'Parser/Hunter/Marksmanship/Modules/Talents/Volley';
 import BestialFury from '../Talents/BestialFury';
 import TitansThunder from '../Traits/TitansThunder';
 import Stomp from '../Talents/Stomp';
-import AspectOfTheBeast from '../../../Shared/Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from '../Talents/AspectOfTheBeast';
 import ChimaeraShot from '../Talents/ChimaeraShot';
 import WayOfTheCobra from '../Talents/WayOfTheCobra';
 import BlinkStrikes from '../Talents/BlinkStrikes';
