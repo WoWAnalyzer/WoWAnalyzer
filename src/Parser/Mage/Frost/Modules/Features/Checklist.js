@@ -167,7 +167,7 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id),
           }),
           new Requirement({
-            name: "All Icicles into Glacial Spike",
+            name: "Glacial Spike Utilization",
             check: () => this.glacialSpike.utilSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
           }),

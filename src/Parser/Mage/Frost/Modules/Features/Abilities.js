@@ -20,6 +20,7 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
         castEfficiency: {
+          disabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) ? true : false,
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
