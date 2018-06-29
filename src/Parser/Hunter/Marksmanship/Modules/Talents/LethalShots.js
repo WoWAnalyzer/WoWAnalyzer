@@ -19,7 +19,7 @@ class LethalShots extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -40,7 +40,7 @@ class LethalShots extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && this.selectedCombatant.hasBuff(SPELLS.LETHAL_SHOTS_BUFF.id)) {
+    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && !this.selectedCombatant.hasBuff(SPELLS.LETHAL_SHOTS_BUFF.id)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
@@ -62,7 +62,7 @@ class LethalShots extends Analyzer {
   statistic() {
     let tooltipText = `You gained a total of ${this.totalProcs} procs, and utilised ${this.totalUsage} of them.<ul>`;
     tooltipText += this.aimedUsage > 0 ? `<li>Out of the total procs, you used ${this.aimedUsage} of them on Aimed Shots.</li>` : ``;
-    tooltipText += this.RFUsage > 0 ? `<li>Out of the total procs, you used ${this.RFUsage} of them on Rapid Fire.</li>` : ``;
+    tooltipText += this.RFUsage > 0 ? `<li>Out of the total procs, you used ${this.RFUsage} of them on Rapid Fires.</li>` : ``;
     tooltipText += `</ul>`;
     return (
       <StatisticBox

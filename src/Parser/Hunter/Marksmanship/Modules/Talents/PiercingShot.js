@@ -9,6 +9,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 /**
  * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
  */
+
 class PiercingShot extends Analyzer {
 
   damage = 0;
