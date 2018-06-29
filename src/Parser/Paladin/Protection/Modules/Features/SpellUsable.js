@@ -24,7 +24,7 @@ class SpellUsable extends CoreSpellUsable {
       this.lastPotentialTriggerForAvengersShield = event;
     } else if (spellId === SPELLS.AVENGERS_SHIELD.id) {
       this.lastPotentialTriggerForAvengersShield = null;
-    } else if (spellId === SPELLS.JUDGMENT_CAST.id) {
+    } else if (spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {
       this.lastPotentialTriggerForJudgment = null;
     }
   }
@@ -44,7 +44,7 @@ class SpellUsable extends CoreSpellUsable {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForAvengersShield ? this.lastPotentialTriggerForAvengersShield.timestamp : undefined);
       }
-    } else if (this.hasCrusadersJudgment && spellId === SPELLS.JUDGMENT_CAST.id) {
+    } else if (this.hasCrusadersJudgment && spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForJudgment ? this.lastPotentialTriggerForJudgment.timestamp : undefined);
       }

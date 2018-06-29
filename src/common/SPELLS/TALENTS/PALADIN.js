@@ -7,11 +7,11 @@ export default {
   CAVALIER_TALENT: { id: 230332, name: "Cavalier", icon: "ability_paladin_divinesteed" },
   JUDGMENT_OF_LIGHT_TALENT: { id: 183778, name: "Judgment of Light", icon: "spell_holy_divineprovidence" },
   FIST_OF_JUSTICE_TALENT_SHARED: { id: 198054, name: "Fist of Justice", icon: "spell_holy_fistofjustice" },
+  UNBREAKABLE_SPIRIT_TALENT: { id: 114154, name: "Unbreakable Spirit", icon: "spell_holy_unyieldingfaith" },
   // Holy
   BESTOW_FAITH_TALENT: { id: 223306, name: "Bestow Faith", icon: "ability_paladin_blessedmending", manaCost: 1200 },
   LIGHTS_HAMMER_TALENT: { id: 114158, name: "Light's Hammer", icon: "spell_paladin_lightshammer", manaCost: 5600 },
   CRUSADERS_MIGHT_TALENT: { id: 196926, name: "Crusader's Might", icon: "ability_paladin_swiftretribution" },
-  UNBREAKABLE_SPIRIT_TALENT: { id: 114154, name: "Unbreakable Spirit", icon: "spell_holy_unyieldingfaith" },
   RULE_OF_LAW_TALENT: { id: 214202, name: "Rule of Law", icon: "ability_paladin_longarmofthelaw" },
   DEVOTION_AURA_TALENT: { id: 183425, name: "Devotion Aura", icon: "spell_holy_devotionaura" },
   AURA_OF_SACRIFICE_TALENT: { id: 183416, name: "Aura of Sacrifice", icon: "ability_deathwing_bloodcorruption_earth" },
@@ -42,6 +42,8 @@ export default {
   RIGHTEOUS_PROTECTOR_TALENT: { id: 204074, name: "Righteous Protector", icon: "ability_paladin_shieldofthetemplar" },
   SERAPHIM_TALENT: { id: 152262, name: "Seraphim", icon: "ability_paladin_seraphim" },
   LAST_DEFENDER_TALENT: { id: 203791, name: "Last Defender", icon: "spell_holy_divinepurpose" },
+
+  REDOUBT_TALENT: { id: 280373, name: "Redoubt", icon: "ability_warrior_shieldguard" },
   // Retribution
   RIGHTEOUS_VERDICT_TALENT: { id: 267610, name: "Righteous Verdict", icon: "spell_paladin_templarsverdict" },
   EXECUTION_SENTENCE_TALENT: { id: 213757, name: "Execution Sentence", icon: "spell_paladin_executionsentence", maelstromCost: 3 },

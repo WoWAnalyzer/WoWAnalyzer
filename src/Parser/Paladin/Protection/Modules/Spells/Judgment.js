@@ -20,7 +20,7 @@ class Judgment extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.JUDGMENT_CAST.id) {
+    if (spellId !== SPELLS.JUDGMENT_CAST_PROTECTION.id) {
       return;
     }
 
