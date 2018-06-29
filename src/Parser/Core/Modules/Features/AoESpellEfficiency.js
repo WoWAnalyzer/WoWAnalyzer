@@ -46,16 +46,29 @@ class AoESpellEfficiency extends Analyzer {
   }
 
   get possibleHits() {
-    const cooldown = this.abilities.getAbility(this.ability.id).cooldown;
-    let lastCast = this.owner.fight.start_time;
+    const cooldownMS = this.abilities.getAbility(this.ability.id).cooldown * 1000;
+    let lastCast = null;
     let missedCasts = 0;
+    let timeSum = 0;
 
-    this.casts.forEach((element, index) => {
-      if (element.timestamp - lastCast >= cooldown * 1000 && element.hits === 1) {
-        missedCasts += 1;
+    this.casts.forEach(e => {
+      if (!lastCast) {
+        timeSum = e.timestamp - this.owner.fight.start_time;
+      } else {
+        timeSum += e.timestamp - lastCast - cooldownMS;
       }
-      lastCast = element.timestamp;
+      lastCast = e.timestamp;
+      missedCasts += Math.floor(timeSum / cooldownMS);
+      timeSum %= cooldownMS;
+      // reset the time sum if a cast hit more than one target (we have to assume this cast was at an optimal time)
+      if (e.hits > 1) {
+        timeSum = 0;
+      }
     });
+
+    timeSum += this.owner.currentTimestamp - lastCast;
+    missedCasts += Math.floor(timeSum / cooldownMS);
+    timeSum %= cooldownMS;
 
     return Math.max(this.totalHits + missedCasts, this.maxCasts);
   }
