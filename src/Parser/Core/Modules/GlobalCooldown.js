@@ -107,21 +107,18 @@ class GlobalCooldown extends Analyzer {
       // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
       return 0;
     }
-    if (!ability.gcd) {
+    const gcd = this._resolveAbilityGcdField(ability.gcd);
+    if (!gcd) {
       // If gcd isn't set, null, or 0 (falsey), the spell isn't on the GCD. ps. you should set gcd to null to be explicit.
       return 0;
     }
-    const resolvedGcd = (typeof ability.gcd === 'function') ? ability.gcd.call(this.owner, this.selectedCombatant) : ability.gcd;
-    if (!resolvedGcd) {
-      throw new Error(`Ability ${ability.name} (spellId: ${spellId}) gives a function for its GCD property which evaluates to false, which is not supported. An ability should either always be on some form of GCD or never be on the GCD.`);
+    if (gcd.static) {
+      return this._resolveAbilityGcdField(gcd.static);
     }
-    if (resolvedGcd.static) {
-      return this._resolveAbilityGcdField(resolvedGcd.static);
-    }
-    if (resolvedGcd.base) {
-      const baseGCD = this._resolveAbilityGcdField(resolvedGcd.base);
-      // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
-      const minimumGCD = this._resolveAbilityGcdField(resolvedGcd.minimum) || (baseGCD / 2);
+    if (gcd.base) {
+      const baseGCD = this._resolveAbilityGcdField(gcd.base);
+      // The minimum GCD duration is pretty much always with 100% Haste: 50% of the base duration. There is no known case of it ever being 0.
+      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || (baseGCD / 2);
       return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
     throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
