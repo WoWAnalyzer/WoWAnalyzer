@@ -5,14 +5,14 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import BuffedSOTR from './Modules/Features/BuffedSOTR';
-import BuffedHOTP from './Modules/Features/BuffedHOTP';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Checklist from './Modules/Features/Checklist';
 
 //Spells
 import Judgment from './Modules/Spells/Judgment';
 import LightOfTheProtectorTiming from './Modules/Features/LightOfTheProtectorTiming';
+import ShieldOfTheRighteous from './Modules/Features/ShieldOfTheRighteous';
+import Consecration from './Modules/Features/Consecration';
 
 //Items
 //import T20_2pc from './Modules/Items/T20_2pc';
@@ -40,11 +40,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    buffedSOTR: BuffedSOTR,
-    buffedHOTP: BuffedHOTP,
     spellUsable: SpellUsable,
     checklist: Checklist,
     lightOfTheProtectorTiming: LightOfTheProtectorTiming,
+    shieldOfTheRighteous: ShieldOfTheRighteous,
+    consecration: Consecration,
     //cooldownTracker: CooldownTracker,
 
     // Talents

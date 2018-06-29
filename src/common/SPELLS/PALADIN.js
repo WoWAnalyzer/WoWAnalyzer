@@ -23,6 +23,11 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
+  JUDGMENT_CAST_PROTECTION: {
+    id: 275779,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
   JUDGMENT_HP_ENERGIZE: {
     id: 220637,
     name: 'Judgment',
