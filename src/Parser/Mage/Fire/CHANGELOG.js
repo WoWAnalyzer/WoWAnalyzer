@@ -1,15 +1,18 @@
 import React from 'react';
 
 import { Sharrq, sref, Fyruna } from 'CONTRIBUTORS';
-import ItemLink from 'common/ItemLink';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-6-28'),
+    changes: <React.Fragment>Updated for 8.0 BFA Prepatch.</React.Fragment>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-2-25'),
-    changes: <React.Fragment>Added Support for <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added Support for Koralon's Burning Touch.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
@@ -34,7 +37,7 @@ export default [
   },
   {
     date: new Date('2018-01-03'),
-    changes: <React.Fragment>Added support for <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} /></React.Fragment>,
+    changes: <React.Fragment>Added support for Marquee Bindings of the Sun King</React.Fragment>,
     contributors: [Sharrq],
   },
   {
@@ -69,7 +72,7 @@ export default [
   },
   {
     date: new Date('2017-11-23'),
-    changes: <React.Fragment>Added support for <ItemLink id={ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id} />, <ItemLink id={ITEMS.CONTAINED_INFERNAL_CORE.id} />, and <ItemLink id={ITEMS.PYROTEX_IGNITION_CLOTH.id} /></React.Fragment>,
+    changes: <React.Fragment>Added support for Darckli's Dragonfire Diadem, Contained Infernal Core, and Pyrotex Ignition Cloth</React.Fragment>,
     contributors: [Sharrq],
   },
   {
