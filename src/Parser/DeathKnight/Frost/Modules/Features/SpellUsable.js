@@ -34,21 +34,21 @@ class SpellUsable extends CoreSpellUsable {
     this.hasIcecap = this.selectedCombatant.hasTalent(SPELLS.ICECAP_TALENT.id);
   }
 
-  on_byPlayer_damage(event){
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
-    const offInternalCD = (this.lastCritTime + this.globalCooldown.getCurrentGlobalCooldown(spellId)) <= event.timestamp;
-    if(CRYSTALLINE_SWORDS_ABILITIES.some(id => spellId === id)){
-      if(this.isOnCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id)){
+    const offInternalCD = (this.lastCritTime + this.globalCooldown.getGlobalCooldownDuration(spellId)) <= event.timestamp;
+    if (CRYSTALLINE_SWORDS_ABILITIES.some(id => spellId === id)) {
+      if (this.isOnCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id)) {
         this.reduceCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id, RUNIC_CHILLS_COOLDOWN_REDUCTION_MS);
       }
     }
-    if(this.hasIcecap && ICECAP_ABILITIES.some(id => spellId === id) && isCrit){     
-      if(this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD){
+    if (this.hasIcecap && ICECAP_ABILITIES.some(id => spellId === id) && isCrit) {
+      if (this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD) {
         this.reduceCooldown(SPELLS.PILLAR_OF_FROST.id, ICECAP_COOLDOWN_REDUCTION_MS);
         this.lastCritTime = event.timestamp;
       }
-    }    
+    }
   }
 }
 

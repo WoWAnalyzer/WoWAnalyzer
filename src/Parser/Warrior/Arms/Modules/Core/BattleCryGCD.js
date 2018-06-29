@@ -11,7 +11,6 @@ const GLOBAL_COOLDOWN = 1500;
 
 /**
  * Analyzer for GCD usage during Battle Cries.
- * @extends BattleCryAnalyzer
  */
 class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
   static dependencies = {
@@ -31,9 +30,9 @@ class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
 
   battleCryCast(event) {
     // If a spell on global cooldown was cast during Battle Cry, record it.
-    if(this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
+    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
       this.currentBattleCry.gcdsUsed += 1;
-      this.currentBattleCry.activeTime += this.globalCooldown.getCurrentGlobalCooldown(event.ability.guid);
+      this.currentBattleCry.activeTime += this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
     }
   }
 
@@ -48,14 +47,14 @@ class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
   }
 
   /**
-  * Returns the amount of GCDs wasted during Battle Cry.
-  * This is calculated using base GCD, so it may report less wasted if the user is inactive for close to base GCD during a Battle Cry.
-  */
+   * Returns the amount of GCDs wasted during Battle Cry.
+   * This is calculated using base GCD, so it may report less wasted if the user is inactive for close to base GCD during a Battle Cry.
+   */
   get gcdsWasted() {
     let gcdsWasted = 0;
     this.battleCries.forEach(battleCry => {
       let wastedTime = BattleCryAnalyzer.BATTLE_CRY_DURATION - battleCry.activeTime;
-      while(wastedTime > 0) {
+      while (wastedTime > 0) {
         wastedTime -= GLOBAL_COOLDOWN;
         gcdsWasted += 1;
       }
@@ -67,14 +66,14 @@ class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
   /** Returns a suggestion threshold for maximizing GCD use during Battle Cry. */
   get gcdThresholds() {
     return {
-			actual: this.gcdsWasted,
-			isGreaterThan: {
+      actual: this.gcdsWasted,
+      isGreaterThan: {
         minor: 0,
         average: Math.ceil(this.battleCries.length / 4),
         major: 2 * Math.ceil(this.battleCries.length / 4),
       },
-			style: 'number',
-		};
+      style: 'number',
+    };
   }
 
   suggestions(when) {

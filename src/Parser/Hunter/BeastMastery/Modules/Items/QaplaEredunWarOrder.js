@@ -36,7 +36,7 @@ class QaplaEredunWarOrder extends Analyzer {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {
-      const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(spellId);
+      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
       if (this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) < (COOLDOWN_REDUCTION_MS + globalCooldown)) {
         const effectiveReductionMs = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) - globalCooldown;
         this.effectiveKillCommandReductionMs += effectiveReductionMs;

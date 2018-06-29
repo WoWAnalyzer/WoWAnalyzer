@@ -18,8 +18,6 @@ class GlobalCooldown extends Analyzer {
     channeling: Channeling,
   };
 
-  /** Set by the constructor: contains a list of all abilities on the GCD from the Abilities config. */
-  abilitiesOnGlobalCooldown = null;
   _errors = 0;
   get errorsPerMinute() {
     const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
@@ -29,31 +27,13 @@ class GlobalCooldown extends Analyzer {
     return this.errorsPerMinute < 2;
   }
 
-  constructor(...args) {
-    super(...args);
-    const abilities = [];
-    this.abilities.activeAbilities
-      .filter(ability => ability.gcd)
-      .forEach(ability => {
-        if (ability.spell instanceof Array) {
-          ability.spell.forEach(spell => {
-            abilities.push(spell.id);
-          });
-        } else {
-          abilities.push(ability.spell.id);
-        }
-      });
-
-    this.abilitiesOnGlobalCooldown = abilities;
-  }
-
   /**
    * Returns true if this ability is on the Global Cooldown, false if not.
-   * @param spellId
-   * @return {bool} Whether this ability has a GCD.
+   * @param {number} spellId
+   * @return {boolean} Whether this ability has a GCD.
    */
   isOnGlobalCooldown(spellId) {
-    return this.abilitiesOnGlobalCooldown.includes(spellId);
+    return !!this.getGlobalCooldownDuration(spellId);
   }
 
   _currentChannel = null;
@@ -80,8 +60,8 @@ class GlobalCooldown extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const isOnGCD = this.isOnGlobalCooldown(spellId);
-    // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
     if (!isOnGCD) {
+      // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
       return;
     }
 
@@ -110,9 +90,10 @@ class GlobalCooldown extends Analyzer {
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player
       timestamp: event.timestamp,
-      duration: this.getCurrentGlobalCooldown(event.ability.guid),
+      duration: this.getGlobalCooldownDuration(event.ability.guid),
     }, event);
   }
+
   /**
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
    * Typically you should first use isOnGlobalCooldown to check if the spell is on the GCD at all. This function gives
@@ -120,10 +101,14 @@ class GlobalCooldown extends Analyzer {
    * @param {number} spellId
    * @returns {number} The duration in milliseconds.
    */
-  getCurrentGlobalCooldown(spellId) {
+  getGlobalCooldownDuration(spellId) {
     const ability = this.abilities.getAbility(spellId);
-    if (!ability || !ability.gcd) {
+    if (!ability) {
       // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
+      return 0;
+    }
+    if (!ability.gcd) {
+      // If gcd isn't set, null, or 0 (falsey), the spell isn't on the GCD. ps. you should set gcd to null to be explicit.
       return 0;
     }
     const resolvedGcd = (typeof ability.gcd === 'function') ? ability.gcd.call(this.owner, this.selectedCombatant) : ability.gcd;

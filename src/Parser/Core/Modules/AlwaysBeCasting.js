@@ -68,7 +68,7 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
 
-    const globalCooldown = this.getCurrentGlobalCooldown(spellId);
+    const globalCooldown = this.getGlobalCooldownDuration(spellId);
 
     // TODO: Change this to begincast || cast
     const castStartTimestamp = (begincast || cast).timestamp;
