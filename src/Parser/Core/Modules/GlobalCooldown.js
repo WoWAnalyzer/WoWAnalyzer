@@ -115,29 +115,30 @@ class GlobalCooldown extends Analyzer {
   }
   /**
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
+   * Typically you should first use isOnGlobalCooldown to check if the spell is on the GCD at all. This function gives
+   * a default GCD value if there's no GCD defined for the given spellId.
    * @param spellId
    * @returns {number} The duration in milliseconds.
    */
   getCurrentGlobalCooldown(spellId = null) {
-    let staticGCD = null;
-    let baseGCD = 1500;
-    let minimumGCD = 750;
-    if (spellId) {
-      const ability = this.abilities.getAbility(spellId);
-      if (ability && ability.gcd) {
-        if (ability.gcd.static) {
-          staticGCD = this._resolveAbilityGcdField(ability.gcd.static);
-        } else if (ability.gcd.base) {
-          baseGCD = this._resolveAbilityGcdField(ability.gcd.base);
-          // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
-          minimumGCD = this._resolveAbilityGcdField(ability.gcd.minimum) || (baseGCD / 2);
-        } else {
-          throw new Error(`"gcd" should be false or an object with either a "static" or "base" GCD set (for spell ${spellId})`);
-        }
-      }
+    const ability = spellId ? this.abilities.getAbility(spellId) : null;
+    if (!ability || !ability.gcd) {
+      return this.constructor.calculateGlobalCooldown(this.haste.current);
     }
-
-    return staticGCD || this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
+    const resolvedGcd = (typeof ability.gcd === 'function') ? ability.gcd.call(this.owner, this.selectedCombatant) : ability.gcd;
+    if (!resolvedGcd) {
+      throw new Error(`Ability ${ability.name} (spellId: ${spellId}) gives a function for its GCD property which evaluates to false, which is not supported. An ability should either always be on some form of GCD or never be on the GCD.`);
+    }
+    if (resolvedGcd.static) {
+      return this._resolveAbilityGcdField(resolvedGcd.static);
+    }
+    if (resolvedGcd.base) {
+      const baseGCD = this._resolveAbilityGcdField(resolvedGcd.base);
+      // The minimum GCD duration is pretty much always with 100% Haste; 50% of the base duration.
+      const minimumGCD = this._resolveAbilityGcdField(resolvedGcd.minimum) || (baseGCD / 2);
+      return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
+    }
+    throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
   }
   _resolveAbilityGcdField(value) {
     if (typeof value === 'function') {
@@ -184,7 +185,7 @@ class GlobalCooldown extends Analyzer {
    * @param minGcd
    * @returns {number}
    */
-  static calculateGlobalCooldown(haste, baseGcd, minGcd) {
+  static calculateGlobalCooldown(haste, baseGcd = 1500, minGcd = 750) {
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
     return Math.max(minGcd, gcd);
