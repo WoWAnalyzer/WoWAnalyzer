@@ -9,7 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
-const BONUS_DAMAGE = 3;
+const BONUS_DAMAGE = 2.5;
 const CAST_BUFFER = 250;
 
 const debug = false;

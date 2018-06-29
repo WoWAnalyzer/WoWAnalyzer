@@ -48,16 +48,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.CONSUMPTION,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: SPELLS.CONSUMPTION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
         cooldown: 45,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.',
         },
         timelineSortIndex: 5,
       },
@@ -68,7 +64,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -162,7 +158,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(SPELLS.ANTIMAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -184,16 +180,29 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 500,
+        },
         cooldown: 15,
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.WRAITH_WALK,
+        spell: SPELLS.DEATHS_ADVANCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 45,
+        timelineSortIndex: 14,
+      },
+      {
+        spell: SPELLS.WRAITH_WALK_TALENT,
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
         timelineSortIndex: 14,
       },
       {
@@ -246,6 +255,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MARK_OF_BLOOD_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
+        cooldown: 6,
         gcd: {
           base: 1500,
         },
