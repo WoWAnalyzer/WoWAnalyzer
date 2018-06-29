@@ -2,8 +2,12 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
+const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms
+const RAGE_PER_MELEE_HIT = 2;
+const RAGE_PER_MELEE_HIT_TAKEN = 3;
 
 class RageTracker extends ResourceTracker {
   static dependencies = {
@@ -11,6 +15,7 @@ class RageTracker extends ResourceTracker {
   };
 
   vengeanceRageSaved = 0;
+  lastMeleeTaken = 0;
 
   constructor(...args) {
     super(...args);
@@ -38,6 +43,25 @@ class RageTracker extends ResourceTracker {
       }
     }
     return cost;
+  }
+
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.MELEE.id) {
+      return;
+    }
+    
+    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+  }
+
+  on_toPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.MELEE.id || event.hitType === HIT_TYPES.DODGE || event.hitType === HIT_TYPES.PARRY) {
+      return;
+    }
+
+    if (event.timestamp - this.lastMeleeTaken >= RAGE_GEN_FROM_MELEE_HIT_ICD) {
+      this.processInvisibleEnergize(SPELLS.RAGE_DAMAGE_TAKEN.id, RAGE_PER_MELEE_HIT_TAKEN);
+      this.lastMeleeTaken = event.timestamp;
+    }
   }
 
   get rageSavedByVengeance() {

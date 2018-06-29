@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
@@ -39,7 +39,7 @@ class WhisperOfTheNathrezim extends Analyzer {
       return;
     }
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || spellId === SPELLS.DIVINE_STORM_DAMAGE.id) {
-      this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
+      this.damageDone += calculateEffectiveDamage(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
     }
   }
 

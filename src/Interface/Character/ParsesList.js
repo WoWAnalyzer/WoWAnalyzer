@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import { makePlainUrl } from 'Main/makeAnalyzerUrl';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
 import rankingColor from 'common/getRankingColor';
+import { makePlainUrl } from 'Interface/common/makeAnalyzerUrl';
 import { GEAR_SLOTS } from 'Parser/Core/Combatant';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];

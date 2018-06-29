@@ -31,7 +31,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.dots.forEach(dot => {
+    this.constructor.dots.forEach(dot => {
       this.targets[dot.debuffId] = {};
       this.badCasts[dot.castId] = 0;
     });
@@ -45,7 +45,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_refreshdebuff(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === event.ability.guid;
     });
     if (!dot) {
@@ -60,7 +60,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_applydebuff(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === event.ability.guid;
     });
     if (!dot) {
@@ -71,7 +71,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_globalcooldown(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === event.ability.guid;
     });
     if (!dot) {
@@ -82,7 +82,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   on_byPlayer_cast(event) {
     this.checkLastCast(event);
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === event.ability.guid;
     });
     if (!dot) {
@@ -112,7 +112,7 @@ class EarlyDotRefreshes extends Analyzer {
     if (this.lastCastGoodExtension) {
       return; // Should not be marked as bad.
     }
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === this.lastCast.ability.guid;
     });
     const text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit.`;
@@ -121,7 +121,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
   extendDot(spellId, targetID, extension, timestamp) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === spellId;
     });
     if (!dot) {

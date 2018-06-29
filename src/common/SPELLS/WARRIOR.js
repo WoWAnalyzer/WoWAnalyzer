@@ -350,9 +350,14 @@ export default {
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
   },
-  RAGE: {
+  RAGE_DAMAGE_TAKEN: {
     id: 195707,
-    name: 'Rage from damage taken',
+    name: 'Rage from melee hits taken',
+    icon: 'ability_racial_avatar',
+  },
+  RAGE_AUTO_ATTACKS: {
+    id: 198395, //could use a proper spellID for the tooltip
+    name: 'Rage from auto attacks',
     icon: 'ability_racial_avatar',
   },
   //Mitigation Spells

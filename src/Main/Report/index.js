@@ -19,8 +19,8 @@ import { setReportProgress } from 'Interface/actions/reportProgress';
 import { fetchCombatants } from 'Interface/actions/combatants';
 import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
 import { appendReportHistory } from 'Interface/actions/reportHistory';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import makeAnalyzerUrl from 'Main/makeAnalyzerUrl';
 
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';

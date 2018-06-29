@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
@@ -22,7 +22,7 @@ class Retribution extends Analyzer {
       // Friendly fire does not get increased
       return;
     }
-    this.bonusDmg += GetDamageBonus(event, RETRIBUTION_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, RETRIBUTION_DAMAGE_BONUS);
   }
 
   on_finished() {

@@ -7,62 +7,73 @@ import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest
 
 import ComboPointTracker from '../../../Common/Resources/ComboPointTracker';
 
-
 class ComboPoints extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
-  
 
   makeExtraSuggestion(spell) {
     return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </React.Fragment>;
   }
 
-
-  suggestions(when) {    
+  suggestions(when) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.BACKSTAB,
+      spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
+      minor: 0,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.MARKED_FOR_DEATH_TALENT),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.BACKSTAB, // 1 CP
       minor: 0.05,
-      avg: 0.10, 
+      avg: 0.10,
       major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.BACKSTAB),
-    }); 
+    });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GLOOMBLADE_TALENT,
+      spell: SPELLS.GLOOMBLADE_TALENT, // 1 CP
       minor: 0.05,
-      avg: 0.10, 
-      major: 0.15,      
+      avg: 0.10,
+      major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GLOOMBLADE_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.SHADOWSTRIKE,
+      spell: SPELLS.SHADOWSTRIKE, // 2 CP
       minor: 0.05,
-      avg: 0.10, 
+      avg: 0.10,
       major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SHADOWSTRIKE),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.SHURIKEN_STORM,
+      spell: SPELLS.SHURIKEN_STORM, // 1 CP per target hit
       minor: 0.1,
-      avg: 0.2, 
+      avg: 0.2,
       major: 0.3,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SHURIKEN_STORM),
     });
     resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.SHURIKEN_TOSS, // 1 CP
+      minor: 0.05,
+      avg: 0.10,
+      major: 0.15,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.SHURIKEN_TOSS),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SHADOW_TECHNIQUES,
       minor: 0.1,
-      avg: 0.2, 
+      avg: 0.2,
       major: 0.3,
       extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id} />. This is an advanced suggestion and should not be addressed first. </span>,
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GOREMAWS_BITE_ENERGY,
-      minor: 0.05,
-      avg: 0.1, 
-      major: 0.15,
-      extraSuggestion: <span> Cast <SpellLink id={SPELLS.GOREMAWS_BITE.id} /> when you are on or below 3 combo points </span>,
+      spell: SPELLS.CHEAP_SHOT, // 2 CP
+      minor: 0,
+      avg: 0.1,
+      major: 0.2,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.CHEAP_SHOT),
     });
-    }
+  }
 }
 
 export default ComboPoints;

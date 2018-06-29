@@ -13,7 +13,7 @@ const DOTS = [
 ];
 
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
-  dots = DOTS;
+  static dots = DOTS;
 
   constructor(...args) {
     super(...args);

@@ -26,11 +26,11 @@ const DOTS = [
 
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   static dependencies = {
-    ...EarlyDotRefreshesInstants.dependencies,
+    ...CoreEarlyDotRefreshesInstants.dependencies,
     statTracker: StatTracker,
   };
 
-  dots = DOTS;
+  static dots = DOTS;
   naturesBalance;
 
   constructor(...args) {

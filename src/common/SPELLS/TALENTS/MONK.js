@@ -40,7 +40,7 @@ export default {
   LIGHT_BREWING_TALENT: { id: 196721, name: "Light Brewing", icon: "spell_brew_wheat" },
   BLACK_OX_BREW_TALENT: { id: 115399, name: "Black Ox Brew", icon: "ability_monk_chibrew" },
   SPITFIRE_TALENT: { id: 242580, name: "Spitfire", icon: "ability_monk_breathoffire" },
-  MYSTIC_VITALITY_TALENT: { id: 237076, name: "Mystic Vitality", icon: "ability_monk_forcesphere" },
+  BOB_AND_WEAVE_TALENT: { id: 280515, name: "Bob and Weave", icon: "ability_creature_cursed_04" },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: { id: 132578, name: "Invoke Niuzao, the Black Ox", icon: "spell_monk_brewmaster_spec" },
   SPECIAL_DELIVERY_TALENT: { id: 196730, name: "Special Delivery", icon: "achievement_brewery_2" },
   GUARD_TALENT: { id: 115295, name: "Guard", icon: "ability_monk_guard" },

@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <React.Fragment>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
             </React.Fragment>
           ),
         },
@@ -59,7 +59,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         gcd: {
           base: 1500,
         },

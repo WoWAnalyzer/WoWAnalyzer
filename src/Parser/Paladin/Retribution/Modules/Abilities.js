@@ -139,6 +139,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.INQUISITION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.INQUISITION_TALENT.id),
+      },
+      {
         spell: SPELLS.EXECUTION_SENTENCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 20 / (1 + haste),

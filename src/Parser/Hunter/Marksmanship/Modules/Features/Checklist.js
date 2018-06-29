@@ -10,19 +10,14 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import AlwaysBeCasting from 'Parser/Hunter/Marksmanship/Modules/Features/AlwaysBeCasting';
-import AMurderOfCrows from 'Parser/Hunter/Marksmanship/Modules/Talents/AMurderOfCrows';
 import Trueshot from 'Parser/Hunter/Marksmanship/Modules/Spells/Trueshot';
 import CancelledCasts from 'Parser/Hunter/Shared/Modules/Features/CancelledCasts';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 import SpellLink from 'common/SpellLink';
-import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
-import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import AimedInVulnerableTracker from 'Parser/Hunter/Marksmanship/Modules/Features/AimedInVulnerableTracker';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
-import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/VulnerableUptime';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -39,18 +34,9 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
-    aimedInVulnerableTracker: AimedInVulnerableTracker,
-    vulnerableUptime: VulnerableUpTime,
-
-    //talents
-    aMurderOfCrows: AMurderOfCrows,
-    patientSniperDetails: PatientSniperDetails,
 
     //spells
     trueshot: Trueshot,
-
-    //traits
-    bullseye: Bullseye,
   };
 
   rules = [
@@ -61,20 +47,12 @@ class Checklist extends CoreChecklist {
         const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.WINDBURST,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
-            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+            spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRUESHOT,
             onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIDEWINDERS_TALENT,
-            when: combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.PIERCING_SHOT_TALENT,
@@ -83,14 +61,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
             when: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SENTINEL_TALENT,
-            when: combatant.hasTalent(SPELLS.SENTINEL_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLACK_ARROW_TALENT,
-            when: combatant.hasTalent(SPELLS.BLACK_ARROW_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARRAGE_TALENT,

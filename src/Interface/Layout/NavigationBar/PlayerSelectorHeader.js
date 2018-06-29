@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getPlayerName } from 'Interface/selectors/url/report';
+import PlayerSelectionList from 'Main/Report/PlayerSelectionList';
 
 import SelectorBase from './SelectorBase';
-import PlayerSelectionList from '../Report/PlayerSelectionList';
 
 class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
