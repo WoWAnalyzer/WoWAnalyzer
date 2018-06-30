@@ -28,18 +28,12 @@ const ORDER_BY = {
 };
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
-const TRINKET_SLOTS = [12, 13];
 const ERRORS = {
   CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
   NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
   CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
   UNEXPECTED: 'Something went wrong',
 };
-
-//Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
-//probably only there to allow filtering by multiple specs on WCLs character-page
-//we don't want those logs tho
-const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class Parses extends React.Component {
   static propTypes = {
@@ -144,57 +138,24 @@ class Parses extends React.Component {
   }
 
   //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
-  changeParseStructure(rawParses) {
-    const parses = [];
-    const updatedTrinkets = { ...this.state.trinkets };
-    rawParses.forEach(elem => {
-      const name = elem.name;
-      const difficulty = DIFFICULTIES[elem.difficulty];
+  changeParseStructure(rawParses, charClass) {
+    const parses = rawParses.map(elem => {
+      const encounters = Object.values(ZONES).find(e => e.id === this.state.activeZoneID).encounters;
+      const encounter = Object.values(encounters).find(e => e.id === elem.encounter).name;
+      const spec = Object.values(SPECS).find(e => e.className === charClass && e.ranking.spec === elem.spec).specName || 0;
 
-      elem.specs
-        .filter(item => !EXCLUDED_GENERIC_SPECS_FROM_PARSES.includes(item.spec))
-        .forEach(element => {
-          const spec = element.spec;
-          element.data.forEach(singleParse => {
-            const finalParse = Object.assign({
-              name: name,
-              spec: spec,
-              difficulty: difficulty,
-            }, singleParse);
-
-            //filter all logs that have missing talents (logs that were logged without advanced logging)
-            if (Object.values(singleParse.talents).filter(talent => talent.id === 0).length === 0) {
-              finalParse.advanced = true;
-            }
-            parses.push(finalParse);
-
-            //get missing trinket-icons later
-            TRINKET_SLOTS.forEach(slotID => {
-              if (!updatedTrinkets[singleParse.gear[slotID].id]) {
-                updatedTrinkets[singleParse.gear[slotID].id] = {
-                  name: singleParse.gear[slotID].name,
-                  id: singleParse.gear[slotID].id,
-                  icon: ITEMS[0].icon,
-                  quality: singleParse.gear[slotID].quality,
-                };
-              }
-            });
-          });
-        });
-    });
-
-    Object.values(updatedTrinkets).map(trinket => {
-      if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
-        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-          .then(response => response.json())
-          .then((data) => {
-            updatedTrinkets[trinket.id].icon = data.icon;
-            this.setState({
-              trinkets: updatedTrinkets,
-            });
-          });
-      }
-      return null;
+      console.info(elem);
+      return {
+        name: encounter,
+        spec: spec,
+        difficulty: DIFFICULTIES[elem.difficulty],
+        report_code: elem.reportID,
+        report_fight: elem.fightID,
+        historical_percent: 100 - (elem.rank / elem.outOf * 100),
+        persecondamount: elem.total,
+        start_time: elem.startTime,
+        character_name: this.props.name,
+      };
     });
 
     return parses;
@@ -256,6 +217,7 @@ class Parses extends React.Component {
     return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
+      timeframe: 'historical',
       _: refresh ? +new Date() : undefined,
     })
       .then(rawParses => {
@@ -285,7 +247,7 @@ class Parses extends React.Component {
         }
 
         if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
-          const parses = this.changeParseStructure(rawParses);
+          const parses = this.changeParseStructure(rawParses, this.state.class);
           this.setState({
             parses: parses,
             error: null,
@@ -294,14 +256,13 @@ class Parses extends React.Component {
           return;
         }
 
-        const charClass = rawParses[0].specs[0].class;
+        const charClass = Object.values(SPECS).find(e => e.ranking.class === rawParses[0].class).className;
         const specs = Object.values(SPECS)
-          .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
-          .filter(elem => elem)
-          // eslint-disable-next-line no-restricted-syntax
-          .filter((item, index, self) => self.indexOf(item) === index);
+          .filter(e => e.ranking.class === rawParses[0].class)
+          .filter((item, index, self) => self.indexOf(item) === index)
+          .map(e => e.specName);
 
-        const parses = this.changeParseStructure(rawParses);
+        const parses = this.changeParseStructure(rawParses, charClass);
         this.setState({
           specs: specs,
           activeSpec: specs.map(elem => elem.replace(' ', '')),
