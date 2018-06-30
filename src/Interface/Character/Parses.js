@@ -144,7 +144,6 @@ class Parses extends React.Component {
       const encounter = Object.values(encounters).find(e => e.id === elem.encounter).name;
       const spec = Object.values(SPECS).find(e => e.className === charClass && e.ranking.spec === elem.spec).specName || 0;
 
-      console.info(elem);
       return {
         name: encounter,
         spec: spec,
