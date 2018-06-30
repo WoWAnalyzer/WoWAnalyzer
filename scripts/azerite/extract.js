@@ -65,7 +65,7 @@ for(let j = 0; j < num_spells; i++, j++) {
     console.error(line);
     return;
   }
-  const [_, name, _fields, _effects] = match;
+  const [ , name, _fields, _effects] = match;
   const fields = _fields.replace(" ", "").split(/,/).map(Number);
   const id = Number(fields[0]);
   const secondary = fields[6] === -7;
