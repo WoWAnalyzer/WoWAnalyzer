@@ -22,8 +22,8 @@ class SoulConduit extends Analyzer {
   }
 
   subStatistic() {
-    const spent = this.soulShardTracker.fragmentsSpent / 10;
-    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.SOUL_CONDUIT_TALENT.name].generated / 10;
+    const spent = this.soulShardTracker.spent / 10;
+    const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_TALENT.id) / 10;
     return (
       <div className="flex">
         <div className="flex-main">

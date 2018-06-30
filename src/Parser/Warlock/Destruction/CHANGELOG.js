@@ -7,6 +7,11 @@ import { Chizu } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-06-25'),
+    changes: 'Updated the basics of the spec for BFA. Reworked Soul Shard Fragment tracking.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-02-02'),
     changes: <React.Fragment>Added more information to <SpellLink id={SPELLS.ERADICATION_TALENT.id} icon /> statistic box, now showing uptime on <SpellLink id={SPELLS.LESSONS_OF_SPACETIME_BUFF.id} icon /> buff and also a suggestion about wrong talent choice when running <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> on single target.</React.Fragment>,
     contributors: [Chizu],
