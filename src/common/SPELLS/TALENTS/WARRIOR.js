@@ -62,7 +62,7 @@ export default {
   BLOODBATH_TALENT: { id: 12292, name: "Bloodbath", icon: "ability_warrior_bloodbath" },
   FRENZY_TALENT: { id: 206313, name: "Frenzy", icon: "inv_axe_2h_orcwarrior_c_01" },
   INNER_RAGE_TALENT: { id: 215573, name: "Inner Rage", icon: "ability_warrior_innerrage" },
-  SUDDEN_DEATH_TALENT: { id: 29725, name: "Sudden Death", icon: "ability_warrior_improveddisciplines" },
+  SUDDEN_DEATH_TALENT: { id: 280721, name: "Sudden Death", icon: "ability_warrior_improveddisciplines" },
   FURIOUS_SLASH_TALENT: { id: 100130, name: "Furious Slash", icon: "ability_warrior_weaponmastery" },
   BLADESTORM_TALENT: { id: 46924, name: "Bladestorm", icon: "ability_warrior_bladestorm" },
   RECKLESS_ABANDON_TALENT: { id: 202751, name: "Reckless Abandon", icon: "ability_warrior_battleshout" },
