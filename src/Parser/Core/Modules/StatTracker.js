@@ -505,6 +505,8 @@ class StatTracker extends Analyzer {
         return 0.048;
       case SPECS.BALANCE_DRUID:
         return 0.18;
+      case SPECS.FERAL_DRUID:
+        return 0.16;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
