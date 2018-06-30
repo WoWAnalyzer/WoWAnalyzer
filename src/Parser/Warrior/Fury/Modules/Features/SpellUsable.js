@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   beginCooldown(spellId, ...args) {
-    if (this.hasConvergenceOfFates && spellId === SPELLS.BATTLE_CRY.id) {
+    if (this.hasConvergenceOfFates && spellId === SPELLS.RECKLESSNESS.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId);
       }

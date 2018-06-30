@@ -17,7 +17,7 @@ export default [
   },
   {
     date: new Date('2018-04-19'),
-    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.RECKLESSNESS.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
@@ -47,12 +47,12 @@ export default [
   },
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.BATTLE_CRY.id} /> statistic block.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.RECKLESSNESS.id} /> statistic block.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
     date: new Date('2018-04-09'),
-    changes: <React.Fragment>Added a suggestion for preparing <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} /> for <SpellLink id={SPELLS.BATTLE_CRY.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added a suggestion for preparing <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} /> for <SpellLink id={SPELLS.RECKLESSNESS.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
@@ -62,7 +62,7 @@ export default [
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Added improved suggestions for <SpellLink id={SPELLS.CHARGE.id} />, <SpellLink id={SPELLS.HEROIC_LEAP.id} /> and <SpellLink id={SPELLS.COMMANDING_SHOUT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added improved suggestions for <SpellLink id={SPELLS.CHARGE.id} />, <SpellLink id={SPELLS.HEROIC_LEAP.id} /> and <SpellLink id={SPELLS.RALLYING_CRY.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {

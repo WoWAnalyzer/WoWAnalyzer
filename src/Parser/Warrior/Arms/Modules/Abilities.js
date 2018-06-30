@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BATTLE_CRY,
+        spell: SPELLS.RECKLESSNESS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
@@ -85,8 +85,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.COMMANDING_SHOUT,
-        buffSpellId: SPELLS.COMMANDING_SHOUT_BUFF.id,
+        spell: SPELLS.RALLYING_CRY,
+        buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         castEfficiency: {

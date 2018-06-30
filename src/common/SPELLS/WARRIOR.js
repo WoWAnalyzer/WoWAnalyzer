@@ -187,11 +187,6 @@ export default {
     name: 'Execute',
     icon: 'inv_sword_48',
   },
-  FURIOUS_SLASH: {
-    id: 100130,
-    name: 'Furious Slash',
-    icon: 'ability_warrior_weaponmastery',
-  },
   ODYNS_FURY: {
     id: 205545,
     name: 'Odyn\'s Fury',
@@ -488,7 +483,12 @@ export default {
   },
 
   // Shared:
-  BATTLE_CRY: {
+  BATTLE_SHOUT: {
+    id: 6673,
+    name: 'Battle Shout',
+    icon: 'ability_warrior_battleshout',
+  },
+  RECKLESSNESS: {
     id: 1719,
     name: 'Battle Cry',
     icon: 'warrior_talent_icon_innerrage',
@@ -508,14 +508,14 @@ export default {
     name: 'Victory Rush',
     icon: 'ability_warrior_devastate',
   },
-  COMMANDING_SHOUT: {
+  RALLYING_CRY: {
     id: 97462,
-    name: 'Commanding Shout',
+    name: 'Rallying Cry',
     icon: 'ability_warrior_rallyingcry',
   },
-  COMMANDING_SHOUT_BUFF: {
+  RALLYING_CRY_BUFF: {
     id: 97463,
-    name: 'Commanding Shout',
+    name: 'Rallying Cry',
     icon: 'ability_warrior_rallyingcry',
   },
   INTIMIDATING_SHOUT: {

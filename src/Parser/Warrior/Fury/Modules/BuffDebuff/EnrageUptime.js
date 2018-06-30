@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 
 class EnrageUptime extends Analyzer {
-
   get enrageUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
   }
@@ -27,12 +26,12 @@ class EnrageUptime extends Analyzer {
 
   suggestions(when) {
     const {
-        isLessThan: {
-          minor,
-          average,
-          major,
-        },
-      } = this.suggestionThresholds;
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
 
     when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {

@@ -31,7 +31,7 @@ class BattleCryDamageAnalyzer extends BattleCryAnalyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BATTLE_CRY.id} />}
+        icon={<SpellIcon id={SPELLS.RECKLESSNESS.id} />}
         value={`${formatNumber(battleCryDamage / this.battleCryCount)}`}
         label="Average damage during Battle Cry"
         tooltip={`Damage dealt during Battle Cry contributed ${formatPercentage(battleCryDamage / totalDamage)}% of your total damage done.`}
