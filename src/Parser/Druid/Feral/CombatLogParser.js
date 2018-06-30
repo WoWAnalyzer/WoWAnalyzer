@@ -21,6 +21,8 @@ import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
 
+import PredatorySwiftness from './Modules/Spells/PredatorySwiftness';
+
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -44,11 +46,14 @@ class CombatLogParser extends CoreCombatLogParser {
     ripSnapshot: RipSnapshot,
     moonfireSnapshot: MoonfireSnapshot,
 
+    // spells
+    predatorySwiftness: PredatorySwiftness,
+
     // talents
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
     savageRoarDmg: SavageRoarDmg,
-
+    
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
