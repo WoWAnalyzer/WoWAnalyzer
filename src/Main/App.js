@@ -15,11 +15,10 @@ import RouteChangeScroller from 'Interface/RouteChangeScroller';
 import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import FullscreenError from 'Interface/common/FullscreenError';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
-import DocumentTitle from 'Interface/common/DocumentTitle';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import NavigationBar from 'Interface/Layout/NavigationBar';
 import Footer from 'Interface/Layout/Footer';
-import Home from 'Interface/Home';
+import HomePage from 'Interface/Home/Page';
 import NewsPage from 'Interface/News/Page';
 import PremiumPage from 'Interface/Premium/Page';
 import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
@@ -203,10 +202,7 @@ class App extends React.Component {
           path="/"
           exact
           render={() => (
-            <React.Fragment>
-              <DocumentTitle />
-              <Home />
-            </React.Fragment>
+            <HomePage />
           )}
         />
       </Switch>

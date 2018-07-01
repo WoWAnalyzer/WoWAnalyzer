@@ -15,6 +15,7 @@ import SectionDivider from 'Main/SectionDivider';
 import News from 'Interface/News';
 import SpecListing from 'Interface/Home/SpecListing';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
+import DocumentTitle from 'Interface/common/DocumentTitle';
 import MasteryRadiusImage from 'Interface/Images/mastery-radius.png';
 import ChangelogPanel from 'Main/ChangelogPanel';
 
@@ -36,6 +37,8 @@ class Home extends React.PureComponent {
 
     return (
       <div className="container">
+        <DocumentTitle /> {/* prettiest is if the Home page has no title at all */}
+
         <section>
           <header>
             <div className="row">
