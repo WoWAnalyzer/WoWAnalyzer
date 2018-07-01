@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { getLocation, push } from 'react-router-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'Interface/common/TooltipProvider';
@@ -206,6 +206,15 @@ class App extends React.Component {
           exact
           render={() => (
             <HomePage />
+          )}
+        />
+        <Route
+          render={() => (
+            <div className="container">
+              <h1>404: Content not found</h1>
+
+              <Link to="/">Go back home</Link>
+            </div>
           )}
         />
       </Switch>
