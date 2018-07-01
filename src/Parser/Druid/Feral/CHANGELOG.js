@@ -11,6 +11,11 @@ export default [
     contributors: [Anatta336],
   },
   {
+    date: new Date('2018-06-27'),
+    changes: <React.Fragment>Added tracking for the <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-06-11'),
     changes: <React.Fragment>Added statistics breaking down snapshot uptime by buff for <SpellLink id={SPELLS.RAKE.id} />, <SpellLink id={SPELLS.RIP.id} />, and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />.</React.Fragment>,
     contributors: [Anatta336],

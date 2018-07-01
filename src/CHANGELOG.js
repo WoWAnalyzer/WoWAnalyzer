@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-28'),
+    changes: 'Allow Warcaftlogs- & BattleNet-character-links in the report selecter.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-06-24'),
     changes: <React.Fragment>Changed the <SpellLink id={SPELLS.HEALTHSTONE.id} /> suggestion to always be of minor importance.</React.Fragment>,
     contributors: [Zerotorescue],

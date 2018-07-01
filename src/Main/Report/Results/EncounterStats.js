@@ -10,10 +10,10 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import ActivityIndicator from 'Main/ActivityIndicator';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 /**
- Show statistics (talents, trinkets, legendaries) for the current boss, specID and difficulty
+ * Show statistics (talents, trinkets, legendaries) for the current boss, specID and difficulty
  */
 class EncounterStats extends React.PureComponent {
   static propTypes = {
@@ -182,66 +182,66 @@ class EncounterStats extends React.PureComponent {
   render() {
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
-    if (this.state.loaded) {
-      return (
-        <React.Fragment>
-          <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
-            <h2>Statistics of this fight of the top {this.LIMIT} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
-          </div>
-          <div className="row">
-            <div className="col-md-12" style={{ padding: '0 30px' }}>
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="row" style={{ marginBottom: '2em' }}>
-                    <div className="col-md-12">
-                      <h2>Most used Legendaries</h2>
-                    </div>
-                  </div>
-                  <div className="row" style={{ marginBottom: '2em' }}>
-                    {this.state.mostUsedLegendaries.map((legendary, index) => this.singleItem(legendary, index))}
-                  </div>
-
-                  <div className="row" style={{ marginBottom: '2em' }}>
-                    <div className="col-md-12">
-                      <h2>Most used Trinkets</h2>
-                    </div>
-                  </div>
-                  <div className="row" style={{ marginBottom: '2em' }}>
-                    {this.state.mostUsedTrinkets.map((trinket, index) => this.singleItem(trinket, index))}
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="row" style={{ marginBottom: '2em' }}>
-                    <div className="col-md-12">
-                      <h2>Most used Talents</h2>
-                    </div>
-                  </div>
-                  {this.state.mostUsedTalents.map((row, index) => (
-                    <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
-                      <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
-                      {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
-                        <div key={talentIndex} className="col-lg-2 col-xs-3" style={{ textAlign: 'center' }}>
-                          <SpellLink id={Number(talent)} icon={false}>
-                            <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
-                          </SpellLink>
-                          <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
-      );
-    } else {
+    if (!this.state.loaded) {
       return (
         <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>
           <ActivityIndicator text={this.state.message} />
         </div>
       );
     }
+
+    return (
+      <React.Fragment>
+        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
+          <h2>Statistics of this fight of the top {this.LIMIT} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
+        </div>
+        <div className="row">
+          <div className="col-md-12" style={{ padding: '0 30px' }}>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Legendaries</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  {this.state.mostUsedLegendaries.map((legendary, index) => this.singleItem(legendary, index))}
+                </div>
+
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Trinkets</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  {this.state.mostUsedTrinkets.map((trinket, index) => this.singleItem(trinket, index))}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Talents</h2>
+                  </div>
+                </div>
+                {this.state.mostUsedTalents.map((row, index) => (
+                  <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
+                    <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
+                    {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
+                      <div key={talentIndex} className="col-lg-2 col-xs-3" style={{ textAlign: 'center' }}>
+                        <SpellLink id={Number(talent)} icon={false}>
+                          <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
+                        </SpellLink>
+                        <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
   }
 }
 

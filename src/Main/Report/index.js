@@ -20,12 +20,12 @@ import { fetchCombatants } from 'Interface/actions/combatants';
 import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
 import { appendReportHistory } from 'Interface/actions/reportHistory';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
-import ActivityIndicator from '../ActivityIndicator';
 import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;

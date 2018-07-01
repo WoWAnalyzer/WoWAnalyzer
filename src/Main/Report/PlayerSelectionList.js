@@ -12,7 +12,7 @@ import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import { getCombatants } from 'Interface/selectors/combatants';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
-import ActivityIndicator from 'Main/ActivityIndicator';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 

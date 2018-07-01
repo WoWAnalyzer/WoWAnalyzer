@@ -6,9 +6,9 @@ import ReactTooltip from 'react-tooltip';
 
 import { getReport } from 'Interface/selectors/report';
 import { getCombatants } from 'Interface/selectors/combatants';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 import PlayerSelectionList from './PlayerSelectionList';
-import ActivityIndicator from '../ActivityIndicator';
 
 class PlayerSelecter extends Component {
   static propTypes = {

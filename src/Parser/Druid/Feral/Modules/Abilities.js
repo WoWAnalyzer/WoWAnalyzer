@@ -128,6 +128,8 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
+          // Predator may reset the cooldown very frequently, more often than is useful to use the ability
+          recommendedEfficiency: (combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) ? 0.50 : 0.80),
         },
         gcd: null,
         timelineSortIndex: 20,

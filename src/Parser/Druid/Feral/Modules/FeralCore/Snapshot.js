@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatisticsListBox from 'Main/StatisticsListBox';
+import { PANDEMIC_FRACTION } from '../../Constants';
 
 const debug = false;
 
@@ -24,11 +25,6 @@ const debug = false;
 const PROWL_MULTIPLIER = 2.00;
 const TIGERS_FURY_MULTIPLIER = 1.15;
 const BLOODTALONS_MULTIPLIER = 1.25;
-
-// "[...]deal the same damage as normal but in 20% less time."
-const JAGGED_WOUNDS_MODIFIER = 0.80;
-
-const PANDEMIC_FRACTION = 0.3;
 
 /**
  * leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed.
@@ -277,4 +273,3 @@ class Snapshot extends Analyzer {
   }
 }
 export default Snapshot;
-export { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION };
