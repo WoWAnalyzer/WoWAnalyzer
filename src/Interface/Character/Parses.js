@@ -342,8 +342,8 @@ class Parses extends React.Component {
     }
 
     return (
-      <div className="container charparse">
-        <div className="flex-main">
+      <div className="charparse">
+        <div className="row">
           <div className="col-md-5">
             <div className="panel">
               <div className="row filter">

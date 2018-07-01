@@ -12,10 +12,10 @@ import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_
 import { fetchUser } from 'Interface/actions/user';
 import { getError } from 'Interface/selectors/error';
 import RouteChangeScroller from 'Interface/RouteChangeScroller';
-import DocumentTitleUpdater from 'Interface/DocumentTitleUpdater';
 import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import FullscreenError from 'Interface/common/FullscreenError';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
+import DocumentTitle from 'Interface/common/DocumentTitle';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import NavigationBar from 'Interface/Layout/NavigationBar';
 import Footer from 'Interface/Layout/Footer';
@@ -32,7 +32,7 @@ import Report from './Report';
 import Header from './Header';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ 'Interface/Contributor/Details').then(exports => exports.default));
-const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ 'Interface/Character/Parses').then(exports => exports.default));
+const CharacterParsesPage = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'Interface/Character/Page').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -176,7 +176,7 @@ class App extends React.Component {
         <Route
           path="/character/:region/:realm/:name"
           render={({ match }) => (
-            <CharacterParses
+            <CharacterParsesPage
               region={decodeURI(match.params.region.replace(/\+/g, ' '))}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
               name={decodeURI(match.params.name.replace(/\+/g, ' '))}
@@ -195,12 +195,22 @@ class App extends React.Component {
         />
         <Route
           path="/premium"
-          component={Premium}
+          render={() => (
+            <React.Fragment>
+              <DocumentTitle title="Premium" />
+              <Premium />
+            </React.Fragment>
+          )}
         />
         <Route
           path="/"
           exact
-          component={Home}
+          render={() => (
+            <React.Fragment>
+              <DocumentTitle />
+              <Home />
+            </React.Fragment>
+          )}
         />
       </Switch>
     );
@@ -237,7 +247,6 @@ class App extends React.Component {
 
           <ReactTooltip html place="bottom" />
           <RouteChangeScroller />
-          <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
         <div id="portal" />

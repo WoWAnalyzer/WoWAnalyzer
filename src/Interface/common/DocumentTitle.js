@@ -5,13 +5,13 @@ const siteName = 'WoWAnalyzer';
 
 class DocumentTitle extends React.PureComponent {
   static propTypes = {
-    children: PropTypes.string,
+    title: PropTypes.string,
   };
 
   render() {
-    const { children } = this.props;
+    const { title } = this.props;
 
-    document.title = children ? `${children} - ${siteName}` : siteName;
+    document.title = title ? `${title} - ${siteName}` : siteName;
 
     return null;
   }

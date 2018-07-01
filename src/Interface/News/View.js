@@ -49,7 +49,7 @@ class View extends React.PureComponent {
 
               <div className="spinner" style={{ fontSize: 5 }} />
 
-              <DocumentTitle>News</DocumentTitle>
+              <DocumentTitle title="News" />
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -60,7 +60,7 @@ class View extends React.PureComponent {
 
               {article}
 
-              <DocumentTitle>{article.props.title}</DocumentTitle>
+              <DocumentTitle title={article.props.title} />
             </React.Fragment>
           )}
         </ArticleLoader>
