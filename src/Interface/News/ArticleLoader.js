@@ -8,7 +8,7 @@ class ArticleLoader extends React.PureComponent {
   };
   state = {
     article: null,
-    showLoader: false,
+    showLoader: true,
   };
 
   constructor(props) {
@@ -34,7 +34,7 @@ class ArticleLoader extends React.PureComponent {
 
   render() {
     return this.props.children({
-      children: this.state.article,
+      article: this.state.article,
       showLoader: this.state.showLoader,
     });
   }

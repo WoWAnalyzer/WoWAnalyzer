@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import DocumentTitle from 'Interface/common/DocumentTitle';
+
 import articles from './Articles';
 import ArticleLoader from './ArticleLoader';
 
@@ -10,27 +12,55 @@ class View extends React.PureComponent {
     articleId: PropTypes.string.isRequired,
   };
 
+  renderBreadcrumbs(breadcrumbs) {
+    return breadcrumbs.map((item, index) => (
+      <React.Fragment>
+        {item}
+        {index !== (breadcrumbs.length - 1) && (
+          <React.Fragment>
+            {' '}&gt;{' '}
+          </React.Fragment>
+        )}
+      </React.Fragment>
+    ));
+  }
+
   render() {
     const fileName = articles[this.props.articleId];
 
+    const breadcrumbs = [
+      <Link to="/">
+        Home
+      </Link>,
+      <Link to="/#Announcements">
+        Announcements
+      </Link>,
+    ];
+
     return (
       <div className="container">
-        <Link to="/">
-          Home
-        </Link> &gt;{' '}
-        <Link to="/#Announcements">
-          Announcements
-        </Link>
         <ArticleLoader
           key={fileName}
           fileName={fileName}
         >
-          {({ children, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : (
+          {({ article, showLoader }) => showLoader ? (
             <React.Fragment>
-              {' '}&gt;{' '}
-              {children && children.props.title}<br /><br />
+              {this.renderBreadcrumbs(breadcrumbs)}<br /><br />
 
-              {children}
+              <div className="spinner" style={{ fontSize: 5 }} />
+
+              <DocumentTitle>News</DocumentTitle>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {this.renderBreadcrumbs([
+                ...breadcrumbs,
+                article.props.title,
+              ])}<br /><br />
+
+              {article}
+
+              <DocumentTitle>{article.props.title}</DocumentTitle>
             </React.Fragment>
           )}
         </ArticleLoader>
