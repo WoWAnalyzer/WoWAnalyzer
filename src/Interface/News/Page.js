@@ -14,7 +14,7 @@ class Page extends React.PureComponent {
 
   renderBreadcrumbs(breadcrumbs) {
     return breadcrumbs.map((item, index) => (
-      <React.Fragment>
+      <React.Fragment key={index}>
         {item}
         {index !== (breadcrumbs.length - 1) && (
           <React.Fragment>
