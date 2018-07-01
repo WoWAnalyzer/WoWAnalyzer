@@ -101,13 +101,53 @@ class Combatant extends Entity {
 
   // region Traits
   traitsBySpellId = {};
+  /**
+   * This function does a bit of extra work to add the extra ranks
+   * provided by the final trait to previous traits. We assume that:
+   *
+   * 1. Traits are provided in "blocks", where all three traits for an
+   * item are provided in sequence
+   * 2. All items have three traits (or none).
+   * 3. Empowerment is always the third trait.
+   *
+   * Together, this means that if we know the two most recently seen
+   * traits and observe an empowered trait, then we know exactly which
+   * two traits need the +5 ilvl.
+   */
   _parseTraits(traits) {
-    traits.forEach(({ traitID, rank }) => {
+    const MAX_TRAITS_PER_ITEM = 2; // maximum non-empowerment traits per item
+    const EMPOWERMENT_TRAIT = 13;
+    const EMPOWER_BY = 5;
+    const queue = [];
+
+    const processTrait = ({traitID, rank}, empower) => {
       if(!(traitIdMap[traitID] in this.traitsBySpellId)) {
         this.traitsBySpellId[traitIdMap[traitID]] = [];
       }
-      this.traitsBySpellId[traitIdMap[traitID]].push(rank);
+      this.traitsBySpellId[traitIdMap[traitID]].push(rank + empower * EMPOWER_BY);
+    };
+
+    traits.forEach(({ traitID, rank }) => {
+      if(traitID === EMPOWERMENT_TRAIT) {
+        // we found an empowerment trait, empower these traits and
+        // remove them from the queue
+        for(const trait of queue) {
+          processTrait(trait, true);
+        }
+        queue.length = 0;
+        return;
+      }
+
+      if(queue.length === MAX_TRAITS_PER_ITEM) {
+        processTrait(queue.shift(), false);
+      } 
+      queue.push({traitID, rank});
     });
+
+    // clear out the remaining queued traits
+    for(const trait of queue) {
+      processTrait(trait, false);
+    }
   }
   hasTrait(spellId) {
     return spellId in this.traitsBySpellId;
