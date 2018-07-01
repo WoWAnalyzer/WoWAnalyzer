@@ -21,6 +21,7 @@ import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueErr
 import { appendReportHistory } from 'Interface/actions/reportHistory';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
+import DocumentTitle from 'Interface/common/DocumentTitle';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 import FightSelecter from './FightSelecter';
@@ -344,29 +345,51 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fightId, playerName } = this.props;
+    const { report, fightId, fight, playerName } = this.props;
 
     if (!report) {
       return <ActivityIndicator text="Pulling report info..." />;
     }
     if (!fightId) {
-      return <FightSelecter />;
+      return (
+        <React.Fragment>
+          <DocumentTitle title={report.title} />
+
+          <FightSelecter />
+        </React.Fragment>
+      );
     }
     if (!playerName) {
-      return <PlayerSelecter />;
+      return (
+        <React.Fragment>
+          <DocumentTitle title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title} />
+
+          <PlayerSelecter />
+        </React.Fragment>
+      );
     }
 
     const { parser } = this.state;
     if (!parser) {
-      return <ActivityIndicator text="Initializing analyzer..." />;
+      return (
+        <React.Fragment>
+          <DocumentTitle title={fight && playerName ? `${getFightName(report, fight)} by ${playerName} in ${report.title}` : report.title} />
+
+          <ActivityIndicator text="Initializing analyzer..." />
+        </React.Fragment>
+      );
     }
 
     return (
-      <Results
-        parser={parser}
-        finished={this.state.finished}
-        makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
-      />
+      <React.Fragment>
+        <DocumentTitle title={`${getFightName(report, fight)} by ${playerName} in ${report.title}`} />
+
+        <Results
+          parser={parser}
+          finished={this.state.finished}
+          makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+        />
+      </React.Fragment>
     );
   }
 }

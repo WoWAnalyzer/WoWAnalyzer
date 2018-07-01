@@ -26,7 +26,7 @@ import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
 import 'react-toggle/style.css';
 import './App.css';
 
-import Report from './Report';
+import ReportPage from './Report';
 
 import Header from './Header';
 
@@ -191,7 +191,9 @@ class App extends React.Component {
         />
         <Route
           path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
-          component={Report}
+          render={props => (
+            <ReportPage {...props} />
+          )}
         />
         <Route
           path="/premium"
