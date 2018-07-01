@@ -28,6 +28,7 @@ const ORDER_BY = {
 };
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
+const TRINKET_SLOTS = [12, 13];
 const ERRORS = {
   CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
   NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
@@ -137,24 +138,50 @@ class Parses extends React.Component {
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
-  //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
   changeParseStructure(rawParses, charClass) {
+    const updatedTrinkets = { ...this.state.trinkets };
     const parses = rawParses.map(elem => {
-      const encounters = Object.values(ZONES).find(e => e.id === this.state.activeZoneID).encounters;
-      const encounter = Object.values(encounters).find(e => e.id === elem.encounter).name;
-      const spec = Object.values(SPECS).find(e => e.className === charClass && e.ranking.spec === elem.spec).specName || 0;
+
+      // get missing trinket-icons later
+      TRINKET_SLOTS.forEach(slotID => {
+        if (!updatedTrinkets[elem.gear[slotID].id]) {
+          updatedTrinkets[elem.gear[slotID].id] = {
+            name: elem.gear[slotID].name,
+            id: elem.gear[slotID].id,
+            icon: ITEMS[0].icon,
+            quality: elem.gear[slotID].quality,
+          };
+        }
+      });
 
       return {
-        name: encounter,
-        spec: spec,
+        name: elem.encounterName,
+        spec: elem.spec,
         difficulty: DIFFICULTIES[elem.difficulty],
         report_code: elem.reportID,
         report_fight: elem.fightID,
         historical_percent: 100 - (elem.rank / elem.outOf * 100),
         persecondamount: elem.total,
         start_time: elem.startTime,
-        character_name: this.props.name,
+        character_name: elem.characterName,
+        talents: elem.talents,
+        gear: elem.gear,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === 0).length === 0 ? true : false,
       };
+    });
+
+    Object.values(updatedTrinkets).map(trinket => {
+      if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
+        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+          .then(response => response.json())
+          .then((data) => {
+            updatedTrinkets[trinket.id].icon = data.icon;
+            this.setState({
+              trinkets: updatedTrinkets,
+            });
+          });
+      }
+      return null;
     });
 
     return parses;
@@ -255,9 +282,9 @@ class Parses extends React.Component {
           return;
         }
 
-        const charClass = Object.values(SPECS).find(e => e.ranking.class === rawParses[0].class).className;
+        const charClass = rawParses[0].class;
         const specs = Object.values(SPECS)
-          .filter(e => e.ranking.class === rawParses[0].class)
+          .filter(e => e.className === charClass)
           .filter((item, index, self) => self.indexOf(item) === index)
           .map(e => e.specName);
 
