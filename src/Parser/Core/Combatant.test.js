@@ -41,7 +41,7 @@ describe('Combatant', () => {
 
   describe('_parseTraits', () => {
     it('parses 3x3 traits correctly', () => {
-      const combatant = getCombatant()
+      const combatant = getCombatant();
       combatant._parseTraits(AZERITE_TEST_INFO.full);
       expect(combatant.traitsBySpellId).toEqual({
         268596: [79],
@@ -53,7 +53,7 @@ describe('Combatant', () => {
     });
 
     it('parses 3,2,3 traits correctly', () => {
-      const combatant = getCombatant()
+      const combatant = getCombatant();
       combatant._parseTraits(AZERITE_TEST_INFO.middle_has_1);
       expect(combatant.traitsBySpellId).toEqual({
         268596: [79],
@@ -65,7 +65,7 @@ describe('Combatant', () => {
     });
 
     it('parses 2,2,2 traits correctly', () => {
-      const combatant = getCombatant()
+      const combatant = getCombatant();
       combatant._parseTraits(AZERITE_TEST_INFO.no_empowerment);
       expect(combatant.traitsBySpellId).toEqual({
         268596: [74],
@@ -77,7 +77,7 @@ describe('Combatant', () => {
     });
 
     it('parses 1,1,3 traits correctly', () => {
-      const combatant = getCombatant()
+      const combatant = getCombatant();
       combatant._parseTraits(AZERITE_TEST_INFO[113]);
       expect(combatant.traitsBySpellId).toEqual({
         273823: [59],
