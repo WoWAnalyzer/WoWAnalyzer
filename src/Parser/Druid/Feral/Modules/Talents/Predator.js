@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from '../Features/SpellUsable';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 
 class Predator extends Analyzer {
   static dependencies = {
