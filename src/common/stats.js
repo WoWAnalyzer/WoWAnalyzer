@@ -25,8 +25,6 @@ export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel
 
 const AZ_BASE_ILVL = 251;
 const AZ_BASE_BUDGET = 179.2;
-// note: add + 5 to rank if the item has been fully upgraded (this will
-// be automatic in the future)
 export function calculateAzeriteEffects(spellId, rank) {
   const spell = AZERITE_SCALING[spellId];
 
