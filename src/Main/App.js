@@ -20,8 +20,8 @@ import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import NavigationBar from 'Interface/Layout/NavigationBar';
 import Footer from 'Interface/Layout/Footer';
 import Home from 'Interface/Home';
-import NewsView from 'Interface/News/View';
-import Premium from 'Interface/Premium';
+import NewsPage from 'Interface/News/Page';
+import PremiumPage from 'Interface/Premium/Page';
 import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
 
 import 'react-toggle/style.css';
@@ -186,7 +186,7 @@ class App extends React.Component {
         <Route
           path="/news/:articleId"
           render={({ match }) => (
-            <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
+            <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
           )}
         />
         <Route
@@ -196,10 +196,7 @@ class App extends React.Component {
         <Route
           path="/premium"
           render={() => (
-            <React.Fragment>
-              <DocumentTitle title="Premium" />
-              <Premium />
-            </React.Fragment>
+            <PremiumPage />
           )}
         />
         <Route

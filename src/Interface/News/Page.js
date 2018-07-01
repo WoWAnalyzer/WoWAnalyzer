@@ -7,7 +7,7 @@ import DocumentTitle from 'Interface/common/DocumentTitle';
 import articles from './Articles';
 import ArticleLoader from './ArticleLoader';
 
-class View extends React.PureComponent {
+class Page extends React.PureComponent {
   static propTypes = {
     articleId: PropTypes.string.isRequired,
   };
@@ -69,4 +69,4 @@ class View extends React.PureComponent {
   }
 }
 
-export default View;
+export default Page;
