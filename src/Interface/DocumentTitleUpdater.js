@@ -6,6 +6,7 @@ import getFightName from 'common/getFightName';
 import { getFightId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
 import { getFightById } from 'Interface/selectors/fight';
 import { getReport } from 'Interface/selectors/report';
+import DocumentTitle from 'Interface/common/DocumentTitle';
 
 const fightShape = {
   start_time: PropTypes.number.isRequired,
@@ -28,21 +29,22 @@ class DocumentTitleUpdater extends React.PureComponent {
   render() {
     const { reportCode, playerName, report, fight } = this.props;
 
-    let title = 'WoWAnalyzer';
+    let title = null;
     if (reportCode && report) {
       if (fight) {
         if (playerName) {
-          title = `${getFightName(report, fight)} by ${playerName} in ${report.title} - ${title}`;
+          title = `${getFightName(report, fight)} by ${playerName} in ${report.title}`;
         } else {
-          title = `${getFightName(report, fight)} in ${report.title} - ${title}`;
+          title = `${getFightName(report, fight)} in ${report.title}`;
         }
       } else {
-        title = `${report.title} - ${title}`;
+        title = report.title;
       }
     }
-    document.title = title;
 
-    return null;
+    return (
+      <DocumentTitle>{title}</DocumentTitle>
+    );
   }
 }
 
