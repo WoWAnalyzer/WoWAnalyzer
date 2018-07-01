@@ -30,7 +30,7 @@ import Report from './Report';
 
 import Header from './Header';
 
-const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ 'Interface/Contributor/Details').then(exports => exports.default));
+const ContributorPage = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ 'Interface/Contributor/Page').then(exports => exports.default));
 const CharacterParsesPage = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'Interface/Character/Page').then(exports => exports.default));
 
 function isIE() {
@@ -166,9 +166,8 @@ class App extends React.Component {
         <Route
           path="/contributor/:id"
           render={({ match }) => (
-            <ContributorDetails
+            <ContributorPage
               contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
-              ownPage
             />
           )}
         />
@@ -185,7 +184,9 @@ class App extends React.Component {
         <Route
           path="/news/:articleId"
           render={({ match }) => (
-            <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
+            <NewsPage
+              articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route

@@ -44,7 +44,9 @@ class Button extends React.PureComponent {
     if (this.state.open) {
       return (
         <Portal onClose={this.handleOnClose}>
-          <ContributorDetails contributorId={nickname} />
+          <div className="container">
+            <ContributorDetails contributorId={nickname} />
+          </div>
         </Portal>
       );
     }

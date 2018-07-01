@@ -240,56 +240,54 @@ class Details extends React.PureComponent {
 
     return (
       <div className="contributor-detail">
-        <div className="container">
-          <div className="flex-main">
-            <div className="row">
-              <div className="col-md-5">
-                <div className="panel">
-                  <div style={{ textAlign: 'center' }}>
-                    <h2>{contributor.nickname}</h2>
-                    <img src={contributor.avatar} alt="Avatar" style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
-                  </div>
-                  <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
-                    {this.text(contributor.about, 'About')}
-                    <div className="row">
-                      <div className="col-md-3"><b>GitHub:</b></div>
-                      <div className="col-md-9">
-                        <a href={'https://github.com/' + contributor.github} target="_blank">{contributor.github}</a>
-                      </div>
+        <div className="flex-main">
+          <div className="row">
+            <div className="col-md-5">
+              <div className="panel">
+                <div style={{ textAlign: 'center' }}>
+                  <h2>{contributor.nickname}</h2>
+                  <img src={contributor.avatar} alt="Avatar" style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
+                </div>
+                <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
+                  {this.text(contributor.about, 'About')}
+                  <div className="row">
+                    <div className="col-md-3"><b>GitHub:</b></div>
+                    <div className="col-md-9">
+                      <a href={'https://github.com/' + contributor.github} target="_blank">{contributor.github}</a>
                     </div>
-                    {this.text(contributor.discord, 'Discord')}
-                    {this.maintainer}
-                    {this.links(contributor.links)}
-                    {this.additionalInfo(contributor.others)}
-                    {this.chars(contributor, 'mains')}
-                    {this.chars(contributor, 'alts')}
                   </div>
+                  {this.text(contributor.discord, 'Discord')}
+                  {this.maintainer}
+                  {this.links(contributor.links)}
+                  {this.additionalInfo(contributor.others)}
+                  {this.chars(contributor, 'mains')}
+                  {this.chars(contributor, 'alts')}
                 </div>
               </div>
+            </div>
 
 
-              <div className="col-md-7">
-                <div className="panel scrollable">
-                  {Object.keys(contributions).map((type, index) => (
-                    <div key={index}>
-                      <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
-                        <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
-                      </div>
-                      <ul className="list text" style={{ marginBottom: 20, display: this.state.openChangelogs[index] ? 'block' : 'none' }}>
-                        {contributions[type].map((contribution, index) => (
-                          <li key={index} className="row">
-                            <div className="col-md-2">
-                              {contribution.date.toLocaleDateString()}
-                            </div>
-                            <div className="col-md-10">
-                              {contribution.changes}
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
+            <div className="col-md-7">
+              <div className="panel scrollable">
+                {Object.keys(contributions).map((type, index) => (
+                  <div key={index}>
+                    <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
+                      <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
                     </div>
-                  ))}
-                </div>
+                    <ul className="list text" style={{ marginBottom: 20, display: this.state.openChangelogs[index] ? 'block' : 'none' }}>
+                      {contributions[type].map((contribution, index) => (
+                        <li key={index} className="row">
+                          <div className="col-md-2">
+                            {contribution.date.toLocaleDateString()}
+                          </div>
+                          <div className="col-md-10">
+                            {contribution.changes}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
