@@ -64,7 +64,7 @@ class ParsesList extends React.PureComponent {
     const { parses } = this.props;
     return (
       parses.map(elem => {
-        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.character_name);
+        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
         return (
           <Link
             key={url}
