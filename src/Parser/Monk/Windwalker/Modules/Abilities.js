@@ -41,7 +41,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 24 / (1 + haste),
         gcd: {
-          base: 1500,
+          base: 1000,
         },
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
@@ -78,6 +78,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -88,6 +91,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: {
+          static: 1000,
+        },
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
@@ -99,6 +105,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -109,6 +118,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
       },
       // other spells
@@ -131,7 +143,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 15,
         gcd: {
-          base: 1500,
+          base: 1000,
+          minimum: 750,
         },
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
