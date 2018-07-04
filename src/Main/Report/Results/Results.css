@@ -113,6 +113,7 @@
   text-transform: uppercase;
   text-align: center;
   line-height: 1;
+  z-index: 10;
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
@@ -120,27 +121,27 @@
 
 @keyframes player-anim {
   from {
-    left: 100%;
+    transform: translateX(100%)
   }
   to {
-    left: 0%;
+    transform: translateX(0%)
   }
 }
 .results > header .player {
   animation: player-anim 400ms ease-out forwards;
-  left: 100%;
+  transform: translateX(100%);
 }
 @keyframes boss-anim {
   0% {
-    left: -100%;
+    transform: translateX(-100%);
   }
   100% {
-    left: 0%;
+    transform: translateX(0%);
   }
 }
 .results > header .boss {
   animation: boss-anim 400ms 1800ms ease-out forwards;
-  left: -100%;
+  transform: translateX(-120%);
 }
 @keyframes fade-in {
   0% {
