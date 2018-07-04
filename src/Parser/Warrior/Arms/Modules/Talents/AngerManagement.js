@@ -8,12 +8,11 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  SPELLS.DEMORALIZING_SHOUT.id,
-  SPELLS.AVATAR_TALENT.id,
-  SPELLS.LAST_STAND.id,
-  SPELLS.SHIELD_WALL.id,
+  SPELLS.COLOSSUS_SMASH.id,
+  SPELLS.WARBREAKER_TALENT.id,
+  SPELLS.BLADESTORM.id,
 ];
-const RAGE_NEEDED_FOR_A_PROC = 10;
+const RAGE_NEEDED_FOR_A_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
 
 class AngerManagement extends Analyzer {
@@ -35,9 +34,9 @@ class AngerManagement extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (!event.classResources || 
-        !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) || 
-        !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
+    if (!event.classResources ||
+      !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) ||
+      !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
       return;
     }
 
@@ -65,7 +64,7 @@ class AngerManagement extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} min`}
+        value={`${formatDuration((this.effectiveReduction[SPELLS.BLADESTORM.id] + this.wastedReduction[SPELLS.BLADESTORM.id]) / 1000)} min`}
         label="Possible cooldown reduction"
         tooltip={this.tooltip}
       />

@@ -151,6 +151,21 @@ class Abilities extends CoreAbilities {
           extraSuggestion: 'Use it to reduce damage taken for a short period.',
         },
       },
+      {
+        spell: SPELLS.RALLYING_CRY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
+        },
+      },
       // Utility
       {
         spell: SPELLS.CHARGE,
@@ -164,6 +179,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEROIC_LEAP_FURY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
         cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
         charges: 1 + (combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id) ? 2 : 0),
         gcd: null,
@@ -175,12 +191,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PUMMEL,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 15,
-        gcd: null,
-      },
-      {
         spell: SPELLS.STORM_BOLT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
@@ -188,14 +198,22 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          // If you're picking a utility talent over something that increases your damage, you better use it.
           suggestion: true,
+          recommendedEfficiency: 0.4,
+          extraSuggestion: 'If you\'re picking a utility talent over something that increases your mobility or survivability, you better use it.',
         },
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
       },
       {
+        spell: SPELLS.PUMMEL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+        gcd: null,
+      },
+      {
         spell: SPELLS.BERSERKER_RAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.BERSERKER_RAGE,
         cooldown: 60,
         gcd: null,
       },
@@ -205,18 +223,6 @@ class Abilities extends CoreAbilities {
         cooldown: 6,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.RALLYING_CRY,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.4,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: 'Use it to support your raid prior to massive raid damage.',
         },
       },
       {
