@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-03'),
+    changes: <React.Fragment>Fixed a bug where the mana reduction by <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> was not correctly accounted for in the cooldowns tab.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-29'),
     changes: <React.Fragment>Updated the crit bonus for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> to 30% (up from 25%).</React.Fragment>,
     contributors: [Zerotorescue],

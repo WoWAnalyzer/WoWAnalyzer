@@ -70,7 +70,7 @@ class News extends React.PureComponent {
               key={fileName}
               fileName={fileName}
             >
-              {({ children, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : children}
+              {({ article, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : article}
             </ArticleLoader>
           ))}
 
