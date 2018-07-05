@@ -556,6 +556,7 @@ class CombatLogParser {
 
   generateResults(adjustForDowntime) {
     this.adjustForDowntime = adjustForDowntime;
+    console.log(this._modules.totalDowntime.totalBaseDowntime);
 
     const results = new ParseResults();
 

@@ -26,8 +26,7 @@ class DeathDowntime extends Analyzer {
     this._lastDeathTimestamp = event.timestamp;
     this._isAlive = false;
   }
-  resurrect(event) {
-    const resurrectionTimestamp = event.timestamp;
+  resurrect(resurrectionTimestamp) {
     this._deathHistory.push({
       from: this._lastDeathTimestamp,
       until: resurrectionTimestamp,
@@ -38,10 +37,7 @@ class DeathDowntime extends Analyzer {
   }
   on_finished() {
     if (!this._isAlive) {
-      this._deathHistory.push({
-        from: this._lastDeathTimestamp,
-        until: this.owner.currentTimestamp,
-      });
+      this.resurrect(this.owner.currentTimestamp);
     }
   }
 
@@ -49,18 +45,18 @@ class DeathDowntime extends Analyzer {
     this.die(event);
   }
   on_toPlayer_resurrect(event) {
-    this.resurrect(event);
+    this.resurrect(event.timestamp);
   }
   on_byPlayer_cast(event) {
     if (!this._isAlive) {
       console.warn('Player magically resurrected', event);
-      this.resurrect(event);
+      this.resurrect(event.timestamp);
     }
   }
   on_byPlayer_begincast(event) {
     if (!this._isAlive) {
       console.warn('Player magically resurrected', event);
-      this.resurrect(event);
+      this.resurrect(event.timestamp);
     }
   }
 }
