@@ -380,7 +380,7 @@ class Parses extends React.Component {
                   </h2>
                   {this.state.class && (
                     <img
-                      src={`/specs/${this.state.class}-New.png`}
+                      src={`/specs/${this.state.class.replace(' ', '')}-New.png`}
                       alt={`Class icon of ${this.state.class}s`}
                       style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
                     />
