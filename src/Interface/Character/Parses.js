@@ -166,7 +166,7 @@ class Parses extends React.Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        advanced: Object.values(elem.talents).filter(talent => talent.id === 0).length === 0 ? true : false,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0 ? true : false,
       };
     });
 
