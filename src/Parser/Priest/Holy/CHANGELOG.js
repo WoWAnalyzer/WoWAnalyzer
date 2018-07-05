@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { enragednuke, Dyspho, Skamer } from 'CONTRIBUTORS';
+import { enragednuke, Dyspho, Skamer, niseko } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-07-05'),
+    changes: 'Updated Holy Priest spells for BFA and accounted for Holy Words cooldown reductions.',
+    contributors: [niseko],
+  },
   {
     date: new Date('2018-01-12'),
     changes: 'Added Divine Hymn buff contribution',
