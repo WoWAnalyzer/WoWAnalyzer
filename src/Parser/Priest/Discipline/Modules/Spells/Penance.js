@@ -71,7 +71,6 @@ class Penance extends Analyzer {
   }
 
   statistic() {
-    console.log(this);
     const hasCastigation = this.selectedCombatant.hasTalent(
       SPELLS.CASTIGATION_TALENT.id
     );
