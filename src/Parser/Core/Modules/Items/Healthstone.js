@@ -1,13 +1,22 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
-
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const HEALTHSTONE_SPELLS = [
   SPELLS.HEALTHSTONE,
   SPELLS.ANCIENT_HEALING_POTION,
   SPELLS.ASTRAL_HEALING_POTION,
+];
+
+const HEALTHSTONE_IDS = [
+  SPELLS.HEALTHSTONE.id,
+  SPELLS.ANCIENT_HEALING_POTION.id,
+  SPELLS.ASTRAL_HEALING_POTION.id,
 ];
 
 const ONE_HOUR_MS = 3600000; // one hour
@@ -22,21 +31,23 @@ class Healthstone extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
+    abilityTracker: AbilityTracker,
   };
 
   maxCasts = 1;
+  casts = 0;
   lastDeathWithHealthstoneReady = null;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.abilities.add({
       spell: HEALTHSTONE_SPELLS,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
-        suggestion: true,
+        suggestion: false,
         recommendedEfficiency: 0.6,
-          averageIssueEfficiency: 0.4,
-          majorIssueEfficiency: 0.1,
+        importance: ISSUE_IMPORTANCE.MINOR,
         maxCasts: (cooldown, fightDuration, getAbility, parser) => {
           return this.maxCasts;
         },
@@ -75,6 +86,30 @@ class Healthstone extends Analyzer {
     }
   }
 
+  get healthstoneCasts() {
+    HEALTHSTONE_IDS.forEach(spell => {
+      this.casts += this.abilityTracker.getAbility(spell).casts || 0;
+    });
+    return this.casts;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.healthstoneCasts,
+      isLessThan: {
+        minor: this.maxCasts,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+		when(this.suggestionThresholds)
+			.addSuggestion((suggest, actual, recommended) => {
+				return suggest(<React.Fragment>You used a <SpellLink id={SPELLS.HEALTHSTONE.id} /> or Healing Potion {this.healthstoneCasts} times but could have used it {this.maxCasts > 1 ? this.maxCasts + ' time' : this.maxCasts + ' times'}. If you are low on health, make sure you use your Healthstones, Healing Potions, and Defensive Abilities to stay alive and to help the healers. </React.Fragment>)
+					.icon(SPELLS.HEALTHSTONE.icon);
+      });
+  }
 }
 
 export default Healthstone;
