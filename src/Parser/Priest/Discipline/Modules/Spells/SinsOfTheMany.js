@@ -10,7 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import AtonementDamageSource from '../Features/AtonementDamageSource';
 import isAtonement from '../Core/isAtonement';
 import Atonement from './Atonement';
 
@@ -29,7 +28,6 @@ const BONUS_DAMAGE_MAP = {
 class SinsOfTheMany extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    atonementDamageSource: AtonementDamageSource,
     atonement: Atonement,
   };
 
@@ -60,9 +58,13 @@ class SinsOfTheMany extends Analyzer {
     this.bonusDamage += calculateEffectiveDamage(event, this.currentBonus);
   }
 
+  on_byPlayerPet_damage(event) {
+    this.bonusDamage += calculateEffectiveDamage(event, this.currentBonus);
+  }
+
   /**
    * This is whitelisted by virtue of Atonement naturally not occuring
-   * from abilities not in the whitelist
+   * from abilities not in the whitelist.
    */
   on_byPlayer_heal(event) {
     if (!isAtonement(event)) {
