@@ -4,8 +4,8 @@ import Empowerment from './Empowerment';
 
 class SolarEmpowerment extends Empowerment {
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     this.empoweredSpell = SPELLS.SOLAR_WRATH_MOONKIN;
     this.empowermentPrefix = 'Solar';
     this.spellGenerateAmount = 8;

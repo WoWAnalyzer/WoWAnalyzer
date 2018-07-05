@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -16,14 +15,14 @@ const TICKS_PER_UA = 4;
 class Tier20_2set extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
-    combatants: Combatants,
   };
 
   _totalTicks = 0;
   totalUAdamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

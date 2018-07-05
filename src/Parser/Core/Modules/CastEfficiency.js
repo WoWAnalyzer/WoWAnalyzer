@@ -11,7 +11,6 @@ import CastEfficiencyComponent from 'Main/CastEfficiency';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
-import Combatants from './Combatants';
 import Haste from './Haste';
 
 const DEFAULT_RECOMMENDED = 0.80;
@@ -21,7 +20,6 @@ const DEFAULT_MAJOR_DOWNSTEP = 0.15;
 class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
@@ -149,7 +147,7 @@ class CastEfficiency extends Analyzer {
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this._getCooldownInfo(ability);
     const timeSpentCasting = (cooldown && ability.charges < 2) ? this._getTimeSpentCasting(ability) : 0;
-    const timeWaitingOnGCD = (cooldown && ability.charges < 2 && ability.isOnGCD) ? this._getTimeWaitingOnGCD(ability) : 0;
+    const timeWaitingOnGCD = (cooldown && ability.charges < 2 && ability.gcd) ? this._getTimeWaitingOnGCD(ability) : 0;
 
     // ability.casts is used for special cases that show the wrong number of cast events, like Penance
     // and also for splitting up differently buffed versions of the same spell

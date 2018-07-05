@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -13,14 +12,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const STARFALL_BONUS_DAMAGE = 0.25;
 
 class StellarDrift extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

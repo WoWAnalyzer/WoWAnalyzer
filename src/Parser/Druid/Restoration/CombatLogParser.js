@@ -4,7 +4,7 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import WildGrowthNormalizer from './Normalizers/WildGrowth';
@@ -43,7 +43,7 @@ import T21_4Set from './Modules/Items/T21_4Set';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';

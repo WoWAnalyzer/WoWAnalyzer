@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/OTHERS';
 
 
@@ -9,12 +8,10 @@ import ITEMS from 'common/ITEMS/OTHERS';
 */
 
 class InsigniaOfTheGrandArmy extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
   }
 
   item() {

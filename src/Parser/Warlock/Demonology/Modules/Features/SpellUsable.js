@@ -1,17 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SpellUsable extends CoreSpellUsable {
   lastPotentialTrigger = null;
 
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.has2set = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.has2set = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id);
   }
 
   on_byPlayer_cast(event){

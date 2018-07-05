@@ -4,18 +4,14 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class LadyAndTheChild extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   moonfireCasts = 0;
   moonfireHits = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id);
   }
 
   on_byPlayer_damage(event) {

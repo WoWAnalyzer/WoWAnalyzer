@@ -269,7 +269,7 @@ export default {
     icon: 'spell_fire_elemental_totem',
   },
   SUMMON_FIRE_ELEMENTAL: {
-    id:188592,
+    id: 263819,
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
@@ -299,6 +299,16 @@ export default {
     id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
+  },
+  EXPOSED_ELEMENTS_DEBUFF: {
+    id: 269808,
+    name: "Exposed Elements Debuff",
+    icon: "spell_nature_callstorm",
+  },
+  MASTER_OF_THE_ELEMENTS_BUFF: {
+    id: 260734,
+    name: "Master Of The Elements Buff",
+    icon: "spell_nature_elementalabsorption",
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -596,11 +606,6 @@ export default {
   ENHANCE_SHAMAN_T21_4SET_EQUIP: {
     id: 251761,
     name: 'T21 4set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  EXPOSED_ELEMENTS: {
-    id: 252151,
-    name: 'T21 4set bonus debuff',
     icon: 'ability_shaman_ascendance',
   },
   //Enhancement Traits

@@ -6,17 +6,12 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { SPELLS_WHICH_REMOVE_BOC } from '../../Constants';
 
 const debug = false;
 const BOC_DURATION = 15000;
 
 class BlackoutCombo extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  }
-
   blackoutComboConsumed = 0;
   blackoutComboBuffs = 0;
   lastBlackoutComboCast = 0;
@@ -37,8 +32,9 @@ class BlackoutCombo extends Analyzer {
     };
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

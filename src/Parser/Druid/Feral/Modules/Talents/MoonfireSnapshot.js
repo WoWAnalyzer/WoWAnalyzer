@@ -4,16 +4,14 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
+import Snapshot from '../FeralCore/Snapshot';
+import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../Constants';
 
 /**
  * Moonfire benefits from the damage bonus of Tiger's Fury over its whole duration, even if the
  * buff wears off in that time. It's a damage loss to refresh Moonfire before the pandemic window
  * if you don't have Tiger's Fury active when the existing DoT does have it active.
  */
-
-// cat moonfire lasts for 14 seconds, unlike caster and bear moonfire with a base of 16 seconds.
-const MOONFIRE_FERAL_BASE_DURATION = 14000;
 
 class MoonfireSnapshot extends Snapshot {
   static spellCastId = SPELLS.MOONFIRE_FERAL.id;
@@ -29,11 +27,10 @@ class MoonfireSnapshot extends Snapshot {
 
   downgradeCastCount = 0;
 
-  on_initialized() {
-    super.on_initialized();
-    if (!this.combatants.selected.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
+  constructor(...args) {
+    super(...args);
+    if (!this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
       this.active = false;
-      return;
     }
   }
 

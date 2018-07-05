@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 const CHART_SIZE = 100;
@@ -31,8 +30,11 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.RAPTOR_STRIKE.id,
   SPELLS.LACERATE.id,
   SPELLS.BUTCHERY_TALENT.id,
-  SPELLS.FLANKING_STRIKE.id,
+  SPELLS.CARVE.id,
+  SPELLS.MONGOOSE_BITE_TALENT.id,
   SPELLS.WING_CLIP.id,
+  SPELLS.CHAKRAMS_TALENT.id,
+  SPELLS.SERPENT_STING_SV.id,
   //shared
   SPELLS.REVIVE_PET_AND_MEND_PET.id,
   SPELLS.A_MURDER_OF_CROWS_TALENT.id,
@@ -40,10 +42,6 @@ const LIST_OF_FOCUS_SPENDERS = [
 ];
 
 class FocusUsage extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   focusSpenderCasts = {
     //BEAST MASTERY
     [SPELLS.COBRA_SHOT.id]: {
@@ -64,7 +62,7 @@ class FocusUsage extends Analyzer {
       name: SPELLS.KILL_COMMAND.name,
       color: '#abff3d',
     },
-    [SPELLS.DIRE_BEAST_TALENT.id]:{
+    [SPELLS.DIRE_BEAST_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
       name: SPELLS.DIRE_BEAST_TALENT.name,
@@ -99,7 +97,7 @@ class FocusUsage extends Analyzer {
       casts: 0,
       focusUsed: 0,
       name: SPELLS.MULTISHOT_MM.name,
-      color: '#2a2a2a',
+      color: '#4ce4ec',
     },
     [SPELLS.EXPLOSIVE_SHOT_TALENT.id]: {
       casts: 0,
@@ -111,7 +109,7 @@ class FocusUsage extends Analyzer {
       casts: 0,
       focusUsed: 0,
       name: SPELLS.BURSTING_SHOT.name,
-      color: '#4ce4ec',
+      color: '#2a2a2a',
     },
     //SURVIVAL
     [SPELLS.RAPTOR_STRIKE.id]: {
@@ -132,11 +130,11 @@ class FocusUsage extends Analyzer {
       name: SPELLS.BUTCHERY_TALENT.name,
       color: '#8b4507',
     },
-    [SPELLS.FLANKING_STRIKE.id]: {
+    [SPELLS.CARVE.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.FLANKING_STRIKE.name,
-      color: '#98ff00',
+      name: SPELLS.CARVE.name,
+      color: '#8b4507',
     },
     [SPELLS.WING_CLIP.id]: {
       casts: 0,
@@ -144,22 +142,22 @@ class FocusUsage extends Analyzer {
       name: SPELLS.WING_CLIP.name,
       color: '#ecda4c',
     },
-    [SPELLS.THROWING_AXES_TALENT.id]: {
+    [SPELLS.SERPENT_STING_SV.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.THROWING_AXES_TALENT.name,
+      name: SPELLS.SERPENT_STING_SV.name,
+      color: '#ecd1b6',
+    },
+    [SPELLS.MONGOOSE_BITE_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.MONGOOSE_BITE_TALENT.name,
       color: '#00ec62',
     },
-    [SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id]: {
+    [SPELLS.CHAKRAMS_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.name,
-      color: '#3eec85',
-    },
-    [SPELLS.RANGERS_NET_TALENT.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.RANGERS_NET_TALENT.name,
+      name: SPELLS.CHAKRAMS_TALENT.name,
       color: '#ecda4c',
     },
     //SHARED

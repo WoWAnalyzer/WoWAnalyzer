@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import PETS from 'common/PETS';
 import SPELLS from 'common/SPELLS';
@@ -7,10 +6,6 @@ import SPELLS from 'common/SPELLS';
 // tracks individual pet (as in pet type) damage, summed together across pet instances
 // also tracks pet summons and despawns and provides getPets(timestamp)
 class Pets extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // Keys are ids in PETS.js
   petDamage = {
     [PETS.WILDIMP_ON_DREADSTALKER.id]: {},
@@ -39,7 +34,7 @@ class Pets extends Analyzer {
     if (guid !== PETS.WILDIMP_ON_DREADSTALKER.id && guid !== PETS.DREADSTALKER.id) {
       return PETS[guid].baseDuration;
     }
-    return (this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
+    return (this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
   }
 
   _isPermanentPet(guid) {

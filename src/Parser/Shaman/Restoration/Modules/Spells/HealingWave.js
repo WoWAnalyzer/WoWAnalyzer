@@ -4,14 +4,12 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format'; 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 class HealingWave extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -29,7 +27,7 @@ class HealingWave extends Analyzer {
   }
 
   _isInefficientCastEvent(event) {
-    const hasTidalWave = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, -1);
+    const hasTidalWave = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, -1);
     if (hasTidalWave) {
       return false;
     }

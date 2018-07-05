@@ -4,7 +4,11 @@ import ShardOfTheExodar from './ShardOfTheExodar';
 
 describe('Mage/Shared/Items/ShardOfTheExodar', () => {
   it('counts freshly applied Bloodlusts', () => {
-    const module = new ShardOfTheExodar();
+    const module = new ShardOfTheExodar({
+      selectedCombatant: {
+        hasFinger: () => true,
+      },
+    });
     const makeEvent = spellId => ({
       ability: {
         guid: spellId,

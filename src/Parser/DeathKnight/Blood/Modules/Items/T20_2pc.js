@@ -6,19 +6,16 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class T20_2pc extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.GRAVEWARDEN.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.GRAVEWARDEN.id) / this.owner.fightDuration;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
   }
 
   item() {

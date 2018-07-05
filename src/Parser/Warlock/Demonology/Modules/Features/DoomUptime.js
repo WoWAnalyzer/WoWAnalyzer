@@ -9,16 +9,15 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class DoomUptime extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DOOM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DOOM_TALENT.id);
   }
 
   get uptime() {

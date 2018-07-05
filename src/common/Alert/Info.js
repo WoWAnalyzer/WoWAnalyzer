@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'Icons/Information';
+import Icon from 'Interface/Icons/Information';
 
 import Alert from './index';
 

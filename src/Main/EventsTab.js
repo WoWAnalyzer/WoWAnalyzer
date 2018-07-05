@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/commonjs/Table';
 import Toggle from 'react-toggle';
+import ReactTooltip from 'react-tooltip';
 import 'react-toggle/style.css';
 
-import InformationIcon from 'Icons/Information';
+import InformationIcon from 'Interface/Icons/Information';
 
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
@@ -107,6 +108,10 @@ class EventsTab extends React.Component {
       search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
+  }
+
+  componentDidMount() {
+    ReactTooltip.rebuild();
   }
 
   findEntity(id) {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import ITEMS from 'common/ITEMS';
@@ -20,7 +19,6 @@ const DAMAGE_BONUS_PER_PET = 0.05;
 // DOESN'T work with demonic tyrant, vilefiend
 class KazzaksFinalCurse extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     demoPets: DemoPets,
   };
 
@@ -29,8 +27,9 @@ class KazzaksFinalCurse extends Analyzer {
   ];
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.KAZZAKS_FINAL_CURSE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.KAZZAKS_FINAL_CURSE.id);
   }
 
   // damage multiplier is decided when doom is CAST or REFRESHED, not when it deals damage

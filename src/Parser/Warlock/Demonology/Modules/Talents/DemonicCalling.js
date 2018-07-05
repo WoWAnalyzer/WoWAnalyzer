@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -12,15 +11,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const BUFF_DURATION = 20000;
 
 class DemonicCalling extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   wastedProcs = 0;
   _expectedBuffEnd = undefined;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DEMONIC_CALLING_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CALLING_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {

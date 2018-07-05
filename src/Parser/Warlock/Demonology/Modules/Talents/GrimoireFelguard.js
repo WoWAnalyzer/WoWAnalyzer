@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
@@ -17,11 +16,11 @@ class GrimoireFelguard extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     demoPets: DemoPets,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 
   statistic() {

@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -17,7 +16,6 @@ const COOLDOWN_REDUCTION_MS = 1000;
 
 class BlackoutKick extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
@@ -40,7 +38,7 @@ class BlackoutKick extends Analyzer {
     }
 
     this.casts += 1;
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     // Blackout Kick sometimes take priority if you're using T21
     if (combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id) && combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
       event.meta = event.meta || {};

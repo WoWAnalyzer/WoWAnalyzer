@@ -1,17 +1,18 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 
 class EmpowerWards extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -24,7 +25,7 @@ class EmpowerWards extends Analyzer {
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.EMPOWER_WARDS.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.EMPOWER_WARDS.id, event.timestamp)) {
       this.hitsWithWards += 1;
     }else{
       this.hitsWithNoWards += 1;
@@ -39,7 +40,7 @@ class EmpowerWards extends Analyzer {
 
 
   statistic() {
-    const empoweWardsUptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
+    const empoweWardsUptime = this.selectedCombatant.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
     const empowerWardsUptimePercentage = empoweWardsUptime / this.owner.fightDuration;
     const hitsWithWardsPercentage = this.hitsWithWards / (this.hitsWithWards + this.hitsWithNoWards);
     return (

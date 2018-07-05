@@ -3,21 +3,17 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_BONUS = 1;
 
 class DarcklisDragonfireDiadem extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHead(ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHead(ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id);
   }
 
   on_byPlayer_damage(event) {

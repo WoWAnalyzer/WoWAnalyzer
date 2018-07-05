@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -16,7 +15,6 @@ const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 class ChainHeal extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   on_initialized() {
@@ -29,7 +27,6 @@ class ChainHeal extends Analyzer {
     if (isNaN(suggestedThreshold.actual)) {
       return;
     }
-
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</span>)

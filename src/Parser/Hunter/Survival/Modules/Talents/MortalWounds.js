@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
@@ -12,14 +11,11 @@ const RESET_CHANCE_PER_TICK = 0.02;
  * Each time Lacerate deals damage, you have a 2% chance to gain a charge of Mongoose Bite.
  */
 class MortalWounds extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   ticks = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.MORTAL_WOUNDS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MORTAL_WOUNDS_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

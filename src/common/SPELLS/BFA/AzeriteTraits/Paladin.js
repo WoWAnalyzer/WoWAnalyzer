@@ -10,4 +10,9 @@ export default {
     name: 'Stalwart Protector',
     icon: 'spell_holy_divineshield',
   },
+  RADIANT_INCANDESCENCE: {
+    id: 278147,
+    name: 'Radiant Incandescence',
+    icon: 'spell_holy_searinglight',
+  },
 };

@@ -31,7 +31,8 @@ class Mastery extends Analyzer {
    */
   masteryBuffs = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     Object.entries(DRUID_HEAL_INFO)
       .filter(infoEntry => infoEntry[1].masteryStack)
       .forEach(infoEntry => {
@@ -75,7 +76,7 @@ class Mastery extends Analyzer {
         .forEach(hotOn => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       Object.entries(this.masteryBuffs)
-        .filter(entry => this.combatants.selected.hasBuff(entry[0]))
+        .filter(entry => this.selectedCombatant.hasBuff(entry[0]))
         .forEach(entry => {
           entry[1].attributableHealing += calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount));
         });

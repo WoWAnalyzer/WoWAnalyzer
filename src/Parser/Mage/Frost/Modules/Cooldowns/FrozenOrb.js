@@ -1,14 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const BLIZZARD_REDUCTION_MS = 500;
 
 class FrozenOrb extends Analyzer {
-
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	}
 

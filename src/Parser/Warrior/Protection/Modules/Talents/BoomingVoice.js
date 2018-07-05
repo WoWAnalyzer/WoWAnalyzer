@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
@@ -15,7 +14,6 @@ const BOOMING_VOICE_RAGE_GENERATION = 40;
 
 class BoomingVoice extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -25,9 +23,10 @@ class BoomingVoice extends Analyzer {
   maxRage = 100;
   nextCastWasted = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
-    this.maxRage += this.combatants.selected.traitsBySpellId[SPELLS.INTOLERANCE_TRAIT.id] * 10;
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
+    this.maxRage += this.selectedCombatant.traitsBySpellId[SPELLS.INTOLERANCE_TRAIT.id] * 10;
   }
 
   on_byPlayer_cast(event) {

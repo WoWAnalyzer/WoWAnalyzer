@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -10,12 +9,12 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 **/
 class DemonReborn extends Analyzer {
 	static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
-  on_initialized() {
-  	this.active = this.combatants.selected.hasTalent(SPELLS.DEMON_REBORN_TALENT.id);
+  constructor(...args) {
+    super(...args);
+  	this.active = this.selectedCombatant.hasTalent(SPELLS.DEMON_REBORN_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

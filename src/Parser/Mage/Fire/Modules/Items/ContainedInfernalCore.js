@@ -3,24 +3,20 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ContainedInfernalCore extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
   meteorCasts = 0;
   legendaryProcs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.CONTAINED_INFERNAL_CORE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.CONTAINED_INFERNAL_CORE.id);
   }
 
   on_byPlayer_cast(event) {
-    const hasMeteorTalent = this.combatants.selected.hasTalent(SPELLS.METEOR_TALENT.id);
+    const hasMeteorTalent = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
     if (event.ability.guid !== SPELLS.METEOR_TALENT.id || !hasMeteorTalent) {
       return;
     }

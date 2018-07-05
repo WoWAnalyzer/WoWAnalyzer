@@ -1,4 +1,5 @@
 import SPECS from 'common/SPECS';
+import traitIdMap from 'common/TraitIdMap';
 
 import Entity from './Entity';
 
@@ -101,9 +102,18 @@ class Combatant extends Entity {
   // region Traits
   traitsBySpellId = {};
   _parseTraits(traits) {
-    traits.forEach(({ spellID, rank }) => {
-      this.traitsBySpellId[spellID] = rank;
+    traits.forEach(({ traitID, rank }) => {
+      if(!(traitIdMap[traitID] in this.traitsBySpellId)) {
+        this.traitsBySpellId[traitIdMap[traitID]] = [];
+      }
+      this.traitsBySpellId[traitIdMap[traitID]].push(rank);
     });
+  }
+  hasTrait(spellId) {
+    return spellId in this.traitsBySpellId;
+  }
+  traitRanks(spellId) {
+    return this.traitsBySpellId[spellId];
   }
   // endregion
 

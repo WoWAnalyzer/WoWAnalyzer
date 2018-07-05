@@ -1,0 +1,4466 @@
+{
+  "263962": {
+    "name": "Resounding Protection",
+    "effect_list": [
+      707038
+    ],
+    "secondary": false,
+    "effects": {
+      "707038": {
+        "avg": 10.883929
+      }
+    }
+  },
+  "263978": {
+    "name": "Azerite Empowered",
+    "effect_list": [
+      707058
+    ],
+    "secondary": false,
+    "effects": {
+      "707058": {
+        "avg": 0
+      }
+    }
+  },
+  "263984": {
+    "name": "Elemental Whirl",
+    "effect_list": [
+      707066
+    ],
+    "secondary": true,
+    "effects": {
+      "707066": {
+        "avg": 1
+      }
+    }
+  },
+  "263987": {
+    "name": "Heed My Call",
+    "effect_list": [
+      707069,
+      713642
+    ],
+    "secondary": false,
+    "effects": {
+      "707069": {
+        "avg": 2
+      },
+      "713642": {
+        "avg": 0.2
+      }
+    }
+  },
+  "264108": {
+    "name": "Blood Siphon",
+    "effect_list": [
+      707293,
+      709390
+    ],
+    "secondary": false,
+    "effects": {
+      "707293": {
+        "avg": 0.361446
+      },
+      "709390": {
+        "avg": 0.181818
+      }
+    }
+  },
+  "264198": {
+    "name": "In The Rhythm",
+    "effect_list": [
+      707449
+    ],
+    "secondary": true,
+    "effects": {
+      "707449": {
+        "avg": 0.25
+      }
+    }
+  },
+  "266180": {
+    "name": "Overwhelming Power",
+    "effect_list": [
+      711012
+    ],
+    "secondary": true,
+    "effects": {
+      "711012": {
+        "avg": 0.05
+      }
+    }
+  },
+  "266936": {
+    "name": "Azerite Globules",
+    "effect_list": [
+      713207,
+      739251
+    ],
+    "secondary": false,
+    "effects": {
+      "713207": {
+        "avg": 3
+      },
+      "739251": {
+        "avg": 0
+      }
+    }
+  },
+  "266937": {
+    "name": "Gutripper",
+    "effect_list": [
+      713208,
+      720336
+    ],
+    "secondary": false,
+    "effects": {
+      "713208": {
+        "avg": 4.504504
+      },
+      "720336": {
+        "avg": 0
+      }
+    }
+  },
+  "267665": {
+    "name": "Lifespeed",
+    "effect_list": [
+      714501,
+      714502
+    ],
+    "secondary": false,
+    "effects": {
+      "714501": {
+        "avg": 0.361446
+      },
+      "714502": {
+        "avg": 0.181818
+      }
+    }
+  },
+  "267671": {
+    "name": "Winds of War",
+    "effect_list": [
+      714511
+    ],
+    "secondary": true,
+    "effects": {
+      "714511": {
+        "avg": 0.178571
+      }
+    }
+  },
+  "267683": {
+    "name": "Azerite Veins",
+    "effect_list": [
+      714531
+    ],
+    "secondary": false,
+    "effects": {
+      "714531": {
+        "avg": 0.446429
+      }
+    }
+  },
+  "267879": {
+    "name": "On My Way",
+    "effect_list": [
+      714790,
+      714791
+    ],
+    "secondary": false,
+    "effects": {
+      "714790": {
+        "avg": 0.36036
+      },
+      "714791": {
+        "avg": 0.179104
+      }
+    }
+  },
+  "267880": {
+    "name": "Woundbinder",
+    "effect_list": [
+      714792
+    ],
+    "secondary": true,
+    "effects": {
+      "714792": {
+        "avg": 0.810811
+      }
+    }
+  },
+  "267882": {
+    "name": "Concentrated Mending",
+    "effect_list": [
+      714798
+    ],
+    "secondary": false,
+    "effects": {
+      "714798": {
+        "avg": 0.090909
+      }
+    }
+  },
+  "267883": {
+    "name": "Savior",
+    "effect_list": [
+      714801,
+      720348
+    ],
+    "secondary": false,
+    "effects": {
+      "714801": {
+        "avg": 6.035715
+      },
+      "720348": {
+        "avg": 0
+      }
+    }
+  },
+  "267884": {
+    "name": "Bracing Chill",
+    "effect_list": [
+      714803
+    ],
+    "secondary": false,
+    "effects": {
+      "714803": {
+        "avg": 1.082707
+      }
+    }
+  },
+  "267886": {
+    "name": "Ephemeral Recovery",
+    "effect_list": [
+      714807
+    ],
+    "secondary": true,
+    "effects": {
+      "714807": {
+        "avg": 0.019907
+      }
+    }
+  },
+  "267889": {
+    "name": "Blessed Portents",
+    "effect_list": [
+      714812,
+      737331
+    ],
+    "secondary": false,
+    "effects": {
+      "714812": {
+        "avg": 2.248201
+      },
+      "737331": {
+        "avg": 0
+      }
+    }
+  },
+  "267892": {
+    "name": "Synergistic Growth",
+    "effect_list": [
+      714818
+    ],
+    "secondary": true,
+    "effects": {
+      "714818": {
+        "avg": 1.869159
+      }
+    }
+  },
+  "268435": {
+    "name": "Azerite Fortification",
+    "effect_list": [
+      715936
+    ],
+    "secondary": false,
+    "effects": {
+      "715936": {
+        "avg": 4.504505
+      }
+    }
+  },
+  "268437": {
+    "name": "Impassive Visage",
+    "effect_list": [
+      715939
+    ],
+    "secondary": false,
+    "effects": {
+      "715939": {
+        "avg": 1.80018
+      }
+    }
+  },
+  "268594": {
+    "name": "Longstrider",
+    "effect_list": [
+      716157,
+      716158
+    ],
+    "secondary": false,
+    "effects": {
+      "716157": {
+        "avg": 0.044346
+      },
+      "716158": {
+        "avg": 0.013304
+      }
+    }
+  },
+  "268595": {
+    "name": "Bulwark of the Masses",
+    "effect_list": [
+      716159,
+      720319
+    ],
+    "secondary": false,
+    "effects": {
+      "716159": {
+        "avg": 10.810811
+      },
+      "720319": {
+        "avg": 0
+      }
+    }
+  },
+  "268596": {
+    "name": "Gemhide",
+    "effect_list": [
+      716160,
+      716161,
+      720325
+    ],
+    "secondary": true,
+    "effects": {
+      "716160": {
+        "avg": 0.420473
+      },
+      "716161": {
+        "avg": 1.86384
+      },
+      "720325": {
+        "avg": 0
+      }
+    }
+  },
+  "268599": {
+    "name": "Vampiric Speed",
+    "effect_list": [
+      716165,
+      720314
+    ],
+    "secondary": false,
+    "effects": {
+      "716165": {
+        "avg": 8.108109
+      },
+      "720314": {
+        "avg": 0.630631
+      }
+    }
+  },
+  "268600": {
+    "name": "Self Reliance",
+    "effect_list": [
+      716167,
+      716168
+    ],
+    "secondary": false,
+    "effects": {
+      "716167": {
+        "avg": 0.903614
+      },
+      "716168": {
+        "avg": 0
+      }
+    }
+  },
+  "269621": {
+    "name": "Invigorating Brew",
+    "effect_list": [
+      718012
+    ],
+    "secondary": false,
+    "effects": {
+      "718012": {
+        "avg": 2.252252
+      }
+    }
+  },
+  "270669": {
+    "name": "Arcane Pummeling",
+    "effect_list": [
+      720338
+    ],
+    "secondary": false,
+    "effects": {
+      "720338": {
+        "avg": 0.18018
+      }
+    }
+  },
+  "271536": {
+    "name": "Crystalline Carapace",
+    "effect_list": [
+      721833,
+      721834,
+      721835
+    ],
+    "secondary": false,
+    "effects": {
+      "721833": {
+        "avg": 1.081081
+      },
+      "721834": {
+        "avg": 0.934579
+      },
+      "721835": {
+        "avg": 0
+      }
+    }
+  },
+  "271540": {
+    "name": "Ablative Shielding",
+    "effect_list": [
+      721842
+    ],
+    "secondary": true,
+    "effects": {
+      "721842": {
+        "avg": 7.469655
+      }
+    }
+  },
+  "271546": {
+    "name": "Strength in Numbers",
+    "effect_list": [
+      721853
+    ],
+    "secondary": false,
+    "effects": {
+      "721853": {
+        "avg": 14.133469
+      }
+    }
+  },
+  "271557": {
+    "name": "Shimmering Haven",
+    "effect_list": [
+      721867,
+      721868
+    ],
+    "secondary": false,
+    "effects": {
+      "721867": {
+        "avg": 24.734451
+      },
+      "721868": {
+        "avg": 1.44
+      }
+    }
+  },
+  "272684": {
+    "name": "Deep Cuts",
+    "effect_list": [
+      723724
+    ],
+    "secondary": false,
+    "effects": {
+      "723724": {
+        "avg": 0.321543
+      }
+    }
+  },
+  "272717": {
+    "name": "Serrated Jaws",
+    "effect_list": [
+      723789,
+      723790,
+      723805
+    ],
+    "secondary": false,
+    "effects": {
+      "723789": {
+        "avg": 1.2
+      },
+      "723790": {
+        "avg": 0
+      },
+      "723805": {
+        "avg": 0
+      }
+    }
+  },
+  "272718": {
+    "name": "Icy Citadel",
+    "effect_list": [
+      723791,
+      723792
+    ],
+    "secondary": false,
+    "effects": {
+      "723791": {
+        "avg": 1.286174
+      },
+      "723792": {
+        "avg": 0
+      }
+    }
+  },
+  "272738": {
+    "name": "Festering Doom",
+    "effect_list": [
+      723827
+    ],
+    "secondary": false,
+    "effects": {
+      "723827": {
+        "avg": 2
+      }
+    }
+  },
+  "272742": {
+    "name": "Wildfire Cluster",
+    "effect_list": [
+      723832
+    ],
+    "secondary": false,
+    "effects": {
+      "723832": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "272775": {
+    "name": "Moment of Repose",
+    "effect_list": [
+      723883
+    ],
+    "secondary": false,
+    "effects": {
+      "723883": {
+        "avg": 4.065041
+      }
+    }
+  },
+  "272780": {
+    "name": "Permeating Glow",
+    "effect_list": [
+      723891
+    ],
+    "secondary": false,
+    "effects": {
+      "723891": {
+        "avg": 0.813008
+      }
+    }
+  },
+  "272788": {
+    "name": "Searing Dialogue",
+    "effect_list": [
+      723903
+    ],
+    "secondary": false,
+    "effects": {
+      "723903": {
+        "avg": 0.325203
+      }
+    }
+  },
+  "272792": {
+    "name": "Boiling Brew",
+    "effect_list": [
+      723910,
+      723911
+    ],
+    "secondary": false,
+    "effects": {
+      "723910": {
+        "avg": 0
+      },
+      "723911": {
+        "avg": 0.128617
+      }
+    }
+  },
+  "272802": {
+    "name": "Fungal Essence",
+    "effect_list": [
+      723924
+    ],
+    "secondary": false,
+    "effects": {
+      "723924": {
+        "avg": 3
+      }
+    }
+  },
+  "272804": {
+    "name": "Iron Fists",
+    "effect_list": [
+      723926,
+      723927
+    ],
+    "secondary": true,
+    "effects": {
+      "723926": {
+        "avg": 0.417084
+      },
+      "723927": {
+        "avg": 0
+      }
+    }
+  },
+  "272824": {
+    "name": "Deafening Crash",
+    "effect_list": [
+      723960,
+      723961
+    ],
+    "secondary": false,
+    "effects": {
+      "723960": {
+        "avg": 0
+      },
+      "723961": {
+        "avg": 0.642934
+      }
+    }
+  },
+  "272836": {
+    "name": "Trample the Weak",
+    "effect_list": [
+      723998
+    ],
+    "secondary": false,
+    "effects": {
+      "723998": {
+        "avg": 0.25
+      }
+    }
+  },
+  "272866": {
+    "name": "Executioner's Precision",
+    "effect_list": [
+      724045
+    ],
+    "secondary": false,
+    "effects": {
+      "724045": {
+        "avg": 1.37
+      }
+    }
+  },
+  "272871": {
+    "name": "Streaking Stars",
+    "effect_list": [
+      724053
+    ],
+    "secondary": false,
+    "effects": {
+      "724053": {
+        "avg": 2
+      }
+    }
+  },
+  "272891": {
+    "name": "Wracking Brilliance",
+    "effect_list": [
+      724083
+    ],
+    "secondary": false,
+    "effects": {
+      "724083": {
+        "avg": 0.65
+      }
+    }
+  },
+  "272898": {
+    "name": "Avenger's Might",
+    "effect_list": [
+      724096
+    ],
+    "secondary": false,
+    "effects": {
+      "724096": {
+        "avg": 0.6
+      }
+    }
+  },
+  "272911": {
+    "name": "Sharpened Blades",
+    "effect_list": [
+      724115
+    ],
+    "secondary": false,
+    "effects": {
+      "724115": {
+        "avg": 0.1
+      }
+    }
+  },
+  "272932": {
+    "name": "Flames of Alacrity",
+    "effect_list": [
+      724148
+    ],
+    "secondary": true,
+    "effects": {
+      "724148": {
+        "avg": 0.2
+      }
+    }
+  },
+  "272935": {
+    "name": "Deadshot",
+    "effect_list": [
+      724153
+    ],
+    "secondary": false,
+    "effects": {
+      "724153": {
+        "avg": 3
+      }
+    }
+  },
+  "272944": {
+    "name": "Shadow's Bite",
+    "effect_list": [
+      724173
+    ],
+    "secondary": false,
+    "effects": {
+      "724173": {
+        "avg": 0.609756
+      }
+    }
+  },
+  "272955": {
+    "name": "Accelerant",
+    "effect_list": [
+      724206
+    ],
+    "secondary": false,
+    "effects": {
+      "724206": {
+        "avg": 0.35
+      }
+    }
+  },
+  "272968": {
+    "name": "Packed Ice",
+    "effect_list": [
+      724230
+    ],
+    "secondary": false,
+    "effects": {
+      "724230": {
+        "avg": 0.17
+      }
+    }
+  },
+  "272976": {
+    "name": "Bulwark of Light",
+    "effect_list": [
+      724241
+    ],
+    "secondary": false,
+    "effects": {
+      "724241": {
+        "avg": 4.066253
+      }
+    }
+  },
+  "272983": {
+    "name": "Revel in Pain",
+    "effect_list": [
+      724250
+    ],
+    "secondary": false,
+    "effects": {
+      "724250": {
+        "avg": 60.975609
+      }
+    }
+  },
+  "272989": {
+    "name": "Soothing Waters",
+    "effect_list": [
+      724256
+    ],
+    "secondary": false,
+    "effects": {
+      "724256": {
+        "avg": 0.3
+      }
+    }
+  },
+  "272992": {
+    "name": "Primal Primer",
+    "effect_list": [
+      724260
+    ],
+    "secondary": false,
+    "effects": {
+      "724260": {
+        "avg": 0.2
+      }
+    }
+  },
+  "273007": {
+    "name": "Double Dose",
+    "effect_list": [
+      724288
+    ],
+    "secondary": false,
+    "effects": {
+      "724288": {
+        "avg": 1.220422
+      }
+    }
+  },
+  "273027": {
+    "name": "Martyr's Breath",
+    "effect_list": [
+      724321
+    ],
+    "secondary": false,
+    "effects": {
+      "724321": {
+        "avg": 0.45
+      }
+    }
+  },
+  "273088": {
+    "name": "Bone Spike Graveyard",
+    "effect_list": [
+      724416,
+      724417
+    ],
+    "secondary": false,
+    "effects": {
+      "724416": {
+        "avg": 0.609756
+      },
+      "724417": {
+        "avg": 1.626016
+      }
+    }
+  },
+  "273093": {
+    "name": "Latent Chill",
+    "effect_list": [
+      724423,
+      724424
+    ],
+    "secondary": false,
+    "effects": {
+      "724423": {
+        "avg": 1
+      },
+      "724424": {
+        "avg": 0
+      }
+    }
+  },
+  "273095": {
+    "name": "Horrid Experimentation",
+    "effect_list": [
+      724426
+    ],
+    "secondary": false,
+    "effects": {
+      "724426": {
+        "avg": 2.03252
+      }
+    }
+  },
+  "273130": {
+    "name": "Inspiring Beacon",
+    "effect_list": [
+      724530
+    ],
+    "secondary": false,
+    "effects": {
+      "724530": {
+        "avg": 0.8
+      }
+    }
+  },
+  "273131": {
+    "name": "Rejuvenating Grace",
+    "effect_list": [
+      724531
+    ],
+    "secondary": false,
+    "effects": {
+      "724531": {
+        "avg": 0.33
+      }
+    }
+  },
+  "273134": {
+    "name": "Fortifying Auras",
+    "effect_list": [
+      724538
+    ],
+    "secondary": false,
+    "effects": {
+      "724538": {
+        "avg": 4
+      }
+    }
+  },
+  "273136": {
+    "name": "Critical Flash",
+    "effect_list": [
+      724540
+    ],
+    "secondary": false,
+    "effects": {
+      "724540": {
+        "avg": 1
+      }
+    }
+  },
+  "273140": {
+    "name": "Righteous Flames",
+    "effect_list": [
+      724544,
+      724545
+    ],
+    "secondary": false,
+    "effects": {
+      "724544": {
+        "avg": 2
+      },
+      "724545": {
+        "avg": 3
+      }
+    }
+  },
+  "273142": {
+    "name": "Healing Hammer",
+    "effect_list": [
+      724547,
+      724548
+    ],
+    "secondary": false,
+    "effects": {
+      "724547": {
+        "avg": 3.5
+      },
+      "724548": {
+        "avg": 0
+      }
+    }
+  },
+  "273147": {
+    "name": "Deferred Sentence",
+    "effect_list": [
+      724554
+    ],
+    "secondary": false,
+    "effects": {
+      "724554": {
+        "avg": 1
+      }
+    }
+  },
+  "273150": {
+    "name": "Ruinous Bolt",
+    "effect_list": [
+      724558
+    ],
+    "secondary": false,
+    "effects": {
+      "724558": {
+        "avg": 2.572347
+      }
+    }
+  },
+  "273231": {
+    "name": "Furious Gaze",
+    "effect_list": [
+      724687
+    ],
+    "secondary": true,
+    "effects": {
+      "724687": {
+        "avg": 0.524296
+      }
+    }
+  },
+  "273236": {
+    "name": "Infernal Armor",
+    "effect_list": [
+      724697,
+      724698
+    ],
+    "secondary": false,
+    "effects": {
+      "724697": {
+        "avg": 0.304878
+      },
+      "724698": {
+        "avg": 1.049043
+      }
+    }
+  },
+  "273262": {
+    "name": "Haze of Rage",
+    "effect_list": [
+      724751
+    ],
+    "secondary": false,
+    "effects": {
+      "724751": {
+        "avg": 1.01626
+      }
+    }
+  },
+  "273265": {
+    "name": "Arcane Flurry",
+    "effect_list": [
+      724756
+    ],
+    "secondary": false,
+    "effects": {
+      "724756": {
+        "avg": 0.813008
+      }
+    }
+  },
+  "273283": {
+    "name": "Latent Poison",
+    "effect_list": [
+      724785
+    ],
+    "secondary": false,
+    "effects": {
+      "724785": {
+        "avg": 0.465068
+      }
+    }
+  },
+  "273291": {
+    "name": "Sunrise Technique",
+    "effect_list": [
+      724795
+    ],
+    "secondary": false,
+    "effects": {
+      "724795": {
+        "avg": 0.64
+      }
+    }
+  },
+  "273307": {
+    "name": "Weal and Woe",
+    "effect_list": [
+      724827,
+      724828
+    ],
+    "secondary": false,
+    "effects": {
+      "724827": {
+        "avg": 1.626016
+      },
+      "724828": {
+        "avg": 2.845528
+      }
+    }
+  },
+  "273313": {
+    "name": "Blessed Sanctuary",
+    "effect_list": [
+      724838
+    ],
+    "secondary": false,
+    "effects": {
+      "724838": {
+        "avg": 1.422764
+      }
+    }
+  },
+  "273319": {
+    "name": "Thought Harvester",
+    "effect_list": [
+      724849
+    ],
+    "secondary": false,
+    "effects": {
+      "724849": {
+        "avg": 2.03252
+      }
+    }
+  },
+  "273326": {
+    "name": "Brain Storm",
+    "effect_list": [
+      724859
+    ],
+    "secondary": false,
+    "effects": {
+      "724859": {
+        "avg": 0.58
+      }
+    }
+  },
+  "273328": {
+    "name": "Overflowing Mists",
+    "effect_list": [
+      724861
+    ],
+    "secondary": false,
+    "effects": {
+      "724861": {
+        "avg": 0.8
+      }
+    }
+  },
+  "273331": {
+    "name": "Preheat",
+    "effect_list": [
+      724865
+    ],
+    "secondary": false,
+    "effects": {
+      "724865": {
+        "avg": 1.463415
+      }
+    }
+  },
+  "273338": {
+    "name": "Raking Ferocity",
+    "effect_list": [
+      724873
+    ],
+    "secondary": false,
+    "effects": {
+      "724873": {
+        "avg": 0.3
+      }
+    }
+  },
+  "273344": {
+    "name": "Masterful Instincts",
+    "effect_list": [
+      724883,
+      725191
+    ],
+    "secondary": true,
+    "effects": {
+      "724883": {
+        "avg": 0.524018
+      },
+      "725191": {
+        "avg": 2.09949
+      }
+    }
+  },
+  "273346": {
+    "name": "Winter's Reach",
+    "effect_list": [
+      724886,
+      724889
+    ],
+    "secondary": false,
+    "effects": {
+      "724886": {
+        "avg": 2.75
+      },
+      "724889": {
+        "avg": 0
+      }
+    }
+  },
+  "273367": {
+    "name": "Power of the Moon",
+    "effect_list": [
+      724916,
+      736537
+    ],
+    "secondary": false,
+    "effects": {
+      "724916": {
+        "avg": 0
+      },
+      "736537": {
+        "avg": 1.768479
+      }
+    }
+  },
+  "273409": {
+    "name": "Gathering Storm",
+    "effect_list": [
+      725007,
+      725008
+    ],
+    "secondary": false,
+    "effects": {
+      "725007": {
+        "avg": 0.32
+      },
+      "725008": {
+        "avg": 0.2
+      }
+    }
+  },
+  "273418": {
+    "name": "Night's Vengeance",
+    "effect_list": [
+      725028
+    ],
+    "secondary": false,
+    "effects": {
+      "725028": {
+        "avg": 0.33
+      }
+    }
+  },
+  "273420": {
+    "name": "Bloodcraze",
+    "effect_list": [
+      725030
+    ],
+    "secondary": true,
+    "effects": {
+      "725030": {
+        "avg": 0.572644
+      }
+    }
+  },
+  "273448": {
+    "name": "Lava Shock",
+    "effect_list": [
+      725090
+    ],
+    "secondary": false,
+    "effects": {
+      "725090": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "273452": {
+    "name": "Storm of Steel",
+    "effect_list": [
+      725095
+    ],
+    "secondary": false,
+    "effects": {
+      "725095": {
+        "avg": 0.48
+      }
+    }
+  },
+  "273461": {
+    "name": "Strength of Earth",
+    "effect_list": [
+      725109
+    ],
+    "secondary": false,
+    "effects": {
+      "725109": {
+        "avg": 1.34
+      }
+    }
+  },
+  "273464": {
+    "name": "Staggering Strikes",
+    "effect_list": [
+      725112
+    ],
+    "secondary": false,
+    "effects": {
+      "725112": {
+        "avg": 0.8
+      }
+    }
+  },
+  "273473": {
+    "name": "Expurgation",
+    "effect_list": [
+      725126
+    ],
+    "secondary": false,
+    "effects": {
+      "725126": {
+        "avg": 5.348215
+      }
+    }
+  },
+  "273488": {
+    "name": "Twist the Knife",
+    "effect_list": [
+      725163,
+      736546
+    ],
+    "secondary": false,
+    "effects": {
+      "725163": {
+        "avg": 0.8
+      },
+      "736546": {
+        "avg": 0
+      }
+    }
+  },
+  "273513": {
+    "name": "Moment of Compassion",
+    "effect_list": [
+      725208
+    ],
+    "secondary": false,
+    "effects": {
+      "725208": {
+        "avg": 0.8
+      }
+    }
+  },
+  "273521": {
+    "name": "Inevitable Demise",
+    "effect_list": [
+      725219
+    ],
+    "secondary": false,
+    "effects": {
+      "725219": {
+        "avg": 0.05
+      }
+    }
+  },
+  "273523": {
+    "name": "Umbral Blaze",
+    "effect_list": [
+      725221,
+      725222
+    ],
+    "secondary": false,
+    "effects": {
+      "725221": {
+        "avg": 2.5
+      },
+      "725222": {
+        "avg": 0
+      }
+    }
+  },
+  "273553": {
+    "name": "Dauntless Divinity",
+    "effect_list": [
+      725290
+    ],
+    "secondary": false,
+    "effects": {
+      "725290": {
+        "avg": 2.5
+      }
+    }
+  },
+  "273597": {
+    "name": "Ebb and Flow",
+    "effect_list": [
+      725375,
+      725376
+    ],
+    "secondary": false,
+    "effects": {
+      "725375": {
+        "avg": 0.705882
+      },
+      "725376": {
+        "avg": 0
+      }
+    }
+  },
+  "273682": {
+    "name": "Meticulous Scheming",
+    "effect_list": [
+      725525,
+      725608,
+      725609,
+      725610
+    ],
+    "secondary": false,
+    "effects": {
+      "725525": {
+        "avg": 0
+      },
+      "725608": {
+        "avg": 0
+      },
+      "725609": {
+        "avg": 0
+      },
+      "725610": {
+        "avg": 0.720721
+      }
+    }
+  },
+  "273790": {
+    "name": "Rezan's Fury",
+    "effect_list": [
+      725706,
+      725707
+    ],
+    "secondary": false,
+    "effects": {
+      "725706": {
+        "avg": 2.032459
+      },
+      "725707": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "273823": {
+    "name": "Blightborne Infusion",
+    "effect_list": [
+      725757
+    ],
+    "secondary": true,
+    "effects": {
+      "725757": {
+        "avg": 1.2
+      }
+    }
+  },
+  "273829": {
+    "name": "Secrets of the Deep",
+    "effect_list": [
+      725766,
+      725767
+    ],
+    "secondary": false,
+    "effects": {
+      "725766": {
+        "avg": 0.5
+      },
+      "725767": {
+        "avg": 1
+      }
+    }
+  },
+  "273834": {
+    "name": "Filthy Transfusion",
+    "effect_list": [
+      725772
+    ],
+    "secondary": false,
+    "effects": {
+      "725772": {
+        "avg": 3.5
+      }
+    }
+  },
+  "274057": {
+    "name": "Marrowblood",
+    "effect_list": [
+      726166
+    ],
+    "secondary": false,
+    "effects": {
+      "726166": {
+        "avg": 0.44
+      }
+    }
+  },
+  "274070": {
+    "name": "Glacial Contagion",
+    "effect_list": [
+      726180,
+      726181
+    ],
+    "secondary": false,
+    "effects": {
+      "726180": {
+        "avg": 0.5
+      },
+      "726181": {
+        "avg": 0.375
+      }
+    }
+  },
+  "274081": {
+    "name": "Festermight",
+    "effect_list": [
+      726196
+    ],
+    "secondary": false,
+    "effects": {
+      "726196": {
+        "avg": 0.08
+      }
+    }
+  },
+  "274344": {
+    "name": "Soulmonger",
+    "effect_list": [
+      726617
+    ],
+    "secondary": false,
+    "effects": {
+      "726617": {
+        "avg": 2.25
+      }
+    }
+  },
+  "274355": {
+    "name": "Shellshock",
+    "effect_list": [
+      726630
+    ],
+    "secondary": false,
+    "effects": {
+      "726630": {
+        "avg": 1.59
+      }
+    }
+  },
+  "274366": {
+    "name": "Sanctum",
+    "effect_list": [
+      726642
+    ],
+    "secondary": false,
+    "effects": {
+      "726642": {
+        "avg": 6.43
+      }
+    }
+  },
+  "274379": {
+    "name": "Eldritch Warding",
+    "effect_list": [
+      726666
+    ],
+    "secondary": false,
+    "effects": {
+      "726666": {
+        "avg": 1.89
+      }
+    }
+  },
+  "274388": {
+    "name": "Stalwart Protector",
+    "effect_list": [
+      726680
+    ],
+    "secondary": false,
+    "effects": {
+      "726680": {
+        "avg": 2.36
+      }
+    }
+  },
+  "274397": {
+    "name": "Sunblaze",
+    "effect_list": [
+      726695
+    ],
+    "secondary": false,
+    "effects": {
+      "726695": {
+        "avg": 0.5
+      }
+    }
+  },
+  "274412": {
+    "name": "Serene Spirit",
+    "effect_list": [
+      726726
+    ],
+    "secondary": false,
+    "effects": {
+      "726726": {
+        "avg": 5.62
+      }
+    }
+  },
+  "274418": {
+    "name": "Lifeblood",
+    "effect_list": [
+      726739
+    ],
+    "secondary": false,
+    "effects": {
+      "726739": {
+        "avg": 1.14
+      }
+    }
+  },
+  "274424": {
+    "name": "Shredding Fury",
+    "effect_list": [
+      726746
+    ],
+    "secondary": false,
+    "effects": {
+      "726746": {
+        "avg": 0.3
+      }
+    }
+  },
+  "274432": {
+    "name": "Autumn Leaves",
+    "effect_list": [
+      726761
+    ],
+    "secondary": false,
+    "effects": {
+      "726761": {
+        "avg": 0.6
+      }
+    }
+  },
+  "274441": {
+    "name": "Dance of Death",
+    "effect_list": [
+      726776
+    ],
+    "secondary": false,
+    "effects": {
+      "726776": {
+        "avg": 1.111
+      }
+    }
+  },
+  "274444": {
+    "name": "Unerring Vision",
+    "effect_list": [
+      726781
+    ],
+    "secondary": false,
+    "effects": {
+      "726781": {
+        "avg": 0.1111
+      }
+    }
+  },
+  "274590": {
+    "name": "Venomous Fangs",
+    "effect_list": [
+      726998
+    ],
+    "secondary": false,
+    "effects": {
+      "726998": {
+        "avg": 0.25
+      }
+    }
+  },
+  "274594": {
+    "name": "Arcane Pressure",
+    "effect_list": [
+      727008,
+      727009
+    ],
+    "secondary": false,
+    "effects": {
+      "727008": {
+        "avg": 0.72
+      },
+      "727009": {
+        "avg": 0
+      }
+    }
+  },
+  "274596": {
+    "name": "Blaster Master",
+    "effect_list": [
+      727013
+    ],
+    "secondary": true,
+    "effects": {
+      "727013": {
+        "avg": 0.35
+      }
+    }
+  },
+  "274692": {
+    "name": "Footpad",
+    "effect_list": [
+      727160,
+      727161
+    ],
+    "secondary": false,
+    "effects": {
+      "727160": {
+        "avg": 1
+      },
+      "727161": {
+        "avg": 0
+      }
+    }
+  },
+  "274762": {
+    "name": "Strength of Spirit",
+    "effect_list": [
+      727285
+    ],
+    "secondary": false,
+    "effects": {
+      "727285": {
+        "avg": 1.19
+      }
+    }
+  },
+  "274813": {
+    "name": "Reawakening",
+    "effect_list": [
+      727372
+    ],
+    "secondary": false,
+    "effects": {
+      "727372": {
+        "avg": 21.280001
+      }
+    }
+  },
+  "275144": {
+    "name": "Unbound Chaos",
+    "effect_list": [
+      727995
+    ],
+    "secondary": false,
+    "effects": {
+      "727995": {
+        "avg": 1.625724
+      }
+    }
+  },
+  "275350": {
+    "name": "Rigid Carapace",
+    "effect_list": [
+      728344
+    ],
+    "secondary": true,
+    "effects": {
+      "728344": {
+        "avg": 0.304878
+      }
+    }
+  },
+  "275372": {
+    "name": "Cascading Calamity",
+    "effect_list": [
+      728372
+    ],
+    "secondary": true,
+    "effects": {
+      "728372": {
+        "avg": 0.25
+      }
+    }
+  },
+  "275381": {
+    "name": "Echo of the Elementals",
+    "effect_list": [
+      728385
+    ],
+    "secondary": false,
+    "effects": {
+      "728385": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "275388": {
+    "name": "Lightning Conduit",
+    "effect_list": [
+      728400
+    ],
+    "secondary": false,
+    "effects": {
+      "728400": {
+        "avg": 0.183
+      }
+    }
+  },
+  "275395": {
+    "name": "Explosive Potential",
+    "effect_list": [
+      728411
+    ],
+    "secondary": true,
+    "effects": {
+      "728411": {
+        "avg": 1.6
+      }
+    }
+  },
+  "275425": {
+    "name": "Flashpoint",
+    "effect_list": [
+      728450
+    ],
+    "secondary": false,
+    "effects": {
+      "728450": {
+        "avg": 0.8
+      }
+    }
+  },
+  "275463": {
+    "name": "Divine Revelations",
+    "effect_list": [
+      728510
+    ],
+    "secondary": true,
+    "effects": {
+      "728510": {
+        "avg": 2.650975
+      }
+    }
+  },
+  "275477": {
+    "name": "Inner Light",
+    "effect_list": [
+      728530,
+      728531
+    ],
+    "secondary": false,
+    "effects": {
+      "728530": {
+        "avg": 2.5
+      },
+      "728531": {
+        "avg": 2
+      }
+    }
+  },
+  "275488": {
+    "name": "Swelling Stream",
+    "effect_list": [
+      728551
+    ],
+    "secondary": false,
+    "effects": {
+      "728551": {
+        "avg": 1.058824
+      }
+    }
+  },
+  "275496": {
+    "name": "Indomitable Justice",
+    "effect_list": [
+      728560
+    ],
+    "secondary": false,
+    "effects": {
+      "728560": {
+        "avg": 1.56
+      }
+    }
+  },
+  "275529": {
+    "name": "Test of Might",
+    "effect_list": [
+      728612,
+      728613
+    ],
+    "secondary": false,
+    "effects": {
+      "728612": {
+        "avg": 0.0305
+      },
+      "728613": {
+        "avg": 0
+      }
+    }
+  },
+  "275541": {
+    "name": "Depth of the Shadows",
+    "effect_list": [
+      728629
+    ],
+    "secondary": false,
+    "effects": {
+      "728629": {
+        "avg": 0.11
+      }
+    }
+  },
+  "275602": {
+    "name": "Prayerful Litany",
+    "effect_list": [
+      728716
+    ],
+    "secondary": false,
+    "effects": {
+      "728716": {
+        "avg": 0.35
+      }
+    }
+  },
+  "275632": {
+    "name": "Pulverizing Blows",
+    "effect_list": [
+      728800
+    ],
+    "secondary": false,
+    "effects": {
+      "728800": {
+        "avg": 0.080796
+      }
+    }
+  },
+  "275722": {
+    "name": "Whispers of the Damned",
+    "effect_list": [
+      728943
+    ],
+    "secondary": false,
+    "effects": {
+      "728943": {
+        "avg": 0.75
+      }
+    }
+  },
+  "275846": {
+    "name": "Snake Eyes",
+    "effect_list": [
+      729163
+    ],
+    "secondary": false,
+    "effects": {
+      "729163": {
+        "avg": 0.089
+      }
+    }
+  },
+  "275860": {
+    "name": "Reinforced Plating",
+    "effect_list": [
+      729190
+    ],
+    "secondary": false,
+    "effects": {
+      "729190": {
+        "avg": 0.101626
+      }
+    }
+  },
+  "275892": {
+    "name": "Fit to Burst",
+    "effect_list": [
+      729236
+    ],
+    "secondary": false,
+    "effects": {
+      "729236": {
+        "avg": 4.673353
+      }
+    }
+  },
+  "275896": {
+    "name": "Blade In The Shadows",
+    "effect_list": [
+      729242
+    ],
+    "secondary": false,
+    "effects": {
+      "729242": {
+        "avg": 0.18
+      }
+    }
+  },
+  "275906": {
+    "name": "Twisted Claws",
+    "effect_list": [
+      729255
+    ],
+    "secondary": false,
+    "effects": {
+      "729255": {
+        "avg": 0.163551
+      }
+    }
+  },
+  "275917": {
+    "name": "Echoing Howl",
+    "effect_list": [
+      729270
+    ],
+    "secondary": false,
+    "effects": {
+      "729270": {
+        "avg": 2.803738
+      }
+    }
+  },
+  "275924": {
+    "name": "Embrace of the Darkfallen",
+    "effect_list": [
+      729279
+    ],
+    "secondary": true,
+    "effects": {
+      "729279": {
+        "avg": 1.08885
+      }
+    }
+  },
+  "275929": {
+    "name": "Harrowing Decay",
+    "effect_list": [
+      729285
+    ],
+    "secondary": false,
+    "effects": {
+      "729285": {
+        "avg": 0.32
+      }
+    }
+  },
+  "275934": {
+    "name": "Seething Power",
+    "effect_list": [
+      729292
+    ],
+    "secondary": false,
+    "effects": {
+      "729292": {
+        "avg": 0.1
+      }
+    }
+  },
+  "275968": {
+    "name": "Gaping Maw",
+    "effect_list": [
+      729328,
+      729330
+    ],
+    "secondary": false,
+    "effects": {
+      "729328": {
+        "avg": 4.672461
+      },
+      "729330": {
+        "avg": 0
+      }
+    }
+  },
+  "275974": {
+    "name": "Deathbloom",
+    "effect_list": [
+      729338
+    ],
+    "secondary": false,
+    "effects": {
+      "729338": {
+        "avg": 3.571429
+      }
+    }
+  },
+  "275975": {
+    "name": "Misty Peaks",
+    "effect_list": [
+      729339
+    ],
+    "secondary": false,
+    "effects": {
+      "729339": {
+        "avg": 1.66
+      }
+    }
+  },
+  "276021": {
+    "name": "Iron Jaws",
+    "effect_list": [
+      729398,
+      729399
+    ],
+    "secondary": false,
+    "effects": {
+      "729398": {
+        "avg": 4.206591
+      },
+      "729399": {
+        "avg": 0
+      }
+    }
+  },
+  "276072": {
+    "name": "Poisoned Wire",
+    "effect_list": [
+      729498
+    ],
+    "secondary": true,
+    "effects": {
+      "729498": {
+        "avg": 1.639525
+      }
+    }
+  },
+  "276152": {
+    "name": "Dawning Sun",
+    "effect_list": [
+      730125
+    ],
+    "secondary": false,
+    "effects": {
+      "730125": {
+        "avg": 1
+      }
+    }
+  },
+  "276155": {
+    "name": "Craggy Bark",
+    "effect_list": [
+      730129
+    ],
+    "secondary": false,
+    "effects": {
+      "730129": {
+        "avg": -0.666
+      }
+    }
+  },
+  "277636": {
+    "name": "Brace for Impact",
+    "effect_list": [
+      732928,
+      735136
+    ],
+    "secondary": false,
+    "effects": {
+      "732928": {
+        "avg": 0.4
+      },
+      "735136": {
+        "avg": 0.33
+      }
+    }
+  },
+  "277638": {
+    "name": "Infinite Fury",
+    "effect_list": [
+      732930
+    ],
+    "secondary": true,
+    "effects": {
+      "732930": {
+        "avg": 0.409091
+      }
+    }
+  },
+  "277639": {
+    "name": "Seismic Wave",
+    "effect_list": [
+      732931,
+      732932
+    ],
+    "secondary": false,
+    "effects": {
+      "732931": {
+        "avg": 2.25
+      },
+      "732932": {
+        "avg": 0
+      }
+    }
+  },
+  "277644": {
+    "name": "Crashing Chaos",
+    "effect_list": [
+      732939,
+      732940
+    ],
+    "secondary": false,
+    "effects": {
+      "732939": {
+        "avg": 0.738359
+      },
+      "732940": {
+        "avg": 0
+      }
+    }
+  },
+  "277651": {
+    "name": "Steady Aim",
+    "effect_list": [
+      732950
+    ],
+    "secondary": false,
+    "effects": {
+      "732950": {
+        "avg": 0.730247
+      }
+    }
+  },
+  "277653": {
+    "name": "Blur of Talons",
+    "effect_list": [
+      732952,
+      733430
+    ],
+    "secondary": false,
+    "effects": {
+      "732952": {
+        "avg": 0.162602
+      },
+      "733430": {
+        "avg": 0.04065
+      }
+    }
+  },
+  "277656": {
+    "name": "Trailing Embers",
+    "effect_list": [
+      732956
+    ],
+    "secondary": false,
+    "effects": {
+      "732956": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "277658": {
+    "name": "Overflowing Shores",
+    "effect_list": [
+      732958,
+      732959,
+      733622
+    ],
+    "secondary": false,
+    "effects": {
+      "732958": {
+        "avg": 6.035714
+      },
+      "732959": {
+        "avg": 0
+      },
+      "733622": {
+        "avg": 0
+      }
+    }
+  },
+  "277663": {
+    "name": "Tunnel of Ice",
+    "effect_list": [
+      732964
+    ],
+    "secondary": false,
+    "effects": {
+      "732964": {
+        "avg": 0.165
+      }
+    }
+  },
+  "277665": {
+    "name": "Niuzao's Blessing",
+    "effect_list": [
+      732966
+    ],
+    "secondary": false,
+    "effects": {
+      "732966": {
+        "avg": 0.256316
+      }
+    }
+  },
+  "277666": {
+    "name": "Ancestral Resonance",
+    "effect_list": [
+      732968
+    ],
+    "secondary": false,
+    "effects": {
+      "732968": {
+        "avg": 0.16
+      }
+    }
+  },
+  "277667": {
+    "name": "Burst of Life",
+    "effect_list": [
+      732969
+    ],
+    "secondary": false,
+    "effects": {
+      "732969": {
+        "avg": 32.155743
+      }
+    }
+  },
+  "277669": {
+    "name": "Swift Roundhouse",
+    "effect_list": [
+      732971
+    ],
+    "secondary": false,
+    "effects": {
+      "732971": {
+        "avg": 0.96572
+      }
+    }
+  },
+  "277671": {
+    "name": "Synapse Shock",
+    "effect_list": [
+      732979
+    ],
+    "secondary": false,
+    "effects": {
+      "732979": {
+        "avg": 0.066519
+      }
+    }
+  },
+  "277673": {
+    "name": "Perforate",
+    "effect_list": [
+      732982,
+      732983
+    ],
+    "secondary": false,
+    "effects": {
+      "732982": {
+        "avg": 0.33
+      },
+      "732983": {
+        "avg": 0
+      }
+    }
+  },
+  "277674": {
+    "name": "Radiant Incandescence",
+    "effect_list": [
+      732984,
+      733671
+    ],
+    "secondary": false,
+    "effects": {
+      "732984": {
+        "avg": 0.8
+      },
+      "733671": {
+        "avg": 0.7
+      }
+    }
+  },
+  "277675": {
+    "name": "Judicious Defense",
+    "effect_list": [
+      732985
+    ],
+    "secondary": false,
+    "effects": {
+      "732985": {
+        "avg": 2.5
+      }
+    }
+  },
+  "277676": {
+    "name": "Brigand's Blitz",
+    "effect_list": [
+      732986
+    ],
+    "secondary": false,
+    "effects": {
+      "732986": {
+        "avg": 0.3
+      }
+    }
+  },
+  "277678": {
+    "name": "Divine Right",
+    "effect_list": [
+      732989,
+      734266
+    ],
+    "secondary": false,
+    "effects": {
+      "732989": {
+        "avg": 0.45
+      },
+      "734266": {
+        "avg": 0
+      }
+    }
+  },
+  "277679": {
+    "name": "Scent of Blood",
+    "effect_list": [
+      732991
+    ],
+    "secondary": false,
+    "effects": {
+      "732991": {
+        "avg": 0.112
+      }
+    }
+  },
+  "277680": {
+    "name": "Gift of Forgiveness",
+    "effect_list": [
+      732992,
+      734277
+    ],
+    "secondary": false,
+    "effects": {
+      "732992": {
+        "avg": 1.125605
+      },
+      "734277": {
+        "avg": 0
+      }
+    }
+  },
+  "277681": {
+    "name": "Everlasting Light",
+    "effect_list": [
+      732993
+    ],
+    "secondary": false,
+    "effects": {
+      "732993": {
+        "avg": 2.570777
+      }
+    }
+  },
+  "277682": {
+    "name": "Spiteful Apparitions",
+    "effect_list": [
+      732994
+    ],
+    "secondary": false,
+    "effects": {
+      "732994": {
+        "avg": 0.322622
+      }
+    }
+  },
+  "278479": {
+    "name": "Eternal Rune Weapon",
+    "effect_list": [
+      734194,
+      734195,
+      734342
+    ],
+    "secondary": false,
+    "effects": {
+      "734194": {
+        "avg": 0.5
+      },
+      "734195": {
+        "avg": 0
+      },
+      "734342": {
+        "avg": 0
+      }
+    }
+  },
+  "278480": {
+    "name": "Killer Frost",
+    "effect_list": [
+      734196,
+      734501
+    ],
+    "secondary": false,
+    "effects": {
+      "734196": {
+        "avg": 0.7
+      },
+      "734501": {
+        "avg": 0
+      }
+    }
+  },
+  "278482": {
+    "name": "Cankerous Wounds",
+    "effect_list": [
+      734199,
+      734200
+    ],
+    "secondary": false,
+    "effects": {
+      "734199": {
+        "avg": 2
+      },
+      "734200": {
+        "avg": 0
+      }
+    }
+  },
+  "278484": {
+    "name": "Bones of the Damned",
+    "effect_list": [
+      734204,
+      734205
+    ],
+    "secondary": false,
+    "effects": {
+      "734204": {
+        "avg": 0.5
+      },
+      "734205": {
+        "avg": 0
+      }
+    }
+  },
+  "278487": {
+    "name": "Frozen Tempest",
+    "effect_list": [
+      734208,
+      734209,
+      735829
+    ],
+    "secondary": false,
+    "effects": {
+      "734208": {
+        "avg": 0
+      },
+      "734209": {
+        "avg": 0.5
+      },
+      "735829": {
+        "avg": 0.5
+      }
+    }
+  },
+  "278489": {
+    "name": "Last Surprise",
+    "effect_list": [
+      734211,
+      734212
+    ],
+    "secondary": false,
+    "effects": {
+      "734211": {
+        "avg": 5
+      },
+      "734212": {
+        "avg": 0
+      }
+    }
+  },
+  "278493": {
+    "name": "Thirsting Blades",
+    "effect_list": [
+      734217,
+      734218
+    ],
+    "secondary": false,
+    "effects": {
+      "734217": {
+        "avg": 0.262
+      },
+      "734218": {
+        "avg": 0
+      }
+    }
+  },
+  "278500": {
+    "name": "Eyes of Rage",
+    "effect_list": [
+      734233,
+      734234
+    ],
+    "secondary": false,
+    "effects": {
+      "734233": {
+        "avg": 0
+      },
+      "734234": {
+        "avg": 0.160772
+      }
+    }
+  },
+  "278501": {
+    "name": "Essence Sever",
+    "effect_list": [
+      734236,
+      734237
+    ],
+    "secondary": false,
+    "effects": {
+      "734236": {
+        "avg": 1.28655
+      },
+      "734237": {
+        "avg": 0
+      }
+    }
+  },
+  "278502": {
+    "name": "Cycle of Binding",
+    "effect_list": [
+      734239,
+      734240
+    ],
+    "secondary": false,
+    "effects": {
+      "734239": {
+        "avg": 0.77
+      },
+      "734240": {
+        "avg": 0
+      }
+    }
+  },
+  "278505": {
+    "name": "High Noon",
+    "effect_list": [
+      734244,
+      734245
+    ],
+    "secondary": false,
+    "effects": {
+      "734244": {
+        "avg": 0
+      },
+      "734245": {
+        "avg": 2
+      }
+    }
+  },
+  "278507": {
+    "name": "Lunar Shrapnel",
+    "effect_list": [
+      734247
+    ],
+    "secondary": false,
+    "effects": {
+      "734247": {
+        "avg": 0.321543
+      }
+    }
+  },
+  "278509": {
+    "name": "Gushing Lacerations",
+    "effect_list": [
+      734251,
+      734252
+    ],
+    "secondary": false,
+    "effects": {
+      "734251": {
+        "avg": 0
+      },
+      "734252": {
+        "avg": 0.034
+      }
+    }
+  },
+  "278510": {
+    "name": "Gory Regeneration",
+    "effect_list": [
+      734253,
+      734254
+    ],
+    "secondary": false,
+    "effects": {
+      "734253": {
+        "avg": 0.96463
+      },
+      "734254": {
+        "avg": 0
+      }
+    }
+  },
+  "278511": {
+    "name": "Guardian's Wrath",
+    "effect_list": [
+      734255,
+      734256
+    ],
+    "secondary": false,
+    "effects": {
+      "734255": {
+        "avg": 0
+      },
+      "734256": {
+        "avg": 1.92926
+      }
+    }
+  },
+  "278513": {
+    "name": "Waking Dream",
+    "effect_list": [
+      734259,
+      734260
+    ],
+    "secondary": false,
+    "effects": {
+      "734259": {
+        "avg": 0.321353
+      },
+      "734260": {
+        "avg": 0
+      }
+    }
+  },
+  "278515": {
+    "name": "Rampant Growth",
+    "effect_list": [
+      734262
+    ],
+    "secondary": false,
+    "effects": {
+      "734262": {
+        "avg": 0.160772
+      }
+    }
+  },
+  "278528": {
+    "name": "Pack Alpha",
+    "effect_list": [
+      734282
+    ],
+    "secondary": false,
+    "effects": {
+      "734282": {
+        "avg": 0.99
+      }
+    }
+  },
+  "278529": {
+    "name": "Feeding Frenzy",
+    "effect_list": [
+      734283,
+      734284
+    ],
+    "secondary": false,
+    "effects": {
+      "734283": {
+        "avg": 0
+      },
+      "734284": {
+        "avg": 0.24
+      }
+    }
+  },
+  "278530": {
+    "name": "Rapid Reload",
+    "effect_list": [
+      734285,
+      734286,
+      734287
+    ],
+    "secondary": false,
+    "effects": {
+      "734285": {
+        "avg": 0.765
+      },
+      "734286": {
+        "avg": 0
+      },
+      "734287": {
+        "avg": 0
+      }
+    }
+  },
+  "278531": {
+    "name": "Focused Fire",
+    "effect_list": [
+      734288,
+      734289
+    ],
+    "secondary": false,
+    "effects": {
+      "734288": {
+        "avg": 0
+      },
+      "734289": {
+        "avg": 0.290168
+      }
+    }
+  },
+  "278532": {
+    "name": "Wilderness Survival",
+    "effect_list": [
+      734291,
+      734292
+    ],
+    "secondary": false,
+    "effects": {
+      "734291": {
+        "avg": 0
+      },
+      "734292": {
+        "avg": 0.35
+      }
+    }
+  },
+  "278533": {
+    "name": "Up Close And Personal",
+    "effect_list": [
+      734294,
+      734295
+    ],
+    "secondary": false,
+    "effects": {
+      "734294": {
+        "avg": 3.215434
+      },
+      "734295": {
+        "avg": 0
+      }
+    }
+  },
+  "278536": {
+    "name": "Galvanizing Spark",
+    "effect_list": [
+      734300,
+      734301
+    ],
+    "secondary": false,
+    "effects": {
+      "734300": {
+        "avg": 0
+      },
+      "734301": {
+        "avg": 0.89
+      }
+    }
+  },
+  "278537": {
+    "name": "Explosive Echo",
+    "effect_list": [
+      734302,
+      734303,
+      734304,
+      734305
+    ],
+    "secondary": false,
+    "effects": {
+      "734302": {
+        "avg": 0
+      },
+      "734303": {
+        "avg": 0.065
+      },
+      "734304": {
+        "avg": 0
+      },
+      "734305": {
+        "avg": 0.65
+      }
+    }
+  },
+  "278538": {
+    "name": "Duplicative Incineration",
+    "effect_list": [
+      734306,
+      734307
+    ],
+    "secondary": false,
+    "effects": {
+      "734306": {
+        "avg": 0
+      },
+      "734307": {
+        "avg": 0.55
+      }
+    }
+  },
+  "278539": {
+    "name": "Firemind",
+    "effect_list": [
+      734308,
+      734309
+    ],
+    "secondary": false,
+    "effects": {
+      "734308": {
+        "avg": 0.106
+      },
+      "734309": {
+        "avg": 0
+      }
+    }
+  },
+  "278541": {
+    "name": "Whiteout",
+    "effect_list": [
+      734311,
+      734312,
+      735803
+    ],
+    "secondary": false,
+    "effects": {
+      "734311": {
+        "avg": 0
+      },
+      "734312": {
+        "avg": 0
+      },
+      "735803": {
+        "avg": 0.24
+      }
+    }
+  },
+  "278542": {
+    "name": "Frigid Grasp",
+    "effect_list": [
+      734313
+    ],
+    "secondary": false,
+    "effects": {
+      "734313": {
+        "avg": 0.45
+      }
+    }
+  },
+  "278569": {
+    "name": "Training of Niuzao",
+    "effect_list": [
+      734364,
+      734365,
+      734366
+    ],
+    "secondary": false,
+    "effects": {
+      "734364": {
+        "avg": 0.66
+      },
+      "734365": {
+        "avg": 0
+      },
+      "734366": {
+        "avg": 0
+      }
+    }
+  },
+  "278571": {
+    "name": "Elusive Footwork",
+    "effect_list": [
+      734370,
+      734371,
+      736014
+    ],
+    "secondary": false,
+    "effects": {
+      "734370": {
+        "avg": 0
+      },
+      "734371": {
+        "avg": 0
+      },
+      "736014": {
+        "avg": 2.2
+      }
+    }
+  },
+  "278576": {
+    "name": "Uplifted Spirits",
+    "effect_list": [
+      734378,
+      734379,
+      736011
+    ],
+    "secondary": false,
+    "effects": {
+      "734378": {
+        "avg": 0
+      },
+      "734379": {
+        "avg": 0
+      },
+      "736011": {
+        "avg": 1.1
+      }
+    }
+  },
+  "278577": {
+    "name": "Pressure Point",
+    "effect_list": [
+      734381,
+      734382
+    ],
+    "secondary": false,
+    "effects": {
+      "734381": {
+        "avg": 0.2
+      },
+      "734382": {
+        "avg": 0
+      }
+    }
+  },
+  "278580": {
+    "name": "Meridian Strikes",
+    "effect_list": [
+      734386,
+      734387
+    ],
+    "secondary": false,
+    "effects": {
+      "734386": {
+        "avg": 20
+      },
+      "734387": {
+        "avg": 0
+      }
+    }
+  },
+  "278593": {
+    "name": "Grace of the Justicar",
+    "effect_list": [
+      734416,
+      734421
+    ],
+    "secondary": false,
+    "effects": {
+      "734416": {
+        "avg": 1.25
+      },
+      "734421": {
+        "avg": 0
+      }
+    }
+  },
+  "278594": {
+    "name": "Breaking Dawn",
+    "effect_list": [
+      734417,
+      734418,
+      735677
+    ],
+    "secondary": false,
+    "effects": {
+      "734417": {
+        "avg": 1
+      },
+      "734418": {
+        "avg": 0
+      },
+      "735677": {
+        "avg": 1
+      }
+    }
+  },
+  "278605": {
+    "name": "Soaring Shield",
+    "effect_list": [
+      734432,
+      734433
+    ],
+    "secondary": false,
+    "effects": {
+      "734432": {
+        "avg": 0.2
+      },
+      "734433": {
+        "avg": 0
+      }
+    }
+  },
+  "278609": {
+    "name": "Inspiring Vanguard",
+    "effect_list": [
+      734437,
+      734438
+    ],
+    "secondary": false,
+    "effects": {
+      "734437": {
+        "avg": 0.8
+      },
+      "734438": {
+        "avg": 0
+      }
+    }
+  },
+  "278615": {
+    "name": "Zealotry",
+    "effect_list": [
+      734444
+    ],
+    "secondary": false,
+    "effects": {
+      "734444": {
+        "avg": 0.26
+      }
+    }
+  },
+  "278617": {
+    "name": "Relentless Inquisitor",
+    "effect_list": [
+      734447,
+      734448
+    ],
+    "secondary": false,
+    "effects": {
+      "734447": {
+        "avg": 0.0185
+      },
+      "734448": {
+        "avg": 0
+      }
+    }
+  },
+  "278629": {
+    "name": "Contemptuous Homily",
+    "effect_list": [
+      734461,
+      734462
+    ],
+    "secondary": false,
+    "effects": {
+      "734461": {
+        "avg": 0
+      },
+      "734462": {
+        "avg": 0.406504
+      }
+    }
+  },
+  "278643": {
+    "name": "Enduring Luminescence",
+    "effect_list": [
+      734477,
+      734478
+    ],
+    "secondary": false,
+    "effects": {
+      "734477": {
+        "avg": 0
+      },
+      "734478": {
+        "avg": 0.804721
+      }
+    }
+  },
+  "278645": {
+    "name": "Word of Mending",
+    "effect_list": [
+      734480,
+      734481
+    ],
+    "secondary": false,
+    "effects": {
+      "734480": {
+        "avg": 0.643382
+      },
+      "734481": {
+        "avg": 0
+      }
+    }
+  },
+  "278655": {
+    "name": "Sacred Flame",
+    "effect_list": [
+      734493,
+      734494
+    ],
+    "secondary": false,
+    "effects": {
+      "734493": {
+        "avg": 1.608456
+      },
+      "734494": {
+        "avg": 1.434426
+      }
+    }
+  },
+  "278659": {
+    "name": "Death Throes",
+    "effect_list": [
+      734499,
+      734500
+    ],
+    "secondary": false,
+    "effects": {
+      "734499": {
+        "avg": 0.064348
+      },
+      "734500": {
+        "avg": 0
+      }
+    }
+  },
+  "278661": {
+    "name": "Chorus of Insanity",
+    "effect_list": [
+      734503
+    ],
+    "secondary": true,
+    "effects": {
+      "734503": {
+        "avg": 0.082
+      }
+    }
+  },
+  "278664": {
+    "name": "Fan of Blades",
+    "effect_list": [
+      734508,
+      734509,
+      734510
+    ],
+    "secondary": false,
+    "effects": {
+      "734508": {
+        "avg": 0.45
+      },
+      "734509": {
+        "avg": 0
+      },
+      "734510": {
+        "avg": 0
+      }
+    }
+  },
+  "278666": {
+    "name": "Shrouded Suffocation",
+    "effect_list": [
+      734512,
+      734513
+    ],
+    "secondary": false,
+    "effects": {
+      "734512": {
+        "avg": 0.232816
+      },
+      "734513": {
+        "avg": 0
+      }
+    }
+  },
+  "278675": {
+    "name": "Paradise Lost",
+    "effect_list": [
+      734528
+    ],
+    "secondary": false,
+    "effects": {
+      "734528": {
+        "avg": 0.4
+      }
+    }
+  },
+  "278676": {
+    "name": "Ace Up Your Sleeve",
+    "effect_list": [
+      734530,
+      734531,
+      736175
+    ],
+    "secondary": false,
+    "effects": {
+      "734530": {
+        "avg": 0.554727
+      },
+      "734531": {
+        "avg": 0
+      },
+      "736175": {
+        "avg": 0
+      }
+    }
+  },
+  "278681": {
+    "name": "The First Dance",
+    "effect_list": [
+      734538
+    ],
+    "secondary": true,
+    "effects": {
+      "734538": {
+        "avg": 8.960177
+      }
+    }
+  },
+  "278683": {
+    "name": "Inevitability",
+    "effect_list": [
+      734545,
+      734546,
+      736187
+    ],
+    "secondary": false,
+    "effects": {
+      "734545": {
+        "avg": 0
+      },
+      "734546": {
+        "avg": 0
+      },
+      "736187": {
+        "avg": 0.8
+      }
+    }
+  },
+  "278697": {
+    "name": "Natural Harmony",
+    "effect_list": [
+      734562,
+      734563,
+      734564
+    ],
+    "secondary": false,
+    "effects": {
+      "734562": {
+        "avg": 0.135
+      },
+      "734563": {
+        "avg": 0.135
+      },
+      "734564": {
+        "avg": 0.135
+      }
+    }
+  },
+  "278709": {
+    "name": "Rumbling Tremors",
+    "effect_list": [
+      734578,
+      734579,
+      734580,
+      739329
+    ],
+    "secondary": false,
+    "effects": {
+      "734578": {
+        "avg": 1
+      },
+      "734579": {
+        "avg": 0
+      },
+      "734580": {
+        "avg": 1
+      },
+      "739329": {
+        "avg": 0
+      }
+    }
+  },
+  "278713": {
+    "name": "Surging Tides",
+    "effect_list": [
+      734587,
+      734588,
+      734589
+    ],
+    "secondary": false,
+    "effects": {
+      "734587": {
+        "avg": 40
+      },
+      "734588": {
+        "avg": 0
+      },
+      "734589": {
+        "avg": 0
+      }
+    }
+  },
+  "278715": {
+    "name": "Spouting Spirits",
+    "effect_list": [
+      734592,
+      734593
+    ],
+    "secondary": false,
+    "effects": {
+      "734592": {
+        "avg": 8
+      },
+      "734593": {
+        "avg": 0
+      }
+    }
+  },
+  "278719": {
+    "name": "Roiling Storm",
+    "effect_list": [
+      734600,
+      734601,
+      734602
+    ],
+    "secondary": false,
+    "effects": {
+      "734600": {
+        "avg": 0.1
+      },
+      "734601": {
+        "avg": 0
+      },
+      "734602": {
+        "avg": 0
+      }
+    }
+  },
+  "278721": {
+    "name": "Sudden Onset",
+    "effect_list": [
+      734606,
+      734607
+    ],
+    "secondary": false,
+    "effects": {
+      "734606": {
+        "avg": 0.0071
+      },
+      "734607": {
+        "avg": 0
+      }
+    }
+  },
+  "278727": {
+    "name": "Dreadful Calling",
+    "effect_list": [
+      734619,
+      734620
+    ],
+    "secondary": false,
+    "effects": {
+      "734619": {
+        "avg": 0
+      },
+      "734620": {
+        "avg": 0.225
+      }
+    }
+  },
+  "278737": {
+    "name": "Demonic Meteor",
+    "effect_list": [
+      734636,
+      734637
+    ],
+    "secondary": false,
+    "effects": {
+      "734636": {
+        "avg": 0.2
+      },
+      "734637": {
+        "avg": 0
+      }
+    }
+  },
+  "278738": {
+    "name": "Forbidden Knowledge",
+    "effect_list": [
+      734638
+    ],
+    "secondary": false,
+    "effects": {
+      "734638": {
+        "avg": 9.647519
+      }
+    }
+  },
+  "278747": {
+    "name": "Rolling Havoc",
+    "effect_list": [
+      734664
+    ],
+    "secondary": false,
+    "effects": {
+      "734664": {
+        "avg": 0.128
+      }
+    }
+  },
+  "278748": {
+    "name": "Chaotic Inferno",
+    "effect_list": [
+      734667,
+      734668
+    ],
+    "secondary": false,
+    "effects": {
+      "734667": {
+        "avg": 0
+      },
+      "734668": {
+        "avg": 1.366
+      }
+    }
+  },
+  "278751": {
+    "name": "Crushing Assault",
+    "effect_list": [
+      734678,
+      734679
+    ],
+    "secondary": false,
+    "effects": {
+      "734678": {
+        "avg": 3.215669
+      },
+      "734679": {
+        "avg": 0
+      }
+    }
+  },
+  "278752": {
+    "name": "Lord of War",
+    "effect_list": [
+      734680,
+      734681
+    ],
+    "secondary": false,
+    "effects": {
+      "734680": {
+        "avg": 0
+      },
+      "734681": {
+        "avg": 0.804
+      }
+    }
+  },
+  "278757": {
+    "name": "Simmering Rage",
+    "effect_list": [
+      734698,
+      734699
+    ],
+    "secondary": false,
+    "effects": {
+      "734698": {
+        "avg": 0
+      },
+      "734699": {
+        "avg": 0.2
+      }
+    }
+  },
+  "278758": {
+    "name": "Reckless Flurry",
+    "effect_list": [
+      734700,
+      734701
+    ],
+    "secondary": false,
+    "effects": {
+      "734700": {
+        "avg": 0
+      },
+      "734701": {
+        "avg": 0.06
+      }
+    }
+  },
+  "278760": {
+    "name": "Callous Reprisal",
+    "effect_list": [
+      734706,
+      734707
+    ],
+    "secondary": false,
+    "effects": {
+      "734706": {
+        "avg": 0
+      },
+      "734707": {
+        "avg": 0.450161
+      }
+    }
+  },
+  "278765": {
+    "name": "Iron Fortress",
+    "effect_list": [
+      734717,
+      734718
+    ],
+    "secondary": false,
+    "effects": {
+      "734717": {
+        "avg": 0.96401
+      },
+      "734718": {
+        "avg": 0.804878
+      }
+    }
+  },
+  "279172": {
+    "name": "Bloodsport",
+    "effect_list": [
+      735376,
+      735377,
+      735378
+    ],
+    "secondary": false,
+    "effects": {
+      "735376": {
+        "avg": 0
+      },
+      "735377": {
+        "avg": 0.407533
+      },
+      "735378": {
+        "avg": 1.125402
+      }
+    }
+  },
+  "279524": {
+    "name": "Blood Mist",
+    "effect_list": [
+      735844,
+      735845
+    ],
+    "secondary": false,
+    "effects": {
+      "735844": {
+        "avg": 0
+      },
+      "735845": {
+        "avg": 0.064309
+      }
+    }
+  },
+  "279527": {
+    "name": "Wild Fleshrending",
+    "effect_list": [
+      735850,
+      735851
+    ],
+    "secondary": false,
+    "effects": {
+      "735850": {
+        "avg": 1.286174
+      },
+      "735851": {
+        "avg": 0.482315
+      }
+    }
+  },
+  "279552": {
+    "name": "Layered Mane",
+    "effect_list": [
+      735909,
+      735910,
+      735914
+    ],
+    "secondary": false,
+    "effects": {
+      "735909": {
+        "avg": 0.321543
+      },
+      "735910": {
+        "avg": 0
+      },
+      "735914": {
+        "avg": 0
+      }
+    }
+  },
+  "279581": {
+    "name": "Revolving Blades",
+    "effect_list": [
+      735979,
+      735980
+    ],
+    "secondary": false,
+    "effects": {
+      "735979": {
+        "avg": 0
+      },
+      "735980": {
+        "avg": 0.192926
+      }
+    }
+  },
+  "279642": {
+    "name": "Lively Spirit",
+    "effect_list": [
+      736071
+    ],
+    "secondary": false,
+    "effects": {
+      "736071": {
+        "avg": 0.320856
+      }
+    }
+  },
+  "279778": {
+    "name": "Grove Tending",
+    "effect_list": [
+      736321
+    ],
+    "secondary": false,
+    "effects": {
+      "736321": {
+        "avg": 0.964059
+      }
+    }
+  },
+  "279806": {
+    "name": "Primal Instincts",
+    "effect_list": [
+      736377
+    ],
+    "secondary": false,
+    "effects": {
+      "736377": {
+        "avg": 0.4
+      }
+    }
+  },
+  "279829": {
+    "name": "Igneous Potential",
+    "effect_list": [
+      736419,
+      736420,
+      736422
+    ],
+    "secondary": false,
+    "effects": {
+      "736419": {
+        "avg": 0
+      },
+      "736420": {
+        "avg": 1
+      },
+      "736422": {
+        "avg": 0
+      }
+    }
+  },
+  "279854": {
+    "name": "Glacial Assault",
+    "effect_list": [
+      736464
+    ],
+    "secondary": false,
+    "effects": {
+      "736464": {
+        "avg": 1.912
+      }
+    }
+  },
+  "279867": {
+    "name": "Anomalous Impact",
+    "effect_list": [
+      736478
+    ],
+    "secondary": false,
+    "effects": {
+      "736478": {
+        "avg": 0.32175
+      }
+    }
+  },
+  "279875": {
+    "name": "Font of Life",
+    "effect_list": [
+      736486,
+      736487
+    ],
+    "secondary": false,
+    "effects": {
+      "736486": {
+        "avg": 0
+      },
+      "736487": {
+        "avg": 0.34
+      }
+    }
+  },
+  "279878": {
+    "name": "Supreme Commander",
+    "effect_list": [
+      736491
+    ],
+    "secondary": false,
+    "effects": {
+      "736491": {
+        "avg": 1.2
+      }
+    }
+  },
+  "279899": {
+    "name": "Unstable Flames",
+    "effect_list": [
+      736523
+    ],
+    "secondary": true,
+    "effects": {
+      "736523": {
+        "avg": 0.447912
+      }
+    }
+  },
+  "279909": {
+    "name": "Bursting Flare",
+    "effect_list": [
+      736535
+    ],
+    "secondary": false,
+    "effects": {
+      "736535": {
+        "avg": 0.0875
+      }
+    }
+  },
+  "279918": {
+    "name": "Open Palm Strikes",
+    "effect_list": [
+      736547,
+      736548,
+      736549,
+      736552
+    ],
+    "secondary": false,
+    "effects": {
+      "736547": {
+        "avg": 0
+      },
+      "736548": {
+        "avg": 0
+      },
+      "736549": {
+        "avg": 0
+      },
+      "736552": {
+        "avg": 0.15
+      }
+    }
+  },
+  "279926": {
+    "name": "Earthlink",
+    "effect_list": [
+      736562
+    ],
+    "secondary": false,
+    "effects": {
+      "736562": {
+        "avg": 0.099778
+      }
+    }
+  },
+  "280010": {
+    "name": "Runic Barrier",
+    "effect_list": [
+      737261,
+      737262,
+      737448
+    ],
+    "secondary": false,
+    "effects": {
+      "737261": {
+        "avg": 0
+      },
+      "737262": {
+        "avg": 0
+      },
+      "737448": {
+        "avg": 1
+      }
+    }
+  },
+  "280011": {
+    "name": "March of the Damned",
+    "effect_list": [
+      737263,
+      737264
+    ],
+    "secondary": true,
+    "effects": {
+      "737263": {
+        "avg": 0.8
+      },
+      "737264": {
+        "avg": 0
+      }
+    }
+  },
+  "280012": {
+    "name": "Burning Soul",
+    "effect_list": [
+      737265
+    ],
+    "secondary": false,
+    "effects": {
+      "737265": {
+        "avg": 5.297
+      }
+    }
+  },
+  "280013": {
+    "name": "Ursoc's Endurance",
+    "effect_list": [
+      737266
+    ],
+    "secondary": false,
+    "effects": {
+      "737266": {
+        "avg": 22.330357
+      }
+    }
+  },
+  "280014": {
+    "name": "Duck and Cover",
+    "effect_list": [
+      737267,
+      737268
+    ],
+    "secondary": false,
+    "effects": {
+      "737267": {
+        "avg": 21.064301
+      },
+      "737268": {
+        "avg": 0
+      }
+    }
+  },
+  "280015": {
+    "name": "Cauterizing Blink",
+    "effect_list": [
+      737269
+    ],
+    "secondary": false,
+    "effects": {
+      "737269": {
+        "avg": 2.215078
+      }
+    }
+  },
+  "280016": {
+    "name": "Sweep the Leg",
+    "effect_list": [
+      737270,
+      737271
+    ],
+    "secondary": true,
+    "effects": {
+      "737270": {
+        "avg": 1.99072
+      },
+      "737271": {
+        "avg": 0
+      }
+    }
+  },
+  "280017": {
+    "name": "Gallant Steed",
+    "effect_list": [
+      737273,
+      737274
+    ],
+    "secondary": false,
+    "effects": {
+      "737273": {
+        "avg": 1
+      },
+      "737274": {
+        "avg": 0
+      }
+    }
+  },
+  "280018": {
+    "name": "Twist Magic",
+    "effect_list": [
+      737275,
+      737276
+    ],
+    "secondary": false,
+    "effects": {
+      "737275": {
+        "avg": 13.401786
+      },
+      "737276": {
+        "avg": 0
+      }
+    }
+  },
+  "280020": {
+    "name": "Shrouded Mantle",
+    "effect_list": [
+      737278,
+      737279
+    ],
+    "secondary": false,
+    "effects": {
+      "737278": {
+        "avg": 2.215078
+      },
+      "737279": {
+        "avg": 1
+      }
+    }
+  },
+  "280021": {
+    "name": "Pack Spirit",
+    "effect_list": [
+      737280
+    ],
+    "secondary": false,
+    "effects": {
+      "737280": {
+        "avg": 0.5
+      }
+    }
+  },
+  "280022": {
+    "name": "Desperate Power",
+    "effect_list": [
+      737281,
+      737282
+    ],
+    "secondary": false,
+    "effects": {
+      "737281": {
+        "avg": 1
+      },
+      "737282": {
+        "avg": 0
+      }
+    }
+  },
+  "280023": {
+    "name": "Moment of Glory",
+    "effect_list": [
+      737283,
+      737284
+    ],
+    "secondary": false,
+    "effects": {
+      "737283": {
+        "avg": 5
+      },
+      "737284": {
+        "avg": 0
+      }
+    }
+  },
+  "280128": {
+    "name": "Bury the Hatchet",
+    "effect_list": [
+      737445,
+      737446
+    ],
+    "secondary": false,
+    "effects": {
+      "737445": {
+        "avg": 21.064302
+      },
+      "737446": {
+        "avg": 0
+      }
+    }
+  },
+  "280163": {
+    "name": "Barrage Of Many Bombs",
+    "effect_list": [
+      737505,
+      737506,
+      737507,
+      738960
+    ],
+    "secondary": false,
+    "effects": {
+      "737505": {
+        "avg": 2.90719
+      },
+      "737506": {
+        "avg": 0
+      },
+      "737507": {
+        "avg": 0
+      },
+      "738960": {
+        "avg": 0
+      }
+    }
+  },
+  "280168": {
+    "name": "Ricocheting Inflatable Pyrosaw",
+    "effect_list": [
+      737518,
+      737519,
+      738961
+    ],
+    "secondary": false,
+    "effects": {
+      "737518": {
+        "avg": 0
+      },
+      "737519": {
+        "avg": 0
+      },
+      "738961": {
+        "avg": 0
+      }
+    }
+  },
+  "280172": {
+    "name": "Auto-Self-Cauterizer",
+    "effect_list": [
+      737533,
+      737534,
+      738963
+    ],
+    "secondary": false,
+    "effects": {
+      "737533": {
+        "avg": 93.457947
+      },
+      "737534": {
+        "avg": 0
+      },
+      "738963": {
+        "avg": 0
+      }
+    }
+  },
+  "280174": {
+    "name": "Synaptic Spark Capacitor",
+    "effect_list": [
+      737542,
+      738958
+    ],
+    "secondary": false,
+    "effects": {
+      "737542": {
+        "avg": 0
+      },
+      "738958": {
+        "avg": 0
+      }
+    }
+  },
+  "280178": {
+    "name": "Relational Normalization Gizmo",
+    "effect_list": [
+      737551,
+      738959
+    ],
+    "secondary": false,
+    "effects": {
+      "737551": {
+        "avg": 1
+      },
+      "738959": {
+        "avg": 0
+      }
+    }
+  },
+  "280181": {
+    "name": "Personal Absorb-o-Tron",
+    "effect_list": [
+      737557,
+      738962
+    ],
+    "secondary": false,
+    "effects": {
+      "737557": {
+        "avg": 0
+      },
+      "738962": {
+        "avg": 0
+      }
+    }
+  },
+  "280284": {
+    "name": "Dagger in the Back",
+    "effect_list": [
+      737714,
+      737715
+    ],
+    "secondary": false,
+    "effects": {
+      "737714": {
+        "avg": 0.1
+      },
+      "737715": {
+        "avg": 0
+      }
+    }
+  },
+  "280380": {
+    "name": "Thunderous Blast",
+    "effect_list": [
+      737878,
+      738006
+    ],
+    "secondary": false,
+    "effects": {
+      "737878": {
+        "avg": 3
+      },
+      "738006": {
+        "avg": 0
+      }
+    }
+  },
+  "280402": {
+    "name": "Tidal Surge",
+    "effect_list": [
+      737915
+    ],
+    "secondary": false,
+    "effects": {
+      "737915": {
+        "avg": 2.661521
+      }
+    }
+  },
+  "280407": {
+    "name": "Blood Rite",
+    "effect_list": [
+      737922
+    ],
+    "secondary": true,
+    "effects": {
+      "737922": {
+        "avg": 1.129518
+      }
+    }
+  },
+  "280410": {
+    "name": "Incite the Pack",
+    "effect_list": [
+      737926,
+      737927,
+      737931
+    ],
+    "secondary": false,
+    "effects": {
+      "737926": {
+        "avg": 0.730928
+      },
+      "737927": {
+        "avg": 0.170316
+      },
+      "737931": {
+        "avg": 0
+      }
+    }
+  },
+  "280429": {
+    "name": "Swirling Sands",
+    "effect_list": [
+      737972,
+      737973,
+      737974
+    ],
+    "secondary": true,
+    "effects": {
+      "737972": {
+        "avg": 1.5
+      },
+      "737973": {
+        "avg": 0
+      },
+      "737974": {
+        "avg": 0
+      }
+    }
+  },
+  "280577": {
+    "name": "Glory in Battle",
+    "effect_list": [
+      738189,
+      738555
+    ],
+    "secondary": true,
+    "effects": {
+      "738189": {
+        "avg": 1.244076
+      },
+      "738555": {
+        "avg": 0.779789
+      }
+    }
+  },
+  "280579": {
+    "name": "Retaliatory Fury",
+    "effect_list": [
+      738191,
+      738573
+    ],
+    "secondary": false,
+    "effects": {
+      "738191": {
+        "avg": 0.6
+      },
+      "738573": {
+        "avg": 8
+      }
+    }
+  },
+  "280580": {
+    "name": "Combined Might",
+    "effect_list": [
+      738192,
+      738695
+    ],
+    "secondary": false,
+    "effects": {
+      "738192": {
+        "avg": 3.5
+      },
+      "738695": {
+        "avg": 0
+      }
+    }
+  },
+  "280581": {
+    "name": "Collective Will",
+    "effect_list": [
+      738193,
+      738669
+    ],
+    "secondary": false,
+    "effects": {
+      "738193": {
+        "avg": 1
+      },
+      "738669": {
+        "avg": 6
+      }
+    }
+  },
+  "280582": {
+    "name": "Battlefield Focus",
+    "effect_list": [
+      738194,
+      738645,
+      738646
+    ],
+    "secondary": false,
+    "effects": {
+      "738194": {
+        "avg": 0.665399
+      },
+      "738645": {
+        "avg": 0
+      },
+      "738646": {
+        "avg": 0
+      }
+    }
+  },
+  "280598": {
+    "name": "Sylvanas' Resolve",
+    "effect_list": [
+      738213,
+      738618
+    ],
+    "secondary": false,
+    "effects": {
+      "738213": {
+        "avg": 1.108647
+      },
+      "738618": {
+        "avg": 0
+      }
+    }
+  },
+  "280623": {
+    "name": "Liberator's Might",
+    "effect_list": [
+      738283,
+      738699
+    ],
+    "secondary": true,
+    "effects": {
+      "738283": {
+        "avg": 1.244076
+      },
+      "738699": {
+        "avg": 0.780731
+      }
+    }
+  },
+  "280624": {
+    "name": "Last Gift",
+    "effect_list": [
+      738284,
+      738721
+    ],
+    "secondary": false,
+    "effects": {
+      "738284": {
+        "avg": 0.6
+      },
+      "738721": {
+        "avg": 8
+      }
+    }
+  },
+  "280625": {
+    "name": "Stronger Together",
+    "effect_list": [
+      738285,
+      738730
+    ],
+    "secondary": false,
+    "effects": {
+      "738285": {
+        "avg": 3.5
+      },
+      "738730": {
+        "avg": 0
+      }
+    }
+  },
+  "280626": {
+    "name": "Stand As One",
+    "effect_list": [
+      738286,
+      738712
+    ],
+    "secondary": false,
+    "effects": {
+      "738286": {
+        "avg": 1
+      },
+      "738712": {
+        "avg": 6
+      }
+    }
+  },
+  "280627": {
+    "name": "Battlefield Precision",
+    "effect_list": [
+      738287,
+      738705,
+      738706
+    ],
+    "secondary": false,
+    "effects": {
+      "738287": {
+        "avg": 0.665399
+      },
+      "738705": {
+        "avg": 0
+      },
+      "738706": {
+        "avg": 0
+      }
+    }
+  },
+  "280628": {
+    "name": "Anduin's Dedication",
+    "effect_list": [
+      738288,
+      738747
+    ],
+    "secondary": false,
+    "effects": {
+      "738288": {
+        "avg": 1.108999
+      },
+      "738747": {
+        "avg": 0
+      }
+    }
+  },
+  "280710": {
+    "name": "Champion of Azeroth",
+    "effect_list": [
+      738417
+    ],
+    "secondary": false,
+    "effects": {
+      "738417": {
+        "avg": 0.033
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   font-weight: 200;
   text-rendering: optimizeLegibility;
-  background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: url(../Interface/Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background: #14161a;
   color: #fff;
   padding-top: 48px;
@@ -36,23 +36,7 @@ body {
 #app-mount > .app {
   min-height: calc(100% + 410px);
 }
-.app > main > section:first-of-type {
-  margin-top: 0;
-  padding-top: 0;
-}
-section {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  position: relative;
-}
-section:first-child {
-  margin-top: 0;
-}
-section header h1 {
-  font-size: 3em;
-  margin: 0 0 0.7em;
-  text-align: center;
-}
+
 h2 {
   opacity: .9;
   text-transform: uppercase;
@@ -688,42 +672,6 @@ table.data-table img {
   vertical-align: middle;
 }
 
-.btn.discord {
-  background: #7289DA;
-}
-.btn.discord:hover {
-  background: #5f72b3;
-}
-.btn.github {
-  background: #fff;
-  color: #000;
-  margin-right: 0;
-}
-.btn.github:hover {
-  background: #d9d9d9;
-}
-.btn.patreon {
-  background: #F96854;
-  color: #fff;
-  font-weight: 400;
-  text-transform: uppercase;
-  border-radius: 0;
-}
-.btn.patreon svg {
-  margin-top: 0;
-  margin-right: .2em;
-  font-size: 1.2em;
-}
-.btn.patreon:hover {
-  background: #e6461a;
-}
-.btn.discord, .btn.github, .btn.patreon {
-  padding: .3em 0.8em;
-  height: 2.5em;
-  line-height: 1.8em;
-  border: 0;
-  font-size: 1.1em;
-}
 .external-links .btn:not(:first-of-type) {
   margin-left: 3%;
 }

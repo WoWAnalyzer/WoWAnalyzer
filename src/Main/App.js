@@ -3,37 +3,35 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { getLocation, push } from 'react-router-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'common/TooltipProvider';
+import TooltipProvider from 'Interface/common/TooltipProvider';
 import { track } from 'common/analytics';
-import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
-import { fetchUser } from 'actions/user';
-import { getError } from 'selectors/error';
+import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'Interface/actions/error';
+import { fetchUser } from 'Interface/actions/user';
+import { getError } from 'Interface/selectors/error';
 // import RouteChangeScroller from 'Interface/RouteChangeScroller';
+import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
+import FullscreenError from 'Interface/common/FullscreenError';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
+import NavigationBar from 'Interface/Layout/NavigationBar';
+import Footer from 'Interface/Layout/Footer';
+import HomePage from 'Interface/Home/Page';
+import NewsPage from 'Interface/News/Page';
+import PremiumPage from 'Interface/Premium/Page';
+import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
 
 import 'react-toggle/style.css';
 import './App.css';
 
-import ApiDownBackground from './Images/api-down-background.gif';
-import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
-
-import Home from './Home';
-import FullscreenError from './FullscreenError';
-import NavigationBar from './Layout/NavigationBar';
-import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
-import Footer from './Layout/Footer';
-import NewsView from './News/View';
-import makeAnalyzerUrl from './makeAnalyzerUrl';
-import Report from './Report';
-import Premium from './Premium';
+import ReportPage from './Report';
 
 import Header from './Header';
-import ErrorBoundary from './ErrorBoundary';
 
-const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
-const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
+const ContributorPage = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ 'Interface/Contributor/Page').then(exports => exports.default));
+const CharacterParsesPage = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'Interface/Character/Page').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -66,7 +64,10 @@ class App extends React.Component {
     }
 
     TooltipProvider.load();
-    props.fetchUser();
+    if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
+      // If Premium is forced (development environments), fetching the user would probably fail too
+      props.fetchUser();
+    }
   }
 
   renderError(error) {
@@ -112,7 +113,7 @@ class App extends React.Component {
       return (
         <FullscreenError
           error="An API error occured."
-          details="Something went talking to our servers, please try again."
+          details="Something went wrong talking to our servers, please try again."
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
         >
           <div className="text-muted">
@@ -165,36 +166,56 @@ class App extends React.Component {
         <Route
           path="/contributor/:id"
           render={({ match }) => (
-            <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
+            <ContributorPage
+              contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route
           path="/character/:region/:realm/:name"
           render={({ match }) => (
-            <CharacterParses
+            <CharacterParsesPage
               region={decodeURI(match.params.region.replace(/\+/g, ' '))}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
-              name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
+              name={decodeURI(match.params.name.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route
           path="/news/:articleId"
           render={({ match }) => (
-            <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
+            <NewsPage
+              articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
+            />
           )}
         />
         <Route
           path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
-          component={Report}
+          render={props => (
+            <ReportPage {...props} />
+          )}
         />
         <Route
           path="/premium"
-          component={Premium}
+          render={() => (
+            <PremiumPage />
+          )}
         />
         <Route
           path="/"
           exact
-          component={Home}
+          render={() => (
+            <HomePage />
+          )}
+        />
+        <Route
+          render={() => (
+            <div className="container">
+              <h1>404: Content not found</h1>
+
+              <Link to="/">Go back home</Link>
+            </div>
+          )}
         />
       </Switch>
     );
@@ -210,7 +231,7 @@ class App extends React.Component {
   componentDidUpdate(prevProps) {
     // The primary reason to use this lifecycle method is so the document.title is updated in time
     if (prevProps.location !== this.props.location) {
-      // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location);
+      // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location, document.title);
       track(this.getPath(prevProps.location), this.getPath(this.props.location));
     }
   }
@@ -231,7 +252,6 @@ class App extends React.Component {
 
           <ReactTooltip html place="bottom" />
           {/*<RouteChangeScroller />*/}
-          <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
         <div id="portal" />

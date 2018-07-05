@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SerenityReduction from './SerendipityReduction/SerenityReduction';
 import SanctifyReduction from './SerendipityReduction/SanctifyReduction';
 
@@ -22,7 +21,6 @@ import SanctifyReduction from './SerendipityReduction/SanctifyReduction';
 // - "Holy Priest T20 2P Bonus" item
 class Serendipity extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     serenity: SerenityReduction,
     sanctify: SanctifyReduction,
   }

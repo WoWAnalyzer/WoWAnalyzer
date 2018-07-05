@@ -3,7 +3,6 @@ import React from 'react';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -21,10 +20,6 @@ const SPELLS_PROCCING_RESURGENCE = {
 };
 
 class Resurgence extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   maxMana = 20000;
   regenedMana = 0;
   extraMana = 0;

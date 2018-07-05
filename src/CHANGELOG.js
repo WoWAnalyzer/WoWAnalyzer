@@ -8,6 +8,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-28'),
+    changes: 'Allow Warcaftlogs- & BattleNet-character-links in the report selecter.',
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-06-24'),
+    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.HEALTHSTONE.id} /> suggestion to always be of minor importance.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-24'),
+    changes: 'Added an "About WoWAnalyzer" panel to the home page and updated the announcement.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-24'),
+    changes: 'The report history panel will be hidden where there are no entries.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-23'),
+    changes: 'Revamped all spells with static GCDs or base GCDs different from the class default.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-22'),
     changes: 'Added WoWAnalyzer Premium. See the announcement for more information.',
     contributors: [Zerotorescue],

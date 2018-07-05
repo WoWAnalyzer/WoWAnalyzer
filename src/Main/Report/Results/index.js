@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 
-import ChecklistIcon from 'Icons/Checklist';
-import SuggestionIcon from 'Icons/Suggestion';
-import ArmorIcon from 'Icons/Armor';
-import StatisticsIcon from 'Icons/Statistics';
+import ChecklistIcon from 'Interface/Icons/Checklist';
+import SuggestionIcon from 'Interface/Icons/Suggestion';
+import ArmorIcon from 'Interface/Icons/Armor';
+import StatisticsIcon from 'Interface/Icons/Statistics';
 
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import { getResultTab } from 'selectors/url/report';
+import { getResultTab } from 'Interface/selectors/url/report';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import ActivityIndicator from 'Main/ActivityIndicator';
-import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
-import WipefestLogo from 'Main/Images/Wipefest-logo.png';
+import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
+import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import ItemStatisticBox from 'Main/ItemStatisticBox';
 import SectionDivider from 'Main/SectionDivider';
 

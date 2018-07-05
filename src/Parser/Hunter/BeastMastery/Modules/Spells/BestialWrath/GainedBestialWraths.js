@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from "common/SPELLS";
 import StatisticBox from "Main/StatisticBox";
@@ -18,15 +17,15 @@ const BESTIAL_WRATH_BASE_CD = 90000;
 
 class GainedBestialWraths extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
 
-  on_initialized() {
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
       COOLDOWN_REDUCTION_MS = 16000;
     }
   }

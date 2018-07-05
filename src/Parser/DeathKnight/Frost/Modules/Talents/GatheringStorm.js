@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_BOOST = .15;
@@ -17,18 +16,15 @@ const debug = false;
  *Each Rune spent during Remorseless Winter increases its damage by 15%, and extends its duration by 0.5 sec.
  */
 class GatheringStorm extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   totalCasts = 0;
   bonusDamage = 0;
   totalStacks = 0;
   currentStacks = 0;
   extendedDuration = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -72,10 +68,10 @@ class GatheringStorm extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
       return;
     }
-    if (event.ability.guid === SPELLS.HOWLING_BLAST.id && this.combatants.selected.hasBuff(SPELLS.RIME.id)) { // handles the free HB from Rime proc,
+    if (event.ability.guid === SPELLS.HOWLING_BLAST.id && this.selectedCombatant.hasBuff(SPELLS.RIME.id)) { // handles the free HB from Rime proc,
       this.extendedDuration += DURATION_BOOST;
       return;
     }

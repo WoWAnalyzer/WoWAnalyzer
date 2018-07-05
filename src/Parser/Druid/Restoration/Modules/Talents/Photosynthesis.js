@@ -24,8 +24,9 @@ class Photosynthesis extends Analyzer {
 
   lastRealBloomTimestamp = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -48,7 +49,7 @@ class Photosynthesis extends Analyzer {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.combatants.selected.sourceID)) {
+    if(spellId === SPELLS.REJUVENATION.id && this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID)) {
       this.rejuvenationIncrease += calculateEffectiveHealing(event, PHOTOSYNTHESIS_REJUV_INCREASE);
     }
 
@@ -59,8 +60,8 @@ class Photosynthesis extends Analyzer {
 
   statistic() {
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease + this.lifebloomIncrease);
-    const sourceID = this.combatants.selected._combatantInfo.sourceID;
-    const selfUptime = this.combatants.selected.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, sourceID);
+    const sourceID = this.selectedCombatant._combatantInfo.sourceID;
+    const selfUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, sourceID);
     const totalUptime =
       Object.keys(this.combatants.players)
           .map(key => this.combatants.players[key])

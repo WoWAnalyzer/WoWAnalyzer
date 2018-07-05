@@ -7,7 +7,6 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HotTracker from '../Core/HotTracker';
 
@@ -17,7 +16,6 @@ const RISING_MIST_EXTENSION = 2000;
 
 class RisingMist extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
     abilityTracker: AbilityTracker,
   };
@@ -31,8 +29,9 @@ class RisingMist extends Analyzer {
   efCount = 0;
   evmCount = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RISING_MIST_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

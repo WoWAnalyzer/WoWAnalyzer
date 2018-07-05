@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Voidform from './Voidform';
@@ -19,12 +18,12 @@ const VOID_TORRENT_MAX_TIME = 4000;
 
 class VoidTorrent extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     voidform: Voidform,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
   }
 
   _voidTorrents = {};

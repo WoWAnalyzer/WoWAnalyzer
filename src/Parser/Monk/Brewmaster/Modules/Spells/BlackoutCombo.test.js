@@ -12,29 +12,38 @@ describe('Brewmaster.BlackoutCombo', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
+      selectedCombatant: {
+        hasTalent: () => true,
+      },
     });
   });
   it('blackout combo is active by default', () => {
     expect(blackoutCombo.active).toBe(true);
   });
   it('blackout combo checks to see if active while talent is not selected', () => {
-    const hasTalentMethod = jest.fn();
-    hasTalentMethod.mockReturnValue(false);
-    const combatant = { selected: { hasTalent: hasTalentMethod } };
-    blackoutCombo.combatants = combatant;
-    blackoutCombo.triggerEvent({
-      type: 'initialized',
+    const hasTalentMethod = jest.fn(() => false);
+    blackoutCombo = new BlackoutCombo({
+      toPlayer: () => true,
+      byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
+      selectedCombatant: {
+        hasTalent: hasTalentMethod,
+      },
     });
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(false);
   });
   it('blackout combo checks to see if active while talent is selected', () => {
-    const hasTalentMethod = jest.fn();
-    hasTalentMethod.mockReturnValue(true);
-    const combatant = { selected: { hasTalent: hasTalentMethod } };
-    blackoutCombo.combatants = combatant;
-    blackoutCombo.triggerEvent({
-      type: 'initialized',
+    const hasTalentMethod = jest.fn(() => true);
+    blackoutCombo = new BlackoutCombo({
+      toPlayer: () => true,
+      byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
+      selectedCombatant: {
+        hasTalent: hasTalentMethod,
+      },
     });
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(true);

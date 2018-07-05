@@ -15,7 +15,19 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from "./Modules/Items/Tier19_2p";
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
-
+import LoneWolf from './Modules/Spells/LoneWolf';
+//Talents
+import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
+import Volley from './Modules/Talents/Volley';
+import ExplosiveShot from './Modules/Talents/ExplosiveShot';
+import LockAndLoad from './Modules/Talents/LockAndLoad';
+import PiercingShot from './Modules/Talents/PiercingShot';
+import MasterMarksman from './Modules/Talents/MasterMarksman';
+import LethalShots from './Modules/Talents/LethalShots';
+import DoubleTap from './Modules/Talents/DoubleTap';
+import CallingTheShots from './Modules/Talents/CallingTheShots';
+import HuntersMark from './Modules/Talents/HuntersMark';
+import SerpentSting from './Modules/Talents/SerpentSting';
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -33,8 +45,8 @@ import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
 import ZevrimsHunger from './Modules/Items/ZevrimsHunger';
 
-
-
+//Traits and Talents
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +87,23 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     trueshot: Trueshot,
+    loneWolf: LoneWolf,
+
+    //Talents
+    volley: Volley,
+    explosiveShot: ExplosiveShot,
+    aMurderOfCrows: AMurderOfCrows,
+    lockAndLoad: LockAndLoad,
+    piercingShot: PiercingShot,
+    masterMarksman: MasterMarksman,
+    lethalShots: LethalShots,
+    doubleTap: DoubleTap,
+    callingTheShots: CallingTheShots,
+    huntersMark: HuntersMark,
+    serpentSting: SerpentSting,
+
+    //Traits and talents
+    traitsAndTalents: TraitsAndTalents,
   };
 }
 
