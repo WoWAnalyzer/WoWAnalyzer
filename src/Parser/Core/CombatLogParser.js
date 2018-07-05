@@ -35,6 +35,8 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
 import TimelineBuffEvents from './Modules/TimelineBuffEvents';
+import DeathDowntime from './Modules/Downtime/DeathDowntime';
+import TotalDowntime from './Modules/Downtime/TotalDowntime';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -176,6 +178,8 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
@@ -272,7 +276,6 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
-
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -281,6 +284,8 @@ class CombatLogParser {
   player = null;
   playerPets = null;
   fight = null;
+
+  adjustForDowntime = true;
 
   _modules = {};
   _activeAnalyzers = {};
@@ -309,7 +314,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time;
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
   }
   get finished() {
     return this._modules.status.finished;
@@ -549,7 +554,9 @@ class CombatLogParser {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
-  generateResults() {
+  generateResults(adjustForDowntime) {
+    this.adjustForDowntime = adjustForDowntime;
+
     const results = new ParseResults();
 
     results.tabs = [];

@@ -5,8 +5,13 @@
 .statistics-section-title {
   margin-top: 40px;
   margin-bottom: 20px;
+}
+.statistics-section-title h1 {
+  display: inline-block;
+  margin: 0;
   text-indent: 12px;
   font-size: 24px;
+  line-height: inherit;
   text-transform: uppercase;
   font-weight: 600;
 }

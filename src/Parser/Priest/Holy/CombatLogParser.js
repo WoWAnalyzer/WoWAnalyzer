@@ -72,8 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4set: Tier21_4set,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,

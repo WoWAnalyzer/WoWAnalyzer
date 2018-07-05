@@ -182,8 +182,8 @@ class CombatLogParser extends CoreCombatLogParser {
     statWeights: StatWeights,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,
