@@ -14,6 +14,7 @@ const HOLY_WORD_REDUCERS = {
   [SPELLS.SMITE.id]: 4000,
 };
 const APOTHEOSIS_MULTIPLIER = 3;
+const LIGHT_OF_THE_NAARU_MULTIPLIER_ADDITION = 1/3;
 
 /**
  * This module reduces the cooldowns of Holy Word spells.
@@ -35,7 +36,9 @@ class HolyWords extends Analyzer {
     this.hasApotheosis = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
     this.hasSalvation = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
 
-    this.reductionMultiplier = hasLotN ? this.reductionMultiplier + (1/3) : this.reductionMultiplier;
+    if(hasLotN) {
+      this.reductionMultiplier += LIGHT_OF_THE_NAARU_MULTIPLIER_ADDITION;
+    }
     if (this.selectedCombatant.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF)) {
       this.reductionAdditions += 1000;
     }
@@ -74,6 +77,10 @@ class HolyWords extends Analyzer {
   }
 
   reduceHolyWordCooldown(holyWord, spellId) {
+    if (!this.spellUsable.isOnCooldown(holyWord)) {
+      return;
+    }
+
     let reduction = (HOLY_WORD_REDUCERS[spellId] + this.reductionAdditions) * this.reductionMultiplier;
     if(this.hasApotheosis) {
       const apotheosisActive = this.selectedCombatant.hasBuff(SPELLS.APOTHEOSIS_TALENT.id);
@@ -82,9 +89,7 @@ class HolyWords extends Analyzer {
       }
     }
 
-    if (this.spellUsable.isOnCooldown(holyWord)) {
-      this.spellUsable.reduceCooldown(holyWord, reduction);
-    }
+    this.spellUsable.reduceCooldown(holyWord, reduction);
   }
 }
 
