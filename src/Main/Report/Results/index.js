@@ -285,7 +285,7 @@ class Results extends React.PureComponent {
         </div>
 
         <StatisticsSectionTitle
-          rightAddon={(
+          rightAddon={parser.hasDowntime && (
             <div className="toggle-control" style={{ marginTop: 5 }}>
               <Toggle
                 defaultChecked={this.state.adjustForDowntime}

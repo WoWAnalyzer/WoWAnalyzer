@@ -286,6 +286,9 @@ class CombatLogParser {
   fight = null;
 
   adjustForDowntime = true;
+  get hasDowntime() {
+    return this._modules.totalDowntime.totalBaseDowntime > 0;
+  }
 
   _modules = {};
   _activeAnalyzers = {};
