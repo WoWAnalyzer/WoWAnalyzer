@@ -327,7 +327,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.WIND_RUSH_TOTEM_TALENT.id),
         cooldown: 120,
-      }, 
+      },
       {
         spell: SPELLS.EARTHGRAB_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -337,7 +337,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.EARTHGRAB_TOTEM_TALENT.id),
         cooldown: 30,
-      }, 
+      },
       {
         spell: SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -353,7 +353,7 @@ class Abilities extends CoreAbilities {
         cooldown: 1800,
       },
       {
-        spell: SPELLS.WIND_SHEAR, 
+        spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         cooldown: 12,
@@ -368,7 +368,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD_TALENT, 
+        spell: SPELLS.EARTH_SHIELD_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
@@ -377,11 +377,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 80,
       },
       {
-        spell: SPELLS.TREMOR_TOTEM, 
+        spell: SPELLS.TREMOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
-          static: 1000, // totem GCD
+          base: 1000, // totem GCD but affected by Haste for some reason
         },
         timelineSortIndex: 80,
       },
@@ -412,7 +412,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EARTH_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 300,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 80,
       },
     ];
