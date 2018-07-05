@@ -34,7 +34,7 @@ class FeretoryOfSouls extends Analyzer {
     // if we haven't cast any Chaos Bolts, _totalTicks would be 0 and we would get an exception
     // but with denominator 1 in this case, if this._totalDamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this._totalDamage / (this._totalCasts > 0 ? this._totalCasts : 1);
-    const fragmentsGained = this.soulShardTracker.generatedAndWasted[SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.name].generated;
+    const fragmentsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id);
     const estimatedChaosBoltDamage = Math.floor(fragmentsGained / CHAOS_BOLT_COST) * avgDamage;
     return {
       item: ITEMS.FERETORY_OF_SOULS,

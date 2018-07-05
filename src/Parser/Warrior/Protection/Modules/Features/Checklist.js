@@ -17,6 +17,9 @@ import Shield_Block from '../Spells/ShieldBlock';
 import IgnorePain from './IgnorePain';
 import RageDetails from '../Core/RageDetails';
 
+//Talents
+import DragonRoar from '../Talents/DragonRoar';
+
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
@@ -30,6 +33,7 @@ class Checklist extends CoreChecklist {
     shieldBlock: Shield_Block,
     ignorePain: IgnorePain,
     rageDetails: RageDetails,
+    dragonRoar: DragonRoar,
   };
 
   rules = [
@@ -92,6 +96,11 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.DEMORALIZING_SHOUT,
             when: this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id),
             onlyWithSuggestion: false,
+          }),
+          new Requirement({
+            name: <React.Fragment>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</React.Fragment>,
+            check: () => this.dragonRoar.hitSuggestionThreshold,
+            when: this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
           }),
         ];
       },

@@ -38,21 +38,21 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    if(event.isCancelled) {
+    if (event.isCancelled) {
       return;
     }
 
     const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp);
-    if(!hasFlashFlood) {
+    if (!hasFlashFlood) {
       return;
     }
 
     this.beginCastTimestamp = event.timestamp;
-    this.beginCastGlobalCooldown = this.globalCooldown.getCurrentGlobalCooldown(spellId);
+    this.beginCastGlobalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
   }
 
   on_byPlayer_cast(event) {
-    if(!this.beginCastTimestamp) {
+    if (!this.beginCastTimestamp) {
       return;
     }
 
@@ -62,7 +62,7 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    this.timeSaved += castTime / (1-FLASH_FLOOD_HASTE) * FLASH_FLOOD_HASTE;
+    this.timeSaved += castTime / (1 - FLASH_FLOOD_HASTE) * FLASH_FLOOD_HASTE;
   }
 
   subStatistic() {

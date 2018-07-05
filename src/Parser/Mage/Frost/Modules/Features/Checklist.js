@@ -162,12 +162,12 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
           }),
           new Requirement({
-            name: "Maximized Thermal Void extension",
+            name: "Maximized Thermal Void duration",
             check: () => this.thermalVoid.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id),
           }),
           new Requirement({
-            name: "All Icicles into Glacial Spike",
+            name: "Glacial Spike into Winter's Chill",
             check: () => this.glacialSpike.utilSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
           }),

@@ -29,12 +29,11 @@ import UpliftingTrance from '../Spells/UpliftingTrance';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
 import SoothingMist from '../Spells/SoothingMist';
-import SheilunsGift from '../Spells/SheilunsGift';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    castEfficiency: CastEfficiency,    
+    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     velensFutureSight: VelensFutureSight,
@@ -52,22 +51,17 @@ class Checklist extends CoreChecklist {
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
     soothingMist: SoothingMist,
-    sheilunsGift: SheilunsGift,
   };
 
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <React.Fragment>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</React.Fragment>,
+      description: <React.Fragment>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />.</React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
             onlyWithSuggestion: false,
-          }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> stacks</React.Fragment>,
-            check: () => this.sheilunsGift.suggestionThresholds,
           }),
         ];
       },

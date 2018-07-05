@@ -23,6 +23,11 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
+  JUDGMENT_CAST_PROTECTION: {
+    id: 275779,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
   JUDGMENT_HP_ENERGIZE: {
     id: 220637,
     name: 'Judgment',
@@ -134,7 +139,7 @@ export default {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 1500,
+    manaCost: 1400,
   },
   MARAADS_DYING_BREATH_BUFF: {
     id: 234862,

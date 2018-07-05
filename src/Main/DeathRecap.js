@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;
 
 class DeathRecap extends React.PureComponent {
-
   static propTypes = {
     events: PropTypes.array.isRequired,
     enemies: PropTypes.object.isRequired,
@@ -40,7 +40,7 @@ class DeathRecap extends React.PureComponent {
 
     function sortByTimelineIndex(a, b) {
       return a.timelineSortIndex - b.timelineSortIndex;
-    } 
+    }
 
     const sliderProps = {
       min: 0,
@@ -69,7 +69,7 @@ class DeathRecap extends React.PureComponent {
 
     return (
       <div>
-        <div style={{ overflow: 'auto'}}>
+        <div style={{ overflow: 'auto' }}>
           <div style={{ float: 'left', width: 'calc(100% - 20em)' }}>
             <div style={{ margin: '2em 0 0 2em' }}>
               Filter events based on min amount (percentage of players health):
@@ -125,7 +125,7 @@ class DeathRecap extends React.PureComponent {
                     let percent = 0;
                     let output = null;
                     //name = either NPC-Name > sourceID-Name > Ability-Name as fallback
-                    let sourceName = event.source && event.source.type === "NPC" ? event.source.name : null;
+                    let sourceName = event.source && event.source.type === 'NPC' ? event.source.name : null;
                     if (!sourceName && event.type === 'heal') {
                       sourceName = this.props.combatants[event.sourceID] ? this.props.combatants[event.sourceID]._combatantInfo.name : null;
                     }
@@ -140,9 +140,9 @@ class DeathRecap extends React.PureComponent {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
                         <dfn data-tip={`
-                          ${event.sourceID === event.targetID ? 
-                            `You healed yourself for ${formatNumber(event.amount)}` :
-                            `${sourceName} healed you for ${formatNumber(event.amount)}`
+                          ${event.sourceID === event.targetID ?
+                          `You healed yourself for ${formatNumber(event.amount)}` :
+                          `${sourceName} healed you for ${formatNumber(event.amount)}`
                           }
                           ${event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}<br/>` : ''}
                         `} style={{ color: 'green' }}>
@@ -153,7 +153,7 @@ class DeathRecap extends React.PureComponent {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
                         <dfn data-tip={`
-                        ${event.sourceID === event.targetID ? 
+                        ${event.sourceID === event.targetID ?
                           `You damaged yourself for ${formatNumber(event.amount)}<br/>` :
                           `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}<br/>`
                           }
@@ -193,7 +193,7 @@ class DeathRecap extends React.PureComponent {
                                 width: formatPercentage(hitPercent) + '%',
                                 opacity: event.type === 'heal' ? .8 : .4,
                               }}
-                             />
+                            />
                           </div>
                         </td>
                         <td style={{ width: '15%' }}>

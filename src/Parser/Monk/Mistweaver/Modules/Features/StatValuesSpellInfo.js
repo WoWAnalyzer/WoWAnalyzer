@@ -46,14 +46,6 @@ export default {
     mastery: false, // Procs Gusts
     vers: true,
   },
-  [SPELLS.SHEILUNS_GIFT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false, // Procs Gusts
-    vers: true,
-  },
   [SPELLS.VIVIFY.id]: {
     int: true,
     crit: true,
@@ -115,14 +107,6 @@ export default {
     crit: true,
     hasteHpm: false,
     hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.MISTS_OF_SHEILUN.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
     mastery: false,
     vers: true,
   },

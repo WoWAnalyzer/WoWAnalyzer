@@ -21,6 +21,7 @@ import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMarty
 import FillerFlashOfLight from './Modules/PaladinCore/FillerFlashOfLight';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
+import SpellManaCost from './Modules/PaladinCore/SpellManaCost';
 
 import Abilities from './Modules/Abilities';
 import Checklist from './Modules/Features/Checklist';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
+    spellManaCost: SpellManaCost,
 
     // Features
     checklist: Checklist,

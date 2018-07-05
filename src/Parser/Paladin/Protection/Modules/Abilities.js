@@ -14,14 +14,11 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.CONSECRATION_CAST,
+        buffSpellId: SPELLS.CONSECRATION_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -58,7 +55,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 16 / (1 + haste),
+        cooldown: haste => 20 / (1 + haste),
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -73,23 +70,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
       },
-      { // T15: Consecrated Hammer talent (Hammer of the Righteous has no cooldown)
-        spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
-      },
       {
-        spell: SPELLS.JUDGMENT_CAST,
+        spell: SPELLS.JUDGMENT_CAST_PROTECTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: haste => 12 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -101,8 +90,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        cooldown: haste => 20 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
         charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        gcd: {
+          base: 1500,
+        },
         enabled: !combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -113,8 +105,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 10 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        cooldown: haste => 15 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
         charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -124,23 +119,10 @@ class Abilities extends CoreAbilities {
       },
       //COOLDOWNS
       {
-        spell: SPELLS.EYE_OF_TYR,
-        buffSpellId: SPELLS.EYE_OF_TYR.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: (haste, combatant) => 60 * (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 0.75 : 1),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
         spell: SPELLS.ARDENT_DEFENDER,
         buffSpellId: SPELLS.ARDENT_DEFENDER.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 120 - (combatant.traitsBySpellId[SPELLS.UNFLINCHING_DEFENSE.id] || 0) * 10,
+        cooldown: 120 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
         castEfficiency: {
           suggestion: true,
         },
@@ -159,6 +141,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SERAPHIM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -166,8 +151,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_WRATH,
-        buffSpellId: SPELLS.AVENGING_WRATH_RET.id,
+        buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,

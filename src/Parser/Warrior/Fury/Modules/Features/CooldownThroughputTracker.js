@@ -6,7 +6,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.BATTLE_CRY,
+      spell: SPELLS.RECKLESSNESS,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

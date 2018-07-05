@@ -41,7 +41,7 @@ class RoarOfTheSevenLions extends Analyzer {
       focusSaved: 0,
       name: "Cobra Shot",
     },
-    [SPELLS.MULTISHOT.id]: {
+    [SPELLS.MULTISHOT_BM.id]: {
       casts: 0,
       focusSaved: 0,
       name: "Multishot",

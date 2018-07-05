@@ -47,11 +47,14 @@ class Ability {
      * `null` is the spell is off the GCD, or an object if the spell is on the GCD.
      * If this spell overlaps in the Spell Timeline it likes is incorrectly marked as on the GCD and should be removed.
      */
-    gcd: PropTypes.shape({
-      static: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-      base: PropTypes.number,
-      minimum: PropTypes.number,
-    }),
+    gcd: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({
+        static: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        base: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        minimum: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+      }),
+    ]),
     // TODO: Add properties `staticGCD` and `baseGcd` since the baseGcd can be different per spell (e.g. Brewmaster's Effuse has a 1.5sec base GCD and most other spells are 1sec)
     castEfficiency: PropTypes.shape({
       /**

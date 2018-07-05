@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWcl';
-import ActivityIndicator from 'Main/ActivityIndicator';
-import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
-import ArmoryLogo from 'Main/Images/Armory-logo.png';
-import WipefestLogo from 'Main/Images/Wipefest-logo.png';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
+import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
+import ArmoryLogo from 'Interface/Images/Armory-logo.png';
+import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
 import SPECS from 'common/SPECS';
@@ -35,11 +35,6 @@ const ERRORS = {
   CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
   UNEXPECTED: 'Something went wrong',
 };
-
-//Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
-//probably only there to allow filtering by multiple specs on WCLs character-page
-//we don't want those logs tho
-const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class Parses extends React.Component {
   static propTypes = {
@@ -143,44 +138,36 @@ class Parses extends React.Component {
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
-  //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
-  changeParseStructure(rawParses) {
-    const parses = [];
+  changeParseStructure(rawParses, charClass) {
     const updatedTrinkets = { ...this.state.trinkets };
-    rawParses.forEach(elem => {
-      const name = elem.name;
-      const difficulty = DIFFICULTIES[elem.difficulty];
+    const parses = rawParses.map(elem => {
 
-      elem.specs
-        .filter(item => !EXCLUDED_GENERIC_SPECS_FROM_PARSES.includes(item.spec))
-        .forEach(element => {
-          const spec = element.spec;
-          element.data.forEach(singleParse => {
-            const finalParse = Object.assign({
-              name: name,
-              spec: spec,
-              difficulty: difficulty,
-            }, singleParse);
+      // get missing trinket-icons later
+      TRINKET_SLOTS.forEach(slotID => {
+        if (!updatedTrinkets[elem.gear[slotID].id]) {
+          updatedTrinkets[elem.gear[slotID].id] = {
+            name: elem.gear[slotID].name,
+            id: elem.gear[slotID].id,
+            icon: ITEMS[0].icon,
+            quality: elem.gear[slotID].quality,
+          };
+        }
+      });
 
-            //filter all logs that have missing talents (logs that were logged without advanced logging)
-            if (Object.values(singleParse.talents).filter(talent => talent.id === 0).length === 0) {
-              finalParse.advanced = true;
-            }
-            parses.push(finalParse);
-
-            //get missing trinket-icons later
-            TRINKET_SLOTS.forEach(slotID => {
-              if (!updatedTrinkets[singleParse.gear[slotID].id]) {
-                updatedTrinkets[singleParse.gear[slotID].id] = {
-                  name: singleParse.gear[slotID].name,
-                  id: singleParse.gear[slotID].id,
-                  icon: ITEMS[0].icon,
-                  quality: singleParse.gear[slotID].quality,
-                };
-              }
-            });
-          });
-        });
+      return {
+        name: elem.encounterName,
+        spec: elem.spec,
+        difficulty: DIFFICULTIES[elem.difficulty],
+        report_code: elem.reportID,
+        report_fight: elem.fightID,
+        historical_percent: 100 - (elem.rank / elem.outOf * 100),
+        persecondamount: elem.total,
+        start_time: elem.startTime,
+        character_name: elem.characterName,
+        talents: elem.talents,
+        gear: elem.gear,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0 ? true : false,
+      };
     });
 
     Object.values(updatedTrinkets).map(trinket => {
@@ -256,7 +243,10 @@ class Parses extends React.Component {
     return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
-      _: refresh ? +new Date() : undefined,
+      timeframe: 'historical',
+      // _: refresh ? +new Date() : undefined,
+      // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
+      _: +new Date(),
     })
       .then(rawParses => {
         if (rawParses.status === 400) {
@@ -285,7 +275,7 @@ class Parses extends React.Component {
         }
 
         if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
-          const parses = this.changeParseStructure(rawParses);
+          const parses = this.changeParseStructure(rawParses, this.state.class);
           this.setState({
             parses: parses,
             error: null,
@@ -294,14 +284,13 @@ class Parses extends React.Component {
           return;
         }
 
-        const charClass = rawParses[0].specs[0].class;
+        const charClass = rawParses[0].class;
         const specs = Object.values(SPECS)
-          .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
-          .filter(elem => elem)
-          // eslint-disable-next-line no-restricted-syntax
-          .filter((item, index, self) => self.indexOf(item) === index);
+          .filter(e => e.className === charClass)
+          .filter((item, index, self) => self.indexOf(item) === index)
+          .map(e => e.specName);
 
-        const parses = this.changeParseStructure(rawParses);
+        const parses = this.changeParseStructure(rawParses, charClass);
         this.setState({
           specs: specs,
           activeSpec: specs.map(elem => elem.replace(' ', '')),
@@ -353,8 +342,8 @@ class Parses extends React.Component {
     }
 
     return (
-      <div className="container charparse">
-        <div className="flex-main">
+      <div className="charparse">
+        <div className="row">
           <div className="col-md-5">
             <div className="panel">
               <div className="row filter">

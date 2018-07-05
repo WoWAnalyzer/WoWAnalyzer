@@ -63,7 +63,7 @@ class Header extends React.PureComponent {
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
-                {' '}| <a href="/premium">Premium</a>
+                {' '}| <Link to="/premium">Premium</Link>
               </div>
             </div>
             {!premium && (

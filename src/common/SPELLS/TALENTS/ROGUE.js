@@ -16,7 +16,6 @@ export default {
   ALACRITY_TALENT: { id: 193539, name: "Alacrity", icon: "ability_paladin_speedoflight" },
   EXSANGUINATE_TALENT: { id: 200806, name: "Exsanguinate", icon: "ability_deathwing_bloodcorruption_earth", energyCost: 25 },
   MARKED_FOR_DEATH_TALENT: { id: 137619, name: "Marked for Death", icon: "achievement_bg_killingblow_berserker" },
-  DEATH_FROM_ABOVE_TALENT: { id: 152150, name: "Death from Above", icon: "spell_rogue_deathfromabove", energyCost: 25 },
   // Assassination
   POISON_BOMB_TALENT: { id: 255544, name: "Poison Bomb", icon: "rogue_paralytic_poison" },
   MASTER_ASSASSIN_TALENT: { id: 255989, name: "Master Assassin", icon: "ability_criticalstrike" },
@@ -53,4 +52,6 @@ export default {
   DARK_SHADOW_TALENT: { id: 245687, name: "Dark Shadow", icon: "spell_warlock_demonsoul" },
   ENVELOPING_SHADOWS_TALENT: { id: 238104, name: "Enveloping Shadows", icon: "ability_rogue_envelopingshadows" },
   MASTER_OF_SHADOWS_TALENT: { id: 196976, name: "Master of Shadows", icon: "spell_shadow_charm" },
+  SECRET_TECHNIQUE_TALENT: { id: 280719, name: "Secret Technique", icon: "ability_rogue_sinistercalling" },
+  SHURIKEN_TORNADO_TALENT: { id: 277925, name: "Shuriken Tornado", icon: "ability_rogue_throwingspecialization" },
 };

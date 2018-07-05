@@ -1,6 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 
-import CoreChecklist, { Rule } from 'Parser/Core/Modules/Features/Checklist';
+import SpellLink from 'common/SpellLink';
+
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -9,6 +13,8 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import Abilities from 'Parser/Core/Modules/Abilities';
+import ShieldOfTheRighteous from './ShieldOfTheRighteous';
+import Consecration from './Consecration';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -18,6 +24,8 @@ class Checklist extends CoreChecklist {
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
+    shieldOfTheRighteous: ShieldOfTheRighteous,
+    consecration: Consecration,
   };
 
   rules = [
@@ -35,16 +43,42 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-            when: this.selectedCombatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
+            when: !this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGERS_SHIELD,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.JUDGMENT_CAST,
+            spell: SPELLS.JUDGMENT_CAST_PROTECTION,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CONSECRATION_CAST,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: (
+        <React.Fragment>
+          Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> and <SpellLink id={SPELLS.CONSECRATION_CAST.id} />
+        </React.Fragment> 
+      ),
+      description: (
+        <React.Fragment>
+          Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by a flat amount and use it as a rotational filler if necessary.<br/>
+          Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to flat out your physical damage taken or weave them into your rotation when you're about to cap charges.
+        </React.Fragment>
+      ),
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> efficiency</React.Fragment>,
+            check: () => this.shieldOfTheRighteous.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> uptime</React.Fragment>,
+            check: () => this.consecration.uptimeSuggestionThresholds,
           }),
         ];
       },
@@ -78,9 +112,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
             when: !this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EYE_OF_TYR,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARDENT_DEFENDER,

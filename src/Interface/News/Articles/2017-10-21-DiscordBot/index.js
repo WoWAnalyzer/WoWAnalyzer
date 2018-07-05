@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
+import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
 import RegularArticle from '../../RegularArticle';
 
 import DiscordBotGif from './discord-bot.gif';

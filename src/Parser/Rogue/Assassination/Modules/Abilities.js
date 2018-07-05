@@ -128,7 +128,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
       },
       {
@@ -223,16 +223,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SAP,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
         spell: SPELLS.SHROUD_OF_CONCEALMENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 6 * 60,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
+      },
+      {
+        spell: SPELLS.SAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
         spell: SPELLS.PICK_LOCK,

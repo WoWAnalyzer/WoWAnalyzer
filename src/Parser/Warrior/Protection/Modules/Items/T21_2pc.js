@@ -26,7 +26,7 @@ class T21_2pc extends Analyzer {
       return;
     }
 
-    const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(SPELLS.SHIELD_SLAM.id);
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.SHIELD_SLAM.id);
     this.spellUsable.reduceCooldown(SPELLS.SHIELD_SLAM.id, (this.spellUsable.cooldownRemaining(SPELLS.SHIELD_SLAM.id) - globalCooldown));
     this.resets += 1;
   }

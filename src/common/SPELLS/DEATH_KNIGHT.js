@@ -6,12 +6,6 @@
 
 export default {
   // Blood:
-  // Artifact
-  CONSUMPTION: { //when are we going to lose the artifact-ID and get the talent one?
-    id: 205223,
-    name: 'Consumption',
-    icon: 'inv_axe_2h_artifactmaw_d_01',
-  },
 
   //Summons
   //Bloodworm summon spell by the Bloodworms talent
@@ -711,10 +705,10 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
-  WRAITH_WALK: {
-    id: 212552,
-    name: 'Wraith Walk',
-    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  DEATHS_ADVANCE: {
+    id: 48265,
+    name: 'Death\'s Advance',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   COLD_HEART_BUFF: {

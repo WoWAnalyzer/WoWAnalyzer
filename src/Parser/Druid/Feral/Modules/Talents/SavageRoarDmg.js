@@ -9,8 +9,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../FeralCore/getDamageBonus';
+import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../Constants';
 
-const SAVAGE_ROAR_DAMAGE_BONUS = 0.15;
+
 
 class SavageRoar extends Analyzer {
   static dependencies = {

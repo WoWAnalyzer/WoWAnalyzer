@@ -8,13 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
-import SoulShardEvents from '../SoulShards/SoulShardEvents';
-
 class FireAndBrimstone extends Analyzer {
-  static dependencies = {
-    soulShardEvents: SoulShardEvents,
-  };
-
   _primaryTargets = [];
 
   generatedCleaveFragments = 0;
@@ -36,6 +30,7 @@ class FireAndBrimstone extends Analyzer {
     });
   }
 
+  // TODO: verify how this works on BFA (if still on cast or damage or how)
   on_soulshardfragment_gained(event) {
     if (event.ability.guid !== SPELLS.INCINERATE.id) {
       return;

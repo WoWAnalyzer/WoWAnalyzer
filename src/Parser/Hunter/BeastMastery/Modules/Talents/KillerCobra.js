@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber } from 'common/format';
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
+import StatisticBox from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
@@ -37,7 +37,7 @@ class KillerCobra extends Analyzer {
     }
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id);
     if (killCommandIsOnCooldown) {
-      const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(spellId);
+      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
       const cooldownToReduceWith = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) - globalCooldown;
       //using this instead of endCooldown to ensure it doesn't negatively affect cast efficiency when resetting with Killer Cobra
       this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND.id, cooldownToReduceWith);

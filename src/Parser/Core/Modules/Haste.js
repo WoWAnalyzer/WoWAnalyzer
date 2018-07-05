@@ -24,7 +24,7 @@ class Haste extends Analyzer {
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.1,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
-    [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
+    [SPELLS.TRUESHOT.id]: 0.3, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
@@ -34,6 +34,8 @@ class Haste extends Analyzer {
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
+    [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
+    [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:

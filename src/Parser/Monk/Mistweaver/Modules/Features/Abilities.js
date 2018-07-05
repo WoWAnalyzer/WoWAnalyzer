@@ -21,6 +21,15 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 1,
       },
+      {
+        spell: SPELLS.SOOTHING_MIST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+        timelineSortIndex: 100,
+      },
+
       // Cooldowns
       {
         spell: SPELLS.THUNDER_FOCUS_TEA,
@@ -51,6 +60,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
         castEfficiency: {
           suggestion: true,
+        },
+        gcd: {
+          base: 1500,
         },
         timelineSortIndex: 15,
       },
@@ -97,14 +109,6 @@ class Abilities extends CoreAbilities {
       },
 
       // Other Spell Casting Metrics
-      {
-        spell: SPELLS.EFFUSE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 20,
-      },
 
       {
         spell: SPELLS.ENVELOPING_MISTS,
@@ -123,18 +127,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.SHEILUNS_GIFT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 5,
-      },
-      {
-        spell: SPELLS.SHEILUNS_GIFT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-      },
-      {
         spell: SPELLS.ESSENCE_FONT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -143,11 +135,7 @@ class Abilities extends CoreAbilities {
         cooldown: 12,
         timelineSortIndex: 2,
       },
-      {
-        spell: SPELLS.SOOTHING_MIST,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        timelineSortIndex: 100,
-      },
+
       {
         spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
@@ -212,6 +200,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.RING_OF_PEACE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.LEG_SWEEP_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
@@ -225,9 +222,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
         cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
-        gcd: {
-          base: 1500,
-        },
         enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
       {
@@ -235,9 +229,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
         enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
       {
@@ -245,7 +236,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
-          base: 1500,
+          static: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
       },

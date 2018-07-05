@@ -33,6 +33,7 @@ class StatTracker extends Analyzer {
   static STAT_BUFFS = {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
+    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
     // endregion
 
     // region Runes
@@ -291,6 +292,14 @@ class StatTracker extends Analyzer {
       itemId: 159075, // Bloodhex Talisman
       crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
     },
+    271103: { // Rezan's Gleaming Eye
+      itemId: 158712, // Rezan's Gleaming Eye
+      haste: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
+    },
+    268836: { // Blood of My Enemies
+      itemId: 159625, // Vial of Animated Blood
+      strength: (_, item) => calculateSecondaryStatDefault(300, 705, item.itemLevel),
+    },
     // endregion
     // region Dungeons
     271071: { // Conch of Dark Whispers
@@ -505,6 +514,8 @@ class StatTracker extends Analyzer {
         return 0.048;
       case SPECS.BALANCE_DRUID:
         return 0.18;
+      case SPECS.FERAL_DRUID:
+        return 0.16;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
