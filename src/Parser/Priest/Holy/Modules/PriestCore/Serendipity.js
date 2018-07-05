@@ -32,7 +32,7 @@ class Serendipity extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
         value={`${formatPercentage(percWastedVersusTotal)}%`}
-        label="Wasted Serendipity"
+        label="Wasted Holy Words reduction"
         tooltip={
           `${formatNumber(this.serenity.overcast / 1000)}s wasted Serenity reduction (of ${formatNumber(this.serenity.rawReduction / 1000)}s total)<br/>
           ${formatNumber(this.sanctify.overcast / 1000)}s wasted Sanctify reduction (of ${formatNumber(this.sanctify.rawReduction / 1000)}s total)<br/>`
