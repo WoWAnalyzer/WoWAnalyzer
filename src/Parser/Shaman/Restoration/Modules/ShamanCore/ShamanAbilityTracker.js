@@ -17,7 +17,7 @@ class ShamanAbilityTracker extends AbilityTracker {
       return;
     }
 
-    const hasTw = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasTw = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
 
     if (hasTw) {
       const cast = this.getAbility(spellId, event.ability);
