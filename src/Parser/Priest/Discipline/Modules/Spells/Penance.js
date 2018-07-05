@@ -19,7 +19,12 @@ class Penance extends Analyzer {
 
   isNewPenanceCast(ability, timestamp) {
     if (!Penance.isPenance(ability.guid)) {
-      return undefined;
+      return;
+    }
+
+    // Discount penances cast as the fight ends :)
+    if (this.owner.fight.end_time - timestamp <= PENANCE_MINIMUM_RECAST_TIME) {
+      return;
     }
 
     return (
@@ -46,7 +51,7 @@ class Penance extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (!Penance.isPenance(event)) {
+    if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
@@ -56,7 +61,7 @@ class Penance extends Analyzer {
   }
 
   on_byPlayer_heal(event) {
-    if (!Penance.isPenance(event)) {
+    if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
@@ -66,9 +71,11 @@ class Penance extends Analyzer {
   }
 
   statistic() {
+    console.log(this);
     const hasCastigation = this.selectedCombatant.hasTalent(
       SPELLS.CASTIGATION_TALENT.id
     );
+
     const missedPenanceTicks =
       this.casts * (3 + (hasCastigation ? 1 : 0)) - this.hits;
 

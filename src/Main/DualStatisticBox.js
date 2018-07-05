@@ -13,7 +13,7 @@ const DualStatisticBox = ({icon, values, tooltip, footer, containerProps, alignI
         </div>
         <div className="flex-main flex-column">
           {
-            values.map(val => (<div className="panel-cell value">
+            values.map((val, i) => (<div key={`${i}${val}`} className="panel-cell value">
               {val}
               </div>))
           }
