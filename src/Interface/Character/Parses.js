@@ -29,6 +29,7 @@ const ORDER_BY = {
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
+const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
   CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
   NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
@@ -194,9 +195,8 @@ class Parses extends React.Component {
   async fetchBattleNetInfo() {
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
     if (this.props.region === 'CN') {
-      const imageUrl = '/img/fallback-character.jpg';
       this.setState({
-        image: imageUrl,
+        image: FALLBACK_PICTURE,
       }, () => {
         this.load();
       });
@@ -369,7 +369,7 @@ class Parses extends React.Component {
                       <img
                         src={this.state.image}
                         alt={'Character render of ' + this.props.name}
-                        onError={e => this.setState({ image: null })}
+                        onError={e => this.setState({ image: FALLBACK_PICTURE })}
                         style={{ width: '100%' }}
                       />
                     </div>
