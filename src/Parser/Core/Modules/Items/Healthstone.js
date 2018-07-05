@@ -106,7 +106,7 @@ class Healthstone extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You used a <SpellLink id={SPELLS.HEALTHSTONE.id} /> or Healing Potion {this.healthstoneCasts} times but could have used it {this.maxCasts > 1 ? this.maxCasts + ' time' : this.maxCasts + ' times'}. If you are low on health, make sure you use your Healthstones, Healing Potions, and Defensive Abilities to stay alive and to help the healers. </React.Fragment>)
+				return suggest(<React.Fragment>You used a <SpellLink id={SPELLS.HEALTHSTONE.id} /> or Healing Potion {this.healthstoneCasts > 1 || this.healthstoneCasts === 0 ? this.healthstoneCasts + ' times' : this.healthstoneCasts + ' time'} but could have used it {this.maxCasts > 1 ? this.maxCasts + ' times' : this.maxCasts + ' time'}. If you are low on health, make sure you use your Healthstones, Healing Potions, and Defensive Abilities to stay alive and to help the healers. </React.Fragment>)
 					.icon(SPELLS.HEALTHSTONE.icon);
       });
   }
