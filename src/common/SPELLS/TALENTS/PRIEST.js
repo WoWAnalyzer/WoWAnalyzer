@@ -60,4 +60,5 @@ export default {
   CONTRITION_TALENT: { id: 197419, name: "Contrition", icon: "ability_priest_savinggrace"},
   PURGE_THE_WICKED_TALENT: { id: 204197, name: "Purge the Wicked", icon: "ability_mage_firestarter", manaCost: 22000 },
   EVANGELISM_TALENT: { id: 246287, name: "Evangelism", icon: "spell_holy_divineillumination" },
+  SINS_OF_THE_MANY_TALENT: { id: 280391, name: 'Sins of the Many', icon: 'spell_holy_holyguidance' },
 };
