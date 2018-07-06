@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import ReactTooltip from 'react-tooltip';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
