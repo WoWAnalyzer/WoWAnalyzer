@@ -249,7 +249,7 @@ class App extends React.Component {
             </ErrorBoundary>
           </main>
 
-          <ReactTooltip html place="bottom" />
+          <ReactTooltip html place="bottom" effect="solid" />
         </div>
         {!error && <Footer />}
         <div id="portal" />

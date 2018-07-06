@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-07-06'),
+    changes: 'Changed tooltips to be static except for large bars in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-06'),
     changes: 'When switching fights in the results page, the selected tab will now be remembered.',
     contributors: [Zerotorescue],
   },

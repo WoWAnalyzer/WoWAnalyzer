@@ -41,44 +41,44 @@ class NavigationBar extends React.PureComponent {
       <nav className="global">
         <div className="container">
           <div className="menu-item logo required">
-            <Link to={makeAnalyzerUrl()} data-tip="Home" data-effect="solid">
+            <Link to={makeAnalyzerUrl()} data-tip="Home">
               <img src="/favicon.png" alt="WoWAnalyzer logo" />
             </Link>
           </div>
           {report && (
-            <div className="menu-item" data-tip="Back to fight selection" data-effect="solid">
+            <div className="menu-item" data-tip="Back to fight selection">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
           )}
           {report && fight && (
-            <FightSelectorHeader className="menu-item" data-tip="Change fight" data-effect="solid" />
+            <FightSelectorHeader className="menu-item" data-tip="Change fight" />
           )}
           {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" data-tip="Change player" data-effect="solid" />
+            <PlayerSelectorHeader className="menu-item" data-tip="Change player" />
           )}
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Link to="/premium" data-tip="Premium active" data-effect="solid">
+              <Link to="/premium" data-tip="Premium active">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>
             ) : (
-              <Link to="/premium" className="premium" data-tip="Premium" data-effect="solid">
+              <Link to="/premium" className="premium" data-tip="Premium">
                 <PremiumIcon /> <span className="optional">Premium</span>
               </Link>
             )}
           </div>
-          <div className="menu-item optional" data-tip="Discord" data-effect="solid">
+          <div className="menu-item optional" data-tip="Discord">
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
           </div>
-          <div className="menu-item optional" data-tip="GitHub" data-effect="solid">
+          <div className="menu-item optional" data-tip="GitHub">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
           </div>
-          <div className="menu-item optional" data-tip="Patreon" data-effect="solid">
+          <div className="menu-item optional" data-tip="Patreon">
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
