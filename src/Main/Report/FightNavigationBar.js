@@ -63,7 +63,6 @@ class FightNavigationBar extends React.PureComponent {
                   className={`${fight.id === fightId ? 'selected' : ''} ${fight.kill ? 'kill' : 'wipe'}`}
                   data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
                   data-place="right"
-                  data-effect="solid"
                 >
                   <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
                     <figure>
