@@ -48,7 +48,7 @@ class Channeling extends CoreChanneling {
     // Handle following bolts
     const maxBolts = this._hasCastigation ? 4 : 3;
     this._bolt += 1;
-    console.log(this._bolt);
+
     // Bolt is 0 indexed, so we've fired all bolts when _bolt equals maxBolts - 1
     if (this._bolt === maxBolts - 1) {
       console.log('Ending Penance channel due to last bolt being fired');
