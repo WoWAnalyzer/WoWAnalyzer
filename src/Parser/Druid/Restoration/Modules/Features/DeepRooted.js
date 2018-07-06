@@ -11,7 +11,7 @@ import HotTracker from '../Core/HotTracking/HotTracker';
 
 const REFRESH_THRESHOLD = 0.35;
 
-/*
+/**
  * When your Rejuvenation, Regrowth, or Wild Growth heals a target below 35% health, its duration is refreshed.
  */
 class DeepRooted extends Analyzer {
@@ -21,7 +21,7 @@ class DeepRooted extends Analyzer {
   };
 
   rejuvAttribution = {
-    name: "Deep Rooted Rejuvenation",
+    name: 'Deep Rooted Rejuvenation',
     healing: 0,
     masteryHealing: 0,
     dreamwalkerHealing: 0,
@@ -30,7 +30,7 @@ class DeepRooted extends Analyzer {
   };
 
   wgAttribution = {
-    name: "Deep Rooted Wild Growth",
+    name: 'Deep Rooted Wild Growth',
     healing: 0,
     masteryHealing: 0,
     procs: 0,
@@ -38,7 +38,7 @@ class DeepRooted extends Analyzer {
   };
 
   regrowthAttribution = {
-    name: "Deep Rooted Regrowth",
+    name: 'Deep Rooted Regrowth',
     healing: 0,
     masteryHealing: 0,
     procs: 0,
@@ -50,7 +50,7 @@ class DeepRooted extends Analyzer {
     [SPELLS.REJUVENATION_GERMINATION.id]: this.rejuvAttribution,
     [SPELLS.WILD_GROWTH.id]: this.wgAttribution,
     [SPELLS.REGROWTH.id]: this.regrowthAttribution,
-  }
+  };
 
   on_initialized() {
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.DEEP_ROOTED_TRAIT.id] > 0;
@@ -98,23 +98,23 @@ class DeepRooted extends Analyzer {
   }
 
   statistic() {
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_ROOTED_TRAIT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} %`}
         label="Deep Rooted"
-        tooltip={`Rejuvenation - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvHealing))}%</b> healing over <b>${(this.rejuvAttribution.duration/1000).toFixed(1)}s</b> extended
+        tooltip={`Rejuvenation - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvHealing))}%</b> healing over <b>${(this.rejuvAttribution.duration / 1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.masteryHealing))}%</b></li>
             <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.dreamwalkerHealing))}%</b></li>
             </ul>
-          Wild Growth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalWgHealing))}%</b> healing over <b>${(this.wgAttribution.duration/1000).toFixed(1)}s</b> extended
+          Wild Growth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalWgHealing))}%</b> healing over <b>${(this.wgAttribution.duration / 1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wgAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wgAttribution.masteryHealing))}%</b></li>
             </ul>
-          Regrowth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing over <b>${(this.regrowthAttribution.duration/1000).toFixed(1)}s</b> extended
+          Regrowth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing over <b>${(this.regrowthAttribution.duration / 1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.regrowthAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.regrowthAttribution.masteryHealing))}%</b></li>
@@ -124,7 +124,6 @@ class DeepRooted extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(22);
-
 }
 
 export default DeepRooted;

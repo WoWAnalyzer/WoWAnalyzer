@@ -29,7 +29,7 @@ class Dreamwalker extends Analyzer {
   statistic() {
     const dreamwalkerPercent = this.owner.getPercentageOfTotalHealingDone(this.healing);
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DREAMWALKER.id} />}
         value={`${formatPercentage(dreamwalkerPercent)} %`}
@@ -38,7 +38,6 @@ class Dreamwalker extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(20);
-
 }
 
 export default Dreamwalker;

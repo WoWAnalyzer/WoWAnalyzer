@@ -190,14 +190,14 @@ class Innervate extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.innervateCount === 0) {
+    if (this.innervateCount === 0) {
       return;
     }
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</React.Fragment>)
+          Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</React.Fragment>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
           .recommended(`>${formatNumber(recommended)} is recommended`);
@@ -213,39 +213,25 @@ class Innervate extends Analyzer {
   }
 
   statistic() {
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
         value={`${formatNumber(this.averageManaSaved)} mana`}
         label="Mana saved per Innervate"
-        tooltip={
-          `<ul>
-                During your ${this.innervateCount} Innervates you cast:
-                <li>${this.wildGrowths}/${this.innervateCount} Wild Growths</li>
-                <li>${this.efflorescences}/${this.innervateCount} Efflorescences</li>
-                ${this.cenarionWards > 0
-                    ? `<li>${this.cenarionWards} Cenarion Wards</li>` : ''
-                    }
-                ${this.rejuvenations > 0
-                    ? `<li>${this.rejuvenations} Rejuvenations</li>` : ''
-                    }
-                ${this.regrowths > 0
-                    ? `<li>${this.regrowths} Regrowths</li>` : ''
-                    }
-                ${this.lifeblooms > 0
-                    ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''
-                    }
-                ${this.healingTouches > 0
-                    ? `<li>${this.healingTouches} Healing Touches</li>` : ''
-                    }
-                ${this.swiftmends > 0
-                    ? `<li>${this.swiftmends} Swiftmends</li>` : ''
-                    }
-                ${this.tranquilities > 0
-                    ? `<li>${this.tranquilities} Tranquilities</li>` : ''
-                    }
-            </ul>`
-        }
+        tooltip={`
+          <ul>
+            During your ${this.innervateCount} Innervates you cast:
+            <li>${this.wildGrowths}/${this.innervateCount} Wild Growths</li>
+            <li>${this.efflorescences}/${this.innervateCount} Efflorescences</li>
+            ${this.cenarionWards > 0 ? `<li>${this.cenarionWards} Cenarion Wards</li>` : ''}
+            ${this.rejuvenations > 0 ? `<li>${this.rejuvenations} Rejuvenations</li>` : ''}
+            ${this.regrowths > 0 ? `<li>${this.regrowths} Regrowths</li>` : ''}
+            ${this.lifeblooms > 0 ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''}
+            ${this.healingTouches > 0 ? `<li>${this.healingTouches} Healing Touches</li>` : ''}
+            ${this.swiftmends > 0 ? `<li>${this.swiftmends} Swiftmends</li>` : ''}
+            ${this.tranquilities > 0 ? `<li>${this.tranquilities} Tranquilities</li>` : ''}
+          </ul>
+        `}
       />
     );
   }

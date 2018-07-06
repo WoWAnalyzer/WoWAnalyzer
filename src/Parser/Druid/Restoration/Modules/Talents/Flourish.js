@@ -1,7 +1,7 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
@@ -141,7 +141,7 @@ class Flourish extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.flourishCount === 0) {
+    if (this.flourishCount === 0) {
       return;
     }
 
@@ -153,7 +153,7 @@ class Flourish extends Analyzer {
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
 
-    if(this.hasCenarionWard) {
+    if (this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></React.Fragment>)
@@ -165,48 +165,27 @@ class Flourish extends Analyzer {
   }
 
   statistic() {
-    return(
+    return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
-        value={`${formatNumber(this.averageHealing)}`}
+        value={formatNumber(this.averageHealing)}
         label="Average Healing"
-        tooltip={
-          `The average and per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
+        tooltip={`
+          The average and per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br />
           Your ${this.flourishCount} Flourish casts extended:
           <ul>
             <li>${this.wgsExtended}/${this.flourishCount} Wild Growth casts (${this.wgCount} HoTs)</li>
-            ${this.hasCenarionWard
-              ? `<li>${this.cwsExtended}/${this.flourishCount} Cenarion Wards</li>`
-              : ``
-            }
-            ${this.rejuvCount > 0
-              ? `<li>${this.rejuvCount} Rejuvenations</li>`
-              : ``
-            }
-            ${this.regrowthCount > 0
-              ? `<li>${this.regrowthCount} Regrowths</li>`
-              : ``
-            }
-            ${this.lbCount > 0
-              ? `<li>${this.lbCount} Lifeblooms</li>`
-              : ``
-            }
-            ${this.sbCount > 0
-              ? `<li>${this.sbCount} Spring Blossoms</li>`
-              : ``
-            }
-            ${this.dreamerCount > 0
-              ? `<li>${this.dreamerCount} Dreamers (T21)</li>`
-              : ``
-            }
-            ${this.cultCount > 0
-              ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>`
-              : ``
-            }
+            ${this.hasCenarionWard ? `<li>${this.cwsExtended}/${this.flourishCount} Cenarion Wards</li>` : ``}
+            ${this.rejuvCount > 0 ? `<li>${this.rejuvCount} Rejuvenations</li>` : ``}
+            ${this.regrowthCount > 0 ? `<li>${this.regrowthCount} Regrowths</li>` : ``}
+            ${this.lbCount > 0 ? `<li>${this.lbCount} Lifeblooms</li>` : ``}
+            ${this.sbCount > 0 ? `<li>${this.sbCount} Spring Blossoms</li>` : ``}
+            ${this.dreamerCount > 0 ? `<li>${this.dreamerCount} Dreamers (T21)</li>` : ``}
+            ${this.cultCount > 0 ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>` : ``}
           </ul>
           <br>
-          The Healing column shows how much additional healing was done by the 6 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.`
-        }
+          The Healing column shows how much additional healing was done by the 6 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.
+        `}
       >
         <table className="table table-condensed">
           <thead>
@@ -220,9 +199,9 @@ class Flourish extends Analyzer {
             {
               this.flourishes.map((flourish, index) => (
                 <tr key={index}>
-                  <th scope="row">{ index + 1 }</th>
-                  <td>{ flourish.procs }</td>
-                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing) }</td>
+                  <th scope="row">{index + 1}</th>
+                  <td>{flourish.procs}</td>
+                  <td>{formatNumber(flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing)}</td>
                 </tr>
               ))
             }
@@ -232,8 +211,6 @@ class Flourish extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
-
 }
 
 export default Flourish;

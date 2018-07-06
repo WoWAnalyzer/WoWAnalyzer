@@ -71,7 +71,7 @@ class EssenceOfGhanir extends Analyzer {
 
   statistic() {
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.total);
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ESSENCE_OF_GHANIR.id} />}
         value={`${formatPercentage(totalPercent)} %`}
@@ -98,7 +98,6 @@ class EssenceOfGhanir extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(20);
-
 }
 
 export default EssenceOfGhanir;

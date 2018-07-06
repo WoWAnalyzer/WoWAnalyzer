@@ -83,14 +83,12 @@ class Penance extends Analyzer {
     const hasCastigation = this.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
     const missedPenanceTicks = (this.casts * (3 + (hasCastigation ? 1 : 0))) - this.hits;
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
         label={(
-          <dfn data-tip={
-            `Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`
-            }>
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
             Wasted Penance bolts
           </dfn>
         )}

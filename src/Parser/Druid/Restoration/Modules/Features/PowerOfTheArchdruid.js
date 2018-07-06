@@ -51,7 +51,7 @@ class PowerOfTheArchdruid extends Analyzer {
   }
 
   statistic() {
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} %`}
@@ -73,8 +73,6 @@ class PowerOfTheArchdruid extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(20);
-
-
 }
 
 export default PowerOfTheArchdruid;
