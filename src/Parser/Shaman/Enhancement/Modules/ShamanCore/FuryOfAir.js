@@ -64,12 +64,12 @@ class FuryOfAir extends Analyzer {
   statistic() {
     const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
-      (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(6);

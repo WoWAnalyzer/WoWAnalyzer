@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <React.Fragment>
-              You should cast <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> more often. This is a crucial part of your rotation.
+              You should cast <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon /> more often. This is a crucial part of your rotation.
             </React.Fragment>
           ),
         },

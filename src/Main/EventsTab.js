@@ -373,7 +373,7 @@ class EventsTab extends React.Component {
                       return (
                         <React.Fragment>
                           Applied an absorb of{' '}
-                          <span className='absorbed'>
+                          <span className="absorbed">
                             {formatThousands(rowData.absorb)}
                           </span>{' '}
                           <img

@@ -8,7 +8,7 @@ import 'chartist-plugin-legend';
 
 import './VoidformsTab.css';
 
-const formatDuration = (duration) => {
+const formatDuration = duration => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
@@ -27,16 +27,15 @@ const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = (surrenderToMadness) => surrenderToMadness ? 100 * 100 : 65 * 100; // 6500;
 
-
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
 const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
 
 const VoidformGraph = ({
-    insanityEvents,
-    surrenderToMadness = false,
-    setT20P4 = false,
-    fightEnd,
-    ...voidform
+  insanityEvents,
+  surrenderToMadness = false,
+  setT20P4 = false,
+  fightEnd,
+  ...voidform
 }) => {
   const includesEndOfFight = voidform.ended === undefined || fightEnd <= voidform.ended + TIMESTAMP_ERROR_MARGIN;
 
@@ -60,33 +59,28 @@ const VoidformGraph = ({
   const endOfVoidformData = [];
   const endData = [];
 
-  const INSANITY_DRAIN_MODIFIER = setT20P4 ?
-      (surrenderToMadness ?
-        T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS :
-        T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL)
-      : 1;
+  const INSANITY_DRAIN_MODIFIER = setT20P4 ? (
+    surrenderToMadness ? T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS : T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL
+  ) : 1;
 
   const INSANITY_DRAIN_START = INSANITY_DRAIN_INITIAL * INSANITY_DRAIN_MODIFIER;
   const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
-
 
   const atLabel = timestamp => Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
 
   const voidFormIsOver = i => i * RESOLUTION_MS >= voidform.duration;
 
-
   const fillData = (data, events) => {
-    events && events.forEach(({start, end}) => {
-      if(!start || !end) return;
+    events && events.forEach(({ start, end }) => {
+      if (!start || !end) return;
       const firstStep = Math.round(start / RESOLUTION_MS);
       const lastStep = Math.round(end / RESOLUTION_MS);
 
-      for(let i = firstStep; i <= lastStep; i++){
+      for (let i = firstStep; i <= lastStep; i++) {
         data[i] = stacksData[i];
       }
     });
   };
-
 
   const steps = MAX_TIME_IN_VOIDFORM / RESOLUTION_MS;
   let latestStack = null;
@@ -96,20 +90,21 @@ const VoidformGraph = ({
     labels[i] = i;
 
     const timestampAtStep = i * RESOLUTION_MS;
-    const timestampAtNextStep = (i+1) * RESOLUTION_MS;
+    const timestampAtNextStep = (i + 1) * RESOLUTION_MS;
 
     // stacks:
-    const currentStack = voidform.stacks.find(({timestamp}) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
-    if(currentStack) latestStack = currentStack.stack;
+    const currentStack = voidform.stacks.find(({ timestamp }) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
+    if (currentStack) latestStack = currentStack.stack;
     stacksData[i] = timestampAtStep <= voidform.duration ? latestStack : null;
 
     // lingering insanity stats:
-    if(voidform.lingeringInsanityStacks){
-      const LIStack = voidform.lingeringInsanityStacks.find(({timestamp}) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
-      if(LIStack) latestLIStack = LIStack.stack;
+    if (voidform.lingeringInsanityStacks) {
+      const LIStack = voidform.lingeringInsanityStacks.find(({ timestamp }) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
+      if (LIStack) {
+        latestLIStack = LIStack.stack;
+      }
     }
     lingeringInsanityData[i] = latestLIStack;
-
 
     // fill in all data:
     insanityData[i] = null;
@@ -119,7 +114,9 @@ const VoidformGraph = ({
     dispersionData[i] = null;
     endData[i] = null;
     endOfVoidformData[i] = null;
-    if(surrenderToMadness && timestampAtStep >= voidform.duration) break;
+    if (surrenderToMadness && timestampAtStep >= voidform.duration) {
+      break;
+    }
   }
 
   endOfVoidformData[Math.round(voidform.duration / RESOLUTION_MS)] = 100;
@@ -132,17 +129,17 @@ const VoidformGraph = ({
   let currentDrain = INSANITY_DRAIN_START;
   let lastestDrainIncrease = 0;
   for (let i = 0; i < steps; i += 1) {
-      // set drain to 0 if voidform ended:
+    // set drain to 0 if voidform ended:
     if (voidFormIsOver(i)) {
       currentDrain = 0;
       break;
     }
 
-      // dont increase if dispersion/voidtorrent is active:
+    // dont increase if dispersion/voidtorrent is active:
     if (dispersionData[i] === null && voidTorrentData[i] === null) {
       lastestDrainIncrease += 1;
 
-        // only increase drain every second:
+      // only increase drain every second:
       if (lastestDrainIncrease % (1000 / RESOLUTION_MS) === 0) {
         currentDrain += INSANITY_DRAIN_INCREASE_BY_SECOND;
       }
@@ -150,8 +147,6 @@ const VoidformGraph = ({
 
     insanityDrain[i] = currentDrain;
   }
-
-
 
   insanityData[0] = initialInsanity;
   insanityEvents.forEach(event => {
@@ -163,7 +158,9 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-        if (dispersionData[j] === null && voidTorrentData[j] === null) { insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS); }
+        if (dispersionData[j] === null && voidTorrentData[j] === null) {
+          insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
+        }
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;
@@ -171,7 +168,6 @@ const VoidformGraph = ({
       latestInsanityDataAt = i;
     }
   }
-
 
   let legends = {
     classNames: [
@@ -188,7 +184,6 @@ const VoidformGraph = ({
   let chartData = {
     labels,
     series: [
-
 
       {
         className: 'stacks',
@@ -217,13 +212,11 @@ const VoidformGraph = ({
         data: Object.keys(mindbenderData).map(key => mindbenderData[key]).slice(0, steps),
       },
 
-
       {
         className: 'dispersion',
         name: 'Dispersion',
         data: Object.keys(dispersionData).map(key => dispersionData[key]).slice(0, steps),
       },
-
 
       {
         className: 'endOfVoidform',
@@ -282,16 +275,17 @@ const VoidformGraph = ({
     };
   }
 
-  return (<ChartistGraph
-    data={chartData}
+  return (
+    <ChartistGraph
+      data={chartData}
 
-    options={{
-      low: 0,
-      high: 100,
-      series: {
-        Stacks: {
-          showPoint: false,
-        },
+      options={{
+        low: 0,
+        high: 100,
+        series: {
+          Stacks: {
+            showPoint: false,
+          },
           // InsanityDrain: {
           //   // lineSmooth: Chartist.Interpolation.none({
           //   //   fillHoles: true,
@@ -299,53 +293,54 @@ const VoidformGraph = ({
           //   showPoint: false,
           //   // show: false,
           // },
-        Insanity: {
-          lineSmooth: Chartist.Interpolation.none({
-            fillHoles: true,
-          }),
-          showPoint: false,
+          Insanity: {
+            lineSmooth: Chartist.Interpolation.none({
+              fillHoles: true,
+            }),
+            showPoint: false,
+          },
+          Mindbender: {
+            showArea: true,
+          },
+          'Void Torrent': {
+            showArea: true,
+          },
+          Dispersion: {
+            showArea: true,
+          },
+          'Lingering Insanity': {
+            showArea: true,
+          },
+          'End of Fight': {
+            showArea: true,
+          },
+          'End of Voidform': {
+            showArea: true,
+          },
         },
-        Mindbender: {
-          showArea: true,
+        fullWidth: true,
+        height: '200px',
+        axisX: {
+          labelInterpolationFnc: function skipLabels(ms) {
+            const everySecond = surrenderToMadness ? 10 : 5;
+            return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
+          },
+          offset: 30,
         },
-        'Void Torrent': {
-          showArea: true,
+        axisY: {
+          onlyInteger: true,
+          offset: 50,
+          labelInterpolationFnc: function skipLabels(numberOfStacks) {
+            return numberOfStacks;
+          },
         },
-        Dispersion: {
-          showArea: true,
-        },
-        'Lingering Insanity': {
-          showArea: true,
-        },
-        'End of Fight': {
-          showArea: true,
-        },
-        'End of Voidform': {
-          showArea: true,
-        },
-      },
-      fullWidth: true,
-      height: '200px',
-      axisX: {
-        labelInterpolationFnc: function skipLabels(ms) {
-          const everySecond = surrenderToMadness ? 10 : 5;
-          return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
-        },
-        offset: 30,
-      },
-      axisY: {
-        onlyInteger: true,
-        offset: 50,
-        labelInterpolationFnc: function skipLabels(numberOfStacks) {
-          return numberOfStacks;
-        },
-      },
-      plugins: [
-        Chartist.plugins.legend(legends),
-      ],
-    }}
-    type="Line"
-  />);
+        plugins: [
+          Chartist.plugins.legend(legends),
+        ],
+      }}
+      type="Line"
+    />
+  );
 };
 
 VoidformGraph.propTypes = {

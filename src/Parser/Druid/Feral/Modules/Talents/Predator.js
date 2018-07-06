@@ -78,9 +78,9 @@ class Predator extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PREDATOR_TALENT.id} />}
-        value={ this.extraCastsPerMinute.toFixed(2) }
+        value={this.extraCastsPerMinute.toFixed(2)}
         label="Extra Tiger's Fury casts per minute"
-        tooltip={ this.extraCasts > 0 ? hadExtraCasts : noExtraCasts }
+        tooltip={this.extraCasts > 0 ? hadExtraCasts : noExtraCasts}
       />
     );
   }

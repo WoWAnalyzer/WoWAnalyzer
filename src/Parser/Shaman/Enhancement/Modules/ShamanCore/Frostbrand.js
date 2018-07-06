@@ -34,12 +34,12 @@ class Frostbrand extends Analyzer {
   statistic() {
     const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
-      (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

@@ -11,24 +11,24 @@ class ResourceBreakdown extends React.Component {
   };
 
   prepareGenerated(buildersObj) {
-		return Object.keys(buildersObj)
-			.map(abilityId => ({
-				abilityId: Number(abilityId),
-				generated: buildersObj[abilityId].generated,
-				wasted: buildersObj[abilityId].wasted,
-			}))
-			.sort((a,b) => b.generated - a.generated)
-			.filter(ability => ability.generated > 0);
+    return Object.keys(buildersObj)
+      .map(abilityId => ({
+        abilityId: Number(abilityId),
+        generated: buildersObj[abilityId].generated,
+        wasted: buildersObj[abilityId].wasted,
+      }))
+      .sort((a, b) => b.generated - a.generated)
+      .filter(ability => ability.generated > 0);
   }
   prepareSpent(spendersObj) {
-		return Object.keys(spendersObj)
-			.map(abilityId => ({
-				abilityId: Number(abilityId),
-				spent: spendersObj[abilityId].spent,
-				casts: spendersObj[abilityId].casts,
-			}))
-			.sort((a,b) => b.spent - a.spent)
-			.filter(ability => ability.spent > 0);
+    return Object.keys(spendersObj)
+      .map(abilityId => ({
+        abilityId: Number(abilityId),
+        spent: spendersObj[abilityId].spent,
+        casts: spendersObj[abilityId].casts,
+      }))
+      .sort((a, b) => b.spent - a.spent)
+      .filter(ability => ability.spent > 0);
   }
 
   render() {
@@ -89,47 +89,46 @@ class ResourceBreakdown extends React.Component {
               ))}
           </tbody>
         </table>
-        {showSpenders &&
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th colSpan="2">{resourceName} spent</th>
-              <th colSpan="2">Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {spent && spent
-              .map(ability => (
-                <tr>
-                  <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.abilityId} />
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent.toFixed(0)}</dfn>
-                  </td>
-                  <td style={{ width: '40%' }}>
-                    <div
-                      className="performance-bar"
-                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                    />
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
-                  </td>
-                  <td style={{ width: '30%' }}>
-                    <div
-                      className="performance-bar"
-                      style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
-                    />
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        }
+        {showSpenders && (
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th colSpan="2">{resourceName} spent</th>
+                <th colSpan="2">Casts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {spent && spent
+                .map(ability => (
+                  <tr>
+                    <td style={{ width: '30%' }}>
+                      <SpellLink id={ability.abilityId} />
+                    </td>
+                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                      <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent.toFixed(0)}</dfn>
+                    </td>
+                    <td style={{ width: '40%' }}>
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                      />
+                    </td>
+                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                      <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
+                    </td>
+                    <td style={{ width: '30%' }}>
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
       </div>
-
     );
   }
 }

@@ -33,12 +33,12 @@ class Landslide extends Analyzer {
   statistic() {
     const landslideUptime = this.combatants.selected.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
     return (
-      (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
         value={`${formatPercentage(landslideUptime)} %`}
         label="Landslide Uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(4);

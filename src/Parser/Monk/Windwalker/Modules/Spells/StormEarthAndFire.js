@@ -142,11 +142,11 @@ class StormEarthAndFire extends Analyzer {
     this.castCount = this.abilityTracker.getAbility(this.ability.id).casts;
     return (
       <StatisticsListBox
-        title={
+        title={(
           <React.Fragment>
             <SpellIcon id={this.ability.id} noLink /> {this.ability.name}
           </React.Fragment>
-        }
+        )}
         tooltip={`This shows the possible amount of casts during ${this.ability.name}`}
         style={{ minHeight: 186 }}
       >

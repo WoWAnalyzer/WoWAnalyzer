@@ -67,19 +67,19 @@ class Checklist extends CoreChecklist{
         const combatant = this.combatants.selected;
         return[
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon /> Main Pet Uptime</React.Fragment>,
             check: () => this.demonicEmpowerment.petSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon /> Empowerment Uptime</React.Fragment>,
             check:() => this.demonicEmpowerment.callDreadstalkerSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon /> Empowerment Uptime</React.Fragment>,
             check: () => this.demonicEmpowerment.hogSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon />/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon /> Empowerment Uptime</React.Fragment>,
             check: () => this.demonicEmpowerment.cdDemonSuggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
@@ -108,7 +108,7 @@ class Checklist extends CoreChecklist{
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Casts</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon />/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon /> Casts</React.Fragment>,
             check: () => this.doomguardInfernal.suggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
@@ -117,7 +117,7 @@ class Checklist extends CoreChecklist{
             when: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon/></React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon /></React.Fragment>,
             check: () => this.felstorm.suggestionThresholds,
           }),
           new GenericCastEfficiencyRequirement({

@@ -77,11 +77,11 @@ class AggramarsConviction extends Analyzer {
       item: ITEMS.AGGRAMARS_CONVICTION,
       result: (
         <React.Fragment>
-          <SpellLink id={SPELLS.CELESTIAL_BULWARK.id} /><br/>
+          <SpellLink id={SPELLS.CELESTIAL_BULWARK.id} /><br />
           <dfn data-tip={`From <b>${this.versProc}</b> procs (${formatPercentage(versUptimePercent)} % uptime) of ${formatNumber(this.versatility)} Versatility.`}>
             {formatNumber(avgVers)} Average Versatility
           </dfn><br />
-          <SpellLink id={SPELLS.AGGRAMARS_FORTITUDE.id} /><br/>
+          <SpellLink id={SPELLS.AGGRAMARS_FORTITUDE.id} /><br />
           <dfn data-tip={`From <b>${this.pantheonProc}</b> procs.`}>
             <ItemHealingDone amount={this.heal} />
           </dfn>

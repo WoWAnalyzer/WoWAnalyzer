@@ -49,7 +49,7 @@ class ParsesList extends React.PureComponent {
         icon={false}
       >
         <Icon
-          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon }
+          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon}
           style={{ ...styles.icon, border: '1px solid' }}
         />
       </ItemLink>

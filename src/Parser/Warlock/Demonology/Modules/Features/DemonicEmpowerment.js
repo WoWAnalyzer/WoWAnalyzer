@@ -15,7 +15,7 @@ const CD_DEMON_SUMMON_DURATION_MS = 25 * MILLISECONDS;
 const HOG_IMP_DURATION_MS = 12 * MILLISECONDS;
 const CALL_DREADSTALKERS_DURATION_MS = 12 * MILLISECONDS;
 
-class DemonicEmpowerment extends Analyzer{
+class DemonicEmpowerment extends Analyzer {
   hogCasts = 0;
   callDreadCasts = 0;
   cdSummonCasts = 0;
@@ -24,7 +24,6 @@ class DemonicEmpowerment extends Analyzer{
 
   unempoweredDreadstalkers = [];
   unempoweredHogImps = [];
-
 
   totalEmpPetTime = 0;
   totalEmpCallDreadTime = 0;
@@ -36,23 +35,23 @@ class DemonicEmpowerment extends Analyzer{
   lastDeIntervalStart = null;
   lastDeIntervalEnd = null;
 
-  get hogEmpoweredUptime(){
+  get hogEmpoweredUptime() {
     return this.totalEmpHogImpTime / (this.hogCasts * HOG_IMP_DURATION_MS);
   }
 
-  get callDreadStalkersEmpoweredUptime(){
+  get callDreadStalkersEmpoweredUptime() {
     return this.totalEmpCallDreadTime / (this.callDreadCasts * CALL_DREADSTALKERS_DURATION_MS);
   }
 
-  get petEmpoweredUptime(){
+  get petEmpoweredUptime() {
     return this.totalEmpPetTime / (this.owner.fightDuration);
   }
 
-  get cdDemonEmpoweredUptime(){
+  get cdDemonEmpoweredUptime() {
     return this.totalEmpCdDemonTime / (this.cdSummonCasts * CD_DEMON_SUMMON_DURATION_MS);
   }
 
-  get hogSuggestionThresholds(){
+  get hogSuggestionThresholds() {
     return {
       actual: this.hogEmpoweredUptime,
       isLessThan: {
@@ -64,7 +63,7 @@ class DemonicEmpowerment extends Analyzer{
     };
   }
 
-  get callDreadstalkerSuggestionThresholds(){
+  get callDreadstalkerSuggestionThresholds() {
     return {
       actual: this.callDreadStalkersEmpoweredUptime,
       isLessThan: {
@@ -76,7 +75,7 @@ class DemonicEmpowerment extends Analyzer{
     };
   }
 
-  get petSuggestionThresholds(){
+  get petSuggestionThresholds() {
     return {
       actual: this.petEmpoweredUptime,
       isLessThan: {
@@ -88,7 +87,7 @@ class DemonicEmpowerment extends Analyzer{
     };
   }
 
-  get cdDemonSuggestionThresholds(){
+  get cdDemonSuggestionThresholds() {
     return {
       actual: this.cdDemonEmpoweredUptime,
       isLessThan: {
@@ -100,19 +99,18 @@ class DemonicEmpowerment extends Analyzer{
     };
   }
 
-
-  on_toPlayer_applyBuff(event){
+  on_toPlayer_applyBuff(event) {
     const spellId = event.ability.guid;
-    if(event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
+    if (event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id) {
       //Player may have pre-buffed their pet.
       this.lastDeStart = this.owner.fight.start_time;
     }
   }
 
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      if(this.lastDeStart === null){
+    if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id) {
+      if (this.lastDeStart === null) {
         this.lastDeStart = event.timestamp;
       }
       this.updateHogUptime(event);
@@ -120,13 +118,13 @@ class DemonicEmpowerment extends Analyzer{
       this.updatePetUptime(event);
       this.updateCdDemonUptime(event);
       this.lastDeStart = event.timestamp;
-    } else if(spellId === SPELLS.HAND_OF_GULDAN_CAST.id){
+    } else if (spellId === SPELLS.HAND_OF_GULDAN_CAST.id) {
       this.hogCasts += 1;
       this.unempoweredHogImps.push(event.timestamp);
-    } else if(spellId === SPELLS.CALL_DREADSTALKERS.id){
+    } else if (spellId === SPELLS.CALL_DREADSTALKERS.id) {
       this.callDreadCasts += 1;
       this.unempoweredDreadstalkers.push(event.timestamp);
-    } else if (spellId === SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id || spellId === SPELLS.SUMMON_INFERNAL_UNTALENTED.id){
+    } else if (spellId === SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id || spellId === SPELLS.SUMMON_INFERNAL_UNTALENTED.id) {
       this.cdSummonCasts += 1;
       this.lastCDSummonStart = event.timestamp;
       this.lastCDSummonEnd = this.lastCDSummonStart + (CD_DEMON_SUMMON_DURATION_MS);
@@ -134,9 +132,9 @@ class DemonicEmpowerment extends Analyzer{
 
   }
 
-  updateHogUptime(event){
+  updateHogUptime(event) {
     this.unempoweredHogImps.forEach((e) => {
-      if(event.timestamp - e <= HOG_IMP_DURATION_MS){
+      if (event.timestamp - e <= HOG_IMP_DURATION_MS) {
         const timeDelta = (HOG_IMP_DURATION_MS) - (event.timestamp - e);
         this.totalEmpHogImpTime += timeDelta;
       }
@@ -144,9 +142,9 @@ class DemonicEmpowerment extends Analyzer{
     this.unempoweredHogImps = [];
   }
 
-  updateDreadstalkerUptime(event){
+  updateDreadstalkerUptime(event) {
     this.unempoweredDreadstalkers.forEach((e) => {
-      if(event.timestamp - e <= CALL_DREADSTALKERS_DURATION_MS){
+      if (event.timestamp - e <= CALL_DREADSTALKERS_DURATION_MS) {
         const timeDelta = (CALL_DREADSTALKERS_DURATION_MS) - (event.timestamp - e);
         this.totalEmpCallDreadTime += timeDelta;
       }
@@ -154,17 +152,17 @@ class DemonicEmpowerment extends Analyzer{
     this.unempoweredDreadstalkers = [];
   }
 
-  updatePetUptime(event){
+  updatePetUptime(event) {
     const deOverlap = Math.max(0, this.lastDeStart + (DE_DURATION_MS) - event.timestamp);
     const timeDelta = DE_DURATION_MS - deOverlap;
     this.totalEmpPetTime += timeDelta;
   }
 
-  updateCdDemonUptime(event){
-    if((this.lastCDSummonStart || 0) > event.timestamp || (this.lastCDSummonEnd || 0) < event.timestamp){
+  updateCdDemonUptime(event) {
+    if ((this.lastCDSummonStart || 0) > event.timestamp || (this.lastCDSummonEnd || 0) < event.timestamp) {
       return;
     }
-    if((this.lastDeIntervalEnd || event.timestamp) < event.timestamp){
+    if ((this.lastDeIntervalEnd || event.timestamp) < event.timestamp) {
       // We aren't overlapping buffs, we add the time from the last interval and start to build our next one.
       this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
       this.lastDeIntervalStart = null;
@@ -172,7 +170,7 @@ class DemonicEmpowerment extends Analyzer{
     }
     this.lastDeIntervalStart = (this.lastDeIntervalStart || event.timestamp);
     this.lastDeIntervalEnd = (this.lastDeIntervalEnd == null ? this.lastDeIntervalStart + (DE_DURATION_MS) : this.lastDeIntervalEnd + (DE_DURATION_MS));
-    if(this.lastDeIntervalEnd > this.lastCDSummonEnd){
+    if (this.lastDeIntervalEnd > this.lastCDSummonEnd) {
       //Our buff reaches the end of our current summon, so we add the time from this interval and reset.
       this.lastDeIntervalEnd = this.lastCDSummonEnd;
       this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
@@ -180,11 +178,11 @@ class DemonicEmpowerment extends Analyzer{
     }
   }
 
-  suggestions(when){
+  suggestions(when) {
     when(this.hogSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>Empowerment of <SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> can be improved. Remember to always empower demons immediately after summoning.</React.Fragment>
+          <React.Fragment>Empowerment of <SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon /> can be improved. Remember to always empower demons immediately after summoning.</React.Fragment>
         ).icon(SPELLS.HAND_OF_GULDAN_CAST.icon)
           .actual(`${formatPercentage(actual)}% empowered uptime.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended.`);
@@ -193,7 +191,7 @@ class DemonicEmpowerment extends Analyzer{
     when(this.callDreadstalkerSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>Your empowerment uptime of <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> is low. Remember to always empower demons immediately after summoning.</React.Fragment>
+          <React.Fragment>Your empowerment uptime of <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon /> is low. Remember to always empower demons immediately after summoning.</React.Fragment>
         ).icon(SPELLS.CALL_DREADSTALKERS.icon)
           .actual(`${formatPercentage(actual)}% empowered uptime.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended.`);
@@ -201,7 +199,7 @@ class DemonicEmpowerment extends Analyzer{
 
     when(this.petSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your pet's <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> uptime can be improved.
+        return suggest(<React.Fragment>Your pet's <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon /> uptime can be improved.
           On your permament pet, this should be up nearly 100% of the time.</React.Fragment>)
           .icon(SPELLS.DEMONIC_EMPOWERMENT.icon)
           .actual(`${formatPercentage(actual)}% uptime.`)
@@ -209,14 +207,15 @@ class DemonicEmpowerment extends Analyzer{
       });
   }
 
-  statistic(){
-    return(
-      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>}
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id} />}
         value={`${formatPercentage(this.petEmpoweredUptime)} %`}
-        label='Main Pet Demonic Empowerment Uptime' />
+        label="Main Pet Demonic Empowerment Uptime"
+      />
     );
   }
-
 }
 
 export default DemonicEmpowerment;

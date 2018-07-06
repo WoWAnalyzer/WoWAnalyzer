@@ -24,7 +24,7 @@ const ProgressBar = ({ width, height, percentage, style, ...others }) => {
         fill="none"
         d={`M${height} ${height / 2} h 0 ${width}`}
       />
-      {!!percentage &&
+      {!!percentage && (
         <path
           strokeWidth={height}
           stroke={fillColor}
@@ -33,7 +33,7 @@ const ProgressBar = ({ width, height, percentage, style, ...others }) => {
           fill="none"
           d={`M${height} ${height / 2} h 0 ${width * percentage / 100}`}
         />
-      }
+      )}
     </svg>
   );
 };
