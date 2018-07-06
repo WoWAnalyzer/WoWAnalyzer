@@ -12,6 +12,10 @@ class DarkShadowContribution extends DarkShadow {
   static dependencies = {
     ...DarkShadow.dependencies,
     danceDamageTracker: DanceDamageTracker,
+  }  
+
+  get darkShadowDamageFactor() {
+    return 0.25;
   }
 
   statistic() {    

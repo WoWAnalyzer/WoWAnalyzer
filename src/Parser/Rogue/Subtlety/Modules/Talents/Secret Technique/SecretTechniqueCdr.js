@@ -14,7 +14,7 @@ class SecretTechniqueCdr extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id)
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id);
   }
 
   on_byPlayer_spendresource(event) {

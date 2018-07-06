@@ -17,11 +17,7 @@ class DarkShadow extends Analyzer {
   get totalShadowDanceCast() {
     return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
-
-  get darkShadowDamageFactor() {
-    return 0.25;
-  }
-
+  
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
