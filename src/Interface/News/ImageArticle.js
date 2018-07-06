@@ -13,18 +13,20 @@ class ImageArticle extends React.PureComponent {
     const { title, children, image, style } = this.props;
 
     return (
-      <div className="panel image-background" style={{ backgroundImage: `url(${image})`, ...style }}>
-        <div className="panel-body">
-          <div className="row">
-            <div className="col-md-10">
-              <h1>{title}</h1>
-              <div className="description">
-                {children}
+      <article>
+        <div className="panel image-background" style={{ backgroundImage: `url(${image})`, ...style }}>
+          <div className="panel-body">
+            <div className="row">
+              <div className="col-md-10">
+                <h1>{title}</h1>
+                <div className="description">
+                  {children}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </article>
     );
   }
 }
