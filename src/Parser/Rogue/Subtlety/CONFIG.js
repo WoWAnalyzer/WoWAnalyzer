@@ -16,10 +16,11 @@ export default {
   description: (
     <React.Fragment>
       <Warning>
-        The Subtlety Rogue analysis isn't complete yet. 
-        Analysis should pick up most general mistakes, however:
+        The Subtlety Rogue analysis isn't complete yet. Analysis should pick up most general mistakes, however:
+        <ul>
          <li> there is no in-depth analysis for the PrePatch </li>
          <li> target values may be tuned incorrectly for things like energy waste or downtime. </li>
+        </ul>
         <br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@tsabo</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
       </Warning>
