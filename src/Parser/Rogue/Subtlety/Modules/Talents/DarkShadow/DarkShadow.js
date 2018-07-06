@@ -2,6 +2,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 
+
+/**
+ * Dark Shadow
+ * While Shadow Dance is active, all damage you deal is increased by 25%.
+ * -----
+ * When this talent is active, rotation may change to put high damage abilities in to the Dance window.
+ */
 class DarkShadow extends Analyzer {
   static dependencies = {
     damageTracker: DamageTracker,
@@ -9,6 +16,10 @@ class DarkShadow extends Analyzer {
 
   get totalShadowDanceCast() {
     return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+  }
+
+  get darkShadowDamageFactor() {
+    return 0.25;
   }
 
   constructor(...args) {

@@ -16,6 +16,14 @@ class CastsInShadowDance extends Analyzer {
     danceDamageTracker: DanceDamageTracker,
   };
 
+  danceMaxCasts = null;
+
+  constructor(...args) {
+    super(...args);
+    
+    this.danceMaxCasts = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
+  }
+
   suggestions(when) {
     this.suggestBackstab(when);
     this.suggestGloomblade(when);
@@ -63,15 +71,17 @@ class CastsInShadowDance extends Analyzer {
       + (this.danceDamageTracker.getAbility(SPELLS.SHURIKEN_STORM.id).casts || 0)
       + (this.danceDamageTracker.getAbility(SPELLS.SHADOWSTRIKE.id).casts || 0)
       + (this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts || 0)
-      + (this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).casts || 0);
+      + (this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).casts || 0)
+      + (this.danceDamageTracker.getAbility(SPELLS.SHURIKEN_TORNADO_TALENT.id).casts || 0)
+      + (this.danceDamageTracker.getAbility(SPELLS.SECRET_TECHNIQUE_TALENT.id).casts || 0);
 
-    const missedCastsInDanceShare = castsInDance / (danceCount * 4);
+    const missedCastsInDanceShare = castsInDance / (danceCount * this.danceMaxCasts);
     when(missedCastsInDanceShare).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Try to cast 4 spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </React.Fragment>)
+        return suggest(<React.Fragment>Try to cast {this.danceMaxCasts} spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </React.Fragment>)
           .icon(SPELLS.SHADOW_DANCE_BUFF.icon)
-          .actual(`You cast ${castsInDance} spells during Shadow Dance out of ${danceCount * 4} possible.`)
-          .recommended(`4 spells cast per Shadow Dance is recommended`)
+          .actual(`You cast ${castsInDance} spells during Shadow Dance out of ${danceCount * this.danceMaxCasts} possible.`)
+          .recommended(`${this.danceMaxCasts} spells cast per Shadow Dance is recommended`)
           .regular(0.90).major(0.80);
       });
   }
