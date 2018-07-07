@@ -48,5 +48,18 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ."
+  },
+  "babel": {
+    "presets": [
+		"wowanalyzer-app"
+	]
+  },
+  "lingui": {
+    "sourceLocale": "en",
+    "localeDir": "<rootDir>/src/localization",
+	"format": "minimal",
+    "srcPathDirs": [
+      "<rootDir>/src"
+    ]
   }
 }

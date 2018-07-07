@@ -1,3 +1,5 @@
 node_modules
 /build
 /server/build
+/src/localization/_build/
+/src/localization/**/*.js
