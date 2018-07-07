@@ -323,27 +323,6 @@ export default {
   },
 
   //Cooldowns
-  KINGSBANE: {
-    id: 192759,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  KINGSBANE_OFFHAND: {
-    id: 192760,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  KINGSBANE_MAINHAND: {
-    id: 222062,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  // Energy effect from Kingsbane
-  THE_EMPTY_CROWN: {
-    id: 248201,
-    name: 'The Empty Crown',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
   VENDETTA: {
     id: 79140,
     name: 'Vendetta',
@@ -360,11 +339,6 @@ export default {
     id: 2818,
     name: 'Deadly Poison',
     icon: 'ability_rogue_dualweild',
-  },
-  FROM_THE_SHADOWS: {
-    id: 192434,
-    name: 'From the Shadows',
-    icon: 'ability_rogue_deadlybrew',
   },
   POISON_BOMB: {
     id: 192660,
