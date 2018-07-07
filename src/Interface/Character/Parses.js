@@ -287,6 +287,7 @@ class Parses extends React.Component {
         const charClass = rawParses[0].class;
         const specs = Object.values(SPECS)
           .filter(e => e.className === charClass)
+          // eslint-disable-next-line no-restricted-syntax
           .filter((item, index, self) => self.indexOf(item) === index)
           .map(e => e.specName);
 

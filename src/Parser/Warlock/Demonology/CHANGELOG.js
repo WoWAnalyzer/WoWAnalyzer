@@ -14,6 +14,11 @@ export default [
     contributors: [Hordehobbs],
   },
   {
+    date: new Date('2018-06-06'),
+    changes: <React.Fragment>Added spec checklist. Added <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon /> tracking for demon-summoning spells.</React.Fragment>,
+    contributors: [Hordehobbs],
+  },
+  {
     date: new Date('2017-09-30'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.KAZZAKS_FINAL_CURSE.id} icon /> and <ItemLink id={ITEMS.WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING.id} icon /> modules.</React.Fragment>,
     contributors: [Chizu],

@@ -4,6 +4,7 @@
   "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@lingui/react": "^2.2.0",
     "chart.js": "^2.7.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -36,7 +37,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "universal-cookie": "^2.2.0",
-    "wowanalyzer-react-scripts": "1.1.13"
+    "wowanalyzer-react-scripts": "1.1.15"
   },
   "scripts": {
     "start": "react-scripts start",

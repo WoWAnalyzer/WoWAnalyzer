@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { I18nProvider } from '@lingui/react';
 
 import reducers from 'Interface/reducers';
 import RootErrorBoundary from 'Interface/RootErrorBoundary';
@@ -26,9 +27,11 @@ const store = createStore(
 const Root = () => (
   <Provider store={store}>
     <RootErrorBoundary>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
+      <I18nProvider language="en">
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </I18nProvider>
     </RootErrorBoundary>
   </Provider>
 );

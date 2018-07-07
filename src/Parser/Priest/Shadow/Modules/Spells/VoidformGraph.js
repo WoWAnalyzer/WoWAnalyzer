@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
-import {formatDuration} from 'common/format';
+import { formatDuration } from 'common/format';
 
 import VoidformStyles from './VoidformStyles';
 
@@ -20,17 +20,16 @@ const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = (surrenderToMadness) => surrenderToMadness ? 100 * 100 : 65 * 100; // 6500;
 
-
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
 const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
 
 const VoidformGraph = ({
-                         insanityEvents,
-                         surrenderToMadness = false,
-                         setT20P4 = false,
-                         fightEnd,
-                         ...voidform
-                       }) => {
+  insanityEvents,
+  surrenderToMadness = false,
+  setT20P4 = false,
+  fightEnd,
+  ...voidform
+}) => {
   const includesEndOfFight = voidform.ended === undefined || fightEnd <= voidform.ended + TIMESTAMP_ERROR_MARGIN;
 
   const MAX_TIME_IN_VOIDFORM = surrenderToMadness ? SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD : NORMAL_VOIDFORM_MS_THRESHOLD;
@@ -62,24 +61,21 @@ const VoidformGraph = ({
   const INSANITY_DRAIN_START = INSANITY_DRAIN_INITIAL * INSANITY_DRAIN_MODIFIER;
   const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
 
-
   const atLabel = timestamp => Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
 
   const voidFormIsOver = i => i * RESOLUTION_MS >= voidform.duration;
 
-
   const fillData = (data, events) => {
-    events && events.forEach(({start, end}) => {
-      if(!start || !end) return;
+    events && events.forEach(({ start, end }) => {
+      if (!start || !end) return;
       const firstStep = Math.round(start / RESOLUTION_MS);
       const lastStep = Math.round(end / RESOLUTION_MS);
 
-      for(let i = firstStep; i <= lastStep; i++){
+      for (let i = firstStep; i <= lastStep; i++) {
         data[i] = stacksData[i];
       }
     });
   };
-
 
   const steps = MAX_TIME_IN_VOIDFORM / RESOLUTION_MS;
   let latestStack = null;
@@ -89,20 +85,19 @@ const VoidformGraph = ({
     labels[i] = i;
 
     const timestampAtStep = i * RESOLUTION_MS;
-    const timestampAtNextStep = (i+1) * RESOLUTION_MS;
+    const timestampAtNextStep = (i + 1) * RESOLUTION_MS;
 
     // stacks:
-    const currentStack = voidform.stacks.find(({timestamp}) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
-    if(currentStack) latestStack = currentStack.stack;
+    const currentStack = voidform.stacks.find(({ timestamp }) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
+    if (currentStack) latestStack = currentStack.stack;
     stacksData[i] = timestampAtStep <= voidform.duration ? latestStack : null;
 
     // lingering insanity stats:
-    if(voidform.lingeringInsanityStacks){
-      const LIStack = voidform.lingeringInsanityStacks.find(({timestamp}) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
-      if(LIStack) latestLIStack = LIStack.stack;
+    if (voidform.lingeringInsanityStacks) {
+      const LIStack = voidform.lingeringInsanityStacks.find(({ timestamp }) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
+      if (LIStack) latestLIStack = LIStack.stack;
     }
     lingeringInsanityData[i] = latestLIStack;
-
 
     // fill in all data:
     insanityData[i] = null;
@@ -112,7 +107,7 @@ const VoidformGraph = ({
     dispersionData[i] = null;
     endData[i] = null;
     endOfVoidformData[i] = null;
-    if(surrenderToMadness && timestampAtStep >= voidform.duration) break;
+    if (surrenderToMadness && timestampAtStep >= voidform.duration) break;
   }
 
   endOfVoidformData[Math.round(voidform.duration / RESOLUTION_MS)] = 100;
@@ -144,8 +139,6 @@ const VoidformGraph = ({
     insanityDrain[i] = currentDrain;
   }
 
-
-
   insanityData[0] = initialInsanity;
   insanityEvents.forEach(event => {
     insanityData[atLabel(event.timestamp)] = event.classResources[0].amount;
@@ -156,7 +149,9 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-        if (dispersionData[j] === null && voidTorrentData[j] === null) { insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS); }
+        if (dispersionData[j] === null && voidTorrentData[j] === null) {
+          insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
+        }
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;
@@ -164,7 +159,6 @@ const VoidformGraph = ({
       latestInsanityDataAt = i;
     }
   }
-
 
   let chartData = {
     labels,
@@ -277,7 +271,6 @@ const VoidformGraph = ({
     },
     legend: VoidformStyles.legend,
   };
-
 
   return (
     <Line

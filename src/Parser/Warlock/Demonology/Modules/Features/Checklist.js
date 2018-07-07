@@ -6,6 +6,7 @@ import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -15,14 +16,13 @@ import SoulShardTracker from 'Parser/Warlock/Demonology/Modules/SoulShards/SoulS
 import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBeCasting';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
-import AbilityTracker from 'Parser/Core/Modules/Combatants';
 import DoomUptime from 'Parser/Warlock/Demonology/Modules/Features/DoomUptime';
 
-class Checklist extends CoreChecklist{
+class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     abilityTracker: AbilityTracker,
-    combatants : Combatants,
+    combatants: Combatants,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -34,7 +34,6 @@ class Checklist extends CoreChecklist{
     soulShardTracker: SoulShardTracker,
     doomUptime: DoomUptime,
   };
-
 
   rules = [
     new Rule({
@@ -95,7 +94,7 @@ class Checklist extends CoreChecklist{
             when: combatant.hasTalent(SPELLS.DEMONIC_STRENGTH_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon/></React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon /></React.Fragment>,
             check: () => this.felstorm.suggestionThresholds,
           }),
         ];
@@ -139,7 +138,7 @@ class Checklist extends CoreChecklist{
     }),
 
     new PreparationRule(),
-  ]
+  ];
 }
 
 export default Checklist;

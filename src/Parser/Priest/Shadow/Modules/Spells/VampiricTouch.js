@@ -32,11 +32,12 @@ class VampiricTouch extends Analyzer {
 
   suggestions(when) {
     const {
-        isLessThan: {
-            minor,
-            average,
-            major,
-    }} = this.suggestionThresholds;
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -49,11 +50,13 @@ class VampiricTouch extends Analyzer {
   }
 
   statistic() {
-    return (<SmallStatisticBox
-      icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
-      value={`${formatPercentage(this.uptime)} %`}
-      label="Vampiric Touch uptime"
-    />);
+    return (
+      <SmallStatisticBox
+        icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
+        value={`${formatPercentage(this.uptime)} %`}
+        label="Vampiric Touch uptime"
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(3);

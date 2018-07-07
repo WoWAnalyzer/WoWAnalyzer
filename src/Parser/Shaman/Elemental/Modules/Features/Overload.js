@@ -43,7 +43,7 @@ class Overload extends Analyzer {
       name: !normalSpell.ability ? 'a spell' : normalSpell.ability.name,
       normal,
       overloads,
-      percent: overloads/normal,
+      percent: overloads / normal,
     };
   }
 
@@ -58,8 +58,10 @@ class Overload extends Analyzer {
   }
 
   renderOverloads(spell) {
+    if (!spell) {
+      return null;
+    }
     return (
-      spell &&
       <li key={spell.id}>
         <SpellIcon
           id={spell.id}
@@ -68,8 +70,8 @@ class Overload extends Analyzer {
             marginTop: '-.1em',
           }}
         />
-        <span style={{display: 'inline-block', textAlign: 'left', marginLeft: '0.5em'}}>
-          {`${spell.overloads} / ${spell.normal}`}
+        <span style={{ display: 'inline-block', textAlign: 'left', marginLeft: '0.5em' }}>
+          {spell.overloads} / {spell.normal}
         </span>
       </li>
     );
@@ -81,12 +83,8 @@ class Overload extends Analyzer {
         alignIcon="flex-start"
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <ul style={{listStyle: 'none', paddingLeft: 0}}>
-            {
-              this.spells.map(spell => {
-                return this.renderOverloads(spell);
-              })
-            }
+          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+            {this.spells.map(spell => this.renderOverloads(spell))}
           </ul>
         )}
         label="Overload procs"
