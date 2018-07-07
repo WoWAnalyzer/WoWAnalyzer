@@ -25,7 +25,7 @@ class LocalizationLoader extends React.PureComponent {
   }
 
   async loadCatalog(language) {
-    const catalog = await import(/* webpackMode: "lazy", webpackChunkName: "locale-[request]" */ `@lingui/loader!localization/${language}/messages.json`);
+    const catalog = await import(/* webpackMode: "lazy", webpackChunkName: "locale-[request]" */ `@lingui/loader!Localization/${language}/messages.json`);
 
     this.setState(state => ({
       catalogs: {
