@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-07'),
+    changes: 'Implemented a system for localization. We\'ll need to manually add support for localization everywhere before things can be translated, this will take some time.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-06'),
     changes: 'Changed tooltips to be static except for large bars in the timeline.',
     contributors: [Zerotorescue],
