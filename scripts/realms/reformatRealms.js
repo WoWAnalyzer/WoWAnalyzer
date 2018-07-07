@@ -18,6 +18,7 @@ const output = {
   KR: reformatFile('./data/KR.json'),
   TW: reformatFile('./data/TW.json'),
   US: reformatFile('./data/US.json'),
+  CN: reformatFile('./data/CN.json'),
 };
 
 fs.writeFileSync(

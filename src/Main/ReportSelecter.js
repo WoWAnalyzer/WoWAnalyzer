@@ -32,15 +32,15 @@ class ReportSelecter extends React.PureComponent {
     return match && {
       region: match[2],
       realm: match[3],
-      name: match[4],
+      name: match[4].split('#')[0],
     };
   }
   static getCharacterFromBattleNetUrl(input) {
     const match = input.trim().match(/^(.*)\/([A-Za-z]{2}-[A-Za-z]{2})\/(character)\/(\S*)\/(\S*)/);
-    return match && {
+    return match && REGION_CODES[match[2]] && {
       region: REGION_CODES[match[2]],
       realm: match[4],
-      name: match[5],
+      name: match[5].split('#')[0],
     };
   }
 
@@ -113,6 +113,7 @@ class ReportSelecter extends React.PureComponent {
                 <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
                 <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
                 <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
               </ul>
             `}
             data-delay-show="200"
