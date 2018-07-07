@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { withI18n, Trans } from '@lingui/react';
+
 import REGION_CODES from 'common/REGION_CODES';
 
 import './ReportSelecter.css';
@@ -9,6 +12,7 @@ import './ReportSelecter.css';
 class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,
+    i18n: PropTypes.object.isRequired,
   };
 
   static getCode(input) {
@@ -97,11 +101,13 @@ class ReportSelecter extends React.PureComponent {
   }
 
   render() {
+    const { i18n } = this.props;
+
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
           <input
-            data-tip={`
+            data-tip={i18n.t`
               Parsable links:<br/>
               <ul>
                 <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
@@ -118,14 +124,14 @@ class ReportSelecter extends React.PureComponent {
             }}
             onChange={this.handleChange}
             style={{ width: 360, cursor: 'help' }}
-            placeholder="https://www.warcraftlogs.com/reports/<report code>"
+            placeholder={i18n.t`https://www.warcraftlogs.com/reports/<report code>`}
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
           />
 
           <button type="submit" className="btn btn-primary analyze">
-            Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
       </form>
@@ -133,6 +139,9 @@ class ReportSelecter extends React.PureComponent {
   }
 }
 
-export default connect(null, {
-  push,
-})(ReportSelecter);
+export default compose(
+  withI18n(),
+  connect(null, {
+    push,
+  })
+)(ReportSelecter);

@@ -48,7 +48,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "extract": "set NODE_ENV=development&&lingui extract"
   },
   "babel": {
     "presets": [

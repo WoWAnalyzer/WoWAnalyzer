@@ -1,4 +1,12 @@
 {
+  "About WoWAnalyzer": "About WoWAnalyzer",
+  "About unlisted logs": "About unlisted logs",
+  "Analyze": "Analyze",
   "Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:": "Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:",
-  "WoW­Analyzer": "WoW­Analyzer"
+  "Character": "Character",
+  "Parsable links:<br/> <ul> <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li> <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li> <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li> </ul>": "Parsable links:<br/> <ul> <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li> <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li> <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li> </ul>",
+  "Premium": "Premium",
+  "Report": "Report",
+  "WoW­Analyzer": "WoW­Analyzer",
+  "https://www.warcraftlogs.com/reports/<report code>": "https://www.warcraftlogs.com/reports/<report code>"
 }
