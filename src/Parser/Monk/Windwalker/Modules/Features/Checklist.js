@@ -146,6 +146,10 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
             when: this.energizingElixir.active,
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT,
+            when: this.selectedCombatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id),
+          }),
         ];
       },
     }),
