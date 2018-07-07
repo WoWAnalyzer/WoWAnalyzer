@@ -54,4 +54,7 @@ export default {
   MASTER_OF_SHADOWS_TALENT: { id: 196976, name: "Master of Shadows", icon: "spell_shadow_charm" },
   SECRET_TECHNIQUE_TALENT: { id: 280719, name: "Secret Technique", icon: "ability_rogue_sinistercalling" },
   SHURIKEN_TORNADO_TALENT: { id: 277925, name: "Shuriken Tornado", icon: "ability_rogue_throwingspecialization" },
+  FIND_WEAKNESS_TALENT: { id: 91023, name: "Find Weakness", icon: "ability_rogue_findweakness" },
+  NIGHT_TERRORS_TALENT: { id: 277953, name: "Night Terrors", icon: "spell_shadow_shadesofdarkness" },
+  SHOT_IN_THE_DARK_TALENT: { id: 257505, name: "Shot in the Dark", icon: "ability_cheapshot" },  
 };

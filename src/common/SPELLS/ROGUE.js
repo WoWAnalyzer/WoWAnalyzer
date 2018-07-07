@@ -202,6 +202,11 @@ export default {
     name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
+  MASTER_OF_SHADOWS_ENERGY: {
+    id: 196980,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_charm',
+  },
 
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
