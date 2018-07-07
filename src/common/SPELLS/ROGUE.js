@@ -371,15 +371,30 @@ export default {
     name: 'Poison Bomb',
     icon: 'rogue_paralytic_poison',
   },
+  VENOMOUS_VIM: {
+    id: 51637,
+    name: 'Venomous Vim',
+    icon: 'ability_rogue_venomouswounds',
+  },
   URGE_TO_KILL: {
     id: 242164,
     name: 'Urge to Kill',
     icon: 'ability_rogue_improvedrecuperate',
   },
+  SEAL_FATE: {
+    id: 14189,
+    name: 'Seal Fate',
+    icon: 'ability_rogue_sealfate',
+  },
   POISON_KNIVES: {
     id: 192380,
     name: 'Poison Knives',
     icon: 'ability_rogue_dualweild',
+  },
+  VENOM_RUSH_ENERGY: {
+    id: 256522,
+    name: 'Venom Rush',
+    icon: 'rogue_venomzest',
   },
 
   //Tier
@@ -403,6 +418,12 @@ export default {
     name: 'Toxic Rush',
     icon: 'ability_rogue_eviscerate',
   },
+  //Traits
+  SHROUDED_SUFFOCATION_TRAIT: {
+    id: 279703,
+    name: 'Shrouded Suffocation',
+    icon: 'ability_rogue_garrote',
+  }, 
 
 
   //Outlaw
