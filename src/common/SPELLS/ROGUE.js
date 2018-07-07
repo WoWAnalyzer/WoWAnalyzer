@@ -370,6 +370,11 @@ export default {
     name: 'Venom Rush',
     icon: 'rogue_venomzest',
   },
+  BLINDSIDE_BUFF: {
+    id: 121153,
+    name: 'Blindside',
+    icon: 'ability_rogue_focusedattacks',
+  },
 
   //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {

@@ -14,11 +14,15 @@ class FilteredDamageTracker extends DamageTracker {
 
   on_byPlayer_cast(event) {
     if(!this.shouldProcessEvent(event)) return;
+    this.castEventHook(event);
     super.on_byPlayer_cast(event);
   }
     
   shouldProcessEvent(event) {
     return false;
+  }
+  
+  castEventHook(event) {
   }
 }
 
