@@ -27,6 +27,7 @@ import Serendipity from './Modules/PriestCore/Serendipity';
 import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
+import HolyWords from './Modules/PriestCore/HolyWords';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sancReduction: SanctifyReduction,
     sereReduction: SerenityReduction,
     hymnBuffBenefit: HymnBuffBenefit,
+    holyWords: HolyWords,
 
     // Spells
     divineHymn: DivineHymn,
