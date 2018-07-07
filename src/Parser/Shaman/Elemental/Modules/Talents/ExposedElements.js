@@ -8,18 +8,18 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const EXPOSED_ELEMENTS  = {
-  INCREASE : 1,
+const EXPOSED_ELEMENTS = {
+  INCREASE: 1,
   WINDOW_DURATION: 300,
 };
 
 class ExposedElements extends Analyzer {
   static dependencies = {
-    enemies : Enemies,
+    enemies: Enemies,
   };
 
   removeDebuffTimestamp = null;
-  damageGained=0;
+  damageGained = 0;
 
   constructor(...args) {
     super(...args);
@@ -27,28 +27,29 @@ class ExposedElements extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.LIGHTNING_BOLT.id){
+    if (event.ability.guid !== SPELLS.LIGHTNING_BOLT.id) {
       return;
     }
 
     const enemy = this.enemies.getEntity(event);
-    if(enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id)){
-      this.removeDebuffTimestamp=event.timestamp;
+    if (enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id)) {
+      this.removeDebuffTimestamp = event.timestamp;
     }
   }
 
   on_byPlayer_damage(event) {
-    if(this.removeDebuffTimestamp === null)
-      return;
-
-    if(event.timestamp>this.removeDebuffTimestamp+EXPOSED_ELEMENTS.WINDOW_DURATION){
+    if (this.removeDebuffTimestamp === null) {
       return;
     }
 
-    if((event.ability.guid !== SPELLS.LIGHTNING_BOLT_OVERLOAD.id) && (event.ability.guid !== SPELLS.LIGHTNING_BOLT.id)){
+    if (event.timestamp > this.removeDebuffTimestamp + EXPOSED_ELEMENTS.WINDOW_DURATION) {
       return;
     }
-    this.damageGained+=calculateEffectiveDamage(event, EXPOSED_ELEMENTS.INCREASE);
+
+    if ((event.ability.guid !== SPELLS.LIGHTNING_BOLT_OVERLOAD.id) && (event.ability.guid !== SPELLS.LIGHTNING_BOLT.id)) {
+      return;
+    }
+    this.damageGained += calculateEffectiveDamage(event, EXPOSED_ELEMENTS.INCREASE);
   }
 
   get damagePercent() {
@@ -72,4 +73,5 @@ class ExposedElements extends Analyzer {
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL;
 }
+
 export default ExposedElements;

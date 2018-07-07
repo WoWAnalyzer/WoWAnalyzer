@@ -173,7 +173,7 @@ class Schism extends Analyzer {
               1000
           )} DPS`,
         ]}
-        footer={
+        footer={(
           <dfn
             data-tip={`
               The effective healing contributed by Schism was ${formatPercentage(
@@ -191,7 +191,7 @@ class Schism extends Analyzer {
           >
             Schism Output Details
           </dfn>
-        }
+        )}
       />
     );
   }

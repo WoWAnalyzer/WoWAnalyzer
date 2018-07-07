@@ -88,7 +88,7 @@ class SinsOfTheMany extends Analyzer {
               1000
           )} DPS`,
         ]}
-        footer={
+        footer={(
           <dfn
             data-tip={`
               The effective healing contributed by Sins of the Many was ${formatPercentage(
@@ -102,7 +102,7 @@ class SinsOfTheMany extends Analyzer {
           >
             Sins of the Many Output Details
           </dfn>
-        }
+        )}
       />
     );
   }
