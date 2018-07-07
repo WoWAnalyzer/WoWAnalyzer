@@ -342,7 +342,7 @@ class Results extends React.PureComponent {
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
-    
+
     if (!selectedCombatant) {
       return (
         <div>
