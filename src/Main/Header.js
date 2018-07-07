@@ -12,6 +12,7 @@ import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-A
 import { title as UnlistedLogsTitle } from 'Interface/News/Articles/2017-01-31-UnlistedLogs';
 
 import ReportSelecter from './ReportSelecter';
+import LanguageSwitcher from './LanguageSwitcher';
 // import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
@@ -65,6 +66,7 @@ class Header extends React.PureComponent {
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
                 {' '}| <Link to="/premium">Premium</Link>
+                {' '}| <LanguageSwitcher />
               </div>
             </div>
             {!premium && (
