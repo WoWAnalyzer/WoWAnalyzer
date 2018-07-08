@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -7,13 +6,13 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
+    // Cooldown of chi spenders is doubled again when Serenity drops. This is handled in the Serenity module under Talents
     return [
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // This can get way too low calculated cooldown if the player has a very high amount of haste, but this is not expected for windwalkers
         cooldown: (haste, combatant) =>
-          24 / (1 + haste) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
+          24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
