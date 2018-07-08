@@ -95,12 +95,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.VANISH,
         category: combatant.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id) 
           ? Abilities.SPELL_CATEGORIES.COOLDOWNS
-          : Abilities.SPELL_CATEGORIES.COOLDOWNS,
+          : Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
+        castEfficiency: combatant.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id)
+          ? {suggestion: true }
+          : {suggestion: false },
       },
       {
         spell: SPELLS.BLADE_RUSH_TALENT,
