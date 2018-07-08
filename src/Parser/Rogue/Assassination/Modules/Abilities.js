@@ -87,6 +87,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.VANISH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.TOXIC_BLADE_TALENT,

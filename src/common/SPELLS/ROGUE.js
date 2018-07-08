@@ -323,27 +323,6 @@ export default {
   },
 
   //Cooldowns
-  KINGSBANE: {
-    id: 192759,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  KINGSBANE_OFFHAND: {
-    id: 192760,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  KINGSBANE_MAINHAND: {
-    id: 222062,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
-  // Energy effect from Kingsbane
-  THE_EMPTY_CROWN: {
-    id: 248201,
-    name: 'The Empty Crown',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
-  },
   VENDETTA: {
     id: 79140,
     name: 'Vendetta',
@@ -361,25 +340,35 @@ export default {
     name: 'Deadly Poison',
     icon: 'ability_rogue_dualweild',
   },
-  FROM_THE_SHADOWS: {
-    id: 192434,
-    name: 'From the Shadows',
-    icon: 'ability_rogue_deadlybrew',
-  },
   POISON_BOMB: {
     id: 192660,
     name: 'Poison Bomb',
     icon: 'rogue_paralytic_poison',
+  },
+  VENOMOUS_VIM: {
+    id: 51637,
+    name: 'Venomous Vim',
+    icon: 'ability_rogue_venomouswounds',
   },
   URGE_TO_KILL: {
     id: 242164,
     name: 'Urge to Kill',
     icon: 'ability_rogue_improvedrecuperate',
   },
+  SEAL_FATE: {
+    id: 14189,
+    name: 'Seal Fate',
+    icon: 'ability_rogue_sealfate',
+  },
   POISON_KNIVES: {
     id: 192380,
     name: 'Poison Knives',
     icon: 'ability_rogue_dualweild',
+  },
+  VENOM_RUSH_ENERGY: {
+    id: 256522,
+    name: 'Venom Rush',
+    icon: 'rogue_venomzest',
   },
 
   //Tier
@@ -403,6 +392,12 @@ export default {
     name: 'Toxic Rush',
     icon: 'ability_rogue_eviscerate',
   },
+  //Traits
+  SHROUDED_SUFFOCATION_TRAIT: {
+    id: 279703,
+    name: 'Shrouded Suffocation',
+    icon: 'ability_rogue_garrote',
+  }, 
 
 
   //Outlaw
