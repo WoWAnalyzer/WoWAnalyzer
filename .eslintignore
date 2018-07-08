@@ -3,4 +3,3 @@ node_modules
 /server/build
 /src/localization/_build/
 /src/localization/*/*.js
-/scripts/localization/*.js

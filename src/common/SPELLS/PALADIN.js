@@ -292,7 +292,7 @@ export default {
   DIVINE_HAMMER_2_HP: {
     id: 228231,
     name: 'Divine Hammer',
-    icon: 'achievement_bg_winsoa',
+    icon: 'classicon_paladin',
   },
   DIVINE_STORM_DAMAGE: {
     id: 224239,

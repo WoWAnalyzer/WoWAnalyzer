@@ -190,7 +190,7 @@ export default {
   SURGE_OF_THE_STORMGOD_DAMAGE: {
     id: 197465,
     name: 'Surge of the Stormgod',
-    icon: 'ability_thunderking_thunderstruck',
+    icon: 'ability_monk_forcesphere',
   },
   THUNDERSLASH_TRAIT: {
     id: 238087,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Doughnut as DoughnutChart } from 'react-chartjs-2';
-import { Trans } from '@lingui/react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -98,7 +97,7 @@ class CastBehavior extends Analyzer {
     );
   }
 
-  renderIolCastRatioChart({ i18n }) {
+  iolCastRatioChart() {
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
@@ -121,20 +120,20 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: '#ecd1b6',
-        label: i18n._(`spell.${SPELLS.FLASH_OF_LIGHT.id}`),
+        label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
       },
       {
         color: '#ff7d0a',
-        label: i18n._(`spell.${SPELLS.HOLY_LIGHT.id}`),
+        label: 'Holy Light',
         spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
       },
       {
         color: '#ff0000',
-        label: i18n.t`Wasted procs`,
-        tooltip: i18n.t`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockCasts} Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
+        label: 'Wasted procs',
+        tooltip: `The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockCasts} Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
         value: unusedProcs,
       },
     ];
@@ -151,7 +150,7 @@ class CastBehavior extends Analyzer {
     );
   }
 
-  renderFillerCastRatioChart({ i18n }) {
+  fillerCastRatioChart() {
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
@@ -170,13 +169,13 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: '#ecd1b6',
-        label: i18n._(`spell.${SPELLS.FLASH_OF_LIGHT.id}`),
+        label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: fillerFlashOfLights,
       },
       {
         color: '#ff7d0a',
-        label: i18n._(`spell.${SPELLS.HOLY_LIGHT.id}`),
+        label: 'Holy Light',
         spellId: SPELLS.HOLY_LIGHT.id,
         value: fillerHolyLights,
       },
@@ -194,25 +193,23 @@ class CastBehavior extends Analyzer {
     );
   }
 
-  statistic(props) {
-    const { i18n } = props;
-
+  statistic() {
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<Trans><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} icon={false} /> usage</Trans>}
+            title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}
             containerProps={{ className: 'col-xs-12' }}
           >
-            {this.renderIolCastRatioChart(props)}
+            {this.iolCastRatioChart()}
           </StatisticsListBox>
         </div>
         <div className="row">
           <StatisticsListBox
-            title={i18n.t`Fillers`}
+            title="Fillers"
             containerProps={{ className: 'col-xs-12' }}
           >
-            {this.renderFillerCastRatioChart(props)}
+            {this.fillerCastRatioChart()}
           </StatisticsListBox>
         </div>
       </div>

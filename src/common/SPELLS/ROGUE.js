@@ -339,7 +339,7 @@ export default {
   SEAL_FATE: {
     id: 14189,
     name: 'Seal Fate',
-    icon: 'ability_rogue_sealfate',
+    icon: 'ability_rogue_improvedrecuperate',
   },
   POISON_KNIVES: {
     id: 192380,
@@ -442,7 +442,7 @@ export default {
   CURSE_OF_THE_DREADBLADES_CP: {
     id: 202668,
     name: 'Curse of the Dreadblades',
-    icon: 'ability_rogue_rollthebones02',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
   },
 
   //Other
