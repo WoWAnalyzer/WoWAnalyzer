@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/react';
 
 import TooltipProvider from 'Interface/common/TooltipProvider';
 
@@ -46,7 +47,7 @@ class SpellLink extends React.PureComponent {
         {...other}
       >
         {icon && <SpellIcon id={id} noLink style={iconStyle} />}{' '}
-        {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
+        {children || (SPELLS[id] ? <Trans id={`spell.${id}`} /> : `Unknown spell: ${id}`)}
       </a>
     );
   }

@@ -71,11 +71,12 @@ export default {
     name: 'Hex',
     icon: 'inv_pet_cockroach', 
   },
-  HEX_SKELETAL: {
-    id: 269352,
-    name: 'Hex',
-    icon: 'ability_mount_fossilizedraptor', 
-  },
+  // had to remove HEX_SKELETAL since the Blizzard API doesn't think it exists, causing issues. Please add it again if it's encountered in a log, and if so leave a comment with a link to the report. And then we might want to report this in the Blizzard API Discord, since it would be a bug in their spell API.
+  // HEX_SKELETAL: {
+  //   id: 269352,
+  //   name: 'Hex',
+  //   icon: 'ability_mount_fossilizedraptor',
+  // },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -681,7 +682,7 @@ export default {
   ASCENDANCE_HEAL: {
     id: 114083,
     name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
+    icon: 'spell_shaman_tidalwaves',
   },
   SPIRIT_LINK_TOTEM: {
     id: 98008,

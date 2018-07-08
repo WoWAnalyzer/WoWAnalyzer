@@ -302,7 +302,7 @@ export default {
   COLLAPSE: { //Ring of Collapsing Futures
     id: 234142,
     name: 'Collapse',
-    icon: 'spell_priest_void-blast',
+    icon: 'spell_priest_voidblast',
   },
 
   // Nighthold Trinkets

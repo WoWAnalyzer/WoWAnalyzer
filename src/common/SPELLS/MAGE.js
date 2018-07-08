@@ -181,7 +181,7 @@ export default {
   RING_OF_FROST_DAMAGE: {
     id: 82691,
     name: 'Ring of Frost',
-    icon: 'spell_frost_ring-of-frost',
+    icon: 'spell_frost_ringoffrost',
   },
   ICE_TIME_FROST_NOVA: { // proc from Ice Time, which is called "Frost Nova" for some reason
     id: 235235,
@@ -322,7 +322,7 @@ export default {
   FREEZE: {
     id: 33395,
     name: 'Freeze',
-    icon: 'spell_frost_frostshock',
+    icon: 'ability_mage_freeze',
   },
   GLACIAL_ERUPTION: {
     id: 242851,

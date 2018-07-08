@@ -381,7 +381,8 @@ class Abilities extends CoreAbilities {
         cooldown: 12,
       },
       {
-        spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH, SPELLS.HEX_SKELETAL],
+        // had to remove SPELLS.HEX_SKELETAL since the Blizzard API doesn't think it exists, causing issues. Please add it again if it's encountered in a log, and if so leave a comment with the log
+        spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         timelineSortIndex: 80,
