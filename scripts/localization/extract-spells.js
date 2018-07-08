@@ -98,16 +98,23 @@ function formatPercentage(percentage) {
 function createMessageId(spellId) {
   return `spell.${spellId}`;
 }
-async function processLanguage(languageCode, language) {
-  if (!language.region) {
-    console.error(`${languageCode} has no API available. It can not be localized automatically.`);
-    return;
-  }
-  console.log(`Processing ${languageCode}`);
-
+function getMessagesPath(languageCode) {
   const languageDirectory = path.resolve(locaizationDirectory, languageCode);
-  const messagesLocation = path.resolve(languageDirectory, 'messages.json');
-  const messages = readJson(messagesLocation);
+  return path.resolve(languageDirectory, 'messages.json');
+}
+function getMessages(languageCode) {
+  return readJson(getMessagesPath(languageCode));
+}
+function setMessages(languageCode, messages) {
+  fs.writeFileSync(
+    getMessagesPath(languageCode),
+    JSON.stringify(messages, null, 2)
+  );
+}
+async function updateSpellsFromApi(languageCode, language) {
+  console.log(`Updating spells for ${languageCode} from Blizzard API`);
+
+  const messages = getMessages(languageCode);
 
   const numSpells = spellIds.length;
   for (let i = 0; i < numSpells; i += 1) {
@@ -127,11 +134,6 @@ async function processLanguage(languageCode, language) {
       // eslint-disable-next-line no-await-in-loop
       const spellInfo = await fetchSpellInfo(spellId, language);
 
-      // There's no point acting on this, so let's disable it for now
-      // if (spell.icon !== spellInfo.icon) {
-      //   console.warn(`The icon for the spell ${spellId} (${spell.name}) is invalid. It is currently "${spell.icon}", but it should be "${spellInfo.icon}".`);
-      // }
-
       // Some spells aren't localized, use the original name instead.
       const name = spellInfo.name !== '' ? spellInfo.name : spell.name;
 
@@ -139,11 +141,43 @@ async function processLanguage(languageCode, language) {
     }
 
     // Update on every change since the bottleneck will be network requests instead of filesystem anyway, and this reduces the loss of data upon error
-    fs.writeFileSync(
-      messagesLocation,
-      JSON.stringify(messages, null, 2)
-    );
+    setMessages(languageCode, messages);
   }
+}
+function updateFromSpellList(languageCode, nameProp) {
+  console.log(`Updating spells for ${languageCode} from spell list`);
+
+  const messages = getMessages(languageCode);
+  // Download from https://www.warcraftlogs.com/json/spell-names.json
+  const spellList = require('./spell-names.json');
+
+  const numSpells = spellIds.length;
+  for (let i = 0; i < numSpells; i += 1) {
+    const spellId = spellIds[i];
+    const messageId = createMessageId(spellId);
+    if (!updateEverything && messages[messageId]) {
+      // Already localized
+      continue;
+    }
+
+    const spell = SPELLS[spellId];
+    console.log(`${languageCode} ${formatPercentage((i + 1) / numSpells)}: Updating ${spellId} (${spell.name})...`);
+    if (spellId < 0) {
+      // Spell with ids < 0 do not exist in-game. Use the coder's name instead.
+      messages[messageId] = spell.name;
+    } else {
+      const spellIdString = spellId.toString();
+      const spellInfo = spellList.find(item => item.id === spellIdString);
+
+      // Some spells aren't localized, use the original name instead.
+      const name = (spellInfo && spellInfo[nameProp]) ? spellInfo[nameProp] : spell.name;
+
+      messages[messageId] = name;
+    }
+  }
+
+  // Update just once or this will be the bottleneck
+  setMessages(languageCode, messages);
 }
 
 async function main() {
@@ -153,8 +187,16 @@ async function main() {
   for (let i = 0; i < languageCodes.length; i += 1) {
     const languageCode = languageCodes[i];
     const language = languages[languageCode];
-    // We're doing all languages at the same time, this improves performance and the Blizzard API support 100 requests per second so shouldn't hit the rate limit
-    processLanguage(languageCode, language);
+    if (language.region) {
+      // We're doing all languages at the same time, this improves performance and the Blizzard API support 100 requests per second so shouldn't hit the rate limit
+      updateSpellsFromApi(languageCode, language);
+    } else {
+      console.warn(`${languageCode} has no API available.`);
+      if (languageCode === 'zh') {
+        console.log('Falling back to WCL spell list data.');
+        updateFromSpellList(languageCode, 'name_zhcn');
+      }
+    }
   }
 }
 main();
