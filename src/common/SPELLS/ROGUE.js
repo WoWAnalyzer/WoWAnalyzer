@@ -413,9 +413,9 @@ export default {
     name: 'Sinister Strike',
     icon: 'spell_shadow_ritualofsacrifice',
   },
-  SABER_SLASH_PROC: {
+  SINISTER_STRIKE_PROC: {
     id: 197834,
-    name: 'Saber Slash',
+    name: 'Sinister Strike',
     icon: 'ability_rogue_sabreslash',
   },
   PISTOL_SHOT: {
@@ -470,17 +470,10 @@ export default {
     icon: 'ability_warrior_punishingblow',
   },
 
-  // Passive
-  COMBAT_POTENCY: {
-    id: 61329,
-    name: 'Combat Potency',
-    icon: 'inv_weapon_shortblade_38',
-  },
-
   //Buffs
-  JOLLY_ROGER: {
+  SCULL_AND_CROSSBONES: {
     id: 199603,
-    name: 'Jolly Roger',
+    name: 'Skull and Crossbones',
     icon: 'ability_rogue_rollthebones01',
   },
   GRAND_MELEE: {
@@ -516,24 +509,22 @@ export default {
     name: 'Combo Point',
     icon: 'ability_druid_catformattack',
   },
+  COMBAT_POTENCY: {
+    id: 35546,
+    name: 'Combat Potency',
+    icon: 'inv_weapon_shortblade_38',
+  },
   MAIN_GAUCHE: {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
   },
-  GREED_1: {
-    id: 202822,
-    name: 'Greed',
-    icon: 'ability_rogue_rollthebones02',
+
+  //Traits
+  ACE_UP_YOUR_SLEEVE: {
+    id: 279714,
+    name: 'Ace Up Your Sleeve',
+    icon: 'inv_weapon_rifle_01',
   },
-  GREED_2: {
-    id: 202823,
-    name: 'Greed',
-    icon: 'ability_rogue_rollthebones02',
-  },
-  GREED_3: {
-    id: 202824,
-    name: 'Greed',
-    icon: 'ability_rogue_rollthebones02',
-  },
+  
 };
