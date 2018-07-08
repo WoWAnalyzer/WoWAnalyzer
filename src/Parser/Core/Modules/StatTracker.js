@@ -493,73 +493,8 @@ class StatTracker extends Analyzer {
     return 0;
   }
   get baseMasteryPercentage() {
-    switch (this.selectedCombatant.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 0.12;
-      case SPECS.HOLY_PRIEST:
-        return 0.10;
-      case SPECS.SHADOW_PRIEST:
-        return 0.2;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 0.096;
-      case SPECS.RESTORATION_SHAMAN:
-        return 0.24;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 0.2;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 0.15;
-      case SPECS.GUARDIAN_DRUID:
-        return 0.04;
-      case SPECS.RESTORATION_DRUID:
-        return 0.048;
-      case SPECS.BALANCE_DRUID:
-        return 0.18;
-      case SPECS.FERAL_DRUID:
-        return 0.16;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 0.14;
-      case SPECS.PROTECTION_PALADIN:
-        return 0.08;
-      case SPECS.WINDWALKER_MONK:
-        return 0.1;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 0.18;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 0.05;
-      case SPECS.SURVIVAL_HUNTER:
-        return 0.04;
-      case SPECS.FROST_MAGE:
-        return 0.18;
-      case SPECS.FIRE_MAGE:
-        return 0.06;
-      case SPECS.ARCANE_MAGE:
-        return 0.0960;
-      case SPECS.SUBTLETY_ROGUE:
-        return 0.2208;
-      case SPECS.ASSASSINATION_ROGUE:
-        return 0.32;
-      case SPECS.OUTLAW_ROGUE:
-        return 0.1760;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 0.18;
-      case SPECS.MISTWEAVER_MONK:
-        return 1.04;
-      case SPECS.BREWMASTER_MONK:
-        return 0.08;
-      case SPECS.FURY_WARRIOR:
-        return 0.11;
-      case SPECS.AFFLICTION_WARLOCK:
-        return 0.25;
-      case SPECS.FROST_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.BLOOD_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.HAVOC_DEMON_HUNTER:
-        return 0.12;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return 0.0;
-    }
+    const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
+    return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
   get baseVersatilityPercentage() {
     return 0;
@@ -579,43 +514,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 72 * 100;
+    return 17.62 * 100; //72
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 68 * 100;
+    return 16.64 * 100; //68
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
+    return 17.62 * 100 / this.selectedCombatant.spec.masteryCoefficient; //72
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 85 * 100;
+    return 20.80 * 100; //85
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 19.8 * 100;
+    return 6.85 * 100; //28
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 41.4 * 100;
+    return 9.79 * 100; //40
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 14.4 * 100;
+    return 4.89 * 100; //20
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
