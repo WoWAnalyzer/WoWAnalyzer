@@ -9,16 +9,17 @@ import REGION_CODES from 'common/REGION_CODES';
 
 import './ReportSelecter.css';
 
+export function getReportCode(input) {
+  const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
+  return match && match[2];
+}
+
 class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,
     i18n: PropTypes.object.isRequired,
   };
 
-  static getCode(input) {
-    const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
-    return match && match[2];
-  }
   static getFight(input) {
     const match = input.trim().match(/fight=([^&]*)/);
     return match && match[1];
@@ -75,7 +76,7 @@ class ReportSelecter extends React.PureComponent {
     this.handleCodeInputChange(this.codeInput.value);
   }
   handleCodeInputChange(value) {
-    const code = this.constructor.getCode(value);
+    const code = getReportCode(value);
     const fight = this.constructor.getFight(value);
     const player = this.constructor.getPlayer(value);
     const character = this.constructor.getCharacterFromWCLUrl(value) || this.constructor.getCharacterFromBattleNetUrl(value);
