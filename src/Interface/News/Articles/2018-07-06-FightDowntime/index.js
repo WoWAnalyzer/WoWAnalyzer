@@ -36,7 +36,7 @@ export default (
 
     Time dead will also be marked as fight downtime so that you can still analyze fights where you died with decent accuracy. We figured since we're already yelling at you in the suggestions for dying, we'd get a sore throat if we also yelled at you for all the issues caused by dying. There's also no need to make everything else less useful when your biggest mistake has already been pointed out.<br /><br />
 
-    With the Battle for Azeroth prepatch around the corner, we're focussed on support for that. So for now only Argus and Imonar will be supported. The plan is to provide full support for Uldir once that's released.<br /><br />
+    With the Battle for Azeroth prepatch around the corner, we're focussed on support for that. At this time only Argus is supported, but we're also working on support for Imonar (it's a bit harder). We plan to provide full support for Uldir once that's released.<br /><br />
 
     You can enable the fight downtime adjustments for supported fights at the top of the statistics section of the results page. For now you should consider this an experimental feature that may not be completely bug-free. Please let us know if you see anything weird. Once we're done refining the feature we'll enable the setting by default.<br /><br />
 
