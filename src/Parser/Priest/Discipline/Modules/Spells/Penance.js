@@ -19,7 +19,7 @@ class Penance extends Analyzer {
 
   isNewPenanceCast(ability, timestamp) {
     if (!Penance.isPenance(ability.guid)) {
-      return;
+      return false;
     }
 
     // Discount penances cast as the fight ends :)
