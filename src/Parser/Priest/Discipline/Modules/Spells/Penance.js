@@ -24,7 +24,7 @@ class Penance extends Analyzer {
 
     // Discount penances cast as the fight ends :)
     if (this.owner.fight.end_time - timestamp <= PENANCE_MINIMUM_RECAST_TIME) {
-      return;
+      return false;
     }
 
     return (
