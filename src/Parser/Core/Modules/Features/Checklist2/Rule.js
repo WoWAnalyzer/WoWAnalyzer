@@ -7,16 +7,26 @@ import CrossIcon from 'Interface/Icons/Cross';
 import ChevronIcon from 'Interface/Icons/Chevron';
 import InformationIcon from 'Interface/Icons/Information';
 
-import calculateMedian from './helpers/calculateMedian';
 import colorForPerformance from './helpers/colorForPerformance';
+import calculateMedian from './helpers/calculateMedian';
+import average from './helpers/average';
 
 export const RuleContext = React.createContext();
+
+export const PERFORMANCE_METHOD = {
+  DEFAULT: 'DEFAULT',
+  MEDIAN: 'MEDIAN',
+  AVERAGE: 'AVERAGE',
+  LOWEST: 'LOWEST',
+  FIRST: 'FIRST',
+};
 
 class Rule extends React.PureComponent {
   static propTypes = {
     name: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
     description: PropTypes.node,
+    performanceMethod: PropTypes.oneOf(Object.values(PERFORMANCE_METHOD)),
   };
 
   constructor() {
@@ -37,18 +47,21 @@ class Rule extends React.PureComponent {
       expanded: !this.state.expanded,
     });
   }
-  static calculateRulePerformance(values, style = 'median') {
+  static calculateRulePerformance(values, style = PERFORMANCE_METHOD.DEFAULT) {
     // Lowest would generally be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
     // Average would mark things as OK when one thing was OK and 3 things were "average", I think this is wrong and it should mark the rule as average. Median achieves this.
+    // Actual Median could mark a rule as 100% ok when there are still some things being neglected, so instead I opted for the best of both worlds and using the lowest of the median or average by default.
 
     switch (style) {
-      case 'median':
+      case PERFORMANCE_METHOD.DEFAULT:
+        return Math.min(calculateMedian(values), average(values));
+      case PERFORMANCE_METHOD.MEDIAN:
         return calculateMedian(values);
-      case 'average':
-        return values.reduce((c, p) => c + p, 0) / values.length;
-      case 'lowest':
+      case PERFORMANCE_METHOD.AVERAGE:
+        return average(values);
+      case PERFORMANCE_METHOD.LOWEST:
         return Math.min(...values);
-      case 'first':
+      case PERFORMANCE_METHOD.FIRST:
         return values[0];
       default:
         throw new Error(`Unknown style: ${style}`);
@@ -66,9 +79,10 @@ class Rule extends React.PureComponent {
   }
 
   render() {
-    const { name, children, description } = this.props;
+    const { name, children, description, performanceMethod } = this.props;
 
-    const performance = this.constructor.calculateRulePerformance(this.state.requirementPerformances);
+    const requirementPerformances = this.state.requirementPerformances;
+    const performance = requirementPerformances.length > 0 ? this.constructor.calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
@@ -121,12 +135,16 @@ class Rule extends React.PureComponent {
               </div>
             )}
             <div className="row">
-              {React.Children.map(children, (child, index) => (
-                child && React.cloneElement(child, {
-                  id: index,
-                  className: 'col-md-6',
-                })
-              ))}
+              {
+                React.Children.toArray(children)
+                  .filter(child => child)
+                  .map((child, index) => (
+                    child && React.cloneElement(child, {
+                      id: index,
+                      className: 'col-md-6',
+                    })
+                ))
+              }
             </div>
           </div>
         </div>
