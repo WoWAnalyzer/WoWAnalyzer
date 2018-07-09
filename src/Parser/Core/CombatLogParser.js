@@ -122,6 +122,8 @@ import VantusRune from './Modules/Spells/VantusRune';
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+// Dungeons
+import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -250,6 +252,8 @@ class CombatLogParser {
     // BFA
     zandalariLoaFigurine: ZandalariLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    // Dungeons
+    lingeringSporepods: LingeringSporepods,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
