@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds } from 'common/format';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
+import Penance from '../Spells/Penance';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
@@ -9,7 +10,7 @@ class Channeling extends CoreChanneling {
     ...CoreChanneling.dependencies,
   };
 
-  _previousPenanceTimestamp = 0;
+  _previousPenanceTimestamp = this.owner.fight.start_time - PENANCE_MINIMUM_RECAST_TIME;
   _hasCastigation = null;
   _bolt = 0;
 
@@ -21,15 +22,11 @@ class Channeling extends CoreChanneling {
   }
 
   isNewPenanceCast(timestamp) {
-    return (
-      !this._previousPenanceTimestamp ||
-      timestamp - this._previousPenanceTimestamp > PENANCE_MINIMUM_RECAST_TIME
-    );
+    return timestamp - this._previousPenanceTimestamp > PENANCE_MINIMUM_RECAST_TIME;
   }
 
   on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) {
+    if (!Penance.isPenance(event.ability.guid)) {
       super.on_byPlayer_cast(event);
       return;
     }
@@ -37,6 +34,7 @@ class Channeling extends CoreChanneling {
     // Handle the first bolt of each cast
     if (this.isNewPenanceCast(event.timestamp)) {
       this._bolt = 0;
+      this._previousPenanceTimestamp = event.timestamp;
       this.beginChannel(event, {
         guid: SPELLS.PENANCE.id,
         name: SPELLS.PENANCE.name,
