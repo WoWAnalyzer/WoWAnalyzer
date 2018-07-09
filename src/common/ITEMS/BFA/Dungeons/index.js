@@ -82,7 +82,7 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
-  // Temple of Serthraliss
+  // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE: {
     id: 158368,
     name: 'Fangs of Intertwined Essence',
