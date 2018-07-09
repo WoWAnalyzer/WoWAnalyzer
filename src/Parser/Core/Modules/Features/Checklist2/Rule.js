@@ -141,7 +141,6 @@ class Rule extends React.PureComponent {
                   .map((child, index) => (
                     child && React.cloneElement(child, {
                       id: index,
-                      className: 'col-md-6',
                     })
                 ))
               }

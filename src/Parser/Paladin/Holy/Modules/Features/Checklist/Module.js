@@ -64,6 +64,33 @@ class Checklist extends Analyzer {
             flashOfLight: this.overhealing.flashOfLightSuggestionThresholds,
             bestowFaith: this.overhealing.bestowFaithSuggestionThresholds,
           },
+          legendariesEquipped: {
+            actual: this.legendaryCountChecker.equipped,
+            max: this.legendaryCountChecker.max,
+            isLessThan: this.legendaryCountChecker.max,
+            style: 'number',
+          },
+          legendariesUpgraded: {
+            actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
+            max: this.legendaryCountChecker.max,
+            isLessThan: this.legendaryCountChecker.max,
+            style: 'number',
+          },
+          prePotion: this.prePotion.prePotionSuggestionThresholds,
+          secondPotion: this.prePotion.prePotionSuggestionThresholds,
+          itemsEnchanted: {
+            actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant,
+            max: this.enchantChecker.numEnchantableGear,
+            isLessThan: this.enchantChecker.numEnchantableGear,
+            style: 'number',
+          },
+          itemsBestEnchanted: {
+            // numSlotsMissingMaxEnchant doesn't include items without an enchant at all
+            actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
+            max: this.enchantChecker.numEnchantableGear,
+            isLessThan: this.enchantChecker.numEnchantableGear,
+            style: 'number',
+          },
         }}
       />
     );

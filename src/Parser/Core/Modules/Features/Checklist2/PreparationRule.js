@@ -1,54 +1,79 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Rule from './Rule';
 import Requirement from './Requirement';
-import EnchantsRequirement from './EnchantsRequirement';
 
 class PreparationRule extends React.PureComponent {
-  render() {
-    return 'NYI';
+  static propTypes = {
+    children: PropTypes.node,
+    thresholds: PropTypes.object.isRequired,
+  };
+
+  renderLegendaryRequirements() {
+    const { thresholds } = this.props;
+
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Max possible legendaries equipped"
+          thresholds={thresholds.legendariesEquipped}
+        />
+        <Requirement
+          name="Legendaries fully upgraded"
+          thresholds={thresholds.legendariesUpgraded}
+        />
+      </React.Fragment>
+    );
   }
-  // constructor(options = {}, extraRequirements = []) {
-  //   super({
-  //     name: 'Be well prepared',
-  //     description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-  //     // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-  //     performanceMethod: 'average',
-  //     requirements: function () {
-  //       return [
-  //         new Requirement({
-  //           name: 'Legendaries at max item level',
-  //           check: () => ({
-  //             actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-  //             max: this.legendaryCountChecker.max,
-  //             isLessThan: this.legendaryCountChecker.max,
-  //             style: 'number',
-  //           }),
-  //         }),
-  //         new Requirement({
-  //           name: 'Used max possible legendaries',
-  //           check: () => ({
-  //             actual: this.legendaryCountChecker.equipped,
-  //             max: this.legendaryCountChecker.max,
-  //             isLessThan: this.legendaryCountChecker.max,
-  //             style: 'number',
-  //           }),
-  //         }),
-  //         new Requirement({
-  //           name: 'Used a pre-potion',
-  //           check: () => this.prePotion.prePotionSuggestionThresholds,
-  //         }),
-  //         new Requirement({
-  //           name: 'Used a second potion',
-  //           check: () => this.prePotion.secondPotionSuggestionThresholds,
-  //         }),
-  //         new EnchantsRequirement(),
-  //         ...extraRequirements,
-  //       ];
-  //     },
-  //     ...options,
-  //   });
-  // }
+  renderPotionRequirements() {
+    const { thresholds } = this.props;
+
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Used a pre-potion"
+          thresholds={thresholds.prePotion}
+        />
+        <Requirement
+          name="Used a second potion"
+          thresholds={thresholds.secondPotion}
+        />
+      </React.Fragment>
+    );
+  }
+  renderEnchantRequirements() {
+    const { thresholds } = this.props;
+
+    return (
+      <React.Fragment>
+        <Requirement
+          name="All items enchanted"
+          thresholds={thresholds.itemsEnchanted}
+        />
+        <Requirement
+          name="Using high quality enchants"
+          thresholds={thresholds.itemsBestEnchanted}
+        />
+      </React.Fragment>
+    );
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <Rule
+        name="Be well prepared"
+        description="Being well prepared with potions, enchants and legendaries is an easy way to improve your performance."
+      >
+        {this.renderLegendaryRequirements()}
+        {this.renderEnchantRequirements()}
+        {this.renderPotionRequirements()}
+        {children}
+      </Rule>
+    );
+  }
 }
 
 export default PreparationRule;

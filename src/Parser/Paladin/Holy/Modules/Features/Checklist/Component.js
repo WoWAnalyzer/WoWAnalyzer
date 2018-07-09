@@ -18,10 +18,9 @@ class HolyPaladinChecklist extends React.PureComponent {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
+      hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
-    thresholds: PropTypes.shape({
-      fillerFlashOfLight: PropTypes.object.isRequired,
-    }).isRequired,
+    thresholds: PropTypes.object.isRequired,
   };
 
   render() {
@@ -149,7 +148,7 @@ class HolyPaladinChecklist extends React.PureComponent {
         >
           <Requirement name="Mana left" thresholds={thresholds.manaLeft} />
         </Rule>
-        <PreparationRule />
+        <PreparationRule thresholds={thresholds} />
         <Rule
           name="Avoid overhealing"
           description="Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it's still inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers."

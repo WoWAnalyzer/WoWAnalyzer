@@ -16,7 +16,6 @@ class Requirement extends React.PureComponent {
     tooltip: PropTypes.string,
     valueTooltip: PropTypes.string,
     setPerformance: PropTypes.func,
-    className: PropTypes.string,
     prefix: PropTypes.node,
     suffix: PropTypes.node,
   };
@@ -50,7 +49,7 @@ class Requirement extends React.PureComponent {
   }
 
   render() {
-    const { name, thresholds, tooltip, valueTooltip, prefix, suffix, className } = this.props;
+    const { name, thresholds, tooltip, valueTooltip, prefix, suffix } = this.props;
 
     const performance = this.performance;
     const actual = (
@@ -60,7 +59,7 @@ class Requirement extends React.PureComponent {
     );
 
     return (
-      <div className={className}>
+      <div className="col-md-6">
         <div className="flex">
           <div className="flex-main">
             {name}
