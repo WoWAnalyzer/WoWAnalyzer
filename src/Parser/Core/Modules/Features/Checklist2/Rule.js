@@ -68,14 +68,14 @@ class Rule extends React.PureComponent {
     }
   }
 
-  setRequirementPerformance(index, performance) {
-    this.setState(state => {
-      const requirementPerformances = [...state.requirementPerformances];
-      requirementPerformances[index] = performance;
-      return {
-        requirementPerformances,
-      };
-    });
+  setRequirementPerformance(performance) {
+    // We don't have to worry about adding the same Requirement's performance multiple times here because it's only called in the Requirement's constructor, which is only called once.
+    this.setState(state => ({
+      requirementPerformances: [
+        ...state.requirementPerformances,
+        performance,
+      ],
+    }));
   }
 
   render() {
@@ -135,15 +135,7 @@ class Rule extends React.PureComponent {
               </div>
             )}
             <div className="row">
-              {
-                React.Children.toArray(children)
-                  .filter(child => child)
-                  .map((child, index) => (
-                    child && React.cloneElement(child, {
-                      id: index,
-                    })
-                ))
-              }
+              {children}
             </div>
           </div>
         </div>

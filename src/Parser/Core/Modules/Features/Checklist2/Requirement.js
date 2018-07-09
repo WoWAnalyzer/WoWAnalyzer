@@ -10,7 +10,6 @@ import { RuleContext } from './Rule';
 
 class Requirement extends React.PureComponent {
   static propTypes = {
-    id: PropTypes.number.isRequired,
     name: PropTypes.node.isRequired,
     thresholds: PropTypes.object.isRequired,
     tooltip: PropTypes.string,
@@ -22,7 +21,7 @@ class Requirement extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    props.setPerformance(props.id, this.performance);
+    props.setPerformance(this.performance);
   }
 
   get performance() {
