@@ -24,7 +24,7 @@ import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
 import SpellManaCost from './Modules/PaladinCore/SpellManaCost';
 
 import Abilities from './Modules/Abilities';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';

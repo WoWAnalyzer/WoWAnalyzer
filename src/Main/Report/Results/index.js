@@ -66,7 +66,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: props.parser._modules.checklist.rules.length === 0 ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
+      mainTab: MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
