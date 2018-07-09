@@ -1,8 +1,22 @@
 // Spells such as on use casts or buffs triggered by items from any dungeon
 
 export default {
-  // <Dungeon 1> (insert name here)
-  // ...
+  // The Underrot
+  LINGERING_SPOREPODS_BUFF: {
+    id: 268062,
+    name: 'Lingering Spore Pods',
+    icon: 'spell_druid_wildmushroom_frenzy',
+  },
+  LINGERING_SPOREPODS_HEAL: {
+    id: 278708,
+    name: 'Lingering Spore Pods',
+    icon: 'spell_druid_wildmushroom_frenzy',
+  },
+  LINGERING_SPOREPODS_DAMAGE: {
+    id: 268068,
+    name: 'Lingering Spore Pods',
+    icon: 'spell_druid_wildmushroom_frenzy',
+  },
 
   // <Dungeon 2> (insert name here)
   // ...
