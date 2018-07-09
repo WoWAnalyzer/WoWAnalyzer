@@ -55,7 +55,7 @@ class HolyPaladinChecklist extends React.PureComponent {
             name={(
               <React.Fragment>
                 Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while{' '}
-                <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available
+                <span style={{ whiteSpace: 'nowrap' }}><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /></span> was available
               </React.Fragment>
             )}
             thresholds={thresholds.fillerFlashOfLight}
