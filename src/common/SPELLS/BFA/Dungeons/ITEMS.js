@@ -18,8 +18,17 @@ export default {
     icon: 'spell_druid_wildmushroom_frenzy',
   },
 
-  // <Dungeon 2> (insert name here)
-  // ...
+  // Temple of Sethraliss
+  FANGS_OF_INTERTWINED_ESSENCE_BUFF: {
+    id: 271054,
+    name: 'Fangs of Intertwined Essence',
+    icon: 'inv_misc_redsaberonfang',
+  },
+  FANGS_OF_INTERTWINED_ESSENCE_ENERGIZE: {
+    id: 271058,
+    name: 'Fangs of Intertwined Essence',
+    icon: 'inv_misc_redsaberonfang',
+  },
 
   // Quests.............. upscaled in beta
   DIEMETRADON_FRENZY: {
