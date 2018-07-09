@@ -25,9 +25,8 @@ import Component from './Component';
 
 class Checklist extends Analyzer {
   static dependencies = {
-    abilities: Abilities,
-    castEfficiency: CastEfficiency,
     combatants: Combatants,
+    castEfficiency: CastEfficiency,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     beaconHealing: BeaconHealing,
@@ -48,7 +47,8 @@ class Checklist extends Analyzer {
   render() {
     return (
       <Component
-        abilities={this.abilities}
+        combatant={this.combatants.selected}
+        castEfficiency={this.castEfficiency}
         thresholds={{
           fillerFlashOfLight: this.fillerFlashOfLight.suggestionThresholds,
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,

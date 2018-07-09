@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
@@ -13,14 +14,24 @@ import GenericCastEfficiencyRequirement from 'Parser/Core/Modules/Features/Check
 
 class HolyPaladinChecklist extends React.PureComponent {
   static propTypes = {
-    abilities: PropTypes.object.isRequired,
+    castEfficiency: PropTypes.object.isRequired,
+    combatant: PropTypes.shape({
+      hasTalent: PropTypes.func.isRequired,
+    }).isRequired,
     thresholds: PropTypes.shape({
       fillerFlashOfLight: PropTypes.object.isRequired,
     }).isRequired,
   };
 
   render() {
-    const { abilities, thresholds } = this.props;
+    const { combatant, castEfficiency, thresholds } = this.props;
+
+    const AbilityRequirement = props => (
+      <GenericCastEfficiencyRequirement
+        castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
+        {...props}
+      />
+    );
 
     return (
       <Checklist>
@@ -33,13 +44,13 @@ class HolyPaladinChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.HOLY_SHOCK_CAST.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.LIGHT_OF_DAWN_CAST.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.JUDGMENT_CAST.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.BESTOW_FAITH_TALENT.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.LIGHTS_HAMMER_TALENT.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.CRUSADER_STRIKE.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.HOLY_PRISM_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
+          <AbilityRequirement spell={SPELLS.LIGHT_OF_DAWN_CAST.id} />
+          {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) && <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />}
+          {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && <AbilityRequirement spell={SPELLS.BESTOW_FAITH_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id) && <AbilityRequirement spell={SPELLS.LIGHTS_HAMMER_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id) && <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />}
+          {combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id) && <AbilityRequirement spell={SPELLS.HOLY_PRISM_TALENT.id} />}
           <Requirement
             name={(
               <React.Fragment>
@@ -59,22 +70,23 @@ class HolyPaladinChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.AVENGING_WRATH.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.HOLY_AVENGER_TALENT.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.TYRS_DELIVERANCE_CAST.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.AURA_MASTERY.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.ARCANE_TORRENT_MANA.id} />
+          <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
+          {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />}
+          <AbilityRequirement spell={SPELLS.TYRS_DELIVERANCE_CAST.id} />
+          {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && <AbilityRequirement spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id} />}
+          <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
+          {/* We can't detect race, so disable this when it has never been cast. */}
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA) && <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />}
         </Rule>
         <Rule
           name="Use your supportive abilities"
           description="While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally."
         >
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.RULE_OF_LAW_TALENT.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.DIVINE_STEED.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.DIVINE_PROTECTION.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.BLESSING_OF_SACRIFICE.id} />
-          <GenericCastEfficiencyRequirement abilities={abilities} spell={SPELLS.LAY_ON_HANDS.id} />
+          {combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id) && <AbilityRequirement spell={SPELLS.RULE_OF_LAW_TALENT.id} />}
+          <AbilityRequirement spell={SPELLS.DIVINE_STEED.id} />
+          <AbilityRequirement spell={SPELLS.DIVINE_PROTECTION.id} />
+          <AbilityRequirement spell={SPELLS.BLESSING_OF_SACRIFICE.id} />
+          <AbilityRequirement spell={SPELLS.LAY_ON_HANDS.id} />
         </Rule>
         <Rule
           name={<React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>}
@@ -135,11 +147,12 @@ class HolyPaladinChecklist extends React.PureComponent {
           <Requirement name={<SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} />} thresholds={thresholds.overhealing.holyShock} />
           <Requirement name={<SpellLink id={SPELLS.LIGHT_OF_DAWN_HEAL.id} />} thresholds={thresholds.overhealing.lightOfDawn} />
           <Requirement name={<SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />} thresholds={thresholds.overhealing.flashOfLight} />
-          <Requirement
-            name={<SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />}
-            thresholds={thresholds.overhealing.bestowFaith}
-            when={combatant => combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id)}
-          />
+          {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && (
+            <Requirement
+              name={<SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />}
+              thresholds={thresholds.overhealing.bestowFaith}
+            />
+          )}
         </Rule>
       </Checklist>
     );
