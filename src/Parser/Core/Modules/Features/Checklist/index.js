@@ -6,7 +6,7 @@ import ChevronIcon from 'Interface/Icons/Chevron';
 import InformationIcon from 'Interface/Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Expandable from 'Main/Expandable';
+import Expandable from 'Interface/common/Expandable';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import performanceForThresholds from './performanceForThresholds';

@@ -12,4 +12,5 @@ export default combineReducers({
   reportProgress: require('./reportProgress').default,
   combatants: require('./combatants').default,
   reportHistory: require('./reportHistory').default,
+  language: require('./language').default,
 });

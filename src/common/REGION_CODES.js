@@ -12,4 +12,5 @@ export default {
   'en-us': 'US',
   'ko-kr': 'KR',
   'zh-tw': 'TW',
+  'zh-cn': 'CN',
 };

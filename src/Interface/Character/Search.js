@@ -50,14 +50,17 @@ class Search extends React.PureComponent {
       loading: true,
     });
 
-    const response = await fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
-    const data = await response.json();
-    if (data.status === 'nok') {
-      alert(`${char} of ${realm} could not be found.`);
-      this.setState({
-        loading: false,
-      });
-      return;
+    // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
+    if (region !== 'CN') {
+      const response = await fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
+      const data = await response.json();
+      if (data.status === 'nok') {
+        alert(`${char} of ${realm} could not be found.`);
+        this.setState({
+          loading: false,
+        });
+        return;
+      }
     }
     this.props.history.push(makeUrl(region, realm, char));
   }
