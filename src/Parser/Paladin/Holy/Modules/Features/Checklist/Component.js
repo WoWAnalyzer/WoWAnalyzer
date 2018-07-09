@@ -84,7 +84,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           )}
           <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA) && (
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id) && (
             <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />
           )}
         </Rule>
