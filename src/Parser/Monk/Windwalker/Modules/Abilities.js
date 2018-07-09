@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -7,13 +6,13 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
+    // Cooldown of chi spenders is doubled again when Serenity drops. This is handled in the Serenity module under Talents
     return [
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // This can get way too low calculated cooldown if the player has a very high amount of haste, but this is not expected for windwalkers
         cooldown: (haste, combatant) =>
-          24 / (1 + haste) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
+          24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
@@ -41,13 +40,25 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 24 / (1 + haste),
         gcd: {
-          base: 1500,
+          static: 1000,
         },
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
           extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
+        },
+      },
+      {
+        spell: SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
         },
       },
       // cooldowns
@@ -78,6 +89,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -88,6 +103,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
@@ -99,16 +118,22 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
         spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
       },
       // other spells
@@ -131,7 +156,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 15,
         gcd: {
-          base: 1500,
+          base: 1000,
+          minimum: 750,
         },
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
@@ -168,14 +194,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 45,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
       },
       {
@@ -187,18 +215,28 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EFFUSE,
+        spell: SPELLS.VIVIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+          minimum: 750,
+        },
+      },
+      {
+        spell: SPELLS.TRANSCENDENCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: [SPELLS.TRANSCENDENCE, SPELLS.TRANSCENDENCE_TRANSFER],
+        spell: SPELLS.TRANSCENDENCE_TRANSFER,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 10,
+        cooldown: 45,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
       },
       {

@@ -95,7 +95,7 @@ class RisingMist extends Analyzer {
   }
 
   statistic() {
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RISING_MIST_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}%`}
@@ -113,8 +113,7 @@ class RisingMist extends Analyzer {
             </ul>
           </ul>`
         }
-      >
-      </StatisticBox>
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

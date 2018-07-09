@@ -220,6 +220,25 @@ class SpellUsable extends Analyzer {
     }
   }
 
+  /**
+   * Extends the cooldown for the provided spell by the provided duration.
+   * @param {any} spellId The ID of the spell.
+   * @param {number} extensionMS The duration to extend the cooldown with, in milliseconds.
+   * @param {any} timestamp Override the timestamp if it may be different from the current timestamp.
+   * @returns {*}
+   */
+  extendCooldown(spellId, extensionMS, timestamp = this.owner.currentTimestamp) {
+    const canSpellId = this._getCanonicalId(spellId);
+    if (!this.isOnCooldown(canSpellId)) {
+      throw new Error(`Tried to extend the cooldown of ${canSpellId}, but it's not on cooldown.`);
+    }
+    const cooldownRemaining = this.cooldownRemaining(canSpellId, timestamp);
+    this._currentCooldowns[canSpellId].totalReductionTime -= extensionMS;
+    const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
+    debug && console.log(fightDuration, 'SpellUsable', 'Extended', spellName(canSpellId), canSpellId, 'by', extensionMS, 'remaining:', this.cooldownRemaining(canSpellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[canSpellId].expectedDuration - this._currentCooldowns[canSpellId].totalReductionTime, 'total extension:', -this._currentCooldowns[canSpellId].totalReductionTime);
+    return extensionMS;
+  }
+
   _makeEvent(spellId, timestamp, trigger, others = {}) {
     const cooldown = this._currentCooldowns[spellId];
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;

@@ -171,10 +171,9 @@ class Schism extends Analyzer {
             ((this.directDamage + this.damageFromBuff) /
               this.owner.fightDuration) *
               1000
-          )} DPS
-          `,
+          )} DPS`,
         ]}
-        footer={
+        footer={(
           <dfn
             data-tip={`
               The effective healing contributed by Schism was ${formatPercentage(
@@ -192,7 +191,7 @@ class Schism extends Analyzer {
           >
             Schism Output Details
           </dfn>
-        }
+        )}
       />
     );
   }

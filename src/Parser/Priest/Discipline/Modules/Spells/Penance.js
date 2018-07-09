@@ -82,15 +82,11 @@ class Penance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
-        label={
-          <dfn
-            data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${
-              this.casts
-            } times.`}
-          >
+        label={(
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
             Wasted Penance bolts
           </dfn>
-        }
+        )}
       />
     );
   }

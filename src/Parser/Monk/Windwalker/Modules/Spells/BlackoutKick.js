@@ -55,14 +55,14 @@ class BlackoutKick extends Analyzer {
       event.meta.inefficientCastReason = 'You cast this Blackout Kick while more important spells were available';
     }
 
-    if (this.spellUsable.isAvailable(SPELLS.RISING_SUN_KICK.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
       this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS;
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, COOLDOWN_REDUCTION_MS);
       this.effectiveRisingSunKickReductionMs += reductionMs;
       this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     }
-    if (this.spellUsable.isAvailable(SPELLS.FISTS_OF_FURY_CAST.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
       this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);

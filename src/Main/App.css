@@ -652,6 +652,7 @@ table.data-table img {
   font-weight: normal;
   margin: 0;
   cursor: pointer;
+  padding-left: 5px;
 }
 .toggle-control .react-toggle-track {
   width: 42px;

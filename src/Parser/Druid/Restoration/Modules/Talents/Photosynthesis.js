@@ -65,7 +65,7 @@ class Photosynthesis extends Analyzer {
     const totalUptime =
       Object.keys(this.combatants.players)
           .map(key => this.combatants.players[key])
-          .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),  sourceID);
+          .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), sourceID);
 
     return (
       <StatisticBox

@@ -32,11 +32,12 @@ class ShadowWordPain extends Analyzer {
 
   suggestions(when) {
     const {
-        isLessThan: {
-            minor,
-            average,
-            major,
-    }} = this.suggestionThresholds;
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -49,11 +50,13 @@ class ShadowWordPain extends Analyzer {
   }
 
   statistic() {
-    return (<SmallStatisticBox
-      icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
-      value={`${formatPercentage(this.uptime)} %`}
-      label="Shadow Word: Pain uptime"
-    />);
+    return (
+      <SmallStatisticBox
+        icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
+        value={`${formatPercentage(this.uptime)} %`}
+        label="Shadow Word: Pain uptime"
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(4);

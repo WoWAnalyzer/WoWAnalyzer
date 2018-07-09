@@ -22,6 +22,7 @@ import BlackoutKick from './Modules/Spells/BlackoutKick';
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
+import Serenity from './Modules/Talents/Serenity';
 // Legendaries / Items
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
 import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     hitCombo: HitCombo,
     energizingElixir: EnergizingElixir,
+    serenity: Serenity,
 
     // Spells;
     comboBreaker: ComboBreaker,

@@ -24,7 +24,6 @@ class MasteryBreakdown extends Analyzer {
   on_finished() {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
     let total = 0;
-    delete this.effectiveHealDist[SPELLS.RENEW.id]; // see the comment at line ~150 for why this happens
 
     Object.keys(this.effectiveHealDist).forEach((spell) => {
       total += this.effectiveHealDist[spell];
@@ -122,6 +121,11 @@ class MasteryBreakdown extends Analyzer {
         return;
       }
 
+      // filters out renew ticks as they don't apply mastery again
+      if (spellId === SPELLS.RENEW.id && event.tick) {
+        return;
+      }
+
       if (this._masteryActive[tId]) {
         this._tickMode[tId] = 3;
       } else {
@@ -136,19 +140,7 @@ class MasteryBreakdown extends Analyzer {
         this._maxHealVal[tId] = {};
       }
 
-      let effectiveHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-      if (spellId === SPELLS.RENEW.id) {
-        // due to renew only applying off of initial tick and not from periodic ticks
-        // and both of them having identical spell IDs, I chose to negate renew's mastery
-        // value since the current meta leads us towards never hard-casting renew anyway
-        // which means the mastery value for renew would be miniscule anyway. We uninclude
-        // the value in output for this reason as well.
-
-        // (but I want to include it anyway, that way I can get the "unknown spell" warning to
-        //  work optimally and let users report unknown spells)
-
-        effectiveHealing = 0;
-      }
+      const effectiveHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
 
       if (this._healValByTargetId[tId][spellId] === undefined) {
         this._healValByTargetId[tId][spellId] = effectiveHealing;
@@ -175,7 +167,7 @@ class MasteryBreakdown extends Analyzer {
         )}
       >
         <div>
-          Values under 1% of total (and Renew) are omitted.
+          Values under 1% of total are omitted.
         </div>
         <table className="table table-condensed">
           <thead>

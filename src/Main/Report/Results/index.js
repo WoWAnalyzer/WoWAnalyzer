@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
+import Toggle from 'react-toggle';
 
 import ChecklistIcon from 'Interface/Icons/Checklist';
 import SuggestionIcon from 'Interface/Icons/Suggestion';
@@ -19,7 +20,6 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import ItemStatisticBox from 'Main/ItemStatisticBox';
-import SectionDivider from 'Main/SectionDivider';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -92,6 +92,7 @@ class Results extends React.PureComponent {
     super(props);
     this.state = {
       mainTab: props.parser._modules.checklist.rules.length === 0 ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
+      adjustForDowntime: false,
     };
   }
 
@@ -118,7 +119,7 @@ class Results extends React.PureComponent {
               Items
             </StatisticsSectionTitle>
 
-            <div className="row statistics" style={{ marginBottom: -40 }}>
+            <div className="row statistics">
               {items
                 .sort((a, b) => {
                   // raw elements always rendered last
@@ -186,7 +187,7 @@ class Results extends React.PureComponent {
     const selectedCombatant = modules.combatants.selected;
     const config = this.context.config;
 
-    const results = parser.generateResults();
+    const results = parser.generateResults(this.state.adjustForDowntime);
 
     results.tabs.push({
       title: 'Events',
@@ -282,11 +283,29 @@ class Results extends React.PureComponent {
           </div>
         </div>
 
-        <SectionDivider />
+        <StatisticsSectionTitle
+          rightAddon={parser.hasDowntime && (
+            <div className="toggle-control" style={{ marginTop: 5 }}>
+              <Toggle
+                defaultChecked={this.state.adjustForDowntime}
+                icons={false}
+                onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
+                id="adjust-for-downtime-toggle"
+              />
+              <label htmlFor="adjust-for-downtime-toggle">
+                Adjust statistics for <dfn data-tip="Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.">fight downtime</dfn> (<dfn data-tip="We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.">experimental</dfn>)
+              </label>
+            </div>
+          )}
+        >
+          Statistics
+        </StatisticsSectionTitle>
 
         {this.renderStatistics(results.statistics, results.items, selectedCombatant)}
 
-        <SectionDivider />
+        <StatisticsSectionTitle>
+          Details
+        </StatisticsSectionTitle>
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
       </div>

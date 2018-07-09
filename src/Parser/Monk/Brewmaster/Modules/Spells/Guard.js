@@ -92,14 +92,16 @@ class Guard extends Analyzer {
   statistic() {
     const avgGuardSize = this._guardSizes.reduce((v, sum) => sum + v, 0) / this._guardSizes.length;
     const aps = this._absorbed / (this.owner.fightDuration / 1000);
-    return <StatisticBox
-      icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
-      value={`${formatNumber(aps)} DTPS`}
-      label={"Effective Mitigation by Guard"}
-      tooltip={`Your average Guard could absorb up to <b>${formatNumber(avgGuardSize)}</b> damage.<br/>
-                You wasted <b>${formatNumber(this._guardWasted)}</b> of Guard's absorb.<br/>
-                Your Guard absorbed a total of <b>${formatNumber(this._absorbed)}</b> damage.`}
-              />;
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
+        value={`${formatNumber(aps)} DTPS`}
+        label={"Effective Mitigation by Guard"}
+        tooltip={`Your average Guard could absorb up to <b>${formatNumber(avgGuardSize)}</b> damage.<br/>
+                  You wasted <b>${formatNumber(this._guardWasted)}</b> of Guard's absorb.<br/>
+                  Your Guard absorbed a total of <b>${formatNumber(this._absorbed)}</b> damage.`}
+      />
+    );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 

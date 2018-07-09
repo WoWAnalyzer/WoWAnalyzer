@@ -46,7 +46,7 @@ class HotTracker extends Analyzer {
     const targetId = event.targetID;
     const healing = event.amount + (event.absorbed || 0);
 
-    if(!this._validateHot(event)) {
+    if (!this._validateHot(event)) {
       return;
     }
     const hot = this.hots[targetId][spellId];
@@ -54,8 +54,12 @@ class HotTracker extends Analyzer {
       hot.ticks.push({ healing, timestamp: event.timestamp });
     }
 
-    hot.attributions.forEach(att => att.healing += healing);
-    hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
+    hot.attributions.forEach(att => {
+      att.healing += healing;
+    });
+    hot.boosts.forEach(att => {
+      att.healing += calculateEffectiveHealing(event, att.boost);
+    });
     // extensions handled when HoT falls, using ticks list
   }
 
@@ -80,7 +84,7 @@ class HotTracker extends Analyzer {
       extensions: [], // The effects or bonuses that caused this HoT to have extended duration. Format: { amount, attribution }
       boosts: [], // The effects or bonuses that caused the strength of this HoT to be boosted for its full duration.
     };
-    if(!this.hots[targetId]) {
+    if (!this.hots[targetId]) {
       this.hots[targetId] = {};
     }
     this.hots[targetId][spellId] = newHot;
@@ -107,10 +111,10 @@ class HotTracker extends Analyzer {
     const remaining = oldEnd - event.timestamp;
     const clipped = remaining - (freshDuration * PANDEMIC_EXTRA);
     if (clipped > 0) {
-      debug && console.log(`${event.ability.name} on target ID ${targetId} was refreshed early @${this.owner.formatTimestamp(event.timestamp)}, clipping ${(clipped/1000).toFixed(1)}s`);
+      debug && console.log(`${event.ability.name} on target ID ${targetId} was refreshed early @${this.owner.formatTimestamp(event.timestamp)}, clipping ${(clipped / 1000).toFixed(1)}s`);
       hot.extensions.forEach(ext => {
         ext.amount -= clipped;
-        extensionDebug && console.log(`Extension ${ext.attribution.name} on ${event.ability.name} / ${targetId} @${this.owner.formatTimestamp(event.timestamp)} was clipped by ${(clipped/1000).toFixed(1)}s`);
+        extensionDebug && console.log(`Extension ${ext.attribution.name} on ${event.ability.name} / ${targetId} @${this.owner.formatTimestamp(event.timestamp)} was clipped by ${(clipped / 1000).toFixed(1)}s`);
       });
       // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
     }
@@ -194,7 +198,7 @@ class HotTracker extends Analyzer {
         amount: finalAmount,
       });
     }
-    debug && console.log(`${hot.name} on ${targetId} @${this.owner.formatTimestamp(this.owner.currentTimestamp, 1)} extended ${(finalAmount/1000).toFixed(1)}s by ${attribution.name}`);
+    debug && console.log(`${hot.name} on ${targetId} @${this.owner.formatTimestamp(this.owner.currentTimestamp, 1)} extended ${(finalAmount / 1000).toFixed(1)}s by ${attribution.name}`);
   }
 
   /*
@@ -202,8 +206,8 @@ class HotTracker extends Analyzer {
    */
   _tallyExtensions(hot) {
     hot.extensions
-        .filter(ext => ext.amount > 0) // early refreshes can wipe out the effect of an extension, filter those ones out
-        .forEach(ext => this._tallyExtension(hot.ticks, ext.amount, ext.attribution));
+      .filter(ext => ext.amount > 0) // early refreshes can wipe out the effect of an extension, filter those ones out
+      .forEach(ext => this._tallyExtension(hot.ticks, ext.amount, ext.attribution));
   }
 
   _tallyExtension(ticks, amount, attribution) {
@@ -214,7 +218,7 @@ class HotTracker extends Analyzer {
     let healing = 0;
     // sums healing of every tick within 'amount',
     // also gets the latest tick outside the range, used to scale the healing amount
-    for (let i = ticks.length-1; i >= 0; i--) {
+    for (let i = ticks.length - 1; i >= 0; i--) {
       const tick = ticks[i];
       latestOutside = tick.timestamp;
       if ((now - tick.timestamp) > amount) {
@@ -263,7 +267,7 @@ class HotTracker extends Analyzer {
       const pandemicMax = this.hotInfo[spellId].duration * PANDEMIC_FACTOR;
       if (newTimeRemaining > pandemicMax) {
         amount = pandemicMax - currentTimeRemaining;
-        pandemicLog = `PANDEMIC:(remaining=${(pandemicMax/1000).toFixed(2)}s)`;
+        pandemicLog = `PANDEMIC:(remaining=${(pandemicMax / 1000).toFixed(2)}s)`;
       } else {
         pandemicLog = `PANDEMIC:(N/A)`;
       }
@@ -276,13 +280,13 @@ class HotTracker extends Analyzer {
       const newTicksRemaining = newTimeRemaining / currentTickPeriod;
       const newRoundedTimeRemaining = Math.round(newTicksRemaining) * currentTickPeriod;
       amount = newRoundedTimeRemaining - currentTimeRemaining;
-      tickLog = `TICK:(period=${(currentTickPeriod/1000).toFixed(2)}s)`;
+      tickLog = `TICK:(period=${(currentTickPeriod / 1000).toFixed(2)}s)`;
     }
 
     // an extension can never reduce HoT's remaining duration, even after clamping
     amount = Math.max(0, amount);
 
-    extensionDebug && console.log(`${hot.name} w/ ${(currentTimeRemaining/1000).toFixed(2)}s remaining gets ${(rawAmount/1000).toFixed(2)}s extension clamped by ${pandemicLog} ${tickLog} => actual: ${(amount/1000).toFixed(2)}s, new remaining: ${((amount+currentTimeRemaining)/1000).toFixed(2)}s`);
+    extensionDebug && console.log(`${hot.name} w/ ${(currentTimeRemaining / 1000).toFixed(2)}s remaining gets ${(rawAmount / 1000).toFixed(2)}s extension clamped by ${pandemicLog} ${tickLog} => actual: ${(amount / 1000).toFixed(2)}s, new remaining: ${((amount + currentTimeRemaining) / 1000).toFixed(2)}s`);
 
     return amount;
   }
@@ -296,10 +300,10 @@ class HotTracker extends Analyzer {
     const diff = actual - expected;
     if (diff > EXPECTED_REMOVAL_THRESHOLD) {
       // The only reason HoT could last longer than expected is we are missing an extension, which is a bug -> log a warning
-      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${(diff/1000).toFixed(1)}s LATER than expected... Missing an extension?`);
+      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${(diff / 1000).toFixed(1)}s LATER than expected... Missing an extension?`);
     } else if (diff < (-1 * EXPECTED_REMOVAL_THRESHOLD)) {
       // Several legitimate reasons HoT could last shorter than expected: lifebloom swap, target dies, target was purged, target cancelled the spell -> log only when debug on
-      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${-(diff/1000).toFixed(1)}s earlier than expected`);
+      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${-(diff / 1000).toFixed(1)}s earlier than expected`);
     }
     return diff;
   }
@@ -330,15 +334,15 @@ class HotTracker extends Analyzer {
   _validateHot(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (!(spellId in this.hotInfo)) {
+    if (!(this.hotInfo[spellId])) {
       return false; // we only care about the listed HoTs
     }
 
     if (['removebuff', 'refreshbuff', 'heal'].includes(event.type) &&
-       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
+      (!this.hots[targetId] || !this.hots[targetId][spellId])) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
-    } else if ('applybuff' === event.type && this.hots[targetId] && this.hots[targetId][spellId]) {
+    } else if (event.type === 'applybuff' && this.hots[targetId] && this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }

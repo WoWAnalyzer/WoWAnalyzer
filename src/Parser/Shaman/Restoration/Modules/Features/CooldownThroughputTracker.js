@@ -108,7 +108,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0)  + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
 
       this.owner.fabricateEvent({
         ...event,

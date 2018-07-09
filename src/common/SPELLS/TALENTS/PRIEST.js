@@ -282,4 +282,9 @@ export default {
     name: 'Evangelism',
     icon: 'spell_holy_divineillumination',
   },
+  SINS_OF_THE_MANY_TALENT: {
+    id: 280391,
+    name: 'Sins of the Many',
+    icon: 'spell_holy_holyguidance',
+  },
 };

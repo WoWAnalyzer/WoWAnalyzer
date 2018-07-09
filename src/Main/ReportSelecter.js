@@ -109,7 +109,7 @@ class ReportSelecter extends React.PureComponent {
                 <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
               </ul>
             `}
-            data-delay-show='200'
+            data-delay-show="200"
             type="text"
             name="code"
             className="form-control"

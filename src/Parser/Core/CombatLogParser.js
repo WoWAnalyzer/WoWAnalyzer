@@ -34,6 +34,8 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
 import TimelineBuffEvents from './Modules/TimelineBuffEvents';
+import DeathDowntime from './Modules/Downtime/DeathDowntime';
+import TotalDowntime from './Modules/Downtime/TotalDowntime';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -120,6 +122,9 @@ import VantusRune from './Modules/Spells/VantusRune';
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+// Dungeons
+import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
+import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -163,6 +168,8 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
@@ -246,6 +253,9 @@ class CombatLogParser {
     // BFA
     zandalariLoaFigurine: ZandalariLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    // Dungeons
+    lingeringSporepods: LingeringSporepods,
+    fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -255,6 +265,11 @@ class CombatLogParser {
   playerPets = null;
   fight = null;
   combatantInfoEvents = null;
+
+  adjustForDowntime = true;
+  get hasDowntime() {
+    return this._modules.totalDowntime.totalBaseDowntime > 0;
+  }
 
   _modules = {};
   _activeAnalyzers = {};
@@ -276,7 +291,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time;
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -503,7 +518,10 @@ class CombatLogParser {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
-  generateResults() {
+  generateResults(adjustForDowntime) {
+    this.adjustForDowntime = adjustForDowntime;
+    console.log(this._modules.totalDowntime.totalBaseDowntime);
+
     const results = new ParseResults();
 
     results.tabs = [];
