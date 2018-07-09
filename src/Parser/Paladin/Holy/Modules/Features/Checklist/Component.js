@@ -70,7 +70,13 @@ class HolyPaladinChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
+          {/* Avenging Crusader replaces Avenging Wrath */}
+          {!combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
+          )}
+          {combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.AVENGING_CRUSADER_TALENT.id} />
+          )}
           {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />
           )}
