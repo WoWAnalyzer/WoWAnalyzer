@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -16,7 +15,6 @@ const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 class ChainHeal extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   suggestions(when) {
@@ -24,7 +22,7 @@ class ChainHeal extends Analyzer {
     if (isNaN(suggestedThreshold.actual)) {
       return;
     }
-    const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    const maxTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {maxTargets} potential targets.</span>)
@@ -42,7 +40,7 @@ class ChainHeal extends Analyzer {
     const hits = chainHeal.healingHits || 0;
     const avgHits = hits / casts;
 
-    const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    const maxTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const suggestedTargets = maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     return {
@@ -63,7 +61,7 @@ class ChainHeal extends Analyzer {
     const hits = chainHeal.healingHits || 0;
     const avgHits = hits / casts;
 
-    const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    const maxTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
 
     if (isNaN(avgHits)) {
       return null;
@@ -72,9 +70,9 @@ class ChainHeal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
-        value={`${isNaN(avgHits) ? 'N/A' : avgHits.toFixed(2)}`}
+        value={avgHits.toFixed(2)}
         label={(
-          <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
+          <dfn data-tip={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
             Average Chain Heal targets
           </dfn>
         )}

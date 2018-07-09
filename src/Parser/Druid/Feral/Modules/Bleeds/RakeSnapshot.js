@@ -36,9 +36,9 @@ class RakeSnapshot extends Snapshot {
   // rake DoTs refreshed with weaker snapshot before pandemic
   downgradeCastCount = 0;
 
-  on_initialized() {
-    super.on_initialized();
-    if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
       this.constructor.durationOfFresh = RAKE_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
     }
   }

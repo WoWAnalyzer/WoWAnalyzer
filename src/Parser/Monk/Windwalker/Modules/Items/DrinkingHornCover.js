@@ -1,20 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class DrinkingHornCover extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
   totalTimeGained = 0;
   averageTimeGained = 0;
   lastCastTime = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.DRINKING_HORN_COVER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id);
   }
 
   on_toPlayer_applybuff(event) {

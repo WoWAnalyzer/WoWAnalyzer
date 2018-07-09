@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
@@ -17,13 +17,11 @@ import DanceDamageTracker from './Modules/RogueCore/DanceDamageTracker';
 import DarkShadowNightblade from './Modules/Talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from "./Modules/Talents/DarkShadow/DarkShadowContribution";
 import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
-import DeathFromAbove from "./Modules/Talents/DFA/DeathFromAbove";
 import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
 import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
-import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
 import T21_2P from './Modules/Items/T21_2P';
-import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
+import DeepeningShadows from './Modules/RogueCore/DeepeningShadows';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
@@ -57,7 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mantleDamageTracker: MantleDamageTracker,
 
     //Core
-    danceCooldownReduction: DanceCooldownReduction,
+    danceCooldownReduction: DeepeningShadows,
 
     //Items
     t21_2P: T21_2P,
@@ -75,9 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     castsInShadowDance: CastsInShadowDance,
-    DeathFromAbove: DeathFromAbove,
-    DeathFromAboveMantle: DeathFromAboveMantle,
-    
+
     //Talents
     darkShadowContribution: DarkShadowContribution,
     darkShadowEvis: DarkShadowEvis,

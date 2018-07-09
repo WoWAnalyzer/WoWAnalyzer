@@ -23,8 +23,9 @@ class IronskinBrew extends EventsNormalizer {
   }
 
   _combatantInfoEvents = {};
-  initialize(combatants) {
-    this._combatantInfoEvents = combatants;
+  constructor(...args) {
+    super(...args);
+    this._combatantInfoEvents = this.owner.combatantInfoEvents;
   }
 
   normalize(events) {

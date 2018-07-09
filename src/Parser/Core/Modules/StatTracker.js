@@ -1,11 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 
@@ -13,9 +12,6 @@ const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -36,30 +32,31 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
+    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
     // endregion
 
     // region Runes
-    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 325, agility: 325, intellect: 325 },
+    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 15, agility: 15, intellect: 15 },
     // endregion
 
     //region Flasks
-    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 1300 },
-    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 1300 },
-    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 1300 },
-    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 1950 },
+    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 59 },
+    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 59 },
+    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 59 },
+    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 88 },
     // endregion
 
     //region Food
-    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 375 },
-    [SPELLS.AZSHARI_SALAD.id]: { haste: 375 },
-    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 375 },
-    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 375 },
-    [SPELLS.STAM_FEAST.id]: { stamina: 600 },
-    [SPELLS.STR_FEAST.id]: { strength: 500 },
-    [SPELLS.AGI_FEAST.id]: { agility: 500 },
-    [SPELLS.INT_FEAST.id]: { intellect: 500 },
-    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 475},
+    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 17 },
+    [SPELLS.AZSHARI_SALAD.id]: { haste: 17 },
+    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 17 },
+    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 17 },
+    [SPELLS.STAM_FEAST.id]: { stamina: 27 },
+    [SPELLS.STR_FEAST.id]: { strength: 23 },
+    [SPELLS.AGI_FEAST.id]: { agility: 23 },
+    [SPELLS.INT_FEAST.id]: { intellect: 23 },
+    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
     //endregion
 
     // region Dungeon Trinkets
@@ -119,6 +116,21 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.HORN_OF_VALOR.id,
       haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
+
+    // BFA quests
+    [SPELLS.DIEMETRADON_FRENZY.id]: {
+      itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
+      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+    },
+    [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
+      itemId: ITEMS.ZANDALARI_LOA_FIGURINE.id, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
+    [SPELLS.SPYGLASS_SIGHT.id]: { // Spyglass Sight
+      itemId: ITEMS.FIRST_MATES_SPYGLASS.id, // First Mate's Spyglass
+      crit: (_, item) => calculatePrimaryStat(280, 768, item.itemLevel),
+    },
+
     //endregion
 
     // region Raid Trinkets
@@ -185,23 +197,8 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Misc
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
-      strength: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id]: { // check numbers
-      agility: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
-      intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
-      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
-    [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
-    [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
-    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 600 },
-    [SPELLS.MURDEROUS_INTENT_BUFF.id]: { versatility: 2500 },
+    [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
+    [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
     // Antorus: Argus the Unmaker debuffs
     [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
     [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
@@ -212,40 +209,147 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Druid
-    [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
+    [SPELLS.ASTRAL_HARMONY.id]: { mastery: 181 },
     // endregion
 
     // region Mage
-    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 800 },
-    // endregion
-
-    // region Priest
-    [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
+    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
     // endregion
 
     // region Paladin
-    [SPELLS.SERAPHIM_TALENT.id]: { crit: 5500, haste: 5500, mastery: 5500, versatility: 5500 },
+    [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
+    // endregion
+
+    /****************************************\
+    *                    BFA:                *
+    \****************************************/
+
+    // region Azerite Traits
+    // region General
+    [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
+    [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
+    [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
+    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    // endregion
+    // region Hunter
+    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    // endregion
+    // region Warlock
+    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
+    // endregion
+    // endregion
+
+    // region Enchants
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    264878: { crit: 445 }, // Crow's Nest Scope
+    //endregion
+
+    // region Trinkets
+    // region Quests
+    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
+    268619: { // Diemetradon Frenzy
+      itemId: 159764, // Engranged Diemetradon Fin
+      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
+    },
+    269887: { // Boiling Time
+      itemId: 159978, // Junji's Egg Timer
+      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268623: { // Shark's Bite
+      itemId: 159765, // Empowered Shark's Tooth
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268602: { // Master's Sight
+      itemId: 159074, // Jarkadiax's Other Eye
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    268616: { // Swell of Voodoo
+      itemId: 159763, // Idol of Vol'jamba
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    273988: { // Primal Instinct
+      itemId: 158155, // Zandalari Dinobone Charm
+      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+    },
+    269885: { // Residual Viciousness
+      itemId: 159977, // Vindictive Golem Core
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273992: { // Speed of the Spirits
+      itemId: 158154, // Zandalari Bijou
+      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
+    268604: { // Blood Crazed
+      itemId: 159075, // Bloodhex Talisman
+      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
+    },
+    271103: { // Rezan's Gleaming Eye
+      itemId: 158712, // Rezan's Gleaming Eye
+      haste: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
+    },
+    268836: { // Blood of My Enemies
+      itemId: 159625, // Vial of Animated Blood
+      strength: (_, item) => calculateSecondaryStatDefault(300, 705, item.itemLevel),
+    },
+    // endregion
+    // region Dungeons
+    271071: { // Conch of Dark Whispers
+      itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+    },
+    271115: { // Ignition Mage's Fuse
+      itemId: ITEMS.IGNITION_MAGES_FUSE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
+    },
+    // endregion
+    // endregion
+
+    // region Consumables
+    //region Flasks
+    251836: { agility: 238 }, // Flask of the Currents
+    251839: { strength: 238 }, // Flask of the Undertow
+    152639: { intellect: 238 }, // Flask of Endless Fathoms
+    251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // endregion
+
+    // region Racials
+    // Mag'har Orc
+    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 102 }, // 411 stats at level 120
+    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 102 },
+    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 102 },
+    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 102 },
     // endregion
   };
 
   _pullStats = {};
   _currentStats = {};
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // TODO: Use combatantinfo event directly
     this._pullStats = {
-      strength: this.combatants.selected._combatantInfo.strength,
-      agility: this.combatants.selected._combatantInfo.agility,
-      intellect: this.combatants.selected._combatantInfo.intellect,
-      stamina: this.combatants.selected._combatantInfo.stamina,
-      crit: this.combatants.selected._combatantInfo.critSpell,
-      haste: this.combatants.selected._combatantInfo.hasteSpell,
-      mastery: this.combatants.selected._combatantInfo.mastery,
-      versatility: this.combatants.selected._combatantInfo.versatilityHealingDone,
-      avoidance: this.combatants.selected._combatantInfo.avoidance,
-      leech: this.combatants.selected._combatantInfo.leech,
-      speed: this.combatants.selected._combatantInfo.speed,
-      armor: this.combatants.selected._combatantInfo.armor,
+      strength: this.selectedCombatant._combatantInfo.strength,
+      agility: this.selectedCombatant._combatantInfo.agility,
+      intellect: this.selectedCombatant._combatantInfo.intellect,
+      stamina: this.selectedCombatant._combatantInfo.stamina,
+      crit: this.selectedCombatant._combatantInfo.critSpell,
+      haste: this.selectedCombatant._combatantInfo.hasteSpell,
+      mastery: this.selectedCombatant._combatantInfo.mastery,
+      versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
+      avoidance: this.selectedCombatant._combatantInfo.avoidance,
+      leech: this.selectedCombatant._combatantInfo.leech,
+      speed: this.selectedCombatant._combatantInfo.speed,
+      armor: this.selectedCombatant._combatantInfo.armor,
     };
 
     this.applySpecModifiers();
@@ -259,7 +363,7 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers() {
-    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => {
       this._pullStats[stat] *= multiplier;
     });
@@ -267,7 +371,7 @@ class StatTracker extends Analyzer {
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
-      const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
+      const rank = this.selectedCombatant.traitsBySpellId[spellId] || 0;
       Object.entries(modifiers).forEach(([stat, multiplier]) => {
         this._pullStats[stat] *= 1 + multiplier * rank;
       });
@@ -362,16 +466,14 @@ class StatTracker extends Analyzer {
    */
   get baseCritPercentage() {
     const standard = 0.05;
-    switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
+    switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
-      case SPECS.BEAST_MASTERY_HUNTER :
+      case SPECS.BEAST_MASTERY_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.MARKSMANSHIP_HUNTER :
+      case SPECS.MARKSMANSHIP_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.SURVIVAL_HUNTER :
+      case SPECS.SURVIVAL_HUNTER:
         return standard + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
@@ -391,7 +493,7 @@ class StatTracker extends Analyzer {
     return 0;
   }
   get baseMasteryPercentage() {
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.HOLY_PALADIN:
         return 0.12;
       case SPECS.HOLY_PRIEST:
@@ -399,7 +501,7 @@ class StatTracker extends Analyzer {
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
-        return 0.128;
+        return 0.096;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
@@ -412,6 +514,8 @@ class StatTracker extends Analyzer {
         return 0.048;
       case SPECS.BALANCE_DRUID:
         return 0.18;
+      case SPECS.FERAL_DRUID:
+        return 0.16;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
@@ -475,43 +579,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 40000;
+    return 72 * 100;
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 37500;
+    return 68 * 100;
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 40000 / this.combatants.selected.spec.masteryCoefficient;
+    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 47500;
+    return 85 * 100;
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 11000;
+    return 19.8 * 100;
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 23000;
+    return 41.4 * 100;
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 8000;
+    return 14.4 * 100;
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
@@ -645,10 +749,10 @@ class StatTracker extends Analyzer {
     if (statVal === undefined) {
       return 0;
     } else if (typeof statVal === 'function') {
-      const selectedCombatant = this.combatants.selected;
+      const selectedCombatant = this.selectedCombatant;
       let itemDetails;
       if (buffObj.itemId) {
-        itemDetails = this.combatants.selected.getItem(buffObj.itemId);
+        itemDetails = this.selectedCombatant.getItem(buffObj.itemId);
         if (!itemDetails) {
           console.warn('Failed to retrieve item information for item with ID:', buffObj.itemId,
             ' ...unable to handle stats buff, making no stat change.');

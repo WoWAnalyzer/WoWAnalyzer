@@ -6,15 +6,10 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class Clearcasting extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // With MoC, there's no actual indication in the events that you have it...
   // In fact the Clearcasting buff doesn't show with stacks.
   // You'll appear as casting Regrowths without the buff disappating, and then on the 3rd Regrowth it goes away.
@@ -31,8 +26,9 @@ class Clearcasting extends Analyzer {
   nonCCRegrowths = 0;
   totalRegrowths = 0;
 
-  on_initialized() {
-    this.hasMoC = this.combatants.selected.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
+  constructor(...args) {
+    super(...args);
+    this.hasMoC = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
     this.procsPerCC = this.hasMoC ? 3 : 1;
   }
 
@@ -82,7 +78,7 @@ class Clearcasting extends Analyzer {
     }
     this.totalRegrowths += 1;
 
-    if (this.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.availableProcs -= 1;
       this.usedProcs += 1;
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);

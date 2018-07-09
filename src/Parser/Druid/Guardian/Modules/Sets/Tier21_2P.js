@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -13,7 +12,6 @@ function formatTimer(timeInMs) {
 
 class Tier21_2P extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -24,14 +22,15 @@ class Tier21_2P extends Analyzer {
     return this._totalReductionMs;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.GUARDIAN_TIER_21_2P_SET_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_TIER_21_2P_SET_BONUS.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MANGLE_BEAR.id) {
-      const hasGoreBuff = this.combatants.selected.hasBuff(SPELLS.GORE_BEAR.id);
+      const hasGoreBuff = this.selectedCombatant.hasBuff(SPELLS.GORE_BEAR.id);
       const isOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BARKSKIN.id);
       if (hasGoreBuff && isOnCooldown) {
         this._totalReductionMs += this.spellUsable.reduceCooldown(SPELLS.BARKSKIN.id, this.BARKSKIN_REDUCTION_MS);

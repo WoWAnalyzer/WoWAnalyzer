@@ -4,7 +4,6 @@ import { formatThousands } from "common/format";
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Garothi Feedback Conduit
@@ -13,10 +12,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
  * This module calculates the average Haste gain over the entire fight.
  */
 class GarothiFeedbackConduit extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _hastePerStack = 0;
   _totalStacks = 0;
   get averageStacks() {
@@ -26,10 +21,11 @@ class GarothiFeedbackConduit extends Analyzer {
     return this.averageStacks * this._hastePerStack;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
     if (this.active) {
-      const item = this.combatants.selected.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
+      const item = this.selectedCombatant.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
       this._hastePerStack = calculateSecondaryStatDefault(930, 856, item.itemLevel);
     }
   }

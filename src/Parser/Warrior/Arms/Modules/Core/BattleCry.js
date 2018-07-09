@@ -13,7 +13,7 @@ class BattleCryAnalyzer extends Analyzer {
   battleCrying = false;
 
   on_byPlayer_cast(event) {
-    if(SPELLS.BATTLE_CRY.id === event.ability.guid) {
+    if (SPELLS.RECKLESSNESS.id === event.ability.guid) {
       // If a Battle Cry was cast trigger the start event.
       this.battleCryCount += 1;
       this.battleCrying = true;
@@ -21,7 +21,7 @@ class BattleCryAnalyzer extends Analyzer {
       return;
     }
 
-    if(!this.battleCrying) {
+    if (!this.battleCrying) {
       // Ignore any other casts if we aren't Battle Crying.
       return;
     }
@@ -38,7 +38,7 @@ class BattleCryAnalyzer extends Analyzer {
   }
 
   on_byPlayer_removebuff(event) {
-    if(SPELLS.BATTLE_CRY.id === event.ability.guid) {
+    if (SPELLS.RECKLESSNESS.id === event.ability.guid) {
       // If Battle Cry ends trigger the end event.
       this.battleCrying = false;
       this.endBattleCry(event);

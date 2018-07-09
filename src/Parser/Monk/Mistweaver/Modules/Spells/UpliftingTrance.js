@@ -113,7 +113,7 @@ class UpliftingTrance extends Analyzer {
             >
               <img src="/img/healing.png" alt="Healing" />
             </div>
-            
+
             <div
               className="remainder stat-overhealing-bg"
               data-tip={`You missed a total of ${unusedUTProc} procs.`}

@@ -11,6 +11,9 @@ describe('Features.GuardianOfElune', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
+      selectedCombatant: {
+        hasTalent: () => true,
+      },
     });
   });
   it('trach GoE procs with no events', () => {

@@ -83,8 +83,8 @@ class NavigationBar extends React.PureComponent {
               <PatreonIcon />
             </a>
           </div>
-          <LoadingBar progress={progress} />
         </div>
+        <LoadingBar progress={progress} />
       </nav>
     );
   }

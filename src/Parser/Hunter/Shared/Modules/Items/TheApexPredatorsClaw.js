@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -28,14 +27,14 @@ const HATI_LIST = [
  */
 class TheApexPredatorsClaw extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     pets: CorePets,
   };
   currentDireBeasts = [];
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.THE_APEX_PREDATORS_CLAW.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.THE_APEX_PREDATORS_CLAW.id);
   }
   on_byPlayer_summon(event) {
     const spellID = event.ability.guid;

@@ -1,49 +1,67 @@
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-const VENGEANCE_RAGE_REDUCTION = 0.35; //percent
-const IGNORE_PAIN_MAX_COST = 60;
+const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
+const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms
+const RAGE_PER_MELEE_HIT = 2;
+const RAGE_PER_MELEE_HIT_TAKEN = 3;
 
 class RageTracker extends ResourceTracker {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   vengeanceRageSaved = 0;
+  lastMeleeTaken = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.RAGE;
   }
 
   getReducedCost(event) {
+
     if (!this.getResource(event).cost) {
       return 0;
     }
     let cost = this.getResource(event).cost / 10;
     const abilityId = event.ability.guid;
     if (abilityId === SPELLS.REVENGE.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {
         const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
         this.vengeanceRageSaved += cost - newCost;
         cost = newCost;
       }
     } else if (abilityId === SPELLS.IGNORE_PAIN.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
-        const currentRage = this.getResource(event).amount / 10;
-        const newCost = currentRage >= IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) ? IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) : currentRage;
-        const normalCost = currentRage >= IGNORE_PAIN_MAX_COST ? IGNORE_PAIN_MAX_COST : currentRage;
-
-        this.vengeanceRageSaved += normalCost - newCost;
+      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
+        const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
+        this.vengeanceRageSaved += cost - newCost;
         cost = newCost;
-        //use either the max reduced max cost 39 Rage if enough rage was available or use all the available rage
-        //WCL return the wrong rage cost for a cast with Vengeance up (with 60+ rage available 46 instead of 39 (60 * 0.65))
       }
     }
     return cost;
+  }
+
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.MELEE.id) {
+      return;
+    }
+    
+    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+  }
+
+  on_toPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.MELEE.id || event.hitType === HIT_TYPES.DODGE || event.hitType === HIT_TYPES.PARRY) {
+      return;
+    }
+
+    if (event.timestamp - this.lastMeleeTaken >= RAGE_GEN_FROM_MELEE_HIT_ICD) {
+      this.processInvisibleEnergize(SPELLS.RAGE_DAMAGE_TAKEN.id, RAGE_PER_MELEE_HIT_TAKEN);
+      this.lastMeleeTaken = event.timestamp;
+    }
   }
 
   get rageSavedByVengeance() {

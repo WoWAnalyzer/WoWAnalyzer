@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Pets from 'Parser/Core/Modules/Pets';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -17,14 +16,14 @@ const TAKTHERITRIXS_SHOULDERPADS_MODIFIER = 0.4;
 
 class TaktheritrixsShoulderpads extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		pets: Pets,
 	};
 
 	damageDone = 0;
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasShoulder(ITEMS.TAKTHERITRIXS_SHOULDERPADS.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasShoulder(ITEMS.TAKTHERITRIXS_SHOULDERPADS.id);
 	}
 
 	on_byPlayerPet_damage(event) {

@@ -7,27 +7,26 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class FirstOfTheDead extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     damageTracker: DamageTracker,
   };
 
   totalValue = 0;
   valueCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHands(ITEMS.THE_FIRST_OF_THE_DEAD.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.THE_FIRST_OF_THE_DEAD.id);
   }
 
   on_toPlayer_energize(event) {
     if (!event.ability) return;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
     const buffID = SPELLS.THE_FIRST_OF_THE_DEAD_BUFF.id;
-    if (!this.combatants.selected.hasBuff(buffID)) return;
+    if (!this.selectedCombatant.hasBuff(buffID)) return;
 
     let baseCp = 0;
     const spellId = event.ability.guid;
@@ -40,7 +39,7 @@ class FirstOfTheDead extends Analyzer {
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
+    if (this.selectedCombatant.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
 
     const gain = event.resourceChange;
     const waste = event.waste;

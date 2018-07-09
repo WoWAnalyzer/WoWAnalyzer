@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -13,19 +12,24 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
  *  Inspired by filler modules in Holy Paladin Analyzer
  */
 
+const COOLDOWN_REDUCTION_MS = 1000;
+
 class BlackoutKick extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
+
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.FISTS_OF_FURY_CAST.id,
-    SPELLS.STRIKE_OF_THE_WINDLORD.id,
     SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
   ];
-  inefficientCasts = 0;
+
+  effectiveRisingSunKickReductionMs = 0;
+  wastedRisingSunKickReductionMs = 0;
+  effectiveFistsOfFuryReductionMs = 0;
+  wastedFistsOfFuryReductionMs = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -34,7 +38,7 @@ class BlackoutKick extends Analyzer {
     }
 
     this.casts += 1;
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     // Blackout Kick sometimes take priority if you're using T21
     if (combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id) && combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
       event.meta = event.meta || {};
@@ -42,28 +46,42 @@ class BlackoutKick extends Analyzer {
       event.meta.enhancedCastReason = 'You had Combo Breaker and T21-2pc for this Blackout Kick';
       return;
     }
-    
+
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
 
     if (hasImportantCastsAvailable) {
-      this.inefficientCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'You cast this Blackout Kick while more important spells were available';
     }
+
+    if (this.spellUsable.isAvailable(SPELLS.RISING_SUN_KICK.id)) {
+      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS;
+    } else {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveRisingSunKickReductionMs += reductionMs;
+      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+    }
+    if (this.spellUsable.isAvailable(SPELLS.FISTS_OF_FURY_CAST.id)) {
+      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
+    } else {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveFistsOfFuryReductionMs += reductionMs;
+      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+    }
   }
 
-  get inefficientCastsPerMinute() {
-    return this.inefficientCasts / (this.owner.fightDuration / 1000) * 60;
+  get totalWastedReductionPerMinute() {
+    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.inefficientCastsPerMinute,
+      actual: this.totalWastedReductionPerMinute,
       isGreaterThan: {
         minor: 0,
-        average: 1,
-        major: 2,
+        average: 2,
+        major: 4,
       },
       style: 'decimal',
     };
@@ -71,9 +89,9 @@ class BlackoutKick extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest('You are casting Blackout Kick while having important casts available')
+      return suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(`${this.inefficientCastsPerMinute.toFixed(2)} Bad Blackout Kick casts per minute`)
+        .actual(`${this.totalWastedReductionPerMinute.toFixed(2)} wasted cooldown reduction per minute`)
         .recommended(`${recommended} is recommended`);
     });
   }
@@ -82,9 +100,28 @@ class BlackoutKick extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLACKOUT_KICK.id} />}
-        value={this.inefficientCasts}
-        label="Bad Blackout Kick Casts"
-        tooltip="Bad casts are Blackout Kicks used while important spells like Rising Sun Kick and Fists of Fury are available."
+        value={(
+          <span style={{ fontsize: '75%' }}>
+            {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)}s{' '}
+            <SpellIcon
+              id={SPELLS.RISING_SUN_KICK.id}
+              style={{
+                height: '1.3em',
+                marginTop: '-1.em',
+              }}
+            />
+            <br />
+            {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}s{' '}
+            <SpellIcon
+              id={SPELLS.FISTS_OF_FURY_CAST.id}
+              style={{
+                height: '1.3em',
+                marginTop: '-1.em',
+              }}
+            />
+          </span>
+        )}
+        label="Cooldown reduction"
       />
     );
   }

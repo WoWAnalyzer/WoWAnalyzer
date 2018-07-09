@@ -6,14 +6,12 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class VirulentPlagueEfficiency extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
-    enemies: Enemies,
+	  enemies: Enemies,
   };
 
   targets = {};
@@ -21,12 +19,12 @@ class VirulentPlagueEfficiency extends Analyzer {
   totalOutBreakCasts = 0;
   totalTimeWasted = 0;
 
-  get VirulentDuration() {
-    if (this.combatants.selected.hasTalent(SPELLS.EBON_FEVER_TALENT.id)) {
-      return 13.65;
-    } else {
-      return 27.3;
-    }
+  get VirulentDuration(){
+	  if (this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id)) {
+		  return 13.65;
+	  } else{
+		  return 27.3;
+	  }
   }
 
   on_byPlayer_refreshdebuff(event) {

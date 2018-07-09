@@ -4,13 +4,11 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
@@ -19,8 +17,9 @@ class BlackOxBrew extends Analyzer {
   wastedCDR = 0;
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

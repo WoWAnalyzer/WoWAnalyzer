@@ -4,25 +4,23 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 
 // Spell data
-import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
+import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 // Priest Core
-import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
-import Divinity from './Modules/PriestCore/Divinity';
-import LightOfTuure from './Modules/PriestCore/LightOfTuure';
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
 import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
 import Serendipity from './Modules/PriestCore/Serendipity';
@@ -50,9 +48,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    renewTheFaith: RenewTheFaith,
-    divinity: Divinity,
-    lightOfTuure: LightOfTuure,
+    spellUsable: SpellUsable,
+
+    // Core
     enduringRenewal: EnduringRenewal,
     masteryBreakdown: MasteryBreakdown,
     serendipity: Serendipity,
@@ -61,9 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     hymnBuffBenefit: HymnBuffBenefit,
 
     // Spells
-    prayerOfMending: PrayerOfMending,
     divineHymn: DivineHymn,
     sanctify: Sanctify,
+    spiritOfRedemption: SpiritOfRedemption,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,

@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -10,12 +9,12 @@ import EnergyTracker from '../../../Common/Resources/EnergyTracker';
 
 class ShadowSatyrsWalk extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     energyTracker: EnergyTracker,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFeet(ITEMS.SHADOW_SATYRS_WALK.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.SHADOW_SATYRS_WALK.id);
   }
 
   item() {

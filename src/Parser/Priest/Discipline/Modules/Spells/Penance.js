@@ -2,65 +2,51 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
-/**
- * This module will try to use Speed of the Pious to determine new Penance casts
- * If Speed of the Pious is not available, we fallback to an estimate
- */
 class Penance extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
   _penanceBoltHitNumber = 0;
   _penanceBoltCastNumber = 0; // Used for the cast event, not the damage or healing ones
   casts = 0;
   hits = 0;
 
-  isNewPenanceCast(timestamp) {
-    return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
-  }
+  static isPenance = spellId =>
+    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id;
 
-  // Speed of the Pious is applied at the start of Penance
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
-      return;
+  isNewPenanceCast(ability, timestamp) {
+    if (!Penance.isPenance(ability.guid)) {
+      return undefined;
     }
-    this._speedOfThePiousAcquired = true;
-    this.casts += 1;
-    this._penanceBoltHitNumber = 0;
-    this._penanceBoltCastNumber = 0;
+
+    return (
+      !this._previousPenanceTimestamp ||
+      timestamp - this._previousPenanceTimestamp > PENANCE_MINIMUM_RECAST_TIME
+    );
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id)) {
+    if (spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) {
       return;
     }
 
-    if (this._speedOfThePiousAcquired) {
-      this._penanceBoltCastNumber += 1;
-    } else {
-      // Guesstimate based on magic number
-      if (this.isNewPenanceCast(event.timestamp)) {
-        this._previousPenanceTimestamp = event.timestamp;
-        this._penanceBoltCastNumber = 1;
-        this.casts += 1;
-      }
+    // Guesstimate based on magic number
+    if (this.isNewPenanceCast(event.ability, event.timestamp)) {
+      this._previousPenanceTimestamp = event.timestamp;
+      this._penanceBoltCastNumber = 1;
+      this.casts += 1;
+      this._penanceBoltHitNumber = 0;
     }
 
     event.penanceBoltNumber = this._penanceBoltCastNumber;
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id) {
+    if (!Penance.isPenance(event)) {
       return;
     }
 
@@ -70,7 +56,7 @@ class Penance extends Analyzer {
   }
 
   on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.PENANCE_HEAL.id) {
+    if (!Penance.isPenance(event)) {
       return;
     }
 
@@ -80,8 +66,11 @@ class Penance extends Analyzer {
   }
 
   statistic() {
-    const hasCastigation = this.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
-    const missedPenanceTicks = (this.casts * (3 + (hasCastigation ? 1 : 0))) - this.hits;
+    const hasCastigation = this.selectedCombatant.hasTalent(
+      SPELLS.CASTIGATION_TALENT.id
+    );
+    const missedPenanceTicks =
+      this.casts * (3 + (hasCastigation ? 1 : 0)) - this.hits;
 
     return (
       <StatisticBox

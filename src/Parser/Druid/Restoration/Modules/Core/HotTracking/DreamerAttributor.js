@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HotTracker from './HotTracker';
 
@@ -9,7 +8,6 @@ import HotTracker from './HotTracker';
  */
 class DreamerAttributor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 

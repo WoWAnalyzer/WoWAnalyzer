@@ -2,10 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 import KegSmash from '../Spells/KegSmash';
 import TigerPalm from '../Spells/TigerPalm';
 import IronskinBrew from '../Spells/IronSkinBrew';
@@ -14,7 +13,6 @@ import AnvilHardenedWristwraps from '../Items/AnvilHardenedWristwraps';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     ks: KegSmash,
     tp: TigerPalm,
     wrists: AnvilHardenedWristwraps,
@@ -37,7 +35,7 @@ class BrewCDR extends Analyzer {
     totalCDR += this.ks.cdr;
     totalCDR += this.ks.bocCDR;
     // ...and TP...
-    totalCDR += this.tp.cdr + this.tp.fpCDR;
+    totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr;
     // ...and wrists
@@ -97,9 +95,9 @@ class BrewCDR extends Analyzer {
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
         tooltip={`Your cooldowns were reduced by: <ul>
-              <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
+              <li>${this.ks.totalCasts} Keg Smash casts— <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bocKsDesc}
-              <li>${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${((this.tp.cdr + this.tp.fpCDR) / 1000).toFixed(2)}s</b> (<b>${((this.tp.wastedCDR + this.tp.wastedFpCDR) / 1000).toFixed(2)}s</b> wasted)</li>
+              <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bobDesc}
               ${wristsDesc}
             </ul>

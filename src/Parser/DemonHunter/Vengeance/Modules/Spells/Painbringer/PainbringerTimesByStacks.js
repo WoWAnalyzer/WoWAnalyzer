@@ -14,7 +14,8 @@ class PainbringerStacksBySeconds extends Analyzer {
   stackChanges = 0;
   totalPainbringerStacks = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.painbringerStacks = Array.from({length: MAX_PAINBRINGER_STACKS + 1}, x => []);
   }
 

@@ -8,9 +8,9 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
@@ -25,18 +25,15 @@ const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   get auraMasteryDamageReduced() {
-    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }
   get auraMasteryDrps() {
     return this.auraMasteryDamageReduced / this.owner.fightDuration * 1000;
   }
   get passiveDamageReduced() {
-    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION;
   }
   get passiveDrps() {
     return this.passiveDamageReduced / this.owner.fightDuration * 1000;
@@ -50,8 +47,9 @@ class DevotionAura extends Analyzer {
 
   totalDamageTakenDuringAuraMastery = 0;
   totalDamageTakenOutsideAuraMastery = 0;
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
   }
 
   on_toPlayer_damage(event) {
@@ -60,14 +58,14 @@ class DevotionAura extends Analyzer {
       return;
     }
 
-    const isAuraMasteryActive = this.combatants.selected.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
+    const isAuraMasteryActive = this.selectedCombatant.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
     if (!isAuraMasteryActive) {
       this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }
   }
 
   load() {
-    const buffHistory = this.combatants.selected.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
+    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
     if (buffHistory.length === 0) {
       return Promise.resolve();
     }

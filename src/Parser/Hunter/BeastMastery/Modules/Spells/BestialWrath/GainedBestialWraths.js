@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from "common/SPELLS";
 import StatisticBox from "Main/StatisticBox";
@@ -18,22 +17,22 @@ const BESTIAL_WRATH_BASE_CD = 90000;
 
 class GainedBestialWraths extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
 
-  on_initialized() {
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
       COOLDOWN_REDUCTION_MS = 16000;
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
     this.casts += 1;
@@ -46,16 +45,16 @@ class GainedBestialWraths extends Analyzer {
       this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
     }
   }
-
+  get gainedBestialWraths() {
+    return this.effectiveBWReduction / BESTIAL_WRATH_BASE_CD;
+  }
   statistic() {
-    const gainedBestialWraths = this.effectiveBWReduction / BESTIAL_WRATH_BASE_CD;
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
-        value={formatNumber(gainedBestialWraths)}
+        value={formatNumber(this.gainedBestialWraths)}
         label="extra Bestial Wraths"
-        tooltip={`<ul><li>You reduced Bestial Wraths cooldown by ${(this.effectiveBWReduction / 1000).toFixed(1)} seconds in total, which resulted in you gaining ${formatNumber(gainedBestialWraths, 2)} extra Bestial Wrath casts. </li> <li>You lost out on ${(this.wastedBWReduction / 1000).toFixed(1)} seconds of CD reduction by casting ${spellLink} while Bestial Wrath wasn't on cooldown or while the cooldown had less than ${COOLDOWN_REDUCTION_MS / 1000} seconds remaining. </li></ul>`}
+        tooltip={`<ul><li>You reduced Bestial Wraths cooldown by ${(this.effectiveBWReduction / 1000).toFixed(1)} seconds in total, which resulted in you gaining ${formatNumber(this.gainedBestialWraths, 2)} extra Bestial Wrath casts. </li> <li>You lost out on ${(this.wastedBWReduction / 1000).toFixed(1)} seconds of CD reduction by casting Barbed Shot while Bestial Wrath wasn't on cooldown or while the cooldown had less than ${COOLDOWN_REDUCTION_MS / 1000} seconds remaining. </li></ul>`}
       />
     );
   }

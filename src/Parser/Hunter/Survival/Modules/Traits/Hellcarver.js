@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
@@ -11,9 +10,6 @@ const MS_BUFFER = 100;
  * Carve or Butchery deals 3% increased damage for each additional target hit.
  */
 class Hellcarver extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   rank = 0;
   bonusDamage = 0;
   lastCastTimestamp = 0;
@@ -21,8 +17,9 @@ class Hellcarver extends Analyzer {
   damagePreCalc = 0;
   modifier = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id];
     if (this.rank > 0) {
       this.active = true;
     }

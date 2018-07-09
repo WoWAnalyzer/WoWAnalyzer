@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -14,7 +13,6 @@ const debug = false;
 
 class ComboBreaker extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
   CBProcsTotal = 0;
@@ -60,7 +58,7 @@ class ComboBreaker extends Analyzer {
   }
   get suggestionThresholds() {
     const usedCBprocs = this.consumedCBProc / this.CBProcsTotal;
-    const baseThreshold = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
+    const baseThreshold = this.selectedCombatant.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
     return {
       actual: usedCBprocs,
       isLessThan: {
@@ -85,11 +83,11 @@ class ComboBreaker extends Analyzer {
   statistic() {
     const usedCBProcs = this.consumedCBProc / this.CBProcsTotal;
     let procsFromTigerPalm = this.CBProcsTotal;
-    // Strike of the Windlord procs Combo Breaker if legendary head "The Wind Blows" is equipped
-    if (this.combatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
-      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.STRIKE_OF_THE_WINDLORD.id).casts;
+    // Fist of the White Tiger procs Combo Breaker if legendary head "The Wind Blows" is equipped
+    if (this.selectedCombatant.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
+      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id).casts;
     }
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (0.08 + 0.02 * this.combatants.selected.traitsBySpellId[SPELLS.STRENGTH_OF_XUEN.id]);
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * 0.08;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}

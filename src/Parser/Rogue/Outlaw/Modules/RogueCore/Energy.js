@@ -18,7 +18,7 @@ class Energy extends Analyzer {
       minor: 0.05,
       avg: 0.1, 
       major: 0.15,
-      extraSuggestion: <React.Fragment> Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} /> procs. </React.Fragment>,
+      extraSuggestion: <React.Fragment>Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} /> procs.</React.Fragment>,
     });
   }
 }

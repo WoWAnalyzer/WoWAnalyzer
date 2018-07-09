@@ -6,6 +6,7 @@ export default {
   name: 'Argus the Unmaker',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_worldsoul',
   fight: {
     vantusRuneBuffId: 250146,
     disableDeathSuggestion: true,

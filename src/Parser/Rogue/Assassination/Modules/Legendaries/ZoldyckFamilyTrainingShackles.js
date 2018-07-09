@@ -4,14 +4,9 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
-
-/*
-* Equip: Your Poisons and Bleeds deal 30% increased damage to targets below 30% health.
-*/
 
 const POISONS_AND_BLEEDS = [
   SPELLS.DEADLY_POISON_PROC.id,
@@ -34,15 +29,15 @@ const ZOLDYCK_FAMILY_TRAINING_SHACKLES = {
   HEALTH_PERCENT: .3,
 };
 
+/**
+ * Equip: Your Poisons and Bleeds deal 30% increased damage to targets below 30% health.
+ */
 class ZoldyckFamilyTrainingShackles extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES.id);
   }
 
   on_byPlayer_damage(event) {

@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
@@ -12,17 +11,13 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Your Frozen Orb explodes into a Frost Nova that deals (600% of Spell power) damage.
  */
 class IceTime extends Analyzer {
-
-  static dependencies = {
-		combatants: Combatants,
-	};
-
   casts = 0;
   hits = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.ICE_TIME.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.ICE_TIME.id);
   }
 
   on_byPlayer_cast(event) {

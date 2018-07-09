@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox from 'Main/StatisticBox';
 import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/SixStackBites';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -16,7 +15,6 @@ import SpellLink from 'common/SpellLink';
  */
 class FuryOfTheEagle extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     sixStackBites: SixStackBites,
   };
 
@@ -37,7 +35,7 @@ class FuryOfTheEagle extends Analyzer {
   }
 
   get uptimeInSeconds() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FURY_OF_THE_EAGLE_TRAIT.id) / 1000;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_THE_EAGLE_TRAIT.id) / 1000;
   }
 
   get averageChannelingTime() {

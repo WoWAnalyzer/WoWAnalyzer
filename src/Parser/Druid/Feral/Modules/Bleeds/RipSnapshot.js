@@ -2,7 +2,6 @@ import React from 'react';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
@@ -41,7 +40,6 @@ const RIP_POWER_PER_COMBO = 0.20;
 
 class RipSnapshot extends Snapshot {
   static dependencies = {
-    combatants: Combatants,
     comboPointTracker: ComboPointTracker,
   };
 
@@ -68,9 +66,9 @@ class RipSnapshot extends Snapshot {
   comboLastRip = 0;
   healthFraction = {};
 
-  on_initialized() {
-    super.on_initialized();
-    const combatant = this.combatants.selected;
+  constructor(...args) {
+    super(...args);
+    const combatant = this.selectedCombatant;
     if (combatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
       this.constructor.durationOfFresh = RIP_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
     }

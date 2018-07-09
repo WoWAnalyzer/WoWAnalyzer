@@ -7,7 +7,6 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -26,6 +25,7 @@ const PRE_POTIONS = [
   SPELLS.POTION_OF_DEADLY_GRACE.id,
   SPELLS.POTION_OF_THE_OLD_WAR.id,
   SPELLS.UNBENDING_POTION.id,
+  // TODO: BFA potions
 ];
 
 const SECOND_POTIONS = [
@@ -36,14 +36,13 @@ const SECOND_POTIONS = [
   SPELLS.LEYTORRENT_POTION.id,
   SPELLS.UNBENDING_POTION.id,
   SPELLS.SPIRIT_BERRIES.id,
+  // TODO: BFA potions
+  SPELLS.COASTAL_MANA_POTION.id,
 ];
 
-const ANCIENT_MANA_POTION_AMOUNT = 152000;
+const COMMON_MANA_POTION_AMOUNT = 1717; // TODO: BFA = Coastal Mana Potion = 7850
 
 class PrePotion extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
@@ -65,7 +64,7 @@ class PrePotion extends Analyzer {
     if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
-      if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
+      if (manaLeftAfterCast < COMMON_MANA_POTION_AMOUNT) {
         this.neededManaSecondPotion = true;
       }
     }
@@ -107,7 +106,7 @@ class PrePotion extends Analyzer {
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)
         // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a
         // spell but mana is not their primary resource and should not use a mana potion.
-        const healerSpec = HEALER_SPECS.includes(this.combatants.selected.specId);
+        const healerSpec = HEALER_SPECS.includes(this.selectedCombatant.specId);
         if (!healerSpec) {
           suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;

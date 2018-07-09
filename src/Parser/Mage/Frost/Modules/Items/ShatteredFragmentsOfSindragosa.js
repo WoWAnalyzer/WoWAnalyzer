@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
@@ -11,21 +10,18 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Casting 15 Frostbolts or Flurries calls down a Comet Storm at your target.
  */
 class ShatteredFragmentsOfSindragosa extends Analyzer {
-  static dependencies = {
-		combatants: Combatants,
-	};
-
   damage = 0;
   cometStormCasts = 0;
   legendaryProcs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHead(ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHead(ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const hasCometStormTalent = this.combatants.selected.hasTalent(SPELLS.COMET_STORM_TALENT.id);
+    const hasCometStormTalent = this.selectedCombatant.hasTalent(SPELLS.COMET_STORM_TALENT.id);
     if (spellId !== SPELLS.COMET_STORM_TALENT.id || !hasCometStormTalent) {
       return;
     }

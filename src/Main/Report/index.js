@@ -27,6 +27,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
+import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -89,11 +90,6 @@ class Report extends React.Component {
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
-  createParser(ParserClass, report, fight, player) {
-    const playerPets = this.getPlayerPetsFromReport(report, player.id);
-
-    return new ParserClass(report, player, playerPets, fight);
-  }
   async setStatePromise(newState) {
     return new Promise((resolve, reject) => {
       this.setState(newState, resolve);
@@ -107,9 +103,7 @@ class Report extends React.Component {
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
     const parserClass = await config.parser();
-    const parser = this.createParser(parserClass, report, fight, player);
-    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.initialize(combatants);
+    const parser = new parserClass(report, player, fight, combatants);
     await this.setStatePromise({
       config,
       parser,
@@ -167,9 +161,7 @@ class Report extends React.Component {
       }
       timeAvailable && console.timeEnd('player event parsing');
 
-      parser.fabricateEvent({
-        type: 'finished',
-      });
+      parser.finish();
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
@@ -327,9 +319,6 @@ class Report extends React.Component {
     }
     return fetchByNameAttempt;
   }
-  getPlayerPetsFromReport(report, playerId) {
-    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
-  }
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
@@ -373,22 +362,30 @@ class Report extends React.Component {
     if (!parser) {
       return (
         <React.Fragment>
+          <FightNavigationBar />
+
           <DocumentTitle title={fight && playerName ? `${getFightName(report, fight)} by ${playerName} in ${report.title}` : report.title} />
 
-          <ActivityIndicator text="Initializing analyzer..." />
+          <div className="container">
+            <ActivityIndicator text="Initializing analyzer..." />
+          </div>
         </React.Fragment>
       );
     }
 
     return (
       <React.Fragment>
+        <FightNavigationBar />
+
         <DocumentTitle title={`${getFightName(report, fight)} by ${playerName} in ${report.title}`} />
 
-        <Results
-          parser={parser}
-          finished={this.state.finished}
-          makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
-        />
+        <div className="container">
+          <Results
+            parser={parser}
+            finished={this.state.finished}
+            makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+          />
+        </div>
       </React.Fragment>
     );
   }

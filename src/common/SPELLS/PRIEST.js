@@ -5,14 +5,34 @@
  */
 
 export default {
+  // Shared
+  HOLY_NOVA: {
+    id: 132157,
+    name: 'Holy Nova',
+    icon: 'spell_holy_holynova',
+    manaCost: 320,
+  },
+  POWER_WORD_FORTITUDE: {
+    id: 21562,
+    name: 'Power Word: Fortitude',
+    icon: 'spell_holy_wordfortitude',
+    manaCost: 800,
+  },
   // Discipline Priest:
+  REVERENCE: {
+    id: 271534,
+    name: 'Mastery: Reverence',
+    icon: 'spell_priest_chakra',
+  },
   PENANCE: {
     id: 47666,
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 30800,
+    coefficient: 0.4,
   },
-  PENANCE_HEAL: { // Penance on a friendly player
+  PENANCE_HEAL: {
+    // Penance on a friendly player
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
@@ -22,7 +42,7 @@ export default {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 25300,
+    manaCost: 2500,
     atonementDuration: 15,
   },
   SMITE: {
@@ -30,6 +50,7 @@ export default {
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 5500,
+    coefficient: 0.56,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -44,11 +65,6 @@ export default {
     icon: 'spell_shadow_shadowmend',
     atonementDuration: 15,
   },
-  LIGHTS_WRATH: {
-    id: 207946,
-    name: 'Light\'s Wrath',
-    icon: 'inv_staff_2h_artifacttome_d_01',
-  },
   RAPTURE: {
     id: 47536,
     name: 'Rapture',
@@ -59,13 +75,6 @@ export default {
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
     manaCost: 17600,
-  },
-  PLEA: {
-    id: 200829,
-    name: 'Plea',
-    icon: 'spell_priest_plea_blue',
-    atonementDuration: 15,
-    manaCost: 19800,
   },
   MASS_DISPEL: {
     id: 32375,
@@ -81,11 +90,17 @@ export default {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
+    manaCost: 520,
   },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
+  },
+  LIGHTS_WRATH: {
+    id: 207946,
+    name: "Light's Wrath",
+    icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
     id: 605,
@@ -162,6 +177,11 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  CONTRITION_HEAL: {
+    id: 270501,
+    name: 'Contrition',
+    icon: 'ability_priest_savinggrace',
+  },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
     name: 'T19 2 Set Bonus',
@@ -204,7 +224,7 @@ export default {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -219,8 +239,13 @@ export default {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
+  },
+  LUMINOUS_BARRIER: {
+    id: 271466,
+    name: 'Luminous Barrier',
+    icon: 'spell_priest_burningwill',
   },
 
   // Talents:
@@ -238,222 +263,124 @@ export default {
     manaCost: 39600,
   },
 
-  // Traits:
-  // Disc Priest:
-  SHARE_IN_THE_LIGHT: {
-    id: 210027,
-    name: 'Share in the Light',
-    icon: 'spell_holy_powerwordshield',
-  },
-  PAIN_IS_IN_YOUR_MIND: {
-    id: 197713,
-    name: 'Pain is in Your Mind',
-    icon: 'spell_holy_painsupression',
-  },
-  DOOMSAYER: {
-    id: 197727,
-    name: 'Doomsayer',
-    icon: 'spell_holy_rapture',
-  },
-  SPEED_OF_THE_PIOUS: {
-    id: 197767,
-    name: 'Speed of the Pious',
-    icon: 'ability_paladin_speedoflight',
-  },
-  BORROWED_TIME: {
-    id: 197763,
-    name: 'Borrowed Time',
-    icon: 'ability_priest_angelicbulwark',
-  },
-  SINS_OF_THE_MANY:{
-    id: 198076,
-    name: 'Sins of the Many',
-    icon: 'spell_holy_holyguidance',
-  },
-
   // Holy Priest Spells
   GREATER_HEAL: {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 18700,
+    manaCost: 380,
   },
-
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 30800,
+    manaCost: 560,
   },
-
   PRAYER_OF_MENDING_CAST: {
     id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
+    manaCost: 400,
   },
-
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
   },
-
   PRAYER_OF_MENDING_BUFF: {
     id: 41635,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 22000,
   },
-
   PRAYER_OF_HEALING: {
     id: 596,
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
-    manaCost: 49500,
+    manaCost: 900,
   },
-
   ECHO_OF_LIGHT: {
     id: 77489,
     name: 'Echo of Light',
     icon: 'spell_holy_aspiration',
   },
-
   RENEW: {
     id: 139,
     name: 'Renew',
     icon: 'spell_holy_renew',
-    manaCost: 22000,
+    manaCost: 340,
   },
-
   HOLY_WORD_SERENITY: {
     id: 2050,
     name: 'Holy Word: Serenity',
     icon: 'spell_holy_persuitofjustice',
-    manaCost: 44000,
+    manaCost: 800,
   },
-
   HOLY_WORD_SANCTIFY: {
     id: 34861,
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
-    manaCost: 55000,
+    manaCost: 1000,
   },
-
   DESPERATE_PRAYER: {
     id: 19236,
     name: 'Desperate Prayer',
     icon: 'spell_holy_testoffaith',
   },
-
   GUARDIAN_SPIRIT: {
     id: 47788,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-    manaCost: 9900,
+    manaCost: 180,
   },
-
   DIVINE_HYMN_CAST: {
     id: 64843,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
     manaCost: 48400,
   },
-
   DIVINE_HYMN_HEAL: {
     id: 64844,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-
   SERENDIPITY: {
     id: 63733,
     name: 'Serendipity',
     icon: 'spell_holy_serendipity',
   },
-
+  HOLY_FIRE: {
+    id: 14914,
+    name: 'Holy Fire',
+    icon: 'spell_holy_searinglight',
+  },
+  HOLY_WORD_CHASTICE: {
+    id: 88625,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 400,
+  },
+  SYMBOL_OF_HOPE: {
+    id: 64901,
+    name: "Symbol of Hope",
+    icon: "spell_holy_symbolofhope",
+  },
   // Trait related spells
-  LIGHT_OF_TUURE_TRAIT: {
-    id: 208065,
-    name: 'Light of T\'uure',
-    icon: 'inv_staff_2h_artifactheartofkure_d_01',
-    duration: 10,
-  },
-
-  CARESS_OF_THE_NAARU_TRAIT: {
-    id: 238064,
-    name: 'Caress of the Naaru',
-    icon: 'inv_staff_2h_artifactheartofkure_d_01',
-  },
-
-  COSMIC_RIPPLE_TRAIT: {
-    id: 243241,
-    name: 'Cosmic Ripple',
-    icon: 'spell_holy_circleofrenewal',
-  },
-
-  HOLY_MENDING_TRAIT: {
-    id: 196781,
-    name: 'Holy Mending',
-    icon: 'spell_holy_divineprovidence',
-  },
-
-  RENEW_THE_FAITH_TRAIT: {
-    id: 196492,
-    name: 'Renew the Faith',
-    icon: 'spell_holy_divinehymn',
-  },
-
-  SAY_YOUR_PRAYERS_TRAIT: {
-    id: 196358,
-    name: 'Say Your Prayers',
-    icon: 'spell_holy_prayerofmendingtga',
-    coeff: 0.06,
-  },
-
-  HALLOWED_GROUND_TRAIT: {
-    id: 196429,
-    name: 'Hallowed Ground',
-    icon: 'spell_holy_divineprovidence',
-    valuePerTrait: 3333,
-  },
-
-  LENIENCES_REWARD_TRAIT: {
+  LENIENCE: {
     id: 238063,
-    name: 'Lenience\'s Reward',
+    name: 'Lenience',
     icon: 'ability_priest_atonement',
   },
-
-  BORROWED_TIME_TRAIT: {
-    id: 197762,
-    name: 'Borrowed Time',
-    icon: 'ability_priest_angelicbulwark',
-  },
-
   // Buffs
-  BLESSING_OF_TUURE_BUFF: {
-    id: 196644,
-    name: 'Blessing of T\'uure',
-    icon: 'inv_pet_naaru',
-  },
-
-  DIVINITY_BUFF: {
-    id: 197030,
-    name: 'Divinity',
-    icon: 'ability_priest_ascendance',
-  },
-
-  POWER_OF_THE_NAARU_BUFF: {
-    id: 196490,
-    name: 'Power of the Naaru',
-    icon: 'spell_holy_prayerofhealing02',
+  SPIRIT_OF_REDEMPTION_BUFF: {
+    id: 27827,
+    name: 'Spirit of Redemption',
+    icon: 'inv_enchant_essenceeternallarge',
   },
 
   // Holy Legendaries
   XANSHI_CLOAK_BUFF: {
     id: 211336,
-    name: 'Xan\'shi, Shroud of Archbishop Benedictus',
+    name: "Xan'shi, Shroud of Archbishop Benedictus",
     icon: 'inv_enchant_essencemagiclarge',
   },
 
@@ -496,13 +423,6 @@ export default {
   },
 
   // Shadow Spells
-
-  VOID_TORRENT: {
-    id: 205065,
-    name: 'Void Torrent',
-    icon: 'inv_knife_1h_artifactcthun_d_01',
-  },
-
   MIND_BLAST: {
     id: 8092,
     name: 'Mind Blast',
@@ -514,19 +434,11 @@ export default {
     name: 'Mind Flay',
     icon: 'spell_shadow_siphonmana',
   },
-
   VAMPIRIC_TOUCH: {
     id: 34914,
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
-
-  SHADOW_WORD_DEATH: {
-    id: 32379,
-    name: 'Shadow Word: Death',
-    icon: 'spell_shadow_demonicfortitude',
-  },
-
   VOID_ERUPTION: {
     id: 228260,
     name: 'Void Eruption',
@@ -588,6 +500,11 @@ export default {
     name: 'Shadowform',
     icon: 'spell_shadow_shadowform',
   },
+  RESURRECTION: {
+    id: 2006,
+    name: 'Resurrection',
+    icon: 'spell_holy_resurrection',
+  },
 
   MIND_VISION: {
     id: 2096,
@@ -596,10 +513,11 @@ export default {
   },
 
   MIND_SEAR: {
-    id: 234702,
+    id: 48045,
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
   },
+
   SHADOWY_APPARITION: {
     id: 147193,
     name: 'Shadowy Apparition',
@@ -642,14 +560,14 @@ export default {
 
   HEART_OF_THE_VOID_HEAL: {
     id: 248219,
-    name: "Heart of the Void",
+    name: 'Heart of the Void',
     icon: 'spell_priest_void-blast',
   },
 
   THE_TWINS_PAINFUL_TOUCH: {
     id: 207724,
     name: "The Twins' Painful Touch",
-    icon: "spell_shadow_mindflay",
+    icon: 'spell_shadow_mindflay',
   },
 
   SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {
@@ -662,33 +580,5 @@ export default {
     id: 251846,
     name: 'Shadow Priest T21 4P Bonus',
     icon: 'ability_priest_ascension',
-  },
-
-  // Shadow traits
-
-  FROM_THE_SHADOWS_TRAIT: {
-    id: 193642,
-    name: 'From the Shadows',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
-  LASH_OF_INSANITY_TRAIT: {
-    id: 238137,
-    name: 'Lash of Insanity',
-    icon: 'achievement_boss_yoggsaron_01',
-  },
-  CALL_TO_THE_VOID_MIND_FLAY: {
-    id: 237388,
-    name: 'Mind Flay',
-    icon: 'spell_shadow_mindshear',
-  },
-  FIENDING_DARK_TRAIT: {
-    id: 238065,
-    name: 'Fiending Dark',
-    icon: 'spell_shadow_shadowfiend',
-  },
-  MIND_QUICKENING: {
-    id: 240673,
-    name: 'Mind Quickening',
-    icon: 'inv_enchant_voidsphere',
   },
 };

@@ -2,17 +2,14 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SpellManaCost extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
+
   on_byPlayer_cast(event) {
     // Manipulate the event to include mana information so that we don't have to copy paste this anywhere we want to know mana. This can't be done through static functions as some mana costs require state (through class properties) to work properly. E.g. Penance triggers up to 4 cast events but only the first costs mana.
     event.manaCost = this.getManaCost(event);
     event.rawManaCost = this.getRawManaCost(event);
-    event.isManaCostNullified = this.combatants.selected.hasBuff(SPELLS.INNERVATE.id, event.timestamp) || this.combatants.selected.hasBuff(SPELLS.SYMBOL_OF_HOPE_TALENT.id, event.timestamp);
+    event.isManaCostNullified = this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp);
   }
 
   getHardcodedManaCost(event) {

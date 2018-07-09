@@ -34,12 +34,22 @@ export default [
   },
   {
     date: new Date('2018-06-24'),
+    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.HEALTHSTONE.id} /> suggestion to always be of minor importance.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-24'),
     changes: 'Added an "About WoWAnalyzer" panel to the home page and updated the announcement.',
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-06-24'),
     changes: 'The report history panel will be hidden where there are no entries.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-23'),
+    changes: 'Revamped all spells with static GCDs or base GCDs different from the class default.',
     contributors: [Zerotorescue],
   },
   {
@@ -103,6 +113,11 @@ export default [
     contributors: [Zerotorescue],
   },
   {
+    date: new Date('2018-05-21'),
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.ZANDALARI_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
+    contributors: [Fyruna],
+  },
+  {
     date: new Date('2018-05-20'),
     changes: 'Update specializations list layout. Clicking a spec now opens the example report.',
     contributors: [Zerotorescue],
@@ -111,6 +126,11 @@ export default [
     date: new Date('2018-05-10'),
     changes: 'Added Death Recap to track available cooldowns.',
     contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-05-03'),
+    changes: 'Fixed a bug where the selected report would not reset properly when going back to the homepage.',
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-05-09'),
@@ -155,6 +175,11 @@ export default [
   {
     date: new Date('2018-04-24'),
     changes: 'Implemented code splitting to reduce the initial time to render.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-21'),
+    changes: 'Removed any remaining charts based on the chartist library that has been deprecated for 6 months.',
     contributors: [Zerotorescue],
   },
   {
@@ -229,7 +254,7 @@ export default [
   },
   {
     date: new Date('2018-03-15'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
+    changes: <React.Fragment>Added Master of Combinations, Fury of Ashamane, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -239,7 +264,7 @@ export default [
   },
   {
     date: new Date('2018-02-21'),
-    changes: <React.Fragment>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</React.Fragment>,
+    changes: `Moved Concordance of the Legionfall statistic into the Netherlight Crucible list and renamed it.`,
     contributors: [Putro],
   },
   {

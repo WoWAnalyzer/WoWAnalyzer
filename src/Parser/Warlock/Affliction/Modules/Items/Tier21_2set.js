@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
@@ -18,9 +17,6 @@ const debug = false;
 
 // When Agony deals damage, there is a 8% chance to increase the duration of Unstable Affliction on the target by 2.0 sec
 class Tier21_2set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   // shows amount of currently passed Unstable Affliction ticks on respective enemies
   /*
@@ -36,8 +32,9 @@ class Tier21_2set extends Analyzer {
   _bonusTicks = 0;
   _bonusDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id);
   }
 
   on_byPlayer_applydebuff(event) {

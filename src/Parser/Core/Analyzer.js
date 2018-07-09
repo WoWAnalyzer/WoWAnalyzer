@@ -1,3 +1,4 @@
+import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Module from './Module';
 
@@ -31,6 +32,16 @@ class Analyzer extends Module {
     }
   }
 
+  get consoleMeta() {
+    const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
+    return [fightDuration, this.constructor.name];
+  }
+  debug(...args) {
+    console.log(...this.consoleMeta, ...args);
+  }
+  error(...args) {
+    console.error(...this.consoleMeta, ...args);
+  }
 
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
@@ -58,15 +69,18 @@ class Analyzer extends Module {
    */
 
   /**
-   * Called when the parser finished initializing; after all modules are loaded, normalizers have ran and combatants were initialized.
+   * Called when the parser finished initializing; after all required dependencies are loaded, normalizers have ran and combatants were initialized.
    * Use this method to toggle the module on/off based on having items equipped, talents selected, etc.
    */
-  on_initialized() {}
+  constructor(...args) { // eslint-disable-line no-useless-constructor
+    super(...args);
+  }
   /**
    * Called for every single event.
+   * @param {string} eventType
    * @param {object} event
    */
-  on_event(event) {}
+  on_event(eventType, event) {}
   // region damage
   /**
    * Called when someone deals/takes damage.

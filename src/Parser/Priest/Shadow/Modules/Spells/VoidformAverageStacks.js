@@ -17,7 +17,8 @@ class VoidformAverageStacks extends Analyzer {
     voidform: Voidform,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
   }
 
@@ -26,15 +27,13 @@ class VoidformAverageStacks extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <React.Fragment>
-            Your <SpellLink id={SPELLS.VOIDFORM.id} /> stacks can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_TORRENT.id} />, <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> at optimal stacks.
+            Your <SpellLink id={SPELLS.VOIDFORM.id} /> stacks can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} />, <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> at optimal stacks.<br /><br />
 
-            <br /><br />
-            Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 60 seconds each, meaning you will have access to 1 <SpellLink id={SPELLS.VOID_TORRENT.id} /> & 1 <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> each <SpellLink id={SPELLS.VOIDFORM.id} />.
-            <br /><br />
-            A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />. <br />
-            At around 28-33 <SpellLink id={SPELLS.VOIDFORM.id} /> stacks, use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} />.
+            Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 60 seconds each, meaning you will have access to 1 <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> & 1 <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> each <SpellLink id={SPELLS.VOIDFORM.id} />.<br /><br />
 
-            <br /><br />
+            A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />.<br />
+            At around 28-33 <SpellLink id={SPELLS.VOIDFORM.id} /> stacks, use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} />.<br /><br />
+
             <SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have a <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> active.
           </React.Fragment>
         )

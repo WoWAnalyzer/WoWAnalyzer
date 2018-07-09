@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HotTracker from './HotTracker';
 
@@ -11,7 +10,6 @@ const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> 
  */
 class RegrowthAttributor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -36,7 +34,7 @@ class RegrowthAttributor extends Analyzer {
     }
 
     // check for PotA proc
-    //const hadPota = this.combatants.selected.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
+    //const hadPota = this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
     const hadPota = this.potaFallTimestamp && this.potaFallTimestamp + BUFFER_MS > event.timestamp;
     if (spellId === SPELLS.REGROWTH.id && hadPota) {
       this.lastPotaRegrowthTimestamp = event.timestamp;

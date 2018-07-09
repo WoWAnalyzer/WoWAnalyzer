@@ -112,7 +112,7 @@ class App extends React.Component {
       return (
         <FullscreenError
           error="An API error occured."
-          details="Something went talking to our servers, please try again."
+          details="Something went wrong talking to our servers, please try again."
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
         >
           <div className="text-muted">

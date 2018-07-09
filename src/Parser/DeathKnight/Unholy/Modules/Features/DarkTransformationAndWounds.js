@@ -5,14 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class DarkTransformationAndWounds extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   // used to track how many stacks a target has
   targets = {};
 

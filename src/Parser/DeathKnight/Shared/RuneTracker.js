@@ -11,7 +11,6 @@ import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
 const MAX_RUNES = 6;
@@ -33,14 +32,14 @@ class RuneTracker extends ResourceTracker {
     spellUsable: SpellUsable,
     castEfficiency: CastEfficiency,
     abilities: Abilities,
-    combatants: Combatants,
   };
 
   runesReady = []; //{x, y} points of {time, runeCount} for the chart
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];
@@ -64,7 +63,7 @@ class RuneTracker extends ResourceTracker {
       .forEach(({ amount, cost }) => {
         let runeCost = cost || 0;
         //adjust for resource cost reduction
-        if (event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)) {
+        if (event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.selectedCombatant.hasBuff(SPELLS.OBLITERATION_TALENT.id)) {
           runeCost -= 1;
         }
         if (runeCost <= 0) {
@@ -154,7 +153,7 @@ class RuneTracker extends ResourceTracker {
 
   addPassiveAccelerator(spellId, gained, wasted, increase) { //used to add passive rune gain accelerators like Runic Corruption
     //use uptime to get approximate contribution to passive regeneration
-    const uptime = this.combatants.selected.getBuffUptime(spellId) / this.owner.fightDuration;
+    const uptime = this.selectedCombatant.getBuffUptime(spellId) / this.owner.fightDuration;
     if (!uptime > 0) {
       return 0;
     }

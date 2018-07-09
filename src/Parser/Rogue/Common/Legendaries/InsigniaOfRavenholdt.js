@@ -2,19 +2,18 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 class InsigniaOfRavenholdt extends Analyzer {
   static dependencies = {
-		combatants: Combatants,
 		damageTracker: DamageTracker,
   };
 
-	on_initialized(){
-		this.active = this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_RAVENHOLDT.id);
+	constructor(...args) {
+	  super(...args);
+		this.active = this.selectedCombatant.hasFinger(ITEMS.INSIGNIA_OF_RAVENHOLDT.id);
   }
 
   item() {

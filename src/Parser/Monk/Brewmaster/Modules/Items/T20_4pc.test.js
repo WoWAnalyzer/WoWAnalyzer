@@ -14,18 +14,19 @@ describe('Brewmaster.T20_4pc', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
-    });
-    fab.combatants = {
-      selected: {
-        hasTalent: () => false,
+      selectedCombatant: {
+        hasBuff: () => false,
         traitsBySpellId: { [SPELLS.STAGGERING_AROUND.id]: 0 },
       },
-    };
+    });
     item = new T20_4pc({
       toPlayer: () => true,
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
+      selectedCombatant: {
+        hasBuff: () => true,
+      },
     });
     item.fab = fab;
     fab.owner.fabricateEvent = (event, obj) => item.triggerEvent({ ...event, trigger: obj });

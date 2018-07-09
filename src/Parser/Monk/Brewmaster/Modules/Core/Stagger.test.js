@@ -14,13 +14,11 @@ describe('Brewmaster.Stagger', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
-    });
-    fab.combatants = {
-      selected: {
-        hasTalent: () => false,
+      selectedCombatant: {
+        hasBuff: () => false,
         traitsBySpellId: { [SPELLS.STAGGERING_AROUND.id]: 0 },
       },
-    };
+    });
     stagger = new Stagger({
       toPlayer: () => true,
       byPlayer: () => true,
