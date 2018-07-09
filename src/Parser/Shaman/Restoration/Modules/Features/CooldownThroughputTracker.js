@@ -108,7 +108,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0)  + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
 
       this.owner.fabricateEvent({
         ...event,
@@ -159,7 +159,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.splice(index, 1);
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
     this.lastCBT = this.addNewCooldown({
       spell: SPELLS.CLOUDBURST_TOTEM_TALENT,

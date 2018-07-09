@@ -2,10 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 import KegSmash from '../Spells/KegSmash';
 import TigerPalm from '../Spells/TigerPalm';
 import IronskinBrew from '../Spells/IronSkinBrew';
@@ -14,7 +13,6 @@ import AnvilHardenedWristwraps from '../Items/AnvilHardenedWristwraps';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     ks: KegSmash,
     tp: TigerPalm,
     wrists: AnvilHardenedWristwraps,

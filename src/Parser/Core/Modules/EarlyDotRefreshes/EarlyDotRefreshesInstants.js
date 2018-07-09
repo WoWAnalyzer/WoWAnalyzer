@@ -29,7 +29,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     }
     // Since we don't have events for end of GCDs, we check on the first event after roughly a gcd has pasted.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
-    if (timeSinceCast < this.lastGCD.duration - BUFFER_MS){
+    if (timeSinceCast < this.lastGCD.duration - BUFFER_MS) {
       return;
     }
     this.isLastCastBad(event);
@@ -42,7 +42,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     if (this.lastCastGoodExtension) {
       return; // Should not be marked as bad.
     }
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === this.lastCast.ability.guid;
     });
     let text = '';
@@ -58,7 +58,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
       let fillers = '';
       for (let i = 0; i < betterFillers.length; i++) {
         fillers += betterFillers[i];
-        if (i + 2 < betterFillers.length){
+        if (i + 2 < betterFillers.length) {
           fillers += ', ';
         } else if (i + 1 < betterFillers.length) {
           fillers += ' and ';
@@ -90,7 +90,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     const betterFillers = [];
     // If another movement filler had <30% duration remaining on the target, it would have been a better filler.
     // We only check the primary target since the player might not be interested in refreshing the dot on secondary targets.
-    this.dots
+    this.constructor.dots
       .filter(dot => dot.castId !== event.ability.guid)
       .forEach(dot => {
         const expirationTimestamp = this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] || 0;
@@ -101,7 +101,6 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
       });
     return betterFillers;
   }
-
 }
 
 export default EarlyDotRefreshesInstants;

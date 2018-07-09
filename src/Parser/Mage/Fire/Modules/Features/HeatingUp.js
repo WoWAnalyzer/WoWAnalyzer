@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -19,7 +18,6 @@ const GUARANTEE_CRIT_SPELLS = [
 
 class HeatingUp extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
   };
@@ -34,9 +32,11 @@ class HeatingUp extends Analyzer {
   hasFirestarterTalent;
   hasLegendaryBelt;
 
-  on_initialized() {
-    this.hasFirestarterTalent = this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-    this.hasLegendaryBelt = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
+  constructor(...args) {
+    super(...args);
+    this.hasFirestarterTalent = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
+    this.hasLegendaryBelt = this.selectedCombatant.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
+    this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -50,9 +50,9 @@ class HeatingUp extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    const combustionActive = this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id);
-    const hasHotStreak = this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id);
-    if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
+    const combustionActive = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
+    const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
     }
@@ -63,18 +63,18 @@ class HeatingUp extends Analyzer {
     if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasLegendaryBelt && this.healthPercent < .30)) && !hasHotStreak) {
       debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
         this.fireBlastWithHotStreak += 1;
         debug && console.log("Fire Blast with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
+      } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
         this.fireBlastWithoutHeatingUp += 1;
         debug && console.log("Fire Blast without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
     } else if (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id) {
-        if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
+        if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
           this.phoenixFlamesWithHotStreak += 1;
           debug && console.log("Phoenix Flames with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-        } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
+        } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
           this.phoenixFlamesWithoutHeatingUp += 1;
           debug && console.log("Phoenix Flames without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
         }
@@ -155,43 +155,57 @@ class HeatingUp extends Analyzer {
 	}
 
   statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-        value={(
-          <span>
-            <SpellIcon
-              id={SPELLS.FIRE_BLAST.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {' '}{formatPercentage(this.fireBlastUtil, 0)}{' %'}
-            <br />
-            <SpellIcon
-              id={SPELLS.PHOENIX_FLAMES_TALENT.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {' '}{formatPercentage(this.phoenixFlamesUtil, 0)}{' %'}
-          </span>
-        )}
-        label="Heating Up Utilization"
-        tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
+    if (this.hasPhoenixFlames) {
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
+          value={(
+            <span>
+              <SpellIcon
+                id={SPELLS.FIRE_BLAST.id}
+                style={{
+                  height: '1.2em',
+                  marginBottom: '.15em',
+                }}
+              />
+              {' '}{formatPercentage(this.fireBlastUtil, 0)}{' %'}
+              <br />
+              <SpellIcon
+                id={SPELLS.PHOENIX_FLAMES_TALENT.id}
+                style={{
+                  height: '1.2em',
+                  marginBottom: '.15em',
+                }}
+              />
+              {' '}{formatPercentage(this.phoenixFlamesUtil, 0)}{' %'}
+            </span>
+          )}
+          label="Heating Up Utilization"
+          tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
+            <ul>
+              <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
+              <li>Phoenix Flames used with no procs: ${this.phoenixFlamesWithoutHeatingUp}</li>
+              <li>Phoenix Flames used during Hot Streak: ${this.phoenixFlamesWithHotStreak}</li>
+            </ul>`}
+        />
+      );
+    } else {
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
+          value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
+          label="Heating Up Utilization"
+          tooltip={`Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
           <ul>
             <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
-            <li>Phoenix Flames used with no procs: ${this.phoenixFlamesWithoutHeatingUp}</li>
-            <li>Phoenix Flames used during Hot Streak: ${this.phoenixFlamesWithHotStreak}</li>
           </ul>`}
-      />
-    );
+        />
+      );
+    }
   }
   statisticOrder = STATISTIC_ORDER.CORE(14);
-
 }
 
 export default HeatingUp;

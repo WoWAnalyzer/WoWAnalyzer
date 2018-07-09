@@ -4,21 +4,18 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Frostbrand extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }
 
   suggestions(when) {
-    const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
+    const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
 
     when(frostbrandUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -32,14 +29,14 @@ class Frostbrand extends Analyzer {
   }
 
   statistic() {
-    const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
+    const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
-      (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

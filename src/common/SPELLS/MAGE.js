@@ -230,6 +230,21 @@ export default {
     name: 'Meteor',
     icon: 'spell_mage_meteor',
   },
+  PYROCLASM_BUFF: {
+    id: 269651,
+    name: 'Pyroclasm',
+    icon: 'spell_shaman_lavasurge',
+  },
+  PHOENIX_FLAMES_CLEAVE_DAMAGE: {
+    id: 257542,
+    name: 'Phoenix Flames',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
+  FLAME_PATCH_DAMAGE: {
+    id: 205472,
+    name: 'Flame Patch',
+    icon: 'spell_fire_selfdestruct',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -291,6 +306,11 @@ export default {
     id: 36032,
     name: 'Arcane Charge',
     icon: 'spell_arcane_arcane01',
+  },
+  SLOW: {
+    id: 31589,
+    name: 'Slow',
+    icon: 'spell_nature_slow',
   },
 
   //Passives

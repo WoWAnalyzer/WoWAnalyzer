@@ -6,23 +6,19 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Tier20_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   holyPowerGained = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id);
   }
 
   benefitsFrom4Pc(event) {
     this.spellId = event.ability.guid;
-    return this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id)
-      && (this.spellId === SPELLS.BLADE_OF_JUSTICE.id || this.spellId === SPELLS.DIVINE_HAMMER_TALENT.id);
+    return this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id)
+      && (this.spellId === SPELLS.BLADE_OF_JUSTICE.id);
   }
 
   on_byPlayer_cast(event) {
@@ -33,15 +29,9 @@ class Tier20_4set extends Analyzer {
   }
 
   item() {
-
-    this.builderId = SPELLS.BLADE_OF_JUSTICE.id;
-    if (this.combatants.selected.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id)) {
-      this.builderId = SPELLS.DIVINE_HAMMER_TALENT.id;
-    }
-
     return {
       id: `spell-${SPELLS.RET_PALADIN_T20_4SET_BONUS.id}`,
-      icon: <SpellIcon id={this.builderId} />,
+      icon: <SpellIcon id={SPELLS.BLADE_OF_JUSTICE.id} />,
       title: <SpellLink id={SPELLS.RET_PALADIN_T20_4SET_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`Total Holy Power Gained: ${formatNumber(this.holyPowerGained)}`}>

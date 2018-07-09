@@ -8,7 +8,6 @@ import ItemLink from 'common/ItemLink';
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import IronSkinBrew from '../Spells/IronSkinBrew';
 import BrewCDR from '../Core/BrewCDR';
@@ -24,7 +23,6 @@ class Checklist extends CoreChecklist {
     bof: BreathOfFire,
     isb: IronSkinBrew,
     brewcdr: BrewCDR,
-    combatants: Combatants,
     tp: TigerPalm,
     rjw: RushingJadeWind,
     boc: BlackoutCombo,
@@ -91,7 +89,7 @@ class Checklist extends CoreChecklist {
             name: <React.Fragment>Take the <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Talent</React.Fragment>,
             check: () => {
               return {
-                actual: this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
+                actual: this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
                 isEqual: false,
                 style: 'boolean',
               };

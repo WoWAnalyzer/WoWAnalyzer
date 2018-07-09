@@ -4,7 +4,7 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
@@ -21,6 +21,7 @@ import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMarty
 import FillerFlashOfLight from './Modules/PaladinCore/FillerFlashOfLight';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
+import SpellManaCost from './Modules/PaladinCore/SpellManaCost';
 
 import Abilities from './Modules/Abilities';
 import Checklist from './Modules/Features/Checklist';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
+    spellManaCost: SpellManaCost,
 
     // Features
     checklist: Checklist,
@@ -103,8 +105,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4set: Tier21_4set,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     // TODO: Suggestion for enchants
 

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StaggerFabricator from '../Core/StaggerFabricator';
 
 const GUARD_DURATION = 15000;
@@ -20,7 +19,6 @@ const GUARD_REMOVESTAGGER_REASON = {
 
 class Guard extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     fab: StaggerFabricator,
   };
 
@@ -31,11 +29,12 @@ class Guard extends Analyzer {
   _lastApplication = 0;
 
   get _hasGuard() {
-    return this.combatants.selected.hasBuff(SPELLS.GUARD_TALENT.id);
+    return this.selectedCombatant.hasBuff(SPELLS.GUARD_TALENT.id);
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GUARD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARD_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -51,7 +50,7 @@ class Guard extends Analyzer {
       return;
     }
 
-    if(event.timestamp - this._lastApplication === GUARD_DURATION) {
+    if(event.timestamp - this._lastApplication >= GUARD_DURATION) {
       // almost certainly natural buff expiration, any remaining guard
       // is wasted
       this._guardWasted += this._guardRemaining;
@@ -93,14 +92,16 @@ class Guard extends Analyzer {
   statistic() {
     const avgGuardSize = this._guardSizes.reduce((v, sum) => sum + v, 0) / this._guardSizes.length;
     const aps = this._absorbed / (this.owner.fightDuration / 1000);
-    return <StatisticBox
-      icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
-      value={`${formatNumber(aps)} HPS`}
-      label={"Effective Healing by Guard"}
-      tooltip={`Your average Guard could absorb up to <b>${formatNumber(avgGuardSize)}</b> damage.<br/>
-                You wasted <b>${formatNumber(this._guardWasted)}</b> of Guard's absorb.<br/>
-                Your Guard absorbed a total of <b>${formatNumber(this._absorbed)}</b> damage.`}
-              />;
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
+        value={`${formatNumber(aps)} DTPS`}
+        label={"Effective Mitigation by Guard"}
+        tooltip={`Your average Guard could absorb up to <b>${formatNumber(avgGuardSize)}</b> damage.<br/>
+                  You wasted <b>${formatNumber(this._guardWasted)}</b> of Guard's absorb.<br/>
+                  Your Guard absorbed a total of <b>${formatNumber(this._absorbed)}</b> damage.`}
+      />
+    );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 

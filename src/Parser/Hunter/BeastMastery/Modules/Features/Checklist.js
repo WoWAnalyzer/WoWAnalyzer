@@ -5,7 +5,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -23,10 +22,9 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
 
 //Talents
-import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 
 //Spells
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
@@ -44,7 +42,6 @@ import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapp
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
 
     //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -58,7 +55,6 @@ class Checklist extends CoreChecklist {
     timeFocusCapped: TimeFocusCapped,
 
     //talents
-    aMurderOfCrows: AMurderOfCrows,
     killerCobra: KillerCobra,
     aspectOfTheBeast: AspectOfTheBeast,
 
@@ -81,7 +77,7 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells such as <SpellLink id={SPELLS.KILL_COMMAND.id} /> and <SpellLink id={SPELLS.DIRE_BEAST.id} /> should be used on cooldown. <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> should never be capping stacks, but you also want to maximize buff uptime by spreading out the casts as much as possible. You'll want as many good casts of <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> as possible - this is achieved by lining them up with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> for each cast, and in preparation for each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> you want to have saved up some focus. <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
@@ -146,7 +142,7 @@ class Checklist extends CoreChecklist {
       name: 'Pick the right tools for the fight',
       description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said talent or legendary.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> damage</React.Fragment>,

@@ -7,7 +7,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -18,11 +17,13 @@ import Shield_Block from '../Spells/ShieldBlock';
 import IgnorePain from './IgnorePain';
 import RageDetails from '../Core/RageDetails';
 
+//Talents
+import DragonRoar from '../Talents/DragonRoar';
+
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
@@ -32,6 +33,7 @@ class Checklist extends CoreChecklist {
     shieldBlock: Shield_Block,
     ignorePain: IgnorePain,
     rageDetails: RageDetails,
+    dragonRoar: DragonRoar,
   };
 
   rules = [
@@ -92,8 +94,13 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEMORALIZING_SHOUT,
-            when: this.combatants.selected.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id),
+            when: this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id),
             onlyWithSuggestion: false,
+          }),
+          new Requirement({
+            name: <React.Fragment>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</React.Fragment>,
+            check: () => this.dragonRoar.hitSuggestionThreshold,
+            when: this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
           }),
         ];
       },

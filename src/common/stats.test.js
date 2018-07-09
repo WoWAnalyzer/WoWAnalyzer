@@ -1,4 +1,4 @@
-import { calculatePrimaryStat, calculateSecondaryStatDefault, calculateSecondaryStatJewelry } from './stats';
+import { calculatePrimaryStat, calculateSecondaryStatDefault, calculateSecondaryStatJewelry, calculateAzeriteEffects } from './stats';
 
 describe('stats', () => {
   expect.extend({
@@ -81,5 +81,14 @@ describe('stats', () => {
     expect(rotScourRingHaste(355)).toBeWithin(260, 1); // Normal
     expect(rotScourRingHaste(370)).toBeWithin(278, 1); // Heroic
     expect(rotScourRingHaste(385)).toBeWithin(296, 1); // Mythic
+  });
+
+  it('scales azerite effects correctly', () => {
+    // elusive footwork
+    expect(calculateAzeriteEffects(278571, 59)).toEqual([684]); // ilvl 310
+    expect(calculateAzeriteEffects(278571, 79)).toEqual([823]); // ilvl 330
+    expect(calculateAzeriteEffects(278571, 104)).toEqual([1038]); // ilvl 355
+    // gemhide
+    expect(calculateAzeriteEffects(268596, 79)).toEqual([115, 508]); // ilvl 330
   });
 });

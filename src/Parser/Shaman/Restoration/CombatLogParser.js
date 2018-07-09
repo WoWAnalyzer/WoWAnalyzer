@@ -5,7 +5,7 @@ import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import Abilities from './Modules/Abilities';
 
 import HealingDone from './Modules/ShamanCore/HealingDone';
@@ -125,8 +125,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cloudburstNormalizer: CloudburstNormalizer,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,
@@ -145,7 +145,7 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab style={{ padding: 0 }}>
             <Feeding
-              cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
+              cooldownThroughputTracker={this._modules.cooldownThroughputTracker}
             />
           </Tab>
         ),

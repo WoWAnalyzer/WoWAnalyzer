@@ -28,9 +28,6 @@ const DEFENSIVE_BUFFS = [
     spell: SPELLS.POWER_WORD_BARRIER_BUFF,
   },
   {
-    spell: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
-  },
-  {
     spell: SPELLS.CELESTIAL_BULWARK,
   },
 
@@ -54,7 +51,7 @@ const DEFENSIVE_BUFFS = [
   },
   //Arms & Fury Warrior
   {
-    spell: SPELLS.COMMANDING_SHOUT_BUFF,
+    spell: SPELLS.RALLYING_CRY_BUFF,
   },
   //Shaman
   {

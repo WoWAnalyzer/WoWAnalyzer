@@ -4,20 +4,16 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 class ThermalVoid extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   casts = 0;
   buffApplied = 0;
   extraUptime = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -29,14 +25,14 @@ class ThermalVoid extends Analyzer {
   }
 
   on_finished() {
-    if (this.combatants.selected.hasBuff(SPELLS.ICY_VEINS.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id)) {
       this.casts -= 1;
       this.extraUptime = this.owner.currentTimestamp - this.buffApplied;
     }
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
+    return this.selectedCombatant.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
   }
 
   get averageDuration() {

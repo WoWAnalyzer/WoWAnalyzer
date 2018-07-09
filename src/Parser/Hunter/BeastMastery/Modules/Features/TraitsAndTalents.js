@@ -6,12 +6,11 @@ import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Barrage from 'Parser/Hunter/Shared/Modules/Talents/Barrage';
-import Volley from 'Parser/Hunter/Shared/Modules/Talents/Volley';
-import AMurderOfCrows from '../Talents/AMurderOfCrows';
+import Volley from 'Parser/Hunter/Marksmanship/Modules/Talents/Volley';
 import BestialFury from '../Talents/BestialFury';
 import TitansThunder from '../Traits/TitansThunder';
 import Stomp from '../Talents/Stomp';
-import AspectOfTheBeast from '../../../Shared/Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from '../Talents/AspectOfTheBeast';
 import ChimaeraShot from '../Talents/ChimaeraShot';
 import WayOfTheCobra from '../Talents/WayOfTheCobra';
 import BlinkStrikes from '../Talents/BlinkStrikes';
@@ -24,7 +23,6 @@ import Thunderslash from '../Traits/Thunderslash';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
-    aMurderOfCrows: AMurderOfCrows,
     bestialFury: BestialFury,
     titansThunder: TitansThunder,
     stomp: Stomp,
@@ -42,7 +40,8 @@ class TraitsAndTalents extends Analyzer {
     stampede: Stampede,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Deactivate this module if none of the underlying modules are active.
     this.active = Object.keys(this.constructor.dependencies)
       .map(key => this[key])
@@ -61,7 +60,6 @@ class TraitsAndTalents extends Analyzer {
         {this.direFrenzy.active && this.direFrenzy.subStatistic()}
         {this.bestialFury.active && this.bestialFury.subStatistic()}
         {this.blinkStrikes.active && this.blinkStrikes.subStatistic()}
-        {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.barrage.active && this.barrage.subStatistic()}
         {this.volley.active && this.volley.subStatistic()}
         {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}

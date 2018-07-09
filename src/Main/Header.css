@@ -1,5 +1,5 @@
 .app > header {
-  background-image: url(./Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
+  background-image: url(../Interface/Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
   background-size: cover;
   background-position: center center;
   margin-top: 0px;
@@ -14,7 +14,7 @@
 }
 .app > header:after {
   content: '';
-  background: url(./Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: url(../Interface/Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background-size: auto 200%;
   background-position: 50% 0;
   position: absolute;
@@ -133,9 +133,9 @@
   background-color: rgba(216, 65, 65, .8) ;
 }
 .animated-button {
-  box-shadow: inset 0 0 0 0 #ad4b4b;
+  box-shadow: inset 0 0 0 0 #582c2c;
   transition: box-shadow 1.2s linear;
 }
 .animated-button.fill-button {
-  box-shadow: inset 200px 0 0 0 #ad4b4b;
+  box-shadow: inset 200px 0 0 0 #582c2c;
 }

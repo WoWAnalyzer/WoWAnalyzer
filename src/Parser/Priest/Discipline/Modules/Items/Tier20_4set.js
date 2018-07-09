@@ -26,8 +26,9 @@ class Tier20_4set extends Analyzer {
     return (this._consumeCount * REGULAR_PENANCE_COOLDOWN_MS) / 2;
   }
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
   }
 
   on_toPlayer_applybuff(event) {

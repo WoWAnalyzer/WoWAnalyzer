@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Trans } from '@lingui/react';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import { hasPremium } from 'selectors/user';
-import Ad from 'Main/Ad';
+import { hasPremium } from 'Interface/selectors/user';
+import Ad from 'Interface/common/Ad';
+import makeNewsUrl from 'Interface/News/makeUrl';
+import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from 'Interface/News/Articles/2017-01-31-UnlistedLogs';
 
 import ReportSelecter from './ReportSelecter';
-import makeNewsUrl from './News/makeUrl';
-import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
-import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 // import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
 
-const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSelecter' */ './Character/CharacterSelecter').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'Interface/Character/Search').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -41,9 +42,9 @@ class Header extends React.PureComponent {
         <div className="container image-overlay">
           <div className="row">
             <div className="col-lg-6 col-md-10">
-              <h1>WoW&shy;Analyzer</h1>
+              <h1><Trans>WoW&shy;Analyzer</Trans></h1>
               <div className="description">
-                Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
+                <Trans>Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:</Trans>
               </div>
               {showReportSelecter && (
                 <div>
@@ -54,7 +55,7 @@ class Header extends React.PureComponent {
                   {this.state.reportActive ? (
                     <ReportSelecter />
                   ) : (
-                    <CharacterSelecter />
+                    <CharacterSearch />
                   )}
                 </div>
               )}
@@ -63,7 +64,7 @@ class Header extends React.PureComponent {
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
-                {' '}| <a href="/premium">Premium</a>
+                {' '}| <Link to="/premium">Premium</Link>
               </div>
             </div>
             {!premium && (

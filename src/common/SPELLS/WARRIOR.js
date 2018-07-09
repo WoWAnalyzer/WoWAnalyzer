@@ -17,10 +17,10 @@ export default {
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
   },
-  SHATTERED_DEFENSES: {
-    id: 248625,
-    name: 'Shattered Defenses',
-    icon: 'warrior_talent_icon_igniteweapon',
+  OVERPOWER: {
+    id: 7384,
+    name: 'Overpower',
+    icon: 'ability_meleedamage',
   },
   MORTAL_STRIKE: {
     id: 12294,
@@ -42,11 +42,6 @@ export default {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
-  CLEAVE: {
-    id: 845,
-    name: 'Cleave',
-    icon: 'ability_warrior_cleave',
-  },
   WHIRLWIND: {
     id: 1680,
     name: 'Whirlwind',
@@ -61,11 +56,6 @@ export default {
     id: 199850,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
-  },
-  WARBREAKER: {
-    id: 209577,
-    name: 'Warbreaker',
-    icon: 'inv_sword_2h_artifactarathor_d_01',
   },
   BLADESTORM: {
     id: 227847,
@@ -186,11 +176,6 @@ export default {
     id: 5308,
     name: 'Execute',
     icon: 'inv_sword_48',
-  },
-  FURIOUS_SLASH: {
-    id: 100130,
-    name: 'Furious Slash',
-    icon: 'ability_warrior_weaponmastery',
   },
   ODYNS_FURY: {
     id: 205545,
@@ -350,9 +335,14 @@ export default {
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
   },
-  RAGE: {
+  RAGE_DAMAGE_TAKEN: {
     id: 195707,
-    name: 'Rage from damage taken',
+    name: 'Rage from melee hits taken',
+    icon: 'ability_racial_avatar',
+  },
+  RAGE_AUTO_ATTACKS: {
+    id: 198395, //could use a proper spellID for the tooltip
+    name: 'Rage from auto attacks',
     icon: 'ability_racial_avatar',
   },
   //Mitigation Spells
@@ -483,7 +473,12 @@ export default {
   },
 
   // Shared:
-  BATTLE_CRY: {
+  BATTLE_SHOUT: {
+    id: 6673,
+    name: 'Battle Shout',
+    icon: 'ability_warrior_battleshout',
+  },
+  RECKLESSNESS: {
     id: 1719,
     name: 'Battle Cry',
     icon: 'warrior_talent_icon_innerrage',
@@ -503,19 +498,29 @@ export default {
     name: 'Victory Rush',
     icon: 'ability_warrior_devastate',
   },
-  COMMANDING_SHOUT: {
+  RALLYING_CRY: {
     id: 97462,
-    name: 'Commanding Shout',
+    name: 'Rallying Cry',
     icon: 'ability_warrior_rallyingcry',
   },
-  COMMANDING_SHOUT_BUFF: {
+  RALLYING_CRY_BUFF: {
     id: 97463,
-    name: 'Commanding Shout',
+    name: 'Rallying Cry',
     icon: 'ability_warrior_rallyingcry',
   },
   INTIMIDATING_SHOUT: {
     id: 5246,
     name: 'Intimidating Shout',
     icon: 'ability_golemthunderclap',
+  },
+  BOUNDING_STRIDE_BUFF: {
+    id: 202164,
+    name: 'Bounding Stride',
+    icon: 'ability_heroicleap',
+  },
+  SWEEPING_STRIKES: {
+    id: 260708,
+    name: 'Sweeping Strikes',
+    icon: 'ability_rogue_slicedice',
   },
 };

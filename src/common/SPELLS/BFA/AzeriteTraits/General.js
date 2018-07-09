@@ -19,10 +19,17 @@ export default {
     name: 'Champion of Azeroth',
     icon: 'spell_holy_championsgrace',
   },
-  VAMPIRIC_SPEED: { // buff (speed)
+  VAMPIRIC_SPEED: {
+    // buff (speed) https://www.warcraftlogs.com/reports/xT23MRbdt9w7vAfP/#type=auras&boss=-2&difficulty=0&wipes=1&source=1&ability=269239
     id: 269239,
     name: 'Vampiric Speed',
     icon: 'inv_misc_monsterfang_02',
+  },
+  VAMPIRIC_SPEED_HEAL: {
+    // https://www.warcraftlogs.com/reports/xT23MRbdt9w7vAfP/#type=healing&ability=269238&boss=-2&difficulty=0&wipes=1&source=1
+    id: 269238,
+    name: 'Vampiric Speed',
+    icon: 'inv_pet_inquisitoreye',
   },
   GEMHIDE: { // buff (avoidance + dodge)
     id: 270576,

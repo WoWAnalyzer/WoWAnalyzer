@@ -1,20 +1,17 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import ReactTooltip from 'react-tooltip';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
 
 class Tombstone extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     damageTracker: DamageTracker,
   };
 
@@ -25,21 +22,21 @@ class Tombstone extends Analyzer {
   absorbSize = 0;
   totalAbsorbed = 0;
 
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
   }
 
   get wastedCasts() {
-    return this.tombstone.filter(e =>  e.charges < MAXCHARGES).length;
+    return this.tombstone.filter(e => e.charges < MAXCHARGES).length;
   }
 
   on_toPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
       return;
     }
-    this.casts+= 1;
-    this.absorbSize= event.absorb;
+    this.casts += 1;
+    this.absorbSize = event.absorb;
   }
 
   on_toPlayer_energize(event) {
@@ -54,7 +51,7 @@ class Tombstone extends Analyzer {
     if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
       return;
     }
-    this.totalAbsorbed+= event.amount;
+    this.totalAbsorbed += event.amount;
   }
 
   on_toPlayer_removebuff(event) {
@@ -66,7 +63,7 @@ class Tombstone extends Analyzer {
       rpWasted: this.rpWasted,
       absorbSize: this.absorbSize,
       totalAbsorbed: this.totalAbsorbed,
-      absorbedWasted: (this.absorbSize- this.totalAbsorbed),
+      absorbedWasted: (this.absorbSize - this.totalAbsorbed),
       charges: (this.rpGained / RPPERCHARGE),
     });
     this.totalAbsorbed = 0;
@@ -111,25 +108,34 @@ class Tombstone extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {Object.values(this.tombstone).map((e, i) =>
+            {Object.values(this.tombstone).map((e, i) => (
               <tr key={i}>
                 <th>{this.tombstone[i].charges}</th>
-                <td><dfn data-tip={`<strong>RP Generated:</strong> ${this.tombstone[i].rpGained-this.tombstone[i].rpWasted}`}>{this.tombstone[i].rpWasted}</dfn>
-                  <ReactTooltip html place="bottom" /></td>
-                <td><dfn data-tip={`<strong>Damage Absorbed:</strong> ${formatNumber(this.tombstone[i].totalAbsorbed)}</br>
-                                   <strong>Absorb Shield: </strong>${formatNumber(this.tombstone[i].absorbSize)} </br>
-                                   <strong>Healing: </strong>${this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
-                                  `}>{formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%</dfn>
-                  <ReactTooltip html place="bottom" /></td>
+                <td>
+                  <dfn
+                    data-tip={`<strong>RP Generated:</strong> ${this.tombstone[i].rpGained - this.tombstone[i].rpWasted}`}
+                  >
+                    {this.tombstone[i].rpWasted}
+                  </dfn>
+                </td>
+                <td>
+                  <dfn
+                    data-tip={`
+                      <strong>Damage Absorbed:</strong> ${formatNumber(this.tombstone[i].totalAbsorbed)}</br>
+                      <strong>Absorb Shield: </strong>${formatNumber(this.tombstone[i].absorbSize)} </br>
+                      <strong>Healing: </strong>${this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                    `}
+                  >
+                    {formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%
+                  </dfn>
+                </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </ExpandableStatisticBox>
-
     );
   }
-
 }
 
 export default Tombstone;

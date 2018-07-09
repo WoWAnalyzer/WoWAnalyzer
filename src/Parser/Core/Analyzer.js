@@ -69,15 +69,18 @@ class Analyzer extends Module {
    */
 
   /**
-   * Called when the parser finished initializing; after all modules are loaded, normalizers have ran and combatants were initialized.
+   * Called when the parser finished initializing; after all required dependencies are loaded, normalizers have ran and combatants were initialized.
    * Use this method to toggle the module on/off based on having items equipped, talents selected, etc.
    */
-  on_initialized() {}
+  constructor(...args) { // eslint-disable-line no-useless-constructor
+    super(...args);
+  }
   /**
    * Called for every single event.
+   * @param {string} eventType
    * @param {object} event
    */
-  on_event(event) {}
+  on_event(eventType, event) {}
   // region damage
   /**
    * Called when someone deals/takes damage.

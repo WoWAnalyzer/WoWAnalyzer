@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /*
 * Aman'Thul's Vision
@@ -20,15 +19,12 @@ const MAIN_STAT_BUFF = 6700;
 const TERTIARY_STAT_BUFF = 2200;
 
 class AmanthulsVision extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	};
-
 	panthProc = 0
 	tertProc = 0
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasTrinket(ITEMS.AMANTHULS_VISION.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasTrinket(ITEMS.AMANTHULS_VISION.id);
 	}
 
 	on_byPlayer_applybuff(event) {
@@ -52,8 +48,8 @@ class AmanthulsVision extends Analyzer {
 	}
 
 	item() {
-		const tertUptime = this.combatants.selected.getBuffUptime(SPELLS.GLIMPSE_OF_ENLIGHTENMENT.id) / this.owner.fightDuration;
-		const mainUptime = this.combatants.selected.getBuffUptime(SPELLS.AMANTHULS_GRANDEUR.id) / this.owner.fightDuration;
+		const tertUptime = this.selectedCombatant.getBuffUptime(SPELLS.GLIMPSE_OF_ENLIGHTENMENT.id) / this.owner.fightDuration;
+		const mainUptime = this.selectedCombatant.getBuffUptime(SPELLS.AMANTHULS_GRANDEUR.id) / this.owner.fightDuration;
 
 		const averageMain = mainUptime * MAIN_STAT_BUFF;
 		const averageTert = tertUptime * TERTIARY_STAT_BUFF;
@@ -62,7 +58,7 @@ class AmanthulsVision extends Analyzer {
 			result: (
 				<div>
 					<dfn data-tip={`Procced the pantheon buff <b>${this.panthProc}</b> times with <b>${formatPercentage(mainUptime)}</b>% uptime.`}>
-						{formatNumber(averageMain)} average {this.combatants.selected.spec.primaryStat}
+						{formatNumber(averageMain)} average {this.selectedCombatant.spec.primaryStat}
 					</dfn>
 					<br />
 					<dfn data-tip={`Procced the tertiary buff <b>${this.tertProc}</b> times with <b>${formatPercentage(tertUptime)}</b>% uptime.`}>

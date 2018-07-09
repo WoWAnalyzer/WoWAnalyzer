@@ -24,7 +24,7 @@ import HighTolerance from './Modules/Spells/HighTolerance';
 import Guard from './Modules/Spells/Guard';
 // Features
 import Checklist from './Modules/Features/Checklist';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageTakenTable from './Modules/Features/DamageTakenTable';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';

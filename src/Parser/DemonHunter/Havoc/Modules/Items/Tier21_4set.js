@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -11,14 +10,14 @@ import { formatPercentage, formatNumber } from 'common/format';
 
 class Tier21_4set extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		abilityTracker: AbilityTracker,
 	};
 
 	betrayersFuryBuffCount = 0;
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id);
 	}
 
 	get eyeBeamCasts() {
@@ -63,7 +62,7 @@ class Tier21_4set extends Analyzer {
   }
 
 	item() {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.HAVOC_T21_4PC_BUFF.id) / this.owner.fightDuration;
+    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.HAVOC_T21_4PC_BUFF.id) / this.owner.fightDuration;
     return {
       id: `spell-${SPELLS.HAVOC_T21_4PC_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HAVOC_T21_4PC_BONUS.id} />,

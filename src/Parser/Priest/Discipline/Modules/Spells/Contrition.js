@@ -2,8 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -15,7 +13,6 @@ import { calculateOverhealing ,OffensivePenanceBoltEstimation } from '../../Spel
 
 class Contrition extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };
@@ -24,8 +21,9 @@ class Contrition extends Analyzer {
   damagePenalty = 0;
   penanceBoltEstimation;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(
       SPELLS.CONTRITION_TALENT.id
     );
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
@@ -81,7 +79,7 @@ class Contrition extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CONTRITION_TALENT.id} />}
         value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
-        label={
+        label={(
           <dfn
             data-tip={`The effective healing contributed by Contrition (${formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(healing)
@@ -93,7 +91,7 @@ class Contrition extends Analyzer {
           >
             Contrition healing
           </dfn>
-        }
+        )}
       />
     );
   }

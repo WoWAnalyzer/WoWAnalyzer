@@ -4,22 +4,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GRAVEWARDEN_RUNIC_DISCOUNT = 5;
 
 class T20_4pc extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-
   deathStrikeBuffless=0;
   deathStrikeTotal=0;
 
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_cast(event) {
@@ -27,7 +21,7 @@ class T20_4pc extends Analyzer {
     if (spellId !== SPELLS.DEATH_STRIKE.id) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
       this.deathStrikeBuffless += 1;
     }
     this.deathStrikeTotal += 1;

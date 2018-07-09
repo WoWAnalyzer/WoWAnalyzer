@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { TheBadBossy, Aelexe } from 'CONTRIBUTORS';
+import { TheBadBossy, Aelexe, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-06-30'),
+    changes: <React.Fragment>Update all abilities to new BFA values, removed incompatible modules and added an <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> statistic.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-06-16'),
     changes: <React.Fragment>Fixed a rare crash when casting <SpellLink id={SPELLS.EXECUTE.id} /> on a non-boss target.</React.Fragment>,
@@ -17,7 +22,7 @@ export default [
   },
   {
     date: new Date('2018-04-19'),
-    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.RECKLESSNESS.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
@@ -27,7 +32,7 @@ export default [
   },
   {
     date: new Date('2018-04-12'),
-    changes: <React.Fragment>Added a suggestion for avoiding using <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> without <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} /> where possible.</React.Fragment>,
+    changes: <React.Fragment>Added a suggestion for avoiding using <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> without Shattered Defenses where possible.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
@@ -42,17 +47,17 @@ export default [
   },
   {
     date: new Date('2018-04-12'),
-    changes: <React.Fragment>Added a suggestion for avoiding wasted <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} /> with <SpellLink id={SPELLS.COLOSSUS_SMASH.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added a suggestion for avoiding wasted Shattered Defenses with <SpellLink id={SPELLS.COLOSSUS_SMASH.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.BATTLE_CRY.id} /> statistic block.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.RECKLESSNESS.id} /> statistic block.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
     date: new Date('2018-04-09'),
-    changes: <React.Fragment>Added a suggestion for preparing <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} /> for <SpellLink id={SPELLS.BATTLE_CRY.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added a suggestion for preparing Shattered Defenses for <SpellLink id={SPELLS.RECKLESSNESS.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
@@ -62,7 +67,7 @@ export default [
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Added improved suggestions for <SpellLink id={SPELLS.CHARGE.id} />, <SpellLink id={SPELLS.HEROIC_LEAP.id} /> and <SpellLink id={SPELLS.COMMANDING_SHOUT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added improved suggestions for <SpellLink id={SPELLS.CHARGE.id} />, <SpellLink id={SPELLS.HEROIC_LEAP.id} /> and <SpellLink id={SPELLS.RALLYING_CRY.id} />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {

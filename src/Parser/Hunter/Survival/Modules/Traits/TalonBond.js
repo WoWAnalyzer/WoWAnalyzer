@@ -3,20 +3,17 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
  * When Talon Strike triggers, your pet immediately attacks 2 times.
  */
 class TalonBond extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.TALON_BOND_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.TALON_BOND_TRAIT.id];
   }
 
   on_byPlayerPet_damage(event) {

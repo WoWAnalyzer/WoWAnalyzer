@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
@@ -17,7 +16,6 @@ const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
 
 class FillerLightOfTheMartyrs extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     maraadsDyingBreath: MaraadsDyingBreath,
     spellUsable: SpellUsable,
@@ -30,7 +28,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
       // Not a filler
       return;
     }

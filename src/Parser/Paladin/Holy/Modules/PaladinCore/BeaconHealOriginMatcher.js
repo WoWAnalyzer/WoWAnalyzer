@@ -71,7 +71,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   }
 
   get beaconType() {
-    return this.combatants.selected.lv100Talent;
+    return this.selectedCombatant.lv100Talent;
   }
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
@@ -139,7 +139,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     // What happens here are 2 situations:
     // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
     // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 50ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.combatants.selected.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
+    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconFactor += 0.4;
     }

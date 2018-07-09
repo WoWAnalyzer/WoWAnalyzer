@@ -4,7 +4,7 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
@@ -57,6 +57,7 @@ import Contrition from './Modules/Spells/Contrition';
 import Reverence from './Modules/Spells/Reverence';
 import Schism from './Modules/Spells/Schism';
 
+import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -119,10 +120,11 @@ class CombatLogParser extends CoreCombatLogParser {
     contrition: Contrition,
     reverence: Reverence,
     schism: Schism,
+    sinsOfTheMany: SinsOfTheMany,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,

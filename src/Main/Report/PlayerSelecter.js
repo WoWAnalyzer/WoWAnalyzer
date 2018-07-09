@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-import { getReport } from 'selectors/report';
-import { getCombatants } from 'selectors/combatants';
+import { getReport } from 'Interface/selectors/report';
+import { getCombatants } from 'Interface/selectors/combatants';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 import PlayerSelectionList from './PlayerSelectionList';
-import ActivityIndicator from '../ActivityIndicator';
 
 class PlayerSelecter extends Component {
   static propTypes = {

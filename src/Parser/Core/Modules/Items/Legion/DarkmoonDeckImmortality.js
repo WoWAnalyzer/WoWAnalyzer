@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import DeathTracker from 'Parser/Core/Modules/DeathTracker';
 
 const BASE_IMMORTALITY_ILVL = 850; // sub-850 items are unobtainable anymore, and I have no stats for them
@@ -39,7 +38,6 @@ const MAX_CARD = 191631;
  */
 class DarkmoonDeckImmortality extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     deathTracker: DeathTracker,
   };
 
@@ -65,15 +63,16 @@ class DarkmoonDeckImmortality extends Analyzer {
     return (this._totalArmor + this.currentArmor * (this.owner.currentTimestamp - this._lastBuffChange)) / (this.owner.fightDuration - this.deathTracker.totalTimeDead);
   }
 
-  on_initialized() {
-    const selected = this.combatants.selected;
+  constructor(...args) {
+    super(...args);
+    const selected = this.selectedCombatant;
     this.active = selected.hasTrinket(ITEMS.DARKMOON_DECK_IMMORTALITY.id);
 
     if(!this.active) {
       return;
     }
 
-    const item = this.combatants.selected.getItem(ITEMS.DARKMOON_DECK_IMMORTALITY.id);
+    const item = this.selectedCombatant.getItem(ITEMS.DARKMOON_DECK_IMMORTALITY.id);
     Object.keys(BASE_ARMOR_PER_CARD).forEach(key => {
       this.ARMOR_PER_CARD[key] = calculateSecondaryStatDefault(BASE_IMMORTALITY_ILVL, BASE_ARMOR_PER_CARD[key], item.itemLevel);
     });

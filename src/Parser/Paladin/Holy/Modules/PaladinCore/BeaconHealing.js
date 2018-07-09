@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,7 +13,6 @@ import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
     abilities: Abilities,
   };
@@ -76,7 +74,7 @@ class BeaconHealing extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={this.combatants.selected.lv100Talent} />}
+        icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
         value={`${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} %`}
         label="FoL/HL cast on beacon"
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />

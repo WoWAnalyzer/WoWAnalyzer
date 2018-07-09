@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatMilliseconds, formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -24,7 +23,6 @@ const HOT_STREAK_CONTRIBUTORS = [
 
 class HotStreak extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: EnemyInstances,
   };
 
@@ -36,6 +34,7 @@ class HotStreak extends Analyzer {
   buffAppliedTimestamp = 0;
   hotStreakRemoved = 0;
   bracerProcRemoved = 0;
+  pyroclasmProcRemoved = 0;
   castsIntoHotStreak = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
@@ -61,17 +60,17 @@ class HotStreak extends Analyzer {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     //If the player has Firestarter, get the target's health
-    if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
     }
-    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && this.targetId !== damageTarget)) {
+    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && this.targetId !== damageTarget)) {
       return;
     }
     //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this.
     if ((spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id || spellId === SPELLS.PYROBLAST.id) && this.pyromaniacProc) {
       debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
+    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
       this.wastedCrits += 1;
       debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
@@ -83,7 +82,7 @@ class HotStreak extends Analyzer {
       return;
     }
     //If Hot Streak is removed and re-applied within 100ms of eachother then Pyromaniac Proc'd and granted a new hot streak
-    if (this.combatants.selected.hasTalent(SPELLS.PYROMANIAC_TALENT.id) && this.buffAppliedTimestamp - this.hotStreakRemoved < PROC_WINDOW_MS) {
+    if (this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id) && this.buffAppliedTimestamp - this.hotStreakRemoved < PROC_WINDOW_MS) {
       this.pyromaniacProc = true;
     }
     this.totalProcs += 1;
@@ -99,16 +98,19 @@ class HotStreak extends Analyzer {
     } else if (spellId === SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       this.bracerProcRemoved = event.timestamp;
       return;
+    } else if (spellId === SPELLS.PYROCLASM_BUFF.id) {
+      this.pyroclasmProcRemoved = event.timestamp;
+      return;
     }
     //Check for Expired Procs, also if Fireball or Scorch was cast at the same time that Hot Streak was removed, then it was cast alongside Hot Streak (For the cast before hot streak check). Excluded Hot Streak procs during Combustion.
-    //Also checks to see if the bracer proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer proc and used Hot Streak on the end of it.)
+    //Also checks to see if the bracer proc or pyroclasm proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer/pyroclasm proc and used Hot Streak on the end of it.)
     //Also checks to see if the player has Firestarter or Combustion and if they have Firestarter, checks to see if the boss is less than 90% health
     if (!this.lastCastTimestamp || this.lastCastTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1;
       debug && console.log("Hot Streak proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved) {
+    } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved || this.hotStreakRemoved - PROC_WINDOW_MS < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
-    } else if (!this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) && (!this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) || (this.currentHealth / this.maxHealth) < 0.90)) {
+    } else if (!this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) && (!this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) || (this.currentHealth / this.maxHealth) < 0.90)) {
       this.noCastBeforeHotStreak += 1;
       debug && console.log("No hard cast before Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
@@ -187,7 +189,7 @@ class HotStreak extends Analyzer {
       });
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>While <SpellLink id={SPELLS.COMBUSTION.id} /> was not active, you failed to <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> just before using your <SpellLink id={SPELLS.HOT_STREAK.id} /> {this.noCastBeforeHotStreak} times ({formatPercentage(this.castBeforeHotStreakUtil)}%). Make sure you hard cast Fireball{this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch just before each instant <SpellLink id={SPELLS.PYROBLAST.id} /> to increase the odds of getting a <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. Additionally, it is also acceptable to use your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs if you need to move.</React.Fragment>)
+          return suggest(<React.Fragment>While <SpellLink id={SPELLS.COMBUSTION.id} /> was not active, you failed to <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> just before using your <SpellLink id={SPELLS.HOT_STREAK.id} /> {this.noCastBeforeHotStreak} times ({formatPercentage(this.castBeforeHotStreakUtil)}%). Make sure you hard cast Fireball{this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch just before each instant <SpellLink id={SPELLS.PYROBLAST.id} /> to increase the odds of getting a <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. Additionally, it is also acceptable to use your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs if you need to move.</React.Fragment>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -220,7 +222,7 @@ class HotStreak extends Analyzer {
           </span>
         )}
         label="Hot Streak Utilization"
-        tooltip={`Every Hot Streak should be preceded by Fireball${this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch to increase the chances of gaining a Heating Up or Hot Streak buff. The only time you should not be doing this is during Combustion or when you need to move. Additionally, ensure that you are using all of your Hot Streak Procs and not letting them expire`}
+        tooltip={`Every Hot Streak should be preceded by Fireball${this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch to increase the chances of gaining a Heating Up or Hot Streak buff. The only time you should not be doing this is during Combustion or when you need to move. Additionally, ensure that you are using all of your Hot Streak Procs and not letting them expire`}
       />
     );
   }

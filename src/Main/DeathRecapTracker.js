@@ -28,7 +28,8 @@ class DeathRecapTracker extends Analyzer {
     healthstone: Healthstone,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.cooldowns = this.abilities.abilities.filter(ability => (
       (
         ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
@@ -49,7 +50,7 @@ class DeathRecapTracker extends Analyzer {
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
     extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({ id: e.primarySpell.id, cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id) }));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.id));
+      this.lastBuffs = this.buffs.filter(e => this.selectedCombatant.hasBuff(e.id));
     }
     extendedEvent.buffsUp = this.lastBuffs;
 

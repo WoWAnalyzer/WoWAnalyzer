@@ -1,4 +1,3 @@
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
@@ -9,14 +8,14 @@ const DOG_COOLDOWN_REDUCTION_MS = 1000/30;
 
 class FuryTracker extends ResourceTracker {
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	};
 
 	totalCooldownReduction = 0;
 	totalCooldownReductionWasted = 0;
 
-	on_initialized() {
+	constructor(...args) {
+    super(...args);
 		this.resource = RESOURCE_TYPES.FURY;
 	}
 
@@ -25,7 +24,7 @@ class FuryTracker extends ResourceTracker {
 		const blindFuryId = SPELLS.BLIND_FURY_TALENT.id;
 		//TODO: Account for Eye Beam clipping
 		// Blind Fury resource gain does not have an energize event so it is handled here
-		if(spellId === SPELLS.EYE_BEAM.id && this.combatants.selected.hasTalent(blindFuryId)) {
+		if(spellId === SPELLS.EYE_BEAM.id && this.selectedCombatant.hasTalent(blindFuryId)) {
 			this.processInvisibleEnergize(blindFuryId, 105);
 		}
 		super.on_byPlayer_cast(event);
@@ -38,14 +37,14 @@ class FuryTracker extends ResourceTracker {
 		let cost = this.getResource(event).cost;
 		const spellId = event.ability.guid;
 		if ((spellId === SPELLS.BLADE_DANCE.id || spellId === SPELLS.DEATH_SWEEP.id)
-			 && (this.combatants.selected.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_SLAYER.id))) {
+			 && (this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_SLAYER.id))) {
 			cost = cost - 20;
 		}
 		if(spellId === SPELLS.EYE_BEAM.id) {
-			const rank = this.combatants.selected.traitsBySpellId[SPELLS.WIDE_EYES.id];
+			const rank = this.selectedCombatant.traitsBySpellId[SPELLS.WIDE_EYES.id];
 			cost = cost - 5 * rank;
 		}
-		if(spellId === SPELLS.CHAOS_NOVA.id && this.combatants.selected.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id)) {
+		if(spellId === SPELLS.CHAOS_NOVA.id && this.selectedCombatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id)) {
 			cost = 0;
 		}
 		this.reduceCooldown(cost);
@@ -54,7 +53,7 @@ class FuryTracker extends ResourceTracker {
 
 
 	reduceCooldown(cost) {
-		if(!this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id)){
+		if(!this.selectedCombatant.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id)){
 			return;
 		}
 		const spellId = SPELLS.METAMORPHOSIS_HAVOC.id;

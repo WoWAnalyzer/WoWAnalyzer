@@ -2,15 +2,10 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const TARGETS_FOR_GOOD_CAST = 4;
 
 class UnempoweredLunarStrike extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   badCasts = 0;
   lastCast = null;
   lastCastBuffed = false;
@@ -32,9 +27,9 @@ class UnempoweredLunarStrike extends Analyzer {
     }
     this.checkCast();
     this.lastCast = event;
-    this.lastCastBuffed = this.combatants.selected.hasBuff(SPELLS.LUNAR_EMP_BUFF.id)
-      || this.combatants.selected.hasBuff(SPELLS.OWLKIN_FRENZY.id)
-      || this.combatants.selected.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
+    this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id)
+      || this.selectedCombatant.hasBuff(SPELLS.OWLKIN_FRENZY.id)
+      || this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
     this.hits = 0;
   }
 

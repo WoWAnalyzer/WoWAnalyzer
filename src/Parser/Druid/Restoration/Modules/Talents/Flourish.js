@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HotTracker from '../Core/HotTracking/HotTracker';
 
@@ -20,7 +19,6 @@ const FLOURISH_EXTENSION = 8000;
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -51,16 +49,17 @@ class Flourish extends Analyzer {
   increasedRateRegrowthHealing = 0;
   increasedRateDreamerHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.FLOURISH_TALENT.id);
-    this.hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
+    this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if (this.combatants.selected.hasBuff(SPELLS.FLOURISH_TALENT.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += amount / 2;

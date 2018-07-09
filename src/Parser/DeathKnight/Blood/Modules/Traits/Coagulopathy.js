@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -15,15 +14,12 @@ const COAGULOPHATHY_INCREASE = 0.04;
  * Increases the damage of Blood Plague by 4%
  */
 class Coagulopathy extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rank = 0;
   damage = 0;
 
-  on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.COAGULOPHATHY_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.COAGULOPHATHY_TRAIT.id];
     this.active = this.rank > 0;
   }
 

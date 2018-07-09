@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
+
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
 /**
  * Unseen Predator's Cloak
@@ -13,12 +13,12 @@ import Enemies from 'Parser/Core/Modules/Enemies';
  */
 class UnseenPredatorsCloak extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.UNSEEN_PREDATORS_CLOAK.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBack(ITEMS.UNSEEN_PREDATORS_CLOAK.id);
   }
 
   get uptimePercentage() {

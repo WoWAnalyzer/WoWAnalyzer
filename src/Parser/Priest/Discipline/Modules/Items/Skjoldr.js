@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
@@ -17,14 +16,11 @@ const SKJOLDR_PWS_ABSORB_BONUS = 0.15;
 // Thanks to Az and Lob in the Disc Discord for helping me figure this out.
 
 class Skjoldr extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasWrists(ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id);
   }
 
   pwsByPlayerId = {};

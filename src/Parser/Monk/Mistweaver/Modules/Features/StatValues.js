@@ -3,7 +3,6 @@
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 
 import SPELL_INFO from './StatValuesSpellInfo';
@@ -15,7 +14,6 @@ import SPELL_INFO from './StatValuesSpellInfo';
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
     statTracker: StatTracker,
-    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
   };
 

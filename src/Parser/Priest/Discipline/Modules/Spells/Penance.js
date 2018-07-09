@@ -2,17 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _previousPenanceTimestamp = null;
   _penanceBoltHitNumber = 0;
   _penanceBoltCastNumber = 0; // Used for the cast event, not the damage or healing ones
@@ -71,7 +66,7 @@ class Penance extends Analyzer {
   }
 
   statistic() {
-    const hasCastigation = this.combatants.selected.hasTalent(
+    const hasCastigation = this.selectedCombatant.hasTalent(
       SPELLS.CASTIGATION_TALENT.id
     );
     const missedPenanceTicks =
@@ -81,15 +76,11 @@ class Penance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
-        label={
-          <dfn
-            data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${
-              this.casts
-            } times.`}
-          >
+        label={(
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
             Wasted Penance bolts
           </dfn>
-        }
+        )}
       />
     );
   }

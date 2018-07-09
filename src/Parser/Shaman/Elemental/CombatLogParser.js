@@ -1,23 +1,18 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import Abilities from './Modules/Features/Abilities';
-import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import ProcTracker from './Modules/Features/ProcTracker';
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Abilities from './Modules/Abilities';
 import Overload from './Modules/Features/Overload';
 
 import FlameShock from './Modules/ShamanCore/FlameShock';
-import FrostShock from './Modules/ShamanCore/FrostShock';
-import EarthShock from './Modules/ShamanCore/EarthShock';
-import ElementalFocus from './Modules/ShamanCore/ElementalFocus';
 import FireElemental from './Modules/Features/FireElemental';
 
 import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
 import Ascendance from './Modules/Talents/Ascendance';
 import TotemMastery from './Modules/Talents/TotemMastery';
-import LightningRod from './Modules/Talents/LightningRod';
+import ExposedElements from './Modules/Talents/ExposedElements';
+import MasterOfTheElements from './Modules/Talents/MasterOfTheElements';
 
 import Tier21_2Set from './Modules/Items/Tier21_2set.js';
 import Tier21_4Set from './Modules/Items/Tier21_4set.js';
@@ -39,14 +34,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-    procTracker: ProcTracker,
     flameShock: FlameShock,
-    frostShock: FrostShock,
-    earthShock: EarthShock,
     overload: Overload,
-    elementalFocus: ElementalFocus,
     fireElemental: FireElemental,
 
     // Talents
@@ -54,7 +43,8 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBlast: ElementalBlast,
     ascendance: Ascendance,
     totemMastery: TotemMastery,
-    lightningRod: LightningRod,
+    exposedElements: ExposedElements,
+    masterOfTheElements: MasterOfTheElements,
 
     // Legendaries:
     theDeceiversBloodPact: TheDeceiversBloodPact,

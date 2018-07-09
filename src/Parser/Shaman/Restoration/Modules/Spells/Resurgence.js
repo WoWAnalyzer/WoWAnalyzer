@@ -3,7 +3,6 @@ import React from 'react';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -21,10 +20,6 @@ const SPELLS_PROCCING_RESURGENCE = {
 };
 
 class Resurgence extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   maxMana = 100000;
   regenedMana = 0;
   extraMana = 0;
@@ -78,7 +73,7 @@ class Resurgence extends Analyzer {
         label="Mana gained from Resurgence"
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }}/> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
+          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
         </div>
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>

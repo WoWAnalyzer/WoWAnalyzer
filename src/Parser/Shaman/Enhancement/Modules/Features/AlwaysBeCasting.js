@@ -8,25 +8,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // Note: I need to add a few more instant cast procs with different ids
-    // Enhancement:
-    SPELLS.ROCKBITER.id,
-    SPELLS.FROSTBRAND.id,
-    SPELLS.FLAMETONGUE.id,
-    SPELLS.CRASH_LIGHTNING.id,
-    SPELLS.FERAL_SPIRIT.id,
-
-    SPELLS.LIGHTNING_BOLT.id,
-    SPELLS.STORMSTRIKE.id,
-    SPELLS.LAVA_LASH.id,
-    SPELLS.FURY_OF_AIR_TALENT.id,
-
-    SPELLS.EARTHEN_SPIKE_TALENT.id,
-    SPELLS.DOOM_WINDS.id,
-    SPELLS.SUNDERING_TALENT.id,
-  ];
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

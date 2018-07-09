@@ -5,8 +5,13 @@
 .statistics-section-title {
   margin-top: 40px;
   margin-bottom: 20px;
+}
+.statistics-section-title h1 {
+  display: inline-block;
+  margin: 0;
   text-indent: 12px;
   font-size: 24px;
+  line-height: inherit;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -22,12 +27,6 @@
 }
 .statistics > div {
   padding: 0 10px;
-}
-.results {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-left: 5vw;
-  padding-right: 5vw;
 }
 .results .navigation {
   border-bottom: 4px solid #d84141;
@@ -114,6 +113,7 @@
   text-transform: uppercase;
   text-align: center;
   line-height: 1;
+  z-index: 10;
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
@@ -137,27 +137,27 @@
 
 @keyframes player-anim {
   from {
-    left: 100%;
+    transform: translateX(100%)
   }
   to {
-    left: 0%;
+    transform: translateX(0%)
   }
 }
 .results > header .player {
   animation: player-anim 400ms ease-out forwards;
-  left: 100%;
+  transform: translateX(100%);
 }
 @keyframes boss-anim {
   0% {
-    left: -100%;
+    transform: translateX(-100%);
   }
   100% {
-    left: 0%;
+    transform: translateX(0%);
   }
 }
 .results > header .boss {
   animation: boss-anim 400ms 1800ms ease-out forwards;
-  left: -100%;
+  transform: translateX(-120%);
 }
 @keyframes fade-in {
   0% {

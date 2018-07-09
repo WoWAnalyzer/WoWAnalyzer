@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-
-const DualStatisticBox = ({icon, values, tooltip, footer, containerProps, alignIcon}) => (
+const DualStatisticBox = ({ icon, values, tooltip, footer, containerProps, alignIcon }) => (
   <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
     <div className="panel statistic-box">
       <div className="panel-body flex">
         <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
-            {icon}
+          {icon}
         </div>
         <div className="flex-main flex-column">
           {
-            values.map(val => (<div className="panel-cell value">
-              {val}
-              </div>))
+            values.map(val => (
+              <div className="panel-cell value">
+                {val}
+              </div>
+            ))
           }
         </div>
       </div>
@@ -27,7 +28,6 @@ const DualStatisticBox = ({icon, values, tooltip, footer, containerProps, alignI
     </div>
   </div>
 );
-
 DualStatisticBox.propTypes = {
   icon: PropTypes.node.isRequired,
   values: PropTypes.node.isRequired,
@@ -36,7 +36,6 @@ DualStatisticBox.propTypes = {
   alignIcon: PropTypes.string,
   footer: PropTypes.node,
 };
-
 DualStatisticBox.defaultProps = {
   alignIcon: 'center',
 };

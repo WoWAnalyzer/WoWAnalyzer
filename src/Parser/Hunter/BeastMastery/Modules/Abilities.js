@@ -7,18 +7,19 @@ import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
-        isOnGCD: false,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <React.Fragment>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
             </React.Fragment>
           ),
         },
@@ -27,7 +28,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.KILL_COMMAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -36,13 +39,17 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COBRA_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DIRE_BEAST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -52,8 +59,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
         cooldown: haste => 12 / (1 + haste),
         charges: 2,
@@ -65,14 +73,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MULTISHOT_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -86,8 +98,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 120 - (120 * 0.35) : 120,
-        isOnGCD: false,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 120 - (120 * 0.35) : 120,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -102,8 +114,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -113,8 +127,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STAMPEDE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 180,
-        enabled: this.combatants.selected.hasTalent(SPELLS.STAMPEDE_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -124,8 +140,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SPITTING_COBRA_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
-        enabled: this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -135,8 +153,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHIMAERA_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
-        enabled: this.combatants.selected.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -146,73 +166,81 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.CONCUSSIVE_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.COUNTER_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.INTIMIDATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
-        isOnGCD: false,
+        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasPathfinder = this.combatants.selected.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id];
+          const hasPathfinder = combatant.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id];
           const cooldownAfterPathFinder = hasPathfinder ? 120 : 180;
-          const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
+          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterPathFinder * (1 - (hasCallOfTheWild ? 0.35 : 0));
         },
-        isOnGCD: false,
+        gcd: null,
       },
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

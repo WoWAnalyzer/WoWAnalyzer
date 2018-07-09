@@ -24,8 +24,9 @@ class EarthShield extends Analyzer {
   healing = 0;
   buffHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
   }
 
   on_byPlayer_heal(event) {
@@ -52,7 +53,7 @@ class EarthShield extends Analyzer {
 
     // earth shield bonus appears to be tripled for the riptide initial and chain heal healing
     if((spellId === SPELLS.RIPTIDE.id && !event.tick) || spellId === SPELLS.CHAIN_HEAL.id) {
-      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE * 3);
+      this.buffHealing += calculateEffectiveHealing(event, Math.pow(1+EARTHSHIELD_HEALING_INCREASE,3)-1);
     } else {
       this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
     }
