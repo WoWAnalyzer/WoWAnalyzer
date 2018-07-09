@@ -19,10 +19,10 @@ export default {
     manaCost: 800,
   },
   // Discipline Priest:
-  REVERENCE: {
+  GRACE: {
     id: 271534,
-    name: 'Mastery: Reverence',
-    icon: 'spell_priest_chakra',
+    name: 'Mastery: Grace',
+    icon: 'spell_holy_hopeandgrace',
   },
   PENANCE: {
     id: 47666,
