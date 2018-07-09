@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
@@ -71,12 +72,21 @@ class HolyPaladinChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
-          {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />
+          )}
           <AbilityRequirement spell={SPELLS.TYRS_DELIVERANCE_CAST.id} />
-          {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && <AbilityRequirement spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id} />}
+          {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && (
+            <AbilityRequirement
+              spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id}
+              name={<ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />}
+            />
+          )}
           <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA) && <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />}
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA) && (
+            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />
+          )}
         </Rule>
         <Rule
           name="Use your supportive abilities"

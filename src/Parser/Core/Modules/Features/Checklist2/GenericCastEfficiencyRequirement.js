@@ -13,6 +13,7 @@ import Requirement from './Requirement';
 class GenericCastEfficiencyRequirement extends React.PureComponent {
   static propTypes = {
     spell: PropTypes.number.isRequired,
+    name: PropTypes.node,
     castEfficiency: PropTypes.shape({
       efficiency: PropTypes.number.isRequired,
       gotMaxCasts: PropTypes.bool.isRequired,
@@ -46,11 +47,11 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
   }
 
   render() {
-    const { spell, ...others } = this.props;
+    const { spell, name, ...others } = this.props;
 
     return (
       <Requirement
-        name={<SpellLink id={spell} />}
+        name={name || <SpellLink id={spell} />}
         thresholds={this.thresholds}
         {...others}
       />
