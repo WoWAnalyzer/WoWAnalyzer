@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Abilities from 'Parser/Core/Modules/Abilities';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
@@ -16,10 +15,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import BeaconHealing from '../../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../../PaladinCore/FillerFlashOfLight';
-import AuraOfSacrifice from '../../Talents/AuraOfSacrifice';
-import Ilterendi from '../../Items/Ilterendi';
 import Overhealing from '../../PaladinCore/Overhealing';
-import JudgmentOfLight from '../../Talents/JudgmentOfLight';
 
 import Component from './Component';
 
@@ -33,15 +29,12 @@ class Checklist extends Analyzer {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
-    auraOfSacrifice: AuraOfSacrifice,
-    ilterendi: Ilterendi,
     velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     overhealing: Overhealing,
     enchantChecker: EnchantChecker,
-    judgmentOfLight: JudgmentOfLight,
   };
 
   render() {
