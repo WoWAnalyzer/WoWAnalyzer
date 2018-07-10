@@ -310,6 +310,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
+    [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
+      itemId: ITEMS.BALEFIRE_BRANCH.id,
+      intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
     // endregion
     // endregion
 
