@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
+import { withI18n, Trans } from '@lingui/react';
 
 import ChecklistIcon from 'Interface/Icons/Checklist';
 import SuggestionIcon from 'Interface/Icons/Suggestion';
@@ -33,46 +35,18 @@ const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'Deve
 const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Main/EventsTab').then(exports => exports.default));
 
 const MAIN_TAB = {
-  CHECKLIST: 'Checklist',
-  SUGGESTIONS: 'Suggestions',
-  CHARACTER: 'Character',
-  STATS: 'Stats',
+  CHECKLIST: 'CHECKLIST',
+  SUGGESTIONS: 'SUGGESTIONS',
+  CHARACTER: 'CHARACTER',
+  STATS: 'STATS',
 };
-function mainTabLabel(tab) {
-  switch (tab) {
-    case MAIN_TAB.CHECKLIST:
-      return (
-        <React.Fragment>
-          <ChecklistIcon /> Checklist
-        </React.Fragment>
-      );
-    case MAIN_TAB.SUGGESTIONS:
-      return (
-        <React.Fragment>
-          <SuggestionIcon /> Suggestions
-        </React.Fragment>
-      );
-    case MAIN_TAB.CHARACTER:
-      return (
-        <React.Fragment>
-          <ArmorIcon /> CHARACTER
-        </React.Fragment>
-      );
-    case MAIN_TAB.STATS:
-      return (
-        <React.Fragment>
-          <StatisticsIcon /> Statistics
-        </React.Fragment>
-      );
-    default: return tab;
-  }
-}
 
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
     selectedDetailsTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
+    i18n: PropTypes.object.isRequired,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -91,7 +65,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: props.parser._modules.checklist.rules.length === 0 ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
+      mainTab: MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -100,9 +74,63 @@ class Results extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
+  renderMainTabLabel(tab) {
+    switch (tab) {
+      case MAIN_TAB.CHECKLIST:
+        return (
+          <React.Fragment>
+            <ChecklistIcon /> <Trans>Checklist</Trans>
+          </React.Fragment>
+        );
+      case MAIN_TAB.SUGGESTIONS:
+        return (
+          <React.Fragment>
+            <SuggestionIcon /> <Trans>Suggestions</Trans>
+          </React.Fragment>
+        );
+      case MAIN_TAB.CHARACTER:
+        return (
+          <React.Fragment>
+            <ArmorIcon /> <Trans>Character</Trans>
+          </React.Fragment>
+        );
+      case MAIN_TAB.STATS:
+        return (
+          <React.Fragment>
+            <StatisticsIcon /> <Trans>Statistics</Trans>
+          </React.Fragment>
+        );
+      default: return tab;
+    }
+  }
+  renderFightDowntimeToggle() {
+    const { i18n } = this.props;
+
+    return (
+      <div className="toggle-control" style={{ marginTop: 5 }}>
+        <Toggle
+          defaultChecked={this.state.adjustForDowntime}
+          icons={false}
+          onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
+          id="adjust-for-downtime-toggle"
+        />
+        <label htmlFor="adjust-for-downtime-toggle">
+          <Trans>Adjust statistics for <dfn data-tip={i18n.t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`}>fight downtime</dfn> (<dfn data-tip={i18n.t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`}>experimental</dfn>)</Trans>
+        </label>
+      </div>
+    );
+  }
   renderStatistics(statistics, items, selectedCombatant) {
+    const parser = this.props.parser;
+
     return (
       <React.Fragment>
+        <StatisticsSectionTitle
+          rightAddon={parser.hasDowntime && this.renderFightDowntimeToggle()}
+        >
+          <Trans>Statistics</Trans>
+        </StatisticsSectionTitle>
+
         <Masonry className="row statistics">
           {statistics
             .filter(statistic => !!statistic) // filter optionals
@@ -116,7 +144,7 @@ class Results extends React.PureComponent {
         {items.length > 0 && (
           <React.Fragment>
             <StatisticsSectionTitle>
-              Items
+              <Trans>Items</Trans>
             </StatisticsSectionTitle>
 
             <div className="row statistics">
@@ -180,17 +208,20 @@ class Results extends React.PureComponent {
   }
 
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, i18n } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
     const config = this.context.config;
 
-    const results = parser.generateResults(this.state.adjustForDowntime);
+    const results = parser.generateResults({
+      i18n,
+      adjustForDowntime: this.state.adjustForDowntime,
+    });
 
     results.tabs.push({
-      title: 'Events',
+      title: i18n.t`Events`,
       url: 'events',
       order: 99999,
       render: () => (
@@ -201,7 +232,7 @@ class Results extends React.PureComponent {
     });
     if (process.env.NODE_ENV === 'development') {
       results.tabs.push({
-        title: 'Development',
+        title: i18n.t`Development`,
         url: 'development',
         order: 100000,
         render: () => (
@@ -226,7 +257,7 @@ class Results extends React.PureComponent {
                 rel="noopener noreferrer"
                 className="btn"
                 style={{ fontSize: 24 }}
-                data-tip="View the original report"
+                data-tip={i18n.t`View the original report`}
               >
                 <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
               </a>
@@ -237,7 +268,7 @@ class Results extends React.PureComponent {
                 rel="noopener noreferrer"
                 className="btn"
                 style={{ fontSize: 24 }}
-                data-tip="View insights and timelines for raid encounters"
+                data-tip={i18n.t`View insights and timelines for raid encounters`}
               >
                 <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
               </a>
@@ -258,7 +289,7 @@ class Results extends React.PureComponent {
                           });
                         }}
                       >
-                        {mainTabLabel(tab)}
+                        {this.renderMainTabLabel(tab)}
                       </button>
                     ))}
                   </div>
@@ -283,28 +314,10 @@ class Results extends React.PureComponent {
           </div>
         </div>
 
-        <StatisticsSectionTitle
-          rightAddon={parser.hasDowntime && (
-            <div className="toggle-control" style={{ marginTop: 5 }}>
-              <Toggle
-                defaultChecked={this.state.adjustForDowntime}
-                icons={false}
-                onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
-                id="adjust-for-downtime-toggle"
-              />
-              <label htmlFor="adjust-for-downtime-toggle">
-                Adjust statistics for <dfn data-tip="Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.">fight downtime</dfn> (<dfn data-tip="We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.">experimental</dfn>)
-              </label>
-            </div>
-          )}
-        >
-          Statistics
-        </StatisticsSectionTitle>
-
         {this.renderStatistics(results.statistics, results.items, selectedCombatant)}
 
         <StatisticsSectionTitle>
-          Details
+          <Trans>Details</Trans>
         </StatisticsSectionTitle>
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
@@ -314,7 +327,7 @@ class Results extends React.PureComponent {
   renderLoading() {
     return (
       <div className="loading-text">
-        Loading...<br /><br />
+        <Trans>Loading...</Trans><br /><br />
 
         <img src={Odyn} alt="Odyn" style={{ maxWidth: 300 }} />
       </div>
@@ -322,21 +335,23 @@ class Results extends React.PureComponent {
   }
 
   render() {
-    const { parser } = this.props;
+    const { parser, i18n } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
+
     if (!selectedCombatant) {
       return (
         <div>
           <div className="back-button">
-            <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
+            <Link to={`/report/${report.code}/${fight.id}`} data-tip={i18n.t`Back to player selection`}>
               <span className="glyphicon glyphicon-chevron-left" aria-hidden />
             </Link>
           </div>
-          <ActivityIndicator text="Fetching players..." />
+
+          <ActivityIndicator text={i18n.t`Fetching players...`} />
         </div>
       );
     }
@@ -355,6 +370,9 @@ const mapStateToProps = state => ({
   selectedDetailsTab: getResultTab(state),
 });
 
-export default connect(
-  mapStateToProps
+export default compose(
+  withI18n(),
+  connect(
+    mapStateToProps
+  )
 )(Results);

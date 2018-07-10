@@ -124,6 +124,8 @@ import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 // Dungeons
 import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
+import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
+import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -253,6 +255,9 @@ class CombatLogParser {
     gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
+    // Dungeons
+    lingeringSporepods: LingeringSporepods,
+    fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -515,9 +520,8 @@ class CombatLogParser {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
-  generateResults(adjustForDowntime) {
+  generateResults({ i18n, adjustForDowntime }) {
     this.adjustForDowntime = adjustForDowntime;
-    console.log(this._modules.totalDowntime.totalBaseDowntime);
 
     const results = new ParseResults();
 
@@ -557,7 +561,7 @@ class CombatLogParser {
         const module = this._modules[key];
 
         if (module.statistic) {
-          const statistic = module.statistic();
+          const statistic = module.statistic({ i18n });
           if (statistic) {
             results.statistics.push({
               statistic,
@@ -566,19 +570,19 @@ class CombatLogParser {
           }
         }
         if (module.item) {
-          const item = module.item();
+          const item = module.item({ i18n });
           if (item) {
             results.items.push(item);
           }
         }
         if (module.tab) {
-          const tab = module.tab();
+          const tab = module.tab({ i18n });
           if (tab) {
             results.tabs.push(tab);
           }
         }
         if (module.suggestions) {
-          module.suggestions(results.suggestions.when);
+          module.suggestions(results.suggestions.when, { i18n });
         }
       });
 

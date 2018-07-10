@@ -43,12 +43,12 @@ class RuleOfLaw extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
-  statistic() {
+  statistic({ i18n }) {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label="Rule of Law uptime"
+        label={i18n.t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`}
       />
     );
   }

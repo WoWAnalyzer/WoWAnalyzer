@@ -50,13 +50,22 @@ class EnchantChecker extends Analyzer {
       return obj;
     }, {});
   }
+  get numEnchantableGear() {
+    return Object.keys(this.constructor.ENCHANTABLE_SLOTS).length;
+  }
   get slotsMissingEnchant() {
     const gear = this.enchantableGear;
     return Object.keys(gear).filter(slot => !this.hasEnchant(gear[slot]));
   }
+  get numSlotsMissingEnchant() {
+    return this.slotsMissingEnchant.length;
+  }
   get slotsMissingMaxEnchant() {
     const gear = this.enchantableGear;
     return Object.keys(gear).filter(slot => this.hasEnchant(gear[slot]) && !this.hasMaxEnchant(gear[slot]));
+  }
+  get numSlotsMissingMaxEnchant() {
+    return this.slotsMissingMaxEnchant.length;
   }
   hasEnchant(item) {
     return !!item.permanentEnchant;

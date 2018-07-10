@@ -18,16 +18,16 @@ const PRIEST_WHITELIST = Object.entries({
   ...PRIEST_TALENTS,
 }).map(ability => ability[1].id);
 
-class Reverence extends Analyzer {
+class grace extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
   };
 
-  reverenceHealing = 0;
+  graceHealing = 0;
   baseHealing = 0; // Healing that mastery stemmed from
 
-  getReverenceHealing(event) {
+  getGraceHealing(event) {
     // Get our mastery level at the moment, this is required for temporary buffs
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(
@@ -55,39 +55,39 @@ class Reverence extends Analyzer {
     }
 
     // Calculate healing
-    const reverenceHealing = this.getReverenceHealing(event);
+    const graceHealing = this.getGraceHealing(event);
 
     // Account for base healing without mastery (??? JD ???)
-    const baseHealing = event.amount - reverenceHealing;
+    const baseHealing = event.amount - graceHealing;
 
     this.baseHealing += baseHealing;
-    this.reverenceHealing += reverenceHealing;
+    this.graceHealing += graceHealing;
   }
 
   statistic() {
-    const reverenceHealingPerc = this.owner.getPercentageOfTotalHealingDone(
-      this.reverenceHealing
+    const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.graceHealing
     );
     const baseHealingPerc = this.owner.getPercentageOfTotalHealingDone(
       this.baseHealing
     );
-    const healingWithoutMastery = baseHealingPerc / (1 - reverenceHealingPerc);
+    const healingWithoutMastery = baseHealingPerc / (1 - graceHealingPerc);
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.REVERENCE.id} />}
+        icon={<SpellIcon id={SPELLS.GRACE.id} />}
         value={`${formatNumber(
-          this.reverenceHealing / this.owner.fightDuration * 1000
+          this.graceHealing / this.owner.fightDuration * 1000
         )} HPS`}
         label="Mastery Healing"
         tooltip={`
-            Reverence contributed towards ${formatPercentage(
-              reverenceHealingPerc
+            Grace contributed towards ${formatPercentage(
+              graceHealingPerc
             )}% of your healing. \n
 
             ${formatPercentage(
               healingWithoutMastery
-            )}% of your healing benefitted from Reverence.
+            )}% of your healing benefitted from grace.
             `}
       />
     );
@@ -95,4 +95,4 @@ class Reverence extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default Reverence;
+export default grace;
