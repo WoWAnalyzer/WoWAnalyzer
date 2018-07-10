@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 import ItemHealingDone from 'Main/ItemHealingDone';
@@ -14,15 +13,15 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  */
 class RevitalizingVoodooTotem extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.REVITALIZING_VOODOO_TOTEM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.REVITALIZING_VOODOO_TOTEM.id);
 
     if (this.active) {
       this.abilities.add({

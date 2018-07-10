@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SPELLS from "common/SPELLS";
-import ITEMS from "common/ITEMS";
-import Analyzer from "Parser/Core/Analyzer";
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format';
 
 /**

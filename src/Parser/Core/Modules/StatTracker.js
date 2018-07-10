@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -21,13 +21,6 @@ class StatTracker extends Analyzer {
   // by WCL.
   static SPEC_MULTIPLIERS = {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
-  };
-
-  // These are multipliers from *binary* (have it or don't) artifact
-  // traits. These are *baked in* and do not multiply temporary buffs.
-  static ARTIFACT_MULTIPLIERS = {
-    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
-    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -120,15 +113,17 @@ class StatTracker extends Analyzer {
     // BFA quests
     [SPELLS.DIEMETRADON_FRENZY.id]: {
       itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
-      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(172, 159, item.itemLevel),
     },
-    [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
-      itemId: ITEMS.GILDED_LOA_FIGURINE.id, // Gilded Loa Figurine
-      versatility: (_, item) => calculateSecondaryStatJewelry(280, 676, item.itemLevel),
+    [SPELLS.WILL_OF_THE_LOA.id]: {
+      itemId: ITEMS.GILDED_LOA_FIGURINE.id,
+      strength: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
     },
-    [SPELLS.SPYGLASS_SIGHT.id]: { // Spyglass Sight
-      itemId: ITEMS.FIRST_MATES_SPYGLASS.id, // First Mate's Spyglass
-      crit: (_, item) => calculateSecondaryStatJewelry(280, 768, item.itemLevel),
+    [SPELLS.SPYGLASS_SIGHT.id]: {
+      itemId: ITEMS.FIRST_MATES_SPYGLASS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(280, 544, item.itemLevel),
     },
 
     //endregion
@@ -254,10 +249,6 @@ class StatTracker extends Analyzer {
     // region Trinkets
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
-    268619: { // Diemetradon Frenzy
-      itemId: 159764, // Engranged Diemetradon Fin
-      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
-    },
     269887: { // Boiling Time
       itemId: 159978, // Junji's Egg Timer
       haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
@@ -275,10 +266,10 @@ class StatTracker extends Analyzer {
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
     },
     273988: { // Primal Instinct
-      itemId: 158155, // Zandalari Dinobone Charm
-      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
-      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
-      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      itemId: 158155, // Dinobone Charm
+      strength: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
     },
     269885: { // Residual Viciousness
       itemId: 159977, // Vindictive Golem Core
@@ -298,7 +289,7 @@ class StatTracker extends Analyzer {
     },
     268836: { // Blood of My Enemies
       itemId: 159625, // Vial of Animated Blood
-      strength: (_, item) => calculateSecondaryStatDefault(300, 705, item.itemLevel),
+      strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
     // endregion
     // region Dungeons
