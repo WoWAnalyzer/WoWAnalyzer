@@ -58,10 +58,8 @@ class LingeringSporepods extends Analyzer {
       item: ITEMS.LINGERING_SPOREPODS,
       result: (
         <dfn data-tip={`Procced <b>${this.totalProcs}</b> time${this.totalProcs === 1 ? '' : 's'}.`}>
-        <React.Fragment>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.healing} />
-        </React.Fragment>
         </dfn>
       ),
     };
