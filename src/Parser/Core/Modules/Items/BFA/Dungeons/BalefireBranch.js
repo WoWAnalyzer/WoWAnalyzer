@@ -12,7 +12,7 @@ const ACTIVATION_COOLDOWN = 90; // seconds
 
 const STACKS_START = 100;
 const DURATION_TO_DECAY = 20; // seconds
-const STACKS_LOST_PER_SEC = 5;
+const STACKS_LOST_PER_SEC = STACKS_START / DURATION_TO_DECAY;
 
 // sum of finite linear sequence {0, 5, 10, ... 100} to find sum stacks if no damage taken
 const EXPECTED_SUM_STACKS_PER_USE = (DURATION_TO_DECAY + 1) * STACKS_START * 0.5;
@@ -94,6 +94,17 @@ class BalefireBranch extends Analyzer {
       },
       type: 'cast',
     }, event);
+
+    /**
+     * This first applybuff event shows just 1 stack, but it's actually STACKS_START stacks.
+     * Fabricate an event to let things like StatTracker know the accurate stack number.
+     * (applybuffstack isn't listened for in this analyzer)
+     */
+    this.owner.fabricateEvent({
+      ...event,
+      stack: STACKS_START,
+      type: 'applybuffstack',
+    });
   }
 
   on_toPlayer_removebuffstack(event) {
@@ -119,16 +130,16 @@ class BalefireBranch extends Analyzer {
     this.stackChange(0, now);
     this.totalUptime += (now - this.lastApply);
 
-    if (this.lastApply + DURATION_TO_DECAY > now) {
+    if ((this.lastApply + DURATION_TO_DECAY) > now) {
       // buff still active when fight ends, so revert some of the expectedSumStacks
-      const remainingDuration = (this.lastApply + DURATION_TO_DECAY - now) / 1000;
+      const remainingDuration = ((this.lastApply + DURATION_TO_DECAY) - now) / 1000;
       const wholeSeconds = Math.floor(remainingDuration);
 
       // sum of finite linear sequence for the 'whole seconds' part
       const stackSumFromWholeSeconds = wholeSeconds * STACKS_LOST_PER_SEC * (1 + wholeSeconds) * 0.5;
       const fractionOfSecond = remainingDuration - wholeSeconds;
       const stacksDuringFraction = (wholeSeconds + 1) * STACKS_LOST_PER_SEC;
-      this.expectedSumStacks -= (stackSumFromWholeSeconds + fractionOfSecond * stacksDuringFraction);
+      this.expectedSumStacks -= (stackSumFromWholeSeconds + (fractionOfSecond * stacksDuringFraction));
     }
   }
 
