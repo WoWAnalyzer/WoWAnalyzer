@@ -360,7 +360,7 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
-  discord: 'nisekoi#4130',
+  discord: 'niseko#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
   mains: [{
     name: 'Niseko',
