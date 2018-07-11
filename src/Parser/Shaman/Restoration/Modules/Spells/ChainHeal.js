@@ -46,8 +46,7 @@ class ChainHeal extends Analyzer {
   }
 
   get casts() {
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-    return chainHeal.casts || 0;
+    return this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id).casts || 0;
   }
 
   get suggestionThreshold() {
@@ -63,6 +62,10 @@ class ChainHeal extends Analyzer {
   }
 
   statistic() {
+    if(this.casts === 0) {
+      return;
+    }
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
