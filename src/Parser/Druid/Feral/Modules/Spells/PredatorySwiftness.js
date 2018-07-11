@@ -137,7 +137,7 @@ class PredatorySwiftness extends Analyzer {
   suggestions(when) {
     if (!this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
       // Predatory Swiftness is only important to damage rotation if the player has Bloodtalons
-      return null;
+      return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(

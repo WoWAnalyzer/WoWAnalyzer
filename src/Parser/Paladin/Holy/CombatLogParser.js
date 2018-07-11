@@ -24,7 +24,7 @@ import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
 import SpellManaCost from './Modules/PaladinCore/SpellManaCost';
 
 import Abilities from './Modules/Abilities';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -105,8 +105,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4set: Tier21_4set,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     // TODO: Suggestion for enchants
 

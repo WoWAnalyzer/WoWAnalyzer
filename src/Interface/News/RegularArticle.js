@@ -17,18 +17,20 @@ class RegularArticle extends React.PureComponent {
     const { title, children, bodyStyle, publishedAt, publishedBy } = this.props;
 
     return (
-      <div className="panel">
-        <div className="panel-heading">
-          <h2>{title}</h2>
-        </div>
-        <div className="panel-body" style={bodyStyle}>
-          {children}
+      <article>
+        <div className="panel">
+          <div className="panel-heading">
+            <h2>{title}</h2>
+          </div>
+          <div className="panel-body" style={bodyStyle}>
+            {children}
 
-          <div style={{ marginTop: '1em' }}>
-            Published at {publishedAt} by <Contributor {...publishedBy} />.
+            <div style={{ marginTop: '1em' }}>
+              Published at {publishedAt} by <Contributor {...publishedBy} />.
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     );
   }
 }

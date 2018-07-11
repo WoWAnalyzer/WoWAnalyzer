@@ -54,9 +54,10 @@ import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import LuminousBarrier from './Modules/Spells/LuminousBarrier';
 import DesperatePrayer from '../Shared/Modules/Features/DesperatePrayer';
 import Contrition from './Modules/Spells/Contrition';
-import Reverence from './Modules/Spells/Reverence';
+import Grace from './Modules/Spells/Grace';
 import Schism from './Modules/Spells/Schism';
 
+import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -117,12 +118,13 @@ class CombatLogParser extends CoreCombatLogParser {
     luminousBarrier: LuminousBarrier,
     desperatePrayer: DesperatePrayer,
     contrition: Contrition,
-    reverence: Reverence,
+    grace: Grace,
     schism: Schism,
+    sinsOfTheMany: SinsOfTheMany,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,

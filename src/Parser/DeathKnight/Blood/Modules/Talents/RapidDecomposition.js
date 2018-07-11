@@ -34,7 +34,7 @@ class RapidDecomposition extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RAPID_DECOMPOSITION_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
-        label='Rapid Decomposition'
+        label="Rapid Decomposition"
         tooltip={`<strong>Blood Plague:</strong> ${this.owner.formatItemDamageDone(this.bpDamage)}</br>
                   <strong>Death And Decay:</strong> ${this.owner.formatItemDamageDone(this.dndDamage)}`}
       />

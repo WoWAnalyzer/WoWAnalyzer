@@ -73,7 +73,7 @@ class Resurgence extends Analyzer {
         label="Mana gained from Resurgence"
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }}/> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
+          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
         </div>
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>

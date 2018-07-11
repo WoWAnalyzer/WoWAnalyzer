@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SECRET_TECHNIQUE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 45,
         gcd: {
           static: 1000,
         },

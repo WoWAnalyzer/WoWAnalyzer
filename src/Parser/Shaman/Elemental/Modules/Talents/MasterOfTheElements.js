@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const MASTER_OF_THE_ELEMENTS  = {
+const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
   DURATION: 15000,
   WINDOW_DURATION: 300,
@@ -27,13 +27,13 @@ const MASTER_OF_THE_ELEMENTS  = {
 
 class MasterOfTheElements extends Analyzer {
   static dependencies = {
-    enemies : Enemies,
+    enemies: Enemies,
   };
 
   moteActivationTimestamp = null;
   moteConsumptionTimestamp = null;
-  damageGained=0;
-  buffsWasted=0;
+  damageGained = 0;
+  buffsWasted = 0;
 
   constructor(...args) {
     super(...args);
@@ -41,33 +41,34 @@ class MasterOfTheElements extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id)) {
       return;
     }
-    if(event.ability.guid === SPELLS.LAVA_BURST.id){
+    if (event.ability.guid === SPELLS.LAVA_BURST.id) {
       this.buffsWasted++;
       return;
     }
 
     const spellid = event.ability.guid;
 
-    if(MASTER_OF_THE_ELEMENTS.AFFECTED_ABILITIES.includes(spellid)){
-      this.moteActivationTimestamp=event.timestamp;
+    if (MASTER_OF_THE_ELEMENTS.AFFECTED_ABILITIES.includes(spellid)) {
+      this.moteActivationTimestamp = event.timestamp;
     }
   }
 
   on_byPlayer_damage(event) {
-    if(this.moteActivationTimestamp === null)
+    if (this.moteActivationTimestamp === null) {
       return;
+    }
 
-    if(event.timestamp>this.moteActivationTimestamp+MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
+    if (event.timestamp > this.moteActivationTimestamp + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION) {
       return;
     }
-    const spellid=event.ability.guid;
-    if(!MASTER_OF_THE_ELEMENTS.AFFECTED_ABILITIES.includes(spellid)){
+    const spellid = event.ability.guid;
+    if (!MASTER_OF_THE_ELEMENTS.AFFECTED_ABILITIES.includes(spellid)) {
       return;
     }
-    this.damageGained+=calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
   }
 
   get damagePercent() {
@@ -91,4 +92,5 @@ class MasterOfTheElements extends Analyzer {
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL;
 }
+
 export default MasterOfTheElements;

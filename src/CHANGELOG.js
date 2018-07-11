@@ -8,6 +8,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-07'),
+    changes: 'Implemented a system for localization. We\'ll need to manually add support for localization everywhere before things can be translated, this will take some time.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-06'),
+    changes: 'Changed tooltips to be static except for large bars in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-06'),
+    changes: 'When switching fights in the results page, the selected tab will now be remembered.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-05'),
+    changes: 'Added a toggle to the results page to adjust statistics for fight downtime. This is an experimental feature.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-28'),
     changes: 'Allow Warcaftlogs- & BattleNet-character-links in the report selecter.',
     contributors: [joshinator],
