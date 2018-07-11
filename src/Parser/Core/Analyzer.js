@@ -3,22 +3,6 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Module from './Module';
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?([^_]+)/;
-/**
- * Get a list of all methods of all classes in the prototype chain, all the way to object.
- * Orginal source: https://stackoverflow.com/a/40577337/684353
- * @param obj
- * @returns {Set<any>}
- */
-function getAllMethodNames(obj) {
-  // Set is required here to avoid duplicate methods (if a class extends another it might redeclare the same method)
-  const methods = new Set();
-  // eslint-disable-next-line no-cond-assign
-  while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Object.prototype) {
-    const keys = Reflect.ownKeys(obj);
-    keys.forEach((k) => methods.add(k));
-  }
-  return methods;
-}
 
 class Analyzer extends Module {
   static __dangerousInvalidUsage = false;
@@ -30,7 +14,7 @@ class Analyzer extends Module {
   constructor(...args) {
     super(...args);
 
-    const methods = getAllMethodNames(this);
+    const methods = this.constructor.getAllChildMethods(this);
     // Check for any methods that match the old magic method names and connect them to the new event listeners
     // Based on https://github.com/xivanalysis/xivanalysis/blob/a24b9c0ed8b341cbb8bd8144a772e95a08541f8d/src/parser/core/Module.js#L51
     methods.forEach(name => {
@@ -76,6 +60,22 @@ class Analyzer extends Module {
       existingEventListener.apply(this, args);
       listener.apply(this, args);
     } : listener;
+  }
+  /**
+   * Get a list of all methods of all classes in the prototype chain until this class.
+   * Orginal source: https://stackoverflow.com/a/40577337/684353
+   * @param {object} obj A class instance
+   * @returns {Set<any>}
+   */
+  static getAllChildMethods(obj) {
+    // Set is required here to avoid duplicate methods (if a class extends another it might redeclare the same method)
+    const methods = new Set();
+    // eslint-disable-next-line no-cond-assign
+    while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
+      const keys = Reflect.ownKeys(obj);
+      keys.forEach(k => methods.add(k));
+    }
+    return methods;
   }
 
   triggerEvent(event) {
