@@ -5,10 +5,12 @@ import Module from './Module';
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?([^_]+)/;
 /**
  * Get a list of all methods of all classes in the prototype chain, all the way to object.
+ * Orginal source: https://stackoverflow.com/a/40577337/684353
  * @param obj
  * @returns {Set<any>}
  */
 function getAllMethodNames(obj) {
+  // Set is required here to avoid duplicate methods (if a class extends another it might redeclare the same method)
   const methods = new Set();
   // eslint-disable-next-line no-cond-assign
   while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Object.prototype) {
@@ -30,6 +32,7 @@ class Analyzer extends Module {
 
     const methods = getAllMethodNames(this);
     // Check for any methods that match the old magic method names and connect them to the new event listeners
+    // Based on https://github.com/xivanalysis/xivanalysis/blob/a24b9c0ed8b341cbb8bd8144a772e95a08541f8d/src/parser/core/Module.js#L51
     methods.forEach(name => {
       const match = EVENT_LISTENER_REGEX.exec(name);
       if (!match) {
