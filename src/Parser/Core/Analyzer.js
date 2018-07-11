@@ -2,7 +2,7 @@ import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Module from './Module';
 
-const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?([^_]+)/;
+const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
 
 class Analyzer extends Module {
   static __dangerousInvalidUsage = false;
