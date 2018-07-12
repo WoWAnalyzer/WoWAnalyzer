@@ -22,6 +22,8 @@ import BreathOfFire from './Modules/Spells/BreathOfFire';
 import BlackOxBrew from './Modules/Spells/BlackOxBrew';
 import HighTolerance from './Modules/Spells/HighTolerance';
 import Guard from './Modules/Spells/Guard';
+// Training of Niuzao
+import TrainingOfNiuzao from './Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
@@ -73,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
     guard: Guard,
+
+    // Azerite Traits
+    trainingOfNiuzao: TrainingOfNiuzao,
 
     // Items
     t20_2pc: T20_2pc,
