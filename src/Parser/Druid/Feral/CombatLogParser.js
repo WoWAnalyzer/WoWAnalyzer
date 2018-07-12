@@ -22,6 +22,7 @@ import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
 import Predator from './Modules/Talents/Predator';
+import Bloodtalons from './Modules/Talents/Bloodtalons';
 
 import PredatorySwiftness from './Modules/Spells/PredatorySwiftness';
 
@@ -57,7 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     moonfireUptime: MoonfireUptime,
     savageRoarDmg: SavageRoarDmg,
     predator: Predator,
-
+    bloodtalons: Bloodtalons,
+    
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,

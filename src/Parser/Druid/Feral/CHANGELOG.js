@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-13'),
+    changes: <React.Fragment>Added tracking for how <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges are used.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-06-30'),
     changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />.</React.Fragment>,
     contributors: [Anatta336],
