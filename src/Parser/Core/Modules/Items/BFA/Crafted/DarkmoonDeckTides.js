@@ -30,8 +30,7 @@ class DarkmoonDeckTides extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const selectedCombatant = this.selectedCombatant;
-    this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_TIDES.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_TIDES.id);
   }
 
   on_byPlayer_heal(event) {
