@@ -28,7 +28,9 @@ describe('Core.CombatLogParser', () => {
     it('calls the event handler on the class if it exists', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {
-        on_success = on_success;
+        on_success() {
+          on_success();
+        }
       }
       const myModule = new MyModule();
       myModule.triggerEvent({
@@ -47,7 +49,9 @@ describe('Core.CombatLogParser', () => {
     it('calls on_event on every event if it exists', () => {
       const on_event = jest.fn();
       class MyModule extends Analyzer {
-        on_event = on_event;
+        on_event() {
+          on_event();
+        }
       }
       const myModule = new MyModule();
       myModule.triggerEvent({
@@ -61,10 +65,18 @@ describe('Core.CombatLogParser', () => {
       const on_byPlayerPet_test = jest.fn();
       const on_toPlayerPet_test = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test = on_byPlayer_test;
-        on_toPlayer_test = on_toPlayer_test;
-        on_byPlayerPet_test = on_byPlayerPet_test;
-        on_toPlayerPet_test = on_toPlayerPet_test;
+        on_byPlayer_test() {
+          on_byPlayer_test();
+        }
+        on_toPlayer_test() {
+          on_toPlayer_test();
+        }
+        on_byPlayerPet_test() {
+          on_byPlayerPet_test();
+        }
+        on_toPlayerPet_test() {
+          on_toPlayerPet_test();
+        }
       }
       const myModule = new MyModule({
         byPlayer: () => true,
@@ -147,7 +159,9 @@ describe('Core.CombatLogParser', () => {
     it('sets `this` to the module', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {
-        on_success = on_success;
+        on_success() {
+          on_success.call(this);
+        }
       }
       const myModule = new MyModule();
       myModule.triggerEvent({

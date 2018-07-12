@@ -37,6 +37,18 @@ export default {
     icon: 'inv_misc_redsaberonfang',
   },
 
+  // Waycrest Manor
+  KINDLED_SOUL: { // buff from trinket Balefire Branch
+    id: 268998,
+    name: 'Kindled Soul',
+    icon: 'sha_spell_fire_felfire',
+  },
+  BALEFIRE_BRANCH_SPELL: {
+    id: 268999,
+    name: 'Balefire Branch',
+    icon: 'inv_staff_26',
+  },
+
   // Quests.............. upscaled in beta
   DIEMETRADON_FRENZY: {
     id: 268619,

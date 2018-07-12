@@ -126,6 +126,9 @@ import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+// Crafted
+import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -258,6 +261,9 @@ class CombatLogParser {
     // Dungeons
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    balefireBranch: BalefireBranch,
+    // Crafted
+    darkmoonDeckTides: DarkmoonDeckTides,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
