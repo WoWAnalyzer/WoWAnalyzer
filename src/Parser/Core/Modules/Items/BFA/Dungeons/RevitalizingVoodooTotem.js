@@ -26,6 +26,7 @@ class RevitalizingVoodooTotem extends Analyzer {
     if (this.active) {
       this.abilities.add({
         spell: SPELLS.TOUCH_OF_THE_VOODOO,
+        buffSpellId: SPELLS.TOUCH_OF_THE_VOODOO.id,
         name: ITEMS.REVITALIZING_VOODOO_TOTEM.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 90,
@@ -41,7 +42,7 @@ class RevitalizingVoodooTotem extends Analyzer {
       return;
     }
 
-    this.healing += (event.amount || 0) + (event.absorbed || 0);
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   item() {
