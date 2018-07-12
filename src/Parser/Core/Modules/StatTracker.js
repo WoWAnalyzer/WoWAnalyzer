@@ -23,11 +23,11 @@ class StatTracker extends Analyzer {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
-  // These are multipliers from *binary* (have it or don't) artifact	
-  // traits. These are *baked in* and do not multiply temporary buffs.	
-  static ARTIFACT_MULTIPLIERS = {	
-    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },	
-    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },	
+  // These are multipliers from *binary* (have it or don't) artifact
+  // traits. These are *baked in* and do not multiply temporary buffs.
+  static ARTIFACT_MULTIPLIERS = {
+    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
+    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
