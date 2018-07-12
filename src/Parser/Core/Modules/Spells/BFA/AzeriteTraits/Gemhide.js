@@ -73,7 +73,7 @@ class Gemhide extends Analyzer {
         icon={<SpellIcon id={SPELLS.GEMHIDE.id} />}
         value={`${formatNumber(this.avgArmor)} & ${formatNumber(this.avgAvoidance)}`}
         label={"Avg. Armor & Avoidance from Gemhide"}
-        tooltip={`Gemhide was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
+        tooltip={`Gemhide grants <b>${this.armor} Armor</b> and <b>${this.avoidance} Avoidance</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
         />
     );
   }
