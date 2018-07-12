@@ -63,7 +63,7 @@ class HealingRain extends Analyzer {
 
   statistic() {
     if (isNaN(this.averageHitsPerTick)) {
-      return;
+      return false;
     }
 
     return (

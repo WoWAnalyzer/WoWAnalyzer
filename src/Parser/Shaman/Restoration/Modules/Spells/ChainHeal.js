@@ -63,7 +63,7 @@ class ChainHeal extends Analyzer {
 
   statistic() {
     if(this.casts === 0) {
-      return;
+      return false;
     }
 
     return (
