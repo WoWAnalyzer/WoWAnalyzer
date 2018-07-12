@@ -125,6 +125,8 @@ import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 // Dungeons
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+// Azerite Traits
+import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -256,6 +258,8 @@ class CombatLogParser {
     // Dungeons
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    // Azerite Traits
+    gemhide: Gemhide,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

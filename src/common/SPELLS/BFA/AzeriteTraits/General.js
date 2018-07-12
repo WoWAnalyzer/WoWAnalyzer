@@ -31,7 +31,12 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_pet_inquisitoreye',
   },
-  GEMHIDE: { // buff (avoidance + dodge)
+  GEMHIDE: { 
+    id: 268596,
+    name: 'Gemhide',
+    icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
+  },
+  GEMHIDE_BUFF: { // buff (avoidance + dodge)
     id: 270576,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
