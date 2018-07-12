@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
 
@@ -30,16 +31,16 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
     // Tick 5
     { type: 'heal', timestamp: 426, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id } },
   ];
-
+  let parser;
+  let healingRain;
+  beforeEach(() => {
+    parser = new TestCombatLogParser();
+    healingRain = new HealingRain(parser);
+  });
 
   it(`can detect ticks`, () => {
-    const healingRain = new HealingRain();
-    events.forEach(event => {
-      healingRain.on_byPlayer_heal(event);
-    });
-    
+    parser.processEvents(events);
     expect(healingRain.healingRainTicks.length).toEqual(5);
     expect(healingRain.averageHitsPerTick).toEqual(4);
   });
-
 });

@@ -138,6 +138,8 @@ class CombatLogParser {
 
   static internalModules = {
     combatants: Combatants,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
   };
   static defaultModules = {
     // Normalizers
@@ -168,8 +170,6 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
-    deathDowntime: DeathDowntime,
-    totalDowntime: TotalDowntime,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
@@ -314,13 +314,11 @@ class CombatLogParser {
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
 
-    console.time('initializeModules');
     this.initializeModules({
       ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
     });
-    console.timeEnd('initializeModules');
   }
   finish() {
     this.finished = true;
