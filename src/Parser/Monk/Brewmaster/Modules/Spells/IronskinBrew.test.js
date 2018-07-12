@@ -1,7 +1,7 @@
 import { SimpleFight, incomingDamage } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import IronSkinBrew from './IronSkinBrew';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 const ENEMIES = {
   getEntities: () => { return {2: true}; },
