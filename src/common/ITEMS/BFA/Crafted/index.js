@@ -7,7 +7,7 @@ export default {
   DARKMOON_DECK_TIDES: {
     id: 159127,
     name: 'Darkmoon Deck: Tides',
-    icon: '70_inscription_deck_promises',
+    icon: '70_inscription_deck_promises', //inv_inscription_80_deck_tides
   },
   DARKMOON_DECK_SQUALLS: {
     id: 159126,

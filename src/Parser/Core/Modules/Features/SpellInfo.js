@@ -108,4 +108,11 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.REJUVENATING_TIDES.id]: { // Darkmoon Deck: Tides
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
 };
