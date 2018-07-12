@@ -125,6 +125,7 @@ import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 // Dungeons
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 
@@ -258,6 +259,7 @@ class CombatLogParser {
     // Dungeons
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    balefireBranch: BalefireBranch,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
   };
