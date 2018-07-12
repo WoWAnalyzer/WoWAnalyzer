@@ -314,11 +314,13 @@ class CombatLogParser {
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
 
+    console.time('initializeModules');
     this.initializeModules({
       ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
     });
+    console.timeEnd('initializeModules');
   }
   finish() {
     this.finished = true;
@@ -415,7 +417,6 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -439,6 +440,31 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
+  _eventListeners = {};
+  addEventListener(type, listener, options = null) {
+    const existingEventListener = this._eventListeners[type];
+    const handler = function (event, isByPlayer, isToPlayer, isByPlayerPet, isToPlayerPet) {
+      if (options.byPlayer && !isByPlayer) {
+        return;
+      }
+      if (options.toPlayer && !isToPlayer) {
+        return;
+      }
+      if (options.byPlayerPet && !isByPlayerPet) {
+        return;
+      }
+      if (options.toPlayerPet && !isToPlayerPet) {
+        return;
+      }
+
+      listener(event);
+    };
+
+    this._eventListeners[type] = existingEventListener ? function (...args) {
+      existingEventListener(...args);
+      handler(...args);
+    } : handler;
+  }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -447,21 +473,23 @@ class CombatLogParser {
       }
     }
 
-    // This loop has a big impact on parsing performance
-    let garbageCollect = false;
-    const analyzers = this._activeAnalyzers;
-    const numAnalyzers = analyzers.length;
-    for (let i = 0; i < numAnalyzers; i++) {
-      const analyzer = analyzers[i];
-      if (analyzer.active) {
-        analyzer.triggerEvent(event);
-      } else {
-        garbageCollect = true;
+    const isByPlayer = this.byPlayer(event);
+    const isByPlayerPet = this.byPlayerPet(event);
+    const isToPlayer = this.toPlayer(event);
+    const isToPlayerPet = this.toPlayerPet(event);
+
+    {
+      // Handle on_event (listeners of all events)
+      const listener = this._eventListeners.event;
+      if (listener) {
+        listener(event, isByPlayer, isToPlayer, isByPlayerPet, isToPlayerPet);
       }
     }
-    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
-    if (garbageCollect) {
-      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    {
+      const listener = this._eventListeners[event.type];
+      if (listener) {
+        listener(event, isByPlayer, isToPlayer, isByPlayerPet, isToPlayerPet);
+      }
     }
 
     // Creating arrays is expensive so we cheat and just push instead of using it immutably
