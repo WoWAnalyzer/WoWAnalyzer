@@ -3,16 +3,23 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
+import { calculatePrimaryStat } from 'common/stats';
 
 /**
  * Gilded Loa Figurine -
  * Equip: Your spells and abilities have a chance to increase your primary stat by 814 for 10 sec.
  */
 class GildedLoaFigurine extends Analyzer {
+  statBuff = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.GILDED_LOA_FIGURINE.id);
+
+    if(this.active) {
+      this.statBuff = calculatePrimaryStat(280, 676, this.selectedCombatant.getItem(ITEMS.GILDED_LOA_FIGURINE.id).itemLevel);
+    }
   }
 
   get buffTriggerCount() {
@@ -28,7 +35,8 @@ class GildedLoaFigurine extends Analyzer {
       item: ITEMS.GILDED_LOA_FIGURINE,
       result: (
         <dfn data-tip={`Procced ${this.buffTriggerCount} times`}>
-          {formatPercentage(this.totalBuffUptime)}% uptime
+          {formatPercentage(this.totalBuffUptime)}% uptime<br />
+          {formatNumber(this.totalBuffUptime * this.statBuff)} average {this.selectedCombatant.spec.primaryStat}
         </dfn>
       ),
     };
