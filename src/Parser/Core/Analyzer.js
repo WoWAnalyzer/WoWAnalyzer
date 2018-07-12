@@ -60,17 +60,6 @@ class Analyzer extends Module {
     return methods;
   }
 
-  triggerEvent(event) {
-    // Call on_event for every event, regardless of type
-    if (this._eventListeners.event) {
-      this._eventListeners.event.call(this, event);
-    }
-    const listener = this._eventListeners[event.type];
-    if (listener) {
-      listener.call(this, event);
-    }
-  }
-
   get consoleMeta() {
     const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
     return [fightDuration, this.constructor.name];
