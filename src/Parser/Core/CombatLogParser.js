@@ -432,18 +432,6 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
-  parseEvents(events) {
-    const numEvents = events.length;
-    for (let i = 0; i < numEvents; i += 1) {
-      const event = events[i];
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
-    }
-    this.eventHistory = this.eventHistory.concat(events);
-    // Some modules need to have a primitive value to cause re-renders
-    // TODO: This can probably be removed since we only render upon completion now
-    this.eventCount += numEvents;
-  }
   _eventListeners = {};
   addEventListener(type, listener, options = null) {
     // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
@@ -497,6 +485,8 @@ class CombatLogParser {
 
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
 
+    this._timestamp = event.timestamp;
+
     {
       // Handle on_event (listeners of all events)
       const listener = this._eventListeners.event;
@@ -510,6 +500,11 @@ class CombatLogParser {
         listener(event);
       }
     }
+
+    this.eventHistory.push(event);
+    // Some modules need to have a primitive value to cause re-renders
+    // TODO: This can probably be removed since we only render upon completion now
+    this.eventCount += 1;
   }
   fabricateEvent(event = null, trigger = null) {
     this.triggerEvent({
