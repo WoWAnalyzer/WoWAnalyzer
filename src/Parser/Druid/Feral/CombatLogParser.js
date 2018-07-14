@@ -3,6 +3,8 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import RakeBleed from './Modules/Normalizers/RakeBleed';
+import ComboPointsFromAoE from './Modules/Normalizers/ComboPointsFromAoE';
+
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -31,6 +33,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     rakeBleed: RakeBleed,
+    comboPointsFromAoE: ComboPointsFromAoE,
 
     // FeralCore
     damageDone: [DamageDone, { showStatistic: true }],
