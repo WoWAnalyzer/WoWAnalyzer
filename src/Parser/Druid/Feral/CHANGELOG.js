@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-14'),
+    changes: <React.Fragment>Fixed bugs with combo generation from AoE attacks and detecting when <SpellLink id={SPELLS.PRIMAL_FURY.id} /> waste is unavoidable.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-06-30'),
     changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />.</React.Fragment>,
     contributors: [Anatta336],
