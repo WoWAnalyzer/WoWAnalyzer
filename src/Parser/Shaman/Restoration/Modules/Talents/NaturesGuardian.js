@@ -32,10 +32,14 @@ class NaturesGuardian extends Analyzer {
       return;
     }
 
-    const castEvent = {...event};
-    castEvent.ability.guid = SPELLS.NATURES_GUARDIAN_TALENT.id;
-    castEvent.type = 'cast';
-    this.owner.fabricateEvent(castEvent, event);
+    this.owner.fabricateEvent({
+      ...event,
+      type: 'cast',
+      ability: {
+        ...event.ability,
+        guid: SPELLS.NATURES_GUARDIAN_TALENT.id,
+      },
+    }, event);
 
     this.healing += event.amount;
   }
