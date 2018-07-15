@@ -1,6 +1,5 @@
 import Express from 'express';
 import compression from 'compression';
-import path from 'path';
 import fs from 'fs';
 import BodyParser from 'body-parser';
 
@@ -13,7 +12,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const appDirectory = fs.realpathSync(process.cwd());
 
 loadDotEnv(appDirectory);
-
 
 const app = Express();
 configureRaven(app);
