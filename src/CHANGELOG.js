@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-07-15'),
+    changes: 'Added a link to the Legion analyzer in the links under the report bar.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-11'),
     changes: <React.Fragment>Parsing time is about 35% quicker! Thanks to <Contributor {...ackwell} /> for showing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/1799">the idea</a> worked out in <a href="https://github.com/xivanalysis/xivanalysis">xivanalysis</a>.</React.Fragment>,
     contributors: [Zerotorescue],
