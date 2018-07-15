@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</React.Fragment>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-06-18'),
     changes: (
       <React.Fragment>Updated Restoration Shaman for Battle for Azeroth.<br />
