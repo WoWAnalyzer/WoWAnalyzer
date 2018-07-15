@@ -6,7 +6,7 @@ import ChevronIcon from 'Interface/Icons/Chevron';
 import InformationIcon from 'Interface/Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Expandable from 'Main/Expandable';
+import Expandable from 'Interface/common/Expandable';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import performanceForThresholds from './performanceForThresholds';
@@ -23,6 +23,8 @@ class Checklist extends Analyzer {
     super(...args);
     this.whenFilter = this.whenFilter.bind(this);
     this.renderRule = this.renderRule.bind(this);
+
+    console.warn('DEPRECATED', 'Defining the Checklist via the Checklist analyzer is deprecated. Use the React method instead. This is necessary for internationalization and leads to more natural code. See Holy Paladin for an example.');
   }
 
   colorForPerformance(performance) {
@@ -156,10 +158,22 @@ class Checklist extends Analyzer {
               <div key={index} className="col-md-6">
                 <div className="flex">
                   <div className="flex-main">
-                    {requirement.tooltip ? <dfn data-tip={requirement.tooltip}>{requirement.name}</dfn> : requirement.name}
+                    {requirement.name}
                   </div>
-                  <div className="flex-sub content-middle text-muted" style={{ margin: '0 15px' }}>
-                    {requirement.valueTooltip ? <dfn data-tip={requirement.valueTooltip}>{displayedValue}</dfn> : displayedValue}
+                  {requirement.tooltip && (
+                    <div
+                      className="flex-sub"
+                      style={{ marginLeft: 10 }}
+                    >
+                      <InformationIcon
+                        data-tip={requirement.tooltip}
+                      />
+                    </div>
+                  )}
+                  <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>
+                    <div className="text-right" style={{ width: '100%' }}>
+                      {requirement.valueTooltip ? <dfn data-tip={requirement.valueTooltip}>{displayedValue}</dfn> : displayedValue}
+                    </div>
                   </div>
                   <div className="flex-sub content-middle" style={{ width: 50 }}>
                     <div className="performance-bar-container">

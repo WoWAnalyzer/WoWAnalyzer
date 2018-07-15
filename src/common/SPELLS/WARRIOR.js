@@ -17,10 +17,10 @@ export default {
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
   },
-  SHATTERED_DEFENSES: {
-    id: 248625,
-    name: 'Shattered Defenses',
-    icon: 'warrior_talent_icon_igniteweapon',
+  OVERPOWER: {
+    id: 7384,
+    name: 'Overpower',
+    icon: 'ability_meleedamage',
   },
   MORTAL_STRIKE: {
     id: 12294,
@@ -42,11 +42,6 @@ export default {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
-  CLEAVE: {
-    id: 845,
-    name: 'Cleave',
-    icon: 'ability_warrior_cleave',
-  },
   WHIRLWIND: {
     id: 1680,
     name: 'Whirlwind',
@@ -61,11 +56,6 @@ export default {
     id: 199850,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
-  },
-  WARBREAKER: {
-    id: 209577,
-    name: 'Warbreaker',
-    icon: 'inv_sword_2h_artifactarathor_d_01',
   },
   BLADESTORM: {
     id: 227847,
@@ -522,5 +512,15 @@ export default {
     id: 5246,
     name: 'Intimidating Shout',
     icon: 'ability_golemthunderclap',
+  },
+  BOUNDING_STRIDE_BUFF: {
+    id: 202164,
+    name: 'Bounding Stride',
+    icon: 'ability_heroicleap',
+  },
+  SWEEPING_STRIKES: {
+    id: 260708,
+    name: 'Sweeping Strikes',
+    icon: 'ability_rogue_slicedice',
   },
 };

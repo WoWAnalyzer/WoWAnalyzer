@@ -17,6 +17,12 @@ export default {
     icon: 'inv_misc_food_legion_leyblood',
     quality: ITEM_QUALITIES.BLUE,
   },
+  LINGERING_SPOREPODS: {
+    id: 159626,
+    name: 'Lingering Sporepods',
+    icon: 'inv_farm_seedofharmony',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 
   // Tol Dagor
   IGNITION_MAGES_FUSE: {
@@ -76,7 +82,7 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
-  // Temple of Serthraliss
+  // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE: {
     id: 158368,
     name: 'Fangs of Intertwined Essence',
@@ -91,9 +97,9 @@ export default {
     icon: 'item_aquaticfin_04',
     quality: ITEM_QUALITIES.GREEN,
   },
-  ZANDALARI_LOA_FIGURINE: {
+  GILDED_LOA_FIGURINE: {
     id: 158153,
-    name: 'Zandalari Loa Figurine',
+    name: 'Gilded Loa Figurine',
     icon: 'inv_misc_archaeology_trollgolem',
     quality: ITEM_QUALITIES.GREEN,
   },

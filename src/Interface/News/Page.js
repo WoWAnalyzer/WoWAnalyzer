@@ -6,6 +6,7 @@ import DocumentTitle from 'Interface/common/DocumentTitle';
 
 import articles from './Articles';
 import ArticleLoader from './ArticleLoader';
+import './News.css';
 
 class Page extends React.PureComponent {
   static propTypes = {
@@ -38,7 +39,7 @@ class Page extends React.PureComponent {
     ];
 
     return (
-      <div className="container">
+      <div className="container news">
         <ArticleLoader
           key={fileName}
           fileName={fileName}

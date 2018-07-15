@@ -18,8 +18,13 @@ export default {
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />
 
       <Warning>
-        The Arms Warrior analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
+        Hey there! A good basis has been implemented for this spec, but it needs to be fleshed out more to provide all the feedback possible.<br /><br />
+
+        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
+      </Warning><br />
+
+      <Warning>
+        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Arms expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
       </Warning>
     </React.Fragment>
   ),

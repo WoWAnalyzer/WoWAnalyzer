@@ -13,6 +13,8 @@ const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
   SPELLS.LAST_STAND.id,
   SPELLS.SHIELD_WALL.id,
 ];
+const RAGE_NEEDED_FOR_A_PROC = 10;
+const CDR_PER_PROC = 1000; // ms
 
 class AngerManagement extends Analyzer {
   static dependencies = {
@@ -39,8 +41,8 @@ class AngerManagement extends Analyzer {
       return;
     }
 
-    const rageSpend = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / 10;
-    const reduction = rageSpend / 10 * 1000;
+    const rageSpend = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / RAGE_NEEDED_FOR_A_PROC;
+    const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       if (!this.spellUsable.isOnCooldown(e)) {
         this.wastedReduction[e] += reduction;
@@ -55,8 +57,8 @@ class AngerManagement extends Analyzer {
 
   get tooltip() {
     return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.reduce((a, e) => {
-      return a + `${ SPELLS[e].name }: ${ formatDuration(this.effectiveReduction[e] / 1000) } reduction (${ formatDuration(this.wastedReduction[e] / 1000) } wasted)<br>`;
-    }, "");
+      return `${a}${SPELLS[e].name}: ${formatDuration(this.effectiveReduction[e] / 1000)} reduction (${formatDuration(this.wastedReduction[e] / 1000)} wasted)<br>`;
+    }, '');
   }
 
   statistic() {
@@ -64,8 +66,8 @@ class AngerManagement extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
         value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} min`}
-        label="possible cooldown reduction"
-        tooltip={`${this.tooltip}`}
+        label="Possible cooldown reduction"
+        tooltip={this.tooltip}
       />
     );
   }

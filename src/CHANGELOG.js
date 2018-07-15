@@ -1,12 +1,38 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe, niseko, Gebuz } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe, niseko, Gebuz, ackwell } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Contributor from 'Interface/Contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-07-11'),
+    changes: <React.Fragment>Parsing time is about 35% quicker! Thanks to <Contributor {...ackwell} /> for showing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/1799">the idea</a> worked out in <a href="https://github.com/xivanalysis/xivanalysis">xivanalysis</a>.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-07'),
+    changes: 'Implemented a system for localization. We\'ll need to manually add support for localization everywhere before things can be translated, this will take some time.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-06'),
+    changes: 'Changed tooltips to be static except for large bars in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-06'),
+    changes: 'When switching fights in the results page, the selected tab will now be remembered.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-05'),
+    changes: 'Added a toggle to the results page to adjust statistics for fight downtime. This is an experimental feature.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-06-28'),
     changes: 'Allow Warcaftlogs- & BattleNet-character-links in the report selecter.',
@@ -94,7 +120,7 @@ export default [
   },
   {
     date: new Date('2018-05-21'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.ZANDALARI_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.GILDED_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
     contributors: [Fyruna],
   },
   {

@@ -10,19 +10,19 @@ export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
   contributors: [tsabo, Zerotorescue],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '8.0', // changelog is empty so I'm just going off memory
+  patchCompatibility: '8.0.1',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
       <Warning>
-        The Subtlety Rogue analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
-
-        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information, or join us on <a href="https://wowanalyzer.com/discord">Discord</a>.
-      </Warning>
-      <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Subtlety expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
+        The Subtlety Rogue analysis isn't complete yet. Analysis should pick up most general mistakes, however:
+        <ul>
+         <li> there is no in-depth analysis for the PrePatch </li>
+         <li> target values may be tuned incorrectly for things like energy waste or downtime. </li>
+        </ul>
+        <br />
+        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@tsabo</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
       </Warning>
     </React.Fragment>
   ),

@@ -103,47 +103,46 @@ class RuneBreakdown extends ResourceBreakdown {
               ))}
           </tbody>
         </table>
-        {showSpenders &&
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th colSpan="2">{resourceName} spent</th>
-              <th colSpan="2">Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {spent && spent
-              .map(ability => (
-                <tr>
-                  <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.abilityId} />
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
-                  </td>
-                  <td style={{ width: '40%' }}>
-                    <div
-                      className="performance-bar"
-                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                    />
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
-                  </td>
-                  <td style={{ width: '30%' }}>
-                    <div
-                      className="performance-bar"
-                      style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
-                    />
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        }
+        {showSpenders && (
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th colSpan="2">{resourceName} spent</th>
+                <th colSpan="2">Casts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {spent && spent
+                .map(ability => (
+                  <tr>
+                    <td style={{ width: '30%' }}>
+                      <SpellLink id={ability.abilityId} />
+                    </td>
+                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                      <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                    </td>
+                    <td style={{ width: '40%' }}>
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                      />
+                    </td>
+                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                      <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
+                    </td>
+                    <td style={{ width: '30%' }}>
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
       </div>
-
     );
   }
 }

@@ -400,3 +400,10 @@ export const CubeLuke = {
     link: 'https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi',
   }],
 };
+
+export const ackwell = {
+  nickname: 'ackwell',
+  github: 'ackwell',
+  discord: 'ackwell#3835',
+  avatar: require('./Images/ackwell-avatar.png'),
+};

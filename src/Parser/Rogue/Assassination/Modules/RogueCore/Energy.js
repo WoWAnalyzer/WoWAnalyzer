@@ -12,6 +12,7 @@ class Energy extends Analyzer {
     energyTracker: EnergyTracker,
   };
   
+  // TODO: Urge to kill (vendetta energy regen) currently missing from WCL events. Needs a fix.
   suggestions(when) {
     resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.URGE_TO_KILL,

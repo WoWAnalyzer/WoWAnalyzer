@@ -34,6 +34,8 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
 import TimelineBuffEvents from './Modules/TimelineBuffEvents';
+import DeathDowntime from './Modules/Downtime/DeathDowntime';
+import TotalDowntime from './Modules/Downtime/TotalDowntime';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -118,8 +120,15 @@ import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHou
 import VantusRune from './Modules/Spells/VantusRune';
 
 // BFA
-import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+// Dungeons
+import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
+import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
+import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+// Crafted
+import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -133,6 +142,8 @@ class CombatLogParser {
 
   static internalModules = {
     combatants: Combatants,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
   };
   static defaultModules = {
     // Normalizers
@@ -244,8 +255,15 @@ class CombatLogParser {
     umbralMoonglaives: UmbralMoonglaives,
 
     // BFA
-    zandalariLoaFigurine: ZandalariLoaFigurine,
+    gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    revitalizingVoodooTotem: RevitalizingVoodooTotem,
+    // Dungeons
+    lingeringSporepods: LingeringSporepods,
+    fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    balefireBranch: BalefireBranch,
+    // Crafted
+    darkmoonDeckTides: DarkmoonDeckTides,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -255,6 +273,11 @@ class CombatLogParser {
   playerPets = null;
   fight = null;
   combatantInfoEvents = null;
+
+  adjustForDowntime = true;
+  get hasDowntime() {
+    return this._modules.totalDowntime.totalBaseDowntime > 0;
+  }
 
   _modules = {};
   _activeAnalyzers = {};
@@ -276,7 +299,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time;
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -400,7 +423,6 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -413,17 +435,52 @@ class CombatLogParser {
     return events;
   }
 
-  parseEvents(events) {
-    const numEvents = events.length;
-    for (let i = 0; i < numEvents; i += 1) {
-      const event = events[i];
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
-    }
-  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
+  _eventListeners = {};
+  addEventListener(type, listener, options = null) {
+    // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
+    let handler = listener;
+    if (options.byPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.byPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+
+    const existingEventListener = this._eventListeners[type];
+    this._eventListeners[type] = existingEventListener ? function (...args) {
+      existingEventListener(...args);
+      handler(...args);
+    } : handler;
+  }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -432,24 +489,24 @@ class CombatLogParser {
       }
     }
 
-    // This loop has a big impact on parsing performance
-    let garbageCollect = false;
-    const analyzers = this._activeAnalyzers;
-    const numAnalyzers = analyzers.length;
-    for (let i = 0; i < numAnalyzers; i++) {
-      const analyzer = analyzers[i];
-      if (analyzer.active) {
-        analyzer.triggerEvent(event);
-      } else {
-        garbageCollect = true;
+    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
+
+    this._timestamp = event.timestamp;
+
+    {
+      // Handle on_event (listeners of all events)
+      const listener = this._eventListeners.event;
+      if (listener) {
+        listener(event);
       }
     }
-    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
-    if (garbageCollect) {
-      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    {
+      const listener = this._eventListeners[event.type];
+      if (listener) {
+        listener(event);
+      }
     }
 
-    // Creating arrays is expensive so we cheat and just push instead of using it immutably
     this.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now
@@ -503,7 +560,9 @@ class CombatLogParser {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
-  generateResults() {
+  generateResults({ i18n, adjustForDowntime }) {
+    this.adjustForDowntime = adjustForDowntime;
+
     const results = new ParseResults();
 
     results.tabs = [];
@@ -542,7 +601,7 @@ class CombatLogParser {
         const module = this._modules[key];
 
         if (module.statistic) {
-          const statistic = module.statistic();
+          const statistic = module.statistic({ i18n });
           if (statistic) {
             results.statistics.push({
               statistic,
@@ -551,19 +610,19 @@ class CombatLogParser {
           }
         }
         if (module.item) {
-          const item = module.item();
+          const item = module.item({ i18n });
           if (item) {
             results.items.push(item);
           }
         }
         if (module.tab) {
-          const tab = module.tab();
+          const tab = module.tab({ i18n });
           if (tab) {
             results.tabs.push(tab);
           }
         }
         if (module.suggestions) {
-          module.suggestions(results.suggestions.when);
+          module.suggestions(results.suggestions.when, { i18n });
         }
       });
 

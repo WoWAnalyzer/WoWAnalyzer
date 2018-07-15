@@ -10,6 +10,7 @@ import ComboPoints from './Modules/RogueCore/ComboPoints';
 import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
 import Energy from './Modules/RogueCore/Energy';
+import EnemyHpTracker from '../Common/EnemyHpTracker';
 
 //Spells
 import EnvenomUptime from './Modules/Spells/EnvenomUptime';
@@ -27,8 +28,14 @@ import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import DuskwalkersFootpads from './Modules/Legendaries/DuskwalkersFootpads';
 import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTrainingShackles';
 
+//Talents
+import Blindside from './Modules/Talents/Blindside';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Trackers
+    enemyHpTracker: EnemyHpTracker,
+
     //Feature
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
@@ -61,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
 
     //Talents
+    blindside: Blindside,
   };
 }
 

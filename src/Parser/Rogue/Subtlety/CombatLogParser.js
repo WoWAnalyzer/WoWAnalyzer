@@ -16,7 +16,6 @@ import SymbolsDamageTracker from './Modules/RogueCore/SymbolsDamageTracker';
 import DanceDamageTracker from './Modules/RogueCore/DanceDamageTracker';
 import DarkShadowNightblade from './Modules/Talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from "./Modules/Talents/DarkShadow/DarkShadowContribution";
-import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
 import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
 import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
@@ -76,7 +75,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     darkShadowContribution: DarkShadowContribution,
-    darkShadowEvis: DarkShadowEvis,
     darkShadowNightblade: DarkShadowNightblade,
   };
 }

@@ -19,10 +19,10 @@ export default {
     manaCost: 800,
   },
   // Discipline Priest:
-  REVERENCE: {
+  GRACE: {
     id: 271534,
-    name: 'Mastery: Reverence',
-    icon: 'spell_priest_chakra',
+    name: 'Mastery: Grace',
+    icon: 'spell_holy_hopeandgrace',
   },
   PENANCE: {
     id: 47666,
@@ -49,14 +49,14 @@ export default {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 5500,
+    manaCost: 500,
     coefficient: 0.56,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
-    manaCost: 71500,
+    manaCost: 6500,
     atonementDuration: 9,
   },
   SHADOW_MEND: {
@@ -74,7 +74,7 @@ export default {
     id: 33206,
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
-    manaCost: 17600,
+    manaCost: 1600,
   },
   MASS_DISPEL: {
     id: 32375,
@@ -260,7 +260,7 @@ export default {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 39600,
+    manaCost: 2700,
   },
 
   // Holy Priest Spells
@@ -343,9 +343,9 @@ export default {
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-  SERENDIPITY: {
+  HOLY_WORDS: {
     id: 63733,
-    name: 'Serendipity',
+    name: 'Holy Words',
     icon: 'spell_holy_serendipity',
   },
   HOLY_FIRE: {
@@ -361,8 +361,8 @@ export default {
   },
   SYMBOL_OF_HOPE: {
     id: 64901,
-    name: "Symbol of Hope",
-    icon: "spell_holy_symbolofhope",
+    name: 'Symbol of Hope',
+    icon: 'spell_holy_symbolofhope',
   },
   // Trait related spells
   LENIENCE: {

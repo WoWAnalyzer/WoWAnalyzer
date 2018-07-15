@@ -11,6 +11,12 @@ import { formatPercentage } from 'common/format';
 * Equip: When you use Envenom, your Deadly and Wound poisons have 35% increased chance to critically strike for 6 sec.
 */
 class T21_2P extends Analyzer {
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.ASSA_ROGUE_T21_2SET_BONUS.id);
+  }
+
   get percentUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
   }

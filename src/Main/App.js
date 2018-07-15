@@ -11,7 +11,6 @@ import { track } from 'common/analytics';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'Interface/actions/error';
 import { fetchUser } from 'Interface/actions/user';
 import { getError } from 'Interface/selectors/error';
-// import RouteChangeScroller from 'Interface/RouteChangeScroller';
 import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import FullscreenError from 'Interface/common/FullscreenError';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
@@ -250,8 +249,7 @@ class App extends React.Component {
             </ErrorBoundary>
           </main>
 
-          <ReactTooltip html place="bottom" />
-          {/*<RouteChangeScroller />*/}
+          <ReactTooltip html place="bottom" effect="solid" />
         </div>
         {!error && <Footer />}
         <div id="portal" />

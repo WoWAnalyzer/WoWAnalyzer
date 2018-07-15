@@ -65,7 +65,7 @@ class Hemostasis extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEMOSTASIS_TALENT.id} />}
         value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
-        label='empowered Death Strikes'
+        label="empowered Death Strikes"
         tooltip={`
           Resulting in ${formatNumber(this.damage)} additional damage and ${formatNumber(this.heal)} additional healing.<br/>
           You gained ${this.gainedBuffs} and wasted ${this.wastedBuffs} stacks.

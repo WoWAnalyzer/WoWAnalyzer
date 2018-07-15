@@ -12,7 +12,7 @@ class SpellUsable extends CoreSpellUsable {
   constructor(...args) {
     super(...args);
     this.hasConvergenceOfFates = this.selectedCombatant.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id);
-    this.hasSuddenDeath = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT.id);
+    this.hasSuddenDeath = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_FURY.id);
   }
 
   lastPotentialTriggerForRagingBlow = null;

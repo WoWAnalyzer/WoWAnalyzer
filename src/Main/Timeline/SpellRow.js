@@ -112,6 +112,7 @@ class SpellRow extends React.PureComponent {
                   background: 'rgba(150, 150, 150, 0.4)',
                 }}
                 data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+                data-effect="float"
               />
             );
           }
@@ -155,6 +156,7 @@ class SpellRow extends React.PureComponent {
                   zIndex: 9,
                 }}
                 data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff'} Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+                data-effect="float"
               />
             );
           }

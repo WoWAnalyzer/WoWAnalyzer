@@ -46,35 +46,39 @@ class VoidformAverageStacks extends Analyzer {
 
   statistic() {
     const { voidforms } = this.voidform;
-    if (!voidforms || voidforms.length === 0) return null;
+    if (!voidforms || voidforms.length === 0) {
+      return null;
+    }
 
     const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
-    return (<ExpandableStatisticBox
-      icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-      value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
-      label={(<dfn data-tip={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>Average voidform</dfn>)}
-    >
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Stacks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            voidforms
-              .map((voidform, index) => (
-                <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{voidform.stacks.length}</td>
-                </tr>
-              ))
-          }
-        </tbody>
-      </table>
-    </ExpandableStatisticBox>);
+    return (
+      <ExpandableStatisticBox
+        icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
+        value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
+        label={(<dfn data-tip={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>Average voidform</dfn>)}
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Stacks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              voidforms
+                .map((voidform, index) => (
+                  <tr key={index}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{voidform.stacks.length}</td>
+                  </tr>
+                ))
+            }
+          </tbody>
+        </table>
+      </ExpandableStatisticBox>
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(0);

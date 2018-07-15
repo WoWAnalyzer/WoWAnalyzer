@@ -79,7 +79,7 @@ class Contrition extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CONTRITION_TALENT.id} />}
         value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
-        label={
+        label={(
           <dfn
             data-tip={`The effective healing contributed by Contrition (${formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(healing)
@@ -91,7 +91,7 @@ class Contrition extends Analyzer {
           >
             Contrition healing
           </dfn>
-        }
+        )}
       />
     );
   }

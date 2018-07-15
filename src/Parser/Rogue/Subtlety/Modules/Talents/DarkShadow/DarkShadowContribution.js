@@ -5,13 +5,23 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import DarkShadow from './DarkShadow';
+import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 
 
 class DarkShadowContribution extends DarkShadow {
+  static dependencies = {
+    ...DarkShadow.dependencies,
+    danceDamageTracker: DanceDamageTracker,
+  }  
+
+  get darkShadowDamageFactor() {
+    return 0.25;
+  }
+
   statistic() {    
     const danceDamage = Object.keys(this.danceDamageTracker.abilities)
     .map(abilityId => this.danceDamageTracker.abilities[abilityId].damageEffective || 0)
-    .reduce((a,b) => a+b,0) * 0.3 / 1.3;
+    .reduce((a,b) => a+b,0) * this.darkShadowDamageFactor / (1 + this.darkShadowDamageFactor);
      
     return (
         <StatisticBox

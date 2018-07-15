@@ -16,10 +16,6 @@ class ComboPoints extends Analyzer {
     return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />.</React.Fragment>;
   }
 
-  makeExtraSuggestion_SS(spell) {
-    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Note that some combo point wastage is unavoidable due to second <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> procs during the duration of <SpellLink id={SPELLS.BROADSIDES.id} />.</React.Fragment>;
-  }
-
   suggestions(when) {
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
@@ -33,8 +29,7 @@ class ComboPoints extends Analyzer {
       minor: 0,
       avg: 0.05,
       major: 0.1,
-      //TODO - Combine with the bonus Saber slashes
-      extraSuggestion: this.makeExtraSuggestion_SS(SPELLS.SINISTER_STRIKE),
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.SINISTER_STRIKE),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.AMBUSH, // 2 CP
@@ -48,13 +43,15 @@ class ComboPoints extends Analyzer {
       minor: 0,
       avg: 0.1,
       major: 0.2,
+      // TODO: Beta logs incorrectly add bonus CP from an extra Sinister Strike to Pistol shot. 
+      // Want to see if its fixed in PrePatch or can be fixed on WCL side before creating workaround.
       extraSuggestion: this.makeExtraSuggestion(SPELLS.PISTOL_SHOT),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.GHOSTLY_STRIKE_TALENT, // 1 CP
       minor: 0,
-      avg: 0.1,
-      major: 0.2,
+      avg: 0.05,
+      major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GHOSTLY_STRIKE_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {

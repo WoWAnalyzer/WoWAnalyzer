@@ -175,7 +175,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_FIRE,
         buffSpellId: SPELLS.HOLY_FIRE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: 10, // can be reset by Holy Nova and smite
+        // enabling cooldown breaks a lot of logs timelines where the healer actively DPSed
+        // not worth showing until the reset is properly implemented
+        // cooldown: 10, // can be reset by Holy Nova and smite
         gcd: {
           base: 1500,
         },

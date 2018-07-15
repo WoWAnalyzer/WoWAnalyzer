@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-06-30'),
-    changes: <React.Fragment>Ignored cooldown errors triggered by <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT.id} />'s random cooldown resets of <SpellLink id={SPELLS.EXECUTE_FURY.id} />.</React.Fragment>,
+    changes: <React.Fragment>Ignored cooldown errors triggered by <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT_FURY.id} />'s random cooldown resets of <SpellLink id={SPELLS.EXECUTE_FURY.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
