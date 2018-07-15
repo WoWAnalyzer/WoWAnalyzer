@@ -32,7 +32,7 @@ class ExposedElements extends Analyzer {
     }
 
     const enemy = this.enemies.getEntity(event);
-    if (enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id)) {
+    if (enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_TALENT_DEBUFF.id)) {
       this.removeDebuffTimestamp = event.timestamp;
     }
   }

@@ -18,11 +18,11 @@ class Tier21_4set extends Analyzer {
   }
 
   item() {
-    const T214setUptime = this.enemies.getBuffUptime(SPELLS.EXPOSED_ELEMENTS.id) / this.owner.fightDuration;
+    const T214setUptime = this.enemies.getBuffUptime(SPELLS.EXPOSED_ELEMENTS_T21_ENHANCER.id) / this.owner.fightDuration;
     return {
-      id: `spell-${SPELLS.EXPOSED_ELEMENTS.id}`,
-      icon: <SpellIcon id={SPELLS.EXPOSED_ELEMENTS.id} />,
-      title: <SpellLink id={SPELLS.EXPOSED_ELEMENTS.id} icon={false} />,
+      id: `spell-${SPELLS.EXPOSED_ELEMENTS_T21_ENHANCER.id}`,
+      icon: <SpellIcon id={SPELLS.EXPOSED_ELEMENTS_T21_ENHANCER.id} />,
+      title: <SpellLink id={SPELLS.EXPOSED_ELEMENTS_T21_ENHANCER.id} icon={false} />,
       result: `${formatPercentage(T214setUptime)}% uptime`,
     };
   }
