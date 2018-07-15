@@ -19,8 +19,9 @@ class NeroBandOfPromises extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
   }
 
   on_byPlayer_heal(event) {

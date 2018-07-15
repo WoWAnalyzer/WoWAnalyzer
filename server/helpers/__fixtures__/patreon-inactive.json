@@ -1,0 +1,47 @@
+{
+	"data": {
+		"attributes": {
+			"about": null,
+			"created": "2017-02-09T22:29:05+00:00",
+			"discord_id": null,
+			"email": "zerotorescue@zerotorescue.iscool",
+			"facebook": null,
+			"facebook_id": null,
+			"first_name": "Martijn",
+			"full_name": "Martijn Hols",
+			"gender": 0,
+			"has_password": true,
+			"image_url": "https://c8.patreon.com/2/400/5055100",
+			"is_deleted": false,
+			"is_email_verified": true,
+			"is_nuked": false,
+			"is_suspended": false,
+			"last_name": "Hols",
+			"social_connections": {
+				"deviantart": null,
+				"discord": null,
+				"facebook": null,
+				"spotify": null,
+				"twitch": null,
+				"twitter": null,
+				"youtube": null
+			},
+			"thumb_url": "https://c8.patreon.com/2/100/5055100",
+			"twitch": null,
+			"twitter": null,
+			"url": "https://www.patreon.com/user?u=5055100",
+			"vanity": null,
+			"youtube": null
+		},
+		"id": "5055100",
+		"relationships": {
+			"pledges": {
+				"data": []
+			}
+		},
+		"type": "user"
+	},
+	"links": {
+		"self": "https://www.patreon.com/api/user/5055100"
+	}
+}

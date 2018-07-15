@@ -5,7 +5,7 @@ import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import Abilities from './Modules/Abilities';
 
 import HealingDone from './Modules/ShamanCore/HealingDone';
@@ -21,46 +21,41 @@ import StatValues from './Modules/Features/StatValues';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
-import CastBehavior from './Modules/Features/CastBehavior'; 
-
+import CastBehavior from './Modules/Features/CastBehavior';
+// Talents
 import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
 import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
-import Undulation from './Modules/Talents/Undulation';
-import AncestralGuidance from './Modules/Talents/AncestralGuidance';
 import Deluge from './Modules/Talents/Deluge';
-import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
+import Undulation from './Modules/Talents/Undulation';
+import FlashFlood from './Modules/Talents/FlashFlood';
+import EarthShield from './Modules/Talents/EarthShield';
+import EarthenWallTotem from './Modules/Talents/EarthenWallTotem';
+import Downpour from './Modules/Talents/Downpour';
 import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
-
+// Items
+import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
+import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
 import Nazjatar from './Modules/Items/Nazjatar';
 import UncertainReminder from './Modules/Items/UncertainReminder';
 import Jonat from './Modules/Items/Jonat';
 import Nobundo from './Modules/Items/Nobundo';
 import Tidecallers from './Modules/Items/Tidecallers';
-import Restoration_Shaman_T19_2Set from './Modules/Items/T19_2Set';
-import Restoration_Shaman_T20_4Set from './Modules/Items/T20_4Set';
 import Roots from './Modules/Items/Roots';
-import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
-import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
-import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
-import SeaStarOfTheDepthmother from './Modules/Items/SeaStarOfTheDepthmother';
-import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
-import HighfathersMachination from './Modules/Items/HighfathersMachination';
-import EonarsCompassion from './Modules/Items/EonarsCompassion';
-import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import VelensFutureSight from './Modules/Items/VelensFutureSight';
 import ElementalRebalancers from './Modules/Items/ElementalRebalancers';
-
+// Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
-import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
 import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
 import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
+// Shared
+import StaticCharge from '../Shared/Talents/StaticCharge';
 
 import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
 
@@ -93,49 +88,45 @@ class CombatLogParser extends CoreCombatLogParser {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
-    ancestralGuidance: AncestralGuidance,
     deluge: Deluge,
-    earthenShieldTotem: EarthenShieldTotem,
+    flashFlood: FlashFlood,
+    earthShield: EarthShield,
+    earthenWallTotem: EarthenWallTotem,
+    downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
     wellspring: Wellspring,
     highTide: HighTide,
 
     // Items:
+    t21_2Set: Restoration_Shaman_T21_2Set,
+    t21_4Set: Restoration_Shaman_T21_4Set,
     nobundo: Nobundo,
     nazjatar: Nazjatar,
     uncertainReminder: UncertainReminder,
     jonat: Jonat,
     tidecallers: Tidecallers,
-    t19_2Set: Restoration_Shaman_T19_2Set,
-    t20_4Set: Restoration_Shaman_T20_4Set,
     roots: Roots,
-    t21_2Set: Restoration_Shaman_T21_2Set,
-    t21_4Set: Restoration_Shaman_T21_4Set,
-    deceiversGrandDesign: DeceiversGrandDesign,
-    seaStarOfTheDepthmother: SeaStarOfTheDepthmother,
-    archiveOfFaith: ArchiveOfFaith,
-    highfathersMachinations: HighfathersMachination,
-    eonarsCompassion: EonarsCompassion,
-    tarratusKeystone: TarratusKeystone,
     velensFutureSight: VelensFutureSight,
     elementalRebalancers: ElementalRebalancers,
 
     // Spells:
     chainHeal: ChainHeal,
-    giftOfTheQueen: GiftOfTheQueen,
     healingSurge: HealingSurge,
     healingRain: HealingRain,
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
 
+    // Shared:
+    staticCharge: StaticCharge,
+
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,
@@ -154,7 +145,7 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab style={{ padding: 0 }}>
             <Feeding
-              cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
+              cooldownThroughputTracker={this._modules.cooldownThroughputTracker}
             />
           </Tab>
         ),

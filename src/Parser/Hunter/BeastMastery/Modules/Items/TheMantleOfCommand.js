@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
@@ -17,38 +16,35 @@ const DAMAGE_INCREASE = 0.05;
  */
 
 class TheMantleOfCommand extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id && !this.combatants.selected.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id && !this.selectedCombatant.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);
   }
 
   on_byPlayerPet_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);
   }
 
   get buffUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id) / this.owner.fightDuration;
 
   }
 
   get buffUptimeThreshold() {
-    if (this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
       return {
         actual: this.buffUptime,
         isLessThan: {

@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
@@ -11,14 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  */
 
 class Stampede extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STAMPEDE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STAMPEDE_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

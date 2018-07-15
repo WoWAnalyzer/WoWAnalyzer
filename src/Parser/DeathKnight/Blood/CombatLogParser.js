@@ -31,14 +31,20 @@ import RuneTracker from '../Shared/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
 // Talents
-import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
-import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import MarkOfBlood from './Modules/Talents/MarkOfBlood';
+import Hemostasis from './Modules/Talents/Hemostasis';
 import FoulBulwark from './Modules/Talents/FoulBulwark';
 import Heartbreaker from './Modules/Talents/Heartbreaker';
 import Bloodworms from './Modules/Talents/Bloodworms';
+import Tombstone from './Modules/Talents/Tombstone';
+import Voracious from './Modules/Talents/Voracious';
+import RapidDecomposition from './Modules/Talents/RapidDecomposition';
 import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
+import Ossuary from './Modules/Talents/Ossuary';
+import RuneStrike from './Modules/Talents/RuneStrike';
+import Consumption from './Modules/Talents/Consumption';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -95,14 +101,20 @@ class CombatLogParser extends CoreCombatLogParser {
     runeDetails: RuneDetails,
 
     // Talents
-    ossuary: Ossuary,
     redThirst: RedThirst,
     boneStorm: BoneStorm,
-    markOfBloodUptime: MarkOfBloodUptime,
+    markOfBlood: MarkOfBlood,
+    hemostasis: Hemostasis,
     foulBulwark: FoulBulwark,
     heartbreaker: Heartbreaker,
     bloodworms: Bloodworms,
+    tombstone: Tombstone,
+    voracious: Voracious,
+    rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,
+    ossuary: Ossuary,
+    runeStrike: RuneStrike,
+    consumption: Consumption,
 
     // Traits
     RelicTraits: RelicTraits,

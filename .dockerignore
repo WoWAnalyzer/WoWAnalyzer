@@ -1,7 +1,10 @@
+# This greatly speeds up the build process if the user already has run `npm install` locally
+node_modules
+
+# Unused files
+Docker*
+*.md
+# .git is very slow and we don't need it for anything but `npm test`
 .git
 .git*
 .editorconfig
-browser-extensions
-node_modules
-Docker*
-*.md

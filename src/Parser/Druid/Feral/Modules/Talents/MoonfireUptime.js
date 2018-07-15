@@ -8,16 +8,15 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class moonfireUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
   }
 
   suggestions(when) {

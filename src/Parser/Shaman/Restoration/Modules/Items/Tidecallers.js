@@ -18,8 +18,9 @@ class Tidecallers extends Analyzer {
   firstTickAfterBaseDuration = null;
 
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 
   on_heal(event) {
@@ -58,7 +59,7 @@ class Tidecallers extends Analyzer {
       }
     }
 
-    if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id || spellId === SPELLS.QUEENS_DECREE.id) {
+    if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id) {
       this.hstHealing += healingDone / 6; // only add the extra 20% we're getting
     }
   }

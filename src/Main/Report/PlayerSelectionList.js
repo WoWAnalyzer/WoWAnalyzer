@@ -7,13 +7,12 @@ import ReactTooltip from 'react-tooltip';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import SpecIcon from 'common/SpecIcon';
-import { getFightId } from 'selectors/url/report';
-import { getReport } from 'selectors/report';
-import { getFightById } from 'selectors/fight';
-import { getCombatants } from 'selectors/combatants';
-import ActivityIndicator from 'Main/ActivityIndicator';
-
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
+import { getFightId } from 'Interface/selectors/url/report';
+import { getReport } from 'Interface/selectors/report';
+import { getFightById } from 'Interface/selectors/fight';
+import { getCombatants } from 'Interface/selectors/combatants';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 

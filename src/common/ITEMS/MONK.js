@@ -9,6 +9,13 @@ export default {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  // Brewmaster Artifact
+  FU_ZAN_THE_WANDERERS_COMPANION: {
+    id: 128938,
+    name: 'Fu Zan, the Wanderer\'s Companion',
+    icon: 'inv_staff_2h_artifactmonkeyking_d_01',
+    quality: ITEM_QUALITIES.ARTIFACT,
+  },
   // Brewmaster legendaries
   FIRESTONE_WALKERS: {
     id: 137027,

@@ -5,7 +5,7 @@
  */
 
 export default {
-  // Shared 
+  // Shared
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -70,6 +70,11 @@ export default {
     icon: 'spell_shaman_spectraltransformation',
   },
   // Mistweaver Monk Spells
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',
@@ -424,11 +429,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
-  EXPLODING_KEG: {
-    id: 214326,
-    name: 'Exploding Keg',
-    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
-  },
   STAGGER: {
     id: 115069,
     name: 'Stagger',
@@ -586,11 +586,6 @@ export default {
     name: 'Mastery: Combo Strikes',
     icon: 'trade_alchemy_potionb3',
   },
-  MASTER_OF_COMBINATIONS: {
-    id: 240672,
-    name: 'Master of Combinations',
-    icon: 'trade_alchemy_potionb3',
-  },
   STORM_EARTH_AND_FIRE: {
     id: 231627,
     name: 'Storm, Earth, and Fire',
@@ -671,63 +666,25 @@ export default {
     name: 'Chi Sphere',
     icon: 'ability_monk_forcesphere',
   },
-  // Windwalker Artifact
-  STRIKE_OF_THE_WINDLORD: {
-    id: 205320,
-    name: 'Strike of the Windlord',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  // Windwalker Articfact Traits
-  CROSSWINDS: {
-    id: 196061,
-    name: 'Crosswinds',
-    icon: 'inv_pandarenserpentgodmount_black',
-  },
-  SPLIT_PERSONALITY: {
-    id: 238059,
-    name: 'Split Personality',
-    icon: 'spell_nature_giftofthewild',
-  },
-  STRENGTH_OF_XUEN: {
-    id: 195267,
-    name: 'Strength of Xuen',
-    icon: 'ability_monk_summontigerstatue',
-  },
-  INNER_PEACE: {
-    id: 195243,
-    name: 'Inner Peace',
-    icon: 'ability_monk_jasminforcetea',
-  },
-  GALE_BURST: {
-    id: 195399,
-    name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
-  },
-  GALE_BURST_DAMAGE: {
-    id: 195403,
-    name: 'Gale Burst',
-    icon: 'ability_monk_touchofdeath',
-  },
   MARK_OF_THE_CRANE: {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
-  THUNDERFIST: {
-    id: 242390,
-    name: 'Thunderfist',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  // Windwalker Talents
-  POWER_STRIKES: {
-    id: 121283,
-    name: 'Power Strikes',
-    icon: 'ability_monk_powerstrikes',
-  },
   CHI_ORBIT_DAMAGE: {
     id: 196748,
     name: 'Chi Orbit',
     icon: 'ability_monk_forcesphere',
+  },
+  FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
+    id: 261978,
+    name: 'Fist of the White Tiger',
+    icon: 'inv_fistofthewhitetiger',
+  },
+  CHI_BURST_ENERGIZE: {
+    id: 261682,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
   },
   // Windwalker legendaries
   KATSUOS_ECLIPSE: {

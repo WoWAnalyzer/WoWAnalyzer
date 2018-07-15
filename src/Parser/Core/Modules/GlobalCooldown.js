@@ -1,7 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
-// import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
@@ -13,16 +12,12 @@ const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
-    // `alwaysBeCasting` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
-    // alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
     // For the `beginchannel` event among other things
     channeling: Channeling,
   };
 
-  /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
-  abilitiesOnGlobalCooldown = null;
   _errors = 0;
   get errorsPerMinute() {
     const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
@@ -32,37 +27,13 @@ class GlobalCooldown extends Analyzer {
     return this.errorsPerMinute < 2;
   }
 
-  on_initialized() {
-    // Using `_modules` here so this doesn't trigger the deprecation warning. This is deprecated itself, so it should disappear "soon".
-    if (this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD.length > 0) {
-      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the isOnGCD property of spells in the Abilities config instead.');
-    }
-    const abilities = [
-      ...this.owner._modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD,
-    ];
-
-    this.abilities.activeAbilities
-      .filter(ability => ability.isOnGCD)
-      .forEach(ability => {
-        if (ability.spell instanceof Array) {
-          ability.spell.forEach(spell => {
-            abilities.push(spell.id);
-          });
-        } else {
-          abilities.push(ability.spell.id);
-        }
-      });
-
-    this.abilitiesOnGlobalCooldown = abilities;
-  }
-
   /**
    * Returns true if this ability is on the Global Cooldown, false if not.
-   * @param spellId
-   * @return {bool} Whether this ability has a GCD.
+   * @param {number} spellId
+   * @return {boolean} Whether this ability has a GCD.
    */
   isOnGlobalCooldown(spellId) {
-    return this.abilitiesOnGlobalCooldown.includes(spellId);
+    return !!this.getGlobalCooldownDuration(spellId);
   }
 
   _currentChannel = null;
@@ -75,10 +46,10 @@ class GlobalCooldown extends Analyzer {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
     const isCancelled = event.trigger.isCancelled;
-    if (isOnGcd && !isCancelled) {
+    if (isOnGCD && !isCancelled) {
       this.triggerGlobalCooldown(event);
     }
   }
@@ -88,9 +59,9 @@ class GlobalCooldown extends Analyzer {
    */
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
-    // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
-    if (!isOnGcd) {
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
+    if (!isOnGCD) {
+      // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
       return;
     }
 
@@ -119,17 +90,45 @@ class GlobalCooldown extends Analyzer {
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player
       timestamp: event.timestamp,
-      duration: this.getCurrentGlobalCooldown(event.ability.guid),
+      duration: this.getGlobalCooldownDuration(event.ability.guid),
     }, event);
   }
+
   /**
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
-   * @param spellId
+   * Typically you should first use isOnGlobalCooldown to check if the spell is on the GCD at all. This function gives
+   * a default GCD value if there's no GCD defined for the given spellId.
+   * @param {number} spellId
    * @returns {number} The duration in milliseconds.
    */
-  getCurrentGlobalCooldown(spellId = null) {
-    // Using `_modules` here so this doesn't trigger the deprecation warning. We should move the STATIC_GCD_ABILITIES to the Abilities config which would fix this.
-    return (spellId && this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner._modules.alwaysBeCasting.constructor.BASE_GCD, this.owner._modules.alwaysBeCasting.constructor.MINIMUM_GCD);
+  getGlobalCooldownDuration(spellId) {
+    const ability = this.abilities.getAbility(spellId);
+    if (!ability) {
+      // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
+      return 0;
+    }
+    const gcd = this._resolveAbilityGcdField(ability.gcd);
+    if (!gcd) {
+      // If gcd isn't set, null, or 0 (falsey), the spell isn't on the GCD. ps. you should set gcd to null to be explicit.
+      return 0;
+    }
+    if (gcd.static) {
+      return this._resolveAbilityGcdField(gcd.static);
+    }
+    if (gcd.base) {
+      const baseGCD = this._resolveAbilityGcdField(gcd.base);
+      // The minimum GCD duration is pretty much always with 100% Haste: 50% of the base duration. There is no known case of it ever being 0.
+      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || (baseGCD / 2);
+      return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
+    }
+    throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
+  }
+  _resolveAbilityGcdField(value) {
+    if (typeof value === 'function') {
+      return value.call(this.owner, this.selectedCombatant);
+    } else {
+      return value;
+    }
   }
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
@@ -169,7 +168,7 @@ class GlobalCooldown extends Analyzer {
    * @param minGcd
    * @returns {number}
    */
-  static calculateGlobalCooldown(haste, baseGcd, minGcd) {
+  static calculateGlobalCooldown(haste, baseGcd = 1500, minGcd = 750) {
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
     return Math.max(minGcd, gcd);

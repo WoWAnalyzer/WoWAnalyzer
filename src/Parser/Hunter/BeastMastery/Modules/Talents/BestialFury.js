@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from 'common/SpellLink';
@@ -19,19 +18,16 @@ const debug = false;
  */
 
 class BestialFury extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BESTIAL_FURY_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
     debug && console.log(`player cast spell: `, spellId);
@@ -40,7 +36,7 @@ class BestialFury extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
     debug && console.log(`pet cast spell: `, spellId);

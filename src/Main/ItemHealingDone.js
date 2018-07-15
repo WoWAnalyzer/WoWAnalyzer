@@ -33,6 +33,6 @@ class ItemHealingDone extends React.PureComponent {
 
 const mapParserToProps = parser => ({
   // Ensure the component is re-rendered when the Parser-context changes
-  eventCount: parser.eventCount,
+  key: `${parser.eventCount}-${parser.adjustForDowntime}`,
 });
 export default connectParser(mapParserToProps)(ItemHealingDone);

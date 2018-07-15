@@ -4,24 +4,20 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;
 const EKOWRAITH_INCREASED_EFFECT = 1.75;
 
 class Ekowraith extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
   damageReduction = 0;
   hasGuardianAffinity = false;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id);
-    this.hasGuardianAffinity = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id);
+    this.hasGuardianAffinity = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id);
   }
 
   on_byPlayer_heal(event) {

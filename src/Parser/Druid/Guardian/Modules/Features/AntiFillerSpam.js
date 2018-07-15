@@ -5,7 +5,6 @@ import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import StatisticBox from 'Main/StatisticBox';
@@ -26,7 +25,6 @@ function resolveValue(maybeFunction, ...args) {
 
 class AntiFillerSpam extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
@@ -40,13 +38,13 @@ class AntiFillerSpam extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const ability = this.abilities.getAbility(spellId);
-    if (!ability || !ability.isOnGCD) {
+    if (!ability || !ability.gcd) {
       return;
     }
 
     this._totalGCDSpells += 1;
     const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => !!enemy);
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
 
     let isFiller = false;
     if (ability.antiFillerSpam) {

@@ -4,14 +4,12 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 30000;
 
 class RadiantMoonlight extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -23,43 +21,44 @@ class RadiantMoonlight extends Analyzer {
   halfMoonCasts = 0;
   fullMoonCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.HALF_MOON.id) {
       this.halfMoonCasted = true;
-      this.halfMoonCasts++;
+      this.halfMoonCasts += 1;
     }
-    if (event.ability.guid === SPELLS.NEW_MOON.id) {
-      this.newMoonCasts++;
+    if (event.ability.guid === SPELLS.NEW_MOON_TALENT.id) {
+      this.newMoonCasts += 1;
     }
     if (event.ability.guid === SPELLS.FULL_MOON.id) {
-      this.fullMoonCasts++;
+      this.fullMoonCasts += 1;
     }
     if (!this.halfMoonCasted || event.ability.guid !== SPELLS.FULL_MOON.id) {
       return;
     }
     this.halfMoonCasted = false;
-    this.freeFullMoons++;
-    if(!this.spellUsable.isOnCooldown(SPELLS.NEW_MOON.id)){
+    this.freeFullMoons += 1;
+    if (!this.spellUsable.isOnCooldown(SPELLS.NEW_MOON_TALENT.id)) {
       return;
     }
-    const reduction = this.spellUsable.reduceCooldown(SPELLS.NEW_MOON.id, COOLDOWN_REDUCTION_MS);
+    const reduction = this.spellUsable.reduceCooldown(SPELLS.NEW_MOON_TALENT.id, COOLDOWN_REDUCTION_MS);
     this.cooldownReductionWasted = COOLDOWN_REDUCTION_MS - reduction;
-    this.cooldownReduction += reduction;   
+    this.cooldownReduction += reduction;
   }
 
-  get cooldownReductionOnRest(){
+  get cooldownReductionOnRest() {
     return (this.cooldownReduction - this.freeFullMoons * COOLDOWN_REDUCTION_MS / 2) / 1000;
   }
 
-  get nonFreeMoonCasts(){
+  get nonFreeMoonCasts() {
     return this.newMoonCasts + this.halfMoonCasts + this.fullMoonCasts - this.freeFullMoons;
   }
 
-  get averageCooldownReduction(){
+  get averageCooldownReduction() {
     return this.cooldownReductionOnRest / this.nonFreeMoonCasts;
   }
 

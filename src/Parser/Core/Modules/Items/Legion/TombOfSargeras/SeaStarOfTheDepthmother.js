@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
@@ -13,13 +12,11 @@ const debug = false;
  * Equip: Your multi-target healing spell has a chance to grant you Ocean's Embrace, healing your nearest injured ally within 15 yds for 29716 every 0.25 sec for 8 sec.
  */
 class SeaStarOfTheDepthmother extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id);
   }
 
   on_byPlayer_heal(event) {

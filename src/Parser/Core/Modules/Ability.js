@@ -44,10 +44,17 @@ class Ability {
      */
     charges: PropTypes.number,
     /**
-     * Whether the spell is on the GCD.
+     * `null` is the spell is off the GCD, or an object if the spell is on the GCD.
      * If this spell overlaps in the Spell Timeline it likes is incorrectly marked as on the GCD and should be removed.
      */
-    isOnGCD: PropTypes.bool,
+    gcd: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({
+        static: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        base: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        minimum: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+      }),
+    ]),
     // TODO: Add properties `staticGCD` and `baseGcd` since the baseGcd can be different per spell (e.g. Brewmaster's Effuse has a 1.5sec base GCD and most other spells are 1sec)
     castEfficiency: PropTypes.shape({
       /**
@@ -138,7 +145,7 @@ class Ability {
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.combatants.selected);
+      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.selectedCombatant);
     }
 
     return this._cooldown;
@@ -163,7 +170,7 @@ class Ability {
     return this._channel;
   }
   // endregion
-  isOnGCD = null;
+  gcd = null;
   extraSuggestion = null;
   recommendedEfficiency = null;
   isDefensive = null;

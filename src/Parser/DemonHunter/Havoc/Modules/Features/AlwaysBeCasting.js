@@ -10,12 +10,6 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  
-  static STATIC_GCD_ABILITIES = {
-    [SPELLS.FEL_RUSH.id]: 250,
-    [SPELLS.VENGEFUL_RETREAT.id]: 1000, //Not actually on the GCD but blocks all spells during its animation for 1 second
-  }
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -27,7 +21,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       style: 'percentage',
     };
   }
-
 
   suggestions(when) {
     const boss = this.owner.boss;

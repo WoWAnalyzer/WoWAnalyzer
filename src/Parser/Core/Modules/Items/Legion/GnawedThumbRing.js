@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -19,14 +18,14 @@ const GNAWED_THUMB_RING_DAMAGE_INCREASE = 0.05;
  */
 class GnawedThumbRing extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
   healing = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.GNAWED_THUMB_RING.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id);
 
     if (this.active) {
       this.abilities.add({
@@ -46,7 +45,7 @@ class GnawedThumbRing extends Analyzer {
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.healing += calculateEffectiveHealing(event, GNAWED_THUMB_RING_HEALING_INCREASE);
     }
   }
@@ -59,7 +58,7 @@ class GnawedThumbRing extends Analyzer {
       // Friendly fire does not get increased
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.damage += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
     }
   }

@@ -5,53 +5,58 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
+    enemies: EnemyInstances,
+    abilityTracker: AbilityTracker,
   };
 
-  overcapped = 0;
-  total = 0;
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
   }
 
-  on_toPlayer_changebuffstack(event) {
+  badCasts = 0
+
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICICLES_BUFF.id && event.newStacks > event.oldStacks) {
-      this.total += 1;
+    if (spellId !== SPELLS.GLACIAL_SPIKE_DAMAGE.id) {
+      return;
+    }
+
+    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    const enemy = this.enemies.getEntity(event);
+    if (this.castTarget === damageTarget && !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
+      this.badCasts += 1;
     }
   }
 
-  on_toPlayer_refreshbuff(event) {
-    if (event.ability.guid === SPELLS.GLACIAL_SPIKE_BUFF.id) {
-      this.overcapped += 1;
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id) {
+      return;
     }
-  }
-
-  get glacialSpikedIcicles() {
-    return this.total - this.overcapped;
+    
+    if(event.targetID) {
+      this.castTarget = encodeTargetString(event.targetID, event.targetInstance);
+    }
   }
 
   get utilPercentage() {
-    return (this.glacialSpikedIcicles / this.total) || 0;
-  }
-
-  get overcappedPercentage() {
-    return (this.overcapped / this.total) || 0;
+    return 1 - (this.badCasts / this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts) || 0;
   }
 
   get utilSuggestionThresholds() {
     return {
       actual: this.utilPercentage,
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        minor: 1,
+        average: 0.8,
       },
       style: 'percentage',
     };
@@ -60,10 +65,10 @@ class GlacialSpike extends Analyzer {
   suggestions(when) {
     when(this.utilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You overcapped on {formatPercentage(this.overcappedPercentage, 1)}% of gained <SpellLink id={SPELLS.ICICLES_BUFF.id} />. Casting Frostbolt at max Icicles will cause an Icicle to automatically launch. While this Icicle still does damage, there is an opportunity cost to delaying your Glacial Spike cast. You should try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> as soon as you reach 5 icicles. Overcapping some <SpellLink id={SPELLS.ICICLES_BUFF.id} /> is unavoidable due to <SpellLink id={SPELLS.ICE_NINE.id} />, but you should try and keep this number as low as possible.</React.Fragment>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {this.badCasts} times without <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on the target. In order to accomplish this, do not cast Glacial Spike until you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to use immediately after. If you are consistently spending a long time fishing for a Brain Freeze Proc, {this.hasEbonbolt ? 'then hold Ebonbolt to generate a proc when you need it.' : 'then consider taking Ebonbolt and not casting it unless you need a Brain Freeze Proc for Glacial Spike.'}</React.Fragment>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
-          .actual(`${formatPercentage(this.overcappedPercentage, 1)}% overcapped`)
-          .recommended(`<${formatPercentage(1-recommended, 1)}% is recommended`);
+          .actual(`${formatPercentage(this.utilPercentage, 1)}% utilization`)
+          .recommended(`${formatPercentage(recommended, 1)}% is recommended`);
       });
   }
   statistic() {
@@ -71,8 +76,8 @@ class GlacialSpike extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GLACIAL_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
-        label="Icicle Utilization"
-        tooltip="This is the percentage of Icicles gained that you merged into a Glacial Spike. Casting Frostbolt at max Icicles will cause an Icicle to automatically launch. While this Icicle still does damage, there is an opportunity cost to delaying your Glacial Spike cast."
+        label="Glacial Spike Utilization"
+        tooltip="This is the percentage of Glacial Spike casts that landed while the target had Winter's Chill. Ensure that you are holding Glacial Spike until you have a Brain Freeze proc to use immediately after casting Glacial Spike."
       />
     );
   }

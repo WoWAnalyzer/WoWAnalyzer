@@ -14,6 +14,7 @@ class Felstorm extends Analyzer {
   mainPetFelstormCount = 0;
 
   // works with either direct /cast Felstorm or by using the Command Demon ability (if direct /cast Felstorm, then the player didn't cast it, but this buff gets applied either way)
+  // TODO: verify this still works
   on_toPlayerPet_applybuff(event) {
     if (event.ability.guid !== SPELLS.FELSTORM_BUFF.id && event.ability.guid !== SPELLS.WRATHSTORM_BUFF.id) {
       return;
@@ -25,6 +26,15 @@ class Felstorm extends Analyzer {
         this._felstormGuid = event.ability.guid;
       }
     }
+  }
+
+  get suggestionThresholds(){
+    const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
+    return {
+      actual: this.mainPetFelstormCount,
+      isLessThan: maxCasts,
+      style: 'number',
+    };
   }
 
   suggestions(when) {

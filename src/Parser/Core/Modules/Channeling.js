@@ -51,7 +51,6 @@ class Channeling extends Analyzer {
       type: 'cancelchannel',
       ability,
       sourceID: event.sourceID,
-      targetID: event.sourceID,
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
     }, event);
     debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Canceled channel of', ability.name);
@@ -104,7 +103,7 @@ class Channeling extends Analyzer {
   //     const actualCastTime = cast.timestamp - begincast.timestamp;
   //     const expectedCastTime = Math.round(defaultCastTime / (1 + this.haste.current));
   //     if (!this.constructor.inRange(actualCastTime, expectedCastTime, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-  //       console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}`, this.combatants.selected.activeBuffs());
+  //       console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}`, this.selectedCombatant.activeBuffs());
   //     }
   //   }
   // }

@@ -16,12 +16,12 @@ export default [
   },
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Adds an additional statistic module for <ItemLink id={ITEMS.PARSELS_TONGUE.id} /> to better showcase the uptime of 4 stacks, and also updates the average refresh of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> to be more accurate.</React.Fragment>,
+    changes: <React.Fragment>Adds an additional statistic module for <ItemLink id={ITEMS.PARSELS_TONGUE.id} /> to better showcase the uptime of 4 stacks, and also updates the average refresh of Dire Frenzy to be more accurate.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Updated <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> and <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> to include average time between refreshing, and some other minor wording changes. </React.Fragment>,
+    changes: <React.Fragment>Updated <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> and Dire Frenzy to include average time between refreshing, and some other minor wording changes. </React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -46,7 +46,7 @@ export default [
   },
   {
     date: new Date('2018-01-08'),
-    changes: <React.Fragment>Adjusted what deems a bad cast of <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> to allow casting 3 seconds before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown, or while it's ready to cast. Also adjusts how <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> uptime and 3stack uptime is calculated</React.Fragment>,
+    changes: <React.Fragment>Adjusted what deems a bad cast of <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> to allow casting 3 seconds before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown, or while it's ready to cast. Also adjusts how Dire Frenzy uptime and 3stack uptime is calculated</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -66,7 +66,7 @@ export default [
   },
   {
     date: new Date('2017-12-26'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.DIRE_STABLE_TALENT.id} />, <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} />, <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, <ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added support for Dire Stable, <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} />, <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, <ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -76,7 +76,7 @@ export default [
   },
   {
     date: new Date('2017-12-22'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> and gave them suggestions. </React.Fragment>,
+    changes: <React.Fragment>Added support for Dire Frenzyand <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> and gave them suggestions. </React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -91,7 +91,7 @@ export default [
   },
   {
     date: new Date('2017-11-01'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> modules, <SpellLink id={SPELLS.DIRE_BEAST.id} /> modules, <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> module, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> module, <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> module.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> modules, Dire Beast modules, <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> module, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> module, <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> module.</React.Fragment>,
     contributors: [Putro],
   },
   {

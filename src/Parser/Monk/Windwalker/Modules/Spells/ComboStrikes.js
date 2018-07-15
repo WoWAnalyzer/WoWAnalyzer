@@ -7,17 +7,11 @@ import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatNumber, formatDuration } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
 class ComboStrikes extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _lastSpellUsed = null;
   _lastThreeSpellsUsed = [];
   masteryDropSpellSequence = [];

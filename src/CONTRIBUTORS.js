@@ -224,6 +224,10 @@ export const Chizu = {
   github: 'sMteX',
   avatar: require('./Images/Chizu_avatar.jpg'),
 };
+export const Hordehobbs = {
+  nickname: 'Hordehobbs',
+  github: 'hpabst',
+};
 export const TheBadBossy = {
   nickname: 'TheBadBossy',
   avatar: require('./Images/thebadbossy_avatar.jpg'),
@@ -395,4 +399,11 @@ export const CubeLuke = {
     spec: SPECS.MISTWEAVER_MONK,
     link: 'https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi',
   }],
+};
+
+export const ackwell = {
+  nickname: 'ackwell',
+  github: 'ackwell',
+  discord: 'ackwell#3835',
+  avatar: require('./Images/ackwell-avatar.png'),
 };

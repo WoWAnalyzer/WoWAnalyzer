@@ -1,13 +1,12 @@
 import React from 'react';
 
-import InformationIcon from 'Icons/Information';
+import InformationIcon from 'Interface/Icons/Information';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
@@ -27,7 +26,6 @@ export const ARMOR_INT_BONUS = .05;
  */
 class BaseHealerStatValues extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
@@ -37,7 +35,7 @@ class BaseHealerStatValues extends Analyzer {
   // We assume unlisted spells scale with vers only (this will mostly be trinkets)
   fallbackSpellInfo = {
     int: false,
-    crit: false,
+    crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: false,
@@ -225,8 +223,11 @@ class BaseHealerStatValues extends Analyzer {
 
     return { baseCritChance, ratingCritChance };
   }
+  _isCrit(event) {
+    return event.hitType === HIT_TYPES.CRIT;
+  }
   _criticalStrike(event, healVal) {
-    if (event.hitType === HIT_TYPES.CRIT) {
+    if (this._isCrit(event)) {
       // This collects the total effective healing contributed by the last 1 point of critical strike rating.
       // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
 

@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -18,10 +16,6 @@ const SOTC_MANA_PER_SECOND_RETURN_MAJOR = SOTC_MANA_PER_SECOND_RETURN_MINOR - 10
 const debug = false;
 
 class SpiritOfTheCrane extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   castsTp = 0;
   buffTotm = 0;
   castsBk = 0;
@@ -33,8 +27,9 @@ class SpiritOfTheCrane extends Analyzer {
   manaReturnSotc = 0;
   sotcWasted = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -86,12 +81,12 @@ class SpiritOfTheCrane extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (!this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
-        // console.log('No TotM Buff');
+    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+      // console.log('No TotM Buff');
       return;
     }
 
-      // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
+    // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
     if (spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
       debug && console.log(`TP Casted at 3 stacks ${event.timestamp}`);
       this.lastTotmBuffTimestamp = event.timestamp;
@@ -99,9 +94,9 @@ class SpiritOfTheCrane extends Analyzer {
     }
 
     if (spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
-      if (this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         this.totalTotmBuffs += this.buffTotm;
-          // this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
+        // this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
         debug && console.log(`Black Kick Casted with Totm at ${this.buffTotm} stacks`);
       }
     }
@@ -124,15 +119,15 @@ class SpiritOfTheCrane extends Analyzer {
   }
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
-          <React.Fragment>
-            You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
-          </React.Fragment>
-        )
-          .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-          .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
-          .recommended(`${formatNumber(recommended)} is the recommended mana return`);
-      });
+      return suggest(
+        <React.Fragment>
+          You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
+        </React.Fragment>
+      )
+        .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
+        .recommended(`${formatNumber(recommended)} is the recommended mana return`);
+    });
   }
 
   statistic() {
@@ -141,7 +136,8 @@ class SpiritOfTheCrane extends Analyzer {
         icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
         value={`${formatNumber(this.manaReturnSotc)}`}
         label={(
-          <dfn data-tip={`
+          <dfn
+            data-tip={`
               You gained a raw total of ${((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.sotcWasted / 1000).toFixed(0)}k wasted.<br>
               You lost ${(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks
             <ul>

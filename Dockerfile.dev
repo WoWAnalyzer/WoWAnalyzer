@@ -1,4 +1,4 @@
-FROM node:9.9.0-alpine
+FROM node:10.4-alpine
 
 WORKDIR /usr/src/wowanalyzer/
 
@@ -6,11 +6,9 @@ WORKDIR /usr/src/wowanalyzer/
 COPY package.json package-lock.json /usr/src/wowanalyzer/
 RUN npm install
 
+# Note that several files (including node_modules) are ignored in .dockerignore
 COPY . /usr/src/wowanalyzer/
 
 EXPOSE 3000
-# Webpack dev server has to poll because https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes
-ENV CHOKIDAR_USEPOLLING=true
-ENV NODE_ENV=development
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "safestart"]

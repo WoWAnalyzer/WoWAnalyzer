@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -12,14 +11,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const SACROLASH_DAMAGE_BONUS = 0.15;
 
 class SacrolashsDarkStrike extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
   }
 
   on_byPlayer_damage(event) {

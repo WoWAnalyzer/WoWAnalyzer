@@ -6,6 +6,7 @@ export default {
   name: 'Felhounds of Sargeras',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_hound',
   fight: {
     vantusRuneBuffId: 250156,
     // TODO: Add fight specific props

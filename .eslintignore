@@ -1,4 +1,5 @@
 node_modules
 /build
 /server/build
-/browser-extensions
+/src/localization/_build/
+/src/localization/*/*.js

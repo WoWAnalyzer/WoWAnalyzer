@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -14,15 +13,15 @@ const FROZEN_ORB_CDR_MS = 4000;
  */
 class Tier20_4set extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   totalCdr = 0;
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_cast(event) {

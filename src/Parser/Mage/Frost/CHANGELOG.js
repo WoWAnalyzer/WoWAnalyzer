@@ -3,10 +3,13 @@ import React from 'react';
 import { Sharrq, sref } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
-import ITEMS from 'common/ITEMS';
 
 export default [
+  {
+    date: new Date('2018-06-10'),
+    changes: <React.Fragment>Updated for 8.0 Prepatch</React.Fragment>,
+    contributors: [Sharrq],
+  },
   {
     date: new Date('2018-01-27'),
     changes: <React.Fragment>Marked spec completeness as Great!</React.Fragment>,
@@ -19,7 +22,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} /></React.Fragment>,
+    changes: <React.Fragment>Added support for T21 4pc</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -34,7 +37,7 @@ export default [
   },
   {
     date: new Date('2017-12-01'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_2SET_BONUS_BUFF.id} /></React.Fragment>,
+    changes: <React.Fragment>Added support for T21 2pc</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -44,12 +47,12 @@ export default [
   },
   {
     date: new Date('2017-11-04'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id} /></React.Fragment>,
+    changes: <React.Fragment>Added support for T20 4pc</React.Fragment>,
     contributors: [sref],
   },
   {
     date: new Date('2017-11-04'),
-    changes: <React.Fragment>Added support for <ItemLink id={ITEMS.ICE_TIME.id} /> and <ItemLink id={ITEMS.LADY_VASHJS_GRASP.id} /> Legendaries</React.Fragment>,
+    changes: <React.Fragment>Added support for Ice Time and Lady Vashj's Grasp Legendaries</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -74,7 +77,7 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.FROST_BOMB_TALENT.id} />, <SpellLink id={SPELLS.UNSTABLE_MAGIC_TALENT.id} />, and <SpellLink id={SPELLS.ARCTIC_GALE_TALENT.id} /> modules</React.Fragment>,
+    changes: <React.Fragment>Added Frost Bomb, Unstable Magic, and Actic Gale modules</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -89,7 +92,7 @@ export default [
   },
   {
     date: new Date('2017-10-15'),
-    changes: <React.Fragment>Added Support for <ItemLink id={ITEMS.ZANNESU_JOURNEY.id} />, <ItemLink id={ITEMS.MAGTHERIDONS_BANISHED_BRACERS.id} />, and <ItemLink id={ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id} /></React.Fragment>,
+    changes: <React.Fragment>Added Support for Zannesu' Journey, Magtheridon's Banished Bracers, and Shattered Fragments of Sindragosa</React.Fragment>,
     contributors: [Sharrq],
   },
   {

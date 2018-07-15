@@ -4,23 +4,18 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 class MirrorImage extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-	}
-
   // all images summoned by player seem to have the same sourceID, and vary only by instanceID
   mirrorImagesId;
   damage = 0;
 
-  on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+	   this.active = this.selectedCombatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
   }
 
   on_byPlayer_summon(event) {

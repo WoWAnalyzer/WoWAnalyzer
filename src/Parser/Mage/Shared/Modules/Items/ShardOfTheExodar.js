@@ -1,50 +1,34 @@
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
-/**
- * Shard of the Exodar:
- * Your Time Warp does not cause Temporal Displacement on yourself and is not affected by Temporal Displacement or similar effects on yourself.
- */
-const BLOODLUST_BUFFS = [
-  SPELLS.HEROISM.id,
-  SPELLS.BLOODLUST.id,
-  SPELLS.TIME_WARP.id,
-  SPELLS.NETHERWINDS.id,
-  SPELLS.ANCIENT_HYSTERIA.id,
-  SPELLS.DRUMS_OF_FURY.id,
-  SPELLS.DRUMS_OF_RAGE.id,
-  SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
-];
+import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
 
 const TEAM_COOLDOWN = 600;
 const PERSONAL_COOLDOWN = 300;
 const DURATION = 40;
 
+/**
+ * Shard of the Exodar:
+ * Your Time Warp does not cause Temporal Displacement on yourself and is not affected by Temporal Displacement or similar effects on yourself.
+ */
 class ShardOfTheExodar extends Analyzer {
-
-  static dependencies = {
-		combatants: Combatants,
-	};
-
   actualCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.SHARD_OF_THE_EXODAR.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SHARD_OF_THE_EXODAR.id);
   }
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (BLOODLUST_BUFFS.some(buff => spellId === buff)) {
+    if (BLOODLUST_BUFFS[spellId]) {
       this.actualCasts += 1;
     }
   }
 
   on_toPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (BLOODLUST_BUFFS.some(buff => spellId === buff)) {
+    if (BLOODLUST_BUFFS[spellId]) {
       this.actualCasts += 1;
     }
   }
@@ -58,7 +42,7 @@ class ShardOfTheExodar extends Analyzer {
   }
 
   get personalCasts() {
-    return 1+ Math.floor((this.fightDurationSeconds - DURATION) / PERSONAL_COOLDOWN);
+    return 1 + Math.floor((this.fightDurationSeconds - DURATION) / PERSONAL_COOLDOWN);
   }
 
   get possibleCasts() {

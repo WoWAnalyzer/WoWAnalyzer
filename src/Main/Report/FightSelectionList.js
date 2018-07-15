@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import getWipeCount from 'common/getWipeCount';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import Fight from './Fight';
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class FightSelectionList extends Component {
   static propTypes = {
@@ -25,6 +25,7 @@ class FightSelectionList extends Component {
     })),
     killsOnly: PropTypes.bool.isRequired,
     playerId: PropTypes.number,
+    resultTab: PropTypes.string,
   };
 
   componentWillUnmount() {
@@ -32,7 +33,7 @@ class FightSelectionList extends Component {
   }
 
   render() {
-    const { fights, report, killsOnly, playerId } = this.props;
+    const { fights, report, killsOnly, playerId, resultTab } = this.props;
     return (
       <ul className="list selection">
         {fights
@@ -47,7 +48,7 @@ class FightSelectionList extends Component {
           })
           .map(fight => (
             <li key={fight.id} className="item selectable">
-              <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
+              <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
                 <Fight {...fight} wipes={getWipeCount(report.fights, fight)} />
               </Link>
             </li>

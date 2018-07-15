@@ -4,7 +4,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -21,7 +20,6 @@ const CAST_BUFFER_MS = 100;
 
 class IceLance extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: EnemyInstances,
     abilityTracker: AbilityTracker,
   };
@@ -45,7 +43,7 @@ class IceLance extends Analyzer {
       this.iceLanceTargetId = encodeTargetString(event.targetID, event.targetInstance);
     }
     this.hadFingersProc = false;
-    if (this.combatants.selected.hasBuff(SPELLS.FINGERS_OF_FROST.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST.id)) {
       this.hadFingersProc = true;
     }
   }

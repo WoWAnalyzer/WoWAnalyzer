@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
-import { fetchReport } from 'actions/report';
-import { getReport } from 'selectors/report';
+import { fetchReport } from 'Interface/actions/report';
+import { getReport } from 'Interface/selectors/report';
+import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import FightSelectionList from './FightSelectionList';
-import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class FightSelecter extends React.PureComponent {
   static propTypes = {
@@ -25,7 +25,7 @@ class FightSelecter extends React.PureComponent {
         name: PropTypes.string.isRequired,
         kill: PropTypes.bool,
       })),
-    }).isRequired,
+    }),
     fetchReport: PropTypes.func.isRequired,
   };
   state = {

@@ -19,14 +19,17 @@ class ExecutionAnalyzer extends Analyzer {
   wastedExecutionersPrecisions = 0;
 
   on_byPlayer_cast(event) {
-    if(SPELLS.EXECUTE.id !== event.ability.guid) {
+    if (SPELLS.EXECUTE.id !== event.ability.guid) {
       return;
     }
 
     this.executes += 1;
     const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
     const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION.id);
-    if(executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
+    if (executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
       this.wastedExecutionersPrecisions += 1;
 
       event.meta = event.meta || {};
@@ -37,14 +40,14 @@ class ExecutionAnalyzer extends Analyzer {
 
   get wastedExecutionersPrecisionTresholds() {
     return {
-			actual: this.wastedExecutionersPrecisions / this.executes,
-			isGreaterThan: {
+      actual: this.wastedExecutionersPrecisions / this.executes,
+      isGreaterThan: {
         minor: 0,
         average: 0.05,
         major: 0.1,
       },
-			style: 'percentage',
-		};
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {

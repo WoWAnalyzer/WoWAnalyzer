@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -16,15 +15,12 @@ const MINIMUM_PETS = 2;
  * Cobra Shot deals 10% increased damage for every pet or guardian you have active.
  */
 class WayOfTheCobra extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
   amountOfSummons = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_COBRA_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAY_OF_THE_COBRA_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {

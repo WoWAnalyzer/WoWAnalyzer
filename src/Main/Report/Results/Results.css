@@ -5,8 +5,13 @@
 .statistics-section-title {
   margin-top: 40px;
   margin-bottom: 20px;
+}
+.statistics-section-title h1 {
+  display: inline-block;
+  margin: 0;
   text-indent: 12px;
   font-size: 24px;
+  line-height: inherit;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -57,17 +62,6 @@
   margin-bottom: -0.2em;
 }
 
-/* layout */
-.results > .divider, .results > main > .divider {
-  width: 100%;
-  height: 2px;
-  background: #000;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
-  opacity: 0.8;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
 /* header */
 .results > header {
   margin: 5px auto 25px auto;
@@ -81,14 +75,9 @@
   line-height: 130px;
   height: 130px;
   white-space: nowrap;
-}
-.results > header .player {
-  padding-left: 150px;
-  margin: 0 150px 0 0;
+  padding: 0 150px;
 }
 .results > header .boss {
-  padding-right: 150px;
-  margin: 0 0 0 150px;
   text-align: right;
 }
 .results > header .player:before, .results > header .boss:before {
@@ -100,7 +89,7 @@
   right: 0;
   z-index: -1;
   background: url(./Images/vs-background.png) no-repeat top left;
-  background-size: contain;
+  background-size: 100% 100%;
 }
 .results > header .boss:before {
   transform: scaleX(-1);
@@ -124,43 +113,51 @@
   text-transform: uppercase;
   text-align: center;
   line-height: 1;
+  z-index: 10;
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
 }
-.results > header .about {
-  text-align: center;
-  margin-top: 0.7em;
-  font-size: 1.4em;
-  /*text-transform: uppercase;*/
-  font-weight: 400;
-  color: #ddd;
+@media (max-width: 600px) {
+  .results > header .player, .results > header .boss {
+    font-size: 30px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 70px;
+  }
+  .results > header .player img, .results > header .boss img {
+    width: 50px;
+    height: 50px;
+  }
+  .results > header .versus {
+    font-size: 22px;
+    margin: -11px 0;
+  }
 }
-
 
 @keyframes player-anim {
   from {
-    left: 100%;
+    transform: translateX(100%)
   }
   to {
-    left: 0%;
+    transform: translateX(0%)
   }
 }
 .results > header .player {
   animation: player-anim 400ms ease-out forwards;
-  left: 100%;
+  transform: translateX(100%);
 }
 @keyframes boss-anim {
   0% {
-    left: -100%;
+    transform: translateX(-100%);
   }
   100% {
-    left: 0%;
+    transform: translateX(0%);
   }
 }
 .results > header .boss {
   animation: boss-anim 400ms 1800ms ease-out forwards;
-  left: -100%;
+  transform: translateX(-120%);
 }
 @keyframes fade-in {
   0% {

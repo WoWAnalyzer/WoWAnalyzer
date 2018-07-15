@@ -6,11 +6,15 @@ services:
       dockerfile: Dockerfile.dev
     container_name: wowanalyzer-dev
     ports:
-     - 3000:3000
-     - 35729:35729
+      - 3000:3000
+      - 35729:35729
     volumes:
       - .:/usr/src/wowanalyzer/
       - /usr/src/wowanalyzer/node_modules/
+    environment:
+      # Webpack dev server has to poll because https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
   server-dev:
     build:
       context: .

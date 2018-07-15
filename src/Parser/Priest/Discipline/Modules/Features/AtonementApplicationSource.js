@@ -6,7 +6,6 @@ class AtonementApplicationSource extends Analyzer {
   atonementApplicators = new Map([
     [SPELLS.POWER_WORD_RADIANCE.id, SPELLS.POWER_WORD_RADIANCE.atonementDuration],
     [SPELLS.POWER_WORD_SHIELD.id, SPELLS.POWER_WORD_SHIELD.atonementDuration],
-    [SPELLS.PLEA.id, SPELLS.PLEA.atonementDuration],
     [SPELLS.SHADOW_MEND.id, SPELLS.SHADOW_MEND.atonementDuration],
   ]);
   get duration() {

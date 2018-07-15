@@ -6,21 +6,18 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class RuleOfLaw extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds() {
@@ -46,12 +43,12 @@ class RuleOfLaw extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
-  statistic() {
+  statistic({ i18n }) {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label="Rule of Law uptime"
+        label={i18n.t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`}
       />
     );
   }

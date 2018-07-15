@@ -2,44 +2,45 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
+import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
+import Snapshot from '../FeralCore/Snapshot';
 
-/*
-Identify inefficient refreshes of the Rake DoT:
-  Early refresh of a Rake doing double damage due to Prowl with one that will not do double damage.
-  Pre-pandemic refresh of a Rake doing bonus damage from snapshot buffs with one that will do less damage.
-*/
+/**
+ * Identify inefficient refreshes of the Rake DoT:
+ *  Early refresh of a Rake doing double damage due to Prowl with one that will not do double damage.
+ *  Pre-pandemic refresh of a Rake doing bonus damage from snapshot buffs with one that will do less damage.
+ */
 
-// When you cannot refresh a prowl-buffed rake with prowl, ideally you'd let it tick down. At the
-// moment that it expires apply your new one.
-// Looking for exact timing is unrealistic, so give some leeway.
+/**
+ * When you cannot refresh a prowl-buffed rake with prowl, ideally you'd let it tick down.
+ * Then at the moment that it expires you'd apply a fresh DoT.
+ * But exact timing is unrealistic, so give some leeway.
+ */
 const FORGIVE_PROWL_LOSS_TIME = 1000;
 
-const RAKE_BASE_DURATION = 15000;
 class RakeSnapshot extends Snapshot {
-  rakeCastCount = 0;        // count of rake casts of all kinds
-  prowlLostCastCount = 0;   // count of rake buffed with Prowl ending early due to refresh without Prowl buff
-  prowlLostTimeSum = 0;     // total time cut out from the end of prowl-buffed rake bleeds by refreshing early (milliseconds)
-  downgradeCastCount = 0;   // count of rake DoTs refreshed with weaker snapshot before pandemic
+  static spellCastId = SPELLS.RAKE.id;
+  static debuffId = SPELLS.RAKE_BLEED.id;
+  static durationOfFresh = RAKE_BASE_DURATION;
+  static isProwlAffected = true;
+  static isTigersFuryAffected = true;
+  static isBloodtalonsAffected = true;
 
-  on_initialized() {
-    this.spellCastId = SPELLS.RAKE.id;
-    this.debuffId = SPELLS.RAKE_BLEED.id;
-    this.durationOfFresh = RAKE_BASE_DURATION;
-    this.isProwlAffected = true;
-    this.isTigersFuryAffected = true;
-    this.isBloodtalonsAffected = true;
+  // rake buffed with Prowl ending early due to refresh without Prowl buff
+  prowlLostCastCount = 0;
 
-    if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
-      this.durationOfFresh *= JAGGED_WOUNDS_MODIFIER;
+  // total time cut out from the end of prowl-buffed rake bleeds by refreshing early (milliseconds)
+  prowlLostTimeSum = 0;
+
+  // rake DoTs refreshed with weaker snapshot before pandemic
+  downgradeCastCount = 0;
+
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
+      this.constructor.durationOfFresh = RAKE_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
     }
-  }
-
-  on_byPlayer_cast(event) {
-    if (SPELLS.RAKE.id === event.ability.guid) {
-      ++this.rakeCastCount;
-    }
-    super.on_byPlayer_cast(event);
   }
 
   checkRefreshRule(stateNew) {
@@ -57,7 +58,7 @@ class RakeSnapshot extends Snapshot {
       
       // only mark significant time loss events. Still add up the "insignificant" time lost for possible suggestion.
       if (timeLost > FORGIVE_PROWL_LOSS_TIME) {
-        ++this.prowlLostCastCount;
+        this.prowlLostCastCount += 1;
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
         event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(1)} seconds of a Rake empowered with Prowl by refreshing early.`;
@@ -66,7 +67,7 @@ class RakeSnapshot extends Snapshot {
         stateOld.power > stateNew.power &&
         !stateNew.prowl) {
       // refreshed with weaker DoT before pandemic window - but ignore this rule if the new Rake has Prowl buff as that's more important.
-      ++this.downgradeCastCount;
+      this.downgradeCastCount += 1;
 
       if (!event.meta || (!event.meta.isInefficientCast && !event.meta.isEnhancedCast)) {
         // this downgrade is relatively minor, so don't overwrite output from elsewhere.
@@ -82,15 +83,15 @@ class RakeSnapshot extends Snapshot {
     return (this.prowlLostTimeSum / this.owner.fightDuration) * 60;
   }
   get downgradeProportion() {
-    return this.downgradeCastCount / this.rakeCastCount;
+    return this.downgradeCastCount / this.castCount;
   }
   get prowlLostSuggestionThresholds() {
     return {
       actual: this.prowlLostTimePerMinute,
       isGreaterThan: {
         minor: 0.5,
-        average: 1.5,
-        major: 3.0,
+        average: 2.0,
+        major: 8.0,
       },
       style: 'decimal',
     };
@@ -101,7 +102,7 @@ class RakeSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.30,
+        major: 0.60,
       },
       style: 'percentage',
     };
@@ -122,7 +123,7 @@ class RakeSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
         </React.Fragment>
       )
         .icon(SPELLS.RAKE.icon)
@@ -130,5 +131,10 @@ class RakeSnapshot extends Snapshot {
         .recommended(`${recommended}% is recommended`);
     });
   }
+
+  statistic() {
+    return super.generateStatistic(SPELLS.RAKE.name);
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 export default RakeSnapshot;

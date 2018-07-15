@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ReadableList from 'common/ReadableList';
+import ReadableList from 'Interface/common/ReadableList';
 import parseVersionString from 'common/parseVersionString';
 import Warning from 'common/Alert/Warning';
-import Contributor from 'Main/Contributor';
+import Contributor from 'Interface/Contributor/Button';
 
 class About extends React.PureComponent {
   static propTypes = {
@@ -13,7 +13,7 @@ class About extends React.PureComponent {
         specName: PropTypes.string.isRequired,
         className: PropTypes.string.isRequired,
       }).isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.node.isRequired,
       contributors: PropTypes.arrayOf(PropTypes.shape({
         nickname: PropTypes.string.isRequired,
       })).isRequired,

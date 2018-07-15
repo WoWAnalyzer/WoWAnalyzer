@@ -6,9 +6,10 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
-import App from './Main/App';
-import ErrorBoundary from './Main/ErrorBoundary';
-import reducers from './reducers';
+import reducers from 'Interface/reducers';
+import RootErrorBoundary from 'Interface/RootErrorBoundary';
+import App from 'Main/App';
+import RootLocalizationProvider from 'Interface/RootLocalizationProvider';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -25,11 +26,13 @@ const store = createStore(
 
 const Root = () => (
   <Provider store={store}>
-    <ErrorBoundary>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </ErrorBoundary>
+    <RootErrorBoundary>
+      <RootLocalizationProvider>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </RootLocalizationProvider>
+    </RootErrorBoundary>
   </Provider>
 );
 

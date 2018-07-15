@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TooltipProvider from 'common/TooltipProvider';
+import TooltipProvider from 'Interface/common/TooltipProvider';
 
 import SPELLS from './SPELLS';
 import SpellIcon from './SpellIcon';

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import { BOF as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
@@ -12,7 +11,6 @@ const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 

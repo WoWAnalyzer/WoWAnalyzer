@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -14,21 +13,21 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const HAUNT_DAMAGE_BONUS = 0.15;
+const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
   // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   bonusDmg = 0;
   totalTicks = 0;
   buffedTicks = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

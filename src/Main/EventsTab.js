@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/commonjs/Table';
 import Toggle from 'react-toggle';
+import ReactTooltip from 'react-tooltip';
 import 'react-toggle/style.css';
 
-import InformationIcon from 'Icons/Information';
+import InformationIcon from 'Interface/Icons/Information';
 
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
@@ -107,6 +108,10 @@ class EventsTab extends React.Component {
       search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
+  }
+
+  componentDidMount() {
+    ReactTooltip.rebuild();
   }
 
   findEntity(id) {
@@ -213,7 +218,7 @@ class EventsTab extends React.Component {
         }
 
         // Search Logic
-        if(searchTerms.length === 0) {
+        if (searchTerms.length === 0) {
           return true;
         }
 
@@ -221,13 +226,21 @@ class EventsTab extends React.Component {
         const target = this.findEntity(event.targetID);
 
         return searchTerms.some(searchTerm => {
-          if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
+          if (event.ability !== undefined) {
+            // noinspection EqualityComparisonWithCoercionJS
+            if (event.ability.guid == searchTerm) { // eslint-disable-line eqeqeq
+              return true;
+            } else if (event.ability.name && event.ability.name.toLowerCase().includes(searchTerm)) {
+              return true;
+            }
+          }
+          if (source !== null && source.name.toLowerCase().includes(searchTerm)) {
             return true;
-          } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
+          }
+          if (target !== null && target.name.toLowerCase().includes(searchTerm)) {
             return true;
-          } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
-            return true;
-          } else if(event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
+          }
+          if (event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
             return true;
           }
           return false;
@@ -347,6 +360,21 @@ class EventsTab extends React.Component {
                         <React.Fragment>
                           <span className={rowData.type}>
                             {formatThousands(rowData.amount)}
+                          </span>{' '}
+                          <img
+                            src="/img/absorbed.png"
+                            alt="Absorbed"
+                            className="icon"
+                          />
+                        </React.Fragment>
+                      );
+                    }
+                    if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
+                      return (
+                        <React.Fragment>
+                          Applied an absorb of{' '}
+                          <span className="absorbed">
+                            {formatThousands(rowData.absorb)}
                           </span>{' '}
                           <img
                             src="/img/absorbed.png"
