@@ -120,9 +120,10 @@ import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHou
 import VantusRune from './Modules/Spells/VantusRune';
 
 // BFA
-import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 // Dungeons
+import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
@@ -254,8 +255,9 @@ class CombatLogParser {
     umbralMoonglaives: UmbralMoonglaives,
 
     // BFA
-    zandalariLoaFigurine: ZandalariLoaFigurine,
+    gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
