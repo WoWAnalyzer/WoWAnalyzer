@@ -18,6 +18,13 @@ export default {
     icon: 'spell_druid_wildmushroom_frenzy',
   },
 
+  // Atal'Dazar
+  TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
+    id: 266018,
+    name: 'Touch of the Voodoo',
+    icon: 'ability_shaman_repulsiontotem',
+  },
+
   // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE_BUFF: {
     id: 271054,

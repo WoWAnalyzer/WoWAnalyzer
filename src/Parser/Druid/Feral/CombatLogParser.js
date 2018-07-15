@@ -7,6 +7,7 @@ import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
+import EnergyCapTracker from './Modules/Features/EnergyCapTracker';
 
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
+    energyCapTracker: EnergyCapTracker,
 
     // bleeds
     rakeUptime: RakeUptime,
