@@ -1,4 +1,5 @@
 const HIT_TYPES = {
+  MISS: 0,
   NORMAL: 1,
   CRIT: 2,
   NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
