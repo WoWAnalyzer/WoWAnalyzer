@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
+// import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
+// import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
