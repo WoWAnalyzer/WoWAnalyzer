@@ -23,8 +23,11 @@ import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
 import Predator from './Modules/Talents/Predator';
 import Bloodtalons from './Modules/Talents/Bloodtalons';
+import BrutalSlashHitCount from './Modules/Talents/BrutalSlashHitCount';
 
 import PredatorySwiftness from './Modules/Spells/PredatorySwiftness';
+import ThrashHitCount from './Modules/Spells/ThrashHitCount';
+import SwipeHitCount from './Modules/Spells/SwipeHitCount';
 
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -52,6 +55,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // spells
     predatorySwiftness: PredatorySwiftness,
+    thrashHitCount: ThrashHitCount,
+    swipeHitCount: SwipeHitCount,
 
     // talents
     savageRoarUptime: SavageRoarUptime,
@@ -59,7 +64,8 @@ class CombatLogParser extends CoreCombatLogParser {
     savageRoarDmg: SavageRoarDmg,
     predator: Predator,
     bloodtalons: Bloodtalons,
-    
+    brutalSlashHitCount: BrutalSlashHitCount,
+
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
