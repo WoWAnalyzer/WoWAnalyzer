@@ -6,17 +6,6 @@ import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import StaggerFabricator from '../Core/StaggerFabricator';
 
-const GUARD_DURATION = 15000;
-const GUARD_REMOVESTAGGER_REASON = {
-  type: 'absorbed',
-  ability: {
-    guid: SPELLS.GUARD_TALENT.id,
-    name: SPELLS.GUARD_TALENT.name,
-    icon: SPELLS.GUARD_TALENT.icon,
-  },
-  __fabricated: true,
-};
-
 class Guard extends Analyzer {
   static dependencies = {
     fab: StaggerFabricator,
