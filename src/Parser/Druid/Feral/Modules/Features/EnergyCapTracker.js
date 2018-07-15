@@ -106,7 +106,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy"/>}
+        icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.cappedProportion)}%`}
         label="Time with capped energy"
         tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
