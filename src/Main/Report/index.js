@@ -141,23 +141,26 @@ class Report extends React.Component {
       events = parser.normalize(events);
       this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
 
-      const batchSize = 300;
       const numEvents = events.length;
-      let offset = 0;
+      // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
+      const maxBatchDuration = 60; // ms
 
       timeAvailable && console.time('player event parsing');
-      while (offset < numEvents) {
+      let eventIndex = 0;
+      while (eventIndex < numEvents) {
         if (this._jobId !== jobId) {
           return;
         }
-        const eventsBatch = events.slice(offset, offset + batchSize);
-        parser.parseEvents(eventsBatch);
-        const progress = Math.min(1, (offset + batchSize) / numEvents);
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        // eslint-disable-next-line no-await-in-loop
-        await this.timeout(0);
 
-        offset += batchSize;
+        const start = Date.now();
+        while (((Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
+          parser.triggerEvent(events[eventIndex]);
+          eventIndex += 1;
+        }
+        const progress = Math.min(1, eventIndex / numEvents);
+        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+        // Delay the next iteration until next frame so the browser doesn't appear to be frozen
+        await this.timeout(0); // eslint-disable-line no-await-in-loop
       }
       timeAvailable && console.timeEnd('player event parsing');
 

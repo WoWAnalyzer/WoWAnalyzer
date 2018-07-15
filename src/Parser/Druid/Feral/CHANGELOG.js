@@ -6,6 +6,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Fixed bugs with combo generation from AoE attacks and detecting when <SpellLink id={SPELLS.PRIMAL_FURY.id} /> waste is unavoidable.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Added tracking for how <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges are used.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-07-15'),
+    changes: 'Added tracking of time spent at maximum energy.',
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Added tracking for number of targets hit by <SpellLink id={SPELLS.CAT_SWIPE.id} />, <SpellLink id={SPELLS.THRASH_FERAL.id} />, and <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-06-30'),
     changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />.</React.Fragment>,
     contributors: [Anatta336],

@@ -22,6 +22,10 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.IMPASSIVE_VISAGE_HEAL.id,
   SPELLS.VAMPIRIC_SPEED_HEAL.id,
 
+  // Items
+  SPELLS.REJUVENATING_TIDES.id,
+  SPELLS.TOUCH_OF_THE_VOODOO.id,
+
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,

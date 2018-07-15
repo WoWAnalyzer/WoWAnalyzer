@@ -85,10 +85,10 @@ describe('stats', () => {
 
   it('scales azerite effects correctly', () => {
     // elusive footwork
-    expect(calculateAzeriteEffects(278571, 59)).toEqual([684]); // ilvl 310
-    expect(calculateAzeriteEffects(278571, 79)).toEqual([823]); // ilvl 330
-    expect(calculateAzeriteEffects(278571, 104)).toEqual([1038]); // ilvl 355
+    expect(calculateAzeriteEffects(278571, 310)).toEqual([684]); // ilvl 310
+    expect(calculateAzeriteEffects(278571, 330)).toEqual([823]); // ilvl 330
+    expect(calculateAzeriteEffects(278571, 355)).toEqual([1038]); // ilvl 355
     // gemhide
-    expect(calculateAzeriteEffects(268596, 79)).toEqual([115, 508]); // ilvl 330
+    expect(calculateAzeriteEffects(268596, 330)).toEqual([115, 508]); // ilvl 330
   });
 });

@@ -300,7 +300,7 @@ export default {
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
   },
-  EXPOSED_ELEMENTS_DEBUFF: {
+  EXPOSED_ELEMENTS_TALENT_DEBUFF: {
     id: 269808,
     name: "Exposed Elements Debuff",
     icon: "spell_nature_callstorm",
@@ -606,6 +606,11 @@ export default {
   ENHANCE_SHAMAN_T21_4SET_EQUIP: {
     id: 251761,
     name: 'T21 4set bonus equip flag',
+    icon: 'ability_shaman_ascendance',
+  },
+  EXPOSED_ELEMENTS_T21_ENHANCER:{
+    id: 252151,
+    name: 'T21 4set debuff',
     icon: 'ability_shaman_ascendance',
   },
   //Enhancement Traits

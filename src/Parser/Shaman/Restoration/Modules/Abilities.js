@@ -417,6 +417,12 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 80,
       },
+      {
+        spell: SPELLS.NATURES_GUARDIAN_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id),
+      },
     ];
   }
 }

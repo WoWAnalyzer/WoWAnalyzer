@@ -9,6 +9,11 @@ import { tsabo, Cloake, Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-09'),
+    changes: 'Added blindside support.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-07-07'),
     changes: 'Update for prepatch.',
     contributors: [tsabo],

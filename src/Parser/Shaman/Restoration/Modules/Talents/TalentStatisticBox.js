@@ -11,6 +11,7 @@ import Undulation from './Undulation';
 import Deluge from './Deluge';
 import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
+import NaturesGuardian from './NaturesGuardian';
 import Downpour from './Downpour';
 import FlashFlood from './FlashFlood';
 import CloudburstTotem from './CloudburstTotem';
@@ -27,6 +28,7 @@ class TalentStatisticBox extends Analyzer {
     deluge: Deluge,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
+    naturesGuardian: NaturesGuardian,
     downpour: Downpour,
     flashFlood: FlashFlood,
     cloudburstTotem: CloudburstTotem,
@@ -50,6 +52,7 @@ class TalentStatisticBox extends Analyzer {
         {this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
+        {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id) ? this.naturesGuardian.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) ? this.flashFlood.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}
