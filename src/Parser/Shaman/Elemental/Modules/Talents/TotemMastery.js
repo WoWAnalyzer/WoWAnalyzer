@@ -18,7 +18,7 @@ class TotemMastery extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id);
   }
 
   get minUptime() {
@@ -30,7 +30,7 @@ class TotemMastery extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT.id) {
+    if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id) {
       this.casts += 1;
     }
   }
@@ -38,8 +38,8 @@ class TotemMastery extends Analyzer {
   suggestions(when) {
     when(this.minUptime).isLessThan(0.99)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT.id} /> uptime can be improved. Try to place the totems better.</span>)
-          .icon(SPELLS.TOTEM_MASTERY_TALENT.icon)
+        return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime can be improved. Try to place the totems better.</span>)
+          .icon(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.15);
@@ -49,7 +49,7 @@ class TotemMastery extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} />}
         value={`${formatPercentage(this.minUptime)} %`}
         label="Uptime"
         tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
