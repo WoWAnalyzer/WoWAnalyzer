@@ -14,18 +14,16 @@ const appDirectory = fs.realpathSync(process.cwd());
 
 loadDotEnv(appDirectory);
 
-// Any files that exist can be accessed directly.
-// If the server has been compiled, the path will be different.
-const buildFolder = path.basename(appDirectory) === 'build' ? path.join(appDirectory, '..', '..', 'build') : path.join(appDirectory, '..', 'build');
 
 const app = Express();
 configureRaven(app);
 app.use(compression());
-app.use(Express.static(buildFolder));
 app.use(BodyParser.urlencoded({ extended: false }));
 configureSession(app);
 configurePassport(app);
+
 app.use(require('./controllers').default);
+
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);
 });
