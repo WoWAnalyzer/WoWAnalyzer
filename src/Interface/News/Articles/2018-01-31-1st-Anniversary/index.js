@@ -387,7 +387,7 @@ class Article extends React.PureComponent {
 
           <Image source={HolyPriest} description="The initial Holy Priest version" /><br />
 
-          <Contributor {...CONTRIBUTORS.Skamer} /> also contributed a couple of things to this spec, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} />.
+          <Contributor {...CONTRIBUTORS.Skamer} /> also contributed a couple of things to this spec, such as support for the Divinity talent.
         </Item>
 
         <Item title="Low health healing" date="5 Jul">

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
@@ -23,10 +22,6 @@ const debug = false;
  * energy and ignore the current energy level.
  */
 class FerociousBiteEnergy extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  
   biteCount = 0;
   freeBiteCount = 0;
   lowEnergyBiteCount = 0;

@@ -6,7 +6,7 @@ import ChevronIcon from 'Interface/Icons/Chevron';
 import InformationIcon from 'Interface/Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Expandable from 'Main/Expandable';
+import Expandable from 'Interface/common/Expandable';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import performanceForThresholds from './performanceForThresholds';
@@ -23,6 +23,8 @@ class Checklist extends Analyzer {
     super(...args);
     this.whenFilter = this.whenFilter.bind(this);
     this.renderRule = this.renderRule.bind(this);
+
+    console.warn('DEPRECATED', 'Defining the Checklist via the Checklist analyzer is deprecated. Use the React method instead. This is necessary for internationalization and leads to more natural code. See Holy Paladin for an example.');
   }
 
   colorForPerformance(performance) {

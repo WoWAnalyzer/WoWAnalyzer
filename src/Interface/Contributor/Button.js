@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import lazyLoadComponent from 'common/lazyLoadComponent';
 import Portal from 'Main/Portal';
 
-import ContributorDetails from './Details';
 import makeContributorUrl from './makeUrl';
+
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ './Details').then(exports => exports.default));
 
 class Button extends React.PureComponent {
   static propTypes = {

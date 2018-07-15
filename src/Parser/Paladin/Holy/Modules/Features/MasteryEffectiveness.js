@@ -28,8 +28,9 @@ class MasteryEffectiveness extends Analyzer {
   masteryHealEvents = [];
 
   hasBeaconOfTheLightbringer = false;
-  on_initialized() {
-    this.hasBeaconOfTheLightbringer = this.combatants.selected.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
+  constructor(...args) {
+    super(...args);
+    this.hasBeaconOfTheLightbringer = this.selectedCombatant.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
   }
 
   on_cast(event) {
@@ -111,7 +112,7 @@ class MasteryEffectiveness extends Analyzer {
     if (!this.lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
       return;
-    } else if (this.combatants.selected === null) {
+    } else if (this.selectedCombatant === null) {
       console.error('Received a heal before selected combatant meta data was received.', event);
       if (process.env.NODE_ENV === 'development') {
         throw new Error('This shouldn\'t happen anymore. Save to remove after 8 march 2018.');
@@ -128,7 +129,7 @@ class MasteryEffectiveness extends Analyzer {
       //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
       const distance = this.getDistanceForMastery(event);
-      const isRuleOfLawActive = this.combatants.selected.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
+      const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 

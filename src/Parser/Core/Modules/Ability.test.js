@@ -1,27 +1,20 @@
-import getParserMock from 'tests/getParserMock';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import Ability from './Ability';
 import Abilities from './Abilities';
 
 describe('Core/Modules/Ability', () => {
   let parserMock;
-  let combatantsMock;
   let hasteMock;
   let abilitiesMock;
   beforeEach(() => {
     // Reset mocks:
-    parserMock = getParserMock();
-    combatantsMock = {
-      selected: {
-
-      },
-    };
+    parserMock = new TestCombatLogParser();
     hasteMock = {
       current: 0,
     };
 
     abilitiesMock = new Abilities(parserMock, {
-      combatants: combatantsMock,
       haste: hasteMock,
     });
   });

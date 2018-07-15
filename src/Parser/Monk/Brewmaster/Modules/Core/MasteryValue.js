@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -132,7 +131,6 @@ class StackMarkovChain {
  */
 class MasteryValue extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     dmg: DamageTaken,
     stats: StatTracker,
   };
@@ -154,7 +152,7 @@ class MasteryValue extends Analyzer {
   // returns the current chance to dodge a damage event assuming the
   // event is dodgeable
   dodgeChance(masteryStacks, masteryRating, agility, sourceID, timestamp = null) {
-    const brewStacheDodge = this.combatants.selected.hasBuff(SPELLS.BREW_STACHE.id, timestamp) ? BREW_STACHE_DODGE : 0;
+    const brewStacheDodge = this.selectedCombatant.hasBuff(SPELLS.BREW_STACHE.id, timestamp) ? BREW_STACHE_DODGE : 0;
     const masteryPercentage = this.stats.masteryPercentage(masteryRating, true);
     return _clampProb(masteryPercentage * masteryStacks + this.baseDodge(agility) + brewStacheDodge - this.dodgePenalty(sourceID));
   }
@@ -199,7 +197,7 @@ class MasteryValue extends Analyzer {
   //
   // neither blackout combo + purify nor t21 are supported yet
   _appliesStack(event) {
-    return [SPELLS.BLACKOUT_STRIKE.id, SPELLS.BREATH_OF_FIRE.id].includes(event.ability.guid);
+    return event.ability.guid === SPELLS.BLACKOUT_STRIKE.id;
   }
 
   meanHitByAbility(spellId) {

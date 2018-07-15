@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-16'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> cooldown and duration and added <SpellLink id={SPELLS.GUARD_TALENT.id} />, along with other changes in beta build 26812.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: 'Fixed how the "Damage Taken by Ability" table treats very small hits (notably: Aggramar\'s Sacrifice is now always classified as Physical).',
     contributors: [emallson],

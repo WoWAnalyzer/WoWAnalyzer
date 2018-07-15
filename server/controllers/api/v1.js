@@ -65,9 +65,9 @@ class ApiRequestHandler {
     try {
       const wclStart = Date.now();
       const jsonString = await request.get({
-        url: `https://www.warcraftlogs.com/${path}`,
+        url: `${process.env.WARCRAFT_LOGS_DOMAIN}${path}`,
         headers: {
-          'User-Agent': 'WoWAnalyzer.com API',
+          'User-Agent': process.env.USER_AGENT,
         },
         gzip: true, // using gzip is 80% quicker
         forever: true, // we'll be making several requests, so pool connections

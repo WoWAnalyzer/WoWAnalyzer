@@ -7,8 +7,13 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import DarkShadow from './DarkShadow';
+import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 
 class DarkShadowSpecterOfBetrayal extends DarkShadow {
+  static dependencies = {
+    ...DarkShadow.dependencies,
+    danceDamageTracker: DanceDamageTracker,
+  }
   
   suggestions(when) {
     const totalSpecterCastsInShadowDance = this.danceDamageTracker.getAbility(SPELLS.SUMMON_DREAD_REFLECTION.id).casts;

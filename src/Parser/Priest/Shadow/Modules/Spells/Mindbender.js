@@ -4,9 +4,7 @@ import PETS from 'common/PETS';
 import Pet from '../Core/Pet';
 import Voidform from './Voidform';
 
-
 const MINDBENDER_UPTIME_MS = 15000;
-const MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT = 1500;
 
 class Mindbender extends Pet {
   static dependencies = {
@@ -17,14 +15,13 @@ class Mindbender extends Pet {
   _pet = PETS.MINDBENDER;
   _mindbenders = {};
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
-
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
   }
 
   get suggestionStackThresholds() {
-    return (mindbender) => ({
+    return mindbender => ({
       actual: mindbender.voidformStacks,
       isLessThan: {
         minor: 23,
@@ -41,22 +38,24 @@ class Mindbender extends Pet {
 
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id) return;
+    if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id) {
+      return;
+    }
 
     this._mindbenders[event.timestamp] = {
-      voidformStacks: (this.voidform.inVoidform && this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length -1].stack) || 0,
+      voidformStacks: (this.voidform.inVoidform && this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length - 1].stack) || 0,
     };
 
+    if (!this.voidform.inVoidform) {
+      return;
+    }
 
-    if(!this.voidform.inVoidform) return;
-    const duration = MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.combatants.selected.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]);
+    const duration = MINDBENDER_UPTIME_MS;
     this.voidform.addVoidformEvent(SPELLS.MINDBENDER_TALENT_SHADOW.id, {
       start: this.voidform.normalizeTimestamp(event),
-      end: this.voidform.normalizeTimestamp({timestamp: event.timestamp + duration}),
-      stack: this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length -1].stack,
+      end: this.voidform.normalizeTimestamp({ timestamp: event.timestamp + duration }),
+      stack: this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length - 1].stack,
     });
-
-
   }
 }
 

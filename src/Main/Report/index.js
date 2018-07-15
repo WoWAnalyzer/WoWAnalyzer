@@ -27,6 +27,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
+import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -89,11 +90,6 @@ class Report extends React.Component {
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
-  createParser(ParserClass, report, fight, player) {
-    const playerPets = this.getPlayerPetsFromReport(report, player.id);
-
-    return new ParserClass(report, player, playerPets, fight);
-  }
   async setStatePromise(newState) {
     return new Promise((resolve, reject) => {
       this.setState(newState, resolve);
@@ -107,9 +103,7 @@ class Report extends React.Component {
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
     const parserClass = await config.parser();
-    const parser = this.createParser(parserClass, report, fight, player);
-    // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.initialize(combatants);
+    const parser = new parserClass(report, player, fight, combatants);
     await this.setStatePromise({
       config,
       parser,
@@ -147,29 +141,30 @@ class Report extends React.Component {
       events = parser.normalize(events);
       this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
 
-      const batchSize = 300;
       const numEvents = events.length;
-      let offset = 0;
+      // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
+      const maxBatchDuration = 60; // ms
 
       timeAvailable && console.time('player event parsing');
-      while (offset < numEvents) {
+      let eventIndex = 0;
+      while (eventIndex < numEvents) {
         if (this._jobId !== jobId) {
           return;
         }
-        const eventsBatch = events.slice(offset, offset + batchSize);
-        parser.parseEvents(eventsBatch);
-        const progress = Math.min(1, (offset + batchSize) / numEvents);
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        // eslint-disable-next-line no-await-in-loop
-        await this.timeout(0);
 
-        offset += batchSize;
+        const start = Date.now();
+        while (((Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
+          parser.triggerEvent(events[eventIndex]);
+          eventIndex += 1;
+        }
+        const progress = Math.min(1, eventIndex / numEvents);
+        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+        // Delay the next iteration until next frame so the browser doesn't appear to be frozen
+        await this.timeout(0); // eslint-disable-line no-await-in-loop
       }
       timeAvailable && console.timeEnd('player event parsing');
 
-      parser.fabricateEvent({
-        type: 'finished',
-      });
+      parser.finish();
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
@@ -327,9 +322,6 @@ class Report extends React.Component {
     }
     return fetchByNameAttempt;
   }
-  getPlayerPetsFromReport(report, playerId) {
-    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
-  }
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
@@ -373,22 +365,30 @@ class Report extends React.Component {
     if (!parser) {
       return (
         <React.Fragment>
+          <FightNavigationBar />
+
           <DocumentTitle title={fight && playerName ? `${getFightName(report, fight)} by ${playerName} in ${report.title}` : report.title} />
 
-          <ActivityIndicator text="Initializing analyzer..." />
+          <div className="container">
+            <ActivityIndicator text="Initializing analyzer..." />
+          </div>
         </React.Fragment>
       );
     }
 
     return (
       <React.Fragment>
+        <FightNavigationBar />
+
         <DocumentTitle title={`${getFightName(report, fight)} by ${playerName} in ${report.title}`} />
 
-        <Results
-          parser={parser}
-          finished={this.state.finished}
-          makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
-        />
+        <div className="container">
+          <Results
+            parser={parser}
+            finished={this.state.finished}
+            makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+          />
+        </div>
       </React.Fragment>
     );
   }

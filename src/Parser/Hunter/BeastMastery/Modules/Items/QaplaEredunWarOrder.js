@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber, formatPercentage } from 'common/format';
 import ITEMS from "common/ITEMS/HUNTER";
@@ -19,7 +18,6 @@ const COOLDOWN_REDUCTION_MS = 3000;
  */
 class QaplaEredunWarOrder extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
@@ -27,17 +25,18 @@ class QaplaEredunWarOrder extends Analyzer {
   effectiveKillCommandReductionMs = 0;
   wastedKillCommandReductionMs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {
-      const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(spellId);
+      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
       if (this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) < (COOLDOWN_REDUCTION_MS + globalCooldown)) {
         const effectiveReductionMs = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) - globalCooldown;
         this.effectiveKillCommandReductionMs += effectiveReductionMs;
@@ -73,14 +72,14 @@ class QaplaEredunWarOrder extends Analyzer {
 
   get killerCobraThreshold() {
     return {
-      actual: this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
+      actual: this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
       isEqual: true,
       style: 'boolean',
     };
   }
 
   suggestions(when) {
-    const spellName = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
+    const spellName = this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     when(this.killerCobraThreshold).addSuggestion((suggest) => {
       return suggest(<React.Fragment>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </React.Fragment>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)

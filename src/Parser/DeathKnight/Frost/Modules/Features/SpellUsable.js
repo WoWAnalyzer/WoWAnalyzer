@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 //import Abilities from '../Abilities';
@@ -25,31 +24,31 @@ const ICECAP_ABILITIES = [
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
     globalCooldown: GlobalCooldown,
   };
 
   lastCritTime = -2000;
 
-  on_initialized() {
-    this.hasIcecap = this.combatants.selected.hasTalent(SPELLS.ICECAP_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.hasIcecap = this.selectedCombatant.hasTalent(SPELLS.ICECAP_TALENT.id);
   }
 
-  on_byPlayer_damage(event){
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
-    const offInternalCD = (this.lastCritTime + this.globalCooldown.getCurrentGlobalCooldown(spellId)) <= event.timestamp;
-    if(CRYSTALLINE_SWORDS_ABILITIES.some(id => spellId === id)){
-      if(this.isOnCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id)){
+    const offInternalCD = (this.lastCritTime + this.globalCooldown.getGlobalCooldownDuration(spellId)) <= event.timestamp;
+    if (CRYSTALLINE_SWORDS_ABILITIES.some(id => spellId === id)) {
+      if (this.isOnCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id)) {
         this.reduceCooldown(SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id, RUNIC_CHILLS_COOLDOWN_REDUCTION_MS);
       }
     }
-    if(this.hasIcecap && ICECAP_ABILITIES.some(id => spellId === id) && isCrit){     
-      if(this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD){
+    if (this.hasIcecap && ICECAP_ABILITIES.some(id => spellId === id) && isCrit) {
+      if (this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD) {
         this.reduceCooldown(SPELLS.PILLAR_OF_FROST.id, ICECAP_COOLDOWN_REDUCTION_MS);
         this.lastCritTime = event.timestamp;
       }
-    }    
+    }
   }
 }
 

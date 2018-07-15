@@ -3,7 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
 
@@ -12,7 +11,6 @@ const WORMLIFESPAN = 14900;
 class Bloodworms extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   totalSummons=0;
@@ -24,8 +22,9 @@ class Bloodworms extends Analyzer {
   bloodworm = [];
 
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
   }
 
   poppedWorms(bloodworm) {
@@ -85,7 +84,7 @@ class Bloodworms extends Analyzer {
         label="Bloodworm Stats"
         tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>
         <strong>Number of worms summoned:</strong> ${this.totalSummons}<br>
-        <strong># of worms popped early:</strong> ${this.poppedWorms(this.bloodworm)}
+        <strong>Number of worms popped early:</strong> ${this.poppedWorms(this.bloodworm)}
         `}
       />
 

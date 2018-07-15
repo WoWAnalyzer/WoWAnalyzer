@@ -5,7 +5,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -19,7 +18,6 @@ import StatisticBox from 'Main/StatisticBox';
 class Caltrops extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     enemies: Enemies,
   };
@@ -27,8 +25,9 @@ class Caltrops extends Analyzer {
   bonusDamage = 0;
   caltropsCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CALTROPS_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

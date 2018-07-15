@@ -3,18 +3,14 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 class ShelterOfRin extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.SHELTER_OF_RIN.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.SHELTER_OF_RIN.id);
   }
 
   on_byPlayer_heal(event) {

@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -14,15 +13,12 @@ const DAMAGE_BONUS = 0.1;
  * Increases the damage of Starfall, Starsurge and Echoing Stars by 10%.
  */
 class Tier21_2set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   starsurgeDamage = 0;
   starfallDamage = 0;
 
-  on_initialized() {
-	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+	this.active = this.selectedCombatant.hasBuff(SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_damage(event) {

@@ -12,7 +12,6 @@ import { findByBossId } from 'Raids';
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
-import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
@@ -118,22 +117,18 @@ import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/Riftw
 import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
-import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-// Netherlight Crucible Traits
-import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
-import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
-import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
-import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
-import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
-import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
-import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
-import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
-import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
-import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
-import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
+
+// BFA
+import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
+import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+// Dungeons
+import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
+import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
+import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+// Crafted
+import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -142,24 +137,25 @@ import EventsNormalizer from './EventsNormalizer';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 
-let _modulesDeprecatedWarningSent = false;
-
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
+  static internalModules = {
+    combatants: Combatants,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
+  };
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
-    status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
     deathTracker: DeathTracker,
 
-    combatants: Combatants,
     enemies: Enemies,
     enemyInstances: EnemyInstances,
     pets: Pets,
@@ -178,8 +174,6 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
-    deathDowntime: DeathDowntime,
-    totalDowntime: TotalDowntime,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
@@ -257,25 +251,19 @@ class CombatLogParser {
     riftworldCodex: RiftworldCodex,
     eyeOfHounds: EyeOfHounds,
 
-    // Concordance of the Legionfall
-    concordance: Concordance,
-    // Netherlight Crucible Traits
-    darkSorrows: DarkSorrows,
-    tormentTheWeak: TormentTheWeak,
-    chaoticDarkness: ChaoticDarkness,
-    shadowbind: Shadowbind,
-    lightsEmbrace: LightsEmbrace,
-    infusionOfLight: InfusionOfLight,
-    secureInTheLight: SecureInTheLight,
-    shocklight: Shocklight,
-    refractiveShell: RefractiveShell,
-    murderousIntent: MurderousIntent,
-    masterOfShadows: MasterOfShadows,
-    lightSpeed: LightSpeed,
-    nlcTraits: NLCTraits,
-
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
+
+    // BFA
+    gildedLoaFigurine: GildedLoaFigurine,
+    firstMatesSpyglass: FirstMatesSpyglass,
+    revitalizingVoodooTotem: RevitalizingVoodooTotem,
+    // Dungeons
+    lingeringSporepods: LingeringSporepods,
+    fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    balefireBranch: BalefireBranch,
+    // Crafted
+    darkmoonDeckTides: DarkmoonDeckTides,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -284,6 +272,7 @@ class CombatLogParser {
   player = null;
   playerPets = null;
   fight = null;
+  combatantInfoEvents = null;
 
   adjustForDowntime = true;
   get hasDowntime() {
@@ -292,13 +281,6 @@ class CombatLogParser {
 
   _modules = {};
   _activeAnalyzers = {};
-  get modules() {
-    if (!_modulesDeprecatedWarningSent) {
-      console.warn('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprecatedWarningSent = true;
-    }
-    return this._modules;
-  }
   get activeModules() {
     return Object.keys(this._modules)
       .map(key => this._modules[key])
@@ -319,9 +301,7 @@ class CombatLogParser {
   get fightDuration() {
     return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
   }
-  get finished() {
-    return this._modules.status.finished;
-  }
+  finished = false;
 
   get playersById() {
     return this.report.friendlies.reduce((obj, player) => {
@@ -329,22 +309,29 @@ class CombatLogParser {
       return obj;
     }, {});
   }
+  get selectedCombatant() {
+    return this._modules.combatants.selected;
+  }
 
-  constructor(report, player, playerPets, fight) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents) {
     this.report = report;
-    this.player = player;
-    this.playerPets = playerPets;
-    this.fight = fight;
-    if (fight) {
-      this._timestamp = fight.start_time;
-      this.boss = findByBossId(fight.boss);
-    } else if (process.env.NODE_ENV !== 'test') {
-      throw new Error('fight argument was empty.');
-    }
+    this.player = selectedPlayer;
+    this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
+    this.fight = selectedFight;
+    this.combatantInfoEvents = combatantInfoEvents;
+    this._timestamp = selectedFight.start_time;
+    this.boss = findByBossId(selectedFight.boss);
 
     this.initializeModules({
+      ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
       ...this.constructor.specModules,
+    });
+  }
+  finish() {
+    this.finished = true;
+    this.fabricateEvent({
+      type: 'finished',
     });
   }
 
@@ -366,6 +353,7 @@ class CombatLogParser {
         options = null;
       }
 
+      // region Resolve dependencies
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
@@ -380,6 +368,7 @@ class CombatLogParser {
           }
         });
       }
+      // endregion
 
       if (missingDependencies.length === 0) {
         if (debugDependencyInjection) {
@@ -390,16 +379,18 @@ class CombatLogParser {
           }
         }
         const priority = Object.keys(this._modules).length;
+        // region Load Module
         // eslint-disable-next-line new-cap
         const module = new moduleClass(this, availableDependencies, priority);
-        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
+          // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+          // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
           Object.keys(options).forEach(key => {
             module[key] = options[key];
           });
         }
         this._modules[desiredModuleName] = module;
+        // endregion
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -432,31 +423,6 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-  eventHistory = [];
-  initialize(combatants) {
-    this.initializeNormalizers(combatants);
-    this.initializeAnalyzers(combatants);
-    this.triggerInitialized();
-  }
-  initializeAnalyzers(combatants) {
-    this.parseEvents(combatants);
-  }
-  triggerInitialized() {
-    this.fabricateEvent({
-      type: 'initialized',
-    });
-  }
-
-  initializeNormalizers(combatants) {
-    this.activeModules
-      .filter(module => module instanceof EventsNormalizer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        if (module.initialize) {
-          module.initialize(combatants);
-        }
-      });
-  }
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -469,16 +435,52 @@ class CombatLogParser {
     return events;
   }
 
-  parseEvents(events) {
-    const numEvents = events.length;
-    for (let i = 0; i < numEvents; i += 1) {
-      const event = events[i];
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
-    }
-  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
+  eventHistory = [];
+  _eventListeners = {};
+  addEventListener(type, listener, options = null) {
+    // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
+    let handler = listener;
+    if (options.byPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.byPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+
+    const existingEventListener = this._eventListeners[type];
+    this._eventListeners[type] = existingEventListener ? function (...args) {
+      existingEventListener(...args);
+      handler(...args);
+    } : handler;
+  }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -487,26 +489,27 @@ class CombatLogParser {
       }
     }
 
-    // This loop has a big impact on parsing performance
-    let garbageCollect = false;
-    const analyzers = this._activeAnalyzers;
-    const numAnalyzers = analyzers.length;
-    for (let i = 0; i < numAnalyzers; i++) {
-      const analyzer = analyzers[i];
-      if (analyzer.active) {
-        analyzer.triggerEvent(event);
-      } else {
-        garbageCollect = true;
+    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
+
+    this._timestamp = event.timestamp;
+
+    {
+      // Handle on_event (listeners of all events)
+      const listener = this._eventListeners.event;
+      if (listener) {
+        listener(event);
       }
     }
-    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
-    if (garbageCollect) {
-      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    {
+      const listener = this._eventListeners[event.type];
+      if (listener) {
+        listener(event);
+      }
     }
 
-    // Creating arrays is expensive so we cheat and just push instead of using it immutably
     this.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
+    // TODO: This can probably be removed since we only render upon completion now
     this.eventCount += 1;
   }
   fabricateEvent(event = null, trigger = null) {
@@ -571,16 +574,16 @@ class CombatLogParser {
         <TimelineTab
           start={this.fight.start_time}
           end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-          historyBySpellId={this.modules.spellHistory.historyBySpellId}
-          globalCooldownHistory={this.modules.globalCooldown.history}
-          channelHistory={this.modules.channeling.history}
-          abilities={this.modules.abilities}
-          abilityTracker={this.modules.abilityTracker}
-          deaths={this.modules.deathTracker.deaths}
-          resurrections={this.modules.deathTracker.resurrections}
-          isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
-          isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
-          buffEvents={this.modules.timelineBuffEvents.buffHistoryBySpellId}
+          historyBySpellId={this._modules.spellHistory.historyBySpellId}
+          globalCooldownHistory={this._modules.globalCooldown.history}
+          channelHistory={this._modules.channeling.history}
+          abilities={this._modules.abilities}
+          abilityTracker={this._modules.abilityTracker}
+          deaths={this._modules.deathTracker.deaths}
+          resurrections={this._modules.deathTracker.resurrections}
+          isAbilityCooldownsAccurate={this._modules.spellUsable.isAccurate}
+          isGlobalCooldownAccurate={this._modules.globalCooldown.isAccurate}
+          buffEvents={this._modules.timelineBuffEvents.buffHistoryBySpellId}
         />
       ),
     });

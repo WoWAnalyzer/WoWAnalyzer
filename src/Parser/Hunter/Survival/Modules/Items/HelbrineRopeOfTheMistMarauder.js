@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
@@ -20,14 +19,14 @@ const MAX_MODIFIER = 0.3;
 
 class HelbrineRopeOfTheMistMarauder extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
   applications = 0;
   bonusDamage = 0;
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id);
   }
 
   get uptimePercentage() {

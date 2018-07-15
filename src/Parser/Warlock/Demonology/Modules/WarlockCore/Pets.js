@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import PETS from 'common/PETS';
 import SPELLS from 'common/SPELLS';
@@ -7,10 +6,6 @@ import SPELLS from 'common/SPELLS';
 // tracks individual pet (as in pet type) damage, summed together across pet instances
 // also tracks pet summons and despawns and provides getPets(timestamp)
 class Pets extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // Keys are ids in PETS.js
   petDamage = {
     [PETS.WILDIMP_ON_DREADSTALKER.id]: {},
@@ -39,7 +34,7 @@ class Pets extends Analyzer {
     if (guid !== PETS.WILDIMP_ON_DREADSTALKER.id && guid !== PETS.DREADSTALKER.id) {
       return PETS[guid].baseDuration;
     }
-    return (this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
+    return (this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
   }
 
   _isPermanentPet(guid) {
@@ -48,6 +43,10 @@ class Pets extends Analyzer {
 
   on_byPlayer_summon(event) {
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
+    // temporary workaround until revamp
+    if (!petInfo) {
+      return;
+    }
     const pet = {
       guid: petInfo.guid,
       name: (PETS[petInfo.guid]) ? PETS[petInfo.guid].name : "Felguard",
@@ -69,6 +68,10 @@ class Pets extends Analyzer {
     const id = event.sourceID;
     const instance = event.sourceInstance;
     const petInfo = this.owner.playerPets.find(pet => pet.id === id);
+    // temporary
+    if (!petInfo) {
+      return;
+    }
     const permanentPetInTimeline = this.petsTimeline.find(pet => pet.guid === petInfo.guid);
     if (!permanentPetInTimeline) {
       // most likely will be only for the permanent pet, as the Felguard usually charges seconds after the fight starts which makes a damage event too

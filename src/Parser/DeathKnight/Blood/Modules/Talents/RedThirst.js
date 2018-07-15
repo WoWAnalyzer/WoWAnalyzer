@@ -4,19 +4,18 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RunicPowerTracker from '../RunicPower/RunicPowerTracker';
 
 class RedThirst extends Analyzer {
   static dependencies = {
     runicPowerTracker: RunicPowerTracker,
-    combatants: Combatants,
   };
 
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RED_THIRST_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

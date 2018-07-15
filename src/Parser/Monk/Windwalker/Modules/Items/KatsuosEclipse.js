@@ -11,7 +11,8 @@ class KatsuosEclipse extends Analyzer {
   chiSaved = 0; 
   
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.combatatants.selected.hasFeet(ITEMS.KATSUOS_ECLIPSE.id);
   }
 

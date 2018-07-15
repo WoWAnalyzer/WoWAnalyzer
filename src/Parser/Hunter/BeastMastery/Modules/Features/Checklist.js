@@ -5,7 +5,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -23,18 +22,13 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
 
 //Talents
-import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 
 //Spells
-import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
-//Traits
-import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
 
 //Items
 import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
@@ -48,7 +42,6 @@ import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapp
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
 
     //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -62,18 +55,13 @@ class Checklist extends CoreChecklist {
     timeFocusCapped: TimeFocusCapped,
 
     //talents
-    aMurderOfCrows: AMurderOfCrows,
     killerCobra: KillerCobra,
     aspectOfTheBeast: AspectOfTheBeast,
 
     //Spells
     aspectOfTheWild: AspectOfTheWild,
-    direBeast: DireBeast,
     direFrenzy: DireFrenzy,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
-
-    //Traits
-    titansThunder: TitansThunder,
 
     //Legendaries
     parselsTongue: ParselsTongue,
@@ -89,7 +77,7 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells such as <SpellLink id={SPELLS.KILL_COMMAND.id} /> and <SpellLink id={SPELLS.DIRE_BEAST.id} /> should be used on cooldown. <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> should never be capping stacks, but you also want to maximize buff uptime by spreading out the casts as much as possible. You'll want as many good casts of <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> as possible - this is achieved by lining them up with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> for each cast, and in preparation for each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> you want to have saved up some focus. <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
@@ -100,8 +88,8 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
-            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+            spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TITANS_THUNDER,
@@ -119,23 +107,16 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment> Use your Dire ability properly</React.Fragment>,
-      description: <React.Fragment>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.DIRE_BEAST.id} />/<SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
+      name: <React.Fragment>Use your Dire ability properly</React.Fragment>,
+      description: <React.Fragment>Using <SpellLink id={SPELLS.BARBED_SHOT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment>Casts with less than 3s CD on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
-            when: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-            check: () => this.direBeast.badDireBeastThreshold,
-          }),
-          new Requirement({
-            name: <React.Fragment>Uptime of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> </React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+            name: <React.Fragment>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
             check: () => this.direFrenzy.direFrenzyUptimeThreshold,
           }),
           new Requirement({
-            name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> </React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+            name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
             check: () => this.direFrenzy.direFrenzy3StackThreshold,
           }),
         ];
@@ -161,7 +142,7 @@ class Checklist extends CoreChecklist {
       name: 'Pick the right tools for the fight',
       description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said talent or legendary.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> damage</React.Fragment>,

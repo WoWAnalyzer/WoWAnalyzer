@@ -26,21 +26,21 @@ const DOTS = [
 
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   static dependencies = {
-    ...EarlyDotRefreshesInstants.dependencies,
+    ...CoreEarlyDotRefreshesInstants.dependencies,
     statTracker: StatTracker,
   };
 
-  dots = DOTS;
+  static dots = DOTS;
   naturesBalance;
 
-  on_initialized() {
-    this.naturesBalance = this.combatants.selected.hasTalent(SPELLS.NATURES_BALANCE_TALENT.id);
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
+    this.naturesBalance = this.selectedCombatant.hasTalent(SPELLS.NATURES_BALANCE_TALENT.id);
   }
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
   couldCastWhileMoving(castEvent, endEvent) {
-    if (this.combatants.selected.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.combatants.selected.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
       return SPELLS.STELLAR_DRIFT.name;
     }
     return false;

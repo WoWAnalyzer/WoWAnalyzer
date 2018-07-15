@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
@@ -21,18 +20,11 @@ const SPELLS_SCALING_WITH_HASTE = [
   SPELLS.CHAIN_HEAL.id,
   SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
   SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
-  SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
-  SPELLS.QUEENS_DECREE.id,
-  SPELLS.TIDAL_TOTEM.id,
 ];
 
 class UncertainReminder extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   heroismStart = null;
   hastePercent = null;
   events = [];
@@ -41,8 +33,9 @@ class UncertainReminder extends Analyzer {
   urgencyHealing = 0;
   hasteHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.
     this.heroismStart = this.owner.fight.start_time;

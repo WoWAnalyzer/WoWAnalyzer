@@ -6,6 +6,7 @@ export default {
   name: 'Portal Keeper Hasabel',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_femaleeredar',
   fight: {
     vantusRuneBuffId: 250160,
     // TODO: Add fight specific props

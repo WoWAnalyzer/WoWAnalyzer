@@ -9,7 +9,7 @@ import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 // features
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Features/Checklist';
 import SkippableCasts from './Modules/Features/SkippableCasts';

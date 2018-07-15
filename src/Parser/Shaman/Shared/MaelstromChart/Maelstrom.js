@@ -8,10 +8,7 @@ import SPELLS from 'common/SPELLS';
 
 import { formatDuration } from 'common/format';
 
-import 'Main/Mana.css';
-
 import MaelstromComponent from './MaelstromComponent';
-import './Maelstrom.css';
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
@@ -146,7 +143,7 @@ class Maelstrom extends React.PureComponent {
           data: overCapBySecond,
           lineTension: 0.4,
           backgroundColor: [
-            'rgba(2255,20,147, 0.3)',
+            'rgba(255,20,147, 0.3)',
           ],
           borderColor: [
             'rgba(255,90,160,1)',

@@ -3,16 +3,12 @@ import React from 'react';
 import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
 class EnchantChecker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   static ENCHANTABLE_SLOTS = {
     1: 'Neck',
@@ -50,17 +46,26 @@ class EnchantChecker extends Analyzer {
 
   get enchantableGear() {
     return Object.keys(this.constructor.ENCHANTABLE_SLOTS).reduce((obj, slot) => {
-      obj[slot] = this.combatants.selected._getGearItemBySlotId(slot);
+      obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);
       return obj;
     }, {});
+  }
+  get numEnchantableGear() {
+    return Object.keys(this.constructor.ENCHANTABLE_SLOTS).length;
   }
   get slotsMissingEnchant() {
     const gear = this.enchantableGear;
     return Object.keys(gear).filter(slot => !this.hasEnchant(gear[slot]));
   }
+  get numSlotsMissingEnchant() {
+    return this.slotsMissingEnchant.length;
+  }
   get slotsMissingMaxEnchant() {
     const gear = this.enchantableGear;
     return Object.keys(gear).filter(slot => this.hasEnchant(gear[slot]) && !this.hasMaxEnchant(gear[slot]));
+  }
+  get numSlotsMissingMaxEnchant() {
+    return this.slotsMissingMaxEnchant.length;
   }
   hasEnchant(item) {
     return !!item.permanentEnchant;

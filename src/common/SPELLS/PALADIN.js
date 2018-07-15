@@ -4,8 +4,6 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import TALENTS from './TALENTS/PALADIN';
-
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -17,7 +15,24 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 6600,
+    manaCost: 600,
+  },
+  JUDGMENT_CAST_ALT: {
+    id: 275773,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+    manaCost: 600,
+  },
+  JUDGMENT_CAST_PROTECTION: {
+    id: 275779,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  JUDGMENT_HP_ENERGIZE: {
+    id: 220637,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+    manaCost: 600,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -31,6 +46,11 @@ export default {
   },
   DIVINE_STEED_BUFF_ALT: { // probably class mount glyph
     id: 254471,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
+  DIVINE_STEED_BUFF_ALT_2: { // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
+    id: 276112,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
@@ -58,13 +78,7 @@ export default {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 39600,
-    baseMana: 0.18,
-  },
-  AVENGING_WRATH: {
-    id: 31842,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
+    manaCost: 4000,
   },
   HAMMER_OF_JUSTICE: {
     id: 853,
@@ -78,13 +92,12 @@ export default {
     name: 'Mastery: Lightbringer',
     icon: 'inv_hammer_04',
   },
-  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
-  BEACON_OF_LIGHT_CAST_AND_HEAL: {
+  BEACON_OF_LIGHT_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  BEACON_OF_LIGHT_BUFF: {
+  BEACON_OF_LIGHT_CAST_AND_BUFF: {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
@@ -93,7 +106,7 @@ export default {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 22000,
+    manaCost: 2000,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -114,19 +127,19 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 30800,
+    manaCost: 2800,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 26400,
+    manaCost: 2600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 16500,
+    manaCost: 1400,
   },
   MARAADS_DYING_BREATH_BUFF: {
     id: 234862,
@@ -137,6 +150,11 @@ export default {
     id: 196917,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
+  },
+  HOLY_PRISM_HEAL_DIRECT: {
+    id: 114871,
+    name: 'Holy Prism',
+    icon: 'spell_paladin_holyprism',
   },
   HOLY_PRISM_HEAL: {
     id: 114852,
@@ -279,21 +297,6 @@ export default {
     name: 'Blade of Justice',
     icon: 'ability_paladin_bladeofjustice',
   },
-  DIVINE_HAMMER_HIT: {
-    id: 198137,
-    name: 'Divine Hammer',
-    icon: 'spell_holy_auraoflight',
-  },
-  DIVINE_HAMMER_3_HP: {
-    id: 246345,
-    name: 'Divine Hammer',
-    icon: 'classicon_paladin',
-  },
-  DIVINE_HAMMER_2_HP: {
-    id: 228231,
-    name: 'Divine Hammer',
-    icon: 'classicon_paladin',
-  },
   DIVINE_STORM_DAMAGE: {
     id: 224239,
     name: 'Divine Storm',
@@ -303,16 +306,6 @@ export default {
     id: 53385,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
-  },
-  WAKE_OF_ASHES: {
-    id: 205273,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
-  },
-  WAKE_OF_ASHES_HP_GEN: {
-    id: 218001,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
   SHIELD_OF_VENGEANCE: {
     id: 184662,
@@ -324,10 +317,20 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
-  AVENGING_WRATH_RET: {
+  AVENGING_WRATH: {
     id: 31884,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
+  },
+  AVENGING_CRUSADER_TALENT: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
+  AVENGING_CRUSADER_HEAL: {
+    id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
   },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
@@ -338,16 +341,6 @@ export default {
     id: 183436,
     name: 'Retribution',
     icon: 'spell_holy_crusade',
-  },
-  RIGHTEOUS_VERDICT_BUFF: {
-    id: 238996,
-    name: 'Righteous Verdict',
-    icon: 'ability_paladin_bladeofjustice',
-  },
-  BLESSING_OF_THE_ASHBRINGER_BUFF: {
-    id: 242981,
-    name: 'Blessing Of The Ashbringer',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
   GREATER_BLESSING_OF_KINGS: {
     id: 203538,
@@ -363,6 +356,16 @@ export default {
     id: 209785,
     name: 'The Fires of Justice',
     icon: 'spell_holy_crusaderstrike',
+  },
+  ART_OF_WAR: {
+    id: 267344,
+    name: 'Art of War',
+    icon: 'ability_paladin_artofwar',
+  },
+  RIGHTEOUS_VERDICT_BUFF: {
+    id: 267611,
+    name: 'Righteous Verdict',
+    icon: 'spell_paladin_templarsverdict',
   },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
@@ -421,99 +424,6 @@ export default {
     icon: 'ability_paladin_conviction',
   },
   // Traits:
-  // Holy Paladin:
-  PROTECTION_OF_TYR: {
-    id: 211210,
-    name: 'Protection of Tyr',
-    icon: 'spell_holy_auramastery',
-  },
-  SACRED_DAWN: {
-    id: 238132,
-    name: 'Sacred Dawn',
-    icon: 'spell_paladin_lightofdawn',
-  },
-  SHOCK_TREATMENT: {
-    id: 200315,
-    name: 'Shock Treatment',
-    icon: 'spell_holy_searinglight',
-  },
-  DELIVER_THE_LIGHT: {
-    id: 200294,
-    name: 'Deliver the Light',
-    icon: 'spell_holy_surgeoflight',
-  },
-  EXPEL_THE_DARKNESS: {
-    id: 200296,
-    name: 'Expel the Darkness',
-    icon: 'spell_paladin_lightofdawn',
-  },
-  SECOND_SUNRISE: {
-    id: 200482,
-    name: 'Second Sunrise',
-    icon: 'spell_paladin_lightofdawn',
-  },
-  TYRS_MUNIFICENCE: {
-    id: 238060,
-    name: 'Tyr\'s Munificence',
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
-  },
-  JUSTICE_THROUGH_SACRIFICE: {
-    id: 200316,
-    name: 'Justice through Sacrifice',
-    icon: 'spell_holy_power',
-  },
-  FOCUSED_HEALING: {
-    id: 200326,
-    name: 'Focused Healing',
-    icon: 'spell_holy_layonhands',
-  },
-  // Retribution Paladin:
-  DEFLECTION: {
-    id: 184778,
-    name: 'Deflection',
-    icon: 'ability_paladin_gaurdedbythelight',
-  },
-  HIGHLORDS_JUDGMENT: {
-    id: 186941,
-    name: 'Highlords Judgment',
-    icon: 'spell_holy_righteousfury',
-  },
-  SHARPENED_EDGE: {
-    id: 184759,
-    name: 'Sharpened Edge',
-    icon: 'ability_paladin_empoweredsealstruth',
-  },
-  DELIVER_THE_JUSTICE: {
-    id: 186927,
-    name: 'Deliver the Justice',
-    icon: 'spell_holy_sealofvengeance',
-  },
-  WRATH_OF_THE_ASHBRINGER: {
-    id: 186945,
-    name: 'Wrath of the Ashbringer',
-    icon: 'ability_paladin_sanctifiedwrath',
-  },
-  RIGHTEOUS_VERDICT: {
-    id: 238062,
-    name: 'Righteous Verdict',
-    icon: 'ability_paladin_bladeofjustice',
-  },
-  MIGHT_OF_THE_TEMPLAR: {
-    id: 185368,
-    name: 'Might of the Templar',
-    icon: 'spell_holy_blessedresillience',
-  },
-  BLESSING_OF_THE_ASHBRINGER: {
-    id: 238098,
-    name: 'Blessing of the Ashbringer',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
-  },
-  PROTECTOR_OF_THE_ASHEN_BLADE: {
-    id: 186944,
-    name: 'Protector of the Ashen Blade',
-    icon: 'spell_holy_sealofprotection',
-  },
-
 	// Protection
   ARDENT_DEFENDER: {
     id: 31850,

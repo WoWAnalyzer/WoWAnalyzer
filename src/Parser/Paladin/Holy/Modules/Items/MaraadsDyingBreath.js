@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
@@ -13,16 +12,13 @@ const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 const debug = false;
 
 class MaraadsDyingBreath extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   totalHealing = 0;
   healingGainOverFol = 0;
   healingGainOverLotm = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.MARAADS_DYING_BREATH.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBack(ITEMS.MARAADS_DYING_BREATH.id);
   }
 
   _lastHeal = null;
@@ -32,7 +28,7 @@ class MaraadsDyingBreath extends Analyzer {
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
       debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: LotM without buff', event);
       return;
     }
@@ -52,7 +48,7 @@ class MaraadsDyingBreath extends Analyzer {
 
     // In the case of Maraad's Dying Breath each LotM consumes the stacks of the buff remaining. So this event is only called once per buffed LotM. When the buff is removed it first calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, `removebuffstack` is the only way we can find the amount of stacks it had.
     const heal = this._lastHeal;
-    const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, heal.timestamp);
+    const buff = this.selectedCombatant.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, heal.timestamp);
     const stacks = buff && buff.stacks ? (buff.stacks + 1) : 1;
 
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: Stacks at LotM heal:', stacks, event);
@@ -87,7 +83,7 @@ class MaraadsDyingBreath extends Analyzer {
     this.totalHealing += healing;
     this.healingGainOverLotm += healing;
 
-    const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.originalHeal.timestamp);
+    const buff = this.selectedCombatant.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.originalHeal.timestamp);
     const stacks = buff && buff.stacks ? (buff.stacks + 1) : 1;
 
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: beacon transfer: Stacks at LotM heal:', stacks);
@@ -101,7 +97,7 @@ class MaraadsDyingBreath extends Analyzer {
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN.id) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
       return;
     }
 

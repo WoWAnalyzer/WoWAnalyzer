@@ -7,59 +7,68 @@ import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest
 
 import ComboPointTracker from '../../../Common/Resources/ComboPointTracker';
 
-
 class ComboPoints extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
-  
 
   makeExtraSuggestion(spell) {
-    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />.  </React.Fragment>;
+    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />.</React.Fragment>;
   }
 
-  makeExtraSuggestion_SS(spell) {
-    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Note that some combo point wastage is unavoidable due to second saber slash procs during the duration of <SpellLink id={SPELLS.BROADSIDES.id} />.  </React.Fragment>;
-  }
-
-  suggestions(when) {    
+  suggestions(when) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.SABER_SLASH,
+      spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0,
-      avg: 0.05, 
+      avg: 0.05,
       major: 0.1,
-      //TODO - Combine with the bonus Saber slashes
-      extraSuggestion: this.makeExtraSuggestion_SS(SPELLS.SABER_SLASH),
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.MARKED_FOR_DEATH_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.AMBUSH,
+      spell: SPELLS.SINISTER_STRIKE, // 1 CP + 35% chance for another
       minor: 0,
-      avg: 0.1, 
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.SINISTER_STRIKE),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.AMBUSH, // 2 CP
+      minor: 0,
+      avg: 0.1,
       major: 0.2,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.AMBUSH),
     });
-  	resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.PISTOL_SHOT,
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.PISTOL_SHOT, // 1 CP
       minor: 0,
-      avg: 0.1, 
+      avg: 0.1,
       major: 0.2,
+      // TODO: Beta logs incorrectly add bonus CP from an extra Sinister Strike to Pistol shot. 
+      // Want to see if its fixed in PrePatch or can be fixed on WCL side before creating workaround.
       extraSuggestion: this.makeExtraSuggestion(SPELLS.PISTOL_SHOT),
     });
-  	resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.BLUNDERBUSS,
-      minor: 0,
-      avg: 0.1, 
-      major: 0.2,
-      extraSuggestion: this.makeExtraSuggestion(SPELLS.BLUNDERBUSS),
-    });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GHOSTLY_STRIKE_TALENT,
+      spell: SPELLS.GHOSTLY_STRIKE_TALENT, // 1 CP
       minor: 0,
-      avg: 0.1, 
-      major: 0.2,
+      avg: 0.05,
+      major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GHOSTLY_STRIKE_TALENT),
     });
-    }
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.CHEAP_SHOT, // 2 CP
+      minor: 0,
+      avg: 0.1,
+      major: 0.2,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.CHEAP_SHOT),
+    });
+    resourceSuggest(when, this.comboPointTracker, {
+      spell: SPELLS.GOUGE, // 1 CP
+      minor: 0,
+      avg: 0.1,
+      major: 0.2,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.GOUGE),
+    });
+  }
 }
 
 export default ComboPoints;

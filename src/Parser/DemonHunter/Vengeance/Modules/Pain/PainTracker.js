@@ -3,7 +3,8 @@ import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker
 
 class PainTracker extends ResourceTracker {
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.PAIN;
   }
 

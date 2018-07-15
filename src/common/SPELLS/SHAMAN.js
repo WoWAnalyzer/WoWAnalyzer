@@ -14,6 +14,7 @@ export default {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 1300,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -23,58 +24,90 @@ export default {
   EARTHBIND_TOTEM: {
     id: 2484,
     name: 'Earthbind Totem',
-    icon: 'spell_nature_strengthofearthtotem02', 
+    icon: 'spell_nature_strengthofearthtotem02',
   },
   PURGE: {
     id: 370,
     name: 'Purge',
-    icon: 'spell_nature_purge', 
+    icon: 'spell_nature_purge',
   },
   FAR_SIGHT: {
     id: 6196,
     name: 'Far Sight',
-    icon: 'spell_nature_farsight', 
+    icon: 'spell_nature_farsight',
   },
   WATER_WALKING: {
     id: 546,
     name: 'Water Walking',
-    icon: 'spell_frost_windwalkon', 
+    icon: 'spell_frost_windwalkon',
   },
   ASTRAL_RECALL: {
     id: 556,
     name: 'Astral Recall',
-    icon: 'spell_nature_astralrecal', 
+    icon: 'spell_nature_astralrecal',
+  },
+  STATIC_CHARGE_DEBUFF: {
+    id: 118905,
+    name: 'Static Charge',
+    icon: 'spell_nature_brilliance',
+  },
+  NATURES_GUARDIAN_HEAL: {
+    id: 31616,
+    name: 'Nature\'s Guardian',
+    icon: 'spell_nature_natureguardian',
+  },
+  TREMOR_TOTEM: {
+    id: 8143,
+    name: 'Tremor Totem',
+    icon: 'spell_nature_tremortotem',
+    manaCost: 460,
+  },
+  SPIRIT_WOLF_BUFF: {
+    id: 260881,
+    name: 'Spirit Wolf',
+    icon: 'spell_hunter_lonewolf',
+  },
+  EARTH_SHIELD_HEAL: {
+    id: 379,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
+  CAPACITOR_TOTEM: {
+    id: 192058,
+    name: 'Capacitor Totem',
+    icon: 'spell_nature_brilliance',
+    manaCost: 2000,
   },
   // Hex and its variations
   HEX: {
     id: 51514,
     name: 'Hex',
-    icon: 'spell_shaman_hex', 
+    icon: 'spell_shaman_hex',
   },
   HEX_RAPTOR: {
     id: 210873,
     name: 'Hex',
-    icon: 'ability_hunter_pet_raptor', 
+    icon: 'ability_hunter_pet_raptor',
   },
   HEX_SPIDER: {
     id: 211004,
     name: 'Hex',
-    icon: 'ability_hunter_pet_spider', 
+    icon: 'ability_hunter_pet_spider',
   },
   HEX_SNAKE: {
     id: 211010,
     name: 'Hex',
-    icon: 'inv_pet_pythonblack', 
+    icon: 'inv_pet_pythonblack',
   },
   HEX_COCKROACH: {
     id: 211015,
     name: 'Hex',
-    icon: 'inv_pet_cockroach', 
+    icon: 'inv_pet_cockroach',
   },
   HEX_SKELETAL: {
     id: 269352,
     name: 'Hex',
-    icon: 'ability_mount_fossilizedraptor', 
+    icon: 'ability_mount_fossilizedraptor',
   },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
@@ -107,17 +140,12 @@ export default {
     id: 8042,
     name: 'Earth Shock',
     icon: 'spell_nature_earthshock',
-    max_maelstrom: 125, // default without talent
   },
   LAVA_BURST: {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-  },
-  LAVA_BURST_VOLCANIC_INFERNO: {
-    id: 205533,
-    name: 'Volcanic Inferno',
-    icon: 'spell_shaman_lavaflow',
+    manaCost: 1200,
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -230,18 +258,13 @@ export default {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  STORMKEEPER: {
-    id: 205495,
-    name: 'Stormkeeper',
-    icon: 'inv_hand_1h_artifactstormfist_d_01',
-  },
   FIRE_ELEMENTAL: {
     id: 198067,
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
   SUMMON_FIRE_ELEMENTAL: {
-    id:188592,
+    id: 263819,
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
@@ -262,16 +285,6 @@ export default {
     name: 'Icefury Overload',
     icon: 'spell_frost_iceshard',
   },
-  POWER_OF_THE_MAELSTROM: {
-    id: 191877,
-    name: 'Power of the Maelstrom',
-    icon: 'spell_fire_masterofelements',
-  },
-  ELEMENTAL_FOCUS: {
-    id: 16246,
-    name: 'Elemental Focus',
-    icon: 'spell_shadow_manaburn',
-  },
   LAVA_SURGE: {
     id: 77762,
     name: 'Lava Surge',
@@ -282,20 +295,15 @@ export default {
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
   },
-  LIGHTNING_ROD_DEBUFF: {
-    id: 197209,
-    name: 'Lightning Rod Buff',
-    icon: 'inv_rod_enchantedcobalt',
+  EXPOSED_ELEMENTS_DEBUFF: {
+    id: 269808,
+    name: "Exposed Elements Debuff",
+    icon: "spell_nature_callstorm",
   },
-  LIGHTNING_ROD_DAMAGE: {
-    id: 197568,
-    name: 'Lightning Rod',
-    icon: 'inv_rod_enchantedcobalt',
-  },
-  NATURES_ESSENCE: {
-    id: 191580,
-    name: 'Nature\'s Essence',
-    icon: 'spell_nature_healingway',
+  MASTER_OF_THE_ELEMENTS_BUFF: {
+    id: 260734,
+    name: "Master Of The Elements Buff",
+    icon: "spell_nature_elementalabsorption",
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -595,11 +603,6 @@ export default {
     name: 'T21 4set bonus equip flag',
     icon: 'ability_shaman_ascendance',
   },
-  EXPOSED_ELEMENTS: {
-    id: 252151,
-    name: 'T21 4set bonus debuff',
-    icon: 'ability_shaman_ascendance',
-  },
   //Enhancement Traits
   ALPHA_WOLF_TRAIT: {
     id: 198434,
@@ -611,28 +614,28 @@ export default {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 55000,
+    manaCost: 5000,
     color: '#203755',
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 19800,
+    manaCost: 1800,
     color: '#146585',
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 44000,
+    manaCost: 4000,
     color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 17600,
+    manaCost: 1600,
     color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
@@ -644,7 +647,7 @@ export default {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 47520,
+    manaCost: 4320,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -655,7 +658,7 @@ export default {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 24200,
+    manaCost: 2200,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -666,17 +669,12 @@ export default {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 12320,
+    manaCost: 1120,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-  },
-  ANCESTRAL_GUIDANCE_HEAL: {
-    id: 114911,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -687,28 +685,17 @@ export default {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 24200,
+    manaCost: 2200,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
-  GIFT_OF_THE_QUEEN: {
-    id: 207778,
-    name: 'Gift of the Queen',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
-  GIFT_OF_THE_QUEEN_DUPLICATE: {
-    id:255227,
-    name: 'Gift of the Queen Duplicate',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
     name: 'Cloudburst',
     icon: 'ability_shaman_condensationtotem',
-    manaCost: 18920,
   },
   CLOUDBURST_TOTEM_RECALL: {
     id: 201764,
@@ -717,12 +704,12 @@ export default {
   },
   EARTHEN_SHIELD_TOTEM_ABSORB: {
     id: 201633,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
     id: 201657,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {
@@ -769,23 +756,28 @@ export default {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 31020,
+    manaCost: 2820,
   },
   WELLSPRING_HEAL: {
     id: 197997,
     name: 'Wellspring',
-    icon: 'ability_shawaterelemental_split', 
+    icon: 'ability_shawaterelemental_split',
   },
   FLAME_SHOCK_RESTORATION: {
     id: 188838,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    max_maelstrom: 20,
+    manaCost: 3000,
   },
   LIGHTNING_BOLT_RESTORATION: {
     id: 403,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
+  },
+  CHAIN_LIGHTNING_RESTORATION: {
+    id: 421,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
   },
   RESURGENCE: {
     id: 101033,
@@ -798,63 +790,6 @@ export default {
     icon: 'spell_nature_healingwavelesser',
   },
 
-  // Traits:
-  // Restoration Shaman:
-  QUEENS_DECREE: {
-    id: 208899,
-    name: 'Queen\'s Decree',
-    icon: 'inv_misc_volatilewater',
-  },
-  TIDAL_TOTEM: {
-    id: 209069,
-    name: 'Tidal Totem',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
-  DEEP_WATERS: {
-    id: 238143,
-    name: 'Deep Waters',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
-  REFRESHING_CURRENTS: {
-    id: 207356,
-    name: 'Refreshing Currents',
-    icon: 'ability_monk_cracklingjadelightning',
-  },
-  SERVANT_OF_THE_QUEEN: {
-    id: 207357,
-    name: 'Servant of the Queen',
-    icon: 'inv_crown_02',
-  },
-  EMPOWERED_DROPLETS: {
-    id: 207255,
-    name: 'Empowered Droplets',
-    icon: 'spell_nature_giftofthewaterspirit',
-  },
-  FLOODWATERS: {
-    id: 207348,
-    name: 'Floodwaters',
-    icon: 'spell_nature_healingwavegreater',
-  },
-  TIDAL_CHAINS: {
-    id: 207088,
-    name: 'Tidal Chains',
-    icon: 'spell_frost_chainsofice',
-  },
-  QUEEN_ASCENDANT_TRAIT: {
-    id: 207285,
-    name: 'Queen Ascendant',
-    icon: 'ability_shaman_watershield',
-  },
-  QUEEN_ASCENDANT_BUFF: {
-    id: 207288,
-    name: 'Queen Ascendant',
-    icon: 'ability_shaman_watershield',
-  },
-  GHOST_IN_THE_MIST_BUFF: {
-    id: 207527,
-    name: 'Ghost in the Mist',
-    icon: 'spell_hunter_lonewolf',
-  },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc
     id: 252154,
@@ -865,5 +800,12 @@ export default {
     id: 252159,
     name: 'Downpour',
     icon: 'spell_shaman_blessingoftheeternals',
+  },
+
+  // Alpha Stuff
+  FLASH_FLOOD_BUFF: {
+    id: 280615,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental',
   },
 };

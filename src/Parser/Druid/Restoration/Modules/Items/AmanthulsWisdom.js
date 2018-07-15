@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -19,7 +18,6 @@ const MAX_PROCS_PER_APPLICATION = 3;
  */
 class AmanthulsWisdom extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -36,8 +34,9 @@ class AmanthulsWisdom extends Analyzer {
 
   rejuvApplications = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.AMANTHULS_WISDOM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.AMANTHULS_WISDOM.id);
   }
 
   on_byPlayer_heal(event) {

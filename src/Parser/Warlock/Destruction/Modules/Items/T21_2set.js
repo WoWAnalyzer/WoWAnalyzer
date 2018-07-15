@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
@@ -14,13 +13,13 @@ import SpellLink from 'common/SpellLink';
 class T21_2set extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   incinerateCrits = 0; // while target is affected by the T21 2p debuff
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

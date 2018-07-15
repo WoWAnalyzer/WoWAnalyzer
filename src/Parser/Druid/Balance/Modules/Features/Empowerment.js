@@ -6,16 +6,11 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PERCENT_OVERCAP_ALLOWED = 0.1;
 
 //abstract class used for lunar & solar empowerments.
 class Empowerment extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   empoweredSpell;
   empowermentPrefix;
   spellGenerateAmount;
@@ -25,8 +20,9 @@ class Empowerment extends Analyzer {
   empowermentsWasted = 0;
   empowermentsSpent = 0;
 
-  on_initialized() {
-    this.active = !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
   }
 
   on_byPlayer_cast(event) {
@@ -41,8 +37,8 @@ class Empowerment extends Analyzer {
     if (this.empowermentsActive < 3){
       this.empowermentsActive += 1;
     } else if (event.classResources){
-      const hasCooldown = this.combatants.selected.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id) || this.combatants.selected.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id);
-      const hasElune = this.combatants.selected.hasBuff(SPELLS.BLESSING_OF_ELUNE.id);
+      const hasCooldown = this.selectedCombatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id) || this.selectedCombatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id);
+      const hasElune = this.selectedCombatant.hasBuff(SPELLS.BLESSING_OF_ELUNE.id);
       const minimumDeficit = this.spellGenerateAmount * (hasCooldown ? 1.5 : 1) * (hasElune ? 1.25 : 1) * (1 - PERCENT_OVERCAP_ALLOWED);
       event.classResources
         .filter(resource => resource.type === this.resource.id)

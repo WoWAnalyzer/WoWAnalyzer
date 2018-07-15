@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
@@ -26,7 +25,6 @@ const CRITICAL_CHAOS_SPELLS = [
 
 class CrticalChaos extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		critEffectBonus: CritEffectBonus,
 	}
 
@@ -34,8 +32,9 @@ class CrticalChaos extends Analyzer {
 	damage = 0;
   chaosStrikeCrit = false;
 
-	on_initialized() {
- 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CRITICAL_CHAOS.id];
+	constructor(...args) {
+    super(...args);
+ 		this.rank = this.selectedCombatant.traitsBySpellId[SPELLS.CRITICAL_CHAOS.id];
  		this.active = this.rank > 0;
 
  		if (this.active) {
@@ -61,7 +60,7 @@ class CrticalChaos extends Analyzer {
   on_byPlayer_damage(event) {
   	const spellId = event.ability.guid;
     //Chaos Cleave Attribution
-    if(this.combatants.selected.hasTalent(SPELLS.CHAOS_CLEAVE_TALENT.id) && 
+    if(this.selectedCombatant.hasTalent(SPELLS.CHAOS_CLEAVE_TALENT.id) && 
       spellId === SPELLS.CHAOS_CLEAVE_DAMAGE.id && 
       this.chaosStrikeCrit)
     {

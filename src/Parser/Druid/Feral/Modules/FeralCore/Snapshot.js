@@ -4,7 +4,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatisticsListBox from 'Main/StatisticsListBox';
@@ -25,7 +24,7 @@ const debug = false;
 // also applied by Incarnation: King of the Jungle, and Shadowmeld
 const PROWL_MULTIPLIER = 2.00;
 const TIGERS_FURY_MULTIPLIER = 1.15;
-const BLOODTALONS_MULTIPLIER = 1.20;
+const BLOODTALONS_MULTIPLIER = 1.25;
 
 /**
  * leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed.
@@ -45,10 +44,6 @@ const CAST_WINDOW_TIME = 100;
 const DAMAGE_AFTER_EXPIRE_WINDOW = 200;
 
 class Snapshot extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // extending class should fill these in:
   static spellCastId = null;
   static debuffId = null;
@@ -77,7 +72,8 @@ class Snapshot extends Analyzer {
     this.lastDoTCastEvent = event;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
@@ -153,7 +149,7 @@ class Snapshot extends Analyzer {
       expireNew += Math.min(this.constructor.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
     }
 
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     const stateNew = {
       expireTime: expireNew,
       pandemicTime: expireNew - this.constructor.durationOfFresh * PANDEMIC_FRACTION,
@@ -250,7 +246,7 @@ class Snapshot extends Analyzer {
       buffNames.push(buffName);
       subStats.push(this.subStatistic(this.ticksWithTigersFury, this.damageFromTigersFury, SPELLS.TIGERS_FURY.id, buffName, spellName));
     }
-    if (this.constructor.isBloodtalonsAffected && this.combatants.selected.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
+    if (this.constructor.isBloodtalonsAffected && this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
       const buffName = 'Bloodtalons';
       buffNames.push(buffName);
       subStats.push(this.subStatistic(this.ticksWithBloodtalons, this.damageFromBloodtalons, SPELLS.BLOODTALONS_TALENT.id, buffName, spellName));

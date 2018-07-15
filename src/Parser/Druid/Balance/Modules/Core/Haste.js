@@ -9,9 +9,14 @@ class Haste extends CoreHaste {
     [SPELLS.ASTRAL_ACCELERATION.id]: { // From T20 4p
       hastePerStack: 0.02,
     },
+    [SPELLS.STARLORD_TALENT.id]: {
+      hastePerStack: 0.03,
+    },
     [SPELLS.STAR_POWER.id]: { // From casts in Incarnation / CA
       hastePerStack: combatant => combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03,
     },
+    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.15,
+    [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.15,
   };
 }
 

@@ -9,7 +9,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -19,15 +18,11 @@ import CancelledCasts from './CancelledCasts';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
-import StellarFlareUptime from './StellarFlareUptime';
-import StellarEmpowermentUptime from './StellarEmpowermentUptime';
-import MoonSpells from './MoonSpells';
+import StellarFlareUptime from '../Talents/StellarFlareUptime';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
 import EarlyDotRefreshes from './EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './EarlyDotRefreshesInstants';
-
-import L90Talents from '../Talents/L90Talents';
 
 import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -37,20 +32,15 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
-    stellarEmpowermentUptime: StellarEmpowermentUptime,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
-    moonSpells: MoonSpells,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
-
-    l90Talents: L90Talents,
 
     soulOfTheArchdruid: SoulOfTheArchdruid,
 
@@ -97,11 +87,6 @@ class Checklist extends CoreChecklist {
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: this.stellarFlareUptime.active,
           }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id} /> uptime</React.Fragment>,
-            check: () => this.stellarEmpowermentUptime.suggestionThresholds,
-            when: this.stellarEmpowermentUptime.active,
-          }),
         ];
       },
     }),
@@ -128,7 +113,7 @@ class Checklist extends CoreChecklist {
         }),
     new Rule({
       name: 'Do not overcap your resources',
-      description: <React.Fragment>You should try to always avoid overcapping your Astral Power, Moon spell charges, and your solar and lunar empowerments. Sometimes you can not avoid overcapping all of them. In that case, you should prioritize them as they are listed.</React.Fragment>,
+      description: <React.Fragment>You should try to always avoid overcapping your Astral Power and your solar and lunar empowerments. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -136,18 +121,14 @@ class Checklist extends CoreChecklist {
             check: () => this.astralPowerDetails.suggestionThresholds,
           }),
           new Requirement({
-            name: 'Moon spells efficiency',
-            check: () => this.moonSpells.suggestionThresholds,
-          }),
-          new Requirement({
             name: 'Solar Empowerment efficiency',
             check: () => this.solarEmpowerment.suggestionThresholds,
-            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
+            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
           new Requirement({
             name: 'Lunar Empowerment efficiency',
             check: () => this.lunarEmpowerment.suggestionThresholds,
-            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
+            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
         ];
       },
@@ -189,18 +170,9 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={this.l90Talents.activeTalent.id} /> talent efficiency</React.Fragment>,
-            check: () => this.l90Talents.suggestionThresholds,
-          }),
-          new Requirement({
             name: <React.Fragment>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /></React.Fragment>,
             check: () => this.soulOfTheArchdruid.suggestionThresholds,
             when: this.soulOfTheArchdruid.active,
-          }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={this.l90Talents.activeTalent.id} /> buff efficiency</React.Fragment>,
-            check: () => this.l90Talents.suggestionThresholdsBotA,
-            when: (this.l90Talents.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id),
           }),
         ];
       },

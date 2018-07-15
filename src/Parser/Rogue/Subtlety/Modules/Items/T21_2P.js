@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -12,7 +11,6 @@ import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class T21_2P extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     damageTracker: DamageTracker,
   };
@@ -20,8 +18,9 @@ class T21_2P extends Analyzer {
   resetMs = 0;
   wastedMs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id);
   }
 
   on_byPlayer_spendresource(event) {

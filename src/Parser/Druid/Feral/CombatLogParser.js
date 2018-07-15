@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import RakeBleed from './Modules/Normalizers/RakeBleed';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
@@ -22,8 +22,11 @@ import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
 import Predator from './Modules/Talents/Predator';
+import BrutalSlashHitCount from './Modules/Talents/BrutalSlashHitCount';
 
-import AshamanesRip from './Modules/Traits/AshamanesRip';
+import PredatorySwiftness from './Modules/Spells/PredatorySwiftness';
+import ThrashHitCount from './Modules/Spells/ThrashHitCount';
+import SwipeHitCount from './Modules/Spells/SwipeHitCount';
 
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -49,18 +52,21 @@ class CombatLogParser extends CoreCombatLogParser {
     ripSnapshot: RipSnapshot,
     moonfireSnapshot: MoonfireSnapshot,
 
+    // spells
+    predatorySwiftness: PredatorySwiftness,
+    thrashHitCount: ThrashHitCount,
+    swipeHitCount: SwipeHitCount,
+
     // talents
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
     savageRoarDmg: SavageRoarDmg,
     predator: Predator,
+    brutalSlashHitCount: BrutalSlashHitCount,
 
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
-
-    // traits
-    ashamanesRip: AshamanesRip,
 
     // items
     soulOfTheArchdruid : SoulOfTheArchdruid,

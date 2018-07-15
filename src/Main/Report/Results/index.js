@@ -29,7 +29,6 @@ import DetailsTab from './DetailsTab';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
-
 import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Main/DevelopmentTab').then(exports => exports.default));
@@ -66,7 +65,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: props.parser._modules.checklist.rules.length === 0 ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
+      mainTab: MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -246,7 +245,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <div>
         <div className="row">
           <div className="col-md-4">
             <About config={config} />
@@ -322,7 +321,7 @@ class Results extends React.PureComponent {
         </StatisticsSectionTitle>
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
-      </React.Fragment>
+      </div>
     );
   }
   renderLoading() {
@@ -358,12 +357,10 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div className="container">
-        <div className="results">
-          <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+      <div className="results">
+        <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
-          {!parser.finished ? this.renderLoading() : this.renderContent()}
-        </div>
+        {!parser.finished ? this.renderLoading() : this.renderContent()}
       </div>
     );
   }
