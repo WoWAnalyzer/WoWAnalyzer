@@ -25,7 +25,6 @@ class Guard extends Analyzer {
   _guardSizes = [];
   _absorbed = 0;
   _guardWasted = 0;
-  _guardRemaining = 0;
   _lastApplication = 0;
 
   get _hasGuard() {
@@ -42,7 +41,6 @@ class Guard extends Analyzer {
       return;
     }
     this._guardSizes.push(event.absorb || 0);
-    this._guardRemaining = event.absorb || 0;
   }
 
   on_byPlayer_removebuff(event) {
@@ -50,43 +48,15 @@ class Guard extends Analyzer {
       return;
     }
 
-    if(event.timestamp - this._lastApplication >= GUARD_DURATION) {
-      // almost certainly natural buff expiration, any remaining guard
-      // is wasted
-      this._guardWasted += this._guardRemaining;
-      this._guardRemaining = 0;
-    }
-    this._lastApplication = 0;
+    this._guardWasted += event.absorb || 0;
   }
 
   on_byPlayer_absorbed(event) {
-    if(event.ability.guid !== SPELLS.STAGGER.id) {
-      return;
-    }
-    if(!this._hasGuard && this._guardRemaining === 0) {
-      // sequencing issue with the log:
-      // guard buff is removed before the absorb that removes it, so we
-      // check for there being guard left over (see
-      // `on_byPlayer_removebuff`)
+    if(event.ability.guid !== SPELLS.GUARD_TALENT.id) {
       return;
     }
 
-    this._guardRemaining -= event.amount;
-    let leftOverDamage = 0;
-    if(this._guardRemaining < 0) {
-      leftOverDamage = -this._guardRemaining;
-      this._guardRemaining = 0;
-    }
-
-    const amountAbsorbed = event.amount - leftOverDamage;
-    this._absorbed += amountAbsorbed;
-    const reason = {
-      timestamp: event.timestamp,
-      amount: amountAbsorbed,
-      __reason: event,
-      ...GUARD_REMOVESTAGGER_REASON,
-    };
-    this.fab.removeStagger(reason, amountAbsorbed);
+    this._absorbed += event.amount;
   }
 
   statistic() {
