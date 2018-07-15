@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import getParserMock from 'tests/getParserMock';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import Abilities from './Abilities';
 import Ability from './Ability';
@@ -10,7 +10,7 @@ describe('Core/Modules/Abilities', () => {
   let hasteMock;
   beforeEach(() => {
     // Reset mocks:
-    parserMock = getParserMock();
+    parserMock = new TestCombatLogParser();
     hasteMock = {
       current: 0,
     };

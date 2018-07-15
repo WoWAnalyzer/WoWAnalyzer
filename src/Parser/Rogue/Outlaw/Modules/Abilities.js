@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -92,12 +93,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VANISH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: combatant.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id) 
+          ? Abilities.SPELL_CATEGORIES.COOLDOWNS
+          : Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
+        castEfficiency: combatant.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id)
+          ? {suggestion: true }
+          : {suggestion: false },
       },
       {
         spell: SPELLS.BLADE_RUSH_TALENT,
@@ -109,6 +112,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        enabled: combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id),
       },
       {
         spell: SPELLS.KILLING_SPREE_TALENT,
@@ -120,6 +124,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        enabled: combatant.hasTalent(SPELLS.KILLING_SPREE_TALENT.id),
       },
       // Defensive
       {

@@ -12,7 +12,6 @@ const cookieOptions = {
 const defaultState = cookies.get(COOKIE_NAME) || [];
 
 export default function reportHistory(state = defaultState, action) {
-  // TODO: Fill default from cookie
   switch (action.type) {
     case APPEND_REPORT_HISTORY: {
       let newState = [

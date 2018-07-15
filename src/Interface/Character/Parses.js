@@ -29,6 +29,7 @@ const ORDER_BY = {
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
+const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
   CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
   NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
@@ -192,6 +193,15 @@ class Parses extends React.Component {
   }
 
   async fetchBattleNetInfo() {
+    // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
+    if (this.props.region === 'CN') {
+      this.setState({
+        image: FALLBACK_PICTURE,
+      }, () => {
+        this.load();
+      });
+      return;
+    }
     // fetch character image and active spec from battle-net
     const response = await fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&fields=talents&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
     const data = await response.json();
@@ -211,10 +221,11 @@ class Parses extends React.Component {
       return;
     }
     const image = data.thumbnail.replace('-avatar.jpg', '');
+    const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
     const role = data.talents.find(e => e.selected).spec.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState({
-      image: image,
+      image: imageUrl,
       metric: metric,
     }, () => {
       this.load();
@@ -342,6 +353,11 @@ class Parses extends React.Component {
       );
     }
 
+    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.props.realm}/${this.props.name}`;
+    if (this.props.region === 'CN') {
+      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.props.realm}/${this.props.name}`;
+    }
+
     return (
       <div className="charparse">
         <div className="row">
@@ -352,9 +368,9 @@ class Parses extends React.Component {
                   {this.state.image && (
                     <div className="char-image">
                       <img
-                        src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-main.jpg`}
+                        src={this.state.image}
                         alt={'Character render of ' + this.props.name}
-                        onError={e => this.setState({ image: null })}
+                        onError={e => this.setState({ image: FALLBACK_PICTURE })}
                         style={{ width: '100%' }}
                       />
                     </div>
@@ -365,7 +381,7 @@ class Parses extends React.Component {
                   </h2>
                   {this.state.class && (
                     <img
-                      src={`/specs/${this.state.class}-New.png`}
+                      src={`/specs/${this.state.class.replace(' ', '')}-New.png`}
                       alt={`Class icon of ${this.state.class}s`}
                       style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
                     />
@@ -452,7 +468,7 @@ class Parses extends React.Component {
                 <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
               </a>
               <a
-                href={`https://worldofwarcraft.com/en-${this.props.region}/character/${this.props.realm}/${this.props.name}`}
+                href={battleNetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -460,15 +476,17 @@ class Parses extends React.Component {
               >
                 <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
               </a>
-              <a
-                href={`https://www.wipefest.net/character/${this.props.name}/${this.props.realm}/${this.props.region}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-              </a>
+              {this.props.region !== 'CN' && (
+                <a
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.props.realm}/${this.props.region}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 22 }}
+                >
+                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+                </a>
+              )}
             </div>
           </div>
           <div className="col-md-7">

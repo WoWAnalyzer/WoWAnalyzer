@@ -12,6 +12,7 @@ import { title as AboutArticleTitle } from 'Interface/News/Articles/2017-01-31-A
 import { title as UnlistedLogsTitle } from 'Interface/News/Articles/2017-01-31-UnlistedLogs';
 
 import ReportSelecter from './ReportSelecter';
+import LanguageSwitcher from './LanguageSwitcher';
 // import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
@@ -49,8 +50,18 @@ class Header extends React.PureComponent {
               {showReportSelecter && (
                 <div>
                   <div className="parse-tabs">
-                    <span onClick={() => this.setState({ reportActive: true })} className={this.state.reportActive ? 'selected' : ''}>Report</span>
-                    <span onClick={() => this.setState({ reportActive: false })} className={this.state.reportActive ? '' : 'selected'}>Character</span>
+                    <span
+                      onClick={() => this.setState({ reportActive: true })}
+                      className={this.state.reportActive ? 'selected' : ''}
+                    >
+                      <Trans>Report</Trans>
+                    </span>
+                    <span
+                      onClick={() => this.setState({ reportActive: false })}
+                      className={this.state.reportActive ? '' : 'selected'}
+                    >
+                      <Trans>Character</Trans>
+                    </span>
                   </div>
                   {this.state.reportActive ? (
                     <ReportSelecter />
@@ -62,9 +73,11 @@ class Header extends React.PureComponent {
                 
               {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
               <div className="about">
-                <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
-                {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
-                {' '}| <Link to="/premium">Premium</Link>
+                <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
+                {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
+                {' '}| <a href="https://legion.wowanalyzer.com/">Legion analyzer</a>
+                {' '}| <Link to="/premium"><Trans>Premium</Trans></Link>
+                {' '}| <LanguageSwitcher />
               </div>
             </div>
             {!premium && (

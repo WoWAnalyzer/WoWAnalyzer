@@ -17,17 +17,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DOOM_WINDS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.EARTHEN_SPIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
