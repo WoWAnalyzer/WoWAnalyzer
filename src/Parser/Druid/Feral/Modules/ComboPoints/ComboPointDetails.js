@@ -1,13 +1,11 @@
 import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
+
 import ResourceBreakdown from './ComboPointBreakdown';
-
 import WastedPointsIcon from '../Images/feralComboPointIcon.png';
-
 import ComboPointTracker from './ComboPointTracker';
 
 
@@ -17,7 +15,7 @@ class ComboPointDetails extends Analyzer {
   };
 
   get pointsWasted() {
-    return this.comboPointTracker.wasted;
+    return this.comboPointTracker.wasted - this.comboPointTracker.unavoidableWaste;
   }
 
   get pointsWastedPerMinute() {
