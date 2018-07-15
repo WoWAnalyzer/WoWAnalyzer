@@ -14,7 +14,7 @@ export default {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 1300,
+    manaCost: 260,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -60,7 +60,7 @@ export default {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 460,
+    manaCost: 92,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -76,7 +76,12 @@ export default {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 2000,
+    manaCost: 400,
+  },
+  EARTH_ELEMENTAL: {
+    id: 198103,
+    name: 'Earth Elemental',
+    icon: 'spell_nature_earthelemental_totem',
   },
   // Hex and its variations
   HEX: {
@@ -145,7 +150,7 @@ export default {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 1200,
+    manaCost: 240,
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -619,28 +624,28 @@ export default {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 5000,
+    manaCost: 1000,
     color: '#203755',
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 1800,
+    manaCost: 360,
     color: '#146585',
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 4000,
+    manaCost: 800,
     color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 1600,
+    manaCost: 320,
     color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
@@ -652,7 +657,7 @@ export default {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 4320,
+    manaCost: 864,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -663,7 +668,7 @@ export default {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 2200,
+    manaCost: 440,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -674,7 +679,7 @@ export default {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 1120,
+    manaCost: 224,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -690,7 +695,7 @@ export default {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 2200,
+    manaCost: 440,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -761,7 +766,7 @@ export default {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 2820,
+    manaCost: 564,
   },
   WELLSPRING_HEAL: {
     id: 197997,
@@ -772,7 +777,7 @@ export default {
     id: 188838,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    manaCost: 3000,
+    manaCost: 600,
   },
   LIGHTNING_BOLT_RESTORATION: {
     id: 403,

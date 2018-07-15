@@ -108,7 +108,7 @@ export default {
     vers: true,
   },
   [SPELLS.NATURES_GUARDIAN_HEAL.id]: {
-    ignored: true, //probably only scales with HP
+    ignored: true, // scales only with HP
   },
   [SPELLS.RAINFALL.id]: {
     // T21 2pc
@@ -125,7 +125,7 @@ export default {
   },
   [SPELLS.DOWNPOUR_TALENT.id]: {
     int: true,
-    crit: true, 
+    crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
@@ -133,11 +133,11 @@ export default {
 
   // Azerite Traits
   [SPELLS.OVERFLOWING_SHORES.id]:{
-    crit: true, 
+    crit: true,
     vers: true,
   },
   [SPELLS.SWELLING_STREAM_HEAL.id]:{
-    crit: true, 
+    crit: true,
     vers: true,
   },
   [SPELLS.SURGING_TIDES_ABSORB.id]:{
