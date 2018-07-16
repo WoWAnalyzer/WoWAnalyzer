@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-07-15'),
+    changes: 'Added a link to the Legion analyzer in the links under the report bar.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-11'),
     changes: <React.Fragment>Added support for the <SpellLink id={SPELLS.GEMHIDE.id} /> trait.</React.Fragment>,
     contributors: [emallson],
@@ -125,7 +130,7 @@ export default [
   },
   {
     date: new Date('2018-05-21'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.ZANDALARI_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.GILDED_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
     contributors: [Fyruna],
   },
   {

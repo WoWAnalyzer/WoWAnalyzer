@@ -1,17 +1,14 @@
-import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import DamageTaken from './DamageTaken';
 
 describe('Brewmaster.DamageTaken', () => {
+  let parser;
   let damageTaken;
   beforeEach(() => {
-    damageTaken = new DamageTaken({
-      toPlayer: () => true,
-      byPlayer: () => true,
-      toPlayerPet: () => false,
-      byPlayerPet: () => false,
-    });
+    parser = new TestCombatLogParser();
+    damageTaken = new DamageTaken(parser);
   });
   it('damage taken with no events', () => {
     expect(damageTaken.total.regular).toBe(0);
@@ -19,43 +16,43 @@ describe('Brewmaster.DamageTaken', () => {
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only healing events', () => {
-    processEvents(heal, damageTaken);
+    parser.processEvents(heal);
     expect(damageTaken.total.regular).toBe(0);
     expect(damageTaken.total.absorbed).toBe(0);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only non-stagger absorbs', () => {
-    processEvents(absorbed, damageTaken);
+    parser.processEvents(absorbed);
     expect(damageTaken.total.regular).toBe(0);
     expect(damageTaken.total.absorbed).toBe(0);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only stagger absorbs', () => {
-    processEvents(staggerAbsorbed, damageTaken);
+    parser.processEvents(staggerAbsorbed);
     expect(damageTaken.total.regular).toBe(0);
     expect(damageTaken.total.absorbed).toBe(-599);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only boss damage', () => {
-    processEvents(incomingDamage, damageTaken);
+    parser.processEvents(incomingDamage);
     expect(damageTaken.total.regular).toBe(1200);
     expect(damageTaken.total.absorbed).toBe(599);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with boss damage and stagger absorbs', () => {
-    processEvents([...incomingDamage, ...staggerAbsorbed], damageTaken);
+    parser.processEvents([...incomingDamage, ...staggerAbsorbed]);
     expect(damageTaken.total.regular).toBe(1200);
     expect(damageTaken.total.absorbed).toBe(0);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only stagger dot', () => {
-    processEvents(staggerTicks, damageTaken);
+    parser.processEvents(staggerTicks);
     expect(damageTaken.total.regular).toBe(224);
     expect(damageTaken.total.absorbed).toBe(16);
     expect(damageTaken.total.overkill).toBe(0);
   });
   it('total damage taken for the fight', () => {
-    processEvents(SimpleFight, damageTaken);
+    parser.processEvents(SimpleFight);
     expect(damageTaken.total.regular).toBe(1424);
     expect(damageTaken.total.absorbed).toBe(16);
     expect(damageTaken.total.overkill).toBe(0);

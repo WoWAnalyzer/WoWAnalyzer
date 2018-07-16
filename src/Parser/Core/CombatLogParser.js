@@ -120,11 +120,15 @@ import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHou
 import VantusRune from './Modules/Spells/VantusRune';
 
 // BFA
-import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 // Dungeons
+import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+// Crafted
+import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 
@@ -140,6 +144,8 @@ class CombatLogParser {
 
   static internalModules = {
     combatants: Combatants,
+    deathDowntime: DeathDowntime,
+    totalDowntime: TotalDowntime,
   };
   static defaultModules = {
     // Normalizers
@@ -170,8 +176,6 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
-    deathDowntime: DeathDowntime,
-    totalDowntime: TotalDowntime,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
@@ -253,11 +257,15 @@ class CombatLogParser {
     umbralMoonglaives: UmbralMoonglaives,
 
     // BFA
-    zandalariLoaFigurine: ZandalariLoaFigurine,
+    gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
+    balefireBranch: BalefireBranch,
+    // Crafted
+    darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
     gemhide: Gemhide,
   };
@@ -419,7 +427,6 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-
   normalize(events) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
@@ -432,17 +439,52 @@ class CombatLogParser {
     return events;
   }
 
-  parseEvents(events) {
-    const numEvents = events.length;
-    for (let i = 0; i < numEvents; i += 1) {
-      const event = events[i];
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
-    }
-  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
+  _eventListeners = {};
+  addEventListener(type, listener, options = null) {
+    // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
+    let handler = listener;
+    if (options.byPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayer) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayer(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.byPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.byPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+    if (options.toPlayerPet) {
+      const oldHandler = handler;
+      handler = event => {
+        if (this.toPlayerPet(event)) {
+          oldHandler(event);
+        }
+      };
+    }
+
+    const existingEventListener = this._eventListeners[type];
+    this._eventListeners[type] = existingEventListener ? function (...args) {
+      existingEventListener(...args);
+      handler(...args);
+    } : handler;
+  }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -451,24 +493,24 @@ class CombatLogParser {
       }
     }
 
-    // This loop has a big impact on parsing performance
-    let garbageCollect = false;
-    const analyzers = this._activeAnalyzers;
-    const numAnalyzers = analyzers.length;
-    for (let i = 0; i < numAnalyzers; i++) {
-      const analyzer = analyzers[i];
-      if (analyzer.active) {
-        analyzer.triggerEvent(event);
-      } else {
-        garbageCollect = true;
+    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
+
+    this._timestamp = event.timestamp;
+
+    {
+      // Handle on_event (listeners of all events)
+      const listener = this._eventListeners.event;
+      if (listener) {
+        listener(event);
       }
     }
-    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
-    if (garbageCollect) {
-      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    {
+      const listener = this._eventListeners[event.type];
+      if (listener) {
+        listener(event);
+      }
     }
 
-    // Creating arrays is expensive so we cheat and just push instead of using it immutably
     this.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now

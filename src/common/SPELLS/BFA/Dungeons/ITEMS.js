@@ -18,6 +18,13 @@ export default {
     icon: 'spell_druid_wildmushroom_frenzy',
   },
 
+  // Atal'Dazar
+  TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
+    id: 266018,
+    name: 'Touch of the Voodoo',
+    icon: 'ability_shaman_repulsiontotem',
+  },
+
   // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE_BUFF: {
     id: 271054,
@@ -28,6 +35,18 @@ export default {
     id: 271058,
     name: 'Fangs of Intertwined Essence',
     icon: 'inv_misc_redsaberonfang',
+  },
+
+  // Waycrest Manor
+  KINDLED_SOUL: { // buff from trinket Balefire Branch
+    id: 268998,
+    name: 'Kindled Soul',
+    icon: 'sha_spell_fire_felfire',
+  },
+  BALEFIRE_BRANCH_SPELL: {
+    id: 268999,
+    name: 'Balefire Branch',
+    icon: 'inv_staff_26',
   },
 
   // Quests.............. upscaled in beta

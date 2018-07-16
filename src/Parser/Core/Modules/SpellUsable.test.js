@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import getParserMock from 'tests/getParserMock';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import SpellUsable from './SpellUsable';
 
@@ -11,7 +11,7 @@ describe('Core/Modules/SpellUsable', () => {
   let triggerHasteChange;
   beforeEach(() => {
     // Reset mocks:
-    parserMock = getParserMock();
+    parserMock = new TestCombatLogParser();
     abilitiesMock = {
       getExpectedCooldownDuration: jest.fn(() => 7500),
       getMaxCharges: jest.fn(),
@@ -22,7 +22,7 @@ describe('Core/Modules/SpellUsable', () => {
       abilities: abilitiesMock,
     });
     triggerCast = (spellId, extra) => {
-      instance.triggerEvent({
+      parserMock.triggerEvent({
         type: 'cast',
         ability: {
           guid: spellId,
@@ -32,16 +32,17 @@ describe('Core/Modules/SpellUsable', () => {
       });
     };
     triggerHasteChange = () => {
-      instance.triggerEvent({
+      parserMock.triggerEvent({
         type: 'changehaste',
         // We don't need more; the new Haste is pulled straight from the Haste module
         timestamp: parserMock.currentTimestamp,
       });
     };
   });
-
-  // This might be considered implementation detail, but it's also kinda the only way. Code doesn't magically run, so the only way to trigger our cooldown handling is with an event.
-  const triggerCooldownExpiryCheck = () => instance.triggerEvent({});
+  const triggerTestEvent = () => parserMock.triggerEvent({
+    type: 'test',
+    timestamp: parserMock.currentTimestamp,
+  });
 
   describe('regular spell status tracking', () => {
     it('a spell starts off cooldown', () => {
@@ -87,7 +88,7 @@ describe('Core/Modules/SpellUsable', () => {
     it('the cooldown of a spell is automatically finished after the set period', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
-      triggerCooldownExpiryCheck();
+      triggerTestEvent();
 
       expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
     });
@@ -96,7 +97,7 @@ describe('Core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
-      triggerCooldownExpiryCheck();
+      triggerTestEvent();
 
       expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
       // A charge was just restored, so this spell is castable again
@@ -298,7 +299,7 @@ describe('Core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
       parserMock.fabricateEvent = jest.fn();
-      triggerCooldownExpiryCheck();
+      triggerTestEvent();
 
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.fabricateEvent.mock.calls[0];
@@ -329,7 +330,7 @@ describe('Core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
       parserMock.fabricateEvent = jest.fn();
-      triggerCooldownExpiryCheck();
+      triggerTestEvent();
 
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(2);
       {

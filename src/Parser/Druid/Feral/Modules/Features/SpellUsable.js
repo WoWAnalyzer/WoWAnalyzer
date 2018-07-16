@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import { RAKE_BASE_DURATION, RIP_BASE_DURATION, THRASH_FERAL_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
 
@@ -22,12 +21,6 @@ const BLEED_BASE_DURATIONS = {
  * When that happens assume the most recent possible enemy death was when the cooldown reset.
  */
 class SpellUsable extends CoreSpellUsable {
-  // BFA: replace this.combatants.selected with this.selectedCombatant, and remove combatants dependency
-  static dependencies = {
-    ...CoreSpellUsable.dependencies,
-    combatants: Combatants,
-  };
-
   earlyCastsOfTigersFury = 0;
 
   // e.g. activeBleedsExpire[targetString][SPELLS.RAKE.id] = timestamp
@@ -38,13 +31,10 @@ class SpellUsable extends CoreSpellUsable {
   // timestamp of most recent possible kill event
   possibleRecentKill = null;
 
-  // BFA: replace with constructor (and use this.selectedCombatant)
-  on_initialized() {
-    if (super.on_initialized) {
-      super.on_initialized();
-    }
-    this.hasPredator = this.combatants.selected.hasTalent(SPELLS.PREDATOR_TALENT.id);
-    this.hasJaggedWounds = this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.hasPredator = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
+    this.hasJaggedWounds = this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event) {

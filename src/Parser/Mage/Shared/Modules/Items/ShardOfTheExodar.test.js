@@ -1,31 +1,35 @@
 import SPELLS from 'common/SPELLS';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import ShardOfTheExodar from './ShardOfTheExodar';
 
 describe('Mage/Shared/Items/ShardOfTheExodar', () => {
+  let parser;
+  beforeEach(() => {
+    parser = new TestCombatLogParser();
+  });
+
   it('counts freshly applied Bloodlusts', () => {
-    const module = new ShardOfTheExodar({
-      selectedCombatant: {
-        hasFinger: () => true,
-      },
-    });
+    const module = new ShardOfTheExodar(parser);
     const makeEvent = spellId => ({
+      type: 'applybuff',
+      targetID: parser.playerId,
       ability: {
         guid: spellId,
       },
     });
 
     // Regular Bloodlust
-    module.on_toPlayer_applybuff(makeEvent(SPELLS.BLOODLUST.id));
+    parser.triggerEvent(makeEvent(SPELLS.BLOODLUST.id));
     expect(module.actualCasts).toBe(1);
     // It ignores non-Bloodlust buffs
-    module.on_toPlayer_applybuff(makeEvent(SPELLS.BERSERKING.id));
+    parser.triggerEvent(makeEvent(SPELLS.BERSERKING.id));
     expect(module.actualCasts).toBe(1);
     // It includes non-default Bloodlusts
-    module.on_toPlayer_applybuff(makeEvent(SPELLS.TIME_WARP.id));
+    parser.triggerEvent(makeEvent(SPELLS.TIME_WARP.id));
     expect(module.actualCasts).toBe(2);
     // It includes drums
-    module.on_toPlayer_applybuff(makeEvent(SPELLS.DRUMS_OF_FURY.id));
+    parser.triggerEvent(makeEvent(SPELLS.DRUMS_OF_FURY.id));
     expect(module.actualCasts).toBe(3);
   });
 });
