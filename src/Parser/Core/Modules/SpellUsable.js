@@ -310,7 +310,7 @@ class SpellUsable extends Analyzer {
     if (!this._isCheckingCooldowns) {
       // This ensures this method isn't called again before it's finished executing (_checkCooldowns might trigger events).
       this._isCheckingCooldowns = true;
-      const timestamp = (event && event.timestamp) || this.owner.currentTimestamp
+      const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
       this._checkCooldownExpiry(timestamp);
       this._isCheckingCooldowns = false;
     }
