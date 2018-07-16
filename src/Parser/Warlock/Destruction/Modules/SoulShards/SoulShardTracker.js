@@ -102,9 +102,10 @@ class SoulShardTracker extends ResourceTracker {
     // after summoning Infernal (after Infernal Awakening), it generates 1 fragment every 0.5 seconds for 30 seconds
     // theoretically accurate, practically it messes up the fragment generation a lot
     // (but it's a lot worse without it, so I decided to go with the lesser of two evils since this way of generating fragments isn't tied to any kind of event)
-    if (this._hasInfernal(event.timestamp) && this._infernalTicked(event.timestamp)) {
+    const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+    if (this._hasInfernal(timestamp) && this._infernalTicked(timestamp)) {
       this.processInvisibleEnergize(SPELLS.SUMMON_INFERNAL.id, 1);
-      this.lastInfernalTick = event.timestamp;
+      this.lastInfernalTick = timestamp;
     }
   }
 
