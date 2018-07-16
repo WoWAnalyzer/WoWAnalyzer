@@ -9,10 +9,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const LANDSLIDE = {
-  INCREASE: 0.2,
+  INCREASE: 1.0,
 };
 
 class Landslide extends Analyzer {
+
+  damageGained=0;
 
   constructor(...args) {
     super(...args);
@@ -20,10 +22,10 @@ class Landslide extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid!==SPELLS.STORMSTRIKE.id) {
+    if (event.ability.guid!==SPELLS.STORMSTRIKE_BUFF.id && event.ability.guid!==SPELLS.STORMSTRIKE_OFFHAND.id) {
       return;
     }
-    if(!this.selectedCombatant.hasBuff(SPELLS.LANDSLIDE_BUFF.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.LANDSLIDE_BUFF.id)){
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
