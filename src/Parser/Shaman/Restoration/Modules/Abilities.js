@@ -409,6 +409,15 @@ class Abilities extends CoreAbilities {
         isUndetectable: true,
       },
       {
+        spell: SPELLS.EARTH_ELEMENTAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 300,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 80,
+      },
+      {
         spell: SPELLS.NATURES_GUARDIAN_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 45,
