@@ -13,28 +13,27 @@ const TON_SCALE = {
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 1,
 };
 
-export function trainingOfNiuzao_stats(combatant) {
+export function trainingOfNiuzaoStats(combatant) {
   if(!combatant.hasTrait(SPELLS.TRAINING_OF_NIUZAO.id)) {
     return null;
   }
-  let mastery = 0;
-  for(const rank of combatant.traitsBySpellId[SPELLS.TRAINING_OF_NIUZAO.id]) {
-    mastery += calculateAzeriteEffects(SPELLS.TRAINING_OF_NIUZAO.id, rank)[0];
-  }
-  return {mastery};
+  return {
+    mastery: combatant.traitsBySpellId[SPELLS.TRAINING_OF_NIUZAO.id]
+              .reduce((rank, total) => total + calculateAzeriteEffects(SPELLS.TRAINING_OF_NIUZAO.id, rank)[0], 0),
+  };
 }
 
 export const MASTERY_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzao_stats(combatant) || {}).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzao_stats(combatant) || {}).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzao_stats(combatant) || {}).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
 };
 
 class TrainingOfNiuzao extends Analyzer {
   mastery = 0;
   constructor(...args) {
     super(...args);
-    const stats = trainingOfNiuzao_stats(this.selectedCombatant);
+    const stats = trainingOfNiuzaoStats(this.selectedCombatant);
     if(!stats) {
       this.active = false;
       return;
