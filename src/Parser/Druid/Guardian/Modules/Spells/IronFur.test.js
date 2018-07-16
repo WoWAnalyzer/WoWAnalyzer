@@ -1,40 +1,34 @@
 import SPELLS from 'common/SPELLS';
 import { damageTaken, buffsApplied, SimpleFight } from 'tests/Parser/Guardian/Fixtures/SimpleFight';
-import processEvents from 'tests/Parser/Guardian/Fixtures/processEvents';
+import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import IronFur from './IronFur';
 
 describe('Core.IronFur', () => {
+  let parser;
   let ironfur;
   beforeEach(() => {
-    ironfur = new IronFur({
-      toPlayer: () => true,
-      byPlayer: () => true,
-      toPlayerPet: () => false,
-      byPlayerPet: () => false,
-      selectedCombatant: {
-        traitsBySpellId: { [SPELLS.URSOCS_ENDURANCE.id]: 0 },
-        hasBuff: () => true,
-      },
-    });
+    parser = new TestCombatLogParser();
+    parser.selectedCombatant.traitsBySpellId = { [SPELLS.URSOCS_ENDURANCE.id]: 0 };
+    ironfur = new IronFur(parser);
   });
   it('track last ironfur time with noevents', () => {
     expect(ironfur.overallIronfurUptime).toBe(0);
   });
   it('track physical hits under ironfur with only damage', () => {
-    processEvents(damageTaken, ironfur);
+    parser.processEvents(damageTaken);
     expect(ironfur.hitsMitigated).toBe(0);
   });
   it('track physical hits with ironfur up with only ironfur', () => {
-    processEvents(buffsApplied, ironfur);
+    parser.processEvents(buffsApplied);
     expect(ironfur.hitsMitigated).toBe(0);
   });
   it('track physical hits while ironfur is up in a simple fight', () => {
-    processEvents(SimpleFight, ironfur);
+    parser.processEvents(SimpleFight);
     expect(ironfur.hitsMitigated).toBe(12);
   });
   it('track physical hits outside of ironfur in a simple fight', () => {
-    processEvents(SimpleFight, ironfur);
+    parser.processEvents(SimpleFight);
     expect(ironfur.hitsUnmitigated).toBe(3);
   });
 });

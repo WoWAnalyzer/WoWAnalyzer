@@ -25,41 +25,23 @@ class Analyzer extends Module {
       const [listener, , playerFilter, pet, eventType] = match;
 
       this.addEventListener(eventType, event => {
-        if (playerFilter === 'by') {
-          if (pet) {
-            if (!this.owner.byPlayerPet(event)) {
-              return;
-            }
-          } else {
-            if (!this.owner.byPlayer(event)) {
-              return;
-            }
-          }
-        } else if (playerFilter === 'to') {
-          if (pet) {
-            if (!this.owner.toPlayerPet(event)) {
-              return;
-            }
-          } else {
-            if (!this.owner.toPlayer(event)) {
-              return;
-            }
-          }
+        if (!this.active) {
+          return;
         }
 
         this[listener].call(this, event);
+      }, {
+        byPlayer: playerFilter === 'by' && !pet,
+        byPlayerPet: playerFilter === 'by' && pet,
+        toPlayer: playerFilter === 'to' && !pet,
+        toPlayerPet: playerFilter === 'to' && pet,
       });
     });
   }
 
-  _eventListeners = {};
-  addEventListener(eventType, listener) {
+  addEventListener(eventType, listener, options = null) {
     // DO NOT MANUALLY CALL THIS METHOD YET. The API is not locked down yet. The current implementation is merely here for an initial performance boost (32%!!!), the final implementation will have more options and performance improvements.
-    const existingEventListener = this._eventListeners[eventType];
-    this._eventListeners[eventType] = existingEventListener ? function (...args) {
-      existingEventListener.apply(this, args);
-      listener.apply(this, args);
-    } : listener;
+    this.owner.addEventListener(eventType, listener.bind(this), options);
   }
   /**
    * Get a list of all methods of all classes in the prototype chain until this class.
@@ -68,7 +50,7 @@ class Analyzer extends Module {
    * @returns {Set<any>}
    */
   static getAllChildMethods(obj) {
-    // Set is required here to avoid duplicate methods (if a class extends another it might redeclare the same method)
+    // Set is required here to avoid duplicate methods (if a class extends another it might override the same method)
     const methods = new Set();
     // eslint-disable-next-line no-cond-assign
     while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
@@ -76,40 +58,6 @@ class Analyzer extends Module {
       keys.forEach(k => methods.add(k));
     }
     return methods;
-  }
-
-  triggerEvent(event) {
-    const listener = this._eventListeners[event.type];
-    if (listener) {
-      listener.call(this, event);
-    }
-    if (this._eventListeners.event) {
-      this._eventListeners.event.call(this, event);
-    }
-    // // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-    // this._callMethod(this._eventHandlerName('event'), event.type, event);
-    // this._callMethod(this._eventHandlerName(event.type), event);
-    // if (this.owner && this.owner.byPlayer(event)) {
-    //   this._callMethod(this._eventHandlerName(`byPlayer_${event.type}`), event);
-    // }
-    // if (this.owner && this.owner.toPlayer(event)) {
-    //   this._callMethod(this._eventHandlerName(`toPlayer_${event.type}`), event);
-    // }
-    // if (this.owner && this.owner.byPlayerPet(event)) {
-    //   this._callMethod(this._eventHandlerName(`byPlayerPet_${event.type}`), event);
-    // }
-    // if (this.owner && this.owner.toPlayerPet(event)) {
-    //   this._callMethod(this._eventHandlerName(`toPlayerPet_${event.type}`), event);
-    // }
-  }
-  _eventHandlerName(eventType) {
-    return `on_${eventType}`;
-  }
-  _callMethod(methodName, ...args) {
-    const method = this[methodName];
-    if (method) {
-      method.call(this, ...args);
-    }
   }
 
   get consoleMeta() {

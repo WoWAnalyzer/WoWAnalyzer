@@ -7,7 +7,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 
 
-export function gemhide_stats(combatant) {
+export function gemhideStats(combatant) {
   if(!combatant.hasTrait(SPELLS.GEMHIDE.id)) {
     return null;
   }
@@ -22,8 +22,8 @@ export function gemhide_stats(combatant) {
 }
 
 export const STAT_TRACKER = {
-  armor: (combatant) => gemhide_stats(combatant).armor,
-  avoidance: (combatant) => gemhide_stats(combatant).avoidance,
+  armor: (combatant) => gemhideStats(combatant).armor,
+  avoidance: (combatant) => gemhideStats(combatant).avoidance,
 };
 
 class Gemhide extends Analyzer {
@@ -31,7 +31,7 @@ class Gemhide extends Analyzer {
   avoidance = 0;
   constructor(...args) {
     super(...args);
-    const resp = gemhide_stats(this.selectedCombatant);
+    const resp = gemhideStats(this.selectedCombatant);
     if(resp === null) {
       this.active = false;
       return;
@@ -64,15 +64,20 @@ class Gemhide extends Analyzer {
       return;
     }
     this._totalHits += 1;
-    this._hitsMitigated += this.selectedCombatant.hasBuff(SPELLS.GEMHIDE_BUFF.id);
+    this._hitsMitigated += this.selectedCombatant.hasBuff(SPELLS.GEMHIDE_BUFF.id) ? 1 : 0;
   }
 
   statistic() {
     return (
       <StatisticBox 
         icon={<SpellIcon id={SPELLS.GEMHIDE.id} />}
-        value={`${formatNumber(this.avgArmor)} & ${formatNumber(this.avgAvoidance)}`}
-        label={"Avg. Armor & Avoidance from Gemhide"}
+        value={(
+            <React.Fragment>
+            {formatNumber(this.avgArmor)} Armor<br />
+            {formatNumber(this.avgAvoidance)} Avoidance
+            </React.Fragment>
+        )}
+        label={"Avg. Stats from Gemhide"}
         tooltip={`Gemhide grants <b>${this.armor} Armor</b> and <b>${this.avoidance} Avoidance</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
         />
     );

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -115,15 +115,17 @@ class StatTracker extends Analyzer {
     // BFA quests
     [SPELLS.DIEMETRADON_FRENZY.id]: {
       itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
-      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(172, 159, item.itemLevel),
     },
-    [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
-      itemId: ITEMS.ZANDALARI_LOA_FIGURINE.id, // Zandalari Loa Figurine
-      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    [SPELLS.WILL_OF_THE_LOA.id]: {
+      itemId: ITEMS.GILDED_LOA_FIGURINE.id,
+      strength: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
     },
-    [SPELLS.SPYGLASS_SIGHT.id]: { // Spyglass Sight
-      itemId: ITEMS.FIRST_MATES_SPYGLASS.id, // First Mate's Spyglass
-      crit: (_, item) => calculatePrimaryStat(280, 768, item.itemLevel),
+    [SPELLS.SPYGLASS_SIGHT.id]: {
+      itemId: ITEMS.FIRST_MATES_SPYGLASS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(280, 544, item.itemLevel),
     },
 
     //endregion
@@ -261,10 +263,6 @@ class StatTracker extends Analyzer {
     // region Trinkets
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
-    268619: { // Diemetradon Frenzy
-      itemId: 159764, // Engranged Diemetradon Fin
-      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
-    },
     269887: { // Boiling Time
       itemId: 159978, // Junji's Egg Timer
       haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
@@ -282,10 +280,10 @@ class StatTracker extends Analyzer {
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
     },
     273988: { // Primal Instinct
-      itemId: 158155, // Zandalari Dinobone Charm
-      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
-      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
-      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      itemId: 158155, // Dinobone Charm
+      strength: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
     },
     269885: { // Residual Viciousness
       itemId: 159977, // Vindictive Golem Core
@@ -305,7 +303,7 @@ class StatTracker extends Analyzer {
     },
     268836: { // Blood of My Enemies
       itemId: 159625, // Vial of Animated Blood
-      strength: (_, item) => calculateSecondaryStatDefault(300, 705, item.itemLevel),
+      strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
     // endregion
     // region Dungeons
@@ -316,6 +314,10 @@ class StatTracker extends Analyzer {
     271115: { // Ignition Mage's Fuse
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
+    },
+    [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
+      itemId: ITEMS.BALEFIRE_BRANCH.id,
+      intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
     // endregion
     // endregion
@@ -490,73 +492,8 @@ class StatTracker extends Analyzer {
     return 0;
   }
   get baseMasteryPercentage() {
-    switch (this.selectedCombatant.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 0.12;
-      case SPECS.HOLY_PRIEST:
-        return 0.10;
-      case SPECS.SHADOW_PRIEST:
-        return 0.2;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 0.096;
-      case SPECS.RESTORATION_SHAMAN:
-        return 0.24;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 0.2;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 0.15;
-      case SPECS.GUARDIAN_DRUID:
-        return 0.04;
-      case SPECS.RESTORATION_DRUID:
-        return 0.048;
-      case SPECS.BALANCE_DRUID:
-        return 0.18;
-      case SPECS.FERAL_DRUID:
-        return 0.16;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 0.14;
-      case SPECS.PROTECTION_PALADIN:
-        return 0.08;
-      case SPECS.WINDWALKER_MONK:
-        return 0.1;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 0.18;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 0.05;
-      case SPECS.SURVIVAL_HUNTER:
-        return 0.04;
-      case SPECS.FROST_MAGE:
-        return 0.18;
-      case SPECS.FIRE_MAGE:
-        return 0.06;
-      case SPECS.ARCANE_MAGE:
-        return 0.0960;
-      case SPECS.SUBTLETY_ROGUE:
-        return 0.2208;
-      case SPECS.ASSASSINATION_ROGUE:
-        return 0.32;
-      case SPECS.OUTLAW_ROGUE:
-        return 0.1760;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 0.18;
-      case SPECS.MISTWEAVER_MONK:
-        return 1.04;
-      case SPECS.BREWMASTER_MONK:
-        return 0.08;
-      case SPECS.FURY_WARRIOR:
-        return 0.11;
-      case SPECS.AFFLICTION_WARLOCK:
-        return 0.25;
-      case SPECS.FROST_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.BLOOD_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.HAVOC_DEMON_HUNTER:
-        return 0.12;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return 0.0;
-    }
+    const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
+    return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
   get baseVersatilityPercentage() {
     return 0;
@@ -576,43 +513,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 72 * 100;
+    return 17.62 * 100; //72
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 68 * 100;
+    return 16.64 * 100; //68
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
+    return 17.62 * 100 / this.selectedCombatant.spec.masteryCoefficient; //72
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 85 * 100;
+    return 20.80 * 100; //85
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 19.8 * 100;
+    return 6.85 * 100; //28
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 41.4 * 100;
+    return 9.79 * 100; //40
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 14.4 * 100;
+    return 4.89 * 100; //20
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
