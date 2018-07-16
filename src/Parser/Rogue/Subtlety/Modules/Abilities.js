@@ -33,6 +33,7 @@ class Abilities extends CoreAbilities {
         // Requires Stealth
         spell: SPELLS.SHADOWSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.FIND_WEAKNESS_BUFF.id,
         gcd: {
           static: 1000,
         },
@@ -47,6 +48,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SYMBOLS_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
         cooldown: 30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0),
         castEfficiency: {
           suggestion: true,
@@ -65,6 +67,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_BLADES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.SHADOW_BLADES.id,
         cooldown: 180,
         gcd: {
           base: 1000,
@@ -77,6 +80,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_DANCE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         cooldown: 60,
         charges: 2 + (combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1 : 0),
         gcd: null,
@@ -88,8 +92,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VANISH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.VANISH_BUFF.id,
         cooldown: 120,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT,
@@ -197,6 +205,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHEAP_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.FIND_WEAKNESS_BUFF.id,
         gcd: {
           static: 1000,
         },
