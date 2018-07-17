@@ -413,6 +413,6 @@ export const regret = {
   mains: [{
     name: 'Ratchrat',
     spec: SPECS.HOLY_PALADIN,
-    link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat'
-  }]
+    link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
+  }],
 };
