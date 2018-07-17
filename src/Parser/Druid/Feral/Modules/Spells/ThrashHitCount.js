@@ -48,17 +48,6 @@ class ThrashHitCount extends HitCountAoE {
         .actual(`${actual.toFixed(1)} uses per minute that hit nothing.`)
         .recommended(`${recommended} is recommended`);
     });
-
-    when(this.hitJustOneThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
-        <React.Fragment>
-          You are using <SpellLink id={SPELLS.THRASH_FERAL.id} /> against a single target. If there's only one target in range you'll do more damage by using <SpellLink id={SPELLS.SHRED.id} /> instead.
-        </React.Fragment>
-      )
-        .icon(SPELLS.THRASH_FERAL.icon)
-        .actual(`${actual.toFixed(1)} uses per minute that hit just one target.`)
-        .recommended(`${recommended} is recommended`);
-    });
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL(11);
