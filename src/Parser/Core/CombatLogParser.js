@@ -129,6 +129,8 @@ import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfInter
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
+// Azerite Traits
+import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -264,6 +266,8 @@ class CombatLogParser {
     balefireBranch: BalefireBranch,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
+    // Azerite Traits
+    gemhide: Gemhide,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

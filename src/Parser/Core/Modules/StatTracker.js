@@ -7,6 +7,7 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
+import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 
 const debug = false;
 
@@ -233,7 +234,7 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
