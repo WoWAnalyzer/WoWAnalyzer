@@ -18,6 +18,7 @@ import Trueshot from './Modules/Spells/Trueshot';
 import LoneWolf from './Modules/Spells/LoneWolf';
 //Talents
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
+import Barrage from '../Shared/Modules/Talents/Barrage';
 import Volley from './Modules/Talents/Volley';
 import ExplosiveShot from './Modules/Talents/ExplosiveShot';
 import LockAndLoad from './Modules/Talents/LockAndLoad';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     lockAndLoad: LockAndLoad,
     piercingShot: PiercingShot,
+    barrage: Barrage,
     masterMarksman: MasterMarksman,
     lethalShots: LethalShots,
     doubleTap: DoubleTap,
