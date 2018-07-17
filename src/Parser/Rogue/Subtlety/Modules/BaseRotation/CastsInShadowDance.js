@@ -20,9 +20,7 @@ class CastsInShadowDance extends CastsInStealthBase {
     
     this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
 
-    this.stealthCondition = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) 
-    ? "Stealth or Vanish with Subterfuge"
-    : "Stealth or Vanish";
+    this.stealthCondition = "Shadow Dance";
 
     this.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
