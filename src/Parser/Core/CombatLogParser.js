@@ -129,6 +129,8 @@ import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfInter
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
+// Uldir
+import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -264,6 +266,8 @@ class CombatLogParser {
     balefireBranch: BalefireBranch,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
+    // Uldir
+    twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

@@ -313,6 +313,12 @@ class StatTracker extends Analyzer {
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
     // endregion
+    // region Raids
+    [SPELLS.UNCONTAINED_POWER.id] : {
+      itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
+      intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
+    },
+    // endregion
     // endregion
 
     // region Consumables
