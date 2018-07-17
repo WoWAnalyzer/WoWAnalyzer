@@ -48,17 +48,17 @@ class RestoShamanChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.HEALING_RAIN_CAST.id} />
           {!combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) && <AbilityRequirement spell={SPELLS.HEALING_STREAM_TOTEM_CAST.id} />}
           {combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) && <AbilityRequirement spell={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) && <AbilityRequirement spell={SPELLS.UNLEASH_LIFE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && <AbilityRequirement spell={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
           {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && <AbilityRequirement spell={SPELLS.WELLSPRING_TALENT.id} />}
           {combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) && <AbilityRequirement spell={SPELLS.DOWNPOUR_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) && <AbilityRequirement spell={SPELLS.UNLEASH_LIFE_TALENT.id} />}
         </Rule>
         <Rule
           name="Use cooldowns effectively"
           description={(
             <React.Fragment>
               Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. 
-              <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#Throughput-Cooldowns" target="_blank" rel="noopener noreferrer">More info.</a>
+              <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#throughput-cooldowns" target="_blank" rel="noopener noreferrer">More info.</a>
             </React.Fragment>
           )}
         >
@@ -79,7 +79,7 @@ class RestoShamanChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name={(<React.Fragment>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage.</React.Fragment>
+          name={(<React.Fragment>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</React.Fragment>
           )}
           description={(
             <React.Fragment>
