@@ -348,7 +348,7 @@ class Parses extends React.Component {
       errorMessage = (
         <div style={{ padding: 20 }}>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
-          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
+          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
         </div>
       );
     }
