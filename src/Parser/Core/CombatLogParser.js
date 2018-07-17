@@ -129,6 +129,8 @@ import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfInter
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
+// Azerite Traits
+import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 
@@ -266,6 +268,8 @@ class CombatLogParser {
     balefireBranch: BalefireBranch,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
+    // Azerite Traits
+    gemhide: Gemhide,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
   };

@@ -8,7 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
-const BONUS_DAMAGE = 2.5;
+const BONUS_DAMAGE = 2.25;
 const CAST_BUFFER = 250;
 
 const debug = false;

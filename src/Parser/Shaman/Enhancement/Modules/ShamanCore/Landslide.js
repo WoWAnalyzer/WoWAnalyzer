@@ -1,40 +1,51 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
+const LANDSLIDE = {
+  INCREASE: 1.0,
+};
 
 class Landslide extends Analyzer {
+
+  damageGained=0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
   }
 
-  suggestions(when) {
-    const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
+  on_byPlayer_damage(event) {
+    if (event.ability.guid!==SPELLS.STORMSTRIKE_BUFF.id && event.ability.guid!==SPELLS.STORMSTRIKE_OFFHAND.id) {
+      return;
+    }
+    if (!this.selectedCombatant.hasBuff(SPELLS.LANDSLIDE_BUFF.id)){
+      return;
+    }
+    this.damageGained += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
+  }
 
-    when(landslideUptime).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible')
-          .icon(SPELLS.LANDSLIDE_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
-          .regular(recommended).major(recommended - 0.05);
-      });
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
+  }
+
+  get damagePerSecond() {
+    return this.damageGained / (this.owner.fightDuration / 1000);
   }
 
   statistic() {
-    const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
-        value={`${formatPercentage(landslideUptime)} %`}
-        label="Landslide Uptime"
-        tooltip="One of your highest priorities, get as close to 100% as possible"
+        icon={<SpellIcon id={SPELLS.LANDSLIDE_TALENT.id} />}
+        value={`${formatPercentage(this.damagePercent)} %`}
+        label="Of total damage"
+        tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );
   }
