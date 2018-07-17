@@ -2,29 +2,30 @@
 
 export default {
   // Shared
+  ASPHYXIATE_TALENT: { id: 108194, name: "Asphyxiate", icon: "ability_deathknight_asphixiate" },
+  WRAITH_WALK_TALENT: { id: 212552, name: "Wraith Walk", icon: "inv_helm_plate_raiddeathknight_p_01" },
 
   // Frost
-  SHATTERING_STRIKES_TALENT: { id: 207057, name: "Shattering Strikes", icon: "ability_warrior_shatteringthrow" },
+  INEXORABLE_ASSAULT_TALENT: { id: 253593, name: "Inexorable Assault", icon: "achievement_dungeon_icecrown_frostmourne" },
   ICY_TALONS_TALENT: { id: 194878, name: "Icy Talons", icon: "spell_deathknight_icytalons" },
+  COLD_HEART_TALENT: { id:291208, name: "Cold Heart", icon: "spell_frost_frozencore" },
   RUNIC_ATTENUATION_TALENT: { id: 207104, name: "Runic Attenuation", icon: "boss_odunrunes_blue" },
-  FREEZING_FOG_TALENT: { id: 207060, name: "Freezing Fog", icon: "spell_frost_arcticwinds" },
   MURDEROUS_EFFICIENCY_TALENT: { id: 207061, name: "Murderous Efficiency", icon: "spell_frost_frostarmor" },
   HORN_OF_WINTER_TALENT: { id: 57330, name: "Horn of Winter", icon: "inv_misc_horn_02" },
-  ICECAP_TALENT: { id: 207126, name: "Icecap", icon: "inv_misc_herb_icecap" },
-  GLACIAL_ADVANCE_TALENT: { id: 194913, name: "Glacial Advance", icon: "ability_hunter_glacialtrap" },
-  AVALANCHE_TALENT: { id: 207142, name: "Avalanche", icon: "spell_frost_icestorm" },
-  ABOMINATIONS_MIGHT_TALENT: { id: 207161, name: "Abomination's Might", icon: "spell_deathknight_icetouch" },
+  DEATHS_REACH_TALENT: { id: 276079, name: "Death's Reach", icon: "spell_deathknight_strangulate" },
   BLINDING_SLEET_TALENT: { id: 207167, name: "Blinding Sleet", icon: "spell_frost_chillingblast" },
-  WINTER_IS_COMING_TALENT: { id: 207170, name: "Winter is Coming", icon: "inv_wolfdraenormountfrost" },
-  VOLATILE_SHIELDING_TALENT: { id: 207188, name: "Volatile Shielding", icon: "ability_mage_shattershield" },
-  PERMAFROST_TALENT: { id: 207200, name: "Permafrost", icon: "achievement_zone_frostfire" },
-  INEXORABLE_ASSAULT_TALENT: { id: 253593, name: "Inexorable Assault", icon: "achievement_dungeon_icecrown_frostmourne" },
-  FROSTSCYTHE_TALENT: { id: 207230, name: "Frostscythe", icon: "inv_misc_2h_farmscythe_a_01" },
+  AVALANCHE_TALENT: { id: 207142, name: "Avalanche", icon: "spell_frost_icestorm" },
   FROZEN_PULSE_TALENT: { id: 194909, name: "Frozen Pulse", icon: "inv_misc_permafrostshard" },
+  FROSTSCYTHE_TALENT: { id: 207230, name: "Frostscythe", icon: "inv_misc_2h_farmscythe_a_01" },
+  PERMAFROST_TALENT: { id: 207200, name: "Permafrost", icon: "achievement_zone_frostfire" },
+  DEATHS_PACT_TALENT: { id: 48743, name: "Death's Pact", icon: "spell_shadow_deathpact" },
   GATHERING_STORM_TALENT: { id: 194912, name: "Gathering Storm", icon: "spell_frost_iceshards" },
+  GLACIAL_ADVANCE_TALENT: { id: 194913, name: "Glacial Advance", icon: "ability_hunter_glacialtrap" },
+  FROSTWYRMS_FURY_TALENT: { id: 279302, name: "Frostwyrm's Fury", icon: "achievement_boss_sindragosa" },
+  ICECAP_TALENT: { id: 207126, name: "Icecap", icon: "inv_misc_herb_icecap" },
   OBLITERATION_TALENT: { id: 207256, name: "Obliteration", icon: "inv_axe_114" },
   BREATH_OF_SINDRAGOSA_TALENT: { id: 152279, name: "Breath of Sindragosa", icon: "spell_deathknight_breathofsindragosa" },
-  HUNGERING_RUNE_WEAPON_TALENT: { id: 207127, name: "Hungering Rune Weapon", icon: "ability_deathknight_hungeringruneblade" },
+  
   // Blood
   HEARTBREAKER_TALENT: { id: 221536, name: "Heartbreaker", icon: "spell_deathknight_deathstrike" },
   BLOODDRINKER_TALENT: { id: 206931, name: "Blooddrinker", icon: "ability_animusdraw" },
@@ -37,7 +38,6 @@ export default {
   RUNE_TAP_TALENT: { id: 194679, name: "Rune Tap", icon: "spell_deathknight_runetap" },
   TIGHTENING_GRASP_TALENT: { id: 206970, name: "Tightening Grasp", icon: "spell_shadow_chilltouch" },
   GRIP_OF_THE_DEAD_TALENT: { id: 273952, name: "Grip of the Dead", icon: "warlock_curse_shadow" },
-  WRAITH_WALK_TALENT: { id: 212552, name: "Wraith Walk", icon: "inv_helm_plate_raiddeathknight_p_01" },
   FOUL_BULWARK_TALENT: { id: 206974, name: "Foul Bulwark", icon: "inv_armor_shield_naxxramas_d_02" },
   OSSUARY_TALENT: { id: 219786, name: "Ossuary", icon: "ability_deathknight_brittlebones" },
   TOMBSTONE_TALENT: { id: 219809, name: "Tombstone", icon: "ability_fiegndead" },
@@ -65,7 +65,6 @@ export default {
   CASTIGATOR_TALENT: { id: 207305, name: "Castigator", icon: "spell_shadow_fumble" },
   CLAWING_SHADOWS_TALENT: { id: 207311, name: "Clawing Shadows", icon: "warlock_curse_shadow" },
   SLUDGE_BELCHER_TALENT: { id: 207313, name: "Sludge Belcher", icon: "achievement_boss_patchwerk" },
-  ASPHYXIATE_TALENT: { id: 108194, name: "Asphyxiate", icon: "ability_deathknight_asphixiate" },
   DEBILITATING_INFESTATION_TALENT: { id: 207316, name: "Debilitating Infestation", icon: "spell_deathknight_necroticplague" },
   SPELL_EATER_TALENT: { id: 207321, name: "Spell Eater", icon: "ability_creature_cursed_03" },
   CORPSE_SHIELD_TALENT: { id: 207319, name: "Corpse Shield", icon: "inv_pet_ghoul" },
@@ -76,4 +75,12 @@ export default {
   DARK_ARBITER_TALENT: { id: 207349, name: "Dark Arbiter", icon: "achievement_boss_svalasorrowgrave" },
   DEFILE_TALENT: { id: 152280, name: "Defile", icon: "spell_deathknight_defile" },
   SOUL_REAPER_TALENT: { id: 130736, name: "Soul Reaper", icon: "ability_deathknight_soulreaper" },
+
+  //Removed
+  SHATTERING_STRIKES_TALENT: { id: 207057, name: "Shattering Strikes", icon: "ability_warrior_shatteringthrow" },
+  FREEZING_FOG_TALENT: { id: 207060, name: "Freezing Fog", icon: "spell_frost_arcticwinds" },
+  ABOMINATIONS_MIGHT_TALENT: { id: 207161, name: "Abomination's Might", icon: "spell_deathknight_icetouch" },
+  WINTER_IS_COMING_TALENT: { id: 207170, name: "Winter is Coming", icon: "inv_wolfdraenormountfrost" },
+  VOLATILE_SHIELDING_TALENT: { id: 207188, name: "Volatile Shielding", icon: "ability_mage_shattershield" },
+  HUNGERING_RUNE_WEAPON_TALENT: { id: 207127, name: "Hungering Rune Weapon", icon: "ability_deathknight_hungeringruneblade" },
 };
