@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Garothi from 'Raids/AntorusTheBurningThrone/GarothiWorldbreaker';
 import Felhounds from 'Raids/AntorusTheBurningThrone/FelhoundsOfSargeras';
@@ -45,9 +44,6 @@ class MitigationCheck extends Analyzer{
   static checksPassed = 0;
   static checksFailed = 0;
 
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   constructor(...args) {
     super(...args);
@@ -61,15 +57,17 @@ class MitigationCheck extends Analyzer{
     this.checksFailed = 0;
   }
 
+
   on_toPlayer_damage(event){
     if(this.checks.includes(event.ability.guid)){
-      if(this.buffCheck.some((e) => this.combatants.selected.hasBuff(e))){
+      if(this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e))){
         this.checksPassed += 1;
       } else {
         this.checksFailed += 1;
       }
     }
   }
+
 
   statistic(){
     if(this.checksPassed + this.checksFailed === 0){
@@ -84,5 +82,6 @@ class MitigationCheck extends Analyzer{
   }
 
 }
+
 
 export default MitigationCheck;
