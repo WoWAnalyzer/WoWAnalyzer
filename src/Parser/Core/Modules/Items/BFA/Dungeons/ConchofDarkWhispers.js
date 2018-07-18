@@ -23,7 +23,6 @@ class ConchofDarkWhispers extends Analyzer {
   }
 
   get totalBuffUptime() {
-    console.log(this.selectedCombatant.getBuffUptime(SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id) / this.owner.fightDuration,this.selectedCombatant.getBuffUptime(SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id),this.owner.fightDuration/1000);
     return this.selectedCombatant.getBuffUptime(SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id) / this.owner.fightDuration;
   }
 
