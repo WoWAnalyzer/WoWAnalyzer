@@ -37,6 +37,13 @@ export default {
     icon: 'inv_misc_redsaberonfang',
   },
 
+  // Shrine of the Storm
+  CONCH_OF_DARK_WHISPERS_BUFF: {
+    id: 271071,
+    name: 'Conch of Dark Whispers',
+    icon: 'inv_misc_food_legion_seashellc1',
+  },
+
   // Waycrest Manor
   KINDLED_SOUL: { // buff from trinket Balefire Branch
     id: 268998,

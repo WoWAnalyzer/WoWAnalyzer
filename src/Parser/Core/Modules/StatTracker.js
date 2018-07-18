@@ -307,9 +307,9 @@ class StatTracker extends Analyzer {
     },
     // endregion
     // region Dungeons
-    271071: { // Conch of Dark Whispers
+    [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
       itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
-      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
     },
     271115: { // Ignition Mage's Fuse
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,

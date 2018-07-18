@@ -127,6 +127,7 @@ import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVo
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
@@ -266,6 +267,7 @@ class CombatLogParser {
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
+    conchofDarkWhispers: ConchofDarkWhispers,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
