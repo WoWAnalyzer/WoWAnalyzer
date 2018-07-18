@@ -49,21 +49,19 @@ class MitigationCheck extends Analyzer{
     combatants: Combatants,
   };
 
-  on_initialized(){
-
+  constructor(...args) {
+    super(...args);
+    const boss = this.owner.boss;
+    this.checks = mitigationChecks.get(boss.id);
+    if(typeof this.checks === "undefined"){
+      this.checks = [];
+    }
+    this.buffCheck = mitigationBuffs[this.owner.player.type];
+    this.checksPassed = 0;
+    this.checksFailed = 0;
   }
 
   on_toPlayer_damage(event){
-    if(typeof this.checks === "undefined" || typeof this.buffCheck === "undefined"){
-      const boss = this.owner.boss;
-      this.checks = mitigationChecks.get(boss.id);
-      if(typeof this.checks === "undefined"){
-        this.checks = [];
-      }
-      this.buffCheck = mitigationBuffs[this.owner.player.type];
-      this.checksPassed = 0;
-      this.checksFailed = 0;
-    }
     if(this.checks.includes(event.ability.guid)){
       if(this.buffCheck.some((e) => this.combatants.selected.hasBuff(e))){
         this.checksPassed += 1;
@@ -81,7 +79,7 @@ class MitigationCheck extends Analyzer{
       <StatisticBox icon={<SpellIcon id={this.buffCheck[0]} />}
         value={`${formatPercentage(this.checksPassed/(this.checksPassed+this.checksFailed))} %`}
         label={`Soft mitigation checks passed.`}
-        tooltip={`% of tank-targeted abilities that were mitigated.`} />
+        tooltip={`${this.checksPassed}/${this.checksPassed+this.checksFailed} of tank-targeted abilities were mitigated.`} />
     );
   }
 
