@@ -68,7 +68,7 @@ class HuntersMark extends Analyzer {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy && !enemy.hasBuff(SPELLS.HUNTERS_MARK_TALENT.id, event.timestamp)) {
+    if (!enemy || !enemy.hasBuff(SPELLS.HUNTERS_MARK_TALENT.id, event.timestamp)) {
       return;
     }
     this.damage += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
