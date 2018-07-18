@@ -1,9 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
