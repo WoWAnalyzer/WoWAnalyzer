@@ -57,7 +57,7 @@ class Checklist extends CoreChecklist {
       ),
       description: (
         <React.Fragment>
-          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 4-7% damage reduction through the <SpellLink id={SPELLS.HOT_BLOODED.id} /> trait. It is possible to maintain 100% uptime on this debuff both with and without <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />.
+          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 5% damage reduction. It is possible to maintain 80% uptime on this debuff without any particular gear or talents by simply using it on cooldown.
         </React.Fragment>
       ),
       requirements: () => {
