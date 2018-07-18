@@ -53,13 +53,6 @@ import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
-//Traits
-import RelicTraits from './Modules/Traits/RelicTraits';
-import Bonebreaker from './Modules/Traits/Bonebreaker';
-import AllConsumingRot from './Modules/Traits/AllConsumingRot';
-import Veinrender from './Modules/Traits/Veinrender';
-import Coagulopathy from './Modules/Traits/Coagulopathy';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
