@@ -131,6 +131,8 @@ import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
+// Uldir
+import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -268,6 +270,8 @@ class CombatLogParser {
     darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
     gemhide: Gemhide,
+    // Uldir
+    twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
