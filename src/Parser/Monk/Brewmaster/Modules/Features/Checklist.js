@@ -75,7 +75,7 @@ class Checklist extends CoreChecklist {
         <React.Fragment>
           <p>The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. Maintaining a proper rotation will help ensure you have enough brews available to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</p>
 
-          <p>Note that <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> is far and away the best talent for brew generation. It should <em>always</em> be taken. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges.</p>
+          <p>Note that <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> is <em>almost always</em> the best talent for brew generation in a raiding environment. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges. If you are using <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} /> and seeing low brew CDR, consider switching talents.</p>
         </React.Fragment>
       ),
       performanceMethod: 'first',
@@ -84,16 +84,6 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Effective CDR from your rotation', 
             check: () => this.brewcdr.suggestionThreshold,
-          }),
-          new Requirement({
-            name: <React.Fragment>Take the <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Talent</React.Fragment>,
-            check: () => {
-              return {
-                actual: this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
-                isEqual: false,
-                style: 'boolean',
-              };
-            },
           }),
           new GenericCastEfficiencyRequirement({
             name: <React.Fragment><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</React.Fragment>,
