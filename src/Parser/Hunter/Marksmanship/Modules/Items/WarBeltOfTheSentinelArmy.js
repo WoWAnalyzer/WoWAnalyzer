@@ -61,7 +61,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       this._currentStacks = 0;
     }
 
-    if (spellId === SPELLS.MULTISHOT.id && this._currentStacks === MAX_STACKS) {
+    if (spellId === SPELLS.MULTISHOT_MM.id && this._currentStacks === MAX_STACKS) {
       this.cappedBeltStacks += 1;
       this.totalBeltStacks += 1;
     }
