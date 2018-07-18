@@ -99,13 +99,13 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.SUMMON_GARGOYLE,
+        spell: SPELLS.SUMMON_GARGOYLE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180, // TODO: needs to account for CoF
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEFILE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -129,21 +129,6 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.DARK_ARBITER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120, // TODO: needs to account for CoF
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <span>This is your main DPS cooldown. Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} /> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> can be cast immediatly after.'</span>,
-        },
-      },
-
-      {
         spell: SPELLS.SOUL_REAPER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 45,
@@ -151,18 +136,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-
-      {
-        spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: null,
-        enabled: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -193,14 +166,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.CORPSE_SHIELD_TALENT,
-        buffSpellId: SPELLS.CORPSE_SHIELD_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.CORPSE_SHIELD_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         gcd: null,
@@ -254,13 +219,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 600,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.WRAITH_WALK,
+        spell: SPELLS.WRAITH_WALK_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         gcd: {
           base: 1500,
         },

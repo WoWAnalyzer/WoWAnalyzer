@@ -515,12 +515,6 @@ export default {
     icon: 'spell_deathknight_scourgestrike',
   },
 
-  SUMMON_GARGOYLE: {
-    id: 49206,
-    name: 'Summon Gargoyle',
-    icon: 'ability_deathknight_summongargoyle',
-  },
-
   VIRULENT_PLAGUE: {
     id: 191587,
     name: 'Virulent Plague',
