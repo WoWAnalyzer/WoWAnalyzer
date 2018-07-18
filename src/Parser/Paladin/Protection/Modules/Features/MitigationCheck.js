@@ -57,7 +57,6 @@ class MitigationCheck extends Analyzer{
     if(typeof this.checks === "undefined" || typeof this.buffCheck === "undefined"){
       const boss = this.owner.boss;
       this.checks = mitigationChecks.get(boss.id);
-      console.log(`Checks: ${this.checks}`);
       if(typeof this.checks === "undefined"){
         this.checks = [];
       }
