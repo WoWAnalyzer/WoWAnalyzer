@@ -203,8 +203,8 @@ class StatTracker extends Analyzer {
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
     // Antorus: Argus the Unmaker debuffs
-    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
-    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 114, mastery: 114 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 114, versatility: 114 },
     // endregion
 
     // region Death Knight

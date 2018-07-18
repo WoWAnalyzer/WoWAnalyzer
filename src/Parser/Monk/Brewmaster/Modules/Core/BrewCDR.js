@@ -25,6 +25,11 @@ class BrewCDR extends Analyzer {
   _newHaste = 0;
   _lastHasteChange = 0;
 
+  constructor(...args) {
+    super(...args);
+    this._lastHasteChange = this.owner.fight.start_time;
+  }
+
   get meanHaste() {
     return this._totalHaste / this.owner.fightDuration;
   }
@@ -71,6 +76,7 @@ class BrewCDR extends Analyzer {
     this._totalHaste += event.oldHaste * (event.timestamp - this._lastHasteChange);
     this._lastHasteChange = event.timestamp;
     this._newHaste = event.newHaste;
+    console.log('haste', this.meanHaste, event.timestamp);
   }
 
   on_finished() {

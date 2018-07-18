@@ -5,6 +5,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+    const brew_cooldown = 15 - (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 3 : 0);
     return [
       // Rotational Spells
       {
@@ -84,8 +85,8 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
         buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 14 / (1 + haste),
-        charges: 3,
+        cooldown: haste => brew_cooldown / (1 + haste),
+        charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
         gcd: null,
       },
       {
