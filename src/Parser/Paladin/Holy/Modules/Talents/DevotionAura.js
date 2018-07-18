@@ -25,7 +25,6 @@ const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Analyzer {
-
   get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }

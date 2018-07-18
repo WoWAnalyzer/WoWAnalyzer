@@ -196,6 +196,16 @@ export default {
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
+  AURA_OF_SACRIFICE_TRANSFER: {
+    id: 210380,
+    name: 'Aura of Sacrifice',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  AURA_OF_SACRIFICE_BUFF: {
+    id: 210372,
+    name: 'Aura of Sacrifice',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
   DIVINE_PROTECTION: {
     id: 498,
     name: 'Divine Protection',
