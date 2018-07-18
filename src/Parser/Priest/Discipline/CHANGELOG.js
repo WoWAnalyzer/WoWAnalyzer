@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Now with 100% more Batle for Azeroth.</React.Fragment>,
+    contributors: [Reglitch],
+  },
+  {
     date: new Date('2018-04-08'),
     changes: <React.Fragment>Fixed a crash when using <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />.</React.Fragment>,
     contributors: [Gebuz],
