@@ -20,25 +20,27 @@ describe('EventGrouper', () => {
   });
 
   it('Gets a stem for a branch timestamp', () => {
-    const eventGrouper = new EventGrouper(100);
-    eventGrouper.processEvent({ timestamp: 0 });
+    const eventGrouper = new EventGrouper(200);
+    eventGrouper.processEvent({ timestamp: 1 });
 
     const stem = eventGrouper.getStemTimestamp({ timestamp: 99 });
 
-    expect(stem).toEqual("0");
+    expect(stem).toEqual(1);
   });
 
   it('Processes events correctly', () => {
     const eventGrouper = new EventGrouper(100);
-    const events = [ { timestamp: 0 }, { timestamp: 99 }, { timestamp: 101 }, { timestamp: 200 } ];
+    const events = [ { timestamp: 1 }, { timestamp: 99 }, { timestamp: 102 }, { timestamp: 200 } ];
     const eventProcessor = eventGrouper.processEvent.bind(eventGrouper);
 
     // Add the boys in
     events.forEach(eventProcessor);
 
-    expect(eventGrouper.cache[0][0]).toEqual({ timestamp: 0 });
-    expect(eventGrouper.cache[0][1]).toEqual({ timestamp: 99 });
-    expect(eventGrouper.cache[101][0]).toEqual({ timestamp: 101 });
-    expect(eventGrouper.cache[101][1]).toEqual({ timestamp: 200 });
+    console.log(eventGrouper.cache);
+
+    expect(eventGrouper.cache[1][0]).toEqual({ timestamp: 1 });
+    expect(eventGrouper.cache[1][1]).toEqual({ timestamp: 99 });
+    expect(eventGrouper.cache[102][0]).toEqual({ timestamp: 102 });
+    expect(eventGrouper.cache[102][1]).toEqual({ timestamp: 200 });
   });
 });
