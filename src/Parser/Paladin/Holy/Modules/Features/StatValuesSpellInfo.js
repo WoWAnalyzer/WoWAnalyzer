@@ -64,13 +64,6 @@ export default {
     mastery: true,
     vers: true,
   },
-  [SPELLS.TYRS_DELIVERANCE_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpct: false, // static CD
-    mastery: true,
-    vers: true,
-  },
   [SPELLS.LIGHT_OF_THE_MARTYR.id]: {
     int: true,
     crit: true,

@@ -166,16 +166,6 @@ export default {
     name: 'Light\'s Hammer',
     icon: 'spell_paladin_lightshammer',
   },
-  TYRS_DELIVERANCE_HEAL: {
-    id: 200654,
-    name: 'Tyr\'s Deliverance',
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
-  },
-  TYRS_DELIVERANCE_CAST: {
-    id: 200652,
-    name: 'Tyr\'s Deliverance',
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
-  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',

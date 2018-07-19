@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-07-18'),
+    changes: 'Removed Tyr\'s Deliverance.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-18'),
     changes: <React.Fragment>Added an accurate <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> stat for the reworked version.</React.Fragment>,
     contributors: [Zerotorescue],
   },

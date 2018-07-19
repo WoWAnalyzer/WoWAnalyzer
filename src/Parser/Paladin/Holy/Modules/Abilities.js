@@ -184,16 +184,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 35,
       },
       {
-        spell: SPELLS.TYRS_DELIVERANCE_CAST,
-        buffSpellId: SPELLS.TYRS_DELIVERANCE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 31,
-      },
-      {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
