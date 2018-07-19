@@ -3,7 +3,7 @@ import Haste from 'Parser/Core/Modules/Haste';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.
-const debug = true;
+const debug = false;
 const verboseDebug = false;
 
 /*
