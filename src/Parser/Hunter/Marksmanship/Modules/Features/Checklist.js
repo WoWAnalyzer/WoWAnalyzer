@@ -120,7 +120,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Downtime, cancelled casts and focus capping',
       description: <React.Fragment>
-        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
+        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT_MM.id} />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
       </React.Fragment>,
       requirements: () => {
         return [
@@ -155,7 +155,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment><SpellLink id={SPELLS.VULNERABLE.id} /> efficiency </React.Fragment>,
-      description: <React.Fragment>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. If <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is selected, try to optimise the damage from it by casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} /> after opening <SpellLink id={SPELLS.VULNERABLE.id} />. This is to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window, increasing the benefit from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} />. However, remember to not stand around waiting, doing nothing and to not focus cap, as they are more impactful in comparison to optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</React.Fragment>,
+      description: <React.Fragment>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. If <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is selected, try to optimise the damage from it by casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> after opening <SpellLink id={SPELLS.VULNERABLE.id} />. This is to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window, increasing the benefit from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} />. However, remember to not stand around waiting, doing nothing and to not focus cap, as they are more impactful in comparison to optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
