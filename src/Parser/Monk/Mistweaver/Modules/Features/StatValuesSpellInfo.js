@@ -24,6 +24,14 @@ export default {
     mastery: false, //Procs Gusts
     vers: true,
   },
+  [SPELLS.ENVELOPING_MISTS_TFT.id]: { // Instant Heal when using TFT-> Enveloping Mist
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.ESSENCE_FONT.id]: {
     int: true,
     crit: true,

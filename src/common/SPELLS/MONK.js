@@ -77,9 +77,14 @@ export default {
   },
   ENVELOPING_MISTS: {
     id: 124682,
-    name: 'Enveloping Mists',
+    name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
     manaPerc: 0.052,
+  },
+  ENVELOPING_MISTS_TFT: {
+    id: 274062,
+    name: 'Enveloping Mist',
+    icon: 'spell_monk_envelopingmist',
   },
   ESSENCE_FONT: {
     id: 191837,

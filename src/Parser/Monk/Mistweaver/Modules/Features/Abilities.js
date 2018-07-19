@@ -10,14 +10,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RENEWING_MIST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 8,
+        cooldown: 9,
         charges: 2,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: 'You need to use this ability as close to on cooldown as possible. Get in the habbit of using this ability as it is our only \'cast on cooldown\' ability.',
         },
         timelineSortIndex: 1,
       },
