@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withI18n, Trans } from '@lingui/react';
+import ReactTooltip from 'react-tooltip';
 
 import REGION_CODES from 'common/REGION_CODES';
 
@@ -57,6 +58,12 @@ class ReportSelecter extends React.PureComponent {
     if (this.codeInput) {
       this.codeInput.focus();
     }
+  }
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+  componentWillUnmount() {
+    ReactTooltip.hide();
   }
 
   handleSubmit(e) {
