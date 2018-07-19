@@ -5,6 +5,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
+import EnergyCapTracker from './Modules/Features/EnergyCapTracker';
 // Chi
 import ChiDetails from './Modules/Chi/ChiDetails';
 import ChiTracker from './Modules/Chi/ChiTracker';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    energyCapTracker: EnergyCapTracker,
 
     // Resources
     chiTracker: ChiTracker,
