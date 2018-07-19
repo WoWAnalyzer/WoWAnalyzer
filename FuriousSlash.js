@@ -54,6 +54,6 @@ class FuriousSlash extends Analyzer {
 		);
 		statisticOrder = STATISTIC_ORDER.CORE(0); //0 IS A PLACEHOLDER VALUE!
   }
-  
-  export default FuriousSlash;
-}
+} 
+
+export default FuriousSlash;
