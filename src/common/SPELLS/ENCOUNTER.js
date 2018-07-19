@@ -203,11 +203,6 @@ export default {
     name: "Smouldering",
     icon: "spell_fire_flameshock",
   },
-  FELHOUNDS_SMOULDERING_BUFF: {
-    id: 251445,
-    name: "Smouldering",
-    icon: "spell_fire_flameshock",
-  },
 
   //Antoran High Command:
   HIGHCOMMAND_ASSUME_COMMAND: {
@@ -372,7 +367,128 @@ export default {
     name: "Burning Embers",
     icon: "priest_icon_chakra_red",
   },
-  
+
+  //Portal Kepper Hasabel:
+  PK_ACIDIC_WEB: {
+    id: 246208,
+    name: "Acidic Web",
+    icon: "spell_nature_web",
+  },
+  PK_COLLAPSING_WORLD: {
+    id: 243983,
+    name: "Collapsing World",
+    icon: "6bf_explosive_shard",
+  },
+  PK_CORRUPT: {
+    id: 245040,
+    name: "Corrupt",
+    icon: "spell_shadow_soulleech_2",
+  },
+  PK_DELUSIONS: {
+    id: 245050,
+    name: "Delusions",
+    icon: "spell_shadow_mindsteal",
+  },
+  PK_FELSILK_WRAP: {
+    id: 244926,
+    name: "Felsilk Wrap",
+    icon: "inv_misc_web_01",
+  },
+  PK_FELSTORM_BARRAGE: {
+    id: 244000,
+    name: "Felstorm Barrage",
+    icon: "ability_bossfelmagnaron_handempowered",
+  },
+  PK_FIERY_DETONATION: {
+    id: 244709,
+    name: "Fiery Detonation",
+    icon: "spell_fire_incinerate",
+  },
+  PK_FLAMES_OF_XOROTH: {
+    id: 244607,
+    name: "Flames of Xoroth",
+    icon: "spell_fire_flameshock",
+  },
+  PK_HOWLING_SHADOWS: {
+    id: 245504,
+    name: "Howling Shadows",
+    icon: "ability_warlock_howlofterror",
+  },
+  PK_LEECH_ESSENCE: {
+    id: 244915,
+    name: "Leech Essence",
+    icon: "rogue_leeching_poison",
+  },
+  PK_REALITY_TEAR: {
+    id: 244016,
+    name: "Reality Tear",
+    icon: "inv_artifact_dimensionalrift",
+  },
+  PK_SUPERNOVA: {
+    id: 244598,
+    name: "Supernova",
+    icon: "sha_spell_fire_ragnaros_supernova_nightmare",
+  },
+  PK_TRANSPORT_PORTAL: {
+    id: 244689,
+    name: "Transport Portal",
+    icon: "spell_shaman_improvedfirenova",
+  },
+  PK_BURSTING_DARKNESS: {
+    id: 244021,
+    name: "Bursting Darkness",
+    icon: "spell_fire_twilightflamestrike",
+  },
+  PK_CAUSTIC_DETONATION: {
+    id: 244853,
+    name: "Caustic Detonation",
+    icon: "spell_nature_corrosivebreath",
+  },
+  PK_CAUSTIC_SLIME: {
+    id: 244849,
+    name: "Caustic Slime",
+    icon: "spell_nature_corrosivebreath",
+  },
+  PK_EMPOWERED_PORTAL_NATHREZA: {
+    id: 246157,
+    name: "Empowered Portal: Nathreza",
+    icon: "spell_holy_consumemagic",
+  },
+  PK_EMPOWERED_PORTAL_RANCORA: {
+    id: 246082,
+    name: "Empowered Portal: Rancora",
+    icon: "ability_creature_poison_02",
+  },
+  PK_EMPOWERED_PORTAL_XOROTH:{
+    id: 244318,
+    name: "Empowered Portal: Xoroth",
+    icon: "spell_mage_flameorb",
+  },
+  PK_EVERBURNING_FLAMES: {
+    id: 244613,
+    name: "Everburning Flames",
+    icon: "spell_fire_lavaspawn",
+  },
+  PK_HUNGERING_GLOOM: {
+    id: 245075,
+    name: "Hungering Gloom",
+    icon: "ability_priest_cascade_shadow",
+  },
+  PK_PORTAL_NATHREZA: {
+    id: 246159,
+    name: "Portal: Nathreza",
+    icon: "spell_holy_consumemagic",
+  },
+  PK_PORTAL_RANCORA: {
+    id: 246084,
+    name: "Portal: Rancora",
+    icon: "ability_creature_poison_02",
+  },
+  PK_PORTAL_XOROTH: {
+    id: 244320,
+    name: "Portal: Xoroth",
+    icon: "spell_mage_flameorb",
+  },
 
 
 
