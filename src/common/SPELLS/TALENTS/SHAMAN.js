@@ -44,7 +44,7 @@ export default {
   EXPOSED_ELEMENTS_TALENT: { id: 260694, name: "Exposed Elements", icon: "spell_nature_callstorm"},
   // Restoration
   UNDULATION_TALENT: { id: 200071, name: "Undulation", icon: "spell_nature_healingwavelesser" },
-  UNLEASH_LIFE_TALENT: { id: 73685, name: "Unleash Life", icon: "spell_shaman_unleashweapon_life", manaCost: 1000 },
+  UNLEASH_LIFE_TALENT: { id: 73685, name: "Unleash Life", icon: "spell_shaman_unleashweapon_life", manaCost: 200 },
   TORRENT_TALENT: { id: 200072, name: "Torrent", icon: "spell_nature_riptide" },
   GRACEFUL_SPIRIT_TALENT: { id: 192088, name: "Graceful Spirit", icon: "spell_shaman_spectraltransformation" },
   FLASH_FLOOD_TALENT: { id: 280614, name: "Flash Flood", icon: "spell_frost_summonwaterelemental" },

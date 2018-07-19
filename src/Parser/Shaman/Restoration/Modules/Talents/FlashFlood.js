@@ -2,7 +2,6 @@ import React from 'react';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
@@ -29,7 +28,7 @@ class FlashFlood extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id);
   }
 
   on_byPlayer_begincast(event) {
