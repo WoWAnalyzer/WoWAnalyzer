@@ -76,7 +76,6 @@ class BrewCDR extends Analyzer {
     this._totalHaste += event.oldHaste * (event.timestamp - this._lastHasteChange);
     this._lastHasteChange = event.timestamp;
     this._newHaste = event.newHaste;
-    console.log('haste', this.meanHaste, event.timestamp);
   }
 
   on_finished() {
