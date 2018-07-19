@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-19'),
+    changes: 'Pre-Patch Updates: Removed Uplifting Trance, Updated Renewing Mist Cooldown, Removed Essence Font from Thunder Focus Tea statistics, Removed Thunder Focus Tea suggestion for now as correct use is being defined',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2018-07-01'),
     changes: 'Trait and Artifact clean up along with GCD changes in Abilities for Battle for Azeroth',
     contributors: [Anomoly],

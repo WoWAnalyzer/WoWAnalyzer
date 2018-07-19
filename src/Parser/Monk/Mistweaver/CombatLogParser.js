@@ -34,7 +34,6 @@ import Checklist from './Modules/Features/Checklist';
 import StatValues from './Modules/Features/StatValues';
 
 // Spells
-import UpliftingTrance from './Modules/Spells/UpliftingTrance';
 import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
@@ -90,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     essenceFont: EssenceFont,
     thunderFocusTea: ThunderFocusTea,
-    upliftingTrance: UpliftingTrance,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     vivify: Vivify,
