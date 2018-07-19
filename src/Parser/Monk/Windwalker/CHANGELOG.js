@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-19'),
+    changes: 'Added tracking of time spent at maximum energy.',
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-06-16'),
     changes: <React.Fragment>Updated for 8.0 Battle for Azeroth prepatch. All artifact traits and related analysis removed. Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts statistic and suggestions has been replaced with statistic and suggestions on <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon />'s new cooldown reductions mechanic </React.Fragment>,
     contributors: [Juko8],
