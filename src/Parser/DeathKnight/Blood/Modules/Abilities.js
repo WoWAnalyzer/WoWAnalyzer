@@ -189,9 +189,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATHS_ADVANCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 1500,
-        },
         cooldown: 45,
         timelineSortIndex: 14,
       },
