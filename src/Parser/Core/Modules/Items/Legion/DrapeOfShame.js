@@ -17,11 +17,11 @@ class DrapeOfShame extends Analyzer {
     critEffectBonus: CritEffectBonus,
   };
   baseStats = {
-    itemLevel: 825,
-    primary: 606,
-    stamina: 910,
-    criticalStrike: 260,
-    versatility: 400,
+    itemLevel: 366,
+    primary: 155,
+    stamina: 232,
+    criticalStrike: 47,
+    versatility: 79,
   };
 
   healing = 0;
