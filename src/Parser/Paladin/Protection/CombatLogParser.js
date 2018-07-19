@@ -7,6 +7,7 @@ import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Checklist from './Modules/Features/Checklist';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 //Spells
 import Judgment from './Modules/Spells/Judgment';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfTheProtectorTiming: LightOfTheProtectorTiming,
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
+    mitigationcheck: MitigationCheck,
     //cooldownTracker: CooldownTracker,
 
     // Talents

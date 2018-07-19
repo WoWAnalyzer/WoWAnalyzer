@@ -25,7 +25,6 @@ const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Analyzer {
-
   get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }
@@ -71,6 +70,8 @@ class DevotionAura extends Analyzer {
     }
     // WCL's filter requires the timestamp to be relative to fight start
     const filter = buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+
+    alert('The passive from Devotion Aura was changed in Battle for Azeroth. While it now only reduces the damage by 10% split over allies, the reduction from allies within the aura seems to be much less. I\'m still researching the exact results, but the passive might be about 2-2.5 times as strong as it would have been before with many players in it. The passive DR shown in this statistic still assumes the old value. Keep an eye on the changelog for when this is updated.');
 
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,

@@ -12,5 +12,9 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
+    softMitigationChecks: {
+      BurningMaw: 254747,
+      CorruptingMaw: 254760,
+    },
   },
 };

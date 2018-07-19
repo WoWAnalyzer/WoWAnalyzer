@@ -37,7 +37,7 @@ class Tier20_2p extends Analyzer {
       this.currentStacks = 0;
       debug && console.log('Bestial Wrath Cast and currentStacks = ', this.currentStacks);
     }
-    if (spellId !== SPELLS.COBRA_SHOT.id && spellId !== SPELLS.KILL_COMMAND.id && spellId !== SPELLS.MULTISHOT.id) {
+    if (spellId !== SPELLS.COBRA_SHOT.id && spellId !== SPELLS.KILL_COMMAND.id && spellId !== SPELLS.MULTISHOT_BM.id) {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {

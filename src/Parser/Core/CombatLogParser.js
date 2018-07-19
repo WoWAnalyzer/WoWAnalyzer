@@ -127,10 +127,13 @@ import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVo
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
+import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
+// Uldir
+import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -264,10 +267,13 @@ class CombatLogParser {
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
+    conchofDarkWhispers: ConchofDarkWhispers,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
     gemhide: Gemhide,
+    // Uldir
+    twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

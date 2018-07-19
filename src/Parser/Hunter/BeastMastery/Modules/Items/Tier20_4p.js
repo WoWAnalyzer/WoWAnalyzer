@@ -35,7 +35,7 @@ class Tier20_4p extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.COBRA_SHOT.id) {
+    if (spellId !== SPELLS.MULTISHOT_BM.id && spellId !== SPELLS.COBRA_SHOT.id) {
       return;
     }
     debug && console.log(`player cast spell: `, spellId);

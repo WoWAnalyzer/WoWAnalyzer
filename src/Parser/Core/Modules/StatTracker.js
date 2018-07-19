@@ -8,6 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 
 const debug = false;
 
@@ -22,13 +23,6 @@ class StatTracker extends Analyzer {
   // by WCL.
   static SPEC_MULTIPLIERS = {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
-  };
-
-  // These are multipliers from *binary* (have it or don't) artifact
-  // traits. These are *baked in* and do not multiply temporary buffs.
-  static ARTIFACT_MULTIPLIERS = {
-    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
-    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -222,6 +216,18 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
+    
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id], 
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id], 
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id], 
+    },
+    // endregion
 
     /****************************************\
     *                    BFA:                *
@@ -301,9 +307,9 @@ class StatTracker extends Analyzer {
     },
     // endregion
     // region Dungeons
-    271071: { // Conch of Dark Whispers
+    [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
       itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
-      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
     },
     271115: { // Ignition Mage's Fuse
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
@@ -312,6 +318,12 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    // endregion
+    // region Raids
+    [SPELLS.UNCONTAINED_POWER.id] : {
+      itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
+      intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },
     // endregion
     // endregion
@@ -356,7 +368,6 @@ class StatTracker extends Analyzer {
     };
 
     this.applySpecModifiers();
-    this.applyArtifactModifiers();
 
     this._currentStats = {
       ...this._pullStats,
@@ -369,15 +380,6 @@ class StatTracker extends Analyzer {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => {
       this._pullStats[stat] *= multiplier;
-    });
-  }
-
-  applyArtifactModifiers() {
-    Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
-      const rank = this.selectedCombatant.traitsBySpellId[spellId] || 0;
-      Object.entries(modifiers).forEach(([stat, multiplier]) => {
-        this._pullStats[stat] *= 1 + multiplier * rank;
-      });
     });
   }
 
