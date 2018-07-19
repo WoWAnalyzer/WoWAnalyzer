@@ -23,10 +23,6 @@ import DemonSpikes from './Modules/Spells/DemonSpikes';
 import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 
-import Painbringer from './Modules/Spells/Painbringer/Painbringer';
-import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
-import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
-
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
@@ -60,9 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
-    painbringer: Painbringer,
-    painbringerTimesByStacks: PainbringerTimesByStacks,
-    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20
