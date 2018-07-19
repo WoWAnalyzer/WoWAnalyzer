@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: ((combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
+        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {
