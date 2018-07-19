@@ -376,7 +376,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 4.5 / (1 + haste),
         timelineSortIndex: 51,
         gcd: {
           base: 1500,
