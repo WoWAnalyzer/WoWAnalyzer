@@ -10,6 +10,11 @@ import Contributor from 'Interface/Contributor/Button';
 export default [
   {
     date: new Date('2018-07-19'),
+    changes: <React.Fragment>Fixed <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} /> squished mana values.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
     changes: <React.Fragment>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },

@@ -14,7 +14,7 @@ export default {
   GUARDIAN_AFFINITY_TALENT_SHARED: { id: 197491, name: "Guardian Affinity", icon: "talentspec_druid_feral_bear" },
   // Restoration
   PROSPERITY_TALENT: { id: 200383, name: "Prosperity", icon: "spell_druid_rampantgrowth" },
-  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection", manaCost: 20218 },
+  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection", manaCost: 368 },
   ABUNDANCE_TALENT: { id: 207383, name: "Abundance", icon: "ability_druid_empoweredrejuvination" },
   INCARNATION_TREE_OF_LIFE_TALENT: { id: 33891, name: "Incarnation: Tree of Life", icon: "ability_druid_improvedtreeform" },
   CULTIVATION_TALENT: { id: 200390, name: "Cultivation", icon: "ability_druid_nourish" },
