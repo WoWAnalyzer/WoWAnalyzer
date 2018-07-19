@@ -20,7 +20,6 @@ import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
-import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 
 import SoulBarrier from './Modules/Spells/SoulBarrier';
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell Statistics
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
     soulBarrier: SoulBarrier,
 
