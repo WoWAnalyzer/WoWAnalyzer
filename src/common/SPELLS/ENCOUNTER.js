@@ -302,12 +302,12 @@ export default {
     name: "Artillery Strike",
     icon: "spell_fire_felflamestrike",
   },
-  EONAR_FEL_SWIPE0: {
+  EONAR_FEL_SWIPE_0: {
     id: 250703,
     name: "Fel Swipe",
     icon: "inv_weapon_halberd17",
   },
-  EONAR_FEL_SWIPE1: {
+  EONAR_FEL_SWIPE_1: {
     id: 250701,
     name: "Fel Swipe",
     icon: "inv_weapon_halberd17",
@@ -490,11 +490,126 @@ export default {
     icon: "spell_mage_flameorb",
   },
 
-
-
-
-
-
-
+  //Imonar:
+  IMONAR_CHARGED_BLASTS: {
+    id:  248254,
+    name: "Charged Blasts",
+    icon: "ability_mage_firestarter",
+  },
+  IMONAR_CONFLAGRATION_0:{
+    id: 250135,
+    name: "Conflagration",
+    icon: "spell_fire_felflamering",
+  },
+  IMONAR_CONFLAGRATION_1:{
+    id: 248233,
+    name: "Conflagration",
+    icon: "spell_fire_felflamering",
+  },
+  IMONAR_EMPOWERED_PULSE_GRENADE:{
+    id: 248068,
+    name: "Empowered Pulse Grenade",
+    icon: "ability_felarakkoa_feldetonation_green",
+  },
+  IMONAR_EMPOWERED_SHOCK_LANCE: {
+    id: 250255,
+    name: "Empowered Shock Lance",
+    icon: "inv_sword_2h_felfireraid_d_02",
+  },
+  IMONAR_EMPOWERED_SHRAPNEL_BLAST: {
+    id: 248070,
+    name: "Empowered Shrapnel Blast",
+    icon: "spell_fire_felrainoffire",
+  },
+  IMONAR_SEVER: {
+    id: 247687,
+    name: "Sever",
+    icon: "ability_skeer_bloodletting",
+  },
+  IMONAR_SHOCK_LANCE:{
+    id: 247367,
+    name: "Shock Lance",
+    icon: "inv_knife_1h_felfireraid_d_01",
+  },
+  IMONAR_SHRAPNEL_BLAST_0:{
+    id: 247923,
+    name: "Shrapnel Blast",
+    icon: "inv_misc_bomb_02",
+  },
+  IMONAR_SLEEP_CANISTER:{
+    id: 254244,
+    name: "Sleep Canister",
+    icon: "spell_nature_sleep",
+  },
+  IMONAR_BLASTWIRE: {
+    id: 247962,
+    name: "Blastwire",
+    icon: "inv_gizmo_supersappercharge",
+  },
+  IMONAR_CHARGED_BLASTS_DAMAGE: {
+    id: 247716,
+    name: "Charged Blasts",
+    icon: "ability_mage_firestarter",
+  },
+  IMONAR_CONFLAGRATION_DAMAGE_0: {
+    id: 250191,
+    name: "Conflagration",
+    icon: "inv_misc_orb_05",
+  },
+  IMONAR_CONFLAGRATION_DAMAGE_1: {
+    id: 248321,
+    name: "Conflagration",
+    icon: "inv_icon_shadowcouncilorb_green",
+  },
+  IMONAR_ELECTRIFY: {
+    id: 247542,
+    name: "Electrify",
+    icon: "spell_fire_moltenbloodgreen",
+  },
+  IMONAR_EMPOWERED_ELECTRIFY: {
+    id: 250257,
+    name: "Empowered Electrify",
+    icon: "spell_shaman_convection",
+  },
+  IMONAR_EMPOWERED_PULSE_GRENADE_DAMAGE: {
+    id: 250007,
+    name: "Empowered Pulse Grenade",
+    icon: "ability_felarakkoa_deldetonation_green",
+  },
+  IMONAR_EMPOWERED_SHRAPNEL_BLAST_DAMAGE:{
+    id: 248094,
+    name: "Empowered Shrapnel Blast",
+    icon: "spell_fire_felrainoffire",
+  },
+  IMONAR_GATHERING_POWER: {
+    id: 248424,
+    name: "Gathering Power",
+    icon: "inv_ore_feliron",
+  },
+  IMONAR_INFERNAL_ROCKETS: {
+    id: 248255,
+    name: "Infernal Rockets",
+    icon: "spell_fire_ragnaros_molteninferno",
+  },
+  IMONAR_PULSE_GRENADE: {
+    id: 247681,
+    name: "Pulse Grenade",
+    icon: "inv_gizmo_felironbomb",
+  },
+  IMONAR_SHRAPNEL_BLAST_1:{
+    id: 255641,
+    name: "Shrapnel Blast",
+    icon: "inv_misc_bomb_02",
+  },
+  IMONAR_SHRAPNEL_BLAST_2: {
+    id: 247949,
+    name: "Shrapnel Blast",
+    icon: "ability_deathwing_shrapnel",
+  },
+  IMONAR_STASIS_TRAP: {
+    id: 247641,
+    name: "Stasis Trap",
+    icon: "inv_fabric_felcloth_ebon",
+  },
 
 };
