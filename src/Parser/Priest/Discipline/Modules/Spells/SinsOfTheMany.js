@@ -34,6 +34,11 @@ class SinsOfTheMany extends Analyzer {
   bonusDamage = 0;
   bonusHealing = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
+  }
+
   get currentBonus() {
     const baseBonus = SINS_OF_THE_MANY_BASE_BONUS * 100;
     const floorBonus = SINS_OF_THE_MANY_FLOOR_BONUS * 100;
