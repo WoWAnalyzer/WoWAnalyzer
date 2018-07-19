@@ -208,7 +208,99 @@ export default {
     name: "Smouldering",
     icon: "spell_fire_flameshock",
   },
-  
+
+  //Antoran High Command:
+  HIGHCOMMAND_ASSUME_COMMAND: {
+    id: 245227,
+    name: "Assume Command",
+    icon: "ability_warrior_battleshout",
+  },
+  HIGHCOMMAND_BLADESTORM:{
+    id: 253038,
+    name: "Bladestorm",
+    icon: "ability_warrior_bladestorm",
+  },
+  HIGHCOMMAND_DEMONIC_CHARGE: {
+    id: 253037,
+    name: "Demonic Charge",
+    icon: "spell_shadow_summonfelguard",
+  },
+  HIGHCOMMAND_DISRUPTION_FIELD: {
+    id: 254771,
+    name: "Disruption Field",
+    icon: "spell_shadow_demoniccircleteleport",
+  },
+  HIGHCOMMAND_ENTROPIC_MINE: {
+    id: 257262,
+    name: "Entropic Mine",
+    icon: "trade_engineering",
+  },
+  HIGHCOMMAND_EXPLOIT_WEAKNESS: {
+    id: 244892,
+    name: "Exploit Weakness",
+    icon: "ability_xavius_tormentingswipe",
+  },
+  HIGHCOMMAND_EXTRACT_INTERLOPER: {
+    id: 254130,
+    name: "Extract Interloper",
+    icon: "inv_felbatmount",
+  },
+  HIGHCOMMAND_FUSILLADE: {
+    id: 244625,
+    name: "Fusillade",
+    icon: "ability_felarrakoa_feldetonation_green",
+  },
+  HIGHCOMMAND_PYROBLAST: {
+    id: 246505,
+    name: "Pyroblast",
+    icon: "spell_fire_fireball02",
+  },
+  HIGHCOMMAND_SHOCK_GRENADE: {
+    id: 244722,
+    name: "Shock Grenade",
+    icon: "inv_gizmo_felironbomb",
+  },
+  HIGHCOMMAND_BLADESTORM_DAMAGE: {
+    id: 253039,
+    name: "Bladestorm",
+    icon: "ability_warrior_bladestorm",
+  },
+  HIGHCOMMAND_CHAOS_PULSE: {
+    id: 257974,
+    name: "Chaos Pulse",
+    icon: "spell_fire_felpyroblast",
+  },
+  HIGHCOMMAND_ENTROPIC_BLAST_DOT: {
+    id: 253290,
+    name: "Entropic Blast",
+    icon: "spell_fire_felflamering",
+  },
+  HIGHCOMMAND_ENTROPIC_BLAST: {
+    id: 245121,
+    name: "Entropic Blast",
+    icon: "spell_fire_felflamering",
+  },
+  HIGHCOMMAND_FUSSILADE_DAMAGE: {
+    id: 244627,
+    name: "Fussilade",
+    icon: "ability_felarrakoa_feldetonation_green",
+  },
+  HIGHCOMMAND_PSYCHIC_ASSAULT: {
+    id: 244172,
+    name: "Psychic Assault",
+    icon: "spell_arcane_mindmastery",
+  },
+  HIGHCOMMAND_SHOCK_GRENADE_BUFF: {
+    id: 244737,
+    name: "Shock Grenade",
+    icon: "inv_gizmo_felironbomb",
+  },
+  HIGHCOMMAND_SHOCKED: {
+    id: 244748,
+    name: "Shocked",
+    icon: "ability_monk_cracklingjadelightning",
+  },
+
 
 
 
