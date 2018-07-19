@@ -46,7 +46,8 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.BESTOW_FAITH_TALENT.id]: 1,
   // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
   [SPELLS.LIGHT_OF_THE_MARTYR.id]: 1,
-  [SPELLS.AVENGING_CRUSADER_HEAL.id]: 1,
+  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
+  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
 };
 
 export const BEACON_TYPES = {

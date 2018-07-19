@@ -92,7 +92,14 @@ export default {
     mastery: false, // confirmed many times this doesn't scale with Mastery
     vers: true,
   },
-  [SPELLS.AVENGING_CRUSADER_HEAL.id]: {
+  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: false, // it just raw scales off of the damage done
+    vers: true,
+  },
+  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: {
     int: true,
     crit: true,
     hasteHpct: true,

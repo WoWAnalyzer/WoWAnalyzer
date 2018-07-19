@@ -327,8 +327,13 @@ export default {
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
   },
-  AVENGING_CRUSADER_HEAL: {
+  AVENGING_CRUSADER_HEAL_NORMAL: {
     id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
+  AVENGING_CRUSADER_HEAL_CRIT: {
+    id: 281465,
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
   },
