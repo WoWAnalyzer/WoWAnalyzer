@@ -475,7 +475,7 @@ export default {
   },
   RECKLESSNESS: {
     id: 1719,
-    name: 'Battle Cry',
+    name: 'Recklessness',
     icon: 'warrior_talent_icon_innerrage',
   },
   BERSERKER_RAGE: {
