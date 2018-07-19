@@ -15,7 +15,7 @@ import HealingRainLocation from './Modules/ShamanCore/HealingRainLocation';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import SpellUsable from './Modules/Features/SpellUsable';
 import StatValues from './Modules/Features/StatValues';
 
