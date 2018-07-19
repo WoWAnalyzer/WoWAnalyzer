@@ -7,7 +7,7 @@ import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { formatDuration, formatPercentage } from 'common/format';
 import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 
-const HP_PER_BONE_SHIELD_STACK = 0.02;
+const HP_PER_BONE_SHIELD_STACK = 0.01;
 
 class FoulBulwark extends Analyzer {
   static dependencies = {
