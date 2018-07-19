@@ -4,7 +4,6 @@ export default {
   // Antorus the Burning Throne
 
   // Garothi Worldbreaker
-  //Casts:
   GAROTHI_ANNIHILATION: {
     id: 244294,
     name: 'Annihilation',
@@ -50,7 +49,6 @@ export default {
     name: "Shrapnel",
     icon: "ability_deathwing_shrapnel",
   },
-  //Damage:
   GAROTHI_APOCALYPSE_DRIVE: {
     id: 253300,
     name: "Apocalypse Drive",
@@ -71,7 +69,6 @@ export default {
     name: 'Melee',
     icon: 'spell_fire_felimmolation',
   },
-
   //Felhounds:
   FELHOUNDS_DECAY_DEBUFF: {
     id: 245098,
@@ -203,7 +200,6 @@ export default {
     name: "Smouldering",
     icon: "spell_fire_flameshock",
   },
-
   //Antoran High Command:
   HIGHCOMMAND_ASSUME_COMMAND: {
     id: 245227,
@@ -295,7 +291,6 @@ export default {
     name: "Shocked",
     icon: "ability_monk_cracklingjadelightning",
   },
-
   //Eonar:
   EONAR_ARTILLERY_STRIKE: {
     id: 246305,
@@ -367,7 +362,6 @@ export default {
     name: "Burning Embers",
     icon: "priest_icon_chakra_red",
   },
-
   //Portal Kepper Hasabel:
   PK_ACIDIC_WEB: {
     id: 246208,
@@ -489,7 +483,6 @@ export default {
     name: "Portal: Xoroth",
     icon: "spell_mage_flameorb",
   },
-
   //Imonar:
   IMONAR_CHARGED_BLASTS: {
     id:  248254,
@@ -611,5 +604,147 @@ export default {
     name: "Stasis Trap",
     icon: "inv_fabric_felcloth_ebon",
   },
+  //Kin'garoth:
+  KG_APOCALYPSE_PROTOCOL: {
+    id: 246516,
+    name: "Apocalypse Protocol",
+    icon: "spell_fire_felfireward",
+  },
+  KG_DIABOLIC_BOMB_0: {
+    id: 248214,
+    name: "Diabolic Bomb",
+    icon: "inv_icon_shadowdouncilorb_purple",
+  },
+  KG_EMPOWERED_REVERBERATING_STRIKE: {
+    id: 254795,
+    name: "Empowered Reverberating Strike",
+    icon: "ability_mage_firestarter",
+  },
+  KG_FLAME_REVERBERATION: {
+   id: 244328,
+   name: "Flame Reverberation",
+   icon: "spell_fire_felflamering",
+  },
+  KG_FORGING_STRIKE: {
+    id: 254919,
+    name: "Forging Strike",
+    icon: "ability_paladin_hammeroftherighteous",
+  },
+  KG_INITIALIZING: {
+    id: 246504,
+    name: "Initializing",
+    icon: "inv_eng_gearspringparts",
+  },
+  KG_REVERBERATING_DECIMATION_0:{
+    id: 249686,
+    name: "Reverberating Decimation",
+    icon: "ability_mage_firestarter",
+  },
+  KG_REVERBERATING_STRIKE: {
+    id: 254926,
+    name: "Reverberating Strike",
+    icon: "spell_fire_flametounge",
+  },
+  KG_RUINER_0: {
+    id: 246833,
+    name: "Ruiner",
+    icon: "spell_fire_felflamebreath",
+  },
+  KG_APOCALYPSE_BLAST: {
+    id: 246634,
+    name: "Apocalypse Blast",
+    icon: "inv_ember",
+  },
+  KG_DIABOLIC_BOMB_1: {
+    id: 246779,
+    name: "Diabolic Bomb",
+    icon: "inv_icon_shadowcouncilorb_purple",
+  },
+  KG_FLAMES_OF_THE_FORGE: {
+    id: 246646,
+    name: "Flames of the Forge",
+    icon: "spell_fire_selfdestruct",
+  },
+  KG_REVERBERATING_DECIMATION_1: {
+    id: 249724,
+    name: "Reverberating Decimation",
+    icon: "ability_mage_firestarter",
+  },
+  KG_RUINER_1: {
+    id: 246840,
+    name: "Ruiner",
+    icon: "spell_fire_felflamebreath",
+  },
+  //Varimathras:
+  VARI_DARK_FISSURE_0: {
+    id: 243999,
+    name: "Dark Fissure",
+    icon: "spell_shadow_shadowfury",
+  },
+  VARI_ECHOES_OF_DOOM: {
+    id: 248732,
+    name: "Echoes of Doom",
+    icon: "spell_warlock_demonsoul",
+  },
+  VARI_MARKED_PREY: {
+    id: 244042,
+    name: "Marked Prey",
+    icon: "ability_rogue_deadlymomentum",
+  },
+  VARI_NECROTIC_EMBRACE_0: {
+    id: 244093,
+    name: "Necrotic Embrace",
+    icon: "spell_deathknight_necroticplague",
+  },
+  VARI_SHADOW_STRIKE: {
+    id: 243960,
+    name: "Shadow Strike",
+    icon: "spell_shadow_shadowfiend",
+  },
+  VARI_ALONE_IN_THE_DARKNESS: {
+    id: 243963,
+    name: "Alone in the Darkness",
+    icon: "spell_shadow_shadesofdarkness",
+  },
+  VARI_DARK_FISSURE_1: {
+    id: 244005,
+    name: "Dark Fissure",
+    icon: "spell_shadow_shadowfury",
+  },
+  VARI_NECROTIC_EMBRACE_1: {
+    id: 244094,
+    name: "Necrotic Embrace",
+    icon: "spell_deathknight_necroticplague",
+  },
+  VARI_SHADOW_HUNTER:{
+    id: 244070,
+    name: "Shadow Hunter",
+    icon: "ability_rogue_deadlymomentum",
+  },
+  VARI_TORMENT_OF_FLAMES: {
+    id: 243968,
+    name: "Torment of Flames",
+    icon: "ability_mage_livingbomb",
+  },
+  VARI_TORMENT_OF_FROST: {
+    id: 243977,
+    name: "Torment of Frost",
+    icon: "ability_mage_coldasice",
+  },
+  VARI_TORMENT_OF_FEL: {
+    id: 243980,
+    name: "Torment of Fel",
+    icon: "spell_fel_incinerate",
+  },
+  VARI_TORMENT_OF_SHADOWS: {
+    id: 243973,
+    name: "Torment of Shadows",
+    icon: "spell_shadow_painandsuffering",
+  },
+
+
+
+
+
 
 };
