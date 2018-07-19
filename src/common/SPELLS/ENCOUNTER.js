@@ -301,6 +301,78 @@ export default {
     icon: "ability_monk_cracklingjadelightning",
   },
 
+  //Eonar:
+  EONAR_ARTILLERY_STRIKE: {
+    id: 246305,
+    name: "Artillery Strike",
+    icon: "spell_fire_felflamestrike",
+  },
+  EONAR_FEL_SWIPE0: {
+    id: 250703,
+    name: "Fel Swipe",
+    icon: "inv_weapon_halberd17",
+  },
+  EONAR_FEL_SWIPE1: {
+    id: 250701,
+    name: "Fel Swipe",
+    icon: "inv_weapon_halberd17",
+  },
+  EONAR_MIND_BLAST: {
+    id: 249196,
+    name: "Mind Blast",
+    icon: "spell_shadow_unholyfrenzy",
+  },
+  EONAR_PAIN: {
+    id: 249194,
+    name: "Pain",
+    icon: "spell_shadow_shadowwordpain",
+  },
+  EONAR_WRACK: {
+    id: 249126,
+    name: "Wrack",
+    icon: "ability_druid_twilightswrath",
+  },
+  EONAR_PARAXIS_ARTILLERY: {
+    id: 246315,
+    name: "Paraxis Artillery",
+    icon: "spell_fire_felfire",
+  },
+  EONAR_RAIN_OF_FEL: {
+    id: 248329,
+    name: "Rain of Fel",
+    icon: "spell_fire_felflamebolt",
+  },
+  EONAR_STRIKE: {
+    id: 245851,
+    name: "Strike",
+    icon: "ability_hunter_swiftstrike",
+  },
+  EONAR_FEL_WAKE: {
+    id: 248795,
+    name: "Fel Wake",
+    icon: "spell_fire_felflamestrike",
+  },
+  EONAR_FOUL_STEPS: {
+    id: 250139,
+    name: "Foul Steps",
+    icon: "priest_icon_chakra",
+  },
+  EONAR_ARCANE_BURST: {
+    id: 250171,
+    name: "Arcane Burst",
+    icon: "priest_icon_chakra_blue",
+  },
+  EONAR_DEATH_THROES: {
+    id: 249149,
+    name: "Death Throes",
+    icon: "spell_warlock_demonwrath",
+  },
+  EONAR_BURNING_EMBERS: {
+    id: 250128,
+    name: "Burning Embers",
+    icon: "priest_icon_chakra_red",
+  },
+  
 
 
 
