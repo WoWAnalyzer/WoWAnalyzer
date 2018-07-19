@@ -3,6 +3,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Abilities from './Modules/Abilities';
 import ActiveTargets from './Modules/Features/ActiveTargets';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     abilities: Abilities,
+    mitigationCheck: MitigationCheck,
 
     // Features
     activeTargets: ActiveTargets,

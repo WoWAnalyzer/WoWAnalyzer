@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageTaken: [DamageTaken, { showStatistic: true }],
     damageDone: [DamageDone, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // DeathKnight Core
     abilities: Abilities,

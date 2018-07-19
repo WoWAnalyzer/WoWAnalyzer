@@ -21,15 +21,23 @@ const mitigationBuffs = {'Paladin' : [SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
                                       SPELLS.SPELL_REFLECTION.id],
                           'DemonHunter': [SPELLS.DEMON_SPIKES_BUFF.id,
                                           SPELLS.METAMORPHOSIS_TANK.id],
-                          'Druid': [],
-                          'Death Knight': []};
+                          'Druid': [SPELLS.IRONFUR.id,
+                                    SPELLS.FRENZIED_REGENERATION.id,
+                                    SPELLS.BARKSKIN.id,
+                                    SPELLS.SURVIVAL_INSTINCTS.id],
+                          'DeathKnight': [SPELLS.BONE_SHIELD.id,
+                                          SPELLS.BLOOD_SHIELD.id,
+                                          SPELLS.ANTI_MAGIC_SHELL.id,
+                                          SPELLS.VAMPIRIC_BLOOD.id,
+                                          SPELLS.ICEBOUND_FORTITUDE.id,
+                                          SPELLS.DANCING_RUNE_WEAPON_BUFF.id]};
 
 const mitigationDebuffs = {'Paladin' : [],
                             'Monk' : [],
                             'Warrior': [SPELLS.DEMORALIZING_SHOUT.id],
                             'DemonHunter': [SPELLS.FIERY_BRAND_DEBUFF.id],
                             'Druid': [],
-                            'Death Knight': []};
+                            'DeathKnight': []};
 
 
 class MitigationCheck extends Analyzer{
@@ -57,11 +65,11 @@ class MitigationCheck extends Analyzer{
       }
       this.buffCheck = mitigationBuffs[this.owner.player.type];
       this.debuffCheck = mitigationDebuffs[this.owner.player.type];
-    }else{
+    }else {
       this.checks = [];
       this.buffCheck = [];
+      this.debuffCheck = [];
     }
-
   }
 
 
@@ -71,6 +79,7 @@ class MitigationCheck extends Analyzer{
         this.checksPassed += 1;
       } else {
         const enemy = this.enemies.getEntities()[event.sourceID];
+        //We want to get the source rather than the player's target, so no getEntity().
         if(enemy && this.debuffCheck.some((e) => enemy.hasBuff(e, event.timestamp))){
           this.checksPassed += 1;
         } else {
