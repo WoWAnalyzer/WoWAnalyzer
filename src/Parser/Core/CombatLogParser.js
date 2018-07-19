@@ -305,6 +305,7 @@ class CombatLogParser {
   }
 
   _timestamp = null;
+  _event = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -502,6 +503,7 @@ class CombatLogParser {
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
 
     this._timestamp = event.timestamp;
+    this._event = event;
 
     {
       // Handle on_event (listeners of all events)

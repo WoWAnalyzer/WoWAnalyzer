@@ -72,7 +72,7 @@ class Abilities extends Analyzer {
    */
   getExpectedCooldownDuration(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? ability.cooldown * 1000 : undefined;
+    return ability ? Math.round(ability.cooldown * 1000) : undefined;
   }
 
   /**

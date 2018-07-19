@@ -99,10 +99,6 @@ export default {
     mastery: false, // confirmed many times this doesn't scale with Mastery
     vers: true,
   },
-  [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
-    ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
-    multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
-  },
   [SPELLS.AVENGING_CRUSADER_HEAL.id]: {
     int: true,
     crit: true,
