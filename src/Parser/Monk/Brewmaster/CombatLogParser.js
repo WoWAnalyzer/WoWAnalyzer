@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 // Core
 import HealingDone from './Modules/Core/HealingDone';
 import DamageTaken from './Modules/Core/DamageTaken';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
     masteryValue: MasteryValue,
+    mitigationCheck: MitigationCheck,
 
     // Features
     checklist: Checklist,
