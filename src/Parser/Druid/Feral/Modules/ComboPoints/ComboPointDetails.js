@@ -24,23 +24,6 @@ class ComboPointDetails extends Analyzer {
     return (this.pointsWasted / this.owner.fightDuration) * 1000 * 60;
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        icon={(
-        <img
-          src={WastedPointsIcon}
-          alt="Wasted Combo Points"
-        />
-      )}
-        value={`${this.pointsWastedPerMinute.toFixed(2)}`}
-        label="Wasted Combo Points per minute"
-        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.`}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
-
   get wastingSuggestionThresholds() {
     return {
       actual: this.pointsWastedPerMinute,
@@ -91,6 +74,23 @@ class ComboPointDetails extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={(
+        <img
+          src={WastedPointsIcon}
+          alt="Wasted Combo Points"
+        />
+      )}
+        value={`${this.pointsWastedPerMinute.toFixed(2)}`}
+        label="Wasted Combo Points per minute"
+        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 
   tab() {
     return {
