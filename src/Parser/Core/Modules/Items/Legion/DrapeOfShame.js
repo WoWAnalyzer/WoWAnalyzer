@@ -33,7 +33,7 @@ class DrapeOfShame extends Analyzer {
     this.active = !!this.equippedItem;
 
     if (this.active) {
-      this.critEffectBonus.hook(this.getCritEffectBonus);
+      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
     }
   }
 
