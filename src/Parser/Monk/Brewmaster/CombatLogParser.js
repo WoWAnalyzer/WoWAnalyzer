@@ -28,9 +28,7 @@ import TrainingOfNiuzao from './Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageTakenTable from './Modules/Features/DamageTakenTable';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
-import StaggerTable from './Modules/Features/StaggerTable';
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
@@ -60,9 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
-    damageTakenTable: DamageTakenTable,
     staggerPoolGraph: StaggerPoolGraph,
-    staggerTable: StaggerTable,
 
     // Spells
     ironSkinBrew: IronSkinBrew,
