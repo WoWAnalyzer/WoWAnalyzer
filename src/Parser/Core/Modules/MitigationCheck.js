@@ -19,14 +19,15 @@ const mitigationBuffs = {'Paladin' : [SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
                                       SPELLS.LAST_STAND.id,
                                       SPELLS.SHIELD_WALL.id,
                                       SPELLS.SPELL_REFLECTION.id],
-                          'Demon Hunter': [],
+                          'DemonHunter': [SPELLS.DEMON_SPIKES_BUFF.id,
+                                          SPELLS.METAMORPHOSIS_TANK.id],
                           'Druid': [],
                           'Death Knight': []};
 
 const mitigationDebuffs = {'Paladin' : [],
                             'Monk' : [],
                             'Warrior': [SPELLS.DEMORALIZING_SHOUT.id],
-                            'Demon Hunter': [],
+                            'DemonHunter': [SPELLS.FIERY_BRAND_DEBUFF.id],
                             'Druid': [],
                             'Death Knight': []};
 

@@ -6,6 +6,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import PainChart from './Modules/PainChart/Pain';
 import PainTracker from './Modules/Pain/PainTracker';
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
