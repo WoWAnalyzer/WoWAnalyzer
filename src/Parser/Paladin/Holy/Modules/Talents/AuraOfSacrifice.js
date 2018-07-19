@@ -138,6 +138,8 @@ class AuraOfSacrifice extends Analyzer {
     const fightStart = this.owner.fight.start_time;
     const timestampFilter = transferringHistory.map(period => `(timestamp>=${period.start - fightStart} AND timestamp<=${period.end - fightStart})`).join(' OR ');
     const filter = `(${timestampFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
+    // Just leave this here to make it easy to switch to WCL
+    console.log(filter);
 
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
