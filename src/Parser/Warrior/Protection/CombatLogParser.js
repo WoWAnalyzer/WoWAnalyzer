@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Haste from './Modules/Core/Haste';
 import Abilities from './Modules/Abilities';
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     damageDone: [DamageDone, { showStatistic: true }],
     haste: Haste,
+    mitigationCheck: MitigationCheck,
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
