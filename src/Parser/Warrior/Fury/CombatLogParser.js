@@ -14,7 +14,7 @@ import RampageFrothingBerserker from './Modules/Features/RampageFrothingBerserke
 import RampageCancelled from './Modules/Features/RampageCancelled';
 import AngerManagement from './Modules/Talents/AngerManagement';
 import FuriousSlash from './Modules/Talents/FuriousSlash';
-import FuriousSlashTimesByStacks from './Modules/Talents/FuriousSlash';
+import FuriousSlashTimesByStacks from './Modules/Talents/FuriousSlashTimesByStacks';
 
 import T21_2set from './Modules/Items/T21_2set';
 import T21_4set from './Modules/Items/T21_4set';
