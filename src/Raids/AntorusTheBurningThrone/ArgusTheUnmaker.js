@@ -16,6 +16,7 @@ export default {
     softMitigationChecks: {
       SweepingScythe: 248499,
       DeadlyScythe: 258039,
+      SoulrendingScythe: 258838,
     },
   },
 };

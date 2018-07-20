@@ -14,6 +14,7 @@ export default {
     // e.g. ads
     softMitigationChecks: {
       FoeBreaker: 244291,
+      EmpoweredFoeBreaker: 255060,
     },
   },
 };

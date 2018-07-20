@@ -14,6 +14,7 @@ export default {
     // e.g. ads
     softMitigationChecks: {
       ShadowStrike: 243960,
+      ShadowStrikeN: 257644, //N difficulty Shadow Strike that does not cleave.
     },
   },
 };

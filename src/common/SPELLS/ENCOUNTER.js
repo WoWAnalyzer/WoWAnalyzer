@@ -741,6 +741,11 @@ export default {
     name: "Torment of Shadows",
     icon: "spell_shadow_painandsuffering",
   },
+  VARI_SHADOW_STRIKE_N: {
+    id: 257644,//N Difficulty ability which does not cleave.
+    name: "Shadow Strike",
+    icon: "spell_shadow_shadowfiend",
+  },
 
   //Coven of Shivarra:
   COVEN_CHILLED_BLOOD: {
@@ -894,10 +899,222 @@ export default {
     icon: "ability_butcher_whirl",
   },
 
+  //Aggramar:
+  AGG_BLAZING_ERUPTION: {
+    id: 244912,
+    name: "Blazing Eruption",
+    icon: "spell_fire_lavaspawn",
+  },
+  AGG_EMPOWERED_FLAME_REND_0: {
+    id: 255058,
+    name: "Empowered Flame Rend",
+    icon: "ability_warlock_inferno",
+  },
+  AGG_EMPOWERED_FLAME_REND_1: {
+    id: 247079,
+    name: "Empowered Flame Rend",
+    icon: "ability_warlock_inferno",
+  },
+  AGG_FOE_BREAKER: {
+    id: 245458,
+    name: "Foe Breaker",
+    icon: "spell_fire_flameblades",
+  },
+  AGG_EMPOWERED_SEARING_TEMPEST: {
+    id: 255061,
+    name: "Empowered Searing Tempest",
+    icon: "spell_fire_selfdestruct",
+  },
+  AGG_CATALYZING_PRESENCE_0: {
+    id: 244901,
+    name: "Catalyzing Presence",
+    icon: "inv_misc_volatilefire",
+  },
+  AGG_CATALYZING_PRESENCE_1: {
+    id: 244903,
+    name: "Catalyzing Presence",
+    icon: "inv_misc_volatilefire",
+  },
+  AGG_UNCHECKED_FLAME: {
+    id: 245631,
+    name: "Unchecked Flame",
+    icon: "spell_fire_fire",
+  },
+  AGG_EMPOWERED_FOE_BREAKER_0: {
+    id: 255059,
+    name: "Empowered Foe Breaker",
+    icon: "spell_fire_flameblades",
+  },
+  AGG_EMPOWERED_FOE_BREAKER_1: {
+    id: 255060,
+    name: "Empowered Foe Breaker",
+    icon: "spell_fire_flameblades",
+  },
+  AGG_WAKE_OF_FLAME: {
+    id: 244693,
+    name: "Wake of Flame",
+    icon: "ability_rhyolith_magmaflow_wave",
+  },
+  AGG_TAESHALACHS_REACH: {
+    id: 243431,
+    name: "Taeshalach's Reach",
+    icon: "inv_sword_1h_aggramar_d_01",
+  },
+  AGG_SEARING_TEMPEST: {
+    id: 245301,
+    name: "Searing Tempest",
+    icon: "spell_fire_selfdestruct",
+  },
+  AGG_FLAME_REND_0: {
+    id: 245463,
+    name: "Flame Rend",
+    icon: "ability_warlock_inferno",
+  },
+  AGG_FLAME_REND_1: {
+    id: 244033,
+    name: "Flame Rend",
+    icon: "ability_warlock_inferno",
+  },
+  AGG_CORRUPT_AEGIS: {
+    id: 254022,
+    name: "Corrupt Aegis",
+    icon: "ability_warrior_shieldmastery",
+  },
+  AGG_METEOR_SWARM_0: {
+    id: 245769,
+    name: "Meteor Swarm",
+    icon: "spell_shadow_rainoffire",
+  },
+  AGG_METEOR_SWARM_1: {
+    id: 244686,
+    name: "Meteor Swarm",
+    icon: "spell_shadow_rainoffire",
+  },
+  AGG_FOE_BREAKER_N: {
+    id: 244291,
+    name: "Foe Breaker",
+    icon: "spell_fire_flameblades",
+  },
 
-
-
-
-
-
+  //Argus the Unmaker:
+  ARGUS_CONE_OF_DEATH: {
+    id: 248165,
+    name: "Cone of Death",
+    icon: "spell_deathvortex",
+  },
+  ARGUS_TORTURED_RAGE: {
+    id: 257296,
+    name: "Tortured Rage",
+    icon: "spell_shadow_deathpact",
+  },
+  ARGUS_EMBER_OF_RAGE: {
+    id: 257299,
+    name: "Ember of Rage",
+    icon: "ability_warlock_burningembersblue",
+  },
+  ARGUS_SOULBURST_DETONATION: {
+    id: 251572,
+    name: "Soulburst Detonation",
+    icon: "spell_fire_twilightflamestrike",
+  },
+  ARGUS_COSMIC_SMASH: {
+    id: 252634,
+    name: "Cosmic Smash",
+    icon: "sha_spell_fire_ragnaros_supernova",
+  },
+  ARGUS_SOULBOMB_DETONATION: {
+    id: 251571,
+    name: "Soulbomb Detonation",
+    icon: "spell_shadow_shadowfury",
+  },
+  ARGUS_SWEEPING_SCYTHE: {
+    id: 248499,
+    name: "Sweeping Scythe",
+    icon: "inv_polearm_2h_titanargus_d_01",
+  },
+  ARGUS_REORIGINATION_PULSE: {
+    id: 256396,
+    name: "Reorigination Pulse",
+    icon: "ability_titankeeper_cleansingorb",
+  },
+  ARGUS_DEATH_FOG: {
+    id: 248167,
+    name: "Death Fog",
+    icon: "ability_deathknight_deathsiphon",
+  },
+  ARGUS_DEADLY_SCYTHE: {
+    id: 258039,
+    name: "Deadly Scythe",
+    icon: "inv_polearm_2h_titanargus_d_01",
+  },
+  ARGUS_STARBLAST: {
+    id: 253061,
+    name: "Starblast",
+    icon: "artifactability_balancedruid_moonandstars",
+  },
+  ARGUS_SOULBLIGHT: {
+    id: 248396,
+    name: "Soulblight",
+    icon: "ability_argus_wastingplague",
+  },
+  ARGUS_COSMIC_RAY: {
+    id: 252707,
+    name: "Cosmic Ray",
+    icon: "spell_arcane_invocation",
+  },
+  ARGUS_SOULBURST: {
+    id: 250669,
+    name: "Soulburst",
+    icon: "ability_argus_soulbombdebuffsmall",
+  },
+  ARGUS_EDGE_OF_OBLITERATION: {
+    id: 251815,
+    name: "Edge of Obliteration",
+    icon: "ability_argus_edgeofobliteration",
+  },
+  ARGUS_SOULBOMB: {
+    id: 251570,
+    name: "Soulbomb",
+    icon: "ability_argus_soulbombdebufflarge",
+  },
+  ARGUS_UNLEASHED_RAGE: {
+    id: 257911,
+    name: "Unleashed Rage",
+    icon: "spell_winston_rage",
+  },
+  ARGUS_SHATTERED_BONDS: {
+    id: 258000,
+    name: "Shattered Bonds",
+    icon: "ability_deathknight_deathchain",
+  },
+  ARGUS_CRUSHING_FEAR: {
+    id: 257930,
+    name: "Crushing Fear",
+    icon: "spell_shadow_painandsuffering",
+  },
+  ARGUS_RENT_SOUL: {
+    id: 258837,
+    name: "Rent Soul",
+    icon: "ability_malkorok_blightofyshaarj_red",
+  },
+  ARGUS_SOULRENDING_SCYTHE: {
+    id: 258838,
+    name: "Soulrending Scythe",
+    icon: "inv_polearm_2h_titanargus_d_01",
+  },
+  ARGUS_SENTENCE_OF_SARGERAS: {
+    id: 257966,
+    name: "Sentence of Sargeras",
+    icon: "inv_belt_18",
+  },
+  ARGUS_APOCALYPSIS_PULSE: {
+    id: 258037,
+    name: "Apocalypsis Pulse",
+    icon: "ability_titankeeper_cleansingorb",
+  },
+  ARGUS_APOCALYPSIS_ZONE: {
+    id: 258035,
+    name: "Apocalypsis Zone",
+    icon: "inv_ember",
+  },
 };
