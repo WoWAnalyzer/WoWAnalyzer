@@ -15,7 +15,7 @@ const EVM_HEALING_INCREASE = 0.3;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
-  SPELLS.ENVELOPING_MISTS.id,
+  SPELLS.ENVELOPING_MIST.id,
 ];
 
 class EnvelopingMists extends Analyzer {
@@ -35,7 +35,7 @@ class EnvelopingMists extends Analyzer {
     }
 
     if (this.combatants.players[targetId]) {
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
         debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
       }
@@ -51,7 +51,7 @@ class EnvelopingMists extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ENVELOPING_MISTS.id} />}
+        icon={<SpellIcon id={SPELLS.ENVELOPING_MIST.id} />}
         value={`${formatNumber(this.healing)}`}
         label={(
           <dfn data-tip="This is the effective healing contributed by the Eveloping Mists buff.">

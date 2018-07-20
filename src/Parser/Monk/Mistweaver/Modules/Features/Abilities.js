@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
       // Other Spell Casting Metrics
 
       {
-        spell: SPELLS.ENVELOPING_MISTS,
+        spell: SPELLS.ENVELOPING_MIST,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
