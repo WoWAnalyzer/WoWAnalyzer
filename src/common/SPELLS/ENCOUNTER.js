@@ -742,6 +742,159 @@ export default {
     icon: "spell_shadow_painandsuffering",
   },
 
+  //Coven of Shivarra:
+  COVEN_CHILLED_BLOOD: {
+    id: 245532,
+    name: "Chilled Blood",
+    icon: "spell_yprsahj_bloodboil_blue",
+  },
+  COVEN_FIERY_STRIKE: {
+    id: 244899,
+    name: "Fiery Strike",
+    icon: "inv_sword_1h_firelandsraid_d_01",
+  },
+  COVEN_FLAMES_OF_KHAZGOROTH: {
+    id: 245671,
+    name: "Flames of Khaz'goroth",
+    icon: "ability_monk_breathoffire",
+  },
+  COVEN_FLASHFREEZE: {
+    id: 245518,
+    name: "Flashfreeze",
+    icon: "ability_mage_deepfreeze",
+  },
+  COVEN_FULMINATING_PULSE_0: {
+    id: 253520,
+    name: "Fulminating Pulse",
+    icon: "inv_ragnaros_heart",
+  },
+  COVEN_FURY_OF_GOLGANNETH_0: {
+    id: 246739,
+    name: "Fury of Golganneth",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  COVEN_MACHINATIONS_OF_AMANTHUL_0: {
+    id: 250097,
+    name: "Machinations of Aman'thul",
+    icon: "inv_offhand_1h_ulduarraid_d_01",
+  },
+  COVEN_MACHINATIONS_OF_AMANTHUL_1: {
+    id: 250095,
+    name: "Machinations of Aman'thul",
+    icon: "inv_offhand_1h_ulduarraid_d_01",
+  },
+  COVEN_ORB_OF_FROST_0: {
+    id: 253650,
+    name: "Orb of Frost",
+    icon: "spell_frost_frozenorb",
+  },
+  COVEN_SHADOW_BLADES_0: {
+    id: 246329,
+    name: "Shadow Blades",
+    icon: "spell_frost_iceshard",
+  },
+  COVEN_STORM_OF_DARKNESS_0: {
+    id: 252861,
+    name: "Storm of Darkness",
+    icon: "spell_shadow_shadesofdarkness",
+  },
+  COVEN_TORMENT_OF_AMANTHUL: {
+    id: 250335,
+    name: "Torment of Aman'thul",
+    icon: "inv_offhand_1h_ulduarraid_d_01",
+  },
+  COVEN_TORMENT_OF_GOLGANNETH: {
+    id: 249793,
+    name: "Torment of Golganneth",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  COVEN_TORMENT_OF_KHAZGOROTH: {
+    id: 250333,
+    name: "Torment of Khaz'goroth",
+    icon: "ability_monk_breathoffire",
+  },
+  COVEN_TORMENT_OF_NORGANNON: {
+    id: 250334,
+    name: "Torment of Norgannon",
+    icon: "ability_mage_potentspirit",
+  },
+  COVEN_TOUCH_OF_DARKNESS: {
+    id: 245303,
+    name: "Touch of Darkness",
+    icon: "spell_shadow_shadowbolt",
+  },
+  COVEN_TOUCH_OF_THE_COSMOS: {
+    id: 250648,
+    name: "Touch of the Cosmos",
+    icon: "spell_fel_firebolt",
+  },
+  COVEN_VISAGE_OF_THE_TITAN: {
+    id: 249863,
+    name: "Visage of the Titan",
+    icon: "inv_ingot_titansteel_blue",
+  },
+  COVEN_WHIRLING_SABER_CAST: {
+    id: 245627,
+    name: "Whirling Saber",
+    icon: "ability_butcher_whirl",
+  },
+  COVEN_COSMIC_GLARE: {
+    id: 250912,
+    name: "Cosmic Glare",
+    icon: "spell_fire_felflamebreath",
+  },
+  COVEN_FULMINATING_BURST: {
+    id: 253588,
+    name: "Fulminating Burst",
+    icon: "inv_ragnaros_heart",
+  },
+  COVEN_FULMINATING_PULSE_1: {
+    id: 253538,
+    name: "Fulminating Pulse",
+    icon: "inv_ragnaros_heart",
+  },
+  COVEN_FURY_OF_GOLGANNETH_1:{
+    id: 246770,
+    name: "Fury of Golganneth",
+    icon: "spell_nature_chainlightning",
+  },
+  COVEN_ORB_OF_FROST_1: {
+    id: 253690,
+    name: "Orb of Frost",
+    icon: "spell_frost_frozenorb",
+  },
+  COVEN_SENSE_OF_DREAD: {
+    id: 258018,
+    name: "Sense of Dread",
+    icon: "ability_bossgorefiend_touchofdoom",
+  },
+  COVEN_SHADOW_BLADES_1: {
+    id: 246374,
+    name: "Shadow Blades",
+    icon: "spell_frost_iceshard",
+  },
+  COVEN_SPECTRAL_ARMY_OF_NORGANNON: {
+    id: 245921,
+    name: "Spectral Army of Norgannon",
+    icon: "spell_shadow_shadetruesight",
+  },
+  COVEN_STORM_OF_DARKNESS_1: {
+    id: 253020,
+    name: "Storm of Darkness",
+    icon: "spell_shadow_shadesofdarkness",
+  },
+  COVEN_WHIRLING_SABER: {
+    id: 245634,
+    name: "Whirling Saber",
+    icon: "ability_butcher_whirl",
+  },
+  COVEN_WHIRLING_SABER_LAND: {
+    id: 245629,
+    name: "Whirling Saber",
+    icon: "ability_butcher_whirl",
+  },
+
+
 
 
 
