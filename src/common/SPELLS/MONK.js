@@ -178,13 +178,13 @@ export default {
     id: 197916,
     name: 'Lifecycles (Vivify)',
     icon: 'ability_monk_uplift',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   LIFECYCLES_ENVELOPING_MIST_BUFF: {
     id: 197919,
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   // Mastery
   GUSTS_OF_MISTS: {
