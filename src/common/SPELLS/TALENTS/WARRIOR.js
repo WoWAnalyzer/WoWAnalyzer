@@ -64,6 +64,7 @@ export default {
   INNER_RAGE_TALENT: { id: 215573, name: "Inner Rage", icon: "ability_warrior_innerrage" },
   SUDDEN_DEATH_TALENT_FURY: { id: 280721, name: "Sudden Death", icon: "ability_warrior_improveddisciplines" },
   FURIOUS_SLASH_TALENT: { id: 100130, name: "Furious Slash", icon: "ability_warrior_weaponmastery" },
+  FURIOUS_SLASH_TALENT_BUFF: {id: 202539, name: "Furious Slash", icon: "ability_warrior_weaponmastery" },
   BLADESTORM_TALENT: { id: 46924, name: "Bladestorm", icon: "ability_warrior_bladestorm" },
   RECKLESS_ABANDON_TALENT: { id: 202751, name: "Reckless Abandon", icon: "ability_warrior_battleshout" },
   SIEGEBREAKER_TALENT: { id: 280772, name: "Siegebreaker", icon: "inv_mace_101" },
