@@ -1,9 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { hasPremium } from 'Interface/selectors/user';
-import Ad from 'Interface/common/Ad';
 
 class StatisticsSectionTitle extends React.PureComponent {
   static propTypes = {
@@ -16,34 +12,21 @@ class StatisticsSectionTitle extends React.PureComponent {
   };
 
   render() {
-    const { children, rightAddon, premium } = this.props;
+    const { children, rightAddon } = this.props;
 
     return (
-      <React.Fragment>
-        {!premium && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: rightAddon ? -20 : -65 }}>
-            <Ad format="leaderboard" />
+      <div className="statistics-section-title">
+        <h1>
+          {children}
+        </h1>
+        {rightAddon && (
+          <div className="pull-right">
+            {rightAddon}
           </div>
         )}
-
-        <div className="statistics-section-title">
-          <h1>
-            {children}
-          </h1>
-          {rightAddon && (
-            <div className="pull-right">
-              {rightAddon}
-            </div>
-          )}
-        </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  premium: hasPremium(state),
-});
-export default connect(
-  mapStateToProps
-)(StatisticsSectionTitle);
+export default StatisticsSectionTitle;
