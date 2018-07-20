@@ -80,6 +80,13 @@ const ManaStyles = {
     showLine: true,
     spanGaps: true,
   },
+  DPS: {
+    backgroundColor: 'rgba(215, 2, 6, 0.4)',
+    borderColor: 'rgba(215, 2, 6, 0.6)',
+    ...BaseStyles,
+    showLine: true,
+    spanGaps: true,
+  },
   gridLines: {
     display: true,
     color: 'rgba(255, 255, 255, 0.6)',

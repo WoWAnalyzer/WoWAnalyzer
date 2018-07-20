@@ -1,5 +1,11 @@
+import React from 'react';
+
+import Tab from 'Main/Tab';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+
+import Mana from './Modules/Mana';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
@@ -29,6 +35,27 @@ class CombatLogParser extends CoreCombatLogParser {
     mirrorImage: MirrorImage,
     runeOfPower: RuneOfPower,
   };
+
+  generateResults(...args) {
+    const results = super.generateResults(...args);
+
+    // TODO: Suggestion for enchants
+
+    results.tabs = [
+      ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
+    ];
+
+    return results;
+  }
 }
 
 export default CombatLogParser;
