@@ -31,8 +31,6 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Essence Font</td></tr>
             <tr><td>Renewing Mist</td></tr>
             <tr><td>Vivify</td></tr>
-            <tr style={styles.cellBorder}><td>Total Uplifting Trance procs</td></tr>
-            <tr><td>Unused UT %</td></tr>
             <tr style={styles.cellBorder}><td>Mana Tea MP5</td></tr>
             <tr style={styles.cellBorder}><td>Lifecycles-EnM</td></tr>
             <tr><td>Lifecycles-Vivify</td></tr>
@@ -56,8 +54,6 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>{((parser._modules.thunderFocusTea.castsTftEf / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
             <tr><td>{((parser._modules.thunderFocusTea.castsTftRem / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
             <tr><td>{((parser._modules.thunderFocusTea.castsTftViv / parser._modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
-            <tr style={styles.cellBorder}><td>{parser._modules.upliftingTrance.UTProcsTotal}</td></tr>
-            <tr><td>{(1 - (parser._modules.upliftingTrance.consumedUTProc / parser._modules.upliftingTrance.UTProcsTotal) || 0).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser._modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser._modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser._modules.lifecycles.castsRedViv / (parser._modules.lifecycles.castsRedViv + parser._modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
             <tr><td>{(parser._modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser._modules.lifecycles.castsRedEnm / (parser._modules.lifecycles.castsRedEnm + parser._modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>

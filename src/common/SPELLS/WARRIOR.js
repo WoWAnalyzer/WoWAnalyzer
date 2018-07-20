@@ -193,26 +193,21 @@ export default {
     icon: 'ability_warrior_rampage',
   },
   RAMPAGE_1: {
-    id: 218617,
-    name: 'Rampage',
-    icon: 'ability_ironmaidens_bladerush',
-  },
-  RAMPAGE_2: {
     id: 184707,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
   },
-  RAMPAGE_3: {
+  RAMPAGE_2: {
     id: 184709,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
   },
-  RAMPAGE_4: {
+  RAMPAGE_3: {
     id: 201364,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
   },
-  RAMPAGE_5: {
+  RAMPAGE_4: {
     id: 201363,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
@@ -480,7 +475,7 @@ export default {
   },
   RECKLESSNESS: {
     id: 1719,
-    name: 'Battle Cry',
+    name: 'Recklessness',
     icon: 'warrior_talent_icon_innerrage',
   },
   BERSERKER_RAGE: {

@@ -8,7 +8,12 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-07-18'),
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> to the cooldown tracker.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
     changes: 'Removed Tyr\'s Deliverance.',
     contributors: [Zerotorescue],
   },
