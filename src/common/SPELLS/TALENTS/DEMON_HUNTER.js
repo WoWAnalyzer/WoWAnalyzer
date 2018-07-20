@@ -13,7 +13,7 @@ export default {
   BURNING_ALIVE_TALENT: { id: 207739, name: "Burning Alive", icon: "spell_fire_elementaldevastation" },
   FLAME_CRASH_TALENT: { id: 227322, name: "Flame Crash", icon: "spell_fire_felhellfire" },
   FEED_THE_DEMON_TALENT: { id: 218612, name: "Feed the Demon", icon: "spell_warlock_demonicempowerment" },
-  FRACTURE_TALENT: { id: 209795, name: "Fracture", icon: "ability_creature_felsunder", painCost: 30 },
+  FRACTURE_TALENT: { id: 263642, name: "Fracture", icon: "ability_creature_felsunder"},
   CONCENTRATED_SIGILS_TALENT: { id: 207666, name: "Concentrated Sigils", icon: "ability_bossfelorcs_necromancer_red" },
   SIGIL_OF_CHAINS_TALENT: { id: 202138, name: "Sigil of Chains", icon: "ability_demonhunter_sigilofchains" },
   QUICKENED_SIGILS_TALENT: { id: 209281, name: "Quickened Sigils", icon: "ability_demonhunter_concentratedsigils" },
