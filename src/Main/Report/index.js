@@ -242,31 +242,43 @@ class Report extends React.Component {
     ReactTooltip.rebuild();
 
     this.fetchReportIfNecessary(prevProps);
+    this.refreshReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
-      this.props.fetchReport(this.props.reportCode)
-        .catch(err => {
-          this.reset();
-          if (err instanceof LogNotFoundError) {
-            this.props.reportNotFoundError();
-          } else if (err instanceof ApiDownError) {
-            this.props.apiDownError();
-          } else if (err instanceof CorruptResponseError) {
-            captureException(err);
-            this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
-          } else if (err instanceof JsonParseError) {
-            captureException(err);
-            this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
-          } else {
-            // Some kind of network error, internet may be down.
-            captureException(err);
-            this.props.unknownNetworkIssueError(err);
-          }
-        });
+      this.fetchReport();
     }
+  }
+  refreshed = false;
+  refreshReportIfNecessary(prevProps) {
+    if (!this.refreshed && this.props.report && !this.props.fight && this.props.report !== prevProps.report) {
+      this.fetchReport(true);
+      // Only refresh once - the only thing we care about is the initial load if coming from the Discord bot to a fight that's not known yet
+      this.refreshed = true;
+    }
+  }
+  fetchReport(refresh = false) {
+    this.props.fetchReport(this.props.reportCode, refresh)
+      .catch(err => {
+        this.reset();
+        if (err instanceof LogNotFoundError) {
+          this.props.reportNotFoundError();
+        } else if (err instanceof ApiDownError) {
+          this.props.apiDownError();
+        } else if (err instanceof CorruptResponseError) {
+          captureException(err);
+          this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
+        } else if (err instanceof JsonParseError) {
+          captureException(err);
+          this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
+        } else {
+          // Some kind of network error, internet may be down.
+          captureException(err);
+          this.props.unknownNetworkIssueError(err);
+        }
+      });
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
     if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
@@ -342,7 +354,7 @@ class Report extends React.Component {
     if (!report) {
       return <ActivityIndicator text="Pulling report info..." />;
     }
-    if (!fightId) {
+    if (!fightId || !fight) {
       return (
         <React.Fragment>
           <DocumentTitle title={report.title} />
