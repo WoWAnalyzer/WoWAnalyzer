@@ -203,6 +203,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
+        buffSpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,

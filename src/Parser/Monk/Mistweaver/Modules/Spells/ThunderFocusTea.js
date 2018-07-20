@@ -131,7 +131,7 @@ class ThunderFocusTea extends Analyzer {
         this.castsTftRsk += 1;
         debug && console.log('RSK TFT Check ', event.timestamp);
       }
-      if (SPELLS.ENVELOPING_MISTS.id === spellId) {
+      if (SPELLS.ENVELOPING_MIST.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
@@ -161,7 +161,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: '#f37735',
         label: 'Enveloping Mists',
-        spellId: SPELLS.ENVELOPING_MISTS.id,
+        spellId: SPELLS.ENVELOPING_MIST.id,
         value: this.castsTftEnm,
       },
       {
