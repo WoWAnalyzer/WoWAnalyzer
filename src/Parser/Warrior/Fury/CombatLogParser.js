@@ -14,6 +14,7 @@ import RampageFrothingBerserker from './Modules/Features/RampageFrothingBerserke
 import RampageCancelled from './Modules/Features/RampageCancelled';
 import AngerManagement from './Modules/Talents/AngerManagement';
 import FuriousSlash from './Modules/Talents/FuriousSlash';
+import FuriousSlashTimesByStacks from './Modules/Talents/FuriousSlash';
 
 import T21_2set from './Modules/Items/T21_2set';
 import T21_4set from './Modules/Items/T21_4set';
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rampageCancelled: RampageCancelled,
     angerManagement: AngerManagement,
 	furiousSlash: FuriousSlash,
+	furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
 
     t21_2set: T21_2set,
     t21_4set: T21_4set,
