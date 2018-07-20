@@ -16,12 +16,6 @@ export default {
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
-  EFFUSE: {
-    id: 116694,
-    name: 'Effuse',
-    icon: 'ability_monk_effuse',
-    manaPerc: 0.02,
-  },
   PARALYSIS: {
     id: 115078,
     name: 'Paralysis',
@@ -31,7 +25,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.015,
+    manaCost: 300,
   },
   ROLL: {
     id: 109132,
@@ -47,7 +41,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaPerc: 0.01,
+    manaCost: 200,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -75,13 +69,13 @@ export default {
     name: 'Rising Mist',
     icon: 'ability_monk_effuse',
   },
-  ENVELOPING_MISTS: {
+  ENVELOPING_MIST: {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaPerc: 0.052,
+    manaCost: 1040,
   },
-  ENVELOPING_MISTS_TFT: {
+  ENVELOPING_MIST_TFT: {
     id: 274062,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
@@ -90,7 +84,7 @@ export default {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaPerc: 0.072,
+    manaCost: 1440,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -101,13 +95,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaPerc: 0.024,
+    manaCost: 480,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaPerc: 0.03,
+    manaCost: 560,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -118,7 +112,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaPerc: 0.04375,
+    manaCost: 875,
   },
   SHEILUNS_GIFT: {
     id: 205406,
@@ -139,12 +133,13 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaPerc: 0.045,
+    manaCost: 700,
   },
   SOOTHING_MIST: {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
+    manaCost: 80,
   },
   SOOTHING_MIST_CAST: {
     id: 198533,
@@ -183,13 +178,13 @@ export default {
     id: 197916,
     name: 'Lifecycles (Vivify)',
     icon: 'ability_monk_uplift',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   LIFECYCLES_ENVELOPING_MIST_BUFF: {
     id: 197919,
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   // Mastery
   GUSTS_OF_MISTS: {
@@ -211,7 +206,7 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaPerc: 0.026,
+    manaCost: 260,
   },
   FORTIFYING_BREW: {
     id: 243435,
