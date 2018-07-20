@@ -60,7 +60,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
 			return;
 		}
 		this.handleStacks(event);
-		debug && console.log('removed buff');
+		//debug && console.log('removed buff');
 	}
 	
 	on_finished(event) {
