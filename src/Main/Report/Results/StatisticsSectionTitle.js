@@ -5,7 +5,6 @@ class StatisticsSectionTitle extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
     rightAddon: PropTypes.node,
-    premium: PropTypes.bool,
   };
   static defaultProps = {
     premium: false,

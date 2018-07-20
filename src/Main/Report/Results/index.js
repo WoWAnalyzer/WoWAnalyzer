@@ -49,6 +49,7 @@ class Results extends React.PureComponent {
     selectedDetailsTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
     i18n: PropTypes.object.isRequired,
+    premium: PropTypes.bool,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
