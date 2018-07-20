@@ -19,13 +19,16 @@ class FuriousSlash extends Analyzer {
   }
   
   get maxStackUptime(){
-	  return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks[this.furiousSlashTimesByStacks.furiousSlashTimesByStacks.length - 1]; 
+	  let stacks = Object.values(this.furiousSlashTimesByStack).map((e, i) => e.reduce((a, b) => a + b, 0));
+	  console.log(stacks);
+	  return stacks[stacks.length - 1];
+	  //return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks[this.furiousSlashTimesByStacks.furiousSlashTimesByStacks.length - 1]; 
 	  //find the highest stack count possible, and return the uptime at that amount of stacks
   }
   
   statistic() {
 	  return (
-	  <ExpandableStatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime)}%`} label="Furious Slash Max Stack Buff Uptime">
+	  <ExpandableStatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
 	  
 	    <table className="table table-condensed">
             <thead>
