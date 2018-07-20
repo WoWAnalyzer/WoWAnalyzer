@@ -101,18 +101,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
-          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage or with <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> for magical damage. </React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.EMPOWER_WARDS,
-        buffSpellId: SPELLS.EMPOWER_WARDS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.35,
-          extraSuggestion: <React.Fragment><SpellLink id={SPELLS.EMPOWER_WARDS.id} /> Is a low CD ability, use it frequently to keep magic damage low. </React.Fragment>,
+          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage. </React.Fragment>,
         },
       },
       {
