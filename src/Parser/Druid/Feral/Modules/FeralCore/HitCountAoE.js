@@ -34,7 +34,7 @@ class HitCountAoE extends Analyzer {
 
   on_byPlayer_damage(event) {
     if ((this.constructor.spell.id !== event.ability.guid) || event.tick ||
-        ((event.timestamp - this.lastCastEvent.timestamp) > DAMAGE_WINDOW)) {
+        !this.lastCastEvent || ((event.timestamp - this.lastCastEvent.timestamp) > DAMAGE_WINDOW)) {
       // only interested in direct damage from the spellId shortly after cast
       return;
     }
