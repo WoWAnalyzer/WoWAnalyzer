@@ -140,7 +140,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 // This prints to console anything that the DI has to do
-const debugDependencyInjection = true;
+const debugDependencyInjection = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
