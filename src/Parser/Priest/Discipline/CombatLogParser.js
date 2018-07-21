@@ -20,6 +20,7 @@ import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementApplicationSource from './Modules/Features/AtonementApplicationSource';
@@ -79,6 +80,9 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // Features
+    checklist: Checklist,
 
     // Abilities
     penance: Penance,
