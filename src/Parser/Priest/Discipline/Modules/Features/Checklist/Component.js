@@ -44,6 +44,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
+          <AbilityRequirement spell={SPELLS.PENANCE.id} />
           {combatant.hasTalent(SPELLS.SCHISM_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SCHISM_TALENT.id} />
           )}
@@ -56,17 +57,17 @@ class DisciplinePriestChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SHADOW_COVENANT_TALENT.id} />
           )}
-          <AbilityRequirement spell={SPELLS.PENANCE.id} />
         </Rule>
 
         <Rule
           name="Use cooldowns effectively"
           description={(
             <React.Fragment>
-              Cooldowns are an important part of healing, try to use them to counter fight mechanics. For example if a boss has burst damage each 1.5 minutes, <SpellLink id={SPELLS.RAPTURE.id} /> should be used to counter it.
+              Cooldowns are an important part of healing, try to use them to counter fight mechanics. For example if a boss has burst damage every 1.5 minutes, <SpellLink id={SPELLS.RAPTURE.id} /> should be used to counter it.
             </React.Fragment>
           )}
         >
+          <AbilityRequirement spell={SPELLS.RAPTURE.id} />
           {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id) && (
             <AbilityRequirement spell={SPELLS.POWER_WORD_BARRIER_CAST.id} />
           )}
@@ -89,8 +90,6 @@ class DisciplinePriestChecklist extends React.PureComponent {
           {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id) && (
             <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />
           )}
-
-          <AbilityRequirement spell={SPELLS.RAPTURE.id} />
         </Rule>
 
         <Rule
@@ -106,7 +105,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
             <React.Fragment>
-              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
+              High downtime is inexcusable, while it may be tempting to not cast and save mana, Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely cheap. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</dfn>.
             </React.Fragment>
           )}
         >
