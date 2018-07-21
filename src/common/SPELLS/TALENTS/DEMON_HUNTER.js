@@ -3,7 +3,6 @@
 export default {
   // Shared
   FELBLADE_TALENT: { id: 232893, name: "Felblade", icon: "ability_demonhunter_felblade" },
-  FEL_ERUPTION_TALENT: { id: 211881, name: "Fel Eruption", icon: "ability_bossfellord_felspike", painCost: 10 },
   // Vengeance
   ABYSSAL_STRIKE_TALENT: { id: 207550, name: "Abyssal Strike", icon: "spell_warlock_summonabyssal" },
   AGONIZING_FLAMES_TALENT: { id: 207548, name: "Agonizing Flames", icon: "achievment_raid_houroftwilight" },
@@ -24,6 +23,7 @@ export default {
   SOUL_BARRIER_TALENT: { id: 263248, name: "Soul Barrier", icon: "inv_soulbarrier"},
   SOUL_RENDING_TALENT_VENGEANCE: { id: 217996, name: "Soul Rending", icon: "ability_demonhunter_soulcleave2" },
   // Havoc
+  FEL_ERUPTION_TALENT: { id: 211881, name: "Fel Eruption", icon: "ability_bossfellord_felspike", painCost: 10 },
   FEL_MASTERY_TALENT: { id: 192939, name: "Fel Mastery", icon: "ability_skyreach_piercing_rush" },
   BLIND_FURY_TALENT: { id: 203550, name: "Blind Fury", icon: "ability_bosskilrogg_deadeye" },
   PREPARED_TALENT: { id: 203551, name: "Prepared", icon: "ability_demonhunter_vengefulretreat" },
