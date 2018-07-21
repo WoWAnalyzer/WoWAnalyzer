@@ -11,51 +11,50 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import {findByBossId} from 'Raids/index';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 
-const mitigationBuffs = {'Paladin' : [SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
+const mitigationBuffs = {Paladin : [SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
                                       SPELLS.ARDENT_DEFENDER.id,
                                       SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id],
-                          'Monk' : [SPELLS.IRONSKIN_BREW_BUFF.id,
+                          Monk : [SPELLS.IRONSKIN_BREW_BUFF.id,
                                     SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
                                     SPELLS.ZEN_MEDITATION.id,
                                     SPELLS.DAMPEN_HARM_TALENT.id,
                                     ],
-                          'Warrior': [SPELLS.SHIELD_BLOCK_BUFF.id,
+                          Warrior: [SPELLS.SHIELD_BLOCK_BUFF.id,
                                       SPELLS.IGNORE_PAIN.id,
                                       SPELLS.LAST_STAND.id,
                                       SPELLS.SHIELD_WALL.id,
                                       SPELLS.SPELL_REFLECTION.id],
-                          'DemonHunter': [SPELLS.DEMON_SPIKES_BUFF.id,
+                          DemonHunter: [SPELLS.DEMON_SPIKES_BUFF.id,
                                           SPELLS.METAMORPHOSIS_TANK.id],
-                          'Druid': [SPELLS.IRONFUR.id,
+                          Druid: [SPELLS.IRONFUR.id,
                                     SPELLS.FRENZIED_REGENERATION.id,
                                     SPELLS.BARKSKIN.id,
                                     SPELLS.SURVIVAL_INSTINCTS.id],
-                          'DeathKnight': [SPELLS.BONE_SHIELD.id,
-                                          SPELLS.BLOOD_SHIELD.id,
+                          DeathKnight: [SPELLS.BLOOD_SHIELD.id,
                                           SPELLS.ANTI_MAGIC_SHELL.id,
                                           SPELLS.VAMPIRIC_BLOOD.id,
                                           SPELLS.ICEBOUND_FORTITUDE.id,
                                           SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
                                           SPELLS.TOMBSTONE_TALENT.id]};
 
-const mitigationDebuffs = {'Paladin' : [],
-                            'Monk' : [SPELLS.BREATH_OF_FIRE_DEBUFF.id],
-                            'Warrior': [SPELLS.DEMORALIZING_SHOUT.id],
-                            'DemonHunter': [SPELLS.FIERY_BRAND_DEBUFF.id],
-                            'Druid': [],
-                            'DeathKnight': []};
+const mitigationDebuffs = {Paladin : [],
+                            Monk : [SPELLS.BREATH_OF_FIRE_DEBUFF.id],
+                            Warrior: [SPELLS.DEMORALIZING_SHOUT.id],
+                            DemonHunter: [SPELLS.FIERY_BRAND_DEBUFF.id],
+                            Druid: [],
+                            DeathKnight: []};
 
 
 class MitigationCheck extends Analyzer{
-  static checks;
-  static buffCheck;
-  static debuffCheck;
-  static checksPassedMap;
-  static checksFailedMap;
-
   static dependencies = {
     enemies: Enemies,
   };
+
+  checks = null;
+  buffCheck = null;
+  debuffCheck = null;
+  checksPassedMap = null;
+  checksFailedMap = null;
 
 
   constructor(...args) {
@@ -63,9 +62,9 @@ class MitigationCheck extends Analyzer{
     this.checksPassedMap = new Map();
     this.checksFailedMap = new Map();
     const boss = findByBossId(this.owner.boss.id);
-    if(boss !== null && boss.fight.hasOwnProperty('softMitigationChecks')){
+    if(boss.fight.softMitigationChecks){
       this.checks = Object.values(boss.fight.softMitigationChecks);
-      if(typeof this.checks === "undefined"){
+      if(this.checks === undefined){
         this.checks = [];
       }
       this.buffCheck = mitigationBuffs[this.owner.player.type];
