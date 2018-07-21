@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import {findByBossId} from 'Raids/index';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 class MitigationCheck extends Analyzer{
   static dependencies = {
