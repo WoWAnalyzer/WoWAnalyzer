@@ -4,6 +4,11 @@ import { Zerotorescue, tsabo } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-07-15'),
+    changes: 'Find Weakness usage analysis. Stealth ability usage analysis.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-07-07'),
     changes: 'Update analysis for PrePatch',
     contributors: [tsabo],
