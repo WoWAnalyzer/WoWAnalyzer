@@ -6,7 +6,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import PainChart from './Modules/PainChart/Pain';
 import PainTracker from './Modules/Pain/PainTracker';
@@ -15,6 +14,7 @@ import PainDetails from './Modules/Pain/PainDetails';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';

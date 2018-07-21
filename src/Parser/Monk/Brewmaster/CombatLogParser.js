@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 // Core
 import HealingDone from './Modules/Core/HealingDone';
 import DamageTaken from './Modules/Core/DamageTaken';
@@ -30,6 +29,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageTakenTable from './Modules/Features/DamageTakenTable';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
 import StaggerTable from './Modules/Features/StaggerTable';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';

@@ -2,12 +2,12 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Checklist from './Modules/Features/Checklist';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 
 //Spells

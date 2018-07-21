@@ -3,7 +3,6 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Abilities from './Modules/Abilities';
 import ActiveTargets from './Modules/Features/ActiveTargets';
@@ -14,6 +13,7 @@ import IronFurGoEProcs from './Modules/Features/IronFurGoEProcs';
 import FrenziedRegenGoEProcs from './Modules/Features/FrenziedRegenGoEProcs';
 import RageWasted from './Modules/Features/RageWasted';
 import AntiFillerSpam from './Modules/Features/AntiFillerSpam';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';

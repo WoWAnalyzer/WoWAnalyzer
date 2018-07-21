@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import MitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
@@ -24,6 +23,7 @@ import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
 import DeathsCaress from './Modules/Core/DeathsCaress';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
