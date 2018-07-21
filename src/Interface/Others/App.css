@@ -510,18 +510,18 @@ table.data-table img {
 }
 
 
-.DeathKnight { color: #c41f3b !important }
-.Druid { color: #ff7d0a !important }
-.Hunter { color: #abd473 !important }
-.Mage { color: #69ccf0 !important }
-.Monk { color: #2d9b78 !important }
-.Paladin { color: #f58cba !important }
-.Priest { color: #ffffff !important }
-.Rogue { color: #fff569 !important }
-.Shaman { color: #2459ff !important }
-.Warlock { color: #9482c9 !important }
-.Warrior { color: #c79c6e !important }
-.DemonHunter { color: #a330c9 !important }
+.DeathKnight { color: rgba(196, 31, 59, 0.62) !important }
+.Druid { color: rgba(255, 125, 10, 0.48) !important }
+.Hunter { color: rgba(171, 212, 115) !important }
+.Mage { color: rgba(105, 204, 240) !important }
+.Monk { color: rgba(45, 155, 120) !important }
+.Paladin { color: rgba(245, 140, 186) !important }
+.Priest { color: rgba(255, 255, 255) !important }
+.Rogue { color: rgba(255, 245, 105) !important }
+.Shaman { color: rgba(36, 89, 255) !important }
+.Warlock { color: rgba(148, 130, 201) !important }
+.Warrior { color: rgba(199, 156, 110) !important }
+.DemonHunter { color: rgba(163, 48, 201) !important }
 
 .DeathKnight-bg { background-color: #c41f3b !important }
 .Druid-bg { background-color: #ff7d0a !important }

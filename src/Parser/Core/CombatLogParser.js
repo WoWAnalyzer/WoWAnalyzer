@@ -48,6 +48,7 @@ import EncounterPanel from './Modules/Features/EncounterPanel';
 // Tabs
 import TimelineTab from './Modules/Features/TimelineTab';
 import ManaTab from './Modules/Features/ManaTab';
+import RaidHealthTab from './Modules/Features/RaidHealthTab';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -195,6 +196,7 @@ class CombatLogParser {
     // Tabs
     timelineTab: TimelineTab,
     manaTab: ManaTab,
+    raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
