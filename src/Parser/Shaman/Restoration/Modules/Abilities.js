@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -9,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {
@@ -17,13 +18,13 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
+          recommendedEfficiency: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 0.90 : 0.70,
         },
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         gcd: {
@@ -84,7 +85,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 16,
         gcd: {
@@ -253,7 +254,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAVA_BURST,
         buffSpellId: SPELLS.LAVA_SURGE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         timelineSortIndex: 60,
         cooldown: 8,
         gcd: {
@@ -327,7 +328,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.WIND_RUSH_TOTEM_TALENT.id),
         cooldown: 120,
-      }, 
+      },
       {
         spell: SPELLS.EARTHGRAB_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -337,7 +338,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.EARTHGRAB_TOTEM_TALENT.id),
         cooldown: 30,
-      }, 
+      },
       {
         spell: SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -353,7 +354,7 @@ class Abilities extends CoreAbilities {
         cooldown: 1800,
       },
       {
-        spell: SPELLS.WIND_SHEAR, 
+        spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         cooldown: 12,
@@ -368,7 +369,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD_TALENT, 
+        spell: SPELLS.EARTH_SHIELD_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
@@ -377,11 +378,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 80,
       },
       {
-        spell: SPELLS.TREMOR_TOTEM, 
+        spell: SPELLS.TREMOR_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
-          static: 1000, // totem GCD
+          base: 1000, // totem GCD but affected by Haste for some reason
         },
         timelineSortIndex: 80,
       },
@@ -407,6 +408,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
+      },
+      {
+        spell: SPELLS.EARTH_ELEMENTAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 300,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 80,
+      },
+      {
+        spell: SPELLS.NATURES_GUARDIAN_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id),
       },
     ];
   }

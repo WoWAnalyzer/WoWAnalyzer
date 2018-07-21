@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).

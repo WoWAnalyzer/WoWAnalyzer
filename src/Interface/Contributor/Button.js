@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import Portal from 'Main/Portal';
+import Portal from 'Interface/Others/Portal';
 
 import makeContributorUrl from './makeUrl';
 

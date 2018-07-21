@@ -1,11 +1,11 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import SPELLS from "common/SPELLS";
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import { formatNumber } from "common/format";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 let COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;

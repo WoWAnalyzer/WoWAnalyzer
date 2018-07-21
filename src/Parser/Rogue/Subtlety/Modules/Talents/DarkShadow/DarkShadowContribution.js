@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import DarkShadow from './DarkShadow';
 import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 

@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {

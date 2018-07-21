@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T204P_MODIFIER = 0.15;
 
@@ -35,7 +35,7 @@ class Tier20_4p extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.COBRA_SHOT.id) {
+    if (spellId !== SPELLS.MULTISHOT_BM.id && spellId !== SPELLS.COBRA_SHOT.id) {
       return;
     }
     debug && console.log(`player cast spell: `, spellId);

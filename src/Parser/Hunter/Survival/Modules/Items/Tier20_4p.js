@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 const T20_4P_DMG_BONUS = 0.1;

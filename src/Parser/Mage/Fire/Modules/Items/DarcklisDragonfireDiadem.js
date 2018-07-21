@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const DAMAGE_BONUS = 1;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StatisticsListBox from 'Main/StatisticsListBox';
-import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

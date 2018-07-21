@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
 
 const DAMAGE_INCREASE = 0.05;

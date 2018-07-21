@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import SPELLS from 'common/SPELLS/HUNTER';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';

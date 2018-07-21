@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import Haste from 'Parser/Core/Modules/Haste';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Tab from 'Main/Tab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import Tab from 'Interface/Others/Tab';
 
 import Insanity from '../Core/Insanity';
 import VoidformsTab from './VoidformsTab';

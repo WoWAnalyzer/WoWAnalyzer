@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class MarkOfBlood extends Analyzer {
   static dependencies = {

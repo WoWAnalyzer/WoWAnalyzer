@@ -8,10 +8,10 @@ import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;

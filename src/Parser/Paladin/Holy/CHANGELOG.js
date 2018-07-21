@@ -8,6 +8,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-21'),
+    changes: <React.Fragment>Healing increases such as <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> to the cooldown tracker.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: 'Removed Tyr\'s Deliverance.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Added an accurate <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> stat for the reworked version.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-03'),
     changes: <React.Fragment>Fixed a bug where the mana reduction by <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> was not correctly accounted for in the cooldowns tab.</React.Fragment>,
     contributors: [Zerotorescue],

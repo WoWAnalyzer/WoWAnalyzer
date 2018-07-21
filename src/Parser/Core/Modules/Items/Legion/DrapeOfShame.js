@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
@@ -17,11 +17,11 @@ class DrapeOfShame extends Analyzer {
     critEffectBonus: CritEffectBonus,
   };
   baseStats = {
-    itemLevel: 825,
-    primary: 606,
-    stamina: 910,
-    criticalStrike: 260,
-    versatility: 400,
+    itemLevel: 366,
+    primary: 155,
+    stamina: 232,
+    criticalStrike: 47,
+    versatility: 79,
   };
 
   healing = 0;
@@ -33,7 +33,7 @@ class DrapeOfShame extends Analyzer {
     this.active = !!this.equippedItem;
 
     if (this.active) {
-      this.critEffectBonus.hook(this.getCritEffectBonus);
+      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
     }
   }
 

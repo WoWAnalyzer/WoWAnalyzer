@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
@@ -57,6 +57,7 @@ import DesperatePrayer from '../Shared/Modules/Features/DesperatePrayer';
 import Contrition from './Modules/Spells/Contrition';
 import Grace from './Modules/Spells/Grace';
 import Schism from './Modules/Spells/Schism';
+import ShadowCovenant from './Modules/Spells/ShadowCovenant';
 
 import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
+    shadowCovenant: ShadowCovenant,
 
     // Items:
     tier19_2set: Tier19_2set,

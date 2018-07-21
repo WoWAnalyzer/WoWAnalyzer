@@ -11,7 +11,7 @@ import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import CORE_SPELL_INFO from './SpellInfo';
 import STAT, { getClassNameColor, getIcon, getName } from './STAT';

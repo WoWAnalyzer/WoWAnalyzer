@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class Tier21_4set extends Analyzer {
   extraDmg = 0;

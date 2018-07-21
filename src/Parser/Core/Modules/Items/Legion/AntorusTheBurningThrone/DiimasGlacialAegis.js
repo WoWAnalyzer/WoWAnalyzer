@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Diima's Glacial Aegis

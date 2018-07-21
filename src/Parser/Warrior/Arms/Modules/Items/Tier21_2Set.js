@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const CRIT_DAMAGE_MODIFIER = 0.07;
 

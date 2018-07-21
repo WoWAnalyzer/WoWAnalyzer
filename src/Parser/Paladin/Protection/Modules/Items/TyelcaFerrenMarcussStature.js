@@ -5,8 +5,8 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /*
 * Equip: Avenger's Shield deals 20% increased damage and jumps to 2 additional targets.

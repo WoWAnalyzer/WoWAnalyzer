@@ -1,10 +1,10 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import SPELLS from "common/SPELLS";
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import { formatPercentage } from "common/format";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Summons a powerful wild beast to attack your target for 8 sec.

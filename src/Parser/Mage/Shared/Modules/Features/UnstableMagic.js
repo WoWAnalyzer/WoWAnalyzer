@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // Unstable Magic cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer

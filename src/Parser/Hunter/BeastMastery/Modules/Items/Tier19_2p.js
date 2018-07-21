@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -20,12 +20,7 @@ import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
-import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
-
-import Painbringer from './Modules/Spells/Painbringer/Painbringer';
-import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
-import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
 
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
@@ -58,11 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell Statistics
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
-    painbringer: Painbringer,
-    painbringerTimesByStacks: PainbringerTimesByStacks,
-    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20
@@ -71,8 +62,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,

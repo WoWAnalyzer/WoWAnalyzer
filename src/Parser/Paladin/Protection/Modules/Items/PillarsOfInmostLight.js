@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /*
 * Equip: Eye of Tyr deals 300% increased damage and has 25% reduced cooldown.

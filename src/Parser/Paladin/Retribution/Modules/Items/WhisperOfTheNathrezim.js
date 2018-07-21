@@ -9,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 

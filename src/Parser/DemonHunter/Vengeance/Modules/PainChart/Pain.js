@@ -7,7 +7,7 @@ import {Line} from 'react-chartjs-2';
 import fetchWcl from 'common/fetchWcl';
 import {formatDuration} from 'common/format';
 import SPELLS from 'common/SPELLS';
-import ManaStyles from 'Main/ManaStyles';
+import ManaStyles from 'Interface/Others/ManaStyles';
 
 import PainComponent from './PainComponent';
 import './Pain.css';

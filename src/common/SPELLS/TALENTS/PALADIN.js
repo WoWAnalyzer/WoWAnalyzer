@@ -9,7 +9,7 @@ export default {
   FIST_OF_JUSTICE_TALENT_SHARED: { id: 198054, name: "Fist of Justice", icon: "spell_holy_fistofjustice" },
   UNBREAKABLE_SPIRIT_TALENT: { id: 114154, name: "Unbreakable Spirit", icon: "spell_holy_unyieldingfaith" },
   // Holy
-  BESTOW_FAITH_TALENT: { id: 223306, name: "Bestow Faith", icon: "ability_paladin_blessedmending", manaCost: 1200 },
+  BESTOW_FAITH_TALENT: { id: 223306, name: "Bestow Faith", icon: "ability_paladin_blessedmending", manaCost: 240 },
   LIGHTS_HAMMER_TALENT: { id: 114158, name: "Light's Hammer", icon: "spell_paladin_lightshammer", manaCost: 5600 },
   CRUSADERS_MIGHT_TALENT: { id: 196926, name: "Crusader's Might", icon: "ability_paladin_swiftretribution" },
   RULE_OF_LAW_TALENT: { id: 214202, name: "Rule of Law", icon: "ability_paladin_longarmofthelaw" },

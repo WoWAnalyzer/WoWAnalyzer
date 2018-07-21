@@ -7,7 +7,7 @@ import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * While Pillar of Frost is active, you deal 15% increased Frost damage.

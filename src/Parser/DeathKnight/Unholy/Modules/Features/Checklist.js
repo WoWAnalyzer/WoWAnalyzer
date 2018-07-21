@@ -71,19 +71,11 @@ class Checklist extends CoreChecklist {
         const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DARK_ARBITER_TALENT,
-            when: combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.APOCALYPSE,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_GARGOYLE,
-            when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
-            when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
+            spell: SPELLS.SUMMON_GARGOYLE_TALENT,
+            when: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id)),
           }),
           // TODO: AOTD
         ];

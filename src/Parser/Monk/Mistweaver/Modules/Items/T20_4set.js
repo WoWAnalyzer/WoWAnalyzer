@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 

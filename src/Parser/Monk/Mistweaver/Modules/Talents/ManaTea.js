@@ -10,11 +10,10 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const debug = false;
 
-const baseMana = 1100000;
 const manaTeaReduction = 0.5;
 
 class ManaTea extends Analyzer {
@@ -61,57 +60,51 @@ class ManaTea extends Analyzer {
 
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
       debug && console.log('Mana Tea Buff present');
-      if (SPELLS.EFFUSE.id === spellId) {
-        this.addToManaSaved(SPELLS.EFFUSE.manaPerc, spellId);
-        this.castsUnderManaTea += 1;
-        this.effCasts += 1;
-        this.casted = true;
-      }
       debug && console.log('Eff Check');
-      if (SPELLS.ENVELOPING_MISTS.id === spellId) {
-        this.addToManaSaved(SPELLS.ENVELOPING_MISTS.manaPerc, spellId);
+      if (SPELLS.ENVELOPING_MIST.id === spellId) {
+        this.addToManaSaved(SPELLS.ENVELOPING_MIST.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.enmCasts += 1;
         this.casted = true;
       }
       debug && console.log('Enm Check');
       if (SPELLS.ESSENCE_FONT.id === spellId) {
-        this.addToManaSaved(SPELLS.ESSENCE_FONT.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.ESSENCE_FONT.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.efCasts += 1;
         this.casted = true;
       }
       debug && console.log('Ef Check');
       if (SPELLS.LIFE_COCOON.id === spellId) {
-        this.addToManaSaved(SPELLS.LIFE_COCOON.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.LIFE_COCOON.manaPCost, spellId);
         this.castsUnderManaTea += 1;
         this.lcCasts += 1;
         this.casted = true;
       }
       debug && console.log('LC Check');
       if (SPELLS.RENEWING_MIST.id === spellId) {
-        this.addToManaSaved(SPELLS.RENEWING_MIST.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.RENEWING_MIST.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.remCasts += 1;
         this.casted = true;
       }
       debug && console.log('REM Check');
       if (SPELLS.REVIVAL.id === spellId) {
-        this.addToManaSaved(SPELLS.REVIVAL.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.REVIVAL.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.revCasts += 1;
         this.casted = true;
       }
       debug && console.log('Rev Check');
       if (SPELLS.VIVIFY.id === spellId) {
-        this.addToManaSaved(SPELLS.VIVIFY.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.VIVIFY.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.vivCasts += 1;
         this.casted = true;
       }
       debug && console.log('Viv Check');
       if (SPELLS.REFRESHING_JADE_WIND_TALENT.id === spellId) {
-        this.addToManaSaved(SPELLS.REFRESHING_JADE_WIND_TALENT.manaPerc, spellId);
+        this.addToManaSaved(SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.rjwCasts += 1;
         this.casted = true;
@@ -134,15 +127,15 @@ class ManaTea extends Analyzer {
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if (this.hasLifeCycles) {
       if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
-        this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
+        this.manaSavedMT += ((spellBaseMana * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
         debug && console.log('LC Viv Cast');
-      } else if ((this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
-        this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
+      } else if ((this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MIST.id)) {
+        this.manaSavedMT += ((spellBaseMana * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
       } else {
-        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
+        this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));
       }
     } else {
-      this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
+      this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));
     }
   }
   on_finished() {
@@ -170,9 +163,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 150000,
-        average: 120000,
-        major: 100000,
+        minor: 1500,
+        average: 1200,
+        major: 1000,
       },
       style: 'number',
     };

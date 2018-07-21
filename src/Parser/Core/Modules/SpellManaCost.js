@@ -28,10 +28,11 @@ class SpellManaCost extends Analyzer {
     }, 0) : 0;
 
     if (hardcodedCost !== null && actualCost && hardcodedCost !== actualCost) {
-      console.error(event.ability.name, event.ability.guid, 'The hardcoded cost', hardcodedCost, 'did not match the actual cost', actualCost);
       this.incorrectCosts[event.ability.guid] = {
         ...SPELLS[event.ability.guid],
-        manaCost: actualCost,
+        manaCost: undefined, // delete if it's set in SPELLS
+        actualCost: actualCost,
+        hardcodedCost: hardcodedCost,
       };
     }
     return hardcodedCost !== null ? hardcodedCost : actualCost;
@@ -45,10 +46,8 @@ class SpellManaCost extends Analyzer {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
     if (incorrectCostCount === 0) return;
 
-    console.debug(`There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`);
-    Object.entries(this.incorrectCosts).forEach(([, ability]) => {
-      console.debug(ability);
-    });
+    console.warn(`There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`);
+    Object.values(this.incorrectCosts).forEach(ability => console.warn(ability));
   }
 }
 

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const HEALING_BREAKPOINT = 0.6;
 const HEALING_INCREASE = 0.6;

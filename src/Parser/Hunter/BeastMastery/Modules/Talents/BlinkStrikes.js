@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
 import PETS from 'common/PETS';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const BLINK_STRIKES_MELEE_MODIFIER = 1;
 const DIRE_BEAST_DURATION = 8000;

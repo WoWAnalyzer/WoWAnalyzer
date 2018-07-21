@@ -51,8 +51,8 @@ describe('[SMITE] Spell Calculations', () => {
     const smiteEstimator = SmiteEstimation(mockStatTracker());
 
     expect(smiteEstimator()).toEqual({
-      smiteDamage: 84,
-      smiteHealing: 34,
+      smiteDamage: 75,
+      smiteHealing: 30,
     });
   });
 
@@ -60,8 +60,8 @@ describe('[SMITE] Spell Calculations', () => {
     const smiteEstimator = SmiteEstimation(mockStatTracker(100, .25));
 
     expect(smiteEstimator()).toEqual({
-      smiteDamage: 105,
-      smiteHealing: 42,
+      smiteDamage: 94,
+      smiteHealing: 38,
     });
   });
 });

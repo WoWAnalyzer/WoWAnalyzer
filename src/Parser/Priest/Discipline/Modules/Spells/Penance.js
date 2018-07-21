@@ -3,51 +3,43 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import EventGrouper from 'Parser/Core/EventGrouper';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Analyzer {
-  _previousPenanceTimestamp = null;
-  _penanceBoltHitNumber = 0;
-  _penanceBoltCastNumber = 0; // Used for the cast event, not the damage or healing ones
-  casts = 0;
+  _boltCount = 3;
   hits = 0;
+  eventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
+
+  constructor(...args) {
+    super(...args);
+
+    // Castigation Penance bolt count to 4 (from 3)
+    this._boltCount = this.selectedCombatant.hasTalent(
+      SPELLS.CASTIGATION_TALENT.id
+    )
+      ? 4
+      : 3;
+  }
 
   static isPenance = spellId =>
     spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id;
 
-  isNewPenanceCast(ability, timestamp) {
-    if (!Penance.isPenance(ability.guid)) {
-      return false;
-    }
-
-    // Discount penances cast as the fight ends :)
-    if (this.owner.fight.end_time - timestamp <= PENANCE_MINIMUM_RECAST_TIME) {
-      return false;
-    }
-
-    return (
-      !this._previousPenanceTimestamp ||
-      timestamp - this._previousPenanceTimestamp > PENANCE_MINIMUM_RECAST_TIME
+  get missedBolts() {
+    return [...this.eventGrouper].reduce(
+      (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
+      0
     );
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) {
-      return;
-    }
+  get casts() {
+    return [...this.eventGrouper].length;
+  }
 
-    // Guesstimate based on magic number
-    if (this.isNewPenanceCast(event.ability, event.timestamp)) {
-      this._previousPenanceTimestamp = event.timestamp;
-      this._penanceBoltCastNumber = 1;
-      this.casts += 1;
-      this._penanceBoltHitNumber = 0;
-    }
-
-    event.penanceBoltNumber = this._penanceBoltCastNumber;
+  get currentBoltNumber() {
+    return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
   }
 
   on_byPlayer_damage(event) {
@@ -55,9 +47,9 @@ class Penance extends Analyzer {
       return;
     }
 
-    event.penanceBoltNumber = this._penanceBoltHitNumber;
-    this._penanceBoltHitNumber += 1;
-    this.hits += 1;
+    this.eventGrouper.processEvent(event);
+
+    event.penanceBoltNumber = this.currentBoltNumber;
   }
 
   on_byPlayer_heal(event) {
@@ -65,28 +57,27 @@ class Penance extends Analyzer {
       return;
     }
 
-    event.penanceBoltNumber = this._penanceBoltHitNumber;
-    this._penanceBoltHitNumber += 1;
-    this.hits += 1;
+    this.eventGrouper.processEvent(event);
+
+    event.penanceBoltNumber = this.currentBoltNumber;
   }
 
   statistic() {
-    const hasCastigation = this.selectedCombatant.hasTalent(
-      SPELLS.CASTIGATION_TALENT.id
-    );
-
-    const missedPenanceTicks =
-      this.casts * (3 + (hasCastigation ? 1 : 0)) - this.hits;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-        value={missedPenanceTicks}
-        label={(
-          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
+        value={this.missedBolts}
+        label={
+          (
+<dfn
+  data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${
+              this.casts
+            } times.`}
+          >
             Wasted Penance bolts
           </dfn>
-        )}
+)
+        }
       />
     );
   }

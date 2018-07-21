@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import SPELLS from 'common/SPELLS';
 
 /**

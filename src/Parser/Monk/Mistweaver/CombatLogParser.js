@@ -11,9 +11,9 @@ import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-import MonkSpreadsheet from 'Main/MonkSpreadsheet';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
+import MonkSpreadsheet from 'Interface/Others/MonkSpreadsheet';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -34,7 +34,6 @@ import Checklist from './Modules/Features/Checklist';
 import StatValues from './Modules/Features/StatValues';
 
 // Spells
-import UpliftingTrance from './Modules/Spells/UpliftingTrance';
 import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
@@ -90,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     essenceFont: EssenceFont,
     thunderFocusTea: ThunderFocusTea,
-    upliftingTrance: UpliftingTrance,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     vivify: Vivify,

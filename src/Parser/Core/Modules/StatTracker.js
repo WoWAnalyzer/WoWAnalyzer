@@ -7,6 +7,8 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
+import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 
 const debug = false;
 
@@ -21,13 +23,6 @@ class StatTracker extends Analyzer {
   // by WCL.
   static SPEC_MULTIPLIERS = {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
-  };
-
-  // These are multipliers from *binary* (have it or don't) artifact
-  // traits. These are *baked in* and do not multiply temporary buffs.
-  static ARTIFACT_MULTIPLIERS = {
-    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
-    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -202,8 +197,8 @@ class StatTracker extends Analyzer {
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
     // Antorus: Argus the Unmaker debuffs
-    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
-    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 114, mastery: 114 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 114, versatility: 114 },
     // endregion
 
     // region Death Knight
@@ -221,6 +216,18 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
+    
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id], 
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id], 
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: { 
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id], 
+    },
+    // endregion
 
     /****************************************\
     *                    BFA:                *
@@ -233,7 +240,7 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
@@ -300,9 +307,9 @@ class StatTracker extends Analyzer {
     },
     // endregion
     // region Dungeons
-    271071: { // Conch of Dark Whispers
+    [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
       itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
-      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
     },
     271115: { // Ignition Mage's Fuse
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
@@ -311,6 +318,12 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    // endregion
+    // region Raids
+    [SPELLS.UNCONTAINED_POWER.id] : {
+      itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
+      intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },
     // endregion
     // endregion
@@ -355,7 +368,6 @@ class StatTracker extends Analyzer {
     };
 
     this.applySpecModifiers();
-    this.applyArtifactModifiers();
 
     this._currentStats = {
       ...this._pullStats,
@@ -368,15 +380,6 @@ class StatTracker extends Analyzer {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => {
       this._pullStats[stat] *= multiplier;
-    });
-  }
-
-  applyArtifactModifiers() {
-    Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
-      const rank = this.selectedCombatant.traitsBySpellId[spellId] || 0;
-      Object.entries(modifiers).forEach(([stat, multiplier]) => {
-        this._pullStats[stat] *= 1 + multiplier * rank;
-      });
     });
   }
 
@@ -495,73 +498,8 @@ class StatTracker extends Analyzer {
     return 0;
   }
   get baseMasteryPercentage() {
-    switch (this.selectedCombatant.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 0.12;
-      case SPECS.HOLY_PRIEST:
-        return 0.10;
-      case SPECS.SHADOW_PRIEST:
-        return 0.2;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 0.096;
-      case SPECS.RESTORATION_SHAMAN:
-        return 0.24;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 0.2;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 0.15;
-      case SPECS.GUARDIAN_DRUID:
-        return 0.04;
-      case SPECS.RESTORATION_DRUID:
-        return 0.048;
-      case SPECS.BALANCE_DRUID:
-        return 0.18;
-      case SPECS.FERAL_DRUID:
-        return 0.16;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 0.14;
-      case SPECS.PROTECTION_PALADIN:
-        return 0.08;
-      case SPECS.WINDWALKER_MONK:
-        return 0.1;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 0.18;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 0.05;
-      case SPECS.SURVIVAL_HUNTER:
-        return 0.04;
-      case SPECS.FROST_MAGE:
-        return 0.18;
-      case SPECS.FIRE_MAGE:
-        return 0.06;
-      case SPECS.ARCANE_MAGE:
-        return 0.0960;
-      case SPECS.SUBTLETY_ROGUE:
-        return 0.2208;
-      case SPECS.ASSASSINATION_ROGUE:
-        return 0.32;
-      case SPECS.OUTLAW_ROGUE:
-        return 0.1760;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 0.18;
-      case SPECS.MISTWEAVER_MONK:
-        return 1.04;
-      case SPECS.BREWMASTER_MONK:
-        return 0.08;
-      case SPECS.FURY_WARRIOR:
-        return 0.11;
-      case SPECS.AFFLICTION_WARLOCK:
-        return 0.25;
-      case SPECS.FROST_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.BLOOD_DEATH_KNIGHT:
-        return 0.12;
-      case SPECS.HAVOC_DEMON_HUNTER:
-        return 0.12;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return 0.0;
-    }
+    const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
+    return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
   get baseVersatilityPercentage() {
     return 0;
@@ -581,43 +519,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 72 * 100;
+    return 17.62 * 100; //72
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 68 * 100;
+    return 16.64 * 100; //68
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
+    return 17.62 * 100 / this.selectedCombatant.spec.masteryCoefficient; //72
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 85 * 100;
+    return 20.80 * 100; //85
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 19.8 * 100;
+    return 6.85 * 100; //28
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 41.4 * 100;
+    return 9.79 * 100; //40
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 14.4 * 100;
+    return 4.89 * 100; //20
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;

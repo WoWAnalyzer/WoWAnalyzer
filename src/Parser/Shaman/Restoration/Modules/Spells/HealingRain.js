@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -62,6 +62,10 @@ class HealingRain extends Analyzer {
   }
 
   statistic() {
+    if (isNaN(this.averageHitsPerTick)) {
+      return false;
+    }
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
@@ -73,7 +77,6 @@ class HealingRain extends Analyzer {
         )}
       />
     );
-    //
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

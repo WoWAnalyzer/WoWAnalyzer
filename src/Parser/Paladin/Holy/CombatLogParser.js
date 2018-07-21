@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
@@ -32,6 +32,7 @@ import StatValues from './Modules/Features/StatValues';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAura from './Modules/Talents/DevotionAura';
+import AuraOfSacrifice from './Modules/Talents/AuraOfSacrifice';
 import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAura: DevotionAura,
+    auraOfSacrifice: AuraOfSacrifice,
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,

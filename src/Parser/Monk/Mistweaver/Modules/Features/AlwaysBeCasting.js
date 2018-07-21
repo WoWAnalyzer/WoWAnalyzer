@@ -5,8 +5,7 @@ import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHeali
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
-    SPELLS.EFFUSE.id,
-    SPELLS.ENVELOPING_MISTS.id,
+    SPELLS.ENVELOPING_MIST.id,
     SPELLS.ESSENCE_FONT.id,
     SPELLS.RENEWING_MIST.id,
     SPELLS.VIVIFY.id,

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_NOT_FEEDING_INTO_CBT } from '../../Constants';
+import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../Constants';
 
 // The purpose of this class is threefold:
 // 1) provide cooldown data for the cooldowns tab. I had to rewrite some of the functions because
@@ -275,7 +275,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && !ABILITIES_NOT_FEEDING_INTO_CBT.includes(spellId)) ||
+      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && ABILITIES_FEEDING_INTO_CBT.includes(spellId)) ||
         (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];

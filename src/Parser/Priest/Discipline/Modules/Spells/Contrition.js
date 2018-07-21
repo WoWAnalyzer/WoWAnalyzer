@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Penance from '../Spells/Penance';
-import { calculateOverhealing ,OffensivePenanceBoltEstimation } from '../../SpellCalculations';
+import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';
 
 class Contrition extends Analyzer {
   static dependencies = {

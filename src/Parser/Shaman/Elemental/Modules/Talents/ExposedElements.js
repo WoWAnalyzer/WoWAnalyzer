@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
@@ -32,7 +32,7 @@ class ExposedElements extends Analyzer {
     }
 
     const enemy = this.enemies.getEntity(event);
-    if (enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_DEBUFF.id)) {
+    if (enemy && enemy.hasBuff(SPELLS.EXPOSED_ELEMENTS_TALENT_DEBUFF.id)) {
       this.removeDebuffTimestamp = event.timestamp;
     }
   }

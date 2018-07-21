@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-import Feeding from 'Main/Feeding';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
+import Feeding from 'Interface/Others/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
@@ -15,7 +15,7 @@ import HealingRainLocation from './Modules/ShamanCore/HealingRainLocation';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import SpellUsable from './Modules/Features/SpellUsable';
 import StatValues from './Modules/Features/StatValues';
 
@@ -36,6 +36,7 @@ import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
+import NaturesGuardian from './Modules/Talents/NaturesGuardian';
 // Items
 import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
 import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     wellspring: Wellspring,
     highTide: HighTide,
+    naturesGuardian: NaturesGuardian,
 
     // Items:
     t21_2Set: Restoration_Shaman_T21_2Set,

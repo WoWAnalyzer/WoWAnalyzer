@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
@@ -11,28 +10,17 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
+        spell: SPELLS.FROSTWYRMS_FURY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
-        cooldown: 300,
+        cooldown: 180,
+        enabled: combatant.hasTalent(SPELLS.FROSTWYRMS_FURY_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
           extraSuggestion: <React.Fragment>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.OBLITERATION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 90,
-        enabled: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Only save it if you are about to move and will waste more than half the duration.',
         },
       },
       {
@@ -51,7 +39,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PILLAR_OF_FROST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
-        cooldown: 60,
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -62,22 +50,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EMPOWER_RUNE_WEAPON,
         gcd: null,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.60,
           extraSuggestion: <React.Fragment>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE_CAST.id} />.</React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 180,
-        enabled: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
         },
       },
       {
@@ -124,7 +101,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GLACIAL_ADVANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
+        cooldown: haste => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -157,13 +134,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-        },
-        cooldown: 40,
-        enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <span>You should be casting Chains of Ice whenever you have 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} />.</span>,
         },
       },
       {
@@ -211,11 +181,12 @@ class Abilities extends CoreAbilities {
         cooldown: 600,
       },
       {
-        spell: SPELLS.WRAITH_WALK,
+        spell: SPELLS.WRAITH_WALK_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         cooldown: 60,
       },
       {

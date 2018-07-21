@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StatisticsListBox from 'Main/StatisticsListBox';
-import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -38,7 +38,7 @@ class TraitsAndTalents extends Analyzer {
     return (
       <StatisticsListBox
         title="Traits and Talents"
-        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage. Sidewinders is the most obvious example of this for Marksmanship hunters."
+        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
         {this.loneWolf.active && this.loneWolf.subStatistic()}
         {this.volley.active && this.volley.subStatistic()}

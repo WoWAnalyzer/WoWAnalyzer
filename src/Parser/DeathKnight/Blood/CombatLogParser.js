@@ -13,10 +13,8 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
-import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
-import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
@@ -55,13 +53,6 @@ import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
-//Traits
-import RelicTraits from './Modules/Traits/RelicTraits';
-import Bonebreaker from './Modules/Traits/Bonebreaker';
-import AllConsumingRot from './Modules/Traits/AllConsumingRot';
-import Veinrender from './Modules/Traits/Veinrender';
-import Coagulopathy from './Modules/Traits/Coagulopathy';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,11 +73,9 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingRuneWeapon: DancingRuneWeapon,
     initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
-    unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
     deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
-    souldrinker: Souldrinker,
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
     deathsCaress: DeathsCaress,
@@ -115,13 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ossuary: Ossuary,
     runeStrike: RuneStrike,
     consumption: Consumption,
-
-    // Traits
-    RelicTraits: RelicTraits,
-    bonebreaker: Bonebreaker,
-    allConsumingRot: AllConsumingRot,
-    veinrender: Veinrender,
-    coagulopathy: Coagulopathy,
 
     // Items:
     t20_2pc: T20_2pc,

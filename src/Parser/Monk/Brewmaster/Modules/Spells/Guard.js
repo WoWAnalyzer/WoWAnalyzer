@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import StaggerFabricator from '../Core/StaggerFabricator';
 
 class Guard extends Analyzer {

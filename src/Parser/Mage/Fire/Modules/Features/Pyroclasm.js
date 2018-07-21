@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
-const BONUS_DAMAGE = 2.5;
+const BONUS_DAMAGE = 2.25;
 const CAST_BUFFER = 250;
 
 const debug = false;

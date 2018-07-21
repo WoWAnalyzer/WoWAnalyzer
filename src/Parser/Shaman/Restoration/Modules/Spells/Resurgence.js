@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -18,18 +18,18 @@ const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.UNLEASH_LIFE_TALENT.id]: 0.006,
   [SPELLS.RIPTIDE.id]: 0.006,
 };
+const MAX_MANA = 20000;
 
 class Resurgence extends Analyzer {
-  maxMana = 100000;
   regenedMana = 0;
-  extraMana = 0;
+  otherManaGain = 0;
   resurgence = [];
   totalResurgenceGain = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
-    
+
     if (!isAbilityProccingResurgence || event.tick) {
       return;
     }
@@ -43,7 +43,7 @@ class Resurgence extends Analyzer {
     }
 
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.resurgence[spellId].resurgenceTotal += SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
+      this.resurgence[spellId].resurgenceTotal += SPELLS_PROCCING_RESURGENCE[spellId] * MAX_MANA;
       this.resurgence[spellId].castAmount += 1;
     }
   }
@@ -52,7 +52,7 @@ class Resurgence extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.RESURGENCE.id) {
-      this.extraMana += event.resourceChange;
+      this.otherManaGain += event.resourceChange;
       return;
     }
 
@@ -60,9 +60,9 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
+    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 800;
 
-    return this.regenedMana + this.totalResurgenceGain + this.maxMana + this.extraMana;
+    return this.regenedMana + this.totalResurgenceGain + MAX_MANA + this.otherManaGain;
   }
 
   statistic() {

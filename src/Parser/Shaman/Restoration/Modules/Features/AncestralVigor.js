@@ -4,7 +4,7 @@ import fetchWcl from 'common/fetchWcl';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -47,8 +47,8 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 //   237820: bosses.TombOfSargeras.FALLEN_AVATAR, // Vantus Rune: Fallen Avatar
 //   237825: bosses.TombOfSargeras.KILJAEDEN, // Vantus Rune: Kil'jaeden
 // };
-const VANTUS_RUNE_VERSATILITY = 1500;
-const VERSATILITY_PER_PERCENT_THROUGHPUT = 47500;
+const VANTUS_RUNE_VERSATILITY = 68;
+const VERSATILITY_PER_PERCENT_THROUGHPUT = 2080;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;

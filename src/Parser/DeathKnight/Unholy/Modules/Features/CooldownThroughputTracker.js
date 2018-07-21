@@ -1,6 +1,5 @@
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
@@ -12,14 +11,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
 
   static castCooldowns = [
-    {
-      spell: SPELLS.DARK_ARBITER_TALENT,
-      // tooltip duration is 20 seconds but with the way she works we want to capture 22 seconds
-      duration: 22,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
   ];
 
   on_byPlayer_cast(event) {
