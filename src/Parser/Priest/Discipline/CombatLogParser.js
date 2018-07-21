@@ -57,7 +57,6 @@ import DesperatePrayer from '../Shared/Modules/Features/DesperatePrayer';
 import Contrition from './Modules/Spells/Contrition';
 import Grace from './Modules/Spells/Grace';
 import Schism from './Modules/Spells/Schism';
-import ShadowCovenant from './Modules/Spells/ShadowCovenant';
 
 import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
@@ -96,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
-    shadowCovenant: ShadowCovenant,
 
     // Items:
     tier19_2set: Tier19_2set,

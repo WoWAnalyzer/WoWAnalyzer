@@ -60,11 +60,6 @@ export default {
     icon: 'spell_shadow_summonvoidwalker',
     manaCost: 55000,
   },
-  SHADOW_COVENANT_TALENT_DEBUFF: {
-    id: 219521,
-    name: 'Shadow Covenant',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
   DIVINE_STAR_TALENT: {
     id: 110744,
     name: 'Divine Star',

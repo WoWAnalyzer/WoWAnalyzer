@@ -29,7 +29,7 @@ export default {
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 30800,
-    coefficient: 0.4, // For a single bolt
+    coefficient: 0.4,
   },
   PENANCE_HEAL: {
     // Penance on a friendly player
@@ -50,7 +50,7 @@ export default {
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 500,
-    coefficient: 0.50,
+    coefficient: 0.56,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
