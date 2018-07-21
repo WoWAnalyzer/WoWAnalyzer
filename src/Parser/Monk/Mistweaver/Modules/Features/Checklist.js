@@ -25,7 +25,6 @@ import ChiBurst from '../Talents/ChiBurst';
 import SpiritOfTheCrane from '../Talents/SpiritOfTheCrane';
 import ManaTea from '../Talents/ManaTea';
 import Lifecycles from '../Talents/Lifecycles';
-import UpliftingTrance from '../Spells/UpliftingTrance';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
 import SoothingMist from '../Spells/SoothingMist';
@@ -47,7 +46,6 @@ class Checklist extends CoreChecklist {
     manaTea: ManaTea,
     lifecycles: Lifecycles,
     enchantChecker: EnchantChecker,
-    upliftingTrance: UpliftingTrance,
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
     soothingMist: SoothingMist,
@@ -161,17 +159,14 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs and short CDs',
-      description: <React.Fragment>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs will lower you overall healing, along with using the incorrect spells with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />.</React.Fragment>,
+      description: <React.Fragment>Make sure to use your procs and spells at the correct time.</React.Fragment>,
       requirements: () => {
         return [
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs wasted</React.Fragment>,
-            check: () => this.upliftingTrance.suggestionThresholds,
-          }),
+          /* Removed for now while this is finalized going into BfA
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts</React.Fragment>,
             check: () => this.thunderFocusTea.suggestionThresholds,
-          }),
+          }), */
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast</React.Fragment>,
             check: () => this.essenceFontMastery.suggestionThresholds,

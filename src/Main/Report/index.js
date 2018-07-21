@@ -10,7 +10,7 @@ import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
-import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
+import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getReportCode, getResultTab } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
@@ -41,9 +41,11 @@ const PROGRESS_COMPLETE = 1.0;
 class Report extends React.Component {
   static propTypes = {
     reportCode: PropTypes.string,
-    playerName: PropTypes.string,
     playerId: PropTypes.number,
+    urlPlayerName: PropTypes.string,
     fightId: PropTypes.number,
+    urlFightName: PropTypes.string,
+    resultTab: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
@@ -65,7 +67,11 @@ class Report extends React.Component {
     unknownError: PropTypes.func.isRequired,
     appendReportHistory: PropTypes.func.isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
+      push: PropTypes.func.isRequired, // adds to browser history
+      replace: PropTypes.func.isRequired, // updates current browser history entry
+      location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired,
+      }).isRequired,
     }),
   };
   static childContextTypes = {
@@ -242,31 +248,44 @@ class Report extends React.Component {
     ReactTooltip.rebuild();
 
     this.fetchReportIfNecessary(prevProps);
+    this.refreshReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
+    this.updateUrlIfNecessary(prevProps);
   }
   fetchReportIfNecessary(prevProps) {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
-      this.props.fetchReport(this.props.reportCode)
-        .catch(err => {
-          this.reset();
-          if (err instanceof LogNotFoundError) {
-            this.props.reportNotFoundError();
-          } else if (err instanceof ApiDownError) {
-            this.props.apiDownError();
-          } else if (err instanceof CorruptResponseError) {
-            captureException(err);
-            this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
-          } else if (err instanceof JsonParseError) {
-            captureException(err);
-            this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
-          } else {
-            // Some kind of network error, internet may be down.
-            captureException(err);
-            this.props.unknownNetworkIssueError(err);
-          }
-        });
+      this.fetchReport();
     }
+  }
+  refreshed = false;
+  refreshReportIfNecessary(prevProps) {
+    if (!this.refreshed && this.props.report && !this.props.fight && this.props.report !== prevProps.report) {
+      this.fetchReport(true);
+      // Only refresh once - the only thing we care about is the initial load if coming from the Discord bot to a fight that's not known yet
+      this.refreshed = true;
+    }
+  }
+  fetchReport(refresh = false) {
+    this.props.fetchReport(this.props.reportCode, refresh)
+      .catch(err => {
+        this.reset();
+        if (err instanceof LogNotFoundError) {
+          this.props.reportNotFoundError();
+        } else if (err instanceof ApiDownError) {
+          this.props.apiDownError();
+        } else if (err instanceof CorruptResponseError) {
+          captureException(err);
+          this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
+        } else if (err instanceof JsonParseError) {
+          captureException(err);
+          this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
+        } else {
+          // Some kind of network error, internet may be down.
+          captureException(err);
+          this.props.unknownNetworkIssueError(err);
+        }
+      });
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
     if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
@@ -278,7 +297,7 @@ class Report extends React.Component {
     const changed = this.props.report !== prevProps.report
       || this.props.combatants !== prevProps.combatants
       || this.props.fightId !== prevProps.fightId
-      || this.props.playerName !== prevProps.playerName
+      || this.props.urlPlayerName !== prevProps.urlPlayerName
       || this.props.playerId !== prevProps.playerId;
     if (changed) {
       this.reset();
@@ -287,18 +306,18 @@ class Report extends React.Component {
       const fight = this.props.fight;
       const combatants = this.props.combatants;
       const playerId = this.props.playerId;
-      const playerName = this.props.playerName;
-      const valid = report && fight && combatants && (playerName || playerId);
+      const urlPlayerName = this.props.urlPlayerName;
+      const valid = report && fight && combatants && (urlPlayerName || playerId);
       if (valid) {
         //check log if no combatantID is set and the name appears more than once
-        if (!playerId && playerName && report.friendlies.filter(friendly => friendly.name === playerName).length > 1) {
-          alert(`It appears like another '${playerName}' is in this log, please select the correct one`);
+        if (!playerId && urlPlayerName && report.friendlies.filter(friendly => friendly.name === urlPlayerName).length > 1) {
+          alert(`It appears like another '${urlPlayerName}' is in this log, please select the correct one`);
           this.props.history.push(makeAnalyzerUrl(report, fight.id));
           return;
         }
-        const player = this.getPlayerFromReport(report, playerId, playerName);
+        const player = this.getPlayerFromReport(report, playerId, urlPlayerName);
         if (!player) {
-          alert(`Unknown player: ${playerName}`);
+          alert(`Unknown player: ${urlPlayerName}`);
           this.props.history.push(makeAnalyzerUrl(report, fight.id));
           return;
         }
@@ -312,6 +331,34 @@ class Report extends React.Component {
       }
     }
   }
+  updateUrlIfNecessary(prevProps) {
+    const hasReport = !!this.props.report;
+    if (!hasReport) {
+      return;
+    }
+    const isReportChanged = prevProps.report !== this.props.report;
+    if (!isReportChanged) {
+      return;
+    }
+
+    if (this.isFightNameMissingFromUrl || this.isPlayerNameMissingFromUrl) {
+      const url = makeAnalyzerUrl(this.props.report, this.props.fightId, this.props.playerId, this.props.resultTab);
+      console.log('Replacing URL from', this.props.history.location.pathname, 'to', url);
+      this.props.history.replace(url);
+    }
+  }
+  get isFightNameMissingFromUrl() {
+    const isFightSelected = this.props.report && this.props.fightId && this.props.fight;
+    const isUrlMissingFightName = !this.props.urlFightName;
+    return isFightSelected && isUrlMissingFightName;
+  }
+  get isPlayerNameMissingFromUrl() {
+    const isPlayerSelected = this.props.report && this.props.playerId;
+    // urlPlayerName currently defaults to the id when it's not supplied (this should be refactored)
+    const isUrlMissingPlayerName = !this.props.urlPlayerName || this.props.urlPlayerName === `${this.props.playerId}`;
+    return isPlayerSelected && isUrlMissingPlayerName;
+  }
+
   getPlayerFromReport(report, playerId, playerName) {
     if (playerId) {
       return report.friendlies.find(friendly => friendly.id === playerId);
@@ -337,12 +384,12 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fightId, fight, playerName } = this.props;
+    const { report, fightId, fight, urlPlayerName } = this.props;
 
     if (!report) {
       return <ActivityIndicator text="Pulling report info..." />;
     }
-    if (!fightId) {
+    if (!fightId || !fight) {
       return (
         <React.Fragment>
           <DocumentTitle title={report.title} />
@@ -351,7 +398,7 @@ class Report extends React.Component {
         </React.Fragment>
       );
     }
-    if (!playerName) {
+    if (!urlPlayerName) {
       return (
         <React.Fragment>
           <DocumentTitle title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title} />
@@ -367,7 +414,7 @@ class Report extends React.Component {
         <React.Fragment>
           <FightNavigationBar />
 
-          <DocumentTitle title={fight && playerName ? `${getFightName(report, fight)} by ${playerName} in ${report.title}` : report.title} />
+          <DocumentTitle title={fight && urlPlayerName ? `${getFightName(report, fight)} by ${urlPlayerName} in ${report.title}` : report.title} />
 
           <div className="container">
             <ActivityIndicator text="Initializing analyzer..." />
@@ -380,7 +427,7 @@ class Report extends React.Component {
       <React.Fragment>
         <FightNavigationBar />
 
-        <DocumentTitle title={`${getFightName(report, fight)} by ${playerName} in ${report.title}`} />
+        <DocumentTitle title={`${getFightName(report, fight)} by ${urlPlayerName} in ${report.title}`} />
 
         <div className="container">
           <Results
@@ -400,8 +447,10 @@ const mapStateToProps = state => {
   return ({
     reportCode: getReportCode(state),
     fightId,
-    playerName: getPlayerName(state),
+    urlFightName: getUrlFightName(state),
     playerId: getPlayerId(state),
+    urlPlayerName: getPlayerName(state),
+    resultTab: getResultTab(state),
 
     report: getReport(state),
     fight: getFightById(state, fightId),

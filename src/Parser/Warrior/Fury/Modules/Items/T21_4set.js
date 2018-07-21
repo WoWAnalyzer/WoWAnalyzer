@@ -8,7 +8,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 
 class T21_4set extends Analyzer {
   // Rampage is in fact 5 separate spells cast in this sequence
-  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id];
+  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id];
   damage = 0;
 
   constructor(...args) {

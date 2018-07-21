@@ -16,12 +16,20 @@ import SPELLS from 'common/SPELLS';
 // This only works with actual healing events; casts are not recognized.
 
 export default {
-  [SPELLS.ENVELOPING_MISTS.id]: {
+  [SPELLS.ENVELOPING_MIST.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
     hasteHpct: true,
     mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.ENVELOPING_MIST_TFT.id]: { // Instant Heal when using TFT-> Enveloping Mist
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
     vers: true,
   },
   [SPELLS.ESSENCE_FONT.id]: {
@@ -47,14 +55,6 @@ export default {
     vers: true,
   },
   [SPELLS.VIVIFY.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false, // Procs Gusts
-    vers: true,
-  },
-  [SPELLS.EFFUSE.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

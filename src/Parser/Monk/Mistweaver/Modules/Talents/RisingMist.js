@@ -65,7 +65,7 @@ class RisingMist extends Analyzer {
           this.efCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           this.remCount += 1;
-        } else if (spellId === SPELLS.ENVELOPING_MISTS.id) {
+        } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
           this.evmCount += 1;
         }
       });

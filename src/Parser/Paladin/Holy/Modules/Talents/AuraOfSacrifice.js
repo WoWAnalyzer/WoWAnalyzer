@@ -3,11 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
-import { formatThousands, formatNumber } from 'common/format';
-
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
-
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
 const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;
@@ -32,6 +30,9 @@ class AuraOfSacrifice extends Analyzer {
   }
   get activeDrps() {
     return this.perSecond(this.activeDamageReduced);
+  }
+  get totalDamageReduced() {
+    return this.passiveDamageReduced + this.activeDamageReduced;
   }
   get drps() {
     return this.passiveDrps + this.activeDrps;
@@ -158,15 +159,28 @@ class AuraOfSacrifice extends Analyzer {
   }
 
   statistic() {
+    const passiveDamageTransferred = this.passiveDamageTransferred;
+    const passiveDamageReduced = this.passiveDamageReduced;
+    const activeDamageTransferred = this.activeDamageTransferred;
+    const activeDamageReduced = this.activeDamageReduced;
+    const totalDamageTransferred = passiveDamageTransferred + activeDamageTransferred;
+    const totalDamageReduced = passiveDamageReduced + activeDamageReduced;
+
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
         value={`>=${formatNumber(this.drps)} DRPS`}
         label="Damage reduced"
-        tooltip={`The <b>passive effect</b> transferred ${formatThousands(this.passiveDamageTransferred)} damage (${formatThousands(this.perSecond(this.passiveDamageTransferred))} DTPS) and effectively reduced damage by ${formatThousands(this.passiveDamageReduced)} (${formatThousands(this.passiveDrps)} DRPS).<br />
-          The <b>Aura Mastery effect</b> transferred ${formatThousands(this.activeDamageTransferred)} damage (${formatThousands(this.perSecond(this.activeDamageTransferred))} DTPS) and effectively reduced damage by ${formatThousands(this.activeDamageReduced)} (${formatThousands(this.activeDrps)} DRPS).<br />
-          The <b>total damage transferred</b> (i.e. the damage reduced on other players) was ${formatThousands(this.passiveDamageTransferred + this.activeDamageTransferred)} damage (${formatThousands(this.perSecond(this.passiveDamageTransferred + this.activeDamageTransferred))} DTPS).<br /><br />
+        tooltip={`<b>Passive:</b><br />
+          Damage transferred: ${formatThousands(passiveDamageTransferred)} damage (${formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
+          Effectively damage reduction: ${formatThousands(passiveDamageReduced)} (${formatThousands(this.passiveDrps)} DRPS)<br />
+          <b>Active (Aura Mastery):</b><br />
+          Damage transferred: ${formatThousands(activeDamageTransferred)} damage (${formatThousands(this.perSecond(activeDamageTransferred))} DTPS)<br />
+          Effective damage reduction: ${formatThousands(activeDamageReduced)} (${formatThousands(this.activeDrps)} DRPS)<br />
+          <b>Total:</b><br />
+          Damage transferred: ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
+          Effective damage reduction: ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
 
           This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Aura of Sacrifice bonus at all, but the actual gain may be higher when accounting for other damage reductions.<br /><br />
 
