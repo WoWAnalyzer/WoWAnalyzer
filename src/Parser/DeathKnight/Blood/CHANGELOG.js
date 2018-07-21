@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-07-19'),
-    changes: <React.Fragment>Updated <SpellLink id={SPELLS.OSSUARY_TALENT.id} /> to its new reduced value.</React.Fragment>,
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.FOUL_BULWARK_TALENT.id} /> to its new reduced value.</React.Fragment>,
     contributors: [Yajinni],
   },
   {

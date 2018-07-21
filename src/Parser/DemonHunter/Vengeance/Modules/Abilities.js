@@ -194,17 +194,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.DEMONIC_INFUSION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_INFUSION_TALENT.id),
-        cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.70,
-        },
-
-      },
 
     ];
   }
