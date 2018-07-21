@@ -6,8 +6,8 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Toggleable from 'Main/Toggleable';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import Toggleable from 'Interface/Others/Toggleable';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {

@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Replaces Freezing Trap

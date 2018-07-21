@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
+import CORE_CHANGELOG from 'CHANGELOG';
+
 import ReadableList from 'Interface/common/ReadableList';
 import Contributor from 'Interface/Contributor/Button';
-
-import CORE_CHANGELOG from '../CHANGELOG';
 
 class Changelog extends React.PureComponent {
   static propTypes = {

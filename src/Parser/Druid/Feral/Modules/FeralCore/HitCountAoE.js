@@ -1,7 +1,7 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 // time after a cast in which direct damage from the spellId will be associated with the cast
 const DAMAGE_WINDOW = 250; //ms

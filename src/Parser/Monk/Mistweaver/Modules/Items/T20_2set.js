@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const debug = false;
 

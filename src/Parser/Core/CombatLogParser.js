@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ChangelogTab from 'Main/ChangelogTab';
-import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import DeathRecapTracker from 'Main/DeathRecapTracker';
+import ChangelogTab from 'Interface/Others/ChangelogTab';
+import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
+import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 

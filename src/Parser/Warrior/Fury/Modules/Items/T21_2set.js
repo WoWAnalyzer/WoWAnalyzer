@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class T21_2set extends Analyzer {
   static dependencies = {

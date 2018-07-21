@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 //import getDamageBonus from 'Parser/DeathKnight/Shared/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class ColdHeart extends Analyzer {
   damage = 0;

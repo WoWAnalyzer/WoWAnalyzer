@@ -7,7 +7,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = 0.15;
 

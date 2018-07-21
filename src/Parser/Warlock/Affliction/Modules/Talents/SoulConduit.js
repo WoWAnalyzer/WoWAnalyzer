@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';

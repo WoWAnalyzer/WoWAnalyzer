@@ -6,7 +6,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import StaggerFabricator from '../Core/StaggerFabricator';
 

@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 class JuggernautReset extends Analyzer {
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import FocusChart from './Focus';
 import FocusTracker from './FocusTracker';

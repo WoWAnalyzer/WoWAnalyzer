@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [

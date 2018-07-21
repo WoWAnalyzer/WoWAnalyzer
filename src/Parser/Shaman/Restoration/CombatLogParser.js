@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-import Feeding from 'Main/Feeding';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
+import Feeding from 'Interface/Others/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';

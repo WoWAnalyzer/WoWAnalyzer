@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const DURATION_WORTH_CASTING_MS = 8000;

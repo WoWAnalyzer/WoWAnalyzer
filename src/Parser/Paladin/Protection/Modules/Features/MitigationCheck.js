@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import {findByBossId} from 'Raids';
 

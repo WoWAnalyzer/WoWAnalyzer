@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration } from 'common/format';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 
 class EmpowerWards extends Analyzer {

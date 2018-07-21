@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 class ShadowWordPain extends Analyzer {
   static dependencies = {

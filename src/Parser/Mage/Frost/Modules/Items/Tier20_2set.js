@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const FROZEN_MASS_DAMAGE_BONUS = 0.2;
 

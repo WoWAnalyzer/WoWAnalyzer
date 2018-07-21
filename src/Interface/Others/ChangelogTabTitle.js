@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
-import CORE_CHANGELOG from '../CHANGELOG';
+import CORE_CHANGELOG from 'CHANGELOG';
 
 const SECONDS_IN_DAY = 86400;
 const DAYS_CONSIDERED_RECENT = 7;

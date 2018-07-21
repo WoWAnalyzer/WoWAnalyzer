@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const HIT_BUFFER_MS = 500;

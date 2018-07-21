@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class InsigniaOfRavenholdt extends Analyzer {
   static dependencies = {

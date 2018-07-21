@@ -8,7 +8,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';

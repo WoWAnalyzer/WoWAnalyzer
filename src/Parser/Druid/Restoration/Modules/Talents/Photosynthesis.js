@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';

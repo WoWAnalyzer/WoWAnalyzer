@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 

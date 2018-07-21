@@ -5,7 +5,7 @@ import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
 
 const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;

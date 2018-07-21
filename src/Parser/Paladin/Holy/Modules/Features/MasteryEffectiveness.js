@@ -5,9 +5,9 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import MasteryRadiusImage from 'Interface/Images/mastery-radius.png';
-import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
+import PlayerBreakdownTab from 'Interface/Others/PlayerBreakdownTab';
 
 import BeaconTargets from '../PaladinCore/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';

@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class ScourgeStrikeEfficiency extends Analyzer {

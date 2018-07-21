@@ -7,7 +7,7 @@ import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import getFightName from 'common/getFightName';
-import FightSelectionList from 'Main/Report/FightSelectionList';
+import FightSelectionList from 'Interface/Others/Report/FightSelectionList';
 
 import SelectorBase from './SelectorBase';
 

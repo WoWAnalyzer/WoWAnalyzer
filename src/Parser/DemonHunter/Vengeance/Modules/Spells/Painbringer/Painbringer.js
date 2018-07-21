@@ -7,8 +7,8 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 import PainbringerTimesByStacks from './PainbringerTimesByStacks';
 import PainbringerStacksBySeconds from './PainbringerTimesByStacks';

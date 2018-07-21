@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';

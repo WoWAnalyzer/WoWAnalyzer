@@ -3,7 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * The Shadow Hunter's Voodoo Mask

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ManaLevelGraph from 'Main/ManaLevelGraph';
-import ManaUsageGraph from 'Main/ManaUsageGraph';
+import ManaLevelGraph from 'Interface/Others/ManaLevelGraph';
+import ManaUsageGraph from 'Interface/Others/ManaUsageGraph';
 
 const Mana = ({ parser }) => (
   <div>

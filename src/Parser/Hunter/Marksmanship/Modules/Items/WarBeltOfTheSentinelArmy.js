@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
 
 const MAX_STACKS = 20;
