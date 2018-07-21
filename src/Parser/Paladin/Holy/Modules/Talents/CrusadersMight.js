@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const COOLDOWN_REDUCTION_MS = 1500;
 

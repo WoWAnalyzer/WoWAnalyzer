@@ -3,8 +3,8 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementDamageSource from '../Features/AtonementDamageSource';

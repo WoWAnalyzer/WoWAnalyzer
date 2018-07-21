@@ -8,8 +8,8 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';

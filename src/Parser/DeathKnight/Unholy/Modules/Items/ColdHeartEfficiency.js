@@ -7,7 +7,7 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
   
 const coldHeartMaxStack = 20;
 

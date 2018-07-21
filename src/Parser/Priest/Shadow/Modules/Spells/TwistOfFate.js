@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 class TwistOfFate extends Analyzer {
 

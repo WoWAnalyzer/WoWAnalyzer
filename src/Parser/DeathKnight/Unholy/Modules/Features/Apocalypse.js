@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class Apocalypse extends Analyzer {
   static dependencies = {

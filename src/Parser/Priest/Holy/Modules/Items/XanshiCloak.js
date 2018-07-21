@@ -3,8 +3,8 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 class XanshiCloak extends Analyzer {
   _xanshiActive = false;

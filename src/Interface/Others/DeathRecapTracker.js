@@ -7,7 +7,7 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Healthstone from 'Parser/Core/Modules/Items/Healthstone';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import DeathRecap from './DeathRecap';
 

@@ -5,7 +5,7 @@ import {Line} from 'react-chartjs-2';
 import {formatThousands } from 'common/format';
 import {formatDuration} from 'common/format';
 
-import ManaStyles from 'Main/ManaStyles.js';
+import ManaStyles from 'Interface/Others/ManaStyles.js';
 
 const baseConfig = {
   responsive: true,

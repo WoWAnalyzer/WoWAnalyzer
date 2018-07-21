@@ -233,7 +233,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 44,
       },
       {
-        spell: SPELLS.SKULL_BASH_FERAL,
+        spell: [SPELLS.SKULL_BASH, SPELLS.SKULL_BASH_FERAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 15,

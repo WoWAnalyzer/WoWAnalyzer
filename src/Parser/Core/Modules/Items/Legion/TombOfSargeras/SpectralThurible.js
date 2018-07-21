@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 // Spear appears to be kinda slow, saw hits from same spear seperated by upto a half second. Setting to full second to be safe.
 const HIT_WINDOW_MS = 1000;

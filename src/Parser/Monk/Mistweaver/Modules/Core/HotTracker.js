@@ -356,7 +356,7 @@ class HotTracker extends Analyzer {
         duration: 20000,
         tickPeriod: 2000,
       },
-      [SPELLS.ENVELOPING_MISTS.id]: {
+      [SPELLS.ENVELOPING_MIST.id]: {
         duration: 6000 + (this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? 1000 : 0),
         tickPeriod: 1000,
       },

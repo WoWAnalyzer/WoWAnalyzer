@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

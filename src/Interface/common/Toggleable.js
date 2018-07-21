@@ -26,9 +26,10 @@ class Toggleable extends React.PureComponent {
   render() {
     const { toggledvalue, value, style, ...others } = this.props;
     return (
-      <div onClick={this.handleClick} style={{cursor: 'pointer', ...style }} {...others}>
-        {(this.state.toggled) ? toggledvalue : value}
-      </div>);
+      <div onClick={this.handleClick} style={{ cursor: 'pointer', ...style }} {...others}>
+        {this.state.toggled ? toggledvalue : value}
+      </div>
+    );
   }
 }
 

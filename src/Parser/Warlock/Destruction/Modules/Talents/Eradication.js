@@ -9,7 +9,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import StatisticsListBox from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 
 const ERADICATION_DAMAGE_BONUS = 0.1;
 

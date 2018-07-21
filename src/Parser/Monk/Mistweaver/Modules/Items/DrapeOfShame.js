@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import CoreDrapeOfShame from 'Parser/Core/Modules/Items/Legion/DrapeOfShame';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import StatValues from '../Features/StatValues';
 

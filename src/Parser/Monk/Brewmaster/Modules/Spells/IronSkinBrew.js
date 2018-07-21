@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SharedBrews from '../Core/SharedBrews';
 import { ISB as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';

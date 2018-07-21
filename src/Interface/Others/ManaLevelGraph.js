@@ -5,7 +5,7 @@ import {Line} from 'react-chartjs-2';
 
 import fetchWcl from 'common/fetchWcl';
 
-import ManaStyles from 'Main/ManaStyles.js';
+import ManaStyles from 'Interface/Others/ManaStyles.js';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);

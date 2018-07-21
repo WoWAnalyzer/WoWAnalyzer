@@ -1,7 +1,7 @@
 import React from 'react';
 
+import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import CORE_CHANGELOG from '../CHANGELOG';
 import Changelog from './Changelog';
 
 class ChangelogPanel extends React.PureComponent {

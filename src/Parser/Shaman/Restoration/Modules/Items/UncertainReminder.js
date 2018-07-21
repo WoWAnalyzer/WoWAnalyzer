@@ -6,7 +6,7 @@ import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 

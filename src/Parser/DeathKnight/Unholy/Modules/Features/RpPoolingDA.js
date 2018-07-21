@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 
 class RpPoolingDA extends Analyzer {

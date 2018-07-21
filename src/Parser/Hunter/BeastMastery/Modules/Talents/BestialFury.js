@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 //Calculates the actual % increase in damage from Bestial Fury
 const BESTIAL_FURY_MODIFIER = (1.4 / 1.25) - 1;

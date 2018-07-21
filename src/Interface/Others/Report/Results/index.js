@@ -17,11 +17,13 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import { getResultTab } from 'Interface/selectors/url/report';
+import { hasPremium } from 'Interface/selectors/user';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
-import SuggestionsTab from 'Main/SuggestionsTab';
+import Ad from 'Interface/common/Ad';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
-import ItemStatisticBox from 'Main/ItemStatisticBox';
+import SuggestionsTab from 'Interface/Others/SuggestionsTab';
+import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -31,8 +33,8 @@ import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
 import './Results.css';
 
-const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Main/DevelopmentTab').then(exports => exports.default));
-const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Main/EventsTab').then(exports => exports.default));
+const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
+const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Interface/Others/EventsTab').then(exports => exports.default));
 
 const MAIN_TAB = {
   CHECKLIST: 'CHECKLIST',
@@ -47,6 +49,7 @@ class Results extends React.PureComponent {
     selectedDetailsTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
     i18n: PropTypes.object.isRequired,
+    premium: PropTypes.bool,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -208,7 +211,7 @@ class Results extends React.PureComponent {
   }
 
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
@@ -314,7 +317,19 @@ class Results extends React.PureComponent {
           </div>
         </div>
 
+        {!premium && (
+          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+            <Ad format="leaderboard" />
+          </div>
+        )}
+
         {this.renderStatistics(results.statistics, results.items, selectedCombatant)}
+
+        {!premium && (
+          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+            <Ad format="leaderboard" />
+          </div>
+        )}
 
         <StatisticsSectionTitle>
           <Trans>Details</Trans>
@@ -368,6 +383,7 @@ class Results extends React.PureComponent {
 
 const mapStateToProps = state => ({
   selectedDetailsTab: getResultTab(state),
+  premium: hasPremium(state),
 });
 
 export default compose(

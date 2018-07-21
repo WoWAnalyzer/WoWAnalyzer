@@ -4,11 +4,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from "common/SpellLink";
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 /**
  * Your auto-shots have a 10% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.

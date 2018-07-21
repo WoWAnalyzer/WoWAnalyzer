@@ -1,6 +1,6 @@
 import React from 'react';
 import { Doughnut as DoughnutChart } from 'react-chartjs-2';
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';

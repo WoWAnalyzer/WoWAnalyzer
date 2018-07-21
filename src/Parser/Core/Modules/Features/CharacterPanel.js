@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Gear from 'Main/Gear';
+import Gear from 'Interface/Others/Gear';
 import StatsDisplay from './StatsDisplay';
 import TalentsDisplay from './TalentsDisplay';
 

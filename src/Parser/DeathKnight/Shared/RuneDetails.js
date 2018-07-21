@@ -2,7 +2,7 @@ import React from 'react';
 import { Scatter } from 'react-chartjs-2';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import { formatDuration } from 'common/format';
 
 import RuneBreakdown from './RuneBreakdown';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import Danger from 'common/Alert/Danger';
 import Info from 'common/Alert/Info';
 

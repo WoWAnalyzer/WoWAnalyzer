@@ -7,7 +7,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const STARFALL_BONUS_DAMAGE = 0.25;
 

@@ -213,7 +213,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BERSERKER_RAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        buffSpellId: SPELLS.BERSERKER_RAGE,
+        buffSpellId: SPELLS.BERSERKER_RAGE.id,
         cooldown: 60,
         gcd: null,
       },

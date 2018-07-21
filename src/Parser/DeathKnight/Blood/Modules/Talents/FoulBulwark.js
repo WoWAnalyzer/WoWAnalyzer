@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import { formatDuration, formatPercentage } from 'common/format';
 import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 

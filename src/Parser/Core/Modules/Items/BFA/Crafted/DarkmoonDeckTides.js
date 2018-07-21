@@ -3,8 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const DARKMOON_DECK_TIDES_CARDS = [
   276136, // Ace

@@ -16,6 +16,7 @@ class SpellUsable extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
+
   _currentCooldowns = {};
   _errors = 0;
   get errorsPerMinute() {

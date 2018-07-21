@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 const debug = false;
 
@@ -88,7 +88,6 @@ class ThunderFocusTea extends Analyzer {
   }
 
   castsTftRsk = 0;
-  castsTftEf = 0;
   castsTftViv = 0;
   castsTftEnm = 0;
   castsTftRem = 0;
@@ -132,15 +131,10 @@ class ThunderFocusTea extends Analyzer {
         this.castsTftRsk += 1;
         debug && console.log('RSK TFT Check ', event.timestamp);
       }
-      if (SPELLS.ENVELOPING_MISTS.id === spellId) {
+      if (SPELLS.ENVELOPING_MIST.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
-      }
-      if (SPELLS.ESSENCE_FONT.id === spellId) {
-        this.castsUnderTft += 1;
-        this.castsTftEf += 1;
-        debug && console.log('EF TFT Check ', event.timestamp);
       }
       if (SPELLS.RENEWING_MIST.id === spellId) {
         this.castsUnderTft += 1;
@@ -167,7 +161,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: '#f37735',
         label: 'Enveloping Mists',
-        spellId: SPELLS.ENVELOPING_MISTS.id,
+        spellId: SPELLS.ENVELOPING_MIST.id,
         value: this.castsTftEnm,
       },
       {
@@ -175,12 +169,6 @@ class ThunderFocusTea extends Analyzer {
         label: 'Rising Sun Kick',
         spellId: SPELLS.RISING_SUN_KICK.id,
         value: this.castsTftRsk,
-      },
-      {
-        color: '#d11141',
-        label: 'Essence Font',
-        spellId: SPELLS.ESSENCE_FONT.id,
-        value: this.castsTftEf,
       },
     ];
 
@@ -204,7 +192,6 @@ class ThunderFocusTea extends Analyzer {
       console.log(`TFT Casts:${this.castsTft}`);
       console.log(`RSK Buffed:${this.castsTftRsk}`);
       console.log(`Enm Buffed:${this.castsTftEnm}`);
-      console.log(`EF Buffed:${this.castsTftEf}`);
       console.log(`Viv Buffed:${this.castsTftViv}`);
       console.log(`REM Buffed:${this.castsTftRem}`);
     }
@@ -226,6 +213,7 @@ class ThunderFocusTea extends Analyzer {
     };
   }
 
+  /* Removed for now while this is finalized going into BfA
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
@@ -238,7 +226,7 @@ class ThunderFocusTea extends Analyzer {
             .recommended(`<${recommended} incorrect cast is recommended`);
         });
   }
-
+  */
   statistic() {
     return (
       <StatisticsListBox

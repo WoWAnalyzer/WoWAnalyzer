@@ -7,8 +7,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import PlayerBreakdownTab from 'Interface/Others/PlayerBreakdownTab';
 
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';

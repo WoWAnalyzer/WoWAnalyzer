@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';

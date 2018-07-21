@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 

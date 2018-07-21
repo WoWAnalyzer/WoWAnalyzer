@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import Snapshot from '../FeralCore/Snapshot';
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../Constants';

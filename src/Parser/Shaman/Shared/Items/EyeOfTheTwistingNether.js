@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /*
 * Equip: Damaging enemies with your Fire, Frost, or Nature abilities increases all damage you deal by 1.5% for 8 sec. Each element adds a separate application.

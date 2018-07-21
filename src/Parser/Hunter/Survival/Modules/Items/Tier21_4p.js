@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 
 const TIER_21_4P_DMG_INCREASE_PER_STACK = 0.2;

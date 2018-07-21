@@ -1,9 +1,8 @@
 import React from 'react';
 
-import ChangelogTab from 'Main/ChangelogTab';
-import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import TimelineTab from 'Main/Timeline/TimelineTab';
-import DeathRecapTracker from 'Main/DeathRecapTracker';
+import ChangelogTab from 'Interface/Others/ChangelogTab';
+import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
+import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -44,6 +43,7 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
+import Timeline from './Modules/Features/Timeline';
 import EncounterPanel from './Modules/Features/EncounterPanel';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
@@ -188,6 +188,7 @@ class CombatLogParser {
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
 
+    timeline: Timeline,
     encounterPanel: EncounterPanel,
 
     prePotion: PrePotion,
@@ -578,27 +579,6 @@ class CombatLogParser {
     const results = new ParseResults();
 
     results.tabs = [];
-    results.tabs.push({
-      title: 'Timeline',
-      url: 'timeline',
-      order: 2,
-      render: () => (
-        <TimelineTab
-          start={this.fight.start_time}
-          end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-          historyBySpellId={this._modules.spellHistory.historyBySpellId}
-          globalCooldownHistory={this._modules.globalCooldown.history}
-          channelHistory={this._modules.channeling.history}
-          abilities={this._modules.abilities}
-          abilityTracker={this._modules.abilityTracker}
-          deaths={this._modules.deathTracker.deaths}
-          resurrections={this._modules.deathTracker.resurrections}
-          isAbilityCooldownsAccurate={this._modules.spellUsable.isAccurate}
-          isGlobalCooldownAccurate={this._modules.globalCooldown.isAccurate}
-          buffEvents={this._modules.timelineBuffEvents.buffHistoryBySpellId}
-        />
-      ),
-    });
     results.tabs.push({
       title: <ChangelogTabTitle />,
       url: 'changelog',

@@ -6,7 +6,7 @@ import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const APEX_DAMAGE_MODIFIER = 0.05;
 const DIRE_BEAST_DURATION = 8000;

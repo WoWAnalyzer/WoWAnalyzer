@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const BASE_HEALING_PERCENTAGE = 1.0;
 const PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE = 1.0;

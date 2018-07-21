@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import PlayerBreakdown from './PlayerBreakdown';
 
