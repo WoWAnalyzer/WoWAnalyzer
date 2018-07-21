@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CoreDrapeOfShame, { DRAPE_OF_SHAME_CRIT_EFFECT } from 'Parser/Core/Modules/Items/Legion/DrapeOfShame';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import StatValues from '../Features/StatValues';
 

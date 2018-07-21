@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 /*Purpose of this module is to track the sigil of flame debuff and see when 2 of them overlap for a damage increase.
 * This is important for damage and also squeezing extra fire damage during Fiery Brand because of the
 * Fiery Demise talent that increases your fire damage during that CD. Also due to trait charred blades that heals

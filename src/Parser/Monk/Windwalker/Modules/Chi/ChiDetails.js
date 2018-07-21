@@ -2,8 +2,8 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Tab from 'Interface/Others/Tab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 import ChiTracker from './ChiTracker';

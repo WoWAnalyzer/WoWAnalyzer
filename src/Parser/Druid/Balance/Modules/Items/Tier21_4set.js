@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 
 const DAMAGE_BONUS = 0.2;

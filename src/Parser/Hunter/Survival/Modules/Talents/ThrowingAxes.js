@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Tosses 3 axes at an enemy, each dealing (312.5% of Attack power) Physical damage. 2 Charges. 15 seconds recharge.

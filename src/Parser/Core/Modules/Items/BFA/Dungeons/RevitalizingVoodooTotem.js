@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Revitalizing Voodoo Totem -

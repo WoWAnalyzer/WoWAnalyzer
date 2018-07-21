@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';

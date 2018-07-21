@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker';
 
 /**

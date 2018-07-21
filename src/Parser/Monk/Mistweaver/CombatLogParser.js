@@ -11,9 +11,9 @@ import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-import MonkSpreadsheet from 'Main/MonkSpreadsheet';
+import Tab from 'Interface/Others/Tab';
+import Mana from 'Interface/Others/Mana';
+import MonkSpreadsheet from 'Interface/Others/MonkSpreadsheet';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 

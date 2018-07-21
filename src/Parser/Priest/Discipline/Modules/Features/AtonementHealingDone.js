@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 

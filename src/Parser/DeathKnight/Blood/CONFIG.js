@@ -12,7 +12,7 @@ export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
   contributors: [Yajinni, joshinator],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '7.3.5',
+  patchCompatibility: '8.0.1',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -24,9 +24,9 @@ export default {
       The rest of this analyzer focuses a lot on maximizing your damage output, buff uptimes, cooldown usage and more or less usefull statistics.<br />
       Your best defensive rotation is also your best offensive one, so optimizing your output means you'll optimize your survivability aswell.<br /><br />
 
-      If you find any issues or have something you'd like to see added, open an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, contact us on <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.<br /><br /> 
+      If you find any issues or have something you'd like to see added, open an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, contact us on <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.<br /><br />
 
-      Make sure to check out the <a href="https://goo.gl/qjTtNY">Death Knight Class Discord</a> if you need more specific advice or a more detailed guide than the ones available on <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and <a href="http://www.wowhead.com/blood-death-knight-guide">wowhead</a>. 
+      Make sure to check out the <a href="https://goo.gl/qjTtNY">Death Knight Class Discord</a> if you need more specific advice or a more detailed guide than the ones available on <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and <a href="http://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

@@ -4,10 +4,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Dire Frenzy

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ITEMS from 'common/ITEMS/HUNTER';
 
 /**

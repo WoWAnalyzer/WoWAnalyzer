@@ -22,8 +22,8 @@ import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
-import SuggestionsTab from 'Main/SuggestionsTab';
-import ItemStatisticBox from 'Main/ItemStatisticBox';
+import SuggestionsTab from 'Interface/Others/SuggestionsTab';
+import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -33,8 +33,8 @@ import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
 import './Results.css';
 
-const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Main/DevelopmentTab').then(exports => exports.default));
-const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Main/EventsTab').then(exports => exports.default));
+const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
+const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Interface/Others/EventsTab').then(exports => exports.default));
 
 const MAIN_TAB = {
   CHECKLIST: 'CHECKLIST',

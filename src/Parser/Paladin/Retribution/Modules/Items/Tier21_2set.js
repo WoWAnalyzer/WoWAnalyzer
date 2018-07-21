@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const RET_PALADIN_T21_2SET_MODIFIER = 0.4;
 

@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';

@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from "common/format";
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const MINIMUM_ABSORB_THRESHOLD = 0.05;
 

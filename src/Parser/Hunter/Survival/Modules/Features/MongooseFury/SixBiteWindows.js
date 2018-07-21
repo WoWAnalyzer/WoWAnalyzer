@@ -2,9 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 const MAX_STACKS = 6;
 

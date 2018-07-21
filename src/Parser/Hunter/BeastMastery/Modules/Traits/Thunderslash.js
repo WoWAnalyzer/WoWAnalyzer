@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * While Aspect of the Wild is active, Hati and your primary pet also trigger a Thunderslash with each auto attack, dealing ((50% of Attack

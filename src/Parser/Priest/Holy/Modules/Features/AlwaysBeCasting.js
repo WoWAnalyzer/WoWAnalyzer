@@ -1,4 +1,4 @@
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';

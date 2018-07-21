@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Khaz'Goroths Courage -

@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';

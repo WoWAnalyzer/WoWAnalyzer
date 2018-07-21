@@ -338,7 +338,7 @@ class Article extends React.PureComponent {
 
         <Item title="Elemental Shaman" date="4 Jun">
           <SpecIcon spec={SPECS.ELEMENTAL_SHAMAN} />
-          The initial version of Elemental Shaman was added by <Contributor {...CONTRIBUTORS.fasib} />. This included cast efficiency, the cooldown tab only included <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /> (if specced) and <SpellLink id={SPELLS.STORMKEEPER.id} />, and introduced two new things: a procs tab and a Maelstrom tab.<br /><br />
+          The initial version of Elemental Shaman was added by <Contributor {...CONTRIBUTORS.fasib} />. This included cast efficiency, the cooldown tab only included <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /> (if specced) and Stormkeeper, and introduced two new things: a procs tab and a Maelstrom tab.<br /><br />
 
           <Image source={ElementalShamanCastEfficiency} description="Elemental Shaman cast efficiency" /><br />
 

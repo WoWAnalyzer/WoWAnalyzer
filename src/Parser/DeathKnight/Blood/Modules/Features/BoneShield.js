@@ -3,8 +3,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 

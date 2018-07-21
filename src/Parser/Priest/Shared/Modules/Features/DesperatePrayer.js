@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';

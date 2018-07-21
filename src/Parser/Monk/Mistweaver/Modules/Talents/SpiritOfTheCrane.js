@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const SOTC_MANA_PER_SECOND_RETURN_MINOR = 640;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;

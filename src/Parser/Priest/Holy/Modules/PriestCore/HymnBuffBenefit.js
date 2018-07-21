@@ -5,7 +5,7 @@ import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

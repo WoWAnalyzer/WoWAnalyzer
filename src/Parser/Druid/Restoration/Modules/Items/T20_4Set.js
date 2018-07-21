@@ -10,7 +10,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const HEAL_INCREASE = 2;
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';

@@ -6,8 +6,8 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellHistory from 'Parser/Core/Modules/SpellHistory';
 
-import Tab from 'Main/Tab';
-import CastEfficiencyComponent from 'Main/CastEfficiency';
+import Tab from 'Interface/Others/Tab';
+import CastEfficiencyComponent from 'Interface/Others/CastEfficiency';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';

@@ -8,7 +8,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const SET_INCREASE_CRIT_CHANCE_PER_VOIDFORM_STACK = 0.5;
 const CRIT_TO_HIT_MODIFIER = 2.5; // +50% from tier 21 2p set

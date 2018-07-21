@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import Penance from '../Spells/Penance';
 import isAtonement from '../Core/isAtonement';

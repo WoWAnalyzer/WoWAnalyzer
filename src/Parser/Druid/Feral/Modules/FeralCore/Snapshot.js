@@ -6,7 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import StatisticsListBox from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import { PANDEMIC_FRACTION } from '../../Constants';
 
 const debug = false;

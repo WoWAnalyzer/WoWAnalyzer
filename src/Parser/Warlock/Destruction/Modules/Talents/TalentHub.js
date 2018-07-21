@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';

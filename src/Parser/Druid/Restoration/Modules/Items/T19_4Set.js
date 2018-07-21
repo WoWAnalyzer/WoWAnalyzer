@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
 
