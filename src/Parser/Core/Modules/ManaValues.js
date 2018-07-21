@@ -2,6 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'common/ROLES';
+import SPECS from 'common/SPECS';
 
 class ManaValues extends Analyzer {
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
@@ -12,7 +13,7 @@ class ManaValues extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
+    this.active = this.selectedCombatant.spec.role === ROLES.HEALER || this.selectedCombatant.spec === SPECS.ARCANE_MAGE;
   }
 
   on_byPlayer_cast(event) {
