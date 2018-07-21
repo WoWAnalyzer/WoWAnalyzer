@@ -43,8 +43,11 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
-import Timeline from './Modules/Features/Timeline';
 import EncounterPanel from './Modules/Features/EncounterPanel';
+
+// Tabs
+import TimelineTab from './Modules/Features/TimelineTab';
+import ManaTab from './Modules/Features/ManaTab';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -188,8 +191,10 @@ class CombatLogParser {
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
 
-    timeline: Timeline,
     encounterPanel: EncounterPanel,
+    // Tabs
+    timelineTab: TimelineTab,
+    manaTab: ManaTab,
 
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,

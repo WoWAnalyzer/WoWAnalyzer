@@ -10,9 +10,9 @@ import DeathTracker from 'Parser/Core/Modules/DeathTracker';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import TimelineBuffEvents from 'Parser/Core/Modules/TimelineBuffEvents';
 
-import TimelineTab from './TabComponent';
+import TabComponent from './TabComponent';
 
-class Timeline extends Analyzer {
+class TimelineTab extends Analyzer {
   static dependencies = {
     spellHistory: SpellHistory,
     globalCooldown: GlobalCooldown,
@@ -30,7 +30,7 @@ class Timeline extends Analyzer {
       url: 'timeline',
       order: 2,
       render: () => (
-        <TimelineTab
+        <TabComponent
           start={this.owner.fight.start_time}
           end={this.owner.currentTimestamp >= 0 ? this.owner.currentTimestamp : this.owner.fight.end_time}
           historyBySpellId={this.spellHistory.historyBySpellId}
@@ -49,4 +49,4 @@ class Timeline extends Analyzer {
   }
 }
 
-export default Timeline;
+export default TimelineTab;

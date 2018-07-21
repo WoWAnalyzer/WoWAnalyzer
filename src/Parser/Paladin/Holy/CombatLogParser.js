@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Interface/Others/Tab';
-import Mana from 'Interface/Others/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -106,27 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  generateResults(...args) {
-    const results = super.generateResults(...args);
-
-    // TODO: Suggestion for enchants
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;
