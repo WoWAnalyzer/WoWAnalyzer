@@ -11,7 +11,7 @@ const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;
 const AURA_OF_SACRIFICE_ACTIVE_DAMAGE_TRANSFER = 0.3;
 
-class AuraOfSacrifice extends Analyzer {
+class AuraOfSacrificeDamageReduction extends Analyzer {
   passiveDamageTaken = 0;
   passiveDamageTransferred = 0;
   perSecond(amount) {
@@ -36,6 +36,16 @@ class AuraOfSacrifice extends Analyzer {
   }
   get drps() {
     return this.passiveDrps + this.activeDrps;
+  }
+
+  get auraMasteryUptimeFilter() {
+    const transferringHistory = this.auraMasteryTransferringHistory;
+    if (transferringHistory.length === 0) {
+      return null;
+    }
+    // WCL's filter requires the timestamp to be relative to fight start
+    const fightStart = this.owner.fight.start_time;
+    return transferringHistory.map(period => `(timestamp>=${period.start - fightStart} AND timestamp<=${period.end - fightStart})`).join(' OR ');
   }
 
   constructor(...args) {
@@ -131,14 +141,11 @@ class AuraOfSacrifice extends Analyzer {
   }
 
   load() {
-    const transferringHistory = this.auraMasteryTransferringHistory;
-    if (transferringHistory.length === 0) {
+    const uptimeFilter = this.auraMasteryUptimeFilter;
+    if (!uptimeFilter) {
       return Promise.resolve();
     }
-    // WCL's filter requires the timestamp to be relative to fight start
-    const fightStart = this.owner.fight.start_time;
-    const timestampFilter = transferringHistory.map(period => `(timestamp>=${period.start - fightStart} AND timestamp<=${period.end - fightStart})`).join(' OR ');
-    const filter = `(${timestampFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
+    const filter = `(${uptimeFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
     // Just leave this here to make it easy to switch to WCL
     console.log(filter);
 
@@ -191,4 +198,4 @@ class AuraOfSacrifice extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
-export default AuraOfSacrifice;
+export default AuraOfSacrificeDamageReduction;

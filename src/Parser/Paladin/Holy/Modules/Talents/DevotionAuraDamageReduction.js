@@ -24,7 +24,7 @@ const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 // const THIS_MIGHT_BE_PURE_ABILITY_TYPE_ID = 1;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
-class DevotionAura extends Analyzer {
+class DevotionAuraDamageReduction extends Analyzer {
   get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }
@@ -63,18 +63,25 @@ class DevotionAura extends Analyzer {
     }
   }
 
-  load() {
+  get auraMasteryUptimeFilter() {
     const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
     if (buffHistory.length === 0) {
-      return Promise.resolve();
+      return null;
     }
     // WCL's filter requires the timestamp to be relative to fight start
-    const filter = buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+    return buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+  }
 
+  load() {
+    const uptimeFilter = this.auraMasteryUptimeFilter;
+    if (!uptimeFilter) {
+      return Promise.resolve();
+    }
+    console.log(uptimeFilter);
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: filter,
+      filter: uptimeFilter,
     })
       .then(json => {
         console.log('Received AM damage taken', json);
@@ -101,4 +108,4 @@ class DevotionAura extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
-export default DevotionAura;
+export default DevotionAuraDamageReduction;
