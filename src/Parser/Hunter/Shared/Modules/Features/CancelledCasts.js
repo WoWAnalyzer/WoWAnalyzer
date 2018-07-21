@@ -4,7 +4,7 @@ import CoreCancelledCasts from 'Parser/Core/Modules/CancelledCasts';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Icon from 'common/Icon';
 
 class CancelledCasts extends CoreCancelledCasts {

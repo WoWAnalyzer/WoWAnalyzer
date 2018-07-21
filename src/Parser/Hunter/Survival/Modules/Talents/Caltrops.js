@@ -7,9 +7,9 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SpellIcon from 'common/SpellIcon';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 /**
  * Scatters Caltrops in an area for 15 sec. Enemies who step on Caltrops will take (45% of Attack power) Bleed damage every 1 sec, and

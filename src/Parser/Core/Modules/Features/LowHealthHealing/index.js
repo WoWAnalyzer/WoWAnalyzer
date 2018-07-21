@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import LowHealthHealingComponent from './Component';
 

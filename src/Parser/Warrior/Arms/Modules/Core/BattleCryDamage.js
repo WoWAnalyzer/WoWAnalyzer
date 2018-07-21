@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 

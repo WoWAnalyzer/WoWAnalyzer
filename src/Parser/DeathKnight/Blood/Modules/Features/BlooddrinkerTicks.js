@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
 
@@ -65,7 +65,7 @@ class Blooddrinker extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOODDRINKER_TALENT.id} />}
         value={`${this._ruinedCasts} out of ${this._totalCasts}`}
-        label="Channels cancelled Early"
+        label="Channels cancelled early"
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.<br>
         <strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>
         <strong>Healing:</strong> ${formatThousands(this.totalHealing)} / ${this.owner.formatItemHealingDone(this.totalHealing)}<br>`}

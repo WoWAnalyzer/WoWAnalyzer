@@ -9,6 +9,21 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-07-21'),
+    changes: 'Added a raid health tab to healer roles.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Fixed <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} /> squished mana values.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-15'),
     changes: 'Added a link to the Legion analyzer in the links under the report bar.',
     contributors: [Zerotorescue],

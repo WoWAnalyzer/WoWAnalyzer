@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import { formatPercentage } from "common/format";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.

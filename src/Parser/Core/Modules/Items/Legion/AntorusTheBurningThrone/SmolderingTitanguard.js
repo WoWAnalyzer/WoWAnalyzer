@@ -5,8 +5,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Smoldering Titanguard

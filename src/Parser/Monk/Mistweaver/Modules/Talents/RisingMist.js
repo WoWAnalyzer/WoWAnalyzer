@@ -1,6 +1,6 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import StatisticBox from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
@@ -65,7 +65,7 @@ class RisingMist extends Analyzer {
           this.efCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           this.remCount += 1;
-        } else if (spellId === SPELLS.ENVELOPING_MISTS.id) {
+        } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
           this.evmCount += 1;
         }
       });

@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
 
 const MAX_STACKS = 20;
@@ -61,7 +61,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       this._currentStacks = 0;
     }
 
-    if (spellId === SPELLS.MULTISHOT.id && this._currentStacks === MAX_STACKS) {
+    if (spellId === SPELLS.MULTISHOT_MM.id && this._currentStacks === MAX_STACKS) {
       this.cappedBeltStacks += 1;
       this.totalBeltStacks += 1;
     }

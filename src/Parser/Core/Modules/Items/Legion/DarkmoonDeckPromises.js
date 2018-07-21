@@ -5,20 +5,20 @@ import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellManaCost from 'Parser/Core/Modules/SpellManaCost';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const debug = false;
 
-const BASE_PROMISES_ITEM_LEVEL = 835;
+const BASE_PROMISES_ITEM_LEVEL = 180;
 const BASE_MANA_REDUCTION_PER_CARD = {
-  191615: 420, // Ace
-  191616: 578, // 2
-  191617: 736, // 3
-  191618: 893, // 4
-  191619: 1050, // 5
-  191620: 1207, // 6
-  191621: 1365, // 7
-  191622: 1680, // 8
+  191615: 30, // Ace
+  191616: 41, // 2
+  191617: 53, // 3
+  191618: 64, // 4
+  191619: 75, // 5
+  191620: 86, // 6
+  191621: 98, // 7
+  191622: 120, // 8
 };
 
 /**

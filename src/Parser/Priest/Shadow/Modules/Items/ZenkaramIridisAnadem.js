@@ -5,8 +5,8 @@ import ITEMS from 'common/ITEMS';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const ZENKARAM_VOIDFORM_DAMAGE_INCREASE = 0.23;
 const DEFAULT_VOIDFORM_DAMAGE_INCREASE = 0.20;

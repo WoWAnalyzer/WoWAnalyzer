@@ -72,7 +72,7 @@ class Abilities extends Analyzer {
    */
   getExpectedCooldownDuration(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? ability.cooldown * 1000 : undefined;
+    return ability ? Math.round(ability.cooldown * 1000) : undefined;
   }
 
   /**
@@ -106,6 +106,22 @@ class Abilities extends Analyzer {
     return this.activeAbilities.find(ability => {
         return ability.buffSpellId === spellId;
     });
+  }
+
+  // Validate that all spells castable by the player is in the spellbook
+  on_byPlayer_cast(event) {
+    if (!event.ability) {
+      return;
+    }
+    const spellId = event.ability.guid;
+    if (spellId === 1) {
+      // Melee (auto attack)
+      return;
+    }
+    const ability = this.getAbility(event.ability.guid);
+    if (!ability) {
+      console.warn('Ability missing from spellbook:', event.ability);
+    }
   }
 }
 

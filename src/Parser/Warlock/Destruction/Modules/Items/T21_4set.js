@@ -5,7 +5,7 @@ import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 // Chaos Bolt will deal an additional 12% of its direct damage caused to the target over 4 sec.
 class T21_4set extends Analyzer {

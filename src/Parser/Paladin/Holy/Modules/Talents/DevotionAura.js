@@ -5,7 +5,7 @@ import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -25,7 +25,6 @@ const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Analyzer {
-
   get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }

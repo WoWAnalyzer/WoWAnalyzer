@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const BUFF_TOTEM_RESONANCE_SPELL_ID = 202188;
 const BUFF_TOTEM_EMBER_SPELL_ID = 210657;

@@ -80,7 +80,6 @@ class HolyPaladinChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />
           )}
-          <AbilityRequirement spell={SPELLS.TYRS_DELIVERANCE_CAST.id} />
           {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && (
             <AbilityRequirement
               spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id}

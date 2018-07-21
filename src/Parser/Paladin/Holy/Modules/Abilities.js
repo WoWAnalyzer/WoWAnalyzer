@@ -184,16 +184,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 35,
       },
       {
-        spell: SPELLS.TYRS_DELIVERANCE_CAST,
-        buffSpellId: SPELLS.TYRS_DELIVERANCE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 31,
-      },
-      {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -213,6 +203,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
+        buffSpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
@@ -386,7 +377,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 4.5 / (1 + haste),
         timelineSortIndex: 51,
         gcd: {
           base: 1500,

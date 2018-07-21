@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -33,6 +33,11 @@ class SinsOfTheMany extends Analyzer {
 
   bonusDamage = 0;
   bonusHealing = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
+  }
 
   get currentBonus() {
     const baseBonus = SINS_OF_THE_MANY_BASE_BONUS * 100;

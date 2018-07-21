@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 

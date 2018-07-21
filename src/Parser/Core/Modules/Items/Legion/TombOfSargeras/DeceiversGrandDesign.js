@@ -6,7 +6,7 @@ import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const debug = false;

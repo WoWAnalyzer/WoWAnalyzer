@@ -5,7 +5,7 @@ import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 
 /*

@@ -22,14 +22,15 @@ import BreathOfFire from './Modules/Spells/BreathOfFire';
 import BlackOxBrew from './Modules/Spells/BlackOxBrew';
 import HighTolerance from './Modules/Spells/HighTolerance';
 import Guard from './Modules/Spells/Guard';
+// Training of Niuzao
+import TrainingOfNiuzao from './Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageTakenTable from './Modules/Features/DamageTakenTable';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
-import StaggerTable from './Modules/Features/StaggerTable';
 import MitigationCheck from './Modules/Features/MitigationCheck';
+
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
@@ -60,9 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
-    damageTakenTable: DamageTakenTable,
     staggerPoolGraph: StaggerPoolGraph,
-    staggerTable: StaggerTable,
 
     // Spells
     ironSkinBrew: IronSkinBrew,
@@ -75,6 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
     guard: Guard,
+
+    // Azerite Traits
+    trainingOfNiuzao: TrainingOfNiuzao,
 
     // Items
     t20_2pc: T20_2pc,

@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class HardHowlingBlastCasts extends Analyzer {
   static dependencies = {

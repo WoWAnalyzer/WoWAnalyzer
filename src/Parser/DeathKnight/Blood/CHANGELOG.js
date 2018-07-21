@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.FOUL_BULWARK_TALENT.id} /> to its new reduced value.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Removed old legion traits/talents/abilities.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-05-22'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} />-Module in anticipation for BFA, adjusted <SpellLink id={SPELLS.HEMOSTASIS_TALENT.id} /> to 8% per stack, readded <SpellLink id={SPELLS.OSSUARY_TALENT.id} /> and removed Blood Mirror.</React.Fragment>,
     contributors: [joshinator],

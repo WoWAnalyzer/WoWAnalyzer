@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const debug = false;
 

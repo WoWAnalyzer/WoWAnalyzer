@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class VirulentPlagueEfficiency extends Analyzer {

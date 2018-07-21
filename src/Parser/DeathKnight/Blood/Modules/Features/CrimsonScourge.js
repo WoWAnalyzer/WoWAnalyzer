@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const DURATION_WORTH_CASTING_MS = 8000;
@@ -18,8 +18,6 @@ class CrimsonScourge extends Analyzer {
 
   crimsonScourgeProcsCounter = 0;
   freeDeathAndDecayCounter = 0;
-  deathAndDecayCounter = 0;
-  wastedDeathAndDecays = 0;
   endOfCombatCast = false;
 
   on_byPlayer_cast(event) {
@@ -32,8 +30,6 @@ class CrimsonScourge extends Analyzer {
       if(this.endOfCombatCast){
         this.endOfCombatCast = false;
       }
-    } else {
-      this.deathAndDecayCounter += 1;
     }
   }
   on_byPlayer_applybuff(event) {

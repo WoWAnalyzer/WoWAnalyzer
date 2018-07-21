@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Abilities from '../Abilities';
 import KegSmash from '../Spells/KegSmash';
 import TigerPalm from '../Spells/TigerPalm';
@@ -24,6 +24,11 @@ class BrewCDR extends Analyzer {
   _totalHaste = 0;
   _newHaste = 0;
   _lastHasteChange = 0;
+
+  constructor(...args) {
+    super(...args);
+    this._lastHasteChange = this.owner.fight.start_time;
+  }
 
   get meanHaste() {
     return this._totalHaste / this.owner.fightDuration;
