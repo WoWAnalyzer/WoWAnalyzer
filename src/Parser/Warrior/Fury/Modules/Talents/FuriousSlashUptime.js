@@ -16,6 +16,7 @@ class FuriousSlashUptime extends Analyzer {
   };
   
   get furiousSlashTimesByStack(){
+	  console.log(this.furiousSlashTimesByStacks.furiousSlashTimesByStacks);
 	  return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks;
   }
   

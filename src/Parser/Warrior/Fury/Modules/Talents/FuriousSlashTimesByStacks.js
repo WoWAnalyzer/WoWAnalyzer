@@ -1,5 +1,6 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 /* 
   furiousSlashTimesByStacks() returns an array with the durations of each FS buff stack
@@ -23,10 +24,28 @@ class FuriousSlashTimesByStacks extends Analyzer {
     if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
       event.stack = 0;
     }
+	/*
     if (event.type === 'applybuff') {
       event.stack = 1;
     }
-
+	*/
+	
+	if (event.type === 'damage') {
+		if(!this.lastFuriousSlashStack)
+		{
+			event.stack = 1;
+		}
+		else{
+			if(this.lastFuriousSlashStack < MAX_FURIOUS_SLASH_STACKS)
+			{
+				event.stack = this.lastFuriousSlashStack + 1;
+			}
+			else{
+				event.stack = MAX_FURIOUS_SLASH_STACKS;
+			}
+		}
+	}
+	
     if (stack) {
       event.stack = stack;
     }
@@ -39,7 +58,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
   	get furiousSlashTimesByStacks() {
 		return this.furiousSlashStacks;
 	}
-	
+	/*
 	on_byPlayer_applybuff(event){
 		const spellId = event.ability.guid;
 		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
@@ -47,6 +66,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
 		}
 		this.handleStacks(event);
 	}
+	
 	on_byPlayer_applybuffstack(event) {
 		const spellId = event.ability.guid;
 		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
@@ -54,7 +74,18 @@ class FuriousSlashTimesByStacks extends Analyzer {
 		}
 		this.handleStacks(event);
 	}
-	on_byPlayer_removeBuff(event) {
+	
+	*/
+	
+	on_byPlayer_damage(event) {
+		const spellId = event.ability.guid;
+		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT.id || event.hit_type === HIT_TYPES.DODGE || event.hit_type === HIT_TYPES.DODGE)
+		{
+			return;
+		}
+		this.handleStacks(event);
+	}
+	on_byPlayer_removebuff(event) {
 		const spellId = event.ability.guid;
 		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
 			return;
