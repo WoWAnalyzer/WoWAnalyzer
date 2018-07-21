@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STARFALL_CAST,
-        buffSpellId: SPELLS.STELLAR_EMPOWERMENT.id,
+        buffSpellId: SPELLS.STARFALL_CAST.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

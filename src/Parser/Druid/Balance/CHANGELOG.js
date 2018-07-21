@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-6-21'),
+    changes: <React.Fragment>Removed Stellar Empowerment and added haste tracker for <SpellLink id={SPELLS.STARLORD_TALENT.id} /></React.Fragment>,
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-4-07'),
     changes: <React.Fragment>Track early dot refreshes for <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />, and early dot refreshes for <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> while standing still, the player had <SpellLink id={SPELLS.STELLAR_DRIFT.id} />, or the player had better movement fillers available.</React.Fragment>,
     contributors: [Gebuz],
