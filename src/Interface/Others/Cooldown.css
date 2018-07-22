@@ -1,0 +1,16 @@
+.grouped-heal-meta {
+  display: inline-block;
+  margin-left: 6px;
+}
+.grouped-heal-meta.amount {
+  min-width: 35px;
+}
+.grouped-heal-meta.healing, .grouped-heal-meta.overhealing {
+  color: #84f8bd;
+  min-width: 80px;
+  text-align: right;
+}
+.grouped-heal-meta.overhealing {
+  color: gray;
+  text-align: left;
+}

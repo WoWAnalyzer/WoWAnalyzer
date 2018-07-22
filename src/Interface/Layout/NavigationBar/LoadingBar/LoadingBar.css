@@ -1,0 +1,50 @@
+.LoadingBar {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: -10px;
+  height: 10px;
+  background: #000;
+  box-shadow: 0 0 3px 0 #000;
+  transition: opacity 400ms;
+  pointer-events: none;
+  display: flex;
+}
+.LoadingBar:before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #000;
+  border-left: 10px solid transparent;
+}
+.LoadingBar:after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #000;
+  border-right: 10px solid transparent;
+}
+.LoadingBar:not([data-progress]), .LoadingBar[data-progress=""], .LoadingBar[data-progress="1"] {
+  opacity: 0;
+}
+.LoadingBar > div {
+  border: 1px solid #000;
+  background: #333;
+  flex: 1 0 auto;
+  position: relative;
+}
+.LoadingBar > div > div {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #912d2d;
+}

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerSelectionList does not show combatants with missing specID 1`] = `
+Array [
+  <div
+    className="card"
+    key="UNKNOWN_ROLE"
+/>,
+]
+`;
+
+exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] = `
+<div
+  className="text-danger"
+  style={
+    Object {
+      "padding": "15px 22px",
+    }
+  }
+>
+  No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with 
+  <b>
+    Advanced Combat Logging
+  </b>
+   enabled. Make sure it is enabled, you can enable this in-game in the network settings.
+</div>
+`;
