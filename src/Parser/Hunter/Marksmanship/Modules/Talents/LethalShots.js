@@ -10,7 +10,7 @@ import SpellIcon from 'common/SpellIcon';
  * Steady Shot has a 25% chance to cause your next Aimed Shot or Rapid Fire to be guaranteed critical strikes.
  */
 
-const RF_BUFFER = 10000;
+const RF_BUFFER = 4000;
 
 class LethalShots extends Analyzer {
 
@@ -50,7 +50,7 @@ class LethalShots extends Analyzer {
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedUsage++;
     }
-    if (spellId === SPELLS.RAPID_FIRE.id && this.timeSinceRFCast > event.timestamp + RF_BUFFER) {
+    if (spellId === SPELLS.RAPID_FIRE.id && event.timestamp > this.timeSinceRFCast + RF_BUFFER) {
       this.RFUsage++;
       this.timeSinceRFCast = event.timestamp;
     }

@@ -551,12 +551,12 @@ export default {
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
   },
-  RAPID_FIRE_BUFF: {
+  RAPID_FIRE: {
     id: 257044,
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  RAPID_FIRE: {
+  RAPID_FIRE_TICKS: {
     id: 257045,
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',

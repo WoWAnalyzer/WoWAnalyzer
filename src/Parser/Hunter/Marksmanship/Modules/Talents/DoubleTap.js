@@ -9,12 +9,16 @@ import SpellIcon from 'common/SpellIcon';
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
  */
+
+const RF_BUFFER = 4000;
+
 class DoubleTap extends Analyzer {
 
   activations = 0;
   aimedUsage = 0;
   RFUsage = 0;
   doubleTapActive = false;
+  timeSinceRFCast = 0;
 
   constructor(...args) {
     super(...args);
@@ -40,14 +44,17 @@ class DoubleTap extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE_BUFF.id) && !this.doubleTapActive && !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && !this.doubleTapActive && !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedUsage++;
     }
     if (spellId === SPELLS.RAPID_FIRE_BUFF.id) {
-      this.RFUsage++;
+      if (event.timestamp > this.timeSinceRFCast + RF_BUFFER) {
+        this.RFUsage++;
+        this.timeSinceRFCast = event.timestamp;
+      }
     }
   }
 

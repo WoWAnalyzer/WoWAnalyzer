@@ -79,6 +79,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.HUNTERS_MARK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
@@ -128,6 +136,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
         gcd: null,
       },
       {
@@ -207,6 +227,22 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+
+      /**
+       * Following are implemented to avoid annoying console messages.
+       */
+      {
+        spell: SPELLS.RAPID_FIRE_TICKS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.DEFILED_AUGMENT_RUNE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.POTION_OF_PROLONGED_POWER,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
     ];
   }
