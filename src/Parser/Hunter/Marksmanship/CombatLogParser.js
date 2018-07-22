@@ -49,6 +49,7 @@ import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
 import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theApexPredatorsClaw: TheApexPredatorsClaw,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    unseenPredatorsCloak: UnseenPredatorsCloak,
 
     //Spells
     trueshot: Trueshot,
