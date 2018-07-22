@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import ITEMS from 'common/ITEMS';
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { withRouter } from 'react-router-dom';
 
-import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWcl';
+import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';

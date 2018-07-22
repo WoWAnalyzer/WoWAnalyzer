@@ -1,6 +1,6 @@
 import ExtendableError from 'es6-error';
 
-import makeWclUrl from './makeWclUrl';
+import makeWclApiUrl from './makeWclApiUrl';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
@@ -34,7 +34,7 @@ const HTTP_CODES = {
 };
 
 async function rawFetchWcl(endpoint, queryParams) {
-  const url = makeWclUrl(endpoint, queryParams);
+  const url = makeWclApiUrl(endpoint, queryParams);
   const response = await fetch(url);
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {

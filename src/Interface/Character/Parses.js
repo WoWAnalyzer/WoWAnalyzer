@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import ArmoryLogo from 'Interface/Images/Armory-logo.png';

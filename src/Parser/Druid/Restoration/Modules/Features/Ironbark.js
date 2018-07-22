@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const IRONBARK_BASE_DR = 0.20;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 import {Line} from 'react-chartjs-2';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'Interface/Others/ManaStyles.js';
 
