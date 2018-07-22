@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ManaLevelGraph from 'Interface/Others/ManaLevelGraph';
-import ManaUsageGraph from 'Interface/Others/ManaUsageGraph';
+import Tab from 'Interface/Others/Tab';
+
+import ManaLevelGraph from './ManaLevelGraph';
+import ManaUsageGraph from './ManaUsageGraph';
 
 const Mana = ({ parser }) => (
-  <div>
+  <Tab style={{ padding: '15px 22px' }}>
     <h1>Mana pool</h1>
     <ManaLevelGraph
       reportCode={parser.report.code}
@@ -24,10 +26,8 @@ const Mana = ({ parser }) => (
       manaUpdates={parser._modules.manaValues.manaUpdates}
       timestamp={parser.currentTimestamp}
     /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
-
-  </div>
+  </Tab>
 );
-
 Mana.propTypes = {
   parser: PropTypes.object.isRequired,
 };

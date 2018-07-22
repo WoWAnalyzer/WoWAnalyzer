@@ -34,9 +34,9 @@ class AuraOfMercy extends Analyzer {
     return {
       actual: this.hps,
       isLessThan: {
-        minor: 30000,
-        average: 25000,
-        major: 20000,
+        minor: 600,
+        average: 550,
+        major: 500,
       },
     };
   }

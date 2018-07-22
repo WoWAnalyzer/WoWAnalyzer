@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Interface/Others/Tab';
-import Mana from 'Interface/Others/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -31,8 +26,10 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import StatValues from './Modules/Features/StatValues';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
-import DevotionAura from './Modules/Talents/DevotionAura';
-import AuraOfSacrifice from './Modules/Talents/AuraOfSacrifice';
+import DevotionAuraDamageReduction from './Modules/Talents/DevotionAuraDamageReduction';
+// import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
+import AuraOfSacrificeDamageReduction from './Modules/Talents/AuraOfSacrificeDamageReduction';
+// import AuraOfSacrificeLivesSaved from './Modules/Talents/AuraOfSacrificeLivesSaved';
 import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -87,8 +84,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     ruleOfLaw: RuleOfLaw,
-    devotionAura: DevotionAura,
-    auraOfSacrifice: AuraOfSacrifice,
+    devotionAuradamageReduction: DevotionAuraDamageReduction,
+    // devotionAuraLivesSaved: DevotionAuraLivesSaved,
+    auraOfSacrificeDamageReduction: AuraOfSacrificeDamageReduction,
+    // auraOfSacrificeLivesSaved: AuraOfSacrificeLivesSaved,
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
@@ -106,27 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  generateResults(...args) {
-    const results = super.generateResults(...args);
-
-    // TODO: Suggestion for enchants
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

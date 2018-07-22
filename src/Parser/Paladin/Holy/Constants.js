@@ -13,7 +13,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.BEACON_OF_LIGHT_HEAL.id,
   SPELLS.LEECH.id,
-  // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 
   // There trinkets are confirmed to also be increased:
   SPELLS.OCEANS_EMBRACE.id,

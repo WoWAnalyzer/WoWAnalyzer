@@ -3,7 +3,7 @@
 export default {
   // Shared
   REPENTANCE_TALENT: { id: 20066, name: "Repentance", icon: "spell_holy_prayerofhealing", manaCost: 22000 },
-  BLINDING_LIGHT_TALENT: { id: 115750, name: "Blinding Light", icon: "ability_paladin_blindinglight", manaCost: 17600 },
+  BLINDING_LIGHT_TALENT: { id: 115750, name: "Blinding Light", icon: "ability_paladin_blindinglight", manaCost: 320 },
   CAVALIER_TALENT: { id: 230332, name: "Cavalier", icon: "ability_paladin_divinesteed" },
   JUDGMENT_OF_LIGHT_TALENT: { id: 183778, name: "Judgment of Light", icon: "spell_holy_divineprovidence" },
   FIST_OF_JUSTICE_TALENT_SHARED: { id: 198054, name: "Fist of Justice", icon: "spell_holy_fistofjustice" },
@@ -21,7 +21,7 @@ export default {
   FERVENT_MARTYR_TALENT: { id: 196923, name: "Fervent Martyr", icon: "ability_paladin_selflesshealer" },
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: "Sanctified Wrath", icon: "ability_paladin_sanctifiedwrath" },
   AWAKENING_TALENT: { id: 248033, name: "Awakening", icon: "inv_helm_plate_raidpaladin_n_01" },
-  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 625 },
+  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 125 },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: { id: 197446, name: "Beacon of the Lightbringer", icon: "spell_paladin_clarityofpurpose" },
   BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", manaCost: 2000 },
   DIVINE_PURPOSE_TALENT_HOLY: { id: 197646, name: "Divine Purpose", icon: "spell_holy_divinepurpose" },

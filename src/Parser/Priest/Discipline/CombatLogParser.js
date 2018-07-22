@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Interface/Others/Tab';
-import Mana from 'Interface/Others/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -20,6 +15,7 @@ import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementApplicationSource from './Modules/Features/AtonementApplicationSource';
@@ -80,6 +76,9 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 
+    // Features
+    checklist: Checklist,
+
     // Abilities
     penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
@@ -122,25 +121,6 @@ class CombatLogParser extends CoreCombatLogParser {
     schism: Schism,
     sinsOfTheMany: SinsOfTheMany,
   };
-
-  generateResults(...args) {
-    const results = super.generateResults(...args);
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

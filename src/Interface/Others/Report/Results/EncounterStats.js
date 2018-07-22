@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import ITEMS from 'common/ITEMS';
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
@@ -72,12 +72,13 @@ class EncounterStats extends React.PureComponent {
         break;
     }
 
-    return fetchWcl(`rankings/encounter/${ this.props.currentBoss }`, {
+    return fetchWcl(`rankings/encounter/${this.props.currentBoss}`, {
       class: SPECS[this.props.spec].ranking.class,
       spec: SPECS[this.props.spec].ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT,
       metric: this.metric,
+      cache: new Date().getUTCMonth(), // cache for a month
     }).then((stats) => {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];

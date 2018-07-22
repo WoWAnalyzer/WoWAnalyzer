@@ -2,9 +2,16 @@ import React from 'react';
 
 import { Anomoly, Zerotorescue, Scaleable } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</React.Fragment>,
+    contributors: [Anomoly],
+  },
   {
     date: new Date('2018-07-20'),
     changes: 'Pre-Patch Updates: Removed Effuse from the analyzer as the ability was removed in BfA. Updated Mana Costs of spells to use fixed cost versus a percentage of max mana.',

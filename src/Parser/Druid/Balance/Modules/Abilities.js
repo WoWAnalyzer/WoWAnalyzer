@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STARFALL_CAST,
-        buffSpellId: SPELLS.STELLAR_EMPOWERMENT.id,
+        buffSpellId: SPELLS.STARFALL_CAST.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -131,7 +131,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.NEW_MOON_TALENT, SPELLS.HALF_MOON, SPELLS.FULL_MOON],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 25,
         gcd: {
           base: 1500,
         },

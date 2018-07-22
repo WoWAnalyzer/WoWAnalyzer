@@ -21,6 +21,7 @@ import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
 import DeathsCaress from './Modules/Core/DeathsCaress';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageTaken: [DamageTaken, { showStatistic: true }],
     damageDone: [DamageDone, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // DeathKnight Core
     abilities: Abilities,

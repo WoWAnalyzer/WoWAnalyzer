@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
+import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Zevrim's Hunger
- * Equip: Increases all damage done by 3%
+ * Equip: Increases all damage done by 3%.
  */
 
 const ZEVRIMS_MODIFIER = 0.03;
@@ -32,7 +32,7 @@ class ZevrimsHunger extends Analyzer {
   item() {
     return {
       item: ITEMS.ZEVRIMS_HUNGER,
-      result: <ItemDamageDone amount={this.bonusDmg} />,
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

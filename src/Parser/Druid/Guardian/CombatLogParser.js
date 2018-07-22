@@ -13,6 +13,7 @@ import IronFurGoEProcs from './Modules/Features/IronFurGoEProcs';
 import FrenziedRegenGoEProcs from './Modules/Features/FrenziedRegenGoEProcs';
 import RageWasted from './Modules/Features/RageWasted';
 import AntiFillerSpam from './Modules/Features/AntiFillerSpam';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     abilities: Abilities,
+    mitigationCheck: MitigationCheck,
 
     // Features
     activeTargets: ActiveTargets,

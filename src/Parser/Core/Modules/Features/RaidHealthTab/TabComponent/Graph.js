@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'Interface/Others/ManaStyles.js';
 
@@ -12,19 +12,33 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-class Mana extends React.PureComponent {
+const CLASS_CHART_LINE_COLORS = {
+  DeathKnight: 'rgba(196, 31, 59, 0.6)',
+  Druid: 'rgba(255, 125, 10, 0.6)',
+  Hunter: 'rgba(171, 212, 115, 0.6)',
+  Mage: 'rgba(105, 204, 240, 0.6)',
+  Monk: 'rgba(45, 155, 120, 0.6)',
+  Paladin: 'rgba(245, 140, 186, 0.6)',
+  Priest: 'rgba(255, 255, 255, 0.6)',
+  Rogue: 'rgba(255, 245, 105, 0.6)',
+  Shaman: 'rgba(36, 89, 255, 0.6)',
+  Warlock: 'rgba(148, 130, 201, 0.6)',
+  Warrior: 'rgba(199, 156, 110, 0.6)',
+  DemonHunter: 'rgba(163, 48, 201, 0.6)',
+};
+
+class Graph extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    manaUpdates: PropTypes.array.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
-      bossHealth: null,
+      data: null,
     };
   }
 
@@ -41,20 +55,19 @@ class Mana extends React.PureComponent {
     return fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
-      sourceclass: 'Boss',
-      hostility: 1,
       abilityid: 1000,
     })
       .then(json => {
-        console.log('Received boss health', json);
+        console.log('Received player health', json);
         this.setState({
-          bossHealth: json,
+          data: json,
         });
       });
   }
 
   render() {
-    if (!this.state.bossHealth) {
+    const data = this.state.data;
+    if (!data) {
       return (
         <div>
           Loading...
@@ -62,41 +75,32 @@ class Mana extends React.PureComponent {
       );
     }
 
-    const { start, end, manaUpdates } = this.props;
+    const { start, end } = this.props;
 
-    const manaBySecond = {
-      0: 100,
-    };
-    manaUpdates.forEach((item) => {
-      const secIntoFight = Math.floor((item.timestamp - start) / 1000);
+    const series = data.series;
+    const players = series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
 
-      manaBySecond[secIntoFight] = item.current / item.max * 100;
-    });
-    const bosses = [];
-    const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
+    const entities = [];
+
+    players.forEach(series => {
       const newSeries = {
         ...series,
+        lastValue: 100, // fights start at full hp
         data: {},
       };
 
       series.data.forEach((item) => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
-        if (!deadBosses.includes(series.guid)) {
-          const health = item[1];
-          newSeries.data[secIntoFight] = health;
-
-          if (health === 0) {
-            deadBosses.push(series.guid);
-          }
-        }
+        const health = item[1];
+        newSeries.data[secIntoFight] = Math.min(100, health);
       });
-      bosses.push(newSeries);
+      entities.push(newSeries);
     });
+
     const deathsBySecond = {};
-    if (this.state.bossHealth.deaths) {
-      this.state.bossHealth.deaths.forEach((death) => {
+    if (this.state.data.deaths) {
+      this.state.data.deaths.forEach((death) => {
         const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
         if (death.targetIsFriendly) {
@@ -110,31 +114,27 @@ class Mana extends React.PureComponent {
     for (let i = 0; i <= fightDurationSec; i += 1) {
       labels.push(i);
 
-      manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
+      entities.forEach((series) => {
+        series.data[i] = series.data[i] !== undefined ? series.data[i] : series.lastValue;
+        series.lastValue = series.data[i];
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
-    const data = {
+    const chartData = {
       labels,
       datasets: [
-        ...bosses.map((series, index) => ({
-          label: `${series.name} Health`,
-          ...ManaStyles[`Boss-${index}`],
-          ...ManaStyles[`Boss-${series.guid}`],
+        ...entities.map((series, index) => ({
+          label: series.name,
+          ...ManaStyles['Boss-0'],
+          backgroundColor: CLASS_CHART_LINE_COLORS[series.type],
+          borderColor: CLASS_CHART_LINE_COLORS[series.type],
           data: Object.keys(series.data).map(key => series.data[key]),
         })),
         {
           label: `Deaths`,
           ...ManaStyles.Deaths,
           data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        },
-        {
-          label: `Mana`,
-          ...ManaStyles.Mana,
-          data: Object.keys(manaBySecond).map(key => manaBySecond[key]),
         },
       ],
     };
@@ -151,16 +151,16 @@ class Mana extends React.PureComponent {
               return `${value}%`;
             },
             min: 0,
-            max: 100,
-            stepSize: 25,
+            max: 20 * 100,
             fontSize: 14,
           },
+          stacked: true,
         }],
         xAxes: [{
           gridLines: gridLines,
           ticks: {
             callback: (value, index, values) => {
-              if(value%30 === 0) {
+              if (value % 30 === 0) {
                 return formatDuration(value);
               }
               return null;
@@ -184,21 +184,21 @@ class Mana extends React.PureComponent {
 
     Chart.plugins.register({
       id: 'specialEventIndiactor',
-      afterDatasetsDraw : (chart) => {
+      afterDatasetsDraw: (chart) => {
         const ctx = chart.ctx;
 
-        chart.data.datasets.forEach(function(dataset, i) {
+        chart.data.datasets.forEach(function (dataset, i) {
           const meta = chart.getDatasetMeta(i);
-          if(dataset.label === 'Deaths' && !meta.hidden) {
-            meta.data.forEach(function(element, index) {
+          if (dataset.label === 'Deaths' && !meta.hidden) {
+            meta.data.forEach(function (element, index) {
               const position = element.tooltipPosition();
-              if(!isNaN(position.y)) {
-                  ctx.strokeStyle=element._view.borderColor;
-                  ctx.beginPath();
-                  ctx.lineWidth = ManaStyles.Deaths.borderWidth;
-                  ctx.moveTo(position.x, chart.chartArea.top);
-                  ctx.lineTo(position.x, chart.chartArea.bottom);
-                  ctx.stroke();
+              if (!isNaN(position.y)) {
+                ctx.strokeStyle = element._view.borderColor;
+                ctx.beginPath();
+                ctx.lineWidth = ManaStyles.Deaths.borderWidth;
+                ctx.moveTo(position.x, chart.chartArea.top);
+                ctx.lineTo(position.x, chart.chartArea.bottom);
+                ctx.stroke();
               }
             });
           }
@@ -208,21 +208,17 @@ class Mana extends React.PureComponent {
     });
 
     return (
-      <div>
-        Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br /><br />
-
-        <div className="graph-container">
-          <Line
-            data={data}
-            options={options}
-            width={1100}
-            height={400}
-          />
-        </div>
+      <div className="graph-container">
+        <Line
+          data={chartData}
+          options={options}
+          width={1100}
+          height={400}
+        />
       </div>
     );
   }
 }
 
-export default Mana;
+export default Graph;
 

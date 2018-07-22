@@ -9,6 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 /**
  * Immediately gain 1 charge of Aimed Shot, and gain 30% Haste for 15 sec.
@@ -17,6 +18,7 @@ import ResourceIcon from 'common/ResourceIcon';
 class Trueshot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
   trueshotCasts = 0;
@@ -59,6 +61,10 @@ class Trueshot extends Analyzer {
     }
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
+      if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
+        const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
+        this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp, newChargeCDR);
+      }
       this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
       if (this.selectedCombatant.hasBuff(SPELLS.BULLSEYE_BUFF.id, event.timestamp)) {
         this.executeTrueshots += 1;
@@ -95,6 +101,7 @@ class Trueshot extends Analyzer {
       this.aimedShotsPrTS += 1;
     }
   }
+
   get percentAimedCrits() {
     return formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
   }
@@ -193,8 +200,8 @@ class Trueshot extends Analyzer {
       style: 'decimal',
     };
   }
-/** Commenting out for now until we've theorycrafted more into how to optimally utilize Trueshot - not deleting for now in case of possible recycling of some code.
-  suggestions(when) {
+  /** Commenting out for now until we've theorycrafted more into how to optimally utilize Trueshot - not deleting for now in case of possible recycling of some code.
+   suggestions(when) {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
