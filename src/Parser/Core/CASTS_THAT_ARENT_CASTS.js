@@ -12,5 +12,4 @@ export default [
   SPELLS.DEFILED_AUGMENT_RUNE.id,
   SPELLS.UMBRAL_GLAIVE_STORM_TICK.id, // ticks of the Umbral Moonglaives trinket proc a cast event
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
-  SPELLS.RAPID_FIRE.id, // Rapid Fire Tick event that registers as a cast
 ];

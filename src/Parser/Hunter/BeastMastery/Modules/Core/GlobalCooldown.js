@@ -40,9 +40,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return Math.max(minGcd, gcd);
     }
     gcd = super.getCurrentGlobalCooldown(spellId);
-    if (spellId === SPELLS.KILL_COMMAND.id) {
-      gcd = gcd / (1 + this.haste.current);
-    }
     return Math.max(minGcd, gcd);
   }
 
