@@ -2,6 +2,7 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -12,8 +13,12 @@ export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
 };
 
+function hasHighTolerance(combatant) {
+  return combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_GRANDMASTER.id);
+}
+
 function hasteFnGenerator(value) {
-  return { haste: combatant => combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) ? value : 0.0 };
+  return { haste: combatant => hasHighTolerance(combatant) ? value : 0.0 };
 }
 
 export const HIGH_TOLERANCE_HASTE_FNS = {
@@ -56,7 +61,7 @@ class HighTolerance extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
+    this.active = hasHighTolerance(this.selectedCombatant);
   }
 
   on_toPlayer_applydebuff(event) {
