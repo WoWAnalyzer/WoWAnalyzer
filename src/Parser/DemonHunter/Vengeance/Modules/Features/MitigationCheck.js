@@ -1,12 +1,13 @@
 import CoreMitigationCheck from 'Parser/Core/Modules/MitigationCheck';
 import SPELLS from 'common/SPELLS';
 
+
 class MitigationCheck extends CoreMitigationCheck {
   constructor(...args){
     super(...args);
-    this.buffCheck = [SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
-                      SPELLS.ARDENT_DEFENDER.id,
-                      SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id];
+    this.buffCheck = [SPELLS.DEMON_SPIKES_BUFF.id,
+                      SPELLS.METAMORPHOSIS_TANK.id];
+    this.debuffCheck = [SPELLS.FIERY_BRAND_DEBUFF.id];
   }
 }
 
