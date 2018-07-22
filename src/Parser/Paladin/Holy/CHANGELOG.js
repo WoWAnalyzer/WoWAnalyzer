@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-07-22'),
+    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> analyzer to get a much more accurate result. The old method had a lot of false positive damage included due to bugs in the logs coming out of the game.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-22'),
     changes: <React.Fragment>Changed the <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> analyzer to include back to back procs.</React.Fragment>,
     contributors: [Zerotorescue],
   },

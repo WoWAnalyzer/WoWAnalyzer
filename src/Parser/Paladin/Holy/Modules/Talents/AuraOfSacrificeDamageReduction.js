@@ -39,21 +39,15 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     return this.passiveDrps + this.activeDrps;
   }
 
-  get auraMasteryUptimeFilter() {
-    const transferringHistory = this.auraMasteryTransferringHistory;
-    if (transferringHistory.length === 0) {
-      return null;
-    }
-    // WCL's filter requires the timestamp to be relative to fight start
-    const fightStart = this.owner.fight.start_time;
-    return transferringHistory.map(period => `(timestamp>=${period.start - fightStart} AND timestamp<=${period.end - fightStart})`).join(' OR ');
-  }
   get filter() {
-    const uptimeFilter = this.auraMasteryUptimeFilter;
-    if (!uptimeFilter) {
-      return null;
-    }
-    return `(${uptimeFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
+    const playerName = this.owner.player.name;
+    // Include any damage while selected player has AM, and is above the health requirement,
+    // and the damage isn't to him (because AoS transfers it to the Paladin, so he doesn't gain any DR)
+    // and the mitigation percentage is greater than 29% (because health events are logged slower than damage events, and the game properly tracks this realtime, some events may slip through while we're <75% so we need to use this to reduce the false positives. We use transfer -1% to account for rounding)
+    return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
+      AND (IN RANGE FROM target.name='${playerName}' AND resources.hpPercent>=${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} TO target.name='${playerName}' AND resources.hpPercent<${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} END)
+      AND target.name!='${playerName}'
+      AND (mitigatedDamage/rawDamage*100)>${AURA_OF_SACRIFICE_ACTIVE_DAMAGE_TRANSFER * 100 - 1}`;
   }
 
   constructor(...args) {
@@ -191,7 +185,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
       Damage transferred: ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
       Effective damage reduction: ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
 
-      This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Aura of Sacrifice bonus at all, but the actual gain may be higher when accounting for other damage reductions.<br /><br />
+      This is an estimation. There are several ways to calculate the effective damage reduction of buffs, this uses the lowest method. At the same time the log's health tracking (and thus AM activity) isn't perfect, so there might be a few false positives when there's a lot of damage at the exact same moment.<br /><br />
 
       Any damage transferred by the <b>passive</b> while immune (if applicable) is <i>not</i> included.
     ` : 'Click to load the required data.';
@@ -217,7 +211,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
-        value={`>=${formatNumber(this.drps)} DRPS`}
+        value={`≈${formatNumber(this.drps)} DRPS`}
         label="Damage reduced"
         tooltip={tooltip}
         footer={footer}
