@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Corrected <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> to only claim credit for damage from abilities it affects in 8.0.1</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-07-15'),
     changes: <React.Fragment>Fixed bugs with combo generation from AoE attacks and detecting when <SpellLink id={SPELLS.PRIMAL_FURY.id} /> waste is unavoidable.</React.Fragment>,
     contributors: [Anatta336],
