@@ -3,6 +3,9 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Channeling from './Modules/Features/Channeling';
 import Abilities from './Modules/Abilities';
 
+// Normalizers
+import RapidFire from './Normalizers/RapidFire';
+
 //Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -55,6 +58,9 @@ import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    rapidFire: RapidFire,
+
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,

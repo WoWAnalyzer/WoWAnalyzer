@@ -723,21 +723,22 @@ code.inactive {
 }
 
 .contributor {
-  background: rgba(0, 0, 0, 0.8);
-  color: #f1c40f;
-  padding: .2em .2em;
-  margin: -.2em -.2em;
-  border-radius: .2em;
-  font-weight: bold;
+  background: #2b2b2b;
+  color: #d94041;
+  padding: 0 .4em;
+  border-radius: .3em;
+  font-weight: 400;
   white-space: nowrap;
   display: inline-block;
-  line-height: 1; /* this keeps the height of the contributor box acceptable */
+  line-height: 1.8em;
+  overflow: hidden;
+  vertical-align: middle;
 }
 .contributor img {
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: 50%;
-  vertical-align: text-bottom;
+  margin: 0 .4em 0 -.4em;
+  width: 1.8em;
+  height: 1.8em;
+  vertical-align: top;
 }
 
 .expandable > .meta {
@@ -822,6 +823,7 @@ code.inactive {
   background-color: rgba(0, 0, 0, .8);
   z-index: 200;
   padding-top: 20px;
+  overflow: auto;
 }
 
 .btn-close {
