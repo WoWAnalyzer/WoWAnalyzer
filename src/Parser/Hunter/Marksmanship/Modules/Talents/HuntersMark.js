@@ -77,6 +77,9 @@ class HuntersMark extends Analyzer {
     if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id){
       return;
     }
+    if (this.precastConfirmed === false){
+      this.precastConfirmed = true;
+    }
     const enemyID = event.targetID;
     if (!this.markWindow[enemyID]){
       this.markWindow[enemyID] = [];
