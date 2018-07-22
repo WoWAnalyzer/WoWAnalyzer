@@ -72,12 +72,13 @@ class EncounterStats extends React.PureComponent {
         break;
     }
 
-    return fetchWcl(`rankings/encounter/${ this.props.currentBoss }`, {
+    return fetchWcl(`rankings/encounter/${this.props.currentBoss}`, {
       class: SPECS[this.props.spec].ranking.class,
       spec: SPECS[this.props.spec].ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT,
       metric: this.metric,
+      cache: new Date().getUTCMonth(), // cache for a month
     }).then((stats) => {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
