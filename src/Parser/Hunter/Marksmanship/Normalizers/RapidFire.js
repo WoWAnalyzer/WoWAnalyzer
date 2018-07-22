@@ -11,7 +11,7 @@ class RapidFire extends EventsNormalizer {
   normalize(events) {
     const fixedEvents = [];
     events.forEach(event => {
-      if (event.type === 'cast' && event.ability.guid === SPELLS.RAPID_FIRE_DAMAGE.id) {
+      if (event.type === 'cast' && event.ability.guid === SPELLS.RAPID_FIRE_TICKS.id) {
         event.type = 'tick';
         event.__modified = true;
       }
