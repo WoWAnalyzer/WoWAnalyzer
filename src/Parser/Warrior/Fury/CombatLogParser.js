@@ -37,8 +37,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
     angerManagement: AngerManagement,
-	  furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
-	  furiousSlashUptime: FuriousSlashUptime,
+    furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
+    furiousSlashUptime: FuriousSlashUptime,
 
     t21_2set: T21_2set,
     t21_4set: T21_4set,

@@ -18,64 +18,11 @@ class FuriousSlashTimesByStacks extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FURIOUS_SLASH_TALENT.id);
 	this.furiousSlashStacks = Array.from({length: MAX_FURIOUS_SLASH_STACKS + 1}, x => []);
-  }
-	
-	handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
     }
-	/*
-    if (event.type === 'applybuff') {
-      event.stack = 1;
-    }
-	*/
-	
-	if (event.type === 'damage') {
-		if(!this.lastFuriousSlashStack)
-		{
-			event.stack = 1;
-		}
-		else{
-			if(this.lastFuriousSlashStack < MAX_FURIOUS_SLASH_STACKS)
-			{
-				event.stack = this.lastFuriousSlashStack + 1;
-			}
-			else{
-				event.stack = MAX_FURIOUS_SLASH_STACKS;
-			}
-		}
-	}
-	
-    if (stack) {
-      event.stack = stack;
-    }
-
-    this.furiousSlashStacks[this.lastFuriousSlashStack].push(event.timestamp - this.lastFuriousSlashUpdate);
-    this.lastFuriousSlashUpdate = event.timestamp;
-    this.lastFuriousSlashStack = event.stack;
-  }
   
   	get furiousSlashTimesByStacks() {
 		return this.furiousSlashStacks;
 	}
-	/*
-	on_byPlayer_applybuff(event){
-		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
-			return;
-		}
-		this.handleStacks(event);
-	}
-	
-	on_byPlayer_applybuffstack(event) {
-		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
-			return;
-		}
-		this.handleStacks(event);
-	}
-	
-	*/
 	
 	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
@@ -83,20 +30,34 @@ class FuriousSlashTimesByStacks extends Analyzer {
 		{
 			return;
 		}
-		this.handleStacks(event);
+		let stack = null;
+		if(!this.lastFuriousSlashStack)
+		{
+			stack = 1;
+		}
+		else{
+			if(this.lastFuriousSlashStack < MAX_FURIOUS_SLASH_STACKS)
+			{
+				stack = this.lastFuriousSlashStack + 1;
+			}
+			else{
+				stack = MAX_FURIOUS_SLASH_STACKS;
+			}
+		}
+		this.furiousSlashStacks[this.lastFuriousSlashStack].push(event.timestamp - this.lastFuriousSlashUpdate);
+		this.lastFuriousSlashUpdate = event.timestamp;
+		this.lastFuriousSlashStack = stack;
 	}
 	on_byPlayer_removebuff(event) {
 		const spellId = event.ability.guid;
 		if(spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id){
 			return;
 		}
-		this.handleStacks(event);
-		//debug && console.log('removed buff');
+		
+		this.furiousSlashStacks[this.lastFuriousSlashStack].push(event.timestamp - this.lastFuriousSlashUpdate);
+		this.lastFuriousSlashUpdate = event.timestamp;
+		this.lastFuriousSlashStack = 0;
 	}
-	
-	on_finished(event) {
-		this.handleStacks(event, this.lastFuriousSlashStack);
-    }
 }
 
 export default FuriousSlashTimesByStacks;
