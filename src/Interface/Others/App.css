@@ -822,6 +822,7 @@ code.inactive {
   background-color: rgba(0, 0, 0, .8);
   z-index: 200;
   padding-top: 20px;
+  overflow: auto;
 }
 
 .btn-close {
