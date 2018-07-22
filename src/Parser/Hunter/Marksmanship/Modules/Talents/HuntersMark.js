@@ -33,6 +33,9 @@ class HuntersMark extends Analyzer {
   damage = 0;
   recasts = 0;
   refunds = 0;
+  precastConfirmed = false;
+  markWindow = [];
+  damageToTarget = [];
 
   constructor(...args) {
     super(...args);
@@ -46,6 +49,57 @@ class HuntersMark extends Analyzer {
     }
     this.casts++;
     this.timeOfCast = event.timestamp;
+  }
+
+  on_byPlayer_removedebuff(event){
+    const spellID = event.ability.guid;
+    if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id){
+      return;
+    }
+    const enemyID = event.targetID;
+    if (this.precastConfirmed === false){
+      this.precastConfirmed = true;
+      this.damage = this.damageToTarget[enemyID];
+      return;
+    }
+    this.markWindow[enemyID].forEach(window => {
+      if (window.status === "active"){
+        window.status = "inactive";
+      }
+    });
+
+  }
+
+  on_byPlayer_applydebuff(event){
+    const spellID = event.ability.guid;
+    if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id){
+      return;
+    }
+    if (this.precastConfirmed === false){
+      this.precastConfirmed = true;
+    }
+    const enemyID = event.targetID;
+    if (!this.markWindow[enemyID]){
+      this.markWindow[enemyID] = [];
+    }
+    this.markWindow[enemyID].push({status: "active", start: event.timestamp});
+  }
+
+  calculateMarkDamage(event, enemy){
+    if (this.precastConfirmed === false){
+      if (!this.damageToTarget[enemy.id]){
+        this.damageToTarget[enemy.id] = 0;
+      }
+      this.damageToTarget[enemy.id] += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
+    }
+    if (!this.markWindow[enemy.id]){
+      return;
+    }
+    this.markWindow[enemy.id].forEach(window => {
+      if (window.start < event.timestamp && window.status === "active"){
+        this.damage += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
+      }
+    });
   }
 
   on_byPlayer_removebuff(event) {
@@ -68,10 +122,10 @@ class HuntersMark extends Analyzer {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.HUNTERS_MARK_TALENT.id, event.timestamp)) {
+    if (!enemy){
       return;
     }
-    this.damage += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
+    this.calculateMarkDamage(event, enemy);
   }
 
   get uptimePercentage() {
