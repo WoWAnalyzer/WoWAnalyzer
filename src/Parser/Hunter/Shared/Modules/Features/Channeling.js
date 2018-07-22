@@ -4,11 +4,11 @@ import { formatMilliseconds } from 'common/format';
 
 const debug = false;
 
-const MS_BUFFER = 3000;
+const MS_BUFFER = 8000;
 
 class Channeling extends CoreChanneling {
 
-  lastRapidFireCast = null;
+  lastRapidFireCast = 0;
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.BARRAGE_TALENT.id) {
       this.beginChannel(event);
@@ -35,7 +35,7 @@ class Channeling extends CoreChanneling {
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
+    if (event.ability.guid !== SPELLS.RAPID_FIRE_BUFF.id) {
       return;
     }
     if (!this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {

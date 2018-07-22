@@ -40,13 +40,13 @@ class DoubleTap extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && !this.doubleTapActive && !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE_BUFF.id) && !this.doubleTapActive && !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedUsage++;
     }
-    if (spellId === SPELLS.RAPID_FIRE.id) {
+    if (spellId === SPELLS.RAPID_FIRE_BUFF.id) {
       this.RFUsage++;
     }
   }
@@ -77,7 +77,7 @@ class DoubleTap extends Analyzer {
             {'  '}
             {this.RFUsage}{'  '}
             <SpellIcon
-              id={SPELLS.RAPID_FIRE.id}
+              id={SPELLS.RAPID_FIRE_BUFF.id}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

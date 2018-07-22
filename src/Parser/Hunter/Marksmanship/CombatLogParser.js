@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Channeling from 'Parser/Hunter/Shared/Modules/Features/Channeling';
 import Abilities from './Modules/Abilities';
 
 //Features
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
+    channeling: Channeling,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
