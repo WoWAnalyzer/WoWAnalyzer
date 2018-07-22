@@ -7,6 +7,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import ITEMS from "common/ITEMS/HUNTER";
+import Abilities from 'Parser/Core/Modules/Abilities';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -15,6 +17,11 @@ import ITEMS from "common/ITEMS/HUNTER";
 const PROC_CHANCE = 0.05;
 
 class LockAndLoad extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+    abilities: Abilities,
+  };
+
   hasLnLBuff = false;
   noGainLNLProcs = 0;
   totalProcs = 0;
@@ -33,6 +40,10 @@ class LockAndLoad extends Analyzer {
     }
     this.totalProcs += 1;
     this.hasLnLBuff = true;
+    if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
+      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
+      this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp, newChargeCDR);
+    }
   }
 
   on_byPlayer_cast(event) {

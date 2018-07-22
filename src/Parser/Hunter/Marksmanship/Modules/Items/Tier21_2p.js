@@ -16,7 +16,7 @@ const LIST_OF_FOCUS_GENERATORS = [
 ];
 
 const LIST_OF_FOCUS_GENERATING_DAMAGE = [
-  SPELLS.RAPID_FIRE_DAMAGE.id,
+  SPELLS.RAPID_FIRE.id,
   SPELLS.STEADY_SHOT.id,
 ];
 
@@ -42,7 +42,7 @@ class Tier21_2p extends Analyzer {
     [SPELLS.STEADY_SHOT.id]: {
       bonusDmg: 0,
     },
-    [SPELLS.RAPID_FIRE_DAMAGE.id]: {
+    [SPELLS.RAPID_FIRE.id]: {
       bonusDmg: 0,
     },
   };
@@ -75,7 +75,7 @@ class Tier21_2p extends Analyzer {
     this.damageFromGenerators[spellId].bonusDmg += getDamageBonus(event, T21_2P_DMG_BONUS);
   }
   get rapidFireBonusDamage() {
-    return this.damageFromGenerators[SPELLS.RAPID_FIRE_DAMAGE.id].bonusDmg;
+    return this.damageFromGenerators[SPELLS.RAPID_FIRE.id].bonusDmg;
   }
   get rapidFireActualFocusGain() {
     return this.focusGeneratorCasts[SPELLS.RAPID_FIRE_FOCUS.id].actualGain;
@@ -94,7 +94,7 @@ class Tier21_2p extends Analyzer {
   }
 
   item() {
-    const damageAbilities = [[SPELLS.STEADY_SHOT.id], [SPELLS.RAPID_FIRE_DAMAGE.id]];
+    const damageAbilities = [[SPELLS.STEADY_SHOT.id], [SPELLS.RAPID_FIRE.id]];
     const generatingAbilities = [[SPELLS.STEADY_SHOT_FOCUS.id], [SPELLS.RAPID_FIRE_FOCUS.id]];
 
     const totalDamageIncrease = damageAbilities.reduce((total, ability) => total + this.damageFromGenerators[ability].bonusDmg, 0);

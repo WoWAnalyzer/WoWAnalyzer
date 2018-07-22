@@ -23,6 +23,9 @@ import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHunters
 import ParselsTongue from './Modules/Items/ParselsTongue';
 import TheMantleOfCommand from './Modules/Items/TheMantleOfCommand';
 import RoarOfTheSevenLions from './Modules/Items/RoarOfTheSevenLions';
+import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 
 //Spells
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
@@ -30,7 +33,6 @@ import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import BeastCleave from './Modules/Spells/BeastCleave';
 import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
-
 
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
@@ -68,6 +70,9 @@ class CombatLogParser extends CoreCombatLogParser {
     parselsTongue: ParselsTongue,
     theMantleOfCommand: TheMantleOfCommand,
     roarOfTheSevenLions: RoarOfTheSevenLions,
+    zevrimsHunger: ZevrimsHunger,
+    celerityOfTheWindrunners: CelerityOfTheWindrunners,
+    unseenPredatorsCloak: UnseenPredatorsCloak,
     tier19_2p: Tier19_2p,
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
