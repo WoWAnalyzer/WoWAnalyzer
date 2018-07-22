@@ -372,6 +372,11 @@ export default {
     name: 'Righteous Verdict',
     icon: 'spell_paladin_templarsverdict',
   },
+  ZEAL_DAMAGE: {
+    id: 269937,
+    name: 'Zeal',
+    icon: 'spell_holy_sealofblood',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,

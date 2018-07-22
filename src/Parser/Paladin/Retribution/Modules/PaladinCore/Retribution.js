@@ -8,6 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../Constants';
 
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
@@ -15,11 +16,8 @@ class Retribution extends Analyzer {
   bonusDmg = 0;
 
   on_byPlayer_damage(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.RETRIBUTION_BUFF.id)) {
-      return;
-    }
-    if (event.targetIsFriendly) {
-      // Friendly fire does not get increased
+    const spellId = event.ability.guid;
+    if (!this.selectedCombatant.hasBuff(SPELLS.RETRIBUTION_BUFF.id) || !ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.includes(spellId)) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, RETRIBUTION_DAMAGE_BONUS);
