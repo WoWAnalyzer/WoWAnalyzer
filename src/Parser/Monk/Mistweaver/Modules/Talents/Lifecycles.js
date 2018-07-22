@@ -7,11 +7,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const debug = false;
-
-const baseMana = 1100000;
 
 class Lifecycles extends Analyzer {
   manaSaved = 0;
@@ -31,8 +29,8 @@ class Lifecycles extends Analyzer {
     const spellId = event.ability.guid;
     // Checking to ensure player has cast Vivify and has the mana reduction buff.
     if (spellId === SPELLS.VIVIFY.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-      this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+      this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+      this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     }
@@ -40,13 +38,13 @@ class Lifecycles extends Analyzer {
       this.castsNonRedViv += 1;
     }
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if (spellId === SPELLS.ENVELOPING_MISTS.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+    if (spellId === SPELLS.ENVELOPING_MIST.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     }
-    if (spellId === SPELLS.ENVELOPING_MISTS.id && !this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    if (spellId === SPELLS.ENVELOPING_MIST.id && !this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.castsNonRedEnm += 1;
     }
   }

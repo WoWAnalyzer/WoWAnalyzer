@@ -6,7 +6,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import ITEMS from 'common/ITEMS';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 

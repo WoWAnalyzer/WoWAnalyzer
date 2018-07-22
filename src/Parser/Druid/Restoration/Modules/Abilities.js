@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLOURISH_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },

@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import ITEMS from 'common/ITEMS/HUNTER';

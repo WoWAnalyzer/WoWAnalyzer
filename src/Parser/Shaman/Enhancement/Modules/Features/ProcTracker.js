@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-import Tab from 'Main/Tab';
-import CooldownOverview from 'Main/CooldownOverview';
+import Tab from 'Interface/Others/Tab';
+import CooldownOverview from 'Interface/Others/CooldownOverview';
 
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [

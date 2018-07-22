@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} />.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TRAINING_OF_NIUZAO.id} /> support.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-06-16'),
     changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> cooldown and duration and added <SpellLink id={SPELLS.GUARD_TALENT.id} />, along with other changes in beta build 26812.</React.Fragment>,
     contributors: [emallson],

@@ -8,7 +8,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 

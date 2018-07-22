@@ -4,11 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const debug = false;
 
-const BASEMANA = 1100000;
 const TWOSET_MANA_REDUCTION = 0.75;
 
 class T20_2set extends Analyzer {
@@ -24,12 +23,12 @@ class T20_2set extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.ENVELOPING_MISTS.id) {
+    if (spellId !== SPELLS.ENVELOPING_MIST.id) {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
       this.casts += 1;
-      this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOSET_MANA_REDUCTION;
+      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * TWOSET_MANA_REDUCTION;
     }
   }
 
@@ -63,7 +62,7 @@ class T20_2set extends Analyzer {
     const missed2pcProcs = this.procs - this.casts;
     when(missed2pcProcs).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You missed a <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> proc. This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} /> but also if you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /></span>)
+        return suggest(<span>You missed a <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> proc. This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> but also if you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /></span>)
           .icon(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.icon)
           .actual(`${missed2pcProcs} missed Surge of Mists procs`)
           .recommended(`${recommended} missed procs is recommended`)

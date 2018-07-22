@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 

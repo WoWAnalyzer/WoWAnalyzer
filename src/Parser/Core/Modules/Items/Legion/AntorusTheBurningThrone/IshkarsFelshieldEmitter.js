@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Ishkars Felshield Emitter -

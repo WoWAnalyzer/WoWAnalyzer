@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T20_2P_MODIFIER_PR_STACK = 0.015;
 
@@ -37,7 +37,7 @@ class Tier20_2p extends Analyzer {
       this.currentStacks = 0;
       debug && console.log('Bestial Wrath Cast and currentStacks = ', this.currentStacks);
     }
-    if (spellId !== SPELLS.COBRA_SHOT.id && spellId !== SPELLS.KILL_COMMAND.id && spellId !== SPELLS.MULTISHOT.id) {
+    if (spellId !== SPELLS.COBRA_SHOT.id && spellId !== SPELLS.KILL_COMMAND.id && spellId !== SPELLS.MULTISHOT_BM.id) {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {

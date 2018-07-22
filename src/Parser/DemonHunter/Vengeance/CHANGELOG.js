@@ -12,7 +12,7 @@ export default [
   },
   {
     date: new Date('2018-05-10'),
-    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> to show damage mitigated and if it was avalible to be used.</React.Fragment>,
+    changes: <React.Fragment>Reworked Empower Wards to show damage mitigated and if it was avalible to be used.</React.Fragment>,
     contributors: [Yajinni],
   },
   {

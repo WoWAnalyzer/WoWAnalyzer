@@ -44,6 +44,11 @@ export default {
     name: 'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
+  CHAOS_BRAND: {
+    id: 281242,
+    name: 'Chaos Brand',
+    icon: 'ability_demonhunter_empowerwards',
+  },
 
   // Abilities:
   SOUL_FRAGMENT: {
@@ -51,18 +56,18 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  SPECTRAL_SIGHT: {
+    id: 188501,
+    name: 'Spectral Sight',
+    icon: 'ability_demonhunter_spectralsight',
+  },
   SOUL_FRAGMENT_STACK: {
     id: 203981,
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
-  EMPOWER_WARDS: {
-    id: 218256,
-    name: 'Empower Wards',
-    icon: 'ability_demonhunter_empowerwards',
-  },
   SIGIL_OF_SILENCE: {
-    id: 202137,
+    id: 207682,
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
@@ -77,7 +82,7 @@ export default {
     icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_MISERY: {
-    id: 207684,
+    id: 202140,
     name: 'Sigil of Misery',
     icon: 'ability_demonhunter_sigilofmisery',
   },
@@ -85,7 +90,6 @@ export default {
     id: 203720,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
-    painCost: 20,
   },
   DEMON_SPIKES_BUFF: {
     id: 203819,
@@ -153,11 +157,6 @@ export default {
     id: 217832,
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
-  },
-  PAINBRINGER_Buff: {
-    id: 212988,
-    name: 'Painbringer Buff',
-    icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
 
   // Havoc
@@ -265,8 +264,13 @@ export default {
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
   CONSUME_MAGIC: {
-    id: 183752,
+    id: 278236,
     name: 'Consume Magic',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
+  Disrupt: {
+    id: 183752,
+    name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
   },
   CONSUME_MAGIC_FURY_GEN: {

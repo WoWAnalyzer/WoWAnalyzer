@@ -70,7 +70,7 @@ export default {
   CONCH_OF_DARK_WHISPERS: {
     id: 159620,
     name: 'Conch of Dark Whispers',
-    icon: 'inv_misc_shell_04',
+    icon: 'inv_misc_food_legion_seashellc1',
     quality: ITEM_QUALITIES.BLUE,
   },
 

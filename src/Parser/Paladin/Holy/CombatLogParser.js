@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -32,6 +27,7 @@ import StatValues from './Modules/Features/StatValues';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAura from './Modules/Talents/DevotionAura';
+import AuraOfSacrifice from './Modules/Talents/AuraOfSacrifice';
 import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -87,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAura: DevotionAura,
+    auraOfSacrifice: AuraOfSacrifice,
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
@@ -104,27 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  generateResults(...args) {
-    const results = super.generateResults(...args);
-
-    // TODO: Suggestion for enchants
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

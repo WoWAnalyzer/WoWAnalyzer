@@ -3,8 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemManaGained from 'Main/ItemManaGained';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 class CarafeOfSearingLight extends Analyzer {

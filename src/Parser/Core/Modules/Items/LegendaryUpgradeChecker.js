@@ -6,7 +6,7 @@ import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 import Analyzer from 'Parser/Core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-const MAX_LEGENDARY_ILVL = 1000;
+const MAX_LEGENDARY_ILVL = 265;
 const debug = false;
 
 class LegendaryUpgradeChecker extends Analyzer {

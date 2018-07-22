@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -65,7 +65,7 @@ class Hemostasis extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEMOSTASIS_TALENT.id} />}
         value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
-        label="empowered Death Strikes"
+        label="Death Strikes with Hemostasis"
         tooltip={`
           Resulting in ${formatNumber(this.damage)} additional damage and ${formatNumber(this.heal)} additional healing.<br/>
           You gained ${this.gainedBuffs} and wasted ${this.wastedBuffs} stacks.

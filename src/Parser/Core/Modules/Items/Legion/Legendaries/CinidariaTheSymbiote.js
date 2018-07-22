@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Cinidaria, the Symbiote -

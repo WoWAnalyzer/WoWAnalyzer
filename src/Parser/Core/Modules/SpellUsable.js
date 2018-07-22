@@ -16,6 +16,7 @@ class SpellUsable extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
+
   _currentCooldowns = {};
   _errors = 0;
   get errorsPerMinute() {
@@ -89,7 +90,7 @@ class SpellUsable extends Analyzer {
       throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
     }
     const cooldown = this._currentCooldowns[canSpellId];
-    const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
+    const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
     return expectedEnd - timestamp;
   }
   /**
@@ -298,7 +299,7 @@ class SpellUsable extends Analyzer {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
         const cooldown = this._currentCooldowns[spellId];
-        const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
+        const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
         const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
         debug && console.log(fightDuration, 'SpellUsable', 'Clearing', spellName(spellId), spellId, 'due to expiry');
         this.endCooldown(Number(spellId), false, expectedEnd);
@@ -326,7 +327,8 @@ class SpellUsable extends Analyzer {
       const progress = timePassed / originalExpectedDuration;
 
       const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(Number(spellId));
-      const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
+      // The game only works with integers so round the new expected duration
+      const newExpectedDuration = Math.round(timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste));
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
       // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
 

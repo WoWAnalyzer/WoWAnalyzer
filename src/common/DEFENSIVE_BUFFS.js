@@ -40,9 +40,6 @@ const DEFENSIVE_BUFFS = [
   },
   //Vengence Demon Hunter
   {
-    spell: SPELLS.PAINBRINGER_Buff,
-  },
-  {
     spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
   },
   //Arms Warrior

@@ -5,8 +5,8 @@ import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';

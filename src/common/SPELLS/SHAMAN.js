@@ -583,6 +583,11 @@ export default {
     name: 'Landslide',
     icon: 'inv_ore_blackrock_nugget',
   },
+  LIGHTNING_SHIELD_OVERCHARGE:{
+    id: 273323,
+    name: 'Lightning Shield Overcharge',
+    icon: 'spell_nature_lightningshield',
+  },
   ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
     id: 242284,
     name: 'T20 2 set bonus',
@@ -612,12 +617,6 @@ export default {
     id: 252151,
     name: 'T21 4set debuff',
     icon: 'ability_shaman_ascendance',
-  },
-  //Enhancement Traits
-  ALPHA_WOLF_TRAIT: {
-    id: 198434,
-    name: 'Alpha Wolf',
-    icon: 'spell_beastmaster_wolf',
   },
   // Restoration Shaman
   CHAIN_HEAL: {

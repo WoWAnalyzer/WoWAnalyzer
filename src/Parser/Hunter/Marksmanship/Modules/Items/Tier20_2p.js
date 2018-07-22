@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T20_2P_CRIT_DMG_BONUS = 0.1;
 

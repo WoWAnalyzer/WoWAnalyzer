@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 

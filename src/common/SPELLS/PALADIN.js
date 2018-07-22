@@ -15,13 +15,13 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 120,
   },
   JUDGMENT_CAST_ALT: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 120,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -32,7 +32,7 @@ export default {
     id: 220637,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 120,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -78,7 +78,7 @@ export default {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 4000,
+    manaCost: 880,
   },
   HAMMER_OF_JUSTICE: {
     id: 853,
@@ -106,7 +106,7 @@ export default {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 2000,
+    manaCost: 400,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -127,19 +127,19 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 2800,
+    manaCost: 560,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 2600,
+    manaCost: 520,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 1400,
+    manaCost: 280,
   },
   MARAADS_DYING_BREATH_BUFF: {
     id: 234862,
@@ -166,16 +166,6 @@ export default {
     name: 'Light\'s Hammer',
     icon: 'spell_paladin_lightshammer',
   },
-  TYRS_DELIVERANCE_HEAL: {
-    id: 200654,
-    name: 'Tyr\'s Deliverance',
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
-  },
-  TYRS_DELIVERANCE_CAST: {
-    id: 200652,
-    name: 'Tyr\'s Deliverance',
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
-  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',
@@ -193,6 +183,16 @@ export default {
   },
   AURA_OF_SACRIFICE_HEAL: {
     id: 210383,
+    name: 'Aura of Sacrifice',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  AURA_OF_SACRIFICE_TRANSFER: {
+    id: 210380,
+    name: 'Aura of Sacrifice',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  AURA_OF_SACRIFICE_BUFF: {
+    id: 210372,
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
@@ -327,8 +327,13 @@ export default {
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
   },
-  AVENGING_CRUSADER_HEAL: {
+  AVENGING_CRUSADER_HEAL_NORMAL: {
     id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
+  AVENGING_CRUSADER_HEAL_CRIT: {
+    id: 281465,
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
   },
