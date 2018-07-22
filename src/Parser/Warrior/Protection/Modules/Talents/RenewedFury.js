@@ -4,30 +4,27 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 
 const RENEWED_FURY_DAMAGE_INCREASE = 0.1;
 
 class RenewedFury extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RENEWED_FURY_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RENEWED_FURY_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.RENEWED_FURY_TALENT_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.RENEWED_FURY_TALENT_BUFF.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.RENEWED_FURY_TALENT_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RENEWED_FURY_TALENT_BUFF.id)) {
       return;
     }
     

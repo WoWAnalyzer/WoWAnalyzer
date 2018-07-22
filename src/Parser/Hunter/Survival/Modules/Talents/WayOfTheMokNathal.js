@@ -2,20 +2,15 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 const MAX_STACKS = 4;
 
 class WayOfTheMokNathal extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _currentStacks = 0;
   _fourStackUptime = 0;
   _fourStackStart = 0;
@@ -24,8 +19,9 @@ class WayOfTheMokNathal extends Analyzer {
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -91,7 +87,7 @@ class WayOfTheMokNathal extends Analyzer {
   }
 
   get overallUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
   }
 
   get timesDroppedThreshold() {

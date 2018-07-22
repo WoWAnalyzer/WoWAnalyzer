@@ -7,26 +7,20 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-
 class HitCombo extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
   }
 
   get suggestionThresholds() {
-    const hitComboUptime = this.combatants.selected.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
     return {
       actual: hitComboUptime,
       isLessThan: {
@@ -39,7 +33,7 @@ class HitCombo extends Analyzer {
   }
 
   suggestions(when) {
-    const hitComboUptime = this.combatants.selected.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
 
     when(this.suggestionThresholds).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -52,7 +46,7 @@ class HitCombo extends Analyzer {
 
 
   statistic() {
-    const hitComboUptime = this.combatants.selected.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
 
     return (
       <StatisticBox

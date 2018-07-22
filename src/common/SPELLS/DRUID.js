@@ -17,6 +17,114 @@ export default {
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
   },
+  HIBERNATE: {
+    id: 2637,
+    name: 'Hibernate',
+    icon: 'spell_nature_sleep',
+  },
+  SOOTHE: {
+    id: 2908,
+    name: 'Soothe',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  REVIVE: {
+    id: 50769,
+    name: 'Revive',
+    icon: 'ability_druid_lunarguidance',
+  },
+  // learnt from a tome, treant form is (mostly?) functionally identical to caster form
+  TREANT_FORM: {
+    id: 114282,
+    name: 'Treant Form',
+    icon: 'ability_druid_treeoflife',
+  },
+  // learnt from a tome
+  CHARM_WOODLAND_CREATURE: {
+    id: 127757,
+    name: 'Charm Woodland Creature',
+    icon: 'inv_misc_rabbit',
+  },
+  TELEPORT_MOONGLADE: {
+    id: 18960,
+    name: 'Teleport: Moonglade',
+    icon: 'spell_arcane_teleportmoonglade',
+  },
+  TELEPORT_DREAMWALK: {
+    id: 193753,
+    name: 'Dreamwalk',
+    icon: 'spell_arcane_teleportstormwind',
+  },
+  // passive for all Feral druids and any druid with Feral Affinity
+  FELINE_SWIFTNESS: {
+    id: 131768,
+    name: 'Feline Swiftness',
+    icon: 'spell_druid_tirelesspursuit',
+  },
+  // learnt from a tome, requires moonkin form to use
+  FLAP: {
+    id: 164862,
+    name: 'Flap',
+    icon: 'inv_feather_12',
+  },
+
+  //shared talent spells
+
+  // When used the player appears to cast 2 spells at once, this and TYPHOON_TALENT. The "Dazed" debuff that slows those hit has this ID.
+  TYPHOON: {
+    id: 61391,
+    name: 'Typhoon',
+    icon: 'ability_druid_typhoon',
+  },
+  WILD_CHARGE_MOONKIN: {
+    id: 102383,
+    name: 'Wild Charge',
+    icon: 'ability_druid_owlkinfrenzy',
+  },
+  WILD_CHARGE_CAT: {
+    id: 49376,
+    name: 'Wild Charge',
+    icon: 'spell_druid_feralchargecat',
+  },
+  WILD_CHARGE_BEAR: {
+    id: 16979,
+    name: 'Wild Charge',
+    icon: 'ability_hunter_pet_bear',
+  },
+  WILD_CHARGE_TRAVEL: {
+    id: 102417,
+    name: 'Wild Charge',
+    icon: 'trade_archaeology_antleredcloakclasp',
+  },
+  // granted by Balance Affinity to non-Balance druids
+  LUNAR_STRIKE_AFFINITY: {
+    id: 197628,
+    name: 'Lunar Strike',
+    icon: 'spell_arcane_starfire',
+  },
+  // granted by Balance Affinity to Guardian and Feral druids
+  SOLAR_WRATH_AFFINITY: {
+    id: 197629,
+    name: 'Solar Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  // granted by Balance Affinity to Guardian and Feral druids
+  SUNFIRE_AFFINITY: {
+    id: 197630,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter',
+  },
+  // passive for all Guardian druids and any druid with Guardian Affinity
+  THICK_HIDE: {
+    id: 16931,
+    name: 'Thick Hide',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  // passive for all Balance druids and any druid with Balance Affinity
+  ASTRAL_INFLUENCE: {
+    id: 197524,
+    name: 'Astral Influence',
+    icon: 'ability_skyreach_lens_flare',
+  },
 
   // RESTO DRUID //
 
@@ -32,7 +140,7 @@ export default {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
-    manaCost: 40480,
+    manaCost: 736,
   },
   TRANQUILITY_HEAL: {
     id: 157982,
@@ -69,25 +177,19 @@ export default {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 22000,
-  },
-  HEALING_TOUCH: {
-    id: 5185,
-    name: 'Healing Touch',
-    icon: 'spell_nature_healingtouch',
-    manaCost: 19800,
+    manaCost: 440,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
-    manaCost: 40986,
+    manaCost: 560,
   },
   LIFEBLOOM_HOT_HEAL: {
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
-    manaCost: 26400,
+    manaCost: 480,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -103,7 +205,7 @@ export default {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 47520,
+    manaCost: 864,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
@@ -114,13 +216,13 @@ export default {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
-    manaCost: 20240,
+    manaCost: 368,
   },
   SWIFTMEND: {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
-    manaCost: 30800,
+    manaCost: 560,
   },
   FRENZIED_REGENERATION: {
     id: 22842,
@@ -222,11 +324,6 @@ export default {
     id: 145109,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
-  },
-  LIVING_SEED: {
-    id: 48503,
-    name: 'Living Seed',
-    icon: 'ability_druid_giftoftheearthmother',
   },
   MARK_OF_SHIFTING: {
     id: 224392,
@@ -429,7 +526,7 @@ export default {
     name: 'Ironfur',
     icon: 'ability_druid_ironfur',
   },
-  // when casting stampeding outside of cat or bear form (puts caster into bear form)
+  // when casting stampeding outside of cat or bear form, and puts caster into bear form
   STAMPEDING_ROAR_HUMANOID: {
     id: 106898,
     name: 'Stampeding Roar',
@@ -450,11 +547,7 @@ export default {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  RAGE_OF_THE_SLEEPER: {
-    id: 200851,
-    name: 'Rage of the Sleeper',
-    icon: 'inv_hand_1h_artifactursoc_d_01',
-  },
+  // "MOONFIRE_BEAR" is actually the debuff left by Moonfire for all forms, all specs
   MOONFIRE_BEAR: {
     id: 164812,
     name: 'Moonfire',
@@ -500,6 +593,7 @@ export default {
     name: 'Gore',
     icon: 'ability_druid_mangle2',
   },
+  // passive spell with this ID granted to any druid with Restoration Affinity
   YSERAS_GIFT_BEAR: {
     id: 145108,
     name: 'Ysera\'s gift',
@@ -631,10 +725,10 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  STELLAR_EMPOWERMENT: {
-    id: 197637,
-    name: 'Stellar Empowerment',
-    icon: 'ability_druid_starfall',
+  STARLORD: {
+    id: 279709,
+    name: 'Starlord',
+    icon: 'spell_shaman_measuredinsight',
   },
   // MOONFIRE = MOONFIRE_BEAR
   // MOONFIRE_CAST = MOONFIRE
@@ -654,19 +748,14 @@ export default {
     icon: 'spell_nature_starfall',
   },
   FULL_MOON: {
-    id: 202771,
+    id: 274283,
     name: 'Full Moon',
     icon: 'artifactability_balancedruid_fullmoon',
   },
   HALF_MOON: {
-    id: 202768,
+    id: 274282,
     name: 'Half Moon',
     icon: 'artifactability_balancedruid_halfmoon',
-  },
-  NEW_MOON: {
-    id: 202767,
-    name: 'New Moon',
-    icon: 'artifactability_balancedruid_newmoon',
   },
   CELESTIAL_ALIGNMENT: {
     id: 194223,
@@ -763,7 +852,8 @@ export default {
     name: 'Solar Solstice',
     icon: 'spell_druid_sunfall',
   },
-  // Feral
+
+  // FERAL //
   TIGERS_FURY: {
     id: 5217,
     name: 'Tiger\'s Fury',
@@ -774,11 +864,6 @@ export default {
     name: 'Skull Bash',
     icon: 'inv_bone_skull_04',
   },
-  ASHAMANES_FRENZY: {
-    id: 210722,
-    name: 'Ashamane\'s Frenzy',
-    icon: 'inv_knife_1h_artifactfrostsaber_d_01',
-  },
   PRIMAL_FURY: {
     id: 16953,
     name: 'Primal Fury',
@@ -787,10 +872,20 @@ export default {
   MAIM: {
     id: 22570,
     name: 'Maim',
-    icon: 'ability_druid_mangle',
+    icon: 'ability_druid_mangle-tga',
+  },
+  MAIM_DEBUFF: {
+    id: 203123,
+    name: 'Maim',
+    icon: 'ability_druid_mangle-tga',
   },
   RAKE_BLEED: {
     id: 155722,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  RAKE_STUN: {
+    id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
@@ -826,58 +921,81 @@ export default {
     name: 'Bloodtalons',
     icon: 'spell_druid_bloodythrash',
   },
-  // Traits:
-  // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
-  ASHAMANES_BITE: {
-    id: 210702,
-    name: 'Ashamane\'s Bite',
-    icon: 'artifactability_feraldruid_ashamanesbite',
+  FERAL_FRENZY_DEBUFF: {
+    id: 274838,
+    name: 'Feral Frenzy',
+    icon: 'ability_druid_rake',
   },
-  ASHAMANES_RIP: {
-    id: 210705,
-    name: 'Ashamane\'s Rip',
-    icon: 'artifactability_feraldruid_ashamanesbite',
+  CLEARCASTING_FERAL: {
+    id: 135700,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
   },
-  FURY_OF_ASHAMANE: {
-    id: 240670,
-    name: 'Fury of Ashamane',
-    icon: 'ability_mount_jungletiger',
+  INFECTED_WOUNDS_DEBUFF: {
+    id: 58180,
+    name: 'Infected Wounds',
+    icon: 'ability_druid_infectedwound',
   },
-  PROTECTION_OF_ASHAMANE: {
-    id: 210650,
-    name: 'Protection of Ashamane',
-    icon: 'ability_druid_catform',
+  MASTERY_RAZOR_CLAWS: {
+    id: 77493,
+    name: 'Mastery: Razor Claws',
+    icon: 'inv_misc_monsterclaw_05',
   },
-  PROTECTION_OF_ASHAMANE_BUFF: {
-    id: 210655,
-    name: 'Protection of Ashamane',
-    icon: 'ability_druid_catform',
+  PREDATORY_SWIFTNESS: {
+    id: 69369,
+    name: 'Predatory Swiftness',
+    icon: 'ability_hunter_pet_cat',
+  },
+  JUNGLE_STALKER: {
+    id: 252071,
+    name: 'Jungle Stalker',
+    icon: 'ability_mount_siberiantigermount',
   },
 
-  //shared talent spells
-  TYPHOON: {
-    id: 61391,
-    name: 'Typhoon',
-    icon: 'ability_druid_typhoon',
+  // feral legion tier sets
+  FERAL_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211140,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
   },
-  WILD_CHARGE_MOONKIN: {
-    id: 102383,
-    name: 'Wild Charge',
-    icon: 'ability_druid_owlkinfrenzy',
+  FERAL_DRUID_T19_4SET_BONUS_BUFF: {
+    id: 211142,
+    name: 'T19 4 set bonus',
+    icon: 'trade_engineering',
   },
-  WILD_CHARGE_CAT: {
-    id: 49376,
-    name: 'Wild Charge',
-    icon: 'spell_druid_feralchargecat',
+  FERAL_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242234,
+    name: 'T20 2 set bonus',
+    icon: 'ability_druid_catform',
   },
-  WILD_CHARGE_BEAR: {
-    id: 16979,
-    name: 'Wild Charge',
-    icon: 'ability_hunter_pet_bear',
+  ENERGETIC_RIP: {
+    id: 245591,
+    name: 'Energetic Rip',
+    icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  WILD_CHARGE_TRAVEL: {
-    id: 102417,
-    name: 'Wild Charge',
-    icon: 'trade_archaeology_antleredcloakclasp',
+  FERAL_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242235,
+    name: 'T20 4 set bonus',
+    icon: 'ability_druid_catform',
+  },
+  FERAL_DRUID_T21_2SET_BONUS_BUFF: {
+    id: 251789,
+    name: 'T21 2 set bonus',
+    icon: 'ability_druid_cower',
+  },  
+  BLOODY_GASH: {
+    id: 252750,
+    name: 'Bloody Gash',
+    icon: 'artifactability_feraldruid_ashamanesbite',
+  },
+  FERAL_DRUID_T21_4SET_BONUS_BUFF: {
+    id: 251790,
+    name: 'T21 4 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  APEX_PREDATOR: {
+    id: 252752,
+    name: 'Apex Predator',
+    icon: 'ability_druid_primaltenacity',
   },
 };

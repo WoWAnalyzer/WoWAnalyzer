@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import articles from './Articles';
 import ArticleLoader from './ArticleLoader';
 
+import './News.css';
+
 class News extends React.PureComponent {
   static propTypes = {
     topAnchor: PropTypes.string.isRequired,
@@ -61,7 +63,7 @@ class News extends React.PureComponent {
     const indexEnd = indexStart + this.articlesPerPage;
 
     return (
-      <div>
+      <div className="news">
         {Object.values(articles)
           .sort((a, b) => b.localeCompare(a))
           .filter((_, index) => index >= indexStart && index < indexEnd)
@@ -70,7 +72,7 @@ class News extends React.PureComponent {
               key={fileName}
               fileName={fileName}
             >
-              {({ children, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : children}
+              {({ article, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : article}
             </ArticleLoader>
           ))}
 

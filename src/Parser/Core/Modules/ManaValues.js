@@ -1,22 +1,18 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ROLES from 'common/ROLES';
 
 class ManaValues extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
   maxMana = 110000;
   manaUpdates = [];
 
-  on_initialized() {
-    this.active = this.combatants.selected.spec.role === ROLES.HEALER;
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
   }
 
   on_byPlayer_cast(event) {

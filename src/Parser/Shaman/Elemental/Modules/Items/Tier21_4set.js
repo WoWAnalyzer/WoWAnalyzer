@@ -1,20 +1,16 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class Tier21_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   extraDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id);
   }
 
   on_byPlayer_damage(event) {

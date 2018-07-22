@@ -6,22 +6,22 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellHistory from 'Parser/Core/Modules/SpellHistory';
 
-import Tab from 'Main/Tab';
-import CastEfficiencyComponent from 'Main/CastEfficiency';
+import Tab from 'Interface/Others/Tab';
+import CastEfficiencyComponent from 'Interface/Others/CastEfficiency';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
-import Combatants from './Combatants';
 import Haste from './Haste';
 
 const DEFAULT_RECOMMENDED = 0.80;
 const DEFAULT_AVERAGE_DOWNSTEP = 0.05;
 const DEFAULT_MAJOR_DOWNSTEP = 0.15;
+const seconds = ms => ms / 1000;
+const minutes = ms => seconds(ms) / 60;
 
 class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
@@ -141,15 +141,14 @@ class CastEfficiency extends Analyzer {
     return ability ? this.getCastEfficiencyForAbility(ability) : null;
   }
   getCastEfficiencyForAbility(ability) {
-    const spellId = ability.spell.id;
-    const fightDurationMs = this.owner.fightDuration;
-    const fightDurationMinutes = fightDurationMs / 1000 / 60;
+    const spellId = ability.primarySpell.id;
+    const availableFightDuration = this.owner.fightDuration;
 
     const cooldown = ability.castEfficiency.disabled ? null : ability.cooldown;
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this._getCooldownInfo(ability);
     const timeSpentCasting = (cooldown && ability.charges < 2) ? this._getTimeSpentCasting(ability) : 0;
-    const timeWaitingOnGCD = (cooldown && ability.charges < 2 && ability.isOnGCD) ? this._getTimeWaitingOnGCD(ability) : 0;
+    const timeWaitingOnGCD = (cooldown && ability.charges < 2 && ability.gcd) ? this._getTimeWaitingOnGCD(ability) : 0;
 
     // ability.casts is used for special cases that show the wrong number of cast events, like Penance
     // and also for splitting up differently buffed versions of the same spell
@@ -159,7 +158,7 @@ class CastEfficiency extends Analyzer {
     } else {
       casts = cdInfo.casts;
     }
-    const cpm = casts / fightDurationMinutes;
+    const cpm = casts / minutes(availableFightDuration);
     const averageTimeSpentCasting = timeSpentCasting / casts;
     const averageTimeWaitingOnGCD = timeWaitingOnGCD / casts;
 
@@ -175,14 +174,14 @@ class CastEfficiency extends Analyzer {
     const averageCooldown = (cdInfo.recharges === 0) || ability.castEfficiency.disabled ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
     if (ability.castEfficiency.maxCasts) {
       // maxCasts expects cooldown in seconds
-      rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
+      rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, availableFightDuration, this.abilityTracker.getAbility, this.owner);
     } else if (averageCooldown) { // no average CD if spell hasn't been cast
-      rawMaxCasts = (this.owner.fightDuration / (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD)) + (ability.charges || 1) - 1;
+      rawMaxCasts = (availableFightDuration / (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD)) + (ability.charges || 1) - 1;
     } else {
-      rawMaxCasts = (this.owner.fightDuration / cooldownMs) + (ability.charges || 1) - 1;
+      rawMaxCasts = (availableFightDuration / cooldownMs) + (ability.charges || 1) - 1;
     }
     const maxCasts = Math.ceil(rawMaxCasts) || 0;
-    const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
+    const maxCpm = (cooldown === null) ? null : maxCasts / minutes(availableFightDuration);
 
     let efficiency;
     if (ability.castEfficiency.maxCasts) { // legacy support for custom maxCasts
@@ -190,10 +189,10 @@ class CastEfficiency extends Analyzer {
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
-      if (cooldown && this.owner.fightDuration) {
+      if (cooldown && availableFightDuration) {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
         const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
-        efficiency = timeUnavailable / this.owner.fightDuration;
+        efficiency = timeUnavailable / availableFightDuration;
       } else {
         efficiency = null;
       }

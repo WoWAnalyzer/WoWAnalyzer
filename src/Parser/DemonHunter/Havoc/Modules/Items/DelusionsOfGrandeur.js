@@ -8,7 +8,6 @@ import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import FuryTracker from '../ResourceTracker/FuryTracker';
@@ -20,7 +19,6 @@ import UnleashedDemons from '../Traits/UnleashedDemons';
 
 class DelusionsOfGrandeur extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		SpellUsable: SpellUsable,
 		furyTracker: FuryTracker,
 		abilityTracker: AbilityTracker,
@@ -31,8 +29,9 @@ class DelusionsOfGrandeur extends Analyzer {
 	lastTimestamp = 0;
 	halfMetaDuration = 15000
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
 		this.metaCooldown = this.metaCooldown - this.unleashedDemons.traitCooldownReduction;
 	}
 

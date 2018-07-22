@@ -6,11 +6,10 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
@@ -48,7 +47,6 @@ const CS_DURATION = 12000;
 class TreeOfLife extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     rejuvenation: Rejuvenation,
   };
@@ -78,9 +76,10 @@ class TreeOfLife extends Analyzer {
     extraWgHealing: 0,
   };
 
-  on_initialized() {
-    this.hasTol = this.combatants.selected.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
-    this.hasCs = this.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id);
+  constructor(...args) {
+    super(...args);
+    this.hasTol = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
+    this.hasCs = this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id);
     this.active = this.hasTol || this.hasCs;
   }
 
@@ -89,7 +88,7 @@ class TreeOfLife extends Analyzer {
   // if ToL buff is due to hardcast, returns the hardcast accumulator,
   // if ToL buff is due to CS, returns the CS accumulator.
   _getAccumulator(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null;
     } else if ((!this.hasCs) || (this.lastTolCast && this.lastTolCast + TOL_DURATION > event.timestamp)) {
       return this.hardcast;

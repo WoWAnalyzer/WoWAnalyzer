@@ -4,8 +4,8 @@ import ITEMS from 'common/ITEMS';
 import { formatThousands } from 'common/format';
 import CoreCarafeOfSearingLight from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import ItemManaGained from 'Main/ItemManaGained';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import Rejuvenation from '../Core/Rejuvenation';
 

@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Portal from 'Main/Portal';
+import lazyLoadComponent from 'common/lazyLoadComponent';
+import Portal from 'Interface/Others/Portal';
 
-import ContributorDetails from './Details';
 import makeContributorUrl from './makeUrl';
+
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ './Details').then(exports => exports.default));
 
 class Button extends React.PureComponent {
   static propTypes = {
@@ -44,28 +46,26 @@ class Button extends React.PureComponent {
     if (this.state.open) {
       return (
         <Portal onClose={this.handleOnClose}>
-          <ContributorDetails contributorId={nickname} />
+          <div className="container">
+            <ContributorDetails contributorId={nickname} />
+          </div>
         </Portal>
       );
     }
 
     const content = (
-      <React.Fragment>
-        {avatar && <React.Fragment><img src={avatar} alt="Avatar" />{' '}</React.Fragment>}
+      <div className="contributor">
+        {avatar && <img src={avatar} alt="Avatar" />}
         {nickname}
-      </React.Fragment>
+      </div>
     );
 
     if (!link) {
-      return (
-        <span className="contributor">
-          {content}
-        </span>
-      );
+      return content;
     }
 
     return (
-      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
+      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick}>
         {content}
       </Link>
     );

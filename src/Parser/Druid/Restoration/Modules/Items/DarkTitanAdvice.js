@@ -1,27 +1,23 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 
 class DarkTitanAdvice extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healingFromBoost = 0;
   healingFromProcs = 0;
   lastRealBloomTimestamp = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
   }
 
   on_byPlayer_heal(event) {

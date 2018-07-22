@@ -3,9 +3,8 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
@@ -16,29 +15,33 @@ export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 class DrapeOfShame extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,
-    combatants: Combatants,
   };
   baseStats = {
-    itemLevel: 825,
-    primary: 606,
-    stamina: 910,
-    criticalStrike: 260,
-    versatility: 400,
+    itemLevel: 366,
+    primary: 155,
+    stamina: 232,
+    criticalStrike: 47,
+    versatility: 79,
   };
 
   healing = 0;
   equippedItem = null;
 
-  on_initialized() {
-    this.equippedItem = this.combatants.selected.getItem(ITEMS.DRAPE_OF_SHAME.id);
+  constructor(...args) {
+    super(...args);
+    this.equippedItem = this.selectedCombatant.getItem(ITEMS.DRAPE_OF_SHAME.id);
     this.active = !!this.equippedItem;
 
     if (this.active) {
-      this.critEffectBonus.hook(this.getCritEffectBonus);
+      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
     }
   }
 
   getCritEffectBonus(critEffectModifier, event) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(event.ability.guid)) {
+      return critEffectModifier;
+    }
+
     return critEffectModifier + DRAPE_OF_SHAME_CRIT_EFFECT;
   }
 

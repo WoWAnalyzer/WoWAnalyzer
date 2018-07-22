@@ -2,10 +2,9 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -20,10 +19,6 @@ const MAX_STACKS = 10;
 const MODIFIER_PER_STACK = 0.1;
 
 class ButchersBoneApron extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _currentStacks = 0;
   _savedStacks = 0;
   wastedStacks = 0;
@@ -32,8 +27,9 @@ class ButchersBoneApron extends Analyzer {
   usedStacks = 0;
   butcheryCarveCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
   }
 
   on_byPlayer_cast(event) {
@@ -121,7 +117,7 @@ class ButchersBoneApron extends Analyzer {
     };
   }
   suggestions(when) {
-    const spellLinkId = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
+    const spellLinkId = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
 
     when(this.cappedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} /> when you're at {MAX_STACKS} stacks. </React.Fragment>)
@@ -138,7 +134,7 @@ class ButchersBoneApron extends Analyzer {
   }
 
   item() {
-    const spellLinkName = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.name : SPELLS.CARVE.name;
+    const spellLinkName = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.name : SPELLS.CARVE.name;
     return {
       item: ITEMS.BUTCHERS_BONE_APRON,
       result: (

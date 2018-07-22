@@ -1,16 +1,10 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import WildGrowthNormalizer from './Normalizers/WildGrowth';
 import ClearcastingNormalizer from './Normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './Normalizers/HotApplicationNormalizer';
-import PotaNormalizer from './Normalizers/PotaNormalizer';
 import TreeOfLifeNormalizer from './Normalizers/TreeOfLifeNormalizer';
 
 import Checklist from './Modules/Features/Checklist';
@@ -42,20 +36,15 @@ import T20_4Set from './Modules/Items/T20_4Set';
 import T21_2Set from './Modules/Items/T21_2Set';
 import T21_4Set from './Modules/Items/T21_4Set';
 
-import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import DeepRooted from './Modules/Features/DeepRooted';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
 import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
-import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
-import Dreamwalker from './Modules/Features/Dreamwalker';
-import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 import Ironbark from './Modules/Features/Ironbark';
 
@@ -65,27 +54,11 @@ import Flourish from './Modules/Talents/Flourish';
 import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
-
-import RelicTraits from './Modules/Traits/RelicTraits';
-import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
-import BlessingOfTheWorldTree from './Modules/Traits/BlessingOfTheWorldTree';
-import EssenceOfNordrassil from './Modules/Traits/EssenceOfNordrassil';
-import Grovewalker from './Modules/Traits/Grovewalker';
-import InfusionOfNature from './Modules/Traits/InfusionOfNature';
-import KnowledgeOfTheAncients from './Modules/Traits/KnowledgeOfTheAncients';
-import NaturalMending from './Modules/Traits/NaturalMending';
-import Persistence from './Modules/Traits/Persistence';
-import SeedsOfTheWorldTree from './Modules/Traits/SeedsOfTheWorldTree';
-import EternalRestoration from './Modules/Traits/EternalRestoration';
+import Photosynthesis from './Modules/Talents/Photosynthesis';
 
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
-import MurderousIntent from "./Modules/NetherlightCrucibleTraits/MurderousIntent";
-import Shocklight from "./Modules/NetherlightCrucibleTraits/Shocklight";
-import LightSpeed from "./Modules/NetherlightCrucibleTraits/LightSpeed";
-import NLCTraits from "./Modules/NetherlightCrucibleTraits/NLCTraits";
-import MasterOfShadows from "./Modules/NetherlightCrucibleTraits/MasterOfShadows";
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -95,7 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     wildGrowthNormalizer: WildGrowthNormalizer,
     clearcastingNormalizer: ClearcastingNormalizer,
-    potaNormalizer: PotaNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
@@ -114,24 +86,20 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamerAttributor: DreamerAttributor,
 
     // Features
-    healingTouch : HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    deepRooted: DeepRooted,
     abilities: Abilities,
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     clearcasting: Clearcasting,
     treeOfLife: TreeOfLife,
+    photosynthesis: Photosynthesis,
     flourish: Flourish,
     innervate: Innervate,
-    powerOfTheArchdruid: PowerOfTheArchdruid,
-    dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
-    essenceOfGhanir: EssenceOfGhanir,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
@@ -154,52 +122,13 @@ class CombatLogParser extends CoreCombatLogParser {
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
 
-    // NLC
-    murderousIntent: MurderousIntent,
-    shocklight: Shocklight,
-    lightSpeed: LightSpeed,
-    masterOfShadows: MasterOfShadows,
-    nlcTraits: NLCTraits,
-
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
     garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
 
-    // Traits
-    RelicTraits: RelicTraits,
-    ArmorOfTheAncients: ArmorOfTheAncients,
-    BlessingOfTheWorldTree: BlessingOfTheWorldTree,
-    EssenceOfNordrassil: EssenceOfNordrassil,
-    Grovewalker: Grovewalker,
-    InfusionOfNature: InfusionOfNature,
-    KnowledgeOfTheAncients: KnowledgeOfTheAncients,
-    NaturalMending: NaturalMending,
-    Persistence: Persistence,
-    SeedsOfTheWorldTree: SeedsOfTheWorldTree,
-    EternalRestoration: EternalRestoration,
-
     statWeights: StatWeights,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

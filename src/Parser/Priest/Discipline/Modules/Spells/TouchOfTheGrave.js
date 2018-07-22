@@ -3,10 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
@@ -15,7 +13,6 @@ import AtonementDamageSource from '../Features/AtonementDamageSource';
 class TouchOfTheGrave extends Analyzer {
   static dependencies = {
     atonementDamageSource: AtonementDamageSource,
-    combatants: Combatants,
   };
 
   atonementHealing = 0;

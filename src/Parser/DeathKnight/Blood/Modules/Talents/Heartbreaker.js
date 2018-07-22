@@ -1,26 +1,22 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Heartbreaker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   rpGains = [];
   hsCasts = 0;
   deathStrikeCost = 45;
 
-  on_initialized() {
-    if (this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
       this.deathStrikeCost -= 5;
     }
-    this.active = this.combatants.selected.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

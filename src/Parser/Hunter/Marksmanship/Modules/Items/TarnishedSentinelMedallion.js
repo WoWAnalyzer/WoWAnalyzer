@@ -4,8 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import CoreTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
@@ -16,7 +15,6 @@ class TarnishedSentinelMedallion extends CoreTarnishedSentinelMedallion {
   static dependencies = {
     ...CoreTarnishedSentinelMedallion.dependencies,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    combatants: Combatants,
   };
 
   TS_LENGTH = 15000;

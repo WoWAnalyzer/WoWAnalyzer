@@ -1,9 +1,9 @@
-import getMatch from './getMatch';
+import getFightParts from './getFightParts';
 
 export default state => {
-  const match = getMatch(state);
-  if (match && match.params.fightId) {
-    const fightId = Number(match.params.fightId.split('-')[0]);
+  const parts = getFightParts(state);
+  if (parts) {
+    const fightId = Number(parts[0]);
     if (fightId) {
       return fightId;
     }

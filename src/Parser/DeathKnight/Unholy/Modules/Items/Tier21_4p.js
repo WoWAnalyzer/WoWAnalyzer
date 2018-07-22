@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -9,17 +8,14 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 class Tier21_4p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   totalDeathCoilCasts = 0;
   totalDeathCoilDamageEvents = 0;
   isNextNormal = 0;
   freeCastDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id);
   }
 
   on_byPlayer_cast(event) {

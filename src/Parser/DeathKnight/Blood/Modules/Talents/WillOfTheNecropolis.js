@@ -1,19 +1,13 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from "common/format";
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const MINIMUM_ABSORB_THRESHOLD = 0.05;
 
 class WillOfTheNecropolis extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   totalWotnAbsorbed = 0;
   currentWotnAbsorbed = 0;
   activated = 0;
@@ -22,8 +16,9 @@ class WillOfTheNecropolis extends Analyzer {
   nextEvent = false;
 
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
   }
 
   on_byPlayer_absorbed(event) {

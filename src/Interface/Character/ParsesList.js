@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import { makePlainUrl } from 'Main/makeAnalyzerUrl';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
 import rankingColor from 'common/getRankingColor';
+import { makePlainUrl } from 'Interface/common/makeAnalyzerUrl';
 import { GEAR_SLOTS } from 'Parser/Core/Combatant';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
@@ -49,7 +49,7 @@ class ParsesList extends React.PureComponent {
         icon={false}
       >
         <Icon
-          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon }
+          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon}
           style={{ ...styles.icon, border: '1px solid' }}
         />
       </ItemLink>
@@ -64,7 +64,7 @@ class ParsesList extends React.PureComponent {
     const { parses } = this.props;
     return (
       parses.map(elem => {
-        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.character_name);
+        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
         return (
           <Link
             key={url}

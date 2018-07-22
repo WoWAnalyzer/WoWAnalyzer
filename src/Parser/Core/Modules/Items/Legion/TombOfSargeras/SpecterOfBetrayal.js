@@ -3,8 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 /**
@@ -13,14 +12,14 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  */
 class SpecterOfBetrayal extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
 
     if (this.active) {
       this.abilities.add({

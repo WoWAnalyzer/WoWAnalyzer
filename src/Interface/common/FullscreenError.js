@@ -27,7 +27,7 @@ const FullscreenError = ({ error, details, background, children, errorDetails })
           {errorDetails}
         </div>
       )}
-      <AppBackgroundImage override={background} />
+      <AppBackgroundImage image={background} />
     </div>
   );
 };

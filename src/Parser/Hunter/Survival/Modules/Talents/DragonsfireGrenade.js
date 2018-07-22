@@ -3,10 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Hurls a dragonsfire grenade at the target that explodes into flames, inflicting [(1304% of Attack power) + (400% of Attack power)] Fire
@@ -15,15 +14,15 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 class DragonsfireGrenade extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   bonusDamage = 0;
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

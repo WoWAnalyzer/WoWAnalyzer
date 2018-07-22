@@ -6,30 +6,16 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  on_byPlayer_applybuff(event) {
-    if(super.on_byPlayer_applybuff) {
-      super.on_byPlayer_applybuff(event);
-    }
-    this.handleTacticianBuff(event);
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    if(super.on_byPlayer_refreshbuff) {
-      super.on_byPlayer_refreshbuff(event);
-    }
-    this.handleTacticianBuff(event);
-  }
-
-  handleTacticianBuff(event) {
-    // If the buff being applied/refreshed is tactician, refresh the cooldowns of mortal strike and colossus smash.
-    if (SPELLS.TACTICIAN.id === event.ability.guid) {
-      if (this.isOnCooldown(SPELLS.MORTAL_STRIKE.id)) {
-        this.endCooldown(SPELLS.MORTAL_STRIKE.id);
-      }
-      if (this.isOnCooldown(SPELLS.COLOSSUS_SMASH.id)) {
-        this.endCooldown(SPELLS.COLOSSUS_SMASH.id);
+  beginCooldown(spellId, ...args) {
+    // Tactician passive: You have a 1.40% chance per Rage spent on damaging abilities to reset the remaining cooldown on Overpower.
+    if (spellId === SPELLS.OVERPOWER.id) {
+      if (this.isOnCooldown(spellId)) {
+        this.endCooldown(spellId);
       }
     }
+
+    // We must do this after ending the cd or it will trigger an error
+    super.beginCooldown(spellId, ...args);
   }
 }
 

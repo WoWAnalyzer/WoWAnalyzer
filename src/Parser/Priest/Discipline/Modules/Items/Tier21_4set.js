@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import Penance from '../Spells/Penance';
 import isAtonement from '../Core/isAtonement';
@@ -28,8 +28,9 @@ class Tier21_4set extends Analyzer {
   healing = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_damage(event){

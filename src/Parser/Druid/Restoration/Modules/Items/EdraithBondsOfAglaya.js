@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import HotTracker from '../Core/HotTracking/HotTracker';
 
@@ -19,7 +18,6 @@ const EXTENSION_AMOUNT = 10000;
  // TODO specifically check / suggest for CW extension
 class EdraithBondsOfAglaya extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -34,8 +32,9 @@ class EdraithBondsOfAglaya extends Analyzer {
 
   smCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.EDRAITH_BONDS_OF_AGLAYA.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.EDRAITH_BONDS_OF_AGLAYA.id);
   }
 
   on_byPlayer_heal(event) {

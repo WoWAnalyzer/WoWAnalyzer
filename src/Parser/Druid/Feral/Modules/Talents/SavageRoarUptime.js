@@ -1,44 +1,51 @@
 import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
-import Enemies from 'Parser/Core/Modules/Enemies';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-class savageRoarUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-    combatants: Combatants,
-  };
+class SavageRoarUptime extends Analyzer {
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
+  }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.80,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    const savageRoarUptime = this.combatants.selected.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration;
-
-    when(savageRoarUptime).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. Try to pay more attention to your bleeds on the Boss</span>)
-          .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Savage Roar uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.10);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <React.Fragment>
+          Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> will need refreshing soon.
+        </React.Fragment>
+      )
+        .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {
-    const savageRoarUptime = this.combatants.selected.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
-        value={`${formatPercentage(savageRoarUptime)} %`}
+        value={`${formatPercentage(this.uptime)}%`}
         label="Savage Roar uptime"
       />
     );
@@ -47,4 +54,4 @@ class savageRoarUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
-export default savageRoarUptime;
+export default SavageRoarUptime;

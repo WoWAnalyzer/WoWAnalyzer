@@ -4,9 +4,25 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import DarkShadow from './DarkShadow';
+import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 
+class DarkShadowNightblade extends DarkShadow {  
+  static dependencies = {
+    ...DarkShadow.dependencies,
+    danceDamageTracker: DanceDamageTracker,
+  }
 
-class DarkShadowNightblade extends DarkShadow {
+  constructor(...args) {
+    super(...args);
+    
+    if(this.active) {
+      this.danceDamageTracker.subscribeInefficientCast(
+        [SPELLS.NIGHTBLADE],
+        (_) => 'Dont cast Nightblade during Shadow Dance when using Dark Shadow talent.'
+      ); 
+    }   
+  }
+
   suggestions(when) {
     const nightblade = this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts;
     when(nightblade).isGreaterThan(0)

@@ -1,11 +1,11 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
+
 import Analyzer from 'Parser/Core/Analyzer';
 
 // 50 was too low, 100 was too high
@@ -13,10 +13,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 const BUFFER_MS = 85;
 
 class HealingRain extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healingRainTicks = [];
 
   get averageHitsPerTick() {
@@ -66,6 +62,10 @@ class HealingRain extends Analyzer {
   }
 
   statistic() {
+    if (isNaN(this.averageHitsPerTick)) {
+      return false;
+    }
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
@@ -77,7 +77,6 @@ class HealingRain extends Analyzer {
         )}
       />
     );
-    //
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import { BOF as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
@@ -12,7 +11,6 @@ const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -30,10 +28,11 @@ class BreathOfFire extends Analyzer {
   get suggestionThreshold() {
     return {
       actual: this.mitigatedHits,
+      // max possible now is 0.8 w/o shenanigans
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        minor: 0.75,
+        average: 0.65,
+        major: 0.55,
       },
       style: 'percentage',
     };

@@ -6,8 +6,7 @@ import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /*
 * Equip: Blade Dance has a 10% chance to grant you Chaos Blades for 6 sec.
@@ -34,7 +33,6 @@ const MS_BUFFER = 100;
 
 class ChaosTheory extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		abilityTracker: AbilityTracker,
 	};
 	damage = 0;
@@ -43,8 +41,9 @@ class ChaosTheory extends Analyzer {
 	lastCastTimestamp = 0;
 	lastApplybuffTimestamp = 0;
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasBack(ITEMS.CHAOS_THEORY.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasBack(ITEMS.CHAOS_THEORY.id);
 	}
 
 	on_byPlayer_cast(event) {
@@ -74,7 +73,7 @@ class ChaosTheory extends Analyzer {
 		if(event.timestamp > this.lastApplybuffTimestamp + CHAOS_THEORY.DURATION) {
 			return;
 		}
-		if(!this.combatants.selected.hasBuff(SPELLS.CHAOS_BLADES_TALENT.id, event.timestamp)) {
+		if(!this.selectedCombatant.hasBuff(SPELLS.CHAOS_BLADES_TALENT.id, event.timestamp)) {
 			return;
 		}
 		//Extra Melee Damage

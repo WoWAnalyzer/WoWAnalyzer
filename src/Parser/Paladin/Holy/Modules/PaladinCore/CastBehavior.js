@@ -6,10 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 
@@ -17,13 +16,12 @@ const CHART_SIZE = 75;
 
 class CastBehavior extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
     manaValues: ManaValues,
   };
 
   get iolProcsPerHolyShockCrit() {
-    return this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
+    return this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   legend(items, total) {

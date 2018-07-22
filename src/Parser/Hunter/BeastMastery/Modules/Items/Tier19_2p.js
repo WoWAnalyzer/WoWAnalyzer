@@ -6,10 +6,9 @@ import PETS from 'common/PETS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;
@@ -32,7 +31,6 @@ const DIRE_FRENZY_NOT_AFFECTED_PETS = [
 
 class Tier19_2p extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     pets: CorePets,
   };
 
@@ -41,9 +39,10 @@ class Tier19_2p extends Analyzer {
   bonusDmg = 0;
   bestialWrathBaseModifier = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T19_2P_BONUS.id);
-    if (this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T19_2P_BONUS.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
       this.bestialWrathBaseModifier = 0.4;
     } else {
       this.bestialWrathBaseModifier = 0.25;
@@ -61,10 +60,10 @@ class Tier19_2p extends Analyzer {
     });
   }
   on_byPlayerPet_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
       const index = this.currentDireBeasts.findIndex(direBeast => direBeast.ID === event.sourceID && direBeast.instance === event.sourceInstance);
       const selectedDireBeast = this.currentDireBeasts[index];
       if (!selectedDireBeast) {

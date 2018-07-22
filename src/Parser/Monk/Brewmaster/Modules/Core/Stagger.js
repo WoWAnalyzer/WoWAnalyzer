@@ -3,9 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import StaggerFabricator from './StaggerFabricator';
 
@@ -14,7 +13,6 @@ const PHYSICAL_DAMAGE = 1;
 
 class Stagger extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     fab: StaggerFabricator,
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -7,23 +7,19 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  *A sweeping attack that strikes all enemies in front of you for 135% Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
  */
 class Frostscythe extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   casts = 0;
   hits = -1; // need to initialize negative to make sure first cast isn't counted as bad
   goodCasts = 0;
   hitThreshold = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -35,7 +31,7 @@ class Frostscythe extends Analyzer {
       this.goodCasts += 1;
     }
     this.casts += 1;
-    this.hitThreshold = this.combatants.selected.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 3;
+    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 3;
     this.hits = 0;
   }
 

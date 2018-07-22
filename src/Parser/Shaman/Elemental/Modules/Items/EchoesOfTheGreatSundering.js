@@ -1,20 +1,15 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 
 import { CRIT_MULTIPLIER, ECHOES } from '../../Constants.js';
 
 class EchoesOfTheGreatSundering extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   echoesProcsCounter = 0;
   unbuffedBaseDamageSum = 0;
   buffedBaseDamageSum = 0;
@@ -27,8 +22,9 @@ class EchoesOfTheGreatSundering extends Analyzer {
   state = 0; //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -43,7 +39,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
     if (spellId !== SPELLS.EARTHQUAKE.id)
       {return;}
 
-    if (this.combatants.selected.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
       this.buffedCastCounter++;
       this.endtime = event.timestamp + ECHOES.PROC_DURATION + ECHOES.LAG_TOLERANCE;
       this.state = 1;
@@ -83,7 +79,6 @@ class EchoesOfTheGreatSundering extends Analyzer {
             this.buffedEarthquakeDamage += event.amount;
             this.buffedBaseDamageSum += baseDamage;
             this.buffedTickCounter++;
-            console.log(this.buffedBaseDamageSum);
             return;
           }
         }
@@ -93,7 +88,6 @@ class EchoesOfTheGreatSundering extends Analyzer {
             this.unbuffedEarthquakeDamage += event.amount;
             this.unbuffedBaseDamageSum += baseDamage;
             this.unbuffedTickCounter++;
-            console.log(this.unbuffedBaseDamageSum);
             return;
           }
         }

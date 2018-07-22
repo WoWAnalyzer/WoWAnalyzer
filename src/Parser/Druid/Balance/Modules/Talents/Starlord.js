@@ -1,46 +1,112 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-
+import SpellIcon from 'common/SpellIcon';
+import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
+
+const MAX_STACKS = 3;
+const HASTE_PER_STACK = 3;
 
 class Starlord extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-    abilityTracker: AbilityTracker,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STARLORD_TALENT.id);
+  buffStacks = [];
+  lastStacks = 0;
+  lastUpdate = this.owner.fight.start_time;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STARLORD_TALENT.id);
+    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
 
-  get starsurgesPerMinute(){
-    return this.abilityTracker.getAbility(SPELLS.STARSURGE_MOONKIN.id).casts / this.owner.fightDuration * 1000 * 60 || 0;
+  handleStacks(event, stack = null) {
+    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+      event.stack = 0;
+    }
+    if (event.type === 'applybuff') {
+      event.stack = 1;
+    }
+    if (stack) {
+      event.stack = stack;
+    }
+
+    this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
+    this.lastUpdate = event.timestamp;
+    this.lastStacks = event.stack;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.starsurgesPerMinute,
-      isLessThan: {
-        minor: 5,
-        average: 2.5,
-        major: 1,
-      },
-      style: 'number',
-    };
+  on_byPlayer_applybuff(event) {
+    if (event.ability.guid !== SPELLS.STARLORD.id) {
+      return;
+    }
+    this.handleStacks(event);
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment><SpellLink id={SPELLS.STARLORD_TALENT.id} /> is only useful if you are casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> often. If you are spending your Astral Power primarily on <SpellLink id={SPELLS.STARFALL_CAST.id} />, consider using <SpellLink id={SPELLS.WARRIOR_OF_ELUNE_TALENT.id} /> instead.</React.Fragment>)
-        .icon(SPELLS.STARLORD_TALENT.icon)
-        .actual(`${actual.toFixed(2)} Starsurges per minute.`)
-        .recommended(`${recommended.toFixed(2)} is recommended`);
+  on_byPlayer_applybuffstack(event) {
+    if (event.ability.guid !== SPELLS.STARLORD.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_byPlayer_removebuff(event) {
+    if (event.ability.guid !== SPELLS.STARLORD.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_byPlayer_removebuffstack(event) {
+    if (event.ability.guid !== SPELLS.STARLORD.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_finished(event) {
+    this.handleStacks(event, this.lastStacks);
+  }
+
+  get averageHaste() {
+    let avgStacks = 0;
+    this.buffStacks.forEach((elem, index) => {
+      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
     });
+    return (avgStacks * HASTE_PER_STACK).toFixed(2);
   }
+
+  statistic() {
+    return (
+      <ExpandableStatisticBox
+        icon={<SpellIcon id={SPELLS.STARLORD_TALENT.id} />}
+        value={`${this.averageHaste}%`}
+        label="Average haste gained"
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Haste-Bonus</th>
+              <th>Time (s)</th>
+              <th>Time (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.buffStacks.map((e, i) => (
+              <tr key={i}>
+                <th>{(i * HASTE_PER_STACK).toFixed(0)}%</th>
+                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ExpandableStatisticBox>
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default Starlord;

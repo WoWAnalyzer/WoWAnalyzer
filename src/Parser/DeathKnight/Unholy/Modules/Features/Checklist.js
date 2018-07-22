@@ -10,7 +10,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -25,7 +24,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
@@ -41,7 +39,7 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id} />(when using Cold Heart) should be used as often as possible</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DARK_TRANSFORMATION,
@@ -70,22 +68,14 @@ class Checklist extends CoreChecklist {
       name: 'Use cooldowns as often as possible',
       description: 'You should aim to use your cooldowns as often as you can to maximize your damage output',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DARK_ARBITER_TALENT,
-            when: combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.APOCALYPSE,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_GARGOYLE,
-            when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
-            when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
+            spell: SPELLS.SUMMON_GARGOYLE_TALENT,
+            when: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id)),
           }),
           // TODO: AOTD
         ];

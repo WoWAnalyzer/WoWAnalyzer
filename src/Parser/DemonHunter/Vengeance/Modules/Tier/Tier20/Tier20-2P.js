@@ -1,24 +1,23 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'Parser/Core/Analyzer';
-
 import { formatPercentage, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class Tier202PBonus extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.VENG_DH_T20_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.VENG_DH_T20_2P_BONUS.id);
   }
 
   suggestions(when) {

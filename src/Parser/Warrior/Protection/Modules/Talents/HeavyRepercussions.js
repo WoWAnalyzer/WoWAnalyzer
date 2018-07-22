@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -15,7 +14,6 @@ const HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF = 0.3;
 
 class HeavyRepercussions extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -23,16 +21,17 @@ class HeavyRepercussions extends Analyzer {
   sbCasts = 0;
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
   }
 
   get shieldBlockuptime() {
-    return this.combatants.getBuffUptime(SPELLS.SHIELD_BLOCK_BUFF.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.SHIELD_BLOCK_BUFF.id);
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.combatants.selected.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
 
@@ -46,7 +45,7 @@ class HeavyRepercussions extends Analyzer {
 
     this.sbCasts += 1;
 
-    if (!this.combatants.selected.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
 

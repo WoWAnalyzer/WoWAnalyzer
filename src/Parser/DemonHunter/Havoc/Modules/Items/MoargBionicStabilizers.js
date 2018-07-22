@@ -3,9 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const MOARG_MODIFIER = 0.25;
 
@@ -17,7 +16,6 @@ const MS_BUFFER = 1000;
 
 class MoargBionicStabiliziers extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		abilityTracker: AbilityTracker,
 	};
 	bonusDamage = 0;
@@ -25,8 +23,9 @@ class MoargBionicStabiliziers extends Analyzer {
 	enemiesHit = 0;
 	damagePreCalc = 0;
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasWrists(ITEMS.MOARG_BIONIC_STABILIZERS.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasWrists(ITEMS.MOARG_BIONIC_STABILIZERS.id);
 	}
 
 	get averageTargetsHit() {
@@ -61,7 +60,7 @@ class MoargBionicStabiliziers extends Analyzer {
 	}
 
 	item() {
-		const bloodletTooltip = this.combatants.selected.hasTalent(SPELLS.BLOODLET_TALENT.id) ? `<br/><br/> This currently doesn't account for bloodlet damage` : ``;
+		const bloodletTooltip = this.selectedCombatant.hasTalent(SPELLS.BLOODLET_TALENT.id) ? `<br/><br/> This currently doesn't account for bloodlet damage` : ``;
 		return {
 			item: ITEMS.MOARG_BIONIC_STABILIZERS,
 			result: (

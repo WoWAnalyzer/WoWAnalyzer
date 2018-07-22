@@ -1,10 +1,16 @@
-import fetchWcl, { CorruptResponseError } from 'common/fetchWcl';
+import fetchWcl, { CorruptResponseError } from 'common/fetchWclApi';
 
 export const SET_REPORT = 'SET_REPORT';
 export function setReport(report) {
   return {
     type: SET_REPORT,
     payload: report,
+  };
+}
+export function resetReport() {
+  return {
+    type: SET_REPORT,
+    payload: null,
   };
 }
 
@@ -17,7 +23,7 @@ function fetchFights(code, refresh = false) {
 
 export function fetchReport(code, refresh = false) {
   return async dispatch => {
-    dispatch(setReport(null));
+    dispatch(resetReport());
     // await timeout(15000);
     let json = await fetchFights(code, refresh);
     if (!json.fights) {

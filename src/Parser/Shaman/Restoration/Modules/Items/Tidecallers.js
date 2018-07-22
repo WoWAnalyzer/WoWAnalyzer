@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const HTT_BASE_DURATION = 10000;
 
@@ -18,15 +18,12 @@ class Tidecallers extends Analyzer {
   firstTickAfterBaseDuration = null;
 
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 
-  on_heal(event) {
-    if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
-      return;
-    }
-
+  on_byPlayerPet_heal(event) {
     const spellId = event.ability.guid;
     const healingDone = event.amount + (event.absorbed || 0);
 
@@ -58,7 +55,7 @@ class Tidecallers extends Analyzer {
       }
     }
 
-    if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id || spellId === SPELLS.QUEENS_DECREE.id) {
+    if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id) {
       this.hstHealing += healingDone / 6; // only add the extra 20% we're getting
     }
   }

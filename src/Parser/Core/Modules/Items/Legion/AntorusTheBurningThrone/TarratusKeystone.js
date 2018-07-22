@@ -3,22 +3,18 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /*
  * Tarratus Keystone -
  * Use: Open a portal at an ally's location that releases brilliant light, restoring 1633313 health split amongst injured allies within 20 yds. (1 Min, 30 Sec Cooldown)
  */
 class TarratusKeystone extends Analyzer {
-  static dependencies = {
-      combatants: Combatants,
-  };
-
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.TARRATUS_KEYSTONE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.TARRATUS_KEYSTONE.id);
   }
 
   on_byPlayer_heal(event) {

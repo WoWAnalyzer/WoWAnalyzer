@@ -1,26 +1,27 @@
+import React from 'react';
+
+import Tab from 'Interface/Others/Tab';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
+import PainChart from './Modules/PainChart/Pain';
 import PainTracker from './Modules/Pain/PainTracker';
 import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
-import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
-
-import Painbringer from './Modules/Spells/Painbringer/Painbringer';
-import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
-import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
 
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -53,11 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell Statistics
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
-    painbringer: Painbringer,
-    painbringerTimesByStacks: PainbringerTimesByStacks,
-    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20
@@ -66,6 +64,29 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 
+  generateResults(...args) {
+    const results = super.generateResults(...args);
+
+    results.tabs = [
+      ...results.tabs,
+      { // TODO: Move this to an Analyzer module
+        title: 'Pain Chart',
+        url: 'pain',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <PainChart
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
+        ),
+      },
+    ];
+
+    return results;
+  }
 }
 
 export default CombatLogParser;

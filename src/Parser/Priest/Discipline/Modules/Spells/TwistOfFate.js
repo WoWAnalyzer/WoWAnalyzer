@@ -5,8 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import ITEMS from 'common/ITEMS';
@@ -19,24 +18,21 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
 
 class TwistOfFate extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   hasTwistOfFate = false;
   hasSoulOfTheHighPriest = false;
 
   healing = 0;
   damage = 0;
 
-  on_initialized() {
-    this.hasTwistOfFate = this.owner.modules.combatants.selected.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
-    this.hasSoulOfTheHighPriest = this.owner.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
+  constructor(...args) {
+    super(...args);
+    this.hasTwistOfFate = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
+    this.hasSoulOfTheHighPriest = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
     this.active = this.hasTwistOfFate || this.hasSoulOfTheHighPriest;
   }
 
   on_byPlayer_damage(event) {
-    if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }
 
@@ -55,7 +51,7 @@ class TwistOfFate extends Analyzer {
     if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
-    if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }
 

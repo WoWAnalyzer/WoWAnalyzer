@@ -6,20 +6,16 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class UnholyFrenzyUptime extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id);
   }
 
   suggestions(when) {
-    const ufUptime = this.combatants.selected.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
+    const ufUptime = this.selectedCombatant.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
     when(ufUptime).isLessThan(0.80)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} /> uptime can be improved.  Make sure you are regularly casting <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> on targets with <SpellLink id={SPELLS.FESTERING_WOUND.id} />.</span>)
@@ -31,7 +27,7 @@ class UnholyFrenzyUptime extends Analyzer {
   }
 
   statistic() {
-    const ufUptime = this.combatants.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
+    const ufUptime = this.selectedCombatant.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNHOLY_FRENZY_BUFF.id} />}

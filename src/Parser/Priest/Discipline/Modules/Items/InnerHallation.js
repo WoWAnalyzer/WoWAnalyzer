@@ -2,31 +2,26 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const debug = false;
 
 class InnerHallation extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   manaGained = 0;
 
   // timestamp for power infusion if its talented & casted (to exclude mana saved):
   lastPowerInfusionCastStartTimestamp = null;
 
-  on_initialized() {
-    const selectedCombatant = this.owner.modules.combatants.selected;
-    this.active = selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
   }
 
   on_byPlayer_cast(event) {
-    if (this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION_TALENT.id) && event.ability.guid === SPELLS.POWER_INFUSION_TALENT.id) {
+    if (this.selectedCombatant.hasTalent(SPELLS.POWER_INFUSION_TALENT.id) && event.ability.guid === SPELLS.POWER_INFUSION_TALENT.id) {
       this.lastPowerInfusionCastStartTimestamp = event.timestamp;
-    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION_TALENT.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
+    } else if (this.selectedCombatant.hasBuff(SPELLS.POWER_INFUSION_TALENT.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
       const spellId = event.ability.guid;
       const manaCost = event.manaCost;
       if (!manaCost) {

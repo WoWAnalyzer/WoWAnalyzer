@@ -6,7 +6,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /*
  * Memento of Angerboda
@@ -22,19 +21,17 @@ import Combatants from 'Parser/Core/Modules/Combatants';
  */
 
 class MementoOfAngerboda extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   statBuff = 0;
 
   critStatProc = 0;
   hasteStatProc = 0;
   masteryStatProc = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.MEMENTO_OF_ANGERBODA.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.MEMENTO_OF_ANGERBODA.id);
     if (this.active) {
-      this.statBuff = calculateSecondaryStatDefault(845, 4207, this.combatants.selected.getItem(ITEMS.MEMENTO_OF_ANGERBODA.id).itemLevel);
+      this.statBuff = calculateSecondaryStatDefault(845, 4207, this.selectedCombatant.getItem(ITEMS.MEMENTO_OF_ANGERBODA.id).itemLevel);
     }
   }
 
@@ -73,9 +70,9 @@ class MementoOfAngerboda extends Analyzer {
   }
 
   item() {
-    const critUptime = this.combatants.selected.getBuffUptime(SPELLS.HOWL_OF_INGVAR.id) / this.owner.fightDuration;
-    const hasteUptime = this.combatants.selected.getBuffUptime(SPELLS.WAIL_OF_SVALA.id) / this.owner.fightDuration;
-    const masteryUptime = this.combatants.selected.getBuffUptime(SPELLS.DIRGE_OF_ANGERBODA.id) / this.owner.fightDuration;
+    const critUptime = this.selectedCombatant.getBuffUptime(SPELLS.HOWL_OF_INGVAR.id) / this.owner.fightDuration;
+    const hasteUptime = this.selectedCombatant.getBuffUptime(SPELLS.WAIL_OF_SVALA.id) / this.owner.fightDuration;
+    const masteryUptime = this.selectedCombatant.getBuffUptime(SPELLS.DIRGE_OF_ANGERBODA.id) / this.owner.fightDuration;
 
     const averageCrit = critUptime * this.statBuff;
     const averageHaste = hasteUptime * this.statBuff;

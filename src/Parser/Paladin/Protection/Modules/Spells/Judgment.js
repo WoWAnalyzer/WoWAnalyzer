@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
@@ -15,14 +14,13 @@ const REDUCTION_TIME_CRIT = 4000; // ms
  */
 class Judgment extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.JUDGMENT_CAST.id) {
+    if (spellId !== SPELLS.JUDGMENT_CAST_PROTECTION.id) {
       return;
     }
 

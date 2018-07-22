@@ -5,10 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Tab from 'Main/Tab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import Tab from 'Interface/Others/Tab';
 
 import Insanity from '../Core/Insanity';
 import VoidformsTab from './VoidformsTab';
@@ -18,7 +17,6 @@ const logger = (message, color) => debug && console.log(`%c${message.join('  ')}
 
 class Voidform extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     insanity: Insanity,
     haste: Haste,
   };
@@ -59,7 +57,7 @@ class Voidform extends Analyzer {
   }
 
   get inVoidform() {
-    return this.combatants.selected.hasBuff(SPELLS.VOIDFORM_BUFF.id);
+    return this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id);
   }
 
   get currentVoidform() {
@@ -71,7 +69,7 @@ class Voidform extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
+    return this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id));
   }
 
   get normalizeTimestamp() {
@@ -119,7 +117,7 @@ class Voidform extends Analyzer {
       excluded: false,
       averageGainedHaste: 0,
       [SPELLS.MINDBENDER_TALENT_SHADOW.id]: [],
-      [SPELLS.VOID_TORRENT.id]: [],
+      [SPELLS.VOID_TORRENT_TALENT.id]: [],
       [SPELLS.DISPERSION.id]: [],
     };
     logger(['Started voidform at:', event.timestamp], 'purple');
@@ -174,7 +172,7 @@ class Voidform extends Analyzer {
   }
 
   on_finished() {
-    if (this.combatants.selected.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
       const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p + c.stacks.length, 0) / (this.voidforms.length - 1);
       const lastVoidformStacks = this.currentVoidform.stacks.length;
@@ -243,16 +241,15 @@ class Voidform extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-        value={`${formatPercentage(this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
+        value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
         label={(
-          <dfn data-tip={`Time spent in dispersion (${Math.round(this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
+          <dfn data-tip={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
             Voidform uptime
           </dfn>
         )}
       />
     );
   }
-
   statisticOrder = STATISTIC_ORDER.CORE(1);
 
   tab() {
@@ -265,8 +262,8 @@ class Voidform extends Analyzer {
             voidforms={this.voidforms}
             insanityEvents={this.insanity.events}
             fightEnd={this.owner.fight.end_time}
-            surrenderToMadness={!!this.combatants.selected.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-            setT20P4={this.combatants.selected.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
+            surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
+            setT20P4={this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
           />
         </Tab>
       ),

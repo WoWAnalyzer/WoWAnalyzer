@@ -7,43 +7,50 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
+const MINIMUM_TIME_BETWEEN_CASTS = 500; // Used to see if Divine Storm hits are from separate casts
 
 class WhisperOfTheNathrezim extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
+  previousCastTimestamp = null;
   damageDone = 0;
-  spenderInsideBuff = 0;
-  totalSpender = 0;
+  spendersInsideBuff = 0;
+  totalSpenders = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.WHISPER_OF_THE_NATHREZIM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBack(ITEMS.WHISPER_OF_THE_NATHREZIM.id);
+  }
+
+  isNewDivineStormCast(timestamp) {
+    return !this.previousCastTimestamp || (timestamp - this.previousCastTimestamp) > MINIMUM_TIME_BETWEEN_CASTS;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
-        this.spenderInsideBuff++;
-      }
-      this.totalSpender++;
+      this.totalSpenders++;
     }
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
       return;
     }
-    if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || spellId === SPELLS.DIVINE_STORM_DAMAGE.id) {
-      this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
+    if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
+      this.spendersInsideBuff++;
+      this.damageDone += calculateEffectiveDamage(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
+    }
+    else if (spellId === SPELLS.DIVINE_STORM_DAMAGE.id) {
+      this.damageDone += calculateEffectiveDamage(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
+      if (this.isNewDivineStormCast(event.timestamp)) {
+        this.spendersInsideBuff++;
+        this.previousCastTimestamp = event.timestamp;
+      }
     }
   }
 
@@ -54,7 +61,7 @@ class WhisperOfTheNathrezim extends Analyzer {
         <dfn data-tip={`
           The effective damage contributed by Whisper of the Nathrezim.<br/>
           Total Damage: ${formatNumber(this.damageDone)}<br/>
-          Spenders With Buff: ${formatNumber(this.spenderInsideBuff)} spenders (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)`}>
+          Spenders With Buff: ${formatNumber(this.spendersInsideBuff)} spenders (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)`}>
           <ItemDamageDone amount={this.damageDone} />
         </dfn>
       ),
@@ -63,11 +70,11 @@ class WhisperOfTheNathrezim extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.spenderInsideBuff / this.totalSpender,
+      actual: this.spendersInsideBuff / this.totalSpenders,
       isLessThan: {
-        minor: 0.80,
-        average: 0.75,
-        major: 0.70,
+        minor: 0.70,
+        average: 0.65,
+        major: 0.60,
       },
       style: 'percentage',
     };

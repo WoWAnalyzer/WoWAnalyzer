@@ -2,10 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 
 const DAMAGE_BONUS = 0.2;
@@ -15,19 +14,16 @@ const DAMAGE_BONUS = 0.2;
  * Increases the damage of Moonfire and Sunfire for 6 seconds after casting Starfall or Starsurge.
  */
 class Tier21_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   moonfireDamage = 0;
   sunfireDamage = 0;
 
-  on_initialized() {
-	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+	this.active = this.selectedCombatant.hasBuff(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.SOLAR_SOLSTICE.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.SOLAR_SOLSTICE.id)){
       return;
     }
     if (event.ability.guid === SPELLS.MOONFIRE_BEAR.id) {
@@ -39,7 +35,7 @@ class Tier21_4set extends Analyzer {
   }
 
   get uptime(){
-    return this.combatants.selected.getBuffUptime(SPELLS.SOLAR_SOLSTICE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.SOLAR_SOLSTICE.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {

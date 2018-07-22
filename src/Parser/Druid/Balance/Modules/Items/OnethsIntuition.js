@@ -3,14 +3,9 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 
 class OnethsIntuition extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   freeStarsurgeProcs = 0;
   freeStarfallProcs = 0;
   freeStarsurgeProcsWasted = 0;
@@ -18,8 +13,9 @@ class OnethsIntuition extends Analyzer {
   starsurgeCasts = 0;
   starfallCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.ONETHS_INTUITION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.ONETHS_INTUITION.id);
   }
 
   on_toPlayer_applybuff(event) {

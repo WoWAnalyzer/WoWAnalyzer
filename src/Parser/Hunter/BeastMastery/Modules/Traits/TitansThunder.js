@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const debug = false;
 
@@ -23,7 +22,6 @@ const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30000;
 
 class TitansThunder extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -36,8 +34,9 @@ class TitansThunder extends Analyzer {
   weirdCast = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.TITANS_THUNDER.id];
   }
 
   on_toPlayer_applybuff(event) {
@@ -66,23 +65,23 @@ class TitansThunder extends Analyzer {
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
       debug && console.log("remaining CD: ", this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id));
-      if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
+      if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
         this.shouldHaveSavedTT += 1;
         return;
-      } else if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) > TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD)) {
+      } else if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) > TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD)) {
         this.goodTTCasts += 1;
         return;
       }
     }
-    if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
-      if (this.combatants.selected.hasBuff(SPELLS.DIRE_BEAST_BUFF.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.DIRE_BEAST_BUFF.id)) {
         this.goodTTCasts += 1;
         this.stacksOnTTCast += this._currentStacks;
       } else {
         this.badTTCasts += 1;
       }
     } else {
-      if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
         debug && console.log(`in good tt casts`);
         this.goodTTCasts += 1;
       } else {
@@ -104,8 +103,8 @@ class TitansThunder extends Analyzer {
   statistic() {
     let tooltipText = `You cast Titan's Thunder a total of ${this.totalTTCasts} times.`;
     tooltipText += this.badTTCasts + this.shouldHaveSavedTT > 0 ? `<ul>` : ``;
-    tooltipText += this.badTTCasts > 0 && !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without any Dire Beasts up.</li>` : ``;
-    tooltipText += this.badTTCasts > 0 && this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without Bestial Wrath up.</li>` : ``;
+    tooltipText += this.badTTCasts > 0 && !this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without any Dire Beasts up.</li>` : ``;
+    tooltipText += this.badTTCasts > 0 && this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without Bestial Wrath up.</li>` : ``;
     tooltipText += this.shouldHaveSavedTT > 0 ? `<li>You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.</li>` : ``;
     tooltipText += this.badTTCasts + this.shouldHaveSavedTT > 0 ? `</ul>` : ``;
 

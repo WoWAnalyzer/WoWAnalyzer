@@ -3,25 +3,22 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 /**
  * Amalgam's Seventh Spine -
  * Equip: Your direct healing spells apply and refresh Fragile Echo for 6 sec. When Fragile Echo expires, it restores 3840 mana to you.
  */
 class AmalgamsSeventhSpine extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   manaGained = 0;
   procs = 0;
   applications = 0;
   refreshes = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
   }
 
   on_toPlayer_energize(event) {

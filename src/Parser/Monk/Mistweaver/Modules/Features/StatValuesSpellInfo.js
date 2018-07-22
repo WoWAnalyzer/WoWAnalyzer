@@ -16,7 +16,7 @@ import SPELLS from 'common/SPELLS';
 // This only works with actual healing events; casts are not recognized.
 
 export default {
-  [SPELLS.ENVELOPING_MISTS.id]: {
+  [SPELLS.ENVELOPING_MIST.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -24,18 +24,26 @@ export default {
     mastery: false, //Procs Gusts
     vers: true,
   },
+  [SPELLS.ENVELOPING_MIST_TFT.id]: { // Instant Heal when using TFT-> Enveloping Mist
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.ESSENCE_FONT.id]: {
     int: true,
     crit: true,
     hasteHpct: false,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
   [SPELLS.ESSENCE_FONT_BUFF.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
   [SPELLS.RENEWING_MIST_HEAL.id]: {
@@ -46,23 +54,7 @@ export default {
     mastery: false, // Procs Gusts
     vers: true,
   },
-  [SPELLS.SHEILUNS_GIFT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false, // Procs Gusts
-    vers: true,
-  },
   [SPELLS.VIVIFY.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false, // Procs Gusts
-    vers: true,
-  },
-  [SPELLS.EFFUSE.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -94,39 +86,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.CELESTIAL_BREATH.id]: { 
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false, 
-    vers: true,
-  },
-  [SPELLS.SOOTHING_MIST.id]: { 
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false, 
-    vers: true,
-  },
-  [SPELLS.REFRESHING_JADE_WIND_HEAL.id]: { 
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false, 
-    vers: true,
-  },
-  [SPELLS.MISTS_OF_SHEILUN.id]: { 
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false, 
-    vers: true,
-  },
-  [SPELLS.REVIVAL.id]: { 
+  [SPELLS.CELESTIAL_BREATH.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -134,28 +94,52 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.BLESSINGS_OF_YULON.id]: { 
+  [SPELLS.SOOTHING_MIST.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.REFRESHING_JADE_WIND_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.REVIVAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
-  [SPELLS.LIFE_COCOON.id]: { 
+  [SPELLS.BLESSINGS_OF_YULON.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.LIFE_COCOON.id]: {
     int: true,
     crit: false,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
-  [SPELLS.CRANE_HEAL.id]: { 
+  [SPELLS.CRANE_HEAL.id]: {
     int: true,
     crit: false,
     hasteHpm: false,
     hasteHpct: true,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
   [SPELLS.TRANQUIL_MIST.id]: { // T21 2P HoT
@@ -163,7 +147,7 @@ export default {
     crit: true,
     hasteHpm: true,
     hasteHpct: false,
-    mastery: false, 
+    mastery: false,
     vers: true,
   },
   [SPELLS.CHI_BOLT.id]: { // T21 2P HoT
@@ -171,7 +155,23 @@ export default {
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: false, 
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.RISING_MIST_HEAL.id]: { // T21 2P HoT
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.HEALING_ELIXIR_TALENT.id]: { // T21 2P HoT
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
     vers: true,
   },
 };

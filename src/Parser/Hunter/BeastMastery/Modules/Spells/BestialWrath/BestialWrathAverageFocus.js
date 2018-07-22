@@ -3,12 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import { formatNumber } from "common/format";
-import SpellLink from "common/SpellLink";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.
@@ -16,10 +15,6 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
  */
 
 class BestialWrathAverageFocus extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bestialWrathCasts = 0;
   accumulatedFocusAtBWCast = 0;
 
@@ -47,7 +42,7 @@ class BestialWrathAverageFocus extends Analyzer {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
   }
   get focusOnBestialWrathCastThreshold() {
-    if (this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id)) {
       return {
         actual: this.averageFocusAtBestialWrathCast,
         isLessThan: {

@@ -4,24 +4,20 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
 
 class FuryOfAir extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   furyUptime = 0;
   maelstromUsed = 0;
   applyTime = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -48,7 +44,7 @@ class FuryOfAir extends Analyzer {
   }
 
   suggestions(when) {
-    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
 
     when(furyofairUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -62,14 +58,14 @@ class FuryOfAir extends Analyzer {
   }
 
   statistic() {
-    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
-      (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(6);

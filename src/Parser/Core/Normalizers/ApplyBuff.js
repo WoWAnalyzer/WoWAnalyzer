@@ -8,8 +8,9 @@ const debug = false;
 class ApplyBuff extends EventsNormalizer {
   // We need to track `combatantinfo` events this way since they are included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
   _combatantInfoEvents = [];
-  initialize(combatants) {
-    this._combatantInfoEvents = combatants;
+  constructor(...args) {
+    super(...args);
+    this._combatantInfoEvents = this.owner.combatantInfoEvents;
   }
 
   _buffsAppliedByPlayerId = {};

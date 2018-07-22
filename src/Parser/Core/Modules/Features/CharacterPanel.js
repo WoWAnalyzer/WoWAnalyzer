@@ -1,13 +1,11 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Gear from 'Main/Gear';
+import Gear from 'Interface/Others/Gear';
 import StatsDisplay from './StatsDisplay';
 import TalentsDisplay from './TalentsDisplay';
 
 class CharacterPanel extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
   };
@@ -25,7 +23,7 @@ class CharacterPanel extends Analyzer {
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <Gear selectedCombatant={this.combatants.selected} />
+            <Gear selectedCombatant={this.selectedCombatant} />
           </div>
         </div>
       </div>

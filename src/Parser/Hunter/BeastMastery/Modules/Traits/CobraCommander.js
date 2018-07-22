@@ -1,25 +1,21 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Cobra Shot has a 10% chance to create 2-4 Sneaky Snakes that attack the target for 6 sec.
  */
 class CobraCommander extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   summons = 0;
   cobraCommanderIDs = [];
   sneakySnakeDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.COBRA_COMMANDER_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.COBRA_COMMANDER_TRAIT.id];
   }
 
   on_byPlayer_summon(event) {

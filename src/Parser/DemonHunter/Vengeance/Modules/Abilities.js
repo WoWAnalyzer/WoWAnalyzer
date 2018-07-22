@@ -7,13 +7,15 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.IMMOLATION_AURA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -33,22 +35,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SOUL_CARVER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 40,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>This is your cooldown <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generator spell and it does the higher damage / casting time of all your abilities. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> or if you are waiting for a damage burst combo with <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.FIERY_DEMISE.id} /> artifact trait). </React.Fragment>,
-        },
-      },
-      {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -56,23 +49,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_ERUPTION_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Pain per cast. Should definitively be used as soon as it gets available. </React.Fragment>,
-        },
-      },
-      {
         spell: SPELLS.FEL_DEVASTATION_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_DEVASTATION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -85,29 +68,22 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
-          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage or with <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> for magical damage. </React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.EMPOWER_WARDS,
-        buffSpellId: SPELLS.EMPOWER_WARDS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.35,
-          extraSuggestion: <React.Fragment><SpellLink id={SPELLS.EMPOWER_WARDS.id} /> Is a low CD ability, use it frequently to keep magic damage low. </React.Fragment>,
+          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage. </React.Fragment>,
         },
       },
       {
         spell: SPELLS.FRACTURE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.FIERY_BRAND,
@@ -130,28 +106,39 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.THROW_GLAIVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 3,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SHEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SOUL_CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SPIRIT_BOMB_TALENT,
         buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SIGIL_OF_FLAME,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -168,19 +155,25 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SIGIL_OF_SILENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SIGIL_OF_MISERY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.IMPRISON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.TORMENT,
@@ -197,18 +190,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.SIGIL_OF_CHAINS_TALENT.id),
         cooldown: 90,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.DEMONIC_INFUSION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_INFUSION_TALENT.id),
-        cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.70,
+        gcd: {
+          base: 1500,
         },
-
       },
 
     ];

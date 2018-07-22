@@ -6,10 +6,14 @@ export default {
   name: 'Kin\'garoth',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_titanbuilder',
   fight: {
     vantusRuneBuffId: 250148,
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
+    softMitigationChecks: {
+      ForgingStrike: 254919,
+    },
   },
 };

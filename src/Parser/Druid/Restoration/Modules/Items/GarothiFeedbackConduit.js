@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import CoreGarothiFeedbackConduit from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/GarothiFeedbackConduit';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import StatWeights from '../Features/StatWeights';
 

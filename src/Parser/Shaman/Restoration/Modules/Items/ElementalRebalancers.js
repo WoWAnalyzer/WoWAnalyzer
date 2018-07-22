@@ -4,8 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import HealingRainLocation from '../ShamanCore/HealingRainLocation';
@@ -17,14 +16,14 @@ const REBALANCERS_HEALING_INCREASE = 0.10;
  */
 class ElementalRebalancers extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     healingRainLocation: HealingRainLocation,
   };
   healing = 0;
   eventsDuringRain = [];
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
   }
 
   on_byPlayer_heal(event) {

@@ -1,16 +1,15 @@
 import React from 'react';
 
-import StatisticsListBox from 'Main/StatisticsListBox';
-import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Caltrops from 'Parser/Hunter/Survival/Modules/Talents/Caltrops';
 import SteelTrap from 'Parser/Hunter/Survival/Modules/Talents/SteelTrap';
 import ExplosiveTrap from 'Parser/Hunter/Survival/Modules/Spells/ExplosiveTrap';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
 import SerpentSting from 'Parser/Hunter/Survival/Modules/Talents/SerpentSting';
-import AMurderOfCrows from 'Parser/Hunter/Survival/Modules/Talents/AMurderOfCrows';
+import AMurderOfCrows from 'Parser/Hunter/Shared/Modules/Talents/AMurderOfCrows';
 import DragonsfireGrenade from 'Parser/Hunter/Survival/Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from 'Parser/Hunter/Survival/Modules/Talents/ThrowingAxes';
 import EaglesBite from 'Parser/Hunter/Survival/Modules/Traits/EaglesBite';
@@ -26,7 +25,6 @@ class TraitsAndTalents extends Analyzer {
     caltrops: Caltrops,
     steelTrap: SteelTrap,
     explosiveTrap: ExplosiveTrap,
-    aspectOfTheBeast: AspectOfTheBeast,
     serpentSting: SerpentSting,
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
@@ -42,7 +40,8 @@ class TraitsAndTalents extends Analyzer {
     aspectOfTheSkylord: AspectOfTheSkylord,
   };
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Deactivate this module if none of the underlying modules are active.
     this.active = Object.keys(this.constructor.dependencies)
       .map(key => this[key])
@@ -60,7 +59,6 @@ class TraitsAndTalents extends Analyzer {
         {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
         {this.explosiveTrap.active && this.explosiveTrap.subStatistic()}
-        {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.dragonsfireGrenade.active && this.dragonsfireGrenade.subStatistic()}

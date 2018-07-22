@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
@@ -14,16 +13,14 @@ const HASTE_PER_STACK = 3;
 //update haste per stack in ./Core/Haste.js aswell
 
 class IntoTheFray extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   buffStacks = [];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
 

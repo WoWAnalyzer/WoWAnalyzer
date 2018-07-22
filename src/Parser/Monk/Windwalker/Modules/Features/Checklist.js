@@ -10,7 +10,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -33,7 +32,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -57,12 +55,8 @@ class Checklist extends CoreChecklist {
       name: 'Use core abilities as often as possible',
       description: <React.Fragment>Spells with short cooldowns like <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> and <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> should be used as often as possible.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.STRIKE_OF_THE_WINDLORD,
-            onlyWithSuggestion: false,
-          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RISING_SUN_KICK,
             onlyWithSuggestion: false,
@@ -102,7 +96,7 @@ class Checklist extends CoreChecklist {
       name: 'Use your cooldowns effectively',
       description: <React.Fragment>Your cooldowns have a big impact on your damage output. Make sure you use them as much as possible. <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id}icon /> is both a defensive and offensive cooldown, but is mostly used offensively.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
@@ -141,7 +135,7 @@ class Checklist extends CoreChecklist {
             check: () => this.chiDetails.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> casts per minute</React.Fragment>,
+            name: <React.Fragment>Wasted cooldown reduction from <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> per minute</React.Fragment>,
             check: () => this.blackoutKick.suggestionThresholds,
           }),
           new Requirement({
@@ -151,6 +145,10 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
             when: this.energizingElixir.active,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT,
+            when: this.selectedCombatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id),
           }),
         ];
       },
@@ -176,7 +174,7 @@ class Checklist extends CoreChecklist {
       name: "Use your defensive cooldowns effectively",
       description: <React.Fragment>Make sure you use your defensive cooldowns at appropriate times throughout the fight. Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} />/<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id}icon /> for dangerous periods of damage intake.</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIFFUSE_MAGIC_TALENT,
@@ -185,10 +183,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DAMPEN_HARM_TALENT,
             when: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.HEALING_ELIXIR_TALENT,
-            when: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,

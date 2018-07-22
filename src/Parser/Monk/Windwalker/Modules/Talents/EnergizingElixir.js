@@ -3,24 +3,20 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import StatisticBox from 'Main/StatisticBox';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 class EnergizingElixir extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   chiGained = 0;
   energyGained = 0;
   energyWasted = 0;
   chiSaved = 0;
   eeCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

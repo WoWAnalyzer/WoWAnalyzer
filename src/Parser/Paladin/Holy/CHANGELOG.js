@@ -8,8 +8,63 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-22'),
+    changes: 'Changed the "FoL/HL on beacons" statistic to "Direct beacon healing", so it now includes all beacon transfering spells.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> analyzer to get a much more accurate result. The old method had a lot of false positive damage included due to bugs in the logs coming out of the game.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> analyzer to include back to back procs.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-21'),
+    changes: <React.Fragment>Healing increases such as <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> to the cooldown tracker.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: 'Removed Tyr\'s Deliverance.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Added an accurate <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> stat for the reworked version.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-03'),
+    changes: <React.Fragment>Fixed a bug where the mana reduction by <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> was not correctly accounted for in the cooldowns tab.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-29'),
+    changes: <React.Fragment>Updated the crit bonus for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> to 30% (up from 25%).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-11'),
+    changes: <React.Fragment>Updated stat values to consider the crit changes for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> (lowers the stat value of crit).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-11'),
+    changes: <React.Fragment>Implement support for <SpellLink id={SPELLS.UNBREAKABLE_SPIRIT_TALENT.id} /> (improves timeline accuracy with this talent).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-26'),
-    changes: 'Configure the death recap.',
+    changes: 'Configured the death recap.',
     contributors: [Zerotorescue],
   },
   {
@@ -20,6 +75,11 @@ export default [
   {
     date: new Date('2018-05-10'),
     changes: 'Configured buffs triggered by spells so they appear in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-15'),
+    changes: <React.Fragment>Updated everything for Battle for Azeroth compatibility.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -44,7 +104,7 @@ export default [
   },
   {
     date: new Date('2018-02-09'),
-    changes: <React.Fragment>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</React.Fragment>,
+    changes: <React.Fragment>Fixed an issue where sometimes Second Sunrise would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

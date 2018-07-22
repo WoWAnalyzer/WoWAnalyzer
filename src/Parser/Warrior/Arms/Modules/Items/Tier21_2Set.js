@@ -7,25 +7,21 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const CRIT_DAMAGE_MODIFIER = 0.07;
 
 class Tier21_2Set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damageDone = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARRIOR_ARMS_T21_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARRIOR_ARMS_T21_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {
-    if(event.hitType === HIT_TYPES.CRIT && this.combatants.selected.hasBuff(SPELLS.WAR_VETERAN.id)) {
+    if(event.hitType === HIT_TYPES.CRIT && this.selectedCombatant.hasBuff(SPELLS.WAR_VETERAN.id)) {
       // Add War Veteran contributed critical damage to the total.
       this.damageDone += calculateEffectiveDamage(event, CRIT_DAMAGE_MODIFIER);
     }

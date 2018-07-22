@@ -5,7 +5,7 @@
  */
 
 export default {
-  // Shared 
+  // Shared
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -16,12 +16,6 @@ export default {
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
-  EFFUSE: {
-    id: 116694,
-    name: 'Effuse',
-    icon: 'ability_monk_effuse',
-    manaPerc: 0.02,
-  },
   PARALYSIS: {
     id: 115078,
     name: 'Paralysis',
@@ -31,7 +25,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.015,
+    manaCost: 300,
   },
   ROLL: {
     id: 109132,
@@ -47,7 +41,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaPerc: 0.01,
+    manaCost: 200,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -70,17 +64,27 @@ export default {
     icon: 'spell_shaman_spectraltransformation',
   },
   // Mistweaver Monk Spells
-  ENVELOPING_MISTS: {
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
+  ENVELOPING_MIST: {
     id: 124682,
-    name: 'Enveloping Mists',
+    name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaPerc: 0.052,
+    manaCost: 1040,
+  },
+  ENVELOPING_MIST_TFT: {
+    id: 274062,
+    name: 'Enveloping Mist',
+    icon: 'spell_monk_envelopingmist',
   },
   ESSENCE_FONT: {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaPerc: 0.072,
+    manaCost: 1440,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -91,13 +95,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaPerc: 0.024,
+    manaCost: 480,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaPerc: 0.03,
+    manaCost: 560,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -108,7 +112,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaPerc: 0.04375,
+    manaCost: 875,
   },
   SHEILUNS_GIFT: {
     id: 205406,
@@ -129,12 +133,13 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaPerc: 0.045,
+    manaCost: 700,
   },
   SOOTHING_MIST: {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
+    manaCost: 80,
   },
   SOOTHING_MIST_CAST: {
     id: 198533,
@@ -173,13 +178,13 @@ export default {
     id: 197916,
     name: 'Lifecycles (Vivify)',
     icon: 'ability_monk_uplift',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   LIFECYCLES_ENVELOPING_MIST_BUFF: {
     id: 197919,
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
-    manaPercRed: 0.2,
+    manaPercRed: 0.25,
   },
   // Mastery
   GUSTS_OF_MISTS: {
@@ -201,7 +206,7 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaPerc: 0.026,
+    manaCost: 260,
   },
   FORTIFYING_BREW: {
     id: 243435,
@@ -424,11 +429,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
-  EXPLODING_KEG: {
-    id: 214326,
-    name: 'Exploding Keg',
-    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
-  },
   STAGGER: {
     id: 115069,
     name: 'Stagger',
@@ -586,11 +586,6 @@ export default {
     name: 'Mastery: Combo Strikes',
     icon: 'trade_alchemy_potionb3',
   },
-  MASTER_OF_COMBINATIONS: {
-    id: 240672,
-    name: 'Master of Combinations',
-    icon: 'trade_alchemy_potionb3',
-  },
   STORM_EARTH_AND_FIRE: {
     id: 231627,
     name: 'Storm, Earth, and Fire',
@@ -671,63 +666,25 @@ export default {
     name: 'Chi Sphere',
     icon: 'ability_monk_forcesphere',
   },
-  // Windwalker Artifact
-  STRIKE_OF_THE_WINDLORD: {
-    id: 205320,
-    name: 'Strike of the Windlord',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  // Windwalker Articfact Traits
-  CROSSWINDS: {
-    id: 196061,
-    name: 'Crosswinds',
-    icon: 'inv_pandarenserpentgodmount_black',
-  },
-  SPLIT_PERSONALITY: {
-    id: 238059,
-    name: 'Split Personality',
-    icon: 'spell_nature_giftofthewild',
-  },
-  STRENGTH_OF_XUEN: {
-    id: 195267,
-    name: 'Strength of Xuen',
-    icon: 'ability_monk_summontigerstatue',
-  },
-  INNER_PEACE: {
-    id: 195243,
-    name: 'Inner Peace',
-    icon: 'ability_monk_jasminforcetea',
-  },
-  GALE_BURST: {
-    id: 195399,
-    name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
-  },
-  GALE_BURST_DAMAGE: {
-    id: 195403,
-    name: 'Gale Burst',
-    icon: 'ability_monk_touchofdeath',
-  },
   MARK_OF_THE_CRANE: {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
-  THUNDERFIST: {
-    id: 242390,
-    name: 'Thunderfist',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  // Windwalker Talents
-  POWER_STRIKES: {
-    id: 121283,
-    name: 'Power Strikes',
-    icon: 'ability_monk_powerstrikes',
-  },
   CHI_ORBIT_DAMAGE: {
     id: 196748,
     name: 'Chi Orbit',
     icon: 'ability_monk_forcesphere',
+  },
+  FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
+    id: 261978,
+    name: 'Fist of the White Tiger',
+    icon: 'inv_fistofthewhitetiger',
+  },
+  CHI_BURST_ENERGIZE: {
+    id: 261682,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
   },
   // Windwalker legendaries
   KATSUOS_ECLIPSE: {

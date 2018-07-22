@@ -2,8 +2,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const PANTHEON_MAX_SHIELD_PER_PROC = 4;
 
@@ -13,9 +12,6 @@ const PANTHEON_MAX_SHIELD_PER_PROC = 4;
  * Eonar's Verdant Embrace - When empowered by the Pantheon, your next 4 direct healing spells grant the target a shield that prevents 250782 damage for 30 sec.
  */
 class EonarsCompassion extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   trinketHealing = 0;
   trinketProc = 0;
@@ -33,8 +29,9 @@ class EonarsCompassion extends Analyzer {
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN.id,
   ];
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.EONARS_COMPASSION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.EONARS_COMPASSION.id);
   }
 
   get suggestionThresholds() {

@@ -6,12 +6,6 @@
 
 export default {
   // Blood:
-  // Artifact
-  CONSUMPTION: {
-    id: 205223,
-    name: 'Consumption',
-    icon: 'inv_axe_2h_artifactmaw_d_01',
-  },
 
   //Summons
   //Bloodworm summon spell by the Bloodworms talent
@@ -77,13 +71,6 @@ export default {
   },
 
   // Damage Dealing
-  // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
-  RAPID_DECOMPOSITION_RP_TICK: {
-    id: 255203,
-    name: 'Rapid Decomposition',
-    icon: 'ability_deathknight_deathsiphon2',
-  },
-
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -173,7 +160,6 @@ export default {
     name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
-
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
@@ -188,6 +174,11 @@ export default {
     id: 238698,
     name: 'Vampiric Aura',
     icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
+  VORACIOUS: {
+    id: 274009,
+    name: 'Voracious',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
 
   // CC
@@ -524,12 +515,6 @@ export default {
     icon: 'spell_deathknight_scourgestrike',
   },
 
-  SUMMON_GARGOYLE: {
-    id: 49206,
-    name: 'Summon Gargoyle',
-    icon: 'ability_deathknight_summongargoyle',
-  },
-
   VIRULENT_PLAGUE: {
     id: 191587,
     name: 'Virulent Plague',
@@ -714,10 +699,10 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
-  WRAITH_WALK: {
-    id: 212552,
-    name: 'Wraith Walk',
-    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  DEATHS_ADVANCE: {
+    id: 48265,
+    name: 'Death\'s Advance',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   COLD_HEART_BUFF: {
@@ -736,6 +721,12 @@ export default {
   HAEMOSTASIS_BUFF: {
     id: 235559,
     name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  HEMOSTASIS_BUFF: {
+    id: 273947,
+    name: 'Hemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
 

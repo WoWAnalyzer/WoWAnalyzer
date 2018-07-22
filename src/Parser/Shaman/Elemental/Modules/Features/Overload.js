@@ -5,25 +5,24 @@ import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class Overload extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   spells = [];
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
 
     this.getAbility = spellId => this.abilityTracker.getAbility(spellId);
 
-    this.hasIcefury = this.combatants.selected.hasTalent(SPELLS.ICEFURY_TALENT.id);
-    this.hasElementalBlast = this.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    this.hasIcefury = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
+    this.hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
 
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
@@ -44,7 +43,7 @@ class Overload extends Analyzer {
       name: !normalSpell.ability ? 'a spell' : normalSpell.ability.name,
       normal,
       overloads,
-      percent: overloads/normal,
+      percent: overloads / normal,
     };
   }
 
@@ -59,8 +58,10 @@ class Overload extends Analyzer {
   }
 
   renderOverloads(spell) {
+    if (!spell) {
+      return null;
+    }
     return (
-      spell &&
       <li key={spell.id}>
         <SpellIcon
           id={spell.id}
@@ -69,8 +70,8 @@ class Overload extends Analyzer {
             marginTop: '-.1em',
           }}
         />
-        <span style={{display: 'inline-block', textAlign: 'left', marginLeft: '0.5em'}}>
-          {`${spell.overloads} / ${spell.normal}`}
+        <span style={{ display: 'inline-block', textAlign: 'left', marginLeft: '0.5em' }}>
+          {spell.overloads} / {spell.normal}
         </span>
       </li>
     );
@@ -82,12 +83,8 @@ class Overload extends Analyzer {
         alignIcon="flex-start"
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <ul style={{listStyle: 'none', paddingLeft: 0}}>
-            {
-              this.spells.map(spell => {
-                return this.renderOverloads(spell);
-              })
-            }
+          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+            {this.spells.map(spell => this.renderOverloads(spell))}
           </ul>
         )}
         label="Overload procs"

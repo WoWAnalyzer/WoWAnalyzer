@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Tab from 'Interface/Others/Tab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';

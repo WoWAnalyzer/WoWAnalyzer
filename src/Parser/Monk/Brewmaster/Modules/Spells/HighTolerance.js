@@ -1,11 +1,10 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
@@ -24,10 +23,6 @@ export const HIGH_TOLERANCE_HASTE_FNS = {
 };
 
 class HighTolerance extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   staggerDurations = {
     [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
     [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
@@ -59,8 +54,9 @@ class HighTolerance extends Analyzer {
     return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
   }
 
   on_toPlayer_applydebuff(event) {

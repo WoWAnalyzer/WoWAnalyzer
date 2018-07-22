@@ -2,7 +2,7 @@ import React from 'react';
 
 import CoreCancelledCasts from 'Parser/Core/Modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class CancelledCasts extends CoreCancelledCasts {
 

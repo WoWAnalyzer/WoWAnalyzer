@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import isAtonement from '../Core/isAtonement';
 
@@ -16,8 +16,9 @@ class Xalan extends Analyzer {
     return 15;
   }
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
   }
 
   lastAtonmentAppliedTimestamp = null;

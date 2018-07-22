@@ -2,13 +2,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Ability from './Ability';
 import AbilityTracker from './AbilityTracker';
-import Combatants from './Combatants';
 import Haste from './Haste';
 
 class Abilities extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
     haste: Haste,
   };
   static SPELL_CATEGORIES = {
@@ -37,8 +35,12 @@ class Abilities extends Analyzer {
 
   abilities = [];
   activeAbilities = [];
-  on_initialized() {
-    this.abilities = this.spellbook().map(options => new this.constructor.ABILITY_CLASS(this, options));
+  constructor(...args) {
+    super(...args);
+    this.loadSpellbook(this.spellbook());
+  }
+  loadSpellbook(spellbook) {
+    this.abilities = spellbook.map(options => new this.constructor.ABILITY_CLASS(this, options));
     this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }
 
@@ -52,7 +54,7 @@ class Abilities extends Analyzer {
     this.activeAbilities.push(ability);
   }
 
-  /*
+  /**
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
    */
   getAbility(spellId) {
@@ -65,15 +67,15 @@ class Abilities extends Analyzer {
     });
   }
 
-  /*
+  /**
    * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
   getExpectedCooldownDuration(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? ability.cooldown * 1000 : undefined;
+    return ability ? Math.round(ability.cooldown * 1000) : undefined;
   }
 
-  /*
+  /**
    * Returns the max charges of the given spellId, or 1 if the spell doesn't have charges (or undefined if there is no such spellInfo)
    */
   getMaxCharges(spellId) {
@@ -81,7 +83,7 @@ class Abilities extends Analyzer {
     return ability ? (ability.charges || 1) : undefined;
   }
 
-  /*
+  /**
    * Returns the timeline sort index, or null if none is set. (or undefined if there is no such spellInfo)
    */
   getTimelineSortIndex(spellId) {
@@ -89,7 +91,7 @@ class Abilities extends Analyzer {
     return ability ? ability.timelineSortIndex : undefined;
   }
 
-  /*
+  /**
    * Returns the buff spell Id to a given spell, or null if none is set. (or undefined if there is no such spellInfo)
    */
   getBuffSpellId(spellId) {
@@ -97,13 +99,29 @@ class Abilities extends Analyzer {
     return ability ? (ability.buffSpellId || null) : undefined;
   }
 
-  /*
+  /**
   * Return the first ability that has the given SpellId set as the buff.
   */
   getSpellBuffAbility(spellId) {
     return this.activeAbilities.find(ability => {
         return ability.buffSpellId === spellId;
     });
+  }
+
+  // Validate that all spells castable by the player is in the spellbook
+  on_byPlayer_cast(event) {
+    if (!event.ability) {
+      return;
+    }
+    const spellId = event.ability.guid;
+    if (spellId === 1) {
+      // Melee (auto attack)
+      return;
+    }
+    const ability = this.getAbility(event.ability.guid);
+    if (!ability) {
+      console.warn('Ability missing from spellbook:', event.ability);
+    }
   }
 }
 

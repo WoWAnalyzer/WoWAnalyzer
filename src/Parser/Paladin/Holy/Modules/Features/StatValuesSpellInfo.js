@@ -50,14 +50,14 @@ export default {
     mastery: true,
     vers: true,
   },
-  [SPELLS.HOLY_PRISM_HEAL.id]: {
+  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.TYRS_DELIVERANCE_HEAL.id]: {
+  [SPELLS.HOLY_PRISM_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
@@ -92,18 +92,33 @@ export default {
     mastery: false, // confirmed many times this doesn't scale with Mastery
     vers: true,
   },
-  [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
-    ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
-    multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
+  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: false, // it just raw scales off of the damage done
+    vers: true,
   },
-  [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
-    ignored: true,
+  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: false, // it just raw scales off of the damage done
+    vers: true,
   },
-  [SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id]: {
+  [SPELLS.BEACON_OF_LIGHT_HEAL.id]: {
     // This gets special treatment with the `on_beacon_heal` event
     ignored: true,
   },
   [SPELLS.LAY_ON_HANDS.id]: {
     ignored: true,
+  },
+
+  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
   },
 };

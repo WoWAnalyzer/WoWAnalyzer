@@ -4,8 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
@@ -13,11 +12,11 @@ class Roots extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id);
   }
 
   item() {

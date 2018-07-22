@@ -5,7 +5,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -39,7 +38,6 @@ class Checklist extends CoreChecklist {
 
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
 
     //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -70,7 +68,7 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> should be used as often as possible. You'll also want to be using cooldowns such as <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible (whilst still hitting them at opportune moments). <a href="https://www.icy-veins.com/wow/survival-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.FLANKING_STRIKE,
@@ -135,7 +133,7 @@ class Checklist extends CoreChecklist {
       name: 'Pick the right tools for the fight',
       description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said talent or legendary.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALTROPS_TALENT.id} /> uptime</React.Fragment>,

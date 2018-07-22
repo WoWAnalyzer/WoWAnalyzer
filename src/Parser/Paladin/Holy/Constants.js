@@ -6,20 +6,22 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.FLASH_OF_LIGHT.id,
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
   SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.TYRS_DELIVERANCE_HEAL.id,
   SPELLS.LIGHTS_HAMMER_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL.id,
+  SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
   SPELLS.AURA_OF_MERCY_HEAL.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id,
+  SPELLS.BEACON_OF_LIGHT_HEAL.id,
   SPELLS.LEECH.id,
-  // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 
   // There trinkets are confirmed to also be increased:
   SPELLS.OCEANS_EMBRACE.id,
   SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id,
   // Didn't check this, but pretty sure it will work the same as the trinkets above:
   SPELLS.GUIDING_HAND.id,
+  // Proof: https://www.warcraftlogs.com/reports/4AVZqJTgyhG2F368/#fight=46&source=4&view=events&pins=2%24Off%24%23244F4B%24auras-gained%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24216331%24true%24true see the events at 00:03:39.013 and 00:03:40.369.
+  SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id,
+  SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id,
 ];
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
@@ -29,9 +31,9 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.FLASH_OF_LIGHT.id,
   SPELLS.LIGHT_OF_THE_MARTYR.id,
   SPELLS.HOLY_PRISM_HEAL.id,
+  SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
   SPELLS.LIGHTS_HAMMER_HEAL.id,
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
-  SPELLS.TYRS_DELIVERANCE_HEAL.id,
   SPELLS.BESTOW_FAITH_TALENT.id,
 ];
 
@@ -41,16 +43,18 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.HOLY_LIGHT.id]: 1,
   [SPELLS.FLASH_OF_LIGHT.id]: 1,
   [SPELLS.HOLY_PRISM_HEAL.id]: 0.5,
+  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: 1,
   [SPELLS.LIGHTS_HAMMER_HEAL.id]: 0.5,
-  [SPELLS.TYRS_DELIVERANCE_HEAL.id]: 1,
   [SPELLS.BESTOW_FAITH_TALENT.id]: 1,
   // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
   [SPELLS.LIGHT_OF_THE_MARTYR.id]: 1,
+  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
+  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
 };
 
 export const BEACON_TYPES = {
   BEACON_OF_FATH: SPELLS.BEACON_OF_FAITH_TALENT.id,
-  BEACON_OF_THE_LIGHTBRINGER: SPELLS.BEACON_OF_LIGHT_BUFF.id,
+  DIVINE_PURPOSE_TALENT_HOLY: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
   BEACON_OF_VIRTUE: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
 };
 

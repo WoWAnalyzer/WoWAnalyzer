@@ -3,20 +3,16 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   previousTickTimestamp = null;
   fistsTickNumber = 0;
   fistsCastNumber = 0;
@@ -46,7 +42,7 @@ class FistsofFury extends Analyzer {
     this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
   }
   get suggestionThresholds() {
-    const averageTicksRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4.5 : 5;
+    const averageTicksRecommended = this.selectedCombatant.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4.5 : 5;
     return {
       actual: this.averageTicks,
       isLessThan: {
@@ -59,7 +55,7 @@ class FistsofFury extends Analyzer {
   }
 
   suggestions(when) {
-    const tier20Text = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? '. This is not always true while using T20 4pc' : '';
+    const tier20Text = this.selectedCombatant.hasBuff(SPELLS.WW_TIER20_4PC.id) ? '. This is not always true while using T20 4pc' : '';
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
         .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${this.averageTicks.toFixed(2)} average ticks on each Fists of Fury cast`)

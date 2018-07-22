@@ -5,12 +5,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 /**
  * Scatters Caltrops in an area for 15 sec. Enemies who step on Caltrops will take (45% of Attack power) Bleed damage every 1 sec, and
@@ -19,7 +18,6 @@ import StatisticBox from 'Main/StatisticBox';
 class Caltrops extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     enemies: Enemies,
   };
@@ -27,8 +25,9 @@ class Caltrops extends Analyzer {
   bonusDamage = 0;
   caltropsCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CALTROPS_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

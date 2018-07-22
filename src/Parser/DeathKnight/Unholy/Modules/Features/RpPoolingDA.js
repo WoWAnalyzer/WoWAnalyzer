@@ -6,16 +6,14 @@ import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 
 class RpPoolingDA extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
   }
 
   totalRunicPowerPooled = 0;

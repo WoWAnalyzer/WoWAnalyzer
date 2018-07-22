@@ -4,10 +4,10 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import StatisticsListBox from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import { PANDEMIC_FRACTION } from '../../Constants';
 
 const debug = false;
 
@@ -16,7 +16,7 @@ const debug = false;
  * some DoTs even after the buff has worn off.
  * Players should follow a number of rules with regards when they refresh a DoT and when they do not, depending
  * on what buffs the DoT has snapshot and what buffs are currently active.
- * 
+ *
  * The Snapshot class is 'abstract', and shouldn't be directly instantiated. Instead classes should extend
  * it to examine how well the combatant is making use of the snapshot mechanic.
  */
@@ -24,12 +24,7 @@ const debug = false;
 // also applied by Incarnation: King of the Jungle, and Shadowmeld
 const PROWL_MULTIPLIER = 2.00;
 const TIGERS_FURY_MULTIPLIER = 1.15;
-const BLOODTALONS_MULTIPLIER = 1.20;
-
-// "[...]deal the same damage as normal but in 20% less time."
-const JAGGED_WOUNDS_MODIFIER = 0.80;
-
-const PANDEMIC_FRACTION = 0.3;
+const BLOODTALONS_MULTIPLIER = 1.25;
 
 /**
  * leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed.
@@ -49,10 +44,6 @@ const CAST_WINDOW_TIME = 100;
 const DAMAGE_AFTER_EXPIRE_WINDOW = 200;
 
 class Snapshot extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // extending class should fill these in:
   static spellCastId = null;
   static debuffId = null;
@@ -81,7 +72,8 @@ class Snapshot extends Analyzer {
     this.lastDoTCastEvent = event;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
@@ -157,12 +149,12 @@ class Snapshot extends Analyzer {
       expireNew += Math.min(this.constructor.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
     }
 
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     const stateNew = {
       expireTime: expireNew,
       pandemicTime: expireNew - this.constructor.durationOfFresh * PANDEMIC_FRACTION,
       tigersFury: this.constructor.isTigersFuryAffected &&
-        combatant.hasBuff(SPELLS.TIGERS_FURY.id),
+      combatant.hasBuff(SPELLS.TIGERS_FURY.id),
       prowl: this.constructor.isProwlAffected && (
         combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
         combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
@@ -170,21 +162,21 @@ class Snapshot extends Analyzer {
         combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)
       ),
       bloodtalons: this.constructor.isBloodtalonsAffected &&
-        combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
+      combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
       power: 1,
       startTime: debuffEvent.timestamp,
       castEvent: this.lastDoTCastEvent,
-      
+
       // undefined if the first application of this debuff on this target
       prev: stateOld,
     };
     stateNew.power = this.calcPower(stateNew);
 
     if (!stateNew.castEvent ||
-        stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME ) {
+      stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME) {
       debug && console.warn(`DoT ${this.constructor.debuffId} applied debuff at ${this.owner.formatTimestamp(debuffEvent.timestamp, 3)} doesn't have a recent matching cast event.`);
     }
-    
+
     return stateNew;
   }
 
@@ -215,7 +207,7 @@ class Snapshot extends Analyzer {
       additive += TIGERS_FURY_MULTIPLIER - 1;
     }
     if (stateNew.bloodtalons) {
-      additive += BLOODTALONS_MULTIPLIER -1;
+      additive += BLOODTALONS_MULTIPLIER - 1;
     }
     return additive;
   }
@@ -229,12 +221,12 @@ class Snapshot extends Analyzer {
       // subStatistics for this DoT will be combined, so each should have a unique key
       <div className="flex" key={buffId}>
         <div className="flex-main">
-        <SpellLink id={buffId} />
+          <SpellLink id={buffId} />
         </div>
         <div className="flex-sub text-right">
-        <dfn data-tip={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
-          {formatPercentage(this.ticks === 0 ? 0 : ticksWithBuff / this.ticks)}%
-        </dfn>
+          <dfn data-tip={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
+            {formatPercentage(this.ticks === 0 ? 0 : ticksWithBuff / this.ticks)}%
+          </dfn>
         </div>
       </div>
     );
@@ -254,7 +246,7 @@ class Snapshot extends Analyzer {
       buffNames.push(buffName);
       subStats.push(this.subStatistic(this.ticksWithTigersFury, this.damageFromTigersFury, SPELLS.TIGERS_FURY.id, buffName, spellName));
     }
-    if (this.constructor.isBloodtalonsAffected && this.combatants.selected.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
+    if (this.constructor.isBloodtalonsAffected && this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
       const buffName = 'Bloodtalons';
       buffNames.push(buffName);
       subStats.push(this.subStatistic(this.ticksWithBloodtalons, this.damageFromBloodtalons, SPELLS.BLOODTALONS_TALENT.id, buffName, spellName));
@@ -268,11 +260,11 @@ class Snapshot extends Analyzer {
     const isPlural = buffNames.length > 1;
     return (
       <StatisticsListBox
-        title={
+        title={(
           <React.Fragment>
             <SpellIcon id={this.constructor.spellCastId} noLink /> {spellName} Snapshot
           </React.Fragment>
-        }
+        )}
         tooltip={`${spellName} maintains the damage bonus from ${buffsComment} if ${isPlural ? 'they were' : 'it was'} present when the DoT was applied. This lists how many of your ${spellName} ticks benefited from ${isPlural ? 'each' : 'the'} buff. ${isPlural ? 'As a tick can benefit from multiple buffs at once these percentages can add up to more than 100%.' : ''}`}
       >
         {subStats}
@@ -280,5 +272,5 @@ class Snapshot extends Analyzer {
     );
   }
 }
+
 export default Snapshot;
-export { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION };

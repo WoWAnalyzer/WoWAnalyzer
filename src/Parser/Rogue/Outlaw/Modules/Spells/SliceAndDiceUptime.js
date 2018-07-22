@@ -3,23 +3,19 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from "Parser/Core/Modules/Combatants";
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 class SliceAndDiceUptime extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
   }
 
   get percentUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.SLICE_AND_DICE_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.SLICE_AND_DICE_TALENT.id) / this.owner.fightDuration;
   }
 
   statistic() {
@@ -27,12 +23,11 @@ class SliceAndDiceUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SLICE_AND_DICE_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label="Slice And Dice Uptime"
+        label="Slice and Dice uptime"
       />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(100);
-
 }
 
 export default SliceAndDiceUptime;

@@ -3,9 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const HIT_BUFFER_MS = 500;
@@ -16,7 +15,6 @@ const HIT_BUFFER_MS = 500;
  */
 class KiljaedensBurningWish extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
@@ -26,8 +24,9 @@ class KiljaedensBurningWish extends Analyzer {
   hits = 0;
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
 
     if (this.active) {
       this.abilities.add({

@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
@@ -31,7 +31,7 @@ class BattleCryDamageAnalyzer extends BattleCryAnalyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BATTLE_CRY.id} />}
+        icon={<SpellIcon id={SPELLS.RECKLESSNESS.id} />}
         value={`${formatNumber(battleCryDamage / this.battleCryCount)}`}
         label="Average damage during Battle Cry"
         tooltip={`Damage dealt during Battle Cry contributed ${formatPercentage(battleCryDamage / totalDamage)}% of your total damage done.`}

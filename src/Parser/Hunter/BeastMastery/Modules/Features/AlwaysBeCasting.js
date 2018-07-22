@@ -1,19 +1,12 @@
 import React from 'react';
 
-import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static dependencies = {
-    ...CoreAlwaysBeCasting.dependencies,
-    combatants: Combatants,
-  };
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,

@@ -20,7 +20,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   healBacklog = [];
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
       return;
     }
@@ -34,7 +34,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
-      debug && console.log(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
+      debug && this.debug(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
     }
 
     if (remainingBeaconTransfers > 0) {
@@ -47,16 +47,13 @@ class BeaconHealOriginMatcher extends Analyzer {
   }
 
   processBeaconHealing(beaconTransferEvent) {
-    // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
-    this.healBacklog = this.healBacklog.filter(healEvent => (this.owner.currentTimestamp - healEvent.timestamp) < 500);
-
     if (debug) {
       this.sanityChecker(beaconTransferEvent);
     }
 
     const matchedHeal = this.healBacklog[0];
     if (!matchedHeal) {
-      console.error('No heal found for beacon transfer:', beaconTransferEvent);
+      this.error('No heal found for beacon transfer:', beaconTransferEvent);
       return;
     }
 
@@ -74,7 +71,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   }
 
   get beaconType() {
-    return this.combatants.selected.lv100Talent;
+    return this.selectedCombatant.lv100Talent;
   }
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
@@ -102,7 +99,7 @@ class BeaconHealOriginMatcher extends Analyzer {
       this.healBacklog.forEach((healEvent, i) => {
         const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
 
-        console.log(i, {
+        this.debug(i, {
           ability: healEvent.ability.name,
           healEvent,
           raw: healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0),
@@ -121,7 +118,7 @@ class BeaconHealOriginMatcher extends Analyzer {
       this.healBacklog.forEach((healEvent, i) => {
         const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
 
-        console.log(i, {
+        this.debug(i, {
           ability: healEvent.ability.name,
           healEvent,
           raw: healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0),
@@ -142,7 +139,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     // What happens here are 2 situations:
     // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
     // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 50ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.combatants.selected.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
+    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconFactor += 0.4;
     }
@@ -162,10 +159,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     const healTargetId = healEvent.targetID;
     const healCombatant = this.combatants.players[healTargetId];
     if (healCombatant) {
-      if (healCombatant.hasBuff(SPELLS.PROTECTION_OF_TYR.id, healEvent.timestamp)) {
-        raw /= 1.15;
-      }
-      if (healCombatant.hasBuff(55233, healEvent.timestamp)) {
+      if (healCombatant.hasBuff(SPELLS.VAMPIRIC_BLOOD.id, healEvent.timestamp)) {
         raw /= 1.3;
       }
     }

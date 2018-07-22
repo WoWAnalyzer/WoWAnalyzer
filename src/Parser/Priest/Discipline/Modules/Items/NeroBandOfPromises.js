@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementDamageSource from '../Features/AtonementDamageSource';
@@ -19,8 +19,9 @@ class NeroBandOfPromises extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
   }
 
   on_byPlayer_heal(event) {

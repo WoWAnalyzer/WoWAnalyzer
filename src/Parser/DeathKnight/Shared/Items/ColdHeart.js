@@ -3,19 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 //import getDamageBonus from 'Parser/DeathKnight/Shared/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class ColdHeart extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.COLD_HEART.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.COLD_HEART.id);
   }
 
   on_byPlayer_damage(event) {

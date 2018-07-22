@@ -3,8 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -16,18 +15,18 @@ const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
 class RuneOfPower extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
       this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
   }
@@ -41,7 +40,7 @@ class RuneOfPower extends Analyzer {
   }
 
   get uptimeMS() {
-    return this.combatants.selected.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
   }
 
   get roundedSecondsPerCast() {

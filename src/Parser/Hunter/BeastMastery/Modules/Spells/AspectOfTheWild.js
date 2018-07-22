@@ -1,11 +1,10 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox from 'Main/StatisticBox';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 //Duration of Bestial Wrath
@@ -27,7 +26,6 @@ const USE_BEFORE_BW = 3000;
 class AspectOfTheWild extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -49,7 +47,7 @@ class AspectOfTheWild extends Analyzer {
     }
     if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
       this.totalAspectCasts += 1;
-      if ((this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) || !this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) || (this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < USE_BEFORE_BW)) {
+      if ((this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) || !this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) || (this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < USE_BEFORE_BW)) {
         this.goodAspectCasts += 1;
       } else {
         this.badAspectCasts += 1;

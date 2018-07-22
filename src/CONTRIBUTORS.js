@@ -360,7 +360,7 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
-  discord: 'nisekoi#4130',
+  discord: 'niseko#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
   mains: [{
     name: 'Niseko',
@@ -398,5 +398,21 @@ export const CubeLuke = {
     name: 'Monachi',
     spec: SPECS.MISTWEAVER_MONK,
     link: 'https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi',
+  }],
+};
+export const ackwell = {
+  nickname: 'ackwell',
+  github: 'ackwell',
+  discord: 'ackwell#3835',
+  avatar: require('./Images/ackwell-avatar.png'),
+};
+export const regret = {
+  nickname: 'regret',
+  github: 'remyaraya',
+  discord: "regret#8633",
+  mains: [{
+    name: 'Ratchrat',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
   }],
 };

@@ -6,11 +6,17 @@ export default {
   name: 'Argus the Unmaker',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_worldsoul',
   fight: {
     vantusRuneBuffId: 250146,
     disableDeathSuggestion: true,
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
+    softMitigationChecks: {
+      SweepingScythe: 248499,
+      DeadlyScythe: 258039,
+      SoulrendingScythe: 258838,
+    },
   },
 };

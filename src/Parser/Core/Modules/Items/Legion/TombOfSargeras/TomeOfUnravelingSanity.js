@@ -5,9 +5,8 @@ import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Tome of Unraveling Sanity
@@ -15,18 +14,18 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  */
 class TomeOfUnravelingSanity extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
   damage = 0;
   procAmount = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
 
     if (this.active) {
-      this.procAmount = calculateSecondaryStatDefault(910, 2756, this.combatants.selected.getItem(ITEMS.TOME_OF_UNRAVELING_SANITY.id).itemLevel);
+      this.procAmount = calculateSecondaryStatDefault(910, 2756, this.selectedCombatant.getItem(ITEMS.TOME_OF_UNRAVELING_SANITY.id).itemLevel);
       this.abilities.add({
         spell: SPELLS.TOME_OF_UNRAVELING_SANITY_DAMAGE,
         name: ITEMS.TOME_OF_UNRAVELING_SANITY.name,
@@ -47,7 +46,7 @@ class TomeOfUnravelingSanity extends Analyzer {
   }
 
   get averageCritGain() {
-    const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id) / this.owner.fightDuration;
+    const uptimePercent = this.selectedCombatant.getBuffUptime(SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id) / this.owner.fightDuration;
     return this.procAmount * uptimePercent;
   }
 

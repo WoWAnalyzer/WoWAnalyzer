@@ -1,8 +1,8 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import SPELLS from 'common/SPELLS';
 
 class MaelstromTracker extends Analyzer {
-
   lastEventTimestamp = 0;
   maelstromBySecond = [];
   activeMaelstromWasted = {};
@@ -12,8 +12,13 @@ class MaelstromTracker extends Analyzer {
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxMaelstrom = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.lastEventTimestamp = this.owner.fight.start_time;
+  }
+
+  on_finished() {
+    this.extrapolateFocus(this.owner.currentTimestamp);
   }
 
   on_toPlayer_energize(event) {
@@ -38,12 +43,13 @@ class MaelstromTracker extends Analyzer {
 
   checkPassiveWaste(event) {
     if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
-      this.tracker++;
+      this.tracker += 1;
       this.checkForMaxMaelstrom(event);
-      if (event.classResources[0].cost)
-        {this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount-event.classResources.cost;}
-      else
-        {this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount;}
+      if (event.classResources[0].cost) {
+        this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount - event.classResources.cost;
+      } else {
+        this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount;
+      }
     }
 
     this.extrapolateFocus(event.timestamp);
@@ -61,28 +67,47 @@ class MaelstromTracker extends Analyzer {
   }
 
   checkActiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
-      this.tracker++;
-      this.checkForMaxMaelstrom(event);
-      this.maelstromBySecond[(event.timestamp-this.owner.fight.start_time)]=event.classResources[0].amount;
-      if (this.generatorCasts[event.ability.guid])
-        {this.generatorCasts[event.ability.guid]++;}
-      else
-        {this.generatorCasts[event.ability.guid] = 1;}
-      if (this.activeMaelstromGenerated[event.ability.guid])
-        {this.activeMaelstromGenerated[event.ability.guid] += event.resourceChange;}
-      else
-        {this.activeMaelstromGenerated[event.ability.guid] = event.resourceChange;}
-      if (event.waste > 0) {
-        if (this.activeMaelstromWasted[event.ability.guid])
-          {this.activeMaelstromWasted[event.ability.guid] += event.waste;}
-        else
-          {this.activeMaelstromWasted[event.ability.guid] = event.waste;}
+    if (event.sourceID !== this.owner.player.id && event.targetID !== this.owner.player.id) {
+      return;
+    }
+    const maelstrom = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.MAELSTROM.id);
+    if (!maelstrom) {
+      return;
+    }
 
-        if (this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)])
-          {this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] += event.waste;}
-        else
-          {this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;}
+    this.tracker += 1;
+    this.checkForMaxMaelstrom(event);
+    this.maelstromBySecond[(event.timestamp - this.owner.fight.start_time)] = event.classResources[0].amount;
+    if (this.generatorCasts[event.ability.guid]) {
+      this.generatorCasts[event.ability.guid] += 1;
+    } else {
+      this.generatorCasts[event.ability.guid] = 1;
+    }
+    if (!SPELLS[event.ability.guid]) {
+      // The spells need to be defined so the Maelstrom view doesn't crash, this should be taken care off by the developer (you), but this at least prevents crashes.
+      console.error('Maelstrom generator missing in SPELLS!', event.ability);
+      SPELLS[event.ability.guid] = {
+        id: event.ability.guid,
+        name: event.ability.name,
+        icon: event.ability.abilityIcon.replace('.jpg', ''),
+      };
+    }
+    if (this.activeMaelstromGenerated[event.ability.guid]) {
+      this.activeMaelstromGenerated[event.ability.guid] += event.resourceChange;
+    } else {
+      this.activeMaelstromGenerated[event.ability.guid] = event.resourceChange;
+    }
+    if (event.waste > 0) {
+      if (this.activeMaelstromWasted[event.ability.guid]) {
+        this.activeMaelstromWasted[event.ability.guid] += event.waste;
+      } else {
+        this.activeMaelstromWasted[event.ability.guid] = event.waste;
+      }
+
+      if (this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)]) {
+        this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] += event.waste;
+      } else {
+        this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;
       }
     }
   }
@@ -90,13 +115,12 @@ class MaelstromTracker extends Analyzer {
   extrapolateFocus(eventTimestamp) {
     this.maelstromBySecond[0] = 0;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {
-      if (!this.maelstromBySecond[i])
-        {this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];}
+      if (!this.maelstromBySecond[i]) {
+        this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];
+      }
     }
     this.lastEventTimestamp = eventTimestamp;
   }
-
 }
 
 export default MaelstromTracker;
-

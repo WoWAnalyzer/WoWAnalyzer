@@ -1,4 +1,6 @@
 export default {
+  'Improve your performance in the Battle for Azeroth pre-patch': '2018-07-18-Prepatch',
+  'Fight downtime': '2018-07-06-FightDowntime',
   'WoWAnalyzer Premium': '2018-06-18-Premium',
   'Battle for Azeroth': '2018-04-14-Battle-For-Azeroth',
   'WoWAnalyzer\'s first anniversary': '2018-01-31-1st-Anniversary',

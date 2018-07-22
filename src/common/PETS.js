@@ -3,6 +3,7 @@ import indexById from './indexById';
 // courtesy of @wopr on WoWAnalyzer Discord
 
 const PETS = {
+  // TODO: revise Warlock pets
   WILDIMP_ON_DREADSTALKER: {
     id: 99737,
     name: 'Wild Imp riding Dreadstalker',

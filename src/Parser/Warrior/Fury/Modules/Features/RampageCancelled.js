@@ -6,26 +6,26 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-const RAMPAGE_HITS_PER_CAST = 5;
+const RAMPAGE_HITS_PER_CAST = 4;
 
 class RampageCancelled extends Analyzer {
-
   // Rampage is in fact 5 separate spells cast in this sequence
-  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id]
-  counter = {}
+  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id];
+  counter = {};
 
-  on_initialized() {    
+  constructor(...args) {
+    super(...args);
     for (let i = 0; i < this.rampage.length; i++) {
-        this.counter[this.rampage[i]] = 0;
+      this.counter[this.rampage[i]] = 0;
     }
   }
 
   on_byPlayer_damage(event) {
     if (!this.rampage.includes(event.ability.guid)) {
-        return;
+      return;
     }
 
-    this.counter[event.ability.guid]++;
+    this.counter[event.ability.guid] += 1;
   }
 
   get suggestionThresholdsFrothingBerserker() {
@@ -42,12 +42,12 @@ class RampageCancelled extends Analyzer {
   suggestions(when) {
     const {
       isGreaterThan: {
-          minor,
-          average,
-          major,
-        },
-      } = this.suggestionThresholdsFrothingBerserker;
-    
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholdsFrothingBerserker;
+
     const max = Object.values(this.counter).reduce((max, current) => current > max ? current : max, 0);
     const wasted = Object.keys(this.counter).reduce((acc, current) => acc + max - this.counter[current], 0);
 

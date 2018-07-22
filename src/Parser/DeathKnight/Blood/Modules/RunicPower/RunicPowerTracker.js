@@ -1,4 +1,3 @@
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
@@ -6,14 +5,14 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 class RunicPowerTracker extends ResourceTracker {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
   totalCooldownReduction = 0;
   totalCooldownReductionWasted = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.resource = RESOURCE_TYPES.RUNIC_POWER;
   }
 
@@ -25,11 +24,11 @@ class RunicPowerTracker extends ResourceTracker {
     const abilityId = event.ability.guid;
     if (abilityId === SPELLS.DEATH_STRIKE.id) {
       this.reduceCooldown(cost); //Red Thirst does not care about cost reduction
-      if (this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id) &&
-        this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id) &&
+        this.selectedCombatant.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
         cost -= 5;
       }
-      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id, event.timestamp)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
         cost -= 5;
       }
     }
@@ -37,10 +36,10 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   reduceCooldown(cost) {
-    if (!this.combatants.selected.hasTalent(SPELLS.RED_THIRST_TALENT.id)){
+    if (!this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id)){
       return;
     }
-    const COOLDOWN_REDUCTION_MS = 1000/6;
+    const COOLDOWN_REDUCTION_MS = 1000 / 10;
     const reduction = cost * COOLDOWN_REDUCTION_MS;
     if (!this.spellUsable.isOnCooldown(SPELLS.VAMPIRIC_BLOOD.id)){
       this.totalCooldownReductionWasted += reduction;

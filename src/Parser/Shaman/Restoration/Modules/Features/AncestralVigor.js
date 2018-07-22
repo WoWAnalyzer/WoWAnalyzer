@@ -1,42 +1,38 @@
 import React from 'react';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
 class AncestralVigor extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   loaded = false;
   totalLifeSaved = 0;
-  on_initialized() {
-    this.active = !!this.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname, query) {
-    const self = this;
-    async function checkAndFetch(_query) {
+    const checkAndFetch = async _query => {
       const json = await fetchWcl(pathname, _query);
-      self.totalLifeSaved += json.events.length;
+      this.totalLifeSaved += json.events.length;
       if (json.nextPageTimestamp) {
-        return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
+        return checkAndFetch(Object.assign(query, {
+          start: json.nextPageTimestamp,
+        }));
       }
-      self.loaded = true;
+      this.loaded = true;
       return null;
-    }
-
-    return checkAndFetch(query);
+    };
+    return checkAndFetch;
   }
 
   load() {
@@ -52,10 +48,10 @@ class AncestralVigor extends Analyzer {
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(10000 * HP_THRESHOLD)}
         FROM type='applybuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.combatants.selected.name}'
+          AND source.name='${this.selectedCombatant.name}'
         TO type='removebuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.combatants.selected.name}'
+          AND source.name='${this.selectedCombatant.name}'
         END
       )`,
     };

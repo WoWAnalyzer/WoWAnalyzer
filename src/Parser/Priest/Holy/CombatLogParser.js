@@ -1,34 +1,28 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 
 // Spell data
-import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
+import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 // Priest Core
-import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
-import Divinity from './Modules/PriestCore/Divinity';
-import LightOfTuure from './Modules/PriestCore/LightOfTuure';
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
 import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
 import Serendipity from './Modules/PriestCore/Serendipity';
 import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
+import HolyWords from './Modules/PriestCore/HolyWords';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -50,20 +44,21 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    renewTheFaith: RenewTheFaith,
-    divinity: Divinity,
-    lightOfTuure: LightOfTuure,
+    spellUsable: SpellUsable,
+
+    // Core
     enduringRenewal: EnduringRenewal,
     masteryBreakdown: MasteryBreakdown,
     serendipity: Serendipity,
     sancReduction: SanctifyReduction,
     sereReduction: SerenityReduction,
     hymnBuffBenefit: HymnBuffBenefit,
+    holyWords: HolyWords,
 
     // Spells
-    prayerOfMending: PrayerOfMending,
     divineHymn: DivineHymn,
     sanctify: Sanctify,
+    spiritOfRedemption: SpiritOfRedemption,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
@@ -71,25 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

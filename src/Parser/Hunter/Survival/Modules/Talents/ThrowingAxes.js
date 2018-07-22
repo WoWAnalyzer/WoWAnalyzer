@@ -2,22 +2,18 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Tosses 3 axes at an enemy, each dealing (312.5% of Attack power) Physical damage. 2 Charges. 15 seconds recharge.
  */
 class ThrowingAxes extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.THROWING_AXES_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.THROWING_AXES_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

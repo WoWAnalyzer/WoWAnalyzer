@@ -3,10 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/HUNTER';
 import SpellLink from 'common/SpellLink';
 
@@ -20,7 +19,6 @@ const EARLIEST_REFRESH = 0.3;
 class Lacerate extends Analyzer {
 
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -34,12 +32,13 @@ class Lacerate extends Analyzer {
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  on_initialized() {
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
+  constructor(...args) {
+    super(...args);
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       this.lacerateDuration += T20_2P_INCREASE;
     }
     //Using the boots grants you more focus, allowing you to more liberally be casting Lacerate
-    if (this.combatants.selected.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id)) {
+    if (this.selectedCombatant.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id)) {
       this._earliestRefresh += 0.1 * this.lacerateDuration;
     }
   }
@@ -124,7 +123,7 @@ class Lacerate extends Analyzer {
   }
 
   get uptimeThreshold() {
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       return {
         actual: this.uptimePercentage,
         isLessThan: {
@@ -134,7 +133,7 @@ class Lacerate extends Analyzer {
         },
         style: 'percentage',
       };
-    } else if (this.combatants.selected.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id)) {
+    } else if (this.selectedCombatant.hasFeet(ITEMS.NESINGWARYS_TRAPPING_TREADS.id)) {
       return {
         actual: this.uptimePercentage,
         isGreaterThan: {
@@ -170,7 +169,7 @@ class Lacerate extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment>When you're using <SpellLink id={SPELLS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</React.Fragment>)
           .icon(SPELLS.LACERATE.icon)

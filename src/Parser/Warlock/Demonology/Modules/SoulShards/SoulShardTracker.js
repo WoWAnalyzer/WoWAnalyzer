@@ -1,126 +1,42 @@
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
+import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 
-class SoulShardTracker extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  shardsWasted = 0;
-  shardsSpent = 0;
-
-  _firstDoomEnergize = false;
-  // stores number of shards generated/spent/wasted per ability ID
-  generatedAndWasted = {
-    [SPELLS.SHADOW_BOLT_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.DEMONBOLT_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.DEMONWRATH_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SHADOWFLAME_TALENT.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SHADOW_BOLT_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.DOOM_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.POWER_TRIP_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.RECURRENT_RITUAL_SHARD_GEN.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    // I'll have to add manually to this
-    [SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-  };
-
-  spent = {
-    [SPELLS.HAND_OF_GULDAN_CAST.id]: 0,
-    [SPELLS.CALL_DREADSTALKERS.id]: 0,
-    [SPELLS.GRIMOIRE_FELGUARD.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_DARKGLARE_TALENT.id]: 0,
-    [SPELLS.SUMMON_FELGUARD.id]: 0,
-    // unused
-    [SPELLS.SUMMON_IMP.id]: 0,
-    [SPELLS.SUMMON_VOIDWALKER.id]: 0,
-    [SPELLS.SUMMON_SUCCUBUS.id]: 0,
-    [SPELLS.SUMMON_FELHUNTER.id]: 0,
-    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 0,
-    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 0,
-    [SPELLS.GRIMOIRE_IMP.id]: 0,
-    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 0,
-    [SPELLS.GRIMOIRE_FELHUNTER.id]: 0,
-    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 0,
-  };
-
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-    if (!this.generatedAndWasted[spellId]) {
-      return;
-    }
-    let targetSpellId = spellId;
-    if (spellId === SPELLS.DOOM_SHARD_GEN.id && this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id)) {
-      // check if it's a proc
-      if (!this._firstDoomEnergize) {
-        this._firstDoomEnergize = true;
-      }
-      else {
-        targetSpellId = SPELLS.WARLOCK_DEMO_T19_2P_BONUS.id;
-      }
-    }
-    this.generatedAndWasted[targetSpellId].wasted += (event.waste || 0);
-    this.generatedAndWasted[targetSpellId].generated += (event.resourceChange || 0);
-    this.shardsWasted += (event.waste || 0);
+class SoulShardTracker extends ResourceTracker {
+  constructor(...args) {
+    super(...args);
+    this.resource = RESOURCE_TYPES.SOUL_SHARDS;
   }
-  on_byPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.DOOM.id) {
-      this._firstDoomEnergize = false; // reset
-    }
-  }
+
   on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (this.spent[spellId] === undefined) {
+    if (!this.shouldProcessCastEvent(event)) {
       return;
     }
-    let shardsSpent;
-    if (spellId === SPELLS.CALL_DREADSTALKERS.id && this.combatants.selected.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id, event.timestamp)) {
-      shardsSpent = 0;
+    // only processes events where there is a Soul Shard class resource info in the event
+    // intentionally lower the resources because we get energize events ranging in numbers 0 - 5, not 0 - 50
+    const index = this._getClassResourceIndex(event);
+    event.classResources[index].amount /= 10;
+    event.classResources[index].cost /= 10;
+    event.classResources[index].max /= 10;
+    super.on_byPlayer_cast(event);
+  }
+
+  getReducedCost(event) {
+    let cost = super.getReducedCost(event);
+    // Demonic Calling (T30 talent) proc reduces the cost of next Call Dreadstalkers by 1 shard
+    if (event.ability.guid === SPELLS.CALL_DREADSTALKERS.id && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_CALLING_BUFF.id)) {
+      cost -= 1;
     }
-    else {
-      shardsSpent = event.classResources[0].cost || 0;
-    }
-    // logs from 7.2 have "correct" amount of shards and cost (max 5, appropriate cost)
-    // logs from 7.3 are "adapted" to the Destro changes, so max = 50 and cost is in multiples of 10
-    if (shardsSpent > 5) {
-      shardsSpent /= 10;
-    }
-    this.spent[spellId] += shardsSpent;
-    this.shardsSpent += shardsSpent;
+    return cost;
+  }
+
+  _getClassResourceIndex(event) {
+    return Object.keys(event.classResources).find(key => event.classResources[key].type === RESOURCE_TYPES.SOUL_SHARDS) || 0;
+    // "technically incorrect", if find() returns 0 as a valid index, it also gets evaluated as "false", but || 0 makes it 0 anyway so it's fine
+  }
+
+  getGeneratedBySpell(spellId) {
+    return (this.buildersObj[spellId] && this.buildersObj[spellId].generated) || 0;
   }
 }
 

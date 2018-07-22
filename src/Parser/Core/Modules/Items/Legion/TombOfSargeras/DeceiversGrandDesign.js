@@ -6,7 +6,7 @@ import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const debug = false;
@@ -37,8 +37,9 @@ class DecieversGrandDesign extends Analyzer {
 
   casts = [];
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
 
     if (this.active) {
       this.abilities.add({

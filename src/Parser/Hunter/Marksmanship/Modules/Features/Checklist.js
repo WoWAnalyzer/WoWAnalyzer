@@ -4,31 +4,24 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import AlwaysBeCasting from 'Parser/Hunter/Marksmanship/Modules/Features/AlwaysBeCasting';
-import AMurderOfCrows from 'Parser/Hunter/Marksmanship/Modules/Talents/AMurderOfCrows';
 import Trueshot from 'Parser/Hunter/Marksmanship/Modules/Spells/Trueshot';
 import CancelledCasts from 'Parser/Hunter/Shared/Modules/Features/CancelledCasts';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 import SpellLink from 'common/SpellLink';
-import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
-import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import AimedInVulnerableTracker from 'Parser/Hunter/Marksmanship/Modules/Features/AimedInVulnerableTracker';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
-import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/VulnerableUptime';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
 
     //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -41,18 +34,9 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
-    aimedInVulnerableTracker: AimedInVulnerableTracker,
-    vulnerableUptime: VulnerableUpTime,
-
-    //talents
-    aMurderOfCrows: AMurderOfCrows,
-    patientSniperDetails: PatientSniperDetails,
 
     //spells
     trueshot: Trueshot,
-
-    //traits
-    bullseye: Bullseye,
   };
 
   rules = [
@@ -60,23 +44,15 @@ class Checklist extends CoreChecklist {
       name: 'Use core spells as often as possible',
       description: <React.Fragment>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be used as often as possible (unless nearing execute). <SpellLink id={SPELLS.WINDBURST.id} /> should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.WINDBURST,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
-            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+            spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRUESHOT,
             onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIDEWINDERS_TALENT,
-            when: combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.PIERCING_SHOT_TALENT,
@@ -85,14 +61,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
             when: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SENTINEL_TALENT,
-            when: combatant.hasTalent(SPELLS.SENTINEL_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLACK_ARROW_TALENT,
-            when: combatant.hasTalent(SPELLS.BLACK_ARROW_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARRAGE_TALENT,
@@ -152,7 +120,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Downtime, cancelled casts and focus capping',
       description: <React.Fragment>
-        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
+        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT_MM.id} />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
       </React.Fragment>,
       requirements: () => {
         return [
@@ -187,7 +155,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment><SpellLink id={SPELLS.VULNERABLE.id} /> efficiency </React.Fragment>,
-      description: <React.Fragment>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. If <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is selected, try to optimise the damage from it by casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} /> after opening <SpellLink id={SPELLS.VULNERABLE.id} />. This is to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window, increasing the benefit from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} />. However, remember to not stand around waiting, doing nothing and to not focus cap, as they are more impactful in comparison to optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</React.Fragment>,
+      description: <React.Fragment>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. If <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is selected, try to optimise the damage from it by casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> after opening <SpellLink id={SPELLS.VULNERABLE.id} />. This is to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window, increasing the benefit from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} />. However, remember to not stand around waiting, doing nothing and to not focus cap, as they are more impactful in comparison to optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({

@@ -5,8 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 
 const TIER_21_4P_DMG_INCREASE_PER_STACK = 0.2;
@@ -15,10 +14,6 @@ const TIER_21_4P_DMG_INCREASE_PER_STACK = 0.2;
  * Each cast of Mongoose Bite increases the damage of your next Raptor Strike by 20%. Stacks up to 6 times.
  */
 class Tier21_4p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
   _currentStacks = 0;
   buffsApplied = 0;
@@ -27,8 +22,9 @@ class Tier21_4p extends Analyzer {
   possibleBuffs = 0;
   expiredBuffs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -67,7 +63,7 @@ class Tier21_4p extends Analyzer {
     if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS_BUFF.id, event.timestamp)) {
       this.bonusDmg += getDamageBonus(event, TIER_21_4P_DMG_INCREASE_PER_STACK * this._currentStacks);
       this.buffsUsed += this._currentStacks;
       this._currentStacks = 0;

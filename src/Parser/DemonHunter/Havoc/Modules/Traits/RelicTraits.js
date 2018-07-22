@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

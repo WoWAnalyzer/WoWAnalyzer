@@ -1,10 +1,5 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
@@ -20,13 +15,14 @@ import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementApplicationSource from './Modules/Features/AtonementApplicationSource';
 import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
-import LeniencesReward from './Modules/Features/LeniencesReward';
+import Lenience from './Modules/Spells/Lenience';
 import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
@@ -51,9 +47,13 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
-import Rapture from './Modules/Spells/Rapture';
+import LuminousBarrier from './Modules/Spells/LuminousBarrier';
+import DesperatePrayer from '../Shared/Modules/Features/DesperatePrayer';
+import Contrition from './Modules/Spells/Contrition';
+import Grace from './Modules/Spells/Grace';
+import Schism from './Modules/Spells/Schism';
 
-import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
+import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -76,6 +76,9 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 
+    // Features
+    checklist: Checklist,
+
     // Abilities
     penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
@@ -85,9 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementDamageSource: AtonementDamageSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
-    leniencesReward: LeniencesReward,
+    lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
-    rapture: Rapture,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -112,27 +114,13 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
-    borrowedTime: BorrowedTime,
+    luminousBarrier: LuminousBarrier,
+    desperatePrayer: DesperatePrayer,
+    contrition: Contrition,
+    grace: Grace,
+    schism: Schism,
+    sinsOfTheMany: SinsOfTheMany,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;
