@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import CoreDrapeOfShame from 'Parser/Core/Modules/Items/Legion/DrapeOfShame';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
@@ -33,14 +32,6 @@ class DrapeOfShame extends CoreDrapeOfShame {
     }
     // We need the `estimatedItemLevel` to *beat* the DoS, so the DoS is worth about 0-5 item levels less
     return estimatedItemLevel - 5;
-  }
-
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId) || spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
-      return;
-    }
-    super.on_byPlayer_heal(event);
   }
 
   item() {
