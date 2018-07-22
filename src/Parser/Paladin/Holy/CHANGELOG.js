@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> analyzer to include back to back procs.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-21'),
     changes: <React.Fragment>Healing increases such as <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
