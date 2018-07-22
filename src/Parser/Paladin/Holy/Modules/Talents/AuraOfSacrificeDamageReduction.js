@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
+import makeWclUrl from 'common/makeWclUrl';
 
 const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;
@@ -46,6 +47,13 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     // WCL's filter requires the timestamp to be relative to fight start
     const fightStart = this.owner.fight.start_time;
     return transferringHistory.map(period => `(timestamp>=${period.start - fightStart} AND timestamp<=${period.end - fightStart})`).join(' OR ');
+  }
+  get filter() {
+    const uptimeFilter = this.auraMasteryUptimeFilter;
+    if (!uptimeFilter) {
+      return null;
+    }
+    return `(${uptimeFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
   }
 
   constructor(...args) {
@@ -142,13 +150,10 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
 
   loaded = false;
   load() {
-    const uptimeFilter = this.auraMasteryUptimeFilter;
-    if (!uptimeFilter) {
+    const filter = this.filter;
+    if (!filter) {
       return Promise.resolve();
     }
-    const filter = `(${uptimeFilter}) AND (IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.AURA_OF_SACRIFICE_BUFF.id} GROUP BY target END)`;
-    // Just leave this here to make it easy to switch to WCL
-    console.log(filter);
 
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
@@ -217,6 +222,12 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         tooltip={tooltip}
         footer={footer}
         footerStyle={{ overflow: 'hidden' }}
+        warcraftLogs={makeWclUrl(this.owner.report.code, {
+          fight: this.owner.fightId,
+          type: 'damage-taken',
+          pins: `2$Off$#244F4B$expression$${this.filter}`,
+          view: 'events',
+        })}
       />
     );
   }
