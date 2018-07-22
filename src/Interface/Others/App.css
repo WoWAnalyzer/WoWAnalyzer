@@ -727,7 +727,7 @@ code.inactive {
   color: #d94041;
   padding: 0 .4em;
   border-radius: .3em;
-  font-weight: bold;
+  font-weight: 400;
   white-space: nowrap;
   display: inline-block;
   line-height: 1.8em;
