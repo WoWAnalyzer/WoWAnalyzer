@@ -16,6 +16,7 @@ import StatisticsIcon from 'Interface/Icons/Statistics';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
@@ -255,7 +256,7 @@ class Results extends React.PureComponent {
 
             <div>
               <a
-                href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
+                href={makeWclUrl(report.code, { fight: fight.id, source: parser.playerId })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
