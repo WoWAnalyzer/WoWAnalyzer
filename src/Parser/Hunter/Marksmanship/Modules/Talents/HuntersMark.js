@@ -34,7 +34,6 @@ class HuntersMark extends Analyzer {
   recasts = 0;
   refunds = 0;
   precastConfirmed = false;
-  precast = false;
   markWindow = [];
   damageToTarget = [];
 
@@ -60,7 +59,6 @@ class HuntersMark extends Analyzer {
     const enemyID = event.targetID;
     if (this.precastConfirmed === false){
       this.precastConfirmed = true;
-      this.precast = true;
       this.damage = this.damageToTarget[enemyID];
       return;
     }
