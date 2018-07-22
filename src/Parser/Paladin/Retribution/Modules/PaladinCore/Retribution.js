@@ -14,10 +14,16 @@ const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
 class Retribution extends Analyzer {
   bonusDmg = 0;
+  abilitiesAffectedByRetribution = ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.slice();
+
+  constructor(...args) {
+    super(...args);
+    this.abilitiesAffectedByRetribution.push(SPELLS.MELEE.id);
+  }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.RETRIBUTION_BUFF.id) || !ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.includes(spellId)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RETRIBUTION_BUFF.id) || !this.abilitiesAffectedByRetribution.includes(spellId)) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, RETRIBUTION_DAMAGE_BONUS);

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 // Based on spelldata for Avenging Wrath, Retribution(buff) and Inquisition
+// Avenging Wrath and Retribution also increase melee damage by 20% - this is added in their modules. 
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   SPELLS.CRUSADER_STRIKE.id,
   SPELLS.JUDGMENT_CAST.id,
