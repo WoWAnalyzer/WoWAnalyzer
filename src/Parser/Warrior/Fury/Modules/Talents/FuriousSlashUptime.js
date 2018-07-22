@@ -15,8 +15,12 @@ class FuriousSlashUptime extends Analyzer {
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
   };
   
+  	constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FURIOUS_SLASH_TALENT.id);
+    }
+  
   get furiousSlashTimesByStack(){
-	  console.log(this.furiousSlashTimesByStacks.furiousSlashTimesByStacks);
 	  return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks;
   }
   
