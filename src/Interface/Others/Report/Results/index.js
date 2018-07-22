@@ -21,7 +21,6 @@ import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
-import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import SuggestionsTab from 'Interface/Others/SuggestionsTab';
 import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
@@ -263,7 +262,7 @@ class Results extends React.PureComponent {
                 style={{ fontSize: 24 }}
                 data-tip={i18n.t`View the original report`}
               >
-                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                <img src="/img/wcl.png" alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
               </a>
               {' '}
               <a
