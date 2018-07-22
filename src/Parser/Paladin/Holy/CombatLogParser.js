@@ -27,9 +27,9 @@ import StatValues from './Modules/Features/StatValues';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './Modules/Talents/DevotionAuraDamageReduction';
-import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
+// import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
 import AuraOfSacrificeDamageReduction from './Modules/Talents/AuraOfSacrificeDamageReduction';
-import AuraOfSacrificeLivesSaved from './Modules/Talents/AuraOfSacrificeLivesSaved';
+// import AuraOfSacrificeLivesSaved from './Modules/Talents/AuraOfSacrificeLivesSaved';
 import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -84,10 +84,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     ruleOfLaw: RuleOfLaw,
-    devotionAura: DevotionAuraDamageReduction,
-    devotionAuraLivesSaved: DevotionAuraLivesSaved,
+    devotionAuradamageReduction: DevotionAuraDamageReduction,
+    // devotionAuraLivesSaved: DevotionAuraLivesSaved,
     auraOfSacrificeDamageReduction: AuraOfSacrificeDamageReduction,
-    auraOfSacrificeLivesSaved: AuraOfSacrificeLivesSaved,
+    // auraOfSacrificeLivesSaved: AuraOfSacrificeLivesSaved,
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
