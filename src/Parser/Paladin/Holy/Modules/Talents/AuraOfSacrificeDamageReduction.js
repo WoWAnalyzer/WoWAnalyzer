@@ -140,6 +140,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     }
   }
 
+  loaded = false;
   load() {
     const uptimeFilter = this.auraMasteryUptimeFilter;
     if (!uptimeFilter) {
@@ -162,6 +163,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         const rawRaidDamageTaken = actualRaidDamageTaken / (1 - AURA_OF_SACRIFICE_ACTIVE_DAMAGE_TRANSFER);
         const damageTransferred = rawRaidDamageTaken * AURA_OF_SACRIFICE_ACTIVE_DAMAGE_TRANSFER;
         this.activeDamageTransferred = damageTransferred;
+        this.loaded = true;
       });
   }
 
@@ -173,25 +175,48 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     const totalDamageTransferred = passiveDamageTransferred + activeDamageTransferred;
     const totalDamageReduced = passiveDamageReduced + activeDamageReduced;
 
+    const tooltip = this.loaded ? `
+      <b>Passive:</b><br />
+      Damage transferred: ${formatThousands(passiveDamageTransferred)} damage (${formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
+      Effectively damage reduction: ${formatThousands(passiveDamageReduced)} (${formatThousands(this.passiveDrps)} DRPS)<br />
+      <b>Active (Aura Mastery):</b><br />
+      Damage transferred: ${formatThousands(activeDamageTransferred)} damage (${formatThousands(this.perSecond(activeDamageTransferred))} DTPS)<br />
+      Effective damage reduction: ${formatThousands(activeDamageReduced)} (${formatThousands(this.activeDrps)} DRPS)<br />
+      <b>Total:</b><br />
+      Damage transferred: ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
+      Effective damage reduction: ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
+
+      This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Aura of Sacrifice bonus at all, but the actual gain may be higher when accounting for other damage reductions.<br /><br />
+
+      Any damage transferred by the <b>passive</b> while immune (if applicable) is <i>not</i> included.
+    ` : 'Click to load the required data.';
+    const footer = this.loaded && (
+      <div className="statistic-bar">
+        <div
+          className="stat-health-bg"
+          style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
+          data-tip={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}
+        >
+          <img src="/img/shield.png" alt="Damage reduced" />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}
+        >
+          <img src="/img/shield-open.png" alt="Damage transferred" />
+        </div>
+      </div>
+    );
+
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
         value={`>=${formatNumber(this.drps)} DRPS`}
         label="Damage reduced"
-        tooltip={`<b>Passive:</b><br />
-          Damage transferred: ${formatThousands(passiveDamageTransferred)} damage (${formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
-          Effectively damage reduction: ${formatThousands(passiveDamageReduced)} (${formatThousands(this.passiveDrps)} DRPS)<br />
-          <b>Active (Aura Mastery):</b><br />
-          Damage transferred: ${formatThousands(activeDamageTransferred)} damage (${formatThousands(this.perSecond(activeDamageTransferred))} DTPS)<br />
-          Effective damage reduction: ${formatThousands(activeDamageReduced)} (${formatThousands(this.activeDrps)} DRPS)<br />
-          <b>Total:</b><br />
-          Damage transferred: ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
-          Effective damage reduction: ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
-
-          This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Aura of Sacrifice bonus at all, but the actual gain may be higher when accounting for other damage reductions.<br /><br />
-
-          Any damage transferred by the <b>passive</b> while immune (if applicable) is <i>not</i> included.`}
+        tooltip={tooltip}
+        footer={footer}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }
