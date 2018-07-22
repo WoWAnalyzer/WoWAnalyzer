@@ -1,5 +1,6 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import SPELLS from 'common/SPELLS';
 
 class MaelstromTracker extends Analyzer {
   lastEventTimestamp = 0;
@@ -74,13 +75,22 @@ class MaelstromTracker extends Analyzer {
       return;
     }
 
-    this.tracker++;
+    this.tracker += 1;
     this.checkForMaxMaelstrom(event);
     this.maelstromBySecond[(event.timestamp - this.owner.fight.start_time)] = event.classResources[0].amount;
     if (this.generatorCasts[event.ability.guid]) {
       this.generatorCasts[event.ability.guid] += 1;
     } else {
       this.generatorCasts[event.ability.guid] = 1;
+    }
+    if (!SPELLS[event.ability.guid]) {
+      // The spells need to be defined so the Maelstrom view doesn't crash, this should be taken care off by the developer (you), but this at least prevents crashes.
+      console.error('Maelstrom generator missing in SPELLS!', event.ability);
+      SPELLS[event.ability.guid] = {
+        id: event.ability.guid,
+        name: event.ability.name,
+        icon: event.ability.abilityIcon.replace('.jpg', ''),
+      };
     }
     if (this.activeMaelstromGenerated[event.ability.guid]) {
       this.activeMaelstromGenerated[event.ability.guid] += event.resourceChange;
