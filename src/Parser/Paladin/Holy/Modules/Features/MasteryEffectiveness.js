@@ -245,7 +245,7 @@ class MasteryEffectiveness extends Analyzer {
     return this.report.totalHealingFromMastery / (this.report.totalMaxPotentialMasteryHealing || 1);
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(30);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
   statistic() {
     return (
       <StatisticBox
