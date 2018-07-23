@@ -226,7 +226,7 @@ class Report extends React.Component {
       region = exportedCharacter.region.toLowerCase();
       realm = exportedCharacter.server;
       name = exportedCharacter.name;
-      if (region === 'CN') {
+      if (region === 'cn') {
         return null;
       }
     }
