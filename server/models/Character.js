@@ -1,28 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('WclApiResponse', {
-    url: {
-      type: DataTypes.STRING,
+  return sequelize.define('Character', {
+    id: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
     },
-    content: {
-      type: DataTypes.TEXT('long'),
+    region: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    wclResponseTime: {
-      type: DataTypes.INTEGER,
+    realm: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    numAccesses: {
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 1,
     },
     createdAt: {
       type: DataTypes.DATE, // this is actually DATETIME
       defaultValue: DataTypes.NOW,
       allowNull: false,
     },
-    lastAccessedAt: {
+    lastSeenAt: {
       type: DataTypes.DATE, // this is actually DATETIME
       defaultValue: DataTypes.NOW,
       allowNull: false,

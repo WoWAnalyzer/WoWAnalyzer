@@ -1,0 +1,24 @@
+import request from 'request-promise-native';
+
+const availableRegions = [
+  'eu',
+  'us',
+  'tw',
+  'kr',
+];
+
+export function fetchCharacter(region, realm, name) {
+  region = region.toLowerCase();
+  if (!availableRegions.includes(region)) {
+    throw new Error('Region not recognized.');
+  }
+
+  return request.get({
+    url: `https://${region}.api.battle.net/wow/character/${realm}/${name}?locale=en_GB&apikey=${process.env.BATTLE_NET_API_KEY}`,
+    headers: {
+      'User-Agent': process.env.USER_AGENT,
+    },
+    gzip: true,
+    forever: true, // we'll be making several requests, so pool connections
+  });
+}
