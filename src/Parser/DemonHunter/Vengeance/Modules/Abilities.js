@@ -135,6 +135,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SIGIL_OF_FLAME,
+        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         gcd: {

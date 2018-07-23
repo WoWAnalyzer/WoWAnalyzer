@@ -62,7 +62,7 @@ class DemonSpikes extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${this.mitigatedUptime}%`}
-        label="Hits Mitigated by Demon Spikes"
+        label="Hits mitigated by Demon Spikes"
         tooltip={`Demon Spikes usage breakdown:
           <ul>
           <li>You were hit <b>${this.hitsWithDS}</b> times with your Demon Spikes buff.</li>
