@@ -8,7 +8,7 @@ class Haste extends CoreHaste {
     [SPELLS.CRUSADE_TALENT.id]: {
       hastePerStack: 0.03,
     },
-    [SPELLS.INQUISITION_TALENT.id]: 0.08,
+    [SPELLS.INQUISITION_TALENT.id]: 0.07,
   };
 }
 
