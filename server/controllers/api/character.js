@@ -35,9 +35,12 @@ function sendJson(res, json) {
 }
 async function proxyCharacterApi(res, region, realm, name, fields) {
   try {
-    const battleNetResponse = await fetchCharacterFromBattleNet(region, realm, name, fields);
-    sendJson(res, battleNetResponse);
-    return battleNetResponse;
+    const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
+    const json = JSON.parse(response);
+    // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
+    json.region = region;
+    sendJson(res, json);
+    return json;
   } catch (error) {
     console.log(error.message);
     Raven.installed && Raven.captureException(error);
@@ -83,12 +86,11 @@ router.get('/:id([0-9]+)', async (req, res) => {
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
   // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfoString = await proxyCharacterApi(res, region, realm, name, req.query.fields);
+  const characterInfo = await proxyCharacterApi(res, region, realm, name, req.query.fields);
   // Everything after this happens after the data was sent
-  if (!characterInfoString) {
+  if (!characterInfo) {
     return;
   }
-  const characterInfo = JSON.parse(characterInfoString);
   if (characterInfo && characterInfo.thumbnail) {
     const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
     // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
