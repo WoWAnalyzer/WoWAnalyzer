@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-07-23'),
+    changes: 'Survival analyzer updated to be 8.0.1 compatible',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: <React.Fragment>Implements the checklist for Survival. Fixes a display bug with <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} />.</React.Fragment>,
     contributors: [Putro],
