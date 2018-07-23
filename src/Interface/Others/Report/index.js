@@ -268,6 +268,7 @@ class Report extends React.Component {
       config: null,
       parser: null,
       finished: false,
+      characterProfile: null,
     });
     this.props.setReportProgress(null);
     this.stopFakeNetworkProgress();
