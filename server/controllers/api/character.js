@@ -44,7 +44,7 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
   } catch (error) {
     console.log(error.message);
     Raven.installed && Raven.captureException(error);
-    res.status(error.statusCode);
+    res.status(error.statusCode || 500);
     sendJson(res, error.response ? error.response.body : null);
     return null;
   }
