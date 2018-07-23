@@ -17,7 +17,6 @@ import TalonStrike from 'Parser/Hunter/Survival/Modules/Traits/TalonStrike';
 import TalonBond from 'Parser/Hunter/Survival/Modules/Traits/TalonBond';
 import EchoesOfOhnara from 'Parser/Hunter/Survival/Modules/Traits/EchoesOfOhnara';
 import AspectOfTheSkylord from 'Parser/Hunter/Survival/Modules/Traits/AspectOfTheSkylord';
-import ButcheryCarve from 'Parser/Hunter/Survival/Modules/Talents/ButcheryCarve';
 import FuryOfTheEagle from 'Parser/Hunter/Survival/Modules/Traits/FuryOfTheEagle';
 
 class TraitsAndTalents extends Analyzer {
@@ -29,7 +28,6 @@ class TraitsAndTalents extends Analyzer {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
-    butcheryCarve: ButcheryCarve,
 
     //traits
     furyOfTheEagle: FuryOfTheEagle,
@@ -56,7 +54,6 @@ class TraitsAndTalents extends Analyzer {
       >
         {this.caltrops.active && this.caltrops.subStatistic()}
         {this.furyOfTheEagle.active && this.furyOfTheEagle.subStatistic()}
-        {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
         {this.explosiveTrap.active && this.explosiveTrap.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}

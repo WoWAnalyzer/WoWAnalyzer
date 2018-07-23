@@ -24,7 +24,6 @@ import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapp
 
 //Talents
 import Caltrops from 'Parser/Hunter/Survival/Modules/Talents/Caltrops';
-import ButcheryCarve from 'Parser/Hunter/Survival/Modules/Talents/ButcheryCarve';
 import WayOfTheMokNathal from 'Parser/Hunter/Survival/Modules/Talents/WayOfTheMokNathal';
 
 //Spells
@@ -52,7 +51,6 @@ class Checklist extends CoreChecklist {
 
     //talents
     caltrops: Caltrops,
-    butcheryCarve: ButcheryCarve,
     wayOfTheMokNathal: WayOfTheMokNathal,
 
     //spells

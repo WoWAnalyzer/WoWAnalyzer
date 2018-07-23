@@ -19,7 +19,7 @@ export default [
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.ON_THE_TRAIL_DAMAGE.id} icon /> and <SpellLink id={SPELLS.LACERATE.id} icon /> to help identify when you're casting this too much. Added additional refreshing information into Way of the Mok'Nathal module, aswell as average time remaining on <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> upon using <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon /> and other minor behind the scenes updates. </React.Fragment>,
+    changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.ON_THE_TRAIL_DAMAGE.id} icon /> and Lacerate to help identify when you're casting this too much. Added additional refreshing information into Way of the Mok'Nathal module, aswell as average time remaining on <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> upon using <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon /> and other minor behind the scenes updates. </React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -49,7 +49,7 @@ export default [
   },
   {
     date: new Date('2018-02-11'),
-    changes: <React.Fragment>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />, <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} />, Caltrops and added prepull handling for all three. </React.Fragment>,
+    changes: <React.Fragment>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />, Explosive Trap, Caltrops and added prepull handling for all three. </React.Fragment>,
     contributors: [Putro],
   },
   {

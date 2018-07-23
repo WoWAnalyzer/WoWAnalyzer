@@ -21,7 +21,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.CALTROPS_DAMAGE.id,
   ];
 }
 

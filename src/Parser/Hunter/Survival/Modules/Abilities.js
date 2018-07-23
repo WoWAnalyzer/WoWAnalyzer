@@ -1,29 +1,49 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.MONGOOSE_BITE_TALENT,
+        spell: SPELLS.KILL_COMMAND_SV,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
         },
-        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
-        cooldown: haste => 12 / (1 + haste),
-        charges: 3,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },*/
+        charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
+        cooldown: haste => 6 / (1 + haste),
+      },
+      {
+        spell: SPELLS.RAPTOR_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.RAPTOR_STRIKE_2,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.WILDFIRE_BOMB,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
+        cooldown: haste => 18 / (1 + haste),
+      },
+      {
+        spell: SPELLS.SERPENT_STING_SV,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CARVE,
@@ -32,17 +52,26 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
+        cooldown: haste => 6 / (1 + haste),
       },
       {
-        spell: SPELLS.EXPLOSIVE_TRAP_CAST,
+        spell: SPELLS.COORDINATED_ASSAULT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .70,
+          recommendedEfficiency: .9,
+        },
+      },
+      {
+        spell: SPELLS.MONGOOSE_BITE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
+        gcd: {
+          base: 1500,
         },
       },
       {
@@ -55,13 +84,13 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .95,
+          recommendedEfficiency: .9,
         },
       },
       {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -72,9 +101,35 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.FLANKING_STRIKE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 40,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.CHAKRAMS_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
         spell: SPELLS.BUTCHERY_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         charges: 3,
         gcd: {
           base: 1500,
@@ -86,48 +141,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SPITTING_COBRA_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: <React.Fragment>Although you want to be casting Spitting Cobra as much as possible, you also want to be gaining as much as possible from each cast, and since <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon /> scales extremely well with haste, it can be worth delaying usage to line it up with a haste buff such as <SpellLink id={SPELLS.HEROISM.id} icon /> or a <ItemLink id={ITEMS.SEPHUZS_SECRET.id} icon /> proc.</React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.RAPTOR_STRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.HATCHET_TOSS,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.LACERATE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
-          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
-          const cooldownAfterEmbrace = hasEmbrace ? 90 - (90 * 0.2) : 90;
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
-          return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
+          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
+          return 90 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         castEfficiency: {
           suggestion: true,
@@ -139,10 +158,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
-          const cooldownAfterEmbrace = hasEmbrace ? 180 - (180 * 0.2) : 180;
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
-          return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
+          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
+          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -151,10 +169,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: () => {
-          const hasEmbrace = combatant.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
-          const cooldownAfterEmbrace = hasEmbrace ? 180 - (180 * 0.2) : 180;
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
-          return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
+          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
+          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -168,7 +185,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 1500,
+          base: 750,
         },
         cooldown: 20,
       },
@@ -187,8 +204,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
-        enabled: !combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -215,6 +231,30 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      /**
+       * Following are implemented to avoid annoying console messages.
+       */
+
+      {
+        spell: SPELLS.DEFILED_AUGMENT_RUNE,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+      },
+      {
+        spell: SPELLS.POTION_OF_PROLONGED_POWER,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+      },
+      {
+        spell: SPELLS.POTION_OF_DEADLY_GRACE,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
       },
     ];
   }
