@@ -30,6 +30,7 @@ const Character = models.Character;
 
 function sendJson(res, json) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
 async function proxyCharacterApi(res, region, realm, name) {
@@ -69,6 +70,7 @@ const router = Express.Router();
 router.get('/:id([0-9]+)', async (req, res) => {
   const character = await Character.findById(req.params.id);
   if (!character) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.sendStatus(404);
     return;
   }
