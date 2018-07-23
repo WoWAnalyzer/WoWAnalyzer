@@ -232,7 +232,7 @@ class Report extends React.Component {
     }
 
     try {
-      return fetch(makeCharacterApiUrl(id, region, realm, name, 'talents')).then(data => data.json());
+      return await fetch(makeCharacterApiUrl(id, region, realm, name, 'talents')).then(data => data.json());
     } catch (error) {
       return null;
     }
