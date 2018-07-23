@@ -28,7 +28,7 @@ const AFFECTED_SPELLS = [
   SPELLS.ARCANE_SHOT.id,
   SPELLS.BURSTING_SHOT.id,
   SPELLS.PIERCING_SHOT_TALENT.id,
-  SPELLS.EXPLOSIVE_SHOT_DETONATION.id,
+  SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
   SPELLS.SERPENT_STING_TALENT.id,
   SPELLS.VOLLEY_DAMAGE.id,
   SPELLS.RAPID_FIRE.id,
@@ -39,6 +39,10 @@ class LoneWolf extends Analyzer {
   dismissPetTimestamp = 0;
   loneWolfModifier = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = true;
+  }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DISMISS_PET.id) {
@@ -55,6 +59,12 @@ class LoneWolf extends Analyzer {
     }
     this.loneWolfModifier = Math.min(MAX_LONE_WOLF_MODIFIER, Math.floor((event.timestamp - this.dismissPetTimestamp) / RAMP_INTERVAL * INCREASE_PER_RAMP));
     this.damage += getDamageBonus(event, this.loneWolfModifier);
+  }
+
+  on_finished() {
+    if (this.damage === 0) {
+      this.active = false;
+    }
   }
 
   subStatistic() {

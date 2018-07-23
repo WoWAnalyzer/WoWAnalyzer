@@ -66,6 +66,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.EXPLOSIVE_SHOT_DETONATION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+      {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
@@ -84,6 +88,26 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SERPENT_STING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DOUBLE_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -124,6 +148,16 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_TORRENT_FOCUS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
@@ -242,6 +276,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POTION_OF_PROLONGED_POWER,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+      },
+      {
+        spell: SPELLS.POTION_OF_DEADLY_GRACE,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
       },
     ];

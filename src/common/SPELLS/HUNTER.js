@@ -82,7 +82,7 @@ export default {
     icon: 'ability_hunter_focusedaim',
   },
   HUNTER_MM_T21_4P_BONUS: {
-    id: 251753,
+    id: 214826,
     name: 'T21 4 set bonus',
     icon: 'ability_hunter_markedshot',
   },
@@ -547,6 +547,11 @@ export default {
     icon: 'ability_hunter_burstingshot',
   },
   EXPLOSIVE_SHOT_DETONATION: {
+    id: 212679,
+    name: 'Explosive Shot: Detonate!',
+    icon: '6bf_explosive_shard',
+  },
+  EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
@@ -622,6 +627,11 @@ export default {
     id: 164273,
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
+  },
+  HUNTERS_MARK_FOCUS: {
+    id: 259558,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
   },
 
   //Survival:
