@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWclApi';
-import makeApiUrl from 'common/makeApiUrl';
+import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import ArmoryLogo from 'Interface/Images/Armory-logo.png';
@@ -194,8 +194,10 @@ class Parses extends React.Component {
   }
 
   async fetchBattleNetInfo() {
+    const { region, realm, name } = this.props;
+
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
-    if (this.props.region === 'CN') {
+    if (region === 'CN') {
       this.setState({
         image: FALLBACK_PICTURE,
       }, () => {
@@ -204,9 +206,7 @@ class Parses extends React.Component {
       return;
     }
     // fetch character image and active spec from battle-net
-    const response = await fetch(makeApiUrl(`character/${this.props.region}/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}`, {
-      fields: 'talents',
-    }));
+    const response = await fetch(makeCharacterApiUrl(null, region, realm, name, 'talents'));
     const data = await response.json();
 
     if (data.status === 'nok') {
