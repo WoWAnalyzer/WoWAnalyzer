@@ -15,7 +15,7 @@ class MitigationCheck extends Analyzer{
   static dependencies = {
     enemies: Enemies,
   };
-  disabled = false;
+
   checks = [];
   buffCheck = [];
   debuffCheck = [];
@@ -26,7 +26,7 @@ class MitigationCheck extends Analyzer{
   constructor(...args) {
     super(...args);
     if(this.owner.boss == null){
-      this.disabled = true;
+      this.active = false;
       return;
     }
     const boss = findByBossId(this.owner.boss.id);
@@ -48,9 +48,6 @@ class MitigationCheck extends Analyzer{
 
 
   on_toPlayer_damage(event){
-    if(this.disabled){
-      return;
-    }
     const spell = event.ability.guid;
     if(this.checks.includes(spell) && !event.tick){
       console.log(this.buffCheck);
@@ -71,9 +68,6 @@ class MitigationCheck extends Analyzer{
 
 
   statistic(){
-    if(this.disabled){
-      return null;
-    }
     const failSum = Array.from(this.checksFailedMap.values()).reduce((total, val) => total + val, 0);
     const passSum = Array.from(this.checksPassedMap.values()).reduce((total, val) => total + val, 0);
     if(failSum + passSum === 0){
