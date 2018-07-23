@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import {formatNumber} from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -34,6 +35,9 @@ class VigilantsBloodshaper extends Analyzer{
       item: ITEMS.VIGILANTS_BLOODSHAPER,
       result: (
         <React.Fragment>
+          <dfn data-tip={`Procced <b>${this.hits}</b> times, causing <b>${this.damage}</b> damage.`}>
+            {formatNumber(this.damage)} Damage
+          </dfn><br />
           <ItemDamageDone amount={this.damage} />
         </React.Fragment>
       ),
