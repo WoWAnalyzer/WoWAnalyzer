@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
 
 import REALMS from 'common/REALMS';
+import makeApiUrl from 'common/makeApiUrl';
 
 import makeUrl from './makeUrl';
 
@@ -52,7 +53,9 @@ class Search extends React.PureComponent {
 
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
     if (region !== 'CN') {
-      const response = await fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`);
+      const response = await fetch(makeApiUrl(`character/${region}/${encodeURIComponent(realm)}/${encodeURIComponent(char)}`, {
+        fields: 'talents',
+      }));
       const data = await response.json();
       if (data.status === 'nok') {
         alert(`${char} of ${realm} could not be found.`);
