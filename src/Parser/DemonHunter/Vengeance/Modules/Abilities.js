@@ -28,11 +28,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 15 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: <React.Fragment>This is a great physical reduction spell and it also provides a great physical damage increase in your case, giving your <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} /> talent choice. Try to always cast it on cooldown. </React.Fragment>,
-        },
       },
       {
         spell: SPELLS.FELBLADE_TALENT,
@@ -81,6 +76,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRACTURE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+        cooldown: haste => 4.5 / (1 + haste),
+        charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
         gcd: {
           base: 1500,
         },
@@ -134,6 +135,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SIGIL_OF_FLAME,
+        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         gcd: {
