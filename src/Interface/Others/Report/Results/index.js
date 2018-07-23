@@ -50,6 +50,10 @@ class Results extends React.PureComponent {
     makeTabUrl: PropTypes.func.isRequired,
     i18n: PropTypes.object.isRequired,
     premium: PropTypes.bool,
+    characterProfile: PropTypes.shape({
+      region: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+    }),
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -350,7 +354,7 @@ class Results extends React.PureComponent {
   }
 
   render() {
-    const { parser, i18n } = this.props;
+    const { parser, i18n, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const config = this.context.config;
@@ -373,7 +377,13 @@ class Results extends React.PureComponent {
 
     return (
       <div className="results">
-        <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+        <Header
+          config={config}
+          playerName={selectedCombatant.name}
+          playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
+          boss={parser.boss}
+          fight={fight}
+        />
 
         {!parser.finished ? this.renderLoading() : this.renderContent()}
       </div>

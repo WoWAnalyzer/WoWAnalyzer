@@ -287,10 +287,13 @@ class CombatLogParser {
   static specModules = {};
 
   report = null;
+  // Player info from WCL - required
   player = null;
   playerPets = null;
   fight = null;
   combatantInfoEvents = null;
+  // Character info from the Battle.net API (optional)
+  characterProfile = null;
 
   adjustForDowntime = true;
   get hasDowntime() {

@@ -33,16 +33,19 @@ function sendJson(res, json) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
-async function proxyCharacterApi(res, region, realm, name) {
+async function proxyCharacterApi(res, region, realm, name, fields) {
   try {
-    const battleNetResponse = await fetchCharacterFromBattleNet(region, realm, name);
-    sendJson(res, battleNetResponse);
-    return battleNetResponse;
+    const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
+    const json = JSON.parse(response);
+    // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
+    json.region = region;
+    sendJson(res, json);
+    return json;
   } catch (error) {
     console.log(error.message);
     Raven.installed && Raven.captureException(error);
     res.status(error.statusCode);
-    sendJson(res, error.response.body);
+    sendJson(res, error.response ? error.response.body : null);
     return null;
   }
 }
@@ -78,17 +81,16 @@ router.get('/:id([0-9]+)', async (req, res) => {
   character.update({
     lastSeenAt: Sequelize.fn('NOW'),
   });
-  await proxyCharacterApi(res, character.region, character.realm, character.name);
+  await proxyCharacterApi(res, character.region, character.realm, character.name, req.query.fields);
 });
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
   // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfoString = await proxyCharacterApi(res, region, realm, name);
+  const characterInfo = await proxyCharacterApi(res, region, realm, name, req.query.fields);
   // Everything after this happens after the data was sent
-  if (!characterInfoString) {
+  if (!characterInfo) {
     return;
   }
-  const characterInfo = JSON.parse(characterInfoString);
   if (characterInfo && characterInfo.thumbnail) {
     const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
     // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
@@ -99,7 +101,7 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   const { id, region, realm, name } = req.params;
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
   storeCharacter(id, region, realm, name);
-  await proxyCharacterApi(res, region, realm, name);
+  await proxyCharacterApi(res, region, realm, name, req.query.fields);
 });
 
 export default router;
