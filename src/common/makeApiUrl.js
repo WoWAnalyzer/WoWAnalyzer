@@ -4,7 +4,17 @@ export default function makeApiUrl(endpoint, queryParams = {}) {
   return makeUrl(`${process.env.REACT_APP_SERVER_BASE}${process.env.REACT_APP_API_BASE}${endpoint}`, queryParams);
 }
 export function makeCharacterApiUrl(characterId = null, region = null, realm = null, name = null, fields = undefined) {
-  return makeApiUrl(`character/${characterId ? `${characterId}/` : ''}${region}/${encodeURIComponent(realm)}/${encodeURIComponent(name)}`, {
+  const parts = ['character'];
+  if (characterId) {
+    parts.push(characterId);
+  }
+  if (region && realm && name) {
+    parts.push(region);
+    parts.push(realm);
+    parts.push(name);
+  }
+
+  return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'), {
     fields,
   });
 }
