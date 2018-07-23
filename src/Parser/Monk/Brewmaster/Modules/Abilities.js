@@ -12,25 +12,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.KEG_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 8 / (1 + haste),
-        enabled: !combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id),
+        charges: combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
         },
         gcd: {
           static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.KEG_SMASH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 8 / (1 + haste),
-        charges: 2,
-        enabled: combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        gcd: {
-          base: 1000,
         },
       },
       {
