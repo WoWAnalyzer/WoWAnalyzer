@@ -68,6 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXPLOSIVE_SHOT_DETONATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
       },
       {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
@@ -101,6 +102,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DOUBLE_TAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id),
         gcd: {
           base: 1500,

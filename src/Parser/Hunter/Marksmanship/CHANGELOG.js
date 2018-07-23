@@ -8,6 +8,11 @@ import { Blazballs, JLassie82, Putro } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-07-23'),
+    changes: 'Updated a large amount of modules to be ready for pre-patch and BFA. Updated patch combatility to 8.0.1.',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-10'),
     changes: <React.Fragment>Fixes A Murder of Crows to properly calculate the boss health.</React.Fragment>,
     contributors: [Putro],
