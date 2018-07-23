@@ -29,6 +29,8 @@ import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
+import MitigationCheck from './Modules/Features/MitigationCheck';
+
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
@@ -38,6 +40,7 @@ import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
+import GiftOfTheOx from './Modules/Normalizers/GiftOfTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
     masteryValue: MasteryValue,
+    mitigationCheck: MitigationCheck,
 
     // Features
     checklist: Checklist,
@@ -85,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
     garothi: GarothiWorldbreakerMeleeNormalizer,
+    gotox: GiftOfTheOx,
   };
 }
 

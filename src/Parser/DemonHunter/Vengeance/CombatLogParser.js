@@ -14,11 +14,12 @@ import PainDetails from './Modules/Pain/PainDetails';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
-import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
+import SoulFragments from './Modules/Statistics/SoulFragments';
+import SpiritBomb from './Modules/Talent/SpiritBomb';
 
-import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
+import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

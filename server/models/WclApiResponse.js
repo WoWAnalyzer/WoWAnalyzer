@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const WclApiResponse = sequelize.define('WclApiResponse', {
+  return sequelize.define('WclApiResponse', {
     url: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -28,6 +28,4 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-
-  return WclApiResponse;
 };

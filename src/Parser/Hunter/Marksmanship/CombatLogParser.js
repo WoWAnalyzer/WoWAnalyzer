@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Channeling from './Modules/Features/Channeling';
 import Abilities from './Modules/Abilities';
 
 //Features
@@ -8,6 +9,9 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
+//Normalizers
+import RapidFire from './Normalizers/RapidFire';
+
 //Tier
 import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier20_2p from './Modules/Items/Tier20_2p';
@@ -38,13 +42,14 @@ import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
-import CelerityOfTheWindrunners from './Modules/Items/CelerityOfTheWindrunners';
+import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
 import MagnetizedBlastingCapLauncher from './Modules/Items/MagnetizedBlastingCapLauncher';
 import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
-import ZevrimsHunger from './Modules/Items/ZevrimsHunger';
+import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -54,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
+    channeling: Channeling,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,6 +67,9 @@ class CombatLogParser extends CoreCombatLogParser {
     timeFocusCapped: TimeFocusCapped,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,
+
+    //Normalizers
+    rapidFire: RapidFire,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -85,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theApexPredatorsClaw: TheApexPredatorsClaw,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    unseenPredatorsCloak: UnseenPredatorsCloak,
 
     //Spells
     trueshot: Trueshot,

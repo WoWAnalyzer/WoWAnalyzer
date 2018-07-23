@@ -725,10 +725,10 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  STELLAR_EMPOWERMENT: {
-    id: 197637,
-    name: 'Stellar Empowerment',
-    icon: 'ability_druid_starfall',
+  STARLORD: {
+    id: 279709,
+    name: 'Starlord',
+    icon: 'spell_shaman_measuredinsight',
   },
   // MOONFIRE = MOONFIRE_BEAR
   // MOONFIRE_CAST = MOONFIRE

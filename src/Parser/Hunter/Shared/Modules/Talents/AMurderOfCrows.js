@@ -35,7 +35,7 @@ class AMurderOfCrows extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_DEBUFF.id) {
       return;
     }
     if (this.casts === 0) {

@@ -24,9 +24,15 @@ class DivinePurpose extends Analyzer {
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
+  on_toPlayer_applybuff(event) {
+    this.handleProc(event);
+  }
+  on_toPlayer_refreshbuff(event) {
+    this.handleProc(event);
+  }
   holyShockProcs = 0;
   lightOfDawnProcs = 0;
-  on_toPlayer_applybuff(event) {
+  handleProc(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id) {
       this.holyShockProcs += 1;

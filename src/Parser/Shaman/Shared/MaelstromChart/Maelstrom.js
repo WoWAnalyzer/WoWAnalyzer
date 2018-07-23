@@ -32,7 +32,6 @@ class Maelstrom extends React.PureComponent {
       );
     }
 
-
     const maxMaelstrom = this.props.maelstromMax;
     const { start, end } = this.props;
 
@@ -43,7 +42,7 @@ class Maelstrom extends React.PureComponent {
     const magicGraphNumber = Math.floor(maxMaelstrom / 2);
     let passiveWasteIndex = 0;
     if (this.props.maelstromPerSecond && this.props.activeMaelstromWastedTimeline) {
-      this.props.maelstromPerSecond.forEach((item) => {
+      this.props.maelstromPerSecond.forEach(item => {
         const secIntoFight = Math.floor(passiveWasteIndex / 1000);
         if (Math.max(maelstromBySecond[secIntoFight], item) >= magicGraphNumber) { //aims to get highest peak
           maelstromBySecond[secIntoFight] = Math.max(maelstromBySecond[secIntoFight], item);
@@ -59,18 +58,20 @@ class Maelstrom extends React.PureComponent {
       });
     }
 
-      for (let i = 0; i < lastCatch; i++) {
-        if (!maelstromBySecond[i]) {
-          if (maelstromBySecond[i - 1] > maxMaelstrom)
-            {maelstromBySecond[i] = maxMaelstrom;}
-          else
-            {maelstromBySecond[i] = maelstromBySecond[i - 1];}
+    for (let i = 0; i < lastCatch; i++) {
+      if (!maelstromBySecond[i]) {
+        if (maelstromBySecond[i - 1] > maxMaelstrom) {
+          maelstromBySecond[i] = maxMaelstrom;
+        } else {
+          maelstromBySecond[i] = maelstromBySecond[i - 1];
+        }
       }
 
-        if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom)
-          {overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;}
-        else
-          {overCapBySecond[i] = 0;}
+      if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom) {
+        overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
+      } else {
+        overCapBySecond[i] = 0;
+      }
     }
 
     const abilitiesAll = {};
@@ -97,10 +98,12 @@ class Maelstrom extends React.PureComponent {
 
     const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a, b) => {
-      if (a.created < b.created)
-        {return 1;}
-      if (a.created === b.created)
-        {return 0;}
+      if (a.created < b.created) {
+        return 1;
+      }
+      if (a.created === b.created) {
+        return 0;
+      }
       return -1;
     });
 
@@ -126,18 +129,19 @@ class Maelstrom extends React.PureComponent {
     myLabels[maxX - 1] = formatDuration(maxX - 1);
     const myData = {
       labels: myLabels,
-      datasets: [{
-        label: 'Maelstrom',
-        data: maelstromBySecond,
-        lineTension: 0.4,
-        backgroundColor: [
-          'rgba(0, 139, 215, 0.2)',
-        ],
-        borderColor: [
-          'rgba(0,145,255,1)',
-        ],
-        borderWidth: 2,
-      },
+      datasets: [
+        {
+          label: 'Maelstrom',
+          data: maelstromBySecond,
+          lineTension: 0.4,
+          backgroundColor: [
+            'rgba(0, 139, 215, 0.2)',
+          ],
+          borderColor: [
+            'rgba(0,145,255,1)',
+          ],
+          borderWidth: 2,
+        },
         {
           label: 'Wasted Maelstrom',
           data: overCapBySecond,
@@ -149,8 +153,8 @@ class Maelstrom extends React.PureComponent {
             'rgba(255,90,160,1)',
           ],
           borderWidth: 2,
-        }],
-
+        },
+      ],
     };
     const chartOptions = {
       lineTension: 0,

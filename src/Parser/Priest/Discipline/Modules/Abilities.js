@@ -134,6 +134,11 @@ class Abilities extends CoreAbilities {
         cooldown: 3 * 60,
       },
       {
+        spell: SPELLS.DESPERATE_PRAYER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+      },
+      {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 3 * 60,

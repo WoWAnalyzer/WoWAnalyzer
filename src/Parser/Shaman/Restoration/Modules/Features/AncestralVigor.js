@@ -1,6 +1,6 @@
 import React from 'react';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
@@ -21,18 +21,18 @@ class AncestralVigor extends Analyzer {
 
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname, query) {
-    const self = this;
-    async function checkAndFetch(_query) {
+    const checkAndFetch = async _query => {
       const json = await fetchWcl(pathname, _query);
-      self.totalLifeSaved += json.events.length;
+      this.totalLifeSaved += json.events.length;
       if (json.nextPageTimestamp) {
-        return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
+        return checkAndFetch(Object.assign(query, {
+          start: json.nextPageTimestamp,
+        }));
       }
-      self.loaded = true;
+      this.loaded = true;
       return null;
-    }
-
-    return checkAndFetch(query);
+    };
+    return checkAndFetch;
   }
 
   load() {

@@ -4,11 +4,11 @@ import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
 import Icon from './Icon';
 
-const ItemIcon = ({ id, noLink, details, ...others }) => {
+const ItemIcon = ({ id, noLink, details, alt, ...others }) => {
   const icon = (
     <Icon
       icon={ITEMS[id].icon}
-      alt={ITEMS[id].name}
+      alt={alt !== '' ? ITEMS[id].name : ''}
       {...others}
     />
   );
@@ -27,6 +27,7 @@ ItemIcon.propTypes = {
   id: PropTypes.number.isRequired,
   noLink: PropTypes.bool,
   details: PropTypes.object,
+  alt: PropTypes.string,
 };
 
 export default ItemIcon;

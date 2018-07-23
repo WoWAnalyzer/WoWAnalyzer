@@ -43,8 +43,12 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
-import Timeline from './Modules/Features/Timeline';
 import EncounterPanel from './Modules/Features/EncounterPanel';
+
+// Tabs
+import TimelineTab from './Modules/Features/TimelineTab';
+import ManaTab from './Modules/Features/ManaTab';
+import RaidHealthTab from './Modules/Features/RaidHealthTab';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -188,8 +192,11 @@ class CombatLogParser {
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
 
-    timeline: Timeline,
     encounterPanel: EncounterPanel,
+    // Tabs
+    timelineTab: TimelineTab,
+    manaTab: ManaTab,
+    raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -280,10 +287,13 @@ class CombatLogParser {
   static specModules = {};
 
   report = null;
+  // Player info from WCL - required
   player = null;
   playerPets = null;
   fight = null;
   combatantInfoEvents = null;
+  // Character info from the Battle.net API (optional)
+  characterProfile = null;
 
   adjustForDowntime = true;
   get hasDowntime() {
