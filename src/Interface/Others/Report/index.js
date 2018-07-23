@@ -465,6 +465,7 @@ class Report extends React.Component {
           <Results
             parser={parser}
             finished={this.state.finished}
+            characterProfile={this.state.characterProfile}
             makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
           />
         </div>
