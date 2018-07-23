@@ -33,9 +33,9 @@ function sendJson(res, json) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
-async function proxyCharacterApi(res, region, realm, name) {
+async function proxyCharacterApi(res, region, realm, name, fields) {
   try {
-    const battleNetResponse = await fetchCharacterFromBattleNet(region, realm, name);
+    const battleNetResponse = await fetchCharacterFromBattleNet(region, realm, name, fields);
     sendJson(res, battleNetResponse);
     return battleNetResponse;
   } catch (error) {
@@ -78,12 +78,12 @@ router.get('/:id([0-9]+)', async (req, res) => {
   character.update({
     lastSeenAt: Sequelize.fn('NOW'),
   });
-  await proxyCharacterApi(res, character.region, character.realm, character.name);
+  await proxyCharacterApi(res, character.region, character.realm, character.name, req.query.fields);
 });
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
   // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfoString = await proxyCharacterApi(res, region, realm, name);
+  const characterInfoString = await proxyCharacterApi(res, region, realm, name, req.query.fields);
   // Everything after this happens after the data was sent
   if (!characterInfoString) {
     return;
@@ -99,7 +99,7 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   const { id, region, realm, name } = req.params;
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
   storeCharacter(id, region, realm, name);
-  await proxyCharacterApi(res, region, realm, name);
+  await proxyCharacterApi(res, region, realm, name, req.query.fields);
 });
 
 export default router;
