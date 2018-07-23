@@ -138,10 +138,12 @@ import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
+import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -282,6 +284,7 @@ class CombatLogParser {
     gemhide: Gemhide,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
+    vigilantsBloodshaper: VigilantsBloodshaper,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
