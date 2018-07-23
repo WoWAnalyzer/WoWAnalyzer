@@ -76,6 +76,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRACTURE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+        cooldown: haste => 4.5 / (1 + haste),
+        charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
         gcd: {
           base: 1500,
         },
