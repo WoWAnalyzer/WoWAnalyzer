@@ -123,7 +123,7 @@ class Report extends React.Component {
     this._jobId += 1;
     const jobId = this._jobId;
     let events;
-    const exportedCharacter = report.exportedCharacters.find(char => char.name === player.name);
+    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     try {
       this.startFakeNetworkProgress();
       await Promise.all([
