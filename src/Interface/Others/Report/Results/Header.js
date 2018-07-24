@@ -16,6 +16,7 @@ class Headers extends React.PureComponent {
       }).isRequired,
     }).isRequired,
     playerName: PropTypes.string.isRequired,
+    playerIcon: PropTypes.string,
     boss: PropTypes.shape({
       headshot: PropTypes.string.isRequired,
     }),
@@ -23,19 +24,19 @@ class Headers extends React.PureComponent {
   };
 
   render() {
-    const { config: { spec }, playerName, boss, fight } = this.props;
+    const { config: { spec }, playerName, playerIcon, boss, fight } = this.props;
 
     return (
       <header>
         <div className={`player ${spec.className.replace(' ', '')}`}>
-          <SpecIcon id={spec.id} style={{ marginTop: 0 }} />{' '}
+          {playerIcon ? <img src={playerIcon} alt="" /> : <SpecIcon id={spec.id} style={{ marginTop: 0 }} />}{' '}
           <Textfit mode="single" max={80}>
             {playerName}
           </Textfit>
         </div>
         <div className="versus">versus</div>
         <div className="boss">
-          <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />
+          <img src={boss ? boss.headshot : SkullRaidMarker} alt="" />
           <Textfit mode="single" max={80}>
             {getBossName(fight)}
           </Textfit>

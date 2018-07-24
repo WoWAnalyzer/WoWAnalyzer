@@ -82,7 +82,7 @@ export default {
     icon: 'ability_hunter_focusedaim',
   },
   HUNTER_MM_T21_4P_BONUS: {
-    id: 251753,
+    id: 214826,
     name: 'T21 4 set bonus',
     icon: 'ability_hunter_markedshot',
   },
@@ -381,7 +381,7 @@ export default {
     icon: 'inv_glove_mail_raidshamanmythic_o_01',
   },
   CELERITY_OF_THE_WINDRUNNERS_BUFF: {
-    id: 248088,
+    id: 281297,
     name: 'Celerity of the Windrunners',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
@@ -547,6 +547,11 @@ export default {
     icon: 'ability_hunter_burstingshot',
   },
   EXPLOSIVE_SHOT_DETONATION: {
+    id: 212679,
+    name: 'Explosive Shot: Detonate!',
+    icon: '6bf_explosive_shard',
+  },
+  EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
@@ -623,6 +628,11 @@ export default {
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
   },
+  HUNTERS_MARK_FOCUS: {
+    id: 259558,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
 
   //Survival:
   ASPECT_OF_THE_EAGLE: {
@@ -648,7 +658,12 @@ export default {
   KILL_COMMAND_SV: {
     id: 259489,
     name: 'Kill Command',
-    icon: '',
+    icon: 'ability_hunter_killcommand',
+  },
+  FLANKERS_ADVANTAGE: {
+    id: 259285,
+    name: 'Flanker\'s Advantage',
+    icon: 'ability_hunter_resistanceisfutile',
   },
   MUZZLE: {
     id: 187707,
@@ -665,41 +680,20 @@ export default {
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
   },
+  RAPTOR_STRIKE_AOTE: {
+    id: 265189,
+    name: 'Raptor Strike',
+    icon: 'ability_hunter_raptorstrike',
+  },
   SERPENT_STING_SV: {
     id: 259491,
     name: 'Serpent Sting',
     icon: 'spell_hunter_exoticmunitions_poisoned',
   },
-  EXPLOSIVE_TRAP_DAMAGE: {
-    id: 13812,
-    name: 'Explosive Trap',
-    icon: 'spell_fire_selfdestruct',
-  },
-  EXPLOSIVE_TRAP_CAST: {
-    id: 191433,
-    name: 'Explosive Trap',
-    icon: 'spell_fire_selfdestruct',
-  },
   MONGOOSE_FURY: {
     id: 190931,
     name: 'Mongoose Fury',
     icon: 'ability_hunter_mongoosebite',
-  },
-  LACERATE: {
-    id: 185855,
-    name: 'Lacerate',
-    icon: 'ability_hunter_laceration',
-  },
-
-  CALTROPS_DAMAGE: {
-    id: 194279,
-    name: 'Caltrops',
-    icon: 'ability_ironmaidens_incindiarydevice',
-  },
-  HATCHET_TOSS: {
-    id: 193265,
-    name: 'Hatchet Toss',
-    icon: 'ability_hunter_hatchettoss',
   },
   HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
     id: 190927,
@@ -723,15 +717,15 @@ export default {
     name: 'Steel Trap',
     icon: 'inv_pet_pettrap02',
   },
-  DRAGONSFIRE_GRENADE_DEBUFF: {
-    id: 194858,
-    name: 'Dragonsfire Grenade',
-    icon: 'spell_fire_incinerate',
+  TIP_OF_THE_SPEAR_CAST: {
+    id: 260286,
+    name: 'Tip of the Spear',
+    icon: 'ability_bossmannoroth_glaivethrust',
   },
-  DRAGONSFIRE_GRENADE_CONFLAGARATION: {
-    id: 194859,
-    name: 'Dragonsfire Grenade',
-    icon: 'spell_fire_incinerate',
+  VIPERS_VENOM_BUFF: {
+    id: 268552,
+    name: 'Viper\'s Venom',
+    icon: 'ability_hunter_potentvenom',
   },
 
   //Shared BFA buffs/debuffs/misc
@@ -883,7 +877,7 @@ export default {
 
   //BFA Pet abilities
   PRIMAL_RAGE: {
-    id: 272678,
+    id: 264667,
     name: 'Primal Rage',
     icon: 'spell_shadow_unholyfrenzy',
   },

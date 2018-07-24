@@ -26,6 +26,8 @@ import RoarOfTheSevenLions from './Modules/Items/RoarOfTheSevenLions';
 import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
 import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
 import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
+//Talents
+import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 
 //Spells
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
@@ -78,6 +80,9 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_4p: Tier20_4p,
     tier21_2p: Tier21_2p,
     tier21_4p: Tier21_4p,
+
+    //Talents
+    naturalMending: NaturalMending,
   };
 }
 

@@ -148,6 +148,15 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
       },
       {
+        spell: SPELLS.LUMINOUS_BARRIER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 3 * 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
+      },
+      {
         spell: SPELLS.SHADOW_WORD_PAIN,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: !combatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id),

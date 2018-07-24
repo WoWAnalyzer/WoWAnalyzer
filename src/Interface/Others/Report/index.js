@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import fetchEvents from 'common/fetchEvents';
+import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import { getCombatants } from 'Interface/selectors/combatants';
@@ -80,6 +81,7 @@ class Report extends React.Component {
   state = {
     finished: false,
     config: null,
+    characterProfile: null,
   };
 
   getChildContext() {
@@ -121,9 +123,20 @@ class Report extends React.Component {
     this._jobId += 1;
     const jobId = this._jobId;
     let events;
+    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     try {
       this.startFakeNetworkProgress();
-      events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
+      await Promise.all([
+        this.fetchCharacter(player.guid, exportedCharacter).then(data => {
+          this.setState({
+            characterProfile: data,
+          });
+          parser.characterProfile = data;
+        }),
+        fetchEvents(report.code, fight.start_time, fight.end_time, player.id).then(data => {
+          events = data;
+        }),
+      ]);
       this.stopFakeNetworkProgress();
     } catch (err) {
       this.stopFakeNetworkProgress();
@@ -205,6 +218,25 @@ class Report extends React.Component {
   stopFakeNetworkProgress() {
     this._isFakeNetworking = false;
   }
+  async fetchCharacter(id, exportedCharacter) {
+    let region;
+    let realm;
+    let name;
+    if (exportedCharacter) {
+      region = exportedCharacter.region.toLowerCase();
+      realm = exportedCharacter.server;
+      name = exportedCharacter.name;
+      if (region === 'cn') {
+        return null;
+      }
+    }
+
+    try {
+      return await fetch(makeCharacterApiUrl(id, region, realm, name, 'talents')).then(data => data.json());
+    } catch (error) {
+      return null;
+    }
+  }
   timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -236,6 +268,7 @@ class Report extends React.Component {
       config: null,
       parser: null,
       finished: false,
+      characterProfile: null,
     });
     this.props.setReportProgress(null);
     this.stopFakeNetworkProgress();
@@ -433,6 +466,7 @@ class Report extends React.Component {
           <Results
             parser={parser}
             finished={this.state.finished}
+            characterProfile={this.state.characterProfile}
             makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
           />
         </div>

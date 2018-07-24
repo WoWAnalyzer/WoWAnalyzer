@@ -3,7 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -78,7 +78,7 @@ class ButchersBoneApron extends Analyzer {
     if (spellID !== SPELLS.BUTCHERY_TALENT.id && spellID !== SPELLS.CARVE.id) {
       return;
     }
-    this.bonusDamage += getDamageBonus(event, MODIFIER_PER_STACK * this._savedStacks);
+    this.bonusDamage += calculateEffectiveDamage(event, MODIFIER_PER_STACK * this._savedStacks);
   }
 
   get apronStacks() {

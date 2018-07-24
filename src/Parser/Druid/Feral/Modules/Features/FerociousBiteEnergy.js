@@ -68,14 +68,12 @@ class FerociousBiteEnergy extends Analyzer {
   }
 
   getEnergyUsedByBite(event) {
-    const resource = event.classResources[0];
-    if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
+    const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.ENERGY.id);
+    if (!resource || !resource.cost) {
       return 0;
-    }
-    else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
+    } else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
       return resource.amount;
-    }
-    else {
+    } else {
       return ENERGY_FOR_FULL_DAMAGE_BITE;
     }
   }

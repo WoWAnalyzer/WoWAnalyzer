@@ -14,7 +14,7 @@ export function fetchCharacter(region, realm, name, fields) {
   }
 
   return request.get({
-    url: `https://${region}.api.battle.net/wow/character/${realm}/${name}?locale=en_GB&apikey=${process.env.BATTLE_NET_API_KEY}&fields=${fields}`,
+    url: `https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=en_GB&apikey=${process.env.BATTLE_NET_API_KEY}&fields=${fields}`,
     headers: {
       'User-Agent': process.env.USER_AGENT,
     },

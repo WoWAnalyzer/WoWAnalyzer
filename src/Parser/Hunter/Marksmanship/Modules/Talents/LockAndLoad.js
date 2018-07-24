@@ -75,7 +75,7 @@ class LockAndLoad extends Analyzer {
   }
 
   get expectedProcs() {
-    return this.autoShots * PROC_CHANCE;
+    return (this.autoShots * PROC_CHANCE).toFixed(2);
   }
 
   GetZPercent(z) {

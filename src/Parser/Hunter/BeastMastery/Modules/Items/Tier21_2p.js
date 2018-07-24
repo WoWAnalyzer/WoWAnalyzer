@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T21_2P_MODIFIER = 0.1;
@@ -26,7 +26,7 @@ class Tier21_2p extends Analyzer {
     if (spellId !== SPELLS.KILL_COMMAND_PET.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, T21_2P_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, T21_2P_MODIFIER);
   }
   item() {
     return {

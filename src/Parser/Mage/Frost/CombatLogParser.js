@@ -13,6 +13,7 @@ import ThermalVoid from './Modules/Features/ThermalVoid';
 import GlacialSpike from './Modules/Features/GlacialSpike';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
+import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import SplittingIce from './Modules/Features/SplittingIce';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,
+    arcaneIntellect: ArcaneIntellect,
     splittingIce: SplittingIce,
 
 	  //Cooldowns
