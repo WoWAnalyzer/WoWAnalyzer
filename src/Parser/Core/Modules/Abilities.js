@@ -1,9 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 import Ability from './Ability';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
-import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 class Abilities extends Analyzer {
   static dependencies = {
