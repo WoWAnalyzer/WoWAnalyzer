@@ -8,9 +8,11 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
+// Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => (2.25 + 7.75 / n) / 100;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
@@ -25,28 +27,34 @@ const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 // const THIS_MIGHT_BE_PURE_ABILITY_TYPE_ID = 1;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
+/**
+ * Devotion Aura
+ * Damage dealt to allies within 10 yards is reduced by up to 10%, diminishing as more allies enter the aura.
+ * While Aura Mastery is active, all affected allies gain 20% damage reduction.
+ *
+ * I did a lot of research into the scaling of the passive. My findings can be read here: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
+ * Unfortunately we only receive events for the selected player. This makes it impossible to see what damage allies took while affected by Devotion Aura. To calculate the passive regardless we make the assumption that the Paladin takes a similar amount of damage to his allies. Extensive analysis has shown this comes really close to the real value.
+ */
 class DevotionAuraDamageReduction extends Analyzer {
-  get auraMasteryDamageReduced() {
-    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
-  }
-  get auraMasteryDrps() {
-    return this.auraMasteryDamageReduced / this.owner.fightDuration * 1000;
-  }
-  get passiveDamageReduced() {
-    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION;
-  }
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  passiveDamageReduced = 0;
   get passiveDrps() {
     return this.passiveDamageReduced / this.owner.fightDuration * 1000;
   }
-  get damageReduced() {
-    return this.auraMasteryDamageReduced + this.passiveDamageReduced;
+  activeDamageReduced = 0;
+  get activeDrps() {
+    return this.activeDamageReduced / this.owner.fightDuration * 1000;
   }
-  get drps() {
-    return this.damageReduced / this.owner.fightDuration * 1000;
+  get totalDamageReduced() {
+    return this.passiveDamageReduced + this.activeDamageReduced;
+  }
+  get totalDrps() {
+    return this.totalDamageReduced / this.owner.fightDuration * 1000;
   }
 
-  totalDamageTakenDuringAuraMastery = 0;
-  totalDamageTakenOutsideAuraMastery = 0;
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
@@ -60,8 +68,52 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     const isAuraMasteryActive = this.selectedCombatant.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
     if (!isAuraMasteryActive) {
-      this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
+      const damageTaken = event.amount + (event.absorbed || 0);
+      const damageReduced = damageTaken / (1 - this.totalPassiveDamageReduction) * this.totalPassiveDamageReduction;
+      this.passiveDamageReduced += damageReduced;
     }
+  }
+
+  buffsActive = 1;
+  get singleTargetDamageReduction() {
+    return DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION(this.buffsActive);
+  }
+  get totalPassiveDamageReduction() {
+    return this.singleTargetDamageReduction * this.buffsActive;
+  }
+  isApplicableBuffEvent(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.DEVOTION_AURA_BUFF.id) {
+      return false;
+    }
+    if (this.owner.toPlayer(event)) {
+      // We already include the selected player by default, if he dies the buff might show up. So to make sure it's not accidentally considered, we exclude it here.
+      return false;
+    }
+    const combatant = this.combatants.players[event.targetID];
+    if (!combatant) {
+      // Only players scale the buff, while pets can get it they do not affect the DR split
+      return false;
+    }
+
+    return true;
+  }
+  on_byPlayer_applybuff(event) {
+    if (!this.isApplicableBuffEvent(event)) {
+      return;
+    }
+    this.buffsActive += 1;
+    // console.log('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
+  }
+  on_byPlayer_removebuff(event) {
+    if (!this.isApplicableBuffEvent(event)) {
+      return;
+    }
+    this.buffsActive -= 1;
+    if (this.buffsActive === 0) {
+      throw new Error('We lost more Devotion Aura buffs than we gained, this should not be possible as applybuffs are fabricated for all removebuffs.');
+    }
+    // console.log('devo removed from', this.combatants.players[event.targetID].name, this.buffsActive);
   }
 
   get auraMasteryUptimeFilter() {
@@ -88,23 +140,26 @@ class DevotionAuraDamageReduction extends Analyzer {
     })
       .then(json => {
         console.log('Received AM damage taken', json);
-        this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
+        const totalDamageTaken = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
+        this.activeDamageReduced = totalDamageTaken / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
       });
   }
 
   statistic() {
-    const tooltip = `The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
-      The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.auraMasteryDamageReduced)} (${formatNumber(this.auraMasteryDrps)} DRPS). This has a 99% accuracy.<br /><br />
+    const tooltip = `
+      The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
+      The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.activeDamageReduced)} (${formatNumber(this.activeDrps)} DRPS). This has a 99% accuracy.<br /><br />
 
       This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Devotion Aura bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.<br /><br />
 
-      Calculating exact Devotion Aura damage reduced is very time and resource consuming. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and 20% of all damage you've taken outside Aura Mastery. Even though the 20% damage taken is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.`;
+      Calculating exact Devotion Aura damage reduced is very time and resource consuming. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and 20% of all damage you've taken outside Aura Mastery. Even though the 20% damage taken is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.
+    `;
 
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
-        value={`≈${formatNumber(this.drps)} DRPS`}
+        value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label="Estimated damage reduced"
         tooltip={tooltip}
         warcraftLogs={makeWclUrl(this.owner.report.code, {
