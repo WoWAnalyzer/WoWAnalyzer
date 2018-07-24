@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-07-24'),
+    changes: <React.Fragment>Implements better <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> handling, aswell as <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> support. </React.Fragment>,
+    contributros: [Putro],
+  },
+  {
     date: new Date('2018-07-23'),
     changes: 'Survival analyzer updated to be 8.0.1 compatible',
     contributors: [Putro],
