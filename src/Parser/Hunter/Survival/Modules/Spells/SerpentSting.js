@@ -102,7 +102,7 @@ class SerpentSting extends Analyzer {
     for (let i = 0; i <= this.serpentStingTargets.length - 1; i++) {
       if (this.serpentStingTargets[i].targetID === serpentStingTarget.targetID && this.serpentStingTargets[i].targetInstance === serpentStingTarget.targetInstance) {
         const timeRemaining = this.serpentStingTargets[i].serpentStingDuration - (event.timestamp - this.serpentStingTargets[i].timestamp);
-        if (timeRemaining > (this.serpentStingTargets[i].serpentStingDuration * PANDEMIC) && !this.hasVV) {
+        if (timeRemaining > (hastedSerpentStingDuration * PANDEMIC) && !this.hasVV) {
           this.badRefresh++;
         }
         const pandemicSerpentStingDuration = Math.min(hastedSerpentStingDuration * PANDEMIC, timeRemaining) + hastedSerpentStingDuration;
