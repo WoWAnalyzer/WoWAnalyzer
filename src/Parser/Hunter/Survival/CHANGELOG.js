@@ -10,7 +10,7 @@ export default [
   {
     date: new Date('2018-07-24'),
     changes: <React.Fragment>Implements better <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> handling, aswell as <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> support. </React.Fragment>,
-    contributros: [Putro],
+    contributors: [Putro],
   },
   {
     date: new Date('2018-07-23'),
