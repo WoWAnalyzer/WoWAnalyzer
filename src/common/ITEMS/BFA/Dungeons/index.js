@@ -110,4 +110,10 @@ export default {
     icon: 'inv_misc_spyglass_02',
     quality: ITEM_QUALITIES.GREEN,
   },
+  EMBLEM_OF_ZANDALAR: {
+    id: 158154,
+    name: 'Emblem of the Zandalar',
+    icon: 'inv_tikiman2_zandalar',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 };

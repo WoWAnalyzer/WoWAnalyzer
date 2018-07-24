@@ -122,6 +122,7 @@ import VantusRune from './Modules/Spells/VantusRune';
 // BFA
 import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+import EmblemOfZandalar from './Modules/Items/BFA/EmblemOfZandalar';
 // Dungeons
 import RevitalizingVoodooTotem from './Modules/Items/BFA/Dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods';
@@ -259,6 +260,7 @@ class CombatLogParser {
     // BFA
     gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    emblemOfZandalar: EmblemOfZandalar,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
     lingeringSporepods: LingeringSporepods,

@@ -65,4 +65,9 @@ export default {
     name: 'Spyglass Sight',
     icon: 'inv_misc_spyglass_02',
   },
+  SPEED_OF_THE_SPIRITS: {
+    id: 273992,
+    name: 'Speed of the Spirits',
+    icon: 'inv_trinket_firelands_03',
+  },
 };
