@@ -8,8 +8,8 @@ I should probably mention that (as with all DRs) I assume the DR under analysis 
 and everything else likely would have been cast regardless
 e.g. you wouldn't change your DP cast based on having Devo or not
 
-actual damage taken / damage reduction = damage taken without the damage reduction
-damage taken without the damage reduction * damage reduction = damage reduced by the damage reduction
+- actual damage taken / damage reduction = damage taken without the damage reduction
+- damage taken without the damage reduction * damage reduction = damage reduced by the damage reduction
 
 ## The passive
 
