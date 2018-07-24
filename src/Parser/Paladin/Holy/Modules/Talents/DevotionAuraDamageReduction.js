@@ -31,9 +31,8 @@ const FALLING_DAMAGE_ABILITY_ID = 3;
  * Devotion Aura
  * Damage dealt to allies within 10 yards is reduced by up to 10%, diminishing as more allies enter the aura.
  * While Aura Mastery is active, all affected allies gain 20% damage reduction.
- *
- * I did a lot of research into the scaling of the passive. My findings can be read here: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
- * Unfortunately we only receive events for the selected player. This makes it impossible to see what damage allies took while affected by Devotion Aura. To calculate the passive regardless we make the assumption that the Paladin takes a similar amount of damage to his allies. Extensive analysis has shown this comes really close to the real value.
+ * ---
+ * See the markdown file next to this module for info about how this is analyzed.
  */
 class DevotionAuraDamageReduction extends Analyzer {
   static dependencies = {
