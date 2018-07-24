@@ -12,6 +12,7 @@ import Evocation from './Modules/Features/Evocation';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+import ArcaneOrb from './Modules/Features/ArcaneOrb';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -28,6 +29,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     mirrorImage: MirrorImage,
     runeOfPower: RuneOfPower,
+    arcaneOrb: ArcaneOrb,
   };
 }
 

@@ -312,6 +312,11 @@ export default {
     name: 'Slow',
     icon: 'spell_nature_slow',
   },
+  ARCANE_ORB_DAMAGE: {
+    id: 153640,
+    name: 'Arcane Orb',
+    icon: 'spell_mage_arcaneorb',
+  },
 
   //Passives
   SHATTER: {
