@@ -436,6 +436,11 @@ export default {
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },
+  ARCANE_FAMILIAR_BUFF: {
+    id: 210126,
+    name: 'Arcane Familiar',
+    icon: 'ability_sorcererking_arcanemines',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {

@@ -9,10 +9,13 @@ import Channeling from './Modules/Features/Channeling';
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 import Evocation from './Modules/Features/Evocation';
 
+import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
+
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -27,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     evocation: Evocation,
 
     // Talents
+    arcaneFamiliar: ArcaneFamiliar,
     mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: RuneOfPower,
