@@ -48,7 +48,6 @@ class FuriousSlashUptime extends Analyzer {
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
 		  .actual(`${formatPercentage(actual)}% Furious Slash Uptime At Maximum Stacks`)
 		  .recommended(`>${formatPercentage(recommended)} is recommended`)
-		  .regular(average).major(major);
 		  });
   }
   
