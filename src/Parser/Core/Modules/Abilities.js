@@ -3,6 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Ability from './Ability';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 class Abilities extends Analyzer {
   static dependencies = {
@@ -100,11 +101,11 @@ class Abilities extends Analyzer {
   }
 
   /**
-  * Return the first ability that has the given SpellId set as the buff.
-  */
+   * Return the first ability that has the given SpellId set as the buff.
+   */
   getSpellBuffAbility(spellId) {
     return this.activeAbilities.find(ability => {
-        return ability.buffSpellId === spellId;
+      return ability.buffSpellId === spellId;
     });
   }
 
@@ -119,7 +120,7 @@ class Abilities extends Analyzer {
       return;
     }
     const ability = this.getAbility(event.ability.guid);
-    if (!ability) {
+    if (!ability && !CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
       console.warn('Ability missing from spellbook:', event.ability);
     }
   }
