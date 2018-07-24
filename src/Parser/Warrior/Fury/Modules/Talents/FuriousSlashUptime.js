@@ -47,7 +47,7 @@ class FuriousSlashUptime extends Analyzer {
 		  .addSuggestion((suggest, actual, recommended) => {return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</React.Fragment>)
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
 		  .actual(`${formatPercentage(actual)}% Furious Slash Uptime At Maximum Stacks`)
-		  .recommended(`>${formatPercentage(recommended)} is recommended`)
+		  .recommended(`>${formatPercentage(recommended)} is recommended`);
 		  });
   }
   
