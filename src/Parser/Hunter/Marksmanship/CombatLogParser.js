@@ -10,13 +10,15 @@ import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
 //Normalizers
-import RapidFire from './Normalizers/RapidFire';
+import RapidFireNormalizer from './Normalizers/RapidFire';
 
 //Tier
-import Tier21_2p from './Modules/Items/Tier21_2p';
+import Tier19_2p from "./Modules/Items/Tier19_2p";
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";
+import Tier21_2p from './Modules/Items/Tier21_2p';
+import Tier21_4p from './Modules/Items/Tier21_4p';
+
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 import LoneWolf from './Modules/Spells/LoneWolf';
@@ -33,6 +35,9 @@ import DoubleTap from './Modules/Talents/DoubleTap';
 import CallingTheShots from './Modules/Talents/CallingTheShots';
 import HuntersMark from './Modules/Talents/HuntersMark';
 import SerpentSting from './Modules/Talents/SerpentSting';
+import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
+import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
+
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -69,7 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     focusUsage: FocusUsage,
 
     //Normalizers
-    rapidFire: RapidFire,
+    rapidFireNormalizer: RapidFireNormalizer,
+
+    //AoEEfficiency
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -80,8 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     tier21_2p: Tier21_2p,
-    // t21 is broken because it says marked shot which is gone for MM in BFA
-    //tier21_4p: Tier21_4p,
+    tier21_4p: Tier21_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
     mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
@@ -113,6 +119,8 @@ class CombatLogParser extends CoreCombatLogParser {
     callingTheShots: CallingTheShots,
     huntersMark: HuntersMark,
     serpentSting: SerpentSting,
+    naturalMending: NaturalMending,
+    trailblazer: Trailblazer,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,

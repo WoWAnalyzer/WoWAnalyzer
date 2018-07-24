@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
 
@@ -28,14 +28,14 @@ class TheMantleOfCommand extends Analyzer {
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id && !this.selectedCombatant.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);
+    this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_INCREASE);
   }
 
   on_byPlayerPet_damage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);
+    this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_INCREASE);
   }
 
   get buffUptime() {

@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import ITEMS from 'common/ITEMS/index';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
@@ -27,7 +27,7 @@ class UnseenPredatorsCloak extends Analyzer {
       // Friendly fire does not get increased
       return;
     }
-    this.damage += getDamageBonus(event, UNSEEN_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, UNSEEN_MODIFIER);
   }
 
   item() {
