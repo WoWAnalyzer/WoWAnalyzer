@@ -89,7 +89,7 @@ class TimeFocusCapped extends Analyzer {
     if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. It's better to shoot a non-vulnerable <SpellLink id={SPELLS.AIMED_SHOT.id} />, than spend time at max focus. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);

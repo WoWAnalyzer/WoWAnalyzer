@@ -32,6 +32,7 @@ import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
 import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
 import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
+import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -68,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     frizzosFingertrap: FrizzosFingertrap,
     zevrimsHunger: ZevrimsHunger,
     celerityOfTheWindrunners: CelerityOfTheWindrunners,
+
+    //Talents
+    naturalMending: NaturalMending,
 
   };
 }
