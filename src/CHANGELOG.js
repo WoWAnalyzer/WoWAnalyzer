@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-07-24'),
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.EMBLEM_OF_ZANDALAR.id} /> to trinkets.</React.Fragment>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-07-15'),
     changes: 'Added a link to the Legion analyzer in the links under the report bar.',
     contributors: [Zerotorescue],
