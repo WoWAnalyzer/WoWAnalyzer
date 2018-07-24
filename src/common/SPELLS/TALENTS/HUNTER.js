@@ -7,7 +7,7 @@ export default {
   A_MURDER_OF_CROWS_TALENT: { id: 131894, name: "A Murder of Crows", icon: "ability_hunter_murderofcrows", focusCost: 30 },
   TRAILBLAZER_TALENT: { id: 199921, name: "Trailblazer", icon: "ability_hunter_aspectmastery" },
   CAMOUFLAGE_TALENT: { id: 199483, name: "Camouflage", icon: "ability_hunter_camouflage" },
-  BOPN_TO_BE_WILD_TALENT: { id: 266921, name: "Born To Be Wild", icon: "ability_hunter_aspectoftheviper" },
+  BORN_TO_BE_WILD_TALENT: { id: 266921, name: "Born To Be Wild", icon: "ability_hunter_aspectoftheviper" },
   POSTHASTE_TALENT: { id: 109215, name: "Posthaste", icon: "ability_hunter_posthaste" },
   BINDING_SHOT_TALENT: { id: 109248, name: "Binding Shot", icon: "spell_shaman_bindelemental" },
   BARRAGE_TALENT: { id: 120360, name: "Barrage", icon: "ability_hunter_rapidregeneration", focusCost: 60 },

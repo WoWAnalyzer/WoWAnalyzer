@@ -28,7 +28,7 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
   SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.LACERATE.id,
+  SPELLS.KILL_COMMAND_SV.id,
   SPELLS.BUTCHERY_TALENT.id,
   SPELLS.CARVE.id,
   SPELLS.MONGOOSE_BITE_TALENT.id,
@@ -118,10 +118,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.RAPTOR_STRIKE.name,
       color: '#4ce4ec',
     },
-    [SPELLS.LACERATE.id]: {
+    [SPELLS.KILL_COMMAND_SV.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.LACERATE.name,
+      name: SPELLS.KILL_COMMAND_SV.name,
       color: '#2a74ec',
     },
     [SPELLS.BUTCHERY_TALENT.id]: {
