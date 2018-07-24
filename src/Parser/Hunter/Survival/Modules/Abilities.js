@@ -216,6 +216,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      
     ];
   }
 }
