@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 /**
  * Increases damage dealt by Aimed Shot by 12%
@@ -26,7 +26,7 @@ class Tier21_4p extends Analyzer {
     if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    this.damage += getDamageBonus(event, DAMAGE_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
   }
 
   item() {

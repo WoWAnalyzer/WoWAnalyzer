@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -47,8 +47,9 @@ class SpiritBomb extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(spiritBombUptimePercentage)}%`}
-        label="Spirit Bomb Debuff Uptime"
-        tooltip={`The Spirit Bomb total damage was ${formatThousands(spiritBombDamage)}.<br/>The Spirit Bomb total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
+        label="Spirit Bomb debuff uptime"
+        tooltip={`Total damage was ${formatThousands(spiritBombDamage)}.<br/>
+                  Total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
       />
     );
   }

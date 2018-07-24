@@ -40,6 +40,7 @@ import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
+import GiftOfTheOx from './Modules/Normalizers/GiftOfTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
     garothi: GarothiWorldbreakerMeleeNormalizer,
+    gotox: GiftOfTheOx,
   };
 }
 

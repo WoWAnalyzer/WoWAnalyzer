@@ -28,8 +28,7 @@ class ComboPointTracker extends ResourceTracker {
     // T21 4pc set bonus can proc "free Ferocious Bite that counts as if it spent the full 5 CPs"
     // the energy cost is properly missing from the cast, but the CP cost shows very strangely. (amount: x, max: 5, cost: 5) where x is the amount of CPs you had on cast.
     // Returning before this CP cost can be processed to avoid messing up the results
-    if ((spellId === SPELLS.FEROCIOUS_BITE.id) &&
-        !event.classResources.find(resource => resource.type === RESOURCE_TYPES.ENERGY.id)) {
+    if ((spellId === SPELLS.FEROCIOUS_BITE.id) && event.classResources && !event.classResources.find(resource => resource.type === RESOURCE_TYPES.ENERGY.id)) {
       return;
     }
     super.on_byPlayer_cast(event);

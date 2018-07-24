@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from "common/SpellLink";
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const RAMP_INTERVAL = 6000;
@@ -58,7 +58,7 @@ class LoneWolf extends Analyzer {
       return;
     }
     this.loneWolfModifier = Math.min(MAX_LONE_WOLF_MODIFIER, Math.floor((event.timestamp - this.dismissPetTimestamp) / RAMP_INTERVAL * INCREASE_PER_RAMP));
-    this.damage += getDamageBonus(event, this.loneWolfModifier);
+    this.damage += calculateEffectiveDamage(event, this.loneWolfModifier);
   }
 
   on_finished() {

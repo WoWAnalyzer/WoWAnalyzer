@@ -57,6 +57,7 @@ export default {
   JUSTICARS_VENGEANCE_TALENT: { id: 215661, name: "Justicar's Vengeance", icon: "spell_holy_retributionaura", maelstromCost: 5 },
   EYE_FOR_AN_EYE_TALENT: { id: 205191, name: "Eye for an Eye", icon: "spell_paladin_inquisition" },
   WORD_OF_GLORY_TALENT: { id: 210191, name: "Word of Glory", icon: "inv_helmet_96", maelstromCost: 3 },
+  SELFLESS_HEALER_TALENT: { id: 85804, name: 'Selfless Healer', icon: 'ability_paladin_gaurdedbythelight'},
   CRUSADE_TALENT: { id: 231895, name: "Crusade", icon: "ability_paladin_sanctifiedwrath" },
   FIST_OF_JUSTICE_TALENT_RETRIBUTION: { id: 234299, name: "Fist of Justice", icon: "spell_holy_fistofjustice" },
   DIVINE_PURPOSE_TALENT_RETRIBUTION: { id: 223817, name: "Divine Purpose", icon: "spell_holy_divinepurpose" },

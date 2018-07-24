@@ -32,7 +32,7 @@ class AncestralVigor extends Analyzer {
       this.loaded = true;
       return null;
     };
-    return checkAndFetch;
+    return checkAndFetch(query);
   }
 
   load() {

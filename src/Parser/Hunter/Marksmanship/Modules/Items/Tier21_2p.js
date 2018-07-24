@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 
@@ -25,7 +25,7 @@ class Tier21_2p extends Analyzer {
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;
     }
-    this.damage += getDamageBonus(event, T21_2P_DMG_BONUS);
+    this.damage += calculateEffectiveDamage(event, T21_2P_DMG_BONUS);
   }
 
   item() {
