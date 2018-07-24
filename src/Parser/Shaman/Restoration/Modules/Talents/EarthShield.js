@@ -51,12 +51,7 @@ class EarthShield extends Analyzer {
       return;
     }
 
-    // earth shield bonus appears to be tripled for the riptide initial and chain heal healing
-    if((spellId === SPELLS.RIPTIDE.id && !event.tick) || spellId === SPELLS.CHAIN_HEAL.id) {
-      this.buffHealing += calculateEffectiveHealing(event, 0.32);
-    } else {
-      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
-    }
+    this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
   }
 
   get uptime() {
