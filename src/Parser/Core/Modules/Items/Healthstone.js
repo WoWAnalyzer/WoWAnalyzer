@@ -19,7 +19,7 @@ class Healthstone extends Potion {
   suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You used a <SpellLink id={SPELLS.HEALTHSTONE.id} /> {this.potionCasts > 1 || this.potionCasts === 0 ? this.potionCasts + ' times' : this.potionCasts + ' time'} but could have used it {this.maxCasts > 1 ? this.maxCasts + ' times' : this.maxCasts + ' time'}. If you are low on health, make sure you use your Healthstone and Defensive Abilities to stay alive and to help the healers. </React.Fragment>)
+				return suggest(<React.Fragment>You used a <SpellLink id={SPELLS.HEALTHSTONE.id} /> {this.potionCasts > 1 || this.potionCasts === 0 ? this.potionCasts + ' times' : this.potionCasts + ' time'} but could have used it {this.maxCasts > 1 ? this.maxCasts + ' times' : this.maxCasts + ' time'}. If you are low on health, make sure you use your Healthstone and defensive abilities to stay alive and to help the healers. </React.Fragment>)
 					.icon(SPELLS.HEALTHSTONE.icon);
       });
   }
