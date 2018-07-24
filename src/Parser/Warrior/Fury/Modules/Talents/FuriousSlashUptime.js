@@ -65,7 +65,11 @@ class FuriousSlashUptime extends Analyzer {
   
   statistic() {
 	  return (
-	  <ExpandableStatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
+	  <ExpandableStatisticBox 
+      icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />}
+      value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} 
+      label="Furious Slash Max Stack Buff Uptime"
+    >
 	  
 	    <table className="table table-condensed">
             <thead>
