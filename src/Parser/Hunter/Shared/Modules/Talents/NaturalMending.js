@@ -41,18 +41,18 @@ class NaturalMending extends Analyzer {
       return;
     }
     this.lastFocusCost = event.classResources[0].cost || 0;
-    const COOLDOWN_REDUCTION_MS = this.cdrPerFocus * this.lastFocusCost;
-    if (this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {
-      if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < COOLDOWN_REDUCTION_MS) {
-        const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, COOLDOWN_REDUCTION_MS);
-        this.effectiveExhilReductionMs += effectiveReductionMs;
-        this.wastedExhilReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
-      } else {
-        this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, COOLDOWN_REDUCTION_MS);
-      }
-    } else {
-      this.wastedExhilReductionMs += COOLDOWN_REDUCTION_MS;
+    const cooldownReductionMS = this.cdrPerFocus * this.lastFocusCost;
+    if (!this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {
+      this.wastedExhilReductionMs += cooldownReductionMS;
+      return;
     }
+    if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < cooldownReductionMS) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
+      this.effectiveExhilReductionMs += effectiveReductionMs;
+      this.wastedExhilReductionMs += (cooldownReductionMS - effectiveReductionMs);
+      return;
+    }
+    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
   }
 
   statistic() {

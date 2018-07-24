@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 import CorePets from 'Parser/Core/Modules/Pets';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 

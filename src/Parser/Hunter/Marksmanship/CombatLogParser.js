@@ -76,6 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     rapidFireNormalizer: RapidFireNormalizer,
 
+    //AoEEfficiency
+
     //Focus Chart
     focusTracker: FocusTracker,
     focusTab: FocusTab,

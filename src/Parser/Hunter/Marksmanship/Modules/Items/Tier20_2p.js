@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 

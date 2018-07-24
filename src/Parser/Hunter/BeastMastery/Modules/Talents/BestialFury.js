@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
+import getDamageBonus from "Parser/Core/calculateEffectiveDamage";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';

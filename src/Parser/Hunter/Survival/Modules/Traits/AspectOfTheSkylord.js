@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const ASPECT_MODIFIER = 0.3;

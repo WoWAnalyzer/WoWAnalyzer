@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 import CorePets from 'Parser/Core/Modules/Pets';
 import PETS from 'common/PETS';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';

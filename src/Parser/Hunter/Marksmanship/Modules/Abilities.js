@@ -269,10 +269,6 @@ class Abilities extends CoreAbilities {
        * Following are implemented to avoid annoying console messages.
        */
       {
-        spell: SPELLS.RAPID_FIRE_TICKS,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
-      },
-      {
         spell: SPELLS.DEFILED_AUGMENT_RUNE,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
       },

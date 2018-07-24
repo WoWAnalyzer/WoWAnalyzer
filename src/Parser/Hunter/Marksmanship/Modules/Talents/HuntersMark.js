@@ -6,10 +6,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -60,7 +61,7 @@ class HuntersMark extends Analyzer {
     if (event.timestamp > this.timeOfCast + MS_BUFFER) {
       this.debuffRemoved = true;
     }
-    const enemyID = event.targetID;
+    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
     if (this.precastConfirmed === false) {
       this.precastConfirmed = true;
       this.damage = this.damageToTarget[enemyID];
@@ -82,14 +83,14 @@ class HuntersMark extends Analyzer {
     if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
     }
-    if (this.precastConfirmed === false) {
+    if (!this.precastConfirmed) {
       this.precastConfirmed = true;
     }
-    if (this.debuffRemoved === false) {
+    if (!this.debuffRemoved) {
       this.recasts++;
     }
     this.debuffRemoved = false;
-    const enemyID = event.targetID;
+    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.markWindow[enemyID]) {
       this.markWindow[enemyID] = [];
     }
@@ -97,7 +98,7 @@ class HuntersMark extends Analyzer {
   }
 
   calculateMarkDamage(event, enemy) {
-    if (this.precastConfirmed === false) {
+    if (!this.precastConfirmed) {
       if (!this.damageToTarget[enemy.id]) {
         this.damageToTarget[enemy.id] = 0;
       }
@@ -150,7 +151,7 @@ class HuntersMark extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HUNTERS_MARK_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
-        label="Hunters Mark Uptime"
+        label="Hunters Mark uptime"
         tooltip={`<ul><li>You had a total of ${this.casts} casts of Hunter's Mark.</li><li>You cast Hunter's Mark ${this.recasts} times, whilst it was active on the target or another target.</li><li>You received up to ${this.refunds * FOCUS_PER_REFUND} focus from a total of ${this.refunds}refunds from targets with Hunter's Mark active dying.</li>${this.potentialPrecastConfirmation}</ul>`}
       />
     );
