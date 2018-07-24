@@ -240,23 +240,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-
-      /**
-       * Following are implemented to avoid annoying console messages.
-       */
-
-      {
-        spell: SPELLS.DEFILED_AUGMENT_RUNE,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
-      },
-      {
-        spell: SPELLS.POTION_OF_PROLONGED_POWER,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
-      },
-      {
-        spell: SPELLS.POTION_OF_DEADLY_GRACE,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
-      },
     ];
   }
 }
