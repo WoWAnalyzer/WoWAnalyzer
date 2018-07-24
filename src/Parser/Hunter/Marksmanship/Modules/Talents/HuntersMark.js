@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -102,14 +102,14 @@ class HuntersMark extends Analyzer {
       if (!this.damageToTarget[enemy.id]) {
         this.damageToTarget[enemy.id] = 0;
       }
-      this.damageToTarget[enemy.id] += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
+      this.damageToTarget[enemy.id] += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
     }
     if (!this.markWindow[enemy.id]) {
       return;
     }
     this.markWindow[enemy.id].forEach(window => {
       if (window.start < event.timestamp && window.status === "active") {
-        this.damage += getDamageBonus(event, HUNTERS_MARK_MODIFIER);
+        this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
       }
     });
   }

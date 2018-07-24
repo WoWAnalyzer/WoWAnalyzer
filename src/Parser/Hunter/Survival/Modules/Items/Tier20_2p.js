@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T20_2P_DMG_BONUS = 0.15;
@@ -24,7 +24,7 @@ class Tier20_2p extends Analyzer {
     if (spellId !== SPELLS.LACERATE.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, T20_2P_DMG_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, T20_2P_DMG_BONUS);
   }
 
   item() {

@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const TIER_21_4P_DMG_INCREASE_PER_STACK = 0.2;
 
@@ -64,7 +64,7 @@ class Tier21_4p extends Analyzer {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T21_4P_BONUS_BUFF.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, TIER_21_4P_DMG_INCREASE_PER_STACK * this._currentStacks);
+      this.bonusDmg += calculateEffectiveDamage(event, TIER_21_4P_DMG_INCREASE_PER_STACK * this._currentStacks);
       this.buffsUsed += this._currentStacks;
       this._currentStacks = 0;
       this.timesRemoved++;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
@@ -26,7 +26,7 @@ class ZevrimsHunger extends Analyzer {
       // Friendly fire does not get increased
       return;
     }
-    this.damage += getDamageBonus(event, ZEVRIMS_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, ZEVRIMS_MODIFIER);
   }
 
   item() {

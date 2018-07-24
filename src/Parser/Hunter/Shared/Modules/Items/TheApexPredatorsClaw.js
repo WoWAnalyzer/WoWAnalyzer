@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import CorePets from 'Parser/Core/Modules/Pets';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
@@ -57,7 +57,7 @@ class TheApexPredatorsClaw extends Analyzer {
     const pet = this.pets.getSourceEntity(event);
     //we're not interested in any damage coming from Hati
     if (HATI_LIST.every(id => pet.guid !== id)) {
-      this.bonusDmg += getDamageBonus(event, APEX_DAMAGE_MODIFIER);
+      this.bonusDmg += calculateEffectiveDamage(event, APEX_DAMAGE_MODIFIER);
     }
   }
 

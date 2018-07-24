@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T20_2P_MODIFIER_PR_STACK = 0.015;
@@ -50,14 +50,14 @@ class Tier20_2p extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
+    this.bonusDmg += calculateEffectiveDamage(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
   }
 
   on_byPlayerPet_damage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
+    this.bonusDmg += calculateEffectiveDamage(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
   }
 
   item() {

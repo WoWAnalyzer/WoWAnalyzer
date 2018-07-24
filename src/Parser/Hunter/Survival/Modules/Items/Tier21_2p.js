@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 //It's a 100% increase to critical strike damage, which is already a 100% modifier, making it effectively only hit 50% harder than a crit otherwise would.
 const T21_2P_CRIT_DMG_BONUS = 0.5;
@@ -50,7 +50,7 @@ class Tier21_2p extends Analyzer {
       return;
     }
     this.buffedRaptorStrikes++;
-    this.bonusDmg += getDamageBonus(event, T21_2P_CRIT_DMG_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, T21_2P_CRIT_DMG_BONUS);
   }
 
   isApplicable(event) {

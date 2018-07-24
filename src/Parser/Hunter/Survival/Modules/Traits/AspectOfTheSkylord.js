@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const ASPECT_MODIFIER = 0.3;
@@ -28,7 +28,7 @@ class AspectOfTheSkylord extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id, event.timestamp)) {
       return;
     }
-    this.damage += getDamageBonus(event, ASPECT_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, ASPECT_MODIFIER);
   }
 
   on_byPlayerPet_damage(event) {
@@ -39,7 +39,7 @@ class AspectOfTheSkylord extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id, event.timestamp)) {
       return;
     }
-    this.damage += getDamageBonus(event, ASPECT_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, ASPECT_MODIFIER);
   }
 
   subStatistic() {

@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from "Parser/Core/calculateEffectiveDamage";
+import calculateEffectiveDamage from "Parser/Core/calculateEffectiveDamage";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
@@ -31,7 +31,7 @@ class BestialFury extends Analyzer {
       return;
     }
     debug && console.log(`player cast spell: `, spellId);
-    this.bonusDmg += getDamageBonus(event, BESTIAL_FURY_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, BESTIAL_FURY_MODIFIER);
   }
 
   on_byPlayerPet_damage(event) {
@@ -40,7 +40,7 @@ class BestialFury extends Analyzer {
       return;
     }
     debug && console.log(`pet cast spell: `, spellId);
-    this.bonusDmg += getDamageBonus(event, BESTIAL_FURY_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, BESTIAL_FURY_MODIFIER);
   }
 
   subStatistic() {

@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Core/calculateEffectiveDamage';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T204P_MODIFIER = 0.15;
@@ -39,7 +39,7 @@ class Tier20_4p extends Analyzer {
       return;
     }
     debug && console.log(`player cast spell: `, spellId);
-    this.bonusDmg += getDamageBonus(event, T204P_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, T204P_MODIFIER);
   }
 
   on_byPlayerPet_damage(event) {
@@ -50,7 +50,7 @@ class Tier20_4p extends Analyzer {
     if (spellId !== SPELLS.KILL_COMMAND_PET.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, T204P_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, T204P_MODIFIER);
   }
   item() {
     return {
