@@ -31,6 +31,7 @@ class SerpentSting extends Analyzer {
   serpentStingTargets = [];
   accumulatedTimeBetweenRefresh = 0;
   accumulatedPercentRemainingOnRefresh = 0;
+  hasVV = false;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -38,6 +39,9 @@ class SerpentSting extends Analyzer {
       return;
     }
     this.casts++;
+    if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+      this.hasVV = true;
+    }
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
@@ -59,6 +63,8 @@ class SerpentSting extends Analyzer {
     const hastedSerpentStingDuration = BASELINE_DURATION / (1 + this.statTracker.currentHastePercentage);
     const serpentStingTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp, serpentStingDuration: hastedSerpentStingDuration };
     this.serpentStingTargets.push(serpentStingTarget);
+
+    this.hasVV = false;
   }
 
   on_byPlayer_removedebuff(event) {
@@ -96,15 +102,17 @@ class SerpentSting extends Analyzer {
     for (let i = 0; i <= this.serpentStingTargets.length - 1; i++) {
       if (this.serpentStingTargets[i].targetID === serpentStingTarget.targetID && this.serpentStingTargets[i].targetInstance === serpentStingTarget.targetInstance) {
         const timeRemaining = this.serpentStingTargets[i].serpentStingDuration - (event.timestamp - this.serpentStingTargets[i].timestamp);
-        if (timeRemaining < (this.serpentStingTargets[i].serpentStingDuration * PANDEMIC) && !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+        if (timeRemaining < (this.serpentStingTargets[i].serpentStingDuration * PANDEMIC) && !this.hasVV) {
           this.badRefresh++;
         }
         const pandemicSerpentStingDuration = Math.min(hastedSerpentStingDuration * PANDEMIC, timeRemaining) + hastedSerpentStingDuration;
-
-        this.accumulatedTimeBetweenRefresh += this.serpentStingTargets[i].serpentStingDuration - timeRemaining;
-        this.accumulatedPercentRemainingOnRefresh += timeRemaining / this.serpentStingTargets[i].serpentStingDuration;
+        if (!this.hasVV) {
+          this.accumulatedTimeBetweenRefresh += this.serpentStingTargets[i].serpentStingDuration - timeRemaining;
+          this.accumulatedPercentRemainingOnRefresh += timeRemaining / this.serpentStingTargets[i].serpentStingDuration;
+        }
         this.serpentStingTargets[i].timestamp = event.timestamp;
         this.serpentStingTargets[i].serpentStingDuration = pandemicSerpentStingDuration;
+        this.hasVV = false;
       }
     }
   }
@@ -164,7 +172,7 @@ class SerpentSting extends Analyzer {
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
-        tooltip={`<ul><li>You cast Serpent Sting a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh, it happened on average with ${formatPercentage(this.averagePercentRemainingOnRefresh)}% or ${this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li><li>You had ${this.badRefresh} bad refreshes. This means refreshes with more than ${formatPercentage(PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li></ul><li>Serpent Sting dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
+        tooltip={`<ul><li>You cast Serpent Sting a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh (without Viper's Venom up), it happened on average with ${formatPercentage(this.averagePercentRemainingOnRefresh)}% or ${this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li><li>You had ${this.badRefresh} bad refreshes. This means refreshes with more than ${formatPercentage(PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li></ul><li>Serpent Sting dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
       />
     );
   }
