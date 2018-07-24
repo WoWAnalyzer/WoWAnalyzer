@@ -19,16 +19,8 @@ class KillCommand extends Analyzer {
     abilities: Abilities,
   };
 
-  hasAlphaPredator = false;
   resets = 0;
   resetWhileNotOnCD = 0;
-
-  constructor(...args) {
-    super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id)) {
-      this.hasAlphaPredator = true;
-    }
-  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -48,11 +40,7 @@ class KillCommand extends Analyzer {
       return;
     }
     this.resets++;
-    if (this.hasAlphaPredator) {
-      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_SV.id));
-    } else {
-      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id);
-    }
+    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_SV.id));
   }
 
   statistic() {
@@ -60,7 +48,7 @@ class KillCommand extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.KILL_COMMAND_SV.id} />}
         value={`${this.resets}`}
-        label="Kill Command Resets"
+        label="Kill Command resets"
         tooltip={`You had ${this.resetWhileNotOnCD} resets whilst Kill Command was not on cooldown`}
       />
     );

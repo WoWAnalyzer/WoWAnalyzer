@@ -53,10 +53,6 @@ class ButcheryCarve extends Analyzer {
       this.wastedWFBReductionMs += COOLDOWN_REDUCTION_MS;
       return;
     }
-    if (this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) > COOLDOWN_REDUCTION_MS) {
-      this.effectiveWFBReductionMs += this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
-      return;
-    }
     const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
     this.effectiveWFBReductionMs += effectiveReductionMs;
     this.wastedWFBReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
