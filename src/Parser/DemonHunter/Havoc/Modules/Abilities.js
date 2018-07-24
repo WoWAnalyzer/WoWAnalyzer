@@ -2,6 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Haste from 'Parser/Core/Modules/Haste';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -12,6 +14,8 @@ import UnleashedDemons from './Traits/UnleashedDemons';
 class Abilities extends CoreAbilities {
   static dependencies = {
     unleashedDemons: UnleashedDemons,
+    abilityTracker: AbilityTracker,
+    haste: Haste,
   };
 
   spellbook() {
