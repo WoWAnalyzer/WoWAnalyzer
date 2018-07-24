@@ -99,7 +99,6 @@ class Trueshot extends Analyzer {
           <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li>
           <li>You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
           <li>You gained ${this.trueshotCasts - this.wastedAimedShotCharges} charges of Aimed Shot and lost out on ${this.wastedAimedShotCharges} charges by activating Trueshot whilst Aimed Shot wasn't on cooldown.</li>
-          <li>You spent an average of ${this.uptimePerCast.toFixed(2)} seconds in Trueshot per cast of Trueshot.</li>
         </ul>`} />
     );
   }
@@ -110,10 +109,6 @@ class Trueshot extends Analyzer {
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
   }
-
-  get uptimePerCast() {
-    return (this.selectedCombatant.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000;
-  }
   get aimedShotThreshold() {
     return {
       actual: this.averageAimedShots,
@@ -121,29 +116,6 @@ class Trueshot extends Analyzer {
         minor: 3,
         average: 2.5,
         major: 2,
-      },
-      style: 'decimal',
-    };
-  }
-  /** to be evaluated later
-   * get focusThreshold() {
-    return {
-      actual: this.averageFocus,
-      isLessThan: {
-        minor: 90,
-        average: 80,
-        major: 70,
-      },
-      style: 'number',
-    };
-  }*/
-  get uptimeThreshold() {
-    return {
-      actual: this.uptimePerCast,
-      isLessThan: {
-        minor: 14.9,
-        average: 14.7,
-        major: 14.5,
       },
       style: 'decimal',
     };
@@ -165,18 +137,6 @@ class Trueshot extends Analyzer {
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
-    });
-    /*when(this.focusThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You started your average <SpellLink id={SPELLS.TRUESHOT.id} /> at {actual} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id} />. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id} /> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</React.Fragment>)
-        .icon(SPELLS.TRUESHOT.icon)
-        .actual(`Average of ${actual > 0 ? actual : this.startFocusForCombatant} focus when starting Trueshot`)
-        .recommended(`>${recommended} is recommended`);
-    });*/
-    when(this.uptimeThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<React.Fragment>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id} /> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</React.Fragment>)
-        .icon(SPELLS.TRUESHOT.icon)
-        .actual(`You had an average of ${actual.toFixed(2)} seconds of Trueshot uptime per cast`)
-        .recommended(`15 seconds uptime per cast is recommended`);
     });
     when(this.aimedShotRechargeThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>You should make sure to cast <SpellLink id={SPELLS.TRUESHOT.id} /> while you have 0 charges of <SpellLink id={SPELLS.AIMED_SHOT.id} />, to get the most out of the free charge given by activating <SpellLink id={SPELLS.TRUESHOT.id} />.</React.Fragment>)
