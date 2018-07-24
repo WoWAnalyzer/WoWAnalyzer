@@ -14,7 +14,7 @@ const COOLDOWN_REDUCTION_MS = 3000;
 
 /**
  * Qa'pla, Eredun War Order
- * Dire Beast or Dire Frenzy reduces the remaining cooldown on Kill Command by 3 sec.
+ * Barbed Shot reduces the remaining cooldown on Kill Command by 3 sec.
  */
 class QaplaEredunWarOrder extends Analyzer {
   static dependencies = {
@@ -32,7 +32,7 @@ class QaplaEredunWarOrder extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {
@@ -79,7 +79,6 @@ class QaplaEredunWarOrder extends Analyzer {
   }
 
   suggestions(when) {
-    const spellName = this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     when(this.killerCobraThreshold).addSuggestion((suggest) => {
       return suggest(<React.Fragment>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </React.Fragment>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
@@ -89,9 +88,9 @@ class QaplaEredunWarOrder extends Analyzer {
 
     });
     when(this.wastedSuggestionThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your average cast of {spellName} reduced <SpellLink id={SPELLS.KILL_COMMAND.id} /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </React.Fragment>)
+      return suggest(<React.Fragment>Your average cast of <SpellLink id={SPELLS.BARBED_SHOT.id} /> reduced <SpellLink id={SPELLS.KILL_COMMAND.id} /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </React.Fragment>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
-        .actual(`${(actual).toFixed(2)} average seconds of CDR per ${spellName} cast`)
+        .actual(`${(actual).toFixed(2)} average seconds of CDR per Barbed Shot cast`)
         .recommended(`>${recommended}sec is recommended`);
     });
   }
