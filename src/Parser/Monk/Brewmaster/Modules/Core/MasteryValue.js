@@ -140,6 +140,11 @@ class MasteryValue extends Analyzer {
   _hitCounts = {};
   _dodgeCounts = {};
 
+  constructor(...args) {
+    super(...args);
+    this.active = false; // temporarily disable this module until we get updated coefficients
+  }
+
   baseDodge(agility) {
     const tooltip = MONK_DODGE_COEFFS.tooltip.intercept + MONK_DODGE_COEFFS.tooltip.slope * (agility - MONK_DODGE_COEFFS.base_agi);
     return (tooltip * MONK_DODGE_COEFFS.diminished.C_d) / (tooltip + MONK_DODGE_COEFFS.diminished.k * MONK_DODGE_COEFFS.diminished.C_d) + MONK_DODGE_COEFFS.base_dodge;

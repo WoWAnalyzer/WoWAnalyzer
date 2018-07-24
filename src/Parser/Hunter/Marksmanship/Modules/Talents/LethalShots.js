@@ -9,6 +9,9 @@ import SpellIcon from 'common/SpellIcon';
 /**
  * Steady Shot has a 25% chance to cause your next Aimed Shot or Rapid Fire to be guaranteed critical strikes.
  */
+
+const RF_BUFFER = 4000;
+
 class LethalShots extends Analyzer {
 
   procs = 0;
@@ -16,6 +19,7 @@ class LethalShots extends Analyzer {
   usedProcs = 0;
   aimedUsage = 0;
   RFUsage = 0;
+  timeSinceRFCast = 0;
 
   constructor(...args) {
     super(...args);
@@ -40,14 +44,15 @@ class LethalShots extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && !this.selectedCombatant.hasBuff(SPELLS.LETHAL_SHOTS_BUFF.id)) {
+    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) || !this.selectedCombatant.hasBuff(SPELLS.LETHAL_SHOTS_BUFF.id)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedUsage++;
     }
-    if (spellId === SPELLS.RAPID_FIRE.id) {
+    if (spellId === SPELLS.RAPID_FIRE.id && event.timestamp > this.timeSinceRFCast + RF_BUFFER) {
       this.RFUsage++;
+      this.timeSinceRFCast = event.timestamp;
     }
   }
 

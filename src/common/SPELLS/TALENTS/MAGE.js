@@ -36,11 +36,11 @@ export default {
   CHARGED_UP_TALENT: { id: 205032, name: "Charged Up", icon: "ability_thunderking_overcharge" },
   SUPERNOVA_TALENT: { id: 157980, name: "Supernova", icon: "spell_mage_supernova" },
   CHRONO_SHIFT_TALENT: { id: 235711, name: "Chrono Shift", icon: "ability_monk_deadlyreach" },
-  EROSION_TALENT: { id: 205039, name: "Erosion", icon: "ability_mage_missilebarrage" },
-  UNSTABLE_MAGIC_TALENT: { id: 157976, name: "Unstable Magic", icon: "spell_mage_unstablemagic" },
+  REVERBERATE_TALENT: { id: 281482, name: "Reverberate", icon: "spell_arcane_arcane04" },
+  TOUCH_OF_THE_MAGI_TALENT: { id: 210725, name: "Touch of the Magi", icon: "spell_mage_icenova" },
   NETHER_TEMPEST_TALENT: { id: 114923, name: "Nether Tempest", icon: "spell_mage_nethertempest" },
   OVERPOWERED_TALENT: { id: 155147, name: "Overpowered", icon: "spell_mage_overpowered" },
-  TEMPORAL_FLUX_TALENT: { id: 234302, name: "Temporal Flux", icon: "spell_arcane_arcanetorrent" },
+  TIME_ANOMALY_TALENT: { id: 210805, name: "Time Anomaly", icon: "ability_mage_timewarp" },
   ARCANE_ORB_TALENT: { id: 153626, name: "Arcane Orb", icon: "spell_mage_arcaneorb" },
 
   // Frost

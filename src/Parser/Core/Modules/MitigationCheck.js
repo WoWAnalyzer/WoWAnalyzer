@@ -25,6 +25,10 @@ class MitigationCheck extends Analyzer{
 
   constructor(...args) {
     super(...args);
+    if(this.owner.boss == null){
+      this.active = false;
+      return;
+    }
     const boss = findByBossId(this.owner.boss.id);
     if(boss.fight.softMitigationChecks){
       this.checks = Object.values(boss.fight.softMitigationChecks);

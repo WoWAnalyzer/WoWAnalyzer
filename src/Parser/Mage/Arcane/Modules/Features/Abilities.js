@@ -36,19 +36,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_FAMILIAR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 10,
-        enabled: combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      {
         spell: SPELLS.SUPERNOVA_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -98,6 +85,29 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
+        spell: SPELLS.TIME_WARP,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
+      },
+      {
+        spell: SPELLS.ARCANE_FAMILIAR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWN,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 10,
+        enabled: combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
+      },
+      {
         spell: SPELLS.ARCANE_POWER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
@@ -127,8 +137,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 60,
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
+          suggestion: false,
+          recommendedEfficiency: 0.60,
         },
       },
       {
@@ -168,6 +178,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 25,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.ICE_BLOCK,

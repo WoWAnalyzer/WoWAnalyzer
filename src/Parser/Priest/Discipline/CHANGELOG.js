@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-24'),
+    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER.id} />.</React.Fragment>,
+    contributors: [Reglitch],
+  },
+  {
     date: new Date('2018-07-18'),
     changes: <React.Fragment>Now with 100% more Batle for Azeroth.</React.Fragment>,
     contributors: [Reglitch],

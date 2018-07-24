@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -24,7 +24,7 @@ class ImmolationAura extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMMOLATION_AURA.id} />}
         value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
-        label="Immolation Aura Uptime"
+        label="Immolation Aura uptime"
         tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatDuration(immolationAuraUptime / 1000)}.`}
       />
     );

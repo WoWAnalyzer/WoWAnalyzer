@@ -25,11 +25,13 @@ import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
-import UnseenPredatorsCloak from './Modules/Items/UnseenPredatorsCloak';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 import HelbrineRopeOfTheMistMarauder from './Modules/Items/HelbrineRopeOfTheMistMarauder';
 import NesingwarysTrappingTreads from './Modules/Items/NesingwarysTrappingTreads';
 import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
 import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
+import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -64,6 +66,8 @@ class CombatLogParser extends CoreCombatLogParser {
     nesingwarysTrappingTreads: NesingwarysTrappingTreads,
     butchersBoneApron: ButchersBoneApron,
     frizzosFingertrap: FrizzosFingertrap,
+    zevrimsHunger: ZevrimsHunger,
+    celerityOfTheWindrunners: CelerityOfTheWindrunners,
 
   };
 }
