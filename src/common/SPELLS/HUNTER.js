@@ -680,7 +680,7 @@ export default {
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
   },
-  RAPTOR_STRIKE_2: {
+  RAPTOR_STRIKE_AOTE: {
     id: 265189,
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
@@ -721,6 +721,11 @@ export default {
     id: 260286,
     name: 'Tip of the Spear',
     icon: 'ability_bossmannoroth_glaivethrust',
+  },
+  VIPERS_VENOM_BUFF: {
+    id: 268552,
+    name: 'Viper\'s Venom',
+    icon: 'ability_hunter_potentvenom',
   },
 
   //Shared BFA buffs/debuffs/misc

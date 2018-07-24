@@ -25,6 +25,8 @@ import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 //Spells
 import KillCommand from './Modules/Spells/KillCommand';
 import ButcheryCarve from './Modules/Spells/ButcheryCarve';
+import SerpentSting from './Modules/Spells/SerpentSting';
+import CoordinatedAssault from './Modules/Spells/CoordinatedAssault';
 
 //Talents
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
@@ -68,6 +70,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     killCommand: KillCommand,
     butcheryCarve: ButcheryCarve,
+    serpentSting: SerpentSting,
+    coordinatedAssault: CoordinatedAssault,
 
     //Items
     tier20_2p: Tier20_2p,

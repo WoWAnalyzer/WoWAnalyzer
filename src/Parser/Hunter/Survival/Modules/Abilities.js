@@ -12,18 +12,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+        },
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
         cooldown: haste => 6 / (1 + haste),
       },
       {
-        spell: SPELLS.RAPTOR_STRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.RAPTOR_STRIKE_2,
+        spell: [SPELLS.RAPTOR_STRIKE, SPELLS.RAPTOR_STRIKE_AOTE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -34,6 +31,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
         },
         charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: haste => 18 / (1 + haste),
