@@ -11,7 +11,6 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 1000;
 const MAX_TARGETS_HIT = 5;
-const MS_BUFFER = 100;
 
 class ButcheryCarve extends Analyzer {
   static dependencies = {
@@ -21,9 +20,6 @@ class ButcheryCarve extends Analyzer {
 
   hasGT = false;
   resets = 0;
-  timeOfLastCast = 0;
-  effectiveWFBCDR = 0;
-  wastedWFBCDR = 0;
   reductionAtCurrentCast = 0;
   effectiveWFBReductionMs = 0;
   wastedWFBReductionMs = 0;
@@ -41,10 +37,7 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.casts++;
-    if (event.timestamp > this.timeOfLastCast + MS_BUFFER) {
-      this.timeOfLastCast = event.timestamp;
-      this.reductionAtCurrentCast = 0;
-    }
+    this.reductionAtCurrentCast = 0;
   }
 
   on_byPlayer_damage(event) {
@@ -56,23 +49,14 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.reductionAtCurrentCast++;
-
     if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-      this.wastedWFBCDR += COOLDOWN_REDUCTION_MS;
+      this.wastedWFBReductionMs += COOLDOWN_REDUCTION_MS;
       return;
     }
-
     if (this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) > COOLDOWN_REDUCTION_MS) {
-      this.effectiveWFBCDR += this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveWFBReductionMs += this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
       return;
     }
-
-    if (this.hasGT) {
-      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.WILDFIRE_BOMB.id) - this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id);
-      this.spellUsable.endCooldown(SPELLS.WILDFIRE_BOMB.id, false, event.timestamp, newChargeCDR);
-      return;
-    }
-
     const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
     this.effectiveWFBReductionMs += effectiveReductionMs;
     this.wastedWFBReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);

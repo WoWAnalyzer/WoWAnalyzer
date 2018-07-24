@@ -21,6 +21,7 @@ class KillCommand extends Analyzer {
 
   hasAlphaPredator = false;
   resets = 0;
+  resetWhileNotOnCD = 0;
 
   constructor(...args) {
     super(...args);
@@ -42,14 +43,15 @@ class KillCommand extends Analyzer {
     if (spellId !== SPELLS.FLANKERS_ADVANTAGE.id) {
       return;
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_SV.id)) {
-      this.resets++;
-      if (this.hasAlphaPredator) {
-        const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_SV.id) - this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_SV.id);
-        this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id, false, event.timestamp, newChargeCDR);
-      } else {
-        this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id);
-      }
+    if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_SV.id)) {
+      this.resetWhileNotOnCD++;
+      return;
+    }
+    this.resets++;
+    if (this.hasAlphaPredator) {
+      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_SV.id));
+    } else {
+      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_SV.id);
     }
   }
 
@@ -59,6 +61,7 @@ class KillCommand extends Analyzer {
         icon={<SpellIcon id={SPELLS.KILL_COMMAND_SV.id} />}
         value={`${this.resets}`}
         label="Kill Command Resets"
+        tooltip={`You had ${this.resetWhileNotOnCD} resets whilst Kill Command was not on cooldown`}
       />
     );
   }
