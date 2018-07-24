@@ -32,6 +32,7 @@ import CoordinatedAssault from './Modules/Spells/CoordinatedAssault';
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
+import VipersVenom from './Modules/Talents/VipersVenom';
 
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
@@ -46,6 +47,9 @@ import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
 import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
 import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
+
+//Traits and Talents
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,6 +99,10 @@ class CombatLogParser extends CoreCombatLogParser {
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
     aMurderOfCrows: AMurderOfCrows,
+    vipersVenom: VipersVenom,
+
+    //Traits and talents
+    traitsAndTalents: TraitsAndTalents,
   };
 }
 

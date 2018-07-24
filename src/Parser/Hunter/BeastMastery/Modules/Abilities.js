@@ -169,6 +169,25 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.PRIMAL_RAGE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 360,
+        gcd: null,
+      },
+
+      {
+        spell: SPELLS.MASTERS_CALL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: null,
+      },
+      {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
@@ -240,6 +259,40 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           base: 1500,
+        },
+      },
+
+      /**
+       * Racials until we find a better solution
+       */
+      {
+        spell: SPELLS.ARCANE_TORRENT_FOCUS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
         },
       },
     ];
