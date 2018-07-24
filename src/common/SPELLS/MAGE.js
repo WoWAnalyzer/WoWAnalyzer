@@ -253,7 +253,7 @@ export default {
     icon: 'spell_arcane_blast',
   },
   ARCANE_MISSILES: {
-    id: 7268,
+    id: 5143,
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },

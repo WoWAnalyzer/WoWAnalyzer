@@ -7,7 +7,6 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Channeling from './Modules/Features/Channeling';
 
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
-import Evocation from './Modules/Features/Evocation';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
@@ -27,7 +26,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     cancelledCasts: CancelledCasts,
     arcaneMissiles: ArcaneMissiles,
-    evocation: Evocation,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
