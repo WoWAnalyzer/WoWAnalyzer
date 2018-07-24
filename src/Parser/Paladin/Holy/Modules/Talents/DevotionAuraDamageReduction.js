@@ -8,6 +8,7 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import makeWclUrl from 'common/makeWclUrl';
 
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
@@ -71,17 +72,19 @@ class DevotionAuraDamageReduction extends Analyzer {
     // WCL's filter requires the timestamp to be relative to fight start
     return buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
   }
+  get filter() {
+    const playerName = this.owner.player.name;
+    // Include any damage while selected player has AM, and is above the health requirement,
+    // and the mitigation percentage is greater than 19% (we use this to reduce the false positives. We use DR-1% to account for rounding)
+    return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
+      AND (mitigatedDamage/rawDamage*100)>${DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION * 100 - 1}`;
+  }
 
   load() {
-    const uptimeFilter = this.auraMasteryUptimeFilter;
-    if (!uptimeFilter) {
-      return Promise.resolve();
-    }
-    console.log(uptimeFilter);
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: uptimeFilter,
+      filter: this.filter,
     })
       .then(json => {
         console.log('Received AM damage taken', json);
@@ -90,18 +93,26 @@ class DevotionAuraDamageReduction extends Analyzer {
   }
 
   statistic() {
+    const tooltip = `The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
+      The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.auraMasteryDamageReduced)} (${formatNumber(this.auraMasteryDrps)} DRPS). This has a 99% accuracy.<br /><br />
+
+      This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Devotion Aura bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.<br /><br />
+
+      Calculating exact Devotion Aura damage reduced is very time and resource consuming. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and 20% of all damage you've taken outside Aura Mastery. Even though the 20% damage taken is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.`;
+
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS`}
         label="Estimated damage reduced"
-        tooltip={`The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
-          The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.auraMasteryDamageReduced)} (${formatNumber(this.auraMasteryDrps)} DRPS). This has a 99% accuracy.<br /><br />
-
-          This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Devotion Aura bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.<br /><br />
-
-          Calculating exact Devotion Aura damage reduced is very time and resource consuming. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and 20% of all damage you've taken outside Aura Mastery. Even though the 20% damage taken is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.`}
+        tooltip={tooltip}
+        warcraftLogs={makeWclUrl(this.owner.report.code, {
+          fight: this.owner.fightId,
+          type: 'damage-taken',
+          pins: `2$Off$#244F4B$expression$${this.filter}`,
+          view: 'events',
+        })}
       />
     );
   }
