@@ -13,8 +13,7 @@ const COOLDOWN_MS = 60000; // one minute
  * pot cooldown is one minute, but the cooldown does not start until the
  * actor is out of combat or dead.
  * args[3] = spell
- * args[4] = category
- * args[5] = recommendedEfficiency
+ * args[4] = recommendedEfficiency
  */
 
 class Potion extends Analyzer {
@@ -32,10 +31,10 @@ class Potion extends Analyzer {
   constructor(...args) {
     super(...args);
     this.spells = args[3];
-    this.efficiency = args[5];
+    this.efficiency = args[4];
     this.abilities.add({
       spell: this.spells,
-      category: args[4],
+      category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
       cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
         suggestion: false,
@@ -47,7 +46,7 @@ class Potion extends Analyzer {
   }
 
   get spellId() {
-    return this.abilities.getAbility(this.spells[0].id).primarySpell.id;
+    return this.spells[0] ? this.abilities.getAbility(this.spells[0].id).primarySpell.id : this.abilities.getAbility(this.spells.id).primarySpell.id;
   }
 
   on_toPlayer_death(event) {

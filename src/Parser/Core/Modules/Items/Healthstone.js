@@ -1,26 +1,19 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Abilities from 'Parser/Core/Modules/Abilities';
 import Potion from './Potion';
 
-const SPELL = [
-  SPELLS.HEALTHSTONE,
-  SPELLS.ANCIENT_HEALING_POTION,
-  SPELLS.ASTRAL_HEALING_POTION,
-];
-const CATEGORY = Abilities.SPELL_CATEGORIES.DEFENSIVE;
+const SPELL = SPELLS.HEALTHSTONE;
 const RECOMMENDED_EFFICIENCY = 0.6;
 
 /**
- * Healthstone/health pot cooldown is one minute, but only starts when the
- * actor is out of combat or dead.
+ * Tracks Healthstone cooldown.
  */
 
 class Healthstone extends Potion {
 
   constructor(...args) {
-    super(...args, SPELL, CATEGORY, RECOMMENDED_EFFICIENCY);
+    super(...args, SPELL, RECOMMENDED_EFFICIENCY);
   }
 
   suggestions(when) {
