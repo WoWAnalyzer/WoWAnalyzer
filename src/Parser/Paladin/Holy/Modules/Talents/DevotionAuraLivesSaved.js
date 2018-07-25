@@ -63,7 +63,7 @@ class DevotionAuraLivesSaved extends Analyzer {
   }
 
   load() {
-    const uptimeFilter = this.devotionAuraDamageReduction.auraMasteryUptimeFilter;
+    const uptimeFilter = this.devotionAuraDamageReduction.filter;
     const filter = `(${uptimeFilter}) AND (
       type='damage'
       AND target.disposition='friendly'

@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-24'),
+    changes: <React.Fragment>Improved the accuracy of the <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> statistic by correctly scaling the passive via the new formula (<a href="https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect">more info</a>).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-07-24'),
+    changes: <React.Fragment>Improved the accuracy of the <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> statistic by excluding false positives such as <SpellLink id={SPELLS.STAGGER.id} /> from the <SpellLink id={SPELLS.AURA_MASTERY.id} /> effect. Added a link to WCL to view the details of Aura Mastery.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-07-22'),
     changes: 'Changed the "FoL/HL on beacons" statistic to "Direct beacon healing", so it now includes all beacon transfering spells.',
     contributors: [Zerotorescue],
