@@ -81,7 +81,37 @@ class grace extends Analyzer {
 
       this.graceHealing += masteryContribution;
 
-      console.log(event);
+      return;
+    }
+
+  }
+
+  on_byPlayer_removebuff(event){
+
+    if(!event.absorb) return;
+
+    if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
+      this.nonWhiteListHealing += event.absorb || 0;
+      return;
+    }
+
+    // Get the target
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
+
+    // Mastery only buffs players benefitting from Atonement
+    if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      this.unbuffedWhiteListHealing -= (event.absorb || 0);
+      return;
+    }
+    else{
+      this.buffedWhiteListHealing -= (event.absorb || 0);
+
+      const currentMastery = this.statTracker.currentMasteryPercentage;
+      const masteryContribution = this.calculateEffectiveHealingFromApplyBuff(event,currentMastery);
+
+      this.graceHealing -= masteryContribution;
+
       return;
     }
 
