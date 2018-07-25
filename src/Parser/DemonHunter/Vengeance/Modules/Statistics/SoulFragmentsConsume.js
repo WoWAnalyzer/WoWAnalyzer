@@ -24,7 +24,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SPIRIT_BOMB_TALENT.id && spellId !== SPELLS.SOUL_CLEAVE.id && spellId !== SPELLS.SOUL_BARRIER_TALENT.id) {
       return;
     }
-    if(!(spellId in this.soulsConsumedBySpell)) {
+    if (!this.soulsConsumedBySpell[spellId]) {
       this.soulsConsumedBySpell[spellId] = {name: 0};
       this.soulsConsumedBySpell[spellId] = {souls: 0};
       this.soulsConsumedBySpell[1000000] = {souls: 0};

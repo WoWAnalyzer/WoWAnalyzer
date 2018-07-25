@@ -63,9 +63,9 @@ class SoulBarrier extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.40,
-        average: 0.35,
-        major: .30,
+        minor: 0.35,
+        average: 0.30,
+        major: .25,
       },
       style: 'percentage',
     };
