@@ -139,6 +139,7 @@ import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
+import InoculatingExtract from './Modules/Items/BFA/Raids/Uldir/InoculatingExtract';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -285,6 +286,7 @@ class CombatLogParser {
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
+    inoculatingExtract: InoculatingExtract,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

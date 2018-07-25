@@ -13,6 +13,13 @@ export default {
 
   //Zek'voz
 
+  //Vectis
+  MUTATING_ANTIBODY: {
+    id: 278088,
+    name: "Mutating Antibody",
+    icon: "spell_nature_elementalshields",
+  },
+
   //Zul Reborn
 
   // Mythrax
@@ -23,4 +30,5 @@ export default {
   },
 
   //G'huun
+
 };

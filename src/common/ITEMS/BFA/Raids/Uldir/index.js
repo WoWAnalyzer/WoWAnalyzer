@@ -16,6 +16,13 @@ export default {
 
   //Zek'voz
 
+  //Vectis
+  INOCULATING_EXTRACT: {
+    id: 160649,
+    name: "Inoculating Extract",
+    icon: "inv_wand_29",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   //Zul Reborn
 
   // Mythrax

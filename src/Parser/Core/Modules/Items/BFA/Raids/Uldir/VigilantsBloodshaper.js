@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import {formatNumber} from 'common/format';
-
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Analyzer from 'Parser/Core/Analyzer';
 
 /**
@@ -10,7 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
  * Equip: Your damaging spells have a chance to launch an orb of charged blood at your target,
  * dealing 0 shadow damage split among all nearby enemeies.
  */
-import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 
 class VigilantsBloodshaper extends Analyzer{
