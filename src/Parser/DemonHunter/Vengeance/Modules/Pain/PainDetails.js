@@ -62,7 +62,7 @@ class PainDetails extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   tab() {
     return {

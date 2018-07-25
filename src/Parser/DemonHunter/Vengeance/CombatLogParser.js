@@ -16,14 +16,16 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments';
-import SpiritBomb from './Modules/Talent/SpiritBomb';
+import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
+import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
+
+import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
+import SpiritBombSoulsTracked from './Modules/Talent/SpiritBombSoulsTracked';
+import SoulBarrier from './Modules/Talent/SoulBarrier';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
-
-import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -46,17 +48,19 @@ class CombatLogParser extends CoreCombatLogParser {
     painTracker :PainTracker,
     painDetails: PainDetails,
 
-    // Spirit Bomb Tracker Module (Frailty uptime tracker)
-    spiritBomb: SpiritBomb,
+    //Talents
+    SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    spiritBombSoulsTracked: SpiritBombSoulsTracked,
+    soulBarrier: SoulBarrier,
 
     // Soul Fragments Tracker module (includes Generated and Wasted)
-    soulFragments: SoulFragments,
+    soulFragmentsConsume: SoulFragmentsConsume,
+    soulFragmentsTracker: SoulFragmentsTracker,
 
-    // Spell Statistics
+    // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
-    soulBarrier: SoulBarrier,
 
     // Tier 20
     tier202PBonus: Tier202PBonus,
