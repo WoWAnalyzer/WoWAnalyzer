@@ -20,7 +20,7 @@ class ExplosiveShot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DETONATION.id) {
+    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DAMAGE.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);

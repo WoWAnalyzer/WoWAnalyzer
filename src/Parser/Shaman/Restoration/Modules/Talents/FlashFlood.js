@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 const FLASH_FLOOD_HASTE = 0.2;
+const BUFFER_MS = 50;
 
 // All heal spells with cast time...
 const SPELLS_CONSUMING_FLASH_FLOOD = [
@@ -41,17 +42,17 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp);
-    if (!hasFlashFlood) {
-      return;
-    }
-
     this.beginCastTimestamp = event.timestamp;
     this.beginCastGlobalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
   }
 
   on_byPlayer_cast(event) {
     if (!this.beginCastTimestamp) {
+      return;
+    }
+
+    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, this.beginCastTimestamp+BUFFER_MS);
+    if (!hasFlashFlood) {
       return;
     }
 

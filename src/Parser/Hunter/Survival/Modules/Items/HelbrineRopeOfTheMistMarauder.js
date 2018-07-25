@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
-import GetDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import GetDamageBonus from 'Parser/Core/calculateEffectiveDamage';
 
 /**
  * Helbrine, Rope of the Mist Marauder

@@ -13,6 +13,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 class SoulFragments extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+  };
+
+  //Managing souls with spirit bomb properly leads to a dps increase. Without the talent it doesnt matter how you absorb souls.
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
   generated = 0;
@@ -67,9 +73,13 @@ class SoulFragments extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
-        value={`${formatNumber(this.wasted)}`}
-        label="Soul Fragments wasted"
-        tooltip={`The total Soul Fragments generated was ${formatNumber(this.generated)}.<br/>The total Soul Fragments spent was ${formatNumber(this.spent)}.<br/>The total Soul Fragments wasted was ${formatNumber(this.wasted)}.<br/>At the end of the fight, you had ${formatNumber(this.actual)} unused Soul Fragments.`}
+        value={`${formatNumber(this.wasted)} Soul Fragments`}
+        label="Inefficiently Used"
+        tooltip={`You generated ${formatNumber(this.wasted)} souls at cap. These are absorbed automatically <br/>
+                  and aren't avalible to boost Spirit Bomb's damage.<br/>
+                  Total Soul Fragments generated: ${formatNumber(this.generated)}<br/>
+                  Total Soul Fragments spent: ${formatNumber(this.spent)}<br/>
+                  At the end of the fight, you had ${formatNumber(this.actual)} unused Soul Fragments.`}
       />
     );
   }

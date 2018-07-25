@@ -43,7 +43,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     const playerName = this.owner.player.name;
     // Include any damage while selected player has AM, and is above the health requirement,
     // and the damage isn't to him (because AoS transfers it to the Paladin, so he doesn't gain any DR)
-    // and the mitigation percentage is greater than 29% (because health events are logged slower than damage events, and the game properly tracks this realtime, some events may slip through while we're <75% so we need to use this to reduce the false positives. We use transfer -1% to account for rounding)
+    // and the mitigation percentage is greater than 29% (because health events are logged slower than damage events, and the game properly tracks this realtime, some events may slip through while we're <75% so we need to use this to reduce the false positives. We use DR-1% to account for rounding)
     return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
       AND (IN RANGE FROM target.name='${playerName}' AND resources.hpPercent>=${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} TO target.name='${playerName}' AND resources.hpPercent<${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} END)
       AND target.name!='${playerName}'
@@ -144,15 +144,10 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
 
   loaded = false;
   load() {
-    const filter = this.filter;
-    if (!filter) {
-      return Promise.resolve();
-    }
-
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter,
+      filter: this.filter,
     })
       .then(json => {
         console.log('Received AM damage taken', json);

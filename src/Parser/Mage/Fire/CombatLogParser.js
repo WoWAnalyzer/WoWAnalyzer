@@ -14,6 +14,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
+import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import Kindling from './Modules/Features/Kindling';
 import HotStreak from './Modules/Features/HotStreak';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     mirrorImage: MirrorImage,
+    arcaneIntellect: ArcaneIntellect,
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
 

@@ -266,6 +266,11 @@ export default {
     name: 'Cleanse',
     icon: 'spell_holy_purify',
   },
+  DEVOTION_AURA_BUFF: {
+    id: 210320,
+    name: 'Devotion Aura',
+    icon: 'spell_holy_devotionaura',
+  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
