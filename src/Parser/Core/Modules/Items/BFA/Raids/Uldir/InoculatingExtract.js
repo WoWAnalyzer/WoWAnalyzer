@@ -15,7 +15,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 class InoculatingExtract extends Analyzer{
   healing = 0;
-  uses = 0;
+  charges = 0;
 
   constructor(...args){
     super(...args);
@@ -26,7 +26,7 @@ class InoculatingExtract extends Analyzer{
     const spellId = event.ability.guid;
     if(spellId === SPELLS.MUTATING_ANTIBODY.id){
       this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.uses += 1;
+      this.charges += 1;
     }
   }
 
@@ -36,7 +36,7 @@ class InoculatingExtract extends Analyzer{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
         <React.Fragment>
-          <dfn data-tip={`Used <b>${Math.ceil(this.uses/5)}</b> times, consuming <b>${this.uses}</b> charges.`}>
+          <dfn data-tip={`Used <b>${Math.ceil(this.charges/5)}</b> times, consuming <b>${this.charges}</b> charges.`}>
             {formatNumber(this.healing)} Healing
           </dfn><br />
           <ItemHealingDone amount={this.healing} />
