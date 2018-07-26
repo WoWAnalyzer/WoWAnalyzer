@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.CAT_SWIPE,
+        spell: SPELLS.SWIPE_CAT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
         gcd: {
@@ -460,7 +460,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STARSURGE,
+        spell: SPELLS.STARSURGE_AFFINITY,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {

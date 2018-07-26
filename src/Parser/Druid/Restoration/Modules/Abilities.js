@@ -142,7 +142,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
+        cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 22 : 25,
         gcd: {
           base: 1500,
         },
@@ -259,7 +259,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CAT_SWIPE,
+        spell: SPELLS.SWIPE_CAT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
@@ -305,7 +305,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STARSURGE,
+        spell: SPELLS.STARSURGE_AFFINITY,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
