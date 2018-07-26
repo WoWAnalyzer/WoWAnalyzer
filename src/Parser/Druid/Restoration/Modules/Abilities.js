@@ -199,6 +199,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DASH,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
