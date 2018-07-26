@@ -1,6 +1,6 @@
 # Devotion Aura damage reduction analysis
 
-[![Tooltip](https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png)](https://beta.wowdb.com/spells/183425-devotion-aura)
+[![Tooltip](https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png)](https://wowdb.com/spells/183425-devotion-aura)
 
 ## How we analyze damage reductions
 
