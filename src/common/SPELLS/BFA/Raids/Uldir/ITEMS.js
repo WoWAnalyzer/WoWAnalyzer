@@ -20,6 +20,12 @@ export default {
     icon: "spell_nature_elementalshields",
   },
 
+  MUTATING_ANTIBODIES_INOCULATION: {
+    id: 278081,
+    name: "Mutating Antibodies Inoculation",
+    icon: "inv_potiond_4",
+  },
+
   //Zul Reborn
 
   // Mythrax

@@ -1,9 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import {formatNumber} from 'common/format';
+import ItemLink from 'common/ItemLink';
+import { formatNumber, formatPercentage } from 'common/format';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Analyzer from 'Parser/Core/Analyzer';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 /**
  * Inoculating Extract -
@@ -12,14 +14,36 @@ import Analyzer from 'Parser/Core/Analyzer';
  * Cooldown).
  */
 
+const MINOR = 0.95;
+const AVERAGE = 0.9;
+const MAJOR = 0.8;
+
 
 class InoculatingExtract extends Analyzer{
+  static dependencies = {
+    abilities: Abilities,
+  };
+
   healing = 0;
   charges = 0;
+  uses = 0;
 
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.INOCULATING_EXTRACT.id);
+
+    if(this.active){
+      this.abilities.add({
+        spell: SPELLS.MUTATING_ANTIBODIES_INOCULATION,
+        name: ITEMS.INOCULATING_EXTRACT.name,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        charges: 1,
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
+    }
   }
 
   on_byPlayer_heal(event){
@@ -30,19 +54,42 @@ class InoculatingExtract extends Analyzer{
     }
   }
 
+  on_byPlayer_cast(event){
+    const spellId = event.ability.guid;
+    if(spellId === SPELLS.MUTATING_ANTIBODIES_INOCULATION.id){
+      this.uses += 1;
+    }
+  }
+
 
   item(){
     return{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
         <React.Fragment>
-          <dfn data-tip={`Used <b>${Math.ceil(this.charges/5)}</b> times, consuming <b>${this.charges}</b> charges.`}>
+          <dfn data-tip={`Used <b>${Math.ceil(this.uses)}</b> times, consuming <b>${this.charges}</b> charges.`}>
             {formatNumber(this.healing)} Healing
           </dfn><br />
           <ItemHealingDone amount={this.healing} />
         </React.Fragment>
       ),
     };
+  }
+
+  suggestions(when){
+    const chargeEff = this.charges / (this.uses * 5);
+    when(chargeEff).isLessThan(MINOR)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <React.Fragment>
+            You had wasted charges from your <ItemLink id={ITEMS.INOCULATING_EXTRACT.id} />.
+            Make sure that every buff placed on a target is consumed.
+          </React.Fragment>
+        ).icon(ITEMS.INOCULATING_EXTRACT.icon)
+          .actual(`${formatPercentage(actual)}% charges used.`)
+          .recommended(` ${formatPercentage(recommended)}% is recommended`)
+          .regular(AVERAGE).major(MAJOR);
+      });
   }
 
 }
