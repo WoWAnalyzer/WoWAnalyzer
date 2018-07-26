@@ -8,11 +8,6 @@ import Mastery from '../Mastery';
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
 
-const REJUV_IDS = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
-];
-
 // tolerated difference between expected and actual HoT fall before a 'mismatch' is logged
 const EXPECTED_REMOVAL_THRESHOLD = 100;
 
@@ -72,36 +67,6 @@ class HotTracker extends Analyzer {
           }
         }
       });
-    }
-
-    // handle Dreamwalker attribution (can be attributed to rejuvenation that procced it)
-    if (spellId === SPELLS.DREAMWALKER.id) {
-      if (!this.hots[targetId]) {
-        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
-        return;
-      }
-      const rejuvsOnTarget = Object.values(this.hots[targetId]).filter(otherHot => REJUV_IDS.includes(otherHot.spellId));
-      if (rejuvsOnTarget.length === 0) {
-        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
-      } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
-        const rejuv = rejuvsOnTarget[0];
-        rejuv.attributions.forEach(att => {
-          att.dreamwalkerHealing += healing;
-        });
-
-        // boosts don't get dreamwalker benefit because the hot was there with or without the boost
-
-        // to avoid making a crazy number of array elements but still be able to include dreamwalker info for extensions,
-        // dreamwalker healing stored with the tick that immediately preceded it, can be read from there while calc extension benefit
-        const numTicks = rejuv.ticks.length;
-        if (numTicks > 0) {
-          const mostRecentTick = rejuv.ticks[numTicks - 1];
-          if (!mostRecentTick.dreamwalkerHealing) {
-            mostRecentTick.dreamwalkerHealing = 0;
-          }
-          mostRecentTick.dreamwalkerHealing += healing;
-        }
-      }
     }
 
     if (!this._validateHot(event)) {
@@ -280,7 +245,6 @@ class HotTracker extends Analyzer {
     let latestOutside = now;
     let healing = 0;
     let masteryHealing = 0;
-    let dreamwalkerHealing = 0;
     // sums healing of every tick within 'amount',
     // also gets the latest tick outside the range, used to scale the healing amount
     for (let i = ticks.length - 1; i >= 0; i--) {
@@ -293,9 +257,6 @@ class HotTracker extends Analyzer {
 
       healing += tick.healing;
       masteryHealing += tick.masteryHealing;
-      if (tick.dreamwalkerHealing !== undefined) {
-        dreamwalkerHealing += tick.dreamwalkerHealing;
-      }
     }
 
     if (foundEarlier) {
@@ -304,9 +265,6 @@ class HotTracker extends Analyzer {
       attribution.healing += (healing * scale);
       // mastery and dreamwalker heals are either inside the extension range or they aren't, as such they shouldn't be scaled
       attribution.masteryHealing += masteryHealing;
-      if (attribution.dreamwalkerHealing !== undefined) {
-        attribution.dreamwalkerHealing += dreamwalkerHealing;
-      }
       attribution.duration += amount;
     } else {
       // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
@@ -427,11 +385,11 @@ class HotTracker extends Analyzer {
   _generateHotInfo() { // must be generated dynamically because it reads from traits
     return {
       [SPELLS.REJUVENATION.id]: {
-        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000,
         tickPeriod: 3000,
       },
       [SPELLS.REJUVENATION_GERMINATION.id]: {
-        duration: 15000 + (1000 * this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+        duration: 15000,
         tickPeriod: 3000,
       },
       [SPELLS.REGROWTH.id]: {
