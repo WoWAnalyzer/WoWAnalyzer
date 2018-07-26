@@ -73,7 +73,7 @@ class Potion extends Analyzer {
   }
 
   increaseMaxCasts(event) {
-    // If the death starts the cooldown and there is less than 60 seconds remaining of the encounter another cast was possible.
+    // If the death starts the cooldown and there is more than 60 seconds remaining of the encounter another cast was possible.
     const nextAvailablePotionCast = event.timestamp + COOLDOWN_MS;
     if (nextAvailablePotionCast < this.owner.fight.end_time) {
       this.maxCasts += 1;

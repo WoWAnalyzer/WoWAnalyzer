@@ -17,11 +17,11 @@ const RECOMMENDED_EFFICIENCY = 0;
  * Tracks combat potion cooldown (DPS, HPS, mana, mitigation).
  */
 
-class Healthstone extends Potion {
+class CombatPotion extends Potion {
 
   constructor(...args) {
     super(...args, SPELL, RECOMMENDED_EFFICIENCY);
   }
 }
 
-export default Healthstone;
+export default CombatPotion;

@@ -13,7 +13,7 @@ const RECOMMENDED_EFFICIENCY = 0.6;
  * Tracks health potion cooldown.
  */
 
-class Healthstone extends Potion {
+class HealthPotion extends Potion {
 
   constructor(...args) {
     super(...args, SPELL, RECOMMENDED_EFFICIENCY);
@@ -28,4 +28,4 @@ class Healthstone extends Potion {
   }
 }
 
-export default Healthstone;
+export default HealthPotion;
