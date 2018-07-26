@@ -9,6 +9,7 @@ import Channeling from './Modules/Features/Channeling';
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
+import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
 
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
@@ -27,6 +28,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     cancelledCasts: CancelledCasts,
     arcaneMissiles: ArcaneMissiles,
+    arcaneChargeTracker: ArcaneChargeTracker,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
