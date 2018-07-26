@@ -288,6 +288,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
