@@ -1,11 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

@@ -9,6 +9,9 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
 
+//Normalizer
+import TipOfTheSpearNormalizer from './Modules/Normalizers/TipOfTheSpear';
+
 //Tier
 import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
@@ -19,18 +22,30 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 
+//Spells
+import KillCommand from './Modules/Spells/KillCommand';
+import ButcheryCarve from './Modules/Spells/ButcheryCarve';
+import SerpentSting from './Modules/Spells/SerpentSting';
+import CoordinatedAssault from './Modules/Spells/CoordinatedAssault';
+
+//Talents
+import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
+import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
+import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
+
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
-import UnseenPredatorsCloak from './Modules/Items/UnseenPredatorsCloak';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 import HelbrineRopeOfTheMistMarauder from './Modules/Items/HelbrineRopeOfTheMistMarauder';
 import NesingwarysTrappingTreads from './Modules/Items/NesingwarysTrappingTreads';
 import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
 import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
-
+import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,9 +60,18 @@ class CombatLogParser extends CoreCombatLogParser {
     timeFocusCapped: TimeFocusCapped,
     focusUsage: FocusUsage,
 
+    //Normalizers
+    tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
+
     //Focus Chart
     focusTracker: FocusTracker,
     focusTab: FocusTab,
+
+    //Spells
+    killCommand: KillCommand,
+    butcheryCarve: ButcheryCarve,
+    serpentSting: SerpentSting,
+    coordinatedAssault: CoordinatedAssault,
 
     //Items
     tier20_2p: Tier20_2p,
@@ -64,7 +88,13 @@ class CombatLogParser extends CoreCombatLogParser {
     nesingwarysTrappingTreads: NesingwarysTrappingTreads,
     butchersBoneApron: ButchersBoneApron,
     frizzosFingertrap: FrizzosFingertrap,
+    zevrimsHunger: ZevrimsHunger,
+    celerityOfTheWindrunners: CelerityOfTheWindrunners,
 
+    //Talents
+    naturalMending: NaturalMending,
+    trailblazer: Trailblazer,
+    aMurderOfCrows: AMurderOfCrows,
   };
 }
 

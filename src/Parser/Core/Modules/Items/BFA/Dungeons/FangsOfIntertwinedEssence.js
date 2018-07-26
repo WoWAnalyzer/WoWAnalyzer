@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemManaGained from 'Main/ItemManaGained';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const MAX_RESTORES_PER_USE = 6;
 const ACTIVATION_COOLDOWN = 120; // seconds

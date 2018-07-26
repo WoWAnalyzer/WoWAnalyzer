@@ -6,7 +6,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import DemoPets from '../../WarlockCore/Pets';
 

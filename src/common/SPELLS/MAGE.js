@@ -253,7 +253,7 @@ export default {
     icon: 'spell_arcane_blast',
   },
   ARCANE_MISSILES: {
-    id: 7268,
+    id: 5143,
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },
@@ -311,6 +311,11 @@ export default {
     id: 31589,
     name: 'Slow',
     icon: 'spell_nature_slow',
+  },
+  ARCANE_ORB_DAMAGE: {
+    id: 153640,
+    name: 'Arcane Orb',
+    icon: 'spell_mage_arcaneorb',
   },
 
   //Passives
@@ -435,6 +440,11 @@ export default {
     id: 208030,
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
+  },
+  ARCANE_FAMILIAR_BUFF: {
+    id: 210126,
+    name: 'Arcane Familiar',
+    icon: 'ability_sorcererking_arcanemines',
   },
 
   //Tier Sets

@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker';
 
 /**
@@ -103,14 +103,39 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.missedRegenPerMinute,
+      isGreaterThan: {
+        minor: 20,
+        average: 40,
+        major: 60,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <React.Fragment>
+          You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
+        </React.Fragment>
+      )
+        .icon('spell_shadow_shadowworddominate')
+        .actual(`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`)
+        .recommended(`<${recommended} is recommended.`);
+    });
+  }
+
   statistic() {
     return (
       <StatisticBox
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
-        value={`${formatPercentage(this.cappedProportion)}%`}
-        label="Time with capped energy"
+        value={`${this.missedRegenPerMinute.toFixed(1)}`}
+        label="Wasted energy per minute from being capped"
         tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
-        You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on <b>${this.missedRegenPerMinute.toFixed(1)}</b> energy per minute from regeneration.`}
+        You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on a total of <b>${this.missedRegen.toFixed(0)}</b> energy from regeneration.`}
         footer={(
           <div className="statistic-bar">
             <div

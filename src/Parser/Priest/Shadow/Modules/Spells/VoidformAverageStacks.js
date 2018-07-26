@@ -7,8 +7,8 @@ import { formatNumber } from 'common/format';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import Voidform from './Voidform';
 

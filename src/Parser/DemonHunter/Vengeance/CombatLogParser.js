@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -14,18 +14,14 @@ import PainDetails from './Modules/Pain/PainDetails';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
-import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
+import SoulFragments from './Modules/Statistics/SoulFragments';
+import SpiritBomb from './Modules/Talent/SpiritBomb';
 
-import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
+import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
-import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
-
-import Painbringer from './Modules/Spells/Painbringer/Painbringer';
-import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
-import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
 
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
@@ -39,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -58,11 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell Statistics
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
-    painbringer: Painbringer,
-    painbringerTimesByStacks: PainbringerTimesByStacks,
-    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20

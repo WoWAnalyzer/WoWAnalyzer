@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AuraOfMercy extends Analyzer {
   static dependencies = {
@@ -34,9 +34,9 @@ class AuraOfMercy extends Analyzer {
     return {
       actual: this.hps,
       isLessThan: {
-        minor: 30000,
-        average: 25000,
-        major: 20000,
+        minor: 600,
+        average: 550,
+        major: 500,
       },
     };
   }

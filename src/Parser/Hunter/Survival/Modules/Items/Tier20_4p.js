@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 const T20_4P_DMG_BONUS = 0.1;
@@ -33,7 +33,7 @@ class Tier20_4p extends Analyzer {
       return;
     }
     if (enemy.hasBuff(SPELLS.LACERATE.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, T20_4P_DMG_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, T20_4P_DMG_BONUS);
 
     }
   }

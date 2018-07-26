@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
 
 const COOLDOWN_REDUCTION_MS = 3000;
@@ -52,7 +52,7 @@ class CallingTheShots extends Analyzer {
         icon={<SpellIcon id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />}
         value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s`}
         label="Trueshot CDR"
-        tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Mulit Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaning on CD.`} />
+        tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaning on CD.`} />
     );
   }
 }

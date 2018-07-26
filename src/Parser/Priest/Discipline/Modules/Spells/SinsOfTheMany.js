@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';

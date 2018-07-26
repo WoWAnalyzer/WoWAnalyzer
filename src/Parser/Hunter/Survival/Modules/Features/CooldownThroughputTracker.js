@@ -12,7 +12,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.ASPECT_OF_THE_EAGLE,
+      spell: SPELLS.COORDINATED_ASSAULT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -21,7 +21,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.CALTROPS_DAMAGE.id,
   ];
 }
 

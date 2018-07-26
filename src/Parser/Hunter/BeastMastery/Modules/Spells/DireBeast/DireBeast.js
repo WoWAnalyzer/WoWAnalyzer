@@ -1,11 +1,11 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import SPELLS from "common/SPELLS";
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;

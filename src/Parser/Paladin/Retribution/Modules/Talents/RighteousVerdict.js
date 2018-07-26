@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -24,12 +24,8 @@ class RighteousVerdict extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TEMPLARS_VERDICT.id) {
-      return;
-    }
-    this.totalSpenders++;
-    if (this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
-      this.spendersInsideBuff++; 
+    if (spellId === SPELLS.TEMPLARS_VERDICT.id) {
+      this.totalSpenders++;
     }
   }
 
@@ -39,6 +35,7 @@ class RighteousVerdict extends Analyzer {
       return;
     }
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
+      this.spendersInsideBuff++; 
       this.damageDone += calculateEffectiveDamage(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
   }
@@ -47,9 +44,9 @@ class RighteousVerdict extends Analyzer {
     return {
       actual: this.spendersInsideBuff / this.totalSpenders,
       isLessThan: {
-        minor: 0.80,
-        average: 0.75,
-        major: 0.70,
+        minor: 0.70,
+        average: 0.65,
+        major: 0.60,
       },
       style: 'percentage',
     };

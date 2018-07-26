@@ -3,7 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS/OTHERS';
 import SPELLS from 'common/SPELLS/OTHERS';
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
 /*

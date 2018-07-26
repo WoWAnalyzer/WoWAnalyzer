@@ -7,6 +7,7 @@ import Haste from './Modules/Core/Haste';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
 import Shield_Block from './Modules/Spells/ShieldBlock';
 import Checklist from './Modules/Features/Checklist';
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     damageDone: [DamageDone, { showStatistic: true }],
     haste: Haste,
+    mitigationCheck: MitigationCheck,
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,

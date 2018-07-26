@@ -266,6 +266,11 @@ export default {
     name: 'Cleanse',
     icon: 'spell_holy_purify',
   },
+  DEVOTION_AURA_BUFF: {
+    id: 210320,
+    name: 'Devotion Aura',
+    icon: 'spell_holy_devotionaura',
+  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
@@ -371,6 +376,11 @@ export default {
     id: 267611,
     name: 'Righteous Verdict',
     icon: 'spell_paladin_templarsverdict',
+  },
+  ZEAL_DAMAGE: {
+    id: 269937,
+    name: 'Zeal',
+    icon: 'spell_holy_sealofblood',
   },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {

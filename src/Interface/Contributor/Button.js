@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import Portal from 'Main/Portal';
+import Portal from 'Interface/Others/Portal';
 
 import makeContributorUrl from './makeUrl';
 
@@ -54,22 +54,18 @@ class Button extends React.PureComponent {
     }
 
     const content = (
-      <React.Fragment>
-        {avatar && <React.Fragment><img src={avatar} alt="Avatar" />{' '}</React.Fragment>}
+      <div className="contributor">
+        {avatar && <img src={avatar} alt="Avatar" />}
         {nickname}
-      </React.Fragment>
+      </div>
     );
 
     if (!link) {
-      return (
-        <span className="contributor">
-          {content}
-        </span>
-      );
+      return content;
     }
 
     return (
-      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
+      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick}>
         {content}
       </Link>
     );

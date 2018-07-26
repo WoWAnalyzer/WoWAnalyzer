@@ -1,4 +1,4 @@
-import fetchWcl, { CorruptResponseError } from 'common/fetchWcl';
+import fetchWcl, { CorruptResponseError } from 'common/fetchWclApi';
 
 export const SET_REPORT = 'SET_REPORT';
 export function setReport(report) {

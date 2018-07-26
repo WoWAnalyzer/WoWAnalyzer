@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
@@ -151,7 +151,7 @@ class BrainFreezeTracker extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(this.glacialSpikeOverwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>)
+          return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 4 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
 						.recommended(`Overwriting none is recommended`);

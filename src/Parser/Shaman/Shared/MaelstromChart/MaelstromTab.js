@@ -1,5 +1,5 @@
 import React from 'react';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import Analyzer from 'Parser/Core/Analyzer';
 import MaelstromChart from './Maelstrom';
 import MaelstromTracker from './MaelstromTracker';

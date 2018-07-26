@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import CoreTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 

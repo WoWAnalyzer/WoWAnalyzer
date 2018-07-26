@@ -33,12 +33,15 @@ class T20_2pc extends Analyzer {
       this.brewCount += 1;
       this.hastCastNewBrew = true;
     }
-    if (GIFT_OF_THE_OX_SPELLS.includes(spellId)) {
-      this.lastOrb = event.timestamp;
-    }
     if (this.hastCastNewBrew && Math.abs(this.lastTrigger - this.lastOrb) <= SUMMON_LATENCY) {
       this.orbTriggeredBy2Pc += 1;
       this.hastCastNewBrew = false;
+    }
+  }
+
+  on_byPlayer_tick(event) {
+    if (GIFT_OF_THE_OX_SPELLS.includes(event.ability.guid)) {
+      this.lastOrb = event.timestamp;
     }
   }
 

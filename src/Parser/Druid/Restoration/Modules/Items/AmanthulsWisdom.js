@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import HotTracker from '../Core/HotTracking/HotTracker';
 
@@ -25,7 +25,6 @@ class AmanthulsWisdom extends Analyzer {
     name: "Aman'thul's Wisdom",
     healing: 0,
     masteryHealing: 0,
-    dreamwalkerHealing: 0,
     procs: 0,
     amount: 0,
   };
@@ -87,7 +86,7 @@ class AmanthulsWisdom extends Analyzer {
   }
 
   get totalHealing() {
-    return this.attribution.healing + this.attribution.masteryHealing + this.attribution.dreamwalkerHealing;
+    return this.attribution.healing + this.attribution.masteryHealing;
   }
 
   get extensionsPerApplication() {
@@ -100,9 +99,8 @@ class AmanthulsWisdom extends Analyzer {
       result: (
         <dfn data-tip={`You procced <b>${this.attribution.procs}</b> Rejuvenation extensions, which is <b>${this.extensionsPerApplication.toFixed(1)}</b> procs per rejuvenation. The healing that extra HoT time did can be broken down as follows:
           <ul>
-          <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.healing))}%</b></li>
-          <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.masteryHealing))}%</b></li>
-          <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.dreamwalkerHealing))}%</b></li>
+            <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.healing))}%</b></li>
+            <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.masteryHealing))}%</b></li>
           </ul>
         `}>
           <ItemHealingDone amount={this.totalHealing} />

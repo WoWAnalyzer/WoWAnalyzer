@@ -6,9 +6,9 @@ import PETS from 'common/PETS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import CorePets from 'Parser/Core/Modules/Pets';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;
@@ -69,11 +69,11 @@ class Tier19_2p extends Analyzer {
       if (!selectedDireBeast) {
         return;
       }
-      this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER);
+      this.bonusDmg += calculateEffectiveDamage(event, T19_2P_DAMAGE_MODIFIER);
     } else {
       const pet = this.pets.getSourceEntity(event);
       if (DIRE_FRENZY_NOT_AFFECTED_PETS.every(id => pet.guid !== id)) {
-        this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY);
+        this.bonusDmg += calculateEffectiveDamage(event, T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY);
       }
     }
   }

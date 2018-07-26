@@ -66,10 +66,44 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.EXPLOSIVE_SHOT_DETONATION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
+      },
+      {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.HUNTERS_MARK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SERPENT_STING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DOUBLE_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -125,9 +159,31 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
         gcd: null,
       },
       {

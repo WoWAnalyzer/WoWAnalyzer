@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 class GarroteUptime extends Analyzer {
   static dependencies = {

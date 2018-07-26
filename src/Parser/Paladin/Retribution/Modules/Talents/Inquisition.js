@@ -6,12 +6,14 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../Constants';
 
 // This module looks at the relative amount of damage buffed rather than strict uptime to be more accurate for fights with high general downtime
 
 class Inquisition extends Analyzer {
   buffedDamage = 0;
+  unbuffedDamage = 0;
 
   constructor(...args) {
     super(...args);
@@ -19,12 +21,19 @@ class Inquisition extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (!ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.includes(spellId)) {
+      return;
+    }
     if (this.selectedCombatant.hasBuff(SPELLS.INQUISITION_TALENT.id)) {
       this.buffedDamage += event.amount + (event.absorbed || 0);
     }
+    else {
+      this.unbuffedDamage += event.amount + (event.absorbed || 0);
+    }
   }
   get efficiency() {
-    return this.owner.getPercentageOfTotalDamageDone(this.buffedDamage);
+    return this.buffedDamage / (this.buffedDamage + this.unbuffedDamage);
   }
 
   get uptime() {

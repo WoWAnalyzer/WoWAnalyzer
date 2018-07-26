@@ -134,6 +134,11 @@ class Abilities extends CoreAbilities {
         cooldown: 3 * 60,
       },
       {
+        spell: SPELLS.DESPERATE_PRAYER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+      },
+      {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 3 * 60,
@@ -141,6 +146,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
+      },
+      {
+        spell: SPELLS.LUMINOUS_BARRIER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 3 * 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,

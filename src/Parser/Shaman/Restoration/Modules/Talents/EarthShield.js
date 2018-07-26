@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -51,12 +51,7 @@ class EarthShield extends Analyzer {
       return;
     }
 
-    // earth shield bonus appears to be tripled for the riptide initial and chain heal healing
-    if((spellId === SPELLS.RIPTIDE.id && !event.tick) || spellId === SPELLS.CHAIN_HEAL.id) {
-      this.buffHealing += calculateEffectiveHealing(event, 0.32);
-    } else {
-      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
-    }
+    this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
   }
 
   get uptime() {

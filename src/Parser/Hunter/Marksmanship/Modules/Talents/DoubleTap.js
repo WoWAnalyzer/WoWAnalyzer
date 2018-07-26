@@ -3,18 +3,18 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
  */
+
 class DoubleTap extends Analyzer {
 
   activations = 0;
   aimedUsage = 0;
   RFUsage = 0;
-  doubleTapActive = false;
 
   constructor(...args) {
     super(...args);
@@ -27,27 +27,18 @@ class DoubleTap extends Analyzer {
       return;
     }
     this.activations++;
-    this.doubleTapActive = true;
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DOUBLE_TAP_TALENT.id) {
-      return;
-    }
-    this.doubleTapActive = false;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) && !this.doubleTapActive && !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) || !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedUsage++;
     }
     if (spellId === SPELLS.RAPID_FIRE.id) {
-      this.RFUsage++;
+        this.RFUsage++;
     }
   }
 

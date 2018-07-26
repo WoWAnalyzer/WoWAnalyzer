@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Equip: Your attacks and attacks made against you have a chance to trigger spores to grow for 4 sec before bursting.

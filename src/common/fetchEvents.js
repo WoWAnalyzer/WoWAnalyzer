@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 
 const timeAvailable = console.time && console.timeEnd;
 

@@ -5,8 +5,8 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
 
 const MAX_STACKS = 20;
@@ -56,7 +56,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.bonusDmg += getDamageBonus(event, beltModifier);
+      this.bonusDmg += calculateEffectiveDamage(event, beltModifier);
       this.usedBeltStacks += this._currentStacks;
       this._currentStacks = 0;
     }

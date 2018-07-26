@@ -2,10 +2,10 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import CorePets from 'Parser/Core/Modules/Pets';
 import PETS from 'common/PETS';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const BLINK_STRIKES_MELEE_MODIFIER = 1;
 const DIRE_BEAST_DURATION = 8000;
@@ -63,7 +63,7 @@ class BlinkStrikes extends Analyzer {
     if (BLINK_STRIKES_NOT_AFFECTED_PETS.some(id => pet.guid === id)) {
       return;
     }
-    this.damage += getDamageBonus(event, BLINK_STRIKES_MELEE_MODIFIER);
+    this.damage += calculateEffectiveDamage(event, BLINK_STRIKES_MELEE_MODIFIER);
   }
 
   subStatistic() {

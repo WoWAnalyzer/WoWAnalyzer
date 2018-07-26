@@ -28,24 +28,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 15 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: <React.Fragment>This is a great physical reduction spell and it also provides a great physical damage increase in your case, giving your <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} /> talent choice. Try to always cast it on cooldown. </React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.SOUL_CARVER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 40,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>This is your cooldown <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generator spell and it does the higher damage / casting time of all your abilities. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> or if you are waiting for a damage burst combo with <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.FIERY_DEMISE.id} /> artifact trait). </React.Fragment>,
-        },
       },
       {
         spell: SPELLS.FELBLADE_TALENT,
@@ -59,20 +41,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
           extraSuggestion: <React.Fragment>This is a great Pain generator spell and it does a single target DPS increase by just 30 Pain per cast. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. </React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.FEL_ERUPTION_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Pain per cast. Should definitively be used as soon as it gets available. </React.Fragment>,
         },
       },
       {
@@ -101,24 +69,19 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
-          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage or with <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> for magical damage. </React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.EMPOWER_WARDS,
-        buffSpellId: SPELLS.EMPOWER_WARDS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.35,
-          extraSuggestion: <React.Fragment><SpellLink id={SPELLS.EMPOWER_WARDS.id} /> Is a low CD ability, use it frequently to keep magic damage low. </React.Fragment>,
+          extraSuggestion: <React.Fragment>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage. </React.Fragment>,
         },
       },
       {
         spell: SPELLS.FRACTURE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+        cooldown: haste => 4.5 / (1 + haste),
+        charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
         gcd: {
           base: 1500,
         },
@@ -172,6 +135,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SIGIL_OF_FLAME,
+        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         gcd: {
@@ -231,17 +195,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.DEMONIC_INFUSION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_INFUSION_TALENT.id),
-        cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.70,
-        },
-
       },
 
     ];

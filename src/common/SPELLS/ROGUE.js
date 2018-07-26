@@ -53,8 +53,18 @@ export default {
     name: 'Stealth',
     icon: 'ability_stealth',
   },
+  STEALTH_BUFF: {
+    id: 115191,
+    name: 'Stealth',
+    icon: 'ability_stealth',
+  },
   VANISH: {
     id: 1856,
+    name: 'Vanish',
+    icon: 'ability_vanish',
+  },
+  VANISH_BUFF: {
+    id: 11327,
     name: 'Vanish',
     icon: 'ability_vanish',
   },
@@ -218,6 +228,11 @@ export default {
     id: 248210,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
+  }, 
+  FIND_WEAKNESS_BUFF: {
+    id: 91021,
+    name: 'Find Weakness',
+    icon: 'ability_rogue_findweakness',
   },
 
   // Sets

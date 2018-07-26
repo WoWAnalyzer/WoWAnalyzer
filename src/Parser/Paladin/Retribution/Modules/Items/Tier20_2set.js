@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Haste from 'Parser/Core/Modules/Haste';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 

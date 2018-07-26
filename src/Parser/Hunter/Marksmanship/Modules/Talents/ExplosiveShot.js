@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Fires a slow-moving munition directly forward.
@@ -20,7 +20,7 @@ class ExplosiveShot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DETONATION.id) {
+    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DAMAGE.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);

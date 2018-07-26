@@ -6,7 +6,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const TOUCH_OF_DEATH_HP_SCALING = 0.5;

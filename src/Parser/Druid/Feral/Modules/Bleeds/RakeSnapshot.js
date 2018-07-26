@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
 import Snapshot from '../FeralCore/Snapshot';
 

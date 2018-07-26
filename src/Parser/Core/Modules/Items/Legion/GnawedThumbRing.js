@@ -5,8 +5,8 @@ import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const GNAWED_THUMB_RING_HEALING_INCREASE = 0.05;

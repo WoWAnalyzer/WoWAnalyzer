@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
@@ -139,6 +139,11 @@ class MasteryValue extends Analyzer {
   _timeline = [];
   _hitCounts = {};
   _dodgeCounts = {};
+
+  constructor(...args) {
+    super(...args);
+    this.active = false; // temporarily disable this module until we get updated coefficients
+  }
 
   baseDodge(agility) {
     const tooltip = MONK_DODGE_COEFFS.tooltip.intercept + MONK_DODGE_COEFFS.tooltip.slope * (agility - MONK_DODGE_COEFFS.base_agi);

@@ -7,9 +7,10 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class DivinePurpose extends Analyzer {
+  divinePurposeProcs = 0;
 
   constructor(...args) {
     super(...args);
@@ -18,8 +19,18 @@ class DivinePurpose extends Analyzer {
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
-  get divinePurposeProcs() {
-    return this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_BUFF.id);
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DIVINE_PURPOSE_BUFF.id) {
+      this.divinePurposeProcs++;
+    }
+  }
+
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DIVINE_PURPOSE_BUFF.id) {
+      this.divinePurposeProcs++;
+    }
   }
 
   statistic() {

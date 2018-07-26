@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAMMER_OF_WRATH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id),
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -175,7 +175,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_OF_VENGEANCE,
         buffSpellId: SPELLS.SHIELD_OF_VENGEANCE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 120 : 84,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 84 : 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -241,7 +241,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAY_ON_HANDS,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 600 : 420,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 420 : 600,
         castEfficiency: {
           recommendedEfficiency: 0.1,
         },
@@ -278,7 +278,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_SHIELD,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 300 : 210,
+        cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 210 : 300,
         gcd: {
           base: 1500,
         },

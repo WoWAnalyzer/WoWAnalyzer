@@ -3,8 +3,8 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Magnetized Blasting Cap Launcher
@@ -25,7 +25,7 @@ class MagnetizedBlastingCapLauncher extends Analyzer {
     if (spellId !== SPELLS.BURSTING_SHOT.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE_MODIFIER);
+    this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_INCREASE_MODIFIER);
   }
 
   item() {

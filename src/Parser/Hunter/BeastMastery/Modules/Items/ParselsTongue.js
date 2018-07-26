@@ -4,14 +4,14 @@ import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
@@ -96,7 +96,7 @@ class ParselsTongue extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, parselsModifier);
+    this.bonusDmg += calculateEffectiveDamage(event, parselsModifier);
   }
 
   on_byPlayerPet_damage(event) {
@@ -104,7 +104,7 @@ class ParselsTongue extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, parselsModifier);
+    this.bonusDmg += calculateEffectiveDamage(event, parselsModifier);
   }
 
   on_byPlayer_heal(event) {
@@ -118,7 +118,7 @@ class ParselsTongue extends Analyzer {
     } else {
       const leechFromParsel = LEECH_PER_STACK * this._currentStacks;
       const leechModifier = leechFromParsel / (currentLeech + leechFromParsel);
-      this.bonusHealing += getDamageBonus(event, leechModifier);
+      this.bonusHealing += calculateEffectiveDamage(event, leechModifier);
     }
   }
 

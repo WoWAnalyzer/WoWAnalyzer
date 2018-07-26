@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Pets from 'Parser/Core/Modules/Pets';
 import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /*
 * Equip: Dark Transformation also empowers your Dark Arbiter/Gargoyle and Army of the Dead for 30 sec, increasing their damage by 40%.

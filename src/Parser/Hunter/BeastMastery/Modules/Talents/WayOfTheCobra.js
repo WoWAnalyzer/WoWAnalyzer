@@ -3,8 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const WAY_OF_THE_COBRA_MODIFIER = 0.1;
 
@@ -44,7 +44,7 @@ class WayOfTheCobra extends Analyzer {
     if (spellId !== SPELLS.COBRA_SHOT.id) {
       return;
     }
-    this.damage += getDamageBonus(event, WAY_OF_THE_COBRA_MODIFIER * (this.amountOfSummons + MINIMUM_PETS));
+    this.damage += calculateEffectiveDamage(event, WAY_OF_THE_COBRA_MODIFIER * (this.amountOfSummons + MINIMUM_PETS));
   }
 
   subStatistic() {
