@@ -221,6 +221,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
