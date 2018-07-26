@@ -81,6 +81,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.75,
+          averageIssueEfficiency: 0.55,
+          majorIssueEfficiency: 0.30,
         },
       },
       {
@@ -310,13 +313,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ESSENCE_OF_GHANIR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
