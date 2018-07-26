@@ -2,6 +2,7 @@
 
 export default {
   // Shared
+  TIGERS_DASH_TALENT: { id: 252216, name: "Tiger's Dash", icon: "ability_druid_dash_orange" },
   RENEWAL_TALENT: { id: 108238, name: "Renewal", icon: "spell_nature_natureblessing" },
   WILD_CHARGE_TALENT: { id: 102401, name: "Wild Charge", icon: "spell_druid_wildcharge" },
   RESTORATION_AFFINITY_TALENT: { id: 197492, name: "Restoration Affinity", icon: "ability_druid_improvedtreeform" },
@@ -71,7 +72,7 @@ export default {
   SOUL_OF_THE_FOREST_TALENT_GUARDIAN: { id: 158477, name: "Soul of the Forest", icon: "ability_druid_manatree" },
   // Temporary
   NEW_MOON_TALENT: { id: 274281, name: "New Moon", icon: "artifactability_balancedruid_newmoon" },
-  TIGERS_DASH_TALENT: { id: 252216, name: "Tiger's Dash", icon: "ability_druid_dash_orange" },
+
   TWIN_MOONS_TALENT: { id: 279620, name: "Twin Moons", icon: "spell_nature_starfall" },
   FERAL_FRENZY_TALENT: { id: 274837, name: "Feral Frenzy", icon: "ability_druid_rake", energyCost: 25 },
 };

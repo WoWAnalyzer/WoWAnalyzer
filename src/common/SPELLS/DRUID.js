@@ -207,7 +207,8 @@ export default {
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-  CENARION_WARD: {
+  //The heal that is trigger by the talent.
+  CENARION_WARD_HEAL: {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
