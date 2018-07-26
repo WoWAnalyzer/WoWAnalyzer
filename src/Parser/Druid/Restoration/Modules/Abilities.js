@@ -33,9 +33,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IRONBARK,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (_, combatant) => {
-          let cd = 90;
+          let cd = 60;
           if (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id)) {
-            cd -= 30;
+            cd -= 15;
           }
           if (combatant.hasHands(ITEMS.XONIS_CARESS.id)) {
             cd *= 0.80;
