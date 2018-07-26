@@ -152,11 +152,6 @@ export default {
     name: 'Innervate',
     icon: 'spell_nature_lightning',
   },
-  ESSENCE_OF_GHANIR: {
-    id: 208253,
-    name: 'Essence of G\'Hanir',
-    icon: 'inv_staff_2h_artifactnordrassil_d_01',
-  },
   IRONBARK: {
     id: 102342,
     name: 'Ironbark',
@@ -982,7 +977,7 @@ export default {
     id: 251789,
     name: 'T21 2 set bonus',
     icon: 'ability_druid_cower',
-  },  
+  },
   BLOODY_GASH: {
     id: 252750,
     name: 'Bloody Gash',
