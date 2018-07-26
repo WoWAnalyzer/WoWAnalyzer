@@ -52,12 +52,6 @@ class Penance extends Analyzer {
     event.penanceBoltNumber = this.currentBoltNumber;
   }
 
-  on_byPlayer_cast(event) {
-    if (!Penance.isPenance(event.ability.guid)) return;
-
-    console.log(`Cast event at ${event.timestamp}.`);
-  }
-
   on_byPlayer_heal(event) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
