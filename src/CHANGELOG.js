@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-06-24'),
+    changes: 'Added tracking of potion cooldowns and split Healthstone into Healthstone and health pots.',
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-07-24'),
     changes: 'Added character information fetching from Battle.net (when possible) to gain race information and character thumbnails. The character thumbnail will now be used in the versus-header as per the original design.',
     contributors: [Zerotorescue],
