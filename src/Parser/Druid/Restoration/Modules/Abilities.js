@@ -89,6 +89,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WILD_GROWTH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 10,
         gcd: {
           base: 1500,
         },
