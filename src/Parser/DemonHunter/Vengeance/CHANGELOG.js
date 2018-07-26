@@ -6,6 +6,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-25'),
+    changes: <React.Fragment>Reworked soul fragment tracking code to make it more versatile. Added a consumed souls module that shows how/what spells were used to consume souls.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-23'),
+    changes: <React.Fragment>Updated the wasted soul fragments tracker. Its now sould fragments inefficienctly used and it's info is clearer.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-23'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.FRACTURE_TALENT.id} /> casts to suggestions.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.DEMON_SPIKES.id} /> module to show stats/suggestion based on the physical hits you mitgated instead of cast efficiency.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-21'),
+    changes: <React.Fragment>Cleaned up spells and traits. Removed old/outdated ones and updated the changed ones. No longer crashes due to prepatch.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-05-18'),
     changes: <React.Fragment>Added death recap tab and defensive abilities tracking.</React.Fragment>,
     contributors: [Yajinni],
