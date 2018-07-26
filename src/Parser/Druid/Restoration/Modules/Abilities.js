@@ -318,6 +318,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.NATURES_CURE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 8,
         gcd: {
           base: 1500,
         },
