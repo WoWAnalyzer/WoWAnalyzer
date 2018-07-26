@@ -38,6 +38,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  PENANCE_CAST: {
+    id: 47540,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+    manaCost: 400,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',

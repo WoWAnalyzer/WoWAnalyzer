@@ -4,7 +4,7 @@ import Base from './Base';
 
 class Wowhead extends Base {
   static libraryUrl = '//wow.zamimg.com/widgets/power.js';
-  static baseUrl = 'http://bfa.wowhead.com/';
+  static baseUrl = 'http://wowhead.com/';
 
   static spellRelative(id) {
     return `spell=${id}`;
