@@ -205,14 +205,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DISPLACER_BEAST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
-      },
-      {
         spell: SPELLS.FEROCIOUS_BITE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
