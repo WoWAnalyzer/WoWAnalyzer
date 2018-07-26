@@ -25,7 +25,7 @@ class Penance extends Analyzer {
   }
 
   static isPenance = spellId =>
-    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id;
+    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
 
   get missedBolts() {
     return [...this.eventGrouper].reduce(
@@ -50,6 +50,12 @@ class Penance extends Analyzer {
     this.eventGrouper.processEvent(event);
 
     event.penanceBoltNumber = this.currentBoltNumber;
+  }
+
+  on_byPlayer_cast(event) {
+    if (!Penance.isPenance(event.ability.guid)) return;
+
+    console.log(`Cast event at ${event.timestamp}.`);
   }
 
   on_byPlayer_heal(event) {
