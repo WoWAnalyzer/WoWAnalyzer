@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -37,7 +37,6 @@ class InoculatingExtract extends Analyzer{
         spell: SPELLS.MUTATING_ANTIBODIES_INOCULATION,
         name: ITEMS.INOCULATING_EXTRACT.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
-        charges: 1,
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -67,10 +66,9 @@ class InoculatingExtract extends Analyzer{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
         <React.Fragment>
-          <dfn data-tip={`Used <b>${Math.ceil(this.uses)}</b> times, consuming <b>${this.charges}</b> charges.`}>
-            {formatNumber(this.healing)} Healing
-          </dfn><br />
-          <ItemHealingDone amount={this.healing} />
+          <dfn data-tip={`Used <b>${this.uses}</b> times, consuming <b>${this.charges}</b> charges.`}>
+            <ItemHealingDone amount={this.healing} />
+          </dfn>
         </React.Fragment>
       ),
     };
