@@ -504,6 +504,16 @@ export default {
     name: 'Barbed Shot',
     icon: 'ability_hunter_barbedshot',
   },
+  BARBED_SHOT_BUFF_STACK_2: { //2 stacks of Barbed Shot
+    id: 246851,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_3: { //3 stacks of Barbed Shot
+    id: 246852,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
   BARBED_SHOT_PET_BUFF: {
     id: 272790,
     name: 'Barbed Shot',
@@ -513,6 +523,11 @@ export default {
     id: 257946,
     name: 'Thrill of the Hunt',
     icon: 'ability_hunter_thrillofthehunt',
+  },
+  CHIMAERA_SHOT_FOCUS: {
+    id: 204304,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
 
   // Marksmanship Hunter:

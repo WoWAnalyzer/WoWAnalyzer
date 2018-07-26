@@ -1,5 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 import Abilities from './Abilities';
 import Haste from './Haste';
@@ -64,7 +65,10 @@ class GlobalCooldown extends Analyzer {
       // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
       return;
     }
-
+    if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+      // If it gets registered as a cast, but it's really not an actual cast (See Frenzy being "cast" when a BM Hunter casts Barbed Shot this simply returns so we don't trigger a GCD.
+      return;
+    }
     // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
     const isChanneling = !!this._currentChannel;
     const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;

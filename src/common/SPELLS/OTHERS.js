@@ -800,7 +800,7 @@ export default {
   FROZEN_ARMOR: {
     id: 251941,
     name: 'Frozen Armor',
-    icon : 'ability_hunter_glacialtrap',
+    icon: 'ability_hunter_glacialtrap',
   },
   // Riftworld Codex
   WINDS_OF_KARETH: { //6sec HoT
@@ -836,4 +836,16 @@ export default {
     name: 'Strength of the Sky',
     icon: 'spell_nature_unrelentingstorm',
   },
+  //Darkmoon Whistle
+  BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
+    id: 132568,
+    name: 'Blow Darkmoon Whistle',
+    icon: 'ability_hunter_beastcall',
+  },
+  DARKMOON_FIREWORK: { //Darkmoon Firework toy
+    id: 103740,
+    name: 'Darkmoon Firework',
+    icon: 'inv_misc_missilesmallcluster_green',
+  },
+
 };
