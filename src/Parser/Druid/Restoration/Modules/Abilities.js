@@ -279,6 +279,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 50,
         gcd: {
           base: 1500,
         },
