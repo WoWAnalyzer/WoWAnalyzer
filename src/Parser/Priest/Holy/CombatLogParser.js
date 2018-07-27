@@ -10,6 +10,9 @@ import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
+//Talents
+import TrailOfLight from './Modules/Talents/TrailOfLight';
+
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -59,6 +62,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineHymn: DivineHymn,
     sanctify: Sanctify,
     spiritOfRedemption: SpiritOfRedemption,
+
+    // Talents
+    trailOfLight: TrailOfLight,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
