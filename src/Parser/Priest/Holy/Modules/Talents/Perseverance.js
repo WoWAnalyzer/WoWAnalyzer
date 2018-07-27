@@ -8,17 +8,13 @@ import { formatPercentage } from 'common/format';
 
 class Perseverance extends Analyzer {
 
-  totalHealing = 0;
-  overhealing = 0;
-  absorbed = 0;
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id);
   }
 
   get uptime() {
-    return this.player.getBuffUptime(SPELLS.PERSEVERANCE_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.RENEW.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds() {
