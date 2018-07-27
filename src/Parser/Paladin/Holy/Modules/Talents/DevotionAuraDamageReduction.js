@@ -12,7 +12,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => (2.25 + 7.75 / n) / 100;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, (2.25 + 7.75 / n)) / 100;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
