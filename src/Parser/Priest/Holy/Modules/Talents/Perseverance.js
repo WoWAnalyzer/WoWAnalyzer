@@ -21,9 +21,9 @@ class Perseverance extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: .8,
+        minor: 0.80,
+        average: 0.70,
+        major: .60,
       },
       style: 'percentage',
     };
