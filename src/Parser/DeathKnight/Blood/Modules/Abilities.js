@@ -324,7 +324,7 @@ class Abilities extends CoreAbilities {
           const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
-        charges: 2,
+         es: 2,
       },
     ];
   }

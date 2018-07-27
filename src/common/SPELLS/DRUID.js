@@ -120,17 +120,12 @@ export default {
   //Guardian Affinity Spells
       //Ironfur gained from affinity has same spell ID as the Guardian spell
       //Thick Hide gained from affinity has same spell ID as the Guardian spell
+      //Thrash gained from affinity has same spell ID as the Guardian spell
   //Granted by Guardian affinity
   FRENZIED_REGENERATION: {
     id: 22842,
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
-  },
-  //Granted by Guardian affinity
-  THRASH_GUARDIAN_AFFINITY: {
-    id: 106832,
-    name: 'Thrash Resto Affinity',
-    icon: 'spell_druid_thrash',
   },
 
   //Feral Affinity Spells

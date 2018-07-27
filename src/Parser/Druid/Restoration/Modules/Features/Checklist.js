@@ -90,7 +90,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your healing cooldowns',
-      description: <React.Fragment>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> and <SpellLink id={SPELLS.ESSENCE_OF_GHANIR.id} />) around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</React.Fragment>,
+      description: <React.Fragment>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns like (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</React.Fragment>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
