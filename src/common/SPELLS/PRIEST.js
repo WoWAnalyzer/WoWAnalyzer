@@ -370,6 +370,11 @@ export default {
     name: 'Symbol of Hope',
     icon: 'spell_holy_symbolofhope',
   },
+  TRAIL_OF_LIGHT_HEAL: {
+    id: 234946,
+    name: 'Trail of Light',
+    icon: 'ability_priest_wordsofmeaning',
+  },
   // Trait related spells
   LENIENCE: {
     id: 238063,
