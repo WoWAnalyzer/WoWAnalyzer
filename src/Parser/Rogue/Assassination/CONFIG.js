@@ -22,7 +22,7 @@ export default {
           <li>target values may be tuned incorrectly for things like energy waste or downtime. </li>
         </ul>
         <br />
-        If something is missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Cloake</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
+        If something is missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Cloake</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
     </React.Fragment>
   ),
