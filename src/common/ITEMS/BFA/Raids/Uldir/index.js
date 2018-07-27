@@ -3,6 +3,28 @@ import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 
 export default {
   // Group by boss (with comments)
+  //Taloc
+  VIGILANTS_BLOODSHAPER: {
+    id: 160651,
+    name: "Vigilant's Bloodshaper",
+    icon: "spell_deathknight_bloodtap",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+  //MOTHER
+
+  //Fetid Devourer
+
+  //Zek'voz
+
+  //Vectis
+  INOCULATING_EXTRACT: {
+    id: 160649,
+    name: "Inoculating Extract",
+    icon: "inv_wand_29",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+  //Zul Reborn
+
   // Mythrax
   TWITCHING_TENTACLE_OF_XALZAIX: {
     id: 160656,
@@ -10,4 +32,6 @@ export default {
     icon: 'achievement_boss_yoggsaron_01',
     quality: ITEM_QUALITIES.PURPLE,
   },
+
+  //G'huun
 };
