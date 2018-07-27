@@ -26,7 +26,7 @@ class ElaboratePlanning extends Analyzer {
         title={<SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} icon={false} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label={(
-          <dfn data-tip="Ideally you should be aiming for somewhere around 80% uptime. This can generally be accomplished with minimal energy pooling.">
+          <dfn data-tip="Ideally you should be aiming for over 80% uptime. This can generally be accomplished with minimal energy pooling.">
             Elaborate Planning Uptime
           </dfn>
         )}
