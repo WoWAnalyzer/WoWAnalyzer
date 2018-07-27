@@ -12,6 +12,8 @@ import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 //Talents
 import TrailOfLight from './Modules/Talents/TrailOfLight';
+import Perseverance from './Modules/Talents/Perseverance';
+
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -65,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     trailOfLight: TrailOfLight,
+    perseverance: Perseverance,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
