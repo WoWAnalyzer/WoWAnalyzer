@@ -351,7 +351,7 @@ export const Cloake = {
     name: 'Trixx',
     spec: SPECS.ASSASSINATION_ROGUE,
     link: 'https://worldofwarcraft.com/en-us/character/kelthuzad/Trixx',
-  }]
+  }],
 };
 export const joshinator = {
   nickname: 'joshinator',
