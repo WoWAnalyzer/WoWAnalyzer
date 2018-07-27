@@ -4,15 +4,19 @@
 
 ## How we analyze damage reductions
 
-Damage reduction buffs stack multiplicatively, so two 20% DR buffs will lead to a total of 36% damage reduction rather than 40%. Because of this, there are multiple ways to calculate the value of DR buffs.
+Damage reduction buffs stack multiplicatively, so two 20% DR buffs will lead to a total of 36% damage reduction rather than 40%. Because of this, there are two ways to calculate the value of DR buffs.
 
-Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs up, one of 20% and one of 40%. The actual damage you would take would be 1000*80%*60%=480 damage. If we wanted to know the damage reduced by the 20% buff, there would be two ways to do so.
+Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs up, one of 20% and one of 40%. The actual damage you would take would be 1000*80%*60%=480 damage. If we wanted to know the damage reduced by the 20% buff, there would be two ways to calculate it.
 
-One way would be to only look at the 20% buff. Using the formula `actual damage taken / (100% - DR percentage) * DR percentage` would show the buff reduced the damage taken by 120.
+One way would be to only look at the 20% buff. Using the formula `actual damage taken / (100% - DR percentage) * DR percentage` would give us the damage reduced by the buff. In this example that would be (`480 / 80% * 20%=`) 120.
 
-Another way...
+This first method...
 
-I use the first method because I assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. e.g. you wouldn't change your DP cast based on having Devo or not
+The other way is to take all damage reduction buffs into account and give a fair share of the reduced damage to each. Using the example values, we would have a total of 520 damage reduced by 60% damage reduction. To calculate the value of a damage reduction buff using this method, we can use the formula `damage reduced / total damage reduction * damage reduction`. For the 20% DR buff this would be (`520 / 60% * 20%=`) 173 damage reduced.
+
+The second method gives an equal share to each DR buff as if they're all comparable. However, if you look closely at DR buffs you'll find that they aren't very similar. The most extreme example of this is Armor versus a short duration DR such as Divine Protection.
+
+We use the first method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. e.g. you wouldn't change your DP cast based on having Devo or not
 
 - `actual damage taken / damage reduction` = damage taken without this specific damage reduction
 - `damage taken without the damage reduction * damage reduction` = damage reduced by just this damage reduction
