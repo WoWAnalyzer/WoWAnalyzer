@@ -12,6 +12,11 @@ class TrailOfLight extends Analyzer {
   overhealing = 0;
   absorbed = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.TRAIL_OF_LIGHT_HEAL.id) {
