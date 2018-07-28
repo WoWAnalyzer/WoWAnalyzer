@@ -19,7 +19,7 @@ describe('stats', () => {
   });
 
   it('scales primary stat correctly', () => {
-    // Trinket https://bfa.wowhead.com/item=160651/vigilants-bloodshaper&bonus=4800:1507
+    // Trinket https://wowhead.com/item=160651/vigilants-bloodshaper&bonus=4800:1507
     const vigilantsBloodshaper = itemLevel => calculatePrimaryStat(355, 236, itemLevel);
 
     expect(vigilantsBloodshaper(340)).toBeWithin(205, 1); // LFG
@@ -56,7 +56,7 @@ describe('stats', () => {
     expect(fetidHorrorsTanglecloak(385)).toBeWithin(78, 1); // Mythic
 
     // Azurethos' Ruffling Plumage (Trinket Haste active)
-    // https://bfa.wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
+    // https://wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
     const azurethosRufflingPlumageHaste = itemLevel => calculateSecondaryStatDefault(355, 925, itemLevel);
 
     expect(azurethosRufflingPlumageHaste(340)).toBeWithin(860, 1); // LFG
@@ -66,7 +66,7 @@ describe('stats', () => {
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Rot-Scour Ring (Crit)
-    // https://bfa.wowhead.com/item=160645
+    // https://wowhead.com/item=160645
     const rotScourRingCrit = itemLevel => calculateSecondaryStatJewelry(355, 108, itemLevel);
 
     expect(rotScourRingCrit(340)).toBeWithin(101, 1); // LFG

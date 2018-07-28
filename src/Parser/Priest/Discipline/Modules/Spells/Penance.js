@@ -25,7 +25,7 @@ class Penance extends Analyzer {
   }
 
   static isPenance = spellId =>
-    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id;
+    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
 
   get missedBolts() {
     return [...this.eventGrouper].reduce(

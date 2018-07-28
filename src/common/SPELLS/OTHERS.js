@@ -520,6 +520,11 @@ export default {
     name: 'Fire Mines',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
+  FIRE_MINES_2: { // also forgefiends fabricator
+    id: 253322,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
   LEGION_BOMBARDMENT: { // terminus signaling beacon
     id: 257376,
     name: 'Legion Bombardment',

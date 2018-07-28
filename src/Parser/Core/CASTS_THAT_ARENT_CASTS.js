@@ -18,4 +18,6 @@ export default [
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.BLOW_DARKMOON_WHISTLE.id, //Darkmoon Whistle active that some people macro into abilities
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy
+  SPELLS.FIRE_MINES.id, // Forgefiends fabricator
+  SPELLS.FIRE_MINES_2.id, // Forgefiends fabricator
 ];

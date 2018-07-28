@@ -4,7 +4,7 @@ import Base from './Base';
 
 class Wowdb extends Base {
   static libraryUrl = '//static-azeroth.cursecdn.com/current/js/syndication/tt.js';
-  static baseUrl = 'https://beta.wowdb.com/';
+  static baseUrl = 'https://wowdb.com/';
 
   static spellRelative(id) {
     return `spells/${id}`;
