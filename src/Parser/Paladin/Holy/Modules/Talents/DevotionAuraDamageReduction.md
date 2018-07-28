@@ -1,8 +1,4 @@
-# Devotion Aura damage reduction analysis
-
-[![Tooltip](https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png)](https://wowdb.com/spells/183425-devotion-aura)
-
-## How we analyze damage reductions
+# How we analyze damage reductions
 
 The formula to apply a single damage reduction is `damage taken * (100% - DR) = damage taken`. If there are multiple DR effects, you would have to use this formula multiple times (recursively) as damage reductions stack multiplicatively. Two 20% DR effects will lead to a total of 36% damage reduction rather than 40%.  Because of this, there are multiple methods to calculate the value of DR effects.
 
@@ -10,7 +6,7 @@ The possible methods are explained below. Each method is accompanied with an exa
 
 Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs up, Divine Protection giving 20% DR and Armor giving 40% DR. The effective damage taken would be 1000*(100%-20%)*(100%-40%)=480 damage. The total damage reduced is 520 damage, or 52% effective DR.
 
-### Equal share
+## Equal share
 
 The first method takes all damage reduction effects into account and gives an equal share of the reduced damage to each effect as if they're all comparable. This can be done using the formula `total damage reduced / total raw damage reduction * damage reduction` where *damage reduction* is the DR under analysis.
 
@@ -20,7 +16,7 @@ This method is illustrated in the image below.
 
 ![Equal share damage reduction calculation](https://user-images.githubusercontent.com/4565223/43356596-caed9382-9273-11e8-94eb-c109bb442298.png)
 
-### Fair share
+## Fair share
 
 The issue with the *equal share* approach is that if you look closely at damage reduction effects, you'll find that most aren't that similar and so giving every DR an equal share would be incorrect.
 
@@ -34,7 +30,7 @@ This method is illustrated in the image below. Notice how the actual contributio
 
 ![Fair share damage reduction calculation](https://user-images.githubusercontent.com/4565223/43354049-2cc22de0-9245-11e8-80db-9a998cf2c396.png)
 
-### Optional DRs
+## Optional DRs
 
 The final method only works for optional DRs as it always gives us the lowest possible damage reduction value. A big advantage of this approach is that it doesn't require knowing all applicable DRs nor the raw damage taken. This method only looks at the DR under analysis.
 
@@ -48,7 +44,11 @@ This method is illustrated in the image below.
 
 The big advantage of this approach is that it works under the assumption that all other DR buffs are out of your control and would have been there regardless. This is great for temporary or optional damage reduction effects such as Devotion Aura or Divine Protection as it perfectly isolates their value to show how much it was worth. It reveals how much effective damage reduction you would lose out on if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that it discourages stacking DRs because the DR under analysis will get a low value out of it.
 
-We use the *optional DRs* method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the DR at all, or maybe at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
+# Devotion Aura damage reduction analysis
+
+[![Tooltip](https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png)](https://wowdb.com/spells/183425-devotion-aura)
+
+To analyze Devotion Aura we use the *optional DRs* method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the talent at all, or maybe active Aura Mastery at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
 
 ## Analyzing Devotion Aura's passive
 
