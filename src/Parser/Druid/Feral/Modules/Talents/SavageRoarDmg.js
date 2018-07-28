@@ -17,7 +17,7 @@ import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../Constants';
  *  Damage procs from trinkets
  *  DoT from bear's Thrash
  *  Sunfire from balance affinity
- * 
+ *
  * Presumably would affect Brutal Slash, but they're rival talents.
  */
 const AFFECTED_BY_SAVAGE_ROAR = [
@@ -28,7 +28,7 @@ const AFFECTED_BY_SAVAGE_ROAR = [
   SPELLS.FEROCIOUS_BITE.id,
   SPELLS.MOONFIRE_FERAL.id,
   SPELLS.THRASH_FERAL.id,
-  SPELLS.CAT_SWIPE.id,
+  SPELLS.SWIPE_CAT.id,
   SPELLS.FERAL_FRENZY_TALENT.id,
   SPELLS.MAIM.id,
   SPELLS.MOONFIRE.id, // not really a cat ability, but is affected

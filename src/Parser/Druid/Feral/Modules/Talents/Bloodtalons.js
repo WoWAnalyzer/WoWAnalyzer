@@ -17,7 +17,7 @@ const POTENTIAL_SPENDERS = [
   SPELLS.SHRED,
   SPELLS.FEROCIOUS_BITE,
   SPELLS.BRUTAL_SLASH_TALENT,
-  SPELLS.CAT_SWIPE,
+  SPELLS.SWIPE_CAT,
   SPELLS.THRASH_FERAL,
   SPELLS.MAIM,
   // Feral Frenzy would be a spender, but it's a talent on the same row as Bloodtalons

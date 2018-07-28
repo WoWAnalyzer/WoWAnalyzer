@@ -9,6 +9,11 @@ import { tsabo, Cloake, Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-07-27'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> support.</React.Fragment>,
+    contributors: [Cloake],
+  },
+  {
     date: new Date('2018-08-09'),
     changes: 'Added blindside support.',
     contributors: [tsabo],

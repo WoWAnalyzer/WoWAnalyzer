@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-26'),
+    changes: <React.Fragment>Added support for the new <SpellLink id={SPELLS.PENANCE_CAST.id} /> event, thanks Blizzard.</React.Fragment>,
+    contributors: [Reglitch],
+  },
+  {
     date: new Date('2018-07-24'),
     changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER.id} />.</React.Fragment>,
     contributors: [Reglitch],
