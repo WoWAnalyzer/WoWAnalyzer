@@ -8,13 +8,14 @@ import SpellIcon from 'common/SpellIcon';
 
 import SoulFragmentsTracker from '../Features/SoulFragmentsTracker';
 
+const REMOVE_STACK_BUFFER = 100;
 
 class SoulFragmentsConsume extends Analyzer {
   static dependencies = {
     soulFragmentsTracker: SoulFragmentsTracker,
   };
 
-  castTimestamp = 0;
+  castTimestamp = undefined;
   totalSoulsConsumed = 0;
 
   soulsConsumedBySpell = {};
@@ -27,10 +28,6 @@ class SoulFragmentsConsume extends Analyzer {
     if (!this.soulsConsumedBySpell[spellId]) {
       this.soulsConsumedBySpell[spellId] = {name: 0};
       this.soulsConsumedBySpell[spellId] = {souls: 0};
-      this.soulsConsumedBySpell[1000000] = {souls: 0};
-      this.soulsConsumedBySpell[1000000] = {name: 0};
-      this.soulsConsumedBySpell[1000001] = {souls: 0};
-      this.soulsConsumedBySpell[1000001] = {name: 0};
     }
     this.soulsConsumedBySpell[spellId].name = event.ability.name;
     this.castTimestamp = event.timestamp;
@@ -42,7 +39,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < 100) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
       }
@@ -53,7 +50,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < 100) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
     }
@@ -61,10 +58,8 @@ class SoulFragmentsConsume extends Analyzer {
 
 
   statistic() {
-    this.soulsConsumedBySpell[1000000].souls = this.soulFragmentsTracker.soulsWasted;
-    this.soulsConsumedBySpell[1000000].name = 'Overcap';
-    this.soulsConsumedBySpell[1000001].souls = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
-    this.soulsConsumedBySpell[1000001].name = 'By Touch';
+    const overcap= this.soulFragmentsTracker.soulsWasted;
+    const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
@@ -85,6 +80,14 @@ class SoulFragmentsConsume extends Analyzer {
                 <td>{e.souls}</td>
               </tr>
             ))}
+            <tr>
+              <th>Overcapped</th>
+              <td>{overcap}</td>
+            </tr>
+            <tr>
+              <th>By Touch</th>
+              <td>{soulsByTouch}</td>
+            </tr>
           </tbody>
         </table>
       </ExpandableStatisticBox>

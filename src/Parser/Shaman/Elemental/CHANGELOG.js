@@ -65,7 +65,7 @@ export default [
   },
   {
     date: new Date('06-04-2017'),
-    changes: <React.Fragment>Added basic <span class="Shaman">Elemental Shaman</span> support</React.Fragment>,
+    changes: <React.Fragment>Added basic <span className="Shaman">Elemental Shaman</span> support</React.Fragment>,
     contributors: [fasib],
   },
 ];

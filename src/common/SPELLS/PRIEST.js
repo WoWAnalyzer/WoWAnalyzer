@@ -375,6 +375,11 @@ export default {
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
   },
+  COSMIC_RIPPLE_HEAL: {
+    id: 243241,
+    name: 'Cosmic Ripple Heal',
+    icon: 'spell_holy_summonlightwell',
+  },
   // Trait related spells
   LENIENCE: {
     id: 238063,

@@ -11,6 +11,7 @@ import ManaValues from './Modules/ManaChart/ManaValues';
 
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
+import ArcanePower from './Modules/Features/ArcanePower';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneMissiles: ArcaneMissiles,
     arcaneChargeTracker: ArcaneChargeTracker,
+    arcanePower: ArcanePower,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
