@@ -44,7 +44,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <AbilityRequirement spell={SPELLS.PENANCE.id} />
+          <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
           {combatant.hasTalent(SPELLS.SCHISM_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SCHISM_TALENT.id} />
           )}

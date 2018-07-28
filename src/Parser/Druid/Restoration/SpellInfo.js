@@ -78,7 +78,7 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.CENARION_WARD.id]: {
+  [SPELLS.CENARION_WARD_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,

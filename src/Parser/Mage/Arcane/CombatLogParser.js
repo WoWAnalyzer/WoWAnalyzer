@@ -6,7 +6,11 @@ import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Channeling from './Modules/Features/Channeling';
 
+import Mana from './Modules/ManaChart/Mana';
+import ManaValues from './Modules/ManaChart/ManaValues';
+
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
+import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
@@ -25,8 +29,11 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     channeling: Channeling,
+    mana: Mana,
+    manaValues: ManaValues,
     cancelledCasts: CancelledCasts,
     arcaneMissiles: ArcaneMissiles,
+    arcaneChargeTracker: ArcaneChargeTracker,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,

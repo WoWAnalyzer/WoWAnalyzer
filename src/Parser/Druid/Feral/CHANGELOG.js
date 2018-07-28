@@ -27,7 +27,7 @@ export default [
   },
   {
     date: new Date('2018-07-15'),
-    changes: <React.Fragment>Added tracking for number of targets hit by <SpellLink id={SPELLS.CAT_SWIPE.id} />, <SpellLink id={SPELLS.THRASH_FERAL.id} />, and <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added tracking for number of targets hit by <SpellLink id={SPELLS.SWIPE_CAT.id} />, <SpellLink id={SPELLS.THRASH_FERAL.id} />, and <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.</React.Fragment>,
     contributors: [Anatta336],
   },
   {

@@ -38,6 +38,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  PENANCE_CAST: {
+    id: 47540,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+    manaCost: 400,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -363,6 +369,11 @@ export default {
     id: 64901,
     name: 'Symbol of Hope',
     icon: 'spell_holy_symbolofhope',
+  },
+  TRAIL_OF_LIGHT_HEAL: {
+    id: 234946,
+    name: 'Trail of Light',
+    icon: 'ability_priest_wordsofmeaning',
   },
   // Trait related spells
   LENIENCE: {
