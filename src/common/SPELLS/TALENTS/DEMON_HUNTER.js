@@ -20,8 +20,9 @@ export default {
   FEL_DEVASTATION_TALENT: { id: 212084, name: "Fel Devastation", icon: "ability_demonhunter_feldevastation" },
   SPIRIT_BOMB_TALENT: { id: 247454, name: "Spirit Bomb", icon: "inv_icon_shadowcouncilorb_purple" },
   LAST_RESORT_TALENT: { id: 209258, name: "Last Resort", icon: "inv_glaive_1h_artifactaldorchi_d_06" },
-  SOUL_BARRIER_TALENT: { id: 263248, name: "Soul Barrier", icon: "inv_soulbarrier"},
+  SOUL_BARRIER_TALENT: { id: 263648, name: "Soul Barrier", icon: "inv_soulbarrier"},
   SOUL_RENDING_TALENT_VENGEANCE: { id: 217996, name: "Soul Rending", icon: "ability_demonhunter_soulcleave2" },
+  VOID_REAVER_TALENT: { id: 268175, name: "Void Reaver", icon:"spell_shadow_demonicempathy" },
   // Havoc
   FEL_ERUPTION_TALENT: { id: 211881, name: "Fel Eruption", icon: "ability_bossfellord_felspike", painCost: 10 },
   FEL_MASTERY_TALENT: { id: 192939, name: "Fel Mastery", icon: "ability_skyreach_piercing_rush" },
