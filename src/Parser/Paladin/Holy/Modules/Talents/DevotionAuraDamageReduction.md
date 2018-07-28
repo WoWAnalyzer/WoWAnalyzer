@@ -36,7 +36,7 @@ This method is illustrated in the image below. Notice how the actual contributio
 
 The final method only works for optional DRs as it always gives us the lowest possible damage reduction value. A big advantage of this approach is that it doesn't require knowing all applicable DRs nor the raw damage taken. This method only looks at the DR under analysis.
 
-We can get the damage reduced of just the DR under analysis using the formula `actual damage taken / (100% - DR percentage) * DR percentage`. Using the example numbers, if we look at the damage reduced by Divine Protection (20% DR), we would find it reduced the damage taken by 480 / (100% - 20%) * 20% = **120 damage**.
+We can get the damage reduced of just the DR under analysis using the formula `actual damage taken / (100% - DR percentage) * DR percentage`. Using the example numbers, if we look at the damage reduced by Divine Protection (20% DR), we would find it reduced the damage taken by `480 / (100% - 20%) * 20% =` **120 damage**.
 
 This method is illustrated in the image below.
 
