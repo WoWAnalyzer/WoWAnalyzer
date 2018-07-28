@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-28'),
+    changes: <React.Fragment>Added new spells and talents.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
     date: new Date('2018-07-25'),
     changes: <React.Fragment>Reworked soul fragment tracking code to make it more versatile. Added a consumed souls module that shows how/what spells were used to consume souls.</React.Fragment>,
     contributors: [Yajinni],
