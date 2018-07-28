@@ -18,7 +18,6 @@ class SpiritBombSoulConsume extends Analyzer {
   castTimestamp = 0;
   castSoulsConsumed = 0;
   cast = 0;
-  index = 1;
 
   soulsConsumedByAmount = Array.from({length: 6}, x => 0);
 
@@ -66,7 +65,6 @@ class SpiritBombSoulConsume extends Analyzer {
 
   on_finished() {
     this.countHits();
-    console.log("ARRAY ", this.soulsConsumedByAmount);
   }
 
   statistic() {
