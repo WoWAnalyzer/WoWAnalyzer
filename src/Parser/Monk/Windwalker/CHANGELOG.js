@@ -99,7 +99,7 @@ export default [
   },
   {
     date: new Date('2017-11-05'),
-    changes: <React.Fragment>Updated Cast Efficiency - Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and fixed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> showing when not talented</React.Fragment>,
+    changes: <React.Fragment>Updated Cast Efficiency - Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and fixed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id} /> showing when not talented</React.Fragment>,
     contributors: [Talby],
   },
   {

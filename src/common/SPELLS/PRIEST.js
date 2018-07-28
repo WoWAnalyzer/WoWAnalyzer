@@ -248,11 +248,6 @@ export default {
     name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
   },
-  LUMINOUS_BARRIER: {
-    id: 271466,
-    name: 'Luminous Barrier',
-    icon: 'spell_priest_burningwill',
-  },
 
   // Talents:
   // lv90
@@ -374,12 +369,6 @@ export default {
     id: 234946,
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
-  },
-  // Trait related spells
-  LENIENCE: {
-    id: 238063,
-    name: 'Lenience',
-    icon: 'ability_priest_atonement',
   },
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
