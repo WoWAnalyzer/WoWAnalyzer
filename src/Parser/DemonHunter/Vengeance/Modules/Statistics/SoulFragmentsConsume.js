@@ -39,7 +39,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
       }
@@ -50,7 +50,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
     }
