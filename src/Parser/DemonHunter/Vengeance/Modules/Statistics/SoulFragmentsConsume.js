@@ -8,14 +8,14 @@ import SpellIcon from 'common/SpellIcon';
 
 import SoulFragmentsTracker from '../Features/SoulFragmentsTracker';
 
-const REMOVE_STACK_BUFFE = 100;
+const REMOVE_STACK_BUFFER = 100;
 
 class SoulFragmentsConsume extends Analyzer {
   static dependencies = {
     soulFragmentsTracker: SoulFragmentsTracker,
   };
 
-  castTimestamp = 0;
+  castTimestamp = undefined;
   totalSoulsConsumed = 0;
 
   soulsConsumedBySpell = {};
@@ -39,7 +39,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
       }
@@ -50,7 +50,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
+    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFE) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
       this.totalSoulsConsumed += 1;
     }
