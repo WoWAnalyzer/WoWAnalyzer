@@ -16,11 +16,15 @@ The most extreme example of this is Armor versus a short duration DR such as Div
 
 Devotion Aura is similarly optional. You can replace it completely with either Aura of Mercy or Aura of Sacrifice. The graph below illustrates the damage taken when accounting for static DR such as from Armor, but it applies the same to static DRs such as Versatility.
 
-![damage-reductions](https://user-images.githubusercontent.com/4565223/43311011-83357f36-9189-11e8-90c7-8f1d500631f1.png)
+<center>
+  <img src="https://user-images.githubusercontent.com/4565223/43354049-2cc22de0-9245-11e8-80db-9a998cf2c396.png">
+</center>
 
 The other method would be to only look at the 20% buff. Using the formula `actual damage taken / (100% - DR percentage) * DR percentage` would give us the damage reduced by just the buff. In this example that would be (`480 / 80% * 20%=`) 120. The graph below illustrates this approach.
 
-![damage-reductions-optional](https://user-images.githubusercontent.com/4565223/43311506-f019f69e-918a-11e8-8356-699f58618dad.png)
+<center>
+  <img src="https://user-images.githubusercontent.com/4565223/43354048-2ca6d680-9245-11e8-9751-5f5fd14b844a.png">
+</center>
 
 The big advantage of this approach is that it works under the assumption that all other DR buffs are out of your control and would have been there regardless. This is great for temporary or optional damage reduction effects such as Devotion Aura or Divine Protection as it perfectly isolates their value to show how much it was worth. It reveals how much effective damage reduction you would lose out on if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that it discourages stacking DRs because the DR under analysis will get a low value out of it.
 
