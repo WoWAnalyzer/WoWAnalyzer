@@ -54,7 +54,7 @@ To analyze Devotion Aura we use the *optional DRs* method because we assume the 
 
 WoWAnalyzer only receives events relating to the selected player. This makes it impossible to see what damage allies took while affected by the passive. Instead this module works under the assumption that the damage taken by the Paladin is about equal to that taken by allies that may be affected by the passive. Because of how damage is usually spread over the raid, this is almost always the case. With this in mind **the passive damage reduction is calculated using only the Paladin's damage taken**.
 
-The Devotion Aura passive scales based on the amount of allies within range. The scaling is asymptotic to 2.5%, with the formula to calculate the current damage reduction being `2.25% + 7.75% / players`. The damage reduction per player is illustrated in the graph below.
+The Devotion Aura passive scales based on the amount of allies within range. The scaling is asymptotic to 3%, with the formula to calculate the current damage reduction being `MAX(3%, 2.25% + 7.75% / players)`. The damage reduction per player is illustrated in the graph below.
 
 ![Passive damage reduction per player](https://user-images.githubusercontent.com/4565223/43359142-1550084a-929e-11e8-97fe-c658279244e8.png)
 
