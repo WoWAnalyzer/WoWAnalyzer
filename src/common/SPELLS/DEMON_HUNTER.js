@@ -158,12 +158,7 @@ export default {
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
   },
-  FRACTURE: {
-    id: 209795,
-    painCost: 30,
-    name: "Fracture",
-    icon: "ability_creature_felsunder",
-  },
+
   // Havoc
   //T21 Bonus
   HAVOC_T21_2PC_BONUS: {
