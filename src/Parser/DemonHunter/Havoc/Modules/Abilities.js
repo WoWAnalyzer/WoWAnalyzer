@@ -58,18 +58,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHAOS_BLADES_TALENT,
-        enabled: combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-        },
-      },
-      {
         spell: SPELLS.FEL_ERUPTION_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

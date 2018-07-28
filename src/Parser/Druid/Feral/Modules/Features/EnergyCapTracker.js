@@ -87,7 +87,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       // BFA: Chatoyant's effect will stop working after level 115.
       max += CHATOYANT_SIGNET_MAX_ADDITION;
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_FERAL.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id)) {
       max += MOMENT_OF_CLARITY_MAX_ADDITION;
     }
     if (this.combatantHasBuffActive(SPELLS.BERSERK.id) || this.combatantHasBuffActive(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {

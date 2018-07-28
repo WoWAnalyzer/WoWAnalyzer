@@ -138,14 +138,6 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.LEG_SWEEP_TALENT.id),
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.RING_OF_PEACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),

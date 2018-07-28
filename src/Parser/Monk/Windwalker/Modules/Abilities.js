@@ -182,14 +182,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.RING_OF_PEACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 45,
