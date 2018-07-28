@@ -4,23 +4,43 @@
 
 ## How we analyze damage reductions
 
-Damage reductions stack multiplicatively, so two 20% DR buffs will lead to a total of 36% damage reduction rather than 40%. Because of this, there are two ways to calculate the value of DR buffs.
+The formula to apply a single damage reduction is `damage taken * (100% - DR) = damage taken`. If there are multiple DR effects, you would have to use this formula multiple times (recursively) as damage reductions stack multiplicatively. Two 20% DR effects will lead to a total of 36% damage reduction rather than 40%.  Because of this, there are multiple methods to calculate the value of DR effects.
 
-Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs up, one of 20% and one of 40%. The actual damage you would take would be 1000*80%*60%=480 damage (total DR is 520 damage, or 52%). If we wanted to know the damage reduced by the 20% buff, there would be two methods to calculate it.
+The possible methods are explained below. Each method is accompanied with an example based on the following scenario:
 
-One method takes all damage reduction buffs into account and give a fair share of the reduced damage to each. Using the example values, we have a total of 520 damage reduced by 60% total *raw* damage reduction (52% effective DR). To calculate the value of a damage reduction buff using this method, we can use the formula `damage reduced / total raw damage reduction * damage reduction`. For the 20% DR buff this would be (`520 / 60% * 20%=`) 173 damage reduced.
+Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs up, Divine Protection giving 20% DR and Armor giving 40% DR. The effective damage taken would be 1000*(100%-20%)*(100%-40%)=480 damage. The total damage reduced is 520 damage, or 52% effective DR.
 
-This method gives an equal share to each DR buff as if they're all comparable. However, if you look closely at damage reduction effects, you'll find that most aren't that similar.
+### Equal share
 
-The most extreme example of this is Armor versus a short duration DR such as Divine Protection. The Armor DR has a 100% uptime and is (mostly) non-variable while Divine Protection can be timed to be active at the exact right moment, or not at all. It would be fair to assume the damage would have been reduced by the Armor DR regardless, and because of that it should get the full DR value. Once we have accounted for the Armor damage reduction, only the remaining damage reduction would be effective DR by Divine Protection.
+The first method takes all damage reduction effects into account and gives an equal share of the reduced damage to each effect as if they're all comparable. This can be done using the formula `total damage reduced / total raw damage reduction * damage reduction` where *damage reduction* is the DR under analysis.
 
-Devotion Aura is similarly optional. You can replace it completely with either Aura of Mercy or Aura of Sacrifice. The graph below illustrates the damage taken when accounting for static DR such as from Armor, but it applies the same to static DRs such as Versatility.
+Using the example values, we have a total of 520 damage reduced by 60% total *raw* damage reduction. For Divine Protection (the 20% DR buff) the resulting damage reduction of this method would be 520 / 60% * 20% = **173 damage**.
 
-<center>
-  <img src="https://user-images.githubusercontent.com/4565223/43354049-2cc22de0-9245-11e8-80db-9a998cf2c396.png">
-</center>
+This method is illustrated in the image below.
 
-The other method would be to only look at the 20% buff. Using the formula `actual damage taken / (100% - DR percentage) * DR percentage` would give us the damage reduced by just the buff. In this example that would be (`480 / 80% * 20%=`) 120. The graph below illustrates this approach.
+![Equal share damage reduction calculation](https://user-images.githubusercontent.com/4565223/43356596-caed9382-9273-11e8-94eb-c109bb442298.png)
+
+### Fair share
+
+The issue with the *equal share* approach is that if you look closely at damage reduction effects, you'll find that most aren't that similar and so giving every DR an equal share would be incorrect.
+
+The most extreme example of this is static DR such as Armor or Versatility versus a short duration or optional DR such as Divine Protection or Devotion Aura. Both Armor and Versatility have a 100% uptime and are (mostly) non-variable. On the other hand Divine Protection can be timed to be active at the exact right moment, or not at all, and Devotion Aura can be replaced with the other talents in the row; Aura of Mercy and Aura of Sacrifice.
+
+It would be reasonable to assume the damage would have been reduced by the Armor and Versatility DR regardless of there being other DRs active as well. Because of that they should get the full DR value and the remaining damage reduction effects should base their damage reduction on the left-over damage reduced.
+
+Using the example values once again, we need two steps to determine the damage reduced by the 20% buff (Divine Protection). First we need to account for the Armor DR since it's a static damage reduction. We can just use the regular damage reduction formula; 1,000 * (100% - 40%) = 600 damage taken. Next we can calculate the damage taken after Divine Protection using the same formula with the new values; 600 * (100% - 20%) = 480. The difference is the the damage reduced by Divine Protection; 600 - 480 = **120 damage**.
+
+This method is illustrated in the image below. Notice how the actual contribution of Devotion Aura is much smaller while the total damage reduced is the same.
+
+![Fair share damage reduction calculation](https://user-images.githubusercontent.com/4565223/43354049-2cc22de0-9245-11e8-80db-9a998cf2c396.png)
+
+### Optional DRs
+
+The final method only works for optional DRs as it always gives us the lowest possible damage reduction value. A big advantage of this approach is that it doesn't require knowing all applicable DRs nor the raw damage taken. This method only looks at the DR under analysis.
+
+We can get the damage reduced of just the DR under analysis using the formula `actual damage taken / (100% - DR percentage) * DR percentage`. Using the example numbers, if we look at the damage reduced by Divine Protection (20% DR), we would find it reduced the damage taken by 480 / (100% - 20%) * 20% = **120 damage**.
+
+This method is illustrated in the image below.
 
 <center>
   <img src="https://user-images.githubusercontent.com/4565223/43354048-2ca6d680-9245-11e8-9751-5f5fd14b844a.png">
