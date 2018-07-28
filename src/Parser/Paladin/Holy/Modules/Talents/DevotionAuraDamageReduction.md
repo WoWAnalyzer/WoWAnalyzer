@@ -48,7 +48,7 @@ This method is illustrated in the image below.
 
 The big advantage of this approach is that it works under the assumption that all other DR buffs are out of your control and would have been there regardless. This is great for temporary or optional damage reduction effects such as Devotion Aura or Divine Protection as it perfectly isolates their value to show how much it was worth. It reveals how much effective damage reduction you would lose out on if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that it discourages stacking DRs because the DR under analysis will get a low value out of it.
 
-We use the last method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the DR at all, or maybe at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
+We use the *optional DRs* method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the DR at all, or maybe at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
 
 ## Analyzing Devotion Aura's passive
 
