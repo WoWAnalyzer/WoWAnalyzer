@@ -29,7 +29,7 @@ class ImmolationAura extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ImmolationAura;
