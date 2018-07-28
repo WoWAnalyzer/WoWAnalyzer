@@ -50,8 +50,8 @@ class MitigationCheck extends Analyzer{
   on_toPlayer_damage(event){
     const spell = event.ability.guid;
     if(this.checks.includes(spell) && !event.tick){
-      console.log(this.buffCheck);
-      console.log(this.debuffCheck);
+      //console.log(this.buffCheck);
+      //console.log(this.debuffCheck);
       if(this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e))){
         this.checksPassedMap.set(spell, this.checksPassedMap.get(spell)+1);
       } else {

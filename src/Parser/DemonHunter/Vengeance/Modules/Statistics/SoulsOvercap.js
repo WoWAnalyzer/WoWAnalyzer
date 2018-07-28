@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SoulFragmentsTracker from '../Features/SoulFragmentsTracker';
 
-class SpiritBombSoulsTracked extends Analyzer {
+class SoulsOvercap extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
@@ -56,4 +56,4 @@ class SpiritBombSoulsTracked extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
-export default SpiritBombSoulsTracked;
+export default SoulsOvercap;
