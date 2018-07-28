@@ -19,17 +19,17 @@ class CenarionWard extends Analyzer {
   }
 
   statistic() {
-    const directHealing = this.mastery.getDirectHealing(SPELLS.CENARION_WARD.id);
+    const directHealing = this.mastery.getDirectHealing(SPELLS.CENARION_WARD_HEAL.id);
     const directPercent = this.owner.getPercentageOfTotalHealingDone(directHealing);
 
-    const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD.id);
+    const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
     const masteryPercent = this.owner.getPercentageOfTotalHealingDone(masteryHealing);
 
     const totalPercent = directPercent + masteryPercent;
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.CENARION_WARD.id} />}
+        icon={<SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Cenarion Ward Healing"
         tooltip={`This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.

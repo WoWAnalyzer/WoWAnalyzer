@@ -6,17 +6,6 @@
 
 export default {
   // Shared
-  STARSURGE: { // Balance has a spec specific spell that replaces this, this is the version everyone has access to due to balance affinity
-    id: 197626,
-    name: 'Starsurge',
-    icon: 'spell_arcane_arcane03',
-  },
-  // the moonkin form granted by Balance Affinity
-  MOONKIN_FORM_AFFINITY: {
-    id: 197625,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
-  },
   HIBERNATE: {
     id: 2637,
     name: 'Hibernate',
@@ -95,6 +84,21 @@ export default {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+
+  //Affinity Spells
+  //Moonkin-Balance
+  //The moonkin form granted by Balance Affinity
+  MOONKIN_FORM_AFFINITY: {
+    id: 197625,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
+  // granted by Balance Affinity to non-Balance druids
+  STARSURGE_AFFINITY: {
+    id: 197626,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+  },
   // granted by Balance Affinity to non-Balance druids
   LUNAR_STRIKE_AFFINITY: {
     id: 197628,
@@ -113,18 +117,24 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  // passive for all Guardian druids and any druid with Guardian Affinity
-  THICK_HIDE: {
-    id: 16931,
-    name: 'Thick Hide',
-    icon: 'inv_misc_pelt_bear_03',
+  //Guardian Affinity Spells
+      //Ironfur gained from affinity has same spell ID as the Guardian spell
+      //Thick Hide gained from affinity has same spell ID as the Guardian spell
+      //Thrash gained from affinity has same spell ID as the Guardian spell
+  //Granted by Guardian affinity
+  FRENZIED_REGENERATION: {
+    id: 22842,
+    name: 'Frenzied Regeneration',
+    icon: 'ability_bullrush',
   },
-  // passive for all Balance druids and any druid with Balance Affinity
-  ASTRAL_INFLUENCE: {
-    id: 197524,
-    name: 'Astral Influence',
-    icon: 'ability_skyreach_lens_flare',
-  },
+
+  //Feral Affinity Spells
+    //Rake gain from affinity has the same spell id as the Feral Spell
+    //Rip gain from affinity has the same spell id as the Feral Spell
+    //Ferocious Bite gain from affinity has the same spell id as the Feral Spell
+    //Swipe (Named SWIPE_CAT)  gain from affinity has the same spell id as the Feral Spell
+
+
 
   // RESTO DRUID //
 
@@ -151,11 +161,6 @@ export default {
     id: 29166,
     name: 'Innervate',
     icon: 'spell_nature_lightning',
-  },
-  ESSENCE_OF_GHANIR: {
-    id: 208253,
-    name: 'Essence of G\'Hanir',
-    icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
   IRONBARK: {
     id: 102342,
@@ -212,7 +217,8 @@ export default {
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-  CENARION_WARD: {
+  //The heal that is trigger by the talent.
+  CENARION_WARD_HEAL: {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
@@ -223,11 +229,6 @@ export default {
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
     manaCost: 560,
-  },
-  FRENZIED_REGENERATION: {
-    id: 22842,
-    name: 'Frenzied Regeneration',
-    icon: 'ability_bullrush',
   },
   BEAR_FORM: {
     id: 5487,
@@ -244,20 +245,10 @@ export default {
     name: 'Dash',
     icon: 'ability_druid_dash',
   },
-  FEROCIOUS_BITE: {
-    id: 22568,
-    name: 'Ferocious Bite',
-    icon: 'ability_druid_ferociousbite',
-  },
   NATURES_CURE: {
     id: 88423,
     name: 'Nature\'s Cure',
     icon: 'ability_shaman_cleansespirit',
-  },
-  RAKE: {
-    id: 1822,
-    name: 'Rake',
-    icon: 'ability_druid_disembowel',
   },
   STAG_FORM: {
     id: 210053,
@@ -269,11 +260,6 @@ export default {
     name: 'Travel Form',
     icon: 'ability_druid_travelform',
   },
-  RIP: {
-    id: 1079,
-    name: 'Rip',
-    icon: 'ability_ghoulfrenzy',
-  },
   SHRED: {
     id: 5221,
     name: 'Shred',
@@ -283,16 +269,6 @@ export default {
     id: 5176,
     name: 'Solar Wrath',
     icon: 'spell_nature_wrathv2',
-  },
-  CAT_SWIPE: {
-    id: 106785,
-    name: 'Swipe',
-    icon: 'inv_misc_monsterclaw_03',
-  },
-  SWIPE_BEAR: {
-    id: 213771,
-    name: 'Swipe',
-    icon: 'inv_misc_monsterclaw_03',
   },
   URSOLS_VORTEX: {
     id: 102793,
@@ -501,6 +477,17 @@ export default {
   },
 
   // GUARDIAN //
+  // passive for all Guardian druids and any druid with Guardian Affinity
+  THICK_HIDE: {
+    id: 16931,
+    name: 'Thick Hide',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  SWIPE_BEAR: {
+    id: 213771,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
   MANGLE_BEAR: {
     id: 33917,
     name: 'Mangle',
@@ -700,6 +687,12 @@ export default {
     icon: 'spell_druid_primaltenacity',
   },
   // Moonkin
+  // passive for all Balance druids and any druid with Balance Affinity
+  ASTRAL_INFLUENCE: {
+    id: 197524,
+    name: 'Astral Influence',
+    icon: 'ability_skyreach_lens_flare',
+  },
   STARSURGE_MOONKIN: {
     id: 78674,
     name: 'Starsurge',
@@ -854,6 +847,26 @@ export default {
   },
 
   // FERAL //
+  SWIPE_CAT: {
+    id: 106785,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
+  FEROCIOUS_BITE: {
+    id: 22568,
+    name: 'Ferocious Bite',
+    icon: 'ability_druid_ferociousbite',
+  },
+  RIP: {
+    id: 1079,
+    name: 'Rip',
+    icon: 'ability_ghoulfrenzy',
+  },
+  RAKE: {
+    id: 1822,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
   TIGERS_FURY: {
     id: 5217,
     name: 'Tiger\'s Fury',
@@ -982,7 +995,7 @@ export default {
     id: 251789,
     name: 'T21 2 set bonus',
     icon: 'ability_druid_cower',
-  },  
+  },
   BLOODY_GASH: {
     id: 252750,
     name: 'Bloody Gash',

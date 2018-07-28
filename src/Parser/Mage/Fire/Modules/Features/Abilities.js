@@ -32,6 +32,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PHOENIX_FLAMES_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id),
         gcd: {
           base: 1500,
         },

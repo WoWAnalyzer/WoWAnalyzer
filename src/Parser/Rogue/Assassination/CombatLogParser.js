@@ -30,6 +30,7 @@ import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTr
 
 //Talents
 import Blindside from './Modules/Talents/Blindside';
+import ElaboratePlanning from './Modules/Talents/ElaboratePlanning';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     blindside: Blindside,
+    elaboratePlanning: ElaboratePlanning,
   };
 }
 

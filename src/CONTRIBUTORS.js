@@ -346,6 +346,12 @@ export const Scaleable = {
 export const Cloake = {
   nickname: 'Cloake',
   github: 'adilasif',
+  discord: 'Cloake#9930',
+  mains: [{
+    name: 'Trixx',
+    spec: SPECS.ASSASSINATION_ROGUE,
+    link: 'https://worldofwarcraft.com/en-us/character/kelthuzad/Trixx',
+  }],
 };
 export const joshinator = {
   nickname: 'joshinator',
