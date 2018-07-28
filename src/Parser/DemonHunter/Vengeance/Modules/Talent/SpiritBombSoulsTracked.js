@@ -25,8 +25,9 @@ class SpiritBombSoulsTracked extends Analyzer {
   }
 
   suggestions(when) {
+    const WastePercent = 0.15;
     const wasterPerGenerated = this.soulFragmentsTracker.soulsWasted / this.soulFragmentsTracker.soulsGenerated;
-    const maximumWaste = Math.floor(0.15 * this.soulFragmentsTracker.soulsGenerated);
+    const maximumWaste = Math.floor(WastePercent * this.soulFragmentsTracker.soulsGenerated);
 
     when(wasterPerGenerated).isGreaterThan(0.15)
     .addSuggestion((suggest, actual, recommended) => {
