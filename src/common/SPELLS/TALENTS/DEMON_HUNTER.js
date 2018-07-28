@@ -43,4 +43,5 @@ export default {
   FEL_BARRAGE_TALENT: { id: 211053, name: "Fel Barrage", icon: "ability_felarakkoa_feldetonation_green" },
   DEMONIC_TALENT: { id: 213410, name: "Demonic", icon: "spell_shadow_demonform" },
   SOUL_RENDING_TALENT_HAVOC: { id: 204909, name: "Soul Rending", icon: "ability_demonhunter_soulcleave2" },
+  CYCLE_OF_HATRED: { id: 258887, name: "Cycle of Hatred", icon: "ability_ironmaidens_whirlofblood" },
 };
