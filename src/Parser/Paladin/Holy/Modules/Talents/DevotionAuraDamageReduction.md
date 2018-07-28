@@ -1,6 +1,8 @@
 # How we analyze damage reductions
 
-The formula to apply a single damage reduction is `damage taken * (100% - DR) = damage taken`. If there are multiple DR effects, you would have to use this formula multiple times (recursively) as damage reductions stack multiplicatively. Two 20% DR effects will lead to a total of 36% damage reduction rather than 40%.  Because of this, there are multiple methods to calculate the value of DR effects.
+There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. This article describes the available methods and explains how Devotion Aura is analyzed by WoWAnalyzer.
+
+At the base of damage reduction effects is the formula to apply a single damage reduction effect. The formula for this is `damage taken * (100% - DR) = damage taken`. This is a recursive formula as damage reductions stack multiplicatively, meaning if there are multiple DR effects, you would have to use this formula multiple times on the result (i.e. recursively). Two 20% DR effects will lead to a total of 36% damage reduction rather than 40%. Because of how damage reduction effects stack, there are multiple methods to calculate the value of DR effects.
 
 The possible methods are explained below. Each method is accompanied with an example based on the following scenario:
 
@@ -10,7 +12,7 @@ Imagine you were hit by a spell that does 1,000 raw damage. You have two damage 
 
 The first method takes all damage reduction effects into account and gives an equal share of the reduced damage to each effect as if they're all comparable. This can be done using the formula `total damage reduced / total raw damage reduction * damage reduction` where *damage reduction* is the DR under analysis.
 
-Using the example values, we have a total of 520 damage reduced by 60% total *raw* damage reduction. For Divine Protection (the 20% DR buff) the resulting damage reduction of this method would be 520 / 60% * 20% = **173 damage**.
+Using the example values, we have a total of 520 damage reduced by 60% total *raw* damage reduction. For Divine Protection (the 20% DR buff) the resulting damage reduction of this method would be `520 / 60% * 20% =` **173 damage**.
 
 This method is illustrated in the image below.
 
@@ -20,7 +22,7 @@ This method is illustrated in the image below.
 
 The issue with the *equal share* approach is that if you look closely at damage reduction effects, you'll find that most aren't that similar and so giving every DR an equal share would be incorrect.
 
-The most extreme example of this is static DR such as Armor or Versatility versus a short duration or optional DR such as Divine Protection or Devotion Aura. Both Armor and Versatility have a 100% uptime and are (mostly) non-variable. On the other hand Divine Protection can be timed to be active at the exact right moment, or not at all, and Devotion Aura can be replaced with the other talents in the row; Aura of Mercy and Aura of Sacrifice.
+The most extreme example of this is static DR such as Armor or Versatility versus a short duration or optional DR such as Divine Protection or Devotion Aura. Both Armor and Versatility have a 100% uptime and are (mostly) non-variable. On the other hand Divine Protection can be timed to be active at the exact right moment, or not at all, and Devotion Aura can be replaced with the other talents in the row; Aura of Mercy or Aura of Sacrifice.
 
 It would be reasonable to assume the damage would have been reduced by the Armor and Versatility DR regardless of there being other DRs active as well. Because of that they should get the full DR value and the remaining damage reduction effects should base their damage reduction on the left-over damage reduced.
 
