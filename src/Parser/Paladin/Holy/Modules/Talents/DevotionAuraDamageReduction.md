@@ -66,7 +66,7 @@ To account for this in the analysis of the passive, the calculated damage reduct
 
 This damage reduction is calculated separate for each damage taken event. This calculation uses an accurate total current damage reduction based on the amount of players affected by the aura at that time.
 
-I have also built and run a version that did the full, extensive, analysis, which takes all factors into account. This has shown the method used for comes really close to the real value. The extensive analysis takes about 6 minutes per fight to complete and costs a lot of resources, so it's not something that could ever be released as a part of WoWAnalyzer.
+I have also built and ran a version that did the full, extensive, analysis, which takes all factors into account. This has shown that the method used comes really close to the real value. The extensive analysis takes about 6 minutes per fight to complete and costs a lot of resources, so it's not something that could ever be released as a part of WoWAnalyzer.
 
 ## Analyzing Devotion Aura's active
 
