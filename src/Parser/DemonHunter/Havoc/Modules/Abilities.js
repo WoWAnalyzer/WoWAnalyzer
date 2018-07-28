@@ -22,19 +22,6 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.FURY_OF_THE_ILLIDARI,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `This does a huge ammount of AoE passive damage and it's one of the main damage spells for Havoc Demon Hunters. You should cast it as soon as it become available. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
-        },
-      },
-      {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 300 - this.unleashedDemons.traitCooldownReduction,
