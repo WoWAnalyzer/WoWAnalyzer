@@ -178,6 +178,22 @@ export default {
     icon: 'ability_demonhunter_eyebeam',
   },
   //spells
+  IMMOLATION_AURA_DPS: {
+    id: 258920,
+    firstStrikeSpellId: 258921,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_FIRST_STRIKE_DPS: {
+    id: 258921,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DPS: {
+    id: 258922,
+    name: 'Immolation Aura Buff',
+    icon: 'ability_demonhunter_immolation',
+  },
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
@@ -374,6 +390,11 @@ export default {
     name: 'Chaos Cleave',
     icon: 'inv_weapon_shortblade_62',
   },
+  FEL_BARRAGE_AURA: {
+    id: 258925,
+    name: 'Fel Barrage',
+    icon: 'inv_felbarrage',
+  },
   NEMESIS_DEMON: {
     id: 208579,
     name: 'Nemesis',
@@ -424,7 +445,12 @@ export default {
     name: 'Nemesis',
     icon: 'spell_holy_senseundead',
   },
-  // Talents
+  TRAIL_OF_RUIN: {
+    id: 258881,
+    name: 'Trail of Ruin',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
+  // Vengeance Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',
