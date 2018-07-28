@@ -62,7 +62,7 @@ class SigilOfFlame extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SigilOfFlame;
