@@ -104,7 +104,7 @@ export default [
 	},
 	{
 		date: new Date('2017-09-06'),
-		changes: <React.Fragment>Added <span class="DemonHunter">Havoc Demon Hunter</span> support</React.Fragment>,
+		changes: <React.Fragment>Added <span className="DemonHunter">Havoc Demon Hunter</span> support</React.Fragment>,
 		contributors: [Mamtooth],
 	},
 ];
