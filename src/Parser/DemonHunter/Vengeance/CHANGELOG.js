@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-28'),
+    changes: <React.Fragment>Added new spells and talents.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
     date: new Date('2018-05-18'),
     changes: <React.Fragment>Added death recap tab and defensive abilities tracking.</React.Fragment>,
     contributors: [Yajinni],
