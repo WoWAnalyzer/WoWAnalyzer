@@ -20,7 +20,7 @@ class SpiritBombSoulConsume extends Analyzer {
   cast = 0;
   index = 1;
 
-  soulsConsumedByAmount = {};
+  soulsConsumedByAmount = Array.from({length: 6}, x => 0);
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -67,13 +67,6 @@ class SpiritBombSoulConsume extends Analyzer {
   on_finished() {
     this.countHits();
     console.log("ARRAY ", this.soulsConsumedByAmount);
-    while(!this.soulsConsumedByAmount[this.index]){
-      this.soulsConsumedByAmount[this.index] = 0;
-      if(this.index === 5){
-        return;
-      }
-      this.index += 1;
-    }
   }
 
   statistic() {
@@ -91,13 +84,13 @@ class SpiritBombSoulConsume extends Analyzer {
           <thead>
             <tr>
               <th>Stack</th>
-              <th>Souls Consumed</th>
+              <th>Casts</th>
             </tr>
           </thead>
           <tbody>
             {Object.values(this.soulsConsumedByAmount).map((e, i) => (
               <tr key={i}>
-                <th>{i+1}</th>
+                <th>{i}</th>
                 <td>{e}</td>
               </tr>
             ))}
