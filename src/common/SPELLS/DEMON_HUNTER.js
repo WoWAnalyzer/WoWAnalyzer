@@ -160,6 +160,7 @@ export default {
   },
   FRACTURE: {
     id: 209795,
+    painCost: 30,
     name: "Fracture",
     icon: "ability_creature_felsunder",
   },
