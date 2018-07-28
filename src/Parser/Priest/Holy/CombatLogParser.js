@@ -12,6 +12,8 @@ import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 //Talents
 import TrailOfLight from './Modules/Talents/TrailOfLight';
+import Perseverance from './Modules/Talents/Perseverance';
+
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -26,6 +28,8 @@ import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/Sanctif
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 import HolyWords from './Modules/PriestCore/HolyWords';
+import Fortitude from './Modules/PriestCore/Fortitude';
+
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -57,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sereReduction: SerenityReduction,
     hymnBuffBenefit: HymnBuffBenefit,
     holyWords: HolyWords,
+    fortitude: Fortitude,
 
     // Spells
     divineHymn: DivineHymn,
@@ -65,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     trailOfLight: TrailOfLight,
+    perseverance: Perseverance,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
