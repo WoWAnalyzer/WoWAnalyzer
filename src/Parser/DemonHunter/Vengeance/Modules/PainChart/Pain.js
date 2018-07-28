@@ -156,7 +156,7 @@ class Pain extends React.PureComponent {
         const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight - 1] : painBySecond[lastSecFight];
         const spendResource = spell !== undefined ? ((spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain)) : 0;
         abilitiesAll[`${event.ability.guid}_spend`].spent += spendResource;
-        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell !== undefined && spell.max_pain !== undefined ? spell.max_pain - spendResource : 0;
+        abilitiesAll[`${event.ability.guid}_spend`].wasted += (spell !== undefined && spell.max_pain) !== undefined ? spell.max_pain - spendResource : 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[`${event.ability.guid}_gen`]) {
           const spell = SPELLS[event.ability.guid];
