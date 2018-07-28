@@ -1,6 +1,6 @@
 # How we analyze damage reductions
 
-There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. This article describes the available methods and explains how Devotion Aura is analyzed by WoWAnalyzer.
+There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. This article describes the available methods and goes into the methods used to get you a DRPS value for Devotion Aura on WoWAnalyzer.
 
 At the base of damage reduction effects is the formula to apply a single damage reduction effect. The formula for this is `damage taken * (100% - DR) = damage taken`. This is a recursive formula as damage reductions stack multiplicatively, meaning if there are multiple DR effects, you would have to use this formula multiple times on the result (i.e. recursively). Two 20% DR effects will lead to a total of 36% damage reduction rather than 40%. Because of how damage reduction effects stack, there are multiple methods to calculate the value of DR effects.
 
@@ -26,7 +26,7 @@ The most extreme example of this is static DR such as Armor or Versatility versu
 
 It would be reasonable to assume the damage would have been reduced by the Armor and Versatility DR regardless of there being other DRs active as well. Because of that they should get the full DR value and the remaining damage reduction effects should base their damage reduction on the left-over damage reduced.
 
-Using the example values once again, we need two steps to determine the damage reduced by the 20% buff (Divine Protection). First we need to account for the Armor DR since it's a static damage reduction. We can just use the regular damage reduction formula; 1,000 * (100% - 40%) = 600 damage taken. Next we can calculate the damage taken after Divine Protection using the same formula with the new values; 600 * (100% - 20%) = 480. The difference is the the damage reduced by Divine Protection; 600 - 480 = **120 damage**.
+Using the example values once again, we need two steps to determine the damage reduced by the 20% buff (Divine Protection). First we need to account for the Armor DR since it's a static damage reduction. We can just use the regular damage reduction formula; `1,000 * (100% - 40%) =` 600 damage taken. Next we can calculate the damage taken after Divine Protection using the same formula with the new values; `600 * (100% - 20%) =` 480 damage taken. The difference is the the damage reduced by Divine Protection; `600 - 480 =` **120 damage**.
 
 This method is illustrated in the image below. Notice how the actual contribution of Devotion Aura is much smaller while the total damage reduced is the same.
 
@@ -40,9 +40,7 @@ We can get the damage reduced of just the DR under analysis using the formula `a
 
 This method is illustrated in the image below.
 
-<center>
-  <img src="https://user-images.githubusercontent.com/4565223/43354048-2ca6d680-9245-11e8-9751-5f5fd14b844a.png">
-</center>
+![Optional damage reduction calculation](https://user-images.githubusercontent.com/4565223/43354048-2ca6d680-9245-11e8-9751-5f5fd14b844a.png)
 
 The big advantage of this approach is that it works under the assumption that all other DR buffs are out of your control and would have been there regardless. This is great for temporary or optional damage reduction effects such as Devotion Aura or Divine Protection as it perfectly isolates their value to show how much it was worth. It reveals how much effective damage reduction you would lose out on if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that it discourages stacking DRs because the DR under analysis will get a low value out of it.
 
