@@ -76,14 +76,14 @@ class SpiritBombSoulConsume extends Analyzer {
 
     return (
       <ExpandableStatisticBox
-        icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
+        icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(percentGoodCasts)} %`}
         label="Good Spirit Bomb Casts"
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Stack</th>
+              <th>Stacks</th>
               <th>Casts</th>
             </tr>
           </thead>
