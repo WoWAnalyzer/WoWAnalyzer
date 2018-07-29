@@ -10,6 +10,13 @@ export default {
     icon: "spell_deathknight_bloodtap",
     quality: ITEM_QUALITIES.PURPLE,
   },
+
+  CONSTRUCT_OVERCHARGER: {
+    id: 160652,
+    name: "Construct Overcharger",
+    icon: "inv_misc_enggizmos_06",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   //MOTHER
 
   //Fetid Devourer
