@@ -30,7 +30,6 @@ class ButcheryCarve extends Analyzer {
   wastedWFBReductionMs = 0;
   uniqueTargets = [];
   targetsHit = 0;
-  damageHits = 0;
   casts = 0;
   spellKnown;
 
@@ -66,7 +65,6 @@ class ButcheryCarve extends Analyzer {
       this.targetsHit++;
       this.uniqueTargets.push(damageTarget);
     }
-    this.damageHits++;
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
       return;
     }
@@ -84,10 +82,6 @@ class ButcheryCarve extends Analyzer {
     return (this.targetsHit / this.casts).toFixed(2);
   }
 
-  get averageHitsPerCast() {
-    return (this.damageHits / this.casts).toFixed(2);
-  }
-
   statistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
@@ -96,7 +90,6 @@ class ButcheryCarve extends Analyzer {
           icon={<SpellIcon id={this.spellKnown.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
-          tooltip={`<ul><li> You had an average of ${this.averageHitsPerCast} hits per cast of ${this.spellKnown.name}. </li><ul><li>This means you hit each unique target approximately ${(this.averageHitsPerCast / this.averageTargetsHit).toFixed(2)} times per cast. </li></ul></ul>`}
         />
       );
     }
