@@ -158,7 +158,12 @@ export default {
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
   },
-
+  FRACTURE: {
+    id: 209795,
+    painCost: 30,
+    name: "Fracture",
+    icon: "ability_creature_felsunder",
+  },
   // Havoc
   //T21 Bonus
   HAVOC_T21_2PC_BONUS: {
@@ -178,6 +183,16 @@ export default {
     icon: 'ability_demonhunter_eyebeam',
   },
   //spells
+  IMMOLATION_AURA_FIRST_STRIKE_DPS: {
+    id: 258921,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DPS: {
+    id: 258922,
+    name: 'Immolation Aura Buff',
+    icon: 'ability_demonhunter_immolation',
+  },
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
@@ -424,7 +439,7 @@ export default {
     name: 'Nemesis',
     icon: 'spell_holy_senseundead',
   },
-  // Talents
+  // Vengeance Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',

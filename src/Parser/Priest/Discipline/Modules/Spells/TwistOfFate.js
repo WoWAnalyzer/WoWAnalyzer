@@ -26,7 +26,7 @@ class TwistOfFate extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasTwistOfFate = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
+    this.hasTwistOfFate = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id);
     this.hasSoulOfTheHighPriest = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
     this.active = this.hasTwistOfFate || this.hasSoulOfTheHighPriest;
   }
@@ -62,8 +62,8 @@ class TwistOfFate extends Analyzer {
     if (!this.hasSoulOfTheHighPriest) {
       when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
-            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
+          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
+            .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
             .regular(0.045)
@@ -73,7 +73,7 @@ class TwistOfFate extends Analyzer {
       when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.03)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} />. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
-            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
+            .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
             .regular(0.025)
@@ -94,7 +94,7 @@ class TwistOfFate extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />}
         value={this.owner.formatItemHealingDone(healing)}
         label={(
           <dfn data-tip={

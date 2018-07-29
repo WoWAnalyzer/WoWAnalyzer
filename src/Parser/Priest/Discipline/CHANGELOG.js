@@ -15,7 +15,7 @@ export default [
   },
   {
     date: new Date('2018-07-24'),
-    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER.id} />.</React.Fragment>,
+    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />.</React.Fragment>,
     contributors: [Reglitch],
   },
   {
@@ -60,7 +60,7 @@ export default [
   },
   {
     date: new Date('2017-11-15'),
-    changes: <React.Fragment>Moved <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} /> value to show the talent <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} /></React.Fragment>,
+    changes: <React.Fragment>Moved <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} /> value to show the talent <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /></React.Fragment>,
     contributors: [Gao],
   },
   {
@@ -180,7 +180,7 @@ export default [
   },
   {
     date: new Date('2017-05-17'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} /> healing statistic (damage gain is in the tooltip).</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> healing statistic (damage gain is in the tooltip).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

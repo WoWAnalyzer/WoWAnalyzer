@@ -85,7 +85,7 @@ class Innervate extends Analyzer {
         this.castsUnderInnervate += 1;
         this.efflorescences += 1;
       }
-      if (SPELLS.CENARION_WARD === spellId) {
+      if (SPELLS.CENARION_WARD_HEAL === spellId) {
         this.addToManaSaved(CENARION_WARD_BASE_MANA);
         this.castsUnderInnervate += 1;
         this.cenarionWards += 1;

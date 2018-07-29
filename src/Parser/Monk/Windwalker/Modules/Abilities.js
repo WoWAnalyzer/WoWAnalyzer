@@ -182,14 +182,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.RING_OF_PEACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 45,
@@ -248,13 +240,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT,
+        spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
       },
       // Defensives
       {
