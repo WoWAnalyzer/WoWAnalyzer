@@ -16,7 +16,6 @@ import FesteringStrike from './Modules/Features/FesteringStrike';
 import Checklist from './Modules/Features/Checklist';
 import ScourgeStrikeEfficiency from './Modules/Features/ScourgeStrikeEfficiency';
 import ClawingShadowsEfficiency from './Modules/Features/ClawingShadowsEfficiency';
-import RpPoolingDA from './Modules/Features/RpPoolingDA';
 import Apocalypse from './Modules/Features/Apocalypse';
 import DarkTransformationAndWounds from './Modules/Features/DarkTransformationAndWounds';
 import VirulentPlagueEfficiency from './Modules/Features/VirulentPlagueEfficiency';
@@ -25,7 +24,6 @@ import VirulentPlagueEfficiency from './Modules/Features/VirulentPlagueEfficienc
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
-import DarkArbiter from './Modules/Talents/DarkArbiter';
 import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
 
 import RuneTracker from './Modules/Features/RuneTracker';
@@ -45,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     clawingShadowsEfficiency: ClawingShadowsEfficiency,
-	  rpPoolingDa: RpPoolingDA,
   	apocalypse: Apocalypse,
 	  darkTransformationAndWounds: DarkTransformationAndWounds,
 	  virulentPlagueEfficiency: VirulentPlagueEfficiency,
@@ -55,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     runicPowerDetails: RunicPowerDetails,
 
     // talents
-    darkArbiter: DarkArbiter,
     unholyFrenzy: UnholyFrenzy,
 
     // items

@@ -23,11 +23,10 @@ import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysB
 
 //Talents
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
-import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
+import BarbedShot from 'Parser/Hunter/BeastMastery/Modules/Spells/BarbedShot';
 import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 
 //Spells
-import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
 
 //Items
@@ -59,8 +58,7 @@ class Checklist extends CoreChecklist {
     aspectOfTheBeast: AspectOfTheBeast,
 
     //Spells
-    aspectOfTheWild: AspectOfTheWild,
-    direFrenzy: DireFrenzy,
+    direFrenzy: BarbedShot,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
 
     //Legendaries
@@ -113,11 +111,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <React.Fragment>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
-            check: () => this.direFrenzy.direFrenzyUptimeThreshold,
+            check: () => this.barbedShot.direFrenzyUptimeThreshold,
           }),
           new Requirement({
             name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
-            check: () => this.direFrenzy.direFrenzy3StackThreshold,
+            check: () => this.barbedShot.direFrenzy3StackThreshold,
           }),
         ];
       },
