@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Haste from 'Parser/Core/Modules/Haste';
 
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 import UnleashedDemons from './Traits/UnleashedDemons';
@@ -42,18 +40,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
-        },
-      },
-      {
-        spell: SPELLS.CHAOS_BLADES_TALENT,
-        enabled: combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
-          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {

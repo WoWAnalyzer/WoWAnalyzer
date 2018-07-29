@@ -418,9 +418,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TIGERS_DASH_TALENT,
+        spell: SPELLS.TIGER_DASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
         gcd: {
           base: 1500,

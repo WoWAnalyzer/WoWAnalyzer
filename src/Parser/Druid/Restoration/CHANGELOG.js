@@ -19,7 +19,7 @@ export default [
   },
   {
     date: new Date('2018-02-02'),
-    changes: <React.Fragment>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} />.</React.Fragment>,
+    changes: <React.Fragment>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> Util module where overwritten procs weren't shown if player doesn't take Moment of Clarity.</React.Fragment>,
     contributors: [sref],
   },
   {

@@ -158,14 +158,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
-        spell: SPELLS.SHOCKWAVE_TALENT,
-        enabled: combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.STORM_BOLT_TALENT,
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
