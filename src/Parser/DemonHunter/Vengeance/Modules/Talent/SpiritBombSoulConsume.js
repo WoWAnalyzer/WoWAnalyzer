@@ -88,7 +88,7 @@ class SpiritBombSoulConsume extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {Object.values(this.soulsConsumedByAmount).map((stackAmount, castAmount) => (
+            {Object.values(this.soulsConsumedByAmount).map((castAmount, stackAmount) => (
               <tr key={stackAmount}>
                 <th>{stackAmount}</th>
                 <td>{castAmount}</td>
