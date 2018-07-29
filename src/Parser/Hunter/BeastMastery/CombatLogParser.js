@@ -35,10 +35,10 @@ import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import BeastCleave from './Modules/Spells/BeastCleave';
 import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
-
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

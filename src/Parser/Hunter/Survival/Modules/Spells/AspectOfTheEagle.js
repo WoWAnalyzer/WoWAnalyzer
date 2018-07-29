@@ -1,7 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/SixStackBites';
+import FiveStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/FiveStackBites';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -16,7 +16,7 @@ const MINIMUM_TIME_REMAINING = 9000;
 class AspectOfTheEagle extends Analyzer {
 
   static dependencies = {
-    sixStackBites: SixStackBites,
+    sixStackBites: FiveStackBites,
   };
 
   aspectCasts = 0;
