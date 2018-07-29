@@ -82,6 +82,27 @@ class ButcheryCarve extends Analyzer {
     return (this.targetsHit / this.casts).toFixed(2);
   }
 
+  get avgTargetsHitThreshold() {
+    return {
+      actual: this.averageTargetsHit,
+      isLessThan: {
+        minor: 2,
+        average: 2,
+        major: 2,
+      },
+      style: 'decimal',
+    };
+  }
+
+  suggestions(when) {
+    when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</React.Fragment>)
+        .icon(this.spellKnown.icon)
+        .actual(`${actual} average targets hit per cast`)
+        .recommended(`>${recommended} is recommended`);
+    });
+  }
+
   statistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
