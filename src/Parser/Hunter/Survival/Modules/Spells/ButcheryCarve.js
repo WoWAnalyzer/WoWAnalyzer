@@ -116,6 +116,7 @@ class ButcheryCarve extends Analyzer {
     }
     return null;
   }
+  
   subStatistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
