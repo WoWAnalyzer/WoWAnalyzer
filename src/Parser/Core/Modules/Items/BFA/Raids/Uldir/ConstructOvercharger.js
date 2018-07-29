@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 /**
  * Construct Overcharger -
- * Equipe: Your attacks have a chance to increase your Haste by 6 for 10 sec, stacking up to 8 times.
+ * Equip: Your attacks have a chance to increase your Haste by 21 for 10 sec, stacking up to 8 times.
  */
 
 class ConstructOvercharger extends Analyzer{
