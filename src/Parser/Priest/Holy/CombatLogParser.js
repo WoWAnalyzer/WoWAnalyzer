@@ -12,6 +12,7 @@ import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 
 //Talents
 import TrailOfLight from './Modules/Talents/TrailOfLight';
+import CosmicRipple from './Modules/Talents/CosmicRipple';
 import Perseverance from './Modules/Talents/Perseverance';
 
 
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     trailOfLight: TrailOfLight,
+    cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
 
     // Items

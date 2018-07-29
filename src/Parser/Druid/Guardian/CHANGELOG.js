@@ -39,7 +39,7 @@ export default [
   },
   {
     date: new Date('2017-08-28'),
-    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.STAMPEDING_ROAR_BEAR.id} /> cast efficiency to work with <SpellLink id={SPELLS.GUTTURAL_ROARS_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.STAMPEDING_ROAR_BEAR.id} /> cast efficiency to work with Guttoral Roars.</React.Fragment>,
     contributors: [faide],
   },
   {

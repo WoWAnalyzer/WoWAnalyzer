@@ -20,7 +20,7 @@ class Lenience extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE_TALENT.id);
   }
 
   load() {
@@ -41,7 +41,7 @@ class Lenience extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.LENIENCE.id} />}
+        icon={<SpellIcon id={SPELLS.LENIENCE_TALENT.id} />}
         value={`>=${formatNumber(this.damageReducedDuringLenience / fightDuration * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={

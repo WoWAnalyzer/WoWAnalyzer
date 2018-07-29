@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import GlobalCooldown from 'Parser/Hunter/BeastMastery/Modules/Core/GlobalCooldown';
 
 //Features
 import Abilities from './Modules/Abilities';
@@ -28,21 +29,28 @@ import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindr
 import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 //Talents
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
+import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
+import Barrage from '../Shared/Modules/Talents/Barrage';
 
 //Spells
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
 import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime";
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import BeastCleave from './Modules/Spells/BeastCleave';
-import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
+import CobraShot from './Modules/Spells/CobraShot';
+import BarbedShot from './Modules/Spells/BarbedShot';
+
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 
+//Traits and talents
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
+    globalCooldown: GlobalCooldown,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -50,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
+
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -60,7 +69,8 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrathUptime: BestialWrathUptime,
     gainedBestialWraths: GainedBestialWraths,
     beastCleave: BeastCleave,
-    aspectOfTheWild: AspectOfTheWild,
+    cobraShot: CobraShot,
+    barbedShot: BarbedShot,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
@@ -83,6 +93,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     naturalMending: NaturalMending,
+    trailblazer: Trailblazer,
+    barrage: Barrage,
+
+    //Traits and talents
+    traitsAndTalents: TraitsAndTalents,
   };
 }
 
