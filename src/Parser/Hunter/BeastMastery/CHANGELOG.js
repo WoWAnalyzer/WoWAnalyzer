@@ -10,6 +10,11 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 export default [
   {
+    date: new Date('2018-07-26'),
+    changes: <React.Fragment>Updated the BM module to 8.0.1, and added a <SpellLink id={SPELLS.BARBED_SHOT.id} /> statistic and acoompanying suggestions, also updated downtime module to be accurate with Aspect of the Wilds reduced GCD. </React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: <React.Fragment>Added a <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping module to the checklist.</React.Fragment>,
     contributors: [Putro],

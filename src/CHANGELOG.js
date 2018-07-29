@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-07-26'),
+    changes: <React.Fragment>Updated our GlobalCooldown module to automatically ignore certain casts if we've marked them as not being actual casts. BM Hunter casting two spells (one for buff, one for damage) per <SpellLink id={SPELLS.BARBED_SHOT.id} /> is an example.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-07-24'),
     changes: 'Added character information fetching from Battle.net (when possible) to gain race information and character thumbnails. The character thumbnail will now be used in the versus-header as per the original design.',
     contributors: [Zerotorescue],
@@ -260,7 +265,7 @@ export default [
   },
   {
     date: new Date('2018-03-26'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} /> and <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</React.Fragment>,
     contributors: [joshinator],
   },
   {

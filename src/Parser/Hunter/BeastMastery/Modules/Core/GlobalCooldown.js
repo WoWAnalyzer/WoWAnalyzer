@@ -1,6 +1,7 @@
 import CoreGlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from 'common/SPELLS/index';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
+import Channeling from 'Parser/Core/Modules/Channeling';
+import SPELLS from 'common/SPELLS';
 import Haste from 'Parser/Core/Modules/Haste';
 import Abilities from '../Abilities';
 
@@ -16,10 +17,11 @@ const ASPECT_AFFECTED_ABILTIES = [
   SPELLS.STAMPEDE_TALENT.id,
   SPELLS.CHIMAERA_SHOT_TALENT.id,
   SPELLS.A_MURDER_OF_CROWS_TALENT.id,
-
 ];
 
 const ASPECT_GCD_REDUCTION = 200;
+
+const MIN_GCD = 750;
 
 /**
  * Aspect of the wild reduces Global Cooldown for damaging spells by 0.2 seconds before haste calculations
@@ -27,20 +29,20 @@ const ASPECT_GCD_REDUCTION = 200;
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
     abilities: Abilities,
-    combatants: Combatants,
     haste: Haste,
+    statTracker: StatTracker,
+    channeling: Channeling,
   };
 
-  getCurrentGlobalCooldown(spellId = null) {
-    const baseGcd = this.owner.modules.alwaysBeCasting.constructor.BASE_GCD;
-    const minGcd = this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD;
-    let gcd;
-    if (spellId && ASPECT_AFFECTED_ABILTIES.includes(spellId) && this.combatants.selected.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
-      gcd = (baseGcd - ASPECT_GCD_REDUCTION) / (1 + this.haste.current);
-      return Math.max(minGcd, gcd);
+  getGlobalCooldownDuration(spellId) {
+    const gcd = super.getGlobalCooldownDuration(spellId);
+    if (!gcd) {
+      return 0;
     }
-    gcd = super.getCurrentGlobalCooldown(spellId);
-    return Math.max(minGcd, gcd);
+    if (spellId && ASPECT_AFFECTED_ABILTIES.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
+      return Math.max(MIN_GCD, (gcd - ASPECT_GCD_REDUCTION) / (1 + this.statTracker.currentHastePercentage));
+    }
+    return Math.max(MIN_GCD, gcd);
   }
 
 }
