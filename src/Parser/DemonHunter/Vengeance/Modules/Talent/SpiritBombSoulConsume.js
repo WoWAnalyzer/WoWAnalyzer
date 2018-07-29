@@ -8,6 +8,8 @@ import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 
+const MS_BUFFER = 100;
+
 class SpiritBombSoulConsume extends Analyzer {
 
   constructor(...args) {
@@ -38,7 +40,7 @@ class SpiritBombSoulConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < 100) {
+    if (event.timestamp - this.castTimestamp < MS_BUFFER) {
       this.castSoulsConsumed += 1;
     }
   }
@@ -48,7 +50,7 @@ class SpiritBombSoulConsume extends Analyzer {
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
-    if (event.timestamp - this.castTimestamp < 100) {
+    if (event.timestamp - this.castTimestamp < MS_BUFFER) {
       this.castSoulsConsumed += 1;
     }
   }
@@ -76,7 +78,7 @@ class SpiritBombSoulConsume extends Analyzer {
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(percentGoodCasts)} %`}
-        label="Good Spirit Bomb Casts"
+        label="Good Spirit Bomb casts"
       >
         <table className="table table-condensed">
           <thead>
@@ -86,10 +88,10 @@ class SpiritBombSoulConsume extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {Object.values(this.soulsConsumedByAmount).map((e, i) => (
-              <tr key={i}>
-                <th>{i}</th>
-                <td>{e}</td>
+            {Object.values(this.soulsConsumedByAmount).map((stackAmount, castAmount) => (
+              <tr key={stackAmount}>
+                <th>{stackAmount}</th>
+                <td>{castAmount}</td>
               </tr>
             ))}
           </tbody>
