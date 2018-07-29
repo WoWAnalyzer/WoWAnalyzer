@@ -38,7 +38,6 @@ import FiveStackBites from './Modules/Features/MongooseFury/FiveStackBites';
 import FiveBiteWindows from './Modules/Features/MongooseFury/FiveBiteWindows';
 import SteelTrap from './Modules/Talents/SteelTrap';
 import Chakrams from './Modules/Talents/Chakrams';
-import BirdsOfPrey from './Modules/Talents/BirdsOfPrey';
 
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
@@ -111,7 +110,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fiveBiteWindows: FiveBiteWindows,
     steelTrap: SteelTrap,
     chakrams: Chakrams,
-    birdsOfPrey: BirdsOfPrey,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
