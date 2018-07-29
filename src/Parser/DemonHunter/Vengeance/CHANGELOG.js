@@ -52,7 +52,7 @@ export default [
   },
   {
     date: new Date('2018-05-10'),
-    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> to show damage and if its stacked.</React.Fragment>,
+    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> to show damage and if its stacked.</React.Fragment>,
     contributors: [Yajinni],
   },
   {
