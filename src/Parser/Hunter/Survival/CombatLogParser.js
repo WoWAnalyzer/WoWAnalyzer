@@ -27,6 +27,7 @@ import KillCommand from './Modules/Spells/KillCommand';
 import ButcheryCarve from './Modules/Spells/ButcheryCarve';
 import SerpentSting from './Modules/Spells/SerpentSting';
 import CoordinatedAssault from './Modules/Spells/CoordinatedAssault';
+import WildfireBomb from './Modules/Spells/WildfireBomb';
 
 //Talents
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
@@ -35,6 +36,9 @@ import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
 import VipersVenom from './Modules/Talents/VipersVenom';
 import FiveStackBites from './Modules/Features/MongooseFury/FiveStackBites';
 import FiveBiteWindows from './Modules/Features/MongooseFury/FiveBiteWindows';
+import SteelTrap from './Modules/Talents/SteelTrap';
+import Chakrams from './Modules/Talents/Chakrams';
+import BirdsOfPrey from './Modules/Talents/BirdsOfPrey';
 
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
@@ -52,7 +56,6 @@ import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindr
 
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -79,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     butcheryCarve: ButcheryCarve,
     serpentSting: SerpentSting,
     coordinatedAssault: CoordinatedAssault,
+    wildfireBomb: WildfireBomb,
 
     //Items
     tier20_2p: Tier20_2p,
@@ -105,6 +109,9 @@ class CombatLogParser extends CoreCombatLogParser {
     vipersVenom: VipersVenom,
     fiveStackBites: FiveStackBites,
     fiveBiteWindows: FiveBiteWindows,
+    steelTrap: SteelTrap,
+    chakrams: Chakrams,
+    birdsOfPrey: BirdsOfPrey,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
