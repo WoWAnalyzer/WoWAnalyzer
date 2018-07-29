@@ -55,8 +55,7 @@ class SoulFragmentsConsume extends Analyzer {
       this.totalSoulsConsumed += 1;
     }
   }
-
-
+  
   statistic() {
     const overcap= this.soulFragmentsTracker.soulsWasted;
     const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
