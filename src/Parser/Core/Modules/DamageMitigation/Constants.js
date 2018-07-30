@@ -141,30 +141,40 @@ export const STATIC_BUFFS = [
   },
 ];
 
-// Damage reductions that are passive but the number varies.
 // Some of these are not abilities so they are given fake IDs. They will also need icons.
-export const VARIABLE_PASSIVE = [
-  // Any missing damage mitigation is contributed to "Unknown"
-  {
-    id: -1000,
-    name: 'Unknown',
+
+// Any missing damage mitigation is contributed to "Unknown"
+export const UNKNOWN = 
+{
+  id: -1000,
+  name: 'Unknown',
+};
+
+export const ARMOR = 
+{
+  id: -1001,
+  name: 'Armor',
+  mitigation: armor => {
+    return armor; // K value is 6300 for lv 120-123, 2107 for lv 113, 1423 for lv 110.
   },
-  {
-    id: -1001,
-    name: 'Armor',
-  },
-  {
-    id: -1002,
-    name: 'Versatility',
-  },
-  // Paladin and Destruction Warlock mastery.
-  {
-    id: -1003,
-    name: 'Mastery',
-  },
-  // Avoidance is not implemented yet.
-  {
-    id: -1004,
-    name: 'Avoidance',
-  },
-];
+};
+
+export const VERSATILITY = 
+{
+  id: -1002,
+  name: 'Versatility',
+};
+
+// Paladin and Destruction Warlock mastery.
+export const MASTERY = 
+{
+  id: -1003,
+  name: 'Mastery',
+};
+
+// Avoidance needs a whitelist.
+export const AVOIDANCE = 
+{
+  id: -1004,
+  name: 'Avoidance',
+};
