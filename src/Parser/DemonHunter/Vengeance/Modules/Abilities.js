@@ -49,6 +49,10 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.METAMORPHOSIS_TANK.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+        },
       },
       {
         spell: SPELLS.FIERY_BRAND,
@@ -65,7 +69,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMON_SPIKES,
         buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: haste => 20 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
       },
 
@@ -98,22 +102,21 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: <React.Fragment>This ability can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage. </React.Fragment>,
+          recommendedEfficiency: 0.80,
         },
       },
       {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 15,
+        cooldown: haste => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>This is a great Pain generator spell and it does a single target DPS increase by just 30 Pain per cast. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. </React.Fragment>,
+          extraSuggestion: <React.Fragment>This is a great Pain generator spell. </React.Fragment>,
         },
       },
       {
@@ -126,8 +129,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: <React.Fragment>This is a great healing and AoE damage burst spell. It costs just 30 Pain and should be definitively used as soon as it gets available. The only moment you can delay it's cast is if your <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.FIERY_DEMISE.id} /> artifact trait) is almost available. </React.Fragment>,
+          recommendedEfficiency: 0.80,
+          extraSuggestion: <React.Fragment>This is a great healing and AoE damage burst spell. The only moment you can delay it's cast is if your <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.CHARRED_FLESH_TALENT.id} /> talent) is almost available. </React.Fragment>,
         },
       },
 
