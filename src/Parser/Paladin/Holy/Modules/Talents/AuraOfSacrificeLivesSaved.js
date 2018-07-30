@@ -65,7 +65,7 @@ class AuraOfSacrificeLivesSaved extends Analyzer {
     const query = {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(${this.auraOfSacrificeDamageReduction.auraMasteryUptimeFilter}) AND (
+      filter: `(${this.auraOfSacrificeDamageReduction.filter}) AND (
         type='damage'
         AND target.disposition='friendly'
         AND resources.hitPoints>0

@@ -11,6 +11,8 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import {findByBossId} from 'Raids/index';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
+const debug = false;
+
 class MitigationCheck extends Analyzer{
   static dependencies = {
     enemies: Enemies,
@@ -50,8 +52,8 @@ class MitigationCheck extends Analyzer{
   on_toPlayer_damage(event){
     const spell = event.ability.guid;
     if(this.checks.includes(spell) && !event.tick){
-      console.log(this.buffCheck);
-      console.log(this.debuffCheck);
+      debug&&console.log(this.buffCheck);
+      debug&&console.log(this.debuffCheck);
       if(this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e))){
         this.checksPassedMap.set(spell, this.checksPassedMap.get(spell)+1);
       } else {

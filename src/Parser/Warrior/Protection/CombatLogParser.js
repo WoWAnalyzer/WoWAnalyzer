@@ -18,7 +18,6 @@ import Avatar from './Modules/Features/Avatar';
 
 import AngerManagement from './Modules/Talents/AngerManagement';
 import BoomingVoice from './Modules/Talents/BoomingVoice';
-import RenewedFury from './Modules/Talents/RenewedFury';
 import HeavyRepercussions from './Modules/Talents/HeavyRepercussions';
 import IntoTheFray from './Modules/Talents/IntoTheFray';
 import Vengeance from './Modules/Talents/Vengeance';
@@ -49,7 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     angerManagement: AngerManagement,
     boomingVoice: BoomingVoice,
-    renewedFury: RenewedFury,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
     vengeance: Vengeance,

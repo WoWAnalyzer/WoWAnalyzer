@@ -390,6 +390,11 @@ export default {
     name: 'Blindside',
     icon: 'ability_rogue_focusedattacks',
   },
+  ELABORATE_PLANNING_BUFF: {
+    id: 193641,
+    name: 'Elaborate Planning',
+    icon: 'inv_misc_map08',
+  },
 
   //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {

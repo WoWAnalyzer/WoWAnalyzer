@@ -520,6 +520,11 @@ export default {
     name: 'Fire Mines',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
+  FIRE_MINES_2: { // also forgefiends fabricator
+    id: 253322,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
   LEGION_BOMBARDMENT: { // terminus signaling beacon
     id: 257376,
     name: 'Legion Bombardment',
@@ -800,7 +805,7 @@ export default {
   FROZEN_ARMOR: {
     id: 251941,
     name: 'Frozen Armor',
-    icon : 'ability_hunter_glacialtrap',
+    icon: 'ability_hunter_glacialtrap',
   },
   // Riftworld Codex
   WINDS_OF_KARETH: { //6sec HoT
@@ -836,4 +841,16 @@ export default {
     name: 'Strength of the Sky',
     icon: 'spell_nature_unrelentingstorm',
   },
+  //Darkmoon Whistle
+  BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
+    id: 132568,
+    name: 'Blow Darkmoon Whistle',
+    icon: 'ability_hunter_beastcall',
+  },
+  DARKMOON_FIREWORK: { //Darkmoon Firework toy
+    id: 103740,
+    name: 'Darkmoon Firework',
+    icon: 'inv_misc_missilesmallcluster_green',
+  },
+
 };

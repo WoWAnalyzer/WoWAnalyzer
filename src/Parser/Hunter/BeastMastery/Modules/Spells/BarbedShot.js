@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
@@ -15,12 +15,13 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
  * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
  */
 
-//max stacks pet can have of Dire Frenzy buff
-const MAX_DIRE_FRENZY_STACKS = 3;
+//max stacks pet can have of the Frenzy buff
+const MAX_FRENZY_STACKS = 3;
 
-const DIRE_FRENZY_DURATION = 8000;
+const FRENZY_DURATION = 8000;
 
-class DireFrenzy extends Analyzer {
+class BarbedShot extends Analyzer {
+
   damage = 0;
   buffStart = 0;
   buffEnd = 0;
@@ -28,33 +29,28 @@ class DireFrenzy extends Analyzer {
   startOfMaxStacks = 0;
   timeAtMaxStacks = 0;
   timeBuffed = 0;
-  lastDireFrenzyCast = null;
+  lastBarbedShotCast = null;
   timeCalculated = null;
   lastApplicationTimestamp = 0;
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
-    this.lastDireFrenzyCast = event.timestamp;
-    if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+    this.lastBarbedShotCast = event.timestamp;
+    if (this.currentStacks === MAX_FRENZY_STACKS) {
       this.timesRefreshed++;
       this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
       this.lastApplicationTimestamp = event.timestamp;
     }
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_FRENZY_DAMAGE.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);
@@ -62,11 +58,11 @@ class DireFrenzy extends Analyzer {
 
   on_toPlayerPet_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
     }
     this.timeBuffed += event.timestamp - this.buffStart;
-    if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+    if (this.currentStacks === MAX_FRENZY_STACKS) {
       this.timeAtMaxStacks += event.timestamp - this.startOfMaxStacks;
     }
     this.currentStacks = 0;
@@ -75,13 +71,13 @@ class DireFrenzy extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
     }
     if (this.currentStacks > 0) {
-      this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
-      if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
-        this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+      this.timeBuffed += (this.lastBarbedShotCast + FRENZY_DURATION) - this.buffStart;
+      if (this.currentStacks === MAX_FRENZY_STACKS) {
+        this.timeAtMaxStacks += (this.lastBarbedShotCast + FRENZY_DURATION) - this.startOfMaxStacks;
       }
     }
     this.buffStart = event.timestamp;
@@ -92,11 +88,11 @@ class DireFrenzy extends Analyzer {
 
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
     }
     this.currentStacks = event.stack;
-    if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+    if (this.currentStacks === MAX_FRENZY_STACKS) {
       this.startOfMaxStacks = event.timestamp;
     }
     this.timesRefreshed++;
@@ -106,7 +102,7 @@ class DireFrenzy extends Analyzer {
 
   on_finished() {
     if (!this.timeCalculated) {
-      if ((this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) > this.owner.fight.end_time) {
+      if ((this.lastBarbedShotCast + FRENZY_DURATION) > this.owner.fight.end_time) {
         if (this.currentStacks > 0) {
           this.timeBuffed += this.owner.fight.end_time - this.buffStart;
         }
@@ -115,10 +111,10 @@ class DireFrenzy extends Analyzer {
         }
       } else {
         if (this.currentStacks > 0) {
-          this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
+          this.timeBuffed += (this.lastBarbedShotCast + FRENZY_DURATION) - this.buffStart;
         }
         if (this.currentStacks === 3) {
-          this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+          this.timeAtMaxStacks += (this.lastBarbedShotCast + FRENZY_DURATION) - this.startOfMaxStacks;
         }
       }
     }
@@ -137,8 +133,8 @@ class DireFrenzy extends Analyzer {
   }
 
   get percentPlayerUptime() {
-    //This calculates the uptime over the course of the encounter of Dire Frenzy for the player
-    return (this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_4.id) + this.selectedCombatant.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_5.id)) / this.owner.fightDuration;
+    //This calculates the uptime over the course of the encounter of Barbed Shot for the player
+    return (this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id)) / this.owner.fightDuration;
   }
 
   get direFrenzyUptimeThreshold() {
@@ -168,15 +164,15 @@ class DireFrenzy extends Analyzer {
   suggestions(when) {
     when(this.direFrenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </React.Fragment>)
-          .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-          .actual(`Your pet had the buff from Dire Frenzy for ${formatPercentage(actual)}% of the fight`)
+        return suggest(<React.Fragment>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </React.Fragment>)
+          .icon(SPELLS.BARBED_SHOT.icon)
+          .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
     when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </React.Fragment>)
-        .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-        .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${formatPercentage(actual)}% of the fight`)
+      return suggest(<React.Fragment>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </React.Fragment>)
+        .icon(SPELLS.BARBED_SHOT.icon)
+        .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
     });
   }
@@ -184,16 +180,15 @@ class DireFrenzy extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.DIRE_FRENZY_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.BARBED_SHOT.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)}%`}
-        label="3 Stack Uptime"
+        label="3 stack uptime"
         tooltip={`
         <ul>
           <li>Your pet had an overall uptime of ${formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
           <li>Average time between refreshing the buff was ${this.averageTimeBetweenRefresh} seconds </li>
-          <li>You had an uptime of ${formatPercentage(this.percentPlayerUptime)}% on the focus regen buff</li>
+          <li>You had an uptime of ${formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
             <ul>
-            <li>This number indicates you had an average of ${(this.percentPlayerUptime).toFixed(2)} stacks of the buff up over the course of the encounter.</li>
             </ul>
         </ul>`}
       />
@@ -205,7 +200,7 @@ class DireFrenzy extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />
+          <SpellLink id={SPELLS.BARBED_SHOT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />
@@ -215,4 +210,4 @@ class DireFrenzy extends Analyzer {
   }
 }
 
-export default DireFrenzy;
+export default BarbedShot;

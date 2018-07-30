@@ -119,7 +119,7 @@ export default [
   },
   {
     date: new Date('2018-02-14'),
-    changes: <React.Fragment>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} /> to it.</React.Fragment>,
+    changes: <React.Fragment>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and Blood Tap to it.</React.Fragment>,
     contributors: [Gebuz],
   },
   {

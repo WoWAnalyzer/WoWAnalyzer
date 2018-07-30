@@ -27,7 +27,6 @@ import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
-import InnerHallation from './Modules/Items/InnerHallation';
 import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
@@ -94,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
-    innerHallation: InnerHallation,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,

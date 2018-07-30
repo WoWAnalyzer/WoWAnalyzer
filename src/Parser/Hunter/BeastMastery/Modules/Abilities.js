@@ -13,7 +13,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -88,26 +90,18 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <React.Fragment>
-              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
-            </React.Fragment>
-          ),
         },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 120 - (120 * 0.35) : 120,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <React.Fragment>
-              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> to maximize the potency of these increased damage windows.
-            </React.Fragment>
-          ),
         },
       },
       {
@@ -133,7 +127,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -146,7 +140,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -166,6 +160,25 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.PRIMAL_RAGE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 360,
+        gcd: null,
+      },
+
+      {
+        spell: SPELLS.MASTERS_CALL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
         gcd: null,
       },
       {
@@ -206,7 +219,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -240,6 +255,40 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           base: 1500,
+        },
+      },
+
+      /**
+       * Racials until we find a better solution
+       */
+      {
+        spell: SPELLS.ARCANE_TORRENT_FOCUS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
         },
       },
     ];

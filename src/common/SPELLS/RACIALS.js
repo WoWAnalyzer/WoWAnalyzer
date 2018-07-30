@@ -122,6 +122,11 @@ export default {
   },
   // Orc
   BLOOD_FURY_SPELL: {
+    id: 33702,
+    name: 'Blood Fury',
+    icon: 'racial_orc_berserkerstrength',
+  },
+  BLOOD_FURY_SPELL_AND_PHYSICAL: {
     id: 33697,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength',

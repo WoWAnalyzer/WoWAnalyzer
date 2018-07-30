@@ -40,7 +40,7 @@ export default [
   },
   {
     date: new Date('05-13-2017'),
-    changes: <React.Fragment>Added <span class="Shaman">Enhancement Shaman</span> support</React.Fragment>,
+    changes: <React.Fragment>Added <span className="Shaman">Enhancement Shaman</span> support</React.Fragment>,
     contributors: [Nighteyez07],
   },
 ];

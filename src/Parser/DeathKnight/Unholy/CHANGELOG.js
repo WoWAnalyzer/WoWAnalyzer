@@ -69,7 +69,7 @@ export default [
   },
   {
     date: new Date('2017-11-01'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} /> Module</React.Fragment>,
+    changes: 'Added Dark Arbiter Module',
     contributors: [Khazak],
   },
   {
