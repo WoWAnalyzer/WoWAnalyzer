@@ -15,6 +15,13 @@ export const BUFFS = [
     mitigation: 0.3,
   },
   // Demon Hunter
+  {
+    id: SPELLS.BLUR.id,
+    name: SPELLS.BLUR.name,
+    mitigation: (armor, versatility, mastery, combatant) => {
+      return combatant.hasTalent(SPELLS.DESPERATE_INSTINCTS_TALENT.id) ? 0.5 : 0.35;
+    },
+  },
   // Druid
   {
     id: SPELLS.BARKSKIN.id,
@@ -43,8 +50,8 @@ export const BUFFS = [
     mitigation: 0.3,
   },
   {
-    id: SPELLS.SURVIVAL_OF_THE_FITTEST.id,
-    name: SPELLS.SURVIVAL_OF_THE_FITTEST.name,
+    id: SPELLS.SURVIVAL_OF_THE_FITTEST_BUFF.id,
+    name: SPELLS.SURVIVAL_OF_THE_FITTEST_BUFF.name,
     mitigation: 0.2,
   },
   // Mage
@@ -97,6 +104,14 @@ export const BUFFS = [
     mitigation: 0.1,
   },
   {
+    id: SPELLS.RENEW.id,
+    name: SPELLS.RENEW.name,
+    mitigation: 0.1,
+    enabled: combatant => {
+      return combatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id);
+    },
+  },
+  {
     id: SPELLS.LENIENCE_TALENT.id,
     name: SPELLS.LENIENCE_TALENT.name,
     mitigation: 0.03,
@@ -136,6 +151,14 @@ export const BUFFS = [
     mitigation: 0.3,
   },
   {
+    id: SPELLS.ENRAGE.id,
+    name: SPELLS.ENRAGE.name,
+    mitigation: 0.1,
+    enabled: combatant => {
+      return combatant.hasTalent(SPELLS.WARPAINT_TALENT.id)
+    }
+  },
+  {
     id: SPELLS.SHIELD_WALL.id,
     name: SPELLS.SHIELD_WALL.name,
     mitigation: 0.4,
@@ -154,6 +177,15 @@ export const PASSIVES = [
   },
   // Death Knight
   // Demon Hunter
+  {
+    id: SPELLS.DEMONIC_WARDS.id,
+    name: SPELLS.DEMONIC_WARDS.name,
+    mitigation: 0.1,
+    enabled: combatant => {
+      return (combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id ||
+      combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id);
+    },
+  },
   // Druid
   {
     id: SPELLS.THICK_HIDE.id,
