@@ -7,15 +7,22 @@ class Reduction {
      */
     id: PropTypes.number.isRequired,
     /**
-     * The name of the damage reduction.
+     * REQUIRED The name of the damage reduction.
      */
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     /**
      * The mitigation provided by the damage reduction. This can be a function for more complicated calls or even to check for buffs. Parameters provided: `selectedCombatant`, `armor`.
      */
     mitigation: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.number,
+    ]),
+    /**
+     * Whether the reduction is enabled and should be used. Defaults to true. This can be a function.
+     */
+    enabled: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.bool,
     ]),
   };
 
@@ -32,14 +39,29 @@ class Reduction {
   /** @return {number} */
   get mitigation() {
     if (this._mitigation === undefined) {
-      // Most abilities will always be active and don't provide this prop at all
       return 0;
     }
     if (typeof this._mitigation === 'function') {
       return this._mitigation.call(this._owner, this._owner.statTracker.currentArmorPercentage, this._owner.statTracker.currentVersatilityPercentage, this._owner.statTracker.currentMasteryPercentage, this._owner.selectedCombatant);
     }
-
     return this._mitigation;
+  }
+  // endregion
+  // region enabled
+  _enabled = true;
+  /** @param {func|bool|undefined} value */
+  set enabled(value) {
+    this._enabled = value;
+  }
+  /** @return {bool} */
+  get enabled() {
+    if (this._enabled === undefined) {
+      return true;
+    }
+    if (typeof this._enabled === 'function') {
+      return this._enabled.call(this._owner, this._owner.selectedCombatant);
+    }
+    return this._enabled;
   }
   // endregion
  

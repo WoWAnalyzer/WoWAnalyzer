@@ -562,7 +562,7 @@ class StatTracker extends Analyzer {
   }
   armorPercentage(rating) {
     // tfw you get a formula from a rando on the wow forums
-    return rating / (rating + 7390);
+    return rating / (rating + 2107); // K value is 6300 for lv 120-123, 2107 for lv 113, 1423 for lv 110.
   }
 
   /*

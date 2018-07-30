@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import SPECS from 'common/SPECS';
 
 // Damage reductions that are buffs and has a static value
-export const STATIC_BUFFS = [
+export const BUFFS = [
   // Death Knight
   {
     id: SPELLS.ICEBOUND_FORTITUDE.id,
@@ -141,6 +142,40 @@ export const STATIC_BUFFS = [
   },
 ];
 
+// Damage reductions that are passive and has a static value
+export const PASSIVES = [
+  // Global
+  {
+    id: -1002,
+    name: 'Versatility',
+    mitigation: (armor, versatility) => {
+      return versatility / 2;
+    },
+  },
+  // Death Knight
+  // Demon Hunter
+  // Druid
+  {
+    id: SPELLS.THICK_HIDE.id,
+    name: SPELLS.THICK_HIDE.name,
+    mitigation: 0.06,
+    enabled: combatant => {
+      return (combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id) || 
+      combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_FERAL.id) || 
+      combatant.specId === SPECS.GUARDIAN_DRUID.id);
+    },
+  },
+  // Hunter
+  // Mage
+  // Monk
+  // Paladin
+  // Priest
+  // Rogue
+  // Shaman  
+  // Warlock
+  // Warrior
+];
+
 // Some of these are not abilities so they are given fake IDs. They will also need icons.
 
 // Any missing damage mitigation is contributed to "Unknown"
@@ -155,14 +190,8 @@ export const ARMOR =
   id: -1001,
   name: 'Armor',
   mitigation: armor => {
-    return armor; // K value is 6300 for lv 120-123, 2107 for lv 113, 1423 for lv 110.
+    return armor;
   },
-};
-
-export const VERSATILITY = 
-{
-  id: -1002,
-  name: 'Versatility',
 };
 
 // Paladin and Destruction Warlock mastery.

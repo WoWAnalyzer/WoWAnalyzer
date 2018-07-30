@@ -1,17 +1,11 @@
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatTracker from 'Parser/Core/Modules/StatTracker'
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import Reduction from './Reduction';
-import { STATIC_BUFFS, UNKNOWN, ARMOR } from './Constants';
+import { BUFFS, PASSIVES, UNKNOWN, ARMOR } from './Constants';
 
 const debug = true;
-
-const REDUCTIONS = [
-  ...STATIC_BUFFS,
-  UNKNOWN,
-  ARMOR,
-];
 
 const BUFFER_PERCENT = 0.01;
 const ADDITIVE = (accumulator, reduction) => accumulator + reduction.mitigation;
@@ -24,21 +18,39 @@ class DamageMitigation extends Analyzer {
 
   static REDUCTION_CLASS = Reduction;
 
-  reductions = [];
+  buffs = [];
   passives = [];
-  totalMitigated = {};
-
   unknownReduction = null;
   armorReduction = null;
+  totalMitigated = {};
+  checkSum = 0;
 
   constructor(...args) {
     super(...args);
-    this.reductions = REDUCTIONS.map(options => new this.constructor.REDUCTION_CLASS(this, options));
-    this.unknownReduction = this.reductions.find(e => e.name === UNKNOWN.name);
-    this.armorReduction = this.reductions.find(e => e.name === ARMOR.name);
-    console.log(this.reductions)
-    // Find a better place to define this.
-    debug && console.log(this.totalMitigated);
+    this.addReductions();
+  }
+
+  on_finished() {
+    if (!debug) {
+      return;
+    }
+    console.log(this.totalMitigated);
+    let sum = 0;
+    Object.keys(this.totalMitigated).forEach(key => {
+      sum += this.totalMitigated[key].amount;
+    });
+    console.log('Total: ' + sum + ', Checksum: ' + this.checkSum);
+  }
+
+  addReductions() {
+    // Buffs
+    this.buffs = BUFFS.map(options => new this.constructor.REDUCTION_CLASS(this, options))
+    .filter(e => e.enabled);
+    // Passives
+    this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
+    this.armorReduction = new this.constructor.REDUCTION_CLASS(this, ARMOR);
+    this.passives = PASSIVES.map(options => new this.constructor.REDUCTION_CLASS(this, options))
+    .filter(e => e.enabled);
   }
 
   initReduction(reduction) {
@@ -54,7 +66,7 @@ class DamageMitigation extends Analyzer {
       return;
     }
     if (!event.mitigated ) { // No damage was mitigated.
-      debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Source target was friendly. Ability: ' + event.ability.name);
+      debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - No damage was mitigated. Ability: ' + event.ability.name);
       return;
     }
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + event.mitigated + ', ' + formatPercentage(event.mitigated/event.unmitigatedAmount) + '%');
@@ -62,10 +74,12 @@ class DamageMitigation extends Analyzer {
   }
 
   handleEvent(event) {
+    debug && (this.checkSum += event.mitigated);
+    // Add passives
     const mitigations = this.passives.slice();
 
     // Check for active buffs
-    this.reductions.forEach(buff => {
+    this.buffs.forEach(buff => {
       if (this.selectedCombatant.hasBuff(buff.id)){
         mitigations.push(buff);
       }
@@ -88,14 +102,20 @@ class DamageMitigation extends Analyzer {
 
     const percentMitigated = event.mitigated/event.unmitigatedAmount;
     const multiplicative = 1 - mitigations.reduce(MULTIPLICATIVE, 1);
-    if (percentMitigated + BUFFER_PERCENT < multiplicative) {
-      console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time.');
-    }
-    const unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
-    this.totalMitigated[this.unknownReduction.id].amount += unknown * event.mitigated;
 
+    if (percentMitigated + BUFFER_PERCENT < multiplicative) {
+      console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+    }
+    if (percentMitigated - BUFFER_PERCENT > multiplicative) {
+      console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+    }
+
+    const unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
+    if (!this.totalMitigated[this.unknownReduction.id]) {
+      this.initReduction(this.unknownReduction);
+    }
     const additive = mitigations.reduce(ADDITIVE, unknown);
-    console.log(additive)
+    this.totalMitigated[this.unknownReduction.id].amount += unknown / additive * event.mitigated;
     
     mitigations.forEach(reduction => {
       if (!this.totalMitigated[reduction.id]) {
