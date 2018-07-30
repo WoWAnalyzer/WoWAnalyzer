@@ -23,22 +23,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FRACTURE_TALENT,
+        spell: [combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? SPELLS.FRACTURE_TALENT : SPELLS.SHEAR],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
-        cooldown: haste => 4.5 / (1 + haste),
-        charges: 2,
+        cooldown:  combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
+        charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
-          suggestion: true,
+          suggestion: !!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
           recommendedEfficiency: 0.90,
         },
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SHEAR,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
