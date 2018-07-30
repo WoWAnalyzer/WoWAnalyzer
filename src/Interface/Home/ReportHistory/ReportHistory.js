@@ -9,7 +9,7 @@ import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TY
 class ReportHistory extends React.PureComponent {
   static propTypes = {
     reportHistory: PropTypes.arrayOf(PropTypes.shape({
-      code: PropTypes.string,
+      code: PropTypes.string.isRequired,
       fightId: PropTypes.number,
       fightName: PropTypes.string,
       playerId: PropTypes.number,
