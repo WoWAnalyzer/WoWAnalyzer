@@ -15,6 +15,7 @@ import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
 import DeathTracker from './Modules/DeathTracker';
+import DamageMitigation from './Modules/DamageMitigation/DamageMitigation';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -167,6 +168,7 @@ class CombatLogParser {
     damageDone: DamageDone,
     damageTaken: DamageTaken,
     deathTracker: DeathTracker,
+    damageMitigation: DamageMitigation,
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,

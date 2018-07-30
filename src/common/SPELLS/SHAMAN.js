@@ -316,6 +316,11 @@ export default {
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
+  HARDEN_SKIN: {
+    id: 118337,
+    name: 'Harden Skin',
+    icon: 'ability_golemthunderclap',
+  },
   // Elemental Legendaries
   PRISTINE_PROTOSCALE_GIRDLE: {
     id: 224852,
