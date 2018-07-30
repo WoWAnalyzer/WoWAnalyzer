@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { appendReportHistory } from 'Interface/actions/reportHistory';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
@@ -13,6 +16,7 @@ import ZONES from 'common/ZONES';
 import SPECS from 'common/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
+import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
@@ -43,6 +47,7 @@ class Parses extends React.Component {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    appendReportHistory: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -71,6 +76,7 @@ class Parses extends React.Component {
     this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
     this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
+    this.appendHistory = this.appendHistory.bind(this);
   }
 
   componentDidMount() {
@@ -79,6 +85,18 @@ class Parses extends React.Component {
 
   iconPath(specName) {
     return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
+  }
+
+  appendHistory(player) {
+    this.props.appendReportHistory({
+      code: `${player.name}-${player.realm}-${player.region}`,
+      end: Date.now(),
+      type: REPORT_HISTORY_TYPES.CHARACTER,
+      playerName: player.name,
+      playerRealm: player.realm,
+      playerRegion: player.region,
+      playerClass: player.class,
+    });
   }
 
   updateZoneMetricBoss(zone, metric, boss) {
@@ -306,6 +324,14 @@ class Parses extends React.Component {
           .map(e => e.specName);
 
         const parses = this.changeParseStructure(rawParses, charClass);
+
+        this.appendHistory({
+          name: this.props.name,
+          realm: this.props.realm,
+          region: this.props.region,
+          class: charClass,
+        });
+
         this.setState({
           specs: specs,
           activeSpec: specs.map(elem => elem.replace(' ', '')),
@@ -544,4 +570,13 @@ class Parses extends React.Component {
   }
 }
 
-export default Parses;
+const mapStateToProps = state => {
+  return ({ });
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  {
+    appendReportHistory,
+  }
+)(Parses));
