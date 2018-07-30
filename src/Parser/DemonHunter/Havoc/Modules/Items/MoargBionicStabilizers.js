@@ -60,11 +60,10 @@ class MoargBionicStabiliziers extends Analyzer {
 	}
 
 	item() {
-		const bloodletTooltip = this.selectedCombatant.hasTalent(SPELLS.BLOODLET_TALENT.id) ? `<br/><br/> This currently doesn't account for bloodlet damage` : ``;
 		return {
 			item: ITEMS.MOARG_BIONIC_STABILIZERS,
 			result: (
-				<dfn data-tip={`You hit an average of <b>${this.averageTargetsHit}</b> targets with throw glaive. ${bloodletTooltip}.`}>
+				<dfn data-tip={`You hit an average of <b>${this.averageTargetsHit}</b> targets with throw glaive.`}>
 					<ItemDamageDone amount={this.bonusDamage} />
 				</dfn>
 				),

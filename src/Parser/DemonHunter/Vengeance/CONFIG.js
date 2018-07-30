@@ -8,11 +8,15 @@ import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
+const textAlignStyle = {
+  textAlign: 'center',
+};
+
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
   contributors: [Mamtooth],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '7.3',
+  patchCompatibility: '8.0.1',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
 	description: (
@@ -25,7 +29,7 @@ export default {
 
 			If you have any more questions about Demon Hunters, feel free to pay a visit to <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">The Fel Hammer Discord</a>, if it's about a general tanking issue, there's also the <a href="https://discord.gg/j9Q5cy7" target="_blank" rel="noopener noreferrer">Tank Chat Discord</a> but if you'd like to discuss anything related to this analyzer, leave a message on GitHub issue or message @Mamtooth on WoWAnalyzer Discord.<br /><br />
 
-			<center>NOW YOU ARE PREPARED!</center><br /><br />
+			<p style={textAlignStyle}>NOW YOU ARE PREPARED!</p><br /><br />
 
       <Warning>
         This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />

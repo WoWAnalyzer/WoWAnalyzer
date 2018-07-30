@@ -16,14 +16,18 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments';
-import SpiritBomb from './Modules/Talent/SpiritBomb';
+import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
+import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
+
+import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
+import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
+import SoulBarrier from './Modules/Talent/SoulBarrier';
+import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
+
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
-
-import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -41,22 +45,25 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    soulFragmentsTracker: SoulFragmentsTracker,
 
     //Resource Tracker
     painTracker :PainTracker,
     painDetails: PainDetails,
 
-    // Spirit Bomb Tracker Module (Frailty uptime tracker)
-    spiritBomb: SpiritBomb,
+    //Talents
+    SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    soulBarrier: SoulBarrier,
+    spiritBombSoulConsume: SpiritBombSoulConsume,
 
-    // Soul Fragments Tracker module (includes Generated and Wasted)
-    soulFragments: SoulFragments,
-
-    // Spell Statistics
+    // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
-    soulBarrier: SoulBarrier,
+
+    //Stats
+    soulsOvercap: SoulsOvercap,
+    soulFragmentsConsume: SoulFragmentsConsume,
 
     // Tier 20
     tier202PBonus: Tier202PBonus,

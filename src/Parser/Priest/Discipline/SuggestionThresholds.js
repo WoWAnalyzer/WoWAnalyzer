@@ -16,7 +16,7 @@ export default {
     regular: 0.85,
     major: 0.70,
   },
-  LUMINOUS_BARRIER_WASTED: {
+  LUMINOUS_BARRIER_TALENT_WASTED: {
     minor: 0.10,
     regular: 0.15,
     major: 0.25,

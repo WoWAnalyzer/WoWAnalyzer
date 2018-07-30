@@ -182,7 +182,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45 * (combatant.hasTalent(SPELLS.KNIGHT_TEMPLAR_TALENT.id) ? 0.5 : 1),
+        cooldown: 45,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
