@@ -215,7 +215,7 @@ class Results extends React.PureComponent {
   }
 
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
@@ -279,17 +279,6 @@ class Results extends React.PureComponent {
               >
                 <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
               </a>
-              {' '}
-              {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
-                <Link 
-                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
-                  data-tip={`Show ${characterProfile.realm} - ${characterProfile.name}'s most recent logs`}
-                  className="btn"
-                  style={{ fontSize: 24 }}
-                >
-                  <img src="/favicon.png" alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
-                </Link>
-              )}
             </div>
           </div>
           <div className="col-md-8">
