@@ -446,6 +446,11 @@ export default {
     name: 'Arcane Familiar',
     icon: 'ability_sorcererking_arcanemines',
   },
+  QUICK_THINKER_BUFF: {
+    id: 253299,
+    name: 'Quick Thinker',
+    icon: 'ability_mage_studentofthemind',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
