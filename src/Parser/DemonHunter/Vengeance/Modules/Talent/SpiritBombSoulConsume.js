@@ -5,6 +5,7 @@ import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
@@ -67,6 +68,22 @@ class SpiritBombSoulConsume extends Analyzer {
 
   on_finished() {
     this.countHits();
+  }
+
+  suggestions(when) {
+    const totalGoodCasts = this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+    const totalCasts = Object.values(this.soulsConsumedByAmount).reduce((a, b) => a+b, 0);
+    const percentGoodCasts = totalGoodCasts / totalCasts;
+
+    when(percentGoodCasts).isLessThan(0.90)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls. </React.Fragment>)
+          .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
+          .actual(`${formatPercentage(percentGoodCasts)}% of casts at 4+ souls.`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05)
+          .major(recommended - 0.15);
+      });
   }
 
   statistic() {

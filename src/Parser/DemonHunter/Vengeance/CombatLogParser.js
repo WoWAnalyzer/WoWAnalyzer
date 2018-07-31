@@ -28,6 +28,7 @@ import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
+import SoulCleaveSoulsConsumed from './Modules/Spells/SoulCleaveSoulsConsumed';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
+    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
 
     //Stats
     soulsOvercap: SoulsOvercap,
