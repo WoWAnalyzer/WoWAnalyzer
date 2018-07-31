@@ -64,7 +64,9 @@ class grace extends Analyzer {
   }
 
   absorbApplicationWasMasteryBuffed(event){
-    const applyEvent = this.applyAbsorbEvents.slice().reverse().find(x => x.applyBuffEvent.targetID === event.targetID);
+    const findRight = (arr, fn) => [...arr].reverse().find(fn);
+    const applyEvent = findRight(this.applyAbsorbEvents,
+      x => x.applyBuffEvent.targetID === event.targetID && x.applyBuffEvent.ability.guid === event.ability.guid);
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
 
@@ -135,8 +137,11 @@ class grace extends Analyzer {
               </ul>
             </li>
             <li><b>${formatPercentage(healingUnbuffedByMasteryPerc)}%</b> of your healing was spells unbuffed by mastery</li>
-            <li><b>${formatPercentage(healingUnaffectedByMasteryPerc)}%</b> of your healing was spells unaffected by mastery (trinkets, procs, etc...) </li>
+            <li><b>${formatPercentage(healingUnaffectedByMasteryPerc)}%</b> of your healing was spells unaffected by mastery </li>
           </ul>
+          <br />
+          <b>Unbuffed</b> healing is healing done to targets without atonement with spells that can benefit from mastery. <br />
+          <b>Unaffected</b> healing is healing done with spells that can't benefit from mastery (Trinkets, procs, etc...)
         `}
       />
     );
