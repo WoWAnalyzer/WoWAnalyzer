@@ -87,7 +87,7 @@ class Rule extends React.PureComponent {
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
         <div className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
-          <div className="meta" onClick={this.handleToggleExpand}>
+          <div className="meta checklist-item" onClick={this.handleToggleExpand}>
             <div className="flex" style={{ fontSize: '1.4em' }}>
               <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
                 <div>{/* this div ensures vertical alignment */}
