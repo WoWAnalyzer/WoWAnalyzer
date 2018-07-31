@@ -16,8 +16,8 @@ export const BUFFS = [
   },
   // Demon Hunter
   {
-    id: SPELLS.BLUR.id,
-    name: SPELLS.BLUR.name,
+    id: SPELLS.BLUR_BUFF.id,
+    name: SPELLS.BLUR_BUFF.name,
     mitigation: (armor, versatility, mastery, combatant) => {
       return combatant.hasTalent(SPELLS.DESPERATE_INSTINCTS_TALENT.id) ? 0.5 : 0.35;
     },
@@ -81,6 +81,12 @@ export const BUFFS = [
     id: SPELLS.ARDENT_DEFENDER.id,
     name: SPELLS.ARDENT_DEFENDER.name,
     mitigation: 0.2,
+  },
+  {
+    id: SPELLS.EYE_FOR_AN_EYE_TALENT.id,
+    name: SPELLS.EYE_FOR_AN_EYE_TALENT.name,
+    mitigation: 0.35,
+    school: [1],
   },
   // Priest
   {
@@ -155,19 +161,33 @@ export const BUFFS = [
     name: SPELLS.ENRAGE.name,
     mitigation: 0.1,
     enabled: combatant => {
-      return combatant.hasTalent(SPELLS.WARPAINT_TALENT.id)
-    }
+      return combatant.hasTalent(SPELLS.WARPAINT_TALENT.id);
+    },
   },
   {
     id: SPELLS.SHIELD_WALL.id,
     name: SPELLS.SHIELD_WALL.name,
     mitigation: 0.4,
   },
+  {
+    id: SPELLS.SPELL_REFLECTION.id,
+    name: SPELLS.SPELL_REFLECTION.name,
+    mitigation: 0.2,
+    school: [0],
+  },
 ];
 
 // Damage reductions that are passive and has a static value
 export const PASSIVES = [
   // Global
+  {
+    id: -1001,
+    name: 'Armor',
+    mitigation: armor => {
+      return armor;
+    },
+    school: [1],
+  },
   {
     id: -1002,
     name: 'Versatility',
@@ -185,6 +205,7 @@ export const PASSIVES = [
       return (combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id ||
       combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id);
     },
+    school: [0],
   },
   // Druid
   {
@@ -215,15 +236,6 @@ export const UNKNOWN =
 {
   id: -1000,
   name: 'Unknown',
-};
-
-export const ARMOR = 
-{
-  id: -1001,
-  name: 'Armor',
-  mitigation: armor => {
-    return armor;
-  },
 };
 
 // Paladin and Destruction Warlock mastery.

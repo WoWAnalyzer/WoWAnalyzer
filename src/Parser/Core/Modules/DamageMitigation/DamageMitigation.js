@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import Reduction from './Reduction';
-import { BUFFS, PASSIVES, UNKNOWN, ARMOR } from './Constants';
+import { BUFFS, PASSIVES, UNKNOWN } from './Constants';
 
 const debug = true;
 
@@ -21,7 +21,6 @@ class DamageMitigation extends Analyzer {
   buffs = [];
   passives = [];
   unknownReduction = null;
-  armorReduction = null;
   totalMitigated = {};
   checkSum = 0;
 
@@ -48,7 +47,6 @@ class DamageMitigation extends Analyzer {
     .filter(e => e.enabled);
     // Passives
     this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
-    this.armorReduction = new this.constructor.REDUCTION_CLASS(this, ARMOR);
     this.passives = PASSIVES.map(options => new this.constructor.REDUCTION_CLASS(this, options))
     .filter(e => e.enabled);
   }
@@ -76,7 +74,7 @@ class DamageMitigation extends Analyzer {
   handleEvent(event) {
     debug && (this.checkSum += event.mitigated);
     // Add passives
-    const mitigations = this.passives.slice();
+    let mitigations = this.passives.slice();
 
     // Check for active buffs
     this.buffs.forEach(buff => {
@@ -85,10 +83,16 @@ class DamageMitigation extends Analyzer {
       }
     });
 
-    // Check if physical damage
-    if (event.ability.type === 1) {
-      mitigations.push(this.armorReduction);
-    }
+    // Filter by spell school
+    mitigations = mitigations.filter(e => {
+      if (e.school === undefined || e.school === null) {
+        return true;
+      }
+      if (e.school.includes(0) && event.ability.type !== 1) {
+        return true;
+      }
+      return e.school.includes(event.ability.type);
+    });
 
     debug && console.log(mitigations);
 

@@ -331,6 +331,11 @@ export default {
     name: 'Blur',
     icon: 'ability_demonhunter_blur',
   },
+  BLUR_BUFF: {
+    id: 212800,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
+  },
   DARKNESS: {
     id: 196718,
     name: 'Darkness',

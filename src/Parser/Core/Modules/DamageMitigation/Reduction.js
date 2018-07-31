@@ -24,6 +24,12 @@ class Reduction {
       PropTypes.func,
       PropTypes.bool,
     ]),
+    /**
+     * Spell schools that are affected. Default is everything. 0 is all magic damage. See this for a list of spell schools: http://wowwiki.wikia.com/wiki/API_COMBAT_LOG_EVENT#Spell_School
+     */
+    school: PropTypes.arrayOf(
+      PropTypes.number,
+    ),
   };
 
   _owner = null;
@@ -64,6 +70,7 @@ class Reduction {
     return this._enabled;
   }
   // endregion
+  school = null;
  
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.
