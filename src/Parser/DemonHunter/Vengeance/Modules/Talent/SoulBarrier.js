@@ -63,9 +63,9 @@ class SoulBarrier extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.40,
-        average: 0.35,
-        major: .30,
+        minor: 0.35,
+        average: 0.30,
+        major: .25,
       },
       style: 'percentage',
     };
@@ -87,7 +87,7 @@ class SoulBarrier extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_BARRIER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label="Soul Barrier Uptime"
+        label="Soul Barrier uptime"
         tooltip={`Average Buff Length: <strong>${formatNumber(avgBuffLength)} seconds</strong></br>
                   Total Damage Absorbed: <strong>${formatNumber(this.totalAbsorbed)}</strong></br>
                   Healing <strong>${this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong></br>

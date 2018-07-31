@@ -741,9 +741,10 @@ code.inactive {
   vertical-align: top;
 }
 
+
+
 .expandable > .meta {
   cursor: pointer;
-  padding: 15px 22px;
 }
 .expandable:hover > .meta {
   background-color: rgba(99, 31, 31, 0.1);

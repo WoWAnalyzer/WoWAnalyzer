@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 const PainComponent = ({ categories, abilities }) => {
   if (!abilities) {
@@ -29,7 +28,7 @@ const PainComponent = ({ categories, abilities }) => {
                 <tr key={name}>
                   <td style={{ width: '35%' }}>
                     <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                      <SpellIcon id={ability.spellId} noLink /> {name}
+                      {name}
                     </SpellLink>
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>

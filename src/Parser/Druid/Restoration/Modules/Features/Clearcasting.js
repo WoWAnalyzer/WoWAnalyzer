@@ -28,8 +28,7 @@ class Clearcasting extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasMoC = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
-    this.procsPerCC = this.hasMoC ? 3 : 1;
+    this.procsPerCC = 1;
   }
 
   on_byPlayer_applybuff(event) {

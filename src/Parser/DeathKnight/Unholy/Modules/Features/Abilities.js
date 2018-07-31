@@ -71,7 +71,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} /> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} />'s CD has less than 30 seconds remaining.</span>,
         },
       },
 
@@ -94,7 +93,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown. If you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} />, empowering <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} /> with <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> takes priority, so do not worry if an <SpellLink id={SPELLS.APOCALYPSE.id} /> cast is not empowered. </span>,
+          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.</span>,
         },
       },
 

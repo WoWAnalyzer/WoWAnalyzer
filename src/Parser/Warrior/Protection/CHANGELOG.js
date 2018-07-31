@@ -24,7 +24,7 @@ export default [
   },
   {
     date: new Date('2018-05-15'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} />, <SpellLink id={SPELLS.RENEWED_FURY_TALENT.id} />, reordered and added buffs to the timeline and added <SpellLink id={SPELLS.SHIELD_SLAM.id} /> resets (not 100% accurate).</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} />, Renewed Fury, reordered and added buffs to the timeline and added <SpellLink id={SPELLS.SHIELD_SLAM.id} /> resets (not 100% accurate).</React.Fragment>,
     contributors: [joshinator],
   },
   {

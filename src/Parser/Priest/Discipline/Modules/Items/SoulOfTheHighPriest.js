@@ -19,7 +19,7 @@ class SoulOfTheHighPriest extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
-      result: <React.Fragment>This gave you <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />.</React.Fragment>,
+      result: <React.Fragment>This gave you <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />.</React.Fragment>,
     };
   }
 

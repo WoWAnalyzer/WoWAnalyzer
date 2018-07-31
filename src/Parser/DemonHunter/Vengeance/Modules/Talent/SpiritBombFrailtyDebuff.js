@@ -11,7 +11,7 @@ import { formatPercentage, formatThousands, formatDuration } from 'common/format
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-class SpiritBomb extends Analyzer {
+class SpiritBombFrailtyDebuff extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: Enemies,
@@ -53,7 +53,7 @@ class SpiritBomb extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
-export default SpiritBomb;
+export default SpiritBombFrailtyDebuff;

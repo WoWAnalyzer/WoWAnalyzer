@@ -25,7 +25,7 @@ class BeastCleave extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.BEAST_CLEAVE.id} />
+            <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} />
           </div>
           <div className="flex-sub text-right">
             <ItemDamageDone amount={this.damage} />

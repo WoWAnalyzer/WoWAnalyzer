@@ -97,17 +97,18 @@ class HuntersMark extends Analyzer {
     this.markWindow[enemyID].push({ status: "active", start: event.timestamp });
   }
 
-  calculateMarkDamage(event, enemy) {
+  calculateMarkDamage(event) {
+    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.precastConfirmed) {
-      if (!this.damageToTarget[enemy.id]) {
-        this.damageToTarget[enemy.id] = 0;
+      if (!this.damageToTarget[enemyID]) {
+        this.damageToTarget[enemyID] = 0;
       }
-      this.damageToTarget[enemy.id] += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
+      this.damageToTarget[enemyID] += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
     }
-    if (!this.markWindow[enemy.id]) {
+    if (!this.markWindow[enemyID]) {
       return;
     }
-    this.markWindow[enemy.id].forEach(window => {
+    this.markWindow[enemyID].forEach(window => {
       if (window.start < event.timestamp && window.status === "active") {
         this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
       }
@@ -135,7 +136,7 @@ class HuntersMark extends Analyzer {
     if (!enemy) {
       return;
     }
-    this.calculateMarkDamage(event, enemy);
+    this.calculateMarkDamage(event);
   }
 
   get uptimePercentage() {
