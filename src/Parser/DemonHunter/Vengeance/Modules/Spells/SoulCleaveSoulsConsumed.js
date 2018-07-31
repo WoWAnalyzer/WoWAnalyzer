@@ -19,14 +19,14 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   }
 
   get suggestionThresholdsEfficiency() {
-    const soulsConsumedPercent = this.soulFragmentsConsume.soulCleaveSouls() / this.soulFragmentsConsume.totalSoulsConsumed;
+    const soulsConsumedPercent = this.soulFragmentsConsume.soulCleaveSouls() / (this.soulFragmentsConsume.soulsGenerated - this.soulFragmentsConsume.soulsWasted);
     console.log("test #", soulsConsumedPercent);
     return {
       actual: soulsConsumedPercent,
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.10,
-        major: .15,
+        minor: 0.10,
+        average: 0.15,
+        major: .20,
       },
       style: 'percentage',
     };
