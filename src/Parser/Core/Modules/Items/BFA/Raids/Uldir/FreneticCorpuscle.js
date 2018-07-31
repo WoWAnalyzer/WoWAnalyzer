@@ -23,7 +23,6 @@ class FreneticCorpuscle extends Analyzer {
   on_byPlayer_damage(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FRENETIC_BLOW.id){
-      console.log("damage dealt by frenetic blow.");
       this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
       this.hits += 1;
     }
