@@ -11,7 +11,7 @@ class TwistOfFate extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_SHADOW.id);
   }
 
   statistic() {

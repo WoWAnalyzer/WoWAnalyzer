@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT; 
+export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER; 
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {
@@ -27,7 +27,7 @@ class RushingJadeWind extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id);
   }
 
   get uptime() {

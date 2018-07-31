@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.CAT_SWIPE,
+        spell: SPELLS.SWIPE_CAT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
         gcd: {
@@ -176,7 +176,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 120,
         gcd: (combatant => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
@@ -191,10 +191,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 43,
       },
       {
-        spell: SPELLS.TIGERS_DASH_TALENT,
-        buffSpellId: SPELLS.TIGERS_DASH_TALENT.id,
+        spell: SPELLS.TIGER_DASH_TALENT,
+        buffSpellId: SPELLS.TIGER_DASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
         gcd: (combatant => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
@@ -460,7 +460,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STARSURGE,
+        spell: SPELLS.STARSURGE_AFFINITY,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
