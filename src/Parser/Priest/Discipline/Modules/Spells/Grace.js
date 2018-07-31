@@ -62,31 +62,27 @@ class grace extends Analyzer {
     }
   }
 
-  // Finds the absorb buff application event to verify if the initial event was mastery buffed
   absorbApplicationWasMasteryBuffed(event){
-    let i;
-    for (i = this.applyAbsorbEvents.length - 1; i >= 0; i--) {
-      const applyEvent = this.applyAbsorbEvents[i].applyBuffEvent;
-      if(applyEvent.targetID === event.targetID && applyEvent.ability.guid === event.ability.guid) {
-        return this.applyAbsorbEvents[i].masteryBuffed;
-      }
-    }
-    return false;
+    const applyEvent =  this.applyAbsorbEvents.slice().reverse().find(x => x.applyBuffEvent.targetID === event.targetID);
+    return applyEvent ? applyEvent.masteryBuffed : false;
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(PRIEST_WHITELIST.includes(spellId) && event.absorb){
-
-      const target = this.combatants.getEntity(event);
-      if (!target) return;
-
-      this.applyAbsorbEvents.push({
-        applyBuffEvent: event,
-        masteryBuffed: target.hasBuff(SPELLS.ATONEMENT_BUFF.id),
-      });
+    if(!(PRIEST_WHITELIST.includes(spellId) && event.absorb)){
+      return;
     }
+
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
+
+    this.applyAbsorbEvents.push({
+      applyBuffEvent: event,
+      masteryBuffed: target.hasBuff(SPELLS.ATONEMENT_BUFF.id),
+      eventsAssociated: [],
+    });
+
   }
 
   on_byPlayer_heal(event) {
