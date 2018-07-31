@@ -55,7 +55,14 @@ class SoulFragmentsConsume extends Analyzer {
       this.totalSoulsConsumed += 1;
     }
   }
-  
+
+  soulCleaveSouls() {
+    if(this.soulFragmentsConsume.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls === undefined) {
+      return 0;
+    }
+    return this.soulFragmentsConsume.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
+    }
+
   statistic() {
     const overcap= this.soulFragmentsTracker.soulsWasted;
     const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;

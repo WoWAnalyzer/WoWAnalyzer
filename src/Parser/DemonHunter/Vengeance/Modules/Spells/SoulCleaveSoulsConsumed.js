@@ -15,9 +15,10 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    console.log("Requirements met");
   }
 
-  soulsConsumedPercent = this.soulFragmentsConsume.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls / this.soulFragmentsConsume.totalSoulsConsumed;
+  soulsConsumedPercent = this.soulFragmentsConsume.soulCleaveSouls() / this.soulFragmentsConsume.totalSoulsConsumed;
 
   get suggestionThresholdsEfficiency() {
     return {
@@ -32,6 +33,7 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   }
 
   suggestions(when) {
+    console.log("test #", this.soulFragmentsConsume.soulCleaveSouls());
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment>You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead try to consume them only with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> for the increased dps. Your talent choices suggests your going for a balanced approch versus a defensive one with <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} />.</React.Fragment>)
