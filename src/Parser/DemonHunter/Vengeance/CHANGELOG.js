@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-2'),
+    changes: <React.Fragment>Added module to show how many <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casts were good.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-07-28'),
     changes: <React.Fragment>Added new spells and talents.</React.Fragment>,
     contributors: [Mamtooth],
@@ -47,7 +52,7 @@ export default [
   },
   {
     date: new Date('2018-05-10'),
-    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> to show damage and if its stacked.</React.Fragment>,
+    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> to show damage and if its stacked.</React.Fragment>,
     contributors: [Yajinni],
   },
   {
