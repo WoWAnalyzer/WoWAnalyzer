@@ -28,6 +28,7 @@ class grace extends Analyzer {
   applyAbsorbEvents = [];
 
   graceHealing = 0;
+  graceHealingToAtonement = 0;
 
   healingUnaffectedByMastery = 0;
   healingUnbuffedByMastery = 0;
@@ -63,7 +64,7 @@ class grace extends Analyzer {
   }
 
   absorbApplicationWasMasteryBuffed(event){
-    const applyEvent =  this.applyAbsorbEvents.slice().reverse().find(x => x.applyBuffEvent.targetID === event.targetID);
+    const applyEvent = this.applyAbsorbEvents.slice().reverse().find(x => x.applyBuffEvent.targetID === event.targetID);
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
 
@@ -103,6 +104,7 @@ class grace extends Analyzer {
 
     if(isAtonement(event)) {
       this.atonement += event.amount;
+      this.graceHealingToAtonement += this.getGraceHealing(event);
     }
     this.healingBuffedByMastery += event.amount;
     this.graceHealing += this.getGraceHealing(event);
@@ -112,9 +114,9 @@ class grace extends Analyzer {
     const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(this.graceHealing);
     const healingUnaffectedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnaffectedByMastery);
     const healingUnbuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnbuffedByMastery);
-    const healingBuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingBuffedByMastery);
-    const atonementPerc = this.owner.getPercentageOfTotalHealingDone(this.atonement);
-    const nonAtonementPerc = this.owner.getPercentageOfTotalHealingDone(this.healingBuffedByMastery - this.atonement);
+    const healingBuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingBuffedByMastery - this.graceHealing);
+    const atonementPerc = this.owner.getPercentageOfTotalHealingDone(this.atonement - this.graceHealingToAtonement);
+    const nonAtonementPerc = this.owner.getPercentageOfTotalHealingDone((this.healingBuffedByMastery - this.graceHealing) - (this.atonement - this.graceHealingToAtonement));
 
     return (
       <StatisticBox
