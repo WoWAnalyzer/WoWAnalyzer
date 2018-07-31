@@ -13,6 +13,12 @@ export default {
   //MOTHER
 
   //Fetid Devourer
+  FRENETIC_CORPUSCLE: {
+    id: 160648,
+    name: "Frenetic Corpuscle",
+    icon: "inv_misc_food_114_orcablubber",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 
   //Zek'voz
 

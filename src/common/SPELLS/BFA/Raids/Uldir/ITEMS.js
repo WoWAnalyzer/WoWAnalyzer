@@ -10,6 +10,17 @@ export default {
   //MOTHER
 
   //Fetid Devourer
+  FROTHING_RAGE: {
+    id: 278143,
+    name: "Frothing Rage",
+    icon: "ability_warrior_endlessrage",
+  },
+
+  FRENETIC_BLOW: {
+    id: 278148,
+    name: "Frenetic Blow",
+    icon: "spell_nature_shamanrage",
+  },
 
   //Zek'voz
 
