@@ -57,10 +57,10 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   soulCleaveSouls() {
-    if(this.soulFragmentsConsume.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls === undefined) {
+    if(this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
       return 0;
     }
-    return this.soulFragmentsConsume.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
+    return this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
     }
 
   statistic() {
