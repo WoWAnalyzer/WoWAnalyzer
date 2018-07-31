@@ -12,6 +12,8 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import PRIEST_SPELLS from 'common/SPELLS/PRIEST';
 import PRIEST_TALENTS from 'common/SPELLS/TALENTS/PRIEST';
 
+import isAtonement from '../Core/isAtonement';
+
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST = Object.entries({
   ...PRIEST_SPELLS,
@@ -25,7 +27,12 @@ class grace extends Analyzer {
   };
 
   graceHealing = 0;
-  baseHealing = 0; // Healing that mastery stemmed from
+  atonementHealing = 0; // Atonement is always buffed by mastery
+  nonAtonementBuffedHealing = 0;
+  unbuffedWhiteListHealing = 0;
+  buffedWhiteListHealing = 0;
+
+  nonWhiteListHealing = 0; // Healing done unaffected by mastery (Trinkets, etc.)
 
   getGraceHealing(event) {
     // Get our mastery level at the moment, this is required for temporary buffs
@@ -38,40 +45,117 @@ class grace extends Analyzer {
     return masteryContribution;
   }
 
-  on_byPlayer_heal(event) {
-    // Check if the heal is whitelisted
+  calculateEffectiveHealingFromApplyBuff(event, relativeHealIncrease) {
+    const absorb = event.absorb || 0;
+    const raw = absorb;
+    const relativeHealingIncreaseFactor = 1 + relativeHealIncrease;
+    const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
+    const effectiveHealing = healingIncrease;
+
+    return Math.max(0, effectiveHealing);
+  }
+
+  on_byPlayer_applybuff(event){
+
+    if(!event.absorb) return;
+
     if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
+      this.nonWhiteListHealing += event.absorb || 0;
       return;
     }
 
     // Get the target
     const target = this.combatants.getEntity(event);
-
     if (!target) return;
 
     // Mastery only buffs players benefitting from Atonement
     if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      this.unbuffedWhiteListHealing += (event.absorb || 0);
+      return;
+    }
+    else{
+      this.buffedWhiteListHealing += (event.absorb || 0);
+
+      const currentMastery = this.statTracker.currentMasteryPercentage;
+      const masteryContribution = this.calculateEffectiveHealingFromApplyBuff(event,currentMastery);
+
+      this.graceHealing += masteryContribution;
+
       return;
     }
 
-    // Calculate healing
+  }
+
+  on_byPlayer_removebuff(event){
+
+    if(!event.absorb) return;
+
+    if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
+      this.nonWhiteListHealing += event.absorb || 0;
+      return;
+    }
+
+    // Get the target
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
+
+    // Mastery only buffs players benefitting from Atonement
+    if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      this.unbuffedWhiteListHealing -= (event.absorb || 0);
+      return;
+    }
+    else{
+      this.buffedWhiteListHealing -= (event.absorb || 0);
+
+      const currentMastery = this.statTracker.currentMasteryPercentage;
+      const masteryContribution = this.calculateEffectiveHealingFromApplyBuff(event,currentMastery);
+
+      this.graceHealing -= masteryContribution;
+
+      return;
+    }
+
+  }
+
+  on_byPlayer_heal(event) {
+
+    // Check if the heal is whitelisted
+    if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
+      this.nonWhiteListHealing += event.amount + (event.absorbed || 0);
+      return;
+    }
+
+    // Get the target
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
+
+    // Mastery only buffs players benefitting from Atonement
+    if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      this.unbuffedWhiteListHealing += event.amount + (event.absorbed || 0);
+      return;
+    }
+
+    if (isAtonement(event)) {
+      this.atonementHealing += event.amount + (event.absorbed || 0);
+    } else{
+      this.nonAtonementBuffedHealing += event.amount + (event.absorbed || 0);
+    }
+
+    this.buffedWhiteListHealing += event.amount + (event.absorbed || 0);
+
     const graceHealing = this.getGraceHealing(event);
 
-    // Account for base healing without mastery (??? JD ???)
-    const baseHealing = event.amount - graceHealing;
-
-    this.baseHealing += baseHealing;
     this.graceHealing += graceHealing;
   }
 
   statistic() {
-    const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(
-      this.graceHealing
-    );
-    const baseHealingPerc = this.owner.getPercentageOfTotalHealingDone(
-      this.baseHealing
-    );
-    const healingWithoutMastery = baseHealingPerc / (1 - graceHealingPerc);
+
+    const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(this.graceHealing);
+    const nonWhiteListHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.nonWhiteListHealing);
+    const atonementHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.atonementHealing);
+    const nonAtonementBuffedHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.nonAtonementBuffedHealing);
+    const unbuffedWhiteListHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.unbuffedWhiteListHealing);
+    const buffedWhiteListHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.buffedWhiteListHealing);
 
     return (
       <StatisticBox
@@ -81,14 +165,17 @@ class grace extends Analyzer {
         )} HPS`}
         label="Mastery Healing"
         tooltip={`
-            Grace contributed towards ${formatPercentage(
-              graceHealingPerc
-            )}% of your healing. \n
-
-            ${formatPercentage(
-              healingWithoutMastery
-            )}% of your healing benefitted from grace.
-            `}
+          Grace contributed towards <b>${formatPercentage(graceHealingPerc)}%</b> of your healing.
+          <ul>
+            <li>${formatPercentage(buffedWhiteListHealingPercentage)}% of your healing benefitted from grace.
+              <ul>
+                <li>${formatPercentage(atonementHealingPercentage)}% from atonement</li>
+                <li>${formatPercentage(nonAtonementBuffedHealingPercentage)}% from other spells</li>
+              </ul>
+            </li>
+            <li>${formatPercentage(unbuffedWhiteListHealingPercentage)}% was not buffed by mastery</li>
+            <li>Healing done by spells unaffected by mastery: ${formatPercentage(nonWhiteListHealingPercentage)}%.</li>
+          </ul>`}
       />
     );
   }
