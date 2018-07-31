@@ -1,7 +1,7 @@
 import request from 'request-promise-native';
 
 const availableRegions = {
-  'eu': 'en_GB',
+  'eu': 'ru_RU',
   'us': 'en_US',
   'tw': 'zh_TW',
   'kr': 'ko_KR',
