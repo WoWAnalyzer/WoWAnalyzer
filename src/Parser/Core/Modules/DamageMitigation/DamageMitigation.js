@@ -1,9 +1,10 @@
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 
 import Reduction from './Reduction';
-import { BUFFS, PASSIVES, UNKNOWN } from './Constants';
+import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
 
 const debug = true;
 
@@ -14,11 +15,13 @@ const MULTIPLICATIVE = (accumulator, reduction) => accumulator * (1 - reduction.
 class DamageMitigation extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    enemies: EnemyInstances,
   };
 
   static REDUCTION_CLASS = Reduction;
 
   buffs = [];
+  debuffs = [];
   passives = [];
   unknownReduction = null;
   totalMitigated = {};
@@ -45,6 +48,9 @@ class DamageMitigation extends Analyzer {
     // Buffs
     this.buffs = BUFFS.map(options => new this.constructor.REDUCTION_CLASS(this, options))
     .filter(e => e.enabled);
+    // Debuffs
+    this.debuffs = DEBUFFS.map(options => new this.constructor.REDUCTION_CLASS(this, options))
+    .filter(e => e.enabled);
     // Passives
     this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
     this.passives = PASSIVES.map(options => new this.constructor.REDUCTION_CLASS(this, options))
@@ -63,7 +69,7 @@ class DamageMitigation extends Analyzer {
       debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Damage was immuned. Ability: ' + event.ability.name);
       return;
     }
-    if (!event.mitigated ) { // No damage was mitigated.
+    if (!event.mitigated ) { // No damage was mitigated. Usually direct HP removal, or parry/dodge.
       debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - No damage was mitigated. Ability: ' + event.ability.name);
       return;
     }
@@ -73,28 +79,46 @@ class DamageMitigation extends Analyzer {
 
   handleEvent(event) {
     debug && (this.checkSum += event.mitigated);
-    // Add passives
+    // Add passives.
     let mitigations = this.passives.slice();
 
-    // Check for active buffs
+    // Check for active buffs.
     this.buffs.forEach(buff => {
       if (this.selectedCombatant.hasBuff(buff.id)){
         mitigations.push(buff);
       }
     });
 
-    // Filter by spell school
+    // Check for active debuffs.
+    const enemy = this.enemies.getEntity(event);
+    if (enemy) {
+      this.debuffs.forEach(debuff => {
+        if (enemy.hasBuff(debuff.id)){
+          mitigations.push(debuff);
+        }
+      });
+    }
+
+    // Filter by spell school.
     mitigations = mitigations.filter(e => {
+      // If none is set it affects all schools.
       if (e.school === undefined || e.school === null) {
         return true;
       }
+      // If it has 0 it includes all magical spell schools (everything except physical).
       if (e.school.includes(0) && event.ability.type !== 1) {
         return true;
       }
       return e.school.includes(event.ability.type);
     });
 
-    debug && console.log(mitigations);
+    if (debug) {
+      let names = '';
+      mitigations.forEach(e => {
+        names += e.name + ', ';
+      });
+      console.log('Reductions: ' + names);
+    }
 
     if (mitigations.length === 0) { // No active mitigations.
       if (!this.totalMitigated[this.unknownReduction.id]) {

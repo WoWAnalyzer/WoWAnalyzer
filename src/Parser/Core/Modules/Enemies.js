@@ -9,10 +9,10 @@ class Enemies extends Entities {
     return this.enemies;
   }
   getEntity(event) {
-    if (event.targetIsFriendly) {
+    if (event.targetIsFriendly && event.sourceIsFriendly) {
       return null;
     }
-    const targetId = event.targetID;
+    const targetId = !event.targetIsFriendly ? event.targetID : event.sourceID;
     let enemy = this.enemies[targetId];
     if (!enemy) {
       const baseInfo = this.owner.report.enemies.find(enemy => enemy.id === targetId);

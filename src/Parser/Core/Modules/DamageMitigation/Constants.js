@@ -3,7 +3,7 @@ import SPECS from 'common/SPECS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import RACES from 'common/RACES';
 
-// Damage reductions that are buffs and has a static value
+// Damage reductions that are buffs on the player
 export const BUFFS = [
   // Death Knight
   {
@@ -184,6 +184,49 @@ export const BUFFS = [
     mitigation: 0.1,
     school: [MAGIC_SCHOOLS.ids.PHYSICAL],
   },
+];
+
+// Damage reductions that are debuffs on the source target (applied by the player)
+export const DEBUFFS = [
+  // Global
+  // Death Knight
+  // Demon Hunter
+  {
+    id: SPELLS.FIERY_BRAND_DEBUFF.id,
+    name: SPELLS.FIERY_BRAND_DEBUFF.name,
+    mitigation: 0.4,
+  },
+  {
+    id: SPELLS.VOID_REAVER_TALENT.id,
+    name: SPELLS.VOID_REAVER_TALENT.name,
+    mitigation: 0.06,
+  },
+  // Druid
+  // Hunter
+  // Mage
+  // Monk
+  {
+    id: SPELLS.BREATH_OF_FIRE.id,
+    name: SPELLS.BREATH_OF_FIRE.name,
+    mitigation: 0.05,
+  },
+  // Paladin
+  // Priest
+  // Rogue
+  // Shaman  
+  // Warlock
+  // Warrior
+  {
+    id: SPELLS.DEMORALIZING_SHOUT.id,
+    name: SPELLS.DEMORALIZING_SHOUT.name,
+    mitigation: 0.2,
+  },
+  {
+    id: SPELLS.PUNISH_TALENT.id,
+    name: SPELLS.PUNISH_TALENT.name,
+    mitigation: 0.03,
+  },
+  // Racials
 ];
 
 // Damage reductions that are passive and has a static value
