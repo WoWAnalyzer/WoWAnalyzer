@@ -9,8 +9,8 @@ import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
 const debug = true;
 
 const BUFFER_PERCENT = 0.01;
-const ADDITIVE = (accumulator, reduction) => accumulator + reduction.mitigation;
-const MULTIPLICATIVE = (accumulator, reduction) => accumulator * (1 - reduction.mitigation);
+const ADDITIVE = (accumulator, reduction) => accumulator + reduction.mitigation * (reduction.stacks ? reduction.stacks : 1);
+const MULTIPLICATIVE = (accumulator, reduction) => accumulator * (1 - reduction.mitigation * (reduction.stacks ? reduction.stacks : 1));
 
 class DamageMitigation extends Analyzer {
   static dependencies = {
@@ -83,17 +83,24 @@ class DamageMitigation extends Analyzer {
     let mitigations = this.passives.slice();
 
     // Check for active buffs.
-    this.buffs.forEach(buff => {
-      if (this.selectedCombatant.hasBuff(buff.id)){
+    const activeBuffs = this.selectedCombatant.activeBuffs();
+    activeBuffs.forEach(e => {
+      const buff = this.buffs.find(f => f.id === e.ability.guid);
+      if (buff) {
+        buff.stacks = e.stacks;
         mitigations.push(buff);
       }
     });
 
     // Check for active debuffs.
     const enemy = this.enemies.getEntity(event);
+    
     if (enemy) {
-      this.debuffs.forEach(debuff => {
-        if (enemy.hasBuff(debuff.id)){
+      const activeBuffs = enemy.activeBuffs();
+      activeBuffs.forEach(e => {
+        const debuff = this.debuffs.find(f => f.id === e.ability.guid);
+        if (debuff) {
+          debuff.stacks = e.stacks;
           mitigations.push(debuff);
         }
       });
@@ -149,7 +156,8 @@ class DamageMitigation extends Analyzer {
       if (!this.totalMitigated[reduction.id]) {
         this.initReduction(reduction);
       }
-      this.totalMitigated[reduction.id].amount += (reduction.mitigation / additive * event.mitigated);
+      const percentContributed = reduction.mitigation / additive * (reduction.stacks ? reduction.stacks : 1);
+      this.totalMitigated[reduction.id].amount += percentContributed * event.mitigated;
     });
   }
 }

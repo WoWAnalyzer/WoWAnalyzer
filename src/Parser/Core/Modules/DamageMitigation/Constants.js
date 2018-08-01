@@ -115,14 +115,13 @@ export const BUFFS = [
     id: SPELLS.RENEW.id,
     name: SPELLS.RENEW.name,
     mitigation: 0.1,
-    enabled: combatant => {
-      return combatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id);
-    },
+    enabled: combatant => combatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id),
   },
   {
-    id: SPELLS.LENIENCE_TALENT.id,
-    name: SPELLS.LENIENCE_TALENT.name,
+    id: SPELLS.ATONEMENT_BUFF.id,
+    name: SPELLS.ATONEMENT_BUFF.name,
     mitigation: 0.03,
+    enabled: combatant => false, // Need to check the source priest's talent.
   },
   // Rogue
   // Shaman  
@@ -135,6 +134,11 @@ export const BUFFS = [
     id: SPELLS.HARDEN_SKIN.id,
     name: SPELLS.HARDEN_SKIN.name,
     mitigation: 0.4,
+  },
+  {
+    id: SPELLS.SPIRIT_WOLF_BUFF.id,
+    name: SPELLS.SPIRIT_WOLF_BUFF.name,
+    mitigation: 0.05,
   },
   // Warlock
   {
@@ -162,9 +166,7 @@ export const BUFFS = [
     id: SPELLS.ENRAGE.id,
     name: SPELLS.ENRAGE.name,
     mitigation: 0.1,
-    enabled: combatant => {
-      return combatant.hasTalent(SPELLS.WARPAINT_TALENT.id);
-    },
+    enabled: combatant => combatant.hasTalent(SPELLS.WARPAINT_TALENT.id),
   },
   {
     id: SPELLS.SHIELD_WALL.id,
@@ -197,17 +199,23 @@ export const DEBUFFS = [
     mitigation: 0.4,
   },
   {
-    id: SPELLS.VOID_REAVER_TALENT.id,
-    name: SPELLS.VOID_REAVER_TALENT.name,
+    id: SPELLS.VOID_REAVER_DEBUFF.id,
+    name: SPELLS.VOID_REAVER_DEBUFF.name,
     mitigation: 0.06,
   },
   // Druid
+  {
+    id: SPELLS.THRASH_BEAR_DOT.id,
+    name: SPELLS.THRASH_BEAR_DOT.name,
+    mitigation: 0.02,
+    enabled: combatant => combatant.hasTalent(SPELLS.REND_AND_TEAR_TALENT.id),
+  },
   // Hunter
   // Mage
   // Monk
   {
-    id: SPELLS.BREATH_OF_FIRE.id,
-    name: SPELLS.BREATH_OF_FIRE.name,
+    id: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
+    name: SPELLS.BREATH_OF_FIRE_DEBUFF.name,
     mitigation: 0.05,
   },
   // Paladin
@@ -222,8 +230,8 @@ export const DEBUFFS = [
     mitigation: 0.2,
   },
   {
-    id: SPELLS.PUNISH_TALENT.id,
-    name: SPELLS.PUNISH_TALENT.name,
+    id: SPELLS.PUNISH_DEBUFF.id,
+    name: SPELLS.PUNISH_DEBUFF.name,
     mitigation: 0.03,
   },
   // Racials
@@ -253,10 +261,8 @@ export const PASSIVES = [
     id: SPELLS.DEMONIC_WARDS.id,
     name: SPELLS.DEMONIC_WARDS.name,
     mitigation: 0.1,
-    enabled: combatant => {
-      return (combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id ||
-      combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id);
-    },
+    enabled: combatant => combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id ||
+                          combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id,
     school: [0],
   },
   // Druid
@@ -264,11 +270,9 @@ export const PASSIVES = [
     id: SPELLS.THICK_HIDE.id,
     name: SPELLS.THICK_HIDE.name,
     mitigation: 0.06,
-    enabled: combatant => {
-      return (combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id) || 
-      combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_FERAL.id) || 
-      combatant.specId === SPECS.GUARDIAN_DRUID.id);
-    },
+    enabled: combatant => combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id) || 
+                          combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_FERAL.id) || 
+                          combatant.specId === SPECS.GUARDIAN_DRUID.id,
   },
   // Hunter
   // Mage

@@ -129,6 +129,11 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
+  VOID_REAVER_DEBUFF: {
+    id: 268178,
+    name: 'Void Reaver',
+    icon: 'spell_shadow_demonicempathy',
+  },
   METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',
