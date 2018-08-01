@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-08-01'),
+    changes: 'Added a damage mitigation tab.',
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-07-26'),
     changes: <React.Fragment>Updated our GlobalCooldown module to automatically ignore certain casts if we've marked them as not being actual casts. BM Hunter casting two spells (one for buff, one for damage) per <SpellLink id={SPELLS.BARBED_SHOT.id} /> is an example.</React.Fragment>,
     contributors: [Putro],
