@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
-const debug = true;
+const debug = false;
 
 class ArcaneChargeTracker extends Analyzer {
 

@@ -9,7 +9,7 @@ const debug = false;
 const ABILITY_DAMAGE_WINDOW = 250; //ms
 const INVISIBLE_ENERGIZE_ATTACKS = [
   SPELLS.THRASH_FERAL.id,
-  SPELLS.CAT_SWIPE.id,
+  SPELLS.SWIPE_CAT.id,
   SPELLS.BRUTAL_SLASH_TALENT.id,
 ];
 const HIT_TYPES_THAT_DONT_ENERGIZE = [
@@ -31,7 +31,7 @@ const MAX_COMBO = 5;
  * an extra combo point when a generator crits, which usually comes before the damage
  * event(s) for that generator. This can lead to wasted energizes being blamed on the
  * wrong spell.
- * 
+ *
  * This normalizer creates an appropriate energize event when the player uses one of these
  * abilities and has it hit at least 1 target. The created event is backdated (by timestamp
  * and position in the event stream) to when the ability was cast, so it correctly appears
@@ -51,7 +51,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
 
     // Keep track of combo points so an accurate energize event can be fabricated
     let combo = 0;
-    
+
     let castEvent = null;
     let castEventIndex = null;
     let comboAtCast = null;
@@ -90,7 +90,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
           ((event.timestamp - castEvent.timestamp < 100))) {
         // Detected a combo point energize event from an ability that should never be generating energize events, likely due to a Blizzard or WCL change.
         debug && console.warn(`Detected energize event from an ability that isn't expected to produce energize events. The ComboPointsFromAoE normalizer may no longer be needed for ${event.ability.name} (${event.ability.guid})`);
-        
+
         // There's already an energize event for castEvent so prevent generation of another one.
         castEvent = null;
       }
@@ -124,7 +124,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
         // Prevent triggering more than one event fabrication per cast.
         castEvent = null;
       }
-      
+
       fixedEvents.push(event);
       fixedEventIndex += 1;
     });

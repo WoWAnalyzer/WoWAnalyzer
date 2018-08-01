@@ -504,6 +504,26 @@ export default {
     name: 'Barbed Shot',
     icon: 'ability_hunter_barbedshot',
   },
+  BARBED_SHOT_BUFF_STACK_2: { //2nd stack of Barbed Shot on the player
+    id: 246851,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_3: { //3rd stack of Barbed Shot on the player
+    id: 246852,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_4: { //4th stack of Barbed Shot on the player
+    id: 246853,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_5: { //5th stack of Barbed Shot on the player
+    id: 246854,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
   BARBED_SHOT_PET_BUFF: {
     id: 272790,
     name: 'Barbed Shot',
@@ -513,6 +533,11 @@ export default {
     id: 257946,
     name: 'Thrill of the Hunt',
     icon: 'ability_hunter_thrillofthehunt',
+  },
+  CHIMAERA_SHOT_FOCUS: {
+    id: 204304,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
 
   // Marksmanship Hunter:
@@ -691,7 +716,7 @@ export default {
     icon: 'spell_hunter_exoticmunitions_poisoned',
   },
   MONGOOSE_FURY: {
-    id: 190931,
+    id: 259388,
     name: 'Mongoose Fury',
     icon: 'ability_hunter_mongoosebite',
   },

@@ -84,7 +84,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <React.Fragment>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> suggestion from cast efficiency to uptime.</React.Fragment>,
+    changes: <React.Fragment>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id} /> suggestion from cast efficiency to uptime.</React.Fragment>,
     contributors: [emallson],
   },
   {

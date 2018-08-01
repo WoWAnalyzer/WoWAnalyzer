@@ -207,14 +207,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-      },
 
       {
         spell: SPELLS.ROLL,

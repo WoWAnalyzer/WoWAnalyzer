@@ -9,19 +9,44 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-31'),
+    changes: <React.Fragment>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
     date: new Date('2018-07-26'),
     changes: <React.Fragment>Added support for the new <SpellLink id={SPELLS.PENANCE_CAST.id} /> event, thanks Blizzard.</React.Fragment>,
     contributors: [Reglitch],
   },
   {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> bug.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
     date: new Date('2018-07-24'),
-    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER.id} />.</React.Fragment>,
+    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />.</React.Fragment>,
     contributors: [Reglitch],
   },
   {
     date: new Date('2018-07-18'),
     changes: <React.Fragment>Now with 100% more Batle for Azeroth.</React.Fragment>,
     contributors: [Reglitch],
+  },
+  {
+    date: new Date('2018-05-25'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
+    date: new Date('2018-05-09'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.LENIENCE_TALENT.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
+    date: new Date('2018-05-09'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
   },
   {
     date: new Date('2018-04-08'),
@@ -60,7 +85,7 @@ export default [
   },
   {
     date: new Date('2017-11-15'),
-    changes: <React.Fragment>Moved <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} /> value to show the talent <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} /></React.Fragment>,
+    changes: <React.Fragment>Moved <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} /> value to show the talent <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /></React.Fragment>,
     contributors: [Gao],
   },
   {
@@ -180,7 +205,7 @@ export default [
   },
   {
     date: new Date('2017-05-17'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} /> healing statistic (damage gain is in the tooltip).</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> healing statistic (damage gain is in the tooltip).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
