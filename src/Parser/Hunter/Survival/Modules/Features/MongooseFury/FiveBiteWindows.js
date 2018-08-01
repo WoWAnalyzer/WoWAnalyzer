@@ -6,18 +6,23 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
-const MAX_STACKS = 6;
+const MAX_STACKS = 5;
 
 /**
- * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 6 times. Successive
- * attacks do not increase duration.
+ * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 6 times.
+ * Successive attacks do not increase duration.
  */
 
-class SixBiteWindows extends Analyzer {
+class FiveBiteWindows extends Analyzer {
 
   _currentStacks = 0;
   totalWindowsStarted = 0;
-  sixBiteWindows = 0;
+  fiveBiteWindows = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
+  }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -35,7 +40,7 @@ class SixBiteWindows extends Analyzer {
     }
     this._currentStacks = event.stack;
     if (this._currentStacks === MAX_STACKS) {
-      this.sixBiteWindows++;
+      this.fiveBiteWindows++;
     }
   }
 
@@ -51,12 +56,12 @@ class SixBiteWindows extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
-        value={`${this.sixBiteWindows}/${this.totalWindowsStarted}`}
-        label="6 stack windows"
-        tooltip={`You had a total of <strong>${this.sixBiteWindows}</strong> six bite windows out of a total of <strong>${this.totalWindowsStarted}</strong> windows started`} />
+        value={`${this.fiveBiteWindows}/${this.totalWindowsStarted}`}
+        label="5 stack windows"
+        tooltip={`You had a total of <strong>${this.fiveBiteWindows}</strong> six bite windows out of a total of <strong>${this.totalWindowsStarted}</strong> windows started`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
-export default SixBiteWindows;
+export default FiveBiteWindows;

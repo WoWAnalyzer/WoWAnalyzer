@@ -33,6 +33,8 @@ import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
 import VipersVenom from './Modules/Talents/VipersVenom';
+import FiveStackBites from './Modules/Features/MongooseFury/FiveStackBites';
+import FiveBiteWindows from './Modules/Features/MongooseFury/FiveBiteWindows';
 
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
@@ -50,6 +52,7 @@ import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindr
 
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +103,8 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     aMurderOfCrows: AMurderOfCrows,
     vipersVenom: VipersVenom,
+    fiveStackBites: FiveStackBites,
+    fiveBiteWindows: FiveBiteWindows,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
