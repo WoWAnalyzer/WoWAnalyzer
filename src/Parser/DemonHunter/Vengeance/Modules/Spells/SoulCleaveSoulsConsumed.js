@@ -20,12 +20,10 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
-    console.log("Requirements met");
   }
 
   get suggestionThresholdsEfficiency() {
     const soulsConsumedPercent = this.soulFragmentsConsume.soulCleaveSouls() / (this.soulFragmentsConsume.soulsGenerated - this.soulFragmentsConsume.soulsWasted);
-    console.log("test #", soulsConsumedPercent);
     return {
       actual: soulsConsumedPercent,
       isGreaterThan: {
