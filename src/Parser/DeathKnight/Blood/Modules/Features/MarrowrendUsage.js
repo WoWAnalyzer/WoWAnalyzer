@@ -92,14 +92,14 @@ class MarrowrendUsage extends Analyzer {
           this.bsStacksWasted += wasted;
 
           event.meta = event.meta || {};
-          event.meta.isEfficientCast = true;
+          event.meta.isInefficientCast = true;
           event.meta.inefficientCastReason = `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left.`;
         }
       }
     }
 
     if (this.currentBoneShieldBuffer > MR_GAIN && this.hasBonesOfTheDamned) {
-      //
+      // count Bones of the Damned procs and mark cast in timeline
       event.meta = event.meta || {};
       event.meta.isEnhancedCast = true;
       event.meta.enhancedCastReason = `This ${SPELLS.MARROWREND.name} cast procced ${SPELLS.BONES_OF_THE_DAMNED.name}`;
