@@ -14,6 +14,11 @@ export default [
     contributors: [Gebuz],
   },
   {
+    date: new Date('2018-07-24'),
+    changes: 'Added tracking of potion cooldowns and split Healthstone into Healthstone and health pots.',
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-07-26'),
     changes: <React.Fragment>Updated our GlobalCooldown module to automatically ignore certain casts if we've marked them as not being actual casts. BM Hunter casting two spells (one for buff, one for damage) per <SpellLink id={SPELLS.BARBED_SHOT.id} /> is an example.</React.Fragment>,
     contributors: [Putro],

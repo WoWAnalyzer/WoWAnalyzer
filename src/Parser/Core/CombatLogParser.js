@@ -58,6 +58,8 @@ import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
 import Healthstone from './Modules/Items/Healthstone';
+import HealthPotion from './Modules/Items/HealthPotion';
+import CombatPotion from './Modules/Items/CombatPotion';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -208,6 +210,8 @@ class CombatLogParser {
     legendaryCountChecker: LegendaryCountChecker,
     enchantChecker: EnchantChecker,
     healthstone: Healthstone,
+    healthPotion: HealthPotion,
+    combatPotion: CombatPotion,
 
     // Items:
     // Legendaries:

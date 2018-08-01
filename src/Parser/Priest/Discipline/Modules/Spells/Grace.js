@@ -7,10 +7,11 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import PRIEST_SPELLS from 'common/SPELLS/PRIEST';
 import PRIEST_TALENTS from 'common/SPELLS/TALENTS/PRIEST';
+
+import isAtonement from '../Core/isAtonement';
 
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST = Object.entries({
@@ -24,54 +25,100 @@ class grace extends Analyzer {
     statTracker: StatTracker,
   };
 
+  applyAbsorbEvents = [];
+
   graceHealing = 0;
-  baseHealing = 0; // Healing that mastery stemmed from
+  graceHealingToAtonement = 0;
+
+  healingUnaffectedByMastery = 0;
+  healingUnbuffedByMastery = 0;
+  healingBuffedByMastery = 0;
+  atonement = 0;
 
   getGraceHealing(event) {
-    // Get our mastery level at the moment, this is required for temporary buffs
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(
       event,
       currentMastery
     );
-
     return masteryContribution;
   }
 
-  on_byPlayer_heal(event) {
-    // Check if the heal is whitelisted
-    if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
+  on_byPlayer_absorbed(event){
+    const spellId = event.ability.guid;
+
+    if(!PRIEST_WHITELIST.includes(spellId)){
+      this.healingUnaffectedByMastery += event.amount;
       return;
     }
 
-    // Get the target
     const target = this.combatants.getEntity(event);
-
     if (!target) return;
 
-    // Mastery only buffs players benefitting from Atonement
-    if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+    if(this.absorbApplicationWasMasteryBuffed(event)){
+      this.graceHealing += this.getGraceHealing(event);
+      this.healingBuffedByMastery += event.amount;
+    } else {
+      this.healingUnbuffedByMastery += event.amount;
+    }
+  }
+
+  absorbApplicationWasMasteryBuffed(event){
+    const findRight = (arr, fn) => [...arr].reverse().find(fn);
+    const applyEvent = findRight(this.applyAbsorbEvents,
+      x => x.applyBuffEvent.targetID === event.targetID && x.applyBuffEvent.ability.guid === event.ability.guid);
+    return applyEvent ? applyEvent.masteryBuffed : false;
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+
+    if(!(PRIEST_WHITELIST.includes(spellId) && event.absorb)){
       return;
     }
 
-    // Calculate healing
-    const graceHealing = this.getGraceHealing(event);
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
 
-    // Account for base healing without mastery (??? JD ???)
-    const baseHealing = event.amount - graceHealing;
+    this.applyAbsorbEvents.push({
+      applyBuffEvent: event,
+      masteryBuffed: target.hasBuff(SPELLS.ATONEMENT_BUFF.id),
+      eventsAssociated: [],
+    });
 
-    this.baseHealing += baseHealing;
-    this.graceHealing += graceHealing;
+  }
+
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+
+    if (!PRIEST_WHITELIST.includes(spellId)) {
+      this.healingUnaffectedByMastery += event.amount;
+      return;
+    }
+
+    const target = this.combatants.getEntity(event);
+    if (!target) return;
+
+    if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      this.healingUnbuffedByMastery += event.amount;
+      return;
+    }
+
+    if(isAtonement(event)) {
+      this.atonement += event.amount;
+      this.graceHealingToAtonement += this.getGraceHealing(event);
+    }
+    this.healingBuffedByMastery += event.amount;
+    this.graceHealing += this.getGraceHealing(event);
   }
 
   statistic() {
-    const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(
-      this.graceHealing
-    );
-    const baseHealingPerc = this.owner.getPercentageOfTotalHealingDone(
-      this.baseHealing
-    );
-    const healingWithoutMastery = baseHealingPerc / (1 - graceHealingPerc);
+    const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(this.graceHealing);
+    const healingUnaffectedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnaffectedByMastery);
+    const healingUnbuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnbuffedByMastery);
+    const healingBuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingBuffedByMastery - this.graceHealing);
+    const atonementPerc = this.owner.getPercentageOfTotalHealingDone(this.atonement - this.graceHealingToAtonement);
+    const nonAtonementPerc = this.owner.getPercentageOfTotalHealingDone((this.healingBuffedByMastery - this.graceHealing) - (this.atonement - this.graceHealingToAtonement));
 
     return (
       <StatisticBox
@@ -81,14 +128,21 @@ class grace extends Analyzer {
         )} HPS`}
         label="Mastery Healing"
         tooltip={`
-            Grace contributed towards ${formatPercentage(
-              graceHealingPerc
-            )}% of your healing. \n
-
-            ${formatPercentage(
-              healingWithoutMastery
-            )}% of your healing benefitted from grace.
-            `}
+          Your mastery provided <b>${formatPercentage(graceHealingPerc)}%</b> healing
+          <ul>
+            <li><b>${formatPercentage(healingBuffedByMasteryPerc)}%</b> of your healing was buffed by mastery
+              <ul>
+                <li>Atonement: <b>${formatPercentage(atonementPerc)}%</b></li>
+                <li>Non-Atonement: <b>${formatPercentage(nonAtonementPerc)}%</b></li>
+              </ul>
+            </li>
+            <li><b>${formatPercentage(healingUnbuffedByMasteryPerc)}%</b> of your healing was spells unbuffed by mastery</li>
+            <li><b>${formatPercentage(healingUnaffectedByMasteryPerc)}%</b> of your healing was spells unaffected by mastery </li>
+          </ul>
+          <br />
+          <b>Unbuffed</b> healing is healing done to targets without atonement with spells that can benefit from mastery. <br />
+          <b>Unaffected</b> healing is healing done with spells that can't benefit from mastery (Trinkets, procs, etc...)
+        `}
       />
     );
   }

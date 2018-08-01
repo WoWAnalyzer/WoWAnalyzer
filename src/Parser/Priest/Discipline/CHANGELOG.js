@@ -9,9 +9,19 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-07-31'),
+    changes: <React.Fragment>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
     date: new Date('2018-07-26'),
     changes: <React.Fragment>Added support for the new <SpellLink id={SPELLS.PENANCE_CAST.id} /> event, thanks Blizzard.</React.Fragment>,
     contributors: [Reglitch],
+  },
+  {
+    date: new Date('2018-07-19'),
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> bug.</React.Fragment>,
+    contributors: [Oratio],
   },
   {
     date: new Date('2018-07-24'),
@@ -22,6 +32,21 @@ export default [
     date: new Date('2018-07-18'),
     changes: <React.Fragment>Now with 100% more Batle for Azeroth.</React.Fragment>,
     contributors: [Reglitch],
+  },
+  {
+    date: new Date('2018-05-25'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
+    date: new Date('2018-05-09'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.LENIENCE_TALENT.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
+  },
+  {
+    date: new Date('2018-05-09'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} /> module.</React.Fragment>,
+    contributors: [Oratio],
   },
   {
     date: new Date('2018-04-08'),
