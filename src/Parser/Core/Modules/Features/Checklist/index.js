@@ -110,7 +110,7 @@ class Checklist extends Analyzer {
       <Expandable
         key={index}
         header={(
-          <div className="flex" style={{ fontSize: '1.4em' }}>
+          <div className="flex" style={{ fontSize: '1.4em', padding: '15px 22px' }}>
             <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
               <div>{/* this div ensures vertical alignment */}
                 {rulePerformance > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}

@@ -7,6 +7,12 @@ export default {
     name: "Volatile Blood Explosion",
     icon: "ability_deathwing_bloodcorruption_earth",
   },
+
+  TITANIC_OVERCHARGE: {
+    id: 278070,
+    name: "Titanic Overcharge",
+    icon: "inv_misc_enggizmos_06",
+  },
   //MOTHER
 
   //Fetid Devourer

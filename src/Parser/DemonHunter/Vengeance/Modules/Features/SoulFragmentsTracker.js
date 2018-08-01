@@ -35,14 +35,6 @@ class SoulFragmentsTracker extends Analyzer {
       this.currentSouls -= 1;
     }
   }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.SOUL_FRAGMENT_STACK.id) {
-      this.soulsSpent += 1;
-      this.currentSouls -= 1;
-    }
-  }
 }
 
 export default SoulFragmentsTracker;

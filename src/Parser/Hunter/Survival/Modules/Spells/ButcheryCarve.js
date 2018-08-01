@@ -2,6 +2,12 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import React from 'react';
+import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -19,15 +25,23 @@ class ButcheryCarve extends Analyzer {
   };
 
   hasGT = false;
-  resets = 0;
   reductionAtCurrentCast = 0;
   effectiveWFBReductionMs = 0;
   wastedWFBReductionMs = 0;
+  uniqueTargets = [];
+  targetsHit = 0;
+  casts = 0;
+  spellKnown;
 
   constructor(...args) {
     super(...args);
     if (this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id)) {
       this.hasGT = true;
+    }
+    if (this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
+      this.spellKnown = SPELLS.BUTCHERY_TALENT;
+    } else {
+      this.spellKnown = SPELLS.CARVE;
     }
   }
 
@@ -37,6 +51,7 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.casts++;
+    this.uniqueTargets = [];
     this.reductionAtCurrentCast = 0;
   }
 
@@ -44,6 +59,11 @@ class ButcheryCarve extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
+    }
+    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.uniqueTargets.includes(damageTarget)) {
+      this.targetsHit++;
+      this.uniqueTargets.push(damageTarget);
     }
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
       return;
@@ -56,6 +76,62 @@ class ButcheryCarve extends Analyzer {
     const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
     this.effectiveWFBReductionMs += effectiveReductionMs;
     this.wastedWFBReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
+  }
+
+  get averageTargetsHit() {
+    return (this.targetsHit / this.casts).toFixed(2);
+  }
+
+  get avgTargetsHitThreshold() {
+    return {
+      actual: this.averageTargetsHit,
+      isLessThan: {
+        minor: 2,
+        average: 2,
+        major: 2,
+      },
+      style: 'decimal',
+    };
+  }
+
+  suggestions(when) {
+    when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</React.Fragment>)
+        .icon(this.spellKnown.icon)
+        .actual(`${actual} average targets hit per cast`)
+        .recommended(`>${recommended} is recommended`);
+    });
+  }
+
+  statistic() {
+    if (this.casts > 0) {
+      //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={this.spellKnown.id} />}
+          value={this.averageTargetsHit}
+          label="Average targets hit"
+        />
+      );
+    }
+    return null;
+  }
+  
+  subStatistic() {
+    if (this.casts > 0) {
+      //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={this.spellKnown.id} />
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.bonusDamage} />
+          </div>
+        </div>
+      );
+    }
+    return null;
   }
 }
 
