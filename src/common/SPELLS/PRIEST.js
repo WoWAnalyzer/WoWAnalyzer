@@ -188,6 +188,11 @@ export default {
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
+  CONTRITION_HEAL_CRIT: {
+    id: 281469,
+    name: 'Contrition',
+    icon: 'ability_priest_savinggrace',
+  },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
     name: 'T19 2 Set Bonus',
