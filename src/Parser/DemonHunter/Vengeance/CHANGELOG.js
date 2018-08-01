@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-08-01'),
+    changes: <React.Fragment>Implemented Checklist feature.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
     date: new Date('2018-07-2'),
     changes: <React.Fragment>Added module to show how many <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casts were good.</React.Fragment>,
     contributors: [Yajinni],
