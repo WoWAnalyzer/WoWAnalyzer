@@ -194,11 +194,6 @@ export default {
     name: 'Crystalline Carapace',
     icon: 'inv_shield_33',
   },
-  DANCE_OF_DEATH: {
-    id: 274441,
-    name: 'Dance of Death',
-    icon: 'ability_druid_mangle',
-  },
   DARK_GRUDGE: {
     id: 269368,
     name: 'Dark Grudge',

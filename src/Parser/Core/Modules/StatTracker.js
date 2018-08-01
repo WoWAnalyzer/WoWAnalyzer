@@ -8,6 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 
 const debug = false;
@@ -248,6 +249,7 @@ class StatTracker extends Analyzer {
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    [SPELLS.DANCE_OF_DEATH.id]: DANCE_OF_DEATH_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
