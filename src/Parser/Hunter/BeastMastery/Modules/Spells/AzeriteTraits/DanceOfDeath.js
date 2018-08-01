@@ -23,6 +23,10 @@ export const STAT_TRACKER = {
   agility: (combatant) => danceOfDeathStats(combatant).agility,
 };
 
+/**
+ * Barbed Shot has a chance equal to your critical strike chance to grant you 314 agility
+ * for 8 sec.
+ */
 class DanceOfDeath extends Analyzer{
   agility = 0;
 
