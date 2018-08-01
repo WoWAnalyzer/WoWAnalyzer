@@ -27,6 +27,7 @@ export const STAT_TRACKER = {
   armor: (combatant) => {
     if (bonesOfTheDamnedStats(combatant) !== null) {
       //get the last change in BoneShield stacks and update armor
+      // better test if Bones of the Damned actually work with stacks
       const boneShieldEvent = combatant.owner.eventHistory.filter(e => e.ability && e.ability.guid === SPELLS.BONE_SHIELD.id && e.type === "changebuffstack").slice(-1)[0];
       return boneShieldEvent ? boneShieldEvent.stacksGained * bonesOfTheDamnedStats(combatant).armor : 0;
     }
@@ -63,6 +64,10 @@ class BonesOfTheDamned extends Analyzer{
     return this.marrowrendUsage.bonesOfTheDamnedProcs / (this.marrowrendUsage.totalBoneShieldStacksGenerated - this.marrowrendUsage.bonesOfTheDamnedProcs);
   }
 
+  get bonesOfTheDamnedMarrowrendProcPercentage() {
+    return this.marrowrendUsage.bonesOfTheDamnedProcs / this.marrowrendUsage.marrowrendCasts;
+  }
+
   get averageArmor() {
     return this.boneShieldTimesByStacks.averageBoneShieldStacks * this.armor;
   }
@@ -78,7 +83,10 @@ class BonesOfTheDamned extends Analyzer{
           </React.Fragment>
         )}
         label={SPELLS.BONES_OF_THE_DAMNED.name}
-        tooltip={`${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}`}
+        tooltip={`
+          ${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>
+          ${formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your ${SPELLS.MARROWREND.name} casts procced ${SPELLS.BONES_OF_THE_DAMNED.name}.
+        `}
       />
     );
   }

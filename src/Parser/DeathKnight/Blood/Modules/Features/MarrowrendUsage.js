@@ -124,6 +124,10 @@ class MarrowrendUsage extends Analyzer {
     return this.badMRCasts / this.totalMRCasts;
   }
 
+  get marrowrendCasts() {
+    return this.totalMRCasts;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.badCastsPercent,
