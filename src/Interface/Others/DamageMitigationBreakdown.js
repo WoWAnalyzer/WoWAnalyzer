@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Danger from 'common/Alert/Danger';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -31,6 +32,11 @@ class DamageMitigationBreakdown extends React.Component {
 
     return (
       <div>
+        {!tracker.isAccurate && (
+          <Danger style={{ marginTop: 10, marginBottom: 10 }}>
+            There is a large amount of damage mitigation which's source is unknown. Since this tab is still in early development, it is likely due to fully absorbed hits missing block amounts, Aura of Sacrifice and Devotion Aura not being implemented yet, or the stat tracker missing armor or versatility buffs.
+          </Danger>
+        )}
         <table className="data-table">
           <thead>
             <tr>

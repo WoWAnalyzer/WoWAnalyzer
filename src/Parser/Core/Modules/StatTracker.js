@@ -22,7 +22,6 @@ class StatTracker extends Analyzer {
   // In general, it looks like armor is the only one that isn't applied
   // by WCL.
   static SPEC_MULTIPLIERS = {
-    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
   static STAT_BUFFS = {

@@ -12,8 +12,9 @@ import DamageMitigationBreakdown from 'Interface/Others/DamageMitigationBreakdow
 import Reduction from './Reduction';
 import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
 
-const debug = true;
+const debug = false;
 
+const ACCURACY_THRESHOLD = 0.05;
 const BUFFER_PERCENT = 0.01;
 const ADDITIVE = (accumulator, reduction) => accumulator + reduction.mitigation * (reduction.stacks ? reduction.stacks : 1);
 const MULTIPLICATIVE = (accumulator, reduction) => accumulator * (1 - reduction.mitigation * (reduction.stacks ? reduction.stacks : 1));
@@ -45,6 +46,7 @@ class DamageMitigation extends Analyzer {
     }
     console.log(this.mitigated);
     console.log('Total: ' + this.totalMitigated + ', Checksum: ' + this.checkSum);
+    console.log('Unknown: ' + this.mitigated[this.unknownReduction.id].amount + ', ' + formatPercentage(this.mitigated[this.unknownReduction.id].amount / this.totalMitigated) + '%');
   }
 
   get totalMitigated() {
@@ -53,6 +55,10 @@ class DamageMitigation extends Analyzer {
       sum += this.mitigated[key].amount;
     });
     return sum;
+  }
+
+  get isAccurate() {
+    return Math.abs(this.mitigated[this.unknownReduction.id].amount / this.totalMitigated) < ACCURACY_THRESHOLD;
   }
 
   addReductions() {
@@ -76,22 +82,20 @@ class DamageMitigation extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if (event.hitType === 10) { // Hit was immuned.
-      debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Damage was immuned. Ability: ' + event.ability.name);
-      return;
-    }
     if (!event.mitigated ) { // No damage was mitigated. Usually direct HP removal, or parry/dodge.
-      debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - No damage was mitigated. Ability: ' + event.ability.name);
       return;
     }
-    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + event.mitigated + ', ' + formatPercentage(event.mitigated/event.unmitigatedAmount) + '%');
     this.handleEvent(event);
   }
 
   handleEvent(event) {
-    debug && (this.checkSum += event.mitigated);
+    const mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
+    debug && (this.checkSum += mitigated);
     // Add passives.
     let mitigations = this.passives.slice();
+
+    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
 
     // Check for active buffs.
     const activeBuffs = this.selectedCombatant.activeBuffs();
@@ -151,11 +155,11 @@ class DamageMitigation extends Analyzer {
       if (!this.mitigated[this.unknownReduction.id]) {
         this.initReduction(this.unknownReduction);
       }
-      this.mitigated[this.unknownReduction.id].amount += event.mitigated;
+      this.mitigated[this.unknownReduction.id].amount += mitigated;
       return;
     }
 
-    const percentMitigated = event.mitigated/event.unmitigatedAmount;
+    const percentMitigated = mitigated/event.unmitigatedAmount;
     const multiplicative = 1 - mitigations.reduce(MULTIPLICATIVE, 1);
 
     if (percentMitigated + BUFFER_PERCENT < multiplicative) {
@@ -170,14 +174,14 @@ class DamageMitigation extends Analyzer {
       this.initReduction(this.unknownReduction);
     }
     const additive = mitigations.reduce(ADDITIVE, unknown);
-    this.mitigated[this.unknownReduction.id].amount += unknown / additive * event.mitigated;
+    this.mitigated[this.unknownReduction.id].amount += unknown / additive * mitigated;
     
     mitigations.forEach(reduction => {
       if (!this.mitigated[reduction.id]) {
         this.initReduction(reduction);
       }
       const percentContributed = reduction.mitigation / additive * (reduction.stacks ? reduction.stacks : 1);
-      this.mitigated[reduction.id].amount += percentContributed * event.mitigated;
+      this.mitigated[reduction.id].amount += percentContributed * mitigated;
     });
   }
 

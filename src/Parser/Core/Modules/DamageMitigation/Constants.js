@@ -260,9 +260,14 @@ export const PASSIVES = [
     id: SPELLS.DEMONIC_WARDS.id,
     name: SPELLS.DEMONIC_WARDS.name,
     mitigation: 0.1,
-    enabled: combatant => combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id ||
-                          combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id,
+    enabled: combatant => combatant.specId === SPECS.HAVOC_DEMON_HUNTER.id,
     school: [0],
+  },
+  {
+    id: SPELLS.DEMONIC_WARDS.id,
+    name: SPELLS.DEMONIC_WARDS.name,
+    mitigation: 0.1,
+    enabled: combatant => combatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id,
   },
   // Druid
   {
@@ -384,8 +389,6 @@ export const PASSIVES = [
   },
 ];
 
-// Some of these are not abilities so they are given fake IDs. They will also need icons.
-
 // Any missing damage mitigation is contributed to "Unknown"
 export const UNKNOWN = 
 {
@@ -393,7 +396,7 @@ export const UNKNOWN =
   name: 'Unknown',
 };
 
-// Paladin and Destruction Warlock mastery.
+// Protection Paladin and Destruction Warlock mastery reduces damage taken.
 export const MASTERY = 
 {
   id: -1003,
