@@ -1,9 +1,13 @@
+import React from 'react';
+import Tab from 'Interface/Others/Tab';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import DamageMitigationBreakdown from 'Interface/Others/DamageMitigationBreakdown';
+
 
 import Reduction from './Reduction';
 import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
@@ -27,25 +31,28 @@ class DamageMitigation extends Analyzer {
   debuffs = [];
   passives = [];
   unknownReduction = null;
-  totalMitigated = {};
+  mitigated = {};
   checkSum = 0;
 
   constructor(...args) {
     super(...args);
     this.addReductions();
-    console.log(this.combatants.players)
   }
 
   on_finished() {
     if (!debug) {
       return;
     }
-    console.log(this.totalMitigated);
+    console.log(this.mitigated);
+    console.log('Total: ' + this.totalMitigated + ', Checksum: ' + this.checkSum);
+  }
+
+  get totalMitigated() {
     let sum = 0;
-    Object.keys(this.totalMitigated).forEach(key => {
-      sum += this.totalMitigated[key].amount;
+    Object.keys(this.mitigated).forEach(key => {
+      sum += this.mitigated[key].amount;
     });
-    console.log('Total: ' + sum + ', Checksum: ' + this.checkSum);
+    return sum;
   }
 
   addReductions() {
@@ -62,7 +69,7 @@ class DamageMitigation extends Analyzer {
   }
 
   initReduction(reduction) {
-    this.totalMitigated[reduction.id] = {
+    this.mitigated[reduction.id] = {
       name: reduction.name,
       amount: 0,
     };
@@ -141,10 +148,10 @@ class DamageMitigation extends Analyzer {
     }
 
     if (mitigations.length === 0) { // No active mitigations.
-      if (!this.totalMitigated[this.unknownReduction.id]) {
+      if (!this.mitigated[this.unknownReduction.id]) {
         this.initReduction(this.unknownReduction);
       }
-      this.totalMitigated[this.unknownReduction.id].amount += event.mitigated;
+      this.mitigated[this.unknownReduction.id].amount += event.mitigated;
       return;
     }
 
@@ -159,19 +166,33 @@ class DamageMitigation extends Analyzer {
     }
 
     const unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
-    if (!this.totalMitigated[this.unknownReduction.id]) {
+    if (!this.mitigated[this.unknownReduction.id]) {
       this.initReduction(this.unknownReduction);
     }
     const additive = mitigations.reduce(ADDITIVE, unknown);
-    this.totalMitigated[this.unknownReduction.id].amount += unknown / additive * event.mitigated;
+    this.mitigated[this.unknownReduction.id].amount += unknown / additive * event.mitigated;
     
     mitigations.forEach(reduction => {
-      if (!this.totalMitigated[reduction.id]) {
+      if (!this.mitigated[reduction.id]) {
         this.initReduction(reduction);
       }
       const percentContributed = reduction.mitigation / additive * (reduction.stacks ? reduction.stacks : 1);
-      this.totalMitigated[reduction.id].amount += percentContributed * event.mitigated;
+      this.mitigated[reduction.id].amount += percentContributed * event.mitigated;
     });
+  }
+
+  tab() {
+    return {
+      title: 'Damage Mitigation',
+      url: 'damage-mitigation',
+      render: () => (
+        <Tab>
+          <DamageMitigationBreakdown
+            tracker={this}
+          />
+        </Tab>
+      ),
+    };
   }
 }
 
