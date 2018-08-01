@@ -63,20 +63,12 @@ class Checklist extends CoreChecklist {
               spell: SPELLS.PILLAR_OF_FROST,
             }),
             new GenericCastEfficiencyRequirement({
-              spell: SPELLS.OBLITERATION_TALENT,
-              when: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
-            }),
-            new GenericCastEfficiencyRequirement({
               spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
               when: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
             }),
             new GenericCastEfficiencyRequirement({
               spell: SPELLS.EMPOWER_RUNE_WEAPON,
             }),
-            new GenericCastEfficiencyRequirement({
-                spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
-                when: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
-              }),
             new GenericCastEfficiencyRequirement({
                 spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
             }),

@@ -57,6 +57,8 @@ import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
 import Healthstone from './Modules/Items/Healthstone';
+import HealthPotion from './Modules/Items/HealthPotion';
+import CombatPotion from './Modules/Items/CombatPotion';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -138,10 +140,14 @@ import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
+import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
+import InoculatingExtract from './Modules/Items/BFA/Raids/Uldir/InoculatingExtract';
+import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOvercharger';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -203,6 +209,8 @@ class CombatLogParser {
     legendaryCountChecker: LegendaryCountChecker,
     enchantChecker: EnchantChecker,
     healthstone: Healthstone,
+    healthPotion: HealthPotion,
+    combatPotion: CombatPotion,
 
     // Items:
     // Legendaries:
@@ -282,6 +290,9 @@ class CombatLogParser {
     gemhide: Gemhide,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
+    vigilantsBloodshaper: VigilantsBloodshaper,
+    inoculatingExtract: InoculatingExtract,
+    constructOvercharger: ConstructOvercharger,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

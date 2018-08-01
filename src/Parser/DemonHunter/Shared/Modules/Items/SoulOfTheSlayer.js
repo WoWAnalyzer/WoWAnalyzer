@@ -24,8 +24,7 @@ class SoulOfTheSlayer extends Analyzer {
     switch (this.selectedCombatant.spec) {
       case SPECS.HAVOC_DEMON_HUNTER:
         this.talentGained = SPELLS.FIRST_BLOOD_TALENT.id;
-        this.option1 = SPELLS.CHAOS_CLEAVE_TALENT.id;
-        this.option2 = SPELLS.BLOODLET_TALENT.id;
+        // REMOVED OPTION 1 AND 2
         break;
       case SPECS.VENGEANCE_DEMON_HUNTER:
         this.talentGained = SPELLS.FALLOUT_TALENT.id;

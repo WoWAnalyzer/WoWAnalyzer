@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 
 import TickIcon from 'Interface/Icons/Tick';
 import CrossIcon from 'Interface/Icons/Cross';
-import ChevronIcon from 'Interface/Icons/Chevron';
+import DropdownIcon from 'Interface/Icons/Dropdown';
 import InformationIcon from 'Interface/Icons/Information';
 
 import colorForPerformance from './helpers/colorForPerformance';
@@ -87,9 +87,14 @@ class Rule extends React.PureComponent {
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
         <div className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
-          <div className="meta" onClick={this.handleToggleExpand}>
-            <div className="flex" style={{ fontSize: '1.4em' }}>
-              <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
+          <div className="meta checklist-item" onClick={this.handleToggleExpand}>
+            <div className="flex">
+              <div className="flex-sub content-middle" style={{ paddingRight: 18 }}>
+                <div className="chevron">{/* this div ensures vertical alignment */}
+                  <DropdownIcon />
+                </div>
+              </div>
+              <div className="flex-sub content-middle" style={{ paddingRight: 18 }}>
                 <div>{/* this div ensures vertical alignment */}
                   {performance > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}
                 </div>
@@ -107,11 +112,6 @@ class Rule extends React.PureComponent {
                       backgroundColor: colorForPerformance(performance),
                     }}
                   />
-                </div>
-              </div>
-              <div className="flex-sub content-middle" style={{ paddingLeft: 22 }}>
-                <div className="chevron">{/* this div ensures vertical alignment */}
-                  <ChevronIcon />
                 </div>
               </div>
             </div>
