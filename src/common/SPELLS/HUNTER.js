@@ -716,7 +716,7 @@ export default {
     icon: 'spell_hunter_exoticmunitions_poisoned',
   },
   MONGOOSE_FURY: {
-    id: 190931,
+    id: 259388,
     name: 'Mongoose Fury',
     icon: 'ability_hunter_mongoosebite',
   },

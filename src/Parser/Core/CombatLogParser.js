@@ -143,6 +143,7 @@ import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/Twitchin
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
 import InoculatingExtract from './Modules/Items/BFA/Raids/Uldir/InoculatingExtract';
 import FreneticCorpuscle from './Modules/Items/BFA/Raids/Uldir/FreneticCorpuscle';
+import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOvercharger';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -293,6 +294,7 @@ class CombatLogParser {
     vigilantsBloodshaper: VigilantsBloodshaper,
     inoculatingExtract: InoculatingExtract,
     freneticCorpuscle: FreneticCorpuscle,
+    constructOvercharger: ConstructOvercharger,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
