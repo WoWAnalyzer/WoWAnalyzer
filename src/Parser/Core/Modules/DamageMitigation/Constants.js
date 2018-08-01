@@ -121,7 +121,6 @@ export const BUFFS = [
     id: SPELLS.ATONEMENT_BUFF.id,
     name: SPELLS.ATONEMENT_BUFF.name,
     mitigation: 0.03,
-    enabled: combatant => false, // Need to check the source priest's talent.
   },
   // Rogue
   // Shaman  

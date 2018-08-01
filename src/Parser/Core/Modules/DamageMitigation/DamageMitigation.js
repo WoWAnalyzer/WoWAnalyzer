@@ -1,7 +1,9 @@
+import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Reduction from './Reduction';
 import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
@@ -16,6 +18,7 @@ class DamageMitigation extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
     enemies: EnemyInstances,
+    combatants: Combatants,
   };
 
   static REDUCTION_CLASS = Reduction;
@@ -30,6 +33,7 @@ class DamageMitigation extends Analyzer {
   constructor(...args) {
     super(...args);
     this.addReductions();
+    console.log(this.combatants.players)
   }
 
   on_finished() {
@@ -87,6 +91,15 @@ class DamageMitigation extends Analyzer {
     activeBuffs.forEach(e => {
       const buff = this.buffs.find(f => f.id === e.ability.guid);
       if (buff) {
+        // Special check for Lenience.
+        if (buff.id === SPELLS.ATONEMENT_BUFF.id) {
+          // If the source combatant does not have the talent, it did not mitigate any damage.
+          const players = this.combatants.players;
+          const buffSource = players[Object.keys(players).find(f => players[f]._combatantInfo.sourceID === e.sourceID)];
+          if (!buffSource.hasTalent(SPELLS.LENIENCE_TALENT.id)) {
+            return;
+          }
+        }
         buff.stacks = e.stacks;
         mitigations.push(buff);
       }
