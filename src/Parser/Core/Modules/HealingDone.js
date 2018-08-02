@@ -78,6 +78,7 @@ class HealingDone extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(0)}
         icon={(
           <img
             src="/img/healing.png"
@@ -127,7 +128,6 @@ class HealingDone extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default HealingDone;

@@ -6,19 +6,18 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 
-
 export function gemhideStats(combatant) {
-  if(!combatant.hasTrait(SPELLS.GEMHIDE.id)) {
+  if (!combatant.hasTrait(SPELLS.GEMHIDE.id)) {
     return null;
   }
   let armor = 0;
   let avoidance = 0;
-  for(const rank of combatant.traitsBySpellId[SPELLS.GEMHIDE.id]) {
+  for (const rank of combatant.traitsBySpellId[SPELLS.GEMHIDE.id]) {
     const [av, ar] = calculateAzeriteEffects(SPELLS.GEMHIDE.id, rank);
     armor += ar;
     avoidance += av;
   }
-  return {armor, avoidance};
+  return { armor, avoidance };
 }
 
 export const STAT_TRACKER = {
@@ -32,11 +31,11 @@ class Gemhide extends Analyzer {
   constructor(...args) {
     super(...args);
     const resp = gemhideStats(this.selectedCombatant);
-    if(resp === null) {
+    if (resp === null) {
       this.active = false;
       return;
     }
-    const {armor, avoidance} = resp;
+    const { armor, avoidance } = resp;
     this.armor += armor;
     this.avoidance += avoidance;
   }
@@ -60,7 +59,7 @@ class Gemhide extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.sourceIsFriendly) {
+    if (event.sourceIsFriendly) {
       return;
     }
     this._totalHits += 1;
@@ -69,20 +68,20 @@ class Gemhide extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox 
+      <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.GEMHIDE.id} />}
         value={(
-            <React.Fragment>
+          <React.Fragment>
             {formatNumber(this.avgArmor)} Armor<br />
             {formatNumber(this.avgAvoidance)} Avoidance
-            </React.Fragment>
+          </React.Fragment>
         )}
-        label={"Avg. Stats from Gemhide"}
+        label={'Avg. Stats from Gemhide'}
         tooltip={`Gemhide grants <b>${this.armor} Armor</b> and <b>${this.avoidance} Avoidance</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
-        />
+      />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Gemhide;
