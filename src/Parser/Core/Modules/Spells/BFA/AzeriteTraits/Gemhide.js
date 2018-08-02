@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER, STATISTIC_CATEGORY } from 'Interface/Others/StatisticBox';
 
 const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [avoidance, armor] = calculateAzeriteEffects(SPELLS.GEMHIDE.id, rank);
@@ -72,6 +72,7 @@ class Gemhide extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         icon={<SpellIcon id={SPELLS.GEMHIDE.id} />}
         value={(
           <React.Fragment>
