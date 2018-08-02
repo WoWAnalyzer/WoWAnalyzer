@@ -84,11 +84,33 @@ describe('stats', () => {
   });
 
   it('scales azerite effects correctly', () => {
+    const testTrait = (spellId, values) => {
+      Object.keys(values).forEach(itemLevel => {
+        expect(calculateAzeriteEffects(spellId, itemLevel)).toEqual(values[itemLevel]);
+      });
+    };
+
     // elusive footwork
-    expect(calculateAzeriteEffects(278571, 310)).toEqual([684]); // ilvl 310
-    expect(calculateAzeriteEffects(278571, 330)).toEqual([823]); // ilvl 330
-    expect(calculateAzeriteEffects(278571, 355)).toEqual([1038]); // ilvl 355
+    testTrait(278571, {
+      280: [517],
+      325: [785],
+      340: [904],
+      355: [1038],
+      370: [1195],
+      385: [1375],
+    });
     // gemhide
-    expect(calculateAzeriteEffects(268596, 330)).toEqual([115, 508]); // ilvl 330
+    testTrait(268596, {
+      340: [87, 628],
+      355: [94, 821],
+      370: [100, 830],
+      385: [107, 955],
+    });
+    // Moment of Repose
+    testTrait(272775, {
+      280: [5693],
+      325: [8736],
+      340: [10012],
+    });
   });
 });
