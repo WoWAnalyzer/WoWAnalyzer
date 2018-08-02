@@ -19,7 +19,7 @@ class ArcaneMissiles extends Analyzer {
 		if (spellId !== SPELLS.ARCANE_BARRAGE.id) {
 			return;
 		}
-		if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_MISSILES_BUFF.id,event.timestamp - 100)) {
+		if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id,event.timestamp - 100)) {
 			debug && console.log("Arcane Barrage with Missiles Procs @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 			this.barrageWithMissilesProc += 1;
 		}
@@ -44,7 +44,7 @@ class ArcaneMissiles extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs available. Make sure you are using your Clearcasting procs before casting Arcane Barrage.</React.Fragment>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

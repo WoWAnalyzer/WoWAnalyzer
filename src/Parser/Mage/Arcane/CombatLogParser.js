@@ -20,6 +20,8 @@ import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import ArcaneOrb from './Modules/Features/ArcaneOrb';
+import RuleOfThrees from './Modules/Features/RuleOfThrees';
+
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -43,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
+    ruleOfThrees: RuleOfThrees,
   };
 }
 
