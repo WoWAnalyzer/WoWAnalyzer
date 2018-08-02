@@ -100,6 +100,15 @@ describe('stats', () => {
         370: [1195],
         385: [1375],
       });
+      // Blood Siphon
+      verifyAzeritePower(264108, {
+        280: [85, 43],
+        325: [129, 65],
+        340: [149, 75],
+        355: [171, 86],
+        370: [196, 99],
+        385: [226, 114],
+      });
     });
     it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
       // Gemhide
