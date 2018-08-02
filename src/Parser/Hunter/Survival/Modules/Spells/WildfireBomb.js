@@ -11,6 +11,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire
@@ -26,6 +27,7 @@ class WildfireBomb extends Analyzer {
     enemies: Enemies,
     spellUsable: SpellUsable,
     statTracker: StatTracker,
+    globalCooldown: GlobalCooldown,
   };
 
   acceptedCastDueToCapping = false;
@@ -45,9 +47,9 @@ class WildfireBomb extends Analyzer {
     if (spellId !== SPELLS.WILDFIRE_BOMB.id) {
       return;
     }
-    this.casts++;
-    this.currentGCD = (Math.max(1.5 / (1 + this.statTracker.currentHastePercentage), 0.75) * 1000);
-    if (this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < GCD_BUFFER + this.currentGCD || !this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
+    this.casts += 1;
+    this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < GCD_BUFFER + this.currentGCD) {
       this.acceptedCastDueToCapping = true;
     }
   }
@@ -58,7 +60,7 @@ class WildfireBomb extends Analyzer {
       return;
     }
     if (this.casts === 0) {
-      this.casts++;
+      this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.WILDFIRE_BOMB.id, this.owner.fight.start_time);
     }
     this.targetsHit++;
