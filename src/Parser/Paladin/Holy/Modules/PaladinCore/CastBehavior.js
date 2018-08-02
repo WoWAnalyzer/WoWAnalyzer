@@ -4,14 +4,12 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import StatisticWrapper from 'Interface/Others/StatisticWrapper';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
-import StatisticWrapper from 'Interface/Others/StatisticWrapper';
 
 const CHART_SIZE = 75;
 
@@ -198,7 +196,7 @@ class CastBehavior extends Analyzer {
         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div className="row">
             <StatisticsListBox
-              title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}
+              title={<React.Fragment><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</React.Fragment>}
               containerProps={{ className: 'col-xs-12' }}
             >
               {this.iolCastRatioChart()}
