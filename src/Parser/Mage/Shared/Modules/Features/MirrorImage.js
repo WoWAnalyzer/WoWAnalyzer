@@ -2,26 +2,20 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 class MirrorImage extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-	}
-
   // all images summoned by player seem to have the same sourceID, and vary only by instanceID
   mirrorImagesId;
   damage = 0;
 
-  on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+	   this.active = this.selectedCombatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
   }
 
   on_byPlayer_summon(event) {
@@ -60,7 +54,7 @@ class MirrorImage extends Analyzer {
   suggestions(when) {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id}/> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</React.Fragment>)
           .icon(SPELLS.MIRROR_IMAGE_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);

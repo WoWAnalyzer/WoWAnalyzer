@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import isAtonement from '../Core/isAtonement';
@@ -36,7 +36,7 @@ class Atonement extends Analyzer {
     const applicatorSpellId = applicatorEvent.ability.guid;
     let duration = this.atonementApplicationSource.duration.get(applicatorSpellId);
 
-    if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
+    if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;
     }
 
@@ -47,7 +47,8 @@ class Atonement extends Analyzer {
     return this.currentAtonementTargets.length;
   }
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = true;
   }
 
@@ -153,14 +154,12 @@ class Atonement extends Analyzer {
     const totalAtonementRefreshes = this.totalAtonementRefreshes || 0;
     const totalAtones = this.totalAtones || 0;
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
         value={improperLength}
         label={(
-          <dfn data-tip={
-            `The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`
-            }>
+          <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`}>
             Early Atonement refreshes
           </dfn>
         )}

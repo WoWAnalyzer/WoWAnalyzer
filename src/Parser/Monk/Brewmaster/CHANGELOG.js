@@ -1,13 +1,37 @@
 import React from 'react';
 
 import { WOPR, emallson } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-07-22'),
+    changes: <React.Fragment>Updated support for <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> and temporarily disabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module pending new formula coefficients.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-07-18'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} />.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-07-15'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TRAINING_OF_NIUZAO.id} /> support.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-06-16'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> cooldown and duration and added <SpellLink id={SPELLS.GUARD_TALENT.id} />, along with other changes in beta build 26812.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-04-22'),
+    changes: 'Fixed how the "Damage Taken by Ability" table treats very small hits (notably: Aggramar\'s Sacrifice is now always classified as Physical).',
+    contributors: [emallson],
+  },
   {
     date: new Date('2018-04-08'),
     changes: 'Updated checklist for brew generation to clarify some common points of confusion.',
@@ -20,7 +44,7 @@ export default [
   },
   {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
+    changes: <React.Fragment>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -30,7 +54,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</Wrapper>,
+    changes: <React.Fragment>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -45,7 +69,7 @@ export default [
   },
   {
     date: new Date('2018-01-12'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.PURIFYING_BREW.id} /> statistic.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.PURIFYING_BREW.id} /> statistic.</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -55,22 +79,22 @@ export default [
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
+    changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> suggestion from cast efficiency to uptime.</Wrapper>,
+    changes: <React.Fragment>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id} /> suggestion from cast efficiency to uptime.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> uptime and clipping checklist items.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> uptime and clipping checklist items.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-08-24'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> statistic.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> statistic.</React.Fragment>,
     contributors: [WOPR],
   },
   {
@@ -85,7 +109,7 @@ export default [
   },
   {
     date: new Date('2017-08-20'),
-    changes: <Wrapper>Added more information about what occured while <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> was up or not.</Wrapper>,
+    changes: <React.Fragment>Added more information about what occured while <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> was up or not.</React.Fragment>,
     contributors: [WOPR],
   },
   {

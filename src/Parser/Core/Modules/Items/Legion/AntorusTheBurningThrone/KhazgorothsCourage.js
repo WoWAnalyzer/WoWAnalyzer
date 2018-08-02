@@ -4,12 +4,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Khaz'Goroths Courage -
@@ -20,7 +18,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  */
 class KhazgorothsCourage extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -31,10 +28,11 @@ class KhazgorothsCourage extends Analyzer {
   secondaryRating = 0;
   activeBuffStatName = 'none';
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.KHAZGOROTHS_COURAGE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.KHAZGOROTHS_COURAGE.id);
     if (this.active) {
-      const itemDetails = this.combatants.selected.getItem(ITEMS.KHAZGOROTHS_COURAGE.id);
+      const itemDetails = this.selectedCombatant.getItem(ITEMS.KHAZGOROTHS_COURAGE.id);
       this.secondaryRating = calculateSecondaryStatDefault(940, 4219, itemDetails.itemLevel);
     }
   }
@@ -104,18 +102,18 @@ class KhazgorothsCourage extends Analyzer {
   }
 
   item() {
-    const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.KHAZGOROTHS_SHAPING.id) / this.owner.fightDuration;
+    const uptimePercent = this.selectedCombatant.getBuffUptime(SPELLS.KHAZGOROTHS_SHAPING.id) / this.owner.fightDuration;
     return {
       item: ITEMS.KHAZGOROTHS_COURAGE,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`The damage buff procced <b>${this.damageProcs}</b> times.`}>
             <ItemDamageDone amount={this.damage} />
           </dfn><br />
           <dfn data-tip={`The Pantheon buff procced <b>${this.pantheonProcs}</b> times.`}>
             {formatPercentage(uptimePercent)} % uptime
           </dfn> on <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ComboPointDetails from '../Common/Resources/ComboPointDetails';
@@ -10,6 +10,7 @@ import ComboPoints from './Modules/RogueCore/ComboPoints';
 import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
 import Energy from './Modules/RogueCore/Energy';
+import EnemyHpTracker from '../Common/EnemyHpTracker';
 
 //Spells
 import EnvenomUptime from './Modules/Spells/EnvenomUptime';
@@ -27,12 +28,15 @@ import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import DuskwalkersFootpads from './Modules/Legendaries/DuskwalkersFootpads';
 import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTrainingShackles';
 
-//Traits
-import MasterAssassin from './Modules/Traits/MasterAssassin';
-
+//Talents
+import Blindside from './Modules/Talents/Blindside';
+import ElaboratePlanning from './Modules/Talents/ElaboratePlanning';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Trackers
+    enemyHpTracker: EnemyHpTracker,
+
     //Feature
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
@@ -65,9 +69,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
 
     //Talents
-
-    //Traits
-    masterAssassin: MasterAssassin,
+    blindside: Blindside,
+    elaboratePlanning: ElaboratePlanning,
   };
 }
 

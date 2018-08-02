@@ -2,18 +2,15 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 class TarnishedSentinelMedallion extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     atonementDamageSource: AtonementDamageSource,
   };
 
@@ -21,8 +18,9 @@ class TarnishedSentinelMedallion extends Analyzer {
   damage = 0;
   damageAbilities = new Set([SPELLS.SPECTRAL_BOLT.id, SPELLS.SPECTRAL_BLAST.id]);
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
   }
 
   on_byPlayer_heal(event) {
@@ -51,10 +49,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemHealingDone amount={healing} /><br />
           <ItemDamageDone amount={damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

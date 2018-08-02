@@ -1,21 +1,20 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GuardianOfElune from './GuardianOfElune';
 
 class FrenziedRegenGoEProcs extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     guardianOfElune: GuardianOfElune,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   statistic() {

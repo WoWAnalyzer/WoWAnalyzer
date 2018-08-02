@@ -3,22 +3,18 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from '../../Constants';
 
 const CHAIN_OF_THRAYN_HEALING_INCREASE = 0.25;
 
 class ChainOfThrayn extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
   }
 
   on_heal(event) {
@@ -28,11 +24,11 @@ class ChainOfThrayn extends Analyzer {
   }
   processHeal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
 
-    if (!this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)) {
       return;
     }
 

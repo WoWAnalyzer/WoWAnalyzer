@@ -2,20 +2,19 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class ChiJi extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
-    combatants: Combatants,
   };
 
   petID = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
   }
 
   on_byPlayer_summon(event) {

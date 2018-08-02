@@ -4,13 +4,11 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
@@ -20,7 +18,6 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
  */
 class VelensFutureSight extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -31,12 +28,14 @@ class VelensFutureSight extends Analyzer {
     return this.healingIncreaseHealing + this.overhealHealing;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
 
     if (this.active) {
       this.abilities.add({
         spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+        buffSpellId: SPELLS.VELENS_FUTURE_SIGHT_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
         castEfficiency: {
@@ -63,7 +62,7 @@ class VelensFutureSight extends Analyzer {
     if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId)) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
       return;
     }
 
@@ -100,9 +99,9 @@ class VelensFutureSight extends Analyzer {
     when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
           .actual(`${formatPercentage(actual)}% healing contributed`)

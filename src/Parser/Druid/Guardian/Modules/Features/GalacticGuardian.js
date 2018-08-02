@@ -2,27 +2,23 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GG_DURATION = 10000;
 const debug = false;
 
 class GalacticGuardian extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   GGProcsTotal = 0;
   lastGGProcTime = 0;
   consumedGGProc = 0;
   overwrittenGGProc = 0;
   nonGGMoonFire = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

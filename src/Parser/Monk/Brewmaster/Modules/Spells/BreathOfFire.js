@@ -1,11 +1,9 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import { BOF as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
@@ -13,7 +11,6 @@ const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
@@ -31,24 +28,33 @@ class BreathOfFire extends Analyzer {
   get suggestionThreshold() {
     return {
       actual: this.mitigatedHits,
+      // max possible now is 0.8 w/o shenanigans
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        minor: 0.75,
+        average: 0.65,
+        major: 0.55,
       },
       style: 'percentage',
     };
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || ABILITY_BLACKLIST.includes(event.ability.guid) || !(event.sourceID in this.enemies.getEntities())) {
+    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+      return;
+    }
+    if (!this.enemies.getEntities()[event.sourceID]) {
       return; // either stagger or not a notable entity (e.g. imonar traps, environment damage) or an ability we want to ignore
     }
 
-    if(this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+    if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
-      if(DEBUG_ABILITIES) { console.log('hit w/o bof', event); }
+      if (DEBUG_ABILITIES) {
+        console.log('hit w/o bof', event);
+      }
       this.hitsWithoutBoF += 1;
     }
   }
@@ -56,7 +62,7 @@ class BreathOfFire extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> uptime can be improved. The associated debuff is a key part of our damage mitigation.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> uptime can be improved. The associated debuff is a key part of our damage mitigation.</React.Fragment>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
           .actual(`${formatPercentage(actual)}% Breath of Fire uptime`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);

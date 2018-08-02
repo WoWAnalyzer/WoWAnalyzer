@@ -3,17 +3,15 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
@@ -27,7 +25,6 @@ const MAX_STACKS = 4;
 
 class ParselsTongue extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
@@ -41,8 +38,9 @@ class ParselsTongue extends Analyzer {
   _fourStackStart = 0;
   _fourStackUptime = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.PARSELS_TONGUE.id);
   }
 
   on_byPlayer_cast(event) {
@@ -95,18 +93,18 @@ class ParselsTongue extends Analyzer {
 
   on_byPlayer_damage(event) {
     const parselsModifier = DAMAGE_INCREASE_PER_STACK * this._currentStacks;
-    if (!this.combatants.selected.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, parselsModifier);
+    this.bonusDmg += calculateEffectiveDamage(event, parselsModifier);
   }
 
   on_byPlayerPet_damage(event) {
     const parselsModifier = DAMAGE_INCREASE_PER_STACK * this._currentStacks;
-    if (!this.combatants.selected.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, parselsModifier);
+    this.bonusDmg += calculateEffectiveDamage(event, parselsModifier);
   }
 
   on_byPlayer_heal(event) {
@@ -120,7 +118,7 @@ class ParselsTongue extends Analyzer {
     } else {
       const leechFromParsel = LEECH_PER_STACK * this._currentStacks;
       const leechModifier = leechFromParsel / (currentLeech + leechFromParsel);
-      this.bonusHealing += getDamageBonus(event, leechModifier);
+      this.bonusHealing += calculateEffectiveDamage(event, leechModifier);
     }
   }
 
@@ -131,7 +129,7 @@ class ParselsTongue extends Analyzer {
   }
 
   get buffUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageTimeBetweenRefresh() {
@@ -167,13 +165,13 @@ class ParselsTongue extends Analyzer {
   }
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+      return suggest(<React.Fragment>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</React.Fragment>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${actual} times dropped`)
         .recommended(`${recommended} times dropped is recommended`);
     });
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </Wrapper>)
+      return suggest(<React.Fragment>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </React.Fragment>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)} is recommended`);

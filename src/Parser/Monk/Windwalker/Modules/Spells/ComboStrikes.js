@@ -3,21 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatDuration } from 'common/format';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
 class ComboStrikes extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _lastSpellUsed = null;
   _lastThreeSpellsUsed = [];
   masteryDropSpellSequence = [];
@@ -79,7 +73,7 @@ class ComboStrikes extends Analyzer {
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
         value={`${formatNumber(masteryDropEvents)}`}
         label={(
-          <dfn data-tip={`This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff.`}
+          <dfn data-tip="This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff."
           >
             Mastery Benefit Mistakes
           </dfn>

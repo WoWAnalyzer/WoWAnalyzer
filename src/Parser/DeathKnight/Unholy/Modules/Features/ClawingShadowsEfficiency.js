@@ -7,17 +7,16 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class ClawingShadowsEfficiency extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
   }
   // used to track how many stacks a target has
   targets = {};
@@ -66,7 +65,7 @@ class ClawingShadowsEfficiency extends Analyzer {
     const strikeEfficiency = 1 - percentCastZeroWounds;
     when(strikeEfficiency).isLessThan(0.80)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id}/> too often.  When spending runes remember to cast <SpellLink id={SPELLS.FESTERING_STRIKE.id}/> instead on targets with no stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id}/></span>)
+          return suggest(<span>You are casting <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> instead on targets with no stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
             .icon(SPELLS.CLAWING_SHADOWS_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of Clawing Shadows were used with Wounds on the target`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)

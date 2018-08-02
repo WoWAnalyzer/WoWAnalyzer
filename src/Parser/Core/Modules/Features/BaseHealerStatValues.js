@@ -1,16 +1,17 @@
 import React from 'react';
 
+import InformationIcon from 'Interface/Icons/Information';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import CORE_SPELL_INFO from './SpellInfo';
 import STAT, { getClassNameColor, getIcon, getName } from './STAT';
@@ -25,7 +26,6 @@ export const ARMOR_INT_BONUS = .05;
  */
 class BaseHealerStatValues extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
@@ -35,7 +35,7 @@ class BaseHealerStatValues extends Analyzer {
   // We assume unlisted spells scale with vers only (this will mostly be trinkets)
   fallbackSpellInfo = {
     int: false,
-    crit: false,
+    crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: false,
@@ -80,7 +80,7 @@ class BaseHealerStatValues extends Analyzer {
   totalOneHasteHpm = 0;
   totalOneMastery = 0;
   totalOneVers = 0; // from healing increase only
-  totalOneVersDr = 0;  // from damage reduced only
+  totalOneVersDr = 0; // from damage reduced only
   totalOneLeech = 0;
 
   playerHealthMissing = 0;
@@ -168,7 +168,6 @@ class BaseHealerStatValues extends Analyzer {
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal, spellInfo) {
-    const spellId = event.ability.guid;
     if (event.type !== 'heal') {
       return 0; // leech doesn't proc from absorbs
     }
@@ -177,22 +176,33 @@ class BaseHealerStatValues extends Analyzer {
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.statTracker.currentLeechPercentage > 0;
     if (hasLeech) {
-      // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
-      if (!healVal.overheal && spellId === SPELLS.LEECH.id) {
-        return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
-      }
+      return this._leechHasLeech(event, healVal, spellInfo);
     } else {
-      if (this.owner.toPlayer(event)) {
-        return 0; // Leech doesn't proc from self-healing
-      }
-      if (spellInfo.multiplier) {
-        return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
-      }
-      // Without Leech we will have to make an estimation so we can still provide the user with a decent value
-      if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-        const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
-        return healVal.raw * healIncreaseFromOneLeech;
-      }
+      return this._leechPrediction(event, healVal, spellInfo);
+    }
+  }
+  _leechHasLeech(event, healVal/*, spellInfo*/) {
+    // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.LEECH.id) {
+      return 0;
+    }
+    if (!healVal.overheal) {
+      return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
+    }
+    return 0;
+  }
+  _leechPrediction(event, healVal, spellInfo) {
+    // Without Leech we will have to make an estimation so we can still provide the user with a decent value
+    if (this.owner.toPlayer(event)) {
+      return 0; // Leech doesn't proc from self-healing
+    }
+    if (spellInfo.multiplier) {
+      return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
+    }
+    if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
+      const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
+      return healVal.raw * healIncreaseFromOneLeech;
     }
     return 0;
   }
@@ -213,8 +223,11 @@ class BaseHealerStatValues extends Analyzer {
 
     return { baseCritChance, ratingCritChance };
   }
+  _isCrit(event) {
+    return event.hitType === HIT_TYPES.CRIT;
+  }
   _criticalStrike(event, healVal) {
-    if (event.hitType === HIT_TYPES.CRIT) {
+    if (this._isCrit(event)) {
       // This collects the total effective healing contributed by the last 1 point of critical strike rating.
       // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
 
@@ -401,7 +414,7 @@ class BaseHealerStatValues extends Analyzer {
   statistic() {
     const results = this._prepareResults();
     return (
-      <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div className="panel items">
           <div className="panel-heading">
             <h2>
@@ -419,9 +432,9 @@ class BaseHealerStatValues extends Analyzer {
               <thead>
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn></th>
-                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
+                    <dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -449,13 +462,10 @@ class BaseHealerStatValues extends Analyzer {
                       <td className="text-right">
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                       </td>
-                      <td className="text-right">
-                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
-                      </td>
-                      <td className="text-right">
-                        {gain !== null ? (
+                      <td style={{ padding: 6 }}>
+                        <InformationIcon data-tip={`${(gain / this.owner.fightDuration * 1000).toFixed(2)} HPS per 1 rating / ${gain !== null ? (
                           ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                        ) : 'NYI'}
+                        ) : 'NYI'} rating per 1% throughput`} />
                       </td>
                     </tr>
                   );

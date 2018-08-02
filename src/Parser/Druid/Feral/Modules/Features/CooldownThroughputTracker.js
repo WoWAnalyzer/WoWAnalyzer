@@ -12,7 +12,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.ASHAMANES_FRENZY,
+      spell: SPELLS.FERAL_FRENZY_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

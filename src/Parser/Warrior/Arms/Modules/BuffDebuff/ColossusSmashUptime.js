@@ -2,29 +2,22 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class ColossusSmashUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   suggestions(when) {
     const colossusSmashUptime = this.enemies.getBuffUptime(SPELLS.COLOSSUS_SMASH_DEBUFF.id) / this.owner.fightDuration;
-    let threshold = 0.50;
 
-    if (this.combatants.selected.hasTalent(SPELLS.TITANIC_MIGHT_TALENT)) {
-      threshold = 0.95;
-    }
-
-    when(colossusSmashUptime).isLessThan(threshold)
+    when(colossusSmashUptime).isLessThan(0.5)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.COLOSSUS_SMASH_DEBUFF.id} /> uptime can be improved. Try to pay more attention to your debuff on the Boss since it increases your dealt damage by 15% + Mastery.</span>)
           .icon(SPELLS.COLOSSUS_SMASH_DEBUFF.icon)

@@ -6,11 +6,19 @@
 
 export default {
   // Blood:
-  // Artifact
-  CONSUMPTION: {
-    id: 205223,
-    name: 'Consumption',
-    icon: 'inv_axe_2h_artifactmaw_d_01',
+
+  //Summons
+  //Bloodworm summon spell by the Bloodworms talent
+  BLOODWORM: {
+    id: 196361,
+    name: 'Bloodworm',
+    icon: 'spell_shadow_soulleech',
+  },
+  //Bloodworm death/heal spell
+  BLOODWORM_DEATH: {
+    id: 197509,
+    name: 'Bloodworm Death/Heal',
+    icon: 'spell_shadow_soulleech',
   },
 
   //Artifact Trait
@@ -63,13 +71,6 @@ export default {
   },
 
   // Damage Dealing
-  // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
-  RAPID_DECOMPOSITION_RP_TICK: {
-    id: 255203,
-    name: 'Rapid Decomposition',
-    icon: 'ability_deathknight_deathsiphon2',
-  },
-
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -129,6 +130,12 @@ export default {
     icon: 'spell_shadow_lifedrain',
   },
 
+  SHROUD_OF_PURGATORY: {
+    id: 116888,
+    name: 'Shroud of Purgatory',
+    icon: 'inv_misc_shadowegg',
+  },
+
   BONE_SHIELD: {
     id: 195181,
     name: 'Bone Shield',
@@ -141,10 +148,10 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  MARK_OF_BLOOD: {
-    id: 61606,
-    name: 'Mark of Blood',
-    icon: 'ability_hunter_rapidkilling',
+  HEARTBREAKER: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
   },
 
 // Buffs
@@ -153,7 +160,6 @@ export default {
     name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
-
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
@@ -168,6 +174,11 @@ export default {
     id: 238698,
     name: 'Vampiric Aura',
     icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
+  VORACIOUS: {
+    id: 274009,
+    name: 'Voracious',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
 
   // CC
@@ -385,7 +396,7 @@ export default {
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
-  // Frost tier 
+  // Frost tier
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -420,7 +431,7 @@ export default {
     name: 'Toravon\'s Whiteout Bindings',
     icon: 'ability_warrior_unrelentingassault',
   },
-  
+
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -504,12 +515,6 @@ export default {
     icon: 'spell_deathknight_scourgestrike',
   },
 
-  SUMMON_GARGOYLE: {
-    id: 49206,
-    name: 'Summon Gargoyle',
-    icon: 'ability_deathknight_summongargoyle',
-  },
-
   VIRULENT_PLAGUE: {
     id: 191587,
     name: 'Virulent Plague',
@@ -527,7 +532,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-  
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -694,10 +699,10 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
-  WRAITH_WALK: {
-    id: 212552,
-    name: 'Wraith Walk',
-    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  DEATHS_ADVANCE: {
+    id: 48265,
+    name: 'Death\'s Advance',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   COLD_HEART_BUFF: {
@@ -716,6 +721,12 @@ export default {
   HAEMOSTASIS_BUFF: {
     id: 235559,
     name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  HEMOSTASIS_BUFF: {
+    id: 273947,
+    name: 'Hemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
 

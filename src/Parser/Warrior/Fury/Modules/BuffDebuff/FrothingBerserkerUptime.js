@@ -6,21 +6,16 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 class FrothingBerserkerUptime extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
   }
   
   get frothingBerserkerUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FROTHING_BERSERKER.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FROTHING_BERSERKER.id) / this.owner.fightDuration;
   }
   
   get suggestionThresholds() {
@@ -45,7 +40,7 @@ class FrothingBerserkerUptime extends Analyzer {
 
     when(this.frothingBerserkerUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</React.Fragment>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
           .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

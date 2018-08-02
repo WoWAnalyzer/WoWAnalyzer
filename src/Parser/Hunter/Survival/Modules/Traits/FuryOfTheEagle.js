@@ -3,22 +3,18 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/SixStackBites';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 /**
  * Furiously strikes all enemies in front of you, dealing ((125% of Attack power) * 9) Physical damage over 4 sec. Damage increased by
  * Mongoose Fury. Extends the duration of Mongoose Fury for the duration of the channel.
  */
 class FuryOfTheEagle extends Analyzer {
-
   static dependencies = {
-    combatants: Combatants,
     sixStackBites: SixStackBites,
   };
 
@@ -39,7 +35,7 @@ class FuryOfTheEagle extends Analyzer {
   }
 
   get uptimeInSeconds() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FURY_OF_THE_EAGLE_TRAIT.id) / 1000;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_THE_EAGLE_TRAIT.id) / 1000;
   }
 
   get averageChannelingTime() {
@@ -93,7 +89,7 @@ class FuryOfTheEagle extends Analyzer {
 
   suggestions(when) {
     when(this.averageMFStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </Wrapper>)
+      return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </React.Fragment>)
         .icon(SPELLS.FURY_OF_THE_EAGLE_TRAIT.icon)
         .actual(`${this.averageMongooseStacksOnCast} average stacks of mongoose Fury on cast`)
         .recommended(`>${recommended} stacks is recommended`);
@@ -102,6 +98,7 @@ class FuryOfTheEagle extends Analyzer {
 
   statistic() {
     if (this.bonusDamage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} />}
@@ -111,10 +108,12 @@ class FuryOfTheEagle extends Analyzer {
         />
       );
     }
+    return null;
   }
 
   subStatistic() {
     if (this.bonusDamage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -126,6 +125,7 @@ class FuryOfTheEagle extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

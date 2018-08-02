@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const debug = false;
@@ -38,8 +37,9 @@ class DecieversGrandDesign extends Analyzer {
 
   casts = [];
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
 
     if (this.active) {
       this.abilities.add({
@@ -172,7 +172,7 @@ class DecieversGrandDesign extends Analyzer {
     when(averagePercent).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> was proccing early. Try to cast it on players without spiky health pools. The following events procced the shield:<br />
             {this.casts.map((cast, index) => {
               if (!cast.shieldProc) {
@@ -187,7 +187,7 @@ class DecieversGrandDesign extends Analyzer {
                 </div>
               );
             })}
-          </Wrapper>
+          </React.Fragment>
         )
         .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon)
         .actual(`HoT averaged ${formatPercentage(averagePercent, 0)}% of max duration.`)

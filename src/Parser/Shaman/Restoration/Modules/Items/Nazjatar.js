@@ -6,8 +6,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 class Nazjatar extends Analyzer {
   resets = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
   }
 
   on_byPlayer_heal(event) {

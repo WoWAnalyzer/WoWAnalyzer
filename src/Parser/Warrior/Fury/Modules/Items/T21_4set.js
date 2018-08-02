@@ -4,20 +4,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 class T21_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   // Rampage is in fact 5 separate spells cast in this sequence
-  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id];
+  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id];
   damage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {
@@ -25,7 +21,7 @@ class T21_4set extends Analyzer {
       return;
     }
 
-    if (!this.combatants.selected.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id, event.timestamp)) {
       return;
     }
 

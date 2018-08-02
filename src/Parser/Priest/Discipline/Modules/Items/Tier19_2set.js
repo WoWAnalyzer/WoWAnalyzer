@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -21,8 +21,9 @@ class Tier19_2set extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {
@@ -38,7 +39,7 @@ class Tier19_2set extends Analyzer {
   }
   registerHeal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
     const combatant = this.combatants.players[event.targetID];

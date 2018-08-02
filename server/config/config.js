@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+const loadDotEnv = require('./env');
+const appDirectory = fs.realpathSync(process.cwd());
+loadDotEnv(appDirectory);
+
 function config() {
   const env = process.env.NODE_ENV || 'development';
 

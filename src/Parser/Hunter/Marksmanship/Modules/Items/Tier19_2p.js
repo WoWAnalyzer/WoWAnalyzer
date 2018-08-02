@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
@@ -15,12 +14,9 @@ const AFFECTED_ABILITIES = [
   SPELLS.AIMED_SHOT.id,
   SPELLS.PIERCING_SHOT_TALENT.id,
   SPELLS.BURSTING_SHOT.id,
-  SPELLS.MARKED_SHOT.id,
-  SPELLS.WINDBURST.id,
   SPELLS.BARRAGE_TALENT.id,
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
-  SPELLS.BLACK_ARROW_TALENT.id,
-  SPELLS.VOLLEY_ACTIVATED.id,
+  SPELLS.ARCANE_SHOT.id,
 ];
 
 /**
@@ -29,7 +25,6 @@ const AFFECTED_ABILITIES = [
 
 class Tier19_2p extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -37,8 +32,9 @@ class Tier19_2p extends Analyzer {
   wastedTrueshotReductionMs = 0;
   lastFocusCost = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -46,7 +42,7 @@ class Tier19_2p extends Analyzer {
       return;
     }
     //the added || 0 ensures we don't get any undefined
-    this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    this.lastFocusCost = event.classResources[0].cost || 0;
     const COOLDOWN_REDUCTION_MS = CDR_PER_FOCUS * this.lastFocusCost;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {

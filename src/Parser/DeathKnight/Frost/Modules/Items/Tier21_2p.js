@@ -1,13 +1,12 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 /**
@@ -17,16 +16,13 @@ import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 const DAMAGE_BONUS = 0.15;
 
 class Tier21_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   obliterateDamage = 0;
   howlingblastDamage = 0;
   frostscytheDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id);
   }
 
   on_byPlayer_damage(event){

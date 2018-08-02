@@ -27,7 +27,7 @@ const ResourceIcon = ({ id, noLink, ...others }) => {
   }
 
   return (
-    <ResourceLink id={id}>
+    <ResourceLink id={id} icon={false}>
       {icon}
     </ResourceLink>
   );

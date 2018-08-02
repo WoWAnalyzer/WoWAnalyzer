@@ -3,13 +3,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class WastedRimeProcs extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   rimeProcs = 0;
@@ -22,7 +20,7 @@ class WastedRimeProcs extends Analyzer {
     if (spellId !== SPELLS.HOWLING_BLAST.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.RIME.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp)) {
       this.castsWithRime += 1;
     } else {
       this.castsWithoutRime += 1;

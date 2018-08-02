@@ -3,20 +3,19 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RunicPowerTracker from '../RunicPower/RunicPowerTracker';
 
 class RedThirst extends Analyzer {
   static dependencies = {
     runicPowerTracker: RunicPowerTracker,
-    combatants: Combatants,
   };
 
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RED_THIRST_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -47,12 +46,12 @@ class RedThirst extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RED_THIRST_TALENT.id} />}
         value={`${formatNumber(this.averageReduction)} sec`}
-        label='Red Thirst average reduction'
+        label="Red Thirst average reduction"
         tooltip={`${formatNumber(this.reduction)} sec total effective reduction and ${formatNumber(this.wastedReduction)} sec (${formatPercentage(this.wastedPercent)}%) wasted reduction.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default RedThirst;

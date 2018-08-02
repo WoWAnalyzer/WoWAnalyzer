@@ -56,20 +56,20 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
-  UNSTABLE_MAGIC_DAMAGE_FIRE: {
-    id: 157977,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
-  UNSTABLE_MAGIC_DAMAGE_FROST: {
-    id: 157978,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
   UNSTABLE_MAGIC_DAMAGE_ARCANE: {
     id: 157979,
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
+  },
+  ARCANE_INTELLECT: {
+    id: 1459,
+    name: 'Arcane Intellect',
+    icon: 'spell_holy_magicalsentry',
+  },
+  REMOVE_CURSE: {
+    id: 475,
+    name: 'Remove Curse',
+    icon: 'spell_nature_removecurse',
   },
 
   //Frost
@@ -143,23 +143,18 @@ export default {
     name: 'Frozen Orb',
     icon: 'spell_frost_frozenorb',
   },
+  FROZEN_ORB_DAMAGE: {
+    id: 84721,
+    name: 'Frozen orb',
+    icon: 'spell_frost_frozenorb',
+  },
   SUMMON_WATER_ELEMENTAL: {
     id: 31687,
     name: 'Summon Water Elemental',
     icon: 'spell_frost_summonwaterelemental_2',
   },
-  WATER_JET: {
-    id: 135029,
-    name: 'Water Jet',
-    icon: 'ability_mage_waterjet',
-  },
-  EBONBOLT: {
-    id: 214634,
-    name: 'Ebonbolt',
-    icon: 'artifactability_frostmage_ebonbolt',
-  },
   EBONBOLT_DAMAGE: {
-    id: 228599,
+    id: 257538,
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
@@ -167,11 +162,6 @@ export default {
     id: 153596,
     name: 'Comet Storm',
     icon: 'spell_mage_cometstorm',
-  },
-  FROST_BOMB_DAMAGE: {
-    id: 113092,
-    name: 'Frost Bomb',
-    icon: 'spell_mage_frostbomb',
   },
   GLACIAL_SPIKE_DAMAGE: {
     id: 228600,
@@ -187,6 +177,11 @@ export default {
     id: 235235,
     name: 'Frost Nova',
     icon: 'spell_frost_frostnova',
+  },
+  FREEZING_RAIN_BUFF: {
+    id: 240555,
+    name: 'Freezing Rain',
+    icon: 'spell_frost_icestorm',
   },
 
   //Fire
@@ -220,11 +215,6 @@ export default {
     name: 'Scorch',
     icon: 'spell_fire_soulburn',
   },
-  PHOENIXS_FLAMES: {
-    id: 194466,
-    name: 'Phoenix\'s Flames',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
   DRAGONS_BREATH: {
     id: 31661,
     name: 'Dragon\'s Breath',
@@ -240,10 +230,20 @@ export default {
     name: 'Meteor',
     icon: 'spell_mage_meteor',
   },
-  CINDERSTORM_DAMAGE: {
-    id: 198928,
-    name: 'Cinderstorm',
-    icon: 'spell_fire_flare',
+  PYROCLASM_BUFF: {
+    id: 269651,
+    name: 'Pyroclasm',
+    icon: 'spell_shaman_lavasurge',
+  },
+  PHOENIX_FLAMES_CLEAVE_DAMAGE: {
+    id: 257542,
+    name: 'Phoenix Flames',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
+  FLAME_PATCH_DAMAGE: {
+    id: 205472,
+    name: 'Flame Patch',
+    icon: 'spell_fire_selfdestruct',
   },
 
   //Arcane
@@ -253,7 +253,7 @@ export default {
     icon: 'spell_arcane_blast',
   },
   ARCANE_MISSILES: {
-    id: 7268,
+    id: 5143,
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },
@@ -302,15 +302,20 @@ export default {
     name: 'Prismatic Barrier',
     icon: 'spell_magearmor',
   },
-  MARK_OF_ALUNETH: {
-    id: 224968,
-    name: 'Mark of Aluneth',
-    icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
-  },
   ARCANE_CHARGE: {
     id: 36032,
     name: 'Arcane Charge',
     icon: 'spell_arcane_arcane01',
+  },
+  SLOW: {
+    id: 31589,
+    name: 'Slow',
+    icon: 'spell_nature_slow',
+  },
+  ARCANE_ORB_DAMAGE: {
+    id: 153640,
+    name: 'Arcane Orb',
+    icon: 'spell_mage_arcaneorb',
   },
 
   //Passives
@@ -436,37 +441,15 @@ export default {
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },
-
-  //Artifact Traits
-  FROZEN_VEINS_TRAIT: {
-    id: 195345,
-    name: 'Frozen Veins',
-    icon: 'spell_frost_coldhearted',
+  ARCANE_FAMILIAR_BUFF: {
+    id: 210126,
+    name: 'Arcane Familiar',
+    icon: 'ability_sorcererking_arcanemines',
   },
-  ICE_NINE: {
-    id: 214664,
-    name: 'Ice Nine',
-    icon: 'spell_frost_iceshard',
-  },
-  WARMTH_OF_THE_PHOENIX: {
-    id: 240671,
-    name: 'Warmth of the Phoenix',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
-  PHOENIX_REBORN_TRAIT: {
-    id: 215773,
-    name: 'Phoenix Reborn',
-    icon: 'inv_sword_1h_artifactfelomelorn_d_01',
-  },
-  ERUPTING_INFERNAL_CORE: {
-    id: 248147,
-    name: 'Erupting Infernal Core',
-    icon: 'spell_mage_flameorb',
-  },
-  PRE_IGNITED_TRAIT: {
-    id: 238055,
-    name: 'Pre-Ignited',
-    icon: 'spell_fire_sealoffire',
+  QUICK_THINKER_BUFF: {
+    id: 253299,
+    name: 'Quick Thinker',
+    icon: 'ability_mage_studentofthemind',
   },
 
   //Tier Sets
@@ -511,4 +494,40 @@ export default {
     icon: 'ability_mage_greaterinvisibility',
   },
 
+  //Removed in 8.0 (Keep Temporarily until not needed anymore)
+  WARMTH_OF_THE_PHOENIX: {
+    id: 240671,
+    name: 'Warmth of the Phoenix',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
+  PHOENIX_REBORN_TRAIT: {
+    id: 215773,
+    name: 'Phoenix Reborn',
+    icon: 'inv_sword_1h_artifactfelomelorn_d_01',
+  },
+  ERUPTING_INFERNAL_CORE: {
+    id: 248147,
+    name: 'Erupting Infernal Core',
+    icon: 'spell_mage_flameorb',
+  },
+  PRE_IGNITED_TRAIT: {
+    id: 238055,
+    name: 'Pre-Ignited',
+    icon: 'spell_fire_sealoffire',
+  },
+  MARK_OF_ALUNETH: {
+    id: 224968,
+    name: 'Mark of Aluneth',
+    icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
+  },
+  UNSTABLE_MAGIC_DAMAGE_FIRE: {
+    id: 157977,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  CINDERSTORM_DAMAGE: {
+    id: 198928,
+    name: 'Cinderstorm',
+    icon: 'spell_fire_flare',
+  },
 };

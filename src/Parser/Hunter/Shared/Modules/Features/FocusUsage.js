@@ -7,55 +7,41 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticsListBox from 'Main/StatisticsListBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import ITEMS from 'common/ITEMS';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 const CHART_SIZE = 100;
-
-//to ensure we don't count multiple volley hits as the same cast
-const BUFFER_MS = 100;
-
-//the cost per auto attack with volley up
-const VOLLEY_FOCUS_COST = 3;
-
-//bm legendary that reduces focus cost - only needed because of volley, else it's baked into the cost
-const ROAR_OF_THE_SEVEN_LIONS_FOCUS_REDUCTION = 0.15;
 
 const LIST_OF_FOCUS_SPENDERS = [
   //bm specific
   SPELLS.COBRA_SHOT.id,
-  SPELLS.MULTISHOT.id,
+  SPELLS.MULTISHOT_BM.id,
   SPELLS.KILL_COMMAND.id,
+  SPELLS.DIRE_BEAST_TALENT.id,
   //mm specific
   SPELLS.AIMED_SHOT.id,
-  SPELLS.MARKED_SHOT.id,
-  SPELLS.WINDBURST.id,
+  SPELLS.ARCANE_SHOT.id,
+  SPELLS.SERPENT_STING_TALENT.id,
+  SPELLS.MULTISHOT_MM.id,
+  SPELLS.BURSTING_SHOT.id,
   SPELLS.PIERCING_SHOT_TALENT.id,
-  SPELLS.BLACK_ARROW_TALENT.id,
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
   SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.LACERATE.id,
+  SPELLS.KILL_COMMAND_SV.id,
   SPELLS.BUTCHERY_TALENT.id,
-  SPELLS.FLANKING_STRIKE.id,
+  SPELLS.CARVE.id,
+  SPELLS.MONGOOSE_BITE_TALENT.id,
   SPELLS.WING_CLIP.id,
-  SPELLS.THROWING_AXES_TALENT.id,
-  SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id,
-  SPELLS.RANGERS_NET_TALENT.id,
+  SPELLS.CHAKRAMS_TALENT.id,
+  SPELLS.SERPENT_STING_SV.id,
   //shared
   SPELLS.REVIVE_PET_AND_MEND_PET.id,
-  SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
+  SPELLS.A_MURDER_OF_CROWS_TALENT.id,
   SPELLS.BARRAGE_TALENT.id,
-  SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
 class FocusUsage extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   focusSpenderCasts = {
     //BEAST MASTERY
     [SPELLS.COBRA_SHOT.id]: {
@@ -64,10 +50,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.COBRA_SHOT.name,
       color: '#ecd1b6',
     },
-    [SPELLS.MULTISHOT.id]: {
+    [SPELLS.MULTISHOT_BM.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.MULTISHOT.name,
+      name: SPELLS.MULTISHOT_BM.name,
       color: '#c1ec9c',
     },
     [SPELLS.KILL_COMMAND.id]: {
@@ -76,6 +62,12 @@ class FocusUsage extends Analyzer {
       name: SPELLS.KILL_COMMAND.name,
       color: '#abff3d',
     },
+    [SPELLS.DIRE_BEAST_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.DIRE_BEAST_TALENT.name,
+      color: '#ff7d0a',
+    },
     //MARKSMANSHIP
     [SPELLS.AIMED_SHOT.id]: {
       casts: 0,
@@ -83,16 +75,16 @@ class FocusUsage extends Analyzer {
       name: SPELLS.AIMED_SHOT.name,
       color: '#84ec81',
     },
-    [SPELLS.MARKED_SHOT.id]: {
+    [SPELLS.ARCANE_SHOT.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.MARKED_SHOT.name,
+      name: SPELLS.ARCANE_SHOT.name,
       color: '#ff7d0a',
     },
-    [SPELLS.WINDBURST.id]: {
+    [SPELLS.SERPENT_STING_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.WINDBURST.name,
+      name: SPELLS.SERPENT_STING_TALENT.name,
       color: '#ecd1b6',
     },
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
@@ -101,17 +93,23 @@ class FocusUsage extends Analyzer {
       name: SPELLS.PIERCING_SHOT_TALENT.name,
       color: '#d440ec',
     },
-    [SPELLS.BLACK_ARROW_TALENT.id]: {
+    [SPELLS.MULTISHOT_MM.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.BLACK_ARROW_TALENT.name,
-      color: '#2a2a2a',
+      name: SPELLS.MULTISHOT_MM.name,
+      color: '#4ce4ec',
     },
     [SPELLS.EXPLOSIVE_SHOT_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
       name: SPELLS.EXPLOSIVE_SHOT_TALENT.name,
       color: '#ecda4c',
+    },
+    [SPELLS.BURSTING_SHOT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.BURSTING_SHOT.name,
+      color: '#2a2a2a',
     },
     //SURVIVAL
     [SPELLS.RAPTOR_STRIKE.id]: {
@@ -120,10 +118,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.RAPTOR_STRIKE.name,
       color: '#4ce4ec',
     },
-    [SPELLS.LACERATE.id]: {
+    [SPELLS.KILL_COMMAND_SV.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.LACERATE.name,
+      name: SPELLS.KILL_COMMAND_SV.name,
       color: '#2a74ec',
     },
     [SPELLS.BUTCHERY_TALENT.id]: {
@@ -132,11 +130,11 @@ class FocusUsage extends Analyzer {
       name: SPELLS.BUTCHERY_TALENT.name,
       color: '#8b4507',
     },
-    [SPELLS.FLANKING_STRIKE.id]: {
+    [SPELLS.CARVE.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.FLANKING_STRIKE.name,
-      color: '#98ff00',
+      name: SPELLS.CARVE.name,
+      color: '#8b4507',
     },
     [SPELLS.WING_CLIP.id]: {
       casts: 0,
@@ -144,22 +142,22 @@ class FocusUsage extends Analyzer {
       name: SPELLS.WING_CLIP.name,
       color: '#ecda4c',
     },
-    [SPELLS.THROWING_AXES_TALENT.id]: {
+    [SPELLS.SERPENT_STING_SV.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.THROWING_AXES_TALENT.name,
+      name: SPELLS.SERPENT_STING_SV.name,
+      color: '#ecd1b6',
+    },
+    [SPELLS.MONGOOSE_BITE_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.MONGOOSE_BITE_TALENT.name,
       color: '#00ec62',
     },
-    [SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id]: {
+    [SPELLS.CHAKRAMS_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.name,
-      color: '#3eec85',
-    },
-    [SPELLS.RANGERS_NET_TALENT.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.RANGERS_NET_TALENT.name,
+      name: SPELLS.CHAKRAMS_TALENT.name,
       color: '#ecda4c',
     },
     //SHARED
@@ -169,10 +167,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.REVIVE_PET_AND_MEND_PET.name,
       color: '#ec0003',
     },
-    [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id]: {
+    [SPELLS.A_MURDER_OF_CROWS_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.name,
+      name: SPELLS.A_MURDER_OF_CROWS_TALENT.name,
       color: '#8b8dec',
     },
     [SPELLS.BARRAGE_TALENT.id]: {
@@ -180,12 +178,6 @@ class FocusUsage extends Analyzer {
       focusUsed: 0,
       name: SPELLS.BARRAGE_TALENT.name,
       color: '#ec5c58',
-    },
-    [SPELLS.VOLLEY_ACTIVATED.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.VOLLEY_ACTIVATED.name,
-      color: '#66ecd8',
     },
   };
   lastVolleyHit = 0;
@@ -266,24 +258,12 @@ class FocusUsage extends Analyzer {
     if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
       return;
     }
-    this.focusSpenderCasts[spellId].casts += 1;
-    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0]['cost'] || 0;
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id) {
+    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
+    if (!event.classResources) {
       return;
     }
-    if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
-      this.focusSpenderCasts[spellId].casts += 1;
-      if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.combatants.selected.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id)) {
-        this.focusSpenderCasts[spellId].focusUsed += VOLLEY_FOCUS_COST - (VOLLEY_FOCUS_COST * ROAR_OF_THE_SEVEN_LIONS_FOCUS_REDUCTION);
-      } else {
-        this.focusSpenderCasts[spellId].focusUsed += VOLLEY_FOCUS_COST;
-      }
-      this.lastVolleyHit = event.timestamp;
-    }
+    this.focusSpenderCasts[spellId].casts += 1;
+    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }
 
   focusUsageChart() {

@@ -78,7 +78,7 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.CENARION_WARD.id]: {
+  [SPELLS.CENARION_WARD_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -114,29 +114,11 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.HEALING_TOUCH.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
   [SPELLS.SWIFTMEND.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
-  [SPELLS.LIVING_SEED.id]: { // an approximation based on what likely procced it. There is special case handling for crit.
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
     mastery: true,
     masteryStack: false,
     vers: true,

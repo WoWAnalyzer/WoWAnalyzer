@@ -1,25 +1,22 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import StatisticsListBox from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 
-const ERADICATION_DAMAGE_BONUS = 0.15;
+const ERADICATION_DAMAGE_BONUS = 0.1;
 
 // only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
 class Eradication extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   _hasCDF = false;
@@ -29,9 +26,10 @@ class Eradication extends Analyzer {
   _totalCDF = 0;
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ERADICATION_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
-    this._hasCDF = this.combatants.selected.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
+    this._hasCDF = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }
 
   // TODO: SPELL QUEUE ON CAST, SPELLS SNAPSHOT ON CAST, NOT ON HIT SO THIS IS INACCURATE
@@ -86,7 +84,7 @@ class Eradication extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></Wrapper>)
+        return suggest(<React.Fragment>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></React.Fragment>)
           .icon(SPELLS.ERADICATION_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Eradication uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -128,7 +126,7 @@ class Eradication extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon/> ticks
+          Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon /> ticks
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this._buffedCDF} / ${this._totalCDF}`}>
@@ -141,7 +139,7 @@ class Eradication extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} icon/>}>
+      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} icon />}>
         {this.uptimeStatistic}
         {this.chaosBoltStatistic}
         {this._hasCDF && this.channelDemonfireStatistic}

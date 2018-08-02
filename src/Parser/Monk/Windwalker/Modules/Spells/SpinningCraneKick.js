@@ -1,20 +1,18 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticsListBox from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     statTracker: StatTracker,
   };
+
   badCasts = 0;
   markoftheCraneTargets = [];
   lastSpinningCraneKickTick = 0;
@@ -33,7 +31,7 @@ class SpinningCraneKick extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const markoftheCraneTarget = {targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
+    const markoftheCraneTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     this.markoftheCraneTargets.push(markoftheCraneTarget);
   }
 
@@ -46,7 +44,7 @@ class SpinningCraneKick extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const markoftheCraneTarget = {targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
+    const markoftheCraneTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     let i = 0;
     while (i <= this.markoftheCraneTargets.length - 1) {
       if (this.markoftheCraneTargets[i].targetID === markoftheCraneTarget.targetID && this.markoftheCraneTargets[i].targetInstance === markoftheCraneTarget.targetInstance) {
@@ -81,7 +79,7 @@ class SpinningCraneKick extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    const spellId = event.ability.guid; 
+    const spellId = event.ability.guid;
     if (spellId !== SPELLS.SPINNING_CRANE_KICK_DAMAGE.id) {
       return;
     }
@@ -111,13 +109,13 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
           .actual(`${this.badCasts} Bad Casts`)
-          .recommended("0 Bad Casts are recommended");
+          .recommended('0 Bad Casts are recommended');
       });
   }
 
@@ -126,9 +124,9 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={"Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds"}>
-             	Average hits
-            </dfn>
+          <dfn data-tip="Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds">
+            Average hits
+          </dfn>
         </div>
         <div className="flex-sub text-right">
           {averageHits.toFixed(2)}
@@ -144,7 +142,7 @@ class SpinningCraneKick extends Analyzer {
         <div className="flex-main">
           <dfn data-tip={`You had an average of ${averageMarks.toFixed(2)} Mark of the Crane stacks while hitting enemies with Spinning Crane Kick`}>
             Average marks
-            </dfn>
+          </dfn>
         </div>
         <div className="flex-sub text-right">
           {averageMarks.toFixed(2)}
@@ -157,7 +155,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={"Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick."}>
+          <dfn data-tip="Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.">
             Bad casts
           </dfn>
         </div>
@@ -170,6 +168,7 @@ class SpinningCraneKick extends Analyzer {
 
   statistic() {
     if (this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <StatisticsListBox
           title={
@@ -183,6 +182,7 @@ class SpinningCraneKick extends Analyzer {
         </StatisticsListBox>
       );
     }
+    return null;
   }
 }
 

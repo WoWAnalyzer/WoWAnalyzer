@@ -6,13 +6,21 @@ import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Channeling from './Modules/Features/Channeling';
 
+import Mana from './Modules/ManaChart/Mana';
+import ManaValues from './Modules/ManaChart/ManaValues';
+
 import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
-import Evocation from './Modules/Features/Evocation';
+import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
+import ArcanePower from './Modules/Features/ArcanePower';
+
+import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
-import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+import ArcaneOrb from './Modules/Features/ArcaneOrb';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -22,14 +30,19 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     channeling: Channeling,
+    mana: Mana,
+    manaValues: ManaValues,
     cancelledCasts: CancelledCasts,
     arcaneMissiles: ArcaneMissiles,
-    evocation: Evocation,
+    arcaneChargeTracker: ArcaneChargeTracker,
+    arcanePower: ArcanePower,
 
     // Talents
+    arcaneFamiliar: ArcaneFamiliar,
     mirrorImage: MirrorImage,
-    unstableMagic: UnstableMagic,
+    arcaneIntellect: ArcaneIntellect,
     runeOfPower: RuneOfPower,
+    arcaneOrb: ArcaneOrb,
   };
 }
 

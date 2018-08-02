@@ -3,9 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Atonement from '../Spells/Atonement';
 
@@ -13,7 +11,6 @@ const DEBUG = false;
 
 class Estel extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     atonementModule: Atonement,
   };
 
@@ -31,8 +28,9 @@ class Estel extends Analyzer {
 
   avgHaste = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.ESTEL_DEJAHNAS_INSPIRATION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.ESTEL_DEJAHNAS_INSPIRATION.id);
   }
 
   get timePerHastePercentage() {
@@ -79,15 +77,15 @@ class Estel extends Analyzer {
   }
 
   item() {
-    const uptimePercent = (this.combatants.selected.getBuffUptime(SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) / this.owner.fightDuration) || 0;
+    const uptimePercent = (this.selectedCombatant.getBuffUptime(SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) / this.owner.fightDuration) || 0;
     const avgHaste = (this.avgHaste / 100) || 0;
 
     return {
       item: ITEMS.ESTEL_DEJAHNAS_INSPIRATION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

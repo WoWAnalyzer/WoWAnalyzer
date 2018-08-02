@@ -219,7 +219,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76657,
-    masteryCoefficient: 2.25,
+    masteryCoefficient: 1.9,
     ranking: {
       class: 3,
       spec: 1,
@@ -245,7 +245,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
-    masteryCoefficient: 0.5,
+    masteryCoefficient: 1.65,
     ranking: {
       class: 3,
       spec: 3,
@@ -258,7 +258,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77484,
-    masteryCoefficient: 1.6,
+    masteryCoefficient: 1.2,
     ranking: {
       class: 7,
       spec: 1,

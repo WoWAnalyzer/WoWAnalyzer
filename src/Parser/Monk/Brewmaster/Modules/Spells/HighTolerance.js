@@ -1,11 +1,11 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
@@ -13,8 +13,12 @@ export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
 };
 
+function hasHighTolerance(combatant) {
+  return combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_GRANDMASTER.id);
+}
+
 function hasteFnGenerator(value) {
-  return { haste: combatant => combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) ? value : 0.0 };
+  return { haste: combatant => hasHighTolerance(combatant) ? value : 0.0 };
 }
 
 export const HIGH_TOLERANCE_HASTE_FNS = {
@@ -24,10 +28,6 @@ export const HIGH_TOLERANCE_HASTE_FNS = {
 };
 
 class HighTolerance extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   staggerDurations = {
     [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
     [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
@@ -59,12 +59,13 @@ class HighTolerance extends Analyzer {
     return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = hasHighTolerance(this.selectedCombatant);
   }
 
   on_toPlayer_applydebuff(event) {
-    if(!(event.ability.guid in HIGH_TOLERANCE_HASTE)) {
+    if (!HIGH_TOLERANCE_HASTE[event.ability.guid]) {
       return;
     }
     this._lastDebuffApplied = event.timestamp;
@@ -72,7 +73,7 @@ class HighTolerance extends Analyzer {
   }
 
   on_toPlayer_removedebuff(event) {
-    if(!(event.ability.guid in HIGH_TOLERANCE_HASTE)) {
+    if (!HIGH_TOLERANCE_HASTE[event.ability.guid]) {
       return;
     }
     this.staggerDurations[event.ability.guid] += event.timestamp - this._lastDebuffApplied;
@@ -80,7 +81,7 @@ class HighTolerance extends Analyzer {
   }
 
   on_finished() {
-    if(this._staggerLevel !== null) {
+    if (this._staggerLevel !== null) {
       this.staggerDurations[this._staggerLevel] += this.owner.fight.end_time - this._lastDebuffApplied;
     }
   }
@@ -97,7 +98,7 @@ class HighTolerance extends Analyzer {
               <li><b>${formatThousands(this.moderateDuration / 1000)}s</b> (${formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate Stagger.</li>
               <li><b>${formatThousands(this.heavyDuration / 1000)}s</b> (${formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy Stagger.</li>
             </ul>`}
-          />
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

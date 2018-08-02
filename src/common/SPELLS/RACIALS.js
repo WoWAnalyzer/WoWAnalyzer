@@ -26,6 +26,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  ARCANE_TORRENT_MONK: {
+    id: 129597,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
   ARCANE_TORRENT_DEMON_HUNTER: {
     id: 202719,
     name: 'Arcane Torrent',
@@ -117,6 +122,11 @@ export default {
   },
   // Orc
   BLOOD_FURY_SPELL: {
+    id: 33702,
+    name: 'Blood Fury',
+    icon: 'racial_orc_berserkerstrength',
+  },
+  BLOOD_FURY_SPELL_AND_PHYSICAL: {
     id: 33697,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength',
@@ -185,5 +195,31 @@ export default {
     id: 259930,
     name: 'Forge of Light',
     icon: 'ability_racial_forgeoflight',
+  },
+  // Mag'har Orc
+  ANCESTRAL_CALL: {
+    id: 274738,
+    name: 'Ancestral Call',
+    icon: 'ability_racial_ancestralcall',
+  },
+  RICTUS_OF_THE_LAUGHING_SKULL: { // Crit Buff
+    id: 274739,
+    name: 'Rictus of the Laughing Skull',
+    icon: 'ability_racial_ancestralcall',
+  },
+  ZEAL_OF_THE_BURNING_BLADE: { // Haste Buff
+    id: 274740,
+    name: 'Zeal of the Burning Blade',
+    icon: 'ability_racial_ancestralcall',
+  },
+  FEROCITY_OF_THE_FROSTWOLF: { // Mastery Buff
+    id: 274741,
+    name: 'Ferocity of the Frostwolf',
+    icon: 'ability_racial_ancestralcall',
+  },
+  MIGHT_OF_THE_BLACKROCK: { // Versatility Buff
+    id: 274742,
+    name: 'Might of the Blackrock',
+    icon: 'ability_racial_ancestralcall',
   },
 };

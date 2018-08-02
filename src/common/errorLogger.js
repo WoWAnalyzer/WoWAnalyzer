@@ -2,7 +2,11 @@ import Raven from 'raven-js';
 
 export function install() {
   if (process.env.NODE_ENV === 'production') {
-    Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
+    if (process.env.REACT_APP_RAVEN_DSN) {
+      Raven.config(process.env.REACT_APP_RAVEN_DSN).install();
+    } else {
+      console.warn('Unable to install Raven, missing DSN.');
+    }
   }
 }
 

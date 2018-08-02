@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
@@ -9,19 +8,18 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 // Chaos Bolt increases the critical strike chance of Incinerate on the target by 40% for 8 sec.
 class T21_2set extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   incinerateCrits = 0; // while target is affected by the T21 2p debuff
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {
@@ -45,12 +43,12 @@ class T21_2set extends Analyzer {
       icon: <SpellIcon id={SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id} icon={false} />,
       result:
-        (<Wrapper>
+        (<React.Fragment>
           {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} /> <br />
           <dfn data-tip="Precise number of Soul Shard Fragments is impossible to determine but can be estimated from the Incinerate crits during the debuff.">
             {this.incinerateCrits} <SpellLink id={SPELLS.INCINERATE.id} /> crits during <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} />
           </dfn>
-        </Wrapper>),
+        </React.Fragment>),
     };
   }
 }

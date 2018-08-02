@@ -9,41 +9,21 @@ const debug = false;
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
+class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 // counting damaging abilities here because of atonement mechanics
-const HEALING_ABILITIES_ON_GCD = [
+  static HEALING_ABILITIES_ON_GCD = [
     SPELLS.POWER_WORD_SHIELD.id,
     SPELLS.POWER_WORD_RADIANCE.id,
     SPELLS.SHADOW_MEND.id,
     SPELLS.HALO_TALENT.id,
-    SPELLS.PLEA.id,
     SPELLS.DIVINE_STAR_TALENT.id,
     SPELLS.MASS_DISPEL.id,
     SPELLS.DISPEL_MAGIC.id,
     SPELLS.POWER_WORD_BARRIER_CAST.id,
     SPELLS.PURIFY.id,
     SPELLS.POWER_WORD_SOLACE_TALENT.id,
-    SPELLS.CLARITY_OF_WILL_TALENT.id,
     SPELLS.SHADOW_COVENANT_TALENT.id,
     SPELLS.EVANGELISM_TALENT.id,
-];
-
-class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
-  static ABILITIES_ON_GCD = [
-    // healing
-    ...HEALING_ABILITIES_ON_GCD,
-    // damage
-    SPELLS.PENANCE.id,
-    SPELLS.SMITE.id,
-    SPELLS.SCHISM_TALENT.id,
-    SPELLS.SHADOWFIEND.id,
-    SPELLS.LIGHTS_WRATH.id,
-    SPELLS.PURGE_THE_WICKED_TALENT.id,
-    SPELLS.MINDBENDER_TALENT_SHARED.id,
-    // cc
-    SPELLS.LEVITATE.id,
-    SPELLS.SHACKLE_UNDEAD.id,
-    SPELLS.SHINING_FORCE_TALENT.id,
   ];
 
   lastPenanceStartTimestamp = null;

@@ -1,11 +1,11 @@
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Empowerment from './Empowerment';
 
 class LunarEmpowerment extends Empowerment {
 
-  on_initialized() {
-    super.on_initialized();
+  constructor(...args) {
+    super(...args);
     this.empoweredSpell = SPELLS.LUNAR_STRIKE;
     this.empowermentPrefix = 'Lunar';
     this.spellGenerateAmount = 12;

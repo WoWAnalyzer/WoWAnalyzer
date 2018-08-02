@@ -1,23 +1,21 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import HolyPowerTracker from '../HolyPower/HolyPowerTracker';
 
 class LiadrinsFuryUnleashed extends Analyzer {
   static dependencies = {
     holyPowerTracker: HolyPowerTracker,
-    combatants: Combatants,
   };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
   }
 
   get liadrinsHP() {
@@ -71,7 +69,7 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
+      return suggest(<React.Fragment>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon />. Consider using an easier legendary.</React.Fragment>)
         .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
         .actual(`${formatPercentage(this.holyPowerWastedPercent)}% Holy Power wasted`)
         .recommended(`Wasting <${formatPercentage(recommended)}% is recommended.`);

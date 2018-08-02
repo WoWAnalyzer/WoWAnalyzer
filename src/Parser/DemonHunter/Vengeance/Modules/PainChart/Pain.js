@@ -2,25 +2,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChartistGraph from 'react-chartist';
-import Chartist from 'chartist';
-import 'chartist-plugin-legend';
+import {Line} from 'react-chartjs-2';
 
-import fetchWcl from 'common/fetchWcl';
-
+import fetchWcl from 'common/fetchWclApi';
+import {formatDuration} from 'common/format';
 import SPELLS from 'common/SPELLS';
-
-import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
-
-import 'Main/Mana.css';
+import ManaStyles from 'Interface/Others/ManaStyles';
 
 import PainComponent from './PainComponent';
 import './Pain.css';
+import PainStyles from './PainStyles';
 
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
 class Pain extends React.PureComponent {
   static propTypes = {
@@ -84,13 +76,13 @@ class Pain extends React.PureComponent {
       );
     }
 
-		if(!this.state.pain.series[0]) {
-			return (
-				<div>
-					This pain chart data from Warcraft Logs is corrupted and it cannot be parsed.
-				</div>
-			);
-		}
+    if(!this.state.pain.series[0]) {
+      return (
+        <div>
+          This pain chart data from Warcraft Logs is corrupted and it cannot be parsed.
+        </div>
+      );
+    }
 
     const { start, end } = this.props;
     const painBySecond = {
@@ -113,7 +105,7 @@ class Pain extends React.PureComponent {
       series.data.forEach((item) => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
-        if (deadBosses.indexOf(series.guid) === -1) {
+        if (!deadBosses.includes(series.guid)) {
           const health = item[1];
           newSeries.data[secIntoFight] = health;
 
@@ -124,15 +116,6 @@ class Pain extends React.PureComponent {
       });
       bosses.push(newSeries);
     });
-    const deathsBySecond = {};
-    this.state.pain.deaths.forEach((death) => {
-      const secIntoFight = Math.floor((death.timestamp - start) / 1000);
-
-      if (death.targetIsFriendly) {
-        deathsBySecond[secIntoFight] = true;
-      }
-    });
-
 
     const abilitiesAll = {};
     const categories = {
@@ -171,9 +154,9 @@ class Pain extends React.PureComponent {
         }
         abilitiesAll[`${event.ability.guid}_spend`].casts += 1;
         const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight - 1] : painBySecond[lastSecFight];
-        const spendResource = (spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain);
+        const spendResource = spell !== undefined ? ((spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain)) : 0;
         abilitiesAll[`${event.ability.guid}_spend`].spent += spendResource;
-        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_pain ? spell.max_pain - spendResource : 0;
+        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_pain !== undefined ? spell.max_pain - spendResource : 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[`${event.ability.guid}_gen`]) {
           const spell = SPELLS[event.ability.guid];
@@ -218,80 +201,89 @@ class Pain extends React.PureComponent {
       bosses.forEach((series) => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
       });
-      deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
+
 
     const chartData = {
       labels,
-      series: [
+      datasets: [
         ...bosses.map((series, index) => ({
-          className: `boss-health boss-${index} boss-${series.guid}`,
-          name: `${series.name} Health`,
+          label: `${series.name} Health`,
+          ...ManaStyles[`Boss-${index}`],
+          ...ManaStyles[`Boss-${series.guid}`],
           data: Object.keys(series.data).map(key => series.data[key]),
         })),
         {
-          className: 'pain',
-          name: 'Pain',
+          label: `Pain`,
+          ...PainStyles.Pain,
           data: Object.keys(painBySecond).map(key => painBySecond[key] / 10),
         },
         {
-          className: 'wasted',
-          name: 'Pain wasted',
+          label: `Pain wasted`,
+          ...PainStyles.Wasted,
           data: Object.keys(overCapBySecond).map(key => overCapBySecond[key]),
         },
       ],
     };
+
+    const gridLines = ManaStyles.gridLines;
+
+    const chartOptions = {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          gridLines: gridLines,
+          ticks: {
+            callback: (percentage, index, values) => {
+              return `${percentage}`;
+            },
+            min: 0,
+            max: 100,
+            stepSize: 25,
+            fontSize: 14,
+          },
+        }],
+        xAxes: [{
+          gridLines: gridLines,
+          ticks: {
+            callback: (seconds, index, values) => {
+              if (seconds < ((step - 1) * 30)) {
+                step = 0;
+              }
+              if (step === 0 || seconds >= (step * 30)) {
+                step += 1;
+                return formatDuration(seconds);
+              }
+              return null;
+            },
+            fontSize: 14,
+          },
+        }],
+      },
+      animation: {
+        duration: 0,
+      },
+      hover: {
+        animationDuration: 0,
+      },
+      responsiveAnimationDuration: 0,
+      tooltips: {
+        enabled: false,
+      },
+      legend: ManaStyles.legend,
+    };
+
     let step = 0;
 
     return (
       <div>
-        <ChartistGraph
+        <Line
           data={chartData}
-          options={{
-            low: 0,
-            high: 100,
-            showArea: true,
-            showPoint: false,
-            fullWidth: true,
-            height: '300px',
-            lineSmooth: Chartist.Interpolation.simple({
-              fillHoles: true,
-            }),
-            axisX: {
-              labelInterpolationFnc: function skipLabels(seconds) {
-                if (seconds < ((step - 1) * 30)) {
-                  step = 0;
-                }
-                if (step === 0 || seconds >= (step * 30)) {
-                  step += 1;
-                  return formatDuration(seconds);
-                }
-                return null;
-              },
-              offset: 20,
-            },
-            axisY: {
-              onlyInteger: true,
-              offset: 35,
-              labelInterpolationFnc: function skipLabels(percentage) {
-                return `${percentage}`;
-              },
-            },
-            plugins: [
-              Chartist.plugins.legend({
-                classNames: [
-                  ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
-                  'pain',
-                  'wasted',
-                ],
-              }),
-              specialEventIndicators({
-                series: ['death'],
-              }),
-            ],
-          }}
-          type="Line"
+          options={chartOptions}
+          width={1100}
+          height={400}
         />
+
         <PainComponent
           abilities={abilities}
           categories={categories}
@@ -302,3 +294,4 @@ class Pain extends React.PureComponent {
 }
 
 export default Pain;
+

@@ -5,10 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 //It's a 100% increase to critical strike damage, which is already a 100% modifier, making it effectively only hit 50% harder than a crit otherwise would.
 const T21_2P_CRIT_DMG_BONUS = 0.5;
@@ -17,17 +16,15 @@ const T21_2P_CRIT_DMG_BONUS = 0.5;
  * Flanking Strike has a 50% chance to increase the critical strike chance of your next Raptor Strike by 100% and the critical strike damage of Raptor Strike by 100% within the next 20 sec.
  */
 class Tier21_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   bonusDmg = 0;
   applications = 0;
   flankingStrikeCasts = 0;
   totalRaptorStrikes = 0;
   buffedRaptorStrikes = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS.id);
   }
 
   on_byPlayer_cast(event) {
@@ -53,7 +50,7 @@ class Tier21_2p extends Analyzer {
       return;
     }
     this.buffedRaptorStrikes++;
-    this.bonusDmg += getDamageBonus(event, T21_2P_CRIT_DMG_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, T21_2P_CRIT_DMG_BONUS);
   }
 
   isApplicable(event) {
@@ -61,7 +58,7 @@ class Tier21_2p extends Analyzer {
     if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
       return false;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id, event.timestamp)) {
       return false;
     }
     if (event.hitType !== HIT_TYPES.CRIT && event.hitType !== HIT_TYPES.BLOCKED_CRIT) {

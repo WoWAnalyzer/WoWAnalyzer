@@ -21,7 +21,7 @@ class Scorch extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > 50) {
             break;
           }
-          if (previousEvent.type === 'damage'  && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
+          if (previousEvent.type === 'damage' && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

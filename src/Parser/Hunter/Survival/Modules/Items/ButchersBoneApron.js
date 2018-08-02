@@ -2,12 +2,10 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -21,10 +19,6 @@ const MAX_STACKS = 10;
 const MODIFIER_PER_STACK = 0.1;
 
 class ButchersBoneApron extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _currentStacks = 0;
   _savedStacks = 0;
   wastedStacks = 0;
@@ -33,8 +27,9 @@ class ButchersBoneApron extends Analyzer {
   usedStacks = 0;
   butcheryCarveCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
   }
 
   on_byPlayer_cast(event) {
@@ -83,7 +78,7 @@ class ButchersBoneApron extends Analyzer {
     if (spellID !== SPELLS.BUTCHERY_TALENT.id && spellID !== SPELLS.CARVE.id) {
       return;
     }
-    this.bonusDamage += getDamageBonus(event, MODIFIER_PER_STACK * this._savedStacks);
+    this.bonusDamage += calculateEffectiveDamage(event, MODIFIER_PER_STACK * this._savedStacks);
   }
 
   get apronStacks() {
@@ -122,16 +117,16 @@ class ButchersBoneApron extends Analyzer {
     };
   }
   suggestions(when) {
-    const spellLinkId = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
+    const spellLinkId = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
 
     when(this.cappedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} /> when you're at {MAX_STACKS} stacks. </Wrapper>)
+      return suggest(<React.Fragment>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} /> when you're at {MAX_STACKS} stacks. </React.Fragment>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${this.wastedStacks} or ${formatPercentage(actual)}% of total stacks were wasted due to overcapping`)
         .recommended(`${recommended}% is recommended`);
     });
     when(this.unusedStacksThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={spellLinkId} />.</Wrapper>)
+      return suggest(<React.Fragment>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={spellLinkId} />.</React.Fragment>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${(actual)} stacks were unused`)
         .recommended(`0 unused stacks is recommended`);
@@ -139,7 +134,7 @@ class ButchersBoneApron extends Analyzer {
   }
 
   item() {
-    const spellLinkName = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.name : SPELLS.CARVE.name;
+    const spellLinkName = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.name : SPELLS.CARVE.name;
     return {
       item: ITEMS.BUTCHERS_BONE_APRON,
       result: (

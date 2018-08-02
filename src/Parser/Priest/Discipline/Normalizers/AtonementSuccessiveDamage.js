@@ -25,7 +25,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
 
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
-        if(_encounteredTargetIDs.indexOf(event.targetID) >= 0) {
+        if(_encounteredTargetIDs.includes(event.targetID)) {
           const lastDamageEvent = fixedEvents.splice(_damageEventIndexes[_damageEventIndexes.length -1], 1)[0];
           lastDamageEvent.__modified = true;
           fixedEvents.splice(fixedEvents.length - 1, 0, lastDamageEvent);

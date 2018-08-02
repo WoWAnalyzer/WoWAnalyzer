@@ -2,14 +2,11 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Diima's Glacial Aegis
@@ -17,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 */
 class DiimasGlacialAegis extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -25,11 +21,12 @@ class DiimasGlacialAegis extends Analyzer {
   casts = 0;
   armorbuff = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
 
     if (this.active) {
-      this.armorbuff = calculateSecondaryStatDefault(930, 4045, this.combatants.selected.getItem(ITEMS.DIIMAS_GLACIAL_AEGIS.id).itemLevel);
+      this.armorbuff = calculateSecondaryStatDefault(930, 4045, this.selectedCombatant.getItem(ITEMS.DIIMAS_GLACIAL_AEGIS.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.CHILLING_NOVA,
@@ -60,19 +57,19 @@ class DiimasGlacialAegis extends Analyzer {
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.FROZEN_ARMOR.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FROZEN_ARMOR.id) / this.owner.fightDuration;
   }
 
   item() {
     return {
       item: ITEMS.DIIMAS_GLACIAL_AEGIS,
       result: (
-        <Wrapper>
-          <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for a uptime of ${formatPercentage(this.uptime)}%`}>
-            {(this.uptime * this.armorbuff).toFixed(0)} average Armor from <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
-          </dfn><br/>
+        <React.Fragment>
+          <dfn data-tip={`You cast "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for an uptime of ${formatPercentage(this.uptime)}%`}>
+            {formatNumber(this.uptime * this.armorbuff)} Average Armor
+          </dfn><br />
           <ItemDamageDone amount={this.damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

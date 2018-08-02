@@ -5,15 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import Wrapper from 'common/Wrapper';
 
 class DarkTransformationAndWounds extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
   // used to track how many stacks a target has
   targets = {};
 
@@ -99,7 +94,7 @@ class DarkTransformationAndWounds extends Analyzer {
    suggestions(when) {
     when(this.suggestionThresholds)
  		  .addSuggestion((suggest, actual, recommended) => {
-			return suggest(<Wrapper> You spend too much time with 0 <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on your target and <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> active. Try to always keep at least 1 stack of <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on the target when <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> is active. </Wrapper>)
+			return suggest(<React.Fragment> You spend too much time with 0 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on your target and <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> active. Try to always keep at least 1 stack of <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target when <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> is active. </React.Fragment>)
 				.icon(SPELLS.DARK_TRANSFORMATION.icon)
 				.actual(`An average of ${this.averageTimePerCast.toFixed(1)} seconds was spent at 0 wounds with each cast of Dark Transformation`)
 				.recommended(`<${recommended} is recommended`);
@@ -111,8 +106,8 @@ class DarkTransformationAndWounds extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DARK_TRANSFORMATION.id} />}
         value={`${this.averageTimePerCast.toFixed(1)} seconds`}
-        label={'Average time spent at 0 wounds per Dark Transformation cast'}
-		    tooltip={`A total amount of ${this.totalTime.toFixed(1)} seconds was spent at 0 wounds with Dark Transformation active`}
+        label="Average time spent at 0 wounds per Dark Transformation cast"
+        tooltip={`A total amount of ${this.totalTime.toFixed(1)} seconds was spent at 0 wounds with Dark Transformation active`}
       />
     );
   }

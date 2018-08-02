@@ -1,23 +1,21 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Mastery from '../Core/Mastery';
 
 class Cultivation extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     mastery: Mastery,
   };
 
-  on_initialized() {
-    const hasCultivation = this.combatants.selected.hasTalent(SPELLS.CULTIVATION_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    const hasCultivation = this.selectedCombatant.hasTalent(SPELLS.CULTIVATION_TALENT.id);
     this.active = hasCultivation;
   }
 
@@ -64,8 +62,8 @@ class Cultivation extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
-          content, thus having low cultivation proc rate. You may considering selecting another talent.</Wrapper>)
+        return suggest(<React.Fragment>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
+          content, thus having low cultivation proc rate. You may considering selecting another talent.</React.Fragment>)
           .icon(SPELLS.CULTIVATION.icon)
           .actual(`${formatPercentage(this.totalPercent)}% healing`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

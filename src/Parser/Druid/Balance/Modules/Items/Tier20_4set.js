@@ -2,10 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 const HASTE_BONUS = 0.02;
 
@@ -14,17 +12,14 @@ const HASTE_BONUS = 0.02;
  * Casting Starsurge or Starfall gives 2% haste for 15 seconds, stacking up to 4 times (duration is not refreshed).
  */
 class Tier20_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   lastProcc = null;
   totalProccValue = [];
   currentUptime = 0;
   currentProccValue = 0;
 
-  on_initialized() {
-	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+	this.active = this.selectedCombatant.hasBuff(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_changebuffstack(event) {
@@ -67,7 +62,7 @@ class Tier20_4set extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} /> gave you an average of {formatPercentage(actual)}% haste. Try to get more out of this set bonus by pooling Astral Power when at max stacks or when the buff is about to expire and spending it as soon as possible when the buff drops off.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} /> gave you an average of {formatPercentage(actual)}% haste. Try to get more out of this set bonus by pooling Astral Power when at max stacks or when the buff is about to expire and spending it as soon as possible when the buff drops off.</React.Fragment>)
         .icon(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.icon)
         .actual(`${formatPercentage(actual)}% average haste gained`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -79,7 +74,7 @@ class Tier20_4set extends Analyzer {
       id: SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} icon={false} />,
-      result: <Wrapper>{formatPercentage(this.averageHaste)} % average haste gained.</Wrapper>,
+      result: <React.Fragment>{formatPercentage(this.averageHaste)} % average haste gained.</React.Fragment>,
     };
   }
 }

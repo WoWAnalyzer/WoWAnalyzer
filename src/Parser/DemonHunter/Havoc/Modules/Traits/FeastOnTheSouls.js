@@ -1,12 +1,10 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
 
 /**
@@ -18,12 +16,12 @@ const FEAST_ON_THE_SOULS_CDR = 5000;
 
 class FeastOnTheSouls extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
 		spellUsable: SpellUsable,
 	}
 
-	on_initialized() {
-		this.active = this.combatants.selected.traitsBySpellId[SPELLS.FEAST_ON_THE_SOULS.id] > 0;
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.traitsBySpellId[SPELLS.FEAST_ON_THE_SOULS.id] > 0;
 	}
 
 	totalCooldownReduction = 0;
@@ -32,7 +30,7 @@ class FeastOnTheSouls extends Analyzer {
 
 	//This one works if they have this talent but the on heal event doesnt pick up every consome soul so we do both
 	on_byPlayer_energize(event) {
-		if(!this.combatants.selected.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
+		if(!this.selectedCombatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
 			return;
 		}
 		const spellId = event.ability.guid;
@@ -50,7 +48,7 @@ class FeastOnTheSouls extends Analyzer {
 	}
 
 	on_byPlayer_heal(event) {
-		if(this.combatants.selected.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
+		if(this.selectedCombatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id)){
 			return;
 		}
 		const spellId = event.ability.guid;
@@ -74,10 +72,10 @@ class FeastOnTheSouls extends Analyzer {
 	statistic() {
 		return (
 			<StatisticBox
-				icon={<SpellIcon id={SPELLS.FEAST_ON_THE_SOULS.id}/>}
-				value={`${formatNumber(this.totalCooldownReduction / 1000)} seconds`}
-				label={<Wrapper>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon/></Wrapper>}
-				tooltip={`You wasted ${formatNumber(this.totalCooldownReductionWasted / 1000)} seconds of cooldown reduction`}
+  icon={<SpellIcon id={SPELLS.FEAST_ON_THE_SOULS.id} />}
+  value={`${formatNumber(this.totalCooldownReduction / 1000)} seconds`}
+  label={<React.Fragment>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon /></React.Fragment>}
+  tooltip={`You wasted ${formatNumber(this.totalCooldownReductionWasted / 1000)} seconds of cooldown reduction`}
 			/>
 		);
 	}

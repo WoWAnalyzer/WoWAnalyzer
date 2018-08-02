@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -8,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const BASE_DURATION = 12000;
 const ORB_DURATION = 3000;
@@ -24,18 +22,15 @@ const MAJOR = 0.50;
  * Equip: Your auto attacks have a chance to increase your Strength or Agility, based on your specialization, by 4,942 for 12 sec, and expel orbs of fel energy. Collecting an orb increases the duration of this effect by 3 sec. (Approximately 1 procs per minute)
  */
 class EngineOfEradication extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   applicationDurations = [];
   procAmount = null;
   lastAppliedTimestamp = null;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
     if(this.active) {
-      this.procAmount = calculatePrimaryStat(900, 5424, this.combatants.selected.getItem(ITEMS.ENGINE_OF_ERADICATION.id).itemLevel);
+      this.procAmount = calculatePrimaryStat(900, 5424, this.selectedCombatant.getItem(ITEMS.ENGINE_OF_ERADICATION.id).itemLevel);
     }
   }
 
@@ -88,7 +83,7 @@ class EngineOfEradication extends Analyzer {
         <li>Avg Orbs collected: <b>${this.averageOrbsCollected.toFixed(1)}</b></li>
         </ul>
         `}>
-        {this.averageStatGain.toFixed(0)} average {this.combatants.selected.spec.primaryStat}
+        {this.averageStatGain.toFixed(0)} average {this.selectedCombatant.spec.primaryStat}
         </dfn>
       ),
     };
@@ -98,7 +93,7 @@ class EngineOfEradication extends Analyzer {
     const percentOrbsCollected = this.averageOrbsCollected / MAX_ORBS;
     when(percentOrbsCollected).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You didn't collect all your orbs from Engine of Eradication's proc, <SpellLink id={SPELLS.DEMONIC_VIGOR.id} />. Maximize the proc uptime by collecting all orbs whenever possible.</Wrapper>)
+        return suggest(<React.Fragment>You didn't collect all your orbs from Engine of Eradication's proc, <SpellLink id={SPELLS.DEMONIC_VIGOR.id} />. Maximize the proc uptime by collecting all orbs whenever possible.</React.Fragment>)
         .icon(ITEMS.ENGINE_OF_ERADICATION.icon)
         .actual(`You averaged ${this.averageOrbsCollected.toFixed(1)} orbs per proc, or ${formatPercentage(percentOrbsCollected, 0)}% of the total possible.`)
         .recommended(`Always collecting all ${MAX_ORBS} is recommended.`)

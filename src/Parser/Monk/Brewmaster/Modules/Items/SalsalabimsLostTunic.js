@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * The Brewmaster legendary Sal'salabim's Lost Tunic, aka 'saladbums'.
@@ -14,14 +13,14 @@ import Combatants from 'Parser/Core/Modules/Combatants';
  */
 class SalsalabimsLostTunic extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spells: SpellUsable,
   };
 
   cooldownResets = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.SALSALABIMS_LOST_TUNIC.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.SALSALABIMS_LOST_TUNIC.id);
   }
 
   on_byPlayer_cast(event) {
@@ -38,9 +37,7 @@ class SalsalabimsLostTunic extends Analyzer {
     return {
       item: ITEMS.SALSALABIMS_LOST_TUNIC,
       result: (
-        <dfn>
-          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> cooldown reset {this.cooldownResets} times.
-        </dfn>
+          <React.Fragment>{this.cooldownResets} <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> resets</React.Fragment>
       ),
     };
   }

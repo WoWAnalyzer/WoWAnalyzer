@@ -3,12 +3,10 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Smoldering Titanguard
@@ -16,7 +14,6 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  */
 class SmolderingTitanguard extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -24,8 +21,9 @@ class SmolderingTitanguard extends Analyzer {
   healing = 0;
   overhealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.SMOLDERING_TITANGUARD.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SMOLDERING_TITANGUARD.id);
 
     if (this.active) {
       this.abilities.add({
@@ -68,12 +66,12 @@ class SmolderingTitanguard extends Analyzer {
     return {
       item: ITEMS.SMOLDERING_TITANGUARD,
       result: (
-        <Wrapper>
-          <ItemDamageDone amount={this.damage} /><br/>
+        <React.Fragment>
+          <ItemDamageDone amount={this.damage} /><br />
           <dfn data-tip={`You wasted ${formatPercentage(this.overhealing / (this.overhealing + this.healing))}% (${formatNumber(this.overhealing)}) of the total possible absorb.`}>
             <ItemHealingDone amount={this.healing} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

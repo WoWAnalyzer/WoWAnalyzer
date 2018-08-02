@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import Tab from 'Main/Tab';
-import CooldownOverview from 'Main/CooldownOverview';
+import Tab from 'Interface/Others/Tab';
+import CooldownOverview from 'Interface/Others/CooldownOverview';
 import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
@@ -23,14 +23,6 @@ class CooldownThroughputTracker extends Analyzer {
   static cooldownSpells = [
     {
       spell: SPELLS.INNERVATE,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
-    {
-      spell: SPELLS.SYMBOL_OF_HOPE_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

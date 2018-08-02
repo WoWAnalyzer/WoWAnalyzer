@@ -2,13 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber, formatPercentage } from 'common/format';
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from "common/SpellLink";
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
-import Wrapper from 'common/Wrapper';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import ItemLink from 'common/ItemLink';
 
@@ -16,11 +14,10 @@ const COOLDOWN_REDUCTION_MS = 3000;
 
 /**
  * Qa'pla, Eredun War Order
- * Dire Beast or Dire Frenzy reduces the remaining cooldown on Kill Command by 3 sec.
+ * Barbed Shot reduces the remaining cooldown on Kill Command by 3 sec.
  */
 class QaplaEredunWarOrder extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
@@ -28,17 +25,18 @@ class QaplaEredunWarOrder extends Analyzer {
   effectiveKillCommandReductionMs = 0;
   wastedKillCommandReductionMs = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {
-      const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(spellId);
+      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
       if (this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) < (COOLDOWN_REDUCTION_MS + globalCooldown)) {
         const effectiveReductionMs = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id) - globalCooldown;
         this.effectiveKillCommandReductionMs += effectiveReductionMs;
@@ -74,16 +72,15 @@ class QaplaEredunWarOrder extends Analyzer {
 
   get killerCobraThreshold() {
     return {
-      actual: this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
+      actual: this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
       isEqual: true,
       style: 'boolean',
     };
   }
 
   suggestions(when) {
-    const spellName = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     when(this.killerCobraThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </Wrapper>)
+      return suggest(<React.Fragment>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </React.Fragment>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
         .actual(`You had both Qa'pla, Eredun War Order equipped and talented Killer Cobra`)
         .recommended(`Only one or the other is recommended`)
@@ -91,9 +88,9 @@ class QaplaEredunWarOrder extends Analyzer {
 
     });
     when(this.wastedSuggestionThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your average cast of {spellName} reduced <SpellLink id={SPELLS.KILL_COMMAND.id} /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </Wrapper>)
+      return suggest(<React.Fragment>Your average cast of <SpellLink id={SPELLS.BARBED_SHOT.id} /> reduced <SpellLink id={SPELLS.KILL_COMMAND.id} /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </React.Fragment>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
-        .actual(`${(actual).toFixed(2)} average seconds of CDR per ${spellName} cast`)
+        .actual(`${(actual).toFixed(2)} average seconds of CDR per Barbed Shot cast`)
         .recommended(`>${recommended}sec is recommended`);
     });
   }

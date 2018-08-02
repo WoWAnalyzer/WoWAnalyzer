@@ -17,14 +17,14 @@ class DamageTaken extends CoreDamageTaken {
       return;
     }
     this._subtractDamage(event.extraAbility, 0, event.amount, 0);
-    if(!(event.extraAbility.guid in this._staggeredDamage)) {
+    if (this._staggeredDamage[event.extraAbility.guid] === undefined) {
       this._staggeredDamage[event.extraAbility.guid] = 0;
     }
     this._staggeredDamage[event.extraAbility.guid] += event.amount;
   }
 
   staggeredByAbility(guid) {
-    return (guid in this._staggeredDamage) ? this._staggeredDamage[guid] : 0;
+    return this._staggeredDamage[guid] !== undefined ? this._staggeredDamage[guid] : 0;
   }
 }
 

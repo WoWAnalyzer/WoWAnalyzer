@@ -3,8 +3,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import Abilities from './Abilities';
 import GlobalCooldown from './GlobalCooldown';
@@ -16,26 +15,11 @@ const debug = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     haste: Haste,
     abilities: Abilities,
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
   };
-
-  /** @deprecated */
-  static ABILITIES_ON_GCD = [
-    // Extend this class and override this property in your spec class to implement this module.
-  ];
-  // TODO: Move static GCD array to Abilities config
-  static STATIC_GCD_ABILITIES = {
-    // Abilities which GCD is not affected by haste.
-    // [spellId]: gcd value in seconds
-  };
-
-  // TODO: Move base GCD config to Abilities config since this can differ per spell
-  static BASE_GCD = 1500;
-  static MINIMUM_GCD = 750;
 
   /**
    * The amount of milliseconds not spent casting anything or waiting for the GCD.
@@ -77,15 +61,14 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
     const spellId = cast.ability.guid;
-    const isOnGcd = this.isOnGlobalCooldown(spellId);
-    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
 
-    if (!isOnGcd) {
+    if (!isOnGCD) {
       debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
 
-    const globalCooldown = this.getCurrentGlobalCooldown(spellId);
+    const globalCooldown = this.getGlobalCooldownDuration(spellId);
 
     // TODO: Change this to begincast || cast
     const castStartTimestamp = (begincast || cast).timestamp;

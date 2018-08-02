@@ -31,7 +31,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
     {
       spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
-      duration: 45,
+      duration: 20,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

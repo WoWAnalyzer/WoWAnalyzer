@@ -14,6 +14,7 @@ class Felstorm extends Analyzer {
   mainPetFelstormCount = 0;
 
   // works with either direct /cast Felstorm or by using the Command Demon ability (if direct /cast Felstorm, then the player didn't cast it, but this buff gets applied either way)
+  // TODO: verify this still works
   on_toPlayerPet_applybuff(event) {
     if (event.ability.guid !== SPELLS.FELSTORM_BUFF.id && event.ability.guid !== SPELLS.WRATHSTORM_BUFF.id) {
       return;
@@ -27,6 +28,15 @@ class Felstorm extends Analyzer {
     }
   }
 
+  get suggestionThresholds(){
+    const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
+    return {
+      actual: this.mainPetFelstormCount,
+      isLessThan: maxCasts,
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
     // TODO: this would be rather unpleasant to refactor (style issues, but still)
     const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
@@ -34,8 +44,8 @@ class Felstorm extends Analyzer {
     const petType = (!this._felstormGuid || this._felstormGuid === SPELLS.FELSTORM_BUFF.id) ? "Fel" : "Wrath";
     when(percentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should use your {petType}guard's <SpellLink id={this._felstormGuid || SPELLS.FELSTORM_BUFF.id}/> more often, preferably on cooldown.</span>)
-          .icon(SPELLS.FELSTORM.icon)
+        return suggest(<React.Fragment>You should use your {petType}guard's <SpellLink id={this._felstormGuid || SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</React.Fragment>)
+          .icon(SPELLS.FELSTORM_BUFF.icon)
           .actual(`${this.mainPetFelstormCount} out of ${maxCasts} (${formatPercentage(actual)} %) ${petType}storm casts.`)
           .recommended(`> ${formatPercentage(recommended)} % is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.2);

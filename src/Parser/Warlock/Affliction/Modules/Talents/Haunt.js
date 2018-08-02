@@ -2,34 +2,32 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const HAUNT_DAMAGE_BONUS = 0.15;
+const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
   // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   bonusDmg = 0;
   totalTicks = 0;
   buffedTicks = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
@@ -83,7 +81,7 @@ class Haunt extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.HAUNT_TALENT.id}/>. You should try to cast your Unstable Affliction in the burst windows provided by Haunt (but <strong>don't overcap</strong> your Soul Shards while waiting).</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> aren't buffed enough by <SpellLink id={SPELLS.HAUNT_TALENT.id} />. You should try to cast your Unstable Affliction in the burst windows provided by Haunt (but <strong>don't overcap</strong> your Soul Shards while waiting).</React.Fragment>)
           .icon(SPELLS.HAUNT_TALENT.icon)
           .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

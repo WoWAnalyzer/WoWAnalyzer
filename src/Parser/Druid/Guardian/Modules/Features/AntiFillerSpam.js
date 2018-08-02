@@ -4,12 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
@@ -27,7 +25,6 @@ function resolveValue(maybeFunction, ...args) {
 
 class AntiFillerSpam extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
@@ -41,13 +38,13 @@ class AntiFillerSpam extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const ability = this.abilities.getAbility(spellId);
-    if (!ability || !ability.isOnGCD) {
+    if (!ability || !ability.gcd) {
       return;
     }
 
     this._totalGCDSpells += 1;
     const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => !!enemy);
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
 
     let isFiller = false;
     if (ability.antiFillerSpam) {
@@ -133,9 +130,9 @@ class AntiFillerSpam extends Analyzer {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(SPELLS.SWIPE_BEAR.icon)
           .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)

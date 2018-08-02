@@ -1,47 +1,46 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+
+import ComboPointDetails from '../Common/Resources/ComboPointDetails';
+import ComboPointTracker from '../Common/Resources/ComboPointTracker';
+import EnergyDetails from '../Common/Resources/EnergyDetails';
+import EnergyTracker from '../Common/Resources/EnergyTracker';
+import StealthDamageTracker from '../Common/CastTracker/StealthDamageTracker';
+import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
+import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
+import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
+import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
+import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
 
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
-import ComboPointDetails from '../Common/Resources/ComboPointDetails';
-import ComboPointTracker from '../Common/Resources/ComboPointTracker';
 import ComboPoints from './Modules/RogueCore/ComboPoints';
-import EnergyDetails from '../Common/Resources/EnergyDetails';
-import EnergyTracker from '../Common/Resources/EnergyTracker';
 import Energy from './Modules/RogueCore/Energy';
 import SymbolsDamageTracker from './Modules/RogueCore/SymbolsDamageTracker';
 import DanceDamageTracker from './Modules/RogueCore/DanceDamageTracker';
 import DarkShadowNightblade from './Modules/Talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from "./Modules/Talents/DarkShadow/DarkShadowContribution";
-import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
-import DeathFromAbove from "./Modules/Talents/DFA/DeathFromAbove";
+import FindWeakness from "./Modules/Talents/FindWeakness";
 import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
-import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
-import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
+import CastsInStealth from './Modules/BaseRotation/CastsInStealth';
 import T21_2P from './Modules/Items/T21_2P';
-import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
+import DeepeningShadows from './Modules/RogueCore/DeepeningShadows';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
-import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
 import ShadowSatyrsWalk from './Modules/Legendaries/ShadowSatyrsWalk';
-import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
-import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
-import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 
 import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    //Feature
+    //Core
     damageDone: [DamageDone, { showStatistic: true }],
-    shadowBladesUptime : ShadowBladesUptime,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    symbolsOfDeathUptime:  SymbolsOfDeathUptime,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -54,10 +53,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Trackers
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
+    stealthDamageTracker: StealthDamageTracker,
     mantleDamageTracker: MantleDamageTracker,
 
     //Core
-    danceCooldownReduction: DanceCooldownReduction,
+    danceCooldownReduction: DeepeningShadows,
 
     //Items
     t21_2P: T21_2P,
@@ -73,15 +73,16 @@ class CombatLogParser extends CoreCombatLogParser {
     dreadlordsDeceit: DreadlordsDeceit,
 
     //Casts
+    symbolsOfDeathUptime:  SymbolsOfDeathUptime,
+    shadowBladesUptime : ShadowBladesUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     castsInShadowDance: CastsInShadowDance,
-    DeathFromAbove: DeathFromAbove,
-    DeathFromAboveMantle: DeathFromAboveMantle,
-    
+    castsInStealth: CastsInStealth,
+
     //Talents
     darkShadowContribution: DarkShadowContribution,
-    darkShadowEvis: DarkShadowEvis,
     darkShadowNightblade: DarkShadowNightblade,
+    findWeakness: FindWeakness,
   };
 }
 

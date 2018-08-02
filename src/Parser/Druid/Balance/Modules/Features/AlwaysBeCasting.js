@@ -1,12 +1,10 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -21,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper> Your downtime can be improved. Try to Always Be Casting (ABC)...</Wrapper>)
+        return suggest(<React.Fragment> Your downtime can be improved. Try to Always Be Casting (ABC)...</React.Fragment>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`${formatPercentage(recommended)}% or less is recommended`);

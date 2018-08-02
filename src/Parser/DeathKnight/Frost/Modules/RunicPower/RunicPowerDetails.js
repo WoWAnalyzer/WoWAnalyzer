@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Tab from 'Interface/Others/Tab';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
@@ -72,7 +72,7 @@ class RunicPowerDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.runicPowerTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

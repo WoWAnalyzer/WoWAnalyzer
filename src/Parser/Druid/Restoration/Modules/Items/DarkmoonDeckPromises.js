@@ -5,8 +5,8 @@ import { formatThousands } from 'common/format';
 
 import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckPromises';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import ItemManaGained from 'Main/ItemManaGained';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import Rejuvenation from '../Core/Rejuvenation';
 

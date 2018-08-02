@@ -1,13 +1,11 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import SPELLS from "common/SPELLS";
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
@@ -19,7 +17,6 @@ const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
 
 class DireBeast extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
   };
 
@@ -27,12 +24,13 @@ class DireBeast extends Analyzer {
   badDBCasts = 0;
   remainingBestialWrathCooldown = 0;
 
-  on_initialized() {
-    this.active = !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
+    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
     if (spellId === SPELLS.DIRE_BEAST.id) {
@@ -54,7 +52,7 @@ class DireBeast extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_BEAST.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.casts}{'  '}
             <SpellIcon
               id={SPELLS.DIRE_BEAST.id}
@@ -73,9 +71,9 @@ class DireBeast extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
         )}
-        label={`Direbeast casts`}
+        label="Direbeast casts"
         tooltip={`You cast Dire Beast ${this.casts} times. <br/> <ul> <li> You cast ${this.badDBCasts} Dire Beasts while there was less than 3 seconds remaining of Bestial Wrath cooldown.</li></ul>`}
       />
     );
@@ -95,7 +93,7 @@ class DireBeast extends Analyzer {
   }
   suggestions(when) {
     when(this.badDireBeastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</Wrapper>)
+      return suggest(<React.Fragment>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</React.Fragment>)
         .icon(SPELLS.DIRE_BEAST_SUMMON.icon)
         .actual(`You cast Dire Beast ${this.badDBCasts} times when Bestial Wrath had less than 3 seconds CD remaining.`)
         .recommended(`${recommended} is recommended`);

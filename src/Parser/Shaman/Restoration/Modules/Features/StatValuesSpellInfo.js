@@ -45,14 +45,6 @@ export default {
     mastery: true,
     vers: true,
   },
-  [SPELLS.QUEENS_DECREE.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: false,
-    mastery: true,
-    vers: true,
-  },
   [SPELLS.CHAIN_HEAL.id]: {
     int: true,
     crit: true,
@@ -75,10 +67,6 @@ export default {
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
-  },
-  [SPELLS.ANCESTRAL_GUIDANCE_HEAL.id]: {
-    // This gets special treatment with the `feed_heal` event
-    ignored: true,
   },
   [SPELLS.ASCENDANCE_HEAL.id]: {
     // This gets special treatment with the `feed_heal` event
@@ -112,26 +100,15 @@ export default {
     mastery: true,
     vers: true,
   },
-  [SPELLS.GIFT_OF_THE_QUEEN.id]: {
+  [SPELLS.EARTH_SHIELD_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: false, // static CD
+    hasteHpct: false,
     mastery: true,
     vers: true,
   },
-  [SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id]: {
-    int: true,
-    crit: true,
-    hasteHpct: false, // static CD
-    mastery: true,
-    vers: true,
-  },
-  [SPELLS.TIDAL_TOTEM.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    mastery: true,
-    vers: true,
+  [SPELLS.NATURES_GUARDIAN_HEAL.id]: {
+    ignored: true, // scales only with HP
   },
   [SPELLS.RAINFALL.id]: {
     // T21 2pc
@@ -141,12 +118,33 @@ export default {
     vers: true,
   },
   [SPELLS.DOWNPOUR.id]: {
-    // T21 4pc double dipping
+    // T21 4pc
     crit: true,
     hasteHpct: true,
     vers: true,
   },
-  [SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id]: {
-    ignored: true,
+  [SPELLS.DOWNPOUR_TALENT.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
+
+  // Azerite Traits
+  [SPELLS.OVERFLOWING_SHORES.id]:{
+    crit: true,
+    vers: true,
+  },
+  [SPELLS.SWELLING_STREAM_HEAL.id]:{
+    crit: true,
+    vers: true,
+  },
+  [SPELLS.SURGING_TIDES_ABSORB.id]:{
+    vers: true,
+  },
+  [SPELLS.SPOUTING_SPIRITS_HEAL.id]:{
+    crit: true,
+    vers: true,
   },
 };

@@ -2,10 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Wrapper from 'common/Wrapper';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
@@ -14,10 +12,6 @@ const debug = false;
 const PROC_WINDOW_MS = 100;
 
 class BrainFreezeTracker extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-  };
-
 	lastFlurryTimestamp;
 
 	overwrittenProcs = 0;
@@ -49,7 +43,7 @@ class BrainFreezeTracker extends Analyzer {
 			return;
 		}
 		this.lastFlurryTimestamp = this.owner.currentTimestamp;
-		if (!this.combatants.selected.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
+		if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
 			this.flurryWithoutProc += 1;
 		}
 	}
@@ -154,10 +148,10 @@ class BrainFreezeTracker extends Analyzer {
 	}
 
 	suggestions(when) {
-    if (this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(this.glacialSpikeOverwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</Wrapper>)
+          return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 4 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
 						.recommended(`Overwriting none is recommended`);
@@ -165,7 +159,7 @@ class BrainFreezeTracker extends Analyzer {
 		} else {
 			when(this.overwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-					return suggest(<Wrapper>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</Wrapper>)
+					return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
 						.recommended(`Overwriting none is recommended`);
@@ -174,7 +168,7 @@ class BrainFreezeTracker extends Analyzer {
 
 		when(this.expiredSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<Wrapper>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</Wrapper>)
+				return suggest(<React.Fragment>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
 					.icon(SPELLS.BRAIN_FREEZE.icon)
 					.actual(`${formatPercentage(this.expiredPercent)}% expired`)
 					.recommended(`Letting none expire is recommended`);
@@ -182,7 +176,7 @@ class BrainFreezeTracker extends Analyzer {
 
 		when(this.flurryWithoutProcSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times. You should never hard cast Flurry.</Wrapper>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times. You should never hard cast Flurry.</React.Fragment>)
 					.icon(SPELLS.FLURRY.icon)
 					.actual(`${formatNumber(this.flurryWithoutProc)} casts`)
 					.recommended(`Casting none is recommended`);
@@ -192,10 +186,10 @@ class BrainFreezeTracker extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
-				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(this.utilPercent, 0)} %`}
-        label="Brain Freeze Utilization"
-				tooltip={`You got ${this.totalProcs} total procs.
+  icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
+  value={`${formatPercentage(this.utilPercent, 0)} %`}
+  label="Brain Freeze Utilization"
+  tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
 						<li>${this.usedProcs} used</li>
 						<li>${this.overwrittenProcs} overwritten</li>

@@ -1,13 +1,11 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber } from 'common/format';
 
 const ENERGY_MIN_USED_BY_BITE = 25;
@@ -24,10 +22,6 @@ const debug = false;
  * energy and ignore the current energy level.
  */
 class FerociousBiteEnergy extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  
   biteCount = 0;
   freeBiteCount = 0;
   lowEnergyBiteCount = 0;
@@ -74,14 +68,12 @@ class FerociousBiteEnergy extends Analyzer {
   }
 
   getEnergyUsedByBite(event) {
-    const resource = event.classResources[0];
-    if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
+    const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.ENERGY.id);
+    if (!resource || !resource.cost) {
       return 0;
-    }
-    else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
+    } else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
       return resource.amount;
-    }
-    else {
+    } else {
       return ENERGY_FOR_FULL_DAMAGE_BITE;
     }
   }
@@ -127,9 +119,9 @@ class FerociousBiteEnergy extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>
+        <React.Fragment>
           You used an average of {actual.toFixed(1)} energy on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. You should aim to always have {ENERGY_FOR_FULL_DAMAGE_BITE} energy available when using Ferocious Bite. Your Ferocious Bite damage was reduced by {formatNumber(this.dpsLostFromLowEnergyBites)} DPS due to lack of energy.
-        </Wrapper>
+        </React.Fragment>
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
         .actual(`${actual.toFixed(1)} average energy spent on Ferocious Bite.`)

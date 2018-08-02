@@ -4,10 +4,11 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.combatants.selected;
+    const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.ICEBOUND_FORTITUDE,
+        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
@@ -20,6 +21,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VAMPIRIC_BLOOD,
+        buffSpellId: SPELLS.VAMPIRIC_BLOOD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
@@ -31,22 +33,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BLOOD_MIRROR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: 'Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.',
-        },
-        timelineSortIndex: 9,
-      },
-      {
         spell: SPELLS.BLOOD_BOIL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -56,21 +48,23 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.CONSUMPTION,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: SPELLS.CONSUMPTION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
         cooldown: 45,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.',
+        gcd: {
+          base: 1500,
         },
         timelineSortIndex: 5,
       },
       {
         spell: SPELLS.DANCING_RUNE_WEAPON,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        buffSpellId: SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -82,7 +76,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODDRINKER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -103,19 +99,25 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 1,
       },
       {
         spell: SPELLS.DEATHS_CARESS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 7,
       },
       {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         castEfficiency: {
@@ -128,7 +130,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         enabled: !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         timelineSortIndex: 5,
@@ -136,19 +140,25 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEART_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 3,
       },
       {
         spell: SPELLS.MARROWREND,
+        buffSpellId: SPELLS.BONE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 2,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(SPELLS.ANTIMAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -170,61 +180,81 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 500,
+        },
         cooldown: 15,
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.WRAITH_WALK,
+        spell: SPELLS.DEATHS_ADVANCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
         cooldown: 45,
+        timelineSortIndex: 14,
+      },
+      {
+        spell: SPELLS.WRAITH_WALK_TALENT,
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
         timelineSortIndex: 14,
       },
       {
         spell: SPELLS.GOREFIENDS_GRASP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
-        cooldown: this.combatants.selected.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: combatant.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
         timelineSortIndex: 11,
       },
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ASPHYXIATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CONTROL_UNDEAD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
       },
       {
-        spell: SPELLS.BLOOD_TAP_TALENT,
+        spell: SPELLS.RUNE_STRIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         cooldown: 60,
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.95,
         },
         timelineSortIndex: 8,
       },
       {
-        spell: SPELLS.MARK_OF_BLOOD,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD.id),
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
-          importance: ISSUE_IMPORTANCE.MINOR,
+        spell: SPELLS.MARK_OF_BLOOD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
+        cooldown: 6,
+        gcd: {
+          base: 1500,
         },
         timelineSortIndex: 10,
       },
@@ -233,6 +263,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -243,6 +276,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RUNE_TAP_TALENT,
+        buffSpellId: SPELLS.RUNE_TAP_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
         cooldown: 25,
@@ -260,7 +294,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: combatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
         cooldown: 60,
-        isOnGCD: true,
+        gcd: {
+          base: 1500,
+        },
         timelineSortIndex: 9,
       },
       {

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 import FuryTracker from './FuryTracker';
 
@@ -16,7 +15,6 @@ const furyIcon = 'inv_helm_leather_raiddemonhuntermythic_r_01';
 class FuryDetails extends Analyzer {
   static dependencies = {
     furyTracker: FuryTracker,
-    combatants: Combatants,
   };
 
   get wastedFuryPercent() {
@@ -24,7 +22,7 @@ class FuryDetails extends Analyzer {
   }
 
   get suggestionThresholds() {
-    if (this.combatants.selected.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
       return {
         actual: this.wastedFuryPercent,
         isGreaterThan: {
@@ -80,7 +78,7 @@ class FuryDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.furyTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -16,8 +16,10 @@ export default async function fetchEvents(reportCode, fightStart, fightEnd, acto
   let pageStartTimestamp = fightStart;
 
   let events = [];
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     timeAvailable && console.time('API/events');
+    // eslint-disable-next-line no-await-in-loop
     const json = await fetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
     timeAvailable && console.timeEnd('API/events');
     events = [

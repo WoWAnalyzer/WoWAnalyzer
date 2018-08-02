@@ -2,44 +2,18 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
-import Haste from 'Parser/Core/Modules/Haste';
-
-const HEALING_ABILITIES_ON_GCD = [
-  SPELLS.EFFUSE.id,
-  SPELLS.ENVELOPING_MISTS.id,
-  SPELLS.ESSENCE_FONT.id,
-  SPELLS.RENEWING_MIST.id,
-  SPELLS.VIVIFY.id,
-  SPELLS.REVIVAL.id,
-  SPELLS.SHEILUNS_GIFT.id,
-  SPELLS.CHI_BURST_TALENT.id,
-  SPELLS.CHI_WAVE_TALENT.id,
-  SPELLS.ZEN_PULSE_TALENT.id,
-  SPELLS.REFRESHING_JADE_WIND_TALENT.id,
-];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static dependencies = {
-    ...CoreAlwaysBeCastingHealing.dependencies,
-    haste: Haste,
-  };
-
-  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
-  static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
-    SPELLS.CHI_TORPEDO_TALENT.id,
-    SPELLS.BLACKOUT_KICK.id,
-    SPELLS.DETOX.id,
-    SPELLS.LEG_SWEEP_TALENT.id,
-    SPELLS.PARALYSIS.id,
-    SPELLS.ROLL.id,
-    SPELLS.RISING_SUN_KICK.id,
-    SPELLS.SPINNING_CRANE_KICK.id,
-    SPELLS.TIGERS_LUST_TALENT.id,
-    SPELLS.CRACKLING_JADE_LIGHTNING.id,
-    SPELLS.TRANSCENDENCE.id,
-    SPELLS.TRANSCENDENCE_TRANSFER.id,
-    SPELLS.TIGER_PALM.id,
+  static HEALING_ABILITIES_ON_GCD = [
+    SPELLS.ENVELOPING_MIST.id,
+    SPELLS.ESSENCE_FONT.id,
+    SPELLS.RENEWING_MIST.id,
+    SPELLS.VIVIFY.id,
+    SPELLS.REVIVAL.id,
+    SPELLS.SHEILUNS_GIFT.id,
+    SPELLS.CHI_BURST_TALENT.id,
+    SPELLS.CHI_WAVE_TALENT.id,
+    SPELLS.REFRESHING_JADE_WIND_TALENT.id,
   ];
 
   get nonHealingTimeSuggestionThresholds() {

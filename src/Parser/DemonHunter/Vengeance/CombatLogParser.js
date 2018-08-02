@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'Main/Tab';
+import Tab from 'Interface/Others/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -8,18 +8,28 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import PainChart from './Modules/PainChart/Pain';
+import PainTracker from './Modules/Pain/PainTracker';
+import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
-import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
+import Checklist from './Modules/Features/Checklist';
 
-import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
-import DemonSpikes from './Modules/Statistics/Spells/DemonSpikes';
-import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
-import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
+import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
+import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
+
+import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
+import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
+import SoulBarrier from './Modules/Talent/SoulBarrier';
+import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
+
+
+import ImmolationAura from './Modules/Spells/ImmolationAura';
+import DemonSpikes from './Modules/Spells/DemonSpikes';
+import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -31,23 +41,32 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
+    mitigationCheck: MitigationCheck,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    soulFragmentsTracker: SoulFragmentsTracker,
+    checklist: Checklist,
 
-    // Spirit Bomb Tracker Module (Frailty uptime tracker)
-    spiritBomb: SpiritBomb,
+    //Resource Tracker
+    painTracker: PainTracker,
+    painDetails: PainDetails,
 
-    // Soul Fragments Tracker module (includes Generated and Wasted)
-    soulFragments: SoulFragments,
+    //Talents
+    SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    soulBarrier: SoulBarrier,
+    spiritBombSoulConsume: SpiritBombSoulConsume,
 
-    // Spell Statistics
+    // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
+
+    //Stats
+    soulsOvercap: SoulsOvercap,
+    soulFragmentsConsume: SoulFragmentsConsume,
 
     // Tier 20
     tier202PBonus: Tier202PBonus,
@@ -55,8 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 
-  generateResults() {
-    const results = super.generateResults();
+  generateResults(...args) {
+    const results = super.generateResults(...args);
 
     results.tabs = [
       ...results.tabs,

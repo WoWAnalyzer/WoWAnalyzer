@@ -4,22 +4,21 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
 
 class Tearstone extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     rejuvenationAttributor: RejuvenationAttributor,
   };
 
   wildGrowthApplications = 0;
   wildGrowthCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
   }
 
   on_byPlayer_cast(event) {

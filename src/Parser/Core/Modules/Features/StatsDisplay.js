@@ -68,7 +68,7 @@ class StatsDisplay extends Analyzer {
     const rating = this.getStatRating(stat);
     const percentage = this.getStatPercentage(stat);
 
-    return percentage === null ? formatThousands(rating) : `${formatPercentage(percentage)}% - ${formatThousands(rating)} Rating`;
+    return percentage === null ? formatThousands(rating) : `${formatPercentage(percentage)}% - ${formatThousands(rating)} rating`;
   }
 
   // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
@@ -88,63 +88,56 @@ class StatsDisplay extends Analyzer {
     ];
 
     return (
-      <div className="panel" style={{ border: 0 }}>
-        <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
-          <h2>
-            <dfn data-tip="These stats includes any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
-              Stats on pull
-            </dfn>
-          </h2>
-        </div>
-        <div className="panel-body flex" style={{ flexDirection: 'row', padding: 0 }}>
-          <div className="row">
-            {mainStats.map(stat => {
-              const Icon = getIcon(stat);
-
-              return (
-                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat} style={{ height: '3em', marginTop: 10 }}>
-                  <div className="col-md-1"/>
-                  <div className="col-md-2">
-                    <Icon style={{ width: '3em', height: '3em' }} />
-                  </div>
-                  <div className="col-md-8">
-                    <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase' }}>
-                      {getName(stat)}
-                    </div>
-                    <div style={{ fontSize: 13 }}>
-                      {this.renderStatValue(stat)}
-                    </div>
-                    <div className="col-md-1"/>
-                  </div>
-                </div>
-              );
-            })}
-            {tertiaries.map(stat => {
-              if (this.getStatRating(stat) > 0) {
-                return (
-                  <div key={stat} className={`flex-main ${getClassNameColor(stat)}`} style={{ height: '3em', marginTop: 10 }}>
-                    <div className="col-md-1"/>
-                    <div className="col-md-2">
-                      <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '3em', borderRadius: 2 }} />
-                    </div>
-                    <div className="col-md-8">
-                      <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase' }}>
-                        {getName(stat)}
-                      </div>
-                      <div style={{ fontSize: 13 }}>
-                        {this.renderStatValue(stat)}
-                      </div>
-                      <div className="col-md-1"/>
-                    </div>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
+      <React.Fragment>
+        <div className="row" style={{ marginBottom: '2em' }}>
+          <div className="col-md-12">
+            <h2>
+              <dfn data-tip="These stats includes any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
+                Stats on pull
+              </dfn>
+            </h2>
           </div>
         </div>
-      </div>
+        {mainStats.map(stat => {
+          const Icon = getIcon(stat);
+
+          return (
+            <div key={stat} className={`row ${getClassNameColor(stat)}`} style={{ marginBottom: '0.5em' }}>
+              <div className="col-xs-2 col-md-3 text-center">
+                <Icon style={{ width: '3em', height: '3em' }} />
+              </div>
+              <div className="col-xs-10 col-md-9">
+                <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+                  {getName(stat)}
+                </div>
+                <div style={{ fontSize: '0.9em' }}>
+                  {this.renderStatValue(stat)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        {tertiaries.map(stat => {
+          if (this.getStatRating(stat) <= 0) {
+            return null;
+          }
+          return (
+            <div key={stat} className={`row ${getClassNameColor(stat)}`} style={{ marginBottom: '0.5em' }}>
+              <div className="col-xs-2 col-md-3 text-center">
+                <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '3em', borderRadius: 2 }} />
+              </div>
+              <div className="col-xs-10 col-md-9">
+                <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+                  {getName(stat)}
+                </div>
+                <div style={{ fontSize: '0.9em' }}>
+                  {this.renderStatValue(stat)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </React.Fragment>
     );
   }
 }

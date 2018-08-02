@@ -44,10 +44,17 @@ class Ability {
      */
     charges: PropTypes.number,
     /**
-     * Whether the spell is on the GCD.
+     * `null` is the spell is off the GCD, or an object if the spell is on the GCD.
      * If this spell overlaps in the Spell Timeline it likes is incorrectly marked as on the GCD and should be removed.
      */
-    isOnGCD: PropTypes.bool,
+    gcd: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({
+        static: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        base: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        minimum: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+      }),
+    ]),
     // TODO: Add properties `staticGCD` and `baseGcd` since the baseGcd can be different per spell (e.g. Brewmaster's Effuse has a 1.5sec base GCD and most other spells are 1sec)
     castEfficiency: PropTypes.shape({
       /**
@@ -83,14 +90,23 @@ class Ability {
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents.
      */
     enabled: PropTypes.bool,
-    /**
-     * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
-     */
-    isUndetectable: PropTypes.bool,
+
     /**
      * The ability's priority on the timeline. The lower the number the higher on the timeline it will be displayed.
      */
     timelineSortIndex: PropTypes.number,
+    /**
+     * The buff belonging to the ability. Setting this will display the buff on the timeline.
+     */
+    buffSpellId: PropTypes.number,
+    /**
+     * A boolean to indicate the spell is a defensive.
+     */
+    isDefensive: PropTypes.bool,
+    /**
+     * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
+     */
+    isUndetectable: PropTypes.bool,
   };
 
   _owner = null;
@@ -129,7 +145,7 @@ class Ability {
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.combatants.selected);
+      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.selectedCombatant);
     }
 
     return this._cooldown;
@@ -154,9 +170,10 @@ class Ability {
     return this._channel;
   }
   // endregion
-  isOnGCD = null;
+  gcd = null;
   extraSuggestion = null;
   recommendedEfficiency = null;
+  isDefensive = null;
   isUndetectable = null;
   castEfficiency = {
     suggestion: false,

@@ -6,29 +6,27 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class FirstOfTheDead extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     damageTracker: DamageTracker,
   };
 
   totalValue = 0;
   valueCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHands(ITEMS.THE_FIRST_OF_THE_DEAD.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHands(ITEMS.THE_FIRST_OF_THE_DEAD.id);
   }
 
   on_toPlayer_energize(event) {
     if (!event.ability) return;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
     const buffID = SPELLS.THE_FIRST_OF_THE_DEAD_BUFF.id;
-    if (!this.combatants.selected.hasBuff(buffID)) return;
+    if (!this.selectedCombatant.hasBuff(buffID)) return;
 
     let baseCp = 0;
     const spellId = event.ability.guid;
@@ -41,7 +39,7 @@ class FirstOfTheDead extends Analyzer {
       return;
     }
 
-    if (this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
+    if (this.selectedCombatant.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
 
     const gain = event.resourceChange;
     const waste = event.waste;
@@ -60,9 +58,9 @@ class FirstOfTheDead extends Analyzer {
     when(noValueShare).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Make sure to gain extra combo points after each <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> when you are using <ItemLink id={ITEMS.THE_FIRST_OF_THE_DEAD.id} />.
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(ITEMS.THE_FIRST_OF_THE_DEAD.icon)
           .actual(`You failed to gain extra combo points on ${formatPercentage(actual)} % of Symbols of Death casts`)
@@ -77,7 +75,7 @@ class FirstOfTheDead extends Analyzer {
 
     return {
       item: ITEMS.THE_FIRST_OF_THE_DEAD,
-      result: <Wrapper>{totalPerMinute.toFixed(2)} combo points generated per minute.</Wrapper>,
+      result: <React.Fragment>{totalPerMinute.toFixed(2)} combo points generated per minute.</React.Fragment>,
     };
   }
 }

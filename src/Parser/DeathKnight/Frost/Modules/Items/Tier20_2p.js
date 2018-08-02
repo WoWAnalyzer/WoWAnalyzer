@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import SPELLS from 'common/SPELLS';
@@ -13,18 +12,15 @@ import SpellIcon from 'common/SpellIcon';
  */
 
 class Tier20_2p extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   pillarActive = false;
   totalPillarCasts = 0;
   totalAddedDuration = 0;
   currentAddedDuration = 0;
   rpBanked = 0;
   
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_applybuff(event){

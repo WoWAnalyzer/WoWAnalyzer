@@ -17,6 +17,8 @@ import safeMerge from '../safeMerge';
 
 import OTHERS from './OTHERS';
 import RACIALS from './RACIALS';
+import BFA from './BFA';
+import ENCOUNTER from './ENCOUNTER';
 
 import TALENTS_DEATH_KNIGHT from './TALENTS/DEATH_KNIGHT';
 import TALENTS_DEMON_HUNTER from './TALENTS/DEMON_HUNTER';
@@ -63,6 +65,7 @@ const ABILITIES = {
   // Talents can be overwritten with custom spell objects
   ...safeMerge(
     OTHERS,
+    ENCOUNTER,
     RACIALS,
     DEATH_KNIGHT,
     DEMON_HUNTER,
@@ -75,7 +78,8 @@ const ABILITIES = {
     ROGUE,
     SHAMAN,
     WARLOCK,
-    WARRIOR
+    WARRIOR,
+    BFA
   ),
 };
 

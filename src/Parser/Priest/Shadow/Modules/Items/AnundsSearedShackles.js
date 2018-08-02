@@ -2,23 +2,19 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 const DAMAGE_INCREASE_PER_STACK = 0.03;
 
 class AnundsSearedShackles extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bonusDmg = 0;
   buffStacksSinceLastCast = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.ANUNDS_SEARED_SHACKLES.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.ANUNDS_SEARED_SHACKLES.id);
   }
 
   on_byPlayer_damage(event) {

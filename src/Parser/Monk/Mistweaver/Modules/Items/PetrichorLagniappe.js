@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -14,7 +13,6 @@ const PETRICHOR_REDUCTION = 2000;
 
 class PetrichorLagniappe extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -27,10 +25,11 @@ class PetrichorLagniappe extends Analyzer {
   lastCastTime = 0;
   cdReductionUsed = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
     if (this.active) {
-      this.REVIVAL_BASE_COOLDOWN = 180000 - (this.combatants.selected.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10000;
+      this.REVIVAL_BASE_COOLDOWN = 180000 - (this.selectedCombatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10000;
     }
   }
 

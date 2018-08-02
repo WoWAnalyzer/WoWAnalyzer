@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Abilities from './Abilities';
 
-const debug = true;
+const debug = false;
 const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 function spellName(spellId) {
@@ -16,6 +16,7 @@ class SpellUsable extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
+
   _currentCooldowns = {};
   _errors = 0;
   get errorsPerMinute() {
@@ -89,7 +90,7 @@ class SpellUsable extends Analyzer {
       throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
     }
     const cooldown = this._currentCooldowns[canSpellId];
-    const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
+    const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
     return expectedEnd - timestamp;
   }
   /**
@@ -172,6 +173,7 @@ class SpellUsable extends Analyzer {
         return this.reduceCooldown(canSpellId, remainingCDR, timestamp);
       }
     }
+    return 0;
   }
   /**
    * Refresh (restart) the cooldown for the provided spell.
@@ -217,6 +219,25 @@ class SpellUsable extends Analyzer {
       debug && console.log(fightDuration, 'SpellUsable', 'Reduced', spellName(canSpellId), canSpellId, 'by', reductionMs, 'remaining:', this.cooldownRemaining(canSpellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[canSpellId].expectedDuration - this._currentCooldowns[canSpellId].totalReductionTime, 'total CDR:', this._currentCooldowns[canSpellId].totalReductionTime);
       return reductionMs;
     }
+  }
+
+  /**
+   * Extends the cooldown for the provided spell by the provided duration.
+   * @param {any} spellId The ID of the spell.
+   * @param {number} extensionMS The duration to extend the cooldown with, in milliseconds.
+   * @param {any} timestamp Override the timestamp if it may be different from the current timestamp.
+   * @returns {*}
+   */
+  extendCooldown(spellId, extensionMS, timestamp = this.owner.currentTimestamp) {
+    const canSpellId = this._getCanonicalId(spellId);
+    if (!this.isOnCooldown(canSpellId)) {
+      throw new Error(`Tried to extend the cooldown of ${canSpellId}, but it's not on cooldown.`);
+    }
+    const cooldownRemaining = this.cooldownRemaining(canSpellId, timestamp);
+    this._currentCooldowns[canSpellId].totalReductionTime -= extensionMS;
+    const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
+    debug && console.log(fightDuration, 'SpellUsable', 'Extended', spellName(canSpellId), canSpellId, 'by', extensionMS, 'remaining:', this.cooldownRemaining(canSpellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[canSpellId].expectedDuration - this._currentCooldowns[canSpellId].totalReductionTime, 'total extension:', -this._currentCooldowns[canSpellId].totalReductionTime);
+    return extensionMS;
   }
 
   _makeEvent(spellId, timestamp, trigger, others = {}) {
@@ -278,7 +299,7 @@ class SpellUsable extends Analyzer {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
         const cooldown = this._currentCooldowns[spellId];
-        const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
+        const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
         const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
         debug && console.log(fightDuration, 'SpellUsable', 'Clearing', spellName(spellId), spellId, 'due to expiry');
         this.endCooldown(Number(spellId), false, expectedEnd);
@@ -290,7 +311,8 @@ class SpellUsable extends Analyzer {
     if (!this._isCheckingCooldowns) {
       // This ensures this method isn't called again before it's finished executing (_checkCooldowns might trigger events).
       this._isCheckingCooldowns = true;
-      this._checkCooldownExpiry((event && event.timestamp) || this.owner.currentTimestamp);
+      const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+      this._checkCooldownExpiry(timestamp);
       this._isCheckingCooldowns = false;
     }
   }
@@ -305,7 +327,8 @@ class SpellUsable extends Analyzer {
       const progress = timePassed / originalExpectedDuration;
 
       const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(Number(spellId));
-      const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
+      // The game only works with integers so round the new expected duration
+      const newExpectedDuration = Math.round(timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste));
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
       // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
 

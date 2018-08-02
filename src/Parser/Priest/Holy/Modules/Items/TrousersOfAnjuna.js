@@ -3,21 +3,17 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 class TrousersOfAnjuna extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   _validAfterByPlayer = {};
   healing = 0;
   overhealing = 0;
   absorbed = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 
   on_byPlayer_removebuff(event) {
@@ -67,7 +63,7 @@ class TrousersOfAnjuna extends Analyzer {
 
     // Temporary logic just incase we have a situation where a heal registers before buff applications
     // (which I don't think occurs but just as a precautionary measure, this exists)
-    if (!(event.targetID in this._validAfterByPlayer) || !this._validAfterByPlayer[event.targetID]) {
+    if (!this._validAfterByPlayer[event.targetID]) {
       return;
     }
 

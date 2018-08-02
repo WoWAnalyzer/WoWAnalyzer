@@ -7,33 +7,33 @@
  EXAMPLE
 
  export const NICKNAME = {
-      nickname: 'NICKNAME',
-      github: 'GITHUB_NAME',
-      discord: 'DISCORD_NAME INCL #xxxx',
-      avatar: require('./Images/IMAGE'),
-      desc: 'DESC',
-      mains: [{
-        name: "CHARNAME",
-        spec: SPECS.BLOOD_DEATH_KNIGHT,
-        link: "ARMOR/WCL-LINK",
-      }],
-      alts: [{
-        name: "CHARNAME",
-        spec: SPECS.BLOOD_DEATH_KNIGHT,
-        link: "ARMOR/WCL-LINK",
-      }],
-      others: {
-        "Custom Item": "normal text",
-        "Custom Item": [
-          "Item 1",
-          "Item 2",
-        ],
-      },
-      links: {
-        "Link No1": "https://www.google.com",
-      },
-    };
- */
+    nickname: 'NICKNAME',
+    github: 'GITHUB_NAME',
+    discord: 'DISCORD_NAME INCL #xxxx',
+    avatar: require('./Images/IMAGE'),
+    desc: 'DESC',
+    mains: [{
+      name: 'CHARNAME',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'ARMOR/WCL-LINK',
+    }],
+    alts: [{
+      name: 'CHARNAME',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'ARMOR/WCL-LINK',
+    }],
+    others: {
+      'Custom Item': 'normal text',
+      'Custom Item': [
+        'Item 1',
+        'Item 2',
+      ],
+    },
+    links: {
+      'Link No1': 'https://www.google.com',
+    },
+  };
+*/
 
 import SPECS from 'common/SPECS';
 
@@ -48,7 +48,31 @@ export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
   twitter: 'Zerotorescue',
+  discord: 'Zerotorescue#0724',
   avatar: require('./Images/zerotorescue-avatar.png'),
+  desc: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
+  mains: [{
+    name: 'Zerotorescue',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/alakir/zerotorescue',
+  }],
+  alts: [{
+    name: 'Zerotorescue',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-gb/character/skullcrusher/zerotorescue',
+  }, {
+    name: 'Zerotorescue',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/xavius/zerotorescue',
+  }, {
+    name: 'Leukenaam',
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-gb/character/alakir/leukenaam',
+  }, {
+    name: 'Zerotohunt',
+    spec: SPECS.MARKSMANSHIP_HUNTER,
+    link: 'https://worldofwarcraft.com/en-gb/character/alakir/Zerotohunt',
+  }],
 };
 export const blazyb = {
   nickname: 'blazyb',
@@ -116,9 +140,9 @@ export const Putro = {
   avatar: require('./Images/putro-avatar.png'),
   mains: [
     {
-      name: "Putro",
+      name: 'Putro',
       spec: SPECS.MARKSMANSHIP_HUNTER,
-      link: "https://worldofwarcraft.com/en-gb/character/ragnaros/putro",
+      link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/putro',
     },
   ],
 };
@@ -199,6 +223,10 @@ export const Chizu = {
   nickname: 'Chizu',
   github: 'sMteX',
   avatar: require('./Images/Chizu_avatar.jpg'),
+};
+export const Hordehobbs = {
+  nickname: 'Hordehobbs',
+  github: 'hpabst',
 };
 export const TheBadBossy = {
   nickname: 'TheBadBossy',
@@ -304,6 +332,8 @@ export const HawkCorrigan = {
 };
 export const Anatta336 = {
   nickname: 'Anatta336',
+  github: 'Anatta336',
+  discord: 'Anatta#5878',
 };
 export const Herusx = {
   nickname: 'Herusx',
@@ -316,34 +346,40 @@ export const Scaleable = {
 export const Cloake = {
   nickname: 'Cloake',
   github: 'adilasif',
+  discord: 'Cloake#9930',
+  mains: [{
+    name: 'Trixx',
+    spec: SPECS.ASSASSINATION_ROGUE,
+    link: 'https://worldofwarcraft.com/en-us/character/kelthuzad/Trixx',
+  }],
 };
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
   discord: 'joshinator#7267',
   mains: [{
-    name: "Êxtêndêd",
+    name: 'Êxtêndêd',
     spec: SPECS.BLOOD_DEATH_KNIGHT,
-    link: "https://worldofwarcraft.com/en-gb/character/eredar/%C3%8Axt%C3%AAnd%C3%AAd",
+    link: 'https://worldofwarcraft.com/en-gb/character/eredar/Êxtêndêd',
   }],
 };
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
-  discord: 'nisekoi#4130',
+  discord: 'niseko#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
   mains: [{
-    name: "Niseko",
+    name: 'Niseko',
     spec: SPECS.RESTORATION_SHAMAN,
-    link: "https://worldofwarcraft.com/en-gb/character/stormscale/niseko",
+    link: 'https://worldofwarcraft.com/en-gb/character/stormscale/niseko',
   },
-  {
-    name: "Nisefy",
-    spec: SPECS.MISTWEAVER_MONK,
-    link: "https://worldofwarcraft.com/en-gb/character/stormscale/nisefy",
-  }],
+    {
+      name: 'Nisefy',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-gb/character/stormscale/nisefy',
+    }],
   links: {
-    "Ancestral Guidance": "https://ancestralguidance.com/",
+    'Ancestral Guidance': 'https://ancestralguidance.com/',
   },
 };
 export const Aelexe = {
@@ -357,5 +393,32 @@ export const Aelexe = {
     name: 'Aelexe',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};
+export const CubeLuke = {
+  nickname: 'CubeLuke',
+  github: 'CubeLuke',
+  discord: 'CubeLuke#8595',
+  avatar: require('./Images/CubeLuke-avatar.jpg'),
+  mains: [{
+    name: 'Monachi',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi',
+  }],
+};
+export const ackwell = {
+  nickname: 'ackwell',
+  github: 'ackwell',
+  discord: 'ackwell#3835',
+  avatar: require('./Images/ackwell-avatar.png'),
+};
+export const regret = {
+  nickname: 'regret',
+  github: 'remyaraya',
+  discord: "regret#8633",
+  mains: [{
+    name: 'Ratchrat',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
   }],
 };

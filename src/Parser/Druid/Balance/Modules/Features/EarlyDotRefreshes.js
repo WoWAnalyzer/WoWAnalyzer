@@ -5,7 +5,7 @@ import suggest from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesSugg
 
 const DOTS = [
   {
-    name: "Stellar Flare",
+    name: 'Stellar Flare',
     debuffId: SPELLS.STELLAR_FLARE_TALENT.id,
     castId: SPELLS.STELLAR_FLARE_TALENT.id,
     duration: 24000,
@@ -13,7 +13,12 @@ const DOTS = [
 ];
 
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
-  dots = DOTS;
+  static dots = DOTS;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
+  }
 
   get suggestionThresholdsStellarFlare() {
     return {
@@ -25,7 +30,20 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percent',
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsStellarFlareEfficiency() {
+    return {
+      spell: SPELLS.STELLAR_FLARE_TALENT,
+      actual: 1 - this.badCastsPercent(DOTS[0].castId),
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
     };
   }
 

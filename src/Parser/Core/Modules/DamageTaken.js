@@ -1,13 +1,13 @@
 import React from 'react';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Toggleable from 'Main/Toggleable';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import Toggleable from 'Interface/common/Toggleable';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -42,7 +42,7 @@ class DamageTaken extends Analyzer {
 
   _addDamage(ability, amount = 0, absorbed = 0, blocked = 0, overkill = 0) {
     const spellId = ability.guid;
-    if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
@@ -65,10 +65,10 @@ class DamageTaken extends Analyzer {
     return this._addDamage(ability, -amount, -absorbed, -blocked, -overkill);
   }
 
-  get tooltip(){
-      const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
-      const magical = this.total.effective - physical;
-      return `Damage taken by type:
+  get tooltip() {
+    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+    const magical = this.total.effective - physical;
+    return `Damage taken by type:
       <ul>
       <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
       <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
@@ -76,9 +76,9 @@ class DamageTaken extends Analyzer {
       Damage taken by magic school:
       <ul>
         ${Object.keys(this._byMagicSchool)
-          .filter(type => this._byMagicSchool[type].effective !== 0)
-          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
-          )
+      .filter(type => this._byMagicSchool[type].effective !== 0)
+      .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
+      )
       .join('')}
       </ul>
       Click the bar to switch between simple and detailed mode.`;
@@ -86,15 +86,18 @@ class DamageTaken extends Analyzer {
 
   showStatistic = false;
   statistic() {
+    if (!this.showStatistic) {
+      return null;
+    }
     // TODO: Add a bar showing magic schools
-    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
     const simplifiedValues = {
       [MAGIC_SCHOOLS.ids.PHYSICAL]: physical,
       [MAGIC_SCHOOLS.ids.SHADOW]: magical, // use shadow as placeholder for general magic
     };
 
-    return this.showStatistic && (
+    return (
       <StatisticBox
         icon={(
           <img
@@ -112,23 +115,18 @@ class DamageTaken extends Analyzer {
           <Toggleable
             className="statistic-bar"
             data-tip={this.tooltip}
-            value = {
-              Object.keys(simplifiedValues)
-                .map(type =>
-                  (
-                    <div
-                      key={type}
-                      className={`spell-school-${type}-bg`}
-                      style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
-                    />
-                  )
-                )
-            }
-            toggledvalue = {
+            value={Object.keys(simplifiedValues).map(type => (
+              <div
+                key={type}
+                className={`spell-school-${type}-bg`}
+                style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
+              />
+            ))}
+            toggledvalue={
               Object.keys(this._byMagicSchool)
                 .filter(type => this._byMagicSchool[type].effective !== 0)
-                .map(type =>
-                  (
+                .map(
+                  type => (
                     <div
                       key={type}
                       className={`spell-school-${type}-bg`}
@@ -139,7 +137,7 @@ class DamageTaken extends Analyzer {
             }
           />
         )}
-        footerStyle={{ overflow: 'hidden'}}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

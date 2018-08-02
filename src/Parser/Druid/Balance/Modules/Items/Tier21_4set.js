@@ -2,12 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 const DAMAGE_BONUS = 0.2;
 
@@ -16,19 +14,16 @@ const DAMAGE_BONUS = 0.2;
  * Increases the damage of Moonfire and Sunfire for 6 seconds after casting Starfall or Starsurge.
  */
 class Tier21_4set extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   moonfireDamage = 0;
   sunfireDamage = 0;
 
-  on_initialized() {
-	this.active = this.combatants.selected.hasBuff(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id);
+  constructor(...args) {
+    super(...args);
+	this.active = this.selectedCombatant.hasBuff(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_damage(event) {
-    if (!this.combatants.selected.hasBuff(SPELLS.SOLAR_SOLSTICE.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.SOLAR_SOLSTICE.id)){
       return;
     }
     if (event.ability.guid === SPELLS.MOONFIRE_BEAR.id) {
@@ -40,7 +35,7 @@ class Tier21_4set extends Analyzer {
   }
 
   get uptime(){
-    return this.combatants.selected.getBuffUptime(SPELLS.SOLAR_SOLSTICE.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.SOLAR_SOLSTICE.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -57,7 +52,7 @@ class Tier21_4set extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</React.Fragment>)
         .icon(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -76,8 +71,8 @@ class Tier21_4set extends Analyzer {
             <li>Sunfire: <b>${this.owner.formatItemDamageDone(this.sunfireDamage)}</b></li>
           </ul>
         `}>
-          <Wrapper><ItemDamageDone amount={this.moonfireDamage + this.sunfireDamage} /> <br />
-          Uptime: {formatPercentage(this.uptime)}%</Wrapper>
+          <React.Fragment><ItemDamageDone amount={this.moonfireDamage + this.sunfireDamage} /> <br />
+          Uptime: {formatPercentage(this.uptime)}%</React.Fragment>
         </dfn>
       ),
     };

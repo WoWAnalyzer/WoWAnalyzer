@@ -4,19 +4,18 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SharedBrews from '../Core/SharedBrews';
 import { ISB as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
 const debug = false;
+const ISB_BASE_DURATION = 7000;
 
 class IronSkinBrew extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
     spellUsable: SpellUsable,
     brews: SharedBrews,
   };
@@ -33,41 +32,28 @@ class IronSkinBrew extends Analyzer {
   totalDuration = 0;
   durationLost = 0;
   _currentDuration = 0;
-  durationPerCast = 6000; // base
-  _durationPerPurify = 0;
-  _durationCap = -1;
-
-
-  on_initialized() {
-    this.durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
-    this._durationCap = 3 * this.durationPerCast;
-    this._durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
-  }
+  durationPerCast = ISB_BASE_DURATION;
+  _durationCap = 3 * ISB_BASE_DURATION;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.IRONSKIN_BREW.id || SPELLS.PURIFYING_BREW.id === spellId) {
-      // determine the current duration on ISB
-      if (this._currentDuration > 0) {
-        this._currentDuration -= event.timestamp - this._lastDurationCheck;
-        this._currentDuration = Math.max(this._currentDuration, 0);
-      }
-      // add the duration from this buff application (?)
-      let addedDuration = 0;
-      if (spellId === SPELLS.IRONSKIN_BREW.id) {
-        addedDuration = this.durationPerCast;
-      } else if (spellId === SPELLS.PURIFYING_BREW.id) {
-        addedDuration = this._durationPerPurify;
-      }
-      this._currentDuration += addedDuration;
-      if (this._currentDuration > this._durationCap) {
-        this.durationLost += this._currentDuration - this._durationCap;
-        this._currentDuration = this._durationCap;
-      }
-      // add this duration to the total duration
-      this.totalDuration += addedDuration;
-      this._lastDurationCheck = event.timestamp;
+    if (spellId !== SPELLS.IRONSKIN_BREW.id) {
+      return;
     }
+    // determine the current duration on ISB
+    if (this._currentDuration > 0) {
+      this._currentDuration -= event.timestamp - this._lastDurationCheck;
+      this._currentDuration = Math.max(this._currentDuration, 0);
+    }
+    // add the duration from this buff application (?)
+    this._currentDuration += this.durationPerCast;
+    if (this._currentDuration > this._durationCap) {
+      this.durationLost += this._currentDuration - this._durationCap;
+      this._currentDuration = this._durationCap;
+    }
+    // add this duration to the total duration
+    this.totalDuration += this.durationPerCast;
+    this._lastDurationCheck = event.timestamp;
   }
 
   on_byPlayer_applybuff(event) {
@@ -86,8 +72,14 @@ class IronSkinBrew extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || !(event.sourceID in this.enemies.getEntities()) || ABILITY_BLACKLIST.includes(event.ability.guid)) {
-      return; // either stagger or not a notable entity (e.g. imonar traps, environment damage)
+    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    if (!this.enemies.getEntities()[event.sourceID]) {
+      return; // not a notable entity (e.g. imonar traps, environment damage)
+    }
+    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+      return;
     }
 
     if (this.lastIronSkinBrewBuffApplied > 0) {
@@ -120,7 +112,7 @@ class IronSkinBrew extends Analyzer {
   }
 
   suggestions(when) {
-    const isbUptimePercentage = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
+    const isbUptimePercentage = this.selectedCombatant.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
 
     when(isbUptimePercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
@@ -157,7 +149,7 @@ class IronSkinBrew extends Analyzer {
   }
 
   statistic() {
-    const isbUptime = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
+    const isbUptime = this.selectedCombatant.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
     const hitsMitigatedPercent = this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew);
     return (
       <StatisticBox
@@ -171,7 +163,7 @@ class IronSkinBrew extends Analyzer {
             </ul>
             <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Ironskin Brew.<br/>
             <b>${formatPercentage(isbUptime)}%</b> uptime on the Ironskin Brew buff.`}
-          />
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

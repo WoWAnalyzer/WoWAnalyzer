@@ -6,17 +6,15 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 
 const CHART_SIZE = 75;
 
 class CastBehavior extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
@@ -69,8 +67,8 @@ class CastBehavior extends Analyzer {
           datasets: [{
             data: items.map(item => item.value),
             backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
-            borderWidth: 1.5,
+            borderColor: '#000000',
+            borderWidth: 0,
           }],
           labels: items.map(item => item.label),
         }}
@@ -99,8 +97,7 @@ class CastBehavior extends Analyzer {
 
     const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
-    const twPerRiptide = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
-    const totalTwGenerated = twPerRiptide * riptideCasts + chainHealCasts;
+    const totalTwGenerated = riptideCasts + chainHealCasts;
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
 
@@ -109,13 +106,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#2055CC',
+        color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
-        color: '#42E0FF',
+        color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: twHealingSurges,
@@ -154,13 +151,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#2055CC',
+        color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
-        color: '#42E0FF',
+        color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: fillerHealingSurges,
@@ -184,7 +181,7 @@ class CastBehavior extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id}/> usage</span>}
+            title={<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</span>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.twUsageRatioChart()}

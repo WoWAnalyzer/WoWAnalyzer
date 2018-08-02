@@ -1,11 +1,9 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -15,7 +13,6 @@ const EFFLORESCENCE_BASE_MANA = 0.216;
 const CENARION_WARD_BASE_MANA = 0.092;
 const REJUVENATION_BASE_MANA = 0.1;
 const LIFEBLOOM_BASE_MANA = 0.12;
-const HEALING_TOUCH_BASE_MANA = 0.09;
 const SWIFTMEND_BASE_MANA = 0.14;
 const TRANQUILITY_BASE_MANA = 0.184;
 const REGROWTH_BASE_MANA = 0.1863;
@@ -25,10 +22,6 @@ const TOL_REJUVENATION_REDUCTION = 0.3;
 const debug = false;
 
 class Innervate extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   manaSaved = 0;
   wildGrowths = 0;
   efflorescences = 0;
@@ -36,7 +29,6 @@ class Innervate extends Analyzer {
   rejuvenations = 0;
   regrowths = 0;
   lifeblooms = 0;
-  healingTouches = 0;
   swiftmends = 0;
   tranquilities = 0;
   freeRegrowths = 0;
@@ -48,8 +40,9 @@ class Innervate extends Analyzer {
   lastInnervateTimestamp = 0;
   depleted = false;
 
-  on_initialized() {
-    this.infusionOfNatureTraits = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
+  constructor(...args) {
+    super(...args);
+    this.infusionOfNatureTraits = this.selectedCombatant.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
   }
 
   on_toPlayer_applybuff(event) {
@@ -69,7 +62,7 @@ class Innervate extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (this.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       // Checking if the player is mana capped during an innervate.
       // This is not 100% accuarate because we trigger the calculation on the first heal during an innervate.
       // Realistically the seconds mana capped is higher.
@@ -92,7 +85,7 @@ class Innervate extends Analyzer {
         this.castsUnderInnervate += 1;
         this.efflorescences += 1;
       }
-      if (SPELLS.CENARION_WARD === spellId) {
+      if (SPELLS.CENARION_WARD_HEAL === spellId) {
         this.addToManaSaved(CENARION_WARD_BASE_MANA);
         this.castsUnderInnervate += 1;
         this.cenarionWards += 1;
@@ -106,11 +99,6 @@ class Innervate extends Analyzer {
         this.addToManaSaved(LIFEBLOOM_BASE_MANA);
         this.castsUnderInnervate += 1;
         this.lifeblooms += 1;
-      }
-      if (SPELLS.HEALING_TOUCH.id === spellId) {
-        this.addToManaSaved(HEALING_TOUCH_BASE_MANA);
-        this.castsUnderInnervate += 1;
-        this.healingTouches += 1;
       }
       if (SPELLS.SWIFTMEND.id === spellId) {
         this.addToManaSaved(SWIFTMEND_BASE_MANA);
@@ -128,9 +116,9 @@ class Innervate extends Analyzer {
   addToManaSaved(spellBaseMana) {
     if (spellBaseMana === WILD_GROWTH_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - (this.infusionOfNatureTraits * INFUSION_OF_NATURE_REDUCTION)));
-    } else if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
+    } else if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - TOL_REJUVENATION_REDUCTION));
-    } else if (this.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
+    } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
       this.freeRegrowths += 1;
     } else {
       this.manaSaved += (BASE_MANA * spellBaseMana);
@@ -151,7 +139,6 @@ class Innervate extends Analyzer {
       console.log(`Rejvus: ${this.rejuvenations}`);
       console.log(`Regrowth: ${this.regrowths}`);
       console.log(`LBs: ${this.lifeblooms}`);
-      console.log(`HT: ${this.healingTouches}`);
       console.log(`SM: ${this.swiftmends}`);
       console.log(`Tranq: ${this.tranquilities}`);
       console.log(`Amount of seconds mana capped: ${this.secondsManaCapped}`);
@@ -197,8 +184,8 @@ class Innervate extends Analyzer {
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</Wrapper>)
+        return suggest(<React.Fragment>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</React.Fragment>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
           .recommended(`>${formatNumber(recommended)} is recommended`);
@@ -206,7 +193,7 @@ class Innervate extends Analyzer {
 
     when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</Wrapper>)
+        return suggest(<React.Fragment>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</React.Fragment>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`~${this.wholeSecondsCapped} seconds capped`)
           .recommended(`${recommended} is recommended`);
@@ -235,9 +222,6 @@ class Innervate extends Analyzer {
                     }
                 ${this.lifeblooms > 0
                     ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''
-                    }
-                ${this.healingTouches > 0
-                    ? `<li>${this.healingTouches} Healing Touches</li>` : ''
                     }
                 ${this.swiftmends > 0
                     ? `<li>${this.swiftmends} Swiftmends</li>` : ''

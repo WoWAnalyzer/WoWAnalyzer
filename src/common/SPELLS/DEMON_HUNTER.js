@@ -44,8 +44,24 @@ export default {
     name: 'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
+  CHAOS_BRAND: {
+    id: 281242,
+    name: 'Chaos Brand',
+    icon: 'ability_demonhunter_empowerwards',
+  },
 
   // Abilities:
+  FRACTURE: { //Fracture replaces shear when you take the fracture talent
+    id: 209795,
+    painCost: 30,
+    name: "Fracture",
+    icon: "ability_creature_felsunder",
+  },
+  SHEAR: {
+    id: 203782,
+    name: 'Shear',
+    icon: 'ability_demonhunter_hatefulstrike',
+  },
   SOUL_FRAGMENT: {
     id: 204255,
     name: 'Soul Fragment',
@@ -56,36 +72,47 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
-  EMPOWER_WARDS: {
-    id: 218256,
-    name: 'Empower Wards',
-    icon: 'ability_demonhunter_empowerwards',
+  //Sigil of Flame, Misery, and Silence have different spell ids depending on
+  //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
+  SIGIL_OF_FLAME_CONCENTRATED: {
+    id: 204513,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
-  SIGIL_OF_SILENCE: {
-    id: 202137,
+  SIGIL_OF_MISERY_CONCENTRATED: {
+    id: 202140,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_CONCENTRATED: {
+    id: 207682,
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
-  SIGIL_OF_FLAME: {
+  SIGIL_OF_FLAME_QUICKENED: {
     id: 204596,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_QUICKENED: {
+    id: 207684,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_QUICKENED: {
+    id: 202137,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME_DEBUFF: {
     id: 204598,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
-  SIGIL_OF_MISERY: {
-    id: 207684,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
-  },
   DEMON_SPIKES: {
     id: 203720,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
-    painCost: 20,
   },
   DEMON_SPIKES_BUFF: {
     id: 203819,
@@ -94,6 +121,11 @@ export default {
   },
   FIERY_BRAND: {
     id: 204021,
+    name: 'Fiery Brand',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  FIERY_BRAND_DEBUFF: {
+    id: 207744,
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
@@ -106,12 +138,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    painCost: 43,
-  },
-  THROW_GLAIVE: {
-    id: 204157,
-    name: 'Throw Glaive',
-    icon: 'ability_demonhunter_throwglaive',
+    painCost: 30,
   },
   IMMOLATION_AURA: {
     id: 178740,
@@ -129,15 +156,15 @@ export default {
     name: 'Immolation Aura Buff',
     icon: 'ability_demonhunter_immolation',
   },
-  SHEAR: {
-    id: 203782,
-    name: 'Shear',
-    icon: 'ability_demonhunter_hatefulstrike',
-  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',
     icon: 'ability_demonhunter_infernalstrike1',
+  },
+  THROW_GLAIVE: {
+    id: 204157,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
   },
   TORMENT: {
     id: 185245,
@@ -148,6 +175,11 @@ export default {
     id: 217832,
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
+  },
+  SPECTRAL_SIGHT: {
+    id: 188501,
+    name: 'Spectral Sight',
+    icon: 'ability_demonhunter_spectralsight',
   },
 
   // Havoc
@@ -169,6 +201,16 @@ export default {
     icon: 'ability_demonhunter_eyebeam',
   },
   //spells
+  IMMOLATION_AURA_FIRST_STRIKE_DPS: {
+    id: 258921,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DPS: {
+    id: 258922,
+    name: 'Immolation Aura Buff',
+    icon: 'ability_demonhunter_immolation',
+  },
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
@@ -255,8 +297,13 @@ export default {
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
   CONSUME_MAGIC: {
-    id: 183752,
+    id: 278236,
     name: 'Consume Magic',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
+  Disrupt: {
+    id: 183752,
+    name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
   },
   CONSUME_MAGIC_FURY_GEN: {
@@ -410,7 +457,7 @@ export default {
     name: 'Nemesis',
     icon: 'spell_holy_senseundead',
   },
-  // Talents
+  // Vengeance Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',

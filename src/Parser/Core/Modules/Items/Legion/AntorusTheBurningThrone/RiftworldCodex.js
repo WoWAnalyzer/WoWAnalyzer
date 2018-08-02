@@ -3,12 +3,10 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage, formatNumber } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import ItemHealingDone from 'Main/ItemHealingDone';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Riftworld Codex
@@ -16,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 */
 class RiftworldCodex extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     abilities: Abilities,
   };
 
@@ -34,8 +31,9 @@ class RiftworldCodex extends Analyzer {
   immolationoverhealing = 0;
   immolationdamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(ITEMS.RIFTWORLD_CODEX.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.RIFTWORLD_CODEX.id);
   }
 
   countProcs(event) {
@@ -102,8 +100,8 @@ class RiftworldCodex extends Analyzer {
     return {
       item: ITEMS.RIFTWORLD_CODEX,
       result: (
-        <Wrapper>
-          <ItemDamageDone amount={this.immolationdamage} /><br/>
+        <React.Fragment>
+          <ItemDamageDone amount={this.immolationdamage} /><br />
           <dfn data-tip={`
             All 3 buffs did a total of ${formatNumber(this.totalhealing)} healing
             <ul>
@@ -114,7 +112,7 @@ class RiftworldCodex extends Analyzer {
           `}>
             <ItemHealingDone amount={this.totalhealing} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

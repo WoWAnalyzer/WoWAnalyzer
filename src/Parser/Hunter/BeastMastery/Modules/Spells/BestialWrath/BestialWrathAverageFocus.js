@@ -3,13 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox from "Main/StatisticBox";
-import SpellIcon from "common/SpellIcon";
-import { formatNumber } from "common/format";
-import SpellLink from "common/SpellLink";
-import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import Wrapper from 'common/Wrapper';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.
@@ -17,10 +15,6 @@ import Wrapper from 'common/Wrapper';
  */
 
 class BestialWrathAverageFocus extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bestialWrathCasts = 0;
   accumulatedFocusAtBWCast = 0;
 
@@ -30,14 +24,14 @@ class BestialWrathAverageFocus extends Analyzer {
       return;
     }
     this.bestialWrathCasts += 1;
-    this.accumulatedFocusAtBWCast += event.classResources[0]['amount'] || 0;
+    this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
   }
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={this.averageFocusAtBestialWrathCast}
-        label={`Average Focus on cast`}
+        label="Average Focus on cast"
         tooltip={`You started your average Bestial Wrath window with ${this.averageFocusAtBestialWrathCast} focus.`}
       />
     );
@@ -48,7 +42,7 @@ class BestialWrathAverageFocus extends Analyzer {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
   }
   get focusOnBestialWrathCastThreshold() {
-    if (this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id)) {
       return {
         actual: this.averageFocusAtBestialWrathCast,
         isLessThan: {
@@ -74,7 +68,7 @@ class BestialWrathAverageFocus extends Analyzer {
 
   suggestions(when) {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</Wrapper>)
+      return suggest(<React.Fragment>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</React.Fragment>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
         .recommended(`>${recommended} focus is recommended`);

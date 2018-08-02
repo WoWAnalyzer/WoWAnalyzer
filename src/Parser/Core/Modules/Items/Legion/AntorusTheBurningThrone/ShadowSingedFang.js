@@ -6,7 +6,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 
 /*
@@ -17,21 +16,18 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 */
 
 class ShadowSingedFang extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	};
-
 	mainStatBuff = 0
 	critStatBuff = 0
 
 	mainProc = 0
 	critProc = 0
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasTrinket(ITEMS.SHADOW_SINGED_FANG.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasTrinket(ITEMS.SHADOW_SINGED_FANG.id);
 		if (this.active) {
-			this.mainStatBuff = calculateSecondaryStatDefault(930, 5458, this.combatants.selected.getItem(ITEMS.SHADOW_SINGED_FANG.id).itemLevel);
-			this.critStatBuff = calculateSecondaryStatDefault(930, 2642, this.combatants.selected.getItem(ITEMS.SHADOW_SINGED_FANG.id).itemLevel);
+			this.mainStatBuff = calculateSecondaryStatDefault(930, 5458, this.selectedCombatant.getItem(ITEMS.SHADOW_SINGED_FANG.id).itemLevel);
+			this.critStatBuff = calculateSecondaryStatDefault(930, 2642, this.selectedCombatant.getItem(ITEMS.SHADOW_SINGED_FANG.id).itemLevel);
 		}
 	}
 
@@ -56,8 +52,8 @@ class ShadowSingedFang extends Analyzer {
 	}
 
 	item(){
-		const mainUptime = this.combatants.selected.getBuffUptime(SPELLS.FLAMES_OF_FHARG.id) / this.owner.fightDuration;
-		const critUptime = this.combatants.selected.getBuffUptime(SPELLS.CORRUPTION_OF_SHATUG.id) / this.owner.fightDuration;
+		const mainUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAMES_OF_FHARG.id) / this.owner.fightDuration;
+		const critUptime = this.selectedCombatant.getBuffUptime(SPELLS.CORRUPTION_OF_SHATUG.id) / this.owner.fightDuration;
 
 		const averageMain = mainUptime * this.mainStatBuff;
 		const averageCrit = critUptime * this.critStatBuff;
@@ -65,10 +61,10 @@ class ShadowSingedFang extends Analyzer {
 			item: ITEMS.SHADOW_SINGED_FANG,
 			result: (
 				<div>
-					<dfn data-tip={`Proced the ${this.combatants.selected.spec.primaryStat} stat buff <b>${this.mainProc}</b> times with <b>${formatPercentage(mainUptime)}</b> % uptime`}>
-						{formatNumber(averageMain)} average {this.combatants.selected.spec.primaryStat}
+					<dfn data-tip={`Proced the ${this.selectedCombatant.spec.primaryStat} stat buff <b>${this.mainProc}</b> times with <b>${formatPercentage(mainUptime)}</b> % uptime`}>
+						{formatNumber(averageMain)} average {this.selectedCombatant.spec.primaryStat}
 					</dfn>
-					<br/>
+					<br />
 					<dfn data-tip={`Proced the Crit stat buff <b>${this.critProc}</b> times with <b>${formatPercentage(critUptime)}</b> % uptime`}>
 						{formatNumber(averageCrit)} average Crit
 					</dfn>

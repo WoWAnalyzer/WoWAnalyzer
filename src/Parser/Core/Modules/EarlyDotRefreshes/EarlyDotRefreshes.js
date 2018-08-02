@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -19,7 +18,6 @@ const PANDEMIC_WINDOW = 0.3;
 // See /Parser/Druid/Balance/Modules/Features/EarlyDotRefreshes.js for an example implementation.
 class EarlyDotRefreshes extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
@@ -31,8 +29,9 @@ class EarlyDotRefreshes extends Analyzer {
   lastCastGoodExtension = false;
   badCasts = [];
 
-  on_initialized() {
-    this.dots.forEach(dot => {
+  constructor(...args) {
+    super(...args);
+    this.constructor.dots.forEach(dot => {
       this.targets[dot.debuffId] = {};
       this.badCasts[dot.castId] = 0;
     });
@@ -46,7 +45,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_refreshdebuff(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === event.ability.guid;
     });
     if (!dot) {
@@ -61,7 +60,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_applydebuff(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === event.ability.guid;
     });
     if (!dot) {
@@ -72,7 +71,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_globalcooldown(event) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === event.ability.guid;
     });
     if (!dot) {
@@ -82,11 +81,8 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (this.checkIfLastCastWasBad(event)) {
-      this.lastGCD = null;
-      this.lastCast = null;
-    }
-    const dot = this.dots.find(element => {
+    this.checkLastCast(event);
+    const dot = this.constructor.dots.find(element => {
       return element.castId === event.ability.guid;
     });
     if (!dot) {
@@ -96,34 +92,40 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastCastGoodExtension = false;
   }
 
-  // Returns true if cast was successfully checked, false otherwise.
-  checkIfLastCastWasBad(event) {
+  // Determines whether the last cast should be checked or not.
+  checkLastCast(event) {
     if (!this.lastGCD || !this.lastCast) {
-      return false;
+      return;
     }
-    // we wait roughly a GCD to check, to account for minor travel times.
+    // We wait roughly a GCD to check, to account for minor travel times.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
     if (timeSinceCast < this.lastGCD.duration * 2 - BUFFER_MS){
-      return false;
+      return;
     }
+    this.isLastCastBad(event);
+    this.lastGCD = null;
+    this.lastCast = null;
+  }
+
+  // Checks the status of the last cast and marks it accordingly.
+  isLastCastBad(event) {
     if (this.lastCastGoodExtension) {
-      return true;
+      return; // Should not be marked as bad.
     }
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.castId === this.lastCast.ability.guid;
     });
     const text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit.`;
     this.addBadCast(this.lastCast, text);
-    return true;
   }
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
   extendDot(spellId, targetID, extension, timestamp) {
-    const dot = this.dots.find(element => {
+    const dot = this.constructor.dots.find(element => {
       return element.debuffId === spellId;
     });
     if (!dot) {
-      return;
+      throw new Error(`The spellID ${spellId} is not in the list of dots to track`);
     }
     const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
     const newDuration = remainingDuration + extension;

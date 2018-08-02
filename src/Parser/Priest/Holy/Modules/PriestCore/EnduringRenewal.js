@@ -1,10 +1,7 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -12,10 +9,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 
 class EnduringRenewal extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  }
-
   _normalRenewDropoff = {};
   _newRenewDropoff = {};
   healing = 0;
@@ -30,9 +23,10 @@ class EnduringRenewal extends Analyzer {
   // all renew healing after timestamp + baase duraation should be a result of
   // Enduring Renewal
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
-    this._usingLegendaryLegs = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
+    this._usingLegendaryLegs = this.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
     this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
   }
 
@@ -56,11 +50,11 @@ class EnduringRenewal extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RENEW.id) {
-      if (event.targetID in this._normalRenewDropoff && event.timestamp > this._normalRenewDropoff[event.targetID]) {
+      if (this._normalRenewDropoff[event.targetID] !== undefined && event.timestamp > this._normalRenewDropoff[event.targetID]) {
         this.healing += event.amount;
       }
-    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.indexOf(spellId) !== -1) {
-      if (event.targetID in this._newRenewDropoff) {
+    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
+      if (this._newRenewDropoff[event.targetID] !== undefined) {
         const remaining = (this._newRenewDropoff[event.targetID] - event.timestamp) / 1000.0;
         const gain = Math.min((this._baseRenewLength + 6) - remaining, this._baseRenewLength); // be wary of pandemic but also wary of early refreshes
         this._newRenewDropoff[event.targetID] = event.timestamp + (gain * 1000);
@@ -68,8 +62,6 @@ class EnduringRenewal extends Analyzer {
         this.refreshedRenews += 1;
         this.secsGained += gain;
       }
-    } else {
-
     }
   }
 

@@ -1,22 +1,18 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 
 class MarrowrendUsage extends Analyzer {
 
   static dependencies = {
     abilityTracker: AbilityTracker,
-    combatants: Combatants,
   };
 
   /*
@@ -71,14 +67,20 @@ class MarrowrendUsage extends Analyzer {
     if (event.ability.guid !== SPELLS.MARROWREND.id) return;
 
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
-    if (this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000 <= this.REFRESH_AT_SECONDS) {
+    const durationLeft = this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
+    if (durationLeft <= this.REFRESH_AT_SECONDS) {
       this.refreshMRCasts += 1;
     } else {
-      if (this.currentBoneShieldStacks - this.currentBoneShieldBuffer > this.REFRESH_AT_STACKS) {
+      const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
+      if (boneShieldStacks > this.REFRESH_AT_STACKS) {
         this.badMRCasts += 1;
         const wasted = this.MR_GAIN - this.currentBoneShieldBuffer;
         if (wasted > 0) {
           this.bsStacksWasted += wasted;
+
+          event.meta = event.meta || {};
+          event.meta.isInefficientCast = true;
+          event.meta.inefficientCastReason = `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left.`;
         }
       }
     }
@@ -119,7 +121,7 @@ class MarrowrendUsage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</Wrapper>)
+        return suggest(<React.Fragment>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</React.Fragment>)
           .icon(SPELLS.MARROWREND.icon)
           .actual(`${formatPercentage(actual)}% bad Marrowrend casts`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -132,7 +134,7 @@ class MarrowrendUsage extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
         value={`${ this.badMRCasts } / ${ this.totalMRCasts }`}
-        label="bad Marrowrend casts"
+        label="Bad Marrowrend casts"
         tooltip={`${ this.refreshMRCasts } casts to refresh Bone Shield<br>
         ${ this.badMRCasts } casts with more than 6 stacks of Bone Shield wasting at least ${ this.bsStacksWasted } stacks<br>
         <br>
@@ -141,7 +143,7 @@ class MarrowrendUsage extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default MarrowrendUsage;

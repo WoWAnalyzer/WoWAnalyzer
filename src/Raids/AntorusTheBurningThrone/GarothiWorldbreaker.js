@@ -6,10 +6,12 @@ export default {
   name: 'Garothi Worldbreaker',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_felreaver',
   fight: {
     vantusRuneBuffId: 250153,
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
+    softMitigationChecks: {},
   },
 };

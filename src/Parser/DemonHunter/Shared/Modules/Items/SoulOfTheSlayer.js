@@ -5,9 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -18,18 +16,15 @@ const debug = false;
  * Vengeance: Fallout
  */
 class SoulOfTheSlayer extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_SLAYER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_SLAYER.id);
     //Checks which spec has the ring equipped and then sets option1 or option2 accordingly - aswell as sets up the check for if they've picked another talent
-    switch (this.combatants.selected.spec) {
+    switch (this.selectedCombatant.spec) {
       case SPECS.HAVOC_DEMON_HUNTER:
         this.talentGained = SPELLS.FIRST_BLOOD_TALENT.id;
-        this.option1 = SPELLS.CHAOS_CLEAVE_TALENT.id;
-        this.option2 = SPELLS.BLOODLET_TALENT.id;
+        // REMOVED OPTION 1 AND 2
         break;
       case SPECS.VENGEANCE_DEMON_HUNTER:
         this.talentGained = SPELLS.FALLOUT_TALENT.id;
@@ -40,13 +35,13 @@ class SoulOfTheSlayer extends Analyzer {
         debug && console.log(' NO SPEC DETECTED');
         break;
     }
-    this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
+    this.hasPickedOtherTalent = this.selectedCombatant.hasTalent(this.option1) || this.selectedCombatant.hasTalent(this.option2);
   }
 
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_SLAYER,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} />.</Wrapper>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} />.</React.Fragment>,
     };
   }
 
@@ -61,7 +56,7 @@ class SoulOfTheSlayer extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</Wrapper>)
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_SLAYER.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

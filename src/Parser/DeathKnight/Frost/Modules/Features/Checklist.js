@@ -4,14 +4,12 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -25,7 +23,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
@@ -38,9 +35,9 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id}/> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/>(when using Cold Heart) should be used as often as possible</Wrapper>,
+      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id} /> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id} />(when using Cold Heart) should be used as often as possible</React.Fragment>,
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REMORSELESS_WINTER,
@@ -60,14 +57,10 @@ class Checklist extends CoreChecklist {
       name: 'Use cooldowns as often as possible',
       description: 'You should aim to use your cooldowns as often as you can to maximize your damage output',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        const combatant = this.selectedCombatant;
         return [
             new GenericCastEfficiencyRequirement({
               spell: SPELLS.PILLAR_OF_FROST,
-            }),
-            new GenericCastEfficiencyRequirement({
-              spell: SPELLS.OBLITERATION_TALENT,
-              when: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
             }),
             new GenericCastEfficiencyRequirement({
               spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
@@ -77,10 +70,6 @@ class Checklist extends CoreChecklist {
               spell: SPELLS.EMPOWER_RUNE_WEAPON,
             }),
             new GenericCastEfficiencyRequirement({
-                spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
-                when: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
-              }),
-            new GenericCastEfficiencyRequirement({
                 spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
             }),
           ];
@@ -88,7 +77,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id}/></Wrapper>,
+      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /></React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -100,7 +89,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid capping Runic Power',
-      description: <Wrapper>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</Wrapper>,
+      description: <React.Fragment>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({

@@ -3,8 +3,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -14,7 +12,6 @@ const debug = true;
 
 class CombustionMarqueeBindings extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
@@ -28,14 +25,14 @@ class CombustionMarqueeBindings extends Analyzer {
 
   //Check for Marquee Bindings Item, and calculate the duration of Combustion
   //Accounts for the extra 2 seconds from Tier 21 2 Set, and 1 Second per point of Pre Ignited
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
-    const hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
-    const preIgnitedCount = this.combatants.selected.traitsBySpellId[SPELLS.PRE_IGNITED_TRAIT.id];
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
+    const hasTierBonus = this.selectedCombatant.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
     if (hasTierBonus) {
-      this.combustionDuration = (10 + 2 + preIgnitedCount) * 1000;
+      this.combustionDuration = 12 * 1000;
     } else {
-      this.combustionDuration = (10 + preIgnitedCount) * 1000;
+      this.combustionDuration = 10 * 1000;
     }
   }
 
@@ -56,7 +53,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (spellId === SPELLS.COMBUSTION.id) {
       this.combustionCastTimestamp = event.timestamp;
       //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
-      if (this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
         this.expectedPyroblastCasts += 1;
         debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
@@ -75,7 +72,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       return;
     }
-    if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id)) {
+    if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
       this.actualPyroblastCasts += 1;
       this.buffUsedDuringCombustion = true;
       debug && console.log("Pyroblast Hard Cast During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
@@ -112,7 +109,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.bracerUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</Wrapper>)
+          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 300% damage and be guaranteed to crit.</React.Fragment>)
             .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
             .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

@@ -3,15 +3,9 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 class OnethsIntuition extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   freeStarsurgeProcs = 0;
   freeStarfallProcs = 0;
   freeStarsurgeProcsWasted = 0;
@@ -19,8 +13,9 @@ class OnethsIntuition extends Analyzer {
   starsurgeCasts = 0;
   starfallCasts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWrists(ITEMS.ONETHS_INTUITION.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWrists(ITEMS.ONETHS_INTUITION.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -71,7 +66,7 @@ class OnethsIntuition extends Analyzer {
             <li>Free Starfall procs gained: ${this.freeStarfallProcs} (${this.freeStarfallProcsWasted} wasted) from ${this.starsurgeCasts} Starsurge casts (${formatPercentage(this.percentFreeStarfallProcs)}%).</li>
           </ul>
         `}>
-          <Wrapper>{this.freeStarsurgeProcs} <SpellIcon id={SPELLS.ONETHS_INTUITION.id}/> {this.freeStarfallProcs} <SpellIcon id={SPELLS.ONETHS_OVERCONFIDENCE.id}/></Wrapper>
+          <React.Fragment>{this.freeStarsurgeProcs} <SpellIcon id={SPELLS.ONETHS_INTUITION.id} /> {this.freeStarfallProcs} <SpellIcon id={SPELLS.ONETHS_OVERCONFIDENCE.id} /></React.Fragment>
         </dfn>
       ),
     };

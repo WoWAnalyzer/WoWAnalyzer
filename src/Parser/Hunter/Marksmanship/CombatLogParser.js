@@ -1,26 +1,42 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Channeling from './Modules/Features/Channeling';
 import Abilities from './Modules/Abilities';
-import SpellUsable from '../Shared/Modules/Core/SpellUsable';
 
 //Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import VulnerableUptime from './Modules/Features/VulnerableUptime';
-import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
-import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
+//Normalizers
+import RapidFireNormalizer from './Normalizers/RapidFire';
+
 //Tier
-import Tier21_2p from './Modules/Items/Tier21_2p';
-import Tier21_4p from './Modules/Items/Tier21_4p';
+import Tier19_2p from "./Modules/Items/Tier19_2p";
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";
+import Tier21_2p from './Modules/Items/Tier21_2p';
+import Tier21_4p from './Modules/Items/Tier21_4p';
+
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
-import MarkingTargets from './Modules/Spells/MarkingTargets';
+import LoneWolf from './Modules/Spells/LoneWolf';
+//Talents
+import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
+import Barrage from '../Shared/Modules/Talents/Barrage';
+import Volley from './Modules/Talents/Volley';
+import ExplosiveShot from './Modules/Talents/ExplosiveShot';
+import LockAndLoad from './Modules/Talents/LockAndLoad';
+import PiercingShot from './Modules/Talents/PiercingShot';
+import MasterMarksman from './Modules/Talents/MasterMarksman';
+import LethalShots from './Modules/Talents/LethalShots';
+import DoubleTap from './Modules/Talents/DoubleTap';
+import CallingTheShots from './Modules/Talents/CallingTheShots';
+import HuntersMark from './Modules/Talents/HuntersMark';
+import SerpentSting from './Modules/Talents/SerpentSting';
+import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
+import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
@@ -31,61 +47,34 @@ import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
-import CelerityOfTheWindrunners from './Modules/Items/CelerityOfTheWindrunners';
+import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
 import MagnetizedBlastingCapLauncher from './Modules/Items/MagnetizedBlastingCapLauncher';
 import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
-import ZevrimsHunger from './Modules/Items/ZevrimsHunger';
-//Talents
-import LockAndLoad from './Modules/Talents/LockAndLoad';
-import TrueAim from './Modules/Talents/TrueAim';
-import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
-import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
-import Volley from '../Shared/Modules/Talents/Volley';
-import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
-import PiercingShot from "./Modules/Talents/PiercingShot";
-import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
-import TrickShot from "./Modules/Talents/TrickShot/TrickShot";
-import TrickShotCleave from "./Modules/Talents/TrickShot/TrickShotCleave";
-import Barrage from '../Shared/Modules/Talents/Barrage';
-import BlackArrow from './Modules/Talents/BlackArrow';
-import Sidewinders from './Modules/Talents/Sidewinders';
-import LoneWolf from './Modules/Talents/LoneWolf';
-import CarefulAim from './Modules/Talents/CarefulAim';
-import Sentinel from './Modules/Talents/Sentinel';
+import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
+import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 
-//Traits
-import QuickShot from './Modules/Traits/QuickShot';
-import Bullseye from './Modules/Traits/Bullseye';
-import CyclonicBurst from './Modules/Traits/CyclonicBurst';
-import CallOfTheHunter from './Modules/Traits/CallOfTheHunter';
-import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
-import Windburst from './Modules/Traits/Windburst';
-
-//Traits and Talents list
+//Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
-
-//Checklist
-import Checklist from './Modules/Features/Checklist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
-    spellUsable: SpellUsable,
+    channeling: Channeling,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    vulnerableUptime: VulnerableUptime,
-    vulnerableTracker: VulnerableTracker,
     timeFocusCapped: TimeFocusCapped,
-    vulnerableApplications: VulnerableApplications,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,
+
+    //Normalizers
+    rapidFireNormalizer: RapidFireNormalizer,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -109,43 +98,30 @@ class CombatLogParser extends CoreCombatLogParser {
     theApexPredatorsClaw: TheApexPredatorsClaw,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    unseenPredatorsCloak: UnseenPredatorsCloak,
 
     //Spells
     trueshot: Trueshot,
-    markingTargets: MarkingTargets,
+    loneWolf: LoneWolf,
 
     //Talents
-    patientSniperTracker: PatientSniperTracker,
-    patientSniperDetails: PatientSniperDetails,
-    lockAndLoad: LockAndLoad,
-    trueAim: TrueAim,
     volley: Volley,
     explosiveShot: ExplosiveShot,
-    piercingShot: PiercingShot,
     aMurderOfCrows: AMurderOfCrows,
-    trickShot: TrickShot,
-    trickShotCleave: TrickShotCleave,
+    lockAndLoad: LockAndLoad,
+    piercingShot: PiercingShot,
     barrage: Barrage,
-    blackArrow: BlackArrow,
-    sidewinders: Sidewinders,
-    loneWolf: LoneWolf,
-    carefulAim: CarefulAim,
-    sentinel: Sentinel,
+    masterMarksman: MasterMarksman,
+    lethalShots: LethalShots,
+    doubleTap: DoubleTap,
+    callingTheShots: CallingTheShots,
+    huntersMark: HuntersMark,
+    serpentSting: SerpentSting,
+    naturalMending: NaturalMending,
+    trailblazer: Trailblazer,
 
-    //Traits
-    quickShot: QuickShot,
-    bullseye: Bullseye,
-    cyclonicBurst: CyclonicBurst,
-    callOfTheHunter: CallOfTheHunter,
-    legacyOfTheWindrunners: LegacyOfTheWindrunners,
-    windburst: Windburst,
-
-    //Traits and Talents list
+    //Traits and talents
     traitsAndTalents: TraitsAndTalents,
-
-    //Checklist
-    checklist: Checklist,
-
   };
 }
 

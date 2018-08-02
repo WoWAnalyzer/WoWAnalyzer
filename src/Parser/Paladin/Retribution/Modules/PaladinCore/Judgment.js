@@ -1,103 +1,101 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class Judgment extends Analyzer {
-	static dependencies = {
-		enemies: Enemies,
-		combatants: Combatants,
-	};
-	_hasES = false;
-	totalSpender = 0;
-	spenderOutsideJudgment = 0;
+  static dependencies = {
+    enemies: Enemies,
+  };
+  templarsVerdictConsumptions = 0;
+  divineStormConsumptions = 0;
+  justicarsVengeanceConsumptions = 0;
+  judgmentsApplied = 0;
 
-	on_initialized(){
-		this._hasES = this.combatants.selected.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
-	}
+  on_byPlayer_applydebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.JUDGMENT_DEBUFF.id) {
+      return;
+    }
+    this.judgmentsApplied += 1;
+  }
 
-	on_byPlayer_cast(event){
-		const enemy = this.enemies.getEntity(event);
-		const spellId = event.ability.guid;
+  on_byPlayer_damage(event) {
+    const enemy = this.enemies.getEntity(event);
+    const spellId = event.ability.guid;
 
-		if(!enemy) {
-			return;
-		}
-		if(spellId === SPELLS.TEMPLARS_VERDICT.id || 
-			  spellId === SPELLS.DIVINE_STORM.id ||
-				spellId === SPELLS.JUSTICARS_VENGEANCE_TALENT.id){
-			if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
-				this.spenderOutsideJudgment++;
-			}
-			this.totalSpender++;
-		}
-	}
+    if (!enemy) {
+      return;
+    }
+    if (!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id, null, 250)) {
+      return;
+    }
+    switch (spellId) {
+      case SPELLS.TEMPLARS_VERDICT_DAMAGE.id:
+        this.templarsVerdictConsumptions += 1;
+        break;
+      case SPELLS.DIVINE_STORM_DAMAGE.id:
+        this.divineStormConsumptions += 1;
+        break;
+      case SPELLS.JUSTICARS_VENGEANCE_TALENT.id:
+        this.justicarsVengeanceConsumptions += 1;
+        break;
+      default:
+        break;
+    }
+  }
 
-	on_byPlayer_damage(event){
-		const spellId = event.ability.guid;
-		const enemy = this.enemies.getEntity(event);
+  get judgmentsConsumed() {
+    return this.templarsVerdictConsumptions + this.divineStormConsumptions + this.justicarsVengeanceConsumptions;
+  }
 
-		if(!this._hasES){
-			return;
-		}
-		if(!enemy){
-			return;
-		}
-		if(spellId !== SPELLS.EXECUTION_SENTENCE_TALENT.id){
-			return;
-		}
-		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
-			this.spenderOutsideJudgment++;
-		}
-		this.totalSpender++;
-	}
+  get percentageJudgmentsConsumed() {
+    return this.judgmentsConsumed / this.judgmentsApplied;
+  }
 
-	get unbuffedJudgmentPercentage() {
-		return this.spenderOutsideJudgment / this.totalSpender;
-	}
+  get suggestionThresholds() {
+    return {
+      actual: this.percentageJudgmentsConsumed,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
+  }
 
-	get suggestionThresholds() {
-		return {
-			actual: 1 - this.unbuffedJudgmentPercentage,
-			isLessThan: {
-				minor: 0.95,
-				average: 0.9,
-				major: 0.85,
-			},
-			style: 'percentage',
-		};
-	}
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</React.Fragment>)
+        .icon(SPELLS.JUDGMENT_DEBUFF.icon)
+        .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
+  }
 
-	suggestions(when) {
-		when(this.suggestionThresholds).addSuggestion((suggest,actual,recommended) => {
-			return suggest(<Wrapper>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>.</Wrapper>)
-				.icon(SPELLS.JUDGMENT_DEBUFF.icon)
-				.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders (${formatPercentage(1 - actual)}%) used outside of Judgment`)
-				.recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
-		});
-	}
-
-	statistic() {
-		const buffedJudgmentPercent = 1 - (this.spenderOutsideJudgment / this.totalSpender);
-		const spendersInsideJudgment = this.totalSpender - this.spenderOutsideJudgment;
-		return (
-			<StatisticBox
-				icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
-				value={`${formatPercentage(buffedJudgmentPercent)}%`}
-				label="Spenders inside Judgment"
-				tooltip={`${spendersInsideJudgment} spenders`}
-			/>
-		);
-	}
-	statisticOrder = STATISTIC_ORDER.CORE(2);
+  statistic() {
+    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
+        value={`${formatPercentage(this.percentageJudgmentsConsumed)}%`}
+        label="Judgments Consumed"
+        tooltip={`
+          Judgments Applied: ${this.judgmentsApplied}<br>
+          Templars Verdicts consumptions: ${this.templarsVerdictConsumptions}<br>
+          Divine Storm consumptions: ${this.divineStormConsumptions}
+          ${justicarsVengeanceText}`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Judgment;

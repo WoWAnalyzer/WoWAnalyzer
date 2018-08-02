@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import SpellIcon from 'common/SpellIcon';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import Haste from 'Parser/Core/Modules/Haste';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';

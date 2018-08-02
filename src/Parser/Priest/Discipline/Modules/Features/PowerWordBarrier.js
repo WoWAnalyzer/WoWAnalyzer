@@ -1,17 +1,23 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'Interface/Others/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
 class PowerWordBarrier extends Analyzer {
+
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id);
+  }
+
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }

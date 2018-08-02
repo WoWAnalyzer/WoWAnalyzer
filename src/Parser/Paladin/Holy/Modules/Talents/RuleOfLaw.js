@@ -4,24 +4,20 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class RuleOfLaw extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
   }
 
   get uptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds() {
@@ -38,21 +34,21 @@ class RuleOfLaw extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>
+        <React.Fragment>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </Wrapper>
+        </React.Fragment>
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
-  statistic() {
+  statistic({ i18n }) {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label="Rule of Law uptime"
+        label={i18n.t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`}
       />
     );
   }

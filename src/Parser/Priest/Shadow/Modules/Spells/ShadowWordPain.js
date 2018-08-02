@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 class ShadowWordPain extends Analyzer {
   static dependencies = {
@@ -32,11 +32,12 @@ class ShadowWordPain extends Analyzer {
 
   suggestions(when) {
     const {
-        isLessThan: {
-            minor,
-            average,
-            major,
-    }} = this.suggestionThresholds;
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -49,11 +50,13 @@ class ShadowWordPain extends Analyzer {
   }
 
   statistic() {
-    return (<SmallStatisticBox
-      icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
-      value={`${formatPercentage(this.uptime)} %`}
-      label="Shadow Word: Pain uptime"
-    />);
+    return (
+      <SmallStatisticBox
+        icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
+        value={`${formatPercentage(this.uptime)} %`}
+        label="Shadow Word: Pain uptime"
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(4);

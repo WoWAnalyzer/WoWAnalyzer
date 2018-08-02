@@ -4,20 +4,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class Bonestorm extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   bsCasts = [];
   totalBonestormDamage = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -66,7 +61,7 @@ class Bonestorm extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</Wrapper>)
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</React.Fragment>)
           .icon(SPELLS.BONESTORM_TALENT.icon)
           .actual(`${ formatPercentage(actual) }% casts hit 2 or more targets`)
           .recommended(`${ formatPercentage(recommended) }%is recommended`);
@@ -77,7 +72,7 @@ class Bonestorm extends Analyzer {
     let tooltip = "";
     this.bsCasts.forEach((cast, index) => {
       const avgDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0) / cast.hits.length);
-      const totalDamage  = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0));
+      const totalDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0));
       const avgHits = formatNumber(cast.hits.length / cast.cost * 100, 1);
       const rpCost = formatNumber(cast.cost / 10);
 

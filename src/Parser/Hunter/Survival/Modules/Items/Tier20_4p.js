@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 const T20_4P_DMG_BONUS = 0.1;
@@ -17,12 +16,12 @@ const T20_4P_DMG_BONUS = 0.1;
 class Tier20_4p extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
   bonusDmg = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_4P_BONUS.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.HUNTER_SV_T20_4P_BONUS.id);
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
@@ -34,7 +33,7 @@ class Tier20_4p extends Analyzer {
       return;
     }
     if (enemy.hasBuff(SPELLS.LACERATE.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, T20_4P_DMG_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, T20_4P_DMG_BONUS);
 
     }
   }

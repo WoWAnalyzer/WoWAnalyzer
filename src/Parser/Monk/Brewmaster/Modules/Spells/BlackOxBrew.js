@@ -1,17 +1,14 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
@@ -20,8 +17,9 @@ class BlackOxBrew extends Analyzer {
   wastedCDR = 0;
   casts = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -59,7 +57,7 @@ class BlackOxBrew extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved. Try to use it only when all 3 charges of <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> are on cooldown.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved. Try to use it only when all 3 charges of <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> are on cooldown.</React.Fragment>)
           .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

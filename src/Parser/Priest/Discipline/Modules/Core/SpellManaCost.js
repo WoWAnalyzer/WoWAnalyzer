@@ -37,7 +37,7 @@ class SpellManaCost extends CoreSpellManaCost {
     }
 
     // Kam Xi'raff reduces the mana cost of damaging spells by 75%
-    if (!event.targetIsFriendly && this.owner.modules.combatants.selected.hasBuff(SPELLS.KAM_XIRAFF_BUFF.id, event.timestamp)) {
+    if (!event.targetIsFriendly && this.selectedCombatant.hasBuff(SPELLS.KAM_XIRAFF_BUFF.id, event.timestamp)) {
       debug && console.log('Hostile spell and', SPELLS.KAM_XIRAFF_BUFF.name, 'is active, reducing cost (', cost, ') by 75%');
       cost *= 0.25;
     }

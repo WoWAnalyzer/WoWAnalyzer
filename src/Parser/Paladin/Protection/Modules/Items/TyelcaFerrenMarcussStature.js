@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import ItemDamageDone from 'Main/ItemDamageDone';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /*
 * Equip: Avenger's Shield deals 20% increased damage and jumps to 2 additional targets.
@@ -21,15 +19,12 @@ const TYELCA_EXTRA_JUMPS = 2;
 const AVENGERS_SHIELD_JUMPS = 3;
 
 class TyelcaFerrenMarcussStature extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	}
-
 	damageDone = 0;
 	healingDone = 0;
 
-	on_initialized() {
-		this.active = this.combatants.selected.hasLegs(ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id);
+	constructor(...args) {
+    super(...args);
+		this.active = this.selectedCombatant.hasLegs(ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id);
 	}
 
 	on_byPlayer_cast(event) {
@@ -69,18 +64,18 @@ class TyelcaFerrenMarcussStature extends Analyzer {
   }
 
 	item() {
-		const tyelcaHealing = this.extraJumps ? <ItemHealingDone amount={this.healingDone} greaterThan/> : <ItemHealingDone amount={this.healingDone} />;
+		const tyelcaHealing = this.extraJumps ? <ItemHealingDone amount={this.healingDone} greaterThan /> : <ItemHealingDone amount={this.healingDone} />;
 		const healingText = this.extraJumps ? 'The full bonus sheild from hitting 3+ targets is not taken into account' : '';
 		return {
 			item: ITEMS.TYELCA_FERREN_MARCUSS_STATURE,
 			result: (
-				<Wrapper>
+				<React.Fragment>
 					<ItemDamageDone amount={this.damageDone} />
-					<br/>
+					<br />
 					<dfn data-tip={`The healing is attributed from the extra sheild from the Bulwark of Order trait <br/> ${healingText}`}>
 						{tyelcaHealing}
 					</dfn>
-				</Wrapper>
+				</React.Fragment>
 			),
 		};
 	}

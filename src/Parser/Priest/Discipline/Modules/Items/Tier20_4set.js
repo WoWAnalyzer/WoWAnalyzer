@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const BUFF_DURATION = 12000;
@@ -27,8 +26,9 @@ class Tier20_4set extends Analyzer {
     return (this._consumeCount * REGULAR_PENANCE_COOLDOWN_MS) / 2;
   }
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -57,7 +57,7 @@ class Tier20_4set extends Analyzer {
   }
 
   suggestions(when) {
-    const utilisation =  (this._consumeCount / this._procCount) || 0;
+    const utilisation = (this._consumeCount / this._procCount) || 0;
 
     when(utilisation).isLessThan(0.8)
         .addSuggestion((suggest, actual, recommended) => {
@@ -78,9 +78,9 @@ class Tier20_4set extends Analyzer {
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
-        <Wrapper>
+        <React.Fragment>
           {penanceCooldownSaved} seconds off the cooldown, {consumptions} Penances cast earlier
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

@@ -4,13 +4,12 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/SmallStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 // http://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29;42;0 $.makeArray($('.listview-cleartext[href^="/spell="]')).map(item => `${item.href.replace(/^.*spell=([0-9]+)$/, '$1')}, // ${item.innerText}`).join("\n")
 // buff id: boss id
@@ -48,8 +47,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 //   237820: bosses.TombOfSargeras.FALLEN_AVATAR, // Vantus Rune: Fallen Avatar
 //   237825: bosses.TombOfSargeras.KILJAEDEN, // Vantus Rune: Kil'jaeden
 // };
-const VANTUS_RUNE_VERSATILITY = 1500;
-const VERSATILITY_PER_PERCENT_THROUGHPUT = 47500;
+const VANTUS_RUNE_VERSATILITY = 68;
+const VERSATILITY_PER_PERCENT_THROUGHPUT = 2080;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
@@ -59,17 +58,17 @@ class VantusRune extends Analyzer {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
-    combatants: Combatants,
   };
 
   activeRune = null;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     const boss = this.owner.boss;
 
     /** @var {number|null} */
     const vantusRuneBuffId = boss ? boss.fight.vantusRuneBuffId : null;
     if (vantusRuneBuffId) {
-      const match = this.combatants.selected.getBuff(vantusRuneBuffId);
+      const match = this.selectedCombatant.getBuff(vantusRuneBuffId);
       if (match !== undefined) {
         this.activeRune = match;
       }

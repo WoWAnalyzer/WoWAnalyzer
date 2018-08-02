@@ -5,22 +5,18 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const debug = false;
 
 class T20_4pc extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   staggerSaved = 0;
   orbsEaten = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 4pc');
   }
 
@@ -44,7 +40,7 @@ class T20_4pc extends Analyzer {
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} icon={false} />,
       result: (
-        <dfn data-tip={`Total stagger damage lowered through T20 4Pc: ${formatThousands(this.staggerSaved)}`}>
+        <dfn data-tip={`Total stagger damage lowered through T20 4pc: ${formatThousands(this.staggerSaved)}`}>
           Stagger lowered by {formatNumber(damageSavedPerSecond)} DPS
         </dfn>
       ),

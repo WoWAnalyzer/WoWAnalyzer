@@ -5,14 +5,13 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const debug = false;
 const OVYDS_HEALING_INCREASE = 0.4;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
-  SPELLS.ZEN_PULSE_TALENT.id,
   SPELLS.REFRESHING_JADE_WIND_HEAL.id,
 ];
 
@@ -23,15 +22,16 @@ class OvydsWinterWrap extends Analyzer {
 
   healing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
   }
 
   on_byPlayer_heal(event) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
 
-    if (UNAFFECTED_SPELLS.indexOf(spellId) !== -1) {
+    if (UNAFFECTED_SPELLS.includes(spellId)) {
       debug && console.log('Exiting');
       return;
     }

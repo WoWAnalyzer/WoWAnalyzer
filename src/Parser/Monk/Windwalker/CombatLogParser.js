@@ -2,7 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 // Features
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
 // Chi
@@ -17,10 +17,12 @@ import FistsofFury from './Modules/Spells/FistsofFury';
 import SpinningCraneKick from './Modules/Spells/SpinningCraneKick';
 import ComboStrikes from './Modules/Spells/ComboStrikes';
 import TouchOfKarma from './Modules/Spells/TouchOfKarma';
+import TouchOfDeath from './Modules/Spells/TouchOfDeath';
 import BlackoutKick from './Modules/Spells/BlackoutKick';
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
+import Serenity from './Modules/Talents/Serenity';
 // Legendaries / Items
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
 import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
@@ -49,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     hitCombo: HitCombo,
     energizingElixir: EnergizingElixir,
+    serenity: Serenity,
 
     // Spells;
     comboBreaker: ComboBreaker,
@@ -56,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fistsofFury: FistsofFury,
     spinningCraneKick: SpinningCraneKick,
     touchOfKarma: TouchOfKarma,
+    touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
 

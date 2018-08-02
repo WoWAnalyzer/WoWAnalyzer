@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { hassebewlen, Zerotorescue } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 
 export default [
+  {
+    date: new Date('2018-06-22'),
+    changes: 'Updated spells and several modules to be compatible with BFA.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2017-12-29'),
     changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
@@ -39,9 +43,9 @@ export default [
   {
     date: new Date('2017-11-15'),
     changes: (
-      <Wrapper>
+      <React.Fragment>
         Added <ItemLink id={ITEMS.THE_TWINS_PAINFUL_TOUCH.id} />, <ItemLink id={ITEMS.ANUNDS_SEARED_SHACKLES.id} />, <ItemLink id={ITEMS.HEART_OF_THE_VOID.id} />, and <ItemLink id={ITEMS.ZENKARAM_IRIDIS_ANADEM.id} />.
-      </Wrapper>
+      </React.Fragment>
     ),
     contributors: [hassebewlen],
   },

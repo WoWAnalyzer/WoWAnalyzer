@@ -4,7 +4,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class BloodPlagueUptime extends Analyzer {
   static dependencies = {
@@ -47,7 +47,7 @@ class BloodPlagueUptime extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default BloodPlagueUptime;

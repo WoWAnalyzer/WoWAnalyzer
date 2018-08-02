@@ -1,12 +1,13 @@
 import React from 'react';
 import { formatThousands, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;
   HealingReceivedSelf = 0;
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     // Disabling this module i don't think its right and it might add confusion.
     this.active = false;
   }

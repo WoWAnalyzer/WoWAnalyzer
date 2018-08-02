@@ -5,16 +5,13 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
   
 const coldHeartMaxStack = 20;
 
 const unholyStrengthDuration = 15000;
-const concordanceDuration = 10000;
 const khazgorothDuration = 15000;
 
 const coldHeartOptimalMinStack = 14;
@@ -24,10 +21,10 @@ const maxDurationAtMaxStacksAllowed = 4000;
 
 class ColdHeartEfficiency extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
   };
-  on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.COLD_HEART.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasChest(ITEMS.COLD_HEART.id);
   }
 
   totalColdHeartCasts = 0;
@@ -35,9 +32,7 @@ class ColdHeartEfficiency extends Analyzer {
   buffColdHeart = coldHeartMaxStack; //Stacks start at 20 at start of fight
   
   unholyStrengthStart = 0;
-  
-  concordanceStart = 0;
-  
+
   khazgorothStart = 0;
   
   timeAtMaxStacksStart = this.owner.fight.start_time;
@@ -51,9 +46,6 @@ class ColdHeartEfficiency extends Analyzer {
     if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
       this.unholyStrengthStart = event.timestamp;
     }
-	  if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
-		  this.concordanceStart = event.timestamp;
-	  }
 	  if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
 		  this.khazgorothStart = event.timestamp;
 	  }
@@ -64,9 +56,6 @@ class ColdHeartEfficiency extends Analyzer {
 	  if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
         this.unholyStrengthStart = event.timestamp;
      }
-	  if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
-		  this.concordanceStart = event.timestamp;
-	  }
 	  if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
 		  this.khazgorothStart = event.timestamp;
 	  }
@@ -76,9 +65,6 @@ class ColdHeartEfficiency extends Analyzer {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
       this.unholyStrengthStart = 0;
-    }
-	  if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
-		  this.concordanceStart = 0;
     }
   	if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
 		  this.khazgorothStart = 0;
@@ -104,12 +90,11 @@ class ColdHeartEfficiency extends Analyzer {
 		  const timeAtMaxStacks = event.timestamp - this.timeAtMaxStacksStart;
 
 		  const unholyStrengthRemaining = unholyStrengthDuration - (event.timestamp - this.unholyStrengthStart);
-		  const concordanceRemaining = concordanceDuration - (event.timestamp - this.concordanceStart);
 		  const khazgorothRemaining = khazgorothDuration - (event.timestamp - this.khazgorothStart);
 	  
-		  //This checks wether or not any of the three buffs are about to fall off within the next 4 seconds.
+		  //This checks wether or not any of the buffs are about to fall off within the next 4 seconds.
 		  if (this.buffColdHeart < coldHeartMaxStack && this.buffColdHeart >= coldHeartOptimalMinStack) {
-			if ((unholyStrengthRemaining > 0 && unholyStrengthRemaining < remainingDurationAllowed) || (concordanceRemaining > 0 && concordanceRemaining < remainingDurationAllowed) || (khazgorothRemaining > 0 && khazgorothRemaining < remainingDurationAllowed)){
+			if ((unholyStrengthRemaining > 0 && unholyStrengthRemaining < remainingDurationAllowed) || (khazgorothRemaining > 0 && khazgorothRemaining < remainingDurationAllowed)){
 				  this.correctColdHeartCasts++;
 			  }
         else if (this.buffColdHeart < coldHeartMaxStack) {
@@ -133,7 +118,7 @@ class ColdHeartEfficiency extends Analyzer {
     const castEfficiency = this.correctColdHeartCasts / this.totalColdHeartCasts;
     when(castEfficiency).isLessThan(0.8)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id}/> or <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id} />  or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</Wrapper>)
+        return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id} /> or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</React.Fragment>)
           .icon(SPELLS.CHAINS_OF_ICE.icon)
           .actual(`${formatPercentage(actual)}% of Chains of Ice were cast correctly.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

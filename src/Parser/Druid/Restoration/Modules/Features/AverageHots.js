@@ -1,15 +1,13 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Mastery from '../Core/Mastery';
 
 class AverageHots extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     mastery: Mastery,
   };
 

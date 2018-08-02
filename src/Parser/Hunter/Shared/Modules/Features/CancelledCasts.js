@@ -4,14 +4,13 @@ import CoreCancelledCasts from 'Parser/Core/Modules/CancelledCasts';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Icon from 'common/Icon';
-import Wrapper from 'common/Wrapper';
 
 class CancelledCasts extends CoreCancelledCasts {
   static IGNORED_ABILITIES = [
     //Include the spells that you do not want to be tracked and spells that are castable while casting
-    SPELLS.EXPLOSIVE_SHOT_DETONATION.id,
+    SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
     SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
     SPELLS.CYCLONIC_BURST_TRAIT.id,
@@ -32,7 +31,7 @@ class CancelledCasts extends CoreCancelledCasts {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</Wrapper>)
+        return suggest(<React.Fragment>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</React.Fragment>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -50,7 +49,7 @@ class CancelledCasts extends CoreCancelledCasts {
       <StatisticBox
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
-        label={`Cancelled Casts`}
+        label="Cancelled Casts"
         tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. You cancelled ${this.castsCancelled} of those casts. <ul>${tooltipText}</ul>`}
       />
     );

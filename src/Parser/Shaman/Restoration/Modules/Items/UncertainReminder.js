@@ -5,27 +5,13 @@ import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemHealingDone from 'Main/ItemHealingDone';
+import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const SENSE_OF_URGENCY_HEALING_INCREASE = 0.25;
 const START_EXTRA_HEROISM_UPTIME = 1 / (1 + 0.75); // We only count healing increases ater this % of the hero has passed.
-
-const HEROISM_30_PERCENT = [
-  SPELLS.HEROISM.id,
-  SPELLS.BLOODLUST.id,
-  SPELLS.TIME_WARP.id,
-  SPELLS.NETHERWINDS.id, // Netherwinds
-  SPELLS.ANCIENT_HYSTERIA.id,
-];
-
-const HEROISM_25_PERCENT = [
-  SPELLS.DRUMS_OF_FURY.id,
-  SPELLS.DRUMS_OF_RAGE.id,
-  SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
-];
 
 const SPELLS_SCALING_WITH_HASTE = [
   SPELLS.HEALING_RAIN_HEAL.id,
@@ -34,18 +20,11 @@ const SPELLS_SCALING_WITH_HASTE = [
   SPELLS.CHAIN_HEAL.id,
   SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
   SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
-  SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
-  SPELLS.QUEENS_DECREE.id,
-  SPELLS.TIDAL_TOTEM.id,
 ];
 
 class UncertainReminder extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
   heroismStart = null;
   hastePercent = null;
   events = [];
@@ -54,8 +33,9 @@ class UncertainReminder extends Analyzer {
   urgencyHealing = 0;
   hasteHealing = 0;
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.
     this.heroismStart = this.owner.fight.start_time;
@@ -79,7 +59,7 @@ class UncertainReminder extends Analyzer {
       if (event.timestamp > startExtraHeroTime) {
         const spellId = event.ability.guid;
 
-        if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
+        if (SPELLS_SCALING_WITH_HASTE.includes(spellId)) {
           const increase = (1 + this.hastePercent) * (1 + SENSE_OF_URGENCY_HEALING_INCREASE) - 1;
           this.urgencyHealing += calculateEffectiveHealing(event, increase);
         } else {
@@ -94,33 +74,27 @@ class UncertainReminder extends Analyzer {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
-      this.heroismStart = event.timestamp;
-      this.hastePercent = 0.30;
-      this.events = [];
+    const haste = BLOODLUST_BUFFS[spellId];
+    if (!haste) {
+      return;
     }
 
-    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
-      this.heroismStart = event.timestamp;
-      this.hastePercent = 0.25;
-      this.events = [];
-    }
+    this.heroismStart = event.timestamp;
+    this.hastePercent = haste;
+    this.events = [];
   }
 
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
-      this.process_events(this.heroismStart, event.timestamp);
-      this.heroismStart = null;
-      this.hastePercent = null;
+    const haste = BLOODLUST_BUFFS[spellId];
+    if (!haste) {
+      return;
     }
 
-    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
-      this.process_events(this.heroismStart, event.timestamp);
-      this.heroismStart = null;
-      this.hastePercent = null;
-    }
+    this.process_events(this.heroismStart, event.timestamp);
+    this.heroismStart = null;
+    this.hastePercent = null;
   }
 
   // If the fight ends before heroism drops, make sure to process all the pushed events.
@@ -137,7 +111,7 @@ class UncertainReminder extends Analyzer {
       return;
     }
 
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
 
