@@ -64,7 +64,7 @@ class DanceOfDeath extends Analyzer{
           </React.Fragment>
         )}
         label={"Dance of Death"}
-        tooltip={`Dance of Deasth granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
+        tooltip={`Dance of Death granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
       />
     );
   }
