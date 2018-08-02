@@ -376,7 +376,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div className="results">
+      <div className="results" style={{ minHeight: !parser.finished ? 5000 : undefined }}>{/* while loading we want to jump the scroll position from out last position as little as possible */}
         <Header
           config={config}
           playerName={selectedCombatant.name}
