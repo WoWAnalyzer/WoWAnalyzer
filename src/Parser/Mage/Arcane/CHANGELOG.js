@@ -2,6 +2,11 @@ import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-01'),
+    changes: 'Added Support for Rule of Threes and fixed Arcane Missiles Module. ',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-07-28'),
     changes: 'Added Support for Arcane Power. ',
     contributors: [Sharrq],
