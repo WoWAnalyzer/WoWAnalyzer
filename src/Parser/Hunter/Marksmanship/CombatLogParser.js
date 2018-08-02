@@ -37,6 +37,7 @@ import HuntersMark from './Modules/Talents/HuntersMark';
 import SerpentSting from './Modules/Talents/SerpentSting';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
+import CarefulAim from './Modules/Talents/CarefulAim';
 
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serpentSting: SerpentSting,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
+    carefulAim: CarefulAim,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
