@@ -9,7 +9,8 @@ import Channeling from './Modules/Features/Channeling';
 import Mana from './Modules/ManaChart/Mana';
 import ManaValues from './Modules/ManaChart/ManaValues';
 
-import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
+import ArcaneCharges from './Normalizers/ArcaneCharges';
+
 import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
 import ArcanePower from './Modules/Features/ArcanePower';
 
@@ -26,6 +27,9 @@ import RuleOfThrees from './Modules/Features/RuleOfThrees';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Normalizers
+    arcaneCharges: ArcaneCharges,
+    
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
@@ -35,7 +39,6 @@ class CombatLogParser extends CoreCombatLogParser {
     mana: Mana,
     manaValues: ManaValues,
     cancelledCasts: CancelledCasts,
-    arcaneMissiles: ArcaneMissiles,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
 
