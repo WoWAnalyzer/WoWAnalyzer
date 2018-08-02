@@ -623,6 +623,7 @@ class CombatLogParser {
               position = statistic.props.position;
             } else if (module.statisticOrder !== undefined) {
               position = module.statisticOrder;
+              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d');
             }
 
             results.statistics.push(
