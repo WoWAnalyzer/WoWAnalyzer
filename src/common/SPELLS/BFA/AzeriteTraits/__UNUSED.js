@@ -189,11 +189,6 @@ export default {
     name: 'Critical Flash',
     icon: 'spell_holy_flashheal',
   },
-  CRYSTALLINE_CARAPACE: {
-    id: 271536,
-    name: 'Crystalline Carapace',
-    icon: 'inv_shield_33',
-  },
   DANCE_OF_DEATH: {
     id: 274441,
     name: 'Dance of Death',

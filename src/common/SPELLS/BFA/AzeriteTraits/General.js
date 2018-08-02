@@ -31,7 +31,23 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_pet_inquisitoreye',
   },
-  GEMHIDE: { 
+
+CRYSTALLINE_CARAPACE: {
+  id: 271536,
+  name: 'Crystalline Carapace',
+  icon: 'inv_shield_33',
+},
+  CRYSTALLINE_CARAPACE_BUFF: {
+    id: 271538,
+    name: 'Crystalline Carapace',
+    icon: 'inv_shield_33',
+  },
+  CRYSTALLINE_CARAPACE_DAMAGE: {
+    id: 271539,
+    name: 'Crystalline Carapace',
+    icon: 'inv_shield_33',
+  },
+  GEMHIDE: {
     id: 268596,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
