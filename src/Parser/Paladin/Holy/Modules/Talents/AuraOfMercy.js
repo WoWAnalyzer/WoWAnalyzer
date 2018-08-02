@@ -56,13 +56,13 @@ class AuraOfMercy extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
         value={`${formatNumber(this.hps)} HPS`}
         label="Healing done"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default AuraOfMercy;

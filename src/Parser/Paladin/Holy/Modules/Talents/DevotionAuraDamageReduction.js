@@ -156,6 +156,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     return (
       <LazyLoadStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
@@ -170,7 +171,6 @@ class DevotionAuraDamageReduction extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default DevotionAuraDamageReduction;

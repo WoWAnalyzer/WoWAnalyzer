@@ -11,6 +11,7 @@ import ManaValues from 'Parser/Core/Modules/ManaValues';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
+import StatisticWrapper from 'Interface/Others/StatisticWrapper';
 
 const CHART_SIZE = 75;
 
@@ -193,27 +194,28 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.iolCastRatioChart()}
-          </StatisticsListBox>
+      <StatisticWrapper position={STATISTIC_ORDER.CORE(40)}>
+        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div className="row">
+            <StatisticsListBox
+              title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}
+              containerProps={{ className: 'col-xs-12' }}
+            >
+              {this.iolCastRatioChart()}
+            </StatisticsListBox>
+          </div>
+          <div className="row">
+            <StatisticsListBox
+              title="Fillers"
+              containerProps={{ className: 'col-xs-12' }}
+            >
+              {this.fillerCastRatioChart()}
+            </StatisticsListBox>
+          </div>
         </div>
-        <div className="row">
-          <StatisticsListBox
-            title="Fillers"
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.fillerCastRatioChart()}
-          </StatisticsListBox>
-        </div>
-      </div>
+      </StatisticWrapper>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
 }
 
 export default CastBehavior;
