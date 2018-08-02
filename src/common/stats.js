@@ -40,9 +40,9 @@ export function calculateAzeriteEffects(spellId, rank) {
   const spell = AZERITE_SCALING[spellId];
 
   let budget = calculatePrimaryStat(AZ_BASE_ILVL, AZ_BASE_BUDGET, rank);
-  if(spell.secondary) {
+  if (spell.secondary) {
     budget *= getMultiplier(multiplierTables.general, rank);
-  } 
+  }
 
   return spell.effect_list.map(id => spell.effects[id])
     .filter(({avg}) => avg > 0)

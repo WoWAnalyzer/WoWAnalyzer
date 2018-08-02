@@ -11,9 +11,9 @@ const traits = require('./traits.json');
 
 const spell_ids = Object.values(traits);
 
-const dbc_dump = argv[2]; 
+const dbc_dump = argv[2];
 
-const dbc_lines = fs.readFileSync(dbc_dump, {encoding: 'utf8'}).split(/\n/);
+const dbc_lines = fs.readFileSync(dbc_dump, { encoding: 'utf8' }).split(/\n/);
 
 // we use regex to find the start locations to pull data from and to
 // identify fields.
@@ -28,10 +28,10 @@ const SPELL_EFFECT_DATA_RE = /.*?{ ([^{}}]+).+/;
 // get # of spells
 let num_spells = -1;
 let i = 0;
-for(; i < dbc_lines.length; i++) {
+for (; i < dbc_lines.length; i++) {
   const line = dbc_lines[i];
   const match = line.match(SPELL_DATA_COUNT_RE);
-  if(!match) {
+  if (!match) {
     continue;
   }
   num_spells = match[1];
@@ -39,10 +39,10 @@ for(; i < dbc_lines.length; i++) {
 }
 
 // find the start of the spelldata struct
-for(; i < dbc_lines.length; i++) {
+for (; i < dbc_lines.length; i++) {
   const line = dbc_lines[i];
   const matches = line.search(SPELL_DATA_START_RE);
-  if(matches < 0) {
+  if (matches < 0) {
     continue;
   }
   break;
@@ -58,47 +58,46 @@ const effects = {};
 //
 // Note that JS regex is somewhat limited in that it can't do repeated
 // groups
-for(let j = 0; j < num_spells; i++, j++) {
+for (let j = 0; j < num_spells; i++, j++) {
   const line = dbc_lines[i];
   const match = line.match(SPELL_DATA_RE);
-  if(!match) {
+  if (!match) {
     console.error(line);
     return;
   }
-  const [ , name, _fields, _effects] = match;
-  const fields = _fields.replace(" ", "").split(/,/).map(Number);
+  const [, name, _fields, _effects] = match;
+  const fields = _fields.replace(' ', '').split(/,/).map(Number);
   const id = Number(fields[0]);
   const secondary = fields[6] === -7;
   const effect_list = _effects.split(/, /).map(Number);
-  if(spell_ids.includes(id)) {
+  if (spell_ids.includes(id)) {
     SPELL_DATA[id] = {
       name, effect_list,
       secondary,
       effects: {},
     };
-    for(const effect of effect_list) {
+    for (const effect of effect_list) {
       effects[effect] = id;
     }
   }
 }
 
-
 // now repeat the above, but for effects instead of spells
 let num_effects = -1;
-for(; i < dbc_lines.length; i++) {
+for (; i < dbc_lines.length; i++) {
   const line = dbc_lines[i];
   const match = line.match(SPELL_EFFECT_COUNT_RE);
-  if(!match) {
+  if (!match) {
     continue;
   }
   num_effects = match[1];
   break;
 }
 
-for(; i < dbc_lines.length; i++) {
+for (; i < dbc_lines.length; i++) {
   const line = dbc_lines[i];
   const matches = line.search(SPELL_EFFECT_START_RE);
-  if(matches < 0) {
+  if (matches < 0) {
     continue;
   }
   break;
@@ -106,18 +105,18 @@ for(; i < dbc_lines.length; i++) {
 
 i += 1;
 
-for(let j = 0; j < num_effects; i++, j++) {
+for (let j = 0; j < num_effects; i++, j++) {
   const line = dbc_lines[i];
   const match = line.match(SPELL_EFFECT_DATA_RE);
-  if(!match) {
+  if (!match) {
     console.error(line);
     return;
   }
-  const fields = match[1].replace(" ", "").split(/,/).map(Number);
+  const fields = match[1].replace(' ', '').split(/,/).map(Number);
   const id = fields[0];
   const avg_coeff = fields[6];
 
-  if(effects[id]) {
+  if (effects[id]) {
     SPELL_DATA[effects[id]].effects[id] = { avg: avg_coeff };
   }
 }
