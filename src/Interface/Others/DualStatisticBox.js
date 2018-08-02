@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
+
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
+export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
 const DualStatisticBox = ({
   icon,
@@ -39,9 +42,12 @@ DualStatisticBox.propTypes = {
   containerProps: PropTypes.object,
   alignIcon: PropTypes.string,
   footer: PropTypes.node,
+  category: PropTypes.string,
+  position: PropTypes.number,
 };
 DualStatisticBox.defaultProps = {
   alignIcon: 'center',
+  category: STATISTIC_CATEGORY.ITEMS,
 };
 
 export default DualStatisticBox;

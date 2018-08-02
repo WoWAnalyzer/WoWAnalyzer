@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './StatisticBox.css';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
+export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
 const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps, ...others }) => (
   <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>

@@ -70,7 +70,9 @@ class HealingDone extends Analyzer {
 
   showStatistic = false;
   statistic() {
-    if (!this.showStatistic) return null;
+    if (!this.showStatistic) {
+      return null;
+    }
 
     const healingWithoutAbsorbs = this.total.regular - this.healingByAbsorbs.regular;
 

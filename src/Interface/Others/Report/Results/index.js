@@ -13,8 +13,6 @@ import SuggestionIcon from 'Interface/Icons/Suggestion';
 import ArmorIcon from 'Interface/Icons/Armor';
 import StatisticsIcon from 'Interface/Icons/Statistics';
 
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
@@ -23,7 +21,6 @@ import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import SuggestionsTab from 'Interface/Others/SuggestionsTab';
-import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -127,80 +124,34 @@ class Results extends React.PureComponent {
       </div>
     );
   }
-  renderStatistics(statistics, items, selectedCombatant) {
+  renderStatistics(statistics) {
     const parser = this.props.parser;
+
+    const groups = statistics.reduce((obj, statistic) => {
+      const category = statistic.props.category || 'Statistics';
+      obj[category] = obj[category] || [];
+      obj[category].push(statistic);
+      return obj;
+    }, {});
 
     return (
       <React.Fragment>
-        <StatisticsSectionTitle
-          rightAddon={parser.hasDowntime && this.renderFightDowntimeToggle()}
-        >
-          <Trans>Statistics</Trans>
-        </StatisticsSectionTitle>
+        {Object.keys(groups).map(name => {
+          const statistics = groups[name];
+          return (
+            <React.Fragment key={name}>
+              <StatisticsSectionTitle
+                rightAddon={parser.hasDowntime && this.renderFightDowntimeToggle()}
+              >
+                {name}
+              </StatisticsSectionTitle>
 
-        <Masonry className="row statistics">
-          {statistics
-            .filter(statistic => !!statistic) // filter optionals
-            .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
-            .sort((a, b) => a.order - b.order)
-            .map((statistic, i) => React.cloneElement(statistic.statistic, {
-              key: `${statistic.order}-${i}`,
-            }))}
-        </Masonry>
-
-        {items.length > 0 && (
-          <React.Fragment>
-            <StatisticsSectionTitle>
-              <Trans>Items</Trans>
-            </StatisticsSectionTitle>
-
-            <div className="row statistics">
-              {items
-                .sort((a, b) => {
-                  // raw elements always rendered last
-                  if (React.isValidElement(a)) {
-                    return 1;
-                  } else if (React.isValidElement(b)) {
-                    return -1;
-                  } else if (a.item && b.item) {
-                    if (a.item.quality === b.item.quality) {
-                      // Qualities equal = show last added item at bottom
-                      return a.item.id - b.item.id;
-                    }
-                    // Show lowest quality item at bottom
-                    return a.item.quality < b.item.quality;
-                  } else if (a.item) {
-                    return -1;
-                  } else if (b.item) {
-                    return 1;
-                  }
-                  // Neither is an actual item, sort by id so last added effect is shown at bottom
-                  if (a.id < b.id) {
-                    return -1;
-                  } else if (a.id > b.id) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map(item => {
-                  if (!item) {
-                    return null;
-                  } else if (React.isValidElement(item)) {
-                    return item;
-                  }
-
-                  const id = item.id || item.item.id;
-                  const itemDetails = id && selectedCombatant.getItem(id);
-                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
-
-                  return (
-                    <ItemStatisticBox key={id} icon={icon} value={item.result} label={title} />
-                  );
-                })}
-            </div>
-          </React.Fragment>
-        )}
+              <Masonry className="row statistics">
+                {statistics.sort((a, b) => a.props.position - b.props.position)}
+              </Masonry>
+            </React.Fragment>
+          );
+        })}
       </React.Fragment>
     );
   }
@@ -219,7 +170,6 @@ class Results extends React.PureComponent {
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
-    const selectedCombatant = modules.combatants.selected;
     const config = this.context.config;
 
     const results = parser.generateResults({
@@ -327,7 +277,7 @@ class Results extends React.PureComponent {
           </div>
         )}
 
-        {this.renderStatistics(results.statistics, results.items, selectedCombatant)}
+        {this.renderStatistics(results.statistics)}
 
         {!premium && (
           <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
