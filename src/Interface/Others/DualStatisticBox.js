@@ -47,7 +47,7 @@ DualStatisticBox.propTypes = {
 };
 DualStatisticBox.defaultProps = {
   alignIcon: 'center',
-  category: STATISTIC_CATEGORY.ITEMS,
+  category: STATISTIC_CATEGORY.GENERAL,
 };
 
 export default DualStatisticBox;

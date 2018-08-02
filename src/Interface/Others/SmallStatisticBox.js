@@ -35,7 +35,7 @@ SmallStatisticBox.propTypes = {
   position: PropTypes.number,
 };
 SmallStatisticBox.defaultProps = {
-  category: STATISTIC_CATEGORY.ITEMS,
+  category: STATISTIC_CATEGORY.GENERAL,
 };
 
 export default SmallStatisticBox;
