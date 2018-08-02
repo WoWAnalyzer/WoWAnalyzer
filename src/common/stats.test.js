@@ -109,14 +109,21 @@ describe('stats', () => {
         370: [196, 99],
         385: [226, 114],
       });
+      // Gemhide --- temporarily disabled
+      // verifyAzeritePower(268596, {
+        // 340: [87, 628],
+        // 355: [94, 721],
+        // 370: [100, 830],
+        // 385: [107, 955],
+      // });
     });
     it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
-      // Gemhide
-      verifyAzeritePower(268596, {
-        340: [87, 628],
-        355: [94, 821],
-        370: [100, 830],
-        385: [107, 955],
+      // Woundbinder
+      verifyAzeritePower(267880, {
+        340: [233],
+        355: [250],
+        370: [267],
+        385: [285],
       });
     });
     it('correct scales -8 scaling azerite powers', () => { // uses a custom healing stat scaling formula

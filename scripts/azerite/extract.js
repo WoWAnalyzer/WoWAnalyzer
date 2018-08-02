@@ -7,9 +7,7 @@
  */
 const argv = require('process').argv;
 const fs = require('fs');
-const traits = require('./traits.json');
-
-const spell_ids = Object.values(traits);
+const spell_ids = require('./traits.json');
 
 const dbc_dump = argv[2];
 
@@ -68,12 +66,12 @@ for (let j = 0; j < num_spells; i++, j++) {
   const [, name, _fields, _effects] = match;
   const fields = _fields.replace(' ', '').split(/,/).map(Number);
   const id = Number(fields[0]);
-  const secondary = fields[6] === -7;
+  const scaling_type = fields[6];
   const effect_list = _effects.split(/, /).map(Number);
   if (spell_ids.includes(id)) {
     SPELL_DATA[id] = {
       name, effect_list,
-      secondary,
+      scaling_type,
       effects: {},
     };
     for (const effect of effect_list) {
