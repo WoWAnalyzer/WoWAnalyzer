@@ -33,7 +33,7 @@ export default {
   },
 
 CRYSTALLINE_CARAPACE: {
-  id: 271536,
+  id: 271536, 
   name: 'Crystalline Carapace',
   icon: 'inv_shield_33',
 },
