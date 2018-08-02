@@ -283,11 +283,11 @@ class Results extends React.PureComponent {
               {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
                 <Link 
                   to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
-                  data-tip={`Show ${characterProfile.realm} - ${characterProfile.name}'s most recent logs`}
+                  data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
                   className="btn"
                   style={{ fontSize: 24 }}
                 >
-                  <img src="/favicon.png" alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
+                  <img src="/favicon.png" alt="WoWAnalyzer logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
                 </Link>
               )}
             </div>

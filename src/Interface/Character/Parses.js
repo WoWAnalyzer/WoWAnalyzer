@@ -20,6 +20,7 @@ import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TY
 
 import './Parses.css';
 import ParsesList from './ParsesList';
+import { compose } from '../../../node_modules/redux';
 
 const loadRealms = () => import('common/REALMS').then(exports => exports.default);
 
@@ -570,13 +571,12 @@ class Parses extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return ({ });
-};
-
-export default withRouter(connect(
-  mapStateToProps,
-  {
-    appendReportHistory,
-  }
-)(Parses));
+export default compose(
+  withRouter,
+  connect(
+    null,
+    {
+      appendReportHistory,
+    }
+  )
+)(Parses);
