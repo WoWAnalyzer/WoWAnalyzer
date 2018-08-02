@@ -9,6 +9,7 @@ import ComboPointTracker from '../Common/Resources/ComboPointTracker';
 import ComboPoints from './Modules/RogueCore/ComboPoints';
 import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
+import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
 import Energy from './Modules/RogueCore/Energy';
 
 import RestlessBlades from './Modules/RogueCore/RestlessBlades';
@@ -30,6 +31,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
+    energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
 
