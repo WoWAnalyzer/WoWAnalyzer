@@ -83,34 +83,41 @@ describe('stats', () => {
     expect(rotScourRingHaste(385)).toBeWithin(296, 1); // Mythic
   });
 
-  it('scales azerite effects correctly', () => {
-    const testTrait = (spellId, values) => {
+  describe('azerite powers', () => {
+    const verifyAzeritePower = (spellId, values) => {
       Object.keys(values).forEach(itemLevel => {
         expect(calculateAzeriteEffects(spellId, itemLevel)).toEqual(values[itemLevel]);
       });
     };
 
-    // elusive footwork
-    testTrait(278571, {
-      280: [517],
-      325: [785],
-      340: [904],
-      355: [1038],
-      370: [1195],
-      385: [1375],
+    it('correct scales -1 scaling azerite powers', () => { // uses primary stat scaling formula
+      // Elusive Footwork
+      verifyAzeritePower(278571, {
+        280: [517],
+        325: [785],
+        340: [904],
+        355: [1038],
+        370: [1195],
+        385: [1375],
+      });
     });
-    // gemhide
-    testTrait(268596, {
-      340: [87, 628],
-      355: [94, 821],
-      370: [100, 830],
-      385: [107, 955],
+    it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
+      // Gemhide
+      verifyAzeritePower(268596, {
+        340: [87, 628],
+        355: [94, 821],
+        370: [100, 830],
+        385: [107, 955],
+      });
     });
-    // Moment of Repose
-    testTrait(272775, {
-      280: [5693],
-      325: [8736],
-      340: [10012],
+    it('correct scales -8 scaling azerite powers', () => { // uses a custom healing stat scaling formula
+      // Moment of Repose
+      verifyAzeritePower(272775, {
+        280: [5693],
+        310: [7558],
+        325: [8736],
+        340: [10012],
+      });
     });
   });
 });
