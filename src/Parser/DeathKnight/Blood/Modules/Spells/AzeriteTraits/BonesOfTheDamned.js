@@ -24,22 +24,13 @@ export function bonesOfTheDamnedStats(combatant){
 }
 
 export const STAT_TRACKER = {
-  armor: (combatant) => {
-    if (bonesOfTheDamnedStats(combatant) !== null) {
-      //get the last change in BoneShield stacks and update armor
-      // better test if Bones of the Damned actually work with stacks
-      const boneShieldEvent = combatant.owner.eventHistory.filter(e => e.ability && e.ability.guid === SPELLS.BONE_SHIELD.id && e.type === "changebuffstack").slice(-1)[0];
-      return boneShieldEvent ? boneShieldEvent.stacksGained * bonesOfTheDamnedStats(combatant).armor : 0;
-    }
-
-    return 0;
-  },
+  armor: (combatant) => bonesOfTheDamnedStats(combatant).armor,
 };
 
 /**
  * Bones of the Damned
  * Marrowrend has a chance to proc an additional stack of Bone Shield (multiple traits do not allow increase the amount of stacks)
- * Bone Shield stacks increase armor
+ * Bone Shield increase armor
  */
 class BonesOfTheDamned extends Analyzer{
 
@@ -69,7 +60,7 @@ class BonesOfTheDamned extends Analyzer{
   }
 
   get averageArmor() {
-    return this.boneShieldTimesByStacks.averageBoneShieldStacks * this.armor;
+    return this.selectedCombatant.getBuffUptime(SPELLS.BONES_OF_THE_DAMNED_BUFF.id) / this.owner.fightDuration * this.armor;
   }
 
   statistic(){

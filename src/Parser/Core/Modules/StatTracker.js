@@ -254,7 +254,7 @@ class StatTracker extends Analyzer {
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     // endregion
     //region Death Knight
-    [SPELLS.BONE_SHIELD.id]: BOFD_ARMOR, // Armor when Bones of the Damend is up || Traits module keeps track of stacks
+    [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
     // endregion
 
     // region Enchants
