@@ -15,10 +15,9 @@ const PainComponent = ({ categories, abilities }) => {
             <tr>
               <th>{categories[key]}</th>
               <th className="text-center">Casts</th>
-              <th className="text-center">{key === 'spent' ? <dfn data-tip="Approximately.">Spent</dfn> : ''}</th>
-              <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
-              <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
-              <th />
+              <th className="text-center">{key === 'spent' ? <dfn>Spent</dfn> : ''}</th>
+              <th className="text-center">{key === 'generated' ? <dfn>Generated</dfn> : ''}</th>
+              <th className="text-center"><dfn>Wasted</dfn></th>
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
