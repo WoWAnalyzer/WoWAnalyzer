@@ -10,7 +10,7 @@ import ArmoryLogo from 'Interface/Images/Armory-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 

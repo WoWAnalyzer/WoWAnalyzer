@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatThousands, formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -41,8 +41,13 @@ class DamageDone extends Analyzer {
 
   showStatistic = false;
   statistic() {
-    return this.showStatistic && (
+    if (!this.showStatistic) {
+      return null;
+    }
+
+    return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(0)}
         icon={(
           <img
             src="/img/sword.png"
@@ -56,7 +61,6 @@ class DamageDone extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default DamageDone;

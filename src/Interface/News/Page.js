@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import articles from 'Articles';
 import DocumentTitle from 'Interface/common/DocumentTitle';
 
-import articles from './Articles';
 import ArticleLoader from './ArticleLoader';
 import './News.css';
 

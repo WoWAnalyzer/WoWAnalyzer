@@ -451,6 +451,16 @@ export default {
     name: 'Quick Thinker',
     icon: 'ability_mage_studentofthemind',
   },
+  CLEARCASTING_ARCANE: {
+    id: 263725,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  RULE_OF_THREES_BUFF: {
+    id: 264774,
+    name: 'Rule of Threes',
+    icon: 'spell_arcane_starfire',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {

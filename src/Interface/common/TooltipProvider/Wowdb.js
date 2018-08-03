@@ -1,4 +1,4 @@
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 
 import Base from './Base';
 

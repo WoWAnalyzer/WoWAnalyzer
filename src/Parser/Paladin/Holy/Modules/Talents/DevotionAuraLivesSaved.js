@@ -86,6 +86,7 @@ class DevotionAuraLivesSaved extends Analyzer {
       : 'Click to analyze how many lives were saved by the Aura Mastery effect of Devotion Aura.';
     return (
       <LazyLoadStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
         value={`≈${this.livesSaved}`}
@@ -94,7 +95,6 @@ class DevotionAuraLivesSaved extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default DevotionAuraLivesSaved;

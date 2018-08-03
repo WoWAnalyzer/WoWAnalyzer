@@ -124,11 +124,6 @@ export default {
     name: 'Boiling Brew',
     icon: 'achievement_brewery_2',
   },
-  BONE_SPIKE_GRAVEYARD: {
-    id: 273088,
-    name: 'Bone Spike Graveyard',
-    icon: 'spell_shadow_deathanddecay',
-  },
   BRACING_CHILL: {
     id: 267884,
     name: 'Bracing Chill',

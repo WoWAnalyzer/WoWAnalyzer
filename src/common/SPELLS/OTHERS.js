@@ -841,7 +841,7 @@ export default {
     name: 'Strength of the Sky',
     icon: 'spell_nature_unrelentingstorm',
   },
-  //Darkmoon Whistle
+  //Toys
   BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
     id: 132568,
     name: 'Blow Darkmoon Whistle',
@@ -851,6 +851,11 @@ export default {
     id: 103740,
     name: 'Darkmoon Firework',
     icon: 'inv_misc_missilesmallcluster_green',
+  },
+  BIG_RED_RAYS: {
+    id: 229837,
+    name: 'Big Red Rays',
+    icon: 'priest_icon_chakra_red',
   },
 
 };

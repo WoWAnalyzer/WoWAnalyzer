@@ -88,7 +88,7 @@ describe('stats', () => {
     expect(calculateAzeriteEffects(278571, 310)).toEqual([684]); // ilvl 310
     expect(calculateAzeriteEffects(278571, 330)).toEqual([823]); // ilvl 330
     expect(calculateAzeriteEffects(278571, 355)).toEqual([1038]); // ilvl 355
-    // gemhide
+    // gemhide -- also verifies order of traits being returned
     expect(calculateAzeriteEffects(268596, 330)).toEqual([115, 508]); // ilvl 330
   });
 });

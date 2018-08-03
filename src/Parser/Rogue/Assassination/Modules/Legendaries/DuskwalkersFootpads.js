@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
 const VENDETTA_CDR_PER_ENERGY = 1 / 65;

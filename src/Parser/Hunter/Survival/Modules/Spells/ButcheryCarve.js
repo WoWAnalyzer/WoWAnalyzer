@@ -1,13 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -21,17 +20,16 @@ const MAX_TARGETS_HIT = 5;
 class ButcheryCarve extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    abilities: Abilities,
   };
 
   hasGT = false;
   reductionAtCurrentCast = 0;
   effectiveWFBReductionMs = 0;
   wastedWFBReductionMs = 0;
-  uniqueTargets = [];
   targetsHit = 0;
   casts = 0;
   spellKnown;
+  bonusDamage = 0;
 
   constructor(...args) {
     super(...args);
@@ -51,7 +49,6 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.casts++;
-    this.uniqueTargets = [];
     this.reductionAtCurrentCast = 0;
   }
 
@@ -60,11 +57,8 @@ class ButcheryCarve extends Analyzer {
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
-    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.uniqueTargets.includes(damageTarget)) {
-      this.targetsHit++;
-      this.uniqueTargets.push(damageTarget);
-    }
+    this.targetsHit++;
+    this.bonusDamage += event.amount + (event.absorbed || 0);
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
       return;
     }
@@ -95,12 +89,14 @@ class ButcheryCarve extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</React.Fragment>)
-        .icon(this.spellKnown.icon)
-        .actual(`${actual} average targets hit per cast`)
-        .recommended(`>${recommended} is recommended`);
-    });
+    if (this.casts > 0) { //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<React.Fragment>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</React.Fragment>)
+          .icon(this.spellKnown.icon)
+          .actual(`${actual} average targets hit per cast`)
+          .recommended(`>${recommended} is recommended`);
+      });
+    }
   }
 
   statistic() {
@@ -116,7 +112,8 @@ class ButcheryCarve extends Analyzer {
     }
     return null;
   }
-  
+  statisticOrder = STATISTIC_ORDER.CORE(8);
+
   subStatistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.

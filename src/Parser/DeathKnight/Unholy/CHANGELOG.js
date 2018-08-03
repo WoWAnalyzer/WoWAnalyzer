@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { Bicepspump, Khazak, Gebuz, Hewhosmites } from 'CONTRIBUTORS';
+import { Bicepspump, Khazak, Gebuz, Hewhosmites, joshinator } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-08-03'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BONE_SPIKE_GRAVEYARD.id} />-Module.</React.Fragment>,
+    contributors: [joshinator],
+  },
   {
     date: new Date('2018-04-09'),
     changes: 'Added Rune efficiency to checklist',
