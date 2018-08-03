@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
@@ -76,6 +77,41 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
+      name: 'Use your short defensive/healing cooldowns',
+      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+      requirements: () => {
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DEMON_SPIKES,
+            onlyWithSuggestion: false,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> +4 souls casts</React.Fragment>,
+            when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id),
+            check: () => this.spiritBombSoulConsume.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: 'Use your long defensive cooldowns',
+      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+      requirements: () => {
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.FIERY_BRAND,
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.METAMORPHOSIS_TANK,
+            onlyWithSuggestion: false,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
       name: 'Maintain your buffs and debuffs',
       description: 'It is important to maintain these as they contribute a large amount to your DPS and HPS.',
       requirements: () => {
@@ -95,34 +131,13 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
-      name: 'Use your short defensive/healing cooldowns',
-      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+      name: 'Important Items',
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DEMON_SPIKES,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
+            name: <React.Fragment><ItemLink id={ITEMS.ARCHIMONDES_HATRED_REBORN.id} /> usage</React.Fragment>,
             spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
             when: this.selectedCombatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id),
-            onlyWithSuggestion: false,
-          }),
-        ];
-      },
-    }),
-
-    new Rule({
-      name: 'Use your long defensive cooldowns',
-      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
-      requirements: () => {
-        return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.FIERY_BRAND,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.METAMORPHOSIS_TANK,
             onlyWithSuggestion: false,
           }),
         ];
