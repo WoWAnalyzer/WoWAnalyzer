@@ -3,7 +3,7 @@
  * the SIMC repository.
  *
  * Usage:
- *    node extract.js <path-to-simc>/engine/dbc/generated/sc_spell_data.inc
+ *    node extract.js <path-to-simc>/engine/dbc/generated/sc_spell_data.inc > <WoWAnalyzer-path>/src/common/AZERITE_SCALING.generated.json
  */
 const argv = require('process').argv;
 const fs = require('fs');

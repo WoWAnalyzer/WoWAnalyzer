@@ -23,26 +23,28 @@ export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel
   return scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTables.jewelry);
 }
 
-// Constants for azerite effect scaling
-//
-// The base ilvl and budget are only used to perform scaling.
-// Historically, logs gave a "rank" that was 0 at ilvl 251, which is why
-// this particular value is used. Presently, any ilvl could be
-// substituted as long as the *unrounded* budget is changed as well.
-const AZ_BASE_ILVL = 251;
-const AZ_BASE_BUDGET = 179.2;
 
+// different kinds of (known) scaling for azerite traits
 const AZ_SCALE_PRIMARY = -1;
 const AZ_SCALE_SECONDARY = -7;
+// unlike the previous two, this scale type doesn't have a clear
+// semantic meaning that we know of (yet)
 const AZ_SCALE_UNK8 = -8;
 
-function calculateScalingAzPrimary(ilvl) {
-  const SCALE = 17.3;
-  return Math.floor(SCALE * (1.15**(ilvl/15)));
-}
-function calculateScalingUnk8(ilvl) {
-  const SCALE = 4.325;
-  return Math.floor(SCALE * (1.15**(ilvl/15)));
+const AZ_SCALE_FUNCTIONS = {
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_PRIMARY]: ilvl => {
+    const SCALE = 17.3;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  },
+  [AZ_SCALE_SECONDARY]: ilvl => AZ_SCALE_FUNCTIONS[AZ_SCALE_PRIMARY](ilvl) * getMultiplier(multiplierTables.general, ilvl),
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_UNK8]: ilvl => {
+    const SCALE = 4.325;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  }
 }
 
 // Calculate the values of each (scaling) effect associated with an
@@ -52,20 +54,10 @@ function calculateScalingUnk8(ilvl) {
 export function calculateAzeriteEffects(spellId, rank) {
   const spell = AZERITE_SCALING[spellId];
 
-  let budget = calculateScalingAzPrimary(rank);
-  switch(spell.scaling_type) {
-    case AZ_SCALE_PRIMARY:
-      break; // nothing to do
-    case AZ_SCALE_SECONDARY:
-      budget *= getMultiplier(multiplierTables.general, rank);
-      break;
-    case AZ_SCALE_UNK8:
-      budget = calculateScalingUnk8(rank);
-      break;
-    default:
-      throw Error(`Unknown scaling type: ${spell.scaling_type}`);
-      break;
+  if(!(spell.scaling_type in AZ_SCALE_FUNCTIONS)) {
+    throw Error(`Unknown scaling type: ${spell.scaling_type}`);
   }
+  const budget = AZ_SCALE_FUNCTIONS[spell.scaling_type](rank);
 
   return spell.effect_list.map(id => spell.effects[id])
     .filter(({avg}) => avg > 0)

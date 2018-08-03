@@ -109,13 +109,6 @@ describe('stats', () => {
         370: [196, 99],
         385: [226, 114],
       });
-      // Gemhide --- temporarily disabled
-      // verifyAzeritePower(268596, {
-        // 340: [87, 628],
-        // 355: [94, 721],
-        // 370: [100, 830],
-        // 385: [107, 955],
-      // });
     });
     it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
       // Woundbinder
@@ -133,6 +126,26 @@ describe('stats', () => {
         310: [7558],
         325: [8736],
         340: [10012],
+      });
+    });
+    it('correctly computes Gemhide armor but not avoidance', () => {
+      // Gemhide --- nothing matches the new scaling for gemhide's
+      // avoidance :shrug:
+      //
+      // this is a canary test -- it only exists to let us know if
+      // something changes. it also conveniently lets us know that the
+      // armor value is correct and usable
+      const spellId = 268596;
+      const values = {
+        340: [87, 628],
+        355: [94, 721],
+        370: [100, 830],
+        385: [107, 955],
+      };
+      Object.keys(values).forEach(itemLevel => {
+        const [avoidance, armor] = calculateAzeriteEffects(spellId, itemLevel);
+        expect(armor).toEqual(values[itemLevel][1]);
+        expect(armor).not.toEqual(values[itemLevel][0]);
       });
     });
   });
