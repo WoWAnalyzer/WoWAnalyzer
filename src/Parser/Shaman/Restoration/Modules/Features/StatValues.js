@@ -45,8 +45,10 @@ class StatValues extends BaseHealerStatValues {
   }
 
   _hasteHpm(event, healVal) {
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.RIPTIDE.id && !event.tick) {
+    if (healVal.overheal) {
+      return 0;
+    }
+    if(event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
