@@ -325,6 +325,9 @@ class CombatLogParser {
   get fightId() {
     return this.fight.id;
   }
+  get race() {
+    return this.characterProfile ? this.characterProfile.race : null;
+  }
 
   _timestamp = null;
   _event = null;
@@ -346,12 +349,13 @@ class CombatLogParser {
     return this._modules.combatants.selected;
   }
 
-  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.combatantInfoEvents = combatantInfoEvents;
+    this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
 
