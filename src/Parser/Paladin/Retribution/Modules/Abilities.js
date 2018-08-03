@@ -290,16 +290,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.ARCANE_TORRENT_MANA1,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
-        },
-      },
     ];
   }
 }
