@@ -21,6 +21,10 @@ import VoidReaverDebuff from '../Talents/VoidReaverDebuff';
 
 // Talents
 import SpiritBombSoulConsume from '../Talents/SpiritBombSoulConsume';
+import SoulBarrier from '../Talents/SoulBarrier';
+
+//Spells
+import SoulCleaveSoulsConsumed from '../Spells/SoulCleaveSoulsConsumed';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 
@@ -40,6 +44,10 @@ class Checklist extends CoreChecklist {
 
     // Talents
     spiritBombSoulConsume: SpiritBombSoulConsume,
+    soulBarrier: SoulBarrier,
+
+    // Spells
+    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
 
   };
 
@@ -87,8 +95,18 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> +4 souls casts</React.Fragment>,
-            when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id),
-            check: () => this.spiritBombSoulConsume.suggestionThresholds,
+            when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id),
+            check: () => this.spiritBombSoulConsume.suggestionThresholdsEfficiency,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SOUL_CLEAVE.id} /> minimal souls consumed</React.Fragment>,
+            when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id),
+            check: () => this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> casts</React.Fragment>,
+            when: this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
+            check: () => this.soulBarrier.suggestionThresholdsEfficiency,
           }),
         ];
       },
