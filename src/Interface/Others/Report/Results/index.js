@@ -20,7 +20,7 @@ import { hasPremium } from 'Interface/selectors/user';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
-import SuggestionsTab from 'Interface/Others/SuggestionsTab';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -28,6 +28,7 @@ import DetailsTab from './DetailsTab';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
+import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
@@ -141,7 +142,7 @@ class Results extends React.PureComponent {
           return (
             <React.Fragment key={name}>
               <StatisticsSectionTitle
-                rightAddon={parser.hasDowntime && this.renderFightDowntimeToggle()}
+                rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
               >
                 {name}
               </StatisticsSectionTitle>
