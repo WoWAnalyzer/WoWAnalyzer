@@ -1,4 +1,5 @@
 export default {
+  'Analyzing Devotion Aura\'s DRPS': '2018-08-03-DevotionAura',
   'Improve your performance in the Battle for Azeroth pre-patch': '2018-07-18-Prepatch',
   'Fight downtime': '2018-07-06-FightDowntime',
   'WoWAnalyzer Premium': '2018-06-18-Premium',
