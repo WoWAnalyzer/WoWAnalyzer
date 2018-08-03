@@ -1,9 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 /**
  * Bone Spike Graveyard
@@ -43,17 +45,14 @@ class BoneSpikeGraveyard extends Analyzer{
   }
 
   statistic(){
-    const dps = this.damage / (this.owner.fightDuration / 1000);
-    const hps = this.heal / (this.owner.fightDuration / 1000);
-
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BONE_SPIKE_GRAVEYARD.id}
         value={(
           <React.Fragment>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}% / {formatNumber(dps)} DPS<br />
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.heal))}% / {formatNumber(hps)} HPS<br />
+            <ItemDamageDone amount={this.damage} /><br />
+            <ItemHealingDone amount={this.heal} />
           </React.Fragment>
         )}
         tooltip={`${SPELLS.BONE_SPIKE_GRAVEYARD.name} did a total of ${formatNumber(this.damage)} damage and ${formatNumber(this.heal)} healing.`}
