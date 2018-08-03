@@ -44,6 +44,11 @@ class Checklist extends CoreChecklist {
             when: this.selectedCombatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
             onlyWithSuggestion: false,
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.FEL_DEVASTATION_TALENT,
+            when: this.selectedCombatant.hasTalent(SPELLS.FEL_DEVASTATION_TALENT.id),
+            onlyWithSuggestion: false,
+          }),
         ];
       },
     }),
