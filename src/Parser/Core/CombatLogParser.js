@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { findByBossId } from 'Raids';
+import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+import ItemIcon from 'common/ItemIcon';
+import ItemLink from 'common/ItemLink';
 import ChangelogTab from 'Interface/Others/ChangelogTab';
 import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
 import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
-
-import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
-
-import { findByBossId } from 'Raids';
+import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
@@ -41,7 +42,6 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
-import Checklist from './Modules/Features/Checklist';
 
 import EncounterPanel from './Modules/Features/EncounterPanel';
 
@@ -142,11 +142,12 @@ import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
 import InoculatingExtract from './Modules/Items/BFA/Raids/Uldir/InoculatingExtract';
+import FreneticCorpuscle from './Modules/Items/BFA/Raids/Uldir/FreneticCorpuscle';
+import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOvercharger';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
-
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -195,7 +196,6 @@ class CombatLogParser {
     characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
-    checklist: Checklist,
 
     encounterPanel: EncounterPanel,
     // Tabs
@@ -291,6 +291,8 @@ class CombatLogParser {
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
     inoculatingExtract: InoculatingExtract,
+    freneticCorpuscle: FreneticCorpuscle,
+    constructOvercharger: ConstructOvercharger,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -608,22 +610,52 @@ class CombatLogParser {
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
       .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
-      .forEach(key => {
+      .forEach((key, index) => {
         const module = this._modules[key];
 
         if (module.statistic) {
           const statistic = module.statistic({ i18n });
           if (statistic) {
-            results.statistics.push({
-              statistic,
-              order: module.statisticOrder,
-            });
+            let position = index;
+            if (statistic.props.position !== undefined) {
+              position = statistic.props.position;
+            } else if (module.statisticOrder !== undefined) {
+              position = module.statisticOrder;
+              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d');
+            }
+
+            results.statistics.push(
+              React.cloneElement(statistic, {
+                key: `${key}-statistic`,
+                position,
+              })
+            );
           }
         }
         if (module.item) {
           const item = module.item({ i18n });
           if (item) {
-            results.items.push(item);
+            if (React.isValidElement(item)) {
+              results.statistics.push(React.cloneElement(item, {
+                key: `${key}-item`,
+                position: index,
+              }));
+            } else {
+              const id = item.id || item.item.id;
+              const itemDetails = id && this.selectedCombatant.getItem(id);
+              const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+              const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+
+              results.statistics.push(
+                <ItemStatisticBox
+                  key={`${key}-item`}
+                  position={index}
+                  icon={icon}
+                  label={title}
+                  value={item.result}
+                />
+              );
+            }
           }
         }
         if (module.tab) {

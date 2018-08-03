@@ -10,6 +10,7 @@ import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } fr
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
+import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
 
 const debug = false;
 
@@ -254,6 +255,8 @@ class StatTracker extends Analyzer {
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     // endregion
+    //region Death Knight
+    [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
     // endregion
 
     // region Enchants

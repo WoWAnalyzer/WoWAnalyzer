@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -53,6 +54,8 @@ class KillCommand extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(8);
+
 }
 
 export default KillCommand;

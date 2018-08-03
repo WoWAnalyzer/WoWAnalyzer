@@ -68,7 +68,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MONGOOSE_BITE_TALENT,
+        spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 750,
+          base: 500,
         },
         cooldown: 20,
       },
@@ -271,7 +271,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },

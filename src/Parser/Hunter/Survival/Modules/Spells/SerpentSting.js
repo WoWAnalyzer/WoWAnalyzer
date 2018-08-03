@@ -10,6 +10,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12/(1+haste) sec.
@@ -32,6 +33,12 @@ class SerpentSting extends Analyzer {
   accumulatedTimeBetweenRefresh = 0;
   accumulatedPercentRemainingOnRefresh = 0;
   hasVV = false;
+  nonVVCastsInMongooseFuryWindow = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.hasMB = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -41,8 +48,13 @@ class SerpentSting extends Analyzer {
     this.casts++;
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       this.hasVV = true;
+      return;
+    }
+    if (this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
+      this.nonVVCastsInMongooseFuryWindow++;
     }
   }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -127,6 +139,18 @@ class SerpentSting extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
   }
 
+  get nonVVCastsInMFWindowThresholds() {
+    return {
+      actual: this.nonVVCastsInMongooseFuryWindow,
+      isGreaterThan: {
+        minor: 1,
+        average: 3,
+        major: 5,
+      },
+      style: 'number',
+    };
+  }
+
   get refreshingThreshold() {
     return {
       actual: this.badRefresh,
@@ -140,20 +164,32 @@ class SerpentSting extends Analyzer {
   }
 
   get uptimeThreshold() {
-    return {
-      actual: this.uptimePercentage,
-      isLessThan: {
-        minor: 0.950,
-        average: 0.90,
-        major: 0.85,
-      },
-      style: 'percentage',
-    };
+    if (this.hasMB) {
+      return {
+        actual: this.uptimePercentage,
+        isLessThan: {
+          minor: 0.7,
+          average: 0.65,
+          major: 0.6,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.uptimePercentage,
+        isLessThan: {
+          minor: 0.950,
+          average: 0.90,
+          major: 0.85,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff, or the debuff has less {formatPercentage(PANDEMIC)}% duration remaining.</React.Fragment>)
+      return suggest(<React.Fragment>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff, or the debuff has less than {formatPercentage(PANDEMIC)}% duration remaining.</React.Fragment>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -162,7 +198,13 @@ class SerpentSting extends Analyzer {
       return suggest(<React.Fragment>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</React.Fragment>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
-        .recommended(`>${recommended} is recommended`);
+        .recommended(`<${recommended} is recommended`);
+    });
+    when(this.nonVVCastsInMFWindowThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>It's not recommended to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> unless you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</React.Fragment>)
+        .icon(SPELLS.SERPENT_STING_SV.icon)
+        .actual(`${actual} casts during Mongoose Fury without Viper's Venom buff`)
+        .recommended((`<${recommended} is recommended`));
     });
   }
 
@@ -176,6 +218,8 @@ class SerpentSting extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(7);
+
 
   subStatistic() {
     return (

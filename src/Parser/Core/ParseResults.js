@@ -180,7 +180,6 @@ class Suggestion {
 class ParseResults {
   tabs = [];
   statistics = [];
-  items = [];
   issues = [];
 
   constructor() {

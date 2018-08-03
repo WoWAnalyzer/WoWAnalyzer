@@ -9,6 +9,11 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
+const REFRESH_AT_STACKS = 6;
+const REFRESH_AT_SECONDS = 6;
+const BS_DURATION = 30;
+const MR_GAIN = 3;
+
 class MarrowrendUsage extends Analyzer {
 
   static dependencies = {
@@ -29,10 +34,18 @@ class MarrowrendUsage extends Analyzer {
   refreshMRCasts = 0;
   totalMRCasts = 0;
 
-  REFRESH_AT_STACKS = 6;
-  REFRESH_AT_SECONDS = 6;
-  BS_DURATION = 30;
-  MR_GAIN = 3;
+  hasBonesOfTheDamned = false;
+
+  bonesOfTheDamnedProc = 0;
+  totalStacksGenerated = 0;
+
+  constructor(...args) {
+    super(...args);
+
+    if(this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)) {
+      this.hasBonesOfTheDamned = true;
+    }
+  }
 
 
   on_toPlayer_applybuff(event) {
@@ -67,14 +80,14 @@ class MarrowrendUsage extends Analyzer {
     if (event.ability.guid !== SPELLS.MARROWREND.id) return;
 
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
-    const durationLeft = this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
-    if (durationLeft <= this.REFRESH_AT_SECONDS) {
+    const durationLeft = BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
+    if (durationLeft <= REFRESH_AT_SECONDS) {
       this.refreshMRCasts += 1;
     } else {
       const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
-      if (boneShieldStacks > this.REFRESH_AT_STACKS) {
+      if (boneShieldStacks > REFRESH_AT_STACKS) {
         this.badMRCasts += 1;
-        const wasted = this.MR_GAIN - this.currentBoneShieldBuffer;
+        const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         if (wasted > 0) {
           this.bsStacksWasted += wasted;
 
@@ -85,13 +98,34 @@ class MarrowrendUsage extends Analyzer {
       }
     }
 
+    if (this.currentBoneShieldBuffer > MR_GAIN && this.hasBonesOfTheDamned) {
+      // count Bones of the Damned procs and mark cast in timeline
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = `This ${SPELLS.MARROWREND.name} cast procced ${SPELLS.BONES_OF_THE_DAMNED.name}`;
+      this.bonesOfTheDamnedProc += 1;
+    }
+
+    this.totalStacksGenerated += this.currentBoneShieldBuffer;
     this.currentBoneShieldBuffer = 0;
     this.lastMarrowrendCast = event.timestamp;
     this.totalMRCasts += 1;
   }
 
+  get bonesOfTheDamnedProcs() {
+    return this.bonesOfTheDamnedProc;
+  }
+
+  get totalBoneShieldStacksGenerated() {
+    return this.totalStacksGenerated;
+  }
+
   get badCastsPercent() {
     return this.badMRCasts / this.totalMRCasts;
+  }
+
+  get marrowrendCasts() {
+    return this.totalMRCasts;
   }
 
   get suggestionThresholds() {
