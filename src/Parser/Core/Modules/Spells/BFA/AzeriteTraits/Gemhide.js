@@ -1,11 +1,10 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER, STATISTIC_CATEGORY } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 
 const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [avoidance, armor] = calculateAzeriteEffects(SPELLS.GEMHIDE.id, rank);
@@ -70,17 +69,14 @@ class Gemhide extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        category={STATISTIC_CATEGORY.AZERITE_POWERS}
-        icon={<SpellIcon id={SPELLS.GEMHIDE.id} />}
+        trait={SPELLS.GEMHIDE.id}
         value={(
           <React.Fragment>
-            {formatNumber(this.avgArmor)} Armor<br />
-            {formatNumber(this.avgAvoidance)} Avoidance
+            {formatNumber(this.avgArmor)} Armor & {formatNumber(this.avgAvoidance)} Avoidance
           </React.Fragment>
         )}
-        label="Avg. Stats from Gemhide"
         tooltip={`Gemhide grants <b>${this.armor} Armor</b> and <b>${this.avoidance} Avoidance</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
       />
     );
