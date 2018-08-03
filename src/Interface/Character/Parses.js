@@ -62,7 +62,6 @@ class Parses extends React.Component {
       isLoading: true,
       error: null,
       trinkets: ITEMS,
-      realmSlug: this.props.realm,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -74,8 +73,9 @@ class Parses extends React.Component {
     this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.fetchBattleNetInfo();
+    this.realmSlug = await this.getRealmSlug();
   }
 
   iconPath(specName) {
@@ -236,13 +236,9 @@ class Parses extends React.Component {
     });
   }
 
-  async load(refresh = false) {
-    this.setState({
-      isLoading: true,
-    });
-
+  async findRealm() {
     const realms = await loadRealms();
-    //use the slug from REALMS when available, otherwise try realm-prop and fail
+    // Use the slug from REALMS when available, otherwise try realm-prop and fail
     // TODO: Can we make this return results more reliably?
     const realmsInRegion = realms[this.props.region];
     const lowerCaseRealm = this.props.realm.toLowerCase();
@@ -250,12 +246,24 @@ class Parses extends React.Component {
     if (!realm) {
       console.warn('Realm could not be found: ' + this.props.realm + '. This generally indicates a bug.');
     }
+
+    return realm;
+  }
+
+  async getRealmSlug() {
+      const realm = await this.findRealm();
+      return realm ? realm.slug : this.props.realm;
+  }
+
+  async load(refresh = false) {
     this.setState({
-      realmSlug: realm ? realm.slug : this.props.realm,
+      isLoading: true,
     });
 
+    const realm = await this.getRealmSlug();
+
     const urlEncodedName = encodeURIComponent(this.props.name);
-    const urlEncodedRealm = encodeURIComponent(this.state.realmSlug);
+    const urlEncodedRealm = encodeURIComponent(realm);
 
     return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
@@ -328,6 +336,7 @@ class Parses extends React.Component {
 
   render() {
     let errorMessage;
+    const characterRealm = !this.realmSlug ? this.props.realm : this.realmSlug;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
         <div style={{ padding: 20 }}>
@@ -359,9 +368,9 @@ class Parses extends React.Component {
       );
     }
 
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
+    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${characterRealm}/${this.props.name}`;
     if (this.props.region === 'CN') {
-      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.state.realmSlug}/${this.props.name}`;
+      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${characterRealm}/${this.props.name}`;
     }
 
     return (
@@ -465,7 +474,7 @@ class Parses extends React.Component {
             </div>
             <div>
               <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${characterRealm}/${this.props.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -484,7 +493,7 @@ class Parses extends React.Component {
               </a>
               {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
+                  href={`https://www.wipefest.net/character/${this.props.name}/${characterRealm}/${this.props.region}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
