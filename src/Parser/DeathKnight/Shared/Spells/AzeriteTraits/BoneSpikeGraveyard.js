@@ -11,7 +11,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
  * Healing and Damage have their own events, no other tracking necessary
  * Shared between Blood and Unholy
  * 
- * Example Report: https://www.warcraftlogs.com/reports/bnQ4fpjv8hz9mJY3/#fight=1&source=9&translate=true
+ * Example Report: https://www.warcraftlogs.com/reports/3H7pWyrJDnLB16jT/#fight=19&source=9
  */
 class BoneSpikeGraveyard extends Analyzer{
 
