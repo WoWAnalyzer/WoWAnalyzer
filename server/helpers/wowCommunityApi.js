@@ -9,7 +9,7 @@ const availableRegions = {
 
 export function fetchCharacter(region, realm, name, fields) {
   region = region.toLowerCase();
-  if (!Object.keys(availableRegions).includes(region)) {
+  if (!availableRegions[region]) {
     throw new Error('Region not recognized.');
   }
 

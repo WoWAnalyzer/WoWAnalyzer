@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { appendReportHistory } from 'Interface/actions/reportHistory';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 import fetchWcl from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+
+import { appendReportHistory } from 'Interface/actions/reportHistory';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import ArmoryLogo from 'Interface/Images/Armory-logo.png';
@@ -20,7 +22,6 @@ import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TY
 
 import './Parses.css';
 import ParsesList from './ParsesList';
-import { compose } from '../../../node_modules/redux';
 
 const loadRealms = () => import('common/REALMS').then(exports => exports.default);
 
