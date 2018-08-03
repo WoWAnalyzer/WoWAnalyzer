@@ -60,6 +60,8 @@ import Healthstone from './Modules/Items/Healthstone';
 import HealthPotion from './Modules/Items/HealthPotion';
 import CombatPotion from './Modules/Items/CombatPotion';
 
+import ArcaneTorrent from './Modules/Racials/BloodElf/ArcaneTorrent';
+
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
 import VelensFutureSight from './Modules/Items/Legion/Legendaries/VelensFutureSight';
@@ -211,6 +213,9 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
 
+    // Racials
+    arcaneTorrent: ArcaneTorrent,
+
     // Items:
     // Legendaries:
     prydazXavaricsMagnumOpus: PrydazXavaricsMagnumOpus,
@@ -324,9 +329,6 @@ class CombatLogParser {
   }
   get fightId() {
     return this.fight.id;
-  }
-  get race() {
-    return this.characterProfile ? this.characterProfile.race : null;
   }
 
   _timestamp = null;

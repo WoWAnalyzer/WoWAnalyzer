@@ -1,4 +1,4 @@
-import indexById from './indexById';
+import indexById from 'common/indexById';
 
 import ROLES from './ROLES';
 import PRIMARY_STATS from './PRIMARY_STATS';

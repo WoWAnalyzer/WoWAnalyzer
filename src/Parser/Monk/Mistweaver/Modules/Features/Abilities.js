@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
 
       // Utility Spells
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
+        spell: SPELLS.ARCANE_TORRENT_MANA1,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
         isUndetectable: true,

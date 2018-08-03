@@ -1,4 +1,4 @@
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';

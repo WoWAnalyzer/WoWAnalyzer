@@ -16,7 +16,7 @@ import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapp
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
 
 class Checklist extends CoreChecklist {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

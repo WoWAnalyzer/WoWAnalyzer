@@ -7,7 +7,7 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import Contributor from 'Interface/Contributor/Button';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
 import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';

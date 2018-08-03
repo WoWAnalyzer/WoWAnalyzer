@@ -254,7 +254,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
+        spell: SPELLS.ARCANE_TORRENT_MANA1,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
         gcd: null,

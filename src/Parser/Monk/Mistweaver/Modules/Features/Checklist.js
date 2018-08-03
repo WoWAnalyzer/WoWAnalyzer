@@ -99,8 +99,8 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ARCANE_TORRENT_MANA,
-            when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
+            spell: SPELLS.ARCANE_TORRENT_MANA1,
+            when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id),
           }),
         ];
       },

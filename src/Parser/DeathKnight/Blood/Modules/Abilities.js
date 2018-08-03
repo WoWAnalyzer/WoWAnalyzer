@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
+        spell: SPELLS.ARCANE_TORRENT_MANA1,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,

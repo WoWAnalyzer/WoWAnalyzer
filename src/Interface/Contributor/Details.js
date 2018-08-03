@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
