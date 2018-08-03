@@ -1,7 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 
-import CoreChecklist, { Rule } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
@@ -10,6 +13,13 @@ import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeC
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+
+// Buffs-Debuffs
+import SpiritBombFrailtyDebuff from '../Talents/SpiritBombFrailtyDebuff';
+import VoidReaverDebuff from '../Talents/VoidReaverDebuff';
+
+// Talents
+import SpiritBombSoulConsume from '../Talents/SpiritBombSoulConsume';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 
@@ -22,6 +32,14 @@ class Checklist extends CoreChecklist {
     prePotion: PrePotion,
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
+
+    // Buffs-Debuffs
+    spiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    voidReaverDebuff: VoidReaverDebuff,
+
+    // Talents
+    spiritBombSoulConsume: SpiritBombSoulConsume,
+
   };
 
   rules = [
@@ -37,6 +55,10 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.FRACTURE_TALENT,
             when: this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.SIGIL_OF_FLAME_CONCENTRATED,
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
@@ -58,12 +80,32 @@ class Checklist extends CoreChecklist {
       description: 'It is important to maintain these as they contribute a large amount to your DPS and HPS.',
       requirements: () => {
         return [
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> Uptime</React.Fragment>,
+            when: this.selectedCombatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id),
+            check: () => this.voidReaverDebuff.uptimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> Uptime</React.Fragment>,
+            when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id),
+            check: () => this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: 'Use your short defensive/healing cooldowns',
+      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+      requirements: () => {
+        return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIGIL_OF_FLAME_CONCENTRATED,
+            spell: SPELLS.DEMON_SPIKES,
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DEMON_SPIKES,
+            spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
+            when: this.selectedCombatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id),
             onlyWithSuggestion: false,
           }),
         ];
@@ -71,7 +113,7 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
-      name: 'Use your defensive cooldowns',
+      name: 'Use your long defensive cooldowns',
       description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
       requirements: () => {
         return [
@@ -81,11 +123,6 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.METAMORPHOSIS_TANK,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
-            when: this.selectedCombatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id),
             onlyWithSuggestion: false,
           }),
         ];

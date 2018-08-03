@@ -21,11 +21,11 @@ import Checklist from './Modules/Features/Checklist';
 import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
 
-import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
+import SpiritBombFrailtyDebuff from './Modules/Talents/SpiritBombFrailtyDebuff';
 import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
-import SoulBarrier from './Modules/Talent/SoulBarrier';
-import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
-import VoidReaverDebuff from './Modules/Talent/VoidReaverDebuff';
+import SoulBarrier from './Modules/Talents/SoulBarrier';
+import SpiritBombSoulConsume from './Modules/Talents/SpiritBombSoulConsume';
+import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
 
 
 
