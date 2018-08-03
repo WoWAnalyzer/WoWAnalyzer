@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 class VoidReaverDebuff extends Analyzer {
-
+//WCL: https://www.warcraftlogs.com/reports/LaMfJFHk2dY98gTj/#fight=20&type=auras&spells=debuffs&hostility=1&ability=268178
   static dependencies = {
     enemies: Enemies,
   };

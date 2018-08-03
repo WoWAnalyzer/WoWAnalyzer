@@ -44,7 +44,7 @@ class SoulFragmentsConsume extends Analyzer {
       this.totalSoulsConsumed += 1;
       }
     }
-  
+
   soulCleaveSouls() {
     if(this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
       return 0;
