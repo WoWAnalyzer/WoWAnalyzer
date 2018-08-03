@@ -23,9 +23,9 @@ const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps,
             <div className="slabel">
               {label || <SpellLink id={trait} icon={false} />}
             </div>
-            <div className="value">
+            <dfn data-tip={tooltip} className="value">
               {value}
-            </div>
+            </dfn>
           </div>
         </div>
       </div>
