@@ -70,7 +70,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: MAIN_TAB.CHECKLIST,
+      mainTab: !props.parser._modules.checklist ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -255,7 +255,15 @@ class Results extends React.PureComponent {
                 <div>
                   <ResultsWarning warning={this.warning} />
                   {this.state.mainTab === MAIN_TAB.CHECKLIST && (
-                    modules.checklist.render()
+                    modules.checklist ? (
+                      modules.checklist.render()
+                    ) : (
+                      <div className="item-divider" style={{ padding: '10px 22px' }}>
+                        <div className="alert alert-danger">
+                          The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+                        </div>
+                      </div>
+                    )
                   )}
                   {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
                     <SuggestionsTab issues={results.issues} />

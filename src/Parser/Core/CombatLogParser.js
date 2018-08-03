@@ -197,7 +197,6 @@ class CombatLogParser {
     characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
-    checklist: Checklist,
 
     encounterPanel: EncounterPanel,
     // Tabs
