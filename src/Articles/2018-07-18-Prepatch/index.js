@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-
-import RegularArticle from '../../RegularArticle';
+import RegularArticle from 'Interface/News/RegularArticle';
 
 import Header from './header.jpg';
 

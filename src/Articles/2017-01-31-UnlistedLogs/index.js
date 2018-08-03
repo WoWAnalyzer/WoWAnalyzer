@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from '../../RegularArticle';
+import RegularArticle from 'Interface/News/RegularArticle';
 
 export const title = "A note about unlisted logs";
 

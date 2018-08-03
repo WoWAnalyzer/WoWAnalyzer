@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
+import RegularArticle from 'Interface/News/RegularArticle';
 
-import RegularArticle from '../../RegularArticle';
 import FightDowntimeToggle from './FightDowntimeToggle.png';
 import ArgusBalance from './ArgusBalance.png';
 import ImonarTransition from './imonar-transition.gif';

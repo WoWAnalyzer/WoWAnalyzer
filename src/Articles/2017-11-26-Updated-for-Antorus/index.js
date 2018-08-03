@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
 import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
-import ImageArticle from '../../ImageArticle';
+import ImageArticle from 'Interface/News/ImageArticle';
 
 export default (
   <ImageArticle title="Updated for Antorus" publishedAt="2017-12-24" publishedBy={Zerotorescue} image={AntorusImage} style={{ paddingTop: 350 }}>

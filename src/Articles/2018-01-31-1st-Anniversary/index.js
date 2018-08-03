@@ -12,8 +12,8 @@ import Contributor from 'Interface/Contributor/Button';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
 import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
 import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
+import RegularArticle from 'Interface/News/RegularArticle';
 
-import RegularArticle from '../../RegularArticle';
 import Timeline from './Timeline';
 import Item from './TimelineItem';
 import Image from './TimelineItemImage';
