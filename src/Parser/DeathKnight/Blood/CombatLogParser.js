@@ -56,6 +56,7 @@ import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
 // Azerite Traits
 import BonesOfTheDamned from './Modules/Spells/AzeriteTraits/BonesOfTheDamned';
+import BoneSpikeGraveyard from '../Shared/Spells/AzeriteTraits/BoneSpikeGraveyard';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -120,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     bonesOfTheDamned: BonesOfTheDamned,
+    boneSpikeGraveyard: BoneSpikeGraveyard,
   };
 }
 

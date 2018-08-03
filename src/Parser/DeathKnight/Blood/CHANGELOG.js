@@ -8,7 +8,12 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-08-1'),
+    date: new Date('2018-08-03'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BONE_SPIKE_GRAVEYARD.id} />-Module.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-08-01'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.BONES_OF_THE_DAMNED.id} />-Module.</React.Fragment>,
     contributors: [joshinator],
   },
