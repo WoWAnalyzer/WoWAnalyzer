@@ -16,6 +16,9 @@ export { performanceForThresholds };
 export { default as Rule } from './Rule';
 export { default as Requirement } from './Requirement';
 
+/**
+ * @deprecated Use Checklist2 instead.
+ */
 class Checklist extends Analyzer {
   rules = [];
 
