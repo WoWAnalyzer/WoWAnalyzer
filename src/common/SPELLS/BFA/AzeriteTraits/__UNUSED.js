@@ -2,7 +2,7 @@
 // When implementing a trait beware the ids below can be any of: trait id, buff id, heal event id, damage event id, other
 // This file isn't included in the SPELLS object, you need to move spells out of this file to implement them.
 // I hope debugging the fact these aren't implemented will be quicker than debugging that the spell id listed here doesn't match the spell id in logs.
-
+ 
 export default {
   ABLATIVE_SHIELDING: {
     id: 271540,
@@ -188,11 +188,6 @@ export default {
     id: 273136,
     name: 'Critical Flash',
     icon: 'spell_holy_flashheal',
-  },
-  CRYSTALLINE_CARAPACE: {
-    id: 271536,
-    name: 'Crystalline Carapace',
-    icon: 'inv_shield_33',
   },
   DANCE_OF_DEATH: {
     id: 274441,
