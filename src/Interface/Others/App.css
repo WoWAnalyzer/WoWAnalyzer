@@ -363,6 +363,9 @@ dfn[data-tip] {
   border-bottom: 1px dashed currentColor;
   cursor: help;
 }
+code {
+  border-radius: 1px;
+}
 
 .small {
   font-size: 1em;

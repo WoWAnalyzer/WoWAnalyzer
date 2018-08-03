@@ -6,6 +6,13 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Warning from 'common/Alert/Warning';
 
+import EqualShare from './EqualShare.png';
+import FairShare from './FairShare.png';
+import OptionalDRs from './OptionalDRs.png';
+import DevotionAuraTooltip from './DevotionAuraTooltip.png';
+import DevotionAuraPassiveDR from './DevotionAuraPassiveDR.png';
+import DevotionAuraPassiveDRTotal from './DevotionAuraPassiveDRTotal.png';
+
 export default (
   <RegularArticle title="Analyzing Devotion Aura's DRPS" publishedAt="2018-08-03" publishedBy={Zerotorescue}>
     There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. In this article we take a close look at how the damage reduced by <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> is analyzed. The first part of this article is a general explanation of how different damage reductions can be analyzed. The second part will be specifically about how the DRPS value for <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> is established.<br /><br />
@@ -30,7 +37,7 @@ export default (
 
     This method is illustrated in the image below.<br /><br />
 
-    <img src="https://user-images.githubusercontent.com/4565223/43356596-caed9382-9273-11e8-94eb-c109bb442298.png" alt="Equal share damage reduction calculation" /><br /><br />
+    <img src={EqualShare} alt="Equal share damage reduction calculation" /><br /><br />
 
     <h2>Fair share</h2>
 
@@ -44,7 +51,7 @@ export default (
 
     This method is illustrated in the image below. Notice how the actual contribution of Devotion Aura is much smaller while the total damage reduced is the same.<br /><br />
 
-    <img src="https://user-images.githubusercontent.com/4565223/43354049-2cc22de0-9245-11e8-80db-9a998cf2c396.png" alt="Fair share damage reduction calculation" /><br /><br />
+    <img src={FairShare} alt="Fair share damage reduction calculation" /><br /><br />
 
     <h2>Optional DRs</h2>
 
@@ -54,13 +61,13 @@ export default (
 
     This method is illustrated in the image below.<br /><br />
 
-    <img src="https://user-images.githubusercontent.com/4565223/43354048-2ca6d680-9245-11e8-9751-5f5fd14b844a.png" alt="Optional damage reduction calculation" /><br /><br />
+    <img src={OptionalDRs} alt="Optional damage reduction calculation" /><br /><br />
 
     The big advantage of this approach is that it works under the assumption that all other DR buffs are out of your control and would have been there regardless. This is great for temporary or optional damage reduction effects such as Devotion Aura or <SpellLink id={SPELLS.DIVINE_PROTECTION.id} /> as it perfectly isolates their value to show how much it was worth. It reveals how much effective damage reduction you would lose out on if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that it discourages stacking DRs because the DR under analysis will get a low value out of it.<br /><br />
 
     <h1>Devotion Aura damage reduction analysis</h1>
 
-    <a href="https://wowdb.com/spells/183425-devotion-aura"><img src="https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png" alt="Devotion Aura tooltip" /></a><br /><br />
+    <a href="https://wowdb.com/spells/183425-devotion-aura"><img src={DevotionAuraTooltip} alt="Devotion Aura tooltip" /></a><br /><br />
 
     To analyze Devotion Aura we use the <i>optional DRs</i> method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the talent at all, or maybe activate Aura Mastery at another time. For example you wouldn't change your <SpellLink id={SPELLS.DIVINE_PROTECTION.id} /> cast based on having slightly more or less Armor, and you probably would have cast <SpellLink id={SPELLS.DIVINE_PROTECTION.id} /> regardless of being affected by Devotion Aura.<br /><br />
 
@@ -70,11 +77,11 @@ export default (
 
     The Devotion Aura passive scales based on the amount of allies within range. The scaling is asymptotic to 3%, with the formula to calculate the current damage reduction being <code>MAX(3%, 2.25% + 7.75% / players)</code>. The damage reduction per player is illustrated in the graph below (<a href="https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md">source</a>).<br /><br />
 
-    <img src="https://user-images.githubusercontent.com/4565223/43359142-1550084a-929e-11e8-97fe-c658279244e8.png" alt="Passive damage reduction per player" /><br /><br />
+    <img src={DevotionAuraPassiveDR} alt="Passive damage reduction per player" /><br /><br />
 
     Because of the way the passive scales, its total power is increased as more allies are in range. For example when there are 5 players in range of the aura, each player will have a damage reduction of 3.8%, which comes down to a total damage reduction of 19%. The graph below illustrates the total damage reduction for the amount of players in range.<br /><br />
 
-    <img src="https://user-images.githubusercontent.com/4565223/43359144-16f16de2-929e-11e8-81db-5ad85f864625.png" alt="Passive damage reduction total (sum of all players)" /><br /><br />
+    <img src={DevotionAuraPassiveDRTotal} alt="Passive damage reduction total (sum of all players)" /><br /><br />
 
     To account for this in the analysis of the passive, the calculated damage reduction is based on the total damage reduction of the passive to all affected players at that moment. With everything taken into account, the passive's damage taken is calculated with the formula <code>actual damage taken / total passive damage reduction * total passive damage reduction</code> where <i>actual damage taken</i> is the damage taken by the Paladin.<br /><br />
 
