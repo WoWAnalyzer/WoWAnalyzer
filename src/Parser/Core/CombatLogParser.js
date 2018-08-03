@@ -42,7 +42,6 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
-import Checklist from './Modules/Features/Checklist';
 
 import EncounterPanel from './Modules/Features/EncounterPanel';
 
