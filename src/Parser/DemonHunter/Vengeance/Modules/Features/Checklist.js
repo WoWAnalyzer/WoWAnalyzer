@@ -26,6 +26,11 @@ import SoulBarrier from '../Talents/SoulBarrier';
 //Spells
 import SoulCleaveSoulsConsumed from '../Spells/SoulCleaveSoulsConsumed';
 
+// Resources
+import PainDetails from '../Pain/PainDetails';
+import SoulsOvercap from '../Statistics/SoulsOvercap';
+
+
 import AlwaysBeCasting from './AlwaysBeCasting';
 
 class Checklist extends CoreChecklist {
@@ -48,6 +53,10 @@ class Checklist extends CoreChecklist {
 
     // Spells
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
+
+    // Resources
+    painDetails: PainDetails,
+    soulsOvercap: SoulsOvercap,
 
   };
 
@@ -114,7 +123,7 @@ class Checklist extends CoreChecklist {
 
     new Rule({
       name: 'Use your long defensive cooldowns',
-      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+      description: 'Use these to mitigate large incoming damage or in emergency situations.',
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -143,6 +152,23 @@ class Checklist extends CoreChecklist {
             name: <React.Fragment><SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> Uptime</React.Fragment>,
             when: this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id),
             check: () => this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: 'Resource Efficiency',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <React.Fragment>Pain Wasted</React.Fragment>,
+            check: () => this.painDetails.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> Overcap</React.Fragment>,
+            when: !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id),
+            check: () => this.soulsOvercap.suggestionThresholdsEfficiency,
           }),
         ];
       },
