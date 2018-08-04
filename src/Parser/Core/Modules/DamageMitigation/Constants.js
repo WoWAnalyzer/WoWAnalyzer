@@ -63,6 +63,16 @@ export const BUFFS = [
     name: SPELLS.FORTIFYING_BREW.name,
     mitigation: 0.2,
   },
+  {
+    id: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
+    name: SPELLS.FORTIFYING_BREW_BRM_BUFF.name,
+    mitigation: 0.2,
+  },
+  {
+    id: SPELLS.DAMPEN_HARM_TALENT.id,
+    name: SPELLS.DAMPEN_HARM_TALENT.name,
+    mitigation: 0.2, //between 0.2 and 0.5 depending on the size of the hit
+  },
   // Paladin
   {
     id: SPELLS.DIVINE_PROTECTION.id,
