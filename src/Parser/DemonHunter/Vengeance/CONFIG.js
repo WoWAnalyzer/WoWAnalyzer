@@ -4,7 +4,6 @@ import { Mamtooth } from 'CONTRIBUTORS';
 import SPECS from 'Game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
