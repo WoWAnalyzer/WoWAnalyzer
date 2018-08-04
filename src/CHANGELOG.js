@@ -9,12 +9,7 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
-    date: new Date('2018-08-01'),
-    changes: 'Added a damage mitigation tab.',
-    contributors: [Gebuz],
-  },
-  {
-    date: new Date('2018-07-24'),
+    date: new Date('2018-06-24'),
     changes: 'Added tracking of potion cooldowns and split Healthstone into Healthstone and health pots.',
     contributors: [Gebuz],
   },
