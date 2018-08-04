@@ -16,7 +16,7 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
