@@ -102,6 +102,15 @@ export const BUFFS = [
     mitigation: 0.35,
     school: [MAGIC_SCHOOLS.ids.PHYSICAL],
   },
+  {
+    id: SPELLS.MASTERY_DIVINE_BULWARK.id,
+    name: SPELLS.MASTERY_DIVINE_BULWARK.name,
+    buffId: SPELLS.CONSECRATION_BUFF.id,
+    mitigation: (armor, versatility, mastery) => {
+      return mastery;
+    },
+    enabled: combatant => combatant.specId === SPECS.PROTECTION_PALADIN.id,
+  },
   // Priest
   {
     id: SPELLS.DISPERSION.id,
@@ -285,7 +294,7 @@ export const PASSIVES = [
     },
   },
   {
-    id: -1004,
+    id: -1003,
     name: 'Avoidance',
     mitigation: (armor, versatility, mastery, avoidance, combatant) => {
       return avoidance;
@@ -425,11 +434,4 @@ export const UNKNOWN =
 {
   id: -1000,
   name: 'Unknown',
-};
-
-// Protection Paladin and Destruction Warlock mastery reduces damage taken.
-export const MASTERY = 
-{
-  id: -1003,
-  name: 'Mastery',
 };
