@@ -29,6 +29,9 @@ import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
 import RuneTracker from './Modules/Features/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
+//Azerite Traits
+import BoneSpikeGraveyard from '../Shared/Spells/AzeriteTraits/BoneSpikeGraveyard';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -66,6 +69,8 @@ class CombatLogParser extends CoreCombatLogParser {
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
 
+    //AzeriteTraits
+    boneSpikeGraveyard: BoneSpikeGraveyard,
   };
 }
 

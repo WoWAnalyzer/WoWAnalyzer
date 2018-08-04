@@ -98,6 +98,7 @@ class AlwaysBeCasting extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
         label="Downtime"
@@ -126,8 +127,6 @@ class AlwaysBeCasting extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 
   get downtimeSuggestionThresholds() {
     return {

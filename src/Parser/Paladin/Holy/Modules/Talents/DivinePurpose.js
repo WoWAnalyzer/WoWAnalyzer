@@ -60,6 +60,7 @@ class DivinePurpose extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}
         value={(
           <span>
@@ -87,7 +88,6 @@ class DivinePurpose extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default DivinePurpose;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Chizu } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import Warning from 'common/Alert/Warning';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';

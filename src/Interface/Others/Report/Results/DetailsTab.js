@@ -13,7 +13,14 @@ class DetailsTab extends React.Component {
     makeTabUrl: PropTypes.func.isRequired,
   };
   render() {
-    const { tabs, selected, makeTabUrl } = this.props;
+    const { tabs: unsortedTabs, selected, makeTabUrl } = this.props;
+
+    const tabs = unsortedTabs.sort((a, b) => {
+      const aOrder = a.order !== undefined ? a.order : 100;
+      const bOrder = b.order !== undefined ? b.order : 100;
+
+      return aOrder - bOrder;
+    });
 
     const tabUrl = selected || tabs[0].url;
     const activeTab = tabs.find(tab => tab.url === tabUrl) || tabs[0];
@@ -23,22 +30,15 @@ class DetailsTab extends React.Component {
         <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
           <div className="navigation item-divider">
             <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {tabs
-                .sort((a, b) => {
-                  const aOrder = a.order !== undefined ? a.order : 100;
-                  const bOrder = b.order !== undefined ? b.order : 100;
-
-                  return aOrder - bOrder;
-                })
-                .map(tab => (
-                  <Link
-                    key={tab.title}
-                    to={makeTabUrl(tab.url)}
-                    className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
-                  >
-                    {tab.title}
-                  </Link>
-                ))}
+              {tabs.map(tab => (
+                <Link
+                  key={tab.title}
+                  to={makeTabUrl(tab.url)}
+                  className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
+                >
+                  {tab.title}
+                </Link>
+              ))}
             </div>
           </div>
           <div>

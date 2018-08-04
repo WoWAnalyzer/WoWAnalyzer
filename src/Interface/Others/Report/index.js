@@ -32,7 +32,7 @@ import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
-const PROGRESS_STEP1_INITIALIZATION = 0.02;
+const PROGRESS_STEP1_INITIALIZATION = 0.01;
 const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
@@ -108,35 +108,37 @@ class Report extends React.Component {
 
     this.reset();
     this.props.setReportProgress(0);
+    this.startFakeNetworkProgress();
     const config = this.getConfig(combatant.specID);
+    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
+    let parserClass;
+    let characterProfile;
+    await Promise.all([
+      config.parser().then(result => {
+        parserClass = result;
+      }),
+      this.fetchCharacter(player.guid, exportedCharacter).then(data => {
+        this.setState({
+          characterProfile: data,
+        });
+        characterProfile = data;
+      }),
+    ]);
+
     timeAvailable && console.time('full parse');
-    const parserClass = await config.parser();
-    const parser = new parserClass(report, player, fight, combatants);
+    const parser = new parserClass(report, player, fight, combatants, characterProfile);
     await this.setStatePromise({
       config,
       parser,
     });
-    this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION);
     await this.parse(parser, report, player, fight);
   }
   async parse(parser, report, player, fight) {
     this._jobId += 1;
     const jobId = this._jobId;
     let events;
-    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     try {
-      this.startFakeNetworkProgress();
-      await Promise.all([
-        this.fetchCharacter(player.guid, exportedCharacter).then(data => {
-          this.setState({
-            characterProfile: data,
-          });
-          parser.characterProfile = data;
-        }),
-        fetchEvents(report.code, fight.start_time, fight.end_time, player.id).then(data => {
-          events = data;
-        }),
-      ]);
+      events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
       this.stopFakeNetworkProgress();

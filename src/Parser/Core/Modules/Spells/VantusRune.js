@@ -85,6 +85,7 @@ class VantusRune extends Analyzer {
 
     return (
       <SmallStatisticBox
+        position={STATISTIC_ORDER.UNIMPORTANT()}
         icon={(
           <SpellLink id={this.activeRune.ability.guid} icon={false}>
             <Icon icon={this.activeRune.ability.abilityIcon} />
@@ -96,7 +97,6 @@ class VantusRune extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default VantusRune;

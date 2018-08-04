@@ -29,13 +29,13 @@ class LightOfDawn extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(60)}
         icon={<SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
         value={`${((this.heals / this.casts) || 0).toFixed(2)} players`}
         label="Average hits per cast"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(60);
 }
 
 export default LightOfDawn;

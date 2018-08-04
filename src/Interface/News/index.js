@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import articles from './Articles';
-import ArticleLoader from './ArticleLoader';
+import articles from 'Articles';
 
+import ArticleLoader from './ArticleLoader';
 import './News.css';
 
 class News extends React.PureComponent {

@@ -42,10 +42,10 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.REGROWTH.id]: { // TODO how handle direct vs HoT? Entries for direct for now.
+  [SPELLS.REGROWTH.id]: {
     int: true,
     crit: true,
-    hasteHpm: false,
+    hasteHpm: true,
     hasteHpct: true,
     mastery: true,
     masteryStack: true,

@@ -4,7 +4,7 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 
 const PERCENT_OVERCAP_ALLOWED = 0.1;

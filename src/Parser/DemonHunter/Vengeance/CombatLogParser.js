@@ -16,6 +16,8 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
+import Checklist from './Modules/Features/Checklist';
+
 import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
 
@@ -28,6 +30,7 @@ import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
+import SoulCleaveSoulsConsumed from './Modules/Spells/SoulCleaveSoulsConsumed';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -46,9 +49,10 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
+    checklist: Checklist,
 
     //Resource Tracker
-    painTracker :PainTracker,
+    painTracker: PainTracker,
     painDetails: PainDetails,
 
     //Talents
@@ -60,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
+    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
 
     //Stats
     soulsOvercap: SoulsOvercap,

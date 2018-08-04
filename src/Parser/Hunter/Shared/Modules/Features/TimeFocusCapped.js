@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 

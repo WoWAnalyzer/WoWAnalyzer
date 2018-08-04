@@ -730,8 +730,11 @@ export default {
     name: 'Wing Clip',
     icon: 'ability_rogue_trip',
   },
-
-  //Survival talent buff/debuffs:
+  MONGOOSE_BITE_TALENT_AOTE: {
+    id: 265888,
+    name: "Mongoose Bite",
+    icon: "ability_hunter_mongoosebite",
+  },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
     name: 'Steel Trap',
@@ -751,6 +754,31 @@ export default {
     id: 268552,
     name: 'Viper\'s Venom',
     icon: 'ability_hunter_potentvenom',
+  },
+  WILDFIRE_BOMB_DOT: {
+    id: 269747,
+    name: 'Wildfire Bomb',
+    icon: 'inv_wildfirebomb',
+  },
+  WILDFIRE_BOMB_IMPACT: {
+    id: 265157,
+    name: 'Wildfire Bomb',
+    icon: 'inv_wildfirebomb',
+  },
+  CHAKRAMS_TO_MAINTARGET: {
+    id: 259398,
+    name: 'Chakrams',
+    icon: 'ability_glaivetoss',
+  },
+  CHAKRAMS_BACK_FROM_MAINTARGET: {
+    id: 267666,
+    name: 'Chakrams',
+    icon: 'ability_glaivetoss',
+  },
+  CHAKRAMS_NOT_MAINTARGET: {
+    id: 259396,
+    name: 'Chakrams',
+    icon: 'ability_glaivetoss',
   },
 
   //Shared BFA buffs/debuffs/misc

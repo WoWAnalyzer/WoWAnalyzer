@@ -9,6 +9,16 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-08-04'),
+    changes: 'Account for the 1% Critical Strike racial from Blood Elfs.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-08-03'),
+    changes: <React.Fragment>Added an <SpellLink id={SPELLS.ARCANE_TORRENT_MANA1.id} /> module that works for all Blood Elfs.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-24'),
     changes: 'Added tracking of potion cooldowns and split Healthstone into Healthstone and health pots.',
     contributors: [Gebuz],
