@@ -3,6 +3,8 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import SPECS from 'Game/SPECS';
 import RACES from 'Game/RACES';
 
+import AOE_TYPE from './AOE_TYPE';
+
 // Damage reductions that are buffs on the player
 export const BUFFS = [
   // Death Knight
@@ -20,7 +22,7 @@ export const BUFFS = [
   {
     id: SPELLS.BLUR_BUFF.id,
     name: SPELLS.BLUR_BUFF.name,
-    mitigation: (armor, versatility, mastery, stamina, combatant) => {
+    mitigation: (armor, versatility, mastery, avoidance, combatant) => {
       return combatant.hasTalent(SPELLS.DESPERATE_INSTINCTS_TALENT.id) ? 0.5 : 0.35;
     },
   },
@@ -122,17 +124,33 @@ export const BUFFS = [
     mitigation: 0.1,
   },
   {
-    id: SPELLS.RENEW.id,
-    name: SPELLS.RENEW.name,
+    id: SPELLS.PERSEVERANCE_TALENT.id,
+    name: SPELLS.PERSEVERANCE_TALENT.name,
+    buffId: SPELLS.RENEW.id,
     mitigation: 0.1,
     enabled: combatant => combatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id),
   },
   {
-    id: SPELLS.ATONEMENT_BUFF.id,
-    name: SPELLS.ATONEMENT_BUFF.name,
+    id: SPELLS.LENIENCE_TALENT.id,
+    name: SPELLS.LENIENCE_TALENT.name,
+    buffId: SPELLS.ATONEMENT_BUFF.id,
     mitigation: 0.03,
   },
   // Rogue
+  {
+    id: SPELLS.FEINT.id,
+    name: SPELLS.FEINT.name,
+    mitigation: 0.4,
+    aoe: AOE_TYPE.AOE_ONLY,
+  },
+  {
+    id: SPELLS.ELUSIVENESS_TALENT.id,
+    name: SPELLS.ELUSIVENESS_TALENT.name,
+    buffId: SPELLS.FEINT.id,
+    mitigation: 0.3,
+    enabled: combatant => combatant.hasTalent(SPELLS.ELUSIVENESS_TALENT.id),
+    aoe: AOE_TYPE.NON_AOE_ONLY,
+  },
   // Shaman  
   {
     id: SPELLS.ASTRAL_SHIFT.id,
@@ -172,8 +190,9 @@ export const BUFFS = [
     mitigation: 0.3,
   },
   {
-    id: SPELLS.ENRAGE.id,
-    name: SPELLS.ENRAGE.name,
+    id: SPELLS.WARPAINT_TALENT.id,
+    name: SPELLS.WARPAINT_TALENT.name,
+    buffId: SPELLS.ENRAGE.id,
     mitigation: 0.1,
     enabled: combatant => combatant.hasTalent(SPELLS.WARPAINT_TALENT.id),
   },
@@ -214,8 +233,9 @@ export const DEBUFFS = [
   },
   // Druid
   {
-    id: SPELLS.THRASH_BEAR_DOT.id,
-    name: SPELLS.THRASH_BEAR_DOT.name,
+    id: SPELLS.REND_AND_TEAR_TALENT.id,
+    name: SPELLS.REND_AND_TEAR_TALENT.name,
+    buffId: SPELLS.THRASH_BEAR_DOT.id,
     mitigation: 0.02,
     enabled: combatant => combatant.hasTalent(SPELLS.REND_AND_TEAR_TALENT.id),
   },
@@ -264,6 +284,14 @@ export const PASSIVES = [
       return versatility / 2;
     },
   },
+  {
+    id: -1004,
+    name: 'Avoidance',
+    mitigation: (armor, versatility, mastery, avoidance, combatant) => {
+      return avoidance;
+    },
+    aoe: AOE_TYPE.AOE_ONLY,
+  },
   // Death Knight
   // Demon Hunter
   {
@@ -294,15 +322,15 @@ export const PASSIVES = [
   // Paladin
   // Priest
   // Rogue
-  // Shaman  
+  // Shaman
   // Warlock
   // Warrior
   // Racials
   {
     id: SPELLS.RUGGED_TENACITY.id,
     name: SPELLS.RUGGED_TENACITY.name,
-    mitigation: (armor, versatility, mastery, stamina, combatant) => {
-      return 0; //stamina * 0.0003 * 20; // Source: http://www.wowhead.com/spell=255659/rugged-tenacity
+    mitigation: (armor, versatility, mastery, avoidance, combatant) => {
+      return 0; // Need to figure out how this works. Likely works like block.
     },
     enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.HighmountainTauren.id) : false,
   },
@@ -404,11 +432,4 @@ export const MASTERY =
 {
   id: -1003,
   name: 'Mastery',
-};
-
-// Avoidance needs a whitelist.
-export const AVOIDANCE = 
-{
-  id: -1004,
-  name: 'Avoidance',
 };

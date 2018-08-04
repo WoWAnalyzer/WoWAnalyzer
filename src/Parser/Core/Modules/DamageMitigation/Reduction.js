@@ -11,6 +11,10 @@ class Reduction {
      */
     name: PropTypes.string.isRequired,
     /**
+     * The buff ID. Only needed if the buff ID is different from the ID that you want to show.
+     */
+    buffId: PropTypes.number,
+    /**
      * The mitigation provided by the damage reduction. This can be a function for more complicated calls or even to check for buffs. Parameters provided: `selectedCombatant`, `armor`.
      */
     mitigation: PropTypes.oneOfType([
@@ -30,12 +34,17 @@ class Reduction {
     school: PropTypes.arrayOf(
       PropTypes.number,
     ),
+    /**
+     * Whether the reduction works for only AOE, only non AOE or both. Defaults to both.
+     */
+    aoe: PropTypes.object,
   };
 
   _owner = null;
 
   id = null;
   name = null;
+  buffId = null;
   // region mitigation
   _mitigation = null;
   /** @param {func|number|undefined} value */
@@ -48,7 +57,7 @@ class Reduction {
       return 0;
     }
     if (typeof this._mitigation === 'function') {
-      return this._mitigation.call(this._owner, this._owner.statTracker.currentArmorPercentage, this._owner.statTracker.currentVersatilityPercentage, this._owner.statTracker.currentMasteryPercentage, this._owner.statTracker.currentStaminaRating, this._owner.selectedCombatant);
+      return this._mitigation.call(this._owner, this._owner.statTracker.currentArmorPercentage, this._owner.statTracker.currentVersatilityPercentage, this._owner.statTracker.currentMasteryPercentage, this._owner.statTracker.currentAvoidancePercentage, this._owner.selectedCombatant);
     }
     return this._mitigation;
   }
@@ -71,6 +80,7 @@ class Reduction {
   }
   // endregion
   school = null;
+  aoe = null;
  
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.

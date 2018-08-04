@@ -11,7 +11,9 @@ import DamageMitigationBreakdown from 'Interface/Others/DamageMitigationBreakdow
 
 
 import Reduction from './Reduction';
-import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Constants';
+import AOE_TYPE from './AOE_TYPE';
+import AOE_ABILITIES from './AOE_ABILITIES';
+import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Reductions';
 
 const debug = true;
 
@@ -111,10 +113,11 @@ class DamageMitigation extends Analyzer {
     // Check for active buffs.
     const activeBuffs = this.selectedCombatant.activeBuffs();
     activeBuffs.forEach(e => {
-      const buff = this.buffs.find(f => f.id === e.ability.guid);
-      if (buff) {
-        // Special check for Lenience.
-        if (buff.id === SPELLS.ATONEMENT_BUFF.id) {
+      const buffs = this.buffs.filter(f => f.buffId === e.ability.guid || (!f.buffId && f.id === e.ability.guid));
+      if (buffs.length > 0) {
+        buffs.forEach(buff => {
+          // Special check for Lenience.
+        if (buff.id === SPELLS.LENIENCE_TALENT.id) {
           // If the source combatant does not have the talent, it did not mitigate any damage.
           const players = this.combatants.players;
           const buffSource = players[Object.keys(players).find(f => players[f]._combatantInfo.sourceID === e.sourceID)];
@@ -124,21 +127,31 @@ class DamageMitigation extends Analyzer {
         }
         buff.stacks = e.stacks;
         mitigations.push(buff);
+        });
       }
     });
 
     // Check for active debuffs.
     const enemy = this.enemies.getEntity(event);
-    
     if (enemy) {
       const activeBuffs = enemy.activeBuffs();
       activeBuffs.forEach(e => {
-        const debuff = this.debuffs.find(f => f.id === e.ability.guid);
-        if (debuff) {
-          debuff.stacks = e.stacks;
-          mitigations.push(debuff);
+        const debuffs = this.debuffs.filter(f => f.buffId === e.ability.guid || (!f.buffId && f.id === e.ability.guid));
+        if (debuffs.length > 0) {
+          debuffs.forEach(debuff => {
+            debuff.stacks = e.stacks;
+            mitigations.push(debuff);
+          });
         }
       });
+    }
+
+    // Filter by AOE or non-AOE
+    const ability = AOE_ABILITIES.find(e => e.id === event.ability.guid);
+    if (ability && ((ability.hit && !event.tick) || (ability.tick && event.tick))) {
+      mitigations = mitigations.filter(e => e.aoe !== AOE_TYPE.NON_AOE_ONLY);
+    } else {
+      mitigations = mitigations.filter(e => e.aoe !== AOE_TYPE.AOE_ONLY);
     }
 
     // Filter by spell school.
@@ -187,7 +200,7 @@ class DamageMitigation extends Analyzer {
       // If the player is using a shield and the hit was fully absorbed, assume the remaining mitigation was block (Block amount is not in the log when the hit fully absorbed).
       if (event.amount === 0 && (this.selectedCombatant.specId === SPECS.PROTECTION_PALADIN.id || 
         this.selectedCombatant.specId === SPECS.PROTECTION_WARRIOR.id) ) {
-        debug && console.log('Removed ' + formatNumber(mitigated * unknown) + ' Damage mitigation assuming it was blocked.')
+        debug && console.log('Removed ' + formatNumber(mitigated * unknown) + ' Damage mitigation assuming it was blocked.');
         mitigated *= 1 - unknown;
         unknown = 0;
       }
