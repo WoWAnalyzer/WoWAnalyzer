@@ -302,7 +302,7 @@ export const PASSIVES = [
     id: SPELLS.RUGGED_TENACITY.id,
     name: SPELLS.RUGGED_TENACITY.name,
     mitigation: (armor, versatility, mastery, stamina, combatant) => {
-      return stamina * 0.0003 * 20; // Source: http://www.wowhead.com/spell=255659/rugged-tenacity
+      return 0; //stamina * 0.0003 * 20; // Source: http://www.wowhead.com/spell=255659/rugged-tenacity
     },
     enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.HighmountainTauren.id) : false,
   },

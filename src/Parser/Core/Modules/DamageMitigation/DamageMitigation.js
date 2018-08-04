@@ -1,7 +1,8 @@
 import React from 'react';
 import Tab from 'Interface/Others/Tab';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage, formatMilliseconds, formatNumber } from 'common/format';
+import SPECS from 'Game/SPECS';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
@@ -43,8 +44,8 @@ class DamageMitigation extends Analyzer {
       return;
     }
     console.log(this.mitigated);
-    console.log('Total: ' + this.totalMitigated + ', Checksum: ' + this.checkSum);
-    console.log('Unknown: ' + this.mitigated[this.unknownReduction.id].amount + ', ' + formatPercentage(this.mitigated[this.unknownReduction.id].amount / this.totalMitigated) + '%');
+    console.log('Total: ' + formatNumber(this.totalMitigated) + ', Checksum: ' + formatNumber(this.checkSum));
+    console.log('Unknown: ' + formatNumber(this.mitigated[this.unknownReduction.id].amount) + ', ' + formatPercentage(this.mitigated[this.unknownReduction.id].amount / this.totalMitigated) + '%');
   }
 
   get totalMitigated() {
@@ -67,9 +68,11 @@ class DamageMitigation extends Analyzer {
     this.debuffs = DEBUFFS.map(options => new this.constructor.REDUCTION_CLASS(this, options))
     .filter(e => e.enabled);
     // Passives
-    this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
     this.passives = PASSIVES.map(options => new this.constructor.REDUCTION_CLASS(this, options))
     .filter(e => e.enabled);
+    // Unknown
+    this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
+    this.initReduction(this.unknownReduction);
   }
 
   initReduction(reduction) {
@@ -98,13 +101,12 @@ class DamageMitigation extends Analyzer {
   }
 
   handleEvent(event) {
-    const mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
+    let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
-    debug && (this.checkSum += mitigated);
+    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
+    
     // Add passives.
     let mitigations = this.passives.slice();
-
-    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
 
     // Check for active buffs.
     const activeBuffs = this.selectedCombatant.activeBuffs();
@@ -160,11 +162,9 @@ class DamageMitigation extends Analyzer {
       console.log('Reductions: ' + names);
     }
 
-    if (mitigations.length === 0) { // No active mitigations.
-      if (!this.mitigated[this.unknownReduction.id]) {
-        this.initReduction(this.unknownReduction);
-      }
-      this.mitigated[this.unknownReduction.id].amount += mitigated;
+    // No active mitigations. Should never happen since vers is always included.
+    if (mitigations.length === 0) {
+      console.error('No mitigations found. This should never happen since versatility should always be included (even when you have 0).');
       return;
     }
 
@@ -173,18 +173,26 @@ class DamageMitigation extends Analyzer {
 
     const percentMitigated = mitigated/event.unmitigatedAmount;
     const multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
+    
+    let unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
 
+    // If the actual percent mitigated is less than expected, it is likely a physical ability not being reduced by armor.
     if (percentMitigated + BUFFER_PERCENT < multiplicative) {
       debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
     }
+
+    // If the actual percent mitigated is higher than expected, try to assign the unknown mitigation.
     if (percentMitigated - BUFFER_PERCENT > multiplicative) {
       debug && console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+      // If the player is using a shield and the hit was fully absorbed, assume the remaining mitigation was block (Block amount is not in the log when the hit fully absorbed).
+      if (event.amount === 0 && (this.selectedCombatant.specId === SPECS.PROTECTION_PALADIN.id || 
+        this.selectedCombatant.specId === SPECS.PROTECTION_WARRIOR.id) ) {
+        debug && console.log('Removed ' + formatNumber(mitigated * unknown) + ' Damage mitigation assuming it was blocked.')
+        mitigated *= 1 - unknown;
+        unknown = 0;
+      }
     }
-
-    const unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
-    if (!this.mitigated[this.unknownReduction.id]) {
-      this.initReduction(this.unknownReduction);
-    }
+    debug && (this.checkSum += mitigated);
     
     const additive = mitigations.reduce(additiveReducer, unknown);
     this.mitigated[this.unknownReduction.id].amount += unknown / additive * mitigated;
