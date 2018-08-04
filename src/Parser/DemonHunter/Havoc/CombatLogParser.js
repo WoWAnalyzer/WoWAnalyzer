@@ -9,7 +9,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import Momentum from './Modules/Spells/Momentum';
 import Nemesis from './Modules/Spells/Nemesis';
