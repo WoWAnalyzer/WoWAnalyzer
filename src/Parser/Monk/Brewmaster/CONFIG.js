@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { emallson } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
 

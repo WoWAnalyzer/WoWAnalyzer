@@ -102,6 +102,7 @@ class AoESpellEfficiency extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={this.ability.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
@@ -111,7 +112,6 @@ class AoESpellEfficiency extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default AoESpellEfficiency;

@@ -7,9 +7,26 @@ export default {
     name: "Volatile Blood Explosion",
     icon: "ability_deathwing_bloodcorruption_earth",
   },
+
+  TITANIC_OVERCHARGE: {
+    id: 278070,
+    name: "Titanic Overcharge",
+    icon: "inv_misc_enggizmos_06",
+  },
   //MOTHER
 
   //Fetid Devourer
+  FROTHING_RAGE: {
+    id: 278143,
+    name: "Frothing Rage",
+    icon: "ability_warrior_endlessrage",
+  },
+
+  FRENETIC_BLOW: {
+    id: 278148,
+    name: "Frenetic Blow",
+    icon: "spell_nature_shamanrage",
+  },
 
   //Zek'voz
 

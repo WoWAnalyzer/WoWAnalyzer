@@ -58,6 +58,7 @@ class HolyAvenger extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
         value={`≈${formatNumber(totalHealing / this.owner.fightDuration * 1000)} HPS`}
         label="Estimated healing"
@@ -73,7 +74,6 @@ class HolyAvenger extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default HolyAvenger;

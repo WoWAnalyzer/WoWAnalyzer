@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 
 export default [
   {

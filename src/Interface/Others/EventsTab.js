@@ -11,7 +11,7 @@ import InformationIcon from 'Interface/Icons/Information';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import Info from 'common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 

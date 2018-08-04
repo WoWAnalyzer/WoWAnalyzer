@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
 class DenialOfHalfGiants extends Analyzer {

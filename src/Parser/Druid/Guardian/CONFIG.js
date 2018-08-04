@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { faide } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 

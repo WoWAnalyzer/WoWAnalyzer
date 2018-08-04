@@ -20,4 +20,5 @@ export default [
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy
   SPELLS.FIRE_MINES.id, // Forgefiends fabricator
   SPELLS.FIRE_MINES_2.id, // Forgefiends fabricator
+  SPELLS.BIG_RED_RAYS.id, //Big Red Raygun active effect
 ];

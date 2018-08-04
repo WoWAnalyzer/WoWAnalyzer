@@ -44,6 +44,16 @@ class StatValues extends BaseHealerStatValues {
     return critChanceBreakdown;
   }
 
+  _hasteHpm(event, healVal) {
+    if (healVal.overheal) {
+      return 0;
+    }
+    if(event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
+      return 0;
+    }
+    return super._hasteHpm(event, healVal);
+  }
+
   _mastery(event, healVal) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Mastery only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.

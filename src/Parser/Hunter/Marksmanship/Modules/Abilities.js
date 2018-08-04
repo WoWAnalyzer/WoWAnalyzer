@@ -260,9 +260,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
+        gcd: {
+          base: 1500,
         },
       },
       {

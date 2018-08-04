@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import Contributor from 'Interface/Contributor/Button';
+import makeNewsUrl from 'Interface/News/makeUrl';
 
 class RegularArticle extends React.PureComponent {
   static propTypes = {
@@ -20,7 +23,7 @@ class RegularArticle extends React.PureComponent {
       <article>
         <div className="panel">
           <div className="panel-heading">
-            <h2>{title}</h2>
+            <Link to={makeNewsUrl(title)} className="hidden-link"><h2>{title}</h2></Link>
           </div>
           <div className="panel-body" style={bodyStyle}>
             {children}

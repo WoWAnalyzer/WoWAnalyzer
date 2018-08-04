@@ -143,7 +143,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    painCost: 43,
+    painCost: 30,
   },
   IMMOLATION_AURA: {
     id: 178740,

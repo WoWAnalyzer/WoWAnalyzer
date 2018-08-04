@@ -5,6 +5,7 @@ import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
@@ -12,9 +13,15 @@ const MS_BUFFER = 100;
 
 class SpiritBombSoulConsume extends Analyzer {
 
+  /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
+   as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
+   build meaning you want to consume souls in a way that boosts your dps. That means feeding the souls into spirit
+   bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
+   possible since it provides no extra dps.
+*/
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
   castTimestamp = 0;
@@ -67,6 +74,22 @@ class SpiritBombSoulConsume extends Analyzer {
 
   on_finished() {
     this.countHits();
+  }
+
+  suggestions(when) {
+    const totalGoodCasts = this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+    const totalCasts = Object.values(this.soulsConsumedByAmount).reduce((a, b) => a+b, 0);
+    const percentGoodCasts = totalGoodCasts / totalCasts;
+
+    when(percentGoodCasts).isLessThan(0.90)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls. </React.Fragment>)
+          .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
+          .actual(`${formatPercentage(percentGoodCasts)}% of casts at 4+ souls.`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05)
+          .major(recommended - 0.15);
+      });
   }
 
   statistic() {

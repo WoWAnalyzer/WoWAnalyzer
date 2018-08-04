@@ -10,9 +10,22 @@ export default {
     icon: "spell_deathknight_bloodtap",
     quality: ITEM_QUALITIES.PURPLE,
   },
+
+  CONSTRUCT_OVERCHARGER: {
+    id: 160652,
+    name: "Construct Overcharger",
+    icon: "inv_misc_enggizmos_06",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   //MOTHER
 
   //Fetid Devourer
+  FRENETIC_CORPUSCLE: {
+    id: 160648,
+    name: "Frenetic Corpuscle",
+    icon: "inv_misc_food_114_orcablubber",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 
   //Zek'voz
 

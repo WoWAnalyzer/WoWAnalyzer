@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import ComboPointsFromAoE from './ComboPointsFromAoE';
 
