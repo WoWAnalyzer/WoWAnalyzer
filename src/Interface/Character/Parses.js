@@ -62,6 +62,7 @@ class Parses extends React.Component {
       isLoading: true,
       error: null,
       trinkets: ITEMS,
+      realmSlug: this.props.realm,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -75,7 +76,6 @@ class Parses extends React.Component {
 
   async componentDidMount() {
     this.fetchBattleNetInfo();
-    this.realmSlug = await this.getRealmSlug();
   }
 
   iconPath(specName) {
@@ -324,6 +324,7 @@ class Parses extends React.Component {
           parses: parses,
           isLoading: false,
           error: null,
+          realmSlug: realm,
         });
       })
       .catch(e => {
@@ -336,7 +337,6 @@ class Parses extends React.Component {
 
   render() {
     let errorMessage;
-    const characterRealm = !this.realmSlug ? this.props.realm : this.realmSlug;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
         <div style={{ padding: 20 }}>
@@ -368,9 +368,9 @@ class Parses extends React.Component {
       );
     }
 
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${characterRealm}/${this.props.name}`;
+    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
     if (this.props.region === 'CN') {
-      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${characterRealm}/${this.props.name}`;
+      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.state.realmSlug}/${this.props.name}`;
     }
 
     return (
@@ -474,7 +474,7 @@ class Parses extends React.Component {
             </div>
             <div>
               <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${characterRealm}/${this.props.name}`}
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -493,7 +493,7 @@ class Parses extends React.Component {
               </a>
               {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${characterRealm}/${this.props.region}`}
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
