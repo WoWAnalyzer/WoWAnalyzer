@@ -261,6 +261,9 @@ class Parses extends React.Component {
     });
 
     const realm = await this.getRealmSlug();
+    this.setState({
+      realmSlug: realm,
+    });
 
     const urlEncodedName = encodeURIComponent(this.props.name);
     const urlEncodedRealm = encodeURIComponent(realm);
@@ -324,7 +327,6 @@ class Parses extends React.Component {
           parses: parses,
           isLoading: false,
           error: null,
-          realmSlug: realm,
         });
       })
       .catch(e => {
