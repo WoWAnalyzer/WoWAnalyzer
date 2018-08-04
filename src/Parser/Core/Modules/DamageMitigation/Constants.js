@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import SPECS from 'common/SPECS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
-import RACES from 'common/RACES';
+import SPECS from 'Game/SPECS';
+import RACES from 'Game/RACES';
 
 // Damage reductions that are buffs on the player
 export const BUFFS = [
@@ -294,97 +294,90 @@ export const PASSIVES = [
     mitigation: (armor, versatility, mastery, stamina, combatant) => {
       return stamina * 0.0003 * 20; // Source: http://www.wowhead.com/spell=255659/rugged-tenacity
     },
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.HIGHMOUNTAIN_TAUREN) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.HighmountainTauren.id) : false,
   },
   {
     id: SPELLS.FORGED_IN_FLAMES.id,
     name: SPELLS.FORGED_IN_FLAMES.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.DARK_IRON_DWARF) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.DarkIronDwarf.id) : false,
     school: [MAGIC_SCHOOLS.ids.PHYSICAL],
   },
   {
     id: SPELLS.HOLY_RESISTANCE_LIGHTFORGED.id,
     name: SPELLS.HOLY_RESISTANCE_LIGHTFORGED.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.LIGHTFORGED_DRAENEI) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.LightforgedDraenei.id) : false,
     school: [MAGIC_SCHOOLS.ids.HOLY],
   },
   {
     id: SPELLS.ARCANE_RESISTANCE_BLOOD_ELF.id,
     name: SPELLS.ARCANE_RESISTANCE_BLOOD_ELF.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.BLOOD_ELF) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.BloodElf.id) : false,
     school: [MAGIC_SCHOOLS.ids.ARCANE],
   },
   {
     id: SPELLS.ARCANE_RESISTANCE_NIGHTBORNE.id,
     name: SPELLS.ARCANE_RESISTANCE_NIGHTBORNE.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.NIGHTBORNE) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Nightborne.id) : false,
     school: [MAGIC_SCHOOLS.ids.ARCANE],
   },
   {
     id: SPELLS.ARCANE_RESISTANCE_GNOME.id,
     name: SPELLS.ARCANE_RESISTANCE_GNOME.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.GNOME) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Gnome.id) : false,
     school: [MAGIC_SCHOOLS.ids.ARCANE],
   },
   {
     id: SPELLS.SHADOW_RESISTANCE_DRAENEI.id,
     name: SPELLS.SHADOW_RESISTANCE_DRAENEI.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.DRAENEI) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Draenei.id) : false,
     school: [MAGIC_SCHOOLS.ids.SHADOW],
   },
   {
     id: SPELLS.SHADOW_RESISTANCE_UNDEAD.id,
     name: SPELLS.SHADOW_RESISTANCE_UNDEAD.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.UNDEAD) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Undead.id) : false,
     school: [MAGIC_SCHOOLS.ids.SHADOW],
   },
   {
     id: SPELLS.CHILL_OF_NIGHT.id,
     name: SPELLS.CHILL_OF_NIGHT.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.VOID_ELF) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.VoidElf.id) : false,
     school: [MAGIC_SCHOOLS.ids.SHADOW],
   },
   {
     id: SPELLS.FROST_RESISTANCE_DWARF.id,
     name: SPELLS.FROST_RESISTANCE_DWARF.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.DWARF) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Dwarf.id) : false,
     school: [MAGIC_SCHOOLS.ids.FROST],
   },
   {
     id: SPELLS.NATURE_RESISTANCE_NIGHT_ELF.id,
     name: SPELLS.NATURE_RESISTANCE_NIGHT_ELF.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.NIGHT_ELF) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.NightElf.id) : false,
     school: [MAGIC_SCHOOLS.ids.NATURE],
   },
   {
     id: SPELLS.NATURE_RESISTANCE_TAUREN.id,
     name: SPELLS.NATURE_RESISTANCE_TAUREN.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.TAUREN) : false,
-    school: [MAGIC_SCHOOLS.ids.NATURE],
-  },
-  {
-    id: SPELLS.NATURE_RESISTANCE_TAUREN.id,
-    name: SPELLS.NATURE_RESISTANCE_TAUREN.name,
-    mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.TAUREN) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Tauren.id) : false,
     school: [MAGIC_SCHOOLS.ids.NATURE],
   },
   {
     id: SPELLS.ABERRATION.id,
     name: SPELLS.ABERRATION.name,
     mitigation: 0.01,
-    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.WORGEN) : false,
+    enabled: (combatant) => combatant.owner.characterProfile ? (combatant.owner.characterProfile.race === RACES.Worgen.id) : false,
     school: [MAGIC_SCHOOLS.ids.NATURE, MAGIC_SCHOOLS.ids.SHADOW, MAGIC_SCHOOLS.ids.NATURE + MAGIC_SCHOOLS.ids.SHADOW],
   },
 ];
