@@ -7,6 +7,21 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-08-3'),
+    changes: <React.Fragment><SpellLink id={SPELLS.THROW_GLAIVE.id} /> CD is now reduced by haste and being properly treated.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2018-08-3'),
+    changes: <React.Fragment>Removed <SpellLink id={SPELLS.DEMON_SPIKES.id} /> checklist and cast efficiency suggestion if <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> is selected. Each time a Soul Fragment is consumed, the Demon Spikes CD is reduced by 0.5s, so when this talent was chosen, it was breaking the CD tracker, usage suggestions (it was casted more than suggested casts) and timeline was warning about CD not properly treated.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2018-08-3'),
+    changes: <React.Fragment>Removed tier 20 suggestions and modules (ToS tier).</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2018-08-3'),
     changes: <React.Fragment>Added suggestion for <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> and showed its uptime.</React.Fragment>,
     contributors: [Yajinni],
   },
