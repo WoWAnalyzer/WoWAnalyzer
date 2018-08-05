@@ -110,7 +110,6 @@ class Report extends React.Component {
     this.props.setReportProgress(0);
     this.startFakeNetworkProgress();
     const config = this.getConfig(combatant.specID);
-    console.log(combatant, combatant.specID, config)
     const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     let parserClass;
     let characterProfile;
