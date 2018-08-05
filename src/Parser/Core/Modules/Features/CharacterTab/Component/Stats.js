@@ -1,56 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'Parser/Core/Analyzer';
-import STAT, { getName, getClassNameColor, getIcon } from './STAT';
-import StatTracker from '../StatTracker';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
+import STAT, { getName, getClassNameColor, getIcon } from 'Parser/Core/Modules/Features/STAT';
 
-/**
- * @property {StatTracker} statTracker
- */
-class StatsDisplay extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
+class Stats extends React.PureComponent {
+  static propTypes = {
+    statTracker: PropTypes.objectOf(StatTracker).isRequired,
   };
-
+  
   getStatRating(stat) {
+    const statTracker = this.props.statTracker;
     switch (stat) {
-      case STAT.STRENGTH: return this.statTracker.startingStrengthRating;
-      case STAT.AGILITY: return this.statTracker.startingAgilityRating;
-      case STAT.INTELLECT: return this.statTracker.startingIntellectRating;
-      case STAT.STAMINA: return this.statTracker.startingStaminaRating;
-      case STAT.CRITICAL_STRIKE: return this.statTracker.startingCritRating;
-      case STAT.HASTE: return this.statTracker.startingHasteRating;
-      case STAT.MASTERY: return this.statTracker.startingMasteryRating;
-      case STAT.VERSATILITY: return this.statTracker.startingVersatilityRating;
-      case STAT.LEECH: return this.statTracker.startingLeechRating;
-      case STAT.AVOIDANCE: return this.statTracker.startingAvoidanceRating;
-      case STAT.SPEED: return this.statTracker.startingSpeedRating;
+      case STAT.STRENGTH: return statTracker.startingStrengthRating;
+      case STAT.AGILITY: return statTracker.startingAgilityRating;
+      case STAT.INTELLECT: return statTracker.startingIntellectRating;
+      case STAT.STAMINA: return statTracker.startingStaminaRating;
+      case STAT.CRITICAL_STRIKE: return statTracker.startingCritRating;
+      case STAT.HASTE: return statTracker.startingHasteRating;
+      case STAT.MASTERY: return statTracker.startingMasteryRating;
+      case STAT.VERSATILITY: return statTracker.startingVersatilityRating;
+      case STAT.LEECH: return statTracker.startingLeechRating;
+      case STAT.AVOIDANCE: return statTracker.startingAvoidanceRating;
+      case STAT.SPEED: return statTracker.startingSpeedRating;
       default: return null;
     }
   }
   getStatPercentage(stat) {
+    const statTracker = this.props.statTracker;
     switch (stat) {
-      case STAT.CRITICAL_STRIKE: return this.statTracker.critPercentage(this.statTracker.startingCritRating, true);
-      case STAT.HASTE: return this.statTracker.hastePercentage(this.statTracker.startingHasteRating, true);
-      case STAT.MASTERY: return this.statTracker.masteryRatingPerPercent === null ? null : this.statTracker.masteryPercentage(this.statTracker.startingMasteryRating, true);
-      case STAT.VERSATILITY: return this.statTracker.versatilityPercentage(this.statTracker.startingVersatilityRating, true);
-      case STAT.LEECH: return this.statTracker.leechPercentage(this.statTracker.startingLeechRating, true);
-      case STAT.AVOIDANCE: return this.statTracker.avoidancePercentage(this.statTracker.startingAvoidanceRating, true);
-      case STAT.SPEED: return this.statTracker.speedPercentage(this.statTracker.startingSpeedRating, true);
+      case STAT.CRITICAL_STRIKE: return statTracker.critPercentage(statTracker.startingCritRating, true);
+      case STAT.HASTE: return statTracker.hastePercentage(statTracker.startingHasteRating, true);
+      case STAT.MASTERY: return statTracker.masteryRatingPerPercent === null ? null : statTracker.masteryPercentage(statTracker.startingMasteryRating, true);
+      case STAT.VERSATILITY: return statTracker.versatilityPercentage(statTracker.startingVersatilityRating, true);
+      case STAT.LEECH: return statTracker.leechPercentage(statTracker.startingLeechRating, true);
+      case STAT.AVOIDANCE: return statTracker.avoidancePercentage(statTracker.startingAvoidanceRating, true);
+      case STAT.SPEED: return statTracker.speedPercentage(statTracker.startingSpeedRating, true);
       default: return null;
     }
   }
   get primaryStat() {
-    if (this.statTracker.startingStrengthRating > this.statTracker.startingAgilityRating && this.statTracker.startingStrengthRating > this.statTracker.startingIntellectRating) {
+    const statTracker = this.props.statTracker;
+    if (statTracker.startingStrengthRating > statTracker.startingAgilityRating && statTracker.startingStrengthRating > statTracker.startingIntellectRating) {
       return STAT.STRENGTH;
     }
-    if (this.statTracker.startingAgilityRating > this.statTracker.startingStrengthRating && this.statTracker.startingAgilityRating > this.statTracker.startingIntellectRating) {
+    if (statTracker.startingAgilityRating > statTracker.startingStrengthRating && statTracker.startingAgilityRating > statTracker.startingIntellectRating) {
       return STAT.AGILITY;
     }
-    if (this.statTracker.startingIntellectRating > this.statTracker.startingStrengthRating && this.statTracker.startingIntellectRating > this.statTracker.startingAgilityRating) {
+    if (statTracker.startingIntellectRating > statTracker.startingStrengthRating && statTracker.startingIntellectRating > statTracker.startingAgilityRating) {
       return STAT.INTELLECT;
     }
     return null;
@@ -70,8 +70,6 @@ class StatsDisplay extends Analyzer {
 
     return percentage === null ? formatThousands(rating) : `${formatPercentage(percentage)}% - ${formatThousands(rating)} rating`;
   }
-
-  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
   render() {
     const mainStats = [
       this.primaryStat,
@@ -142,4 +140,4 @@ class StatsDisplay extends Analyzer {
   }
 }
 
-export default StatsDisplay;
+export default Stats;

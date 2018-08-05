@@ -280,7 +280,7 @@ class Results extends React.PureComponent {
                     <SuggestionsTab issues={results.issues} />
                   )}
                   {this.state.mainTab === MAIN_TAB.CHARACTER && (
-                    modules.characterPanel.render()
+                    modules.characterTab.render()
                   )}
                   {this.state.mainTab === MAIN_TAB.STATS && (
                     modules.encounterPanel.render()

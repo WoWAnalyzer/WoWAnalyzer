@@ -39,10 +39,7 @@ import TotalDowntime from './Modules/Downtime/TotalDowntime';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
-import CharacterPanel from './Modules/Features/CharacterPanel';
-import StatsDisplay from './Modules/Features/StatsDisplay';
-import TalentsDisplay from './Modules/Features/TalentsDisplay';
-
+import CharacterTab from './Modules/Features/CharacterTab';
 import EncounterPanel from './Modules/Features/EncounterPanel';
 
 // Tabs
@@ -195,12 +192,9 @@ class CombatLogParser {
 
     critEffectBonus: CritEffectBonus,
 
-    characterPanel: CharacterPanel,
-    statsDisplay: StatsDisplay,
-    talentsDisplay: TalentsDisplay,
-
-    encounterPanel: EncounterPanel,
     // Tabs
+    characterTab: CharacterTab,
+    encounterPanel: EncounterPanel,
     timelineTab: TimelineTab,
     manaTab: ManaTab,
     raidHealthTab: RaidHealthTab,
