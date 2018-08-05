@@ -29,7 +29,7 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
         parts.push(`${fightId}-${prettyEncodeURI(fightName)}`);
         if (playerId) {
           const player = report.friendlies.find(friendly => friendly.id === playerId);
-          const playerName = player ? player.name : '';
+          const playerName = player ? player.name : null;
           if (playerName) {
             parts.push(`${playerId}-${prettyEncodeURI(playerName)}`);
             if (tab) {
