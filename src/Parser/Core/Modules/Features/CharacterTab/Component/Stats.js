@@ -87,10 +87,10 @@ class Stats extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <div className="row" style={{ marginBottom: '2em' }}>
+        <div className="row">
           <div className="col-md-12">
             <h2>
-              <dfn data-tip="These stats includes any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
+              <dfn data-tip="These stats include any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
                 Stats on pull
               </dfn>
             </h2>

@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import Combatant from 'Parser/Core/Combatant';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
+import './CharacterTab.css';
 import Stats from './Stats';
 import Talents from './Talents';
 import Gear from './Gear';
+import Race from './Race';
 
 class CharacterTab extends React.PureComponent {
   static propTypes = {
@@ -18,8 +20,8 @@ class CharacterTab extends React.PureComponent {
     const { statTracker, combatant } = this.props;
 
     return (
-      <div style={{ padding: '35px 30px' }}>
-        <div className="row" style={{ marginBottom: 30 }}>
+      <div className="character-tab">
+        <div className="row">
           <div className="col-sm-6">
             <Stats statTracker={statTracker} />
           </div>
@@ -30,6 +32,11 @@ class CharacterTab extends React.PureComponent {
         <div className="row">
           <div className="col-sm-12">
             <Gear gear={Object.values(combatant._gearItemsBySlotId)} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <Race race={combatant.race} />
           </div>
         </div>
       </div>

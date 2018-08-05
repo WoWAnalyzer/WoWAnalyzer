@@ -17,7 +17,7 @@ class Gear extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <div className="row" style={{ marginBottom: '2em' }}>
+        <div className="row">
           <div className="col-md-12">
             <h2>
               Equipped Gear
