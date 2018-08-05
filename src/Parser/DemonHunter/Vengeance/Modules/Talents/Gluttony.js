@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-//WCL https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP#fight=3&type=summary&source=3
+//WCL https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP/#fight=3&source=3
 class Gluttony extends Analyzer {
 
   buffCasts = 0;

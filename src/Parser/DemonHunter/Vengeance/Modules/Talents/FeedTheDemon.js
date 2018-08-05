@@ -8,7 +8,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SoulFragmentsTracker from '../Features/SoulFragmentsTracker';
 
-//WCL https://www.warcraftlogs.com/reports/ZVJr2MPNx3RCvX6B#fight=6&type=damage-done
+//WCL https://www.warcraftlogs.com/reports/ZVJr2MPNx3RCvX6B/#fight=6&source=184
 class FeedTheDemon extends Analyzer {
   static dependencies = {
     soulFragmentsTracker: SoulFragmentsTracker,
