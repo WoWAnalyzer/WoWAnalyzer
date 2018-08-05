@@ -7,17 +7,17 @@ import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 
 class Gear extends React.PureComponent {
   static propTypes = {
-    selectedCombatant: PropTypes.object.isRequired,
+    gear: PropTypes.array.isRequired,
   };
   render() {
-    const gear = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
+    const gear = this.props.gear;
 
     const artifact = gear.find(item => item.quality === 6);
     const relics = artifact && artifact.gems ? artifact.gems : [];
 
     return (
       <React.Fragment>
-        <div className="row" style={{ marginBottom: '2em' }}>
+        <div className="row">
           <div className="col-md-12">
             <h2>
               Equipped Gear

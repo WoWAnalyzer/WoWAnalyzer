@@ -22,7 +22,7 @@ class Panel extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <h2>Recently viewed reports</h2>
+          <h2>Recently viewed</h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <ReportHistory reportHistory={reportHistory} />

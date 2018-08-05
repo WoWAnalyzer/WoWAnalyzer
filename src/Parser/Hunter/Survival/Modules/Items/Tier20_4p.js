@@ -25,7 +25,7 @@ class Tier20_4p extends Analyzer {
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_BITE.id) {
+    if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
       return;
     }
     const enemy = this.enemies.getEntity(event);

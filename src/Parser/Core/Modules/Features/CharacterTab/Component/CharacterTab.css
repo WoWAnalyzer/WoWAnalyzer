@@ -1,0 +1,9 @@
+.character-tab {
+  padding: 35px 30px;
+}
+.character-tab h2 {
+  margin-bottom: 2em;
+}
+.character-tab > .row:not(:first-child) {
+  margin-top: 2em;
+}
