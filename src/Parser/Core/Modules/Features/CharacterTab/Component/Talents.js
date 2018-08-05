@@ -1,28 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'Parser/Core/Analyzer';
 
-import Combatants from '../Combatants';
-
-/**
- * @property {Combatants} combatants
- */
-class TalentsDisplay extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
+class Talents extends React.PureComponent {
+  static propTypes = {
+    talents: PropTypes.array.isRequired,
   };
 
-  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
   render() {
-    const talents = this.selectedCombatant.talents;
+    const talents = this.props.talents;
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     return (
       <React.Fragment>
-        <div className="row" style={{ marginBottom: '2em' }}>
+        <div className="row">
           <div className="col-md-12">
             <h2>
               Talents
@@ -57,4 +51,4 @@ class TalentsDisplay extends Analyzer {
   }
 }
 
-export default TalentsDisplay;
+export default Talents;
