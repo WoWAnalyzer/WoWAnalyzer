@@ -68,8 +68,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMON_SPIKES,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        /* Commenting out Demon Spikes cooldown as the Feed the Demon talent breaks it
+        /* Removing Demon Spikes cooldown as the Feed the Demon talent breaks it when selected
          * Feed the Demon reduces the cooldown of Demon Spikes by 0.5s for each soul fragment consumed when on CD
+         * So, while I can't figure out a way to track this CD, I'm removing it from cast effiency to not break things or do wrong suggestions
         */
         cooldown: !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) ? haste => 20 / (1 + haste) : null,
         charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
