@@ -24,6 +24,7 @@ import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import DocumentTitle from 'Interface/common/DocumentTitle';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
@@ -419,6 +420,7 @@ class Report extends React.Component {
       playerId: player.id,
       playerName: player.name,
       playerClass: player.type,
+      type: REPORT_HISTORY_TYPES.REPORT,
     });
   }
 
