@@ -18,6 +18,7 @@ class AtonementDamageSource extends Analyzer {
   }
 
   on_damage(event) {
+    this.debug(event);
     if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
       return;
     }

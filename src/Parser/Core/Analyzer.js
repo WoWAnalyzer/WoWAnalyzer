@@ -62,7 +62,7 @@ class Analyzer extends Module {
 
   get consoleMeta() {
     const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
-    return [fightDuration, this.constructor.name];
+    return [fightDuration, `(module: ${this.constructor.name})`];
   }
   debug(...args) {
     console.log(...this.consoleMeta, ...args);
