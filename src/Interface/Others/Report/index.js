@@ -110,6 +110,7 @@ class Report extends React.Component {
     this.props.setReportProgress(0);
     this.startFakeNetworkProgress();
     const config = this.getConfig(combatant.specID);
+    console.log(combatant, combatant.specID, config)
     const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     let parserClass;
     let characterProfile;
@@ -359,6 +360,10 @@ class Report extends React.Component {
         const combatant = combatants.find(combatant => combatant.sourceID === player.id);
         if (!combatant) {
           alert('This player does not seem to be in this fight.');
+          return;
+        }
+        if (!combatant.specID) {
+          alert('The data received from WCL for this player is corrupt, this fight can not be analyzed.');
           return;
         }
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
