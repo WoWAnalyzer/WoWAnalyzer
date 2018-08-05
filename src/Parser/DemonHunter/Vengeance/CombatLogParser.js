@@ -26,8 +26,8 @@ import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
 import SoulBarrier from './Modules/Talents/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talents/SpiritBombSoulConsume';
 import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
-
-
+import FeedTheDemon from './Modules/Talents/FeedTheDemon';
+import Gluttony from './Modules/Talents/Gluttony';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
@@ -61,6 +61,8 @@ class CombatLogParser extends CoreCombatLogParser {
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
     soulBarrier: SoulBarrier,
     spiritBombSoulConsume: SpiritBombSoulConsume,
+    feedTheDemon: FeedTheDemon,
+    gluttony: Gluttony,
 
     // Spell
     immolationAura: ImmolationAura,
