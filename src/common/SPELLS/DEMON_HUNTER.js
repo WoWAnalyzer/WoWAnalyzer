@@ -5,6 +5,13 @@
  */
 
 export default {
+  // Common Spells
+  GLIDE: {
+    id: 131347,
+    name: 'Glide',
+    icon: 'ability_demonhunter_glide',
+  },
+
   // Vengeance Demon Hunter
 
   // Tier 20 Bonus:
