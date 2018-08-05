@@ -57,6 +57,7 @@ class FuryDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={(
           <img
             src={WastedFuryIcon}
@@ -84,7 +85,6 @@ class FuryDetails extends Analyzer {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default FuryDetails;
