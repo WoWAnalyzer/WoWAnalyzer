@@ -27,15 +27,11 @@ import SoulBarrier from './Modules/Talent/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
 import VoidReaverDebuff from './Modules/Talent/VoidReaverDebuff';
 
-
-
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './Modules/Spells/SoulCleaveSoulsConsumed';
 
-import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
-import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
 import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -53,11 +49,11 @@ class CombatLogParser extends CoreCombatLogParser {
     soulFragmentsTracker: SoulFragmentsTracker,
     checklist: Checklist,
 
-    //Resource Tracker
+    // Resource Tracker
     painTracker: PainTracker,
     painDetails: PainDetails,
 
-    //Talents
+    // Talents
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
     soulBarrier: SoulBarrier,
     spiritBombSoulConsume: SpiritBombSoulConsume,
@@ -69,13 +65,11 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     voidReaverDebuff: VoidReaverDebuff,
 
-    //Stats
+    // Stats
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,
 
-    // Tier 20
-    tier202PBonus: Tier202PBonus,
-    tier204PBonus: Tier204PBonus,
+    /// Items
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 
