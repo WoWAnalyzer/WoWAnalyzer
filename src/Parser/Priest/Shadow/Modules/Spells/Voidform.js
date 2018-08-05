@@ -15,6 +15,11 @@ import VoidformsTab from './VoidformsTab';
 const debug = false;
 const logger = (message, color) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
 
+const VOID_FORM_ACTIVATORS = [
+  SPELLS.VOID_ERUPTION.id,
+  SPELLS.DARK_ASCENSION_TALENT.id,
+];
+
 class Voidform extends Analyzer {
   static dependencies = {
     insanity: Insanity,
@@ -48,6 +53,7 @@ class Voidform extends Analyzer {
     if (!this.currentVoidform) {
       return (1 + this.haste.current);
     }
+
     const averageHasteGainedFromVoidform = (this.voidforms.reduce((total, voidform) => total + voidform.averageGainedHaste, 0)) / this.voidforms.length;
     return (1 + this.haste.current) * (1 + averageHasteGainedFromVoidform);
   }
@@ -144,24 +150,29 @@ class Voidform extends Analyzer {
       const nextTimestamp = this.currentVoidform.lingeringInsanityStacks[i + 1] ? this.currentVoidform.lingeringInsanityStacks[i + 1].timestamp : timestamp + 1000;
       return total + ((nextTimestamp - timestamp) / 1000) * stack / 100;
     }, 0)) / (this.currentVoidform.duration / 1000);
-
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOID_ERUPTION.id) this.startVoidform(event);
+    if (VOID_FORM_ACTIVATORS.includes(spellId)) {
+      this.startVoidform(event);
+    }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) this.endVoidform(event);
+    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
+      this.endVoidform(event);
+    }
   }
 
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-
-      if (!this.currentVoidform) this.startVoidform(event); // for prepull voidforms
+      if (!this.currentVoidform) {
+        // for prepull voidforms
+        this.startVoidform(event);
+      }
       this.addVoidformStack(event);
     }
   }

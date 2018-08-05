@@ -130,7 +130,7 @@ class PredatorySwiftness extends Analyzer {
         average: 0.10,
         major: 0.20,
       },
-      style: 'percent',
+      style: 'percentage',
     };
   }
 
