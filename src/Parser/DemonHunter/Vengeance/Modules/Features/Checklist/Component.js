@@ -55,7 +55,8 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <AbilityRequirement spell={SPELLS.DEMON_SPIKES.id} />
+          {/* As I can't track the cast efficiency with Feed the Demon talent equipped, I'm disabling the checklist item */}
+          {!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMON_SPIKES.id} />}
           <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
         </Rule>
 
