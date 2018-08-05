@@ -10,7 +10,7 @@ export default [
   {
     date: new Date('2018-07-27'),
     changes: <React.Fragment>Spell, talent, and GCD update to spells for BFA.</React.Fragment>,
-    contributors: [sref],
+    contributors: [Yajinni],
   },
   {
     date: new Date('2018-02-11'),
