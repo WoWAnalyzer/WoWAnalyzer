@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-08-05'),
+    changes: 'Linking a hunter pet doesn\'t crash the analyzer url builder anymore.',
+    contributors: [Mamtooth],
+  },
+  {
     date: new Date('2018-08-04'),
     changes: 'Account for the 1% Critical Strike racial from Blood Elfs.',
     contributors: [Zerotorescue],
