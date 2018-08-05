@@ -83,6 +83,29 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 90,
         isUndetectable: true,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       // ROTATIONAL
       {
@@ -94,6 +117,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REMORSELESS_WINTER,
+        buffSpellId: SPELLS.REMORSELESS_WINTER.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
