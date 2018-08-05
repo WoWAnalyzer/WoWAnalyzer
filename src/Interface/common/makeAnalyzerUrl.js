@@ -24,7 +24,7 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
     parts.push(`report/${report.code}`);
     if (fightId) {
       const fight = report.fights.find(fight => fight.id === fightId);
-      const fightName = fight && getFightName(report, fight);
+      const fightName = fight ? getFightName(report, fight) : null;
       if (fightName) {
         parts.push(`${fightId}-${prettyEncodeURI(fightName)}`);
         if (playerId) {
