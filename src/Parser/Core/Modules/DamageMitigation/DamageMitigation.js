@@ -1,5 +1,6 @@
 import React from 'react';
 import Tab from 'Interface/Others/Tab';
+import DamageMitigationBreakdown from 'Interface/Others/DamageMitigationBreakdown';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatMilliseconds, formatNumber } from 'common/format';
 import SPECS from 'Game/SPECS';
@@ -7,8 +8,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageMitigationBreakdown from 'Interface/Others/DamageMitigationBreakdown';
-
 
 import Reduction from './Reduction';
 import AOE_TYPE from './AOE_TYPE';
@@ -102,15 +101,8 @@ class DamageMitigation extends Analyzer {
     this.handleEvent(event);
   }
 
-  handleEvent(event) {
-    let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
-    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
-    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
-    
-    // Add passives.
-    let mitigations = this.passives.slice();
-
-    // Check for active buffs.
+  getBuffs(event) {
+    const mitigations = [];
     const activeBuffs = this.selectedCombatant.activeBuffs();
     activeBuffs.forEach(e => {
       const buffs = this.buffs.filter(f => f.buffId === e.ability.guid || (!f.buffId && f.id === e.ability.guid));
@@ -130,8 +122,11 @@ class DamageMitigation extends Analyzer {
         });
       }
     });
+    return mitigations;
+  }
 
-    // Check for active debuffs.
+  getDebuffs(event) {
+    const mitigations = [];
     const enemy = this.enemies.getEntity(event);
     if (enemy) {
       const activeBuffs = enemy.activeBuffs();
@@ -145,17 +140,20 @@ class DamageMitigation extends Analyzer {
         }
       });
     }
+    return mitigations;
+  }
 
-    // Filter by AOE or non-AOE
+  filterAOE(event, mitigations) {
     const ability = AOE_ABILITIES.find(e => e.id === event.ability.guid);
     if (ability && ((ability.hit && !event.tick) || (ability.tick && event.tick))) {
-      mitigations = mitigations.filter(e => e.aoe !== AOE_TYPE.NON_AOE_ONLY);
+      return mitigations.filter(e => e.aoe !== AOE_TYPE.NON_AOE_ONLY);
     } else {
-      mitigations = mitigations.filter(e => e.aoe !== AOE_TYPE.AOE_ONLY);
+      return mitigations.filter(e => e.aoe !== AOE_TYPE.AOE_ONLY);
     }
+  }
 
-    // Filter by spell school.
-    mitigations = mitigations.filter(e => {
+  filterSchool(event, mitigations) {
+    return mitigations.filter(e => {
       // If none is set it affects all schools.
       if (e.school === undefined || e.school === null) {
         return true;
@@ -166,6 +164,28 @@ class DamageMitigation extends Analyzer {
       }
       return e.school.includes(event.ability.type);
     });
+  }
+
+  handleEvent(event) {
+    // Subtract block since it's a static amount after reductions.
+    let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
+    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
+    
+    // Add passives.
+    let mitigations = this.passives.slice();
+
+    // Check for active buffs.
+    mitigations = mitigations.concat(this.getBuffs(event));
+
+    // Check for active debuffs.
+    mitigations = mitigations.concat(this.getDebuffs(event));
+
+    // Filter by AOE or non-AOE.
+    mitigations = this.filterAOE(event, mitigations);
+
+    // Filter by spell school.
+    mitigations = this.filterSchool(event, mitigations);
 
     if (debug) {
       let names = '';
@@ -187,11 +207,16 @@ class DamageMitigation extends Analyzer {
     const percentMitigated = mitigated/event.unmitigatedAmount;
     const multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
     
+    // The remaining mitigation not accounted for. (can be also be negative!)
     let unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
 
     // If the actual percent mitigated is less than expected, it is likely a physical ability not being reduced by armor.
     if (percentMitigated + BUFFER_PERCENT < multiplicative) {
       debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+      // If it is physical damage, try to match without armor instead.
+      if (event.ability.type === 1) {
+        // NYI
+      }
     }
 
     // If the actual percent mitigated is higher than expected, try to assign the unknown mitigation.
