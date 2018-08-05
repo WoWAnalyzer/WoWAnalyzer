@@ -99,6 +99,7 @@ class SpiritBombSoulConsume extends Analyzer {
 
     return (
       <ExpandableStatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(percentGoodCasts)} %`}
         label="Good Spirit Bomb casts"
@@ -122,7 +123,6 @@ class SpiritBombSoulConsume extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 
 }
 

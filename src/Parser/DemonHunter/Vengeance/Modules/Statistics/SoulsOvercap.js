@@ -43,6 +43,7 @@ class SoulsOvercap extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
         value={`${formatNumber(this.soulFragmentsTracker.soulsWasted)} Souls`}
         label="Inefficiently Used"
@@ -54,7 +55,6 @@ class SoulsOvercap extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SoulsOvercap;

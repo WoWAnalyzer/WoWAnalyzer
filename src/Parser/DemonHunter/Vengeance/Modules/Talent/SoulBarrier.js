@@ -85,6 +85,7 @@ class SoulBarrier extends Analyzer {
     const avgBuffLength = (this.totalBuffLength / this.casts) / 1000;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.SOUL_BARRIER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Soul Barrier uptime"
@@ -95,7 +96,6 @@ class SoulBarrier extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SoulBarrier;

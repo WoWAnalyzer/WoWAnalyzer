@@ -54,6 +54,7 @@ class PainDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={<Icon icon="ability_demonhunter_demonspikes" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Pain wasted"
@@ -62,7 +63,6 @@ class PainDetails extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   tab() {
     return {

@@ -45,6 +45,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(spiritBombUptimePercentage)}%`}
         label="Spirit Bomb debuff uptime"
@@ -53,7 +54,6 @@ class SpiritBombFrailtyDebuff extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SpiritBombFrailtyDebuff;
