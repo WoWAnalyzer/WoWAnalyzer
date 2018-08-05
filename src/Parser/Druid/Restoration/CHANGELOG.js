@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { blazyb, sref, Zerotorescue } from 'CONTRIBUTORS';
+import { blazyb, sref, Zerotorescue, Yajinni } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-07-27'),
+    changes: <React.Fragment>Spell, talent, and GCD update to spells for BFA.</React.Fragment>,
+    contributors: [sref],
+  },
   {
     date: new Date('2018-02-11'),
     changes: <React.Fragment>Fixed a bug that could cause incorrect proc counts and uptimes for players using <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> and <ItemLink id={ITEMS.CHAMELEON_SONG.id} /> together.</React.Fragment>,
