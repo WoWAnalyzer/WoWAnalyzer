@@ -66,6 +66,7 @@ class Chakrams extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(21)}
         icon={<SpellIcon id={SPELLS.CHAKRAMS_TALENT.id} />}
         value={`${this.averageTargetsHit}`}
         label="Average targets hit"

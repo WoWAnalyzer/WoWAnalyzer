@@ -8,9 +8,12 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill Command.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/daqtD36LCTR4MQrc#fight=6&type=damage-done&source=73
  */
 
 class KillerCobra extends Analyzer {
@@ -49,6 +52,7 @@ class KillerCobra extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
         value={this.effectiveKillCommandResets}
         label="Kill Command Resets"

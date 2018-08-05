@@ -58,13 +58,13 @@ class NaturalMending extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.NATURAL_MENDING_TALENT.id} />}
         value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s`}
         label="Exhilaration CDR"
         tooltip={`You wasted ${formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.`} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 
 }
 

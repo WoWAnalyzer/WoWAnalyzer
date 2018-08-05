@@ -23,6 +23,7 @@ class Trailblazer extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.TRAILBLAZER_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Trailblazer Uptime"

@@ -47,6 +47,7 @@ class KillCommand extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(18)}
         icon={<SpellIcon id={SPELLS.KILL_COMMAND_SV.id} />}
         value={`${this.resets}`}
         label="Kill Command resets"
@@ -54,8 +55,6 @@ class KillCommand extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
-
 }
 
 export default KillCommand;

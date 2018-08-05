@@ -31,6 +31,11 @@ import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 import Barrage from '../Shared/Modules/Talents/Barrage';
+import ChimaeraShot from './Modules/Talents/ChimaeraShot';
+import DireBeast from './Modules/Talents/DireBeast';
+import KillerCobra from './Modules/Talents/KillerCobra';
+import Stampede from './Modules/Talents/Stampede';
+import Stomp from './Modules/Talents/Stomp';
 
 //Spells
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
@@ -59,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
-
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -94,9 +98,14 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4p: Tier21_4p,
 
     //Talents
+    chimaeraShot: ChimaeraShot,
+    direBeast: DireBeast,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
     barrage: Barrage,
+    killerCobra: KillerCobra,
+    stampede: Stampede,
+    stomp: Stomp,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,

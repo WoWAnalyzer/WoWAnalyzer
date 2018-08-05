@@ -26,6 +26,7 @@ class PiercingShot extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+
   subStatistic() {
     return (
       <div className="flex">

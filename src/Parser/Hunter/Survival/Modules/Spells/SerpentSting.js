@@ -211,6 +211,7 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(19)}
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
@@ -218,8 +219,6 @@ class SerpentSting extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
-
 
   subStatistic() {
     return (
@@ -233,7 +232,6 @@ class SerpentSting extends Analyzer {
       </div>
     );
   }
-
 }
 
 export default SerpentSting;

@@ -71,7 +71,9 @@ class Trueshot extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(16)}
+        icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <React.Fragment>
             {this.averageAimedShots.toFixed(2)}{' '}

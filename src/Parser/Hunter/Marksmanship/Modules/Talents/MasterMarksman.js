@@ -5,6 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
@@ -57,6 +58,7 @@ class MasterMarksman extends Analyzer {
     tooltipText += `</ul>`;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(21)}
         icon={<SpellIcon id={SPELLS.MASTER_MARKSMAN_TALENT.id} />}
         value={`${this.usedProcs}/${this.totalProcs}`}
         label="utilised MM buffs"

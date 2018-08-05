@@ -122,6 +122,7 @@ class WildfireBomb extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.WILDFIRE_BOMB.id} />}
         value={`${this.averageTargetsHit}`}
         label="Average targets hit"
@@ -129,7 +130,6 @@ class WildfireBomb extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default WildfireBomb;

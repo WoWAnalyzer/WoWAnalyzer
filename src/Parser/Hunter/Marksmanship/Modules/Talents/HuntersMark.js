@@ -11,6 +11,7 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -150,6 +151,7 @@ class HuntersMark extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(19)}
         icon={<SpellIcon id={SPELLS.HUNTERS_MARK_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Hunters Mark uptime"

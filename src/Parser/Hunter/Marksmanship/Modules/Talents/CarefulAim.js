@@ -8,6 +8,7 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Aimed Shot has a 50% chance to deal 100% bonus damage to targets who are above 80% health or below 20% health.
@@ -83,6 +84,7 @@ class CarefulAim extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(17)}
         icon={<SpellIcon id={SPELLS.CAREFUL_AIM_TALENT.id} />}
         value={`${this.caProcs}`}
         label="Careful Aim procs"

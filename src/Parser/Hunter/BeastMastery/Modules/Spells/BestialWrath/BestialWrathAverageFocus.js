@@ -12,6 +12,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 /**
  * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.
  * Bestial Wrath's remaining cooldown is reduced by 12 sec each time you use Barbed Shot
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pdm6qYNZ2ktMXDRr#fight=7&type=damage-done&source=8
  */
 
 class BestialWrathAverageFocus extends Analyzer {
@@ -26,9 +28,11 @@ class BestialWrathAverageFocus extends Analyzer {
     this.bestialWrathCasts += 1;
     this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
   }
+
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={this.averageFocusAtBestialWrathCast}
         label="Average Focus on cast"
@@ -36,7 +40,6 @@ class BestialWrathAverageFocus extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
 
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
@@ -74,7 +77,6 @@ class BestialWrathAverageFocus extends Analyzer {
         .recommended(`>${recommended} focus is recommended`);
     });
   }
-
 }
 
 export default BestialWrathAverageFocus;

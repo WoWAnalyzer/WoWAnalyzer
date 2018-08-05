@@ -37,6 +37,7 @@ class TimeFocusCapped extends Analyzer {
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time Focus Capped"
         tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
@@ -100,8 +101,6 @@ class TimeFocusCapped extends Analyzer {
         });
     }
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default TimeFocusCapped;

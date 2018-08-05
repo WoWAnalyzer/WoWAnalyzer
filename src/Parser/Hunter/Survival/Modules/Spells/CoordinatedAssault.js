@@ -130,6 +130,7 @@ class CoordinatedAssault extends Analyzer {
     tooltipText += this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) ? `<ul><li>You extended Coordinated Assault by ${this.timeExtendedInSeconds} seconds.</li><li>You lost out on ${this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li></ul>` : ``;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(17)}
         icon={<SpellIcon id={SPELLS.COORDINATED_ASSAULT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Coordinated Assault uptime"
@@ -137,7 +138,6 @@ class CoordinatedAssault extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default CoordinatedAssault;

@@ -37,6 +37,7 @@ class TraitsAndTalents extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
+        position={STATISTIC_ORDER.CORE(12)}
         title="Spells, Traits and Talents"
         tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
@@ -53,7 +54,6 @@ class TraitsAndTalents extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default TraitsAndTalents;

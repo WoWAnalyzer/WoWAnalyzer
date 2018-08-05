@@ -3,8 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
- * Grants you and your pet 5 Focus per sec and 10% increased critical strike
- * chance for 20 sec.
+ * Grants you and your pet 5 Focus per sec and 10% increased critical strike chance for 20 sec.
  * Reduces GCD by 200ms before haste.
  */
 

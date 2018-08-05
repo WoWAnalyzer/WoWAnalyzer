@@ -104,6 +104,7 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
         <StatisticBox
+          position={STATISTIC_ORDER.CORE(16)}
           icon={<SpellIcon id={this.spellKnown.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
@@ -112,7 +113,6 @@ class ButcheryCarve extends Analyzer {
     }
     return null;
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
 
   subStatistic() {
     if (this.casts > 0) {

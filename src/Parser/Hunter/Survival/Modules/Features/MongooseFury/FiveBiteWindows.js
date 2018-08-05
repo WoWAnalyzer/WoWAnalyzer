@@ -55,13 +55,13 @@ class FiveBiteWindows extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
         value={`${this.fiveBiteWindows}/${this.totalWindowsStarted}`}
         label="5 stack windows"
         tooltip={`You had a total of <strong>${this.fiveBiteWindows}</strong> six bite windows out of a total of <strong>${this.totalWindowsStarted}</strong> windows started`} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default FiveBiteWindows;

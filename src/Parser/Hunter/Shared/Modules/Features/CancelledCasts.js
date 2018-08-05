@@ -47,6 +47,7 @@ class CancelledCasts extends CoreCancelledCasts {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label="Cancelled Casts"

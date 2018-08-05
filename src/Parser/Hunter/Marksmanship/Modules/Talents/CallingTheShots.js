@@ -6,6 +6,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -49,6 +50,7 @@ class CallingTheShots extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />}
         value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s`}
         label="Trueshot CDR"

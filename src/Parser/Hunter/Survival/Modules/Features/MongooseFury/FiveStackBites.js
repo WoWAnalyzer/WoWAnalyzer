@@ -72,13 +72,13 @@ class FiveStackBites extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
         value={`${this.sixBiteWindowBites}/${this.totalBites}`}
         label="5 stack bites"
         tooltip={`<ul><li>You hit an average of ${(this.sixBiteWindowBites / this.sixBiteWindows).toFixed(1)} bites when you had ${MAX_STACKS} stacks of Mongoose Fury. </li><li>You hit an average of ${(this.totalBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li></ul> `} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default FiveStackBites;
