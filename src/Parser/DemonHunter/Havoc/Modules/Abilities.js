@@ -7,11 +7,9 @@ import Haste from 'Parser/Core/Modules/Haste';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-import UnleashedDemons from './Traits/UnleashedDemons';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
-    unleashedDemons: UnleashedDemons,
     abilityTracker: AbilityTracker,
     haste: Haste,
   };
@@ -22,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300 - this.unleashedDemons.traitCooldownReduction,
+        cooldown: 300,
         gcd: {
           base: 1500,
         },
