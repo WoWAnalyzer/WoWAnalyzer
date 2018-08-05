@@ -85,6 +85,11 @@ export default {
     name: 'Stoneform',
     icon: 'spell_shadow_unholystrength',
   },
+  MIGHT_OF_THE_MOUNTAIN: {
+    id: 59224,
+    name: 'Might of the Mountain',
+    icon: 'inv_hammer_05',
+  },
   // Gnome
   ESCAPE_ARTIST: {
     id: 20589,

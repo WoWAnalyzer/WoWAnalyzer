@@ -58,6 +58,7 @@ import HealthPotion from './Modules/Items/HealthPotion';
 import CombatPotion from './Modules/Items/CombatPotion';
 
 import ArcaneTorrent from './Modules/Racials/BloodElf/ArcaneTorrent';
+import MightOfTheMountain from './Modules/Racials/Dwarf/MightOfTheMountain';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -153,6 +154,7 @@ const debugDependencyInjection = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
+  static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
     combatants: Combatants,
@@ -209,6 +211,7 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    mightOfTheMountain: MightOfTheMountain,
 
     // Items:
     // Legendaries:
