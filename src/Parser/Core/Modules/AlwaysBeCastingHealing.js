@@ -59,6 +59,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(downtimePercentage)} %`}
         label="Downtime"
@@ -95,7 +96,6 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 
   get nonHealingTimeSuggestionThresholds() {
     return {

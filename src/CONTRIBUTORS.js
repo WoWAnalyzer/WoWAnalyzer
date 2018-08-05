@@ -35,7 +35,7 @@
   };
 */
 
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
 export const Dummy = {

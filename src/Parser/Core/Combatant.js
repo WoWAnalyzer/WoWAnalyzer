@@ -1,4 +1,5 @@
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
+import RACES from 'Game/RACES';
 import traitIdMap from 'common/TraitIdMap';
 
 import Entity from './Entity';
@@ -42,6 +43,9 @@ class Combatant extends Entity {
   }
   get spec() {
     return SPECS[this.specId];
+  }
+  get race() {
+    return this.owner.characterProfile ? Object.values(RACES).find(race => race.id === this.owner.characterProfile.race) : null;
   }
 
   _combatantInfo = null;

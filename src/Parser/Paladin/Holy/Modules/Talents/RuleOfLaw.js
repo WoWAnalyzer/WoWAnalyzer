@@ -46,13 +46,13 @@ class RuleOfLaw extends Analyzer {
   statistic({ i18n }) {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(31)}
         icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label={i18n.t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(31);
 }
 
 export default RuleOfLaw;

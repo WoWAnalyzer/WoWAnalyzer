@@ -245,10 +245,10 @@ class MasteryEffectiveness extends Analyzer {
     return this.report.totalHealingFromMastery / (this.report.totalMaxPotentialMasteryHealing || 1);
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(10);
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
         value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
         label="Mastery effectiveness"

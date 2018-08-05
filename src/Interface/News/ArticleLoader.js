@@ -22,7 +22,7 @@ class ArticleLoader extends React.PureComponent {
   }
 
   load(fileName) {
-    return import(/* webpackChunkName: "articles/[request]" */ `./Articles/${fileName}/index.js`)
+    return import(/* webpackChunkName: "articles/[request]" */ `Articles/${fileName}/index.js`)
       .then(exports => exports.default)
       .then(article => {
         this.setState({

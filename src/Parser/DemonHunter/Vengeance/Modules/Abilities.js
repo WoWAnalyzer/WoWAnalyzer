@@ -170,7 +170,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INFERNAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 20,
+        cooldown: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? 12 : 20,
         charges: 2,
       },
 
@@ -189,6 +189,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CONSUME_MAGIC,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+      },
+      {
+        spell: SPELLS.Disrupt,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
       },

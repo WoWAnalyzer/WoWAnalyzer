@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import ITEMS from 'common/ITEMS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';

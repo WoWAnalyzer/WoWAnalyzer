@@ -14,6 +14,7 @@ import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
 import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
 import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
+import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
 
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
+    energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
 

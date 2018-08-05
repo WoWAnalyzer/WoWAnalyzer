@@ -115,7 +115,7 @@ class DeathRecap extends React.PureComponent {
                 {death.events
                   .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
                   .filter(e => ((e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold) || e.type === 'instakill')
-                  .map((event, index) => {
+                  .map(event => {
                     if (event.hitPoints && event.maxHitPoints) {
                       lastHitPoints = event.hitPoints;
                       lastMaxHitPoints = event.maxHitPoints;
@@ -207,7 +207,7 @@ class DeathRecap extends React.PureComponent {
                             <SpellIcon style={{ border: '1px solid red' }} id={e.id} />
                           )}
                         </td>
-                        <td style={{ width: '15%' }}>
+                        <td style={{ width: '20%' }}>
                           {event.defensiveCooldowns.sort(sortByTimelineIndex).map(e =>
                             <SpellIcon style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.id} />
                           )}

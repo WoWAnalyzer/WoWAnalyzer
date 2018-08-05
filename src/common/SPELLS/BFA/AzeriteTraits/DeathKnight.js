@@ -5,6 +5,7 @@
  */
 
 export default {
+  //Blood
   BONES_OF_THE_DAMNED: {
     id: 278484,
     name: 'Bones of the Damned',
@@ -14,5 +15,22 @@ export default {
     id: 279503,
     name: 'Bones of the Damned',
     icon: 'ability_deathknight_marrowrend',
+  },
+
+  //Shared
+  BONE_SPIKE_GRAVEYARD: {
+    id: 273088,
+    name: 'Bone Spike Graveyard',
+    icon: 'spell_shadow_deathanddecay',
+  },
+  BONE_SPIKE_GRAVEYARD_DAMAGE: {
+    id: 273089,
+    name: 'Bone Spike Graveyard',
+    icon: 'spell_shadow_deathanddecay',
+  },
+  BONE_SPIKE_GRAVEYARD_HEAL: {
+    id: 273090,
+    name: 'Bone Spike Graveyard',
+    icon: 'spell_shadow_deathanddecay',
   },
 };

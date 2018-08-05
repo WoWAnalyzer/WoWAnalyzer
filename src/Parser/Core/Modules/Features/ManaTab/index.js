@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ROLES from 'common/ROLES';
+import ROLES from 'Game/ROLES';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import TabComponent from './TabComponent';

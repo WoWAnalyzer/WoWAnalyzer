@@ -96,8 +96,11 @@ class Focus extends React.PureComponent {
       //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
     if (this.props.generatorCasts && this.props.activeFocusWasted && this.props.activeFocusGenerated) {
-      Object.keys(this.props.generatorCasts).forEach((generator) => {
+      Object.keys(this.props.generatorCasts).forEach(generator => {
         const spell = SPELLS[generator];
+        if (!spell) {
+          throw new Error(`Missing spell: ${generator}`);
+        }
         abilitiesAll[`${generator}_gen`] = {
           ability: {
             category: 'Focus Generators',
@@ -134,9 +137,9 @@ class Focus extends React.PureComponent {
     }
     const wastedFocus = Math.round(passiveCap * focusGen);
     const totalFocus = Math.floor(fightDurationSec * focusGen);
-    let ratingOfPassiveWaste = "";
+    let ratingOfPassiveWaste = '';
     if (passiveCap / this.totalFocus > passiveWasteThresholdPercentage) {
-      ratingOfPassiveWaste = "Can be improved.";
+      ratingOfPassiveWaste = 'Can be improved.';
     }
     const totalWasted = [totalFocus, wastedFocus, ratingOfPassiveWaste];
 
