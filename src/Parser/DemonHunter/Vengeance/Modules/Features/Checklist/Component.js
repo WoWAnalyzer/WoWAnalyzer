@@ -70,7 +70,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
               thresholds={thresholds.spiritBombSoulConsume}
             />
           )}
-          {!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&(
+          {(!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) &&(
             <Requirement
               name={(
                 <React.Fragment>
