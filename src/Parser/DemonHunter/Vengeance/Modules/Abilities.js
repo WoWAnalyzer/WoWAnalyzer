@@ -25,10 +25,10 @@ class Abilities extends CoreAbilities {
       {
         spell: [combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? SPELLS.FRACTURE_TALENT : SPELLS.SHEAR],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown:  combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
+        cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
         charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
-          suggestion: !!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+          suggestion: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
           recommendedEfficiency: 0.90,
         },
         gcd: {
@@ -67,10 +67,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMON_SPIKES,
-        buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 20 / (1 + haste),
-        charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
+        /* Commenting out Demon Spikes cooldown as the Feed the Demon talent breaks it
+         * Feed the Demon reduces the cooldown of Demon Spikes by 0.5s for each soul fragment consumed when on CD
+        */
+        cooldown: !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) ? haste => 20 / (1 + haste) : null,
+        charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
       },
 
       // Talents
@@ -153,7 +155,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED,SPELLS.SIGIL_OF_FLAME_QUICKENED],
-        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF,
+        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
@@ -200,7 +202,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 3,
+        cooldown: haste => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
