@@ -39,6 +39,7 @@ import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWrat
 import BeastCleave from './Modules/Spells/BeastCleave';
 import CobraShot from './Modules/Spells/CobraShot';
 import BarbedShot from './Modules/Spells/BarbedShot';
+import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
 
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     beastCleave: BeastCleave,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
+    aspectOfTheWild: AspectOfTheWild,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,

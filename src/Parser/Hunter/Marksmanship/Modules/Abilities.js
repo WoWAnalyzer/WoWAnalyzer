@@ -140,6 +140,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TRUESHOT,
+        buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
@@ -162,6 +163,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRIMAL_RAGE,
+        buffSpellId: SPELLS.PRIMAL_RAGE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,

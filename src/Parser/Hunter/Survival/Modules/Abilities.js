@@ -57,6 +57,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COORDINATED_ASSAULT,
+        buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -69,6 +70,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
+        buffSpellId: SPELLS.MONGOOSE_FURY.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
@@ -186,6 +188,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRIMAL_RAGE,
+        buffSpellId: SPELLS.PRIMAL_RAGE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,

@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const BOP_ABILITIES = [
   SPELLS.RAPTOR_STRIKE.id,
@@ -33,6 +34,9 @@ const MS_BUFFER = 100;
  */
 
 class CoordinatedAssault extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
 
   petTarget;
   playerTarget;
@@ -40,15 +44,26 @@ class CoordinatedAssault extends Analyzer {
   wastedExtension = 0;
   timestampAoE = 0;
   targetsHitAoE = [];
+  casts = 0;
 
   on_byPlayerPet_damage(event) {
     this.petTarget = encodeTargetString(event.targetID, event.targetInstance);
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.COORDINATED_ASSAULT.id) {
+      this.casts += 1;
+    }
+  }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (!BOP_ABILITIES.includes(spellId) || !this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
+    }
+    if (this.casts === 0) {
+      this.casts += 1;
+      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, this.owner.fight.start_time);
     }
     this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
