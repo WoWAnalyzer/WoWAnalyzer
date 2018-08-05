@@ -57,7 +57,7 @@ class Reduction {
       return 0;
     }
     if (typeof this._mitigation === 'function') {
-      return this._mitigation.call(this._owner, this._owner.statTracker.currentArmorPercentage, this._owner.statTracker.currentVersatilityPercentage, this._owner.statTracker.currentMasteryPercentage, this._owner.statTracker.currentAvoidancePercentage, this._owner.selectedCombatant);
+      return this._mitigation.call(this._owner, this._owner.armor.currentArmorPercentage, this._owner.statTracker.currentVersatilityPercentage, this._owner.statTracker.currentMasteryPercentage, this._owner.statTracker.currentAvoidancePercentage, this._owner.selectedCombatant);
     }
     return this._mitigation;
   }

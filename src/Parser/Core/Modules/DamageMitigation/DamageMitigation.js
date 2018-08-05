@@ -9,21 +9,23 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import Armor from './Armor';
 import Reduction from './Reduction';
 import AOE_TYPE from './AOE_TYPE';
 import AOE_ABILITIES from './AOE_ABILITIES';
-import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN } from './Reductions';
+import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN, AURA_OF_SACRIFICE } from './Reductions';
 
 const debug = true;
 
 const ACCURACY_THRESHOLD = 0.05;
-const BUFFER_PERCENT = 0.01;
+const BUFFER_PERCENT = 0.005;
 
 class DamageMitigation extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
     enemies: EnemyInstances,
     combatants: Combatants,
+    armor: Armor,
   };
 
   static REDUCTION_CLASS = Reduction;
@@ -32,6 +34,7 @@ class DamageMitigation extends Analyzer {
   debuffs = [];
   passives = [];
   unknownReduction = null;
+  auraOfSacrifice = null;
   mitigated = {};
   checkSum = 0;
 
@@ -74,6 +77,9 @@ class DamageMitigation extends Analyzer {
     // Unknown
     this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
     this.initReduction(this.unknownReduction);
+    // Aura of Sacrifice
+    this.auraOfSacrifice = new this.constructor.REDUCTION_CLASS(this, AURA_OF_SACRIFICE);
+    this.initReduction(this.auraOfSacrifice);
   }
 
   initReduction(reduction) {
@@ -170,7 +176,7 @@ class DamageMitigation extends Analyzer {
     // Subtract block since it's a static amount after reductions.
     let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
-    debug && console.log('Actual armor: ' + event.armor + ', statTracker armor: ' + this.statTracker.currentArmorRating);
+    debug && console.log('Actual armor: ' + event.armor + ', armorTracker armor: ' + this.armor.currentArmorRating);
     
     // Add passives.
     let mitigations = this.passives.slice();
@@ -215,13 +221,23 @@ class DamageMitigation extends Analyzer {
       debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
       // If it is physical damage, try to match without armor instead.
       if (event.ability.type === 1) {
-        // NYI
+        
       }
     }
 
     // If the actual percent mitigated is higher than expected, try to assign the unknown mitigation.
     if (percentMitigated - BUFFER_PERCENT > multiplicative) {
       debug && console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+      // Check for Aura of Sacrifice.
+      /*if (this.selectedCombatant.hasBuff(SPELLS.AURA_OF_SACRIFICE_BUFF.id) &&
+        unknown + BUFFER_PERCENT > this.auraOfSacrifice.mitigation) {
+        mitigations.push(this.auraOfSacrifice);
+        unknown = 1 - (1 - unknown) / (1 - this.auraOfSacrifice.mitigation);
+      }*/
+      // Check for Devotion Aura.
+      // Check for Destruction Mastery. NYI
+      // if the remaining at this point is still 10%, assume it's Spirit Link Totem.
+      
       // If the player is using a shield and the hit was fully absorbed, assume the remaining mitigation was block (Block amount is not in the log when the hit fully absorbed).
       if (event.amount === 0 && (this.selectedCombatant.specId === SPECS.PROTECTION_PALADIN.id || 
         this.selectedCombatant.specId === SPECS.PROTECTION_WARRIOR.id) ) {

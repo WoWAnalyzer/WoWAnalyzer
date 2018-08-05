@@ -435,3 +435,10 @@ export const UNKNOWN =
   id: -1000,
   name: 'Unknown',
 };
+
+export const AURA_OF_SACRIFICE = 
+{
+  id: SPELLS.AURA_OF_SACRIFICE_BUFF.id,
+  name: SPELLS.AURA_OF_SACRIFICE_BUFF.name,
+  mitigation: 0.1,
+};
