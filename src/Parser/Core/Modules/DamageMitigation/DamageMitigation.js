@@ -176,7 +176,7 @@ class DamageMitigation extends Analyzer {
     // Subtract block since it's a static amount after reductions.
     let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time) + ' - Ability: ' + event.ability.name + ', Amount: ' + event.amount + (event.block ? ', Blocked: ' + event.block : '') + ', Raw: ' + event.unmitigatedAmount + ', Mitigated: ' + mitigated + ', ' + formatPercentage(mitigated/event.unmitigatedAmount) + '%');
-    debug && console.log('Actual armor: ' + event.armor + ', armorTracker armor: ' + this.armor.currentArmorRating);
+    debug && console.log('Actual armor: ' + event.armor + ', armorTracker armor: ' + this.armor.armor);
     
     // Add passives.
     let mitigations = this.passives.slice();
@@ -211,7 +211,7 @@ class DamageMitigation extends Analyzer {
     const multiplicativeReducer = (accumulator, reduction) => accumulator * (1 - this.getMitigation(reduction, event));
 
     const percentMitigated = mitigated/event.unmitigatedAmount;
-    const multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
+    let multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
     
     // The remaining mitigation not accounted for. (can be also be negative!)
     let unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
@@ -220,8 +220,11 @@ class DamageMitigation extends Analyzer {
     if (percentMitigated + BUFFER_PERCENT < multiplicative) {
       debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
       // If it is physical damage, try to match without armor instead.
-      if (event.ability.type === 1) {
-        
+      if (event.ability.type === 1 && event.ability.name !== 'Melee') {
+        mitigations = mitigations.filter(e => e.id !== -1001);
+        // Recalculate
+        multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
+        unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
       }
     }
 
