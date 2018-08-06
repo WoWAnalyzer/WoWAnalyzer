@@ -63,7 +63,7 @@ class Checklist extends Analyzer {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           spiritBombFrailtyDebuff: this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
           voidReaverDebuff: this.voidReaverDebuff.uptimeSuggestionThresholds,
-          spiritBombSoulConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
+          spiritBombSoulsConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
           soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
           painDetails: this.painDetails.suggestionThresholds,
