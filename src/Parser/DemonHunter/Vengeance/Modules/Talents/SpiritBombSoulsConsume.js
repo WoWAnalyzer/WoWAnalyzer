@@ -11,7 +11,7 @@ import { formatPercentage } from 'common/format';
 
 const MS_BUFFER = 100;
 
-class SpiritBombSoulConsume extends Analyzer {
+class SpiritBombSoulsConsume extends Analyzer {
 
   /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
    as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
@@ -139,4 +139,4 @@ class SpiritBombSoulConsume extends Analyzer {
 
 }
 
-export default SpiritBombSoulConsume;
+export default SpiritBombSoulsConsume;

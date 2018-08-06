@@ -13,7 +13,7 @@ import SpiritBombFrailtyDebuff from '../../Talents/SpiritBombFrailtyDebuff';
 import VoidReaverDebuff from '../../Talents/VoidReaverDebuff';
 
 // Talents
-import SpiritBombSoulConsume from '../../Talents/SpiritBombSoulConsume';
+import SpiritBombSoulsConsume from '../../Talents/SpiritBombSoulsConsume';
 import SoulBarrier from '../../Talents/SoulBarrier';
 
 //Spells
@@ -42,7 +42,7 @@ class Checklist extends Analyzer {
     voidReaverDebuff: VoidReaverDebuff,
 
     // Talents
-    spiritBombSoulConsume: SpiritBombSoulConsume,
+    spiritBombSoulsConsume: SpiritBombSoulsConsume,
     soulBarrier: SoulBarrier,
 
     // Spells
@@ -63,7 +63,7 @@ class Checklist extends Analyzer {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           spiritBombFrailtyDebuff: this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
           voidReaverDebuff: this.voidReaverDebuff.uptimeSuggestionThresholds,
-          spiritBombSoulConsume: this.spiritBombSoulConsume.suggestionThresholdsEfficiency,
+          spiritBombSoulConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
           soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
           painDetails: this.painDetails.suggestionThresholds,

@@ -67,7 +67,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
                   <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> 4+ souls casts
                 </React.Fragment>
               )}
-              thresholds={thresholds.spiritBombSoulConsume}
+              thresholds={thresholds.spiritBombSoulsConsume}
             />
           )}
           {(!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) &&(
