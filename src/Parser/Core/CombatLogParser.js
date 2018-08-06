@@ -148,6 +148,7 @@ import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOverc
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+import { captureException } from 'common/errorLogger';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -514,7 +515,16 @@ class CombatLogParser {
       if (!isToPlayerPet && options.toPlayerPet) {
         return;
       }
-      options.listener(event);
+      try {
+        options.listener(event);
+      } catch (err) {
+        if (process.env.NODE_ENV === 'development') {
+          throw err;
+        }
+        options.module.active = false;
+        console.error('Disabling', module.constructor.name, 'because an error occured', err);
+        captureException(err);
+      }
     };
 
     {
