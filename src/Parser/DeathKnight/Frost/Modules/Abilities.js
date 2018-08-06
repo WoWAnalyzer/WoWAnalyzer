@@ -204,7 +204,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAINS_OF_ICE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //special case, this is rotational for the duration of prepatch
+        category: combatant.hasTalent(SPELLS.COLD_HEART_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
