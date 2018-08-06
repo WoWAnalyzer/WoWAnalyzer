@@ -10,6 +10,11 @@ import Contributor from 'Interface/Contributor/Button';
 export default [
   {
     date: new Date('2018-08-05'),
+    changes: 'Linking a hunter pet doesn\'t crash the analyzer url builder anymore.',
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2018-08-05'),
     changes: <React.Fragment>Added a <SpellLink id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} /> racial contribution module. Thanks to @Iyob for the suggestion.</React.Fragment>,
     contributors: [Zerotorescue],
   },
