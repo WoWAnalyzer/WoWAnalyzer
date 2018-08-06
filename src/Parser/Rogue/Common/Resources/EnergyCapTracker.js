@@ -6,8 +6,6 @@ import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker';
 
-import {isStealthOrDance} from '../Stealth/IsStealth';
-
 const BASE_ENERGY_REGEN = 10;
 const VIGOR_REGEN_MULTIPLIER = 1.1;
 
@@ -15,7 +13,6 @@ const BASE_ENERGY_MAX = 100;
 const VIGOR_MAX_ADDITION = 50;
 
 const RESOURCE_REFUND_ON_MISS = 0.8;
-const SHADOW_FOCUS_MULTIPLIER = 0.8;
 
 /**
  * Sets up RegenResourceCapTracker to accurately track the regenerating energy of rogues.
@@ -31,24 +28,6 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static exemptFromRefund = [
   ];
   
-  discountShadowFocus = false;
-  constructor(...args) {
-    super(...args);
-    this.discountShadowFocus = this.selectedCombatant.hasTalent(SPELLS.SHADOW_FOCUS_TALENT.id);
-  }
-
-  getReducedCost(event) {
-    const baseCost = super.getReducedCost(event);
-    if (!baseCost) {
-      return 0;
-    }
-    if(this.discountShadowFocus && isStealthOrDance(this.selectedCombatant,100)) {
-      return baseCost * SHADOW_FOCUS_MULTIPLIER;
-    }
-
-    return baseCost;
-  }
-
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
     if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
