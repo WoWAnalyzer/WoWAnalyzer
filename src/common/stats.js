@@ -23,10 +23,19 @@ export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel
   return scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTables.jewelry);
 }
 
+// Constants for azerite effect scaling
+//
+// The base ilvl and budget are only used to perform scaling.
+// Historically, logs gave a "rank" that was 0 at ilvl 251, which is why
+// this particular value is used. Presently, any ilvl could be
+// substituted as long as the *unrounded* budget is changed as well.
 const AZ_BASE_ILVL = 251;
 const AZ_BASE_BUDGET = 179.2;
-// note: add + 5 to rank if the item has been fully upgraded (this will
-// be automatic in the future)
+
+// Calculate the values of each (scaling) effect associated with an
+// azerite trait. Note that *effects that do not scale are not present!*
+//
+// Effects will always be returned in ascending order of effect ID.
 export function calculateAzeriteEffects(spellId, rank) {
   const spell = AZERITE_SCALING[spellId];
 
@@ -35,5 +44,7 @@ export function calculateAzeriteEffects(spellId, rank) {
     budget *= getMultiplier(multiplierTables.general, rank);
   } 
 
-  return Object.values(spell.effects).filter(({avg}) => avg > 0).map(({avg}) => Math.round(avg * budget));
+  return spell.effect_list.map(id => spell.effects[id])
+    .filter(({avg}) => avg > 0)
+    .map(({avg}) => Math.round(avg * budget));
 }

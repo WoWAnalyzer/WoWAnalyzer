@@ -38,6 +38,13 @@ class BoneShieldStacksBySeconds extends Analyzer {
     return this.boneShieldStacks;
   }
 
+  get averageBoneShieldStacks() {
+    let avgStacks = 0;
+    this.boneShieldStacks.forEach((elem, index) => {
+      avgStacks += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index;
+    });
+    return avgStacks;
+  }
   
   on_byPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {

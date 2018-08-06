@@ -61,7 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
-    
+
 
     //Focus Chart
     focusTracker: FocusTracker,

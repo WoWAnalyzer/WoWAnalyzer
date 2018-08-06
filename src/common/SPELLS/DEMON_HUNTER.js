@@ -72,6 +72,11 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  VOID_REAVER_DEBUFF: {
+    id: 268178,
+    name: 'Void Reaver Debuff',
+    icon: 'spell_shadow_demonicempathy',
+  },
   //Sigil of Flame, Misery, and Silence have different spell ids depending on
   //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
   SIGIL_OF_FLAME_CONCENTRATED: {
@@ -138,7 +143,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    painCost: 43,
+    painCost: 30,
   },
   IMMOLATION_AURA: {
     id: 178740,

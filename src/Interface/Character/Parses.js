@@ -1,18 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 import fetchWcl from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+
+import { appendReportHistory } from 'Interface/actions/reportHistory';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import WarcraftLogsLogo from 'Interface/Images/WarcraftLogs-logo.png';
 import ArmoryLogo from 'Interface/Images/Armory-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
+import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
@@ -43,6 +49,7 @@ class Parses extends React.Component {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    appendReportHistory: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -62,6 +69,7 @@ class Parses extends React.Component {
       isLoading: true,
       error: null,
       trinkets: ITEMS,
+      realmSlug: this.props.realm,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -71,14 +79,27 @@ class Parses extends React.Component {
     this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
     this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
+    this.appendHistory = this.appendHistory.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.fetchBattleNetInfo();
   }
 
   iconPath(specName) {
     return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
+  }
+
+  appendHistory(player) {
+    this.props.appendReportHistory({
+      code: `${player.name}-${player.realm}-${player.region}`,
+      end: Date.now(),
+      type: REPORT_HISTORY_TYPES.CHARACTER,
+      playerName: player.name,
+      playerRealm: player.realm,
+      playerRegion: player.region,
+      playerClass: player.class,
+    });
   }
 
   updateZoneMetricBoss(zone, metric, boss) {
@@ -235,13 +256,9 @@ class Parses extends React.Component {
     });
   }
 
-  async load(refresh = false) {
-    this.setState({
-      isLoading: true,
-    });
-
+  async findRealm() {
     const realms = await loadRealms();
-    //use the slug from REALMS when available, otherwise try realm-prop and fail
+    // Use the slug from REALMS when available, otherwise try realm-prop and fail
     // TODO: Can we make this return results more reliably?
     const realmsInRegion = realms[this.props.region];
     const lowerCaseRealm = this.props.realm.toLowerCase();
@@ -249,10 +266,27 @@ class Parses extends React.Component {
     if (!realm) {
       console.warn('Realm could not be found: ' + this.props.realm + '. This generally indicates a bug.');
     }
-    const realmSlug = realm ? realm.slug : this.props.realm;
+
+    return realm;
+  }
+
+  async getRealmSlug() {
+      const realm = await this.findRealm();
+      return realm ? realm.slug : this.props.realm;
+  }
+
+  async load(refresh = false) {
+    this.setState({
+      isLoading: true,
+    });
+
+    const realm = await this.getRealmSlug();
+    this.setState({
+      realmSlug: realm,
+    });
 
     const urlEncodedName = encodeURIComponent(this.props.name);
-    const urlEncodedRealm = encodeURIComponent(realmSlug);
+    const urlEncodedRealm = encodeURIComponent(realm);
 
     return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
@@ -306,6 +340,14 @@ class Parses extends React.Component {
           .map(e => e.specName);
 
         const parses = this.changeParseStructure(rawParses, charClass);
+
+        this.appendHistory({
+          name: this.props.name,
+          realm: this.props.realm,
+          region: this.props.region,
+          class: charClass,
+        });
+
         this.setState({
           specs: specs,
           activeSpec: specs.map(elem => elem.replace(' ', '')),
@@ -356,9 +398,9 @@ class Parses extends React.Component {
       );
     }
 
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.props.realm}/${this.props.name}`;
+    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
     if (this.props.region === 'CN') {
-      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.props.realm}/${this.props.name}`;
+      battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.state.realmSlug}/${this.props.name}`;
     }
 
     return (
@@ -462,7 +504,7 @@ class Parses extends React.Component {
             </div>
             <div>
               <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.props.realm}/${this.props.name}`}
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -481,7 +523,7 @@ class Parses extends React.Component {
               </a>
               {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${this.props.realm}/${this.props.region}`}
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
@@ -544,4 +586,12 @@ class Parses extends React.Component {
   }
 }
 
-export default Parses;
+export default compose(
+  withRouter,
+  connect(
+    null,
+    {
+      appendReportHistory,
+    }
+  )
+)(Parses);

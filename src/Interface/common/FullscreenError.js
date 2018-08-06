@@ -22,7 +22,7 @@ const FullscreenError = ({ error, details, background, children, errorDetails })
         <GithubButton style={{ marginLeft: 20 }} />
         <PatreonButton style={{ marginLeft: 20 }} />
       </div>
-      {errorDetails && process.env.NODE_ENV !== 'production' && (
+      {errorDetails && (
         <div style={{ marginTop: 30 }}>
           {errorDetails}
         </div>

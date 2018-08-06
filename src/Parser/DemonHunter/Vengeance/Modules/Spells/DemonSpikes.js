@@ -43,7 +43,7 @@ class DemonSpikes extends Analyzer {
 
   suggestions(when) {
     const hitsWithDSOffCDPercent = this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
-    when(hitsWithDSOffCDPercent).isGreaterThan(0.1)
+    when(hitsWithDSOffCDPercent).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(hitsWithDSOffCDPercent)}% of physical hits.</React.Fragment>)
           .icon(SPELLS.DEMON_SPIKES.icon)

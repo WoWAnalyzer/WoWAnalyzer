@@ -36,6 +36,7 @@ class Haste extends Analyzer {
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     [SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id]: 0.03, //3% haste hunter legendary
+    [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Mamtooth, Hewhosmites } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
@@ -24,7 +24,7 @@ export default {
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/hxzFPBaWLJrG1NQR/24-Heroic+Imonar+the+Soulhunter+-+Kill+(3:38)/2-Schakalèn',
+  exampleReport: '/report/Gqg7WLar8JnRNptx/10-Mythic+Aggramar+-+Kill+(6:21)/5-Devidara',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

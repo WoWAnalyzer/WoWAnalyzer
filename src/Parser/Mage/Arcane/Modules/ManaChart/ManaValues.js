@@ -1,13 +1,20 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import DeathTracker from 'Parser/Core/Modules/DeathTracker';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 
 class ManaValues extends Analyzer {
+  static dependencies = {
+		deathTracker: DeathTracker,
+  };
+  
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
   maxMana = 110000;
   manaUpdates = [];
+
+  deadOnKill = false;
 
   on_byPlayer_cast(event) {
     if (event.classResources) {
@@ -34,6 +41,12 @@ class ManaValues extends Analyzer {
     }
   }
 
+  on_finished() {
+    if (!this.deathTracker.isAlive) {
+      this.deadOnKill = true;
+    }
+  }
+
   get manaLeftPercentage() {
     return this.endingMana/this.maxMana;
   }
@@ -48,8 +61,10 @@ class ManaValues extends Analyzer {
       style: 'percentage',
     };
   }
+  
   suggestions(when) {
-    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
+    if (!this.deadOnKill) {
+      when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.')
           .icon('inv_elemental_mote_mana')
@@ -58,6 +73,7 @@ class ManaValues extends Analyzer {
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major);
       });
+    }
   }
 }
 

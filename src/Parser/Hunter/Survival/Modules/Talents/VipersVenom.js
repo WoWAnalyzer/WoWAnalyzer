@@ -8,7 +8,7 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import { formatPercentage } from 'common/format';
+import ITEMS from 'common/ITEMS/HUNTER';
 
 /**
  * Raptor Strike (or Monogoose Bite) has a chance to make your next
@@ -28,18 +28,26 @@ class VipersVenom extends Analyzer {
   accumulatedTimeFromBuffToCast = 0;
   currentGCD = 0;
   wastedProcs = 0;
+  badRaptors = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+    if ((spellId !== SPELLS.RAPTOR_STRIKE.id && spellId !== SPELLS.RAPTOR_STRIKE_AOTE.id && spellId !== SPELLS.SERPENT_STING_SV.id) || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       return;
     }
-    this.buffedSerpentSting = true;
-    this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
+    if (spellId === SPELLS.SERPENT_STING_SV.id) {
+      this.buffedSerpentSting = true;
+      this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
+      return;
+    }
+    if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id || spellId === SPELLS.RAPTOR_STRIKE.id) {
+      this.badRaptors++;
+    }
   }
 
   on_byPlayer_damage(event) {
@@ -73,38 +81,38 @@ class VipersVenom extends Analyzer {
     return (this.accumulatedTimeFromBuffToCast / this.procs / 1000).toFixed(2);
   }
 
-  get TimeBetweenBuffAndCastThreshold() {
+  get raptorWithBuffThresholds() {
     return {
-      actual: this.averageTimeBetweenBuffAndUsage,
+      actual: this.badRaptors,
       isGreaterThan: {
         minor: 1,
         average: 2,
         major: 3,
       },
-      style: 'decimal',
+      style: 'number',
     };
   }
-  get wastedProcsThreshold() {
+  get wastedProcsThresholds() {
     return {
       actual: this.wastedProcs,
       isGreaterThan: {
-        minor: 1,
-        average: 3,
-        major: 5,
+        minor: 0,
+        average: 2,
+        major: 4,
       },
       style: 'number',
     };
   }
 
   suggestions(when) {
-    when(this.TimeBetweenBuffAndCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> as fast as possible after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT} />.</React.Fragment>)
+    when(this.raptorWithBuffThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> before you cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> again.</React.Fragment>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
-        .actual(`${actual} seconds between buff and cast`)
-        .recommended(`<${formatPercentage(recommended)} second is recommended`);
+        .actual(`${actual} raptor casts with Viper's Venom buff active`)
+        .recommended(`<${recommended} casts is recommended`);
     });
-    when(this.wastedProcsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs.</React.Fragment>)
+    when(this.wastedProcsThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<React.Fragment>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs, and to not cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> before you've spent the <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff.</React.Fragment>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
         .actual(`${actual} wasted procs of Viper's Venom`)
         .recommended(`<${recommended} is recommended`);

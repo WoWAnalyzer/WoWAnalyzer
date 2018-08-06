@@ -62,9 +62,9 @@ class CastsInStealthBase extends Analyzer {
     return {
       actual: this.stealthActualCasts / this.stealthMaxCasts,
       isLessThan: {
-        minor: 100,
-        average: 90,
-        major: 80,
+        minor: 1,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percent',
     };

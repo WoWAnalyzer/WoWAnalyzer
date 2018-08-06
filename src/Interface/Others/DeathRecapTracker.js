@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
 import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -50,7 +51,17 @@ class DeathRecapTracker extends Analyzer {
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
     extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({ id: e.primarySpell.id, cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id) }));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => this.selectedCombatant.hasBuff(e.id));
+      this.lastBuffs = this.buffs.filter(e => {
+        const buff = this.selectedCombatant.getBuff(e.id);
+        const hasBuff = buff !== undefined;
+        if (!hasBuff) {
+          return false;
+        }
+        if (e.id === SPELLS.BLESSING_OF_SACRIFICE.id) {
+          return buff.sourceID === this.selectedCombatant.id;
+        }
+        return true;
+      });
     }
     extendedEvent.buffsUp = this.lastBuffs;
 

@@ -6,7 +6,32 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-07-2'),
+    date: new Date('2018-08-3'),
+    changes: <React.Fragment>Added suggestion for <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> and showed its uptime.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-08-01'),
+    changes: <React.Fragment>Implemented Checklist feature.</React.Fragment>,
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2018-08-1'),
+    changes: <React.Fragment>Added suggestion for <SpellLink id={SPELLS.SOUL_CLEAVE.id} />.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-30'),
+    changes: <React.Fragment>Updated code for <SpellLink id={SPELLS.FRACTURE_TALENT.id} /> to reflect it replaces <SpellLink id={SPELLS.SHEAR.id} />.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-29'),
+    changes: <React.Fragment>Updated code for all sigils. They have different spell ids depending on if you take <SpellLink id={SPELLS.QUICKENED_SIGILS_TALENT.id} /> or <SpellLink id={SPELLS.CONCENTRATED_SIGILS_TALENT.id} />.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-07-28'),
     changes: <React.Fragment>Added module to show how many <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casts were good.</React.Fragment>,
     contributors: [Yajinni],
   },

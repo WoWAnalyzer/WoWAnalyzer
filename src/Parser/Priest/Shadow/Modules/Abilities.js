@@ -254,16 +254,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 90,
-        gcd: null,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.MASS_DISPEL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,

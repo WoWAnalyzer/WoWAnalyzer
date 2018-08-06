@@ -75,14 +75,14 @@ class BeaconHealing extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
         value={`${formatPercentage(totalHealsOnBeaconPercentage)} %`}
         label="Direct beacon healing"
         tooltip={`The amount of heals cast on beacon targets. ${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}
       />
-);
-}
-  statisticOrder = STATISTIC_ORDER.CORE(50);
+    );
+  }
 }
 
 export default BeaconHealing;

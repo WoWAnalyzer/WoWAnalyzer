@@ -28,7 +28,7 @@ class Tier21_4p extends Analyzer {
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_BITE.id) {
+    if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
       return;
     }
     this.possibleBuffs++;

@@ -1,3 +1,6 @@
+/**
+ * @deprecated Use Checklist2 instead.
+ */
 class Requirement {
   name = null;
   check = null;

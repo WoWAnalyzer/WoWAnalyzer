@@ -16,7 +16,7 @@ import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import ITEMS from 'common/ITEMS/HUNTER';
 import ItemLink from 'common/ItemLink';
 import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
