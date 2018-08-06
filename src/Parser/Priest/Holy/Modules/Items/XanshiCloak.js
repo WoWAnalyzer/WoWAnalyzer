@@ -2,6 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import ItemManaGained from 'Interface/Others/ItemManaGained';
@@ -48,7 +49,7 @@ class XanshiCloak extends Analyzer {
   on_byPlayer_cast(event) {
     if (!this._xanshiActive) { return; }
 
-    this.manaSaved += event.rawManaCost || 0;
+    this.manaSaved += event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0;
     this.casts.push(event.ability.guid);
   }
 
