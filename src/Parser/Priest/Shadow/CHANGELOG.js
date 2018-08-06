@@ -1,10 +1,17 @@
 import React from 'react';
 
 import { hassebewlen, Zerotorescue } from 'CONTRIBUTORS';
-import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-08-05'),
+    changes: <React.Fragment>Fixed crash when using <SpellLink id={SPELLS.DARK_ASCENSION_TALENT.id} />.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-06-22'),
     changes: 'Updated spells and several modules to be compatible with BFA.',

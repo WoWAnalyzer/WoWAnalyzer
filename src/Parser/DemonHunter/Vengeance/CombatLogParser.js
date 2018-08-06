@@ -16,7 +16,7 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
@@ -25,6 +25,8 @@ import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
 import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
 import SoulBarrier from './Modules/Talent/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
+import VoidReaverDebuff from './Modules/Talent/VoidReaverDebuff';
+
 
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
@@ -65,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
+    voidReaverDebuff: VoidReaverDebuff,
 
     //Stats
     soulsOvercap: SoulsOvercap,

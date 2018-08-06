@@ -34,7 +34,7 @@ class ButchersBoneApron extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.MONGOOSE_BITE.id && this._currentStacks === MAX_STACKS) {
+    if (spellID === SPELLS.MONGOOSE_BITE_TALENT.id && this._currentStacks === MAX_STACKS) {
       this.wastedStacks++;
       this.totalStacks++;
     }

@@ -31,7 +31,7 @@ class SoulsOvercap extends Analyzer {
 
     when(wasterPerGenerated).isGreaterThan(0.15)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You are wasting <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. Try to not let them cap by using <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> and/or <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> to spend it. The only moment you should let them cap is when you are waiting to use <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> to mitigate heavy incoming damage. </React.Fragment>)
+      return suggest(<React.Fragment>You are wasting <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. They are absorbed automatically when you overcap, your missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</React.Fragment>)
         .icon('spell_shadow_soulgem')
         .actual(`${formatNumber(this.soulFragmentsTracker.soulsWasted)} wasted Soul Fragments.`)
         .recommended(`<=${formatNumber(maximumWaste)} is recommended`)
