@@ -21,7 +21,7 @@ const AIMED_AP_MOD = 2.07;
 const MASTERY_DMG_MODIFIER_PER_PERCENT = 2.24;
 const CA_MODIFIER = 1;
 
-const debug = true;
+const debug = false;
 
 class CarefulAim extends Analyzer {
   static dependencies = {
@@ -54,6 +54,10 @@ class CarefulAim extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.AIMED_SHOT.id) {
+      return;
+    }
     if (event.attackPower !== undefined && event.attackPower > 0) {
       this.lastAttackPower = event.attackPower;
     }
@@ -66,8 +70,8 @@ class CarefulAim extends Analyzer {
     const caNormalDamage = normalDamage * 2;
     const caCritDamage = critDamage * 2;
 
-    const normalCutoff = (normalDamage + caNormalDamage) / 1.9;
-    const critCutoff = (caCritDamage + critDamage) / 1.9;
+    const normalCutoff = (normalDamage + caNormalDamage) / 2;
+    const critCutoff = (caCritDamage + critDamage) / 2;
 
     debug && console.log(`CA detection (crit: ${event.hitType === HIT_TYPES.CRIT}): normal-cutoff ${formatNumber(normalCutoff)}, crit-cutoff ${formatNumber(critCutoff)}, actual ${formatNumber(event.amount)}`);
     if (event.hitType === HIT_TYPES.CRIT) {
