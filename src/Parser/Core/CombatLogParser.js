@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { findByBossId } from 'Raids';
-import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import ChangelogTab from 'Interface/Others/ChangelogTab';
@@ -475,47 +475,13 @@ class CombatLogParser {
   eventCount = 0;
   eventHistory = [];
   _eventListeners = {};
-  addEventListener(type, listener, options = null) {
-    // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
-    let handler = listener;
-    if (options.byPlayer) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.byPlayer(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.toPlayer) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.toPlayer(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.byPlayerPet) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.byPlayerPet(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.toPlayerPet) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.toPlayerPet(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-
-    const existingEventListener = this._eventListeners[type];
-    this._eventListeners[type] = existingEventListener ? function (...args) {
-      existingEventListener(...args);
-      handler(...args);
-    } : handler;
+  addEventListener(type, listener, module, options = null) {
+    this._eventListeners[type] = this._eventListeners[type] || [];
+    this._eventListeners[type].push({
+      ...options,
+      module,
+      listener,
+    });
   }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
@@ -530,17 +496,38 @@ class CombatLogParser {
     this._timestamp = event.timestamp;
     this._event = event;
 
+    const isByPlayer = this.byPlayer(event);
+    const isToPlayer = this.toPlayer(event);
+    const isByPlayerPet = this.byPlayerPet(event);
+    const isToPlayerPet = this.toPlayerPet(event);
+
+    const run = options => {
+      if (!isByPlayer && options.byPlayer) {
+        return;
+      }
+      if (!isToPlayer && options.toPlayer) {
+        return;
+      }
+      if (!isByPlayerPet && options.byPlayerPet) {
+        return;
+      }
+      if (!isToPlayerPet && options.toPlayerPet) {
+        return;
+      }
+      options.listener(event);
+    };
+
     {
       // Handle on_event (listeners of all events)
-      const listener = this._eventListeners.event;
-      if (listener) {
-        listener(event);
+      const listeners = this._eventListeners.event;
+      if (listeners) {
+        listeners.forEach(run);
       }
     }
     {
-      const listener = this._eventListeners[event.type];
-      if (listener) {
-        listener(event);
+      const listeners = this._eventListeners[event.type];
+      if (listeners) {
+        listeners.forEach(run);
       }
     }
 
