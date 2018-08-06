@@ -13,6 +13,12 @@ import StatisticWrapper from 'Interface/Others/StatisticWrapper';
 
 const CHART_SIZE = 100;
 
+/**
+ * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
+
 const LIST_OF_FOCUS_SPENDERS = [
   //bm specific
   SPELLS.COBRA_SHOT.id,

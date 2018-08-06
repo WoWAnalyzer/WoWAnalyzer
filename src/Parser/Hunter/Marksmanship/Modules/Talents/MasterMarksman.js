@@ -9,6 +9,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 
 const FOCUS_COST = 15;

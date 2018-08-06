@@ -11,6 +11,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown of Exhilaration by 1 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/8jJqDcrGK1xM3Wn6#fight=2&type=damage-done
  */
 
 const MM_SV_CDR_PER_FOCUS = 1000 / 20;
@@ -29,10 +31,8 @@ class NaturalMending extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NATURAL_MENDING_TALENT.id);
-    if (this.active) {
-      if (this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
-        this.cdrPerFocus = BM_CDR_PER_FOCUS;
-      }
+    if (this.active && this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
+      this.cdrPerFocus = BM_CDR_PER_FOCUS;
     }
   }
 

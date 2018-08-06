@@ -12,6 +12,8 @@ const COOLDOWN_REDUCTION_MS = 3000;
 
 /**
  * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 3.0 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/vXcAzCyFKrm4Jdw1#fight=3&type=damage-done&source=6
  */
 class CallingTheShots extends Analyzer {
   static dependencies = {

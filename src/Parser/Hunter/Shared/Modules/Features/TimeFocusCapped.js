@@ -11,6 +11,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import FocusTracker from './FocusChart/FocusTracker';
 
+/**
+ * Tracks the amount of time spent at focus cap.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
+
 class TimeFocusCapped extends Analyzer {
   static dependencies = {
     focusTracker: FocusTracker,

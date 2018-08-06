@@ -12,6 +12,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
  * Butchery: Strike all nearby enemies in a flurry of strikes, inflicting Phsyical damage to each. Has 3 charges.
  * Both: Reduces the remaining cooldown on Wildfire Bomb by 1 sec for each target hit, up to 5.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
@@ -22,7 +24,6 @@ class ButcheryCarve extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  hasGT = false;
   reductionAtCurrentCast = 0;
   effectiveWFBReductionMs = 0;
   wastedWFBReductionMs = 0;
@@ -33,9 +34,6 @@ class ButcheryCarve extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id)) {
-      this.hasGT = true;
-    }
     if (this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
       this.spellKnown = SPELLS.BUTCHERY_TALENT;
     } else {

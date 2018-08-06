@@ -17,6 +17,8 @@ import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire
  * damage in a cone and coating enemies in wildfire, scorching them for (90%
  * of Attack power) Fire damage over 6 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 
 const GCD_BUFFER = 500; //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges

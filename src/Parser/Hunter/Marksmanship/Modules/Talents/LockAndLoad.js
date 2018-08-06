@@ -12,6 +12,8 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 
 const PROC_CHANCE = 0.05;

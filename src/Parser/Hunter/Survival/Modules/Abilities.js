@@ -270,18 +270,6 @@ class Abilities extends CoreAbilities {
        * Racials until we find a better solution
        */
       {
-        spell: SPELLS.ARCANE_TORRENT_FOCUS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,

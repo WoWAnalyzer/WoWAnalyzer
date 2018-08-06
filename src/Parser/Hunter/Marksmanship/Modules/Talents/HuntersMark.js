@@ -19,6 +19,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
  * The target can always be seen and tracked by the Hunter.
  *
  * Only one Hunter's Mark can be applied at a time.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&hostility=1&spells=debuffs&target=6
  */
 
 const HUNTERS_MARK_MODIFIER = 0.05;
@@ -155,7 +157,7 @@ class HuntersMark extends Analyzer {
         icon={<SpellIcon id={SPELLS.HUNTERS_MARK_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Hunters Mark uptime"
-        tooltip={`<ul><li>You had a total of ${this.casts} casts of Hunter's Mark.</li><li>You cast Hunter's Mark ${this.recasts} times, whilst it was active on the target or another target.</li><li>You received up to ${this.refunds * FOCUS_PER_REFUND} focus from a total of ${this.refunds}refunds from targets with Hunter's Mark active dying.</li>${this.potentialPrecastConfirmation}</ul>`}
+        tooltip={`<ul><li>You had a total of ${this.casts} casts of Hunter's Mark.</li><li>You cast Hunter's Mark ${this.recasts} times, whilst it was active on the target or another target.</li><li>You received up to ${this.refunds * FOCUS_PER_REFUND} focus from a total of ${this.refunds} refunds from targets with Hunter's Mark active dying.</li>${this.potentialPrecastConfirmation}</ul>`}
       />
     );
   }

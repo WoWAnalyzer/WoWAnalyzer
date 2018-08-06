@@ -31,6 +31,8 @@ const MS_BUFFER = 100;
  * Attacking your pet's target with Raptor Strike, Mongoose Bite,
  * Carve or Butchery extends the duration of Coordinated Assault by
  * 1.5 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 
 class CoordinatedAssault extends Analyzer {

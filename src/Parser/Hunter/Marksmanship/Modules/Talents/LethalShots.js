@@ -9,6 +9,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Steady Shot has a 25% chance to cause your next Aimed Shot or Rapid Fire to be guaranteed critical strikes.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 
 const RF_BUFFER = 4000;

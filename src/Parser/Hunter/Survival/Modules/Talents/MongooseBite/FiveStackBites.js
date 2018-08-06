@@ -11,6 +11,8 @@ const MAX_STACKS = 5;
 /**
  * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 5 times. Successive
  * attacks do not increase duration.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/CDL6mZfWdcgQX9wT#fight=2&type=damage-done&source=23
  */
 
 class FiveStackBites extends Analyzer {

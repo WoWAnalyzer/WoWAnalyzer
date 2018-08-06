@@ -10,10 +10,12 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 const RAMP_INTERVAL = 6000;
 const INCREASE_PER_RAMP = 0.01;
 const MAX_LONE_WOLF_MODIFIER = 0.10;
+const START_LONE_WOLF_MODIFIER = 0.01;
 /**
  * Increases your damage by 10% when you do not have an active pet.
+ * After dismissing pet it takes 1 minute to reach full efficiency.
  *
- * After dismissing pet it takes 1 minute to reach full efficiency
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 const AFFECTED_SPELLS = [
   SPELLS.AUTO_SHOT.id,
@@ -35,21 +37,23 @@ const AFFECTED_SPELLS = [
 ];
 
 class LoneWolf extends Analyzer {
+
   damage = 0;
-  dismissPetTimestamp = 0;
+  lwApplicationTimestamp = 0;
   loneWolfModifier = 0;
 
   constructor(...args) {
     super(...args);
     this.active = true;
   }
-  on_byPlayer_cast(event) {
+  on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DISMISS_PET.id) {
+    if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
       return;
     }
-    this.dismissPetTimestamp = event.timestamp;
+    this.lwApplicationTimestamp = event.timestamp;
   }
+
   on_byPlayer_damage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
       return;
@@ -57,11 +61,15 @@ class LoneWolf extends Analyzer {
     if (!AFFECTED_SPELLS.includes(event.ability.guid)) {
       return;
     }
-    this.loneWolfModifier = Math.min(MAX_LONE_WOLF_MODIFIER, Math.floor((event.timestamp - this.dismissPetTimestamp) / RAMP_INTERVAL * INCREASE_PER_RAMP));
+    if (this.lwApplicationTimestamp > 0) {
+      this.loneWolfModifier = Math.min(MAX_LONE_WOLF_MODIFIER, Math.floor((((event.timestamp - this.lwApplicationTimestamp) / RAMP_INTERVAL * INCREASE_PER_RAMP) + START_LONE_WOLF_MODIFIER) * 100) / 100);
+    } else {
+      this.loneWolfModifier = MAX_LONE_WOLF_MODIFIER;
+    }
     this.damage += calculateEffectiveDamage(event, this.loneWolfModifier);
   }
 
-  on_finished() {
+  on_finished() { //TODO: WCL is currently having issues with blizzard not reporting LW uptime if it was up through the fight. Possibly check for pet damage, and if none - assume LW was up for the entirety of the fight.
     if (this.damage === 0) {
       this.active = false;
     }

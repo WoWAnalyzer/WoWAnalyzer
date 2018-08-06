@@ -10,9 +10,9 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 /**
- * Throw a pair of chakrams at your target, slicing all enemies in the
- * chakrams' path for (40% of Attack power) Physical damage. The
- * chakrams will return to you, damaging enemies again.
+ * Throw a pair of chakrams at your target, slicing all enemies in the chakrams' path for (40% of Attack power) Physical damage. The chakrams will return to you, damaging enemies again.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/XmxJf2w8NpYvPR3H#fight=9&type=damage-done
  */
 
 const CHAKRAMS = [
@@ -73,7 +73,6 @@ class Chakrams extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default Chakrams;

@@ -9,6 +9,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/kXAQGnqwR7tm1zMJ#fight=38&type=auras&source=75
  */
 
 class DoubleTap extends Analyzer {

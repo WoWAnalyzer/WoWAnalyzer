@@ -12,6 +12,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Aimed Shot has a 50% chance to deal 100% bonus damage to targets who are above 80% health or below 20% health.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 const HIGHER_HP_THRESHOLD = 0.8;
 const LOWER_HP_THRESHOLD = 0.2;

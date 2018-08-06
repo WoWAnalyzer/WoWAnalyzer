@@ -14,6 +14,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 /**
  * Raptor Strike (or Monogoose Bite) has a chance to make your next
  * Serpent Sting cost no Focus and deal an additional 250% initial damage.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 const DAMAGE_MODIFIER = 2.5;
 
