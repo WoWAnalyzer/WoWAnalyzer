@@ -4,6 +4,7 @@ import { findByBossId } from 'Raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
+import { captureException } from 'common/errorLogger';
 import ChangelogTab from 'Interface/Others/ChangelogTab';
 import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
 import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
@@ -148,7 +149,6 @@ import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOverc
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
-import { captureException } from 'common/errorLogger';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
