@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <React.Fragment>
-              <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.
+              <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most damage.
             </React.Fragment>
           ),
         },
@@ -152,12 +152,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF, SPELLS.SURVIVAL_OF_THE_FITTEST],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 180,
         gcd: null,
       },
@@ -220,6 +222,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
         gcd: null,
       },

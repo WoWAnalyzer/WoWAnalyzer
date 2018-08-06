@@ -167,6 +167,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: () => {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
@@ -177,12 +178,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 180,
         gcd: null,
       },
