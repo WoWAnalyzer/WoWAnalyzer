@@ -31,6 +31,10 @@ class GlacialSpike extends Analyzer {
 
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
+    
     if (this.castTarget === damageTarget && !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       this.badCasts += 1;
     }
