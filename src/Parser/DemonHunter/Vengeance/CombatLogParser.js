@@ -60,7 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
     soulBarrier: SoulBarrier,
-    spiritBombSoulConsume: SpiritBombSoulsConsume,
+    spiritBombSoulsConsume: SpiritBombSoulsConsume,
     feedTheDemon: FeedTheDemon,
     gluttony: Gluttony,
 
