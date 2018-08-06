@@ -38,7 +38,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           name="Use your short cooldowns"
           description={(
             <React.Fragment>
-              <p>These should generally always be on recharge to maximize DPS, HPS and efficiency.</p>
+              These should generally always be on recharge to maximize DPS, HPS and efficiency.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </React.Fragment>
           )}
@@ -51,10 +51,10 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         </Rule>
 
         <Rule
-          name="Use your short defensive/healing cooldowns"
+          name="Use your rotational defensive/healing abilities"
           description={(
             <React.Fragment>
-              <p>Use these to block damage spikes and keep damage smooth to reduce external healing required.</p>
+              Use these to block damage spikes and keep damage smooth to reduce external healing required.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </React.Fragment>
           )}
@@ -87,7 +87,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           name="Use your long defensive/healing cooldowns"
           description={(
             <React.Fragment>
-              <p>Use these to mitigate large damage spikes or in emergency situations.</p>
+              Use these to mitigate large damage spikes or in emergency situations.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </React.Fragment>
           )}
@@ -96,11 +96,12 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.FIERY_BRAND.id} />
          </Rule>
 
+        {(combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) || combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id)) && (
         <Rule
           name="Maintain your buffs and debuffs"
           description={(
             <React.Fragment>
-              <p>It is important to maintain these as they contribute a large amount to your DPS and HPS.</p>
+              It is important to maintain these as they contribute a large amount to your DPS and HPS.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </React.Fragment>
           )}
@@ -126,7 +127,8 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
             />
           )}
         </Rule>
-
+        )}
+        {combatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id) && (
         <Rule
           name="Important Items"
           description={(
@@ -137,6 +139,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         >
           {combatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id) && <AbilityRequirement spell={SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB.id} />}
         </Rule>
+        )}
 
 
 

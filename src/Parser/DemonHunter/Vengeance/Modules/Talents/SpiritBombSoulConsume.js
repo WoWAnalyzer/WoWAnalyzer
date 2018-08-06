@@ -81,7 +81,7 @@ class SpiritBombSoulConsume extends Analyzer {
   }
 
   get totalCasts() {
-    return Object.values(this.soulsConsumedByAmount).reduce((a, b) => a+b, 0);
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total+casts, 0);
   }
 
   get percentGoodCasts() {
