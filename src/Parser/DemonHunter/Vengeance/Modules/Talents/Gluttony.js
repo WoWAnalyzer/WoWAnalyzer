@@ -41,13 +41,13 @@ class Gluttony extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.GLUTTONY_TALENT.id} />}
         value={`${this.gluttonyProcs}`}
         label="Gluttony procs"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Gluttony;

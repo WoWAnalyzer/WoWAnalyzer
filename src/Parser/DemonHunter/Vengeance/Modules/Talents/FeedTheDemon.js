@@ -72,6 +72,7 @@ class FeedTheDemon extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.FEED_THE_DEMON_TALENT.id} />}
         value={`${formatNumber(this.averageReduction)} sec`}
         label="Feed the Demon average reduction"
@@ -80,7 +81,6 @@ class FeedTheDemon extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default FeedTheDemon;
