@@ -33,7 +33,7 @@ class FeastOfSouls extends Analyzer {
         value={`${this.owner.formatItemHealingDone(this.heal)}`}
         label="Feast of Souls"
         tooltip={`This shows the extra hps that the talent provides.<br/>
-                  <b>Total extra healing:</b> ${formatNumber(this.heal)}<br/>
+                  <b>Effective healing:</b> ${formatNumber(this.heal)}<br/>
                   <b>Overhealing:</b> ${formatNumber(this.overHeal)} | ${formatPercentage(overHealPercent)}%`}
       />
     );
