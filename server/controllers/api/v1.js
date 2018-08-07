@@ -89,7 +89,7 @@ router.get('/*', async (req, res) => {
         Raven.installed && Raven.captureException(err);
       }
       reject(err.statusCode, {
-        error: 'WCL API error',
+        error: 'Warcraft Logs API error',
         message: err.message,
       });
     } else {

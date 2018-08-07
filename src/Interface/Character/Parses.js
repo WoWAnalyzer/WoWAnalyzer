@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
-import fetchWcl from 'common/fetchWclApi';
+import fetchWcl, { CharacterNotFoundError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'Interface/actions/reportHistory';
@@ -19,6 +19,7 @@ import SPECS from 'Game/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
+import { captureException } from 'common/errorLogger';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
@@ -164,7 +165,6 @@ class Parses extends React.Component {
   changeParseStructure(rawParses, charClass) {
     const updatedTrinkets = { ...this.state.trinkets };
     const parses = rawParses.map(elem => {
-
       // get missing trinket-icons later
       TRINKET_SLOTS.forEach(slotID => {
         if (!updatedTrinkets[elem.gear[slotID].id]) {
@@ -297,14 +297,6 @@ class Parses extends React.Component {
       _: +new Date(),
     })
       .then(rawParses => {
-        if (rawParses.status === 400) {
-          this.setState({
-            isLoading: false,
-            error: ERRORS.CHARACTER_NOT_FOUND,
-          });
-          return;
-        }
-
         if (rawParses.length === 0) {
           this.setState({
             parses: [],
@@ -313,7 +305,6 @@ class Parses extends React.Component {
           });
           return;
         }
-
         if (rawParses.hidden) {
           this.setState({
             isLoading: false,
@@ -357,7 +348,15 @@ class Parses extends React.Component {
           error: null,
         });
       })
-      .catch(e => {
+      .catch(err => {
+        if (err instanceof CharacterNotFoundError) {
+          this.setState({
+            isLoading: false,
+            error: ERRORS.CHARACTER_NOT_FOUND,
+          });
+          return;
+        }
+        captureException(err);
         this.setState({
           error: ERRORS.UNEXPECTED,
           isLoading: false,
