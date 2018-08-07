@@ -12,8 +12,8 @@ import Race from './Race';
 
 class CharacterTab extends React.PureComponent {
   static propTypes = {
-    statTracker: PropTypes.objectOf(StatTracker).isRequired,
-    combatant: PropTypes.objectOf(Combatant).isRequired,
+    statTracker: PropTypes.instanceOf(StatTracker).isRequired,
+    combatant: PropTypes.instanceOf(Combatant).isRequired,
   };
 
   render() {

@@ -127,7 +127,9 @@ class Report extends React.Component {
     ]);
 
     timeAvailable && console.time('full parse');
+    timeAvailable && console.time('initialize');
     const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    timeAvailable && console.timeEnd('initialize');
     await this.setStatePromise({
       config,
       parser,

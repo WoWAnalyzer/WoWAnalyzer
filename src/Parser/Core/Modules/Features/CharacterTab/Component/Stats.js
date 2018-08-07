@@ -9,7 +9,7 @@ import STAT, { getName, getClassNameColor, getIcon } from 'Parser/Core/Modules/F
 
 class Stats extends React.PureComponent {
   static propTypes = {
-    statTracker: PropTypes.objectOf(StatTracker).isRequired,
+    statTracker: PropTypes.instanceOf(StatTracker).isRequired,
   };
   
   getStatRating(stat) {

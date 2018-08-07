@@ -35,15 +35,16 @@ class PainDetails extends Analyzer {
       actual: this.wastedPercent,
       isGreaterThan: {
         minor: 0.05,
-        average: 0.1,
-        major: .15,
+        average: 0.10,
+        major: 0.15,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
           .icon('ability_demonhunter_demonspikes')
           .actual(`${formatPercentage(actual)}% wasted`)

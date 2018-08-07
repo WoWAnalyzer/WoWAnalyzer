@@ -76,31 +76,44 @@ class SpiritBombSoulConsume extends Analyzer {
     this.countHits();
   }
 
-  suggestions(when) {
-    const totalGoodCasts = this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
-    const totalCasts = Object.values(this.soulsConsumedByAmount).reduce((a, b) => a+b, 0);
-    const percentGoodCasts = totalGoodCasts / totalCasts;
+  get totalGoodCasts() {
+    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+  }
 
-    when(percentGoodCasts).isLessThan(0.90)
+  get totalCasts() {
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total+casts, 0);
+  }
+
+  get percentGoodCasts() {
+    return this.totalGoodCasts / this.totalCasts;
+  }
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.percentGoodCasts,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.85,
+        major: .80,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls. </React.Fragment>)
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</React.Fragment>)
           .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
-          .actual(`${formatPercentage(percentGoodCasts)}% of casts at 4+ souls.`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05)
-          .major(recommended - 0.15);
+          .actual(`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 
   statistic() {
-    const totalGoodCasts = this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
-    const totalCasts = Object.values(this.soulsConsumedByAmount).reduce((a, b) => a+b, 0);
-    const percentGoodCasts = totalGoodCasts / totalCasts;
-
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
-        value={`${formatPercentage(percentGoodCasts)} %`}
+        value={`${formatPercentage(this.percentGoodCasts)} %`}
         label="Good Spirit Bomb casts"
       >
         <table className="table table-condensed">
