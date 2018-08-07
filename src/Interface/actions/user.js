@@ -40,7 +40,6 @@ export function fetchUser() {
       .then(user => dispatch(setUser(user)))
       .catch(err => {
         captureException(err);
-        console.error(err);
         // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.
       });
   };
