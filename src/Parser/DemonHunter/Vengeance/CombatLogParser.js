@@ -26,6 +26,7 @@ import SpiritBombFrailtyDebuff from './Modules/Talents/SpiritBombFrailtyDebuff';
 import SoulBarrier from './Modules/Talents/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talents/SpiritBombSoulConsume';
 import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
+import BurningAlive from './Modules/Talents/BurningAlive';
 import FeastOfSouls from './Modules/Talents/FeastOfSouls';
 import AgonizingFlames from './Modules/Talents/AgonizingFlames';
 
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
     soulBarrier: SoulBarrier,
     spiritBombSoulConsume: SpiritBombSoulConsume,
+    burningAlive: BurningAlive,
     feastOfSouls: FeastOfSouls,
     agonizingFlames: AgonizingFlames,
 
