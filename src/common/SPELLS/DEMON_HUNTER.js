@@ -186,6 +186,11 @@ export default {
     name: 'Spectral Sight',
     icon: 'ability_demonhunter_spectralsight',
   },
+  FEAST_OF_SOULS_HEAL: {
+    id: 207693,
+    name: 'Feast of Souls Heal',
+    icon: 'spell_shadow_soulleech',
+  },
 
   // Havoc
   //T21 Bonus
