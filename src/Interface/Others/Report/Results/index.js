@@ -17,6 +17,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
@@ -166,6 +167,21 @@ class Results extends React.PureComponent {
     return null;
   }
 
+  renderChecklist() {
+    const parser = this.props.parser;
+    const modules = parser._modules;
+    return (
+      modules.checklist ? (
+        modules.checklist.render()
+      ) : (
+        <div className="item-divider" style={{ padding: '10px 22px' }}>
+          <div className="alert alert-danger">
+            The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+          </div>
+        </div>
+      )
+    );
+  }
   renderContent() {
     const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
     const report = parser.report;
@@ -265,26 +281,12 @@ class Results extends React.PureComponent {
                 </div>
                 <div>
                   <ResultsWarning warning={this.warning} />
-                  {this.state.mainTab === MAIN_TAB.CHECKLIST && (
-                    modules.checklist ? (
-                      modules.checklist.render()
-                    ) : (
-                      <div className="item-divider" style={{ padding: '10px 22px' }}>
-                        <div className="alert alert-danger">
-                          The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
-                        </div>
-                      </div>
-                    )
-                  )}
-                  {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
-                    <SuggestionsTab issues={results.issues} />
-                  )}
-                  {this.state.mainTab === MAIN_TAB.CHARACTER && (
-                    modules.characterTab.render()
-                  )}
-                  {this.state.mainTab === MAIN_TAB.STATS && (
-                    modules.encounterPanel.render()
-                  )}
+                  <ErrorBoundary>
+                    {this.state.mainTab === MAIN_TAB.CHECKLIST && this.renderChecklist()}
+                    {this.state.mainTab === MAIN_TAB.SUGGESTIONS && <SuggestionsTab issues={results.issues} />}
+                    {this.state.mainTab === MAIN_TAB.CHARACTER && modules.characterTab.render()}
+                    {this.state.mainTab === MAIN_TAB.STATS && modules.encounterPanel.render()}
+                  </ErrorBoundary>
                 </div>
               </div>
             </div>
