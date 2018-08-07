@@ -1,9 +1,12 @@
 import ExtendableError from 'es6-error';
 
 class WarcraftLogsApiError extends ExtendableError {
-  constructor(statusCode, message) {
+  statusCode = 500;
+  context = null;
+  constructor(statusCode, message, context) {
     super(message);
     this.statusCode = statusCode;
+    this.context = context;
   }
 }
 

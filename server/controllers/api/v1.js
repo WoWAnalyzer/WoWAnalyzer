@@ -86,7 +86,9 @@ router.get('/*', async (req, res) => {
       console.error(`WCL Error (${err.statusCode}): ${err.message}`);
       if (err.statusCode !== WCL_REPORT_DOES_NOT_EXIST_HTTP_CODE) {
         // Ignore "This report does not exist or is private."
-        Raven.installed && Raven.captureException(err);
+        Raven.installed && Raven.captureException(err, {
+          extra: err.context,
+        });
       }
       reject(err.statusCode, {
         error: 'Warcraft Logs API error',

@@ -46,7 +46,7 @@ export default async function fetchFromWarcraftLogsApi(path, query) {
     // Decoding JSON takes a long time, grabbing the first character is near instant and has high accuracy.
     const firstCharacter = jsonString.substr(0, 1);
     if (firstCharacter !== '{' && firstCharacter !== '[') {
-      throw new WarcraftLogsApiError(500, 'Corrupt Warcraft Logs API response received');
+      throw new WarcraftLogsApiError(500, 'Corrupt Warcraft Logs API response received', jsonString);
     }
 
     return jsonString;
