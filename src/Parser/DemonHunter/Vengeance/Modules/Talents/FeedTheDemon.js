@@ -3,31 +3,61 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import SoulFragmentsTracker from '../Features/SoulFragmentsTracker';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+
+const COOLDOWN_REDUCTION_MS = 500;
 
 //WCL https://www.warcraftlogs.com/reports/ZVJr2MPNx3RCvX6B/#fight=6&source=184
 class FeedTheDemon extends Analyzer {
   static dependencies = {
-    soulFragmentsTracker: SoulFragmentsTracker,
     abilityTracker: AbilityTracker,
+    spellUsable: SpellUsable,
   };
 
   casts = 0;
+
+  totalCooldownReductionWasted = 0;
+  totalCooldownReduction = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
+  on_byPlayer_removebuffstack(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
+      return;
+    }
+    if (!this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id)){
+      return;
+    }
+    if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)){
+      this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
+    } else {
+      const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.DEMON_SPIKES.id, COOLDOWN_REDUCTION_MS);
+      this.totalCooldownReduction += effectiveReduction;
+      this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS - effectiveReduction;
+    }
+  }
+
+  get FTDReduction(){
+    return this.totalCooldownReduction;
+  }
+
+  get FTDReductionWasted(){
+    return this.totalCooldownReductionWasted;
+  }
+
   get reduction(){
-    return this.soulFragmentsTracker.FTDReduction / 1000;
+    return this.FTDReduction / 1000;
   }
 
   get wastedReduction(){
-    return this.soulFragmentsTracker.FTDReductionWasted / 1000;
+    return this.FTDReductionWasted / 1000;
   }
 
   get averageReduction(){
