@@ -25,6 +25,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import StatValues from './Modules/Features/StatValues';
 
+import MightOfTheMountain from './Modules/Racials/Dwarf/MightOfTheMountain';
+
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './Modules/Talents/DevotionAuraDamageReduction';
 // import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
@@ -81,6 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     statValues: StatValues,
+
+    // Racials
+    mightOfTheMountain: MightOfTheMountain,
 
     // Talents
     ruleOfLaw: RuleOfLaw,

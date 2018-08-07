@@ -12,6 +12,9 @@ export function install() {
 
 export function captureException(exception, options) {
   if (process.env.NODE_ENV === 'production') {
+    console.error('An error occured and was sent to Sentry.', exception);
     Raven.captureException(exception, options);
+  } else {
+    throw exception;
   }
 }

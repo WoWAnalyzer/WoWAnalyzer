@@ -16,4 +16,16 @@ export default {
     name: 'Haze of Rage',
     icon: 'ability_druid_ferociousbite',
   },
+
+  DANCE_OF_DEATH: {
+    id: 274441,
+    name: 'Dance of Death',
+    icon: 'ability_druid_mangle',
+  },
+
+  DANCE_OF_DEATH_BUFF: {
+    id: 274443,
+    name: "Dance of Death",
+    icon: "ability_druid_mangle",
+  },
 };
