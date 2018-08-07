@@ -1,40 +1,39 @@
 import React from 'react';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import {formatNumber, formatPercentage} from 'common/format';
 import {calculateAzeriteEffects} from 'common/stats';
-import StatisticBox from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 
-export function hazeOfRageStats(combatant){
-  if(!combatant.hasTrait(SPELLS.HAZE_OF_RAGE.id)){
-    return null;
-  }
-  let agility = 0;
-  for(const rank of combatant.traitsBySpellId[SPELLS.HAZE_OF_RAGE.id]){
-    const [agi] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
-    agility += agi;
-  }
 
-  return {agility};
-}
+const hazeOfRageStats = traits => Object.values(traits).reduce((obj, rank) => {
+  const [agility] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
+  obj.agility += agility;
+  return obj;
+}, {
+  agility: 0,
+});
 
 export const STAT_TRACKER = {
-  agility: (combatant) => hazeOfRageStats(combatant).agility,
+  agility: combatant => hazeOfRageStats(combatant.traitsBySpellId[SPELLS.HAZE_OF_RAGE.id]).agility,
 };
 
-
+/**
+ * Bestial Wrath increases your Agility by 376 for 8 sec.
+ *
+ * Example report: https://www.warcraftlogs.com/reports/m9KrNBVCtDALZpzT#boss=-2&difficulty=0&wipes=1&source=5&type=summary
+ */
 class HazeOfRage extends Analyzer{
   agility = 0;
 
   constructor(...args){
     super(...args);
-    const response = hazeOfRageStats(this.selectedCombatant);
-    if(response === null){
-      this.active = false;
+    this.active = this.selectedCombatant.hasTrait(SPELLS.HAZE_OF_RAGE.id);
+    if(!this.active){
       return;
     }
-    this.agility += response.agility;
+    const {agility} = hazeOfRageStats(this.selectedCombatant.traitsBySpellId[SPELLS.HAZE_OF_RAGE.id]);
+    this.agility = agility;
   }
 
   get uptime(){
@@ -45,21 +44,17 @@ class HazeOfRage extends Analyzer{
     return this.uptime * this.agility;
   }
 
-  get numProcs(){
-    return this.selectedCombatant.getBuffTriggerCount(SPELLS.HAZE_OF_RAGE_BUFF.id);
-  }
-
   statistic(){
     return(
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAZE_OF_RAGE.id} />}
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.HAZE_OF_RAGE.id}
         value={(
           <React.Fragment>
-            {formatNumber(this.avgAgility)} Agility <br />
-            {formatNumber(this.numProcs)} Procs
+            {formatNumber(this.avgAgility)} Average Agility <br />
+            {formatPercentage(this.uptime)}% Uptime
           </React.Fragment>
         )}
-        label={"Haze of Rage"}
         tooltip={`Haze of Rage granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
       />
     );
