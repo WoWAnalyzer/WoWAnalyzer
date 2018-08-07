@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
 
+//WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
 
   heal = 0;
