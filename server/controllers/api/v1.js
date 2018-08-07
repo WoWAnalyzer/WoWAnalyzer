@@ -1,159 +1,106 @@
 import Express from 'express';
-import querystring from 'querystring';
-import request from 'request-promise-native';
 import Sequelize from 'sequelize';
+import querystring from 'querystring';
 import Raven from 'raven';
 
-import models from '../../models';
-import WclApiError from '../../WclApiError';
+import models from 'models';
+import fetchFromWarcraftLogsApi, { WCL_REPORT_DOES_NOT_EXIST_HTTP_CODE } from 'helpers/fetchFromWarcraftLogsApi';
+import WarcraftLogsApiError from 'helpers/WarcraftLogsApiError';
 
 const WclApiResponse = models.WclApiResponse;
-const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
-// This class was a bad idea and needs to be refactored out
-class ApiRequestHandler {
-  req = null;
-  res = null;
-
-  cacheBust = false;
-  apiKey = process.env.WCL_API_KEY;
-
-  constructor(req, res) {
-    this.req = req;
-    this.res = res;
-  }
-
-  async handle() {
-    try {
-      const cachedWclApiResponse = await WclApiResponse.findById(this.requestUrl);
-      const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
-      if (jsonString) {
-        console.log('cache HIT', this.prettyRequestUrl);
-        cachedWclApiResponse.update({
-          numAccesses: cachedWclApiResponse.numAccesses + 1,
-          lastAccessedAt: Sequelize.fn('NOW'),
-        });
-        this.sendJson(jsonString);
-      } else {
-        console.log('cache MISS', this.prettyRequestUrl);
-        this.fetchFromWcl(cachedWclApiResponse);
-      }
-    } catch (error) {
-      Raven.installed && Raven.captureException(error);
-      console.error(error);
-      this.res.status(500);
-      this.sendJson({
-        error: 'An error occured in the WoWAnalyzer API',
-        message: process.env.NODE_ENV !== 'production' ? error.message : 'The error was hidden for security reasons. It\'s probably worthless security since you can reproduce this locally to get the same exception.',
-      });
-    }
-  }
-
-  get requestUrl() {
-    // Don't use `this.req.params[0]` here as this automatically (url)decodes parts, breaking special characters in name!
-    return `${this.req.path}?${querystring.stringify(this.req.query)}`;
-  }
-  get prettyRequestUrl() {
-    // Not urlencoded
-    return `${this.req.params[0]}?${querystring.stringify(this.req.query)}`;
-  }
-  async fetchFromWcl(cachedWclApiResponse) {
-    const query = Object.assign({}, this.req.query, { api_key: this.apiKey });
-    // Don't use `this.req.params[0]` here as this automatically (url)decodes parts, breaking special characters in name!
-    const path = `v1${this.req.path}?${querystring.stringify(query)}`;
-    console.log('GET', path);
-    try {
-      const wclStart = Date.now();
-      const jsonString = await request.get({
-        url: `${process.env.WARCRAFT_LOGS_DOMAIN}${path}`,
-        headers: {
-          'User-Agent': process.env.USER_AGENT,
-        },
-        gzip: true, // using gzip is 80% quicker
-        forever: true, // we'll be making several requests, so pool connections
-      });
-      const wclResponseTime = Date.now() - wclStart;
-
-      // WCL maintenance mode returns 200 http code :(
-      if (jsonString.includes(WCL_MAINTENANCE_STRING)) {
-        throw new WclApiError(WCL_MAINTENANCE_STRING, 503);
-      }
-      // WCL has a tendency to throw non-JSON errors with a 200 HTTP exception, this ensures they're not accepted and cached.
-      // Decoding JSON takes a long time, grabbing the first character is near instant and has high accuracy.
-      const firstCharacter = jsonString.substr(0, 1);
-      if (firstCharacter !== '{' && firstCharacter !== '[') {
-        throw new WclApiError('Corrupt Warcraft Logs API response received', 500);
-      }
-
-      if (cachedWclApiResponse) {
-        cachedWclApiResponse.update({
-          content: jsonString,
-          wclResponseTime,
-          numAccesses: cachedWclApiResponse.numAccesses + 1,
-          lastAccessedAt: Sequelize.fn('NOW'),
-        });
-      } else {
-        WclApiResponse.create({
-          url: this.requestUrl,
-          content: jsonString,
-          wclResponseTime,
-        });
-      }
-
-      this.sendJson(jsonString);
-      console.log('Finished', 'wcl:', wclResponseTime, 'ms');
-    } catch (error) {
-      // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
-      const message = error.error || error.message;
-      console.error(`WCL Error (${error.statusCode}): ${message}`);
-      if (error.statusCode !== 400) {
-        // Ignore "This report does not exist or is private."
-        Raven.installed && Raven.captureException(error);
-      }
-      if (error.statusCode >= 400 && error.statusCode < 600) {
-        this.res.status(error.statusCode);
-        this.sendJson({
-          error: 'WCL API error',
-          message,
-        });
-        return;
-      }
-      console.error(error);
-      this.res.status(500);
-      this.sendJson({
-        error: 'A server error occured',
-        message: error.message,
-      });
-    }
-  }
-
-  sendJson(json) {
-    this.res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    this.res.send(json);
+function serializeUrl(path, query) {
+  return `/${path}?${querystring.stringify(query)}`;
+}
+async function cacheWclApiResponse(cacheKey, response, responseTime) {
+  const cachedWclApiResponse = await WclApiResponse.findById(cacheKey);
+  if (cachedWclApiResponse) {
+    await cachedWclApiResponse.update({
+      content: response,
+      wclResponseTime: responseTime,
+      numAccesses: cachedWclApiResponse.numAccesses + 1,
+      lastAccessedAt: Sequelize.fn('NOW'),
+    });
+  } else {
+    await WclApiResponse.create({
+      url: cacheKey,
+      content: response,
+      wclResponseTime: responseTime,
+    });
   }
 }
 
 const router = Express.Router();
-router.get('/*', (req, res) => {
-  const handler = new ApiRequestHandler(req, res);
+router.get('/*', async (req, res) => {
+  const resolve = jsonString => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.send(jsonString);
+  };
+  const reject = (statusCode, jsonString) => {
+    res.status(statusCode);
+    resolve(jsonString);
+  };
 
-  // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
-  if (req.query._) {
-    console.log('Cache busting...');
-    handler.cacheBust = true;
-    delete req.query._;
+  try {
+    // remove / prefix
+    const path = req.path.substr(1);
+    // Don't use `req.params[0]` here as this automatically (url)decodes parts, breaking special characters in name!
+    const query = req.query;
+    // This allows users to skip the cache and refresh always. This is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
+    let skipCache = false;
+    if (query._) {
+      skipCache = true;
+      delete query._;
+    }
+
+    const cacheKey = serializeUrl(path, query);
+    if (!skipCache) {
+      const cachedWclApiResponse = await WclApiResponse.findById(cacheKey);
+      if (cachedWclApiResponse) {
+        console.log('cache HIT', cacheKey);
+        // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.
+        cachedWclApiResponse.update({
+          numAccesses: cachedWclApiResponse.numAccesses + 1,
+          lastAccessedAt: Sequelize.fn('NOW'),
+        });
+        resolve(cachedWclApiResponse.content);
+        return;
+      } else {
+        console.log('cache MISS', cacheKey);
+      }
+    } else {
+      console.log('cache SKIP', cacheKey);
+    }
+
+    const wclStart = Date.now();
+    const wclResponse = await fetchFromWarcraftLogsApi(path, query);
+    const wclResponseTime = Date.now() - wclStart;
+    console.log('wcl response time:', wclResponseTime, 'ms');
+    // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.
+    cacheWclApiResponse(cacheKey, wclResponse, wclResponseTime);
+    resolve(wclResponse);
+  } catch (err) {
+    if (err instanceof WarcraftLogsApiError) {
+      // An error on WCL's side
+      console.error(`WCL Error (${err.statusCode}): ${err.message}`);
+      if (err.statusCode !== WCL_REPORT_DOES_NOT_EXIST_HTTP_CODE) {
+        // Ignore "This report does not exist or is private."
+        Raven.installed && Raven.captureException(err);
+      }
+      reject(err.statusCode, {
+        error: 'WCL API error',
+        message: err.message,
+      });
+    } else {
+      // An error on our side
+      console.error('A server error occured', err);
+      reject(500, {
+        error: 'A server error occured',
+        message: err.message,
+      });
+    }
   }
-
-  // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-  if (req.query.api_key) {
-    handler.apiKey = req.query.api_key;
-    delete req.query.api_key; // don't use a separate cache for different API keys
-  }
-
-  // Set header already so that all request, good or bad, have it
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  handler.handle();
 });
 
 export default router;
