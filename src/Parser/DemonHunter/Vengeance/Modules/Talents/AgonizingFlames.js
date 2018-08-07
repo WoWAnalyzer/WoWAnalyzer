@@ -32,6 +32,7 @@ class AgonizingFlames extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(9)}
         icon={<SpellIcon id={SPELLS.AGONIZING_FLAMES_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.damage)}`}
         label="Agonizing Flames"
@@ -40,7 +41,6 @@ class AgonizingFlames extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default AgonizingFlames;
