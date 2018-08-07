@@ -8,6 +8,7 @@ const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 export const WCL_REPORT_DOES_NOT_EXIST_HTTP_CODE = 400;
 const USER_AGENT = process.env.USER_AGENT;
 const WCL_API_KEY = process.env.WCL_API_KEY;
+const TIMEOUT = 5000; // ms after which to abort the request
 
 function getWclApiUrl(path, query) {
   return `${WCL_DOMAIN}/v1/${path}?${querystring.stringify({
@@ -36,6 +37,7 @@ export default async function fetchFromWarcraftLogsApi(path, query) {
       gzip: true,
       // we'll be making several requests, so pool connections
       forever: true,
+      timeout: TIMEOUT,
     });
 
     // WCL maintenance mode returns 200 http code :(
@@ -56,6 +58,9 @@ export default async function fetchFromWarcraftLogsApi(path, query) {
       throw err;
     }
     if (err.error) {
+      if (err.error.code === 'ETIMEDOUT') {
+        throw new WarcraftLogsApiError(504, 'Warcraft Logs took too long to respond.');
+      }
       const json = tryJsonParse(err.error);
       if (json) {
         throw new WarcraftLogsApiError(err.statusCode, json.error);
