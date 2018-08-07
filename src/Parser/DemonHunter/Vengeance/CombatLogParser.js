@@ -27,6 +27,8 @@ import SoulBarrier from './Modules/Talents/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talents/SpiritBombSoulConsume';
 import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
 import BurningAlive from './Modules/Talents/BurningAlive';
+import FeastOfSouls from './Modules/Talents/FeastOfSouls';
+import AgonizingFlames from './Modules/Talents/AgonizingFlames';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
@@ -61,6 +63,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulBarrier: SoulBarrier,
     spiritBombSoulConsume: SpiritBombSoulConsume,
     burningAlive: BurningAlive,
+    feastOfSouls: FeastOfSouls,
+    agonizingFlames: AgonizingFlames,
 
     // Spell
     immolationAura: ImmolationAura,

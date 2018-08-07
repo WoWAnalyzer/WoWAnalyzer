@@ -192,6 +192,11 @@ export default {
     name: 'FIERY_BRAND_DOT',
     icon: 'ability_demonhunter_fierybrand',
   },
+  FEAST_OF_SOULS_HEAL: {
+    id: 207693,
+    name: 'Feast of Souls Heal',
+    icon: 'spell_shadow_soulleech',
+  },
 
   // Havoc
   //T21 Bonus
