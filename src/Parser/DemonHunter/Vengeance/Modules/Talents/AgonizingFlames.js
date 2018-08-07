@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
@@ -8,14 +8,11 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const PERCENT_BUFF = 0.20;
 
+//WCL: https://www.warcraftlogs.com/reports/JxyY7HCDcjqMA9tf/#fight=1&source=15
 class AgonizingFlames extends Analyzer {
-  buffedDeathStrikes = 0;
-  unbuffedDeathStrikes = 0;
-  buffStack = 0;
-  wastedBuffs = 0;
-  gainedBuffs = 0;
-  damage=0;
-  heal=0;
+
+  damage = 0;
+
 
   constructor(...args) {
     super(...args);
