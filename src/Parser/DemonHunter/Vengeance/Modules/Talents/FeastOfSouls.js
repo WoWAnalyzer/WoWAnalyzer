@@ -29,6 +29,7 @@ class FeastOfSouls extends Analyzer {
     const overHealPercent = this.overHeal/(this.overHeal + this.heal);
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(8)}
         icon={<SpellIcon id={SPELLS.FEAST_OF_SOULS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.heal)}`}
         label="Feast of Souls"
@@ -38,7 +39,6 @@ class FeastOfSouls extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default FeastOfSouls;

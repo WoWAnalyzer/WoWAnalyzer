@@ -26,7 +26,7 @@ import SpiritBombFrailtyDebuff from './Modules/Talents/SpiritBombFrailtyDebuff';
 import SoulBarrier from './Modules/Talents/SoulBarrier';
 import SpiritBombSoulConsume from './Modules/Talents/SpiritBombSoulConsume';
 import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
-import FeastOfSouls from './Modules/Talent/FeastOfSouls';
+import FeastOfSouls from './Modules/Talents/FeastOfSouls';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
