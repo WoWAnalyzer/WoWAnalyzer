@@ -28,6 +28,7 @@ class BurningAlive extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.BURNING_ALIVE_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.damage)}`}
         label="Burning Alive"
@@ -36,7 +37,6 @@ class BurningAlive extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default BurningAlive;
