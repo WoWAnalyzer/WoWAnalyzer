@@ -111,7 +111,17 @@ class Abilities extends CoreAbilities {
       },
 
       // Cooldowns
-
+      {
+        spell: SPELLS.TIME_WARP,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
+      },
       {
         spell: SPELLS.FROZEN_ORB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

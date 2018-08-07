@@ -42,10 +42,15 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
     sendJson(res, json);
     return json;
   } catch (error) {
-    console.log(error.message);
-    Raven.installed && Raven.captureException(error);
-    res.status(error.statusCode || 500);
-    sendJson(res, error.response ? error.response.body : null);
+    const { statusCode, message, response } = error;
+    console.log(message);
+    const body = response ? response.body : null;
+    if (statusCode !== 404 || !body || !body.includes('Character not found.')) {
+      // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
+      Raven.installed && Raven.captureException(error);
+    }
+    res.status(statusCode || 500);
+    sendJson(res, body);
     return null;
   }
 }

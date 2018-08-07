@@ -41,7 +41,7 @@ class Analyzer extends Module {
 
   addEventListener(eventType, listener, options = null) {
     // DO NOT MANUALLY CALL THIS METHOD YET. The API is not locked down yet. The current implementation is merely here for an initial performance boost (32%!!!), the final implementation will have more options and performance improvements.
-    this.owner.addEventListener(eventType, listener.bind(this), options);
+    this.owner.addEventListener(eventType, listener.bind(this), this, options);
   }
   /**
    * Get a list of all methods of all classes in the prototype chain until this class.

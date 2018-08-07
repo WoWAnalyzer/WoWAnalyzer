@@ -22,31 +22,39 @@ class SpiritBombFrailtyDebuff extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
-  suggestions(when) {
-    const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
+  }
 
-    when(spiritBombUptimePercentage).isLessThan(0.90)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</React.Fragment>)
-        .icon('inv_icon_shadowcouncilorb_purple')
-        .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended - 0.05)
-        .major(recommended - 0.15);
-    });
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.85,
+        major: .80,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.uptimeSuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</React.Fragment>)
+          .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
+          .actual(`${formatPercentage(actual)}% Frailty uptime`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {
     const spiritBombUptime = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
-
-    const spiritBombUptimePercentage = spiritBombUptime / this.owner.fightDuration;
-
     const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id).damageEffective;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
-        value={`${formatPercentage(spiritBombUptimePercentage)}%`}
+        value={`${formatPercentage(this.uptime)}%`}
         label="Spirit Bomb debuff uptime"
         tooltip={`Total damage was ${formatThousands(spiritBombDamage)}.<br/>
                   Total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
