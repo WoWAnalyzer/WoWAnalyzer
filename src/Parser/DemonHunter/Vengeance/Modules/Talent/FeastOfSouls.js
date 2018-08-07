@@ -3,12 +3,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
 
   heal = 0;
+  overHeal = 0;
 
   constructor(...args) {
     super(...args);
@@ -21,16 +22,19 @@ class FeastOfSouls extends Analyzer {
       return;
     }
     this.heal += event.amount;
+    this.overHeal += event.overheal || 0;
   }
 
   statistic() {
+    const overHealPercent = this.overHeal/(this.overHeal + this.heal);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FEAST_OF_SOULS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.heal)}`}
         label="Feast of Souls"
         tooltip={`This shows the extra hps that the talent provides.<br/>
-                  <b>Total extra healing:</b> ${formatNumber(this.heal)}`}
+                  <b>Total extra healing:</b> ${formatNumber(this.heal)}<br/>
+                  <b>Overhealing:</b> ${formatNumber(this.overHeal)} | ${formatPercentage(overHealPercent)}%`}
       />
     );
   }
