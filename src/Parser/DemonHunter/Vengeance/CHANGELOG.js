@@ -22,6 +22,11 @@ export default [
   },
   {
     date: new Date('2018-08-3'),
+    changes: <React.Fragment>Added stat box for <SpellLink id={SPELLS.AGONIZING_FLAMES_TALENT.id} /> to show the extra dps it provides.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-08-3'),
     changes: <React.Fragment>Added suggestion for <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> and showed its uptime.</React.Fragment>,
     contributors: [Yajinni],
   },

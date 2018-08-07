@@ -1,11 +1,13 @@
 const fs = require('fs');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const loadDotEnv = require('./env');
 const appDirectory = fs.realpathSync(process.cwd());
 loadDotEnv(appDirectory);
 
 function config() {
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV;
 
   return {
     host: process.env.MYSQL_HOST,

@@ -4,21 +4,11 @@ import makeWclApiUrl from './makeWclApiUrl';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
+export class CharacterNotFoundError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {}
+export class WclApiError extends ExtendableError {}
 export class UnknownApiError extends ExtendableError {}
 export class CorruptResponseError extends ExtendableError {}
-
-function tryParseMessage(message) {
-  try {
-    const errorMessage = JSON.parse(message);
-    if (errorMessage.error) {
-      return errorMessage.error;
-    }
-  } catch (error) {
-    // We don't care about an error parsing the error, message's default value is fine
-  }
-  return null;
-}
 
 const HTTP_CODES = {
   OK: 200,
@@ -32,6 +22,7 @@ const HTTP_CODES = {
     A_TIMEOUT_OCCURED: 524,
   },
 };
+const WCL_API_ERROR_TEXT = 'Warcraft Logs API error';
 
 async function rawFetchWcl(endpoint, queryParams) {
   const url = makeWclApiUrl(endpoint, queryParams);
@@ -44,28 +35,32 @@ async function rawFetchWcl(endpoint, queryParams) {
   try {
     json = await response.json();
   } catch (error) {
-    console.error(error);
+    console.error('JsonParseError', error);
     throw new JsonParseError();
   }
 
   if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {
-    const message = tryParseMessage(json.message);
+    const message = json.message;
     if (message === 'This report does not exist or is private.') {
       throw new LogNotFoundError();
     }
     if (message === 'Invalid character name/server/region specified.') {
-      return JSON.parse(json.message);
+      throw new CharacterNotFoundError();
     }
     throw new Error(message || json.error);
   }
   if (!response.ok) {
-    throw new UnknownApiError(`${response.status}: ${json.message}`);
+    if (json.error === WCL_API_ERROR_TEXT) {
+      throw new WclApiError(`${response.status}: ${json.message}`);
+    } else {
+      throw new UnknownApiError(`${response.status}: ${json.message}`);
+    }
   }
   return json;
 }
 
 const defaultOptions = {
-  timeout: 30000,
+  timeout: 10000,
 };
 export default function fetchWclWithTimeout(endpoint, queryParams, options) {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
