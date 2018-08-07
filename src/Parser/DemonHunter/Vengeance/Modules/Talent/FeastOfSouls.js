@@ -11,7 +11,7 @@ class FeastOfSouls extends Analyzer {
   heal = 0;
 
   constructor(...args) {
-    super(...args);s
+    super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEAST_OF_SOULS_TALENT.id);
   }
 
