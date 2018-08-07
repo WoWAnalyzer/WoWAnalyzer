@@ -6,8 +6,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-08-6'),
-    changes: <React.Fragment>Added stat box for <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} />. It shows the extra dps it provides.</React.Fragment>,
+    date: new Date('2018-08-4'),
+    changes: <React.Fragment>Big update to the checklist and suggestions threshholds to support it.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-08-3'),
+    changes: <React.Fragment>Added stat box for <SpellLink id={SPELLS.AGONIZING_FLAMES_TALENT.id} /> to show the extra dps it provides.</React.Fragment>,
     contributors: [Yajinni],
   },
   {

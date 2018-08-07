@@ -6,6 +6,9 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber } from 'common/format';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
+const PHYSICAL_DAMAGE_INCREASE = 0.20;
 
 class RazorSpikes extends Analyzer {
 //WCL: https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP/#fight=3&source=3
@@ -23,7 +26,7 @@ class RazorSpikes extends Analyzer {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
-      this.damage += event.amount;
+      this.damage += calculateEffectiveDamage(event,PHYSICAL_DAMAGE_INCREASE);
     }
   }
 
