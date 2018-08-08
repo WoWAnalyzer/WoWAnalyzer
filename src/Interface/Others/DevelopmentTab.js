@@ -109,6 +109,7 @@ ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
     );
   }
 }
+
 class Cast extends React.PureComponent {
   static propTypes = {
     cast: PropTypes.object,
@@ -281,92 +282,91 @@ class DevelopmentTab extends React.Component {
     const combatant = parser._modules.combatants.selected;
 
     return (
-      <div>
-        <div className="panel-heading">
-          <h2>Development Tools</h2>
-        </div>
-        <div className="panel-body">
-          <div className="alert alert-success">
-            The parser is now available under <Code dump={parser}>window.parser</Code>.
+      <React.Fragment>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="alert alert-success">
+              The parser is now available under <Code dump={parser}>window.parser</Code>.
+            </div>
           </div>
-          <div className="row">
-            <div className="col-md-6">
-              Modules:
-              <ul className="list">
-                {Object.keys(parser._modules)
-                  .map(moduleName => (
-                    <li key={moduleName} className="flex">
-                      <div className="flex-main">
-                        <Code dump={parser._modules[moduleName]}>{moduleName}</Code>
-                      </div>
-                      <div className="flex-main" style={{ color: parser._modules[moduleName].active ? 'green' : 'red' }}>
-                        {parser._modules[moduleName].active ? 'Active' : 'Inactive'}
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-              Access them in the console with: <code>parser._modules.*moduleName*</code> or by clicking on the names.
-            </div>
-            <div className="col-md-6">
-              Pre-combat buffs:
-              <ul className="list">
-                {combatant._combatantInfo.auras.map((aura, i) => {
-                  const source = parser._modules.combatants.players[aura.source];
-                  const spec = source && SPECS[source.specId];
-                  const specClassName = spec && spec.className.replace(' ', '');
-
-                  return (
-                    <li key={`${i}-${aura.ability}`}>
-                      <SpellLink id={aura.ability} icon={false}>
-                        <Icon icon={aura.icon} alt={aura.icon} style={{ height: '1.6em' }} /> {SPELLS[aura.ability] ? SPELLS[aura.ability].name : `spellID: ${aura.ability}`}
-                      </SpellLink>{' '}
-                      source: <span className={specClassName}>{source ? source.name : aura.source}</span>{' '}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {parser._modules.abilityTracker && (
-              <div className="col-md-6">
-                All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
-                <ul className="list">
-                  {Object.keys(parser._modules.abilityTracker.abilities)
-                    .map(key => parser._modules.abilityTracker.abilities[key])
-                    .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
-                </ul>
-              </div>
-            )}
-            <div className="col-md-6">
-              Items: (hint: click on an item to generate the required <code>ITEMS.js</code> entry)
-              <ul className="list">
-                {combatant._combatantInfo.gear.map((item, i) => (
-                  <li key={`${i}-${item.id}`}>
-                    <Item item={item} slotNo={i} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-md-6">
-              Traits:
-              <ul className="list">
-                {combatant._combatantInfo.artifact.map(trait => (
-                  <li key={trait.traitID}>
-                    <div style={{ float: 'right', color: SPELLS[trait.spellID] ? 'green' : 'red', fontWeight: 600 }}>
-                      {SPELLS[trait.spellID] ? 'Known' : 'Unknown'}
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            Modules:
+            <ul className="list">
+              {Object.keys(parser._modules)
+                .map(moduleName => (
+                  <li key={moduleName} className="flex">
+                    <div className="flex-main">
+                      <Code dump={parser._modules[moduleName]}>{moduleName}</Code>
                     </div>
-                    <SpellLink id={trait.spellID} icon={false}>
-                      <Icon icon={trait.icon} alt={trait.icon} style={{ height: '1.6em' }} /> {SPELLS[trait.spellID] ? SPELLS[trait.spellID].name : `spellID: ${trait.spellID}`}
-                    </SpellLink>{' '}
-                    traitID: {trait.traitID}{' '}
-                    rank: {trait.rank}
+                    <div className="flex-main" style={{ color: parser._modules[moduleName].active ? 'green' : 'red' }}>
+                      {parser._modules[moduleName].active ? 'Active' : 'Inactive'}
+                    </div>
                   </li>
                 ))}
+            </ul>
+            Access them in the console with: <code>parser._modules.*moduleName*</code> or by clicking on the names.
+          </div>
+          <div className="col-md-6">
+            Pre-combat buffs:
+            <ul className="list">
+              {combatant._combatantInfo.auras.map((aura, i) => {
+                const source = parser._modules.combatants.players[aura.source];
+                const spec = source && SPECS[source.specId];
+                const specClassName = spec && spec.className.replace(' ', '');
+
+                return (
+                  <li key={`${i}-${aura.ability}`}>
+                    <SpellLink id={aura.ability} icon={false}>
+                      <Icon icon={aura.icon} alt={aura.icon} style={{ height: '1.6em' }} /> {SPELLS[aura.ability] ? SPELLS[aura.ability].name : `spellID: ${aura.ability}`}
+                    </SpellLink>{' '}
+                    source: <span className={specClassName}>{source ? source.name : aura.source}</span>{' '}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          {parser._modules.abilityTracker && (
+            <div className="col-md-6">
+              All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
+              <ul className="list">
+                {Object.keys(parser._modules.abilityTracker.abilities)
+                  .map(key => parser._modules.abilityTracker.abilities[key])
+                  .sort((a, b) => (b.casts || 0) - (a.casts || 0))
+                  .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
               </ul>
             </div>
+          )}
+          <div className="col-md-6">
+            Items: (hint: click on an item to generate the required <code>ITEMS.js</code> entry)
+            <ul className="list">
+              {combatant._combatantInfo.gear.map((item, i) => (
+                <li key={`${i}-${item.id}`}>
+                  <Item item={item} slotNo={i} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-md-6">
+            Traits:
+            <ul className="list">
+              {combatant._combatantInfo.artifact.map(trait => (
+                <li key={trait.traitID}>
+                  <div style={{ float: 'right', color: SPELLS[trait.spellID] ? 'green' : 'red', fontWeight: 600 }}>
+                    {SPELLS[trait.spellID] ? 'Known' : 'Unknown'}
+                  </div>
+                  <SpellLink id={trait.spellID} icon={false}>
+                    <Icon icon={trait.icon} alt={trait.icon} style={{ height: '1.6em' }} /> {SPELLS[trait.spellID] ? SPELLS[trait.spellID].name : `spellID: ${trait.spellID}`}
+                  </SpellLink>{' '}
+                  traitID: {trait.traitID}{' '}
+                  rank: {trait.rank}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
