@@ -54,6 +54,14 @@ class LoneWolf extends Analyzer {
     this.lwApplicationTimestamp = event.timestamp;
   }
 
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
+      return;
+    }
+    this.loneWolfModifier = 0;
+  }
+
   on_byPlayer_damage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
       return;
