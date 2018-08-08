@@ -1,8 +1,12 @@
 .results-panel.expandable {
-  transition: border-top-width 200ms;
+  transition: border-top-width 200ms, top 200ms;
+  position: relative;
+  top: 0px;
 }
 .results-panel.expandable:not(.expanded) {
   border-top-width: 0px;
+  /* offset the removed border-top so that the panel never moves a pixel */
+  top: 4px;
 }
 .results-panel .panel-heading {
   padding: 14px 22px; /* default has slightly more top padding, this doesn't need that */
