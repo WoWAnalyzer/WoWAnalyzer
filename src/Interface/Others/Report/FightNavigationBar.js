@@ -7,7 +7,7 @@ import SkullIcon from 'Interface/Icons/Skull';
 
 import Icon from 'common/Icon';
 import { getReport } from 'Interface/selectors/report';
-import { getFightId, getPlayerId, getPlayerName } from 'Interface/selectors/url/report';
+import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import { findByBossId } from 'Raids';
 import DIFFICULTIES from 'common/DIFFICULTIES';
@@ -34,10 +34,11 @@ class FightNavigationBar extends React.PureComponent {
     fightId: PropTypes.number,
     playerId: PropTypes.number,
     playerName: PropTypes.string,
+    resultTab: PropTypes.string,
   };
 
   render() {
-    const { report, playerId, fightId, playerName } = this.props;
+    const { report, playerId, fightId, playerName, resultTab } = this.props;
     if (!report) {
       return null;
     }
@@ -64,7 +65,7 @@ class FightNavigationBar extends React.PureComponent {
                     data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
                     data-place="right"
                   >
-                    <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
+                    <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
                       <figure>
                         {boss && boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
                           <img
@@ -92,5 +93,7 @@ const mapStateToProps = state => ({
   fightId: getFightId(state),
   playerId: getPlayerId(state),
   playerName: getPlayerName(state),
+  resultTab: getResultTab(state),
 });
+
 export default connect(mapStateToProps)(FightNavigationBar);

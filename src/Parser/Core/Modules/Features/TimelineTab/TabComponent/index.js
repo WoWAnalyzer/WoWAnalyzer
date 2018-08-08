@@ -19,7 +19,7 @@ class TimelineTab extends React.PureComponent {
     const { isAbilityCooldownsAccurate, isGlobalCooldownAccurate, ...others } = this.props;
 
     return (
-      <Tab style={{ padding: '10px 22px 0' }}>
+      <Tab style={{ padding: '10px 22px' }}>
         <div className="text-muted">
           This timeline shows the cooldowns of your spells to better illustrate issues with your cast efficiency. The accuracy of this timeline greatly depends on the completion status of your spec.
         </div>

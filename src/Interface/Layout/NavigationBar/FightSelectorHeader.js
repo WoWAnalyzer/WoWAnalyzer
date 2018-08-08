@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
-import { getFightId, getPlayerId, getPlayerName } from 'Interface/selectors/url/report';
+import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import getFightName from 'common/getFightName';
@@ -29,13 +29,14 @@ class FightSelectorHeader extends SelectorBase {
     fight: PropTypes.object,
     playerId: PropTypes.number,
     playerName: PropTypes.string,
+    resultTab: PropTypes.string,
   };
   state = {
     killsOnly: false,
   };
 
   render() {
-    const { report, fight, playerId, playerName, ...others } = this.props;
+    const { report, fight, playerId, playerName, resultTab, ...others } = this.props;
     delete others.dispatch;
     const { killsOnly, show } = this.state;
 
@@ -73,6 +74,7 @@ class FightSelectorHeader extends SelectorBase {
                       player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
                     }
                     playerId={player.id}
+                    resultTab={resultTab}
                     killsOnly={this.state.killsOnly}
                   />
                 )}
@@ -90,6 +92,7 @@ const mapStateToProps = state => ({
   fight: getFightById(state, getFightId(state)),
   playerId: getPlayerId(state),
   playerName: getPlayerName(state),
+  resultTab: getResultTab(state),
 });
 
 export default connect(mapStateToProps)(FightSelectorHeader);
