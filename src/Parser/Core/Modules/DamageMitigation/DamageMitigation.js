@@ -13,12 +13,15 @@ import Armor from './Armor';
 import Reduction from './Reduction';
 import AOE_TYPE from './AOE_TYPE';
 import AOE_ABILITIES from './AOE_ABILITIES';
-import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN, AURA_OF_SACRIFICE } from './Reductions';
+import { BUFFS, DEBUFFS, PASSIVES, UNKNOWN, AURA_OF_SACRIFICE, DEVOTION_AURA } from './Reductions';
 
 const debug = true;
 
 const ACCURACY_THRESHOLD = 0.05;
 const BUFFER_PERCENT = 0.005;
+
+const SAC_DR_VALUES = [0, 0.1, 0.3];
+const DEV_DR_VALUES = [0.03, 0.06125, 0.2];
 
 class DamageMitigation extends Analyzer {
   static dependencies = {
@@ -34,7 +37,8 @@ class DamageMitigation extends Analyzer {
   debuffs = [];
   passives = [];
   unknownReduction = null;
-  auraOfSacrifice = null;
+  auraSacrifice = null;
+  auraDevotion = null
   mitigated = {};
   checkSum = 0;
 
@@ -78,8 +82,11 @@ class DamageMitigation extends Analyzer {
     this.unknownReduction = new this.constructor.REDUCTION_CLASS(this, UNKNOWN);
     this.initReduction(this.unknownReduction);
     // Aura of Sacrifice
-    this.auraOfSacrifice = new this.constructor.REDUCTION_CLASS(this, AURA_OF_SACRIFICE);
-    this.initReduction(this.auraOfSacrifice);
+    this.auraSacrifice = new this.constructor.REDUCTION_CLASS(this, AURA_OF_SACRIFICE);
+    this.initReduction(this.auraSacrifice);
+    // Devotion Aura
+    this.auraDevotion = new this.constructor.REDUCTION_CLASS(this, DEVOTION_AURA);
+    this.initReduction(this.auraDevotion);
   }
 
   initReduction(reduction) {
@@ -172,6 +179,99 @@ class DamageMitigation extends Analyzer {
     });
   }
 
+  buffCount(event, spellId) {
+    const activeBuffs = this.selectedCombatant.activeBuffs();
+    let count = 0;
+    activeBuffs.forEach(e => {
+      if (e.ability.guid === spellId) {
+        count += 1;
+      }
+    });
+    return count;
+  }
+
+  // Returns an array of all possible damage reduction values that the given number of Aura of Sacrifices can result in.
+  possibleSacValues(count, values) {
+    if (count < 1) {
+      console.error('Illegal call, count should always be 1 or higher.');
+      return null;
+    }
+    const result = [];
+    if (count === 1) {
+      return values;
+    }
+    const array = this.possibleSacValues(count - 1, values);
+    array.forEach(e => {
+      values.forEach(f => {
+        const value = 1 - (1 - e) * (1 - f);
+        result.push(Math.round(value * 10000) / 10000);
+      });
+    });
+    const noDuplicates = result.sort().filter(function(item, pos, ary) {
+      return !pos || item !== ary[pos - 1];
+    });
+    return noDuplicates;
+  }
+
+  // Returns an array of {min, max} objects of all possible damage reduction ranges that the given number of Devotion Auras can result in.
+  devRanges(count, values) {
+    if (count === 0) {
+      return null;
+    }
+    const min = values[0];
+    const max = values[1];
+    const am = values[2];
+    const result = [];
+    for(let i = 0; i <= count; i++) {
+      const minValue = 1 - (1 - am)**(count - i) * (1 - min)**i;
+      const maxValue = 1 - (1 - am)**(count - i) * (1 - max)**i;
+      result.push({ min: minValue, max: maxValue });
+    }
+    return result;
+  }
+
+  handleUnknown(event, unknown) {
+    const activeSacs = this.buffCount(event, this.auraSacrifice.id);
+    const activeDevs = this.buffCount(event, this.auraDevotion.id);
+    if (!activeSacs && !activeDevs) {
+      return { mitigations: [], unknown: unknown };
+    }
+    const mitigations = [];
+    // First we assume devotion aura contributed it's minimum value possible.
+    const devMinimumValue = 1 - (1 - DEV_DR_VALUES[0])**activeDevs;
+    const unknownAfterMinDev = 1 - (1 - unknown) / (1 - devMinimumValue);
+    let unknownAfterSac = unknown;
+    if (activeSacs) {
+      const sacPossibleValues = this.possibleSacValues(activeSacs, SAC_DR_VALUES).sort().reverse();
+      // We assume the highest value under unknown is what Aura of Sacrifice contributed.
+      const sacContribution = sacPossibleValues.find(e => unknownAfterMinDev + BUFFER_PERCENT > e);
+      if (sacContribution) {
+        this.auraSacrifice.mitigation = sacContribution;
+        mitigations.push(this.auraSacrifice);
+        unknownAfterSac = 1 - (1 - unknown) / (1 - sacContribution);
+      }
+    }
+    if (!activeDevs) {
+      return { mitigations: mitigations, unknown: unknownAfterSac };
+    }
+    const devRanges = this.devRanges(activeDevs, DEV_DR_VALUES);
+    const range = devRanges.find(e => unknownAfterSac + BUFFER_PERCENT > e.min);
+    if (!range) { // Should never happen since we reserve the minimum value above.
+      return { mitigations: mitigations, unknown: unknownAfterSac };
+    }
+    // If within the range contribute it all to Devo aura, otherwise contribute the max value.
+    if (unknownAfterSac - BUFFER_PERCENT < range.max) {
+      this.auraDevotion.mitigation = unknownAfterSac;
+      mitigations.push(this.auraDevotion);
+      return { mitigations: mitigations, unknown: 0 };
+    } else {
+      this.auraDevotion.mitigation = range.max;
+      const remainingUnknown = 1 - (1 - unknownAfterSac) / (1 - range.max);
+      mitigations.push(this.auraDevotion);
+      return { mitigations: mitigations, unknown: remainingUnknown };
+    }
+  }
+
   handleEvent(event) {
     // Subtract block since it's a static amount after reductions.
     let mitigated = event.mitigated - (event.blocked ? event.blocked : 0);
@@ -217,8 +317,7 @@ class DamageMitigation extends Analyzer {
     let unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
 
     // If the actual percent mitigated is less than expected, it is likely a physical ability not being reduced by armor.
-    if (percentMitigated + BUFFER_PERCENT < multiplicative) {
-      debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+    if (unknown < - BUFFER_PERCENT) {
       // If it is physical damage, try to match without armor instead.
       if (event.ability.type === 1 && event.ability.name !== 'Melee') {
         mitigations = mitigations.filter(e => e.id !== -1001);
@@ -226,27 +325,28 @@ class DamageMitigation extends Analyzer {
         multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
         unknown = 1 - (1 - percentMitigated) / (1 - multiplicative);
       }
+      if (unknown < - BUFFER_PERCENT) {
+        debug && console.warn('The actual percent mitigated was lower than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
+      }
     }
 
     // If the actual percent mitigated is higher than expected, try to assign the unknown mitigation.
-    if (percentMitigated - BUFFER_PERCENT > multiplicative) {
-      debug && console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
-      // Check for Aura of Sacrifice.
-      /*if (this.selectedCombatant.hasBuff(SPELLS.AURA_OF_SACRIFICE_BUFF.id) &&
-        unknown + BUFFER_PERCENT > this.auraOfSacrifice.mitigation) {
-        mitigations.push(this.auraOfSacrifice);
-        unknown = 1 - (1 - unknown) / (1 - this.auraOfSacrifice.mitigation);
-      }*/
-      // Check for Devotion Aura.
-      // Check for Destruction Mastery. NYI
-      // if the remaining at this point is still 10%, assume it's Spirit Link Totem.
-      
+    if (unknown > BUFFER_PERCENT) {
       // If the player is using a shield and the hit was fully absorbed, assume the remaining mitigation was block (Block amount is not in the log when the hit fully absorbed).
       if (event.amount === 0 && (this.selectedCombatant.specId === SPECS.PROTECTION_PALADIN.id || 
         this.selectedCombatant.specId === SPECS.PROTECTION_WARRIOR.id) ) {
+        // First assume Devo Aura did the minimum amount
+        // NYI DEVO AURA
         debug && console.log('Removed ' + formatNumber(mitigated * unknown) + ' Damage mitigation assuming it was blocked.');
         mitigated *= 1 - unknown;
         unknown = 0;
+      } else {
+        const unknownMitigations = this.handleUnknown(event, unknown);
+        mitigations = mitigations.concat(unknownMitigations.mitigations);
+        unknown = unknownMitigations.unknown;
+      }
+      if (unknown > BUFFER_PERCENT) {
+        debug && console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
       }
     }
     debug && (this.checkSum += mitigated);
