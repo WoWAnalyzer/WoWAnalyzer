@@ -35,17 +35,26 @@ function sendJson(res, json) {
 }
 async function proxyCharacterApi(res, region, realm, name, fields) {
   try {
+    console.log('Fetching character from Battle.net');
+    const start = Date.now();
     const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
+    const responseTime = Date.now() - start;
+    console.log('Battle.net response time:', responseTime, 'ms');
     const json = JSON.parse(response);
     // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
     json.region = region;
     sendJson(res, json);
     return json;
   } catch (error) {
-    console.log(error.message);
-    Raven.installed && Raven.captureException(error);
-    res.status(error.statusCode || 500);
-    sendJson(res, error.response ? error.response.body : null);
+    const { statusCode, message, response } = error;
+    console.log('Error fetching character', statusCode, message);
+    const body = response ? response.body : null;
+    if (statusCode !== 404 || !body || !body.includes('Character not found.')) {
+      // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
+      Raven.installed && Raven.captureException(error);
+    }
+    res.status(statusCode || 500);
+    sendJson(res, body);
     return null;
   }
 }

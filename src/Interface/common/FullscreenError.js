@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
 import GithubButton from 'Interface/common/ThirdPartyButtons/GitHub';
-import PatreonButton from 'Interface/common/ThirdPartyButtons/Patreon';
 
 import AppBackgroundImage from './AppBackgroundImage';
 
@@ -20,7 +19,6 @@ const FullscreenError = ({ error, details, background, children, errorDetails })
       <div style={{ marginTop: 30 }}>
         <DiscordButton />
         <GithubButton style={{ marginLeft: 20 }} />
-        <PatreonButton style={{ marginLeft: 20 }} />
       </div>
       {errorDetails && (
         <div style={{ marginTop: 30 }}>

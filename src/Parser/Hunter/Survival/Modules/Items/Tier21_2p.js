@@ -29,11 +29,11 @@ class Tier21_2p extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.FLANKING_STRIKE.id) {
-      this.flankingStrikeCasts++;
+    if (spellId === SPELLS.FLANKING_STRIKE_TALENT.id) {
+      this.flankingStrikeCasts += 1;
     }
     if (spellId === SPELLS.RAPTOR_STRIKE.id) {
-      this.totalRaptorStrikes++;
+      this.totalRaptorStrikes += 1;
     }
   }
 

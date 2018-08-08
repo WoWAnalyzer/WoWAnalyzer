@@ -89,7 +89,7 @@ class FuryOfTheEagle extends Analyzer {
 
   suggestions(when) {
     when(this.averageMFStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </React.Fragment>)
+      return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />. </React.Fragment>)
         .icon(SPELLS.FURY_OF_THE_EAGLE_TRAIT.icon)
         .actual(`${this.averageMongooseStacksOnCast} average stacks of mongoose Fury on cast`)
         .recommended(`>${recommended} stacks is recommended`);

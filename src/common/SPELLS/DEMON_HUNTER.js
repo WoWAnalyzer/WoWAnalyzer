@@ -72,6 +72,11 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  VOID_REAVER_DEBUFF: {
+    id: 268178,
+    name: 'Void Reaver Debuff',
+    icon: 'spell_shadow_demonicempathy',
+  },
   //Sigil of Flame, Misery, and Silence have different spell ids depending on
   //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
   SIGIL_OF_FLAME_CONCENTRATED: {
@@ -185,6 +190,17 @@ export default {
     id: 188501,
     name: 'Spectral Sight',
     icon: 'ability_demonhunter_spectralsight',
+  },
+  // Ticks that Fiery Brand does due to the Burning Alive talent
+  FIERY_BRAND_DOT: {
+    id: 207771,
+    name: 'FIERY_BRAND_DOT',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  FEAST_OF_SOULS_HEAL: {
+    id: 207693,
+    name: 'Feast of Souls Heal',
+    icon: 'spell_shadow_soulleech',
   },
 
   // Havoc
