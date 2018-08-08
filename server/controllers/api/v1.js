@@ -13,21 +13,14 @@ function serializeUrl(path, query) {
   return `/${path}?${querystring.stringify(query)}`;
 }
 async function cacheWclApiResponse(cacheKey, response, responseTime) {
-  const cachedWclApiResponse = await WclApiResponse.findById(cacheKey);
-  if (cachedWclApiResponse) {
-    await cachedWclApiResponse.update({
-      content: response,
-      wclResponseTime: responseTime,
-      numAccesses: cachedWclApiResponse.numAccesses + 1,
-      lastAccessedAt: Sequelize.fn('NOW'),
-    });
-  } else {
-    await WclApiResponse.create({
-      url: cacheKey,
-      content: response,
-      wclResponseTime: responseTime,
-    });
-  }
+  // Regardless of already existing, reset `numAccesses` to 1 since we want to know accesses since last cache bust which helps us determine if we should keep certain responses in our cache. If an url is regularly cache busted, it's not as valuable in the cache.
+  await WclApiResponse.upsert({
+    url: cacheKey,
+    content: response,
+    wclResponseTime: responseTime,
+    numAccesses: 1,
+    lastAccessedAt: Sequelize.fn('NOW'),
+  });
 }
 
 const router = Express.Router();
