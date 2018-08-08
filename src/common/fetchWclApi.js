@@ -1,7 +1,8 @@
 import ExtendableError from 'es6-error';
 
-import makeWclApiUrl from './makeWclApiUrl';
 import { captureException } from 'common/errorLogger';
+
+import makeWclApiUrl from './makeWclApiUrl';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
