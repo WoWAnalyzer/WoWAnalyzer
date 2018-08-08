@@ -25,7 +25,6 @@ class FightSelectionList extends Component {
     })),
     killsOnly: PropTypes.bool.isRequired,
     playerId: PropTypes.number,
-    resultTab: PropTypes.string,
   };
 
   componentWillUnmount() {
@@ -33,7 +32,7 @@ class FightSelectionList extends Component {
   }
 
   render() {
-    const { fights, report, killsOnly, playerId, resultTab } = this.props;
+    const { fights, report, killsOnly, playerId } = this.props;
     return (
       <ul className="list selection">
         {fights
@@ -48,7 +47,7 @@ class FightSelectionList extends Component {
           })
           .map(fight => (
             <li key={fight.id} className="item selectable">
-              <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
+              <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
                 <Fight {...fight} wipes={getWipeCount(report.fights, fight)} />
               </Link>
             </li>

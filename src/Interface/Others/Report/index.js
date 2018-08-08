@@ -11,7 +11,7 @@ import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
-import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getReportCode, getResultTab } from 'Interface/selectors/url/report';
+import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getReportCode } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
@@ -47,7 +47,6 @@ class Report extends React.Component {
     urlPlayerName: PropTypes.string,
     fightId: PropTypes.number,
     urlFightName: PropTypes.string,
-    resultTab: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
@@ -381,7 +380,7 @@ class Report extends React.Component {
     }
 
     if (this.isFightNameMissingFromUrl || this.isPlayerNameMissingFromUrl) {
-      const url = makeAnalyzerUrl(this.props.report, this.props.fightId, this.props.playerId, this.props.resultTab);
+      const url = makeAnalyzerUrl(this.props.report, this.props.fightId, this.props.playerId);
       console.log('Replacing URL from', this.props.history.location.pathname, 'to', url);
       this.props.history.replace(url);
     }
@@ -491,7 +490,6 @@ const mapStateToProps = state => {
     urlFightName: getUrlFightName(state),
     playerId: getPlayerId(state),
     urlPlayerName: getPlayerName(state),
-    resultTab: getResultTab(state),
 
     report: getReport(state),
     fight: getFightById(state, fightId),

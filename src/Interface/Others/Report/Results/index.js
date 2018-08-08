@@ -15,7 +15,6 @@ import StatisticsIcon from 'Interface/Icons/Statistics';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
-import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
