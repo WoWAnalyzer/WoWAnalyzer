@@ -22,4 +22,10 @@ export default {
     name: "Dance of Death",
     icon: "ability_druid_mangle",
   },
+
+  FEEDING_FRENZY: {
+    id: 278529,
+    name: 'Feeding Frenzy',
+    icon: 'ability_hunter_barbedshot',
+  },
 };
