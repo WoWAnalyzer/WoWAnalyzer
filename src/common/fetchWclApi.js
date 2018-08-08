@@ -1,11 +1,20 @@
 import ExtendableError from 'es6-error';
 
 import makeWclApiUrl from './makeWclApiUrl';
+import { captureException } from 'common/errorLogger';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
-export class JsonParseError extends ExtendableError {}
+export class JsonParseError extends ExtendableError {
+  originalError = null;
+  raw = null;
+  constructor(originalError, raw) {
+    super();
+    this.originalError = originalError;
+    this.raw = raw;
+  }
+}
 export class WclApiError extends ExtendableError {}
 export class UnknownApiError extends ExtendableError {}
 export class CorruptResponseError extends ExtendableError {}
@@ -35,7 +44,9 @@ async function rawFetchWcl(endpoint, queryParams) {
   try {
     json = await response.json();
   } catch (error) {
-    console.error('JsonParseError', error);
+    captureException(error, {
+      extra: await response.text(),
+    });
     throw new JsonParseError();
   }
 
