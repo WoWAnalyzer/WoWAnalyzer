@@ -2,13 +2,13 @@ import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber } from 'common/format';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const PHYSICAL_DAMAGE_INCREASE = 0.20;
+const PHYSICAL_DAMAGE_INCREASE = 0.15;
 
 class RazorSpikes extends Analyzer {
 //WCL: https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP/#fight=3&source=3
@@ -20,7 +20,7 @@ class RazorSpikes extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id);
   }
 
-  on_toPlayer_damage(event) {
+  on_byPlayer_damage(event) {
     // Physical
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;

@@ -31,7 +31,7 @@ import Gluttony from './Modules/Talents/Gluttony';
 import BurningAlive from './Modules/Talents/BurningAlive';
 import FeastOfSouls from './Modules/Talents/FeastOfSouls';
 import AgonizingFlames from './Modules/Talents/AgonizingFlames';
-import RazorSpikes from './Modules/Talent/RazorSpikes';
+import RazorSpikes from './Modules/Talents/RazorSpikes';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
