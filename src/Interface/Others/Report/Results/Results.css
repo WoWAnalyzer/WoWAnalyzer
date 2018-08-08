@@ -36,7 +36,7 @@
   min-height: 50px;
   outline: none;
   padding: 5px;
-  transition: 300ms background;
+  transition: background 300ms;
   text-transform: uppercase;
   color: #fff;
   font-weight: 600;

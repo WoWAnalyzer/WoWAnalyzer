@@ -1,0 +1,27 @@
+.results-panel.expandable {
+  transition: border-top-width 200ms;
+}
+.results-panel.expandable:not(.expanded) {
+  border-top-width: 0px;
+}
+.results-panel .panel-heading {
+  padding: 14px 22px; /* default has slightly more top padding, this doesn't need that */
+}
+.results-panel .panel-heading .chevron {
+  display: flex;
+  align-items: center;
+  font-size: 0.5em;
+  margin-right: 1.5em;
+  color: #aaa;
+  transition: all 400ms;
+}
+.results-panel.expanded .panel-heading .chevron {
+  color: #fff;
+}
+.results-panel .panel-heading .title {
+  font-size: 1.3em;
+  font-weight: 400;
+}
+.results-panel .panel-body {
+  padding: 0;
+}

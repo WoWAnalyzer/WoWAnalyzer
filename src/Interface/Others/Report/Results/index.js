@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
-import { withI18n, Trans } from '@lingui/react';
+import { Trans, withI18n } from '@lingui/react';
 
 import ChecklistIcon from 'Interface/Icons/Checklist';
 import SuggestionIcon from 'Interface/Icons/Suggestion';
@@ -25,11 +25,11 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
-import DetailsTab from './DetailsTab';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
 import SuggestionsTab from './SuggestionsTab';
+import Panel from './Panel';
 import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
@@ -45,8 +45,6 @@ const MAIN_TAB = {
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
-    selectedDetailsTab: PropTypes.string,
-    makeTabUrl: PropTypes.func.isRequired,
     i18n: PropTypes.object.isRequired,
     premium: PropTypes.bool,
     characterProfile: PropTypes.shape({
@@ -106,7 +104,8 @@ class Results extends React.PureComponent {
             <StatisticsIcon /> <Trans>Statistics</Trans>
           </React.Fragment>
         );
-      default: return tab;
+      default:
+        return tab;
     }
   }
   renderFightDowntimeToggle() {
@@ -183,7 +182,7 @@ class Results extends React.PureComponent {
     );
   }
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
+    const { parser, i18n, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
@@ -248,8 +247,8 @@ class Results extends React.PureComponent {
               </a>
               {' '}
               {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
-                <Link 
-                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
+                <Link
+                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`}
                   data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
                   className="btn"
                   style={{ fontSize: 24 }}
@@ -311,7 +310,20 @@ class Results extends React.PureComponent {
           <Trans>Details</Trans>
         </StatisticsSectionTitle>
 
-        <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
+        {results.tabs
+          .sort((a, b) => {
+            const aOrder = a.order !== undefined ? a.order : 100;
+            const bOrder = b.order !== undefined ? b.order : 100;
+
+            return aOrder - bOrder;
+          })
+          .map((tab, index) => (
+            <Panel
+              key={tab.url}
+              tab={tab}
+              defaultExpanded={index === 0} // TODO: Base this on cookie
+            />
+          ))}
       </div>
     );
   }
@@ -364,10 +376,8 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedDetailsTab: getResultTab(state),
   premium: hasPremium(state),
 });
-
 export default compose(
   withI18n(),
   connect(
