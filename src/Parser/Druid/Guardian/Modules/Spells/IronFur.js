@@ -9,8 +9,7 @@ import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-const IRONFUR_BASE_DURATION = 6;
-const UE_DURATION_PER_RANK = 0.5;
+const IRONFUR_BASE_DURATION = 7;
 const GUARDIAN_OF_ELUNE_DURATION = 2;
 
 class IronFur extends Analyzer {
@@ -20,12 +19,6 @@ class IronFur extends Analyzer {
 
   get ironfurDuration() {
     return this._ironfurDuration;
-  }
-
-  constructor(...args) {
-    super(...args);
-    const ueRank = this.selectedCombatant.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
-    this._ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
   }
 
   // Get the latest stack change
@@ -173,6 +166,7 @@ class IronFur extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(this.percentOfHitsMitigated)}% / ${this.overallIronfurUptime.toFixed(2)}`}
         label="Hits mitigated with Ironfur / Average Stacks"
@@ -189,7 +183,6 @@ class IronFur extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default IronFur;
