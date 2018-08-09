@@ -47,6 +47,9 @@ import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 //Traits and talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
+//Azerite Traits
+import DanceOfDeath from './Modules/Spells/AzeriteTraits/DanceOfDeath';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
@@ -98,6 +101,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
+
+    //Azerite Traits
+    danceOfDeath: DanceOfDeath,
   };
 }
 

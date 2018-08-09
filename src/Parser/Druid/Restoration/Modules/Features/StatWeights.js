@@ -126,6 +126,9 @@ class StatWeights extends BaseHealerStatValues {
     if (healVal.overheal) {
       return 0;
     }
+    if(event.ability.guid === SPELLS.REGROWTH.id && !event.tick) {
+      return 0;
+    }
     return super._hasteHpm(event, healVal);
   }
 

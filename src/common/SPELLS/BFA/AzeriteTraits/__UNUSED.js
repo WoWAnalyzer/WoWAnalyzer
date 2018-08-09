@@ -124,11 +124,6 @@ export default {
     name: 'Boiling Brew',
     icon: 'achievement_brewery_2',
   },
-  BONE_SPIKE_GRAVEYARD: {
-    id: 273088,
-    name: 'Bone Spike Graveyard',
-    icon: 'spell_shadow_deathanddecay',
-  },
   BRACING_CHILL: {
     id: 267884,
     name: 'Bracing Chill',
@@ -193,11 +188,6 @@ export default {
     id: 271536,
     name: 'Crystalline Carapace',
     icon: 'inv_shield_33',
-  },
-  DANCE_OF_DEATH: {
-    id: 274441,
-    name: 'Dance of Death',
-    icon: 'ability_druid_mangle',
   },
   DARK_GRUDGE: {
     id: 269368,

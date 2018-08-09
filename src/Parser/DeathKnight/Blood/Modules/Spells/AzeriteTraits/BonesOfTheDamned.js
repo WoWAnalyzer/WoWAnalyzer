@@ -1,36 +1,32 @@
 import React from 'react';
-import SpellIcon from 'common/SpellIcon';
+
+import SPELLS from 'common/SPELLS';
+import { formatNumber, formatPercentage } from 'common/format';
+import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
-import {formatNumber, formatPercentage} from 'common/format';
-import {calculateAzeriteEffects} from 'common/stats';
-import StatisticBox from 'Interface/Others/StatisticBox';
-import SPELLS from 'common/SPELLS/index';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+
 import MarrowrendUsage from '../../Features/MarrowrendUsage';
 import BoneShieldTimesByStacks from '../../Features/BoneShieldTimesByStacks';
 
-
-
-export function bonesOfTheDamnedStats(combatant){
-  if(!combatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)){
-    return null;
-  }
-  let armor = 0;
-  for(const rank of combatant.traitsBySpellId[SPELLS.BONES_OF_THE_DAMNED.id]){
-    const [arm] = calculateAzeriteEffects(SPELLS.BONES_OF_THE_DAMNED.id, rank);
-    armor += arm;
-  }
-
-  return {armor};
-}
+const bonesOfTheDamnedStats = traits => Object.values(traits).reduce((obj, rank) => {
+  const [armor] = calculateAzeriteEffects(SPELLS.BONES_OF_THE_DAMNED.id, rank);
+  obj.armor += armor;
+  return obj;
+}, {
+  armor: 0,
+});
 
 export const STAT_TRACKER = {
-  armor: (combatant) => bonesOfTheDamnedStats(combatant).armor,
+  armor: combatant => bonesOfTheDamnedStats(combatant.traitsBySpellId[SPELLS.BONES_OF_THE_DAMNED.id]).armor,
 };
 
 /**
  * Bones of the Damned
  * Marrowrend has a chance to proc an additional stack of Bone Shield (multiple traits do not allow increase the amount of stacks)
  * Bone Shield increase armor
+ * 
+ * Example Report: https://www.warcraftlogs.com/reports/bnQ4fpjv8hz9mJY3/#fight=1&source=9&translate=true
  */
 class BonesOfTheDamned extends Analyzer{
 
@@ -43,12 +39,13 @@ class BonesOfTheDamned extends Analyzer{
 
   constructor(...args) {
     super(...args);
-    const response = bonesOfTheDamnedStats(this.selectedCombatant);
-    if (response === null) {
-      this.active = false;
+    this.active = this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id);
+    if (!this.active) {
       return;
     }
-    this.armor += response.armor;
+
+    const { armor } = bonesOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.BONES_OF_THE_DAMNED.id]);
+    this.armor = armor;
   }
 
   get bonesOfTheDamnedProcPercentage() {
@@ -65,15 +62,15 @@ class BonesOfTheDamned extends Analyzer{
 
   statistic(){
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BONES_OF_THE_DAMNED.id} />}
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.BONES_OF_THE_DAMNED.id}
         value={(
           <React.Fragment>
             {formatNumber(this.marrowrendUsage.bonesOfTheDamnedProcs)} Procs <br />
             {formatNumber(this.averageArmor)} average Armor
           </React.Fragment>
         )}
-        label={SPELLS.BONES_OF_THE_DAMNED.name}
         tooltip={`
           ${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>
           ${formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your ${SPELLS.MARROWREND.name} casts procced ${SPELLS.BONES_OF_THE_DAMNED.name}.

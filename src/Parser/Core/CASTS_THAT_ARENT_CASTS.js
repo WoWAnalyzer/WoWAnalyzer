@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
 export default [
-  /**This can consist of boss mechanics marked as casts, buff applications marked
+  /**
+   * This can consist of boss mechanics marked as casts, buff applications marked
    * as separate casts from the normal ability, toy casts that some people macro
    * into their abilities and so forth
    */
@@ -20,4 +21,6 @@ export default [
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy
   SPELLS.FIRE_MINES.id, // Forgefiends fabricator
   SPELLS.FIRE_MINES_2.id, // Forgefiends fabricator
+  SPELLS.BIG_RED_RAYS.id, //Big Red Raygun active effect
+  255724, // proc from a Legion Antorus trinket
 ];

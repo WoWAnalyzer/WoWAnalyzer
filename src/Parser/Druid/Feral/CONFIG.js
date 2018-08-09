@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { sref, Thieseract, Anatta336 } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import Warning from 'common/Alert/Warning';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -15,16 +17,20 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Questions about Feral? Visit <a href="https://www.discord.gg/dreamgrove">Dreamgrove</a> Discord.<br /><br />
-
       <Warning>
-        This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
+      AoE encounters are not currently well covered. You'll get the most useful feedback on fights which are primarily against a single target.
+      </Warning><br />
+
+      We hope this analyzer will help improve your Feral druid experience. As always it's best to focus on improving one aspect of your play at a time. Keeping good uptimes on your DoTs is key to good damage output, so is a great place to start. Unless you have very high haste you can expect to spend time waiting for energy, use this to your advantage as it gives you time to plan what to do next rather than spamming buttons. The talents <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />, <SpellLink id={SPELLS.LUNAR_INSPIRATION_TALENT.id} />, and <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> are usually good for single target fights but add extra things to keep track of, so swapping out from those can simplify the spec while you learn.<br /><br />
+
+      Most of the mechanics are now covered in this analyzer but there's always things to improve. If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (<a href="/contributor/Anatta336">Anatta</a>) directly on Discord. We're always interested in improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier to understand. The whole project is open source and welcomes contributions so you can directly improve it too!<br /><br />
+
+      If you have questions about playing Feral check out the <a href="https://www.discord.gg/dreamgrove">Dreamgrove</a> Discord for an active community, and the <a href="http://www.wowhead.com/feral-druid-guide">Feral guide</a> on Wowhead is an excellent resource.
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/hxzFPBaWLJrG1NQR/24-Heroic+Imonar+the+Soulhunter+-+Kill+(3:38)/18-Emirose',
+  // This is the current highest 8.0.1 log for Heroic Varimathas from Antorus (a simple single target fight.) Replace with a BFA log when available.
+  exampleReport: '/report/mp7QwgKjdYqknzMT/12-Heroic+Varimathras+-+Kill+(3:11)/143-Opter',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

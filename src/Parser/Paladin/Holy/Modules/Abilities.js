@@ -176,14 +176,6 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        gcd: null,
-        isUndetectable: true,
-        timelineSortIndex: 35,
-      },
-      {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

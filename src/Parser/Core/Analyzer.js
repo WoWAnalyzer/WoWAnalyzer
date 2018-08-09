@@ -41,7 +41,7 @@ class Analyzer extends Module {
 
   addEventListener(eventType, listener, options = null) {
     // DO NOT MANUALLY CALL THIS METHOD YET. The API is not locked down yet. The current implementation is merely here for an initial performance boost (32%!!!), the final implementation will have more options and performance improvements.
-    this.owner.addEventListener(eventType, listener.bind(this), options);
+    this.owner.addEventListener(eventType, listener.bind(this), this, options);
   }
   /**
    * Get a list of all methods of all classes in the prototype chain until this class.
@@ -62,7 +62,7 @@ class Analyzer extends Module {
 
   get consoleMeta() {
     const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
-    return [fightDuration, this.constructor.name];
+    return [fightDuration, `(module: ${this.constructor.name})`];
   }
   debug(...args) {
     console.log(...this.consoleMeta, ...args);
@@ -74,6 +74,9 @@ class Analyzer extends Module {
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
   statistic() { return undefined; }
+  /**
+   * @deprecated Set the `position` property on the Statistic component instead.
+   */
   statisticOrder = STATISTIC_ORDER.DEFAULT;
   suggestions(when) { return undefined; }
   tab() { return undefined; }

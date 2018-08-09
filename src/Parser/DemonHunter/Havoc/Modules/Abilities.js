@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EYE_BEAM,
         enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EYE_BEAM,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },

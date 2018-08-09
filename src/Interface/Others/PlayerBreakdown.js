@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPECS from 'common/SPECS';
+import SPECS from 'Game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNumber } from 'common/format';
 

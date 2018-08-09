@@ -45,17 +45,13 @@ class SoulFragmentsConsume extends Analyzer {
       }
     }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
-      return;
+  soulCleaveSouls() {
+    if(this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
+      return 0;
     }
-    if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
-      this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
-      this.totalSoulsConsumed += 1;
+    return this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
     }
-  }
-  
+
   statistic() {
     const overcap= this.soulFragmentsTracker.soulsWasted;
     const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 

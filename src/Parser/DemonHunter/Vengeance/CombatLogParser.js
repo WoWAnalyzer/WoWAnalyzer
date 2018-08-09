@@ -16,20 +16,26 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
-
-import SpiritBombFrailtyDebuff from './Modules/Talent/SpiritBombFrailtyDebuff';
 import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
-import SoulBarrier from './Modules/Talent/SoulBarrier';
-import SpiritBombSoulConsume from './Modules/Talent/SpiritBombSoulConsume';
 
+import SpiritBombFrailtyDebuff from './Modules/Talents/SpiritBombFrailtyDebuff';
+import SoulBarrier from './Modules/Talents/SoulBarrier';
+import SpiritBombSoulsConsume from './Modules/Talents/SpiritBombSoulsConsume';
+import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
+import FeedTheDemon from './Modules/Talents/FeedTheDemon';
+import Gluttony from './Modules/Talents/Gluttony';
+import BurningAlive from './Modules/Talents/BurningAlive';
+import FeastOfSouls from './Modules/Talents/FeastOfSouls';
+import AgonizingFlames from './Modules/Talents/AgonizingFlames';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
+import SoulCleaveSoulsConsumed from './Modules/Spells/SoulCleaveSoulsConsumed';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -57,12 +63,19 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
     soulBarrier: SoulBarrier,
-    spiritBombSoulConsume: SpiritBombSoulConsume,
+    spiritBombSoulsConsume: SpiritBombSoulsConsume,
+    feedTheDemon: FeedTheDemon,
+    gluttony: Gluttony,
+    burningAlive: BurningAlive,
+    feastOfSouls: FeastOfSouls,
+    agonizingFlames: AgonizingFlames,
 
     // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
+    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
+    voidReaverDebuff: VoidReaverDebuff,
 
     //Stats
     soulsOvercap: SoulsOvercap,

@@ -1,13 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SPECS from 'common/SPECS';
 import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
-
+import SPECS from 'Game/SPECS';
+import RACES from 'Game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
 
@@ -249,6 +250,7 @@ class StatTracker extends Analyzer {
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    [SPELLS.DANCE_OF_DEATH.id]: DANCE_OF_DEATH_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
@@ -473,28 +475,31 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get baseCritPercentage() {
-    const standard = 0.05;
+    let critChance = 0.05;
+    if (this.selectedCombatant.race === RACES.BloodElf) {
+      critChance += 0.01;
+    }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
-        return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+        return critChance + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.MARKSMANSHIP_HUNTER:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.SURVIVAL_HUNTER:
-        return standard + 0.06; //baseline +6%
+        return critChance + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
-        return standard + 0.06; //baseline +6%
+        return critChance + 0.06; //baseline +6%
       case SPECS.SUBTLETY_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.ASSASSINATION_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.OUTLAW_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       default:
-        return standard;
+        return critChance;
     }
   }
   get baseHastePercentage() {

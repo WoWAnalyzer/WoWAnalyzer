@@ -24,6 +24,7 @@ import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import DocumentTitle from 'Interface/common/DocumentTitle';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
@@ -32,7 +33,7 @@ import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
-const PROGRESS_STEP1_INITIALIZATION = 0.02;
+const PROGRESS_STEP1_INITIALIZATION = 0.01;
 const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
@@ -108,35 +109,39 @@ class Report extends React.Component {
 
     this.reset();
     this.props.setReportProgress(0);
+    this.startFakeNetworkProgress();
     const config = this.getConfig(combatant.specID);
+    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
+    let parserClass;
+    let characterProfile;
+    await Promise.all([
+      config.parser().then(result => {
+        parserClass = result;
+      }),
+      this.fetchCharacter(player.guid, exportedCharacter).then(data => {
+        this.setState({
+          characterProfile: data,
+        });
+        characterProfile = data;
+      }),
+    ]);
+
     timeAvailable && console.time('full parse');
-    const parserClass = await config.parser();
-    const parser = new parserClass(report, player, fight, combatants);
+    timeAvailable && console.time('initialize');
+    const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    timeAvailable && console.timeEnd('initialize');
     await this.setStatePromise({
       config,
       parser,
     });
-    this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION);
     await this.parse(parser, report, player, fight);
   }
   async parse(parser, report, player, fight) {
     this._jobId += 1;
     const jobId = this._jobId;
     let events;
-    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
     try {
-      this.startFakeNetworkProgress();
-      await Promise.all([
-        this.fetchCharacter(player.guid, exportedCharacter).then(data => {
-          this.setState({
-            characterProfile: data,
-          });
-          parser.characterProfile = data;
-        }),
-        fetchEvents(report.code, fight.start_time, fight.end_time, player.id).then(data => {
-          events = data;
-        }),
-      ]);
+      events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
       this.stopFakeNetworkProgress();
@@ -145,7 +150,6 @@ class Report extends React.Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
@@ -252,7 +256,6 @@ class Report extends React.Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
@@ -311,7 +314,6 @@ class Report extends React.Component {
           captureException(err);
           this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
         } else if (err instanceof JsonParseError) {
-          captureException(err);
           this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
         } else {
           // Some kind of network error, internet may be down.
@@ -357,6 +359,10 @@ class Report extends React.Component {
         const combatant = combatants.find(combatant => combatant.sourceID === player.id);
         if (!combatant) {
           alert('This player does not seem to be in this fight.');
+          return;
+        }
+        if (!combatant.specID) {
+          alert('The data received from WCL for this player is corrupt, this fight can not be analyzed.');
           return;
         }
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
@@ -413,6 +419,7 @@ class Report extends React.Component {
       playerId: player.id,
       playerName: player.name,
       playerClass: player.type,
+      type: REPORT_HISTORY_TYPES.REPORT,
     });
   }
 

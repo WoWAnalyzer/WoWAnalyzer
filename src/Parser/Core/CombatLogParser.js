@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { findByBossId } from 'Raids';
-import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
+import { captureException } from 'common/errorLogger';
 import ChangelogTab from 'Interface/Others/ChangelogTab';
 import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
 import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
@@ -39,11 +40,7 @@ import TotalDowntime from './Modules/Downtime/TotalDowntime';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
-import CharacterPanel from './Modules/Features/CharacterPanel';
-import StatsDisplay from './Modules/Features/StatsDisplay';
-import TalentsDisplay from './Modules/Features/TalentsDisplay';
-import Checklist from './Modules/Features/Checklist';
-
+import CharacterTab from './Modules/Features/CharacterTab';
 import EncounterPanel from './Modules/Features/EncounterPanel';
 
 // Tabs
@@ -60,6 +57,9 @@ import EnchantChecker from './Modules/Items/EnchantChecker';
 import Healthstone from './Modules/Items/Healthstone';
 import HealthPotion from './Modules/Items/HealthPotion';
 import CombatPotion from './Modules/Items/CombatPotion';
+
+import ArcaneTorrent from './Modules/Racials/BloodElf/ArcaneTorrent';
+import MightOfTheMountain from './Modules/Racials/Dwarf/MightOfTheMountain';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -155,6 +155,7 @@ const debugDependencyInjection = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
+  static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
     combatants: Combatants,
@@ -194,13 +195,9 @@ class CombatLogParser {
 
     critEffectBonus: CritEffectBonus,
 
-    characterPanel: CharacterPanel,
-    statsDisplay: StatsDisplay,
-    talentsDisplay: TalentsDisplay,
-    checklist: Checklist,
-
-    encounterPanel: EncounterPanel,
     // Tabs
+    characterTab: CharacterTab,
+    encounterPanel: EncounterPanel,
     timelineTab: TimelineTab,
     manaTab: ManaTab,
     raidHealthTab: RaidHealthTab,
@@ -212,6 +209,10 @@ class CombatLogParser {
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
+
+    // Racials
+    arcaneTorrent: ArcaneTorrent,
+    mightOfTheMountain: MightOfTheMountain,
 
     // Items:
     // Legendaries:
@@ -348,12 +349,13 @@ class CombatLogParser {
     return this._modules.combatants.selected;
   }
 
-  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.combatantInfoEvents = combatantInfoEvents;
+    this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
 
@@ -474,47 +476,13 @@ class CombatLogParser {
   eventCount = 0;
   eventHistory = [];
   _eventListeners = {};
-  addEventListener(type, listener, options = null) {
-    // Wrap the listener in filters to exclude events that do not match the desired options. We compile a handler using the options so checking the options is only done once. If this turns out to prevent something from being implemented, don't worry about it as it has no (noticable) performance impact.
-    let handler = listener;
-    if (options.byPlayer) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.byPlayer(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.toPlayer) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.toPlayer(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.byPlayerPet) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.byPlayerPet(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-    if (options.toPlayerPet) {
-      const oldHandler = handler;
-      handler = event => {
-        if (this.toPlayerPet(event)) {
-          oldHandler(event);
-        }
-      };
-    }
-
-    const existingEventListener = this._eventListeners[type];
-    this._eventListeners[type] = existingEventListener ? function (...args) {
-      existingEventListener(...args);
-      handler(...args);
-    } : handler;
+  addEventListener(type, listener, module, options = null) {
+    this._eventListeners[type] = this._eventListeners[type] || [];
+    this._eventListeners[type].push({
+      ...options,
+      module,
+      listener,
+    });
   }
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
@@ -529,17 +497,47 @@ class CombatLogParser {
     this._timestamp = event.timestamp;
     this._event = event;
 
+    const isByPlayer = this.byPlayer(event);
+    const isToPlayer = this.toPlayer(event);
+    const isByPlayerPet = this.byPlayerPet(event);
+    const isToPlayerPet = this.toPlayerPet(event);
+
+    const run = options => {
+      if (!isByPlayer && options.byPlayer) {
+        return;
+      }
+      if (!isToPlayer && options.toPlayer) {
+        return;
+      }
+      if (!isByPlayerPet && options.byPlayerPet) {
+        return;
+      }
+      if (!isToPlayerPet && options.toPlayerPet) {
+        return;
+      }
+      try {
+        options.listener(event);
+      } catch (err) {
+        if (process.env.NODE_ENV === 'development') {
+          throw err;
+        }
+        options.module.active = false;
+        console.error('Disabling', module.constructor.name, 'because an error occured', err);
+        captureException(err);
+      }
+    };
+
     {
       // Handle on_event (listeners of all events)
-      const listener = this._eventListeners.event;
-      if (listener) {
-        listener(event);
+      const listeners = this._eventListeners.event;
+      if (listeners) {
+        listeners.forEach(run);
       }
     }
     {
-      const listener = this._eventListeners[event.type];
-      if (listener) {
-        listener(event);
+      const listeners = this._eventListeners[event.type];
+      if (listeners) {
+        listeners.forEach(run);
       }
     }
 

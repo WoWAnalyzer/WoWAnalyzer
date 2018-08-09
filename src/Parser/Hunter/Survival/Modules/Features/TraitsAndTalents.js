@@ -6,14 +6,18 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import AMurderOfCrows from 'Parser/Hunter/Shared/Modules/Talents/AMurderOfCrows';
+import SteelTrap from 'Parser/Hunter/Survival/Modules/Talents/SteelTrap';
 import SerpentSting from '../Spells/SerpentSting';
 import VipersVenom from '../Talents/VipersVenom';
+import ButcheryCarve from '../Spells/ButcheryCarve';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
     aMurderOfCrows: AMurderOfCrows,
     serpentSting: SerpentSting,
     vipersVenom: VipersVenom,
+    butcheryCarve: ButcheryCarve,
+    steelTrap: SteelTrap,
   };
 
   constructor(...args) {
@@ -33,7 +37,8 @@ class TraitsAndTalents extends Analyzer {
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}
         {this.vipersVenom.active && this.vipersVenom.subStatistic()}
-        {}
+        {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
+        {this.steelTrap.active && this.steelTrap.subStatistic()}
       </StatisticsListBox>
 
     );

@@ -17,17 +17,19 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
+import ErrorBoundary from 'Interface/common/ErrorBoundary';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
-import SuggestionsTab from 'Interface/Others/SuggestionsTab';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
-import DetailsTab from './DetailsTab';
+import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
+import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
@@ -69,7 +71,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: MAIN_TAB.CHECKLIST,
+      mainTab: !props.parser._modules.checklist ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -141,7 +143,7 @@ class Results extends React.PureComponent {
           return (
             <React.Fragment key={name}>
               <StatisticsSectionTitle
-                rightAddon={parser.hasDowntime && this.renderFightDowntimeToggle()}
+                rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
               >
                 {name}
               </StatisticsSectionTitle>
@@ -165,8 +167,23 @@ class Results extends React.PureComponent {
     return null;
   }
 
+  renderChecklist() {
+    const parser = this.props.parser;
+    const modules = parser._modules;
+    return (
+      modules.checklist ? (
+        modules.checklist.render()
+      ) : (
+        <div className="item-divider" style={{ padding: '10px 22px' }}>
+          <div className="alert alert-danger">
+            The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+          </div>
+        </div>
+      )
+    );
+  }
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
@@ -229,6 +246,17 @@ class Results extends React.PureComponent {
               >
                 <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
               </a>
+              {' '}
+              {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
+                <Link 
+                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
+                  data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
+                  className="btn"
+                  style={{ fontSize: 24 }}
+                >
+                  <img src="/favicon.png" alt="WoWAnalyzer logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
+                </Link>
+              )}
             </div>
           </div>
           <div className="col-md-8">
@@ -253,18 +281,12 @@ class Results extends React.PureComponent {
                 </div>
                 <div>
                   <ResultsWarning warning={this.warning} />
-                  {this.state.mainTab === MAIN_TAB.CHECKLIST && (
-                    modules.checklist.render()
-                  )}
-                  {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
-                    <SuggestionsTab issues={results.issues} />
-                  )}
-                  {this.state.mainTab === MAIN_TAB.CHARACTER && (
-                    modules.characterPanel.render()
-                  )}
-                  {this.state.mainTab === MAIN_TAB.STATS && (
-                    modules.encounterPanel.render()
-                  )}
+                  <ErrorBoundary>
+                    {this.state.mainTab === MAIN_TAB.CHECKLIST && this.renderChecklist()}
+                    {this.state.mainTab === MAIN_TAB.SUGGESTIONS && <SuggestionsTab issues={results.issues} />}
+                    {this.state.mainTab === MAIN_TAB.CHARACTER && modules.characterTab.render()}
+                    {this.state.mainTab === MAIN_TAB.STATS && modules.encounterPanel.render()}
+                  </ErrorBoundary>
                 </div>
               </div>
             </div>
@@ -289,7 +311,11 @@ class Results extends React.PureComponent {
           <Trans>Details</Trans>
         </StatisticsSectionTitle>
 
-        <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
+        <DetailsTabPanel
+          tabs={results.tabs}
+          selected={selectedDetailsTab}
+          makeTabUrl={makeTabUrl}
+        />
       </div>
     );
   }
