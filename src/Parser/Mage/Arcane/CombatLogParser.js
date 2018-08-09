@@ -5,6 +5,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Channeling from './Modules/Features/Channeling';
+import Checklist from './Modules/Checklist/Module';
 
 import Mana from './Modules/ManaChart/Mana';
 import ManaValues from './Modules/ManaChart/ManaValues';
@@ -31,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneCharges: ArcaneCharges,
     
     // Features
+    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
