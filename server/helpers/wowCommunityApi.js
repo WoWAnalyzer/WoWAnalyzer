@@ -1,4 +1,4 @@
-import request from 'request-promise-native';
+import retryingRequest from './retryingRequest';
 
 const availableRegions = {
   'eu': 'ru_RU',
@@ -8,7 +8,10 @@ const availableRegions = {
 };
 
 const USER_AGENT = process.env.USER_AGENT;
-const get = url => request.get({
+const TIMEOUT = 4000; // ms after which to abort the request
+const MAX_ATTEMPTS = 2;
+
+const get = url => retryingRequest({
   url,
   headers: {
     'User-Agent': USER_AGENT,
@@ -16,6 +19,8 @@ const get = url => request.get({
   gzip: true,
   // we'll be making several requests, so pool connections
   forever: true,
+  timeout: TIMEOUT,
+  maxAttempts: MAX_ATTEMPTS,
 });
 const makeBaseUrl = region => `https://${region}.api.battle.net/wow`;
 
