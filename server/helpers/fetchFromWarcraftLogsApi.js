@@ -53,21 +53,22 @@ export default async function fetchFromWarcraftLogsApi(path, query) {
 
     return jsonString;
   } catch (err) {
+    console.error(err);
     if (err instanceof WarcraftLogsApiError) {
       // Already the correct format, pass it along
       throw err;
     }
     if (err.error) {
       if (err.error.code === 'ETIMEDOUT') {
-        throw new WarcraftLogsApiError(504, 'Warcraft Logs took too long to respond.');
+        throw new WarcraftLogsApiError(504, 'Warcraft Logs took too long to respond.', err);
       }
       const json = tryJsonParse(err.error);
       if (json) {
-        throw new WarcraftLogsApiError(err.statusCode, json.error);
+        throw new WarcraftLogsApiError(err.statusCode, json.error, err);
       }
     }
 
     const message = err.error || err.message;
-    throw new WarcraftLogsApiError(err.statusCode, message);
+    throw new WarcraftLogsApiError(err.statusCode, message, err);
   }
 }

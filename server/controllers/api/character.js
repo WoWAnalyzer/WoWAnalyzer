@@ -59,22 +59,13 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
   }
 }
 async function storeCharacter(id, region, realm, name) {
-  const character = await Character.findById(id);
-  if (!character) {
-    await Character.create({
-      id,
-      region,
-      realm,
-      name,
-    });
-  } else {
-    await character.update({
-      region,
-      realm,
-      name,
-      lastSeenAt: Sequelize.fn('NOW'),
-    });
-  }
+  await Character.upsert({
+    id,
+    region,
+    realm,
+    name,
+    lastSeenAt: Sequelize.fn('NOW'),
+  });
 }
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 
