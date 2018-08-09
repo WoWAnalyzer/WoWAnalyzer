@@ -15,6 +15,7 @@
   "Items": "Artikel",
   "Loading...": "",
   "Parsable links:<br/> <ul> <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li> <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li> <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li> </ul>": "Parsable Links:<br/> <ul> <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li> <li>https://www.warcraftlogs.com/character/&lt;Region&gt;/&lt;Reich&gt;/&lt;Name&gt;</li> <li>https://worldofwarcraft.com/&lt;Sprachcode&gt;/character/&lt;Reich&gt;/&lt;Name&gt;</li> </ul>",
+  "Parsable links:<br/> <ul> <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li> <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li> <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li> <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li> </ul>": "",
   "Premium": "Premium",
   "Report": "Bericht",
   "Statistics": "Statistiken",
