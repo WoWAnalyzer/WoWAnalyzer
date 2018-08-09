@@ -48,7 +48,9 @@ async function rawFetchWcl(endpoint, queryParams) {
     json = JSON.parse(text);
   } catch (error) {
     captureException(error, {
-      extra: text,
+      extra: {
+        text,
+      },
     });
     throw new JsonParseError();
   }
