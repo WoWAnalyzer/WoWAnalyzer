@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-08-09'),
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.IRONFUR.id} /> tracking module.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-05-19'),
     changes: <React.Fragment>Added death recap tab and defensive abilities tracking.</React.Fragment>,
     contributors: [Yajinni],
