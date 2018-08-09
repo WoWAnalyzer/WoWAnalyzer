@@ -545,6 +545,11 @@ export default {
   // -----------
 
   // Destruction spells
+  MASTERY_CHAOTIC_ENERGIES: {
+    id: 77220,
+    name: 'Mastery: Chaotic Energies',
+    icon: 'spell_fire_felflamering',
+  },
   BACKDRAFT: {
     id: 117828,
     name: 'Backdraft',

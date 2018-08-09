@@ -309,7 +309,7 @@ class DamageMitigation extends Analyzer {
     const additiveReducer = (accumulator, reduction) => accumulator + this.getMitigation(reduction, event);
     const multiplicativeReducer = (accumulator, reduction) => accumulator * (1 - this.getMitigation(reduction, event));
 
-    const percentMitigated = mitigated/event.unmitigatedAmount;
+    let percentMitigated = mitigated/event.unmitigatedAmount;
     let multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
     
     // The remaining mitigation not accounted for. (can be also be negative!)
@@ -334,11 +334,10 @@ class DamageMitigation extends Analyzer {
       // If the player is using a shield and the hit was fully absorbed, assume the remaining mitigation was block (Block amount is not in the log when the hit fully absorbed).
       if (event.amount === 0 && (this.selectedCombatant.specId === SPECS.PROTECTION_PALADIN.id || 
         this.selectedCombatant.specId === SPECS.PROTECTION_WARRIOR.id) ) {
-        // First assume Devo Aura did the minimum amount
-        // NYI DEVO AURA
         debug && console.log('Removed ' + formatNumber(mitigated * unknown) + ' Damage mitigation assuming it was blocked.');
         mitigated *= 1 - unknown;
         unknown = 0;
+        percentMitigated = mitigated/event.unmitigatedAmount;
       } else {
         const unknownMitigations = this.handleUnknown(event, unknown);
         mitigations = mitigations.concat(unknownMitigations.mitigations);
