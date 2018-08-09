@@ -93,30 +93,21 @@ describe('stats', () => {
     it('correct scales -1 scaling azerite powers', () => { // uses primary stat scaling formula
       // Elusive Footwork
       verifyAzeritePower(278571, {
-        280: [517],
-        325: [785],
-        340: [904],
-        355: [1038],
-        370: [1195],
-        385: [1375],
-      });
-      // Blood Siphon
-      verifyAzeritePower(264108, {
-        280: [85, 43],
-        325: [129, 65],
-        340: [149, 75],
-        355: [171, 86],
-        370: [196, 99],
-        385: [226, 114],
+        310: [331],
+        315: [348],
+        340: [438],
+        355: [507],
+        370: [580],
+        385: [670],
       });
     });
     it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
       // Woundbinder
       verifyAzeritePower(267880, {
-        340: [233],
-        355: [250],
-        370: [267],
-        385: [285],
+        340: [544],
+        355: [584],
+        370: [625],
+        385: [666],
       });
     });
     it('correct scales -8 scaling azerite powers', () => { // uses a custom healing stat scaling formula
@@ -137,15 +128,15 @@ describe('stats', () => {
       // armor value is correct and usable
       const spellId = 268596;
       const values = {
-        340: [87, 628],
-        355: [94, 721],
-        370: [100, 830],
-        385: [107, 955],
+        340: [111, 160],
+        355: [120, 184],
+        370: [128, 211],
+        385: [136, 243],
       };
       Object.keys(values).forEach(itemLevel => {
         const [avoidance, armor] = calculateAzeriteEffects(spellId, itemLevel);
         expect(armor).toEqual(values[itemLevel][1]);
-        expect(armor).not.toEqual(values[itemLevel][0]);
+        expect(avoidance).not.toEqual(values[itemLevel][0]);
       });
     });
   });
