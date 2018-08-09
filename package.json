@@ -40,6 +40,9 @@
     "universal-cookie": "^2.2.0",
     "wowanalyzer-react-scripts": "1.1.15"
   },
+  "devDependencies": {
+    "@lingui/cli": "2.4.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "safestart": "npm install --no-audit && react-scripts start",
