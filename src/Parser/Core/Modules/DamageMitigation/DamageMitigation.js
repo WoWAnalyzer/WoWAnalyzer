@@ -259,17 +259,16 @@ class DamageMitigation extends Analyzer {
     if (!range) { // Should never happen since we reserve the minimum value above.
       return { mitigations: mitigations, unknown: unknownAfterSac };
     }
+    let remainingUnknown = 0;
     // If within the range contribute it all to Devo aura, otherwise contribute the max value.
     if (unknownAfterSac - BUFFER_PERCENT < range.max) {
       this.auraDevotion.mitigation = unknownAfterSac;
-      mitigations.push(this.auraDevotion);
-      return { mitigations: mitigations, unknown: 0 };
     } else {
       this.auraDevotion.mitigation = range.max;
-      const remainingUnknown = 1 - (1 - unknownAfterSac) / (1 - range.max);
-      mitigations.push(this.auraDevotion);
-      return { mitigations: mitigations, unknown: remainingUnknown };
+      remainingUnknown = 1 - (1 - unknownAfterSac) / (1 - range.max);
     }
+    mitigations.push(this.auraDevotion);
+    return { mitigations: mitigations, unknown: remainingUnknown };
   }
 
   handleEvent(event) {
@@ -344,6 +343,7 @@ class DamageMitigation extends Analyzer {
         const unknownMitigations = this.handleUnknown(event, unknown);
         mitigations = mitigations.concat(unknownMitigations.mitigations);
         unknown = unknownMitigations.unknown;
+        multiplicative = 1 - mitigations.reduce(multiplicativeReducer, 1);
       }
       if (unknown > BUFFER_PERCENT) {
         debug && console.warn('The actual percent mitigated was much higher than expected given the mitigations active at the time. Actual: ' + formatPercentage(percentMitigated) + '%, Expected: ' + formatPercentage(multiplicative) + '%');
