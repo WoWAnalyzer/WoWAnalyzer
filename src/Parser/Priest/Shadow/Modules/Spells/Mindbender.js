@@ -24,9 +24,9 @@ class Mindbender extends Pet {
     return mindbender => ({
       actual: mindbender.voidformStacks,
       isLessThan: {
-        minor: 23,
-        average: 21,
-        major: 19,
+        minor: 15,
+        average: 12,
+        major: 10,
       },
       style: 'number',
     });

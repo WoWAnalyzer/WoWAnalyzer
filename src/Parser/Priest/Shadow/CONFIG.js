@@ -16,9 +16,9 @@ export default {
   description: (
     <React.Fragment>
       <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Shadow expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.<br /><br />
+        This spec does not have anyone maintaining it so it may not be helpful. We're actively looking for volunteers to help us support more specs. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information or join us on <a href="https://wowanalyzer.com/discord">Discord</a>.<br /><br />
 
-        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
+        See <a href="https://www.icy-veins.com/wow/shadow-priest-pve-dps-common-worst-mistakes">the Icy Veins "Most Common and Worst Mistakes Shadow Priests Make in Battle for Azeroth (BfA) 8.0.1" page</a> for up-to-date suggestions.
       </Warning>
     </React.Fragment>
   ),

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+
 class ExpandableStatisticBox extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.node.isRequired,
@@ -9,6 +11,11 @@ class ExpandableStatisticBox extends React.PureComponent {
     expanded: PropTypes.bool,
     children: PropTypes.node,
     tooltip: PropTypes.string,
+    category: PropTypes.string,
+    position: PropTypes.number,
+  };
+  static defaultProps = {
+    category: STATISTIC_CATEGORY.GENERAL,
   };
 
   constructor() {
@@ -47,6 +54,10 @@ class ExpandableStatisticBox extends React.PureComponent {
   }
 
   render() {
+    const { children, ...others } = this.props;
+    delete others.category;
+    delete others.position;
+
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }}>
         <div className="panel statistic-box expandable">
@@ -69,7 +80,7 @@ class ExpandableStatisticBox extends React.PureComponent {
               <div className="col-xs-12">
                 {this.state.expanded && (
                   <div className="statistic-expansion">
-                    { this.props.children }
+                    {children}
                   </div>
                 )}
               </div>
