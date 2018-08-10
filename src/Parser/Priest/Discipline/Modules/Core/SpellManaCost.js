@@ -30,8 +30,8 @@ class SpellManaCost extends CoreSpellManaCost {
     }
     return hardcodedCost;
   }
-  getManaCost(event) {
-    let cost = super.getManaCost(event);
+  getResourceCost(event) {
+    let cost = super.getResourceCost(event);
     if (cost === 0) {
       return cost;
     }

@@ -1,31 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import SpellResourceCost from 'Parser/Core/Modules/SpellResourceCost';
 
-import Analyzer from 'Parser/Core/Analyzer';
+class SpellManaCost extends SpellResourceCost {
+  static resourceType = RESOURCE_TYPES.MANA;
 
-class SpellManaCost extends Analyzer {
   incorrectCosts = {};
-
-  on_byPlayer_cast(event) {
-    // Manipulate the event to include mana information so that we don't have to copy paste this anywhere we want to know mana. This can't be done through static functions as some mana costs require state (through class properties) to work properly. E.g. Penance triggers up to 4 cast events but only the first costs mana.
-    event.manaCost = this.getManaCost(event);
-    event.rawManaCost = this.getRawManaCost(event);
-    event.isManaCostNullified = this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp);
-  }
 
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
     const spell = SPELLS[spellId];
-    return spell && spell.manaCost ? spell.manaCost : null;
+    return (spell && spell.manaCost) ? spell.manaCost : null;
   }
-  getRawManaCost(event) {
+
+  getRawResourceCost(event) {
     const hardcodedCost = this.getHardcodedManaCost(event);
-    const actualCost = event.classResources ? event.classResources.reduce((cost, resource) => {
-      if (resource.type !== RESOURCE_TYPES.MANA.id) {
-        return cost;
-      }
-      return cost + (resource.cost || 0);
-    }, 0) : 0;
+    const actualCost = this.getCostFromEventObject(event);
 
     if (hardcodedCost !== null && actualCost && hardcodedCost !== actualCost) {
       this.incorrectCosts[event.ability.guid] = {
@@ -38,8 +28,15 @@ class SpellManaCost extends Analyzer {
     return hardcodedCost !== null ? hardcodedCost : actualCost;
   }
 
-  getManaCost(event) {
-    return this.getRawManaCost(event);
+  getResourceCost(event) {
+    const cost = super.getResourceCost(event);
+    if (!cost || cost === 0) {
+      return 0;
+    }
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)) {
+      return 0;
+    }
+    return cost;
   }
 
   on_finished() {

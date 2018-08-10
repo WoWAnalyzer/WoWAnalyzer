@@ -1,3 +1,4 @@
+import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
@@ -15,8 +16,8 @@ class AbilityTracker extends Analyzer {
 
     const cast = this.getAbility(spellId, event.ability);
     cast.casts = (cast.casts || 0) + 1;
-    if (event.manaCost) {
-      cast.manaUsed = (cast.manaUsed || 0) + event.manaCost;
+    if (event.resourceCost[RESOURCE_TYPES.MANA.id]) {
+      cast.manaUsed = (cast.manaUsed || 0) + event.resourceCost[RESOURCE_TYPES.MANA.id];
     }
   }
 
