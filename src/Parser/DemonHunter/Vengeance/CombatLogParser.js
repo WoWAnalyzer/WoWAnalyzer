@@ -31,6 +31,7 @@ import Gluttony from './Modules/Talents/Gluttony';
 import BurningAlive from './Modules/Talents/BurningAlive';
 import FeastOfSouls from './Modules/Talents/FeastOfSouls';
 import AgonizingFlames from './Modules/Talents/AgonizingFlames';
+import RazorSpikes from './Modules/Talents/RazorSpikes';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     burningAlive: BurningAlive,
     feastOfSouls: FeastOfSouls,
     agonizingFlames: AgonizingFlames,
+    razorSpikes: RazorSpikes,
 
     // Spell
     immolationAura: ImmolationAura,
