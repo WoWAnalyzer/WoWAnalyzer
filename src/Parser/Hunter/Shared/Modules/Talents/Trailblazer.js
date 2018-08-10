@@ -8,6 +8,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Trailblazer increases your movement speed by 30% whenever you have not attacked for 3 seconds.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
  */
 class Trailblazer extends Analyzer {
 
@@ -23,14 +25,13 @@ class Trailblazer extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.TRAILBLAZER_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Trailblazer Uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(6);
-
 }
 
 export default Trailblazer;

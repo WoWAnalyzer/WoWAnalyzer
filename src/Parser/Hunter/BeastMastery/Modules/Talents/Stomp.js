@@ -6,8 +6,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
- * When your Dire Beasts charge in, they will stomp the ground, dealing [(1.18) * ((300% of Attack power)) * 1.4] Physical damage to all
- * nearby enemies.
+ * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/PLyFT2hcmCv39X7R#fight=1&type=damage-done&source=6
  */
 
 class Stomp extends Analyzer {

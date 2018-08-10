@@ -57,6 +57,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COORDINATED_ASSAULT,
+        buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -69,6 +70,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
+        buffSpellId: SPELLS.MONGOOSE_FURY.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
@@ -165,6 +167,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: () => {
           const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
@@ -175,17 +178,20 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 180,
         gcd: null,
       },
       {
         spell: SPELLS.PRIMAL_RAGE,
+        buffSpellId: SPELLS.PRIMAL_RAGE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,
@@ -266,18 +272,6 @@ class Abilities extends CoreAbilities {
       /**
        * Racials until we find a better solution
        */
-      {
-        spell: SPELLS.ARCANE_TORRENT_FOCUS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
       {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

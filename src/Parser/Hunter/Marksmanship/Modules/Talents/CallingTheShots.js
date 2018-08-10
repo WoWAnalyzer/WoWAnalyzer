@@ -6,11 +6,14 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import { formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
 /**
  * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 3.0 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/vXcAzCyFKrm4Jdw1#fight=3&type=damage-done&source=6
  */
 class CallingTheShots extends Analyzer {
   static dependencies = {
@@ -49,6 +52,7 @@ class CallingTheShots extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />}
         value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s`}
         label="Trueshot CDR"

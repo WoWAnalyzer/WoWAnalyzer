@@ -12,6 +12,8 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 
 const PROC_CHANCE = 0.05;
@@ -143,6 +145,7 @@ class LockAndLoad extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(24)}
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
         label="lost LnL stacks"
@@ -150,8 +153,6 @@ class LockAndLoad extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
-
 }
 
 export default LockAndLoad;

@@ -11,6 +11,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import FocusTracker from './FocusChart/FocusTracker';
 
+/**
+ * Tracks the amount of time spent at focus cap.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
+
 class TimeFocusCapped extends Analyzer {
   static dependencies = {
     focusTracker: FocusTracker,
@@ -37,6 +43,7 @@ class TimeFocusCapped extends Analyzer {
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time Focus Capped"
         tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
@@ -100,8 +107,6 @@ class TimeFocusCapped extends Analyzer {
         });
     }
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default TimeFocusCapped;

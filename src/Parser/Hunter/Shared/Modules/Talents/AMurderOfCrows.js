@@ -10,6 +10,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown
  * is reset.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/8jJqDcrGK1xM3Wn6#fight=2&type=damage-done
  */
 class AMurderOfCrows extends Analyzer {
 

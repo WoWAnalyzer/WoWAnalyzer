@@ -11,6 +11,8 @@ const MAX_STACKS = 5;
 /**
  * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 6 times.
  * Successive attacks do not increase duration.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/CDL6mZfWdcgQX9wT#fight=2&type=damage-done&source=23
  */
 
 class FiveBiteWindows extends Analyzer {
@@ -55,13 +57,13 @@ class FiveBiteWindows extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
         value={`${this.fiveBiteWindows}/${this.totalWindowsStarted}`}
         label="5 stack windows"
         tooltip={`You had a total of <strong>${this.fiveBiteWindows}</strong> six bite windows out of a total of <strong>${this.totalWindowsStarted}</strong> windows started`} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default FiveBiteWindows;
