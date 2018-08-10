@@ -47,8 +47,9 @@ class Checklist extends Analyzer {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
+          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           arcaneFamiliarUptime: this.arcaneFamiliar.suggestionThresholds,
-          arcaneOrb: this.arcaneOrb.averageHitThresholds,
+          arcaneOrbAverageHits: this.arcaneOrb.averageHitThresholds,
           arcanePowerCooldown: this.arcanePower.cooldownSuggestionThresholds,
           arcanePowerCasts: this.arcanePower.castSuggestionThresholds,
           arcanePowerOnKill: this.arcanePower.arcanePowerOnKillSuggestionThresholds,
@@ -56,8 +57,6 @@ class Checklist extends Analyzer {
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
-          mirrorImageDamage: this.mirrorImage.damageSuggestionThresholds,
-          runeOfPowerDamage: this.runeOfPower.damageSuggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
           legendariesEquipped: {
             actual: this.legendaryCountChecker.equipped,
