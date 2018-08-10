@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellManaCost from 'Parser/Core/Modules/SpellManaCost';
 import ItemManaGained from 'Interface/Others/ItemManaGained';

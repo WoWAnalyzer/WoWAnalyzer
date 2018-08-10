@@ -1,4 +1,4 @@
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 
 /**
@@ -15,7 +15,7 @@ import Analyzer from 'Parser/Core/Analyzer';
  * 
  */
 class SpellResourceCost extends Analyzer {
-  // IMPLEMENTME set to one of Game/RESOURCE_TYPES
+  // IMPLEMENTME set to one of game/RESOURCE_TYPES
   static resourceType = null;
 
   constructor(...args) {

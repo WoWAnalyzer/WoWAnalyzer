@@ -2,7 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import ItemManaGained from 'Interface/Others/ItemManaGained';
