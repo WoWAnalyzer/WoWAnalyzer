@@ -44,8 +44,8 @@ const AZ_SCALE_FUNCTIONS = {
   [AZ_SCALE_UNK8]: ilvl => {
     const SCALE = 4.325;
     return Math.floor(SCALE * (1.15**(ilvl/15)));
-  }
-}
+  },
+};
 
 // Calculate the values of each (scaling) effect associated with an
 // azerite trait. Note that *effects that do not scale are not present!*
@@ -54,7 +54,7 @@ const AZ_SCALE_FUNCTIONS = {
 export function calculateAzeriteEffects(spellId, rank) {
   const spell = AZERITE_SCALING[spellId];
 
-  if(!(spell.scaling_type in AZ_SCALE_FUNCTIONS)) {
+  if(AZ_SCALE_FUNCTIONS[spell.scaling_type] === undefined) {
     throw Error(`Unknown scaling type: ${spell.scaling_type}`);
   }
   const budget = AZ_SCALE_FUNCTIONS[spell.scaling_type](rank);
