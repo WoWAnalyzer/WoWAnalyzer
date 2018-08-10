@@ -2071,6 +2071,18 @@
       }
     }
   },
+  "276007": {
+    "name": "Excoriate",
+    "effect_list": [
+      729381
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "729381": {
+        "avg": 8.055215
+      }
+    }
+  },
   "276021": {
     "name": "Iron Jaws",
     "effect_list": [
@@ -4259,6 +4271,34 @@
       }
     }
   },
+  "280555": {
+    "name": "Archive of the Titans",
+    "effect_list": [
+      738151
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "738151": {
+        "avg": 0.018321
+      }
+    }
+  },
+  "280559": {
+    "name": "Laser Matrix",
+    "effect_list": [
+      738156,
+      738401
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "738156": {
+        "avg": 57.97546
+      },
+      "738401": {
+        "avg": 72.472389
+      }
+    }
+  },
   "280577": {
     "name": "Glory in Battle",
     "effect_list": [
@@ -4476,6 +4516,34 @@
     "effects": {
       "738417": {
         "avg": 0.061285
+      }
+    }
+  },
+  "281514": {
+    "name": "Unstable Catalyst",
+    "effect_list": [
+      740102
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "740102": {
+        "avg": 0.625954
+      }
+    }
+  },
+  "281841": {
+    "name": "Tradewinds",
+    "effect_list": [
+      741004,
+      741005
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "741004": {
+        "avg": 2.540558
+      },
+      "741005": {
+        "avg": 0.501426
       }
     }
   }
