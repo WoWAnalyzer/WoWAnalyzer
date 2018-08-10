@@ -7,11 +7,11 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import Contributor from 'Interface/Contributor/Button';
 import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
 import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
-import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
+import AntorusImage from 'raids/AntorusTheBurningThrone/Images/antorus.jpg';
 import RegularArticle from 'Interface/News/RegularArticle';
 
 import Timeline from './Timeline';

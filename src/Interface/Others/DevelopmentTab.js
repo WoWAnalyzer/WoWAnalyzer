@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';

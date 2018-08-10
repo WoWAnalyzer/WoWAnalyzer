@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/HUNTER';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 import Abilities from 'Parser/Core/Modules/Abilities';

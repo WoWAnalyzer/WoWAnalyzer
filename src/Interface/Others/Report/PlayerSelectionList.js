@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-import SPECS from 'Game/SPECS';
-import ROLES from 'Game/ROLES';
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
 import SpecIcon from 'common/SpecIcon';
 import { getFightId } from 'Interface/selectors/url/report';
 import { getReport } from 'Interface/selectors/report';

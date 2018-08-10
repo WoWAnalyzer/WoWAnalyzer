@@ -3,7 +3,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const debug = false;
 

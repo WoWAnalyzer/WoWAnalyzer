@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPECS from 'Game/SPECS';
-import ROLES from 'Game/ROLES';
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
 import ITEMS from 'common/ITEMS';
 import fetchWcl from 'common/fetchWclApi';
 import Icon from 'common/Icon';

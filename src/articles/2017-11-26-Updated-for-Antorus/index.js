@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
+import AntorusImage from 'raids/AntorusTheBurningThrone/Images/antorus.jpg';
 import ImageArticle from 'Interface/News/ImageArticle';
 
 export default (

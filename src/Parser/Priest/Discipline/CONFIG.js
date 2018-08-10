@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Gao, Oratio, Reglitch, Zerotorescue } from 'CONTRIBUTORS';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
 
