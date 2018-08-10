@@ -51,7 +51,6 @@ class FeedingFrenzy extends Analyzer {
     if(spellId === SPELLS.BARBED_SHOT.id && event.tick){
       this.extraDamage += this.extraDamagePerTick;
     }
-
   }
 
   get extraDPS(){
