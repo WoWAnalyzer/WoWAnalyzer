@@ -32,7 +32,7 @@ class ArcaneFamiliar extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different alent.</React.Fragment>)
+				return suggest(<React.Fragment>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.</React.Fragment>)
 					.icon(SPELLS.ARCANE_FAMILIAR_TALENT.icon)
 					.actual(`${formatPercentage(this.uptime)}% Uptime`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
