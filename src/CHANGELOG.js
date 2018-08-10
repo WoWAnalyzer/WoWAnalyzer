@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-08-09'),
+    changes: 'Added a damage mitigation tab.',
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-08-08'),
     changes: 'Moved the detail tab selection to the left side.',
     contributors: [Zerotorescue],

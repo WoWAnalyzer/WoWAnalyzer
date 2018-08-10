@@ -17,11 +17,13 @@ import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
 import DeathTracker from './Modules/DeathTracker';
+import DamageMitigation from './Modules/DamageMitigation/DamageMitigation';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
+import Armor from './Modules/DamageMitigation/Armor';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
@@ -172,6 +174,7 @@ class CombatLogParser {
     damageDone: DamageDone,
     damageTaken: DamageTaken,
     deathTracker: DeathTracker,
+    damageMitigation: DamageMitigation,
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,
@@ -181,6 +184,7 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     haste: Haste,
     statTracker: StatTracker,
+    armor: Armor,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     CastEfficiency: CastEfficiency,

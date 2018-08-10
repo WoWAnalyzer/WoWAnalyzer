@@ -5,11 +5,11 @@ const debug = true;
 
 class EnemyInstances extends Enemies {
   getEntity(event) {
-    if (event.targetIsFriendly) {
+    if (event.targetIsFriendly && event.sourceIsFriendly) {
       return null;
     }
-    const targetId = event.targetID;
-    const targetInstance = event.targetInstance;
+    const targetId = !event.targetIsFriendly ? event.targetID : event.sourceID;
+    const targetInstance = !event.targetIsFriendly ? event.targetInstance : event.sourceInstance;
 
     const enemyId = encodeTargetString(targetId, targetInstance);
 

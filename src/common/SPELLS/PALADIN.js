@@ -581,4 +581,10 @@ export default {
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
   },
+  // Masteries
+  MASTERY_DIVINE_BULWARK: {
+    id: 76671,
+    name: 'Mastery: Divine Bukwark',
+    icon: 'spell_holy_holyprotection',
+  },
 };

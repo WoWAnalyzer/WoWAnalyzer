@@ -72,11 +72,6 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
-  VOID_REAVER_DEBUFF: {
-    id: 268178,
-    name: 'Void Reaver Debuff',
-    icon: 'spell_shadow_demonicempathy',
-  },
   //Sigil of Flame, Misery, and Silence have different spell ids depending on
   //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
   SIGIL_OF_FLAME_CONCENTRATED: {
@@ -133,6 +128,11 @@ export default {
     id: 207744,
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
+  },
+  VOID_REAVER_DEBUFF: {
+    id: 268178,
+    name: 'Void Reaver',
+    icon: 'spell_shadow_demonicempathy',
   },
   METAMORPHOSIS_TANK: {
     id: 187827,
@@ -344,6 +344,11 @@ export default {
   },
   BLUR: {
     id: 198589,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
+  },
+  BLUR_BUFF: {
+    id: 212800,
     name: 'Blur',
     icon: 'ability_demonhunter_blur',
   },

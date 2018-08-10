@@ -24,7 +24,6 @@ class StatTracker extends Analyzer {
   // In general, it looks like armor is the only one that isn't applied
   // by WCL.
   static SPEC_MULTIPLIERS = {
-    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
   static STAT_BUFFS = {
@@ -570,7 +569,7 @@ class StatTracker extends Analyzer {
   }
   armorPercentage(rating) {
     // tfw you get a formula from a rando on the wow forums
-    return rating / (rating + 7390);
+    return rating / (rating + 1423); // K value is 6300 for lv 120, 1423 for lv 110.
   }
 
   /*

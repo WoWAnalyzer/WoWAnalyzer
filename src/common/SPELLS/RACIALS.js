@@ -51,6 +51,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  ARCANE_RESISTANCE_BLOOD_ELF: {
+    id: 822,
+    name: 'Arcane Resistance',
+    icon: 'spell_shadow_antimagicshell',
+  },
   // Troll
   BERSERKING: {
     id: 26297,
@@ -73,17 +78,32 @@ export default {
     name: 'Cannibalize',
     icon: 'ability_racial_cannibalize',
   },
+  SHADOW_RESISTANCE_UNDEAD: {
+    id: 20579,
+    name: 'Shadow Resistance',
+    icon: 'spell_shadow_detectinvisibility',
+  },
   // Draenei
   GIFT_OF_THE_NAARU: {
     id: 121093,
     name: 'Gift of the Naaru',
     icon: 'spell_holy_holyprotection',
   },
+  SHADOW_RESISTANCE_DRAENEI: {
+    id: 59221,
+    name: 'Shadow Resistance',
+    icon: 'spell_shadow_detectinvisibility',
+  },
   // Dwarf
   STONEFORM: {
     id: 20594,
     name: 'Stoneform',
     icon: 'spell_shadow_unholystrength',
+  },
+  FROST_RESISTANCE_DWARF: {
+    id: 20596,
+    name: 'Frost Resistance',
+    icon: 'spell_frost_wizardmark',
   },
   MIGHT_OF_THE_MOUNTAIN: {
     id: 59224,
@@ -96,16 +116,27 @@ export default {
     name: 'Escape Artist',
     icon: 'ability_rogue_trip',
   },
+  ARCANE_RESISTANCE_GNOME: {
+    id: 20592,
+    name: 'Arcane Resistance',
+    icon: 'spell_nature_wispsplode',
+  },
   // Human
   EVERY_MAN_FOR_HIMSELF: {
     id: 59752,
     name: 'Every Man for Himself',
     icon: 'spell_shadow_charm',
   },
+  // Night Elf
   SHADOWMELD: {
     id: 58984,
     name: 'Shadowmeld',
     icon: 'ability_ambush',
+  },
+  NATURE_RESISTANCE_NIGHT_ELF: {
+    id: 20583,
+    name: 'Nature Resistance',
+    icon: 'spell_nature_spiritarmor',
   },
   // Pandaren
   QUAKING_PALM: {
@@ -123,6 +154,11 @@ export default {
     id: 68996,
     name: 'Two Forms',
     icon: 'achievement_worganhead',
+  },
+  ABERRATION: { // 1% reduced shadow and nature damage taken.
+    id: 68976,
+    name: 'Aberration',
+    icon: 'spell_shadow_antishadow',
   },
   // Goblin
   ROCKET_JUMP: {
@@ -162,11 +198,21 @@ export default {
     name: 'War Stomp',
     icon: 'ability_warstomp',
   },
+  NATURE_RESISTANCE_TAUREN: {
+    id: 20551,
+    name: 'Nature Resistance',
+    icon: 'spell_nature_spiritarmor',
+  },
   // High Mountain Tauren
   BULL_RUSH: {
     id: 255654,
     name: 'Bull Rush',
     icon: 'ability_racial_bullrush',
+  },
+  RUGGED_TENACITY: {
+    id: 255659,
+    name: 'Rugged Tenacity',
+    icon: 'ability_racial_ruggedtenacity',
   },
   // Nightborne
   CANTRIPS: {
@@ -178,6 +224,11 @@ export default {
     id: 260364,
     name: 'Arcane Pulse',
     icon: 'ability_racial_forceshield',
+  },
+  ARCANE_RESISTANCE_NIGHTBORNE: {
+    id: 255664,
+    name: 'Arcane Resistance',
+    icon: 'ability_racial_magicalresistance',
   },
   // Void Elf
   SPATIAL_RIFT_INITIAL: {
@@ -200,6 +251,11 @@ export default {
     name: 'Entropic Embrace',
     icon: 'ability_racial_entropicembrace',
   },
+  CHILL_OF_NIGHT: { // 1% reduced Shadow damage taken
+    id: 255668,
+    name: 'Chill of Night',
+    icon: 'ability_racial_chillofnight',
+  },
   // Lightforged Draenei
   LIGHTS_RECKONING: {
     id: 255652,
@@ -215,6 +271,11 @@ export default {
     id: 259930,
     name: 'Forge of Light',
     icon: 'ability_racial_forgeoflight',
+  },
+  HOLY_RESISTANCE_LIGHTFORGED: {
+    id: 255651,
+    name: 'Holy Resistance',
+    icon: 'ability_racial_holyresistance',
   },
   // Mag'har Orc
   ANCESTRAL_CALL: {
@@ -241,5 +302,11 @@ export default {
     id: 274742,
     name: 'Might of the Blackrock',
     icon: 'ability_racial_ancestralcall',
+  },
+  // Dark Iron Dwarf
+  FORGED_IN_FLAMES: { // 1% physical mitigation
+    id: 265224,
+    name: 'Forged in Flames',
+    icon: 'ability_racial_foregedinflames',
   },
 };
