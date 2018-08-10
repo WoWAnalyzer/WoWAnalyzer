@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';

@@ -9,8 +9,15 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import StatisticWrapper from 'Interface/Others/StatisticWrapper';
 
 const CHART_SIZE = 100;
+
+/**
+ * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
 
 const LIST_OF_FOCUS_SPENDERS = [
   //bm specific
@@ -297,19 +304,21 @@ class FocusUsage extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title="Focus usage"
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.focusUsageChart()}
-          </StatisticsListBox>
+      <StatisticWrapper position={STATISTIC_ORDER.CORE(13)}>
+        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div className="row">
+            <StatisticsListBox
+              title="Focus usage"
+              containerProps={{ className: 'col-xs-12' }}
+            >
+              {this.focusUsageChart()}
+            </StatisticsListBox>
+          </div>
         </div>
-      </div>
+      </StatisticWrapper>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+
 }
 
 export default FocusUsage;

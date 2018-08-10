@@ -10,7 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class RuleOfLaw extends Analyzer {
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
@@ -29,8 +28,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         .recommended(`<${formatPercentage(recommended)}% is recommended`);
     });
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

@@ -9,10 +9,13 @@ import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import ITEMS from 'common/ITEMS/HUNTER';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Raptor Strike (or Monogoose Bite) has a chance to make your next
  * Serpent Sting cost no Focus and deal an additional 250% initial damage.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 const DAMAGE_MODIFIER = 2.5;
 
@@ -125,6 +128,7 @@ class VipersVenom extends Analyzer {
     tooltip += `</ul></li></ul>`;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(22)}
         icon={<SpellIcon id={SPELLS.VIPERS_VENOM_TALENT.id} />}
         value={`${this.procs}`}
         label="Viper's Venom procs"

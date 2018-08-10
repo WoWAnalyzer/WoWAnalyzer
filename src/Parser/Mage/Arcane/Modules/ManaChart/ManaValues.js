@@ -1,6 +1,6 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import DeathTracker from 'Parser/Core/Modules/DeathTracker';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 
 class ManaValues extends Analyzer {

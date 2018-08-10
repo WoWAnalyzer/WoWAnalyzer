@@ -57,7 +57,7 @@ const verboseDebug = false;
 
   // -- Start of IMPLEMENTME statics
 
-  // One of Game/RESOURCE_TYPES
+  // One of game/RESOURCE_TYPES
   static resourceType;
   
   // Resource's base regeneration rate in points per second (e.g. 10 for Energy)

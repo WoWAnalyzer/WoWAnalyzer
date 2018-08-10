@@ -19,6 +19,7 @@
     "compression": "^1.7.2",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.0.0",
+    "es6-error": "^4.1.1",
     "express": "^4.16.3",
     "mysql2": "^1.5.3",
     "nanoid": "^1.0.2",

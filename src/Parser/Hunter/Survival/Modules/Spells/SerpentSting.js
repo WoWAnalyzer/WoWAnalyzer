@@ -14,6 +14,8 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12/(1+haste) sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 
 const PANDEMIC = 0.3;
@@ -211,6 +213,7 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(19)}
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
@@ -218,8 +221,6 @@ class SerpentSting extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
-
 
   subStatistic() {
     return (
@@ -233,7 +234,6 @@ class SerpentSting extends Analyzer {
       </div>
     );
   }
-
 }
 
 export default SerpentSting;

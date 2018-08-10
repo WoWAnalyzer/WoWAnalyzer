@@ -10,7 +10,7 @@ import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
 //Normalizers
-import RapidFireNormalizer from './Normalizers/RapidFire';
+import RapidFireNormalizer from './Modules/Normalizers/RapidFire';
 
 //Tier
 import Tier19_2p from "./Modules/Items/Tier19_2p";
@@ -22,6 +22,7 @@ import Tier21_4p from './Modules/Items/Tier21_4p';
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 import LoneWolf from './Modules/Spells/LoneWolf';
+
 //Talents
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
 import Barrage from '../Shared/Modules/Talents/Barrage';

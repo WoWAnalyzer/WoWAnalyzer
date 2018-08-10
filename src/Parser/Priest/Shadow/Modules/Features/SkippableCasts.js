@@ -43,6 +43,7 @@ class SkippableCasts extends Analyzer {
 
     return (
       <SmallStatisticBox
+        position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.VOID_BOLT.id} />}
         value={skippableCasts}
         label={(
@@ -53,8 +54,6 @@ class SkippableCasts extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SkippableCasts;

@@ -1,5 +1,5 @@
-import SPECS from 'Game/SPECS';
-import RACES from 'Game/RACES';
+import SPECS from 'game/SPECS';
+import RACES from 'game/RACES';
 import traitIdMap from 'common/TraitIdMap';
 
 import Entity from './Entity';

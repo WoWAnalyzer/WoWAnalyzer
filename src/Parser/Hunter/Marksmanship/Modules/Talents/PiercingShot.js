@@ -8,6 +8,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/b9cpJyHBntAdaVLR#fight=6&type=damage-done
  */
 
 class PiercingShot extends Analyzer {
@@ -26,6 +28,7 @@ class PiercingShot extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+
   subStatistic() {
     return (
       <div className="flex">

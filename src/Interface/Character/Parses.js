@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
-import fetchWcl from 'common/fetchWclApi';
+import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'Interface/actions/reportHistory';
@@ -15,10 +15,11 @@ import ArmoryLogo from 'Interface/Images/Armory-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
+import { captureException } from 'common/errorLogger';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
@@ -41,6 +42,8 @@ const ERRORS = {
   CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
   NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
   CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
+  WCL_API_ERROR: 'Something went wrong talking to Warcraft Logs',
+  UNKNOWN_API_ERROR: 'Something went wrong talking to the server',
   UNEXPECTED: 'Something went wrong',
 };
 
@@ -68,6 +71,7 @@ class Parses extends React.Component {
       parses: [],
       isLoading: true,
       error: null,
+      errorMessage: null,
       trinkets: ITEMS,
       realmSlug: this.props.realm,
     };
@@ -164,7 +168,6 @@ class Parses extends React.Component {
   changeParseStructure(rawParses, charClass) {
     const updatedTrinkets = { ...this.state.trinkets };
     const parses = rawParses.map(elem => {
-
       // get missing trinket-icons later
       TRINKET_SLOTS.forEach(slotID => {
         if (!updatedTrinkets[elem.gear[slotID].id]) {
@@ -241,6 +244,7 @@ class Parses extends React.Component {
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
+        errorMessage: 'Corrupt Battle.net API response received.',
       });
       return;
     }
@@ -297,14 +301,6 @@ class Parses extends React.Component {
       _: +new Date(),
     })
       .then(rawParses => {
-        if (rawParses.status === 400) {
-          this.setState({
-            isLoading: false,
-            error: ERRORS.CHARACTER_NOT_FOUND,
-          });
-          return;
-        }
-
         if (rawParses.length === 0) {
           this.setState({
             parses: [],
@@ -313,7 +309,6 @@ class Parses extends React.Component {
           });
           return;
         }
-
         if (rawParses.hidden) {
           this.setState({
             isLoading: false,
@@ -357,11 +352,34 @@ class Parses extends React.Component {
           error: null,
         });
       })
-      .catch(e => {
-        this.setState({
-          error: ERRORS.UNEXPECTED,
-          isLoading: false,
-        });
+      .catch(err => {
+        if (err instanceof CharacterNotFoundError) {
+          this.setState({
+            error: ERRORS.CHARACTER_NOT_FOUND,
+            isLoading: false,
+          });
+          return;
+        }
+        captureException(err);
+        if (err instanceof WclApiError) {
+          this.setState({
+            error: ERRORS.WCL_API_ERROR,
+            errorMessage: err.message,
+            isLoading: false,
+          });
+        } else if (err instanceof UnknownApiError) {
+          this.setState({
+            error: ERRORS.UNKNOWN_API_ERROR,
+            errorMessage: err.message,
+            isLoading: false,
+          });
+        } else {
+          this.setState({
+            error: ERRORS.UNEXPECTED,
+            errorMessage: err.message,
+            isLoading: false,
+          });
+        }
       });
   }
 
@@ -382,11 +400,11 @@ class Parses extends React.Component {
           You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
         </div>
       );
-    } else if (this.state.error === ERRORS.UNEXPECTED) {
+    } else if (this.state.error === ERRORS.WCL_API_ERROR || this.state.error === ERRORS.UNKNOWN_API_ERROR || this.state.error === ERRORS.UNEXPECTED) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          Something unexpected happened.<br /><br />
-          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> and we will fix it, eventually.
+          {this.state.errorMessage}{' '}
+          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> if this issue persists and we will fix it, eventually.
         </div>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {

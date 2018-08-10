@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { sref, Thieseract, Anatta336 } from 'CONTRIBUTORS';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import Warning from 'common/Alert/Warning';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

@@ -8,8 +8,8 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import { hasPremium } from 'Interface/selectors/user';
 import Ad from 'Interface/common/Ad';
 import makeNewsUrl from 'Interface/News/makeUrl';
-import { title as AboutArticleTitle } from 'Articles/2017-01-31-About';
-import { title as UnlistedLogsTitle } from 'Articles/2017-01-31-UnlistedLogs';
+import { title as AboutArticleTitle } from 'articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from 'articles/2017-01-31-UnlistedLogs';
 
 import ReportSelecter from './ReportSelecter';
 import LanguageSwitcher from './LanguageSwitcher';
