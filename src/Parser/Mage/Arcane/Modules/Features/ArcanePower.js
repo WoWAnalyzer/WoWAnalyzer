@@ -39,7 +39,9 @@ class ArcanePower extends Analyzer {
 	badCastsDuringAP = 0;
 	runeTimestamp = 0;
 	outOfMana = 0;
+	buffEndTimestamp = 0;
 	arcanePowerOnKill = false;
+	arcanePowerCasted = false;
 
 	constructor(...args) {
     super(...args);
@@ -56,6 +58,14 @@ class ArcanePower extends Analyzer {
 			this.runeTimestamp = event.timestamp;
 		} else if (spellId === SPELLS.ARCANE_POWER.id) {
 			const currentManaPercent = event.classResources[0].amount / event.classResources[0].max;
+			this.arcanePowerCasted = true;
+
+			if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_POWER.id)) {
+				this.buffEndTimestamp = event.timestamp + 10000;
+				debug && console.log("Arcane Power Cast During Arcane Power Proc @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+				debug && console.log("Arcane Power End Time adjusted to: " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+			}
+
 			if (this.arcaneChargeTracker.charges < 4 || (this.hasRuneOfPower && event.timestamp - this.runeTimestamp > 200) || (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD)) {
 				debug && console.log("Bad Cast of Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 				debug && console.log("Arcane Charges: " + this.arcaneChargeTracker.charges + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
@@ -70,17 +80,41 @@ class ArcanePower extends Analyzer {
 				this.badCastsDuringAP += 1;
 			} else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
 				const manaRemaining = event.classResources[0].amount - (event.resourceCost[0] + (event.resourceCost[0] * this.arcaneChargeTracker.charges));
-				console.log(event.ability.name);
-				console.log(this.estimatedManaCost(spellId));
-				console.log(manaRemaining);
-				if (manaRemaining < this.estimatedManaCost(spellId) && this.selectedCombatant.getBuff(SPELLS.ARCANE_POWER.id).end - 1000 < event.timestamp) {
+				const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
+				if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
 					debug && console.log("Ran Out of Mana during Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 					debug && console.log("Mana Remaining: " + manaRemaining + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 					debug && console.log("Estimated Mana Cost: " + this.estimatedManaCost(spellId) + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+					debug && console.log("Time left on Arcane Power: " + buffTimeRemaining);
 					this.outOfMana += 1;
 				}
 			}
 		}
+	}
+
+	on_toPlayer_applybuff(event) {
+		const spellId = event.ability.guid;
+		if (spellId !== SPELLS.ARCANE_POWER.id) {
+			return;
+		}
+		
+		if (this.arcanePowerCasted) {
+			debug && console.log("Arcane Power Cast @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			this.buffEndTimestamp = event.timestamp + 10000;
+			debug && console.log("Arcane Power Ends @ " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+		} else {
+			debug && console.log("Arcane Power Proc @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			this.buffEndTimestamp = event.timestamp + 8000;
+			debug && console.log("Arcane Power Ends @ " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+		}
+	}
+
+	on_toPlayer_removebuff(event) {
+		const spellId = event.ability.guid;
+		if (spellId !== SPELLS.ARCANE_POWER.id) {
+			return;
+		}
+		this.arcanePowerCasted = false;
 	}
 
 	on_finished() {
@@ -183,7 +217,7 @@ class ArcanePower extends Analyzer {
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<React.Fragment>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : '' }</React.Fragment>)
 					.icon(SPELLS.ARCANE_POWER.icon)
-					.actual(`${formatPercentage(this.castUtilization)}% Utilization`)
+					.actual(`${formatPercentage(this.manaUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 		when(this.arcanePowerOnKillSuggestionThresholds)

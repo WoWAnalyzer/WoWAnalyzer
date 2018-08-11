@@ -101,6 +101,7 @@ class ArcaneMageChecklist extends React.PureComponent {
         >
           <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />
           <Requirement name="Arcane Power Mana Mgmt." thresholds={thresholds.arcanePowerManaUtilization} />
+          {combatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id) && <Requirement name="Time Anomaly Mana Mgmt." thresholds={thresholds.timeAnomalyManaUtilization} />}
         </Rule>
         
         <PreparationRule thresholds={thresholds} />

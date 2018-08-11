@@ -23,6 +23,7 @@ import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import ArcaneOrb from './Modules/Features/ArcaneOrb';
 import RuleOfThrees from './Modules/Features/RuleOfThrees';
+import TimeAnomaly from './Modules/Features/TimeAnomaly';
 
 
 
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
     ruleOfThrees: RuleOfThrees,
+    timeAnomaly: TimeAnomaly,
   };
 }
 
