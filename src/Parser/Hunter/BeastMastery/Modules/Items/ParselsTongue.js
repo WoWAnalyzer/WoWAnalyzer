@@ -13,6 +13,7 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemLink from 'common/ItemLink';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -181,6 +182,7 @@ class ParselsTongue extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(21)}
         icon={<ItemIcon id={ITEMS.PARSELS_TONGUE.id} />}
         value={`${formatPercentage(this.fourStackUptimeInPercentage)}%`}
         label="4 stack uptime"

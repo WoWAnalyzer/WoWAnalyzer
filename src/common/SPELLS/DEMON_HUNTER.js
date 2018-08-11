@@ -193,6 +193,17 @@ export default {
     name: 'Spectral Sight',
     icon: 'ability_demonhunter_spectralsight',
   },
+  // Ticks that Fiery Brand does due to the Burning Alive talent
+  FIERY_BRAND_DOT: {
+    id: 207771,
+    name: 'FIERY_BRAND_DOT',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  FEAST_OF_SOULS_HEAL: {
+    id: 207693,
+    name: 'Feast of Souls Heal',
+    icon: 'spell_shadow_soulleech',
+  },
 
   // Havoc
   //T21 Bonus

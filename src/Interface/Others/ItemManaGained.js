@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import connectParser from 'common/connectParser';
 
 class ItemManaGained extends React.PureComponent {

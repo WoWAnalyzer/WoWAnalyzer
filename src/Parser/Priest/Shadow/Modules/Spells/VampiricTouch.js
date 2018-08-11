@@ -52,14 +52,13 @@ class VampiricTouch extends Analyzer {
   statistic() {
     return (
       <SmallStatisticBox
+        position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Vampiric Touch uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default VampiricTouch;

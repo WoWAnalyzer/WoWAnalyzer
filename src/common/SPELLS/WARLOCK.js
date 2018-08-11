@@ -16,7 +16,7 @@ export default {
   CREATE_HEALTHSTONE: {
     id: 6201,
     name: 'Create Healthstone',
-    icon: 'warlock_-healthstone',
+    icon: 'warlock_healthstone',
   },
   CREATE_SOULWELL: {
     id: 29893,

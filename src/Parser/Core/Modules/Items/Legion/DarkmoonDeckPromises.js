@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellManaCost from 'Parser/Core/Modules/SpellManaCost';
 import ItemManaGained from 'Interface/Others/ItemManaGained';
@@ -65,7 +66,7 @@ class DarkmoonDeckPromises extends Analyzer {
   }
 
   getManaSaved(event) {
-    const manaCost = event.manaCost;
+    const manaCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
     if (!manaCost) {
       return 0;
     }
@@ -80,15 +81,11 @@ class DarkmoonDeckPromises extends Analyzer {
     }
     const spellId = event.ability.guid;
 
-    if (!event.isManaCostNullified) {
-      debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', event.manaCost, event);
-      this.manaGained += manaSaved;
-    } else {
-      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', event.manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
-    }
+    debug && console.log(`Promises saved ${manaSaved} mana on ${SPELLS[spellId].name} costing ${event.resourceCost[RESOURCE_TYPES.MANA.id]}`, event);
+    this.manaGained += manaSaved;
 
     // Update the mana cost on the cast so that it's accurate for other modules
-    event.manaCost = Math.max(0, event.manaCost - manaSaved);
+    event.resourceCost[RESOURCE_TYPES.MANA.id] = Math.max(0, event.resourceCost[RESOURCE_TYPES.MANA.id] - manaSaved);
   }
 
   item() {

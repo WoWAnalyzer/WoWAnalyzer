@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SkullIcon from 'Interface/Icons/Skull';
 import CancelIcon from 'Interface/Icons/Cancel';
 import DIFFICULTIES from 'common/DIFFICULTIES';
-import { findByBossId } from 'Raids';
+import { findByBossId } from 'raids';
 
 import ProgressBar from './ProgressBar';
 

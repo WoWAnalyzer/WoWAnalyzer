@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import articles from 'Articles';
+import articles from 'articles';
 import DocumentTitle from 'Interface/common/DocumentTitle';
 
 import ArticleLoader from './ArticleLoader';

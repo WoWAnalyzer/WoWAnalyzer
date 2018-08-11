@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
 import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';

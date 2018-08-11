@@ -1,13 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
 import SPELLS from 'common/SPELLS/index';
 
 class SoulFragmentsTracker extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-
 
   soulsGenerated = 0;
   soulsWasted = 0;

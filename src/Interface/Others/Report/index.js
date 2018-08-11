@@ -127,7 +127,9 @@ class Report extends React.Component {
     ]);
 
     timeAvailable && console.time('full parse');
+    timeAvailable && console.time('initialize');
     const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    timeAvailable && console.timeEnd('initialize');
     await this.setStatePromise({
       config,
       parser,
@@ -148,7 +150,6 @@ class Report extends React.Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
@@ -255,7 +256,6 @@ class Report extends React.Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
@@ -314,7 +314,6 @@ class Report extends React.Component {
           captureException(err);
           this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
         } else if (err instanceof JsonParseError) {
-          captureException(err);
           this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
         } else {
           // Some kind of network error, internet may be down.

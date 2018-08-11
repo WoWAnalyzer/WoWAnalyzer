@@ -11,6 +11,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
  * Hurls a Steel Trap to the target location that snaps shut on the
  * first enemy that approaches, immobilizing them for 20 sec and
  * causing them to bleed for (120% of Attack power) damage over 20 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/dZ8AJaYvj23qG4WB#fight=16&type=damage-done&source=9
  */
 
 class SteelTrap extends Analyzer {
