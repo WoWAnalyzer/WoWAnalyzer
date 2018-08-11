@@ -2,9 +2,8 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 

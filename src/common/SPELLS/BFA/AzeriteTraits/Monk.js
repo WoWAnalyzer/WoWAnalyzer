@@ -13,6 +13,6 @@ export default {
   STAGGERING_STRIKES: {
     id: 273464,
     name: 'Staggering Strikes',
-    icon: 'ability_monk_blackoutstrike'
-  }
+    icon: 'ability_monk_blackoutstrike',
+  },
 };

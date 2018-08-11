@@ -2,15 +2,14 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 
 const TON_SCALE = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 1/3,
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 2/3,
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 1,
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 1,
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 2,
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 3,
 };
 
 export function trainingOfNiuzaoStats(combatant) {
@@ -19,7 +18,7 @@ export function trainingOfNiuzaoStats(combatant) {
   }
   return {
     mastery: combatant.traitsBySpellId[SPELLS.TRAINING_OF_NIUZAO.id]
-              .reduce((rank, total) => total + calculateAzeriteEffects(SPELLS.TRAINING_OF_NIUZAO.id, rank)[0], 0),
+              .reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.TRAINING_OF_NIUZAO.id, rank)[0], 0),
   };
 }
 
@@ -29,16 +28,28 @@ export const MASTERY_FNS = {
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
 };
 
+/**
+ * Training of Niuzao
+ *
+ * Gain up to X mastery based on your level of Stagger.
+ *
+ * The effect size from scaling code is actually the amount given at
+ * *Light* stagger, not the tooltip value.
+ *
+ * Scaling calculation is disconnected from this class so it can be
+ * re-used by the StatTracker.
+ *
+ * Example Report: https://www.warcraftlogs.com/reports/X4kZzGnym1YMJwPd/#fight=32&source=7
+ */
 class TrainingOfNiuzao extends Analyzer {
   mastery = 0;
   constructor(...args) {
     super(...args);
-    const stats = trainingOfNiuzaoStats(this.selectedCombatant);
-    if(!stats) {
-      this.active = false;
+    if(!this.selectedCombatant.hasTrait(SPELLS.TRAINING_OF_NIUZAO.id)) {
       return;
     }
-    this.mastery = stats.mastery;
+    
+    this.mastery = trainingOfNiuzaoStats(this.selectedCombatant).mastery;
   }
 
   get avgMastery() {
@@ -59,10 +70,10 @@ class TrainingOfNiuzao extends Analyzer {
     // calculation isn't done inline over there. it is possible to
     // import StatTracker, but not to set it as a dependency.
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TRAINING_OF_NIUZAO.id} />}
-        value={`${formatPercentage(this.owner._modules.statTracker.masteryPercentage(this.avgMastery, false))}%`}
-        label={"Avg. Mastery from Training of Niuzao"}
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.TRAINING_OF_NIUZAO.id}
+        value={`${formatPercentage(this.owner._modules.statTracker.masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
         tooltip={`Contribution Breakdown:
           <ul>
           <li>No Stagger: <b>${formatPercentage(1 - lightUptime - moderateUptime - heavyUptime)}%</b> of the fight.</li>
