@@ -52,16 +52,6 @@ class SpiritBombSoulsConsume extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
-      return;
-    }
-    if (event.timestamp - this.castTimestamp < MS_BUFFER) {
-      this.castSoulsConsumed += 1;
-    }
-  }
-
   countHits() {
     if (!this.soulsConsumedByAmount[this.castSoulsConsumed]) {
       this.soulsConsumedByAmount[this.castSoulsConsumed] = 1;
@@ -81,6 +71,11 @@ class SpiritBombSoulsConsume extends Analyzer {
   }
 
   get totalCasts() {
+
+    console.log("Total Casts:");
+    console.log(this.soulsConsumedByAmount);
+    console.log(this.soulsConsumedByAmount.reduce((total, casts) => total+casts, 0));
+
     return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total+casts, 0);
   }
 

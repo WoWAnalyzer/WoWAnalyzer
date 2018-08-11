@@ -26,8 +26,7 @@ class SoulFragmentsConsume extends Analyzer {
       return;
     }
     if (!this.soulsConsumedBySpell[spellId]) {
-      this.soulsConsumedBySpell[spellId] = {name: 0};
-      this.soulsConsumedBySpell[spellId] = {souls: 0};
+      this.soulsConsumedBySpell[spellId] = {name: 0, souls: 0};
     }
     this.soulsConsumedBySpell[spellId].name = event.ability.name;
     this.castTimestamp = event.timestamp;
@@ -41,16 +40,21 @@ class SoulFragmentsConsume extends Analyzer {
     }
     if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
+
+      console.log("Remove buff stack:");
+      console.log(this.trackedSpell);
+      console.log(this.soulsConsumedBySpell[this.trackedSpell].souls);
+
       this.totalSoulsConsumed += 1;
-      }
     }
+  }
 
   soulCleaveSouls() {
     if(this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
       return 0;
     }
     return this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
-    }
+  }
 
   statistic() {
     const overcap= this.soulFragmentsTracker.soulsWasted;
