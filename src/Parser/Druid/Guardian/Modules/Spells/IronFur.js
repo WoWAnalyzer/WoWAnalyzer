@@ -15,7 +15,6 @@ const GUARDIAN_OF_ELUNE_DURATION = 2;
 class IronFur extends Analyzer {
   _stacksTimeline = [];
   _hitsPerStack = [];
-  _ironfurDuration = IRONFUR_BASE_DURATION;
 
   // Get the latest stack change
   getMostRecentStackIndex(timestamp) {
@@ -74,7 +73,7 @@ class IronFur extends Analyzer {
 
     const timestamp = event.timestamp;
     const hasGoE = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id, timestamp);
-    const duration = (this._ironfurDuration + (hasGoE ? GUARDIAN_OF_ELUNE_DURATION : 0)) * 1000;
+    const duration = (IRONFUR_BASE_DURATION + (hasGoE ? GUARDIAN_OF_ELUNE_DURATION : 0)) * 1000;
 
     this.addStack(timestamp, timestamp + duration);
   }
