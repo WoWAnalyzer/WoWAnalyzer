@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Maldark, Zerotorescue } from 'CONTRIBUTORS';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';

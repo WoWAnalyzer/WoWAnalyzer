@@ -1,11 +1,21 @@
 import ExtendableError from 'es6-error';
 
+import { captureException } from 'common/errorLogger';
+
 import makeWclApiUrl from './makeWclApiUrl';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
-export class JsonParseError extends ExtendableError {}
+export class JsonParseError extends ExtendableError {
+  originalError = null;
+  raw = null;
+  constructor(originalError, raw) {
+    super();
+    this.originalError = originalError;
+    this.raw = raw;
+  }
+}
 export class WclApiError extends ExtendableError {}
 export class UnknownApiError extends ExtendableError {}
 export class CorruptResponseError extends ExtendableError {}
@@ -31,11 +41,17 @@ async function rawFetchWcl(endpoint, queryParams) {
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');
   }
+  // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
+  const text = await response.text();
   let json = null;
   try {
-    json = await response.json();
+    json = JSON.parse(text);
   } catch (error) {
-    console.error('JsonParseError', error);
+    captureException(error, {
+      extra: {
+        text,
+      },
+    });
     throw new JsonParseError();
   }
 

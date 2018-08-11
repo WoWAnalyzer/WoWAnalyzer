@@ -3,41 +3,38 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 /**
  * Frizzo's Fingertrap
- * Equip: When you Butchery or Carve an enemy affected by Lacerate, Lacerate spreads to 1 other targets hit by Butchery or Carve
+ * Equip: Increases damage done by Butchery and Carve by 10%.
  */
 
-const MS_BUFFER = 50;
+const DAMAGE_MODIFIER = 0.1;
 
 class FrizzosFingertrap extends Analyzer {
-  spreadLacerates = 0;
-  castTimestamp = 0;
+
+  bonusDmg = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasFinger(ITEMS.FRIZZOS_FINGERTRAP.id);
   }
-  on_byPlayer_cast(event) {
-    const spellID = event.ability.guid;
-    if (spellID === SPELLS.BUTCHERY_TALENT.id || spellID === SPELLS.CARVE.id) {
-      this.castTimestamp = event.timestamp;
-    }
-  }
-  on_byPlayer_applydebuff(event) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.LACERATE.id) {
+
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
-    if (event.timestamp < this.castTimestamp + MS_BUFFER) {
-      this.spreadLacerates++;
-    }
+    this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
   }
+
   item() {
     return {
       item: ITEMS.FRIZZOS_FINGERTRAP,
-      result: <React.Fragment>Spread <SpellLink id={SPELLS.LACERATE.id} /> to {this.spreadLacerates} additional targets. </React.Fragment>,
+      result: <ItemDamageDone amount={this.bonusDmg} />,
+
     };
   }
 }

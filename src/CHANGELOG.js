@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-08-08'),
+    changes: 'Moved the detail tab selection to the left side.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-08-06'),
     changes: 'If a module has a bug that causes an error it will now automatically be disabled instead of crashing.',
     contributors: [Zerotorescue],

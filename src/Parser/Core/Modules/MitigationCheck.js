@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import {findByBossId} from 'Raids/index';
+import {findByBossId} from 'raids/index';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 
 const debug = false;

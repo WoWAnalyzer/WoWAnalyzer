@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/HUNTER';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -14,6 +14,8 @@ import SpellLink from 'common/SpellLink';
 /**
  * Immediately gain 1 charge of Aimed Shot, and gain 30% Haste for 15 sec.
  * Lasts 15 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 class Trueshot extends Analyzer {
   static dependencies = {
@@ -71,7 +73,9 @@ class Trueshot extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(16)}
+        icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <React.Fragment>
             {this.averageAimedShots.toFixed(2)}{' '}
@@ -133,7 +137,7 @@ class Trueshot extends Analyzer {
   }
   suggestions(when) {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You only cast {actual.toFixed(2)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</React.Fragment>)
+      return suggest(<React.Fragment>You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
@@ -145,7 +149,6 @@ class Trueshot extends Analyzer {
         .recommended(`${recommended} is recommended`);
     });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default Trueshot;

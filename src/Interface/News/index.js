@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import articles from 'Articles';
+import articles from 'articles';
 
 import ArticleLoader from './ArticleLoader';
 import './News.css';

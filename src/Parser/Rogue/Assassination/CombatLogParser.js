@@ -12,6 +12,7 @@ import EnergyTracker from '../Common/Resources/EnergyTracker';
 import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
 import Energy from './Modules/RogueCore/Energy';
 import EnemyHpTracker from '../Common/EnemyHpTracker';
+import SpellEnergyCost from '../Common/Resources/SpellEnergyCost';
 
 //Spells
 import EnvenomUptime from './Modules/Spells/EnvenomUptime';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    spellEnergyCost: SpellEnergyCost,
 
     //Core
     envenomUptime: EnvenomUptime,

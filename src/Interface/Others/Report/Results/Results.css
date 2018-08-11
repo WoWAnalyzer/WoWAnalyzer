@@ -31,32 +31,37 @@
 .results .navigation {
   border-bottom: 4px solid #d84141;
 }
-.results .btn-link {
+.results .navigation .btn-link {
   min-width: 120px;
   min-height: 50px;
   outline: none;
   padding: 5px;
+  -webkit-transition: 300ms background;
+  -o-transition: 300ms background;
   transition: 300ms background;
   text-transform: uppercase;
   color: #fff;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-align: center;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: center;
   justify-content: center;
+  -ms-flex-align: center;
   align-items: center;
 }
-.results .btn-link, .results .btn-link:hover, .results .btn-link:active {
+.results .navigation .btn-link, .results .navigation .btn-link:hover, .results .navigation .btn-link:active {
   text-decoration: none;
 }
-.results .btn-link:hover {
+.results .navigation .btn-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-.results .btn-link.selected {
+.results .navigation .btn-link.selected {
   color: #ffffff;
   background: #d84141;
 }
-.results .btn-link svg {
+.results .navigation .btn-link svg {
   font-size: 1.8em;
   margin-right: 0.2em;
   margin-bottom: -0.2em;

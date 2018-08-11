@@ -9,7 +9,7 @@ import Icon from 'common/Icon';
 import { getReport } from 'Interface/selectors/report';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
-import { findByBossId } from 'Raids';
+import { findByBossId } from 'raids';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import getWipeCount from 'common/getWipeCount';
 

@@ -9,6 +9,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 /**
  * Fires a slow-moving munition directly forward.
  * Activating this ability a second time detonates the Shot, dealing up to (1000% of Attack power) Fire damage to all enemies within 8 yds, damage based on proximity.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Bc984AfRjXQYgxCz#fight=7&type=damage-done
  */
 class ExplosiveShot extends Analyzer {
   damage = 0;

@@ -105,6 +105,7 @@ class VoidTorrent extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
         value={`${formatSeconds(this.totalWasted)} seconds`}
         label={(
@@ -115,8 +116,6 @@ class VoidTorrent extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default VoidTorrent;

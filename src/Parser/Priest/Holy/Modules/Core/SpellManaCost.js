@@ -6,9 +6,9 @@ import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../Constants';
 const debug = false;
 
 class SpellManaCost extends CoreSpellManaCost {
-  getManaCost(event) {
+  getResourceCost(event) {
     const spellId = event.ability.guid;
-    let cost = super.getManaCost(event);
+    let cost = super.getResourceCost(event);
     if (cost === 0) {
       return cost;
     }

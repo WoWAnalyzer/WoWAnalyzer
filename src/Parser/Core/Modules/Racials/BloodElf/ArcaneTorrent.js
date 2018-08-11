@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import RACES from 'Game/RACES';
+import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
 

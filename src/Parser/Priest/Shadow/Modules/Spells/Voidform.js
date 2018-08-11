@@ -215,9 +215,9 @@ class Voidform extends Analyzer {
     return (voidform) => ({
       actual: voidform.stacks.length,
       isLessThan: {
-        minor: 50,
-        average: 45,
-        major: 40,
+        minor: 30,
+        average: 20,
+        major: 15,
       },
       style: 'number',
     });
@@ -234,7 +234,7 @@ class Voidform extends Analyzer {
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells.
+        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> at 10-15 stacks.
           <br /><br />
           Use the generators with the priority:
           <br /><SpellLink id={SPELLS.VOID_BOLT.id} />
@@ -251,6 +251,7 @@ class Voidform extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
         value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
         label={(
@@ -261,7 +262,6 @@ class Voidform extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   tab() {
     return {

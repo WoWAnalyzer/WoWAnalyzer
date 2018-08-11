@@ -25,7 +25,7 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
-import DetailsTab from './DetailsTab';
+import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
@@ -311,7 +311,11 @@ class Results extends React.PureComponent {
           <Trans>Details</Trans>
         </StatisticsSectionTitle>
 
-        <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
+        <DetailsTabPanel
+          tabs={results.tabs}
+          selected={selectedDetailsTab}
+          makeTabUrl={makeTabUrl}
+        />
       </div>
     );
   }

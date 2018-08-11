@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { findByBossId } from 'Raids';
+import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
@@ -10,8 +10,8 @@ import ChangelogTabTitle from 'Interface/Others/ChangelogTabTitle';
 import DeathRecapTracker from 'Interface/Others/DeathRecapTracker';
 import ItemStatisticBox from 'Interface/Others/ItemStatisticBox';
 
-import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
-import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
+import ApplyBuffNormalizer from 'Parser/shared/normalizers/ApplyBuff';
+import CancelledCastsNormalizer from 'Parser/shared/normalizers/CancelledCasts';
 
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';

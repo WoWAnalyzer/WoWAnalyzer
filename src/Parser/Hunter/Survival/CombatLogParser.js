@@ -34,8 +34,8 @@ import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
 import VipersVenom from './Modules/Talents/VipersVenom';
-import FiveStackBites from './Modules/Features/MongooseFury/FiveStackBites';
-import FiveBiteWindows from './Modules/Features/MongooseFury/FiveBiteWindows';
+import FiveStackBites from './Modules/Talents/MongooseBite/FiveStackBites';
+import FiveBiteWindows from './Modules/Talents/MongooseBite/FiveBiteWindows';
 import SteelTrap from './Modules/Talents/SteelTrap';
 import Chakrams from './Modules/Talents/Chakrams';
 

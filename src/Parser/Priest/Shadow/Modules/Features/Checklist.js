@@ -103,8 +103,8 @@ class Checklist extends CoreChecklist {
       description: (
         <React.Fragment>
           Your Voidforms are an important part of your overall damage.
-          Try to get over 50 stacks every Voidform with proper <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> and <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> usage.
-          Use Void torrent early on and Mindbender around 30 Voidform stacks.
+          Try to get over 25 stacks every Voidform with proper <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> and <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> usage.
+          Use Void torrent early on and Mindbender around 10 to 15 Voidform stacks.
         </React.Fragment>
       ),
       performanceMethod: 'average',
@@ -130,7 +130,7 @@ class Checklist extends CoreChecklist {
       description: (
         <React.Fragment>
           Mindbender has a big impact on your <SpellLink id={SPELLS.VOIDFORM.id} /> durations.
-          Try to use Mindbender a few seconds before you are about to drop out from the Voidform, normally around 25 stacks. Never use Mindbender outside of Voidform.
+          Try to use Mindbender a few seconds before you are about to drop out from the Voidform, normally around 10 to 15 stacks. Never use Mindbender outside of Voidform.
           <br />Using Mindbender too early shortens your Voidform and might thus greatly affect the next voidforms (by still having it on cooldown).
         </React.Fragment>
       ),

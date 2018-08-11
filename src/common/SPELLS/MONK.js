@@ -700,7 +700,7 @@ export default {
   THE_EMPERORS_CAPACITOR_STACK: {
     id: 235054,
     name: "The Emperor's Capacitor",
-    icon: 'ability_monk_cracklingjadeligthing',
+    icon: 'ability_monk_cracklingjadelightning',
   },
   DRINKING_HORN_COVER: {
     id: 209256,
