@@ -22,5 +22,7 @@ export default [
   SPELLS.FIRE_MINES.id, // Forgefiends fabricator
   SPELLS.FIRE_MINES_2.id, // Forgefiends fabricator
   SPELLS.BIG_RED_RAYS.id, //Big Red Raygun active effect
+  SPELLS.FRACTURE_MAIN_HAND.id, // Fracture main hand damage ability
+  SPELLS.FRACTURE_OFF_HAND.id, // Fracture off hand damage ability
   255724, // proc from a Legion Antorus trinket
 ];
