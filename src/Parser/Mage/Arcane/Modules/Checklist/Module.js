@@ -51,6 +51,7 @@ class Checklist extends Analyzer {
           arcaneFamiliarUptime: this.arcaneFamiliar.suggestionThresholds,
           arcaneOrbAverageHits: this.arcaneOrb.averageHitThresholds,
           arcanePowerCooldown: this.arcanePower.cooldownSuggestionThresholds,
+          arcanePowerManaUtilization: this.arcanePower.manaUtilizationThresholds,
           arcanePowerCasts: this.arcanePower.castSuggestionThresholds,
           arcanePowerOnKill: this.arcanePower.arcanePowerOnKillSuggestionThresholds,
           ruleOfThreesUsage: this.ruleOfThrees.suggestionThresholds,
