@@ -21,11 +21,11 @@ const PLAYER = 1;
 const ENEMY = 2;
 const INITIAL_STAGGER = 25000;
 const testEvents = [
-  { timestamp: 0, type: 'absorbed', sourceID: PLAYER, targetID: PLAYER, ability: { guid: SPELLS.STAGGER.id }, amount: INITIAL_STAGGER, },
-  { timestamp: 1000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }, },
-  { timestamp: 4000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }, },
-  { timestamp: 7000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }, },
-  { timestamp: 10000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }, },
+  { timestamp: 0, type: 'absorbed', sourceID: PLAYER, targetID: PLAYER, ability: { guid: SPELLS.STAGGER.id }, amount: INITIAL_STAGGER },
+  { timestamp: 1000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 4000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 7000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 10000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
 ];
 
 const overhealEvents = [
