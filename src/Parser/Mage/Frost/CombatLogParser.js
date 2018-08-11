@@ -20,18 +20,6 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import ColdSnap from './Modules/Cooldowns/ColdSnap';
 
-import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
-import Tier20_2set from './Modules/Items/Tier20_2set';
-import Tier20_4set from './Modules/Items/Tier20_4set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
-import ZannesuJourney from './Modules/Items/ZannesuJourney';
-import IceTime from './Modules/Items/IceTime';
-import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
-import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
-import LadyVashjsGrasp from './Modules/Items/LadyVashjsGrasp';
-import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
-
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -57,19 +45,6 @@ class CombatLogParser extends CoreCombatLogParser {
 	  //Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
-
-	  //Items
-	  tier20_2set: Tier20_2set,
-    tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
-	  shardOfTheExodar: ShardOfTheExodar,
-    zannesuJourney: ZannesuJourney,
-    iceTime: IceTime,
-    magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
-    shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
-    ladyVashjsGrasp: LadyVashjsGrasp,
-    soulOfTheArchmage: SoulOfTheArchmage,
   };
 }
 
