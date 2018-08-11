@@ -9,6 +9,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+      // Rotation
       {
         spell: SPELLS.IMMOLATION_AURA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -43,6 +44,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.METAMORPHOSIS_TANK,
@@ -53,6 +55,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.50,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.FIERY_BRAND,
@@ -64,6 +67,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.50,
           extraSuggestion: <React.Fragment>Powerful CD. Use it during high damage moments.</React.Fragment>,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.DEMON_SPIKES,
@@ -74,6 +78,7 @@ class Abilities extends CoreAbilities {
         */
         cooldown: !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) ? haste => 20 / (1 + haste) : null,
         charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
+        isDefensive: true,
       },
 
       // Talents
@@ -107,6 +112,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.80,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.FELBLADE_TALENT,
@@ -135,6 +141,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.80,
           extraSuggestion: <React.Fragment>This is a great healing and AoE damage burst spell. The only moment you can delay it's cast is if your <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.CHARRED_FLESH_TALENT.id} /> talent) is almost available. </React.Fragment>,
         },
+        isDefensive: true,
       },
 
       // Sigils
@@ -169,7 +176,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Misc
+      // Utility
       {
         spell: SPELLS.INFERNAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -196,7 +203,7 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
       },
       {
-        spell: SPELLS.Disrupt,
+        spell: SPELLS.DISRUPT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
       },
@@ -207,6 +214,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.GLIDE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
+
+      // Misc
+      {
+        spell: SPELLS.SOUL_FRAGMENT,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        gcd: null,
       },
     ];
   }

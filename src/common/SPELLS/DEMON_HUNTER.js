@@ -64,6 +64,18 @@ export default {
     name: "Fracture",
     icon: "ability_creature_felsunder",
   },
+  FRACTURE_MAIN_HAND: {
+    id: 225919,
+    painCost: 30,
+    name: "Fracture(Main Hand)",
+    icon: "ability_creature_felsunder",
+  },
+  FRACTURE_OFF_HAND: {
+    id: 225921,
+    painCost: 30,
+    name: "Fracture(Off Hand)",
+    icon: "ability_creature_felsunder",
+  },
   SHEAR: {
     id: 203782,
     name: 'Shear',
@@ -324,7 +336,7 @@ export default {
     name: 'Consume Magic',
     icon: 'spell_misc_zandalari_council_soulswap',
   },
-  Disrupt: {
+  DISRUPT: {
     id: 183752,
     name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
