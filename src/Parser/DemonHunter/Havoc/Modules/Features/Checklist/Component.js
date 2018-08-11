@@ -41,7 +41,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.FEL_RUSH.id} />
           {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />}
+          {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA_TALENT.id} />}
         </Rule>
 
         <Rule
