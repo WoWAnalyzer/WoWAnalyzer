@@ -46,6 +46,7 @@ class TrainingOfNiuzao extends Analyzer {
   constructor(...args) {
     super(...args);
     if(!this.selectedCombatant.hasTrait(SPELLS.TRAINING_OF_NIUZAO.id)) {
+      this.active = false;
       return;
     }
     
