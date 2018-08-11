@@ -2,6 +2,11 @@ import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-11'),
+    changes: 'Added Arcane Missiles Module and Time Anomaly Mana Management.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-08-10'),
     changes: 'Added Check to see if the player went OOM during Arcane Power.',
     contributors: [Sharrq],

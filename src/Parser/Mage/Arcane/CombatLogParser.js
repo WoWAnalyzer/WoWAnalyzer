@@ -14,6 +14,7 @@ import ArcaneCharges from './Normalizers/ArcaneCharges';
 
 import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
 import ArcanePower from './Modules/Features/ArcanePower';
+import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
+    arcaneMissiles: ArcaneMissiles,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
