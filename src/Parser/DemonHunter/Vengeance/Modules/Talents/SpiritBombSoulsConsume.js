@@ -71,10 +71,6 @@ class SpiritBombSoulsConsume extends Analyzer {
   }
 
   get totalCasts() {
-
-    console.log("Total Casts:");
-    console.log((this.soulsConsumedByAmount[1]) + (this.soulsConsumedByAmount[2] * 2) + (this.soulsConsumedByAmount[3] * 3) + (this.soulsConsumedByAmount[4] * 4) + (this.soulsConsumedByAmount[5] * 5));
-
     return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total+casts, 0);
   }
 

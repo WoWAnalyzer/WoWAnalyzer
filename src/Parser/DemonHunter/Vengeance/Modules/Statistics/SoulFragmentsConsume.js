@@ -40,11 +40,6 @@ class SoulFragmentsConsume extends Analyzer {
     }
     if (this.castTimestamp !== undefined && event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER) {
       this.soulsConsumedBySpell[this.trackedSpell].souls += 1;
-
-      console.log("Remove buff stack:");
-      console.log(this.trackedSpell);
-      console.log(this.soulsConsumedBySpell[this.trackedSpell].souls);
-
       this.totalSoulsConsumed += 1;
     }
   }
