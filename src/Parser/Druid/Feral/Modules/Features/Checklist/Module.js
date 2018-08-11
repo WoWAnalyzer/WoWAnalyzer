@@ -24,6 +24,7 @@ import PredatorySwiftness from '../../Spells/PredatorySwiftness';
 import Bloodtalons from '../../Talents/Bloodtalons';
 import Predator from '../../Talents/Predator';
 import BrutalSlashHitCount from '../../Talents/BrutalSlashHitCount';
+import TigersFuryEnergy from '../../Spells/TigersFuryEnergy';
 
 class Checklist extends Analyzer {
   static dependencies = {
@@ -49,6 +50,7 @@ class Checklist extends Analyzer {
     bloodtalons: Bloodtalons,
     predator: Predator,
     brutalSlashHitcount: BrutalSlashHitCount,
+    tigersFuryEnergy: TigersFuryEnergy,
   };
 
   render() {
@@ -72,6 +74,8 @@ class Checklist extends Analyzer {
           
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,
+          tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
+          tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
 
           // snapshot
           rakeDowngrade: this.rakeSnapshot.downgradeSuggestionThresholds,
