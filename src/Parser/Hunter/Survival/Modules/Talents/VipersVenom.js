@@ -8,7 +8,6 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ITEMS from 'common/ITEMS/HUNTER';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**

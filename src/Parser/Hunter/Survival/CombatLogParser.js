@@ -1,7 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Abilities';
-import Channeling from './Modules/Helper/Channeling';
 
 //Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -41,7 +40,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
-    channeling: Channeling,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
