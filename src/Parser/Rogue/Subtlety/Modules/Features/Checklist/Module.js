@@ -18,6 +18,7 @@ import NightbladeUptime from '../../BaseRotation/NightbladeUptime';
 
 //Talents
 import DarkShadowNightblade from '../../Talents/DarkShadow/DarkShadowNightblade';
+import FindWeakness from '../../Talents/FindWeakness';
 
 
 import Component from './Component';
@@ -41,6 +42,7 @@ class Checklist extends Analyzer {
 
     //Talents
     darkShadowNightblade: DarkShadowNightblade,
+    findWeakness: FindWeakness,
   };
 
   render() {
@@ -65,6 +67,7 @@ class Checklist extends Analyzer {
           
           //Talents
           darkShadowNightblade: this.darkShadowNightblade.thresholds,
+          findWeaknessVanish: this.findWeakness.vanishThresholds,
         }}
       />
     );

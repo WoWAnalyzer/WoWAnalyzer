@@ -100,6 +100,20 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        enabled: !combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id),
+      },
+      {
+        spell: SPELLS.VANISH,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.VANISH_BUFF.id,
+        cooldown: 120,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: 'With Find Weakness talant, use Vanish to apply Find Weakness debuff',
+        },
+        enabled: combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id),
       },
       {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT,

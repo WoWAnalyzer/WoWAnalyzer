@@ -146,6 +146,15 @@ class SubRogueChecklist extends React.PureComponent {
             )}
             thresholds={thresholds.backstabInStealth}
           />
+          {combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id) && (
+          <Requirement
+            name={(
+              <React.Fragment>
+                With <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> use <SpellLink id={SPELLS.VANISH.id} /> only when Find Weakness is not up or about to run out
+              </React.Fragment>
+            )}
+            thresholds={thresholds.findWeaknessVanish}
+          /> )}
         </Rule>
         <PreparationRule thresholds={thresholds} />
 
