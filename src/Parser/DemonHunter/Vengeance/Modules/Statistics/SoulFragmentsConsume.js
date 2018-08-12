@@ -62,6 +62,7 @@ class SoulFragmentsConsume extends Analyzer {
     const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
     return (
       <ExpandableStatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
         value={`${this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls} Souls`}
         label="Consumed"
@@ -94,7 +95,6 @@ class SoulFragmentsConsume extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 
 }
 

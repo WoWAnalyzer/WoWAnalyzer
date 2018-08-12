@@ -9,6 +9,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+      // Rotation
       {
         spell: SPELLS.IMMOLATION_AURA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -25,10 +26,10 @@ class Abilities extends CoreAbilities {
       {
         spell: [combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? SPELLS.FRACTURE_TALENT : SPELLS.SHEAR],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown:  combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
+        cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
         charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
-          suggestion: !!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+          suggestion: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
           recommendedEfficiency: 0.90,
         },
         gcd: {
@@ -43,6 +44,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.METAMORPHOSIS_TANK,
@@ -53,6 +55,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.50,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.FIERY_BRAND,
@@ -64,13 +67,18 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.50,
           extraSuggestion: <React.Fragment>Powerful CD. Use it during high damage moments.</React.Fragment>,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.DEMON_SPIKES,
-        buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 20 / (1 + haste),
-        charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
+        /* Removing Demon Spikes cooldown as the Feed the Demon talent breaks it when selected
+         * Feed the Demon reduces the cooldown of Demon Spikes by 0.5s for each soul fragment consumed when on CD
+         * So, while I can't figure out a way to track this CD, I'm removing it from cast effiency to not break things or do wrong suggestions
+        */
+        cooldown: !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) ? haste => 20 / (1 + haste) : null,
+        charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
+        isDefensive: true,
       },
 
       // Talents
@@ -104,6 +112,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.80,
         },
+        isDefensive: true,
       },
       {
         spell: SPELLS.FELBLADE_TALENT,
@@ -132,6 +141,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.80,
           extraSuggestion: <React.Fragment>This is a great healing and AoE damage burst spell. The only moment you can delay it's cast is if your <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.CHARRED_FLESH_TALENT.id} /> talent) is almost available. </React.Fragment>,
         },
+        isDefensive: true,
       },
 
       // Sigils
@@ -153,7 +163,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED,SPELLS.SIGIL_OF_FLAME_QUICKENED],
-        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF,
+        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
@@ -166,7 +176,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Misc
+      // Utility
       {
         spell: SPELLS.INFERNAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -193,17 +203,29 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
       },
       {
-        spell: SPELLS.Disrupt,
+        spell: SPELLS.DISRUPT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
       },
       {
         spell: SPELLS.THROW_GLAIVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 3,
+        cooldown: haste => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.GLIDE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
+
+      // Misc
+      {
+        spell: SPELLS.SOUL_FRAGMENT,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        gcd: null,
       },
     ];
   }

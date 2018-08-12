@@ -27,14 +27,6 @@ import AngerOfTheHalfGiants from './Modules/Items/AngerOfTheHalfGiants';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
-//Traits
-import RelicTraits from './Modules/Traits/RelicTraits';
-import ChaosVision from './Modules/Traits/ChaosVision';
-import SharpenedGlaives from './Modules/Traits/SharpenedGlaives';
-import DemonRage from './Modules/Traits/DemonRage';
-import UnleashedDemons from './Modules/Traits/UnleashedDemons';
-import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -67,14 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     angerOfTheHalfGiants: AngerOfTheHalfGiants,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
-
-    //Traits
-    relicTraits: RelicTraits,
-    chaosVision: ChaosVision,
-    sharpenedGlaives: SharpenedGlaives,
-    demonRage: DemonRage,
-    unleashedDemons: UnleashedDemons,
-    feastOnTheSouls: FeastOnTheSouls,
   };
 }
 

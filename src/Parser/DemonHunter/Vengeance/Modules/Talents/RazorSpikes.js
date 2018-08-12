@@ -33,6 +33,7 @@ class RazorSpikes extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.RAZOR_SPIKES_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.damage)}`}
         label="Razor Spikes"
@@ -41,7 +42,6 @@ class RazorSpikes extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default RazorSpikes;

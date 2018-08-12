@@ -65,6 +65,7 @@ class Nemesis extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
         label="Damage Contributed"
@@ -76,7 +77,6 @@ class Nemesis extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Nemesis;
