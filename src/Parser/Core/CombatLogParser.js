@@ -57,6 +57,7 @@ import EnchantChecker from './Modules/Items/EnchantChecker';
 import Healthstone from './Modules/Items/Healthstone';
 import HealthPotion from './Modules/Items/HealthPotion';
 import CombatPotion from './Modules/Items/CombatPotion';
+import PreparationRuleAnalyzer from './Modules/Features/Checklist2/PreparationRuleAnalyzer';
 
 import ArcaneTorrent from './Modules/Racials/BloodElf/ArcaneTorrent';
 import MightOfTheMountain from './Modules/Racials/Dwarf/MightOfTheMountain';
@@ -209,6 +210,7 @@ class CombatLogParser {
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
     arcaneTorrent: ArcaneTorrent,

@@ -52,6 +52,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0),
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
           extraSuggestion: 'This is the most important rotational ability, try to always use it on cooldown.',
         },
       },
@@ -86,6 +87,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
           extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
         },
       },
