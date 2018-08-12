@@ -11,7 +11,7 @@ Poke @emallson for questions/complaints.
 - `extract.js` -- Does the extraction from simc data.
 - `traits.json` -- A list of all relevant trait spell IDs. Note that *multiple
   IDs exist for most traits!* Only the one with scaling data should be added
-  here.
+  here. To add a trait, just add the appropriate spell ID.
 
 ## Usage
 

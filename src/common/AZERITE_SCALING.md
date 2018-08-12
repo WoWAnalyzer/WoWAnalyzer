@@ -10,7 +10,7 @@ object looks like:
     "effect_list": [
       707038 // id of spell effects -- currently unused
     ],
-    "secondary": false, // whether this trait uses primary or secondary scaling
+    "scaling_type": -1, // the scaling type used, typically either -1, -7, or -8
     "effects": {
       "707038": {
         "avg": 10.883929 // effect scale factor
@@ -33,9 +33,6 @@ Scaling traits should generally be handled by the function
 appropriately for your target ilvl. That said, it is worth noting that most
 traits scale exponentially as if they were primary stats -- *even if they give
 secondary stats!*
-
-If `secondary` is `true`, then the trait instead uses the linearized secondary
-scaling as if it were a secondary stat on a piece of armor.
 
 ## Effects & Effect Scales
 
