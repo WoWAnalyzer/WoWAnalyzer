@@ -29,13 +29,7 @@ import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectO
 //Spells
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
 
-//Items
-import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
-import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
-import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
-import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
-import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
-import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
+
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 class Checklist extends CoreChecklist {
@@ -60,14 +54,6 @@ class Checklist extends CoreChecklist {
     //Spells
     direFrenzy: BarbedShot,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
-
-    //Legendaries
-    parselsTongue: ParselsTongue,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    theMantleOfCommand: TheMantleOfCommand,
-    soulOfTheHuntmaster: SoulOfTheHuntmaster,
-    roarOfTheSevenLions: RoarOfTheSevenLions,
-    callOfTheWild: CallOfTheWild,
   };
 
   rules = [
