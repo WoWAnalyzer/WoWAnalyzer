@@ -10,7 +10,6 @@ function config() {
   const env = process.env.NODE_ENV;
 
   return {
-    devtool: 'inline-eval-cheap-source-map',
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT || 3306,
     dialect: 'mysql',
