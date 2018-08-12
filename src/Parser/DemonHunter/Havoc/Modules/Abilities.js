@@ -7,11 +7,9 @@ import Haste from 'Parser/Core/Modules/Haste';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-import UnleashedDemons from './Traits/UnleashedDemons';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
-    unleashedDemons: UnleashedDemons,
     abilityTracker: AbilityTracker,
     haste: Haste,
   };
@@ -22,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300 - this.unleashedDemons.traitCooldownReduction,
+        cooldown: 300,
         gcd: {
           base: 1500,
         },
@@ -74,7 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+         // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
         gcd: {
           base: 1500,
         },

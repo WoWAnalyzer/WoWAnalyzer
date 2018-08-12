@@ -6,6 +6,12 @@
 
 export default {
   HAZE_OF_RAGE: {
+    id: 273262,
+    name: 'Haze of Rage',
+    icon: 'ability_druid_ferociousbite',
+  },
+
+  HAZE_OF_RAGE_BUFF: {
     id: 273264,
     name: 'Haze of Rage',
     icon: 'ability_druid_ferociousbite',

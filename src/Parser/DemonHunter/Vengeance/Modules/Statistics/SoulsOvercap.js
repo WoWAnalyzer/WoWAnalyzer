@@ -58,6 +58,7 @@ class SoulsOvercap extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
         value={`${formatPercentage(this.wasterPerGenerated())}% Souls`}
         label="Inefficiently generated"
@@ -69,7 +70,6 @@ class SoulsOvercap extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SoulsOvercap;

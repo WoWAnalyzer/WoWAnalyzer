@@ -48,13 +48,13 @@ class VoidReaverDebuff extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.VOID_REAVER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Void Reaver uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default VoidReaverDebuff;

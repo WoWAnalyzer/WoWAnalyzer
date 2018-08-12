@@ -22,6 +22,7 @@ class ImmolationAura extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={<SpellIcon id={SPELLS.IMMOLATION_AURA.id} />}
         value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
         label="Immolation Aura uptime"
@@ -29,7 +30,6 @@ class ImmolationAura extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ImmolationAura;

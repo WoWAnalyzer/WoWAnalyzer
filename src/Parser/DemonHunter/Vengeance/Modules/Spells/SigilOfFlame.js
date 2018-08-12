@@ -53,6 +53,7 @@ class SigilOfFlame extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         value={`${this.successfulStack} times`}
         label="Sigil of Flame stacked twice"
@@ -62,7 +63,6 @@ class SigilOfFlame extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SigilOfFlame;

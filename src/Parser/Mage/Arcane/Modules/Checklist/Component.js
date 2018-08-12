@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ResourceLink from 'common/ResourceLink';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
 import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
@@ -94,10 +92,15 @@ class ArcaneMageChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id) && <Requirement name="Arcane Familiar Uptime" thresholds={thresholds.arcaneFamiliarUptime} />}
         </Rule>
         <Rule
-          name={<React.Fragment>Manage your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively</React.Fragment>}
-          description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
+          name={<React.Fragment>Manage your mana</React.Fragment>}
+          description={(
+            <React.Fragment>
+              The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too long, or ending the fight with mana remaining all have negative effects on your DPS. 
+            </React.Fragment>
+          )}
         >
           <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />
+          <Requirement name="Arcane Power Mana Mgmt." thresholds={thresholds.arcanePowerManaUtilization} />
         </Rule>
         
         <PreparationRule thresholds={thresholds} />

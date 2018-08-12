@@ -38,6 +38,7 @@ class ArcanePower extends Analyzer {
 	totalCastsDuringAP = 0;
 	badCastsDuringAP = 0;
 	runeTimestamp = 0;
+	outOfMana = 0;
 	arcanePowerOnKill = false;
 
 	constructor(...args) {
@@ -67,6 +68,17 @@ class ArcanePower extends Analyzer {
 			if (UNACCEPTABLE_ARCANE_POWER_SPELLS.includes(spellId)) {
 				debug && console.log("Cast " + event.ability.name + " during Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 				this.badCastsDuringAP += 1;
+			} else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
+				const manaRemaining = event.classResources[0].amount - (event.resourceCost[0] + (event.resourceCost[0] * this.arcaneChargeTracker.charges));
+				console.log(event.ability.name);
+				console.log(this.estimatedManaCost(spellId));
+				console.log(manaRemaining);
+				if (manaRemaining < this.estimatedManaCost(spellId) && this.selectedCombatant.getBuff(SPELLS.ARCANE_POWER.id).end - 1000 < event.timestamp) {
+					debug && console.log("Ran Out of Mana during Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+					debug && console.log("Mana Remaining: " + manaRemaining + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+					debug && console.log("Estimated Mana Cost: " + this.estimatedManaCost(spellId) + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+					this.outOfMana += 1;
+				}
 			}
 		}
 	}
@@ -77,12 +89,35 @@ class ArcanePower extends Analyzer {
 		}
 	}
 
+	estimatedManaCost(spellId) {
+		if (spellId === SPELLS.ARCANE_EXPLOSION.id) {
+			if (this.hasOverpowered) {
+				return 2000 * 0.4;
+			} else {
+				return 2000;
+			}
+		} else if (spellId === SPELLS.ARCANE_BLAST.id) {
+				if (this.hasOverpowered) {
+					return (550 + (550 * this.arcaneChargeTracker.charges)) * 0.4;
+				} else if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id)) {
+					return 0;
+				} else {
+					return 550 + (550 * this.arcaneChargeTracker.charges);
+				}
+		}
+		return 0;
+	}
+
 	get cooldownUtilization() {
 		return 1 - (this.badUses / this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts);
 	}
 
 	get castUtilization() {
 		return 1 - (this.badCastsDuringAP / this.totalCastsDuringAP);
+	}
+
+	get manaUtilization() {
+		return 1 - (this.outOfMana / this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts);
 	}
 
 	get cooldownSuggestionThresholds() {
@@ -100,6 +135,18 @@ class ArcanePower extends Analyzer {
 	get castSuggestionThresholds() {
     return {
       actual: this.castUtilization,
+      isLessThan: {
+        minor: 1,
+        average: 0.95,
+        major: 0.90,
+      },
+      style: 'percentage',
+    };
+	}
+
+	get manaUtilizationThresholds() {
+    return {
+      actual: this.manaUtilization,
       isLessThan: {
         minor: 1,
         average: 0.95,
@@ -128,6 +175,13 @@ class ArcanePower extends Analyzer {
 		when(this.castSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<React.Fragment>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</React.Fragment>)
+					.icon(SPELLS.ARCANE_POWER.icon)
+					.actual(`${formatPercentage(this.castUtilization)}% Utilization`)
+					.recommended(`${formatPercentage(recommended)}% is recommended`);
+			});
+		when(this.manaUtilizationThresholds)
+			.addSuggestion((suggest, actual, recommended) => {
+				return suggest(<React.Fragment>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : '' }</React.Fragment>)
 					.icon(SPELLS.ARCANE_POWER.icon)
 					.actual(`${formatPercentage(this.castUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

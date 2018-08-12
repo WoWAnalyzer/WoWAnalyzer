@@ -11,7 +11,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import FuryTracker from '../ResourceTracker/FuryTracker';
-import UnleashedDemons from '../Traits/UnleashedDemons';
 
 /*
 * Equip: The remaining cooldown on Metamorphosis is reduced by 1 sec for every 30 Fury you spend.
@@ -22,17 +21,15 @@ class DelusionsOfGrandeur extends Analyzer {
 		SpellUsable: SpellUsable,
 		furyTracker: FuryTracker,
 		abilityTracker: AbilityTracker,
-		unleashedDemons: UnleashedDemons,
 	};
 
 	metaCooldown = 300;
 	lastTimestamp = 0;
-	halfMetaDuration = 15000
+	halfMetaDuration = 15000;
 
 	constructor(...args) {
     super(...args);
 		this.active = this.selectedCombatant.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
-		this.metaCooldown = this.metaCooldown - this.unleashedDemons.traitCooldownReduction;
 	}
 
 	get cooldownReductionRatio(){
