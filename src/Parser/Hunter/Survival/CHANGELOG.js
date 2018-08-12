@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-08-12'),
+    changes: 'Removed all legendaries and tier gear in preparation for Battle for Azeroth launch',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-06'),
     changes: 'Fixed a crash in Frizzo\'s Fingertrap, adds buff indicators to relevant spells in the timeline, adjusted placement of statistic boxes and added example logs to everything BFA related.',
     contributors: [Putro],

@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
-let COOLDOWN_REDUCTION_MS = 12000;
+const COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
 
 /**
@@ -25,13 +25,6 @@ class GainedBestialWraths extends Analyzer {
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
   casts = 0;
-
-  constructor(...args) {
-    super(...args);
-    if (this.selectedCombatant.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
-      COOLDOWN_REDUCTION_MS = 16000;
-    }
-  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;

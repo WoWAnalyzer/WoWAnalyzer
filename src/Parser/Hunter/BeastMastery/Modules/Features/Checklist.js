@@ -20,6 +20,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 //Talents
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
@@ -28,9 +29,6 @@ import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectO
 
 //Spells
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
-
-import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 class Checklist extends CoreChecklist {
   static dependencies = {

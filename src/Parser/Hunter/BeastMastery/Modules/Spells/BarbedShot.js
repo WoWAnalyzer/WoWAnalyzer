@@ -16,7 +16,7 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
  * Example log: https://www.warcraftlogs.com/reports/qP3Vn4rXp6ytHxzd#fight=18&type=damage-done
  */
 
-//max stacks pet can have of the Frenzy buff
+//max stacks your pet can have of the Frenzy buff
 const MAX_FRENZY_STACKS = 3;
 
 const FRENZY_DURATION = 8000;

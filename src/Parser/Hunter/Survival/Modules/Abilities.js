@@ -147,9 +147,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 90 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 90 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -157,9 +156,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -169,9 +167,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -234,7 +231,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
