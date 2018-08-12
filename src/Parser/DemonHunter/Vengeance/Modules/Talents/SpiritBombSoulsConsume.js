@@ -42,23 +42,15 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.cast += 1;
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
+    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id || event.oldStacks < event.newStacks) {
+      // only interested in lost stacks of souls
       return;
     }
     if (event.timestamp - this.castTimestamp < MS_BUFFER) {
-      this.castSoulsConsumed += 1;
-    }
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
-      return;
-    }
-    if (event.timestamp - this.castTimestamp < MS_BUFFER) {
-      this.castSoulsConsumed += 1;
+      const soulsConsumed = event.oldStacks - event.newStacks;
+      this.castSoulsConsumed += soulsConsumed;
     }
   }
 

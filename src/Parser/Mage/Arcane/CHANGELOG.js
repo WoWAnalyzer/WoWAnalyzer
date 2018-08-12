@@ -2,6 +2,11 @@ import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-10'),
+    changes: 'Added Check to see if the player went OOM during Arcane Power.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-08-09'),
     changes: 'Added Checklist ',
     contributors: [Sharrq],
