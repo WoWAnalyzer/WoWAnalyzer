@@ -193,6 +193,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
       },
+      {
+        spell: SPELLS.IMMOLATION_AURA_TALENT,
+        // IMMOLATION_AURA_TALENT is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
+        buffSpellId: SPELLS.IMMOLATION_AURA_TALENT.id,
+        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
     ];
   }
 }

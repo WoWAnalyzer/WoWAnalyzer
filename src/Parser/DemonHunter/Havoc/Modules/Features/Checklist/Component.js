@@ -53,7 +53,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           )}
         >
           {combatant.hasTalent(SPELLS.NEMESIS_TALENT.id) && <AbilityRequirement spell={SPELLS.NEMESIS_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.MOMENTUM_TALENT.id} />}
+          {/*Uptime of buff from Momentum (talent which gives +damage buff when Fel Rush is used) could be tracked here, or when using Momentum talent check that Fel Rush has high cast efficiency (currently tracked in the "Use your short cooldowns" section)*/}
         </Rule>
 
         <Rule
