@@ -86,6 +86,11 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  SOUL_FRAGMENT_KILLING_BLOW: {
+    id: 204062,
+    name: 'Soul Fragment(from killing blow)',
+    icon: 'spell_shadow_soulgem',
+  },
   SOUL_FRAGMENT_STACK: {
     id: 203981,
     name: 'Soul Fragment',
@@ -406,6 +411,13 @@ export default {
     name: 'Fel Mastery',
     icon: 'ability_skyreach_piercing_rush',
   },
+  CONSUME_SOUL: {
+    id: 228532,
+    name: 'Consume Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+
+  // Legendary Buffs
   ANGER_OF_THE_HALF_GIANTS_FURY: {
     id: 208828,
     name: 'Gigantic Anger',
@@ -421,12 +433,6 @@ export default {
     name: 'Raddon\'s Cascading Eyes',
     icon: 'inv_misc_bandana_01',
   },
-  CONSUME_SOUL: {
-    id: 228532,
-    name: 'Consume Soul',
-    icon: 'ability_warlock_improvedsoulleech',
-  },
-  //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {
     id: 211796,
     name: 'Chaos Blades',
@@ -437,6 +443,13 @@ export default {
     name: 'Chaos Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
+  CHAOS_BLADES_BUFF: {
+    id: 247938,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+
+  //Havoc Talents
   CHAOS_CLEAVE_DAMAGE: {
     id: 236237,
     name: 'Chaos Cleave',
