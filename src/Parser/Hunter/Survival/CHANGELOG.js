@@ -62,12 +62,12 @@ export default [
   },
   {
     date: new Date('2018-02-20'),
-    changes: <React.Fragment>Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for Caltrops.</React.Fragment>,
+    changes: 'Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for Caltrops.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-02-14'),
-    changes: <React.Fragment>Added a module for Fury of the Eagle artifact ability.</React.Fragment>,
+    changes: 'Added a module for Fury of the Eagle artifact ability.',
     contributors: [Putro],
   },
   {
@@ -77,7 +77,7 @@ export default [
   },
   {
     date: new Date('2018-02-12'),
-    changes: <React.Fragment>Added support for the most prominent traits into the listbox Aspect of the Skylord, Eagles Bite, Echoes of Ohnara, Talon Bond and Talon Strike traits.</React.Fragment>,
+    changes: 'Added support for the most prominent traits into the listbox Aspect of the Skylord, Eagles Bite, Echoes of Ohnara, Talon Bond and Talon Strike traits.',
     contributors: [Putro],
   },
   {
@@ -92,7 +92,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <React.Fragment>Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells. </React.Fragment>,
+    changes: 'Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells.',
     contributors: [Putro],
   },
   {
@@ -102,12 +102,12 @@ export default [
   },
   {
     date: new Date('2018-02-02'),
-    changes: <React.Fragment>Added support for Butchers Bone Apron, Frizzos Fingertrap, Helbrine, Rope of the Mist Marauder, Nesingwary's Trapping Treads, Unseen Predators Cloak.</React.Fragment>,
+    changes: 'Added support for Butchers Bone Apron, Frizzos Fingertrap, Helbrine, Rope of the Mist Marauder, Nesingwary\'s Trapping Treads, Unseen Predators Cloak.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-01-31'),
-    changes: <React.Fragment>Added a module for tracking Way of the Mok'Nathal. </React.Fragment>,
+    changes: 'Added a module for tracking Way of the Mok\'Nathal.',
     contributors: [Putro],
   },
   {
@@ -122,7 +122,7 @@ export default [
   },
   {
     date: new Date('2018-01-18'),
-    changes: <React.Fragment>Added support for Tier 20 2p, tier 20 4p, tier 21 2p and tier 21 4p.</React.Fragment>,
+    changes: 'Added support for Tier 20 2p, tier 20 4p, tier 21 2p and tier 21 4p',
     contributors: [Putro],
   },
   {

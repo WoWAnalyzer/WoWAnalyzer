@@ -31,12 +31,12 @@ export default [
   },
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Adds an additional statistic module for Parsel's Tongue to better showcase the uptime of 4 stacks, and also updates the average refresh of Dire Frenzy to be more accurate.</React.Fragment>,
+    changes: 'Adds an additional statistic module for Parsel\'s Tongue to better showcase the uptime of 4 stacks, and also updates the average refresh of Dire Frenzy to be more accurate.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Updated Parsel's Tongue and Dire Frenzy to include average time between refreshing, and some other minor wording changes. </React.Fragment>,
+    changes: 'Updated Parsel\'s Tongue and Dire Frenzy to include average time between refreshing, and some other minor wording changes.',
     contributors: [Putro],
   },
   {
@@ -51,7 +51,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <React.Fragment>Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells. </React.Fragment>,
+    changes: 'Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells.',
     contributors: [Putro],
   },
   {

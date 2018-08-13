@@ -24,17 +24,17 @@ export default [
   },
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Fixes A Murder of Crows to properly calculate the boss health.</React.Fragment>,
+    changes: 'Fixes A Murder of Crows to properly calculate the boss health.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-03-22'),
-    changes: <React.Fragment>Fixed Sentinel module after Blizzard fixed the bugs with the spell. </React.Fragment>,
+    changes: 'Fixed Sentinel module after Blizzard fixed the bugs with the spell.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-03-01'),
-    changes: <React.Fragment>Added a Marking Targets and Hunter's Mark module. Also updated handling for Zevrim's Hunger.</React.Fragment>,
+    changes: 'Added a Marking Targets and Hunter\'s Mark module. Also updated handling for Zevrim\'s Hunger.',
     contributors: [Putro],
   },
   {
@@ -49,7 +49,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <React.Fragment>Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells. </React.Fragment>,
+    changes: 'Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells.',
     contributors: [Putro],
   },
   {
@@ -59,7 +59,7 @@ export default [
   },
   {
     date: new Date('2018-01-05'),
-    changes: <React.Fragment>Added support for Sentinel, and included the current bugged ticks of Sentinel.</React.Fragment>,
+    changes: 'Added support for Sentinel, and included the current bugged ticks of Sentinel.',
     contributors: [Putro],
   },
   {
@@ -124,7 +124,7 @@ export default [
   },
   {
     date: new Date('2017-11-12'),
-    changes: <React.Fragment>Added a suggestion for execute trueshots and a A Murder of Crows suggestion when boss has between 25 and 20% hp, so the player can better utilise Bullseye artifact trait.</React.Fragment>,
+    changes: 'Added a suggestion for execute trueshots and a A Murder of Crows suggestion when boss has between 25 and 20% hp, so the player can better utilise Bullseye artifact trait.',
     contributors: [Putro],
   },
   {
@@ -149,17 +149,17 @@ export default [
   },
   {
     date: new Date('2017-10-25'),
-    changes: <React.Fragment>Updated True Aim to include damage contributed information.</React.Fragment>,
+    changes: 'Updated True Aim to include damage contributed information.',
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-25'),
-    changes: <React.Fragment> Adjust Tier 20 2p to account for nerfs.</React.Fragment>,
+    changes: 'Adjust Tier 20 2p to account for nerfs.',
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <React.Fragment>Updated suggestions overall, added avatar, removed Cyclonic Burst impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency.</React.Fragment>,
+    changes: 'Updated suggestions overall, added avatar, removed Cyclonic Burst impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency.',
     contributors: [Putro],
   },
   {
@@ -169,12 +169,12 @@ export default [
   },
   {
     date: new Date('2017-10-22'),
-    changes: <React.Fragment>Added Tier 20 2p dmg increase breakdown.</React.Fragment>,
+    changes: 'Added Tier 20 2p dmg increase breakdown.',
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <React.Fragment>Added Soul of the Huntmaster, MKII Gyroscopic Stabilizer and War Belt of the Sentinel Army support.</React.Fragment>,
+    changes: 'Added Soul of the Huntmaster, MKII Gyroscopic Stabilizer and War Belt of the Sentinel Army support.',
     contributors: [Putro],
   },
   {
@@ -194,12 +194,12 @@ export default [
   },
   {
     date: new Date('2017-10-16'),
-    changes: <React.Fragment> Added Tier 19 2p support.</React.Fragment>,
+    changes: 'Added Tier 19 2p support.',
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-14'),
-    changes: <React.Fragment>Added Patient Sniper tracking.</React.Fragment>,
+    changes: 'Added Patient Sniper tracking.',
     contributors: [Putro],
   },
   {
@@ -214,7 +214,7 @@ export default [
   },
   {
     date: new Date('2017-10-05'),
-    changes: <React.Fragment> remove Cyclonic burst from Cooldown view.</React.Fragment>,
+    changes: 'Removed Cyclonic burst from Cooldown view.',
     contributors: [Putro],
   },
   {
@@ -229,12 +229,12 @@ export default [
   },
   {
     date: new Date('2017-10-03'),
-    changes: <React.Fragment>Added Tier 20 2p and Tier 20 4p support.</React.Fragment>,
+    changes: 'Added Tier 20 2p and Tier 20 4p support.',
     contributors: [Putro],
   },
   {
     date: new Date('02-10-2017'),
-    changes: <React.Fragment> Added Bullseye buff to hunter_spells for future usage.</React.Fragment>,
+    changes: 'Added Bullseye buff to hunter_spells for future usage.',
     contributors: [Putro],
   },
   {
@@ -244,7 +244,7 @@ export default [
   },
   {
     date: new Date('2017-10-02'),
-    changes: <React.Fragment>Added suggestions to Windburst and A Murder of Crows under CastEfficiency.</React.Fragment>,
+    changes: 'Added suggestions to Windburst and A Murder of Crows under CastEfficiency.',
     contributors: [Putro],
   },
   {
@@ -259,7 +259,7 @@ export default [
   },
   {
     date: new Date('2017-09-26'),
-    changes: <React.Fragment>Fixed Cooldown to not include Windburst buff.</React.Fragment>,
+    changes: 'Fixed Cooldown to not include Windburst buff.',
     contributors: [Putro],
   },
   {
