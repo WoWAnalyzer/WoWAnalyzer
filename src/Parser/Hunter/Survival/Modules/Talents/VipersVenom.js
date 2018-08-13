@@ -8,7 +8,6 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import ITEMS from 'common/ITEMS/HUNTER';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
@@ -35,7 +34,7 @@ class VipersVenom extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

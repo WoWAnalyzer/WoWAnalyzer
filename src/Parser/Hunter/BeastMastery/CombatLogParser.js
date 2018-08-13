@@ -9,24 +9,6 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 
-//Items
-import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
-import QaplaEredunWarOrder from "./Modules/Items/QaplaEredunWarOrder";
-import Tier19_2p from './Modules/Items/Tier19_2p.js';
-import Tier20_2p from "./Modules/Items/Tier20_2p";
-import Tier20_4p from "./Modules/Items/Tier20_4p";
-import Tier21_2p from './Modules/Items/Tier21_2p';
-import Tier21_4p from './Modules/Items/Tier21_4p';
-import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
-import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
-import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
-import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
-import ParselsTongue from './Modules/Items/ParselsTongue';
-import TheMantleOfCommand from './Modules/Items/TheMantleOfCommand';
-import RoarOfTheSevenLions from './Modules/Items/RoarOfTheSevenLions';
-import ZevrimsHunger from '../Shared/Modules/Items/ZevrimsHunger';
-import CelerityOfTheWindrunners from '../Shared/Modules/Items/CelerityOfTheWindrunners';
-import UnseenPredatorsCloak from '../Shared/Modules/Items/UnseenPredatorsCloak';
 //Talents
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
@@ -81,25 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
-
-    //Items
-    soulOfTheHuntmaster: SoulOfTheHuntmaster,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    theApexPredatorsClaw: TheApexPredatorsClaw,
-    callOfTheWild: CallOfTheWild,
-    rootsOfShaladrassil: RootsOfShaladrassil,
-    theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
-    parselsTongue: ParselsTongue,
-    theMantleOfCommand: TheMantleOfCommand,
-    roarOfTheSevenLions: RoarOfTheSevenLions,
-    zevrimsHunger: ZevrimsHunger,
-    celerityOfTheWindrunners: CelerityOfTheWindrunners,
-    unseenPredatorsCloak: UnseenPredatorsCloak,
-    tier19_2p: Tier19_2p,
-    tier20_2p: Tier20_2p,
-    tier20_4p: Tier20_4p,
-    tier21_2p: Tier21_2p,
-    tier21_4p: Tier21_4p,
 
     //Talents
     chimaeraShot: ChimaeraShot,

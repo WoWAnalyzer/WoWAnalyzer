@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -93,7 +92,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
-        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 120 - (120 * 0.35) : 120,
+        cooldown: 120,
         gcd: {
           base: 1300, //see here: https://www.wowhead.com/spell=193530/aspect-of-the-wild
         },
@@ -229,18 +228,13 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        cooldown: 180,
         gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: () => {
-          const hasPathfinder = combatant.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id];
-          const cooldownAfterPathFinder = hasPathfinder ? 120 : 180;
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
-          return cooldownAfterPathFinder * (1 - (hasCallOfTheWild ? 0.35 : 0));
-        },
+        cooldown: 180,
         gcd: null,
       },
       {
@@ -263,7 +257,6 @@ class Abilities extends CoreAbilities {
       /**
        * Racials until we find a better solution
        */
-
       {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

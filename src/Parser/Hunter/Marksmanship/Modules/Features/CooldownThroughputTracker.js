@@ -11,19 +11,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    {
-      spell: SPELLS.BULLSEYE_BUFF,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
   ];
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.WINDBURST_MOVEMENT_SPEED.id,
-    SPELLS.CYCLONIC_BURST_TRAIT.id,
-    SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
     SPELLS.BINDING_SHOT_STUN.id,
     SPELLS.BINDING_SHOT_TETHER.id,
   ];
