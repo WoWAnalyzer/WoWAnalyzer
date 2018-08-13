@@ -311,6 +311,12 @@ class StatTracker extends Analyzer {
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
     // endregion
+    // region World boss
+    278227: { // Barkspines
+      itemId: 161411, // T'zane's Barkspines active TODO: Make an analyzer
+      crit: (_, item) => calculateSecondaryStatDefault(355, 1160, item.itemLevel), // TODO: Verify stats and if it scales with this formula (might be trinket/jewerly scaling)
+    },
+    // endregion
     // region Dungeons
     [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
       itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,

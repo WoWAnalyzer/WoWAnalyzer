@@ -80,7 +80,8 @@ export default {
     vers: true,
   },
 
-  [SPELLS.RESOUNDING_PROTECTION_ABSORB.id]: {
+  // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3&type=summary
+  [SPELLS.RESOUNDING_PROTECTION_ABSORB.id]: { // General Azerite Power
     int: false,
     crit: false,
     hasteHpct: false,
@@ -119,6 +120,32 @@ export default {
     int: false,
     crit: true,
     hasteHpct: false,
+    hasteHpm: true,
+    mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3
+  [SPELLS.CONCENTRATED_MENDING.id]: { // Healing Azerite Power
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: true, // TODO: Re-evaluate, going on word of mouth and I have my doubts
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/cXnPABVbLjk68qyM#fight=6&type=healing&source=10
+  271682: { // Harmonious Chord - Lady Waycrest's Music Box (trinket)
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    hasteHpm: false,
+    mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/cXnPABVbLjk68qyM#fight=6&type=healing&source=10&ability=267537&view=events
+  267537: { // Coastal Surge (Weapon enchant)
+    int: false,
+    crit: true,
+    hasteHpct: false, // TODO: Verify
     hasteHpm: true,
     mastery: false,
     vers: true,

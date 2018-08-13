@@ -271,6 +271,21 @@ export default {
     name: 'Devotion Aura',
     icon: 'spell_holy_devotionaura',
   },
+  AVENGING_CRUSADER_TALENT: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
+  AVENGING_CRUSADER_HEAL_NORMAL: {
+    id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
+  AVENGING_CRUSADER_HEAL_CRIT: {
+    id: 281465,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
@@ -326,21 +341,6 @@ export default {
     id: 31884,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
-  },
-  AVENGING_CRUSADER_TALENT: {
-    id: 216331,
-    name: 'Avenging Crusader',
-    icon: 'ability_paladin_veneration',
-  },
-  AVENGING_CRUSADER_HEAL_NORMAL: {
-    id: 216371,
-    name: 'Avenging Crusader',
-    icon: 'spell_holy_restoration',
-  },
-  AVENGING_CRUSADER_HEAL_CRIT: {
-    id: 281465,
-    name: 'Avenging Crusader',
-    icon: 'spell_holy_restoration',
   },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
