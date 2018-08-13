@@ -4,7 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 // Chi
 import ChiDetails from './Modules/Chi/ChiDetails';
 import ChiTracker from './Modules/Chi/ChiTracker';

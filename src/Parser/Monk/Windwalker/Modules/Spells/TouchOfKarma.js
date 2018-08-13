@@ -18,7 +18,7 @@ class TouchOfKarma extends Analyzer {
     if (SPELLS.TOUCH_OF_KARMA_CAST.id !== spellId){
       return;
     }
-    this.totalPossibleAbsorb += event.maxHitPoints * 0.5;
+    this.totalPossibleAbsorb += event.maxHitPoints * (this.selectedCombatant.hasTalent(SPELLS.GOOD_KARMA_TALENT.id) ? 1 : 0.5);
   }
 
   get suggestionThresholds() {
