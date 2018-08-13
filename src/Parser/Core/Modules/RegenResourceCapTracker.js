@@ -122,6 +122,9 @@ const verboseDebug = false;
 
   // Total resources lost from natural regeneration (ONLY natural regeneration) due to being capped
   missedRegen = 0;
+
+  // Total resources generated from natural regeneration, includes wasted resources.
+  naturalRegen = 0;
   
   regenState = null;
   prevSpender = null;
@@ -446,7 +449,8 @@ const verboseDebug = false;
     if (oldState) {
       const durationCapped = this.timeCappedBetweenStates(oldState, newState);
       this.atCap += durationCapped;
-      this.missedRegen += durationCapped * oldState.regen;
+      this.missedRegen += durationCapped * oldState.regen;      
+      this.naturalRegen += (newState.timestamp - oldState.timestamp) * oldState.regen;
     }
     if (newState.amount < newState.max) {
       this.onBelowCap(newState.timestamp);

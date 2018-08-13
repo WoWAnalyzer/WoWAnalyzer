@@ -15,6 +15,18 @@ class ComboPoints extends Analyzer {
   makeExtraSuggestion(spell) {
     return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </React.Fragment>;
   }
+  
+  get comboPointThresholds() {
+    return {
+      actual: this.comboPointTracker.wasted / this.comboPointTracker.generated,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: 'percentage',
+    };
+  }
 
   suggestions(when) {
     resourceSuggest(when, this.comboPointTracker, {

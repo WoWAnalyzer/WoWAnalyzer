@@ -6,11 +6,26 @@ import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
 
 import EnergyTracker from '../../../Common/Resources/EnergyTracker';
+import EnergyCapTracker from '../../../Common/Resources/EnergyCapTracker';
 
 class Energy extends Analyzer {
   static dependencies = {
     energyTracker: EnergyTracker,
+    energyCapTracker: EnergyCapTracker,
   };
+  
+
+  get energyThresholds() {
+    return {
+      actual: (this.energyTracker.wasted+this.energyCapTracker.missedRegen) / (this.energyTracker.generated+this.energyCapTracker.naturalRegen),
+      isGreaterThan: {
+        minor: 0.033,
+        average: 0.066,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
   
   suggestions(when) {
     resourceSuggest(when, this.energyTracker, {
