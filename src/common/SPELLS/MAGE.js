@@ -173,11 +173,6 @@ export default {
     name: 'Ring of Frost',
     icon: 'spell_frost_ringoffrost',
   },
-  ICE_TIME_FROST_NOVA: { // proc from Ice Time, which is called "Frost Nova" for some reason
-    id: 235235,
-    name: 'Frost Nova',
-    icon: 'spell_frost_frostnova',
-  },
   FREEZING_RAIN_BUFF: {
     id: 240555,
     name: 'Freezing Rain',
@@ -371,21 +366,6 @@ export default {
     name: 'Frozen Mass',
     icon: 'spell_frost_frozenorb',
   },
-  ZANNESU_JOURNEY_BUFF: {
-    id: 226852,
-    name: 'Zann\'esu Journey',
-    icon: 'inv_belt_71',
-  },
-  MAGTHERIDONS_MIGHT_BUFF: {
-    id: 214404,
-    name: 'Magtheridon\'s Might',
-    icon: 'inv_bracer_64v1',
-  },
-  RAGE_OF_THE_FROST_WYRM: {
-    id: 248177,
-    name: 'Rage of the Frost Wyrm',
-    icon: 'spell_frost_ice-shards',
-  },
   HEATING_UP: {
     id: 48107,
     name: 'Heating Up',
@@ -463,26 +443,6 @@ export default {
   },
 
   //Tier Sets
-  FROST_MAGE_T20_2SET_BONUS_BUFF: {
-    id: 242252,
-    name: 'T20 2 set bonus',
-    icon: 'spell_frost_frostbolt02',
-  },
-  FROST_MAGE_T20_4SET_BONUS_BUFF: {
-    id: 242254,
-    name: 'T20 4 set bonus',
-    icon: 'spell_frost_frostbolt02',
-  },
-  FROST_MAGE_T21_2SET_BONUS_BUFF: {
-    id: 251859,
-    name: 'T21 2 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
-  FROST_MAGE_T21_4SET_BONUS_BUFF: {
-    id: 251860,
-    name: 'T21 4 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,
     name: 'T20 2 set bonus',
