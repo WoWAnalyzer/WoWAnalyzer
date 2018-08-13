@@ -148,26 +148,57 @@ class FeralDruidChecklist extends React.PureComponent {
 
         {/* Manage your energy
           🗵 Don't cap energy
-          ☐ Don't waste energy from Tiger's Fury
+          🗵 Don't waste energy from Tiger's Fury
           ☐ Some kind of check for good pooling behaviour (having high energy when using a finisher is generally good, but would benefit from some research to quantify that effect.)
+
+          Switch out the whole rule section if we can detect that the player was in a situation where energy was abundant.
         */}
-        <Rule
-          name="Manage your energy"
-          description={(
-            <React.Fragment>
-              Your actions are usually limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration. But also don't always spend it as soon as you have enough for an attack. Pooling before using a cooldown or waiting for the best time to refresh a DoT is often beneficial.
-            </React.Fragment>
-          )}
-        >
-          <Requirement
-            name={(
+        {!thresholds.tigersFuryIgnoreEnergy && (
+          <Rule
+            name="Manage your energy"
+            description={(
               <React.Fragment>
-                Lost energy from being capped
+                Your actions are usually limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration, and avoid wasting generated energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using a finisher is often <dfn data-tip="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">beneficial</dfn>.
               </React.Fragment>
             )}
-            thresholds={thresholds.energyCapped}
-          />
-        </Rule>
+          >
+            <Requirement
+              name={(
+                <React.Fragment>
+                  Wasted natural regeneration from being capped
+                </React.Fragment>
+              )}
+              thresholds={thresholds.energyCapped}
+            />
+              <Requirement
+                name={(
+                  <React.Fragment>
+                    Wasted energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />
+                  </React.Fragment>
+                )}
+                thresholds={thresholds.tigersFuryEnergy}
+              />
+          </Rule>
+        )}
+        {thresholds.tigersFuryIgnoreEnergy && combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
+          <Rule
+            name="Manage your energy"
+            description={(
+              <React.Fragment>
+                Normally your actions are limited by available energy. In this fight you made good use of <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> to allow extra <SpellLink id={SPELLS.TIGERS_FURY.id} /> which makes the usual measures of energy management much less important.
+              </React.Fragment>
+            )}
+          >
+            <Requirement
+              name={(
+                <React.Fragment>
+                  Additional <SpellLink id={SPELLS.TIGERS_FURY.id} /> from <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> per minute
+                </React.Fragment>
+              )}
+              thresholds={thresholds.predatorWrongTalent}
+            />
+          </Rule>
+        )}
 
         {/*Use your cooldowns
           🗵 Cast efficiency of Berserk or Incarnation (depending on talent)
