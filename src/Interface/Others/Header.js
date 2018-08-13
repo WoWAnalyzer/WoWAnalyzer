@@ -76,6 +76,7 @@ class Header extends React.PureComponent {
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
                 {' '}| <a href="https://legion.wowanalyzer.com/">Legion analyzer</a>
+                {' '}| <a href="https://prepatch.wowanalyzer.com/">Prepatch analyzer</a>
                 {' '}| <Link to="/premium"><Trans>Premium</Trans></Link>
                 {' '}| <LanguageSwitcher />
               </div>
