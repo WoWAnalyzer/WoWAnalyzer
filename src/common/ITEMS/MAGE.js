@@ -84,36 +84,4 @@ export default {
     icon: 'inv_shoulder_robe_raidpriest_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
-  // Frost legendaries
-  LADY_VASHJS_GRASP: {
-    id: 132411,
-    name: 'Lady Vashj\'s Grasp',
-    icon: 'inv_cloth_raidpriest_q_01_glove',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  MAGTHERIDONS_BANISHED_BRACERS: {
-    id: 138140,
-    name: 'Magtheridon\'s Banished Bracers',
-    icon: 'inv_bracer_64v1',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ZANNESU_JOURNEY: {
-    id: 133970,
-    name: 'Zann\'esu Journey',
-    icon: 'inv_belt_71',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ICE_TIME: {
-    id: 144260,
-    name: 'Ice Time',
-    icon: 'inv_shoulder_110',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
-    id: 151810,
-    name: 'Shattered Fragments of Sindragosa',
-    icon: 'inv_helmet_133',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
 };

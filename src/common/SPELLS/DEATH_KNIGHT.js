@@ -145,7 +145,7 @@ export default {
   BLOOD_SHIELD: {
     id: 77535,
     name: 'Blood Shield',
-    icon: 'spell_deathknight_deathstrike',
+    icon: 'spell_deathknight_butcher2',
   },
 
   HEARTBREAKER: {
@@ -666,7 +666,7 @@ export default {
   CONSUMPTION_HEAL: {
     id: 205224,
     name: 'Consumption Heal',
-    icon: 'inv_axe_2h_artifactmaw_d_01',
+    icon: 'inv_axe_2h_artifactmaw_d_02',
   },
 
   ICEBOUND_FORTITUDE: {

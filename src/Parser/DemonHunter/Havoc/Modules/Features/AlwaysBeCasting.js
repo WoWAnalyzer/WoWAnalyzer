@@ -7,8 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
     return {
@@ -34,8 +32,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
     }
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

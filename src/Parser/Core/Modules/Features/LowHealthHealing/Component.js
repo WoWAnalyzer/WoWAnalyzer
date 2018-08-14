@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 

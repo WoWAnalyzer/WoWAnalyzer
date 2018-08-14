@@ -6,6 +6,7 @@
   "dependencies": {
     "@lingui/loader": "^2.4.0",
     "@lingui/react": "^2.4.0",
+    "babel-plugin-module-resolver": "^3.1.1",
     "chart.js": "^2.7.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -41,7 +42,11 @@
     "wowanalyzer-react-scripts": "1.1.15"
   },
   "devDependencies": {
-    "@lingui/cli": "2.4.0"
+    "@lingui/cli": "2.4.0",
+    "babel-cli": "^6.26.0",
+    "dotenv": "^6.0.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,8 +55,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "extract": "set NODE_ENV=development&&lingui extract",
-    "script": "set NODE_ENV=development&&babel-node --plugins transform-es2015-modules-commonjs"
+    "extract": "set NODE_ENV=development&&node --harmony scripts/localization/extract.js",
+    "script": "set NODE_ENV=development&&babel-node"
   },
   "babel": {
     "presets": [

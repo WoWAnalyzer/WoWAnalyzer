@@ -9,7 +9,10 @@ import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
+import SpellEnergyCost from './Modules/Features/SpellEnergyCost';
 import EnergyCapTracker from './Modules/Features/EnergyCapTracker';
+import EnergyTracker from './Modules/Features/EnergyTracker';
+import EnergyDetails from './Modules/Features/EnergyDetails';
 import Checklist from './Modules/Features/Checklist/Module';
 
 import RakeUptime from './Modules/Bleeds/RakeUptime';
@@ -32,6 +35,7 @@ import BrutalSlashHitCount from './Modules/Talents/BrutalSlashHitCount';
 import PredatorySwiftness from './Modules/Spells/PredatorySwiftness';
 import ThrashHitCount from './Modules/Spells/ThrashHitCount';
 import SwipeHitCount from './Modules/Spells/SwipeHitCount';
+import TigersFuryEnergy from './Modules/Spells/TigersFuryEnergy';
 
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -50,7 +54,10 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
+    spellEnergyCost: SpellEnergyCost,
     energyCapTracker: EnergyCapTracker,
+    energyTracker: EnergyTracker,
+    energyDetails: EnergyDetails,
     checklist: Checklist,
 
     // bleeds
@@ -64,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     predatorySwiftness: PredatorySwiftness,
     thrashHitCount: ThrashHitCount,
     swipeHitCount: SwipeHitCount,
+    tigersFuryEnergy: TigersFuryEnergy,
 
     // talents
     savageRoarUptime: SavageRoarUptime,

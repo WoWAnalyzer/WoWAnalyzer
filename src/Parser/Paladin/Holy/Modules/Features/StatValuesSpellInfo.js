@@ -121,4 +121,12 @@ export default {
     mastery: false,
     vers: true,
   },
+  // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3
+  [SPELLS.GRACE_OF_THE_JUSTICAR.id]: { // Holy Paladin Azerite Power
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
 };

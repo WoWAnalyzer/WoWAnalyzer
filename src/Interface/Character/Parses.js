@@ -15,7 +15,7 @@ import ArmoryLogo from 'Interface/Images/Armory-logo.png';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
-import SPECS from 'Game/SPECS';
+import SPECS from 'game/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';

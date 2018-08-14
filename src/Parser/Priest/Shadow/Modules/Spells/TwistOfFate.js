@@ -18,14 +18,13 @@ class TwistOfFate extends Analyzer {
     const uptime = this.selectedCombatant.getBuffUptime(SPELLS.TWIST_OF_FATE_BUFF.id) / this.owner.fightDuration;
     return (
       <SmallStatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_BUFF.id} />}
         value={`${formatPercentage(uptime)} %`}
         label="Twist of Fate uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default TwistOfFate;

@@ -3,10 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
-import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
-import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/PreparationRuleAnalyzer';
 
 import Component from './Component';
 import RakeUptime from '../../Bleeds/RakeUptime';
@@ -24,15 +21,13 @@ import PredatorySwiftness from '../../Spells/PredatorySwiftness';
 import Bloodtalons from '../../Talents/Bloodtalons';
 import Predator from '../../Talents/Predator';
 import BrutalSlashHitCount from '../../Talents/BrutalSlashHitCount';
+import TigersFuryEnergy from '../../Spells/TigersFuryEnergy';
 
 class Checklist extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    prePotion: PrePotion,
-    enchantChecker: EnchantChecker,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     rakeUptime: RakeUptime,
     moonfireUptime: MoonfireUptime,
@@ -49,6 +44,7 @@ class Checklist extends Analyzer {
     bloodtalons: Bloodtalons,
     predator: Predator,
     brutalSlashHitcount: BrutalSlashHitCount,
+    tigersFuryEnergy: TigersFuryEnergy,
   };
 
   render() {
@@ -57,6 +53,9 @@ class Checklist extends Analyzer {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
+          // be prepared
+          ...this.preparationRuleAnalyzer.thresholds,
+          
           // builders
           rakeUptime: this.rakeUptime.suggestionThresholds,
           moonfireUptime: this.moonfireUptime.suggestionThresholds,
@@ -72,6 +71,8 @@ class Checklist extends Analyzer {
           
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,
+          tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
+          tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
 
           // snapshot
           rakeDowngrade: this.rakeSnapshot.downgradeSuggestionThresholds,
@@ -86,35 +87,6 @@ class Checklist extends Analyzer {
           // talent selection
           predatorWrongTalent: this.predator.suggestionThresholds,
           brutalSlashWrongTalent: this.brutalSlashHitcount.wrongTalentThresholds,
-
-          // be prepared
-          legendariesEquipped: {
-            actual: this.legendaryCountChecker.equipped,
-            max: this.legendaryCountChecker.max,
-            isLessThan: this.legendaryCountChecker.max,
-            style: 'number',
-          },
-          legendariesUpgraded: {
-            actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-            max: this.legendaryCountChecker.max,
-            isLessThan: this.legendaryCountChecker.max,
-            style: 'number',
-          },
-          prePotion: this.prePotion.prePotionSuggestionThresholds,
-          secondPotion: this.prePotion.prePotionSuggestionThresholds,
-          itemsEnchanted: {
-            actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant,
-            max: this.enchantChecker.numEnchantableGear,
-            isLessThan: this.enchantChecker.numEnchantableGear,
-            style: 'number',
-          },
-          itemsBestEnchanted: {
-            // numSlotsMissingMaxEnchant doesn't include items without an enchant at all
-            actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
-            max: this.enchantChecker.numEnchantableGear,
-            isLessThan: this.enchantChecker.numEnchantableGear,
-            style: 'number',
-          },
         }}
       />
     );

@@ -42,23 +42,15 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.cast += 1;
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
+    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id || event.oldStacks < event.newStacks) {
+      // only interested in lost stacks of souls
       return;
     }
     if (event.timestamp - this.castTimestamp < MS_BUFFER) {
-      this.castSoulsConsumed += 1;
-    }
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
-      return;
-    }
-    if (event.timestamp - this.castTimestamp < MS_BUFFER) {
-      this.castSoulsConsumed += 1;
+      const soulsConsumed = event.oldStacks - event.newStacks;
+      this.castSoulsConsumed += soulsConsumed;
     }
   }
 
@@ -112,6 +104,7 @@ class SpiritBombSoulsConsume extends Analyzer {
   statistic() {
     return (
       <ExpandableStatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(this.percentGoodCasts)} %`}
         label="Good Spirit Bomb casts"
@@ -135,7 +128,6 @@ class SpiritBombSoulsConsume extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 
 }
 

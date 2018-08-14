@@ -1,7 +1,7 @@
 import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SPELLS from 'common/SPELLS';
-import GarothiWorldbreaker from 'Raids/AntorusTheBurningThrone/GarothiWorldbreaker';
+import GarothiWorldbreaker from 'raids/AntorusTheBurningThrone/GarothiWorldbreaker';
 
 /**
  * The issue with Garothi Worldbreaker is that he has two melee

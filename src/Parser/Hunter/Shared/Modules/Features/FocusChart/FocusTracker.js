@@ -1,7 +1,8 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Haste from 'Parser/Core/Modules/Haste';
 import SPELLS from 'common/SPELLS';
+import SPECS from 'game/SPECS';
 
 class FocusTracker extends Analyzer {
   static dependencies = {
@@ -122,11 +123,18 @@ class FocusTracker extends Analyzer {
   }
 
   extrapolateFocus(eventTimestamp) {
-    this.focusGen = 10 + .1 * (this.haste.current * 100);
+    if (this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
+      this.focusGen = 10;
+    } else if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
+      this.focusGen = 3;
+    } else {
+      this.focusGen = 5;
+    }
+    this.focusGen += .1 * (this.haste.current * 100);
     this.totalFocusGenModifier += this.focusGen * (eventTimestamp - this.lastEventTimestamp);
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
-    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) { //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) { //extrapolates focus given passive focus gain
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;
@@ -141,7 +149,6 @@ class FocusTracker extends Analyzer {
       if (maxFocus === this.focusBySecond[i]) {
         this.secondsCapped += 1 / 1000;
       }
-
     }
     this.lastEventTimestamp = eventTimestamp;
   }

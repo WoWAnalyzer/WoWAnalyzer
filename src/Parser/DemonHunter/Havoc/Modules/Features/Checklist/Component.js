@@ -40,8 +40,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.FEL_RUSH.id} />
-          {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />}
+          {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA_TALENT.id} />}
         </Rule>
 
         <Rule
@@ -54,7 +53,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           )}
         >
           {combatant.hasTalent(SPELLS.NEMESIS_TALENT.id) && <AbilityRequirement spell={SPELLS.NEMESIS_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.MOMENTUM_TALENT.id} />}
+          {/*Uptime of buff from Momentum (talent which gives +damage buff when Fel Rush is used) could be tracked here, or when using Momentum talent check that Fel Rush has high cast efficiency (currently tracked in the "Use your short cooldowns" section)*/}
         </Rule>
 
         <Rule

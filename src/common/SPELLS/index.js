@@ -12,8 +12,8 @@
  * use the named spell by default, this makes things much more readable.
  **************************************************************************************************************** */
 
-import indexById from '../indexById';
-import safeMerge from '../safeMerge';
+import indexById from 'common/indexById';
+import safeMerge from 'common/safeMerge';
 
 import OTHERS from './OTHERS';
 import RACIALS from './RACIALS';

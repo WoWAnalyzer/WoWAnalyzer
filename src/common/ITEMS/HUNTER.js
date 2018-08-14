@@ -1,5 +1,6 @@
 import ITEM_QUALITIES from '../ITEM_QUALITIES';
 
+//TODO - Repopulate with BFA items or just delete file?
 export default {
   // Shared legendaries
   THE_SHADOW_HUNTERS_VOODOO_MASK: {

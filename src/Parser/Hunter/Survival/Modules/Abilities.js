@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -57,6 +56,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COORDINATED_ASSAULT,
+        buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -69,6 +69,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
+        buffSpellId: SPELLS.MONGOOSE_FURY.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
@@ -145,9 +146,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 90 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 90 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -155,9 +155,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
@@ -165,27 +164,30 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: () => {
-          const hasCallOfTheWild = combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasCallOfTheWild ? 0.35 : 0)) * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
         },
         gcd: null,
       },
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 180,
         gcd: null,
       },
       {
         spell: SPELLS.PRIMAL_RAGE,
+        buffSpellId: SPELLS.PRIMAL_RAGE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,
@@ -228,7 +230,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -266,18 +268,6 @@ class Abilities extends CoreAbilities {
       /**
        * Racials until we find a better solution
        */
-      {
-        spell: SPELLS.ARCANE_TORRENT_FOCUS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
       {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

@@ -11,6 +11,7 @@ import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
 import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
 import Energy from './Modules/RogueCore/Energy';
+import SpellEnergyCost from '../Common/Resources/SpellEnergyCost';
 
 import RestlessBlades from './Modules/RogueCore/RestlessBlades';
 import SliceAndDiceUptime from './Modules/Spells/SliceAndDiceUptime';
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    spellEnergyCost: SpellEnergyCost,
 
     //Core
     sliceAndDiceUptime: SliceAndDiceUptime,

@@ -60,6 +60,7 @@ class DemonSpikes extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${this.mitigatedUptime}%`}
         label="Hits mitigated by Demon Spikes"
@@ -73,7 +74,6 @@ class DemonSpikes extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default DemonSpikes;

@@ -83,6 +83,7 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   showStatistic = true;
+  position = STATISTIC_ORDER.CORE(10);
   static icons = {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
@@ -98,7 +99,7 @@ class AlwaysBeCasting extends Analyzer {
 
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE(10)}
+        position={this.position}
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
         label="Downtime"

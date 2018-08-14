@@ -7,6 +7,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/KQjC6mh74wDBV2Zp#fight=17&type=damage-done&source=21&translate=true
  */
 
 class Stampede extends Analyzer {

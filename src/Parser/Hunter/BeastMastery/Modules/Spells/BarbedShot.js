@@ -10,12 +10,13 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
- * Dire Frenzy
- * Causes your pet to enter a frenzy, performing a flurry of 5 attacks on the target,
- * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
+ * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
+ * Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/qP3Vn4rXp6ytHxzd#fight=18&type=damage-done
  */
 
-//max stacks pet can have of the Frenzy buff
+//max stacks your pet can have of the Frenzy buff
 const MAX_FRENZY_STACKS = 3;
 
 const FRENZY_DURATION = 8000;
@@ -180,6 +181,7 @@ class BarbedShot extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(17)}
         icon={<SpellIcon id={SPELLS.BARBED_SHOT.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)}%`}
         label="3 stack uptime"
@@ -194,7 +196,6 @@ class BarbedShot extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   subStatistic() {
     return (

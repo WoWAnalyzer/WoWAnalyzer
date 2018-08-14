@@ -7,9 +7,9 @@ class SpellManaCost extends CoreSpellManaCost {
     combatants: Combatants,
   };
 
-  getManaCost(event) {
+  getResourceCost(event) {
     const spellId = event.ability.guid;
-    const cost = super.getManaCost(event);
+    const cost = super.getResourceCost(event);
     if (spellId !== SPELLS.HOLY_SHOCK_CAST.id && spellId !== SPELLS.LIGHT_OF_DAWN_CAST.id) {
       return cost;
     }

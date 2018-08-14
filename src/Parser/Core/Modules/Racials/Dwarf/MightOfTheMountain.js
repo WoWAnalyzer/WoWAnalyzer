@@ -2,14 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import RACES from 'Game/RACES';
+import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
-import ROLES from 'Game/ROLES';
+import ROLES from 'game/ROLES';
 
 export const CRIT_EFFECT = 0.02;
 

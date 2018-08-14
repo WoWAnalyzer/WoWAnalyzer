@@ -3,10 +3,18 @@ import React from 'react';
 import { Putro } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2018-08-12'),
+    changes: 'Removed all legendaries and tier gear in preparation for Battle for Azeroth launch',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-08-06'),
+    changes: 'Fixed a crash in Frizzo\'s Fingertrap, adds buff indicators to relevant spells in the timeline, adjusted placement of statistic boxes and added example logs to everything BFA related.',
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-07-30'),
     changes: <React.Fragment>Updates GCD for <SpellLink id={SPELLS.HARPOON.id} /> and updates cast efficiency for a few spells. Adds a <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> module into the tooltip for <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />.</React.Fragment>,
@@ -49,17 +57,17 @@ export default [
   },
   {
     date: new Date('2018-04-05'),
-    changes: <React.Fragment>Added tracking for <SpellLink id={SPELLS.ON_THE_TRAIL_DAMAGE.id} icon /> and Lacerate to help identify when you're casting this too much. Added additional refreshing information into Way of the Mok'Nathal module, aswell as average time remaining on <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> upon using <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon /> and other minor behind the scenes updates. </React.Fragment>,
+    changes: <React.Fragment>Added tracking for On The Trail and Lacerate to help identify when you're casting this too much. Added additional refreshing information into Way of the Mok'Nathal module, aswell as average time remaining on <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> upon using Fury of the Eagle and other minor behind the scenes updates. </React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-02-20'),
-    changes: <React.Fragment>Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for Caltrops.</React.Fragment>,
+    changes: 'Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for Caltrops.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-02-14'),
-    changes: <React.Fragment>Added a module for <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} />.</React.Fragment>,
+    changes: 'Added a module for Fury of the Eagle artifact ability.',
     contributors: [Putro],
   },
   {
@@ -69,7 +77,7 @@ export default [
   },
   {
     date: new Date('2018-02-12'),
-    changes: <React.Fragment>Added support for the most prominent traits into the listbox <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} />, <SpellLink id={SPELLS.EAGLES_BITE_TRAIT.id} />, <SpellLink id={SPELLS.ECHOES_OF_OHNARA_TRAIT.id} />, <SpellLink id={SPELLS.TALON_BOND_TRAIT.id} />, <SpellLink id={SPELLS.TALON_STRIKE_TRAIT.id} />. </React.Fragment>,
+    changes: 'Added support for the most prominent traits into the listbox Aspect of the Skylord, Eagles Bite, Echoes of Ohnara, Talon Bond and Talon Strike traits.',
     contributors: [Putro],
   },
   {
@@ -84,7 +92,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <React.Fragment>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /> module, to show cooldown reduction on the various affected spells. </React.Fragment>,
+    changes: 'Added additional information to the Call of the Wild module, to show cooldown reduction on the various affected spells.',
     contributors: [Putro],
   },
   {
@@ -94,12 +102,12 @@ export default [
   },
   {
     date: new Date('2018-02-02'),
-    changes: <React.Fragment>Added support for <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} />, <ItemLink id={ITEMS.FRIZZOS_FINGERTRAP.id} />, <ItemLink id={ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id} />, <ItemLink id={ITEMS.NESINGWARYS_TRAPPING_TREADS.id} />, <ItemLink id={ITEMS.UNSEEN_PREDATORS_CLOAK.id} />.</React.Fragment>,
+    changes: 'Added support for Butchers Bone Apron, Frizzos Fingertrap, Helbrine, Rope of the Mist Marauder, Nesingwary\'s Trapping Treads, Unseen Predators Cloak.',
     contributors: [Putro],
   },
   {
     date: new Date('2018-01-31'),
-    changes: <React.Fragment>Added a module for tracking Way of the Mok'Nathal. </React.Fragment>,
+    changes: 'Added a module for tracking Way of the Mok\'Nathal.',
     contributors: [Putro],
   },
   {
@@ -114,7 +122,7 @@ export default [
   },
   {
     date: new Date('2018-01-18'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.HUNTER_SV_T20_2P_BONUS.id} />, <SpellLink id={SPELLS.HUNTER_SV_T20_4P_BONUS.id} />, <SpellLink id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} />, <SpellLink id={SPELLS.HUNTER_SV_T21_4P_BONUS.id} />.</React.Fragment>,
+    changes: 'Added support for Tier 20 2p, tier 20 4p, tier 21 2p and tier 21 4p',
     contributors: [Putro],
   },
   {

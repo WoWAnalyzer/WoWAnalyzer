@@ -16,10 +16,11 @@ import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import ITEMS from 'common/ITEMS/HUNTER';
 import ItemLink from 'common/ItemLink';
 import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'Game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 //Talents
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
@@ -28,15 +29,6 @@ import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectO
 
 //Spells
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
-//Items
-import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
-import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
-import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
-import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
-import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
-import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
-import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -60,14 +52,6 @@ class Checklist extends CoreChecklist {
     //Spells
     direFrenzy: BarbedShot,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
-
-    //Legendaries
-    parselsTongue: ParselsTongue,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    theMantleOfCommand: TheMantleOfCommand,
-    soulOfTheHuntmaster: SoulOfTheHuntmaster,
-    roarOfTheSevenLions: RoarOfTheSevenLions,
-    callOfTheWild: CallOfTheWild,
   };
 
   rules = [

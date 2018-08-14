@@ -14,6 +14,9 @@ const verboseDebug = false;
  * It is an 'abstract' class, so should be extended and provided with settings for the resource
  * being tracked by your spec. Search for "IMPLEMENTME" for what should be set up.
  * 
+ * Reductions in spell costs should be handled by implementing Parser/Core/Modules/SpellResourceCost
+ * for the relevant resource.
+ * 
  * If your derived class shares event handlers remember to call the original, e.g.
  * on_byPlayer_cast(event) {
  *  super.on_byPlayer_cast(event);
@@ -54,7 +57,7 @@ const verboseDebug = false;
 
   // -- Start of IMPLEMENTME statics
 
-  // One of Game/RESOURCE_TYPES
+  // One of game/RESOURCE_TYPES
   static resourceType;
   
   // Resource's base regeneration rate in points per second (e.g. 10 for Energy)
@@ -119,6 +122,9 @@ const verboseDebug = false;
 
   // Total resources lost from natural regeneration (ONLY natural regeneration) due to being capped
   missedRegen = 0;
+
+  // Total resources generated from natural regeneration, includes wasted resources.
+  naturalRegen = 0;
   
   regenState = null;
   prevSpender = null;
@@ -166,17 +172,6 @@ const verboseDebug = false;
       regen: this.naturalRegenRate(),
       timestamp: this.owner.fight.start_time,
     };
-  }
-
-  /**
-   * IMPLEMENTME
-   * Some specs have ability cost reductions that aren't already shown in the events, which should
-   * be implemented here.
-   * @param   {object}  event A cast event coming from the player.
-   * @returns {number}  Cost of ability cast after any reductions are applied.
-   */
-  getReducedCost(event) {
-    return this.getResource(event).cost;
   }
 
   /**
@@ -255,6 +250,18 @@ const verboseDebug = false;
   }
 
   /**
+   * Fetches the cost of a cast event. Using its resourceCost property (added by SpellResourceCost)
+   * if it's available or the resource cost given by the combat log if not.
+   * @param {object} event A cast event object with a resource cost associated with it.
+   */
+  getCost(event) {
+    if (event.resourceCost[this.constructor.resourceType.id]) {
+      return event.resourceCost[this.constructor.resourceType.id];
+    }
+    return this.getResource(event).cost;
+  }
+
+  /**
    * A variation of this.selectedCombatant.hasBuff that excludes any buffs which were removed on the timestamp.
    * @param {number} buffId ID of buff or debuff to check for on the current combatant.
    * @param {number} timestamp Time to check, or null to use current timestamp. Cannot be a future timestamp.
@@ -313,7 +320,7 @@ const verboseDebug = false;
     if (!eventResource) {
       return;
     }
-    const cost = this.getReducedCost(event);
+    const cost = this.getCost(event);
     if (!cost) {
       // only interested in cast events that spend resource
       return;
@@ -442,7 +449,8 @@ const verboseDebug = false;
     if (oldState) {
       const durationCapped = this.timeCappedBetweenStates(oldState, newState);
       this.atCap += durationCapped;
-      this.missedRegen += durationCapped * oldState.regen;
+      this.missedRegen += durationCapped * oldState.regen;      
+      this.naturalRegen += (newState.timestamp - oldState.timestamp) * oldState.regen;
     }
     if (newState.amount < newState.max) {
       this.onBelowCap(newState.timestamp);

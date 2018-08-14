@@ -31,32 +31,43 @@ class FindWeakness extends Analyzer {
     }
   }
 
-  handleVanish(event) {
-    const entities = this.enemies.getEntities();
-    const hasDebuff = Object.values(entities)
-      .some(enemy => enemy.getBuff(SPELLS.FIND_WEAKNESS_TALENT.Id, { sourceId: this.selectedCombatant.Id } ));
-
-    if(hasDebuff) {
-      this.badVanishCasts++;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `Use Vanish only when Find Weakness is not up.`;
+  latestTs = 0;
+  on_byPlayer_refreshdebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.FIND_WEAKNESS_BUFF.id) {
+      this.latestTs = event.timestamp;
     }
   }
 
-  get suggestionThresholds() {
+  handleVanish(event) {
+    const entities = this.enemies.getEntities();
+    const hasDebuff = Object.values(entities)
+    .filter(enemy => enemy.hasBuff(SPELLS.FIND_WEAKNESS_BUFF.id))
+    .map(enemy => enemy.getBuff(SPELLS.FIND_WEAKNESS_BUFF.id).timestamp);
+
+    //For now does not support target switching, just makes sure that enough time has passed since the last application
+    if(Math.max(...hasDebuff, this.latestTs) > event.timestamp - 8000) {
+      this.badVanishCasts++;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `Use Vanish only when Find Weakness is not up or is about to run out.`;
+    }
+  }
+
+  get vanishThresholds() {
     return {
       actual: this.badVanishCasts,
       isGreaterThan: {
         minor: 0,
         average: 0,
+        major: 0,
       },
       style: 'number',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
+    when(this.vanishThresholds)
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </React.Fragment>)
         .icon(SPELLS.VANISH.icon)

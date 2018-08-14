@@ -2,6 +2,16 @@ import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-10'),
+    changes: 'Added Check to see if the player went OOM during Arcane Power.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2018-08-09'),
+    changes: 'Added Checklist ',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-08-02'),
     changes: 'Removed Arcane Missiles module as it is no longer relevant. Also fixed Arcane Charge event order. ',
     contributors: [Sharrq],

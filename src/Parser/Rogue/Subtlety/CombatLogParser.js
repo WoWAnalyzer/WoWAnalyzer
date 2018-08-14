@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import ComboPointDetails from '../Common/Resources/ComboPointDetails';
 import ComboPointTracker from '../Common/Resources/ComboPointTracker';
@@ -15,9 +16,15 @@ import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
 import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
 import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
+import SpellEnergyCost from '../Common/Resources/SpellEnergyCost';
 
+import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
+import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
+import NightbladeUptime from './Modules/BaseRotation/NightbladeUptime';
+import CastsInStealth from './Modules/BaseRotation/CastsInStealth';
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
+import DeepeningShadows from './Modules/RogueCore/DeepeningShadows';
 import ComboPoints from './Modules/RogueCore/ComboPoints';
 import Energy from './Modules/RogueCore/Energy';
 import SymbolsDamageTracker from './Modules/RogueCore/SymbolsDamageTracker';
@@ -25,11 +32,7 @@ import DanceDamageTracker from './Modules/RogueCore/DanceDamageTracker';
 import DarkShadowNightblade from './Modules/Talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from "./Modules/Talents/DarkShadow/DarkShadowContribution";
 import FindWeakness from "./Modules/Talents/FindWeakness";
-import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
-import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
-import CastsInStealth from './Modules/BaseRotation/CastsInStealth';
 import T21_2P from './Modules/Items/T21_2P';
-import DeepeningShadows from './Modules/RogueCore/DeepeningShadows';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
 import ShadowSatyrsWalk from './Modules/Legendaries/ShadowSatyrsWalk';
@@ -41,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
+    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
 
     //Resource
@@ -51,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    spellEnergyCost: SpellEnergyCost,
 
     //Trackers
     symbolsDamageTracker: SymbolsDamageTracker,
@@ -77,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
     symbolsOfDeathUptime:  SymbolsOfDeathUptime,
     shadowBladesUptime : ShadowBladesUptime,
+    nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,

@@ -66,7 +66,7 @@ class CastsInStealthBase extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percent',
+      style: 'percentage',
     };
   }
 
