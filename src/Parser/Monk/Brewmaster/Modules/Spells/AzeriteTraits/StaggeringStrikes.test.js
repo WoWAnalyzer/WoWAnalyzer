@@ -3,20 +3,6 @@ import TestCombatLogParser from 'tests/TestCombatLogParser';
 import StaggeringStrikes from './StaggeringStrikes';
 import StaggerFabricator from '../../Core/StaggerFabricator';
 
-class FabMock {
-  constructor(initialStagger) {
-    this.initialStagger = initialStagger;
-    this.stagger = initialStagger;
-  }
-
-  removeStagger(_event, amount) {
-    this.stagger -= amount;
-    const overheal = (this.stagger < 0) ? this.stagger : 0;
-    this.stagger = Math.max(this.stagger, 0);
-    return amount + overheal;
-  }
-}
-
 const PLAYER = 1;
 const ENEMY = 2;
 const INITIAL_STAGGER = 25000;

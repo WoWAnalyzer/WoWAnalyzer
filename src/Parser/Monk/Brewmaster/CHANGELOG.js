@@ -10,7 +10,7 @@ export default [
   {
     date: new Date('2018-08-11'),
     changes: <React.Fragment>Added support for <SpellLink id={SPELLS.STAGGERING_STRIKES.id} />.</React.Fragment>,
-    contriubtors: [emallson],
+    contributors: [emallson],
   },
   {
     date: new Date('2018-07-22'),
