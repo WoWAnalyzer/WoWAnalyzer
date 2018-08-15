@@ -30,19 +30,35 @@ class FeedingFrenzy extends Analyzer {
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id);
+    if(!this.active){
+      return;
+    }
     this.extraDamagePerTick = feedingFrenzyDamage(this.selectedCombatant.traitsBySpellId[SPELLS.FEEDING_FRENZY.id]).damage;
+  }
+
+  extra_BS_uptime(timestamp, lastCast){
+    const delta = timestamp - lastCast;
+    if(delta > (8 * MS)){
+      const ret = Math.min(delta - (8 * MS), MS);
+      return ret;
+    } else {
+      return 0;
+    }
   }
 
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.BARBED_SHOT.id){
       if(this.lastBSCast !== null) {
-        const delta = event.timestamp - this.lastBSCast;
-        if (delta > (8 * MS) && delta < (9 * MS)){
-          this.extraBuffUptime += (9 * MS) - delta;
-        }
+        this.extraBuffUptime += this.extra_BS_uptime(event.timestamp, this.lastBSCast);
       }
       this.lastBSCast = event.timestamp;
+    }
+  }
+
+  on_finished(){
+    if(this.lastBSCast !== null){
+      this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
     }
   }
 
