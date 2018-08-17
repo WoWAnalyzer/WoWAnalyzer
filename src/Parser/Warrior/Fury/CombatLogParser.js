@@ -19,8 +19,6 @@ import FuriousSlashUptime from './Modules/Talents/FuriousSlashUptime';
 import T21_2set from './Modules/Items/T21_2set';
 import T21_4set from './Modules/Items/T21_4set';
 
-import PrePotion from './Modules/Items/PrePotion';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, {showStatistic: true}],
@@ -44,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t21_4set: T21_4set,
 
     // Overrides default PrePotion
-    prePotion: PrePotion,
+    //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with Parser/Core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
   };
 }
 
