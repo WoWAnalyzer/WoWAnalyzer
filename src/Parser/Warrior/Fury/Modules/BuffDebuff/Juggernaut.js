@@ -12,12 +12,12 @@ class JuggernautReset extends Analyzer {
   resets = 0;
   stacksDropped = 0;
   stacksMax = 0;
-  
+
   on_toPlayer_changebuffstack(event) {
     if(event.ability.guid !== SPELLS.JUGGERNAUT.id) {
       return;
     }
-    
+
     if(event.newStacks < event.oldStacks) {
       this.resets += 1;
       this.stacksDropped += event.oldStacks;
@@ -27,7 +27,7 @@ class JuggernautReset extends Analyzer {
       this.stacksMax = event.newStacks;
     }
   }
-  
+
   get suggestionThresholds() {
     return {
       isGreaterThan: {
@@ -47,9 +47,9 @@ class JuggernautReset extends Analyzer {
           major,
         },
       } = this.suggestionThresholds;
-    
+
     when(this.resets).isGreaterThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest, actual) => {
         return suggest(<React.Fragment>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</React.Fragment>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
@@ -69,7 +69,7 @@ class JuggernautReset extends Analyzer {
       </div>
     );
   }
-  
+
   juggernautStacksDropped() {
     return (
       <div className="flex">
@@ -81,7 +81,7 @@ class JuggernautReset extends Analyzer {
       </div>
     );
   }
-  
+
   juggernautStacksMax() {
     return (
       <div className="flex">
@@ -93,7 +93,7 @@ class JuggernautReset extends Analyzer {
       </div>
     );
   }
-  
+
   juggernautStacksMaxDamageIncrease() {
     return (
       <div className="flex">
