@@ -77,6 +77,7 @@ class ArcaneOrb extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(100)}
   icon={<SpellIcon id={SPELLS.ARCANE_ORB_TALENT.id} />}
   value={`${formatNumber(this.averageHitPerCast,2)}`}
   label="Arcane Orb hits per cast"
@@ -84,7 +85,6 @@ class ArcaneOrb extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default ArcaneOrb;

@@ -1,10 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import { formatPercentage, formatMilliseconds } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
@@ -52,18 +50,6 @@ class ArcaneMissiles extends Analyzer {
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 	}
-
-	statistic() {
-    return (
-			<StatisticBox
-  icon={<SpellIcon id={SPELLS.ARCANE_FAMILIAR_TALENT.id} />}
-  value={`${formatPercentage(this.uptime, 0)} %`}
-  label="Arcane Familiar Uptime"
-  tooltip={`Your Arcane Familiar was up for ${formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.`}
-			/>
-		);
-	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default ArcaneMissiles;

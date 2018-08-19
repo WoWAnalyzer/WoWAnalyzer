@@ -42,6 +42,7 @@ class ArcaneFamiliar extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(100)}
   icon={<SpellIcon id={SPELLS.ARCANE_FAMILIAR_TALENT.id} />}
   value={`${formatPercentage(this.uptime, 0)} %`}
   label="Arcane Familiar Uptime"
@@ -49,7 +50,6 @@ class ArcaneFamiliar extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default ArcaneFamiliar;

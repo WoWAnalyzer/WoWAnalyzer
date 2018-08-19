@@ -231,6 +231,7 @@ class ArcanePower extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(15)}
   icon={<SpellIcon id={SPELLS.ARCANE_POWER.id} />}
   value={(
     <span>
@@ -265,7 +266,6 @@ class ArcanePower extends Analyzer {
   		/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default ArcanePower;
