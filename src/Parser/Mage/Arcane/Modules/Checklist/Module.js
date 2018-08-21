@@ -9,6 +9,8 @@ import ArcaneFamiliar from '../Features/ArcaneFamiliar';
 import ArcaneOrb from '../Features/ArcaneOrb';
 import ArcanePower from '../Features/ArcanePower';
 import RuleOfThrees from '../Features/RuleOfThrees';
+import TimeAnomaly from '../Features/TimeAnomaly';
+import ArcaneMissiles from '../Features/ArcaneMissiles';
 import AlwaysBeCasting from '../Features/AlwaysBeCasting';
 import ManaValues from '../ManaChart/ManaValues';
 import ArcaneIntellect from '../../../Shared/Modules/Features/ArcaneIntellect';
@@ -26,6 +28,8 @@ class Checklist extends Analyzer {
     arcaneOrb: ArcaneOrb,
     arcanePower: ArcanePower,
     ruleOfThrees: RuleOfThrees,
+    timeAnomaly: TimeAnomaly,
+    arcaneMissiles: ArcaneMissiles,
     manaValues: ManaValues,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
@@ -51,6 +55,8 @@ class Checklist extends Analyzer {
           arcanePowerCasts: this.arcanePower.castSuggestionThresholds,
           arcanePowerOnKill: this.arcanePower.arcanePowerOnKillSuggestionThresholds,
           ruleOfThreesUsage: this.ruleOfThrees.suggestionThresholds,
+          timeAnomalyManaUtilization: this.timeAnomaly.manaUtilizationThresholds,
+          arcaneMissilesUtilization: this.arcaneMissiles.suggestionThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,

@@ -37,6 +37,7 @@ class ArcaneIntellect extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(80)}
   icon={<SpellIcon id={SPELLS.ARCANE_INTELLECT.id} />}
   value={`${formatPercentage(this.uptime, 0)} %`}
   label="Arcane Intellect"
@@ -44,7 +45,6 @@ class ArcaneIntellect extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default ArcaneIntellect;

@@ -14,6 +14,7 @@ import ArcaneCharges from './Normalizers/ArcaneCharges';
 
 import ArcaneChargeTracker from './Modules/Features/ArcaneChargeTracker';
 import ArcanePower from './Modules/Features/ArcanePower';
+import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
 
 import ArcaneFamiliar from './Modules/Features/ArcaneFamiliar';
 
@@ -23,6 +24,7 @@ import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import ArcaneOrb from './Modules/Features/ArcaneOrb';
 import RuleOfThrees from './Modules/Features/RuleOfThrees';
+import TimeAnomaly from './Modules/Features/TimeAnomaly';
 
 
 
@@ -43,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
+    arcaneMissiles: ArcaneMissiles,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
@@ -51,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
     ruleOfThrees: RuleOfThrees,
+    timeAnomaly: TimeAnomaly,
   };
 }
 

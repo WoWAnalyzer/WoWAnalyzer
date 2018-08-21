@@ -101,6 +101,7 @@ class RuneOfPower extends Analyzer {
     if (!this.showStatistic) return null;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Rune of Power damage"
@@ -108,7 +109,6 @@ class RuneOfPower extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default RuneOfPower;
