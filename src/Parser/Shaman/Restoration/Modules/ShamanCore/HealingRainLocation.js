@@ -31,7 +31,7 @@ class HealingRainLocation extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_HEAL.id && spellId !== SPELLS.RAINFALL.id) {
+    if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
       return;
     }
 
