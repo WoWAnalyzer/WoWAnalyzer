@@ -21,7 +21,6 @@ export default {
   FROM_THE_SHADOWS_TALENT: { id: 267170, name: "From the Shadows", icon: "spell_warlock_calldreadstalkers" },
   SOUL_STRIKE_TALENT: { id: 264057, name: "Soul Strike", icon: "inv_polearm_2h_fellord_04" },
   SUMMON_VILEFIEND_TALENT: { id: 264119, name: "Summon Vilefiend", icon: "inv_argusfelstalkermount" },
-  SOUL_CONDUIT_TALENT: { id: 215941, name: "Soul Conduit", icon: "spell_shadow_soulleech_2" },
   INNER_DEMONS_TALENT: { id: 267216, name: "Inner Demons", icon: "ability_warlock_eradication" },
   GRIMOIRE_FELGUARD_TALENT: { id: 111898, name: "Grimoire: Felguard", icon: "spell_shadow_summonfelguard" },
   SACRIFICED_SOULS_TALENT: { id: 267214, name: "Sacrificed Souls", icon: "ability_creature_disease_05" },

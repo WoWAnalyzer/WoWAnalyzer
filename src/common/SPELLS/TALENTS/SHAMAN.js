@@ -15,7 +15,6 @@ export default {
   LIGHTNING_SHIELD_TALENT: { id: 192106, name: "Lightning Shield", icon: "spell_nature_lightningshield" },
   LANDSLIDE_TALENT: { id: 197992, name: "Landslide", icon: "inv_ore_blackrock_nugget" },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: "Forceful Winds", icon: "spell_shaman_unleashweapon_wind" },
-  SPIRIT_WOLF_TALENT: { id: 260878, name: "Spirit Wolf", icon: "spell_hunter_lonewolf" },
   SEARING_ASSAULT_TALENT: { id: 192087, name: "Searing Assault", icon: "ability_rhyolith_magmaflow_wave" },
   HAILSTORM_TALENT: { id: 210853, name: "Hailstorm", icon: "spell_frost_frostbrand" },
   OVERCHARGE_TALENT: { id: 210727, name: "Overcharge", icon: "spell_nature_callstorm" },
@@ -29,7 +28,6 @@ export default {
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: "Ascendance", icon: "spell_fire_elementaldevastation" },
   // Elemental
   EXPOSED_ELEMENTS_TALENT: { id: 260694, name: "Exposed Elements", icon: "spell_nature_callstorm" },
-  ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: "Echo of the Elements", icon: "ability_shaman_echooftheelements" },
   ELEMENTAL_BLAST_TALENT: { id: 117014, name: "Elemental Blast", icon: "shaman_talent_elementalblast" },
   AFTERSHOCK_TALENT: { id: 273221, name: "Aftershock", icon: "spell_nature_stormreach" },
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: "Master of the Elements", icon: "spell_nature_elementalabsorption" },

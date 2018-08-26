@@ -50,7 +50,6 @@ export default {
   DEVOTION_AURA_TALENT: { id: 183425, name: "Devotion Aura", icon: "spell_holy_devotionaura" },
   AURA_OF_SACRIFICE_TALENT: { id: 183416, name: "Aura of Sacrifice", icon: "ability_deathwing_bloodcorruption_earth" },
   AURA_OF_MERCY_TALENT: { id: 183415, name: "Aura of Mercy", icon: "spell_holy_blessedlife" },
-  JUDGMENT_OF_LIGHT_TALENT: { id: 183778, name: "Judgment of Light", icon: "spell_holy_divineprovidence" },
   HOLY_PRISM_TALENT: { id: 114165, name: "Holy Prism", icon: "spell_paladin_holyprism", manaCost: 3400 },
   HOLY_AVENGER_TALENT: { id: 105809, name: "Holy Avenger", icon: "ability_paladin_holyavenger" },
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: "Sanctified Wrath", icon: "ability_paladin_sanctifiedwrath" },
