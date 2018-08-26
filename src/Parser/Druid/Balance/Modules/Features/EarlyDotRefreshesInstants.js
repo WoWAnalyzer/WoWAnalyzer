@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import CoreEarlyDotRefreshesInstants from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesInstants';
 import suggest from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesInstantsSuggestion';
 
@@ -29,10 +28,6 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   };
 
   static dots = DOTS;
-
-  constructor(...args) {
-    super(...args);
-  }
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
   couldCastWhileMoving(castEvent, endEvent) {
