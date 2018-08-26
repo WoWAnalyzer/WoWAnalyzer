@@ -310,6 +310,11 @@ export default {
     name: "Master Of The Elements Buff",
     icon: "spell_nature_elementalabsorption",
   },
+  UNLIMITED_POWER_BUFF: {
+    id: 272737,
+    name: "Unlimited Power Buff",
+    icon: "ability_shaman_ascendance",
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 226180,
