@@ -721,36 +721,6 @@ export default {
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
-  RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {
-    id: 211992,
-    name: 'T19 2 set bonus',
-    icon: 'spell_shaman_tidalwaves',
-  },
-  RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF: {
-    id: 211993,
-    name: 'T19 4 set bonus',
-    icon: 'inv_spear_04',
-  },
-  RESTORATION_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242287,
-    name: 'T20 2 set bonus',
-    icon: 'spell_nature_magicimmunity',
-  },
-  RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF: {
-    id: 242288,
-    name: 'T20 4 set bonus',
-    icon: 'spell_nature_magicimmunity',
-  },
-  RESTORATION_SHAMAN_T21_2SET_BONUS_BUFF: {
-    id: 251764,
-    name: 'T21 2 set bonus',
-    icon: 'ability_shaman_ascendance',
-  },
-  RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF: {
-    id: 251765,
-    name: 'T21 4 set bonus',
-    icon: 'ability_shaman_ascendance',
-  },
   DEEP_HEALING: {
     id: 77226,
     name: 'Mastery: Deep Healing',
@@ -798,20 +768,6 @@ export default {
     name: 'Undulation',
     icon: 'spell_nature_healingwavelesser',
   },
-
-  // Restoration Shaman Set Bonus:
-  RAINFALL: { // T21 2pc
-    id: 252154,
-    name: 'Rainfall',
-    icon: 'spell_nature_giftofthewaterspirit',
-  },
-  DOWNPOUR: { // T21 4pc
-    id: 252159,
-    name: 'Downpour',
-    icon: 'spell_shaman_blessingoftheeternals',
-  },
-
-  // Alpha Stuff
   FLASH_FLOOD_BUFF: {
     id: 280615,
     name: 'Flash Flood',
