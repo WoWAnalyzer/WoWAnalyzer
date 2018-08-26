@@ -27,7 +27,7 @@ class UnlimitedPower extends Analyzer {
 
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(272737) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.UNLIMITED_POWER_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageHaste() {

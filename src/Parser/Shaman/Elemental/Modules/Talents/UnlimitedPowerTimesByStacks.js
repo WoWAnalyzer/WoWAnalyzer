@@ -49,28 +49,28 @@ class UnlimitedPowerTimesByStacks extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== 272737) {
+    if (event.ability.guid !== SPELLS.UNLIMITED_POWER_BUFF.id) {
       return;
     }
     this.handleStacks(event);
   }
 
   on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== 272737) {
+    if (event.ability.guid !== SPELLS.UNLIMITED_POWER_BUFF.id) {
       return;
     }
     this.handleStacks(event);
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== 272737) {
+    if (event.ability.guid !== SPELLS.UNLIMITED_POWER_BUFF.id) {
       return;
     }
     this.handleStacks(event);
   }
 
   on_byPlayer_removebuffstack(event) {
-    if (event.ability.guid !== 272737) {
+    if (event.ability.guid !== SPELLS.UNLIMITED_POWER_BUFF.id) {
       return;
     }
     this.handleStacks(event);

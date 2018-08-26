@@ -321,6 +321,21 @@ export default {
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
+  EYE_OF_THE_STORM: {
+    id: 157375,
+    name: 'Eye Of The Storm',
+    icon: 'inv_elemental_primal_air',
+  },
+  CALL_LIGHTNING: {
+    id: 157348,
+    name: 'Call Lightning',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  METEOR: {
+    id: 117588,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
   // Elemental Legendaries
   PRISTINE_PROTOSCALE_GIRDLE: {
     id: 224852,
