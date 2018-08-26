@@ -9,14 +9,17 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
+const CALL_LIGHTNING__BUFF_DURATION = 15000;
 
-class Aftershock extends Analyzer {
+class PrimalStormElemental extends Analyzer {
   eotsCasts = 0;
   pseCasts = 0;
+  lastCLCastTimestamp = 0;
 
 
   damageGained = 0;
   maelstromGained = 0;
+  badCasts=0;
 
   constructor(...args) {
     super(...args);
@@ -25,10 +28,9 @@ class Aftershock extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.STORM_ELEMENTAL_TALENT.id){
+    if (event.ability.guid === SPELLS.STORM_ELEMENTAL_TALENT.id){
       return;
     }
-
     this.pseCasts++;
   }
 
@@ -38,10 +40,11 @@ class Aftershock extends Analyzer {
     }
     this.damageGained+=event.amount;
 
-    if(event.ability.guid !== SPELLS.EYE_OF_THE_STORM.id) {
-      return;
+    if(this.lastCLCastTimestamp!==0 || event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
+      if(event.timestamp>this.lastCLCastTimestamp+CALL_LIGHTNING__BUFF_DURATION){
+        this.badCasts++;
+      }
     }
-    this.eotsCasts++;
   }
 
   get damagePercent() {
@@ -65,4 +68,4 @@ class Aftershock extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
-export default Aftershock;
+export default PrimalStormElemental;

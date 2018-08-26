@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const damagingCasts = [SPELLS.METEOR.id, SPELLS.IMMOLATE.id, SPELLS.FIREBLAST.id];
 
-class Aftershock extends Analyzer {
+class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
   PFEcasts = 0;
 
@@ -73,4 +73,4 @@ class Aftershock extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
-export default Aftershock;
+export default PrimalFireElemental;
