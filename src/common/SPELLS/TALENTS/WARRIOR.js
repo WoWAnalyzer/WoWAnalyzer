@@ -14,6 +14,7 @@ export default {
   INTO_THE_FRAY_TALENT: { id: 202603, name: "Into the Fray", icon: "ability_warrior_bloodfrenzy" },
   PUNISH_TALENT: { id: 275334, name: "Punish", icon: "ability_deathknight_sanguinfortitude" },
   CRACKLING_THUNDER_TALENT: { id: 203201, name: "Crackling Thunder", icon: "ability_thunderking_overcharge" },
+  BOUNDING_STRIDE_TALENT: { id: 202163, name: "Bounding Stride", icon: "ability_heroicleap" },
   SAFEGUARD_TALENT: { id: 223657, name: "Safeguard", icon: "ability_warrior_safeguard" },
   BEST_SERVED_COLD_TALENT: { id: 202560, name: "Best Served Cold", icon: "ability_warrior_revenge" },
   UNSTOPPABLE_FORCE_TALENT: { id: 275336, name: "Unstoppable Force", icon: "warrior_talent_icon_thunderstruck" },
