@@ -3,6 +3,10 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
+//Normalizers
+import LunarEmpowermentNormalizer from './Modules/Normalizers/LunarEmpowermentNormalizer';
+import SolarEmpowermentNormalizer from './Modules/Normalizers/SolarEmpowermentNormalizer';
+
 //Features
 import Checklist from './Modules/Features/Checklist';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -45,6 +49,10 @@ class CombatLogParser extends MainCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     haste: Haste,
     globalCooldown: GlobalCooldown,
+
+    //Normalizers
+    lunarEmpowermentNormalizer: LunarEmpowermentNormalizer,
+    solarEmpowermentNormalizer: SolarEmpowermentNormalizer,
 
     //Features
     checklist: Checklist,

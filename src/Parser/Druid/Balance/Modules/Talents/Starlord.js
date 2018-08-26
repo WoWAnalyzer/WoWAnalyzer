@@ -82,7 +82,7 @@ class Starlord extends Analyzer {
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.STARLORD_TALENT.id} />}
-        value={`${this.averageHaste}%`}
+        value={`${this.averageHaste} %`}
         label="Average haste gained"
       >
         <table className="table table-condensed">
