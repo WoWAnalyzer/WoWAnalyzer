@@ -6,7 +6,7 @@ import Haste from './Modules/PaladinCore/Haste';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import Judgment from './Modules/PaladinCore/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
