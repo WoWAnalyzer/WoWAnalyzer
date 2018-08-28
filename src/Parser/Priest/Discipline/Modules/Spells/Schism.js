@@ -18,6 +18,8 @@ import Penance from '../Spells/Penance';
 import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
+import Atonement from '../Spells/Atonement';
+import SinsOfTheMany from '../Spells/SinsOfTheMany';
 
 class Schism extends Analyzer {
   static dependencies = {
@@ -25,6 +27,8 @@ class Schism extends Analyzer {
     statTracker: StatTracker,
     atonementDamageSource: AtonementDamageSource,
     penance: Penance,
+    atonement: Atonement,
+    sins: SinsOfTheMany,
   };
 
   // Spell metadata
@@ -47,6 +51,7 @@ class Schism extends Analyzer {
   target = null;
 
   // Estimations
+  giftRanks;
   smiteEstimation;
 
   // Methods
@@ -56,7 +61,8 @@ class Schism extends Analyzer {
       SPELLS.SCHISM_TALENT.id
     );
 
-    this.smiteEstimation = SmiteEstimation(this.statTracker);
+    this.giftRanks = this.selectedCombatant.traitRanks(SPELLS.GIFT_OF_FORGIVENESS.id);
+    this.smiteEstimation = SmiteEstimation(this.statTracker, this.sins, this.giftRanks);
   }
 
   get buffActive() {
@@ -89,9 +95,10 @@ class Schism extends Analyzer {
     // Assume every schism is bad
     this._badSchisms[event] = true;
 
-    // Add direct schism damage
-    const { smiteDamage } = this.smiteEstimation();
+    // Calculate direct schism damage
+    const { smiteDamage } = this.smiteEstimation(this.atonement.giftActive);
 
+    // Substract smite damage (because that is what we would be casting if we didn't pick Schism)
     this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
   }
 
@@ -142,7 +149,7 @@ class Schism extends Analyzer {
 
   // The Atonement from Schism's direct damage component
   processSchismAtonement(event) {
-    const { smiteHealing } = this.smiteEstimation();
+    const { smiteHealing } = this.smiteEstimation(this.atonement.giftActive);
     const estimatedSmiteRawHealing = smiteHealing * event.hitType;
 
     const estimatedOverhealing = calculateOverhealing(
