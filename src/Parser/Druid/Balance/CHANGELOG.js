@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { Iskalla, Gebuz } from 'CONTRIBUTORS';
-import ItemLink from 'common/ItemLink';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  { 
+    date: new Date('2018-8-26'),
+    changes: 'Updated the empowerment tracker to use the new log format for the buff.',
+    contributors: [Gebuz],
+  },
   { 
     date: new Date('2018-6-21'),
     changes: <React.Fragment>Removed Stellar Empowerment and added haste tracker for <SpellLink id={SPELLS.STARLORD_TALENT.id} /></React.Fragment>,
@@ -49,7 +52,7 @@ export default [
   },
   { 
     date: new Date('2018-1-5'),
-    changes: <React.Fragment>Added the following legendaries: <ItemLink id={ITEMS.IMPECCABLE_FEL_ESSENCE.id} />, <ItemLink id={ITEMS.ONETHS_INTUITION.id} />, <ItemLink id={ITEMS.LADY_AND_THE_CHILD.id} />, <ItemLink id={ITEMS.PROMISE_OF_ELUNE.id} />, and <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> and updated <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</React.Fragment>,
+    changes: 'Added the following legendaries: Impeccable Fel Essence, Oneth\'s Intuition, Lady and the Child, Promise of Elune, the Moon Goddess, and Soul of the Archdruid and updated The Emerald Dreamcatcher.',
     contributors: [Gebuz],
   },
   { 
@@ -74,7 +77,7 @@ export default [
   },
   {
     date: new Date('2017-9-28'),
-    changes: <React.Fragment>Added a tracker module for <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</React.Fragment>,
+    changes: 'Added a tracker module for The Emerald Dreamcatcher.',
     contributors: [Iskalla],
   },
   {

@@ -268,7 +268,31 @@ export const emallson = {
 export const Gebuz = {
   nickname: 'Gebuz',
   github: 'Gebuz',
+  discord: 'Gebuz#5801',
   avatar: require('./images/gebuz-avatar.png'),
+  desc: 'Balance Druid theorycrafter and top end mythic raider.',
+  mains: [{
+    name: 'Gebuz',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuz/',
+  }],
+  alts: [{
+    name: 'Gebuzstab',
+    spec: SPECS.SUBTLETY_ROGUE,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzstab/',
+  }, {
+    name: 'Gebuzpray',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzpray/',
+  }, {
+    name: 'Gebuzgrip',
+    spec: SPECS.BLOOD_DEATH_KNIGHT,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzgrip/',
+  }, {
+    name: 'Gebuzroll',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzroll/',
+  }],
 };
 export const milesoldenburg = {
   nickname: 'milesoldenburg',
