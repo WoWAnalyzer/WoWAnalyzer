@@ -24,12 +24,6 @@ All contributions, big or small, are welcome. You are welcome to contribute to t
 
 We want to share ownership and responsibility with the community where possible. To help with this we hand out *write access* when we deem pull requests consistently of sufficient quality. This isn't always on our mind though so if you think you qualify please contact an admin.
 
-## Battle for Azeroth
-
-Battle for Azeroth changes will be applied to the [bfa](https://github.com/WoWAnalyzer/WoWAnalyzer/tree/bfa) branch. Any changes to this branch will automatically be deployed here: https://bfa.wowanalyzer.com.
-
-When you make a pull request for the `bfa` branch please include BFA in the title of your PR.
-
 ## Vision
 
 This project aims to give users tools to analyze their performance. The most important part of this is providing automated suggestions towards improving their performance based on recorded fights. This makes it so users can quickly, without any hassle and at any time consult this tool to find out points of improvement for their next pull.
