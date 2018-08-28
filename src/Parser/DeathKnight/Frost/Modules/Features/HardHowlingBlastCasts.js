@@ -29,7 +29,7 @@ class HardHowlingBlastCasts extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.castsWithoutRime}
         label="Howling Blasts without Rime proc"
-        tooltip="You should aim to get this as close to 0 as possible.  It is a DPS loss to cast Howling Blast without Rime."
+        tooltip="You should aim to get this as close to 0 as possible.  It is almost always a DPS loss to cast Howling Blast without Rime.  The only time you should do this is during extended periods of being out of melee range, long enough that you get capped on runes.  In this case, it is acceptable to dump runes to build RP and stop yourself from capping.  "
       />
     );
   }
