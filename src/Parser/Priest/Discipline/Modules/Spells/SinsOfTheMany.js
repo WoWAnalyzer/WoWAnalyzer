@@ -13,16 +13,25 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import isAtonement from '../Core/isAtonement';
 import Atonement from './Atonement';
 
-const SINS_OF_THE_MANY_BASE_BONUS = 0.12;
 const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
 
 /**
- * Sins allows you to have one Atonement active whilst keeping the full bonus
- * from the passive. Hence this map should be seen as overrides for a linear
- * progression from the max to the floor per Atonement active.
+ * Sins isn't linear,
+ * it allows you to have one Atonement active whilst keeping the full bonus
+ * from the passive and from 6 onwards it only decreases 0.005.
+ * Hence this map with the values for each Atonement count.
  */
 const BONUS_DAMAGE_MAP = {
+  0: 0.12,
   1: 0.12,
+  2: 0.10,
+  3: 0.08,
+  4: 0.07,
+  5: 0.06,
+  6: 0.055,
+  7: 0.05,
+  8: 0.045,
+  9: 0.04,
 };
 
 class SinsOfTheMany extends Analyzer {
@@ -40,20 +49,13 @@ class SinsOfTheMany extends Analyzer {
   }
 
   get currentBonus() {
-    const baseBonus = SINS_OF_THE_MANY_BASE_BONUS * 100;
-    const floorBonus = SINS_OF_THE_MANY_FLOOR_BONUS * 100;
     const activeBuffs = this.atonement.numAtonementsActive;
 
     // Return an override, if necessary
     if (BONUS_DAMAGE_MAP[activeBuffs]) return BONUS_DAMAGE_MAP[activeBuffs];
 
-    // Return the floor if we're below it
-    if (floorBonus >= baseBonus - activeBuffs) {
-      return SINS_OF_THE_MANY_FLOOR_BONUS;
-    }
-
-    // Return the calculated bonus
-    return (baseBonus - activeBuffs) / 100;
+    // Return the floor if we have more atonements than in the map
+    return SINS_OF_THE_MANY_FLOOR_BONUS;
   }
 
   /**
