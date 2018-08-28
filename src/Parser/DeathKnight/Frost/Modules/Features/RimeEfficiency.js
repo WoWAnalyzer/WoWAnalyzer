@@ -99,7 +99,7 @@ class RimeEfficiency extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={`${formatPercentage(this.efficiency)} %`}
         label="Rime Efficiency"
-        tooltip={`You wasted ${this.totalWastedProcs} out of ${this.rimeProcs} Rime procs (${this.wastedProcRate.toFixed(2)}%).  ${this.expiredRimeProcs} procs expired without being used and ${this.refreshedRimeProcs} procs were overwritten by new procs.`}
+        tooltip={`You wasted ${this.totalWastedProcs} out of ${this.rimeProcs} Rime procs (${formatPercentage(this.wastedProcRate)}%).  ${this.expiredRimeProcs} procs expired without being used and ${this.refreshedRimeProcs} procs were overwritten by new procs.`}
       />
     );
   }

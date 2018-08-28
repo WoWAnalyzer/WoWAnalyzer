@@ -99,7 +99,7 @@ class KillingMachineEfficiency extends Analyzer {
         icon={<SpellIcon id={SPELLS.KILLING_MACHINE.id} />}
         value={`${formatPercentage(this.efficiency)} %`}
         label="Killing Machine Efficiency"
-        tooltip={`You wasted ${this.totalWastedProcs} out of ${this.kmProcs} Killing Machine procs (${this.wastedProcRate.toFixed(2)}%).  ${this.expiredKMProcs} procs expired without being used and ${this.refreshedKMProcs} procs were overwritten by new procs.`}
+        tooltip={`You wasted ${this.totalWastedProcs} out of ${this.kmProcs} Killing Machine procs (${formatPercentage(this.wastedProcRate)}%).  ${this.expiredKMProcs} procs expired without being used and ${this.refreshedKMProcs} procs were overwritten by new procs.`}
       />
     );
   }
