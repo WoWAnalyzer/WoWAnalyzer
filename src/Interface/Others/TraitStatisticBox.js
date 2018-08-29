@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps, alignIcon, ...others }) => {
+const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps, alignIcon, ilvl, ...others }) => {
   delete others.category;
   delete others.position;
   return (
@@ -17,11 +17,11 @@ const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps,
       <div className="panel statistic-box item" {...others}>
         <div className="panel-body flex">
           <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
-            {icon || <SpellIcon id={trait} />}
+            {icon || <SpellIcon id={trait} ilvl={ilvl} />}
           </div>
           <div className="flex-main">
             <div className="slabel">
-              {label || <SpellLink id={trait} icon={false} />}
+              {label || <SpellLink id={trait} ilvl={ilvl} icon={false} />}
             </div>
             <dfn data-tip={tooltip} className="value">
               {value}
@@ -46,6 +46,7 @@ TraitStatisticBox.propTypes = {
   tooltip: PropTypes.string,
   containerProps: PropTypes.object,
   alignIcon: PropTypes.string,
+  ilvl: PropTypes.number,
   category: PropTypes.string,
   position: PropTypes.number,
 };

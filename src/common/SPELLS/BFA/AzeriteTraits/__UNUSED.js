@@ -589,11 +589,6 @@ export default {
     name: 'Meteoric Flare',
     icon: 'ability_warlock_handofguldan',
   },
-  METICULOUS_SCHEMING: {
-    id: 273682,
-    name: 'Meticulous Scheming',
-    icon: 'ability_rogue_masterofsubtlety',
-  },
   MISTY_PEAKS: {
     id: 275975,
     name: 'Misty Peaks',

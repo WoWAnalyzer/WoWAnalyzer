@@ -81,4 +81,14 @@ export default {
     name: 'Impassive Visage',
     icon: 'inv_pet_inquisitoreye',
   },
+  METICULOUS_SCHEMING: {
+    id: 273682,
+    name: 'Meticulous Scheming',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SEIZE_THE_MOMENT: {
+    id: 273714,
+    name: 'Seize the Moment!',
+    icon: 'achievement_bg_killflagcarriers_grabflag_capit',
+  },
 };

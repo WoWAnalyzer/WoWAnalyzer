@@ -150,6 +150,7 @@ import ConstructOvercharger from './Modules/Items/BFA/Raids/Uldir/ConstructOverc
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+import MeticulousScheming from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -292,6 +293,7 @@ class CombatLogParser {
     darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
     gemhide: Gemhide,
+    meticulousScheming: MeticulousScheming,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,

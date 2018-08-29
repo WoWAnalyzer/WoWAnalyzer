@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateAzeriteEffects } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
@@ -10,7 +10,7 @@ import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } fr
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
-import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned';
 
 const debug = false;
 
@@ -236,13 +236,17 @@ class StatTracker extends Analyzer {
     \****************************************/
 
     // region Azerite Traits
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
+    [SPELLS.METICULOUS_SCHEMING.id]: combatant => Object.values(combatant.traitRanks(SPELLS.METICULOUS_SCHEMING.id)).reduce((haste, rank) => {
+      return haste + calculateAzeriteEffects(SPELLS.METICULOUS_SCHEMING.id, rank)[0];
+    }, 0),
+
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
