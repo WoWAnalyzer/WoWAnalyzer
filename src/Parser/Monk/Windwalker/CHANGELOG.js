@@ -1,12 +1,15 @@
 import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'CONTRIBUTORS';
 
 import React from 'react';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-08-29'),
+    changes: 'Removed legion legendaries and tiersets',
+    contributors: [Juko8],
+  },
   {
     date: new Date('2018-06-16'),
     changes: <React.Fragment>Updated for 8.0 Battle for Azeroth prepatch. All artifact traits and related analysis removed. Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts statistic and suggestions has been replaced with statistic and suggestions on <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon />'s new cooldown reductions mechanic </React.Fragment>,
@@ -39,7 +42,7 @@ export default [
   },
   {
     date: new Date('2018-03-03'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon /></React.Fragment>,
+    changes: 'Added The Wind Blows statistic>',
     contributors: [Hewhosmites],
   },
   {
@@ -49,7 +52,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <React.Fragment>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</React.Fragment>,
+    changes: <React.Fragment>Added item breakdown for Drinking Horn Cover showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -59,12 +62,12 @@ export default [
   },
   {
     date: new Date('2018-01-20'),
-    changes: <React.Fragment>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /></React.Fragment>,
+    changes: <React.Fragment>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> duration from Drinking Horn Cover</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-03'),
-    changes: <React.Fragment>Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab</React.Fragment>,
+    changes: 'Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol\'ganneths ravaging storm being shown in Cooldowns tab',
     contributors: [Juko8],
   },
   {
@@ -84,7 +87,7 @@ export default [
   },
   {
     date: new Date('2017-11-07'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> item breakdown</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> clones in The Emperor's Capacitor item breakdown</React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -114,17 +117,17 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <React.Fragment>Updated Cast Efficiency - Added reductions from <ItemLink id={ITEMS.THE_WIND_BLOWS.id} /> and T19 2pc</React.Fragment>,
+    changes: <React.Fragment>Updated Cast Efficiency - Added reductions from The Wind Blows and T19 2pc</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-17'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> to legendary item breakdown</React.Fragment>,
+    changes: 'Added Cenedril, Reflector of Hatred, The Emperor\'s Capacitor and Soul of the Grandmaster to legendary item breakdown',
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-15'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.KATSUOS_ECLIPSE.id} /> chi reduction item breakdown</React.Fragment>,
+    changes: 'Added Katsuo\'s Eclipse chi reduction item breakdown</React.Fragment>',
     contributors: [Juko8],
   },
   {
