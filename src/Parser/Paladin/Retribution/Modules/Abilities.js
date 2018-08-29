@@ -1,9 +1,4 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -20,26 +15,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
           extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
-        },
-      },
-      {
-        spell: SPELLS.WAKE_OF_ASHES_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id) && combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .95,
-          extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon /> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
-          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
@@ -83,24 +63,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: (!combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id) && !combatant.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id)),
         castEfficiency: {
           suggestion: true,
-        },
-      },
-      //This is the judgment CE with t20/21
-      {
-        spell: SPELLS.JUDGMENT_CAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        enabled: (combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id) || combatant.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id)),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: <React.Fragment>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</React.Fragment>,
         },
       },
       {

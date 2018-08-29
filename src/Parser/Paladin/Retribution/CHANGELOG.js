@@ -5,6 +5,11 @@ import { Hewhosmites, Zerotorescue, Juko8} from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-29'),
+    changes: 'Removed legion legendaries and tiersets',
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-06-25'),
     changes: <React.Fragment>Added modules for <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> and <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> </React.Fragment>,
     contributors: [Juko8],
