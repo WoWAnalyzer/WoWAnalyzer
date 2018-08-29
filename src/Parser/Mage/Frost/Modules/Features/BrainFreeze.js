@@ -19,6 +19,11 @@ class BrainFreezeTracker extends Analyzer {
 	totalProcs = 0;
 	flurryWithoutProc = 0;
 
+	constructor(...args) {
+    super(...args);
+    this.hasWintersReachTrait = this.selectedCombatant.hasTrait(SPELLS.WINTERS_REACH_TRAIT.id);
+  }
+
 	on_byPlayer_applybuff(event) {
 		const spellId = event.ability.guid;
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {
@@ -43,7 +48,7 @@ class BrainFreezeTracker extends Analyzer {
 			return;
 		}
 		this.lastFlurryTimestamp = this.owner.currentTimestamp;
-		if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
+		if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id) && !this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
 			this.flurryWithoutProc += 1;
 		}
 	}
@@ -176,7 +181,7 @@ class BrainFreezeTracker extends Analyzer {
 
 		when(this.flurryWithoutProcSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times. You should never hard cast Flurry.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> or <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> {this.flurryWithoutProc} times. The only time it is acceptable to hard case Flurry is if you have a proc of the Winter's Reach Azerite Trait.</React.Fragment>)
 					.icon(SPELLS.FLURRY.icon)
 					.actual(`${formatNumber(this.flurryWithoutProc)} casts`)
 					.recommended(`Casting none is recommended`);

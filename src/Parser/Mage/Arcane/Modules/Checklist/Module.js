@@ -56,7 +56,7 @@ class Checklist extends Analyzer {
           arcanePowerOnKill: this.arcanePower.arcanePowerOnKillSuggestionThresholds,
           ruleOfThreesUsage: this.ruleOfThrees.suggestionThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.manaUtilizationThresholds,
-          arcaneMissilesUtilization: this.arcaneMissiles.suggestionThresholds,
+          arcaneMissilesUtilization: this.arcaneMissiles.missilesSuggestionThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
