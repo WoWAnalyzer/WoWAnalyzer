@@ -10,27 +10,15 @@ class HardHowlingBlastCasts extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  rimeProcs = 0;
-  castsWithRime = 0;
   castsWithoutRime = 0;
-  hardHowlingBlastCasts = 0;
-  nonrimedHB = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HOWLING_BLAST.id) {
       return;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp)) {
-      this.castsWithRime += 1;
-    } else {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp)) {
       this.castsWithoutRime += 1;
-    }
-  }
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.RIME.id) {
-      this.rimeProcs += 1;
     }
   }
 
@@ -39,9 +27,9 @@ class HardHowlingBlastCasts extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
-        value={this.nonrimedHB}
+        value={this.castsWithoutRime}
         label="Howling Blasts without Rime proc"
-        tooltip="You should aim to get this as close to 0 as possible."
+        tooltip="You should aim to get this as close to 0 as possible.  It is almost always a DPS loss to cast Howling Blast without Rime.  The only time you should do this is during extended periods of being out of melee range, long enough that you get capped on runes.  In this case, it is acceptable to dump runes to build RP and stop yourself from capping.  "
       />
     );
   }

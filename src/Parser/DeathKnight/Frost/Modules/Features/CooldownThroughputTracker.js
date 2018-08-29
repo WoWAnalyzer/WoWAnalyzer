@@ -17,6 +17,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+      spell: SPELLS.OBLITERATION_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
   
 

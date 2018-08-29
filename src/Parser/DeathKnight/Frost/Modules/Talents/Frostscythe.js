@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 
 /**
- *A sweeping attack that strikes all enemies in front of you for 135% Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
+ *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
  */
 class Frostscythe extends Analyzer {
   casts = 0;
@@ -31,7 +31,7 @@ class Frostscythe extends Analyzer {
       this.goodCasts += 1;
     }
     this.casts += 1;
-    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 3;
+    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 4;
     this.hits = 0;
   }
 
