@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { ATONEMENT_COEFFICIENT } from './Constants';
 
+// 50% dmg increase passive
 const SMITE_DAMAGE_BUFF = 0.5;
 
 /*
