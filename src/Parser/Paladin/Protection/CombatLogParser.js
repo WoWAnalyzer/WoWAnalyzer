@@ -16,14 +16,6 @@ import LightOfTheProtectorTiming from './Modules/Features/LightOfTheProtectorTim
 import ShieldOfTheRighteous from './Modules/Features/ShieldOfTheRighteous';
 import Consecration from './Modules/Features/Consecration';
 
-//Items
-//import T20_2pc from './Modules/Items/T20_2pc';
-//import T20_4pc from './Modules/Items/T20_4pc';
-import PillarsOfInmostLight from './Modules/Items/PillarsOfInmostLight';
-import TyelcaFerrenMarcussStature from './Modules/Items/TyelcaFerrenMarcussStature';
-import BreastplateOfTheGoldenValkyr from './Modules/Items/BreastplateOfTheGoldenValkyr';
-import HeadcliffsImmortality from './Modules/Items/HeadcliffsImmortality';
-
 //Talents
 import Seraphim from './Modules/Talents/Seraphim';
 import RighteousProtector from './Modules/Talents/RighteousProtector';
@@ -54,14 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousProtector: RighteousProtector,
     judgment: Judgment,
     seraphim: Seraphim,
-
-    // Items:
-    //t20_2pc: T20_2pc,
-    //t20_4pc: T20_4pc,
-    pillarsOfInmostLight: PillarsOfInmostLight,
-    tyelcaFerrenMarcussStature: TyelcaFerrenMarcussStature,
-    breastplateOfTheGoldenValkyr: BreastplateOfTheGoldenValkyr,
-    headcliffsImmortality: HeadcliffsImmortality,
   };
 }
 

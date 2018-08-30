@@ -39,7 +39,7 @@ export default [
   },
   {
     date: new Date('2018-07-21'),
-    changes: <React.Fragment>Healing increases such as <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Healing increases such as Ilterendi, Crown Jewel of Silvermoon now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -154,7 +154,7 @@ export default [
   },
   {
     date: new Date('2017-12-24'),
-    changes: <React.Fragment>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</React.Fragment>,
+    changes: <React.Fragment>Fixed a crash when using Ilterendi, Crown Jewel of Silvermoon without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -194,7 +194,7 @@ export default [
   },
   {
     date: new Date('2017-11-02'),
-    changes: <React.Fragment>Changed the recommended <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> healing contribution to be at least 4% (down from 4.5%).</React.Fragment>,
+    changes: <React.Fragment>Changed the recommended Ilterendi, Crown Jewel of Silvermoon healing contribution to be at least 4% (down from 4.5%).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

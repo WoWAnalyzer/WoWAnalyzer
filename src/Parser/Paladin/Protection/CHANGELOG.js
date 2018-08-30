@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Hewhosmites, Zerotorescue, joshinator } from 'CONTRIBUTORS';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 
 export default [
@@ -14,7 +12,7 @@ export default [
 	},
 	{
 		date: new Date('2018-04-07'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id} icon /> and <ItemLink id={ITEMS.HEATHCLIFFS_IMMORTALITY.id} icon />.</React.Fragment>,
+		changes: <React.Fragment>Added Breastplate of the Golden Val'kyr and Heathcliff's Immortality.</React.Fragment>,
 		contributors: [joshinator],
 	},
 	{
@@ -29,7 +27,7 @@ export default [
 	},
 	{
 		date: new Date('2018-03-14'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id} icon /></React.Fragment>,
+		changes: <React.Fragment>Added Tyelca, Ferren Marcus's Stature.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
   {
@@ -54,7 +52,7 @@ export default [
   },
   {
     date: new Date('2018-03-03'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.PILLARS_OF_INMOST_LIGHT.id} /></React.Fragment>,
+    changes: <React.Fragment>Added Pillars of Inmost Light.</React.Fragment>,
     contributors: [Hewhosmites],
   },
 ];
