@@ -37,7 +37,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 76613,
-    masteryCoefficient: 2.25,
+    masteryCoefficient: 1.9, // this is the coefficient for Frozen orb only, the icicle coeff. is 0.0165
     ranking: {
       class: 4,
       spec: 3,
@@ -63,7 +63,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76671,
-    masteryCoefficient: 1,
+    masteryCoefficient: 0.35,
     ranking: {
       class: 6,
       spec: 2,
@@ -75,8 +75,8 @@ const SPECS = {
     specName: 'Retribution',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
-    masterySpellId: 76672,
-    masteryCoefficient: 1.75,
+    masterySpellId: 267316,
+    masteryCoefficient: 1.6,
     ranking: {
       class: 6,
       spec: 3,
@@ -128,7 +128,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77492,
-    masteryCoefficient: 2.25,
+    masteryCoefficient: 1.4, // or 0.7 for starsurge & solar empowerment
     ranking: {
       class: 2,
       spec: 1,
@@ -180,7 +180,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77513,
-    masteryCoefficient: 1.5, // confirmed
+    masteryCoefficient: 2,
     ranking: {
       class: 1,
       spec: 1,
@@ -193,7 +193,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77514,
-    masteryCoefficient: 1.5,
+    masteryCoefficient: 2,
     ranking: {
       class: 1,
       spec: 2,
@@ -232,7 +232,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 193468,
-    masteryCoefficient: 0.625,
+    masteryCoefficient: 0.625, // this is coeff. for the range part of the mastery, the damage part is different (1.4)
     ranking: {
       class: 3,
       spec: 2,
@@ -245,7 +245,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
-    masteryCoefficient: 1.65,
+    masteryCoefficient: 0.5,
     ranking: {
       class: 3,
       spec: 3,
@@ -257,7 +257,7 @@ const SPECS = {
     specName: 'Discipline',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
-    masterySpellId: 77484,
+    masterySpellId: 271534,
     masteryCoefficient: 1.2,
     ranking: {
       class: 7,
@@ -284,7 +284,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77486,
-    masteryCoefficient: 2.5,
+    masteryCoefficient: 1.2,
     ranking: {
       class: 7,
       spec: 3,
@@ -297,7 +297,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76803,
-    masteryCoefficient: 4, // might be 3.5 or 2, Wowhead is unclear
+    masteryCoefficient: 1.7,
     ranking: {
       class: 8,
       spec: 1,
@@ -310,7 +310,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76806,
-    masteryCoefficient: 2.2,
+    masteryCoefficient: 0.026, // this is only the damage part, the proc chance coef is 1.3
     ranking: {
       class: 8,
       spec: 4,
@@ -323,7 +323,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76808,
-    masteryCoefficient: 2.76,
+    masteryCoefficient: 2.45, // the periodic damages are modified by a coeff. of 2.76
     ranking: {
       class: 8,
       spec: 3,
@@ -349,7 +349,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77223,
-    masteryCoefficient: 2,
+    masteryCoefficient: 2, //proc chance coef. is 0.08
     ranking: {
       class: 9,
       spec: 2,
@@ -375,7 +375,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77215,
-    masteryCoefficient: 3.125,
+    masteryCoefficient: 2.5,
     ranking: {
       class: 10,
       spec: 1,
@@ -388,7 +388,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77219,
-    masteryCoefficient: 1.8,
+    masteryCoefficient: 1.45,
     ranking: {
       class: 10,
       spec: 2,
@@ -401,7 +401,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77220,
-    masteryCoefficient: 2,
+    masteryCoefficient: 2, // reduced damage part coef. is 0.666
     ranking: {
       class: 10,
       spec: 3,
@@ -414,7 +414,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 117906,
-    masteryCoefficient: 1,
+    masteryCoefficient: 3,
     ranking: {
       class: 5,
       spec: 1,
@@ -440,7 +440,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 117907,
-    masteryCoefficient: 13,
+    masteryCoefficient: 3,
     ranking: {
       class: 5,
       spec: 2,
@@ -453,7 +453,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 185164,
-    masteryCoefficient: 1.5, // or 1
+    masteryCoefficient: 1.5, // or 0.6 for run speed coef. part
     ranking: {
       class: 12,
       spec: 1,
@@ -466,7 +466,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 203747,
-    masteryCoefficient: 0.75, // or 1 or 2.25
+    masteryCoefficient: 2.5,
     ranking: {
       class: 12,
       spec: 2,
