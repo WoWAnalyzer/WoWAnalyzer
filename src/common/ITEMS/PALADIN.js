@@ -53,44 +53,6 @@ export default {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
-  // Retribution legendaries
-  WHISPER_OF_THE_NATHREZIM: {
-    id: 137020,
-    name: 'Whisper of the Nathrezim',
-    icon: 'inv_cape_pandaria_d_04',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ASHES_TO_DUST: {
-    id: 144358,
-    name: 'Ashes to Dust',
-    icon: 'inv_plate_firelands_d_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  LIADRINS_FURY_UNLEASHED: {
-    id: 137048,
-    name: 'Liadrin\'s Fury Unleashed',
-    icon: 'inv_jewelry_ring_61',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  AEGISJALMUR_THE_ARMGUARDS_OF_AWE: {
-    id: 140846,
-    name: 'Aegisjalmur, the Armguards of Awe',
-    icon: 'inv_bracer_plate_raidpaladin_m_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  JUSTICE_GAZE: {
-    id: 137065,
-    name: 'Justice Gaze',
-    icon: 'inv_helmet_134',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SCARLET_INQUISITORS_EXPURGATION: {
-    id: 151813,
-    name: 'Scarlet Inquisitor\'s Expurgation',
-    icon: 'inv_chest_plate_raidpaladin_j_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-
   // Protection legendaries
   HEATHCLIFFS_IMMORTALITY: {
     id: 137047,
