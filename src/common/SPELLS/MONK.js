@@ -671,11 +671,6 @@ export default {
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
-  CHI_ORBIT_DAMAGE: {
-    id: 196748,
-    name: 'Chi Orbit',
-    icon: 'ability_monk_forcesphere',
-  },
   FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
     id: 261978,
     name: 'Fist of the White Tiger',
@@ -685,73 +680,5 @@ export default {
     id: 261682,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
-  },
-  // Windwalker legendaries
-  KATSUOS_ECLIPSE: {
-    id: 208045,
-    name: "Katsuo's Eclipse",
-    icon: 'ability_monk_fistoffury',
-  },
-  THE_WIND_BLOWS: {
-    id: 248101,
-    name: 'The Wind Blows',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  THE_EMPERORS_CAPACITOR_STACK: {
-    id: 235054,
-    name: "The Emperor's Capacitor",
-    icon: 'ability_monk_cracklingjadelightning',
-  },
-  DRINKING_HORN_COVER: {
-    id: 209256,
-    name: 'Drinking Horn Cover',
-    icon: 'spell_nature_giftofthewild',
-  },
-  HIDDEN_MASTERS_FORBIDDEN_TOUCH: {
-    id: 213112,
-    name: "Hidden Master's Forbidden Touch",
-    icon: 'ability_monk_touchofdeath',
-  },
-  CENEDRIL_REFLECTOR_OF_HATRED: {
-    id: 208842,
-    name: 'Cenedril, Reflector of Hatred',
-    icon: 'ability_monk_touchofkarma',
-  },
-  // Windwalker Tiersets
-  WW_TIER19_2PC: {
-    id: 211427,
-    name: 'Windwalker T19 2PC',
-    icon: 'ability_monk_risingsunkick',
-  },
-  WW_TIER20_2PC: {
-    id: 242260,
-    name: 'Windwalker T20 2PC',
-    icon: 'ability_monk_fistoffury',
-  },
-  WW_TIER20_4PC: {
-    id: 242259,
-    name: 'Windwalker T20 4PC',
-    icon: 'ability_monk_risingsunkick',
-  },
-  PRESSURE_POINT: {
-    id: 247255,
-    name: 'Pressure Point',
-    icon: 'spell_monk_windwalker_spec',
-  },
-  WW_TIER21_4PC: {
-    id: 251821,
-    name: 'Windwalker T21 4PC',
-    icon: 'ability_monk_roundhousekick',
-  },
-  WW_TIER21_2PC: {
-    id: 251823,
-    name: 'Windwalker T21 2PC',
-    icon: 'ability_monk_roundhousekick',
-  },
-  // this is the chi gain from T21 2pc
-  FOCUS_OF_XUEN: {
-    id: 252768,
-    name: 'Focus of Xuen',
-    icon: 'ability_monk_roundhousekick',
   },
 };

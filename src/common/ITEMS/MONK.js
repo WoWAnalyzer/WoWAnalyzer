@@ -109,48 +109,4 @@ export default {
     icon: 'inv_misc_cape_cataclysm_healer_b_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
-  // Windwalker legendaries
-  CENEDRIL_REFLECTOR_OF_HATRED: {
-    id: 137019,
-    name: 'Cenedril, Reflector of Hatred',
-    icon: 'inv_cape_pandaria_b_02',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  DRINKING_HORN_COVER: {
-    id: 137097,
-    name: 'Drinking Horn Cover',
-    icon: 'inv_bracer_26',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  MARCH_OF_THE_LEGION: {
-    id: 137220,
-    name: 'March of the Legion',
-    icon: 'inv_ringwod_d4_3',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  HIDDEN_MASTERS_FORBIDDEN_TOUCH: {
-    id: 137057,
-    name: 'Hidden Master\'s Forbidden Touch',
-    icon: 'inv_gauntlet_leather_raidrogue_j_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  KATSUOS_ECLIPSE: {
-    id: 137029,
-    name: 'Katsuo\'s Eclipse',
-    icon: 'inv_boots_cloth_33v4',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  THE_EMPERORS_CAPACITOR: {
-    id: 144239,
-    name: 'The Emperor\'s Capacitor',
-    icon: 'inv_chest_leather_raidrogue_l_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  THE_WIND_BLOWS: {
-    id: 151811,
-    name: 'The Wind Blows',
-    icon: 'inv_helmet_leather_raidmonk_l_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
 };
