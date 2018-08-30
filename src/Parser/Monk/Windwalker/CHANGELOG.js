@@ -42,7 +42,7 @@ export default [
   },
   {
     date: new Date('2018-03-03'),
-    changes: 'Added The Wind Blows statistic>',
+    changes: 'Added The Wind Blows statistic',
     contributors: [Hewhosmites],
   },
   {
@@ -117,7 +117,7 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <React.Fragment>Updated Cast Efficiency - Added reductions from The Wind Blows and T19 2pc</React.Fragment>,
+    changes: 'Updated Cast Efficiency - Added reductions from The Wind Blows and T19 2pc',
     contributors: [Juko8],
   },
   {
