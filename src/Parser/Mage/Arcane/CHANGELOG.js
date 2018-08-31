@@ -12,52 +12,52 @@ export default [
   },
   {
     date: new Date('2018-08-11'),
-    changes: <React.Fragment>Added Arcane Missiles Module and Time Anomaly Mana Management.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> Module and <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> Mana Management.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-10'),
-    changes: <React.Fragment>Added Check to see if the player went OOM during Arcane Power.</React.Fragment>,
+    changes: <React.Fragment>Added Check to see if the player went OOM during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-09'),
-    changes: <React.Fragment>Added Checklist</React.Fragment>,
+    changes: 'Added Checklist',
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-02'),
-    changes: <React.Fragment>Removed Arcane Missiles module as it is no longer relevant. Also fixed Arcane Charge event order.</React.Fragment>,
+    changes: <React.Fragment>Removed <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> module as it is no longer relevant. Also fixed Arcane Charge event order.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-01'),
-    changes: <React.Fragment>Added Support for Rule of Threes.</React.Fragment>,
+    changes: <React.Fragment>Added Support for <SpellLink id={SPELLS.RULE_OF_THREES_TALENT.id} />.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-07-28'),
-    changes: <React.Fragment>Added Support for Arcane Power.</React.Fragment>,
+    changes: <React.Fragment>Added Support for <SpellLink id={SPELLS.ARCANE_POWER.id} />.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-07-25'),
-    changes: <React.Fragment>Added Arcane Charge Tracking and Mana Chart.</React.Fragment>,
+    changes: 'Added Arcane Charge Tracking and Mana Chart.',
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-07-23'),
-    changes: <React.Fragment>Added Support for Arcane Familiar, Arcane Orb, and Arcane Intellect.</React.Fragment>,
+    changes: <React.Fragment>Added Support for <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} />, <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} />, and <SpellLink id={SPELLS.ARCANE_INTELLECT.id} />.</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-07-23'),
-    changes: <React.Fragment>Removed Evocate Suggestion, Updated for 8.0.1, Resolved some Abilities Bugs</React.Fragment>,
+    changes: <React.Fragment>Removed <SpellLink id={SPELLS.EVOCATION.id} /> Suggestion, Updated for 8.0.1, Resolved some Abilities Bugs</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-01-27'),
-    changes: <React.Fragment>Added Spec</React.Fragment>,
+    changes: 'Added Spec',
     contributors: [Sharrq],
   },
 ];

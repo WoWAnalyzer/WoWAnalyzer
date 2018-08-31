@@ -19,11 +19,6 @@ class BrainFreezeTracker extends Analyzer {
 	totalProcs = 0;
 	flurryWithoutProc = 0;
 
-	constructor(...args) {
-    super(...args);
-    this.hasWintersReachTrait = this.selectedCombatant.hasTrait(SPELLS.WINTERS_REACH_TRAIT.id);
-  }
-
 	on_byPlayer_applybuff(event) {
 		const spellId = event.ability.guid;
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {

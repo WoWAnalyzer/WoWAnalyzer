@@ -8,6 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 
 const CAST_BUFFER = 250;
+const FIGHT_END_BUFFER = 7500;
 
 const debug = false;
 
@@ -83,16 +84,20 @@ class WintersReach extends Analyzer {
     debug && console.log("Flurry Casted @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     this.castTimestamp = event.timestamp;
     const castTime = this.castTimestamp - this.beginCastTimestamp;
-    //Checks the begincast and cast timestamps to determine if it is instant cast or not. This doesnt matter for ABT and ToS because winters reach flurries dont have a begincast, but in Nighthold they do. So this needs to remain for backwards compatibility
+
     if (castTime >= CAST_BUFFER && this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
       this.buffUsed = true;
       debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
   }
 
+  /*
+    If the player gets a proc within the last 7.5 seconds of the fight then it wont count against them if they dont use it. This is mainly taking into account the reaction time of realizing you have the proc,
+    potentially needing to clear the Brain Freeze procs they already have, the cast time on Flurry, and the travel time for all of the projectiles to hit the target.
+  */
   on_finished() {
     if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
-      const adjustedFightEnding = this.owner.currentTimestamp - 7500;
+      const adjustedFightEnding = this.owner.currentTimestamp - FIGHT_END_BUFFER;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {
         this.wastedProcs += 1;
         debug && console.log("Fight Ended with Unused Proc @ " + formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time));
@@ -106,7 +111,6 @@ class WintersReach extends Analyzer {
   }
 
   get procsPerMinute() {
-    console.log(this.owner.fightDuration / 60000);
     return this.totalProcs / (this.owner.fightDuration / 60000);
   }
 
