@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-08-31'),
-    changes: 'Removed "Casts in Storm, Earth and Fire/Serenity statistics" since it\s no longer providing accurate analysis',
+    changes: 'Removed "Casts in Storm, Earth and Fire/Serenity statistics" since it\'s no longer providing accurate analysis',
     contributors: [Juko8],
   },
   {
