@@ -681,4 +681,30 @@ export default {
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
   },
+  // Windwalker Azerite Traits
+  OPEN_PALM_STRIKES_ENERGIZE: {
+    id: 279922,
+    name: 'Open Palm Strikes',
+    icon: 'monk_ability_fistoffury',
+  },
+  SUNRISE_TECHNIQUE_BUFF: {
+    id: 273298,
+    name: 'Sunrise Technique',
+    icon: 'ability_monk_risingsunkick',
+  },
+  SUNRISE_TECHNIQUE_DEBUFF: {
+    id: 273299,
+    name: 'Sunrise Technique',
+    icon: 'ability_monk_risingsunkick',
+  },
+  SWIFT_ROUNDHOUSE_BUFF: {
+    id: 278710,
+    name: 'Swift Roundhouse',
+    icon: 'ability_monk_roundhousekick',
+  },
+  IRON_FISTS_BUFF: {
+    id: 272806,
+    name: 'Iron Fists',
+    icon: 'spell_holy_fistofjustice',
+  },
 };
