@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-08-30'),
+    changes: 'Removed Legion modules and updated basic analysis for BFA',
+    contributors: [Khazak],
+  },
+  {
     date: new Date('2018-08-03'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.BONE_SPIKE_GRAVEYARD.id} />-Module.</React.Fragment>,
     contributors: [joshinator],

@@ -23,8 +23,8 @@ class Apocalypse extends Analyzer {
 		this.totalApocalypseCasts+=1;
 		const target = this.enemies.getEntity(event);
 		const currentTargetWounds = target && target.hasBuff(SPELLS.FESTERING_WOUND.id) ? target.getBuff(SPELLS.FESTERING_WOUND.id).stacks: 0;
-		if(currentTargetWounds > 5){
-			this.apocalypseWoundsPopped=this.apocalypseWoundsPopped + 6;
+		if(currentTargetWounds > 4){
+			this.apocalypseWoundsPopped=this.apocalypseWoundsPopped + 4;
 			} else {
 			this.apocalypseWoundsPopped=this.apocalypseWoundsPopped + currentTargetWounds;
 		}
