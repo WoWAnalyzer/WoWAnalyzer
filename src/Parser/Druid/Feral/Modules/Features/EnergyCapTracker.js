@@ -13,7 +13,7 @@ import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker
  */
 const debugIsPlayerAbove115 = false;
 
-const BASE_ENERGY_REGEN = 10;
+const BASE_ENERGY_REGEN = 11;
 const CHATOYANT_SIGNET_REGEN_MULTIPLIER = 1.05;
 
 const BASE_ENERGY_MAX = 100;
