@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-08-11'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.STAGGERING_STRIKES.id} />.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-07-22'),
     changes: <React.Fragment>Updated support for <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> and temporarily disabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module pending new formula coefficients.</React.Fragment>,
     contributors: [emallson],
