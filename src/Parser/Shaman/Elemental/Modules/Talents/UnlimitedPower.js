@@ -39,7 +39,7 @@ class UnlimitedPower extends Analyzer {
       return (
         <ExpandableStatisticBox
           icon={<SpellIcon id={SPELLS.UNLIMITED_POWER_TALENT.id} />}
-          value={`${formatPercentage(this.unlimitedPowerTimesByStacks.averageUnlimitedPowerStacks)} %`}
+          value={`${formatPercentage(this.averageHaste)} %`}
           label={`Unlimited Power Average Haste Gain (Uptime ${formatPercentage(this.uptime)}%) `}
         >
           <table className="table table-condensed">

@@ -52,8 +52,8 @@ class CombatLogParser extends CoreCombatLogParser {
     primalStormElemental: PrimalStormElemental,
     totemMastery: TotemMastery,
     stormkeeper: Stormkeeper,
-    //unlimitedPowerTimesByStacks: UnlimitedPower,
-    //unlimitedPower: UnlimitedPower,
+    unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
+    unlimitedPower: UnlimitedPower,
 
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
