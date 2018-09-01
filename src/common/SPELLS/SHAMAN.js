@@ -197,6 +197,11 @@ export default {
     name: 'Elemental Blast: Mastery',
     icon: 'shaman_talent_elementalblast',
   },
+  LIQUID_MAGMA_TOTEM_DAMAGE: {
+    id: 192231,
+    name: 'Liquid Magma Totem Damage',
+    icon: 'spell_shaman_spewlava',
+  },
   CHAIN_LIGHTNING: {
     id: 188443,
     name: 'Chain Lightning',
