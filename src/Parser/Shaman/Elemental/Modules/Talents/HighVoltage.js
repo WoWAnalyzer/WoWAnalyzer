@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const EXTRA_OVERLOAD_CHANCE=0.5;
 
-class Aftershock extends Analyzer {
+class HighVoltage extends Analyzer {
   damageDoneByOverloads = 0;
 
   constructor(...args) {
@@ -53,4 +53,4 @@ class Aftershock extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL;
 }
 
-export default Aftershock;
+export default HighVoltage;
