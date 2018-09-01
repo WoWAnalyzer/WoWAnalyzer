@@ -34,7 +34,7 @@ class PrimalStormElemental extends Analyzer {
     this.pseCasts++;
   }
 
-  on_cast(event) {
+  on_damage(event) {
     if (!damagingCasts.includes(event.ability.guid)) {
       return;
     }

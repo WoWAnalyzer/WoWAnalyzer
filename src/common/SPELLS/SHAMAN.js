@@ -385,7 +385,7 @@ export default {
   },
   //PETS
   FIRE_ELEMENTAL_FIRE_BLAST: {
-    id:57984,
+    id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
   },

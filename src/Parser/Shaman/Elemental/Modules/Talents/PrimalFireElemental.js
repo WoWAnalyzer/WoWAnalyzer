@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-const damagingCasts = [SPELLS.METEOR.id, SPELLS.IMMOLATE.id, SPELLS.FIREBLAST.id];
+const damagingCasts = [SPELLS.METEOR.id, SPELLS.IMMOLATE.id, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id];
 
 class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
@@ -32,7 +32,7 @@ class PrimalFireElemental extends Analyzer {
     this.PFEcasts++;
   }
 
-  on_cast(event) {
+  on_damage(event) {
     if (!damagingCasts.includes(event.ability.guid)) {
       return;
     }
