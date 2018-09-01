@@ -66,7 +66,7 @@ class PrimalFireElemental extends Analyzer {
         icon={<SpellIcon id={SPELLS.FIRE_ELEMENTAL.id} />}
         value={`~ ${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
-        tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
+        tooltip={`PFE contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );
   }
