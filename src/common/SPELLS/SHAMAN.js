@@ -202,6 +202,11 @@ export default {
     name: 'Liquid Magma Totem Damage',
     icon: 'spell_shaman_spewlava',
   },
+  EARTHEN_RAGE_DAMAGE: {
+    id: 170379,
+    name: 'Earthen Rage Damage',
+    icon: 'ability_earthen_pillar',
+  },
   CHAIN_LIGHTNING: {
     id: 188443,
     name: 'Chain Lightning',
