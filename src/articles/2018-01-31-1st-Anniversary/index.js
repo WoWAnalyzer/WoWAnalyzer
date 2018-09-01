@@ -143,7 +143,7 @@ class Article extends React.PureComponent {
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
 
-          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> in the next few days.
+          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries Ilterendi, Crown Jewel of Silvermoon and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> in the next few days.
         </Item>
 
         <Item title="Feeding other tools with new cast behavior statistics" date="25 Mar">

@@ -435,7 +435,7 @@ export default {
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
-    id: 220143,
+    id: 275699,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },

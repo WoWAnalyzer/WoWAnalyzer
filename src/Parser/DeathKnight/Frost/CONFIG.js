@@ -9,7 +9,7 @@ export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
   contributors: [Khazak],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '7.3.5',
+  patchCompatibility: '8.0.1',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -19,6 +19,7 @@ export default {
       <br />More resources for Frost:<br />
       <a href="https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />
       <a href="http://www.wowhead.com/frost-death-knight-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
+      <a href="https://www.icy-veins.com/wow/frost-death-knight-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

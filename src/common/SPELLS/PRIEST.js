@@ -56,7 +56,7 @@ export default {
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 500,
-    coefficient: 0.56,
+    coefficient: 0.47,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,

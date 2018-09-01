@@ -81,10 +81,6 @@ class Abilities extends CoreAbilities {
             if (!this.enemies.getEntity(event) || !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
               return false;
             }
-            // Check if moonfire was missing on a secondary target (if using LatC)
-            if (combatant.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id)) {
-              return targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp - 1));
-            }
             return true;
           },
           isHighPriority: ({ timestamp }, selectedCombatant) => {

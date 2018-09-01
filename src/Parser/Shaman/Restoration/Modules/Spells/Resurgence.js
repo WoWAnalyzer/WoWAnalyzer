@@ -18,7 +18,7 @@ const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.UNLEASH_LIFE_TALENT.id]: 0.006,
   [SPELLS.RIPTIDE.id]: 0.006,
 };
-const MAX_MANA = 20000;
+const MAX_MANA = 100000;
 
 class Resurgence extends Analyzer {
   regenedMana = 0;
@@ -60,7 +60,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 800;
+    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
 
     return this.regenedMana + this.totalResurgenceGain + MAX_MANA + this.otherManaGain;
   }

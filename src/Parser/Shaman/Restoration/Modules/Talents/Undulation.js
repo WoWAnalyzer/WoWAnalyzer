@@ -27,12 +27,6 @@ class Undulation extends Analyzer {
       if (hasUndulation) {
         this.healing += calculateEffectiveHealing(event, UNDULATION_HEALING_INCREASE);
       }
-    } else if (spellId === SPELLS.DOWNPOUR.id) {
-      const hasUndulation = this.selectedCombatant.hasBuff(SPELLS.UNDULATION_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-
-      if (hasUndulation) {
-        this.healing += calculateEffectiveHealing(event, UNDULATION_HEALING_INCREASE);
-      }
     }
   }
 
@@ -40,12 +34,6 @@ class Undulation extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HEALING_WAVE.id || spellId === SPELLS.HEALING_SURGE_RESTORATION.id) {
-      const hasUndulation = this.selectedCombatant.hasBuff(SPELLS.UNDULATION_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-
-      if (hasUndulation) {
-        this.healing += event.feed * UNDULATION_HEALING_INCREASE;
-      }
-    } else if (spellId === SPELLS.DOWNPOUR.id) {
       const hasUndulation = this.selectedCombatant.hasBuff(SPELLS.UNDULATION_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
       if (hasUndulation) {
@@ -70,4 +58,3 @@ class Undulation extends Analyzer {
 }
 
 export default Undulation;
-

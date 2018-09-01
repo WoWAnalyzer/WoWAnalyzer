@@ -3,18 +3,17 @@ import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker
 import SPELLS from 'common/SPELLS';
 
 class HolyPowerTracker extends ResourceTracker {
-
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.HOLY_POWER;
   }
 
   getReducedCost(event) {
-    if(!this.getResource(event).cost) {
+    if (!this.getResource(event).cost) {
       return 0;
     }
     let cost = this.getResource(event).cost;
-    if(this.selectedCombatant.hasBuff(SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id) || this.selectedCombatant.hasBuff(SPELLS.RET_PALADIN_T21_4SET_BONUS_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id)) {
       cost = cost - 1;
     }
     return cost;

@@ -770,21 +770,6 @@ export default {
     name: 'Owlkin Frenzy',
     icon: 'ability_druid_owlkinfrenzy',
   },
-  THE_EMERALD_DREAMCATCHER: {
-    id: 224706,
-    name: 'The Emerald Dreamcatcher',
-    icon: 'inv_helmet_81',
-  },
-  ASTRAL_ACCELERATION: {
-    id: 242232,
-    name: 'Astral Acceleration',
-    icon: 'inv_enchant_essenceastrallarge',
-  },
-  STAR_POWER: {
-    id: 202942,
-    name: 'Star Power',
-    icon: 'artifactability_balancedruid_moonandstars',
-  },
   SOLAR_BEAM: {
     id: 78675,
     name: 'Solar Beam',
@@ -794,56 +779,6 @@ export default {
     id: 202497,
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
-  },
-  BLESSING_OF_ANSHE: {
-    id: 202739,
-    name: 'Blessing of An\'she',
-    icon: 'spell_priest_divinestar_holy',
-  },
-  BLESSING_OF_ELUNE: {
-    id: 202737,
-    name: 'Blessing of Elune',
-    icon: 'achievement_worldevent_lunar',
-  },
-  ONETHS_INTUITION: {
-    id: 209406,
-    name: 'Oneth\'s Intuition',
-    icon: 'spell_arcane_invocation',
-  },
-  ONETHS_OVERCONFIDENCE: {
-    id: 209407,
-    name: 'Oneth\'s Overconfidence',
-    icon: 'ability_druid_stellarflare',
-  },
-  ECHOING_STARS: {
-    id: 226104,
-    name: 'Echoing Stars',
-    icon: 'ability_socererking_forcenova',
-  },
-  BALANCE_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242231,
-    name: 'T20 2 set bonus',
-    icon: 'spell_nature_starfall',
-  },
-  BALANCE_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242233,
-    name: 'T20 4 set bonus',
-    icon: 'spell_nature_starfall',
-  },
-  BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
-    id: 251803,
-    name: 'T21 2 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  BALANCE_DRUID_T21_4SET_BONUS_BUFF: {
-    id: 251809,
-    name: 'T21 4 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  SOLAR_SOLSTICE: {
-    id: 252767,
-    name: 'Solar Solstice',
-    icon: 'spell_druid_sunfall',
   },
 
   // FERAL //

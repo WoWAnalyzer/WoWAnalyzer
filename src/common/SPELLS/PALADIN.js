@@ -141,11 +141,6 @@ export default {
     icon: 'ability_paladin_lightofthemartyr',
     manaCost: 280,
   },
-  MARAADS_DYING_BREATH_BUFF: {
-    id: 234862,
-    name: 'Maraad\'s Dying Breath',
-    icon: 'paladin_icon_speedoflight',
-  },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
     name: 'Light of the Martyr',
@@ -297,11 +292,6 @@ export default {
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
   },
-  ILTERENDI_BUFF: {
-    id: 207589,
-    name: 'Ilterendi, Crown Jewel of Silvermoon',
-    icon: 'spell_holy_impholyconcentration',
-  },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
     name: 'Templar\'s Verdict',
@@ -381,62 +371,6 @@ export default {
     id: 269937,
     name: 'Zeal',
     icon: 'spell_holy_sealofblood',
-  },
-  // Ret Item Effects
-  WHISPER_OF_THE_NATHREZIM_BUFF: {
-    id: 207635,
-    name: 'Whisper of the Nathrezim',
-    icon: 'ability_paladin_sheathoflight',
-  },
-  LIADRINS_FURY_UNLEASHED_BUFF: {
-    id: 208410,
-    name: 'Liandrin\'s Fury Unleashed',
-    icon: 'inv_jewelry_ring_61',
-  },
-  RET_PALADIN_T19_2SET_BONUS: {
-    id: 211444,
-    name: 'T19 2 set bonus',
-    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T19_4SET_BONUS: {
-    id: 211448,
-    name: 'T19 4 set bonus',
-    icon: 'inv_cape_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T19_4SET_HP_GEN: {
-    id: 231372,
-    name: 'T19 4 set bonus',
-    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T20_2SET_BONUS: {
-    id: 242267,
-    name: 'T20 2 set bonus',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T20_2SET_BONUS_BUFF: {
-    id: 246973,
-    name: 'T20 2 set bonus buff',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T20_4SET_BONUS: {
-    id: 242266,
-    name: 'T20 4 set bonus',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T21_2SET_BONUS: {
-    id: 251867,
-    name: 'T21 2 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  RET_PALADIN_T21_4SET_BONUS: {
-    id: 251868,
-    name: 'T21 4 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  RET_PALADIN_T21_4SET_BONUS_BUFF: {
-    id: 253806,
-    name: 'T21 4 set bonus buff',
-    icon: 'ability_paladin_conviction',
   },
   // Traits:
 	// Protection

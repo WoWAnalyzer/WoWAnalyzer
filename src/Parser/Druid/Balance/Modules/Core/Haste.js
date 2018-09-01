@@ -6,9 +6,6 @@ class Haste extends CoreHaste {
   static HASTE_BUFFS = {
     ...CoreHaste.HASTE_BUFFS,
     // Moonkin specific
-    [SPELLS.ASTRAL_ACCELERATION.id]: { // From T20 4p
-      hastePerStack: 0.02,
-    },
     [SPELLS.STARLORD.id]: {
       hastePerStack: 0.03,
     },
