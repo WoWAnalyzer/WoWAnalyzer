@@ -1117,4 +1117,143 @@ export default {
     name: "Apocalypsis Zone",
     icon: "inv_ember",
   },
+
+
+  //Uldir
+
+  //Taloc
+  TALOC_BLOOD_STORM: {
+    id: 270288,
+    name: "Blood Storm",
+    icon: "inv_misc_stormlordsfavor",
+  },
+  TALOC_COMBUSTIBLE_FUEL:{
+    id: 272584,
+    name: "Combustible Fuel",
+    icon: "inv_misc_food_legion_goooil_chunk",
+  },
+  TALOC_CUDGEL_OF_GORE_1: {
+    id: 271636,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_2:{
+    id: 271714,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_3: {
+    id: 271296,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_4: {
+    id: 271811,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_5: {
+    id: 271519,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_PLASMA_DISCHARGE_1: {
+    id: 278888,
+    name: "Plasma Discharge",
+    icon: "inv_misc_boilingblood",
+  },
+  TALOC_PLASMA_DISCHARGE_2: {
+    id: 271224,
+    name: "Plasma Discharge",
+    icon: "inv_misc_boilingblood",
+  },
+  TALOC_POWERED_DOWN: {
+    id: 271965,
+    name: "Powered Down",
+    icon: "inv_misc_food_legion_gooamber_drop",
+  },
+  TALOC_RETRIEVE_CUDGEL_1: {
+    id: 271729,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_RETRIEVE_CUDGEL_2: {
+    id: 271864,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_RETRIEVE_CUDGEL_3: {
+    id: 271728,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_SANGUINE_STATIC: {
+    id: 271895,
+    name: "Sanguine Static",
+    icon: "sha_ability_mage_firestarter_nightmare",
+  },
+  TALOC_SLOUGH_OFF_1: {
+    id: 278882,
+    name: "Slough Off",
+    icon: "ability_druid_infectedwound",
+  },
+  TALOC_SLOUGH_OFF_2: {
+    id: 275686,
+    name: "Slough Off",
+    icon: "ability_druid_infectedwound",
+  },
+
+  //MOTHER
+
+  MOTHER_CLEANSING_PURGE: {
+    id: 268089,
+    name: "Cleansing Purge",
+    icon: "trade_engineering",
+  },
+  MOTHER_PURIFYING_FLAME_1: {
+    id: 274192,
+    name: "Purifying Flame",
+    icon: "trade_engineering",
+  },
+  MOTHER_PURIFYING_FLAME_2: {
+    id: 267795,
+    name: "Purifying Flame",
+    icon: "ability_mage_firestarter",
+  },
+  MOTHER_SANITIZING_STRIKE: {
+    id: 267787,
+    name: "Sanitizing Strike",
+    icon: "ability_warrior_sunder",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_1: {
+    id: 275228,
+    name: "Uldir Defensive Beam",
+    icon: "ability_mage_rayoffrost",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_2:{
+    id: 277973,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_3: {
+    id: 277742,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_4: {
+    id: 269827,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_WIND_TUNNEL_1: {
+    id: 267945,
+    name: "Wind Tunnel",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_WIND_TUNNEL_2: {
+    id: 267878,
+    name: "Wind Tunnel",
+    icon: "inv_misc_volatileair",
+  },
+
 };
