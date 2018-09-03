@@ -16,6 +16,7 @@ import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import SplittingIce from './Modules/Features/SplittingIce';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
+import WintersReach from './Modules/Traits/WintersReach';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import ColdSnap from './Modules/Cooldowns/ColdSnap';
@@ -41,6 +42,9 @@ class CombatLogParser extends CoreCombatLogParser {
     mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     splittingIce: SplittingIce,
+
+    //Traits
+    wintersReach: WintersReach,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,

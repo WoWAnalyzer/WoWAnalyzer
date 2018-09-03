@@ -442,6 +442,38 @@ export default {
     icon: 'spell_arcane_starfire',
   },
 
+  //Azerite Traits
+  GLACIAL_ASSAULT: {
+    id: 279855,
+    name: 'Glacial Assault',
+    icon: 'spell_mage_cometstorm2',
+  },
+  WHITEOUT: {
+    id: 278541,
+    name: 'Whiteout',
+    icon: 'spell_frost_frostblast',
+  },
+  WINTERS_REACH_TRAIT: {
+    id: 273346,
+    name: 'Winter\'s Reach',
+    icon: 'ability_warlock_burningembersblue',
+  },
+  WINTERS_REACH_BUFF: {
+    id: 273347,
+    name: 'Winter\'s Reach',
+    icon: 'ability_warlock_burningembersblue',
+  },
+  ANOMALOUS_IMPACT: {
+    id: 279867,
+    name: 'Anomalous Impact',
+    icon: 'ability_sorcererking_arcanereplication',
+  },
+  GALVANIZING_SPARK: {
+    id: 278536,
+    name: 'Galvanizing Spark',
+    icon: 'spell_arcane_arcane03',
+  },
+
   //Tier Sets
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,
