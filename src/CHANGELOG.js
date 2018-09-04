@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-04'),
+    changes: <React.Fragment>Adds <ItemLink id={ITEMS.GALECALLERS_BOON.id} /> modules and adds tracking for <SpellLink id={SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id} /> weapon enchant. </React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-08'),
     changes: 'Moved the detail tab selection to the left side.',
     contributors: [Zerotorescue],

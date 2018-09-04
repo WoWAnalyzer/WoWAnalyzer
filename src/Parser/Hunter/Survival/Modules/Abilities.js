@@ -127,6 +127,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+        },
+        charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
+        cooldown: haste => 18 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
         timelineSortIndex: 5,
       },
