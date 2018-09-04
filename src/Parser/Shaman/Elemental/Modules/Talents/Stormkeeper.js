@@ -46,7 +46,7 @@ class Stormkeeper extends Analyzer {
         icon={<SpellIcon id={SPELLS.STORMKEEPER_TALENT.id} />}
         value={`${formatNumber(this.damageDoneByBuffedCasts)} damage`}
         label="Damage Done by Buffed Casts"
-        tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS `}
+        tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS (${formatPercentage(this.damagePercent)} of your damage)`}
       />
     );
   }
