@@ -14,19 +14,19 @@ const BUFF_DURATION = 20; // seconds
 
 /**
  * Use: Your next 6 healing spells restore [x] mana. (2 Min Cooldown)
- * 
+ *
  * The restored mana appears as energize events in the combat log.
  * The buff expires after 20 seconds or after casting 6 spells, whichever is sooner.
  */
 class FangsOfIntertwinedEssence extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-  }
+  };
 
   manaRestored = 0;
   useCount = 0;
   restoreCount = 0;
-  
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.FANGS_OF_INTERTWINED_ESSENCE.id);
@@ -66,7 +66,7 @@ class FangsOfIntertwinedEssence extends Analyzer {
   get restoresPerUse() {
     return this.restoreCount / this.useCount;
   }
-  
+
   item() {
     return {
       item: ITEMS.FANGS_OF_INTERTWINED_ESSENCE,
