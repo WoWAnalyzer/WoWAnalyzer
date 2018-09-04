@@ -1371,6 +1371,74 @@ export default {
     name: "Titan Spark",
     icon: "item_holyspark",
   },
-  
+
+
+  //Vectis
+
+  VECTIS_BLOOD_GEYSER_CAST: {
+    id: 265281,
+    name: "Blood Geyser",
+    icon: "inv_artifact_bloodoftheassassinated",
+  },
+  VECTIS_BLOOD_GEYSER_DAMAGE: {
+    id: 265370,
+    name: "Blood Geyser",
+    icon: "inv_artifact_bloodoftheassassinated",
+  },
+  VECTIS_CONTAGION: {
+    id: 267242,
+    name: "Contagion",
+    icon: "ability_creature_cursed_04",
+  },
+  VECTIS_EVOLVING_AFFLICTION: {
+    id: 265178,
+    name: "Evolving Affliction",
+    icon: "ability_ironmaidens_whirlofblood",
+  },
+  VECTIS_GESTATE_CAST: {
+    id: 265209,
+    name: "Gestate",
+    icon: "spell_shadow_abominationexplosion",
+  },
+  VECTIS_GESTATE_DAMAGE:{
+    id: 266077,
+    name: "Gestate",
+    icon: "spell_shadow_abominationexplosion",
+  },
+  VECTIS_IMMUNOSUPPRESSION: {
+    id: 265206,
+    name: "Immunosuppression",
+    icon: "ability_creature_cursed_05",
+  },
+  VECTIS_LIQUEFY: {
+    id: 265217,
+    name: "Liquefy",
+    icon: "inv_misc_boilingblood",
+  },
+  VECTIS_OMEGA_VECTOR_CAST: {
+    id: 276439,
+    name: "Omega Vector",
+    icon: "spell_shadow_corpseexplode",
+  },
+  VECTIS_OMEGA_VECTOR_DAMAGE: {
+    id: 265143,
+    name: "Omega Vector",
+    icon: "spell_shadow_corpseexplode",
+  },
+  VECTIS_PLAGUE_BOMB_CAST: {
+    id: 266459,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  VECTIS_PLAGUE_BOMB_DAMAGE_1:{
+    id: 266948,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  VECTIS_PLAGUE_BOMB_DAMAGE_2: {
+    id: 266953,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
 
 };
