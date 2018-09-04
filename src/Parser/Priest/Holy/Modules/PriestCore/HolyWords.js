@@ -8,7 +8,7 @@ const HOLY_WORD_REDUCERS = {
   [SPELLS.FLASH_HEAL.id]: 6000,
   [SPELLS.BINDING_HEAL_TALENT.id]: 3000,
   [SPELLS.RENEW.id]: 2000,
-  [SPELLS.PRAYER_OF_HEALING.id]: 4000,
+  [SPELLS.PRAYER_OF_HEALING.id]: 6000,
   [SPELLS.HOLY_WORD_SERENITY.id]: 30000,
   [SPELLS.HOLY_WORD_SANCTIFY.id]: 30000,
   [SPELLS.SMITE.id]: 4000,
@@ -30,6 +30,8 @@ class HolyWords extends Analyzer {
   reductionAdditions = 0;
   hasSalvation = false;
 
+  reductionAmountBySpell = {};
+
   constructor(...args) {
     super(...args);
     const hasLotN = this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id);
@@ -39,29 +41,27 @@ class HolyWords extends Analyzer {
     if(hasLotN) {
       this.reductionMultiplier += LIGHT_OF_THE_NAARU_MULTIPLIER_ADDITION;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF)) {
-      this.reductionAdditions += 1000;
-    }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    const spellName = event.ability.name;
 
     switch(spellId) {
       case SPELLS.GREATER_HEAL.id:
       case SPELLS.FLASH_HEAL.id:
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SERENITY.id, spellId);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SERENITY.id, spellId, spellName);
         return;
       case SPELLS.BINDING_HEAL_TALENT.id:
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SERENITY.id, spellId);
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SANCTIFY.id, spellId);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SERENITY.id, spellId, spellName);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SANCTIFY.id, spellId, spellName);
         return;
       case SPELLS.RENEW.id:
       case SPELLS.PRAYER_OF_HEALING.id:
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SANCTIFY.id, spellId);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SANCTIFY.id, spellId, spellName);
         return;
       case SPELLS.SMITE.id:
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_CHASTICE.id, spellId);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_CHASTICE.id, spellId, spellName);
         return;
       default:
         break;
@@ -72,16 +72,22 @@ class HolyWords extends Analyzer {
     }
 
     if(spellId === SPELLS.HOLY_WORD_SERENITY.id || spellId === SPELLS.HOLY_WORD_SANCTIFY.id) {
-      this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SALVATION_TALENT.id, spellId);
+      this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SALVATION_TALENT.id, spellId, spellName);
     }
   }
 
-  reduceHolyWordCooldown(holyWord, spellId) {
+  reduceHolyWordCooldown(holyWord, spellId, spellName) {
+    if (!this.reductionAmountBySpell[spellId]) {
+      this.reductionAmountBySpell[spellId] = {
+        name: spellName,
+        amount: 0,
+      };
+    }
     if (!this.spellUsable.isOnCooldown(holyWord)) {
       return;
     }
 
-    let reduction = (HOLY_WORD_REDUCERS[spellId] + this.reductionAdditions) * this.reductionMultiplier;
+    let reduction = HOLY_WORD_REDUCERS[spellId] * this.reductionMultiplier;
     if(this.hasApotheosis) {
       const apotheosisActive = this.selectedCombatant.hasBuff(SPELLS.APOTHEOSIS_TALENT.id);
       if(apotheosisActive) {
@@ -90,6 +96,10 @@ class HolyWords extends Analyzer {
     }
 
     this.spellUsable.reduceCooldown(holyWord, reduction);
+
+    this.reductionAmountBySpell[spellId].amount += reduction/1000;
+    console.log("Array", this.reductionAmountBySpell);
+    console.log("Reduction", reduction/1000);
   }
 }
 
