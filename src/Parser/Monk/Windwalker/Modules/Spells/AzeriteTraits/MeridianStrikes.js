@@ -1,0 +1,48 @@
+import React from 'react';
+import Analyzer from 'Parser/Core/Analyzer';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
+import SPELLS from 'common/SPELLS';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../../Constants';
+
+const COOLDOWN_REDUCTION_MS = 250;
+
+class MeridianStrikes extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
+  lastSpellUsed = null;
+  effectiveCooldownReduction = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.MERIDIAN_STRIKES.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if (!ABILITIES_AFFECTED_BY_MASTERY.includes(spellId)) {
+      return;
+    }
+    if (this.lastSpellUsed !== spellId && this.spellUsable.isOnCooldown(SPELLS.TOUCH_OF_DEATH.id)) {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TOUCH_OF_DEATH.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveCooldownReduction += reductionMs;
+    }
+  }
+  statistic() {
+    return (
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.MERIDIAN_STRIKES.id}
+        value={`${(this.effectiveCooldownReduction/1000).toFixed(2)} Seconds`}
+        tooltip={`Touch of Death cooldown reduction gained through Meridian Strikes`}
+      />
+    );
+  }
+}
+
+export default MeridianStrikes;

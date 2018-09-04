@@ -24,6 +24,7 @@ import EnergizingElixir from './Modules/Talents/EnergizingElixir';
 import Serenity from './Modules/Talents/Serenity';
 // Azerite
 import IronFists from './Modules/Spells/AzeriteTraits/IronFists';
+import MeridianStrikes from './Modules/Spells/AzeriteTraits/MeridianStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite
     ironFists: IronFists,
+    meridianStrikes: MeridianStrikes,
   };
 }
 

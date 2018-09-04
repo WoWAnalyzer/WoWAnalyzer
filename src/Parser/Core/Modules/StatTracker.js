@@ -257,7 +257,7 @@ class StatTracker extends Analyzer {
     [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
       mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
     },
-    [SPELLS.IRON_FISTS_BUFF.id]: { crit: 547 },
+    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
