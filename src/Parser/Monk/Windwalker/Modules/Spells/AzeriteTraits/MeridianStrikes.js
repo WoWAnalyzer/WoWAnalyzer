@@ -9,6 +9,16 @@ import { ABILITIES_AFFECTED_BY_MASTERY } from '../../../Constants';
 
 const COOLDOWN_REDUCTION_MS = 250;
 
+/**
+ * Meridian Strikes
+ *
+ * When you Combo Strike, the cooldown of Touch of Death is reduced by 0.25 sec.
+ *
+ * Touch of Death deals an additional 11256 damage.
+ *
+ * This module only handles the cooldown reduction gained through the trait
+ */
+
 class MeridianStrikes extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
