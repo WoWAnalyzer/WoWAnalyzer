@@ -62,7 +62,7 @@ class QuickNavigation extends Analyzer {
 
   item() {
     return {
-      item: ITEMS.GALECALLERS_BOON,
+      item: ITEMS.WEAPON_ENCHANT_QUICK_NAVIGATION_ITEM,
       result: (
         <React.Fragment>
           {formatPercentage(this.stackBuffUptime)}% uptime<br />
