@@ -38,6 +38,7 @@ import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
 import SoothingMist from './Modules/Spells/SoothingMist';
 import Vivify from './Modules/Spells/Vivify';
+import LifeCocoon from './Modules/Spells/LifeCocoon';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     vivify: Vivify,
+    lifeCocoon: LifeCocoon,
 
     // Talents
     chiBurst: ChiBurst,
