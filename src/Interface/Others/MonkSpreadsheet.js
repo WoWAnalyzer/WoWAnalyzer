@@ -64,7 +64,7 @@ class MonkSpreadsheet extends React.Component {
               <tr><td>Essence Font HOT</td><td>{parser._modules.essenceFont.efHotOverhealing}</td><td> N/A </td></tr>
               <tr><td>Vivify</td><td>{overhealingSpell(SPELLS.VIVIFY.id)}</td><td>{cpm(SPELLS.VIVIFY.id)}</td></tr>
               <tr><td>Soothing Mist</td><td>{overhealingSpell(SPELLS.SOOTHING_MIST.id)}</td><td>{cpm(SPELLS.SOOTHING_MIST.id)}</td></tr>
-              <tr><td>Gust of Mist</td><td>{overhealingSpell(SPELLS.GUSTS_OF_MISTS.id)}</td><td>{(getAbility(SPELLS.GUSTS_OF_MIST.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2)}</td></tr>
+              <tr><td>Gust of Mist</td><td>{overhealingSpell(SPELLS.GUSTS_OF_MISTS.id)}</td><td>{(getAbility(SPELLS.GUSTS_OF_MISTS.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2)}</td></tr>
               <tr><td>Life Cocoon</td><td>{overhealingSpell(SPELLS.LIFE_COCOON.id)}</td><td>{cpm(SPELLS.LIFE_COCOON.id)}</td></tr>
               <tr><td>Revival</td><td>{overhealingSpell(SPELLS.REVIVAL.id)}</td><td>{cpm(SPELLS.REVIVAL.id)}</td></tr>
               <tr><td>Chi Burst</td><td>{overhealingSpell(SPELLS.CHI_BURST_HEAL.id)}</td><td>{cpm(SPELLS.CHI_BURST_TALENT.id)}</td></tr>
