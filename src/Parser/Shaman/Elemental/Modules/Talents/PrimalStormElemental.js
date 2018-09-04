@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -31,7 +32,14 @@ class PrimalStormElemental extends Analyzer {
     if (event.ability.guid === SPELLS.STORM_ELEMENTAL_TALENT.id){
       return;
     }
-    this.pseCasts++;
+    this.pseCasts+=1;
+  }
+
+  on_cast(event) {
+    if (event.ability.guid!==SPELLS.CALL_LIGHTNING.id){
+      return;
+    }
+    this.lastCLCastTimestamp=event.timestamp;
   }
 
   on_damage(event) {
@@ -53,6 +61,17 @@ class PrimalStormElemental extends Analyzer {
 
   get damagePerSecond() {
     return this.damageGained / (this.owner.fightDuration / 1000);
+  }
+
+  suggestions(when) {
+    when(this.badCasts).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
+          .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+          .actual(`${formatNumber(this.badCasts)}`)
+          .recommended(`0 is recommended`)
+          .regular(recommended+5).major(recommended+10);
+      });
   }
 
   statistic() {

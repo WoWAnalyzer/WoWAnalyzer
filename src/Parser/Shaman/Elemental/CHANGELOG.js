@@ -4,6 +4,11 @@ import { fasib, HawkCorrigan, Hewhosmites } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date ('09-04-2018'),
+    changes: 'Updated Functionality for Uldir release',
+    contributors: [HawkCorrigan],
+  },
+  {
     date: new Date('03-05-2018'),
     changes: 'Added Eye of the Twisting Nether',
     contributors: [Hewhosmites],

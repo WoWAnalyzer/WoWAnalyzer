@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -58,6 +59,21 @@ class PrimalFireElemental extends Analyzer {
 
   get damagePerSecond() {
     return this.damageGained / (this.owner.fightDuration / 1000);
+  }
+
+  get missedMeteorCasts() {
+    return this.PFEcasts-this.meteorCasts;
+  }
+
+  suggestions(when) {
+    when(this.missedMeteorCasts).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You are not using <SpellLink id={SPELLS.METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
+          .icon(SPELLS.FIRE_ELEMENTAL.icon)
+          .actual(`${formatNumber(this.missedMeteorCasts)}`)
+          .recommended(`0 is recommended`)
+          .regular(recommended+1).major(recommended+2);
+      });
   }
 
   statistic() {

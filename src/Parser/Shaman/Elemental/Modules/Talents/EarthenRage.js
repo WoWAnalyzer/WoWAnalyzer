@@ -37,7 +37,7 @@ class EarthenRage extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTHEN_RAGE_TALENT.id} />}
-        value={`~ ${formatPercentage(this.damagePercent)} %`}
+        value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />

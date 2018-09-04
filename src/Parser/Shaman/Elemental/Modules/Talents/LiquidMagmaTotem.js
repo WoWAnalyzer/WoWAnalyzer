@@ -37,7 +37,7 @@ class LiquidMagmaTotem extends Analyzer {
         icon={<SpellIcon id={SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id} />}
         value={`~ ${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
-        tooltip={`LMT contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
+        tooltip={`Liquid Magma Totem contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );
   }

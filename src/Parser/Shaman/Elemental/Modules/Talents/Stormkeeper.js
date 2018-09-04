@@ -8,13 +8,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-const affectedAbilities = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
+const AFFECTED_ABILITIES = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
                            SPELLS.LIGHTNING_BOLT.id,
                            SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
                            SPELLS.CHAIN_LIGHTNING.id];
 
 class Stormkeeper extends Analyzer {
-  damageGained = 0;
+  damageDoneByBuffedCasts = 0;
 
   constructor(...args) {
     super(...args);
@@ -26,27 +26,27 @@ class Stormkeeper extends Analyzer {
       return;
     }
 
-    if (!affectedAbilities.includes(event.ability.guid)) {
+    if (!AFFECTED_ABILITIES.includes(event.ability.guid)) {
       return;
     }
-    this.damageGained+=event.amount;
+    this.damageDoneByBuffedCasts+=event.amount;
   }
 
   get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
+    return this.owner.getPercentageOfTotalDamageDone(this.damageDoneByBuffedCasts);
   }
 
   get damagePerSecond() {
-    return this.damageGained / (this.owner.fightDuration / 1000);
+    return this.damageDoneByBuffedCasts / (this.owner.fightDuration / 1000);
   }
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.STORMKEEPER_TALENT.id} />}
-        value={`~ ${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
-        tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
+        value={`${formatNumber(this.damageDoneByBuffedCasts)} damage`}
+        label="Damage Done by Buffed Casts"
+        tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS `}
       />
     );
   }
