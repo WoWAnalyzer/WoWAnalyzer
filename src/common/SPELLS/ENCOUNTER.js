@@ -1256,4 +1256,121 @@ export default {
     icon: "inv_misc_volatileair",
   },
 
+
+  //Fetid Devourer
+  FETID_ENTICING_ESSENCE: {
+    id: 262364,
+    name: "Enticing Essence",
+    icon: "inv_misc_food_101_sourcheese",
+  },
+  FETID_FETID_FRENZY: {
+    id: 262378,
+    name: "Fetid Frenzy",
+    icon: "hunter_pvp_direbeastbasilisk",
+  },
+  FETID_ROTTING_REGURGITATION: {
+    id: 262292,
+    name: "Rotting Regurgitation",
+    icon: "spell_deathvortex",
+  },
+  FETID_SHOCKWAVE_STOMP: {
+    id: 262288,
+    name: "Shockwave Stomp",
+    icon: "ability_warstomp",
+  },
+  FETID_TERRIBLE_THRASH: {
+    id: 262277,
+    name: "Terrible Thrash",
+    icon: "trade_archaeology_whitehydrafigurine",
+  },
+  FETID_PUTRID_PAROXYSM: {
+    id: 262314,
+    name: "Putrid Paroxysm",
+    icon: "spell_shadow_plaguecloud",
+  },
+  FETID_MALODOROUS_MIASMA: {
+    id: 262313,
+    name: "Malodorous Miasma",
+    icon: "spell_nature_insect_swarm2",
+  },
+
+  //Zekvoz
+
+  ZEKVOZ_EYE_BEAM: {
+    id: 264382,
+    name: "Eye Beam",
+    icon: "achievement_boss_cthun",
+  },
+  ZEKVOV_ORB_OF_CORRUPTION:{
+    id: 267239,
+    name: "Orb of Corruption",
+    icon: "spell_priest_shadoworbs",
+  },
+  ZEKVOZ_ROILING_DECEIT:{
+    id: 265358,
+    name: "Roiling Deceit",
+    icon: "ability_deathknight_deathsiphon2",
+  },
+  ZEKVOZ_SHATTER:{
+    id: 265248,
+    name: "Shatter",
+    icon: "ability_warrior_shieldbreak",
+  },
+  ZEKVOZ_SHATTER_DEBUFF:{
+    id: 265237,
+    name: "Shatter",
+    icon: "ability_warrior_shieldbreak",
+  },
+  ZEKVOZ_SURGING_DARKNESS_CAST: {
+    id: 265530,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_1: {
+    id: 267350,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_2: {
+    id: 265451,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_3:{
+    id: 265452,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_4:{
+    id: 265454,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_VOID_LASH_1: {
+    id: 265231,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZEKVOZ_VOID_LASH_2: {
+    id: 265268,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZEKVOZ_CORRUPTION_PULSE: {
+    id: 265738,
+    name: "Corruption Pulse",
+    icon: "spell_priest_void-blast",
+  },
+  ZEKVOZ_JAGGED_MANDIBLE: {
+    id: 264210,
+    name: "Jagged Mandible",
+    icon: "ability_warrior_bloodbath",
+  },
+  ZEKVOZ_TITAN_SPARK: {
+    id: 264954,
+    name: "Titan Spark",
+    icon: "item_holyspark",
+  },
+  
+
 };
