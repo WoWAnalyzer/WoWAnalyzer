@@ -298,7 +298,7 @@ class Parses extends React.Component {
       timeframe: 'historical',
       // _: refresh ? +new Date() : undefined,
       // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-      _: +new Date(),
+      // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
     })
       .then(rawParses => {
         if (rawParses.length === 0) {
