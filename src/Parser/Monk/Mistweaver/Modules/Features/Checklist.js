@@ -27,7 +27,6 @@ import ManaTea from '../Talents/ManaTea';
 import Lifecycles from '../Talents/Lifecycles';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
-import SoothingMist from '../Spells/SoothingMist';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -48,7 +47,6 @@ class Checklist extends CoreChecklist {
     enchantChecker: EnchantChecker,
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
-    soothingMist: SoothingMist,
   };
 
   rules = [
@@ -186,10 +184,6 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
-          }),
-          new Requirement({
-            name: <React.Fragment>Overusage of <SpellLink id={SPELLS.SOOTHING_MIST.id} /></React.Fragment>,
-            check: () => this.soothingMist.suggestionThresholds,
           }),
         ];
       },
