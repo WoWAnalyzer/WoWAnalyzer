@@ -72,4 +72,35 @@ export default {
     name: 'Iron Fists',
     icon: 'spell_holy_fistofjustice',
   },
+  //MW Specific
+  BURST_OF_LIFE: {
+    id: 277667,
+    name: 'Burst of Life',
+    icon: 'ability_monk_chicocoon',
+  },
+  FONT_OF_LIFE: {
+    id: 279875,
+    name: 'Font of Life',
+    icon: 'ability_monk_essencefont',
+  },
+  INVIGORATING_BREW: {
+    id: 269621,
+    name: 'Invigorating Brew',
+    icon: 'ability_monk_vivify',
+  },
+  MISTY_PEAKS: {
+    id: 275975,
+    name: 'Misty Peaks',
+    icon: 'ability_monk_renewingmists',
+  },
+  OVERFLOWING_MISTS: {
+    id: 273328,
+    name: 'Overflowing Mists',
+    icon: 'spell_monk_envelopingmist',
+  },
+  UPLIFTED_SPIRITS: {
+    id: 278576,
+    name: 'Uplifted Spirits',
+    icon: 'spell_monk_revival',
+  },
 };
