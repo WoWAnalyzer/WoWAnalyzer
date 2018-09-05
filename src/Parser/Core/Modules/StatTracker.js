@@ -11,6 +11,7 @@ import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/Az
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
 
 const debug = false;
 
@@ -235,6 +236,7 @@ class StatTracker extends Analyzer {
     },
     // endregion
 
+
     /****************************************\
      *                    BFA:                *
      \****************************************/
@@ -262,7 +264,18 @@ class StatTracker extends Analyzer {
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
     // endregion
-
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
+    // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
