@@ -13,7 +13,7 @@ import { formatPercentage } from 'common/format';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 /**
- * Show statistics (talents, trinkets, legendaries) for the current boss, specID and difficulty
+ * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
 class EncounterStats extends React.PureComponent {
   static propTypes = {
@@ -30,7 +30,6 @@ class EncounterStats extends React.PureComponent {
     super(props);
     this.state = {
       mostUsedTrinkets: [],
-      mostUsedLegendaries: [],
       mostUsedTalents: [],
       items: ITEMS,
       loaded: false,
@@ -83,7 +82,6 @@ class EncounterStats extends React.PureComponent {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
       let trinkets = [];
-      let legendaries = [];
       stats.rankings.forEach(rank => {
         rank.talents.forEach((talent, index) => {
           if (talent.id !== null && talent.id !== 0) {
@@ -92,10 +90,6 @@ class EncounterStats extends React.PureComponent {
         });
 
         rank.gear.forEach((item, itemSlot) => {
-          if (item.quality === 'legendary') {
-            legendaries = this.addItem(legendaries, item);
-          }
-
           if (itemSlot === 12 || itemSlot === 13) {
             trinkets = this.addItem(trinkets, item);
           }
@@ -113,13 +107,9 @@ class EncounterStats extends React.PureComponent {
       trinkets.sort((a, b) => {
         return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
       });
-      legendaries.sort((a, b) => {
-        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
-      });
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
-        mostUsedLegendaries: legendaries.slice(0, this.SHOW_TOP_ENTRYS),
         mostUsedTalents: talents,
         loaded: true,
       });
@@ -200,15 +190,6 @@ class EncounterStats extends React.PureComponent {
           <div className="col-md-12" style={{ padding: '0 30px' }}>
             <div className="row">
               <div className="col-md-6">
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Legendaries</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.mostUsedLegendaries.map((legendary, index) => this.singleItem(legendary, index))}
-                </div>
-
                 <div className="row" style={{ marginBottom: '2em' }}>
                   <div className="col-md-12">
                     <h2>Most used Trinkets</h2>

@@ -52,6 +52,8 @@ import Contrition from './Modules/Spells/Contrition';
 import Grace from './Modules/Spells/Grace';
 import Schism from './Modules/Spells/Schism';
 
+import GiftOfForgiveness from './Modules/AzeriteTraits/GiftOfForgiveness';
+
 import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -118,6 +120,9 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     schism: Schism,
     sinsOfTheMany: SinsOfTheMany,
+
+    // Azerite Traits
+    gift: GiftOfForgiveness,
   };
 }
 
