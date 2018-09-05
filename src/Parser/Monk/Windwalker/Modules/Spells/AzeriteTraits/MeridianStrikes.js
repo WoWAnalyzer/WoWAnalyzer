@@ -42,6 +42,7 @@ class MeridianStrikes extends Analyzer {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TOUCH_OF_DEATH.id, COOLDOWN_REDUCTION_MS);
       this.effectiveCooldownReduction += reductionMs;
     }
+    this.lastSpellUsed = spellId;
   }
   statistic() {
     return (
