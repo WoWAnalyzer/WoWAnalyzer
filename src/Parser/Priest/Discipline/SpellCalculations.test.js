@@ -47,21 +47,92 @@ describe('[PENANCE] Spell Calculations', () => {
 });
 
 describe('[SMITE] Spell Calculations', () => {
-  it('Estimates Smites Correctly', () => {
-    const smiteEstimator = SmiteEstimation(mockStatTracker());
+  const fixtures = [
+    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: 0, expected: {
+        smiteDamage: 71,
+        smiteHealing: 28,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: .25, expected: {
+        smiteDamage: 88,
+        smiteHealing: 35,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: 0, expected: {
+        smiteDamage: 71,
+        smiteHealing: 28,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: 0, giftRanks: [300], giftActive: false, int: 100, vers: 0, expected: {
+        smiteDamage: 71,
+        smiteHealing: 28,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: 0, giftRanks: [300], giftActive: true, int: 100, vers: 0, expected: {
+        smiteDamage: 458,
+        smiteHealing: 183,
+        giftDamage: 387,
+        giftHealing: 155,
+      }},
+    {sins: 0, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
+        smiteDamage: 572,
+        smiteHealing: 229,
+        giftDamage: 484,
+        giftHealing: 194,
+      }},
+    {sins: .12, giftRanks: [300], giftActive: false, int: 100, vers: 0, expected: {
+        smiteDamage: 79,
+        smiteHealing: 32,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: .12, giftRanks: [300], giftActive: false, int: 100, vers: .25, expected: {
+        smiteDamage: 99,
+        smiteHealing: 40,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: .08, giftRanks: [300], giftActive: false, int: 100, vers: .25, expected: {
+        smiteDamage: 95,
+        smiteHealing: 38,
+        giftDamage: 0,
+        giftHealing: 0,
+      }},
+    {sins: .12, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
+        smiteDamage: 641,
+        smiteHealing: 257,
+        giftDamage: 542,
+        giftHealing: 217,
+      }},
+    {sins: .08, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
+        smiteDamage: 617,
+        smiteHealing: 247,
+        giftDamage: 522,
+        giftHealing: 209,
+      }},
+    {sins: .08, giftRanks: [300, 290], giftActive: true, int: 100, vers: .25, expected: {
+        smiteDamage: 1095,
+        smiteHealing: 438,
+        giftDamage: 1000,
+        giftHealing: 400,
+      }},
+    {sins: .08, giftRanks: [300, 290, 280], giftActive: true, int: 100, vers: .25, expected: {
+        smiteDamage: 1527,
+        smiteHealing: 611,
+        giftDamage: 1432,
+        giftHealing: 573,
+      }},
+  ];
 
-    expect(smiteEstimator()).toEqual({
-      smiteDamage: 71,
-      smiteHealing: 28,
-    });
-  });
+  fixtures.forEach((fixture, i) => {
+    it(`Estimates Smite Correctly #${i}`, () => {
+      const smiteEstimator = SmiteEstimation(mockStatTracker(fixture.int, fixture.vers), {currentBonus: fixture.sins}, fixture.giftRanks);
 
-  it('Estimates Smites Correctly with Versatility', () => {
-    const smiteEstimator = SmiteEstimation(mockStatTracker(100, .25));
-
-    expect(smiteEstimator()).toEqual({
-      smiteDamage: 88,
-      smiteHealing: 35,
+      expect(smiteEstimator(fixture.giftActive)).toEqual(fixture.expected);
     });
   });
 });

@@ -36,8 +36,9 @@ import StatValues from './Modules/Features/StatValues';
 import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
-import SoothingMist from './Modules/Spells/SoothingMist';
+//import SoothingMist from './Modules/Spells/SoothingMist';
 import Vivify from './Modules/Spells/Vivify';
+import LifeCocoon from './Modules/Spells/LifeCocoon';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -89,8 +90,9 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFont: EssenceFont,
     thunderFocusTea: ThunderFocusTea,
     envelopingMists: EnvelopingMists,
-    soothingMist: SoothingMist,
+    //soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
+    lifeCocoon: LifeCocoon,
 
     // Talents
     chiBurst: ChiBurst,
