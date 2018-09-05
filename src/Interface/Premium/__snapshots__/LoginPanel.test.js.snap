@@ -131,7 +131,7 @@ exports[`Premium/LoginPanel matches snapshot when logged in with GitHub 1`] = `
         <div
           className="description"
         >
-          Sign in with your Patreon or GitHub account.
+          Sign in with your Patreon or GitHub account using the buttons below.
         </div>
       </div>
     </div>
@@ -309,7 +309,7 @@ exports[`Premium/LoginPanel matches snapshot when logged in with Patreon 1`] = `
         <div
           className="description"
         >
-          Sign in with your Patreon or GitHub account.
+          Sign in with your Patreon or GitHub account using the buttons below.
         </div>
       </div>
     </div>
@@ -433,7 +433,7 @@ exports[`Premium/LoginPanel matches snapshot when logged out 1`] = `
         <div
           className="description"
         >
-          Sign in with your Patreon or GitHub account.
+          Sign in with your Patreon or GitHub account using the buttons below.
         </div>
       </div>
     </div>
