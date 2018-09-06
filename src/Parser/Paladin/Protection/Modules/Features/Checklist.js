@@ -8,8 +8,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -20,8 +18,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    legendaryCountChecker: LegendaryCountChecker,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
     shieldOfTheRighteous: ShieldOfTheRighteous,
@@ -62,7 +58,7 @@ class Checklist extends CoreChecklist {
       name: (
         <React.Fragment>
           Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> and <SpellLink id={SPELLS.CONSECRATION_CAST.id} />
-        </React.Fragment> 
+        </React.Fragment>
       ),
       description: (
         <React.Fragment>
