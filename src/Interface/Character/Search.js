@@ -54,6 +54,13 @@ class Search extends React.PureComponent {
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
     if (region !== 'CN') {
       const response = await fetch(makeCharacterApiUrl(null, region, realm, char, 'talents'));
+      if (!response.ok) {
+        alert(`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try it again later.`);
+        this.setState({
+          loading: false,
+        });
+        return;
+      }
       const data = await response.json();
       if (data.status === 'nok') {
         alert(`${char} of ${realm} could not be found.`);
