@@ -40,7 +40,16 @@ class EnchantChecker extends Analyzer {
 
   get enchantableGear() {
     return Object.keys(this.constructor.ENCHANTABLE_SLOTS).reduce((obj, slot) => {
+      const item =  this.selectedCombatant._getGearItemBySlotId(slot);
+
+      // If there is no offhand, disregard the item.
+      // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enchant.
+      // This is not an ideal way to determine if an offhand is a weapon.
+      if (item.id === 0 || item.icon.indexOf('offhand') !== -1){
+        return obj;
+      }
       obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);
+
       return obj;
     }, {});
   }
