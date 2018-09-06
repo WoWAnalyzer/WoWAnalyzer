@@ -10,13 +10,18 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
-const CALL_LIGHTNING__BUFF_DURATION = 15000;
+const CALL_LIGHTNING_BUFF_DURATION = 15000;
 
 class PrimalStormElemental extends Analyzer {
   eotsCasts = 0;
   pseCasts = 0;
   lastCLCastTimestamp = 0;
 
+  usedCasts = {
+    eye_of_the_storm: false,
+    wind_gust: false,
+    call_lightning: false,
+  };
 
   damageGained = 0;
   maelstromGained = 0;
@@ -36,10 +41,22 @@ class PrimalStormElemental extends Analyzer {
   }
 
   on_cast(event) {
-    if (event.ability.guid!==SPELLS.CALL_LIGHTNING.id){
+    if(!damagingCasts.includes(event.ability.guid)){
       return;
     }
-    this.lastCLCastTimestamp=event.timestamp;
+
+    if(event.ability.guid===SPELLS.EYE_OF_THE_STORM.id){
+      this.usedCasts.eye_of_the_storm=true;
+      return;
+    }
+    if(event.ability.guid===SPELLS.WIND_GUST.id){
+      this.usedCasts.wind_gust=true;
+      return;
+    }
+    if(event.ability.guid===SPELLS.CALL_LIGHTNING.id){
+      this.usedCasts.call_lightning=true;
+      this.lastCLCastTimestamp=event.timestamp;
+    }
   }
 
   on_damage(event) {
@@ -48,12 +65,13 @@ class PrimalStormElemental extends Analyzer {
     }
     this.damageGained+=event.amount;
 
-    if(this.lastCLCastTimestamp!==0 || event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
-      if(event.timestamp>this.lastCLCastTimestamp+CALL_LIGHTNING__BUFF_DURATION){
-        this.badCasts++;
+    if(event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
+      if(event.timestamp>this.lastCLCastTimestamp+CALL_LIGHTNING_BUFF_DURATION){
+        this.badCasts+=1;
       }
     }
   }
+
 
   get damagePercent() {
     return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
@@ -64,6 +82,16 @@ class PrimalStormElemental extends Analyzer {
   }
 
   suggestions(when) {
+    const unusedSpellsCount = this.usedCasts.filter(function(x){return !x; }).length();
+    when(unusedSpellsCount).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Eye Of The Storm are set to autocast and you are using Call Lightning.</span>)
+          .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental`)
+          .recommended(`You should be using all spells of your Storm Elemental.`)
+          .regular(recommended+1).major(recommended+2);
+      });
+
     when(this.badCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)

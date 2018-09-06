@@ -15,6 +15,11 @@ class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
   PFEcasts = 0;
 
+  usedCasts = {
+    meteor: false,
+    immolate: false,
+    fire_blast: false,
+  };
 
   damageGained = 0;
   maelstromGained = 0;
@@ -30,7 +35,7 @@ class PrimalFireElemental extends Analyzer {
       return;
     }
 
-    this.PFEcasts++;
+    this.PFEcasts+=1;
   }
 
   on_damage(event) {
@@ -42,7 +47,7 @@ class PrimalFireElemental extends Analyzer {
     if(event.ability.guid !== SPELLS.METEOR.id) {
       return;
     }
-    this.meteorCasts++;
+    this.meteorCasts+=1;
   }
 
   on_byPlayer_energize(event) {
@@ -51,6 +56,24 @@ class PrimalFireElemental extends Analyzer {
     }
 
     this.maelstromGained+=event.amount;
+  }
+
+  on_cast(event) {
+    if(!damagingCasts.includes(event.ability.guid)){
+      return;
+    }
+
+    if(event.ability.guid===SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id){
+      this.usedCasts.fire_blast=true;
+      return;
+    }
+    if(event.ability.guid===SPELLS.IMMOLATE.id){
+      this.usedCasts.immolate=true;
+      return;
+    }
+    if(event.ability.guid===SPELLS.METEOR.id){
+      this.usedCasts.meteor=true;
+    }
   }
 
   get damagePercent() {
@@ -66,6 +89,16 @@ class PrimalFireElemental extends Analyzer {
   }
 
   suggestions(when) {
+    const unusedSpellsCount = this.usedCasts.filter(function(x){return !x; }).length();
+
+    when(unusedSpellsCount).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span> Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are set to autocast and you are using Meteor.</span>)
+          .icon(SPELLS.FIRE_ELEMENTAL.icon)
+          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental`)
+          .recommended(`You should be using all spells of your Fire Elemental.`)
+          .regular(recommended+1).major(recommended+2);
+      });
     when(this.missedMeteorCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not using <SpellLink id={SPELLS.METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
