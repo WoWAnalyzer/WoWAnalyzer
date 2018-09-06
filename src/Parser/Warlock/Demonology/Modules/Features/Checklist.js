@@ -8,13 +8,11 @@ import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import SoulShardDetails from 'Parser/Warlock/Demonology/Modules/SoulShards/SoulShardDetails';
 import SoulShardTracker from 'Parser/Warlock/Demonology/Modules/SoulShards/SoulShardTracker';
 import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBeCasting';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
 import DoomUptime from 'Parser/Warlock/Demonology/Modules/Features/DoomUptime';
 
@@ -25,8 +23,6 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     felstorm: Felstorm,
     enchantChecker: EnchantChecker,
