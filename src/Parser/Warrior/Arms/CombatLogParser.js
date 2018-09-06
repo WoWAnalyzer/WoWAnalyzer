@@ -28,7 +28,6 @@ class CombatLogParser extends CoreCombatLogParser {
     battleCryDamage: BattleCryDamage,
     battleCryGcd: BattleCryGCD,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    colossusSmashUptime: ColossusSmashUptime,
     execute: Execute,
     executeRange: ExecuteRange,
     rend: Rend,
