@@ -383,6 +383,19 @@ export default {
     icon: 'ability_monk_surgingmist',
   },
 
+  // Mistweaver Azerite Traits
+
+  OVERFLOWING_MISTS_HEAL: {
+    id: 273354,
+    name: 'Overflowing Mists',
+    icon: 'spell_monk_envelopingmist',
+  },
+  BURST_OF_LIFE_HEAL: {
+  id: 278564,
+  name: 'Burst of Life',
+  icon: 'ability_monk_chicocoon',
+  },
+
   // Brewmaster
   BLACKOUT_STRIKE: {
     id: 205523,
