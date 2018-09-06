@@ -34,7 +34,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_ANTORUS = 17;
+const ZONE_DEFAULT_ULDIR = 19;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -63,7 +63,7 @@ class Parses extends React.Component {
       class: '',
       activeSpec: [],
       activeDifficulty: DIFFICULTIES,
-      activeZoneID: ZONE_DEFAULT_ANTORUS,
+      activeZoneID: ZONE_DEFAULT_ULDIR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
@@ -296,9 +296,9 @@ class Parses extends React.Component {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       timeframe: 'historical',
-      // _: refresh ? +new Date() : undefined,
+      _: refresh ? +new Date() : undefined,
       // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-      _: +new Date(),
+      // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
     })
       .then(rawParses => {
         if (rawParses.length === 0) {

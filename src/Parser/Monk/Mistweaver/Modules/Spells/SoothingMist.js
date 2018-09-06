@@ -1,4 +1,5 @@
 import React from 'react';
+import CoreChanneling from 'Parser/Core/Modules/Channeling';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -9,13 +10,24 @@ import Analyzer from 'Parser/Core/Analyzer';
 const debug = false;
 
 class SoothingMist extends Analyzer {
+  static dependencies = {
+    channeling: CoreChanneling,
+  };
+
   soomTicks = 0;
+  gustProc = 0;
+  lastSoomTickTimestamp = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.SOOTHING_MIST.id) {
       this.soomTicks += 1;
+      this.lastSoomTickTimestamp = event.timestamp;
+    }
+
+    if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp) {
+      this.gustProc += 1;
     }
   }
 

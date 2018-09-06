@@ -13,8 +13,6 @@ import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/C
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
@@ -27,7 +25,6 @@ import ManaTea from '../Talents/ManaTea';
 import Lifecycles from '../Talents/Lifecycles';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
-import SoothingMist from '../Spells/SoothingMist';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -36,8 +33,6 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     velensFutureSight: VelensFutureSight,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     essenceFont: EssenceFont,
     refreshingJadeWind: RefreshingJadeWind,
@@ -48,7 +43,6 @@ class Checklist extends CoreChecklist {
     enchantChecker: EnchantChecker,
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
-    soothingMist: SoothingMist,
   };
 
   rules = [
@@ -186,10 +180,6 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
-          }),
-          new Requirement({
-            name: <React.Fragment>Overusage of <SpellLink id={SPELLS.SOOTHING_MIST.id} /></React.Fragment>,
-            check: () => this.soothingMist.suggestionThresholds,
           }),
         ];
       },
