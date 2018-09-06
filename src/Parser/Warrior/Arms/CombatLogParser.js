@@ -6,7 +6,6 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import BattleCryDamage from './Modules/Core/BattleCryDamage';
 import BattleCryGCD from './Modules/Core/BattleCryGCD';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 import Execute from './Modules/Core/Execute';
 import Rend from './Modules/Talents/Rend';
 import TacticianProc from './Modules/BuffDebuff/TacticianProc';
