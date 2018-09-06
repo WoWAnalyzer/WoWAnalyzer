@@ -232,10 +232,17 @@ class Parses extends React.Component {
     }
     // fetch character image and active spec from battle-net
     const response = await fetch(makeCharacterApiUrl(null, region, realm, name, 'talents'));
-    if (!response.ok) {
+    if (response.status === 500) {
       this.setState({
         isLoading: false,
         error: ERRORS.NOT_RESPONDING,
+      });
+      return;
+    }
+    if (!response.ok) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.UNEXPECTED,
       });
       return;
     }
