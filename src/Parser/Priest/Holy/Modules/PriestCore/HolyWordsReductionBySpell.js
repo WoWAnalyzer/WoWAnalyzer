@@ -2,11 +2,12 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import HolyWords from './HolyWords';
-
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
-import { formatDuration } from 'common/format';
+import SpellLink from 'common/SpellLink';
+
+import HolyWords from './HolyWords';
+
 
 class HolyWordsReductionBySpell extends Analyzer {
   static dependencies = {
@@ -26,8 +27,9 @@ class HolyWordsReductionBySpell extends Analyzer {
       <ExpandableStatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
-        value={this.totalReduction}
+        value={`${this.totalReduction}  sec`}
         label="Total CD Reduction"
+        tooltip={<React.Fragment> <SpellLink id={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id} /> </React.Fragment>}
       >
         <table className="table table-condensed">
           <thead>
