@@ -1441,4 +1441,104 @@ export default {
     icon: "artifactability_blooddeathknight_umbilicuseternus",
   },
 
+  //Zul Reborn
+
+  ZUL_ABSORBED_IN_DARKNESS:{
+    id: 272018,
+    name: "Absorbed in Darkness",
+    icon: "spell_priest_void-blast",
+  },
+  ZUL_BLOODSHARD: {
+    id: 273350,
+    name: "Bloodshard",
+    icon: "inv_misc_gem_bloodgem_01",
+  },
+  ZUL_BLOODY_CLEAVB: {
+    id: 273316,
+    name: "Bloody Cleave",
+    icon: "inv_weapon_hand_02",
+  },
+  ZUL_CORRUPTED_BLOOD:{
+    id: 274195,
+    name: "Corrupted Blood",
+    icon: "spell_yorsahj_bloodboil_orangeoil",
+  },
+  ZUL_DARK_REVELATION: {
+    id: 273438,
+    name: "Dark Revelation",
+    icon: "ability_priest_clarityofpower",
+  },
+  ZUL_DARK_REVELATION_CAST: {
+    id: 273365,
+    name: "Dark Revelation",
+    icon: "ability_priest_clarityofpower",
+  },
+  ZUL_DEATHWISH_DAMAGE: {
+    id: 275991,
+    name: "Deathwish",
+    icon: "spell_shadow_deathsembrace",
+  },
+  ZUL_ERUPTING_DARKNESS: {
+    id: 273363,
+    name: "Erupting Darkness",
+    icon: "spell_shadow_shadowfury",
+  },
+  ZUL_RUPTURING_BLOOD: {
+    id: 274358,
+    name: "Rupturing Blood",
+    icon: "spell_shadow_corpseexplode",
+  },
+  ZUL_SHADOW_BARRAGE: {
+    id: 273359,
+    name: "Shadow Barrage",
+    icon: "spell_priest_mindspike",
+  },
+  ZUL_CALL_OF_BLOOD_1: {
+    id: 273889,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CALL_OF_BLOOD_2: {
+    id: 274098,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CALL_OF_BLOOD_3: {
+    id: 274119,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CONGEAL_BLOOD:{
+    id: 273451,
+    name: "Congeal Blood",
+    icon: "ability_deathwing_bloodcorruption_earth",
+  },
+  ZUL_DRIPPING_BLOOD: {
+    id: 274396,
+    name: "Dripping Blood",
+    icon: "ability_warrior_bloodfrenzy",
+  },
+  ZUL_HUNGERING_MAW: {
+    id: 273254,
+    name: "Hungering Maw",
+    icon: "ability_druid_primaltenacity",
+  },
+  ZUL_ICHOR_TRANSFUSION: {
+    id: 273556,
+    name: "Ichor Transfusion",
+    icon: "spell_shadow_improvedvampiricembrace",
+  },
+  ZUL_LOCUS_OF_CORRUPTION: {
+    id: 274168,
+    name: "Locus of Corruption",
+    icon: "ability_foundryraid_blastwave",
+  },
+  ZUL_THRUMMING_PULSE: {
+    id: 273288,
+    name: "Thrumming Pulse",
+    icon: "ability_warrior_bloodfrenzy",
+  },
+
+
+
 };
