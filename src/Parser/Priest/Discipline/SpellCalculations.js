@@ -46,7 +46,7 @@ export const OffensivePenanceBoltEstimation = statWrapper(
 );
 
 // Estimation of how much output a Smite will do
-export const SmiteEstimation = (stats, sins, giftRanks) => {
+export const SmiteEstimation = (stats, sins, giftRanks = [340]) => {
   return (giftActive) => {
     const currentIntellect = stats.currentIntellectRating;
     const currentVers = 1 + stats.currentVersatilityPercentage;
