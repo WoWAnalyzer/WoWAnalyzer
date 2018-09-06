@@ -296,7 +296,7 @@ class Parses extends React.Component {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       timeframe: 'historical',
-      // _: refresh ? +new Date() : undefined,
+      _: refresh ? +new Date() : undefined,
       // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
       // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
     })
