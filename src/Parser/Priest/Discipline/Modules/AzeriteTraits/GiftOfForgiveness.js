@@ -39,7 +39,6 @@ class GiftOfForgiveness extends Analyzer {
 
     this.giftRanks = this.selectedCombatant.traitRanks(SPELLS.GIFT_OF_FORGIVENESS.id) || [];
     this.giftTooltipBonusDmg = this.giftRanks.map((rank) => calculateAzeriteEffects(SPELLS.GIFT_OF_FORGIVENESS.id, rank)[0]).reduce((total, bonus) => total + bonus[0], 0);
-    this.giftTooltipBonusDmg = 0;
 
     this.hasGift = this.giftRanks.length > 0;
 
