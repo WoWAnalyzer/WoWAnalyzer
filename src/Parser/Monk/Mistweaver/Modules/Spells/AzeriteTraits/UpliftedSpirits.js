@@ -14,7 +14,7 @@ class UpliftedSpirits extends Analyzer {
   };
 
   healBuff = 0
-
+  critMod = 1
   /**
    * Your Vivify heals for an additional 309. Vivify critical heals reduce the cooldown of your Revival by 1 sec.
    */
@@ -27,6 +27,7 @@ class UpliftedSpirits extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    this.critMod = 1;
 
     if (event.overheal > 0) { // Exit as spell has overhealed and no need for adding in the additional healing from the trait
       return;
@@ -41,14 +42,14 @@ class UpliftedSpirits extends Analyzer {
     const intRating = this.statTracker.currentIntellectRating;
     const healAmount = event.amount + (event.absorbed || 0);
 
-    this.baseHeal = (intRating * VIVIFY_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
-
     if (event.hitType === 2) {
-      this.baseHeal = this.baseHeal * 2;
+      this.critMod = 2;
     }
 
+    this.baseHeal = (intRating * VIVIFY_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc) * this.critMod;
+
     if ((healAmount - this.baseHeal) < 0) { // Need to account for Vivify from REM 'Causes a surge of invigorating mists, healing the target for (95% of Spell power) and all allies with your Renewing Mist active for (70% of Spell power)'
-      this.baseHeal = (intRating * VIVIFY_REM_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
+      this.baseHeal = (intRating * VIVIFY_REM_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc) * this.critMod;
       this.healing += (healAmount - this.baseHeal);
     } else {
       this.healing += (healAmount - this.baseHeal);
