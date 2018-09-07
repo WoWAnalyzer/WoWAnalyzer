@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 
-class MonkSpreadsheet extends React.Component {
+class HolyPriestSpreadsheet extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
   };
@@ -20,6 +20,35 @@ class MonkSpreadsheet extends React.Component {
     const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(4);
 
     const cpm = spellId => (getAbility(spellId).casts / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2);
+
+    const targetsPerCast = (spellId, healId) => {
+      const ability = getAbility(spellId);
+      const heal = healId === undefined ? getAbility(spellId) : getAbility(healId);
+
+      if (ability.ability == null) {
+        return 'N/A';
+      }
+
+      let count = heal.healingHits / ability.casts;
+      if (count) {
+        return count.toFixed(2);
+      }
+
+      return JSON.stringify([ability, heal]);
+    };
+
+    const castEfficency = (spellId) => {
+      const efficency = parser._modules.CastEfficiency.getCastEfficiencyForSpellId(spellId);
+      if (!efficency) {
+        return 'N/A';
+      }
+      else if (efficency.efficiency) {
+        return efficency.efficiency.toFixed(2);
+      }
+      else {
+        return 1;
+      }
+    };
 
     return (
 
@@ -79,114 +108,114 @@ class MonkSpreadsheet extends React.Component {
                 <td>Heal</td>
                 <td>{overhealingSpell(SPELLS.GREATER_HEAL.id)}</td>
                 <td>{cpm(SPELLS.GREATER_HEAL.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.GREATER_HEAL.id)}</td>
+                <td>{targetsPerCast(SPELLS.GREATER_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Flash Heal</td>
                 <td>{overhealingSpell(SPELLS.FLASH_HEAL.id)}</td>
                 <td>{cpm(SPELLS.FLASH_HEAL.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.FLASH_HEAL.id)}</td>
+                <td>{targetsPerCast(SPELLS.FLASH_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Renew</td>
                 <td>{overhealingSpell(SPELLS.RENEW.id)}</td>
                 <td>{cpm(SPELLS.RENEW.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.RENEW.id)}</td>
+                <td>{targetsPerCast(SPELLS.RENEW.id)}</td>
               </tr>
               <tr>
                 <td>Prayer of Healing</td>
                 <td>{overhealingSpell(SPELLS.PRAYER_OF_HEALING.id)}</td>
                 <td>{cpm(SPELLS.PRAYER_OF_HEALING.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.PRAYER_OF_HEALING.id)}</td>
+                <td>{targetsPerCast(SPELLS.PRAYER_OF_HEALING.id)}</td>
               </tr>
               <tr>
                 <td>Prayer of Mending</td>
                 <td>{overhealingSpell(SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
                 <td>{cpm(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
+                <td>{targetsPerCast(SPELLS.PRAYER_OF_MENDING_CAST.id, SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Holy Word: Serenity</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SERENITY.id)}</td>
                 <td>{cpm(SPELLS.HOLY_WORD_SERENITY.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.HOLY_WORD_SERENITY.id)}</td>
+                <td>{targetsPerCast(SPELLS.HOLY_WORD_SERENITY.id)}</td>
               </tr>
               <tr>
                 <td>Holy Word: Sanctify</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
+                <td>{targetsPerCast(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
               </tr>
               <tr>
                 <td>Guardian Spirit</td>
                 <td>{overhealingSpell(SPELLS.GUARDIAN_SPIRIT.id)}</td>
                 <td>{cpm(SPELLS.GUARDIAN_SPIRIT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.GUARDIAN_SPIRIT.id)}</td>
+                <td>1</td>
               </tr>
               <tr>
                 <td>Divine Hymn</td>
                 <td>{overhealingSpell(SPELLS.DIVINE_HYMN_HEAL.id)}</td>
                 <td>{cpm(SPELLS.DIVINE_HYMN_CAST.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.DIVINE_HYMN_CAST.id)}</td>
+                <td>{targetsPerCast(SPELLS.DIVINE_HYMN_CAST.id, SPELLS.DIVINE_HYMN_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Desperate Prayer</td>
                 <td>{overhealingSpell(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>{cpm(SPELLS.DESPERATE_PRAYER.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.DESPERATE_PRAYER.id)}</td>
+                <td>1</td>
               </tr>
 
               <tr>
                 <td>Cosmic Ripple</td>
-                <td>{overhealingSpell(SPELLS.CHI_WAVE_TALENT.id)}</td>
+                <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
-                <td></td>
-                <td></td>
+                <td>N/A</td>
+                <td>N/A</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>
                 <td>{overhealingSpell(SPELLS.BINDING_HEAL_TALENT.id)}</td>
                 <td>{cpm(SPELLS.BINDING_HEAL_TALENT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.BINDING_HEAL_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.BINDING_HEAL_TALENT.id)}</td>
               </tr>
               <tr>
                 <td>Circle of Healing</td>
                 <td>{overhealingSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
                 <td>{cpm(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
               </tr>
               <tr>
                 <td>Divine Star</td>
                 <td>{overhealingSpell(SPELLS.DIVINE_STAR_TALENT.id)}</td>
                 <td>{cpm(SPELLS.DIVINE_STAR_TALENT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.DIVINE_STAR_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.DIVINE_STAR_TALENT.id)}</td>
               </tr>
               <tr>
                 <td>Halo</td>
                 <td>{overhealingSpell(SPELLS.HALO_TALENT.id)}</td>
                 <td>{cpm(SPELLS.HALO_TALENT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.HALO_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.HALO_TALENT.id)}</td>
               </tr>
               <tr>
                 <td>Holy Word: Salvation</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{cpm(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
-                <td></td>
-                <td></td>
+                <td>{castEfficency(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
               </tr>
             </tbody>
           </table>
@@ -196,4 +225,4 @@ class MonkSpreadsheet extends React.Component {
   }
 }
 
-export default MonkSpreadsheet;
+export default HolyPriestSpreadsheet;
