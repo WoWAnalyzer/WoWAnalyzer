@@ -34,7 +34,7 @@ class HolyPriestSpreadsheet extends React.Component {
         return count.toFixed(5);
       }
 
-      return JSON.stringify([ability, heal]);
+      return 1;
     };
 
     const castEfficiency = (spellId) => {
@@ -45,7 +45,7 @@ class HolyPriestSpreadsheet extends React.Component {
       else if (efficiency.efficiency) {
         return efficiency.efficiency.toFixed(5);
       }
-      else if (efficiency.maxCasts !== Infinity){
+      else if (efficiency.maxCasts !== Infinity) {
         return '0.00000';
       } else {
         return 1;
@@ -92,24 +92,40 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{parser.selectedCombatant._combatantInfo.speed}</td>
               </tr>
               <tr>
+                <td>Damage Taken</td>
+                <td>{parser._modules.damageTaken._total._regular}</td>
+              </tr>
+              <tr>
+                <td>Healing Done</td>
+                <td>{parser._modules.healingDone._total._regular}</td>
+              </tr>
+              <tr>
+                <td>Deaths</td>
+                <td>{parser._modules.deathTracker.deaths.length}</td>
+              </tr>
+              <tr>
+                <td>Ending Mana</td>
+                <td>{parser._modules.manaValues.endingMana}</td>
+              </tr>
+              <tr>
                 <td>Fight Length</td>
                 <td>{Math.floor(parser.fightDuration / 1000)}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.serendipity.sanctify.rawReduction/1000}</td>
+                <td>{parser._modules.serendipity.sanctify.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.serendipity.serenity.rawReduction/1000}</td>
+                <td>{parser._modules.serendipity.serenity.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.sanctify.overcast/1000}</td>
+                <td>{parser._modules.serendipity.sanctify.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.serenity.overcast/1000}</td>
+                <td>{parser._modules.serendipity.serenity.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
