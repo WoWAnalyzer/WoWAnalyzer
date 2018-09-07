@@ -1,3 +1,5 @@
+import React from 'react';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -30,6 +32,9 @@ import SerenityReduction from './Modules/PriestCore/SerendipityReduction/Serenit
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 import HolyWords from './Modules/PriestCore/HolyWords';
 import Fortitude from './Modules/PriestCore/Fortitude';
+
+import Tab from 'Interface/Others/Tab';
+import HolyPriestSpreadsheet from 'Interface/Others/HolyPriestSpreadsheet';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -68,6 +73,24 @@ class CombatLogParser extends CoreCombatLogParser {
     cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
   };
+
+  generateResults(...args) {
+    const results = super.generateResults(...args);
+
+    results.tabs = [
+      ...results.tabs,
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+            <HolyPriestSpreadsheet parser={this} />
+          </Tab>
+        ),
+      },
+    ];
+    return results;
+  }
 }
 
 export default CombatLogParser;
