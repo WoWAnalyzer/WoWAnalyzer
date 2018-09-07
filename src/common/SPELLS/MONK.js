@@ -25,7 +25,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaCost: 300,
+    manaCost: 1500,
   },
   ROLL: {
     id: 109132,
@@ -41,7 +41,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 200,
+    manaCost: 1000,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -73,7 +73,7 @@ export default {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 1040,
+    manaCost: 5200,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -84,7 +84,7 @@ export default {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaCost: 1440,
+    manaCost: 7200,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -95,13 +95,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaCost: 480,
+    manaCost: 2400,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 560,
+    manaCost: 2800,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -112,7 +112,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaCost: 875,
+    manaCost: 4374,
   },
   SHEILUNS_GIFT: {
     id: 205406,
@@ -133,7 +133,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 700,
+    manaCost: 3500,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -206,7 +206,7 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 260,
+    manaCost: 1300,
   },
   FORTIFYING_BREW: {
     id: 243435,
@@ -381,6 +381,19 @@ export default {
     id: 253448,
     name: 'Tranquil Mist',
     icon: 'ability_monk_surgingmist',
+  },
+
+  // Mistweaver Azerite Traits
+
+  OVERFLOWING_MISTS_HEAL: {
+    id: 273354,
+    name: 'Overflowing Mists',
+    icon: 'spell_monk_envelopingmist',
+  },
+  BURST_OF_LIFE_HEAL: {
+  id: 278564,
+  name: 'Burst of Life',
+  icon: 'ability_monk_chicocoon',
   },
 
   // Brewmaster

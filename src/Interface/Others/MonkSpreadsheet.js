@@ -48,7 +48,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Invoke Chi-Ji Crane Heal Casts</td><td>{parser._modules.chiJi.casts}</td></tr>
             <tr><td>Rising Mist Targets per Cast</td><td>{parser._modules.risingMist.averageTargetsPerRM.toFixed(2) || 0}</td></tr>
             <tr><td>Total Healing from Rising Mist HoT Extension</td><td>{parser._modules.risingMist.hotHealing.toFixed(2) || 0}</td></tr>
-            <tr><td>Total Healing from Azerite Traits</td><td>NYI</td></tr>
+            <tr><td>Total Healing from Azerite Traits</td><td>{((getAbility(SPELLS.OVERFLOWING_MISTS_HEAL.id).healingEffective || 0) + (parser._modules.fontOfLife.healing || 0) + (parser._modules.invigoratingBrew.healing || 0) + (parser._modules.upliftedSpirits.healing || 0) + (getAbility(SPELLS.BURST_OF_LIFE_HEAL.id).healingEffective || 0)).toFixed(0)}</td></tr>
           </tbody>
           </table>
           <table style={styles.table}>

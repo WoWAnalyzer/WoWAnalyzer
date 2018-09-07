@@ -61,6 +61,11 @@ import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
 import T21_2set from './Modules/Items/T21_2set';
 import T21_4set from './Modules/Items/T21_4set';
 
+// Azerite Traits
+import FontOfLife from './Modules/Spells/AzeriteTraits/FontOfLife';
+import InvigoratingBrew from './Modules/Spells/AzeriteTraits/InvigoratingBrew';
+import UpliftedSpirits from './Modules/Spells/AzeriteTraits/UpliftedSpirits';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -90,7 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFont: EssenceFont,
     thunderFocusTea: ThunderFocusTea,
     envelopingMists: EnvelopingMists,
-    soothingMist: SoothingMist,
+    soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
     lifeCocoon: LifeCocoon,
 
@@ -114,6 +119,11 @@ class CombatLogParser extends CoreCombatLogParser {
     ovydsWinterWrap: OvydsWinterWrap,
     t21_2set: T21_2set,
     t21_4set: T21_4set,
+
+    // Azerite Traits
+    fontOfLife: FontOfLife,
+    upliftedSpirits: UpliftedSpirits,
+    invigoratingBrew: InvigoratingBrew,
   };
 
   generateResults(...args) {

@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { enragednuke, Dyspho, Skamer, niseko, Yajinni } from 'CONTRIBUTORS';
+import { enragednuke, Dyspho, Skamer, niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-07-28'),
+    changes: 'Updating base Holy Priest checklist.',
+    contributors: [Khadaj],
+  },
   {
     date: new Date('2018-07-28'),
     changes: 'Added suggestion for maintaining <SpellLink id={SPELLS.PERSEVERANCE_TALENT.id} and <SpellLink id={SPELLS.POWER_WORD_FORTITUDE.id}  /> buffs.',

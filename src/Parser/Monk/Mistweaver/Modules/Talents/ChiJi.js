@@ -26,7 +26,6 @@ class ChiJi extends Analyzer {
     if (event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       this.petID = event.targetID;
       debug && console.log(`Chi-Ji Summoned: ${this.petID}`);
-      console.log(this._pets);
     }
   }
 

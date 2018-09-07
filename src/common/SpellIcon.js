@@ -5,7 +5,7 @@ import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 import Icon from './Icon';
 
-const SpellIcon = ({ id, noLink, alt, ...others }) => {
+const SpellIcon = ({ id, noLink, alt, ilvl, ...others }) => {
   if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
@@ -28,7 +28,7 @@ const SpellIcon = ({ id, noLink, alt, ...others }) => {
   }
 
   return (
-    <SpellLink id={id} icon={false}>
+    <SpellLink id={id} ilvl={ilvl} icon={false}>
       {icon}
     </SpellLink>
   );
@@ -37,6 +37,7 @@ SpellIcon.propTypes = {
   id: PropTypes.number.isRequired,
   noLink: PropTypes.bool,
   alt: PropTypes.string,
+  ilvl: PropTypes.number,
 };
 
 export default SpellIcon;
