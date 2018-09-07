@@ -46,7 +46,7 @@ class HolyPriestSpreadsheet extends React.Component {
         return efficiency.efficiency.toFixed(5);
       }
       else if (efficiency.maxCasts !== Infinity){
-        return '0.00';
+        return '0.00000';
       } else {
         return 1;
       }
