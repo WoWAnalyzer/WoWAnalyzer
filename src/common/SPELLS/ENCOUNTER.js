@@ -1539,6 +1539,110 @@ export default {
     icon: "ability_warrior_bloodfrenzy",
   },
 
+  //Mythrax
+
+  MYTHRAX_ANNIHILATION: {
+    id: 278150,
+    name: "Annihilation",
+    icon: "spell_priest_void-blast",
+  },
+  MYTHRAX_CRASHING_OBLIVION: {
+    id: 276863,
+    name: "Crashing Oblivion",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_ESSENCE_SHEAR: {
+    id: 273282,
+    name: "Essence Shear",
+    icon: "ability_demonhunter_soulcleave2",
+  },
+  MYTHRAX_IMMINENT_RUIN_1: {
+    id: 272543,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_IMMINENT_RUIN_2: {
+    id: 272536,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_IMMINENT_RUIN_3: {
+    id: 272533,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_OBLITERATION_BEAM_1: {
+    id: 274113,
+    name: "Obliteration Beam",
+    icon: "spell_priest_voidsear",
+  },
+  MYTHRAX_OBLITERATION_BEAM_2:{
+    id: 272115,
+    name: "Obliteration Beam",
+    icon: "obliteration_beam",
+  },
+  MYTHRAX_OBLITERATION_BLAST_1: {
+    id: 273554,
+    name: "Obliteration Blast",
+    icon: "ability_priest_voidentropy",
+  },
+  MYTHRAX_OBLITERATION_BLAST_2: {
+    id: 273538,
+    name: "Obliteration Blast",
+    icon: "ability_priest_voidentropy",
+  },
+  MYTHRAX_XALZAIKS_AWAKENING_1:{
+    id: 273811,
+    name: "Xalzaik's Awakening",
+    icon: "ability_rogue_envelopingshadows",
+  },
+  MYTHRAX_XALZAIKS_AWAKENING_2:{
+    id: 273810,
+    name: "Xalzaik's Awakening",
+    icon: "ability_rogue_envelopingshadows",
+  },
+  MYTHRAX_ESSENCE_SHATTER: {
+    id: 279013,
+    name: "Essence Shatter",
+    icon: "spell_fire_twilighthellfire",
+  },
+  MYTHRAX_OBLIVION_SPHERE_1: {
+    id: 272409,
+    name: "Oblivion Sphere",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_OBLIVION_SPHERE_2: {
+    id: 272404,
+    name: "Oblivion Sphere",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_OBLIVION_VEIL:{
+    id: 274230,
+    name: "Oblivion Veil",
+    icon: "inv_icon_shadowcouncilorb_purple",
+  },
+  MYTHRAX_VISIONS_OF_MADNESS_1:{
+    id: 274016,
+    name: "Visions of Madness",
+    icon: "ability_priest_shadowyapparation",
+  },
+  MYTHRAX_VISIONS_OF_MADNESS_2: {
+    id: 273949,
+    name: "Visions of Madness",
+    icon: "ability_priest_shadowyapparition",
+  },
+  MYTHRAX_VOID_VOLLEY_1: {
+    id: 273945,
+    name: "Void Volley",
+    icon: "spell_shadow_shadowbolt",
+  },
+  MYTHRAX_VOID_VOLLEY_2: {
+    id: 273944,
+    name: "Void Volley",
+    icon: "spell_shadow_shadowbolt",
+  },
+
+
 
 
 };
