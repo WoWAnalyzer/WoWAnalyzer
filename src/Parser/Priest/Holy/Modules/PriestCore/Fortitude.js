@@ -1,5 +1,8 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 class Fortitude extends Analyzer {
@@ -18,6 +21,17 @@ class Fortitude extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
+        icon={<SpellIcon id={SPELLS.POWER_WORD_FORTITUDE.id} />}
+        value={`${formatPercentage(this.uptime)} %`}
+        label="Fortitude uptime"
+      />
+    );
   }
 
   suggestions(when) {
