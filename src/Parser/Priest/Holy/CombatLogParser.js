@@ -22,6 +22,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
+import HealingReceived from './Modules/Features/HealingReceived';
 
 // Priest Core
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
+    healingReceived: HealingReceived,
 
     // Core
     enduringRenewal: EnduringRenewal,

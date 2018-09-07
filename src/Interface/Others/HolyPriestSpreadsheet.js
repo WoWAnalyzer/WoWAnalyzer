@@ -52,8 +52,19 @@ class HolyPriestSpreadsheet extends React.Component {
       }
     };
 
-    return (
+    const rawHealing = (spellId) => {
+      const ability = getAbility(spellId);
+      if (ability.ability) {
+        return ability.healingEffective + ability.healingOverheal;
+      }
+      return 0;
+    }
 
+    const damageTaken = () => {
+      console.log(parser._modules);
+    }
+
+    return (
       <div>
         <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
         <div>
@@ -92,12 +103,16 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{parser.selectedCombatant._combatantInfo.speed}</td>
               </tr>
               <tr>
-                <td>Damage Taken</td>
-                <td>{parser._modules.damageTaken._total._regular}</td>
-              </tr>
-              <tr>
                 <td>Healing Done</td>
                 <td>{parser._modules.healingDone._total._regular}</td>
+              </tr>
+              <tr>
+                <td>Self Healing</td>
+                <td>{parser._modules.healingReceived.HealingReceivedSelf}</td>
+              </tr>
+              <tr>
+                <td>Damage Taken</td>
+                <td>{parser._modules.damageTaken._total._regular}</td>
               </tr>
               <tr>
                 <td>Deaths</td>
@@ -145,6 +160,7 @@ class HolyPriestSpreadsheet extends React.Component {
             <tbody>
               <tr>
                 <td>Spell Name</td>
+                <td>Raw Healing</td>
                 <td>Overheal %</td>
                 <td>CPM</td>
                 <td>Casting Efficiency %</td>
@@ -152,6 +168,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Heal</td>
+                <td>{rawHealing(SPELLS.GREATER_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.GREATER_HEAL.id)}</td>
                 <td>{cpm(SPELLS.GREATER_HEAL.id)}</td>
                 <td>{castEfficiency(SPELLS.GREATER_HEAL.id)}</td>
@@ -159,6 +176,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Flash Heal</td>
+                <td>{rawHealing(SPELLS.FLASH_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.FLASH_HEAL.id)}</td>
                 <td>{cpm(SPELLS.FLASH_HEAL.id)}</td>
                 <td>{castEfficiency(SPELLS.FLASH_HEAL.id)}</td>
@@ -166,6 +184,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Renew</td>
+                <td>{rawHealing(SPELLS.RENEW.id)}</td>
                 <td>{overhealingSpell(SPELLS.RENEW.id)}</td>
                 <td>{cpm(SPELLS.RENEW.id)}</td>
                 <td>{castEfficiency(SPELLS.RENEW.id)}</td>
@@ -173,6 +192,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Prayer of Healing</td>
+                <td>{rawHealing(SPELLS.PRAYER_OF_HEALING.id)}</td>
                 <td>{overhealingSpell(SPELLS.PRAYER_OF_HEALING.id)}</td>
                 <td>{cpm(SPELLS.PRAYER_OF_HEALING.id)}</td>
                 <td>{castEfficiency(SPELLS.PRAYER_OF_HEALING.id)}</td>
@@ -180,6 +200,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Prayer of Mending</td>
+                <td>{rawHealing(SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
                 <td>{cpm(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
                 <td>{castEfficiency(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
@@ -187,6 +208,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Holy Word: Serenity</td>
+                <td>{rawHealing(SPELLS.HOLY_WORD_SERENITY.id)}</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SERENITY.id)}</td>
                 <td>{cpm(SPELLS.HOLY_WORD_SERENITY.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SERENITY.id)}</td>
@@ -194,6 +216,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Holy Word: Sanctify</td>
+                <td>{rawHealing(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
@@ -201,6 +224,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Guardian Spirit</td>
+                <td>0</td>
                 <td>{overhealingSpell(SPELLS.GUARDIAN_SPIRIT.id)}</td>
                 <td>{cpm(SPELLS.GUARDIAN_SPIRIT.id)}</td>
                 <td>{castEfficiency(SPELLS.GUARDIAN_SPIRIT.id)}</td>
@@ -208,6 +232,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Divine Hymn</td>
+                <td>{rawHealing(SPELLS.DIVINE_HYMN_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.DIVINE_HYMN_HEAL.id)}</td>
                 <td>{cpm(SPELLS.DIVINE_HYMN_CAST.id)}</td>
                 <td>{castEfficiency(SPELLS.DIVINE_HYMN_CAST.id)}</td>
@@ -215,6 +240,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Desperate Prayer</td>
+                <td>{rawHealing(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>{overhealingSpell(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>{cpm(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>{castEfficiency(SPELLS.DESPERATE_PRAYER.id)}</td>
@@ -223,6 +249,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
               <tr>
                 <td>Cosmic Ripple</td>
+                <td>{rawHealing(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
@@ -230,6 +257,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Binding Heal</td>
+                <td>{rawHealing(SPELLS.BINDING_HEAL_TALENT.id)}</td>
                 <td>{overhealingSpell(SPELLS.BINDING_HEAL_TALENT.id)}</td>
                 <td>{cpm(SPELLS.BINDING_HEAL_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.BINDING_HEAL_TALENT.id)}</td>
@@ -237,6 +265,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Circle of Healing</td>
+                <td>{rawHealing(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
                 <td>{overhealingSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
                 <td>{cpm(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.CIRCLE_OF_HEALING_TALENT.id)}</td>
@@ -244,6 +273,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Divine Star</td>
+                <td>{rawHealing(SPELLS.DIVINE_STAR_TALENT.id)}</td>
                 <td>{overhealingSpell(SPELLS.DIVINE_STAR_TALENT.id)}</td>
                 <td>{cpm(SPELLS.DIVINE_STAR_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.DIVINE_STAR_TALENT.id)}</td>
@@ -251,6 +281,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Halo</td>
+                <td>{rawHealing(SPELLS.HALO_TALENT.id)}</td>
                 <td>{overhealingSpell(SPELLS.HALO_TALENT.id)}</td>
                 <td>{cpm(SPELLS.HALO_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HALO_TALENT.id)}</td>
@@ -258,6 +289,7 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Holy Word: Salvation</td>
+                <td>{rawHealing(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{cpm(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
