@@ -184,7 +184,7 @@ class MasteryBreakdown extends Analyzer {
                 .filter(item => (percOfTotalHealingDone * item[1]) > 0.01)
                 .map((item, index) => (
                   <tr key={index}>
-                    <th scope="row"><SpellIcon id={parseInt(item[0])} style={{ height: '2.4em' }} /></th>
+                    <th scope="row"><SpellIcon id={parseInt(item[0], 10)} style={{ height: '2.4em' }} /></th>
                     <td>{formatNumber(this.healing * item[1])}</td>
                     <td>{formatPercentage(percOfTotalHealingDone * item[1])}%</td>
                     <td>{formatPercentage(item[2])}%</td>

@@ -29,7 +29,7 @@ class HolyPriestSpreadsheet extends React.Component {
         return 'N/A';
       }
 
-      let count = heal.healingHits / ability.casts;
+      const count = heal.healingHits / ability.casts;
       if (count) {
         return count.toFixed(5);
       }
@@ -58,11 +58,7 @@ class HolyPriestSpreadsheet extends React.Component {
         return ability.healingEffective + ability.healingOverheal;
       }
       return 0;
-    }
-
-    const damageTaken = () => {
-      console.log(parser._modules);
-    }
+    };
 
     return (
       <div>
@@ -144,15 +140,15 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
-                <td></td>
+                <td>0</td>
               </tr>
               <tr>
                 <td>Renews refreshed by Enduring Renewal</td>
-                <td></td>
+                <td>0</td>
               </tr>
               <tr>
                 <td>Renews from benediction</td>
-                <td></td>
+                <td>0</td>
               </tr>
             </tbody>
           </table>
