@@ -98,17 +98,6 @@ class HolyPriestChecklist extends React.PureComponent {
         </Rule>
 
         <Rule
-          name="Open the fight with 20 stacks of prayer of mending"
-          description={(
-            <React.Fragment>
-              You can stack up to 10 charges of <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> on two members of the raid group <dfn data-tip="You will need to start stacking 30 seconds before the pull. Make sure you pay attention!">before the boss is pulled</dfn>. This is a simple and free way to increase your healing numbers.
-            </React.Fragment>
-          )}
-        >
-          <Requirement name="Opening prayer of mending stacks" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
-        </Rule>
-
-        <Rule
           name={<React.Fragment>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively</React.Fragment>}
           description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
         >
