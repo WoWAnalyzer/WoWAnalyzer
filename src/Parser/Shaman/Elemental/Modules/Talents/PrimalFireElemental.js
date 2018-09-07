@@ -89,8 +89,7 @@ class PrimalFireElemental extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedSpellsCount = this.usedCasts.filter(function(x){return !x; }).length();
-
+    const unusedSpellsCount = Object.values(this.usedCasts).filter(x=>!x).length;
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are set to autocast and you are using Meteor.</span>)
