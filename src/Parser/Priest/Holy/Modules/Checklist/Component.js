@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 // import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Checklist from 'Parser/Core/Modules/Features/Checklist2/index';
+import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
 import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
 import PreparationRule from 'Parser/Core/Modules/Features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'Parser/Core/Modules/Features/Checklist2/GenericCastEfficiencyRequirement';
 
-class HolyPriestChecklist extends Checklist {
+class HolyPriestChecklist extends React.PureComponent {
   static propTypes = {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
@@ -21,10 +21,6 @@ class HolyPriestChecklist extends Checklist {
       hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
-  };
-
-  static dependencies = {
-
   };
 
   render() {
@@ -109,7 +105,7 @@ class HolyPriestChecklist extends Checklist {
             </React.Fragment>
           )}
         >
-          <Requirement name="Opening prayer of mending stacks" thresholds={this.prePom} />
+          <Requirement name="Opening prayer of mending stacks" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
         </Rule>
 
         <Rule

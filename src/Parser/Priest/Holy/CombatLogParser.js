@@ -17,7 +17,7 @@ import Perseverance from './Modules/Talents/Perseverance';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Checklist from './Modules/Features/Checklist/Module';
+import Checklist from './Modules/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
 
