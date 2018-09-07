@@ -4,7 +4,6 @@ import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 
 import HolyWords from './HolyWords';
 
@@ -27,9 +26,13 @@ class HolyWordsReductionBySpell extends Analyzer {
       <ExpandableStatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
-        value={`${this.totalReduction}  sec`}
+        value={`${this.totalReduction}  seconds`}
         label="Total CD Reduction"
-        tooltip={<React.Fragment> <SpellLink id={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id} /> </React.Fragment>}
+        tooltip={`Talents like <b>Light of the Naaru</b> and <b>Apotheosis</b> which provide </br>
+                  further CD reduction are taken into account when calculating these numbers.</br></br>
+                  If you took the talent <b>Holy Word Salvation</b>, <b>Holy Words Sanctify	and Serenity</b> </br>
+                  will show since they provide CD reduction for <b>Holy World Salvation</b>.`}
+
       >
         <table className="table table-condensed">
           <thead>
@@ -42,7 +45,7 @@ class HolyWordsReductionBySpell extends Analyzer {
             {Object.values(this.holyWords.reductionAmountBySpell).map((e, i) => (
               <tr key={i}>
                 <th>{e.name}</th>
-                <td>{e.amount}</td>
+                <td>{e.amount} seconds</td>
               </tr>
             ))}
           </tbody>
