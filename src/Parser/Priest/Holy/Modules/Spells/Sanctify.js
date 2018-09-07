@@ -5,22 +5,26 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
+const MAX_HITS_PER_CAST = 6;
 class Sanctify extends Analyzer {
-  casts = 0
-  hits = 0
+  casts = 0;
+  goodHit = 0;
+  totalHits = 0;
+  overhealHit =0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HOLY_WORD_SANCTIFY.id) {
       return;
     }
-
+    this.totalHits += 1;
     // We should consider hits of Sanctify with >80% OH to essentially be "missed" hits since they did very little
     // and likely could have been done better.
     if ((event.overheal || 0) > event.amount * 4) {
+      this.overhealHit += 1;
       return;
     }
-    this.hits += 1;
+    this.goodHit += 1;
   }
 
   on_byPlayer_cast(event) {
@@ -32,8 +36,8 @@ class Sanctify extends Analyzer {
   }
 
   get report() {
-    const sancAvgHits = this.hits / this.casts;
-    const sancMissedHits = (this.casts * 6) - this.hits;
+    const sancAvgHits = this.goodHit / this.casts;
+    const sancMissedHits = (this.casts * MAX_HITS_PER_CAST) - this.goodHit;
 
     return {
       sancAvgHits,
@@ -43,13 +47,22 @@ class Sanctify extends Analyzer {
 
   statistic() {
     const report = this.report;
+    const noHits = (this.casts * MAX_HITS_PER_CAST)- this.totalHits;
+    const hitsPerCast = this.totalHits / this.casts;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
         value={`${report.sancAvgHits.toFixed(2)}`}
-        label="Average hits"
-        tooltip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${report.sancMissedHits} of ${this.casts * 6} potential hits.`}
+        label="Avg effective hits per cast"
+        tooltip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. </br>
+                  Over 80% overhealing on a hit is considered a "miss". </br>
+                  <b>Total players hit:</b> ${this.totalHits} </br>
+                  <b>Total casts:</b> ${this.casts} </br>
+                  <b>Hits per cast :</b> ${hitsPerCast.toFixed(2)} </br>
+                  <b>Players overhealed for 80%+ hit:</b> ${this.overhealHit}</br>
+                  <b>Total of no hits:</b> ${noHits}`}
+
       />
     );
   }
