@@ -80,20 +80,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STORMKEEPER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.FIRE_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
+        cooldown: 60 * 5,
         gcd: {
           base: 1500,
         },
