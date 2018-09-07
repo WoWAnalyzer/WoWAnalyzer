@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPELLS from 'common/SPELLS';
-
 class MonkSpreadsheet extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -25,15 +23,30 @@ class MonkSpreadsheet extends React.Component {
     return (
 
       <div>
-        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Mistweaver Spreadsheet by Garg.                                                                                                                                    <a href="http://www.peakofserenity.com/mistweaver/spreadsheet/" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
+        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="http://www.peakofserenity.com/mistweaver/spreadsheet/" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
         <div>
           <table style={styles.table}>
             <tbody>
-              <tr><td>Intellect Rating</td><td>{parser.selectedCombatant._combatantInfo.intellect}</td></tr>
-              <tr><td>Critical Strike Rating</td><td>{parser.selectedCombatant._combatantInfo.critSpell}</td></tr>
-              <tr><td>Haste Rating</td><td>{parser.selectedCombatant._combatantInfo.hasteSpell}</td></tr>
-              <tr><td>Mastery Rating</td><td>{parser.selectedCombatant._combatantInfo.mastery}</td></tr>
-              <tr><td>Versatility Rating</td><td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td></tr>
+              <tr>
+                <td>Intellect Rating</td>
+                <td>{parser.selectedCombatant._combatantInfo.intellect}</td>
+              </tr>
+              <tr>
+                <td>Critical Strike Rating</td>
+                <td>{parser.selectedCombatant._combatantInfo.critSpell}</td>
+              </tr>
+              <tr>
+                <td>Haste Rating</td>
+                <td>{parser.selectedCombatant._combatantInfo.hasteSpell}</td>
+              </tr>
+              <tr>
+                <td>Mastery Rating</td>
+                <td>{parser.selectedCombatant._combatantInfo.mastery}</td>
+              </tr>
+              <tr>
+                <td>Versatility Rating</td>
+                <td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td>
+              </tr>
             </tbody>
           </table>
           <table style={styles.table}>
