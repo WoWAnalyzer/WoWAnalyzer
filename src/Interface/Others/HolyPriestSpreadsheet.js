@@ -55,7 +55,7 @@ class HolyPriestSpreadsheet extends React.Component {
     return (
 
       <div>
-        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="http://www.peakofserenity.com/mistweaver/spreadsheet/" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
+        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
         <div>
           <table style={styles.table}>
             <tbody>
