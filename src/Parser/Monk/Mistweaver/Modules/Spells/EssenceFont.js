@@ -10,7 +10,18 @@ const debug = false;
 class EssenceFont extends Analyzer {
   castEF = 0;
   targetsEF = 0;
+  efHotHeal = 0;
+  efHotOverheal = 0;
+  targetOverlap = 0;
 
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+
+    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id && event.tick === true) {
+      this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
+      this.efHotOverheal += event.overheal || 0;
+    }
+  }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -32,6 +43,7 @@ class EssenceFont extends Analyzer {
 
     if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
       this.targetsEF += 1;
+      this.targetOverlap += 1;
     }
   }
 
@@ -43,8 +55,15 @@ class EssenceFont extends Analyzer {
     }
   }
 
+  get efHotOverhealing() {
+    return (this.efHotOverheal / (this.efHotHeal + this.efHotOverheal)).toFixed(4);
+  }
+
   get avgTargetsHitPerEF() {
     return (this.targetsEF / this.castEF) || 0;
+  }
+  get efHotOverlap() {
+    return ((this.targetOverlap / this.targetsEF) || 0).toFixed(2);
   }
 
   get suggestionThresholds() {

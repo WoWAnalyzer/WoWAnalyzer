@@ -12,7 +12,6 @@ import ChiTracker from './Modules/Chi/ChiTracker';
 import Channeling from './Modules/Core/Channeling';
 // Spells
 import ComboBreaker from './Modules/Spells/ComboBreaker';
-import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
 import FistsofFury from './Modules/Spells/FistsofFury';
 import SpinningCraneKick from './Modules/Spells/SpinningCraneKick';
 import ComboStrikes from './Modules/Spells/ComboStrikes';
@@ -23,6 +22,9 @@ import BlackoutKick from './Modules/Spells/BlackoutKick';
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
 import Serenity from './Modules/Talents/Serenity';
+// Azerite
+import IronFists from './Modules/Spells/AzeriteTraits/IronFists';
+import MeridianStrikes from './Modules/Spells/AzeriteTraits/MeridianStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,7 +49,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells;
     comboBreaker: ComboBreaker,
-    stormEarthAndFire: StormEarthAndFire,
     fistsofFury: FistsofFury,
     spinningCraneKick: SpinningCraneKick,
     touchOfKarma: TouchOfKarma,
@@ -55,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
 
+    // Azerite
+    ironFists: IronFists,
+    meridianStrikes: MeridianStrikes,
   };
 }
 

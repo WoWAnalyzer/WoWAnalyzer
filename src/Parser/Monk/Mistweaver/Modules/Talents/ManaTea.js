@@ -163,9 +163,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 1500,
-        average: 1200,
-        major: 1000,
+        minor: 15000,
+        average: 12000,
+        major: 10000,
       },
       style: 'number',
     };

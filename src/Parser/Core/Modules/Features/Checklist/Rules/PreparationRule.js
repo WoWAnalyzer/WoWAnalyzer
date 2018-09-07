@@ -12,24 +12,6 @@ class PreparationRule extends Rule {
       requirements: function () {
         return [
           new Requirement({
-            name: 'Legendaries at max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              max: this.legendaryCountChecker.max,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              max: this.legendaryCountChecker.max,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
             name: 'Used a pre-potion',
             check: () => this.prePotion.prePotionSuggestionThresholds,
           }),

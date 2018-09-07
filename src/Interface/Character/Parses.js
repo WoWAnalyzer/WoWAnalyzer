@@ -34,7 +34,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_ANTORUS = 17;
+const ZONE_DEFAULT_ULDIR = 19;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -45,6 +45,7 @@ const ERRORS = {
   WCL_API_ERROR: 'Something went wrong talking to Warcraft Logs',
   UNKNOWN_API_ERROR: 'Something went wrong talking to the server',
   UNEXPECTED: 'Something went wrong',
+  NOT_RESPONDING: 'Request timed out',
 };
 
 class Parses extends React.Component {
@@ -63,7 +64,7 @@ class Parses extends React.Component {
       class: '',
       activeSpec: [],
       activeDifficulty: DIFFICULTIES,
-      activeZoneID: ZONE_DEFAULT_ANTORUS,
+      activeZoneID: ZONE_DEFAULT_ULDIR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
@@ -231,6 +232,21 @@ class Parses extends React.Component {
     }
     // fetch character image and active spec from battle-net
     const response = await fetch(makeCharacterApiUrl(null, region, realm, name, 'talents'));
+    if (response.status === 500) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.NOT_RESPONDING,
+      });
+      return;
+    }
+    if (!response.ok) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.UNEXPECTED,
+      });
+      return;
+    }
+
     const data = await response.json();
 
     if (data.status === 'nok') {
@@ -296,9 +312,9 @@ class Parses extends React.Component {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       timeframe: 'historical',
-      // _: refresh ? +new Date() : undefined,
+      _: refresh ? +new Date() : undefined,
       // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-      _: +new Date(),
+      // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
     })
       .then(rawParses => {
         if (rawParses.length === 0) {
@@ -391,6 +407,14 @@ class Parses extends React.Component {
           Please check your input and make sure that you've selected the correct region and realm.<br />
           If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
           When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.NOT_RESPONDING) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.<br /><br />
+          You could try and enter your report-code manually <Link to="/">here</Link>.<br />
+          That would bypass the load-intensive character lookup and we should be able to analyze your report.<br />
         </div>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
