@@ -17,9 +17,9 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const getAbility = spellId => parser._modules.abilityTracker.getAbility(spellId);
 
-    const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(4);
+    const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(5);
 
-    const cpm = spellId => (getAbility(spellId).casts / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2);
+    const cpm = spellId => (getAbility(spellId).casts / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5);
 
     const targetsPerCast = (spellId, healId) => {
       const ability = getAbility(spellId);
@@ -31,7 +31,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
       let count = heal.healingHits / ability.casts;
       if (count) {
-        return count.toFixed(2);
+        return count.toFixed(5);
       }
 
       return JSON.stringify([ability, heal]);
@@ -43,7 +43,7 @@ class HolyPriestSpreadsheet extends React.Component {
         return 'N/A';
       }
       else if (efficiency.efficiency) {
-        return efficiency.efficiency.toFixed(2);
+        return efficiency.efficiency.toFixed(5);
       }
       else if (efficiency.maxCasts !== Infinity){
         return '0.00';
@@ -151,7 +151,7 @@ class HolyPriestSpreadsheet extends React.Component {
               <tr>
                 <td>Holy Word: Sanctify</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
-                <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(2)}</td>
+                <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
               </tr>
