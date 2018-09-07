@@ -22,8 +22,6 @@ class MonkSpreadsheet extends React.Component {
 
     const cpm = spellId => ((getAbility(spellId).casts / (parser.fightDuration / 1000 / 60)) || 0).toFixed(2);
 
-    console.log('Overflowing Mists: ' + (getAbility(SPELLS.OVERFLOWING_MISTS_HEAL.id).healingEffective || 0) + ' // Font of Life: ' + (parser._modules.fontOfLife.healing || 0) + ' // Invigorating Brew: ' + (parser._modules.invigoratingBrew.healing || 0) + ' // Uplifted Spirits: ' + (parser._modules.upliftedSpirits.healing || 0) + ' /// Burst of Life: ' + (getAbility(SPELLS.BURST_OF_LIFE_HEAL.id).healingEffective || 0));
-
     return (
 
       <div>
