@@ -1,14 +1,16 @@
 
 import SPELLS from 'common/SPELLS';
 
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT } from '../../../Constants';
+import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../Constants';
 
 class UpliftedSpirits extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   healBuff = 0
@@ -30,17 +32,25 @@ class UpliftedSpirits extends Analyzer {
       return;
     }
 
-    if (spellId === SPELLS.VIVIFY.id) {
-      const versPerc = this.statTracker.currentVersatilityPercentage;
-      const mwAura = MISTWEAVER_HEALING_AURA;
-      const intRating = this.statTracker.currentIntellectRating;
-      const healAmount = event.amount + (event.absorbed || 0);
+    if (spellId !== SPELLS.VIVIFY.id) {
+      return;
+    }
 
-      this.baseHeal = (intRating * VIVIFY_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
+    const versPerc = this.statTracker.currentVersatilityPercentage;
+    const mwAura = MISTWEAVER_HEALING_AURA;
+    const intRating = this.statTracker.currentIntellectRating;
+    const healAmount = event.amount + (event.absorbed || 0);
 
-      if (event.hitType === 2) {
-        this.baseHeal = this.baseHeal * 2;
-      }
+    this.baseHeal = (intRating * VIVIFY_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
+
+    if (event.hitType === 2) {
+      this.baseHeal = this.baseHeal * 2;
+    }
+
+    if ((healAmount - this.baseHeal) < 0) { // Need to account for Vivify from REM 'Causes a surge of invigorating mists, healing the target for (95% of Spell power) and all allies with your Renewing Mist active for (70% of Spell power)'
+      this.baseHeal = (intRating * VIVIFY_REM_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
+      this.healing += (healAmount - this.baseHeal);
+    } else {
       this.healing += (healAmount - this.baseHeal);
     }
   }
