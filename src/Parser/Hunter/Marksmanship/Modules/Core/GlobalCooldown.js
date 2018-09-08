@@ -33,7 +33,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
       this.stacks = this.steadyFocus.getSteadyFocusStacks;
-      //console.log("in GCD module: ", this.stacks);
       return Math.max(MIN_GCD, (gcd * (1 - (STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.stacks))) / (1 + this.statTracker.currentHastePercentage));
     }
     return Math.max(MIN_GCD, gcd);
