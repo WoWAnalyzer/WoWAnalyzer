@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-09-04'),
+    changes: <React.Fragment>Properly recognizes <SpellLink id={SPELLS.WILDFIRE_INFUSION_TALENT.id} /> casts now.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-12'),
     changes: 'Removed all legendaries and tier gear in preparation for Battle for Azeroth launch',
     contributors: [Putro],
