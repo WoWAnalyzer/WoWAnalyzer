@@ -40,7 +40,7 @@ class ChiJi extends Analyzer {
   }
 
   get chiJiOverHealing() {
-    return (this.overHealing / (this.healing + this.overHealing)).toFixed(4);
+    return (this.overHealing / (this.healing + this.overHealing)).toFixed(4) || 0;
   }
 
   on_finished() {
