@@ -41,6 +41,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERPENT_STING_SV,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.VIPERS_VENOM_BUFF.id, //to show users of the Vipers Venom talent when they were casting Serpent Sting with Viper's Venom active in the timeline
         gcd: {
           base: 1500,
         },

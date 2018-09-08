@@ -2,6 +2,9 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
+import SPECS from 'game/SPECS';
+
+const CLASSES_NOT_BENEFITTING = [SPECS.FIRE_MAGE, SPECS.FROST_MAGE];
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
@@ -10,8 +13,9 @@ class ArcaneTorrent extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    const spec = this.selectedCombatant.spec;
     this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.BloodElf;
-    if (!this.active) {
+    if (!this.active || CLASSES_NOT_BENEFITTING.includes(spec)) {
       return;
     }
 
