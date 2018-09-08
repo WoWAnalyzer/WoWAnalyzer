@@ -360,6 +360,21 @@ export default {
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
+  SHRAPNEL_BOMB_WFI: {
+    id: 270335,
+    name: 'Shrapnel Bomb',
+    icon: '"inv_wildfirebomb_shrapnel',
+  },
+  VOLATILE_BOMB_WFI: {
+    id: 271045,
+    name: 'Volatile Bomb',
+    icon: 'inv_wildfirebomb_poison',
+  },
+  PHEROMONE_BOMB_WFI: {
+    id: 270323,
+    name: 'Pheromone Bomb',
+    icon: 'inv_wildfirebomb_blood',
+  },
   CHAKRAMS_TO_MAINTARGET: {
     id: 259398,
     name: 'Chakrams',

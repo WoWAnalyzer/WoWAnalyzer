@@ -17,9 +17,10 @@ class Aftershock extends Analyzer {
   }
 
   on_byPlayer_energize(event) {
-    if (event.ability.guid === SPELLS.AFTERSHOCK.id) {
-      this.refund += event.resourceChange;
+    if (event.ability.guid !== SPELLS.AFTERSHOCK.id) {
+      return;
     }
+    this.refund += event.resourceChange;
   }
 
   statistic() {

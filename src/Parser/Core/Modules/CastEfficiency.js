@@ -81,7 +81,7 @@ class CastEfficiency extends Analyzer {
     };
   }
 
-  _getTimeSpentCasting(ability){
+  _getTimeSpentCasting(ability) {
     const mainSpellId = ability.primarySpell.id;
     const history = this.spellHistory.historyBySpellId[mainSpellId];
     if (!history) { // spell either never been cast, or not in abilities list
@@ -109,7 +109,7 @@ class CastEfficiency extends Analyzer {
   /*
    * Time spent waiting for a GCD that reset the cooldown of the spell to finish
    */
-  _getTimeWaitingOnGCD(ability){
+  _getTimeWaitingOnGCD(ability) {
     const mainSpellId = ability.primarySpell.id;
     const history = this.spellHistory.historyBySpellId[mainSpellId];
     if (!history) { // spell either never been cast, or not in abilities list
@@ -136,11 +136,11 @@ class CastEfficiency extends Analyzer {
       .map(ability => this.getCastEfficiencyForAbility(ability))
       .filter(item => item !== null); // getCastEfficiencyForAbility can return null, remove those from the result
   }
-  getCastEfficiencyForSpellId(spellId) {
+  getCastEfficiencyForSpellId(spellId, includeNoCooldownEfficiency = false) {
     const ability = this.abilities.getAbility(spellId);
-    return ability ? this.getCastEfficiencyForAbility(ability) : null;
+    return ability ? this.getCastEfficiencyForAbility(ability, includeNoCooldownEfficiency) : null;
   }
-  getCastEfficiencyForAbility(ability) {
+  getCastEfficiencyForAbility(ability, includeNoCooldownEfficiency = false) {
     const spellId = ability.primarySpell.id;
     const availableFightDuration = this.owner.fightDuration;
 
@@ -177,11 +177,22 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, availableFightDuration, this.abilityTracker.getAbility, this.owner);
     } else if (averageCooldown) { // no average CD if spell hasn't been cast
       rawMaxCasts = (availableFightDuration / (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD)) + (ability.charges || 1) - 1;
-    } else {
+    } else if (!includeNoCooldownEfficiency) {
       rawMaxCasts = (availableFightDuration / cooldownMs) + (ability.charges || 1) - 1;
+    } else if (casts > 0) {
+      let averagetimeSpentOnNoCooldownAbility = this._getTimeSpentCasting(ability) / casts;
+      if (ability.gcd && averagetimeSpentOnNoCooldownAbility < ability.gcd) {
+        // edge case for no cast time spells and spells with cast time lower than the gcd.
+        averagetimeSpentOnNoCooldownAbility = ability.gcd.base;
+      }
+      rawMaxCasts = availableFightDuration / (averagetimeSpentOnNoCooldownAbility);
+    } else {
+      // If we don't have any way to tell the cast time of the spell, return null.
+      rawMaxCasts = null;
     }
+
     const maxCasts = Math.ceil(rawMaxCasts) || 0;
-    const maxCpm = (cooldown === null) ? null : maxCasts / minutes(availableFightDuration);
+    const maxCpm = maxCasts / minutes(availableFightDuration);
 
     let efficiency;
     if (ability.castEfficiency.maxCasts) { // legacy support for custom maxCasts
@@ -193,8 +204,10 @@ class CastEfficiency extends Analyzer {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
         const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
         efficiency = timeUnavailable / availableFightDuration;
+      } else if (includeNoCooldownEfficiency) {
+        efficiency = casts / rawMaxCasts;
       } else {
-        efficiency = null;
+        return null;
       }
     }
 

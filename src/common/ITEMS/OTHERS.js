@@ -52,12 +52,6 @@ export default {
     icon: 'inv_jewelry_ring_149',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  VELENS_FUTURE_SIGHT: {
-    id: 144258,
-    name: 'Velen\'s Future Sight',
-    icon: 'spell_holy_healingfocus',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
   KILJAEDENS_BURNING_WISH: {
     id: 144259,
     name: 'Kil\'jaeden\'s Burning Wish',
@@ -92,12 +86,6 @@ export default {
     id: 152626,
     name: 'Insignia of the Grand Army',
     icon: 'inv_jewelry_ring_60',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  AMANTHULS_VISION: {
-    id: 154172,
-    name: 'Aman\'Thul\'s Vision',
-    icon: 'inv_antorus_turquoise',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   //Crafted legendaries
@@ -137,18 +125,6 @@ export default {
     id: 142170,
     name: 'Drape of Shame',
     icon: 'inv_cape_legionendgame_c_03',
-    quality: ITEM_QUALITIES.EPIC,
-  },
-  DARKMOON_DECK_PROMISES: {
-    id: 128710,
-    name: 'Darkmoon Deck: Promises',
-    icon: '70_inscription_deck_promises',
-    quality: ITEM_QUALITIES.EPIC,
-  },
-  DARKMOON_DECK_IMMORTALITY: {
-    id: 128711,
-    name: 'Darkmoon Deck: Immortality',
-    icon: '70_inscription_deck_immortality',
     quality: ITEM_QUALITIES.EPIC,
   },
   AMALGAMS_SEVENTH_SPINE: {
@@ -251,12 +227,6 @@ export default {
     quality: ITEM_QUALITIES.EPIC,
   },
   // T21 Healing Trinkets
-  TARRATUS_KEYSTONE: {
-    id: 151958,
-    name: 'Tarratus Keystone',
-    icon: 'inv_datacrystal06',
-    quality: ITEM_QUALITIES.EPIC,
-  },
   HIGHFATHERS_MACHINATION: {
     id: 152289,
     name: 'Highfather\'s Machination',
@@ -273,12 +243,6 @@ export default {
     id: 151957,
     name: 'Ishkar\'s Felshield Emitter',
     icon: 'ability_vehicle_shellshieldgenerator_green',
-    quality: ITEM_QUALITIES.EPIC,
-  },
-  CARAFE_OF_SEARING_LIGHT: {
-    id: 151960,
-    name: 'Carafe of Searing Light',
-    icon: 'inv_offhand_pvealliance_d_01_gold',
     quality: ITEM_QUALITIES.EPIC,
   },
   // T20 DPS Trinkets
@@ -367,12 +331,6 @@ export default {
     icon: 'ability_creature_poison_03',
     quality: ITEM_QUALITIES.EPIC,
   },
-  GAROTHI_FEEDBACK_CONDUIT: {
-    id: 151956,
-    name: 'Garothi Feedback Conduit',
-    icon: 'inv_misc_enggizmos_06',
-    quality: ITEM_QUALITIES.EPIC,
-  },
   GORSHALACHS_LEGACY: {
     id: 152093,
     name: 'Gorshalach\'s Legacy',
@@ -424,47 +382,5 @@ export default {
     id: 151968,
     name: 'Shadow-Singed Fang',
     icon: 'inv_misc_blacksaberonfang',
-  },
-  //T21 Tank trinkets
-  AGGRAMARS_CONVICTION: {
-    id: 154173,
-    name: 'Aggramar\'s Conviction',
-    icon: 'inv_antorus_orange',
-  },
-  SMOLDERING_TITANGUARD: {
-    id: 151978,
-    name: 'Smoldering Titanguard',
-    icon: 'ability_warrior_shieldmastery',
-  },
-  DIIMAS_GLACIAL_AEGIS: {
-    id: 151977,
-    name: 'Diima\'s Glacial Aegis',
-    icon: 'ability_hunter_glacialtrap',
-  },
-  RIFTWORLD_CODEX: {
-    id: 151976,
-    name: 'Riftworld Codex',
-    icon: 'inv_offhand_pvp330_d_02',
-  },
-  //Eye trinkets from Hounds
-  EYE_OF_HOUNDS: { //combatants ID, actual trinket is in bonusID
-    id: 151974,
-    icon: 'inv_misc_enchantedpearlc',
-  },
-  EYE_OF_SHATUG: {
-    id: 152645,
-    name: 'Eye of Shatug',
-    icon: 'inv_misc_enchantedpearle',
-  },
-  EYE_OF_FHARG: {
-    id: 153544,
-    name: 'Eye of F\'harg',
-    icon: 'inv_misc_enchantedpearlc',
-  },
-  // T19 Trinkets
-  CONVERGENCE_OF_FATES: {
-    id: 140806,
-    name: 'Convergence of Fates',
-    icon: 'ability_bossmagistrix_timewarp1',
   },
 };

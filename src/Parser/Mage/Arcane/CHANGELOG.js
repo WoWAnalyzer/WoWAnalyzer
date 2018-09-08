@@ -55,9 +55,4 @@ export default [
     changes: <React.Fragment>Removed <SpellLink id={SPELLS.EVOCATION.id} /> Suggestion, Updated for 8.0.1, Resolved some Abilities Bugs</React.Fragment>,
     contributors: [Sharrq],
   },
-  {
-    date: new Date('2018-01-27'),
-    changes: 'Added Spec',
-    contributors: [Sharrq],
-  },
 ];

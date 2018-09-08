@@ -11,9 +11,4 @@ export default [
     changes: 'Update all abilities to new BFA values.',
     contributors: [Zerotorescue],
   },
-  {
-    date: new Date('2018-02-12'),
-    changes: 'Set up the spec in a way to make it easy for someone else to contribute. Add some basic analysis.',
-    contributors: [tsabo],
-  },
 ];
