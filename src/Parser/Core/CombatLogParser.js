@@ -135,8 +135,6 @@ import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfInter
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
 import GalecallersBoon from './Modules/Items/BFA/Dungeons/GalecallersBoon';
-//Enchants
-import QuickNavigation from './Modules/Items/BFA/Enchants/QuickNavigation';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
@@ -290,8 +288,6 @@ class CombatLogParser {
     galecallersBoon: GalecallersBoon,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
-    // Enchants
-    quickNavigation: QuickNavigation,
     // Azerite Traits
     gemhide: Gemhide,
     // Uldir
