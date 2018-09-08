@@ -4,7 +4,12 @@ import { enragednuke, Dyspho, Skamer, niseko, Yajinni, Khadaj } from 'CONTRIBUTO
 
 export default [
   {
-    date: new Date('2018-07-28'),
+    date: new Date('2018-09-07'),
+    changes: 'Creating Holy Priest spreadsheet export.',
+    contributors: [Khadaj],
+  },
+  {
+    date: new Date('2018-09-06'),
     changes: 'Updating base Holy Priest checklist.',
     contributors: [Khadaj],
   },
