@@ -213,13 +213,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingelixir',
   },
-  // Talents:
-  REFRESHING_JADE_WIND_TALENT: {
-    id: 196725,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-    manaPerc: 0.035,
-  },
 
   // Traits:
   // Mistweaver Monk
