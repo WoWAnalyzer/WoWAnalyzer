@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: .9,
         },
+        timelineSortIndex: 3,
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
         cooldown: haste => 6 / (1 + haste),
       },
@@ -24,10 +25,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.WILDFIRE_BOMB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -45,6 +48,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: 4,
       },
       {
         spell: SPELLS.CARVE,
@@ -67,6 +71,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: .9,
         },
+        timelineSortIndex: 6,
       },
       {
         spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
@@ -76,6 +81,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
@@ -115,6 +121,21 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+      },
+      { //WFI talent here first so that's the icon shown in the timeline - it has no other effect.
+        spell: [SPELLS.WILDFIRE_INFUSION_TALENT, SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+        },
+        charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
+        cooldown: haste => 18 / (1 + haste),
+        enabled: combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
+        timelineSortIndex: 5,
       },
       {
         spell: SPELLS.CHAKRAMS_TALENT,
