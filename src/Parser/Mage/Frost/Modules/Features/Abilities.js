@@ -21,8 +21,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
         castEfficiency: {
           //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          // disabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) ? true : false,
-          // disabled the disabled, caused a crash in the checklist
+          disabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) ? true : false,
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
