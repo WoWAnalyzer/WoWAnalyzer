@@ -4,10 +4,8 @@ import Toggle from 'react-toggle';
 
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import ItemLink from 'common/ItemLink';
 
 class AtonementHealingBreakdown extends React.Component {
   static propTypes = {
@@ -30,8 +28,6 @@ class AtonementHealingBreakdown extends React.Component {
 
   reason(spellId) {
     switch (Number(spellId)) {
-      case SPELLS.REFRESHING_AGONY_DOT.id:
-        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} />;
       case -2: // Melee
         return <SpellLink id={SPELLS.LIGHTSPAWN.id} />;
       default: return null;

@@ -22,6 +22,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DESPERATE_PRAYER.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90, // todo: Account for Angel's Mercy if possible
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.APOTHEOSIS_TALENT,
@@ -134,12 +137,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.PRAYER_OF_HEALING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {
@@ -148,12 +157,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.FLASH_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {
@@ -162,6 +177,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id),
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {

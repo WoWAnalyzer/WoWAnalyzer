@@ -122,10 +122,4 @@ export default {
     icon: 'inv_bracer_57',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  AMANTHULS_WISDOM: {
-    id: 137072,
-    name: 'Aman\'Thul\'s Wisdom',
-    icon: 'inv_shoulder_leather_raidmonk_n_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
 };

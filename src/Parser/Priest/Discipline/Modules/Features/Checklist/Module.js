@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -17,7 +16,6 @@ class Checklist extends Analyzer {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
-    velensFutureSight: VelensFutureSight,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 

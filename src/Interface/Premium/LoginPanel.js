@@ -122,7 +122,7 @@ export class LoginPanel extends React.PureComponent {
             <div className="col-md-12">
               <h1>Premium sign in</h1>
               <div className="description">
-                Sign in with your Patreon or GitHub account.
+                Sign in with your Patreon or GitHub account using the buttons below.
               </div>
             </div>
           </div>

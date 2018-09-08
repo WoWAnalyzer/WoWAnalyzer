@@ -5,12 +5,11 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
-import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
-import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
 
 const debug = false;
 
@@ -172,27 +171,15 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
       mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
     },
-    [SPELLS.FEEDBACK_LOOP.id]: {
-      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
-      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
-    },
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
       intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
-    },
-    [SPELLS.CELESTIAL_BULWARK.id]: {
-      itemId: ITEMS.AGGRAMARS_CONVICTION.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(AGG_CONV_BASE_ILVL, AGG_CONV_VERS, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
-    // endregion
-
-    // region Crafted Trinkets
-    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
 
     // region Misc
@@ -217,18 +204,6 @@ class StatTracker extends Analyzer {
 
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
-    // endregion
-    
-    // region Monk
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id], 
-    },
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id], 
-    },
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id], 
-    },
     // endregion
 
     /****************************************\
@@ -258,7 +233,18 @@ class StatTracker extends Analyzer {
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
     // endregion
-
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
+    // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
