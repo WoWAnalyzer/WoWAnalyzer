@@ -1356,6 +1356,11 @@ export default {
     name: "Void Lash",
     icon: "spell_priest_voidtendrils",
   },
+  ZEKVOZ_VOID_LASH_DAMAGE:{
+    id: 265264,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
   ZEKVOZ_CORRUPTION_PULSE: {
     id: 265738,
     name: "Corruption Pulse",
@@ -1640,6 +1645,144 @@ export default {
     id: 273944,
     name: "Void Volley",
     icon: "spell_shadow_shadowbolt",
+  },
+
+  //G'huun
+
+  GHUUN_ARCING_DISCHARGE:{
+    id: 276834,
+    name: "Arcing Discharge",
+    icon: "ability_priest_cascade",
+  },
+  GHUUN_BLIGHTED_GROUND: {
+    id: 270287,
+    name: "Blighted Ground",
+    icon: "ability_deathknight_roilingblood",
+  },
+  GHUUN_COLLAPSE_1:{
+    id: 276764,
+    name: "Collapse",
+    icon: "inv_elemental_primal_earth",
+  },
+  GHUUN_COLLAPSE_2: {
+    id: 276839,
+    name: "Collapse",
+    icon: "inv_elemental_primal_earth",
+  },
+  GHUUN_CORRUPTING_BITE: {
+    id: 270454,
+    name: "Corrupting Bite",
+    icon: "inv_misc_monsterfang_02",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_1: {
+    id: 272508,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_2: {
+    id: 272505,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_3:{
+    id: 275756,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_MALIGNANT_GROWTH_1: {
+    id: 274577,
+    name: "Malignant Growth",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  GHUUN_MALIGNANT_GROWTH_2: {
+    id: 274582,
+    name: "Malignant Growth",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  GHUUN_MASSIVE_SMASH: {
+    id: 267412,
+    name: "Massive Smash",
+    icon: "spell_holy_devotion",
+  },
+  GHUUN_MIND_NUMBING_CHATTER: {
+    id: 263307,
+    name: "Mind-Numbing Chatter",
+    icon: "ability_warlock_soulswap",
+  },
+  GHUUN_PUTRID_BLOOD: {
+    id: 263334,
+    name: "Putrid Blood",
+    icon: "ability_ironmaidens_bloodritual",
+  },
+  GHUUN_REORIGINATION_BLAST_1: {
+    id: 263503,
+    name: "Reorigination Blast",
+    icon: "ability_druid_cresentburn",
+  },
+  GHUUN_REORIGINATION_BLAST_2: {
+    id: 263482,
+    name: "Reorigination Blast",
+    icon: "ability_druid_cresentburn",
+  },
+  GHUUN_TORMENT_1: {
+    id: 267430,
+    name: "Torment",
+    icon: "spell_priest_voidsear",
+  },
+  GHUUN_TORMENT_2: {
+    id: 267427,
+    name: "Torment",
+    icon: "spell_priest_voidsear",
+  },
+  GHUUN_UNCLEAN_CONTAGION:{
+    id: 267660,
+    name: "Unclean Contagion",
+    icon: "spell_deathknight_necroticplague",
+  },
+  GHUUN_UNDULATING_MASS: {
+    id: 263326,
+    name: "Undulating Mass",
+    icon: "spell_shadow_creepingplague",
+  },
+  GHUUN_VIRULENT_CORRUPTION: {
+    id: 273486,
+    name: "Virulent Corruption",
+    icon: "ability_deathknight_desecratedground",
+  },
+  GHUUN_WAVE_OF_CORRUPTION_1: {
+    id: 270428,
+    name: "Wave of Corruption",
+    icon: "ability_xavius_darkruination",
+  },
+  GHUUN_WAVE_OF_CORRUPTION_2: {
+    id: 270373,
+    name: "Wave of Corruption",
+    icon: "ability_xavius_darkruination",
+  },
+  GHUUN_BLOOD_FEAST: {
+    id: 263235,
+    name: "Blood Feast",
+    icon: "ability_racial_cannibalize",
+  },
+  GHUUN_BLOOD_SHIELD: {
+    id: 263217,
+    name: "Blood Shield",
+    icon: "warlock_-bloodstone",
+  },
+  GHUUN_DARK_BARGAIN: {
+    id: 267409,
+    name: "Dark Bargain",
+    icon: "ability_priest_surgeofdarkness",
+  },
+  GHUUN_GAZE_OF_GHUUN: {
+    id: 275160,
+    name: "Gaze of G'huun",
+    icon: "spell_shadow_possession",
+  },
+  GHUUN_THOUSAND_MAWS: {
+    id: 267509,
+    name: "Thousand Maws",
+    icon: "inv_misc_monsterfang_02",
   },
 
 
