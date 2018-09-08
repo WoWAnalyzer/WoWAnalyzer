@@ -99,10 +99,6 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
             when: combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id),
           }),

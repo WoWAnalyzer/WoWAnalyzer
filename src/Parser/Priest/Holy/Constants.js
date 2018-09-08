@@ -16,7 +16,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.CIRCLE_OF_HEALING_TALENT.id,
   SPELLS.HALO_HEAL.id,
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
-  SPELLS.OCEANS_EMBRACE,
   SPELLS.GUILTY_CONSCIENCE.id,
   SPELLS.TRAIL_OF_LIGHT_TALENT.id,
 ];
@@ -37,7 +36,6 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.CIRCLE_OF_HEALING_TALENT.id,
   SPELLS.HALO_HEAL.id,
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
-  SPELLS.OCEANS_EMBRACE.id,
   SPELLS.GUILTY_CONSCIENCE.id,
   SPELLS.RENEW.id, // this is reduced in calculations, due to the initial tick proccing EoL but not the periodic ticks
   SPELLS.TRAIL_OF_LIGHT_TALENT.id,
