@@ -14,8 +14,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 
 class AcridCatalystInjector extends Analyzer {
-	oneStatBuff = 0
-	threeStatBuff = 0
+	oneStatBuff = 0;
+	threeStatBuff = 0;
 
 	constructor(...args) {
     super(...args);

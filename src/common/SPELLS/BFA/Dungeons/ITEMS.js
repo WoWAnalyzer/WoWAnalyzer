@@ -43,6 +43,16 @@ export default {
     name: 'Conch of Dark Whispers',
     icon: 'inv_misc_food_legion_seashellc1',
   },
+  GALECALLERS_BOON_CAST: {
+    id: 268314,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+  },
+  GALECALLERS_BOON_BUFF: {
+    id: 268311,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+  },
 
   // Waycrest Manor
   KINDLED_SOUL: { // buff from trinket Balefire Branch

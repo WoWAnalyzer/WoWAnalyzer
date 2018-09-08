@@ -73,6 +73,12 @@ export default {
     icon: 'inv_misc_food_legion_seashellc1',
     quality: ITEM_QUALITIES.BLUE,
   },
+  GALECALLERS_BOON: {
+    id: 159614,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 
   // Siege of Boralus
   HADALS_NAUTILUS: {

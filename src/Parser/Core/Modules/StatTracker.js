@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
-import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
+import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
@@ -112,7 +112,11 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.VALARJARS_PATH.id]: {
       itemId: ITEMS.HORN_OF_VALOR.id,
-      haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
+      haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel), //should be something not haste as it increases primary stat
+    },
+    [SPELLS.GALECALLERS_BOON_BUFF]: {
+      itemId: ITEMS.GALECALLERS_BOON.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
     },
 
     // BFA quests
@@ -220,9 +224,22 @@ class StatTracker extends Analyzer {
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
 
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+    },
+    // endregion
+
+
     /****************************************\
-    *                    BFA:                *
-    \****************************************/
+     *                    BFA:                *
+     \****************************************/
 
     // region Azerite Traits
     // region General
@@ -231,7 +248,7 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
@@ -260,8 +277,10 @@ class StatTracker extends Analyzer {
     [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
     264878: { crit: 445 }, // Crow's Nest Scope
     //endregion
 
@@ -326,13 +345,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
-    [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
+    [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
     // endregion
     // region Raids
-    [SPELLS.UNCONTAINED_POWER.id] : {
+    [SPELLS.UNCONTAINED_POWER.id]: {
       itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
       intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },
