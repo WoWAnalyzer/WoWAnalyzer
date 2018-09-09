@@ -14,6 +14,11 @@ export default {
     name: 'Coastal Rejuvenation Potion',
     icon: 'inv_alchemy_70_purple',
   },
+  POTION_OF_REPLENISHMENT: {
+    id: 252753,
+    name: 'Potion of Replenishment',
+    icon: 'inv_alchemy_80_elixir01orange',
+  },
   BATTLE_POTION_OF_STRENGTH: {
     id: 279153,
     name: 'Battle Potion of Strength',
