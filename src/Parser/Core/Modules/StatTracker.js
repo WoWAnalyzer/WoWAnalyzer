@@ -332,6 +332,13 @@ class StatTracker extends Analyzer {
     152639: { intellect: 238 }, // Flask of Endless Fathoms
     251838: { stamina: 357 }, // Flask of Vast Horizon
     // endregion
+    // region Potions
+    279153: { strength: 900 }, // Battle Potion of Strength
+    279152: { agility: 900 }, // Battle Potion of Agility
+    279151: { intellect: 900 }, // Battle Potion of Intellect
+    279154: { stamina: 1100 }, // Battle Potion of Stamina
+    251231: { armor: 900 }, // Steelskin Potion
+    // endregion
     // endregion
 
     // region Racials
