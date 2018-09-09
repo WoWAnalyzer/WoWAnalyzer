@@ -207,7 +207,7 @@ class CastEfficiency extends Analyzer {
       } else if (includeNoCooldownEfficiency) {
         efficiency = casts / rawMaxCasts;
       } else {
-        return null;
+        efficiency = null;
       }
     }
 
