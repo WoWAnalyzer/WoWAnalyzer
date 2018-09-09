@@ -9,9 +9,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-const SOTC_MANA_PER_SECOND_RETURN_MINOR = 640;
-const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
-const SOTC_MANA_PER_SECOND_RETURN_MAJOR = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
+const SOTC_MANA_PER_SECOND_RETURN_MINOR = 80;
+const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
+const SOTC_MANA_PER_SECOND_RETURN_MAJOR = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 
 const debug = false;
 
@@ -133,6 +133,7 @@ class SpiritOfTheCrane extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(30)}
         icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
         value={`${formatNumber(this.manaReturnSotc)}`}
         label={(
@@ -158,7 +159,6 @@ class SpiritOfTheCrane extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(30);
 
   on_finished() {
     if (debug) {

@@ -178,6 +178,7 @@ class ManaTea extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(25)}
         icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
         value={`${formatNumber(this.avgMtSaves)}`}
         label={(
@@ -199,7 +200,6 @@ class ManaTea extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(25);
 }
 
 export default ManaTea;
