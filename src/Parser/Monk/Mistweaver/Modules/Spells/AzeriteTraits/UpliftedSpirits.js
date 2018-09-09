@@ -39,6 +39,7 @@ class UpliftedSpirits extends Analyzer {
       critMod = 2;
     }
 
+    // Azerite Trait Healing Increase
     const versPerc = this.statTracker.currentVersatilityPercentage;
     const mwAura = MISTWEAVER_HEALING_AURA;
     const intRating = this.statTracker.currentIntellectRating;
