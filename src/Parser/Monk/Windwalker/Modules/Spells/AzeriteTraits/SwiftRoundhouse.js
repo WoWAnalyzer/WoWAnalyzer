@@ -35,6 +35,7 @@ class SwiftRoundhouse extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLACKOUT_KICK.id && this.currentStacks === 2) {
+      this.totalStacks += 1;
       this.stacksWasted += 1;
     }
     else if (spellId === SPELLS.RISING_SUN_KICK.id) {
