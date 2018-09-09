@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../../Constants';
+import TouchOfDeath from './../TouchOfDeath';
 
 const COOLDOWN_REDUCTION_MS = 250;
 
@@ -22,6 +23,7 @@ const COOLDOWN_REDUCTION_MS = 250;
 class MeridianStrikes extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    touchOfDeath: TouchOfDeath,
   };
 
   lastSpellUsed = null;
@@ -44,6 +46,8 @@ class MeridianStrikes extends Analyzer {
     }
     this.lastSpellUsed = spellId;
   }
+
+
   statistic() {
     return (
       <TraitStatisticBox
