@@ -13,7 +13,7 @@ class CrashingStorm extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

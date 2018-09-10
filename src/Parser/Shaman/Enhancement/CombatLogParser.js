@@ -9,10 +9,12 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
+import Rockbiter from './Modules/ShamanCore/Rockbiter';
+
+import CrashingStorm from './Modules/Talents/CrashingStorm';
 import Landslide from './Modules/Talents/Landslide';
 import Hailstorm from './Modules/Talents/Hailstorm';
 import FuryOfAir from './Modules/Talents/FuryOfAir';
-import Rockbiter from './Modules/ShamanCore/Rockbiter';
 
 import StaticCharge from '../Shared/Talents/StaticCharge';
 
@@ -30,6 +32,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+
+    //Talents
+    crashingStorm:CrashingStorm,
 
     staticCharge: StaticCharge,
     maelstromTracker:MaelstromTracker,
