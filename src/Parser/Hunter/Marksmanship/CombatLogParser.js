@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import GlobalCooldown from 'Parser/Hunter/Marksmanship/Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Features/Channeling';
 import Abilities from './Modules/Abilities';
 
@@ -31,6 +32,7 @@ import HuntersMark from './Modules/Talents/HuntersMark';
 import SerpentSting from './Modules/Talents/SerpentSting';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
+import SteadyFocus from './Modules/Talents/SteadyFocus';
 
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
@@ -45,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -77,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callingTheShots: CallingTheShots,
     huntersMark: HuntersMark,
     serpentSting: SerpentSting,
+    steadyFocus: SteadyFocus,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
 
