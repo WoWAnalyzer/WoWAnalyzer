@@ -116,7 +116,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         gcd: {
           static: 1000,
         },
