@@ -24,16 +24,13 @@ class GlobalCooldown extends CoreGlobalCooldown {
     steadyFocus: SteadyFocus,
   };
 
-  stacks = 0;
-
   getGlobalCooldownDuration(spellId) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if (!gcd) {
       return 0;
     }
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
-      this.stacks = this.steadyFocus.getSteadyFocusStacks;
-      return Math.max(MIN_GCD, (gcd * (1 - (STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.stacks))) / (1 + this.statTracker.currentHastePercentage));
+      return Math.max(MIN_GCD, (gcd * (1 - (STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.getSteadyFocusStacks))) / (1 + this.statTracker.currentHastePercentage));
     }
     return Math.max(MIN_GCD, gcd);
   }
