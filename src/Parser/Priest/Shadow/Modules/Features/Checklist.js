@@ -17,7 +17,6 @@ import Mindbender from '../Spells/Mindbender';
 import ShadowWordPain from '../Spells/ShadowWordPain';
 import VampiricTouch from '../Spells/VampiricTouch';
 import Voidform from '../Spells/Voidform';
-import VoidTorrent from '../Spells/VoidTorrent';
 // import ITEMS from 'common/ITEMS';
 // import ItemLink from 'common/ItemLink';
 
