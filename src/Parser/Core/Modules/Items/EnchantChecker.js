@@ -27,6 +27,10 @@ class EnchantChecker extends Analyzer {
     5963, // Weapon Enchant - Quick Navigation
     5966, // Weapon Enchant - Stalwart Navigation
     5962, // Weapon Enchant - Versatile Navigation
+    5955, // Crow's Nest Scope
+    5956, // Monelite Scope of Alacrity
+    5957, // Incendiary Ammunition
+    5958, // Frost-Laced Ammunition
     3368, // Rune of the Fallen Crusader - Death Knight Only
     3370, // Rune of Razorice - Death Knight Only
     3847, // Rune of the Stoneskin Gargoyle - Death Knight Only

@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-10'),
+    changes: 'Added the engineering weapon enchants to the EnchantChecker and mark them as valid weapon enchants.',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-08'),
     changes: 'Moved the detail tab selection to the left side.',
     contributors: [Zerotorescue],
