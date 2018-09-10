@@ -5,8 +5,6 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
-import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
-import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
@@ -173,27 +171,15 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
       mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
     },
-    [SPELLS.FEEDBACK_LOOP.id]: {
-      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
-      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
-    },
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
       intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
-    },
-    [SPELLS.CELESTIAL_BULWARK.id]: {
-      itemId: ITEMS.AGGRAMARS_CONVICTION.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(AGG_CONV_BASE_ILVL, AGG_CONV_VERS, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
-    // endregion
-
-    // region Crafted Trinkets
-    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
 
     // region Misc
@@ -345,6 +331,13 @@ class StatTracker extends Analyzer {
     251839: { strength: 238 }, // Flask of the Undertow
     152639: { intellect: 238 }, // Flask of Endless Fathoms
     251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // region Potions
+    279153: { strength: 900 }, // Battle Potion of Strength
+    279152: { agility: 900 }, // Battle Potion of Agility
+    279151: { intellect: 900 }, // Battle Potion of Intellect
+    279154: { stamina: 1100 }, // Battle Potion of Stamina
+    251231: { armor: 900 }, // Steelskin Potion
     // endregion
     // endregion
 

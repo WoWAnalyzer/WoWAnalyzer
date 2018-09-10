@@ -213,7 +213,7 @@ class ThunderFocusTea extends Analyzer {
     };
   }
 
-  /* Removed for now while this is finalized going into BfA
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
@@ -226,17 +226,17 @@ class ThunderFocusTea extends Analyzer {
             .recommended(`<${recommended} incorrect cast is recommended`);
         });
   }
-  */
+
   statistic() {
     return (
       <StatisticsListBox
+        position={STATISTIC_ORDER.CORE(20)}
         title={<React.Fragment><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</React.Fragment>}
       >
         {this.tftCastRatioChart()}
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(20);
 }
 
 export default ThunderFocusTea;

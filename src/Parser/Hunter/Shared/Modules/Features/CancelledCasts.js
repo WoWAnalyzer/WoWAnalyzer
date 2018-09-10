@@ -17,7 +17,6 @@ class CancelledCasts extends CoreCancelledCasts {
   static IGNORED_ABILITIES = [
     //Include the spells that you do not want to be tracked and spells that are castable while casting
     SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
-    SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
   ];
 
   get suggestionThresholds() {

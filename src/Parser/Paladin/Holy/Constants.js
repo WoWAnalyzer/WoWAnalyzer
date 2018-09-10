@@ -15,10 +15,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.LEECH.id,
 
   // There trinkets are confirmed to also be increased:
-  SPELLS.OCEANS_EMBRACE.id,
-  SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id,
-  // Didn't check this, but pretty sure it will work the same as the trinkets above:
-  SPELLS.GUIDING_HAND.id,
   // Proof: https://www.warcraftlogs.com/reports/4AVZqJTgyhG2F368/#fight=46&source=4&view=events&pins=2%24Off%24%23244F4B%24auras-gained%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24216331%24true%24true see the events at 00:03:39.013 and 00:03:40.369.
   SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id,
   SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id,
