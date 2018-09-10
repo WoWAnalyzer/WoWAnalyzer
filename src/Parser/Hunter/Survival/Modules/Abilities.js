@@ -8,6 +8,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_SV,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.FLANKERS_ADVANTAGE.id,
         gcd: {
           base: 1500,
         },
