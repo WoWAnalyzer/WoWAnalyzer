@@ -76,12 +76,10 @@ class MistweaverMonkChecklist extends React.PureComponent {
         <Requirement
           name={(<React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</React.Fragment>)} thresholds={thresholds.essenceFont}
         />
-        <Requirement
-          name={(<React.Fragment><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</React.Fragment>)} thresholds={thresholds.refreshingJadeWind}
-        />
-        <Requirement
-          name={(<React.Fragment><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</React.Fragment>)} thresholds={thresholds.chiBurst}
-        />
+        {combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) &&
+        <Requirement name={(<React.Fragment><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</React.Fragment>)} thresholds={thresholds.refreshingJadeWind} />}
+        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) &&
+        <Requirement name={(<React.Fragment><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</React.Fragment>)} thresholds={thresholds.chiBurst} />}
         </Rule>
 
         <Rule
