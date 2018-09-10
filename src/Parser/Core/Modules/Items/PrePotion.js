@@ -11,14 +11,14 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
-const HEALER_SPECS = [
-  SPECS.HOLY_PALADIN.id,
-  SPECS.RESTORATION_DRUID.id,
-  SPECS.HOLY_PRIEST.id,
-  SPECS.DISCIPLINE_PRIEST.id,
-  SPECS.MISTWEAVER_MONK.id,
-  SPECS.RESTORATION_SHAMAN.id,
-];
+// const HEALER_SPECS = [
+//   SPECS.HOLY_PALADIN.id,
+//   SPECS.RESTORATION_DRUID.id,
+//   SPECS.HOLY_PRIEST.id,
+//   SPECS.DISCIPLINE_PRIEST.id,
+//   SPECS.MISTWEAVER_MONK.id,
+//   SPECS.RESTORATION_SHAMAN.id,
+// ];
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
 // recommend to use Rising Death or Bursting Blood in certain situations.
@@ -181,7 +181,7 @@ class PrePotion extends Analyzer {
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)
         // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a
         // spell but mana is not their primary resource and should not use a mana potion.
-        const healerSpec = HEALER_SPECS.includes(this.selectedCombatant.specId);
+        // const healerSpec = HEALER_SPECS.includes(this.selectedCombatant.specId);
         if (agiSpecs) {
           suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.BATTLE_POTION_OF_AGILITY.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
           // Change the icon to fit the description
