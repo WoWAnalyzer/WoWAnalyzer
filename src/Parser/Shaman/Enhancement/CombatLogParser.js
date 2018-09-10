@@ -9,19 +9,12 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
-import Landslide from './Modules/ShamanCore/Landslide';
-import Frostbrand from './Modules/ShamanCore/Frostbrand';
-import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
+import Landslide from './Modules/Talents/Landslide';
+import Hailstorm from './Modules/Talents/Hailstorm';
+import FuryOfAir from './Modules/Talents/FuryOfAir';
 import Rockbiter from './Modules/ShamanCore/Rockbiter';
-import Tier20_2set from './Modules/Items/Tier20_2set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
 
-import EyeOfTheTwistingNether from '../Shared/Items/EyeOfTheTwistingNether';
 import StaticCharge from '../Shared/Talents/StaticCharge';
-
-
-// import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -29,7 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     flametongue: Flametongue,
     landslide: Landslide,
-    frostbrand: Frostbrand,
+    hailstorm: Hailstorm,
     furyOfAir: FuryOfAir,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
@@ -37,12 +30,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    // Legendaries:
-    eyeOfTheTwistingNether: EyeOfTheTwistingNether,
-    // Tier
-    tier20_2set: Tier20_2set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
 
     staticCharge: StaticCharge,
     maelstromTracker:MaelstromTracker,

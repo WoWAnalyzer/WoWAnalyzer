@@ -1,5 +1,5 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
@@ -7,7 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
-class Frostbrand extends Analyzer {
+class Hailstorm extends Analyzer {
 
   constructor(...args) {
     super(...args);
@@ -42,4 +42,4 @@ class Frostbrand extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
-export default Frostbrand;
+export default Hailstorm;

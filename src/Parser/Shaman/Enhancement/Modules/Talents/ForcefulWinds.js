@@ -1,5 +1,5 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -8,27 +8,30 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const LANDSLIDE = {
-  INCREASE: 1.0,
+
+const FORCEFUL_WINDS = {
+  INCREASE: 1,
 };
 
-class Landslide extends Analyzer {
+class ForcefulWinds extends Analyzer {
 
   damageGained=0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid!==SPELLS.STORMSTRIKE_BUFF.id && event.ability.guid!==SPELLS.STORMSTRIKE_OFFHAND.id) {
+    const buff = this.selectedCombatant.getBuff(SPELLS.FORCEFUL_WINDS_TALENT.id);
+    if(!buff){
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.LANDSLIDE_BUFF.id)){
+    if(event.ability.guid!==SPELLS.WINDFURY_ATTACK.id){
       return;
     }
-    this.damageGained += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
+    const stacks = buff.stacks || 0;
+    this.damageGained += calculateEffectiveDamage(event, stacks*FORCEFUL_WINDS.INCREASE);
   }
 
   get damagePercent() {
@@ -42,7 +45,7 @@ class Landslide extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LANDSLIDE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.FORCEFUL_WINDS_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
@@ -52,4 +55,4 @@ class Landslide extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
-export default Landslide;
+export default ForcefulWinds;
