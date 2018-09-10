@@ -150,7 +150,7 @@ export default {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
-    manaCost: 736,
+    manaCost: 3680,
   },
   TRANQUILITY_HEAL: {
     id: 157982,
@@ -176,25 +176,25 @@ export default {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    //manaCost: 68816,
+    manaCost: 6000,
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 440,
+    manaCost: 2200,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
-    manaCost: 560,
+    manaCost: 2800,
   },
   LIFEBLOOM_HOT_HEAL: {
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
-    manaCost: 480,
+    manaCost: 2400,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -210,7 +210,7 @@ export default {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 864,
+    manaCost: 1840,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
@@ -228,7 +228,7 @@ export default {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
-    manaCost: 560,
+    manaCost: 2800,
   },
   BEAR_FORM: {
     id: 5487,
