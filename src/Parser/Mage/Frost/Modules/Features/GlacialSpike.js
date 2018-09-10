@@ -9,6 +9,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
+const DAMAGE_BUFFER = 250;
+
 class GlacialSpike extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
@@ -19,9 +21,11 @@ class GlacialSpike extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
+    this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
   }
 
-  badCasts = 0
+  goodCasts = 0
+  damageTimestamp = 0;
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
@@ -34,9 +38,13 @@ class GlacialSpike extends Analyzer {
     if (!enemy) {
       return;
     }
-    
-    if (this.castTarget === damageTarget && !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      this.badCasts += 1;
+
+    //It is considered a good use of Glacial Spike if either Glacial Spike lands into Winter's Chill (they used a Brain Freeze Proc with it) or the Glacial Spike cleaved and hit a second target.
+    if (this.castTarget === damageTarget && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
+      this.goodCasts += 1;
+      this.damageTimestamp = event.timestamp;
+    } else if (this.hasSplittingIce && this.castTarget !== damageTarget && event.timestamp - this.damageTimestamp < DAMAGE_BUFFER) {
+      this.goodCasts += 1;
     }
   }
 
@@ -52,7 +60,11 @@ class GlacialSpike extends Analyzer {
   }
 
   get utilPercentage() {
-    return 1 - (this.badCasts / this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts) || 0;
+    return (this.goodCasts / this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts) || 0;
+  }
+
+  get badCasts() {
+    return this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts - this.goodCasts;
   }
 
   get utilSuggestionThresholds() {
@@ -69,7 +81,7 @@ class GlacialSpike extends Analyzer {
   suggestions(when) {
     when(this.utilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {this.badCasts} times without <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on the target. In order to accomplish this, do not cast Glacial Spike until you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to use immediately after. If you are consistently spending a long time fishing for a Brain Freeze Proc, {this.hasEbonbolt ? 'then hold Ebonbolt to generate a proc when you need it.' : 'then consider taking Ebonbolt and not casting it unless you need a Brain Freeze Proc for Glacial Spike.'}</React.Fragment>)
+        return suggest(<React.Fragment>You misused <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {this.badCasts} times. In order to get the most out of Glacial Spike, you should only cast it if you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to cast alongside it (Glacial Spike > Flurry > Ice Lance) {this.hasSplittingIce ? ' or if Glacial Spike will cleave to a second target (If you have Splitting Ice talented).' : ''} If you are consistently spending a long time fishing for a Brain Freeze Proc, {this.hasEbonbolt ? 'then hold Ebonbolt to generate a proc when you need it.' : 'then consider taking Ebonbolt and not casting it unless you need a Brain Freeze Proc for Glacial Spike.'}</React.Fragment>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
           .actual(`${formatPercentage(this.utilPercentage, 1)}% utilization`)
           .recommended(`${formatPercentage(recommended, 1)}% is recommended`);
@@ -78,14 +90,18 @@ class GlacialSpike extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(90)}
         icon={<SpellIcon id={SPELLS.GLACIAL_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
         label="Glacial Spike Utilization"
-        tooltip="This is the percentage of Glacial Spike casts that landed while the target had Winter's Chill. Ensure that you are holding Glacial Spike until you have a Brain Freeze proc to use immediately after casting Glacial Spike."
+        tooltip={`There are two situations where it is acceptable to use your Glacial Spike
+        <ul>
+          <li>You have a Brain Freeze Proc (Glacial Spike > Flurry > Ice Lance)</li>
+          <li>You do not have Brain Freeze, but Glacial Spike will cleave (If Splitting Ice is talented)</li>
+        </ul>`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default GlacialSpike;

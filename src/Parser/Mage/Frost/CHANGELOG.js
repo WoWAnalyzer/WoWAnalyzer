@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-10'),
+    changes: <React.Fragment>Updated Checklist, Better <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> Support, Added Support for <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /></React.Fragment>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-08-28'),
     changes: <React.Fragment>Added support for <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> and <SpellLink id={SPELLS.WHITEOUT.id} /></React.Fragment>,
     contributors: [Sharrq],

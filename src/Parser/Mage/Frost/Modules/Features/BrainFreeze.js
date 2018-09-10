@@ -11,7 +11,7 @@ const debug = false;
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
 
-class BrainFreezeTracker extends Analyzer {
+class BrainFreeze extends Analyzer {
 	lastFlurryTimestamp;
 
 	overwrittenProcs = 0;
@@ -186,6 +186,7 @@ class BrainFreezeTracker extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(15)}
   icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
   value={`${formatPercentage(this.utilPercent, 0)} %`}
   label="Brain Freeze Utilization"
@@ -199,7 +200,6 @@ class BrainFreezeTracker extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
-export default BrainFreezeTracker;
+export default BrainFreeze;
