@@ -31,7 +31,7 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_pet_inquisitoreye',
   },
-  GEMHIDE: { 
+  GEMHIDE: {
     id: 268596,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
@@ -81,4 +81,15 @@ export default {
     name: 'Impassive Visage',
     icon: 'inv_pet_inquisitoreye',
   },
+  BRACING_CHILL: {
+    id: 267884,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+  BRACING_CHILL_HEAL: {
+    id: 272428,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+
 };

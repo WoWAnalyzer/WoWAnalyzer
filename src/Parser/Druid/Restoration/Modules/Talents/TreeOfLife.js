@@ -205,9 +205,9 @@ class TreeOfLife extends Analyzer {
     return {
       actual: this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
       isLessThan: {
-        minor: 0.09,
-        average: 0.06,
-        major: 0.03,
+        minor: 0.06,
+        average: 0.045,
+        major: 0.025,
       },
       style: 'percentage',
     };
