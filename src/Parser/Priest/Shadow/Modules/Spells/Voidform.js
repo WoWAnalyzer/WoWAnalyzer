@@ -203,9 +203,9 @@ class Voidform extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.85,
-        average: 0.80,
-        major: 0.7,
+        minor: 0.7,
+        average: 0.65,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -215,9 +215,9 @@ class Voidform extends Analyzer {
     return (voidform) => ({
       actual: voidform.stacks.length,
       isLessThan: {
-        minor: 30,
+        minor: 22,
         average: 20,
-        major: 15,
+        major: 18,
       },
       style: 'number',
     });
@@ -234,7 +234,7 @@ class Voidform extends Analyzer {
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> at 10-15 stacks.
+        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority:
           <br /><SpellLink id={SPELLS.VOID_BOLT.id} />
