@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-11'),
+    changes: 'Shuffled the checklist to put higher importance things higher in the list.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-08-03'),
     changes: <React.Fragment><SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> analysis will no longer crash when the combatlog is corrupt.</React.Fragment>,
     contributors: [Zerotorescue],
