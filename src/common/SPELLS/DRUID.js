@@ -182,7 +182,7 @@ export default {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 2200,
+    manaCost: 2100,
   },
   REGROWTH: {
     id: 8936,
@@ -210,7 +210,7 @@ export default {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 1840,
+    manaCost: 4320,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
