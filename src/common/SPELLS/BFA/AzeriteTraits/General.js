@@ -91,5 +91,9 @@ export default {
     name: 'Bracing Chill',
     icon: 'achievement_zone_stormpeaks_01',
   },
-
+  BLESSED_PORTENTS: {
+    id: 280052,
+    name: 'Blessed Portents',
+    icon: 'spell_holy_fanaticism',
+  },
 };

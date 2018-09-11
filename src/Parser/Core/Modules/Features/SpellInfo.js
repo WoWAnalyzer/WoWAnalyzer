@@ -117,4 +117,12 @@ export default {
     mastery: false,
     vers: true,
   },
+  // https://www.warcraftlogs.com/reports/axKCmGyfgXFw6QVL/#fight=28&source=156
+  [SPELLS.BLESSED_PORTENTS.id]: { // General Azerite Power
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
 };
