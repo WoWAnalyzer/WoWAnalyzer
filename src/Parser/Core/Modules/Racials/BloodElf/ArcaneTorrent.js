@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
+import SPECS from 'game/SPECS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import SPECS from 'game/SPECS';
 
 const CLASSES_NOT_BENEFITTING = [SPECS.FIRE_MAGE, SPECS.FROST_MAGE, SPECS.MARKSMANSHIP_HUNTER];
 
