@@ -96,4 +96,9 @@ export default {
     name: 'Blessed Portents',
     icon: 'spell_holy_fanaticism',
   },
+  AZERITE_FORTIFICATION: {
+    id: 270659,
+    name: 'Azerite Fortification',
+    icon: 'ability_creature_amber_01',
+  },
 };
