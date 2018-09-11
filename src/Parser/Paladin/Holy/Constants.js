@@ -34,6 +34,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.BESTOW_FAITH_TALENT.id,
   SPELLS.GRACE_OF_THE_JUSTICAR.id,
   SPELLS.CONCENTRATED_MENDING.id, // TODO: Re-evaluate, going on word of mouth and I have my doubts
+  SPELLS.RADIANT_INCANDESCENCE.id, // https://www.warcraftlogs.com/reports/n4kTCKyhp1G2ANDx/#fight=12&source=2&type=healing&ability=278147&view=events
 ];
 
 export const BEACON_TRANSFERING_ABILITIES = {
@@ -50,6 +51,7 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
   [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
   [SPELLS.GRACE_OF_THE_JUSTICAR.id]: 1,
+  [SPELLS.RADIANT_INCANDESCENCE.id]: 1,
 };
 
 export const BEACON_TYPES = {

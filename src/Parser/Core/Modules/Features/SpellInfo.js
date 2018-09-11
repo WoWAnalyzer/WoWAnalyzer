@@ -69,9 +69,9 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.RADIANT_INCANDESCENCE.id]: { // Holy Paladin Azerite trait
+  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
     int: false,
-    crit: true,
+    crit: false,
     hasteHpct: false,
     mastery: false,
     vers: true,
