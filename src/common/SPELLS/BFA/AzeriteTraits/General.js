@@ -101,4 +101,9 @@ export default {
     name: 'Azerite Fortification',
     icon: 'ability_creature_amber_01',
   },
+  AZERITE_VEINS: {
+    id: 270674,
+    name: 'Azerite Veins',
+    icon: 'spell_yorsahj_bloodboil_orangeoil',
+  },
 };

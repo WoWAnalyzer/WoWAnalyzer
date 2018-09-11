@@ -141,4 +141,12 @@ export default {
     mastery: false,
     vers: true,
   },
+  // https://www.warcraftlogs.com/reports/fKaZdyWcQYAwTtz2/#fight=4&source=9&type=healing&options=8
+  [SPELLS.AZERITE_VEINS.id]: { // General Azerite Power
+    int: false,
+    crit: true,
+    hasteHpct: true, // not sure
+    mastery: false,
+    vers: true,
+  },
 };
