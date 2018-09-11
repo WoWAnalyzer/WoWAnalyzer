@@ -35,7 +35,6 @@ class SerpentSting extends Analyzer {
   accumulatedTimeBetweenRefresh = 0;
   accumulatedPercentRemainingOnRefresh = 0;
   hasVV = false;
-  nonVVCastsInMongooseFuryWindow = 0;
 
   constructor(...args) {
     super(...args);
@@ -50,10 +49,6 @@ class SerpentSting extends Analyzer {
     this.casts++;
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       this.hasVV = true;
-      return;
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
-      this.nonVVCastsInMongooseFuryWindow++;
     }
   }
 
@@ -141,18 +136,6 @@ class SerpentSting extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
   }
 
-  get nonVVCastsInMFWindowThresholds() {
-    return {
-      actual: this.nonVVCastsInMongooseFuryWindow,
-      isGreaterThan: {
-        minor: 1,
-        average: 3,
-        major: 5,
-      },
-      style: 'number',
-    };
-  }
-
   get refreshingThreshold() {
     return {
       actual: this.badRefresh,
@@ -201,12 +184,6 @@ class SerpentSting extends Analyzer {
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
         .recommended(`<${recommended} is recommended`);
-    });
-    when(this.nonVVCastsInMFWindowThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>It's not recommended to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> unless you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</React.Fragment>)
-        .icon(SPELLS.SERPENT_STING_SV.icon)
-        .actual(`${actual} casts during Mongoose Fury without Viper's Venom buff`)
-        .recommended((`<${recommended} is recommended`));
     });
   }
 
