@@ -11,7 +11,7 @@ const debug = false;
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
 
-class BrainFreezeTracker extends Analyzer {
+class BrainFreeze extends Analyzer {
 	lastFlurryTimestamp;
 
 	overwrittenProcs = 0;
@@ -151,7 +151,7 @@ class BrainFreezeTracker extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(this.glacialSpikeOverwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 4 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>)
+          return suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
 						.recommended(`Overwriting none is recommended`);
@@ -186,6 +186,7 @@ class BrainFreezeTracker extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
+  position={STATISTIC_ORDER.CORE(15)}
   icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
   value={`${formatPercentage(this.utilPercent, 0)} %`}
   label="Brain Freeze Utilization"
@@ -199,7 +200,6 @@ class BrainFreezeTracker extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
-export default BrainFreezeTracker;
+export default BrainFreeze;

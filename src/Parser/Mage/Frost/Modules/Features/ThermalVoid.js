@@ -68,6 +68,7 @@ class ThermalVoid extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
         value={`${formatNumber(this.averageDurationSeconds)}s`}
         label="Avg Icy Veins Duration"
@@ -75,8 +76,6 @@ class ThermalVoid extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default ThermalVoid;
