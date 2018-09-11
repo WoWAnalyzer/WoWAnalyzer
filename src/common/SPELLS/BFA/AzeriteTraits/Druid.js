@@ -30,7 +30,12 @@ export default {
     icon: 'inv_relics_idolofrejuvenation',
   },
   FUNGAL_ESSENCE_TRAIT: {
-    id: 272805,
+    id: 272802,
+    name: 'Fungal Essence',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  FUNGAL_ESSENCE: {
+    id: 272807,
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },

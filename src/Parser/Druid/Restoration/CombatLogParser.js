@@ -52,6 +52,8 @@ import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
 
+import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
+
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -116,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_4set: T20_4Set,
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
+
+    // Azerite traits
+    fungalEssence: FungalEssence,
 
     statWeights: StatWeights,
   };
