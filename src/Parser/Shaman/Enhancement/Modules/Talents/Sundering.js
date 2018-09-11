@@ -53,7 +53,7 @@ class Sundering extends Analyzer {
         icon={<SpellIcon id={SPELLS.SUNDERING_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
-        tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage). Average Number of Targets hit: ${formatNumber(this.averageHitsPerCasts)}.`}
+        tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage). Average Number of Targets hit: ${this.averageHitsPerCasts}.`}
       />
     );
   }

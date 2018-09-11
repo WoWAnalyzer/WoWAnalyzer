@@ -12,9 +12,11 @@ import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
 import Rockbiter from './Modules/ShamanCore/Rockbiter';
 
 import CrashingStorm from './Modules/Talents/CrashingStorm';
-import Landslide from './Modules/Talents/Landslide';
-import Hailstorm from './Modules/Talents/Hailstorm';
 import FuryOfAir from './Modules/Talents/FuryOfAir';
+import ForcefulWinds from './Modules/Talents/ForcefulWinds';
+import Hailstorm from './Modules/Talents/Hailstorm';
+import Landslide from './Modules/Talents/Landslide';
+import Sundering from './Modules/Talents/Sundering';
 
 import StaticCharge from '../Shared/Talents/StaticCharge';
 
@@ -34,11 +36,13 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Talents
-    crashingStorm:CrashingStorm,
+    crashingStorm: CrashingStorm,
+    forcefulWinds: ForcefulWinds,
+    sundering: Sundering,
 
     staticCharge: StaticCharge,
-    maelstromTracker:MaelstromTracker,
-    maelstromTab:MaelstromTab,
+    maelstromTracker: MaelstromTracker,
+    maelstromTab: MaelstromTab,
   };
 
 

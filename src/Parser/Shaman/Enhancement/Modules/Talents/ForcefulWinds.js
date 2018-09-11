@@ -23,7 +23,7 @@ class ForcefulWinds extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    const buff = this.selectedCombatant.getBuff(SPELLS.FORCEFUL_WINDS_TALENT.id);
+    const buff = this.selectedCombatant.getBuff(SPELLS.FORCEFUL_WINDS_BUFF.id);
     if(!buff){
       return;
     }

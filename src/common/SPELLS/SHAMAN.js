@@ -588,35 +588,10 @@ export default {
     name: 'Lightning Shield Overcharge',
     icon: 'spell_nature_lightningshield',
   },
-  ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242284,
-    name: 'T20 2 set bonus',
-    icon: 'spell_shaman_improvedstormstrike',
-  },
-  ENHANCE_SHAMAN_T20_2SET_EQUIP: {
-    id: 242283,
-    name: 'T20 2set bonus equip flag',
-    icon: 'spell_shaman_ascendance',
-  },
-  ENHANCE_SHAMAN_T21_2SET_EQUIP: {
-    id: 251762,
-    name: 'T21 2set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  FORCE_OF_THE_MOUNTAIN: {
-    id: 254308,
-    name: 'T21 2set bonus buff',
-    icon: 'spell_nature_earthquake',
-  },
-  ENHANCE_SHAMAN_T21_4SET_EQUIP: {
-    id: 251761,
-    name: 'T21 4set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  EXPOSED_ELEMENTS_T21_ENHANCER:{
-    id: 252151,
-    name: 'T21 4set debuff',
-    icon: 'ability_shaman_ascendance',
+  FORCEFUL_WINDS_BUFF: {
+    id: 262652,
+    name: 'Forceful Winds Buff',
+    icon: 'spell_shaman_unleashweapon_wind',
   },
   // Restoration Shaman
   CHAIN_HEAL: {

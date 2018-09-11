@@ -22,7 +22,7 @@ class Landslide extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid!==SPELLS.STORMSTRIKE_BUFF.id && event.ability.guid!==SPELLS.STORMSTRIKE_OFFHAND.id) {
+    if (event.ability.guid!==SPELLS.STORMSTRIKE.id && event.ability.guid!==SPELLS.STORMSTRIKE_OFFHAND.id) {
       return;
     }
     if (!this.selectedCombatant.hasBuff(SPELLS.LANDSLIDE_BUFF.id)){
