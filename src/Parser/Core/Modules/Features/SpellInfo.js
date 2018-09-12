@@ -165,4 +165,12 @@ export default {
     mastery: false,
     vers: true,
   },
+  // https://www.warcraftlogs.com/reports/LpM43CgfYQ9ntXyz/#fight=4&source=3
+  [SPELLS.MUTATING_ANTIBODY.id]: { // Inoculating Extract
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
 };
