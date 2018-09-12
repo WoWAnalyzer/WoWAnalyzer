@@ -53,6 +53,7 @@ import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
 
 import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
+import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
 
 import StatWeights from './Modules/Features/StatWeights';
 
@@ -121,6 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite traits
     fungalEssence: FungalEssence,
+    autumnLeaves: AutumnLeaves,
 
     statWeights: StatWeights,
   };
