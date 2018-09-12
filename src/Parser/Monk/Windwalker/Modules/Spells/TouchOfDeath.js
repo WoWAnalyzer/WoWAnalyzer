@@ -15,7 +15,6 @@ const GALE_BURST_VALUE = 0.1;
 
 // Meridian Strikes Azerite trait adds damage to Touch of Death
 const meridianStrikesDamage = traits => Object.values(traits).reduce((obj, rank) => {
-  console.log(obj, rank);
   const [damage] = calculateAzeriteEffects(SPELLS.MERIDIAN_STRIKES.id, rank);
   obj.damage += damage;
   return obj;
@@ -68,7 +67,7 @@ class TouchOfDeath extends Analyzer {
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
     const sefMultiplier = 
       this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
-      
+
     if (!enemy) {
       return;
     }
