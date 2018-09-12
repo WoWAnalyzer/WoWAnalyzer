@@ -446,3 +446,14 @@ export const regret = {
     link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
   }],
 };
+export const Khadaj = {
+  nickname: 'Khadaj',
+  github: 'tjmoats',
+  discord: "Khadaj#3519",
+  avatar: require('./images/khadaj-avatar.jpg'),
+  mains: [{
+    name: 'Khadaj',
+    spec: SPECS.HOLY_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
+  }],
+};

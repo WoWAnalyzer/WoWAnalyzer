@@ -178,6 +178,11 @@ export default {
     name: 'Freezing Rain',
     icon: 'spell_frost_icestorm',
   },
+  BONE_CHILLING_BUFF: {
+    id: 205766,
+    name: 'Bone Chilling',
+    icon: 'ability_mage_chilledtothebone',
+  },
 
   //Fire
   FIREBALL: {

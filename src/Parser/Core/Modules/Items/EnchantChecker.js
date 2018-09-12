@@ -27,6 +27,13 @@ class EnchantChecker extends Analyzer {
     5963, // Weapon Enchant - Quick Navigation
     5966, // Weapon Enchant - Stalwart Navigation
     5962, // Weapon Enchant - Versatile Navigation
+    5955, // Crow's Nest Scope
+    5956, // Monelite Scope of Alacrity
+    5957, // Incendiary Ammunition
+    5958, // Frost-Laced Ammunition
+    3368, // Rune of the Fallen Crusader - Death Knight Only
+    3370, // Rune of Razorice - Death Knight Only
+    3847, // Rune of the Stoneskin Gargoyle - Death Knight Only
 
     5938, // Seal of Critical Strike
     5939, // Seal of Haste
@@ -45,7 +52,7 @@ class EnchantChecker extends Analyzer {
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enchant.
       // This is not an ideal way to determine if an offhand is a weapon.
-      if (item.id === 0 || item.icon.includes('offhand')) {
+      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
         return obj;
       }
       obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);

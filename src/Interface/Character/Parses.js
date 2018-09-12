@@ -183,7 +183,7 @@ class Parses extends React.Component {
 
       return {
         name: elem.encounterName,
-        spec: elem.spec,
+        spec: elem.spec.replace(' ', ''),
         difficulty: DIFFICULTIES[elem.difficulty],
         report_code: elem.reportID,
         report_fight: elem.fightID,

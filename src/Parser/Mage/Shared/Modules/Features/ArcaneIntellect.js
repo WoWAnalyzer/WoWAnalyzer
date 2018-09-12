@@ -1,9 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 class ArcaneIntellect extends Analyzer {
@@ -32,18 +30,6 @@ class ArcaneIntellect extends Analyzer {
 					.actual(`${formatPercentage(this.uptime)}% Uptime`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
-	}
-
-	statistic() {
-    return (
-			<StatisticBox
-  position={STATISTIC_ORDER.CORE(80)}
-  icon={<SpellIcon id={SPELLS.ARCANE_INTELLECT.id} />}
-  value={`${formatPercentage(this.uptime, 0)} %`}
-  label="Arcane Intellect"
-  tooltip={`Arcane Intellect was up for ${formatPercentage(this.uptime)}% of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.`}
-			/>
-		);
 	}
 }
 

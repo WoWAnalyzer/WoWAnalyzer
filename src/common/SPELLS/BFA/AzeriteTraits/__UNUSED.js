@@ -69,7 +69,7 @@ export default {
     name: 'Azerite Empowered',
     icon: 'inv_misc_azerite_01',
   },
-  AZERITE_FORTIFICATION: {
+  AZERITE_FORTIFICATION: { // we already have another AZERITE_FORTIFICATION in general, is this obsolete?
     id: 268435,
     name: 'Azerite Fortification',
     icon: 'ability_creature_amber_01',

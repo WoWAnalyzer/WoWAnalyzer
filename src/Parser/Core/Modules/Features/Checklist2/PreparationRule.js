@@ -49,7 +49,7 @@ class PreparationRule extends React.PureComponent {
     return (
       <Rule
         name="Be well prepared"
-        description="Being well prepared with potions, enchants and legendaries is an easy way to improve your performance."
+        description="Being well prepared with potions and enchants is an easy way to improve your performance."
       >
         {this.renderEnchantRequirements()}
         {this.renderPotionRequirements()}

@@ -114,19 +114,20 @@ export default {
     ignored: true,
   },
 
-  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
-    int: false,
-    crit: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3
   [SPELLS.GRACE_OF_THE_JUSTICAR.id]: { // Holy Paladin Azerite Power
     int: false,
     crit: true,
     hasteHpct: true,
     mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/n4kTCKyhp1G2ANDx/#fight=12&source=2&type=healing&ability=278147&view=events
+  [SPELLS.RADIANT_INCANDESCENCE.id]: { // Holy Paladin Azerite trait
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
     vers: true,
   },
 };

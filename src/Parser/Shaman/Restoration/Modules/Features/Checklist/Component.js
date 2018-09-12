@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
@@ -66,12 +64,6 @@ class RestoShamanChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.SPIRIT_LINK_TOTEM.id} />
           {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) && (
             <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />
-          )}
-          {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && (
-            <AbilityRequirement
-              spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id}
-              name={<ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />}
-            />
           )}
           {/* We can't detect race, so disable this when it has never been cast. */}
           {castEfficiency.getCastEfficiencyForSpellId(SPELLS.BERSERKING.id) && (

@@ -4,8 +4,7 @@ import SpellLink from 'common/SpellLink';
 import Potion from './Potion';
 
 const SPELL = [
-  SPELLS.ASTRAL_HEALING_POTION,
-  SPELLS.ANCIENT_HEALING_POTION,
+  SPELLS.COASTAL_HEALING_POTION,
 ];
 const RECOMMENDED_EFFICIENCY = 0.6;
 

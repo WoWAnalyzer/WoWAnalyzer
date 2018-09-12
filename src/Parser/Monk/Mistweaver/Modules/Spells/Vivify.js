@@ -73,6 +73,7 @@ class Vivify extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        postion={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
         value={`${this.averageRemPerVivify.toFixed(2)}`}
         label={(
@@ -87,7 +88,6 @@ class Vivify extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(15);
 }
 
 export default Vivify;

@@ -142,6 +142,7 @@ class WintersReach extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.WINTERS_REACH_TRAIT.id} />}
         value={`${formatPercentage(this.procUtilization, 0)} %`}
         label="Winter's Reach Utilization"
@@ -155,7 +156,6 @@ class WintersReach extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default WintersReach;
