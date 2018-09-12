@@ -55,13 +55,14 @@ class Sanctify extends Analyzer {
         icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
         value={`${report.sancAvgHits.toFixed(2)}`}
         label="Avg effective hits per cast"
-        tooltip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. </br>
+        tooltip={`A measure of how many targets were effectively healed by your <b>Holy Word: Sanctify</b>. </br>
                   Over 80% overhealing on a hit is considered a "miss". </br>
+                  When you hit less than the max amount of targets, each missing target is a "miss". </br></br>
                   <b>Total players hit:</b> ${this.totalHits} </br>
                   <b>Total casts:</b> ${this.casts} </br>
                   <b>Hits per cast :</b> ${hitsPerCast.toFixed(2)} </br>
-                  <b>Players overhealed for 80%+ hit:</b> ${this.overhealHit}</br>
-                  <b>Total of no hits:</b> ${noHits}`}
+                  <b>Overheal misses:</b> ${this.overhealHit}</br>
+                  <b>Targets missed:</b> ${noHits}`}
 
       />
     );
