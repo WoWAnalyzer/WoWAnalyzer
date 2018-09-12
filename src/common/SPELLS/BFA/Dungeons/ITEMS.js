@@ -43,6 +43,11 @@ export default {
     name: 'Conch of Dark Whispers',
     icon: 'inv_misc_food_legion_seashellc1',
   },
+  SEABREEZE_BUFF: {
+    id: 281724,
+    name: 'Seabreeze',
+    icon: 'inv_staff_2h_battledungeon_c_02',
+  },
 
   // Waycrest Manor
   KINDLED_SOUL: { // buff from trinket Balefire Branch
