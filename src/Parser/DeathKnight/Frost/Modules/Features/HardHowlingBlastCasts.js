@@ -19,7 +19,7 @@ class HardHowlingBlastCasts extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
-    if (spellId !== SPELLS.HOWLING_BLAST.id) {
+    if (spellId !== SPELLS.HOWLING_BLAST.id || !target) {
       return;
     }
     if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) && target.hasBuff(SPELLS.FROST_FEVER.id)) {
