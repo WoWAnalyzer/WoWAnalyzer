@@ -77,6 +77,7 @@ class Lifecycles extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(70)}
         icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
         value={`${formatNumber(this.manaSaved)}`}
         label={(
@@ -93,7 +94,6 @@ class Lifecycles extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   on_finished() {
     if (debug) {

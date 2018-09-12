@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import { calculateAzeriteEffects } from 'common/stats';
 
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
@@ -11,6 +12,15 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const TOUCH_OF_DEATH_HP_SCALING = 0.5;
 const GALE_BURST_VALUE = 0.1;
+
+// Meridian Strikes Azerite trait adds damage to Touch of Death
+const meridianStrikesDamage = traits => Object.values(traits).reduce((obj, rank) => {
+  const [damage] = calculateAzeriteEffects(SPELLS.MERIDIAN_STRIKES.id, rank);
+  obj.damage += damage;
+  return obj;
+}, {
+    damage: 0,
+  });
 
 class TouchOfDeath extends Analyzer {
   static dependencies = {
@@ -35,7 +45,7 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING * (1 + masteryPercentage) * (1 + versatilityPercentage);
+    this.expectedBaseDamage = (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING + meridianStrikesDamage(this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id]).damage) * (1 + masteryPercentage) * (1 + versatilityPercentage);
   }
 
   on_byPlayer_damage(event) {

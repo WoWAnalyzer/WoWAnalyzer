@@ -44,6 +44,8 @@ class MeridianStrikes extends Analyzer {
     }
     this.lastSpellUsed = spellId;
   }
+
+
   statistic() {
     return (
       <TraitStatisticBox

@@ -212,7 +212,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         buffSpellId: SPELLS.BLESSING_OF_SACRIFICE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 150,
+        cooldown: 120,
         gcd: null,
         timelineSortIndex: 101,
       },

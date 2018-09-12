@@ -19,7 +19,7 @@ const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
 const REJUV_BOOST = 0.50;
 const REJUV_MANA_SAVED = 0.30;
-const REJUV_MANA_COST = 220000 * 0.1;
+const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
 const WG_INCREASE = (8 / 6) - 1;
 const TOL_DURATION = 30000;
 const CS_DURATION = 12000;
@@ -205,9 +205,9 @@ class TreeOfLife extends Analyzer {
     return {
       actual: this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
       isLessThan: {
-        minor: 0.09,
-        average: 0.06,
-        major: 0.03,
+        minor: 0.06,
+        average: 0.045,
+        major: 0.025,
       },
       style: 'percentage',
     };

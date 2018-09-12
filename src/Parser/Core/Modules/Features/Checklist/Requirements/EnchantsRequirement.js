@@ -1,5 +1,8 @@
 import Requirement from '../Requirement';
 
+/**
+ * @deprecated Use Checklist2 instead.
+ */
 class EnchantsRequirement extends Requirement {
   constructor(options = {}) {
     super({

@@ -24,10 +24,6 @@ import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
-import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
-import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
-import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
-import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 
 import T19_2Set from './Modules/Items/T19_2Set';
 import T19_4Set from './Modules/Items/T19_4Set';
@@ -114,18 +110,12 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceOfInfusion: EssenceOfInfusion,
     soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
-    amanthulsWisdom: AmanthulsWisdom,
     t19_2set: T19_2Set,
     t19_4set: T19_4Set,
     t20_2set: T20_2Set,
     t20_4set: T20_4Set,
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
-
-    // Shared:
-    darkmoonDeckPromises: DarkmoonDeckPromises,
-    garothiFeedbackConduit: GarothiFeedbackConduit,
-    carafeOfSearingLight: CarafeOfSearingLight,
 
     statWeights: StatWeights,
   };

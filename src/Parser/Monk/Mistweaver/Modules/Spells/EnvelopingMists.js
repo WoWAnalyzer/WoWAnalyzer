@@ -51,6 +51,7 @@ class EnvelopingMists extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        postion={STATISTIC_ORDER.OPTIONAL(50)}
         icon={<SpellIcon id={SPELLS.ENVELOPING_MIST.id} />}
         value={`${formatNumber(this.healing)}`}
         label={(
@@ -61,7 +62,6 @@ class EnvelopingMists extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(50);
 }
 
 export default EnvelopingMists;

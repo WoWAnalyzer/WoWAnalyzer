@@ -7,15 +7,15 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
-const BASE_MANA = 220000;
+const BASE_MANA = 20000;
 const WILD_GROWTH_BASE_MANA = 0.34;
 const EFFLORESCENCE_BASE_MANA = 0.216;
 const CENARION_WARD_BASE_MANA = 0.092;
-const REJUVENATION_BASE_MANA = 0.1;
+const REJUVENATION_BASE_MANA = 0.105;
 const LIFEBLOOM_BASE_MANA = 0.12;
 const SWIFTMEND_BASE_MANA = 0.14;
 const TRANQUILITY_BASE_MANA = 0.184;
-const REGROWTH_BASE_MANA = 0.1863;
+const REGROWTH_BASE_MANA = 0.14;
 const INFUSION_OF_NATURE_REDUCTION = 0.02;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
@@ -153,9 +153,9 @@ class Innervate extends Analyzer {
     return {
       actual: this.averageManaSaved,
       isLessThan: {
-        minor: 220000,
-        average: 180000,
-        major: 130000,
+        minor: 23000,
+        average: 19120,
+        major: 13200,
       },
       style: 'number',
     };
@@ -170,8 +170,8 @@ class Innervate extends Analyzer {
       actual: this.wholeSecondsCapped,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0,
+        average: 1,
+        major: 2,
       },
       style: 'number',
     };

@@ -17,7 +17,7 @@ const HARDCAST_HITS = [
   SPELLS.GLACIAL_SPIKE_DAMAGE.id,
 ];
 
-class WintersChillTracker extends Analyzer {
+class WintersChill extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
@@ -153,6 +153,7 @@ class WintersChillTracker extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
         value={(
           <span>
@@ -180,7 +181,6 @@ class WintersChillTracker extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
 }
 
-export default WintersChillTracker;
+export default WintersChill;

@@ -1,26 +1,28 @@
+import React from 'react';
+
+import Tab from 'Interface/Others/Tab';
+import HolyPriestSpreadsheet from 'Interface/Others/HolyPriestSpreadsheet';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/Features/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
-
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
-
 //Talents
 import TrailOfLight from './Modules/Talents/TrailOfLight';
 import CosmicRipple from './Modules/Talents/CosmicRipple';
 import Perseverance from './Modules/Talents/Perseverance';
-
-
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
-
+import HealingReceived from './Modules/Features/HealingReceived';
 // Priest Core
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
 import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
@@ -30,13 +32,6 @@ import SerenityReduction from './Modules/PriestCore/SerendipityReduction/Serenit
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 import HolyWords from './Modules/PriestCore/HolyWords';
 import Fortitude from './Modules/PriestCore/Fortitude';
-
-
-// Items
-import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
-import XanshiCloak from './Modules/Items/XanshiCloak';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -51,8 +46,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
+    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
+    healingReceived: HealingReceived,
 
     // Core
     enduringRenewal: EnduringRenewal,
@@ -73,13 +70,25 @@ class CombatLogParser extends CoreCombatLogParser {
     trailOfLight: TrailOfLight,
     cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
-
-    // Items
-    trousersOfAnjuna: TrousersOfAnjuna,
-    xanshiCloak: XanshiCloak,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
   };
+
+  generateResults(...args) {
+    const results = super.generateResults(...args);
+
+    results.tabs = [
+      ...results.tabs,
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+            <HolyPriestSpreadsheet parser={this} />
+          </Tab>
+        ),
+      },
+    ];
+    return results;
+  }
 }
 
 export default CombatLogParser;
