@@ -25,6 +25,11 @@ export default {
     icon: 'spell_nature_lightning',
   },
   GROVE_TENDING_TRAIT: {
+    id: 279778,
+    name: 'Grove Tending',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  GROVE_TENDING: {
     id: 279793,
     name: 'Grove Tending',
     icon: 'inv_relics_idolofrejuvenation',
@@ -39,4 +44,5 @@ export default {
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
+
 };

@@ -5,6 +5,11 @@ import { Yajinni, blazyb } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-09-12'),
+    changes: <React.Fragment>Added implementation of Azerite trait Grove Tending.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-12'),
     changes: <React.Fragment>Added implementation of Azerite trait Autumn Leaves.</React.Fragment>,
     contributors: [blazyb],
   },
