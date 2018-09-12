@@ -97,9 +97,7 @@ class HolyWords extends Analyzer {
 
     this.spellUsable.reduceCooldown(holyWord, reduction);
 
-    this.reductionAmountBySpell[spellId].amount += reduction/1000;
-    console.log("Array", this.reductionAmountBySpell);
-    console.log("Reduction", reduction/1000);
+    this.reductionAmountBySpell[spellId].amount += reduction;
   }
 }
 
