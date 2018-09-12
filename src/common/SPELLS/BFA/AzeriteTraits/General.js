@@ -111,4 +111,9 @@ export default {
     name: 'Savior',
     icon: 'achievement_guildperk_everyones-a-hero',
   },
+  LASER_MATRIX: {
+    id: 280707,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
 };
