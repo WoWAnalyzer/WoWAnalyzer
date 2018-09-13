@@ -54,7 +54,7 @@ async function rawFetchWcl(endpoint, queryParams) {
         text = text.replace(/[^\x20-\x7E]/g, '');
         json = JSON.parse(text);
       } catch (asciiFixError) {
-        captureException(asciiFixError, {
+        captureException(error, {
           extra: {
             text,
           },
