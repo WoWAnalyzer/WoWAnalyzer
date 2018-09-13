@@ -24,8 +24,8 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import SpellUsable from './Modules/Features/SpellUsable';
 import HealingReceived from './Modules/Features/HealingReceived';
 // Priest Core
-import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
-import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
+import EnduringRenewal from './Modules/Talents/EnduringRenewal';
+import EchoOfLight from './Modules/PriestCore/EchoOfLight';
 import Serendipity from './Modules/PriestCore/Serendipity';
 import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
@@ -62,7 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     enduringRenewal: EnduringRenewal,
-    masteryBreakdown: MasteryBreakdown,
+    echoOfLight: EchoOfLight,
     serendipity: Serendipity,
     sancReduction: SanctifyReduction,
     sereReduction: SerenityReduction,
