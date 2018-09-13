@@ -291,6 +291,22 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
               </tr>
+              <tr>
+                <td>Echo of Light</td>
+                <td>{rawHealing(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>{overhealingSpell(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Leech</td>
+                <td>{rawHealing(SPELLS.LEECH.id)}</td>
+                <td>{overhealingSpell(SPELLS.LEECH.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
+              </tr>
             </tbody>
           </table>
         </div>
