@@ -87,15 +87,15 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td>
               </tr>
               <tr>
-                <td>Leech</td>
+                <td>Leech Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.leech}</td>
               </tr>
               <tr>
-                <td>Avoidance</td>
+                <td>Avoidance Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.avoidance}</td>
               </tr>
               <tr>
-                <td>Speed</td>
+                <td>Speed Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.speed}</td>
               </tr>
               <tr>
