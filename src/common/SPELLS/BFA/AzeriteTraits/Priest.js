@@ -44,13 +44,28 @@ export default {
   },
   // Shadow
   // All
-  SANCTUM: {
+  SANCTUM_TRAIT: {
     id: 274366,
     name: 'Sanctum',
     icon: 'spell_magic_lesserinvisibilty',
   },
-  TWIST_MAGIC: {
+  /*SANCTUM_ABSORB: {
+    id: 274368,
+    name: 'Sanctum',
+    icon: 'spell_magic_lesserinvisibilty',
+  },*/
+  SANCTUM_ABSORB: {
+    id: 274369,
+    name: 'Sanctum',
+    icon: 'spell_magic_lesserinvisibilty',
+  },
+  TWIST_MAGIC_TRAIT: {
     id: 280018,
+    name: 'Twist Magic',
+    icon: 'spell_nature_nullifydisease',
+  },
+  TWIST_MAGIC_HEAL: {
+    id: 280198,
     name: 'Twist Magic',
     icon: 'spell_nature_nullifydisease',
   },
