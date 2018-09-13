@@ -11,4 +11,47 @@ export default {
     name: 'Gift of the Forgiveness',
     icon: 'spell_holy_holysmite',
   },
+  // Holy
+  BLESSED_SANCTUARY: {
+    id: 273313,
+    name: 'Blessed Sanctuary',
+    icon: 'spell_holy_divineprovidence',
+  },
+  EVERLASTING_LIGHT: {
+    id: 277681,
+    name: 'Everlasting Light',
+    icon: 'spell_holy_greaterheal',
+  },
+  PERMEATING_GLOW: {
+    id: 272780,
+    name: 'Permeating Glow',
+    icon: 'spell_holy_flashheal',
+  },
+  PRAYERFUL_LITANY: {
+    id: 275602,
+    name: 'Prayerful Litany',
+    icon: 'spell_holy_prayerofhealing02',
+  },
+  SACRED_FLAME: {
+    id: 278655,
+    name: 'Sacred Flame',
+    icon: 'spell_holy_searinglight',
+  },
+  WORD_OF_MENDING: {
+    id: 278645,
+    name: 'Word of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+  },
+  // Shadow
+  // All
+  SANCTUM: {
+    id: 274366,
+    name: 'Sanctum',
+    icon: 'spell_magic_lesserinvisibilty',
+  },
+  TWIST_MAGIC: {
+    id: 280018,
+    name: 'Twist Magic',
+    icon: 'spell_nature_nullifydisease',
+  },
 };
