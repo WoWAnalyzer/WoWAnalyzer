@@ -14,7 +14,7 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
  * Increases your Blackout Strike damage by X. When your Blackout Strike
  * critically strikes, gain a stack of Mastery: Elusive Brawler.
  *
- * Example Report: https://www.warcraftlogs.com/reports/vyx6wk2PVZMDfzhK#fight=12&source=11
+ * Example Report: https://www.warcraftlogs.com/reports/TfcmpjkbNhq18yBF#fight=4&type=summary&source=14
  */
 class ElusiveFootwork extends Analyzer {
   // damage added by traits
