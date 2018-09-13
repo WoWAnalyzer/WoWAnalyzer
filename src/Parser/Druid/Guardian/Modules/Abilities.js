@@ -122,10 +122,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
-          const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
-          return combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? baseCd - (baseCd * 0.85) : baseCd;
+          return combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
         },
-        charges: combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? 3 : 2,
+        charges: 2,
         timelineSortIndex: 9,
       },
       {
