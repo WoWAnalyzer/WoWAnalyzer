@@ -29,7 +29,7 @@ import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import StatValues from './Modules/Features/StatValues';
 
 // Spells
@@ -49,17 +49,10 @@ import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 import RisingMist from './Modules/Talents/RisingMist';
 
-// Items
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import Eithas from './Modules/Items/Eithas';
-import T20_4set from './Modules/Items/T20_4set';
-import T20_2set from './Modules/Items/T20_2set';
-import ShelterOfRin from './Modules/Items/ShelterOfRin';
-import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
-import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
-import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
-import T21_2set from './Modules/Items/T21_2set';
-import T21_4set from './Modules/Items/T21_4set';
+// Azerite Traits
+import FontOfLife from './Modules/Spells/AzeriteTraits/FontOfLife';
+import InvigoratingBrew from './Modules/Spells/AzeriteTraits/InvigoratingBrew';
+import UpliftedSpirits from './Modules/Spells/AzeriteTraits/UpliftedSpirits';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -90,7 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFont: EssenceFont,
     thunderFocusTea: ThunderFocusTea,
     envelopingMists: EnvelopingMists,
-    soothingMist: SoothingMist,
+    soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
     lifeCocoon: LifeCocoon,
 
@@ -103,17 +96,10 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfTheCrane: SpiritOfTheCrane,
     risingMist: RisingMist,
 
-    // Legendaries / Items:
-    drapeOfShame: DrapeOfShame,
-    eithas: Eithas,
-    t20_4set: T20_4set,
-    t20_2set: T20_2set,
-    shelterOfRin: ShelterOfRin,
-    doorwayToNowhere: DoorwayToNowhere,
-    petrichorLagniappe: PetrichorLagniappe,
-    ovydsWinterWrap: OvydsWinterWrap,
-    t21_2set: T21_2set,
-    t21_4set: T21_4set,
+    // Azerite Traits
+    fontOfLife: FontOfLife,
+    upliftedSpirits: UpliftedSpirits,
+    invigoratingBrew: InvigoratingBrew,
   };
 
   generateResults(...args) {

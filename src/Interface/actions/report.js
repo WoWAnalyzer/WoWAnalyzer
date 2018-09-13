@@ -14,10 +14,10 @@ export function resetReport() {
   };
 }
 
-function fetchFights(code, refresh = false) {
+function fetchFights(code, refresh = false, translate = true) {
   return fetchWcl(`report/fights/${code}`, {
     _: refresh ? +new Date() : undefined,
-    translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+    translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
   });
 }
 
@@ -29,6 +29,10 @@ export function fetchReport(code, refresh = false) {
     if (!json.fights) {
       // This is a relatively common WCL bug. Give it one more try with cache busting on, usually hits the spot.
       json = await fetchFights(code, true);
+    }
+    if (!json.fights) {
+      // This is a new WCL bug where translate doesn't work even after a refresh, one more try without that then
+      json = await fetchFights(code, true, false);
     }
     // TODO: Verify the current code is still the one we want by comparing it with the currently requested code in the store
 

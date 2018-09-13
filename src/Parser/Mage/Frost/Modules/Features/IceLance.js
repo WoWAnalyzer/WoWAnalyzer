@@ -136,14 +136,14 @@ class IceLance extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.ICE_LANCE.id} />}
         value={`${formatPercentage(this.shatteredPercent, 0)} %`}
         label="Ice Lance Shattered"
-        tooltip="This is the percentage of Ice Lance casts that were shattered. You should only be casting Ice Lance without Shatter if you are moving and you cant use anything else."
+        tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default IceLance;

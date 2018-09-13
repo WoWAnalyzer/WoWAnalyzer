@@ -21,26 +21,29 @@ const HEALER_SPECS = [
 ];
 
 const PRE_POTIONS = [
-  SPELLS.POTION_OF_PROLONGED_POWER.id,
-  SPELLS.POTION_OF_DEADLY_GRACE.id,
-  SPELLS.POTION_OF_THE_OLD_WAR.id,
-  SPELLS.UNBENDING_POTION.id,
-  // TODO: BFA potions
+  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.POTION_OF_RISING_DEATH.id,
+  SPELLS.POTION_OF_BURSTING_BLOOD.id,
+  SPELLS.STEELSKIN_POTION.id,
 ];
 
 const SECOND_POTIONS = [
-  SPELLS.POTION_OF_PROLONGED_POWER.id,
-  SPELLS.POTION_OF_DEADLY_GRACE.id,
-  SPELLS.POTION_OF_THE_OLD_WAR.id,
-  SPELLS.ANCIENT_MANA_POTION.id,
-  SPELLS.LEYTORRENT_POTION.id,
-  SPELLS.UNBENDING_POTION.id,
-  SPELLS.SPIRIT_BERRIES.id,
-  // TODO: BFA potions
+  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.POTION_OF_RISING_DEATH.id,
+  SPELLS.POTION_OF_BURSTING_BLOOD.id,
+  SPELLS.STEELSKIN_POTION.id,
   SPELLS.COASTAL_MANA_POTION.id,
+  SPELLS.COASTAL_REJUVENATION_POTION.id,
+  SPELLS.POTION_OF_REPLENISHMENT.id,
 ];
 
-const COMMON_MANA_POTION_AMOUNT = 1717; // TODO: BFA = Coastal Mana Potion = 7850
+const COMMON_MANA_POTION_AMOUNT = 11084;
 
 class PrePotion extends Analyzer {
   usedPrePotion = false;
@@ -95,8 +98,8 @@ class PrePotion extends Analyzer {
   suggestions(when) {
     when(this.prePotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<React.Fragment>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</React.Fragment>)
-          .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
+        return suggest(<React.Fragment>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.BATTLE_POTION_OF_INTELLECT.id} /> can be very effective (even for healers), especially during shorter encounters.</React.Fragment>)
+          .icon(ITEMS.BATTLE_POTION_OF_INTELLECT.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
     when(this.secondPotionSuggestionThresholds)
@@ -108,13 +111,13 @@ class PrePotion extends Analyzer {
         // spell but mana is not their primary resource and should not use a mana potion.
         const healerSpec = HEALER_SPECS.includes(this.selectedCombatant.specId);
         if (!healerSpec) {
-          suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
+          suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.BATTLE_POTION_OF_INTELLECT.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else if (!this.neededManaSecondPotion) {
-          suggestionText = <React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</React.Fragment>;
+          suggestionText = <React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.BATTLE_POTION_OF_INTELLECT.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} />, for example.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else {
-          suggestionText = <React.Fragment>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</React.Fragment>;
+          suggestionText = <React.Fragment>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} />or if the fight allows <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /> to regenerate some mana.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.REGULAR;
         }
         return suggest(suggestionText)

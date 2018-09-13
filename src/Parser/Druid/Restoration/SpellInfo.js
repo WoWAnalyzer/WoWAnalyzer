@@ -205,6 +205,25 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
+  [SPELLS.AUTUMN_LEAVES.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: true,
+    masteryStack: false,
+    vers: true,
+  },
+  [SPELLS.BRACING_CHILL_HEAL.id]: { //TODO Double check
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: false,
+    vers: true,
+  },
+
 };
 
 export const getSpellInfo = id => {

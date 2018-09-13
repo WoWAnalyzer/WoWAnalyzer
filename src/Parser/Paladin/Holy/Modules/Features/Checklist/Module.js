@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/PreparationRuleAnalyzer';
 
 import MasteryEffectiveness from '../MasteryEffectiveness';
@@ -26,7 +25,6 @@ class Checklist extends Analyzer {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
-    velensFutureSight: VelensFutureSight,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     overhealing: Overhealing,
   };

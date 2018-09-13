@@ -31,7 +31,7 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_pet_inquisitoreye',
   },
-  GEMHIDE: { 
+  GEMHIDE: {
     id: 268596,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
@@ -80,5 +80,40 @@ export default {
     id: 270117,
     name: 'Impassive Visage',
     icon: 'inv_pet_inquisitoreye',
+  },
+  BRACING_CHILL: {
+    id: 267884,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+  BRACING_CHILL_HEAL: {
+    id: 272428,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+  BLESSED_PORTENTS: {
+    id: 280052,
+    name: 'Blessed Portents',
+    icon: 'spell_holy_fanaticism',
+  },
+  AZERITE_FORTIFICATION: {
+    id: 270659,
+    name: 'Azerite Fortification',
+    icon: 'ability_creature_amber_01',
+  },
+  AZERITE_VEINS: {
+    id: 270674,
+    name: 'Azerite Veins',
+    icon: 'spell_yorsahj_bloodboil_orangeoil',
+  },
+  SAVIOR: {
+    id: 269108,
+    name: 'Savior',
+    icon: 'achievement_guildperk_everyones-a-hero',
+  },
+  LASER_MATRIX: {
+    id: 280707,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
   },
 };

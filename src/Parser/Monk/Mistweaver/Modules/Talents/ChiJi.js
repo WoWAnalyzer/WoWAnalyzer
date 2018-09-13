@@ -26,7 +26,6 @@ class ChiJi extends Analyzer {
     if (event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       this.petID = event.targetID;
       debug && console.log(`Chi-Ji Summoned: ${this.petID}`);
-      console.log(this._pets);
     }
   }
 
@@ -41,7 +40,7 @@ class ChiJi extends Analyzer {
   }
 
   get chiJiOverHealing() {
-    return (this.overHealing / (this.healing + this.overHealing)).toFixed(4);
+    return (this.overHealing / (this.healing + this.overHealing)).toFixed(4) || 0;
   }
 
   on_finished() {

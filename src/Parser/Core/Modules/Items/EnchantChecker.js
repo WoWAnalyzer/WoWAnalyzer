@@ -11,42 +11,52 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 class EnchantChecker extends Analyzer {
 
   static ENCHANTABLE_SLOTS = {
-    1: 'Neck',
     10: 'Ring',
     11: 'Ring',
-    14: 'Cloak',
+    15: 'Weapon',
+    16: 'OffHand',
   };
   static MAX_ENCHANT_IDS = [
-    5436, // binding of intellect
-    5435, // binding of agility
-    5434, // binding of strength
-    5891, // mark of the ancient priestess
-    5437, // mark of the claw
-    5438, // mark of the distant army
-    5889, // mark of the heavy hide
-    5439, // mark of the hidden satyr
-    5890, // mark of the trained soldier
-    5898, // mark of the deadly
-    5897, // mark of the quick
-    5895, // mark of the master
-    5896, // mark of the verstile
-    5427, // binding of critical strike
-    5428, // binding of haste
-    5429, // binding of mastery
-    5430, // binding of versatility
+    //BfA enchants
+    5946, // Weapon Enchant - Coastal Surge
+    5950, // Weapon Enchant - Gale-Force Striking
+    5949, // Weapon Enchant - Torrent of Elements
+    5948, // Weapon Enchant - Siphoning
+    5965, // Weapon Enchant - Deadly Navigation
+    5964, // Weapon Enchant - Masterful Navigation
+    5963, // Weapon Enchant - Quick Navigation
+    5966, // Weapon Enchant - Stalwart Navigation
+    5962, // Weapon Enchant - Versatile Navigation
+    5955, // Crow's Nest Scope
+    5956, // Monelite Scope of Alacrity
+    5957, // Incendiary Ammunition
+    5958, // Frost-Laced Ammunition
+    3368, // Rune of the Fallen Crusader - Death Knight Only
+    3370, // Rune of Razorice - Death Knight Only
+    3847, // Rune of the Stoneskin Gargoyle - Death Knight Only
 
-    //some specs use warlords enchants because they're better than Legion ones currently
-    //if people are using them, it should be because they know they're better
-    5310, //gift of critical strike
-    5311, //gift of haste
-    5312, //gift of mastery
-    5313, //gift of critical strike 2
-    5314, //gift of versatility
+    5938, // Seal of Critical Strike
+    5939, // Seal of Haste
+    5940, // Seal of Mastery
+    5941, // Seal of Versatility
+    5942, // Pact of Critical Strike
+    5943, // Pact of Haste
+    5944, // Pact of Mastery
+    5945, // Pact of Versatility
   ];
 
   get enchantableGear() {
     return Object.keys(this.constructor.ENCHANTABLE_SLOTS).reduce((obj, slot) => {
+      const item = this.selectedCombatant._getGearItemBySlotId(slot);
+
+      // If there is no offhand, disregard the item.
+      // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enchant.
+      // This is not an ideal way to determine if an offhand is a weapon.
+      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
+        return obj;
+      }
       obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);
+
       return obj;
     }, {});
   }

@@ -197,6 +197,21 @@ export default {
     name: 'Elemental Blast: Mastery',
     icon: 'shaman_talent_elementalblast',
   },
+  TAILWIND_TOTEM: {
+    id: 210660,
+    name: 'Totem Mastery: Tailwind Totem',
+    icon: 'spell_nature_invisibilitytotem',
+  },
+  LIQUID_MAGMA_TOTEM_DAMAGE: {
+    id: 192231,
+    name: 'Liquid Magma Totem Damage',
+    icon: 'spell_shaman_spewlava',
+  },
+  EARTHEN_RAGE_DAMAGE: {
+    id: 170379,
+    name: 'Earthen Rage Damage',
+    icon: 'ability_earthen_pillar',
+  },
   CHAIN_LIGHTNING: {
     id: 188443,
     name: 'Chain Lightning',
@@ -310,62 +325,34 @@ export default {
     name: "Master Of The Elements Buff",
     icon: "spell_nature_elementalabsorption",
   },
+  UNLIMITED_POWER_BUFF: {
+    id: 272737,
+    name: "Unlimited Power Buff",
+    icon: "ability_shaman_ascendance",
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 226180,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
-  // Elemental Legendaries
-  PRISTINE_PROTOSCALE_GIRDLE: {
-    id: 224852,
-    name: 'Pristine Proto-Scale Girdle',
-    icon: 'spell_shaman_lavaburst',
+  EYE_OF_THE_STORM: {
+    id: 157375,
+    name: 'Eye Of The Storm',
+    icon: 'inv_elemental_primal_air',
   },
-  THE_DECEIVERS_BLOOD_PACT_BUFF: {
-    id: 214134,
-    name: 'The Deceiver\'s Blood Pact',
-    icon: 'ability_creature_cursed_04',
+  CALL_LIGHTNING: {
+    id: 157348,
+    name: 'Call Lightning',
+    icon: 'ability_vehicle_electrocharge',
   },
-  THE_DECEIVERS_BLOOD_PACT_EQUIP: {
-    id: 214131,
-    name: 'The Deceiver\'s Blood Pact',
-    icon: 'ability_creature_cursed_04',
+  METEOR: {
+    id: 117588,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
   },
-  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
-    id: 208723,
-    name: 'Echoes of the Great Sundering',
-    icon: 'inv_shoulder_plate_raidwarrior_j_01',
-  },
-  //Elemental Sets
-  ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
-    id: 251757,
-    name: 'Tier21 2 Set Bonus',
-    icon: 'ability_creature_cursed_04',
-  },
-  ELEMENTAL_SHAMAN_T21_4SET_BUFF: {
-    id: 251758,
-    name: 'Tier21 4 Set Bonus',
-    icon: 'ability_shaman_ascendance',
-  },
-  EARTHEN_STRENGTH: {
-    id: 252141,
-    name: 'Earthen Strength',
-    icon: 'spell_nature_shamanrage',
-  },
-  FROST_SHOCK_OVERLOAD: {
-    id: 256561,
-    name: 'Frost Shock Overload',
-    icon: 'spell_frost_frostshock',
-  },
-  EARTH_SHOCK_OVERLOAD: {
-    id: 252143,
-    name: 'Earth Shock Overload',
-    icon: 'spell_nature_earthshock',
-  },
-  //PETS
   FIRE_ELEMENTAL_FIRE_BLAST: {
-    id:57984,
+    id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
   },

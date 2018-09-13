@@ -215,7 +215,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 2.5 * 60 - (combatant.traitsBySpellId[SPELLS.SACRIFICE_OF_THE_JUST.id] || 0) * 60,
+        cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
         //   recommendedEfficiency: 0.85,

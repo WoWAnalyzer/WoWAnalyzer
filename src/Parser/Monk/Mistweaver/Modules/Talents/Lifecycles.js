@@ -53,9 +53,9 @@ class Lifecycles extends Analyzer {
     return {
       actual: this.manaSaved,
       isLessThan: {
-        minor: 200000,
-        average: 170000,
-        major: 140000,
+        minor: 20000,
+        average: 17000,
+        major: 14000,
       },
       style: 'number',
     };
@@ -69,7 +69,7 @@ class Lifecycles extends Analyzer {
           </React.Fragment>
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
-          .actual(`${formatNumber(this.manaSaved)} mana saved through Lifecycles`)
+          .actual(`${formatNumber(actual)} mana saved through Lifecycles`)
           .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`);
       });
   }
@@ -77,10 +77,11 @@ class Lifecycles extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(70)}
         icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
         value={`${formatNumber(this.manaSaved)}`}
         label={(
-          <dfn data-tip={`You saved a total of ${this.manaSaved} from the Lifecycles talent.
+          <dfn data-tip={`You saved a total of ${this.manaSaved} mana from the Lifecycles talent.
             <ul><li>On ${this.castsRedViv} Vivify casts, you saved ${(this.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
             <li>On ${this.castsRedEnm} Enveloping Mists casts, you saved ${(this.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
             <li>You casted ${this.castsNonRedViv} Vivify's and ${this.castsNonRedEnm} Enveloping Mists at full mana.</li>
@@ -93,7 +94,6 @@ class Lifecycles extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   on_finished() {
     if (debug) {
