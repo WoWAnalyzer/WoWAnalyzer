@@ -32,6 +32,8 @@ import SerenityReduction from './Modules/PriestCore/SerendipityReduction/Serenit
 import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 import HolyWords from './Modules/PriestCore/HolyWords';
 import Fortitude from './Modules/PriestCore/Fortitude';
+import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWordsReductionBySpell';
+
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -60,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hymnBuffBenefit: HymnBuffBenefit,
     holyWords: HolyWords,
     fortitude: Fortitude,
+    holyWordsReductionBySpell: HolyWordsReductionBySpell,
 
     // Spells
     divineHymn: DivineHymn,
