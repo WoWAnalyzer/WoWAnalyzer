@@ -17,7 +17,7 @@ class Moonfire extends Analyzer {
 
     when(moonfireUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%. <br />Targets with Moonfire applied to them deal less damage to you due to <SpellLink id={SPELLS.SCINTILLATING_MOONLIGHT.id} />.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
           .actual(`${formatPercentage(moonfireUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
