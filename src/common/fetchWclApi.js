@@ -45,17 +45,30 @@ async function rawFetchWcl(endpoint, queryParams) {
   let text = await response.text();
   let json = null;
   try {
-    // remove crap from string before parsing JSON
-    // hotfixes the german logs that have control-characters in their names
-    text = text.replace(/[^\x20-\x7E]/g, '');
     json = JSON.parse(text);
   } catch (error) {
-    captureException(error, {
-      extra: {
-        text,
-      },
-    });
-    throw new JsonParseError();
+    // trys to replace non-ascii chars on "unexpected character"-errors
+    // hotfixes the german logs that have control-characters in their names
+    if (error instanceof SyntaxError) {
+      try {
+        text = text.replace(/[^\x20-\x7E]/g, '');
+        json = JSON.parse(text);
+      } catch (asciiFixError) {
+        captureException(asciiFixError, {
+          extra: {
+            text,
+          },
+        });
+        throw new JsonParseError();
+      }
+    } else {
+      captureException(error, {
+        extra: {
+          text,
+        },
+      });
+      throw new JsonParseError();
+    }
   }
 
   if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {
