@@ -3,11 +3,58 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+import { calculateAzeriteEffects } from 'common/stats';
+import { formatPercentage, formatThousands } from 'common/format';
+
+const BASE_MANA = 100000;
 
 class EverlastingLight extends Analyzer {
+  azeriteItemLevel = 0;
+  ranks;
+  bonus;
+  totalHealing = 0;
+  totalOverhealing = 0;
+  totalHealsCast = 0;
+  currentMana = BASE_MANA;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.EVERLASTING_LIGHT.id);
+    this.ranks = this.selectedCombatant.traitRanks(SPELLS.EVERLASTING_LIGHT.id) || [];
+    this.bonus = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.EVERLASTING_LIGHT.id, rank)[0]).reduce((total, bonus) => total + bonus, 0);
+  }
+
+  get effectiveHealing() {
+    const effectivePercent = (1 - (this.currentMana / BASE_MANA));
+    const totalEffective = effectivePercent * this.bonus;
+    return totalEffective;
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if (event.classResources) {
+      this.currentMana = event.classResources[0].amount;
+    }
+    if (spellId === SPELLS.GREATER_HEAL.id) {
+      this.totalHealsCast++;
+    }
+  }
+
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.GREATER_HEAL.id) {
+      let amountHealed = this.effectiveHealing;
+      let amountOverhealed = 0;
+
+      if (event.overheal) {
+        amountOverhealed = Math.min(amountHealed, event.overheal);
+        amountHealed -= amountOverhealed;
+      }
+
+      this.totalHealing += amountHealed;
+      this.totalOverhealing += amountOverhealed;
+    }
   }
 
   statistic() {
@@ -17,10 +64,13 @@ class EverlastingLight extends Analyzer {
         trait={SPELLS.EVERLASTING_LIGHT.id}
         value={(
           <React.Fragment>
-
+            {formatThousands(this.totalHealing)} Total Healing <br />
+            {formatThousands(this.totalOverhealing)} Overhealing
           </React.Fragment>
         )}
-        tooltip={`You have EverlastingLight`}
+        tooltip={`
+          ${formatPercentage(this.totalOverhealing / this.totalHealing)}% overhealing
+        `}
       />
     );
   }
