@@ -8,6 +8,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 const BASE_MANA = 100000;
 
+// Example Log: https://www.warcraftlogs.com/reports/RH7afcWwN8B3AMV9#fight=3&type=healing
 class EverlastingLight extends Analyzer {
   azeriteItemLevel = 0;
   ranks;

@@ -6,6 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
 
+// Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class SacredFlame extends Analyzer {
   holyFireCasts = 0;
   holyFireTicks = 0;

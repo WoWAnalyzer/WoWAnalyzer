@@ -4,6 +4,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
 
 import SPELLS from 'common/SPELLS';
 
+// Example Log: https://www.warcraftlogs.com/reports/nWVBjGLrDQvahH7M#fight=15&type=healing
 class BlessedSanctuary extends Analyzer {
   constructor(...args) {
     super(...args);

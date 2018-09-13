@@ -4,6 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 
+// Example Log: https://www.warcraftlogs.com/reports/Lv28aNzMQJhqx9H1#fight=1&type=healing
 class PermeatingGlow extends Analyzer {
   constructor(...args) {
     super(...args);

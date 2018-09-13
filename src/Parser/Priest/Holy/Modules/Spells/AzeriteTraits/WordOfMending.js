@@ -7,6 +7,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
 import SanctifyReduction from 'Parser/Priest/Holy/Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 
+// Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class WordOfMending extends Analyzer {
   static dependencies = {
     sanctify: SanctifyReduction,
