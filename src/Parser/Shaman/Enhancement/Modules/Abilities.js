@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIGHTNING_BOLT,
+        spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
         category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
         gcd: {
           base: 1500,

@@ -461,6 +461,11 @@ export default {
     baseMana: 0.22,
     maelstrom: 20,
   },
+  LIGHTNING_BOLT_ENHANCE: {
+    name: "Lightning Bolt",
+    id: 187837,
+    abilityIcon: "spell_nature_lightning.jpg",
+  },
   FERAL_LUNGE: {
     id: 196881,
     name: 'Feral Lunge',
@@ -509,7 +514,7 @@ export default {
     icon: 'spell_nature_cyclone',
   },
   WINDFURY_ATTACK: {
-    id: 33750,
+    id: 25504,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
@@ -564,7 +569,7 @@ export default {
     icon: 'ability_ironmaidens_swirlingvortex',
   },
   WINDFURY_ATTACK_BUFF: {
-    id: 25504,
+    id: 204608,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
