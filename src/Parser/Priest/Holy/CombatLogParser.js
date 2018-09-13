@@ -34,6 +34,15 @@ import HolyWords from './Modules/PriestCore/HolyWords';
 import Fortitude from './Modules/PriestCore/Fortitude';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+// Azerite
+import BlessedSanctuary from './Modules/Spells/AzeriteTraits/BlessedSanctuary';
+import EverlastingLight from './Modules/Spells/AzeriteTraits/EverlastingLight';
+import PermiatingGlow from './Modules/Spells/AzeriteTraits/PermeatingGlow';
+import PrayerfulLitany from './Modules/Spells/AzeriteTraits/PrayerfulLitany';
+import SacredFlame from './Modules/Spells/AzeriteTraits/SacredFlame';
+import WordOfMending from './Modules/Spells/AzeriteTraits/WordOfMending';
+import Sanctum from '../Shared/Modules/Spells/AzeriteTraits/Sanctum';
+import TwistMagic from '../Shared/Modules/Spells/AzeriteTraits/TwistMagic';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -70,6 +79,16 @@ class CombatLogParser extends CoreCombatLogParser {
     trailOfLight: TrailOfLight,
     cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
+
+    // Azerite
+    blessedSanctuary: BlessedSanctuary,
+    everlastingLight: EverlastingLight,
+    permiatingGlow: PermiatingGlow,
+    prayerfulLitany: PrayerfulLitany,
+    sacredFlame: SacredFlame,
+    wordOfMending: WordOfMending,
+    sanctum: Sanctum,
+    twistMagic: TwistMagic,
   };
 
   generateResults(...args) {
