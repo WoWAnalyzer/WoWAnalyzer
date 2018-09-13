@@ -11,6 +11,9 @@ class CosmicRipple extends Analyzer {
   totalHealing = 0;
   overhealing = 0;
   absorbed = 0;
+  totalHits = 0;
+  totalRipples = 0;
+  lastRippleTimeStamp = 0;
 
   constructor(...args) {
     super(...args);
@@ -23,7 +26,13 @@ class CosmicRipple extends Analyzer {
       return;
     }
     this.overhealing += event.overheal || 0;
-    this.totalHealing+= (event.amount || 0) + (event.absorbed || 0);
+    this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
+    this.totalHits++;
+
+    if (event.timestamp - this.lastRippleTimeStamp > 1000) {
+      this.totalRipples++;
+      this.lastRippleTimeStamp = event.timestamp;
+    }
   }
 
   statistic() {

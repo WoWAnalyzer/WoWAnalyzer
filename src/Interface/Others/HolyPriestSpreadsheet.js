@@ -249,7 +249,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>N/A</td>
+                <td>{parser._modules.cosmicRipple.totalHits / parser._modules.cosmicRipple.totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>
@@ -277,11 +277,11 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Halo</td>
-                <td>{rawHealing(SPELLS.HALO_TALENT.id)}</td>
-                <td>{overhealingSpell(SPELLS.HALO_TALENT.id)}</td>
+                <td>{rawHealing(SPELLS.HALO_HEAL.id)}</td>
+                <td>{overhealingSpell(SPELLS.HALO_HEAL.id)}</td>
                 <td>{cpm(SPELLS.HALO_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HALO_TALENT.id)}</td>
-                <td>{targetsPerCast(SPELLS.HALO_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.HALO_TALENT.id, SPELLS.HALO_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Holy Word: Salvation</td>
@@ -290,6 +290,22 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{cpm(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
+              </tr>
+              <tr>
+                <td>Echo of Light</td>
+                <td>{rawHealing(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>{overhealingSpell(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Leech</td>
+                <td>{rawHealing(SPELLS.LEECH.id)}</td>
+                <td>{overhealingSpell(SPELLS.LEECH.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
               </tr>
             </tbody>
           </table>

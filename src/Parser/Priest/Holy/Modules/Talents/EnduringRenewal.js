@@ -3,8 +3,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS/index';
+import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 
