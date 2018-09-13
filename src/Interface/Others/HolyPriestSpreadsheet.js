@@ -249,7 +249,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>N/A</td>
+                <td>{parser._modules.cosmicRipple.totalHits / parser._modules.cosmicRipple.totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>
