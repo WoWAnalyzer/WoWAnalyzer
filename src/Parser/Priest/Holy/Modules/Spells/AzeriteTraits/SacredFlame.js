@@ -29,7 +29,7 @@ class SacredFlame extends Analyzer {
   }
 
   get extraManaRegen() {
-    return (this.holyFireTicks * this.manaBonus) - this.manaSpentOnHolyFire;
+    return ((this.holyFireTicks - this.holyFireCasts) * this.manaBonus) - this.manaSpentOnHolyFire;
   }
 
   on_byPlayer_cast(event) {
