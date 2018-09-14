@@ -233,25 +233,6 @@ class Combatant extends Entity {
   hasTrinket(itemId) {
     return this.getTrinket(itemId) !== undefined;
   }
-  get mainHand() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
-  }
-  get offHand() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
-  }
-  getWeapon(itemId) {
-    if(this.mainHand && this.mainHand.id === itemId) {
-      return this.mainHand;
-    }
-    if(this.offHand && this.offHand.id === itemId) {
-      return this.offHand;
-    }
-
-    return undefined;
-  }
-  hasWeapon(itemId) {
-    return this.getWeapon(itemId) !== undefined;
-  }
   getItem(itemId) {
     return Object.keys(this._gearItemsBySlotId)
       .map(key => this._gearItemsBySlotId[key])
