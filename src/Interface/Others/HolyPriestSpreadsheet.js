@@ -87,15 +87,15 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td>
               </tr>
               <tr>
-                <td>Leech</td>
+                <td>Leech Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.leech}</td>
               </tr>
               <tr>
-                <td>Avoidance</td>
+                <td>Avoidance Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.avoidance}</td>
               </tr>
               <tr>
-                <td>Speed</td>
+                <td>Speed Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.speed}</td>
               </tr>
               <tr>
@@ -124,19 +124,19 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.serendipity.sanctify.rawReduction / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.serendipity.serenity.rawReduction / 1000}</td>
+                <td>{parser._modules.serenityReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.sanctify.overcast / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.serenity.overcast / 1000}</td>
+                <td>{parser._modules.serenityReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>

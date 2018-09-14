@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 
-import HolyWords from './HolyWords';
+import HolyWords from './ReductionCalculators/HolyWordsReduction';
 
 
 class HolyWordsReductionBySpell extends Analyzer {

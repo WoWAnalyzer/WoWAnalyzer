@@ -387,51 +387,6 @@ export default {
     icon: 'inv_enchant_essenceeternallarge',
   },
 
-  // Holy Legendaries
-  XANSHI_CLOAK_BUFF: {
-    id: 211336,
-    name: "Xan'shi, Shroud of Archbishop Benedictus",
-    icon: 'inv_enchant_essencemagiclarge',
-  },
-
-  // Holy Tier Sets
-  HOLY_PRIEST_T20_2SET_BONUS_BUFF: {
-    id: 242270,
-    name: 'Holy Priest T20 2P Bonus',
-    icon: 'spell_holy_guardianspirit',
-    value: 1000,
-  },
-
-  HOLY_PRIEST_T20_4SET_BONUS_BUFF: {
-    id: 242271,
-    name: 'Holy Priest T20 4P Bonus',
-    icon: 'spell_holy_guardianspirit',
-  },
-
-  HOLY_PRIEST_T21_2SET_BONUS_BUFF: {
-    id: 251831,
-    name: 'Holy Priest T21 2P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  HOLY_PRIEST_ANSWERED_PRAYERS: {
-    id: 253437,
-    name: 'Answered Prayers',
-    icon: 'spell_holy_divinespirit',
-  },
-
-  HOLY_PRIEST_T21_4SET_BONUS_BUFF: {
-    id: 251842,
-    name: 'Holy Priest T21 4P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  HOLY_PRIEST_EVERLASTING_HOPE: {
-    id: 253443,
-    name: 'Everlasting Hope',
-    icon: 'ability_priest_rayofhope',
-  },
-
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,
