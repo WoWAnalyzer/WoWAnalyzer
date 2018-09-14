@@ -15,11 +15,8 @@ import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 //Talents
+import Talents from './Modules/Talents';
 import TalentCard from './Modules/Talents/TalentCard';
-import TrailOfLight from './Modules/Talents/15/TrailOfLight';
-import CosmicRipple from './Modules/Talents/45/CosmicRipple';
-import Perseverance from './Modules/Talents/30/Perseverance';
-import EnduringRenewal from './Modules/Talents/15/EnduringRenewal';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
@@ -78,11 +75,35 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfRedemption: SpiritOfRedemption,
 
     // Talents
+    Enlightenment: Talents.talents_15.Enlightenment,
+    TrailOfLight: Talents.talents_15.TrailOfLight,
+    EnduringRenewal: Talents.talents_15.EnduringRenewal,
+
+    AngelicFeather: Talents.talents_30.AngelicFeather,
+    AngelsMercy: Talents.talents_30.AngelsMercy,
+    Perseverance: Talents.talents_30.Perseverance,
+
+    GuardianAngel: Talents.talents_45.GuardianAngel,
+    Afterlife: Talents.talents_45.Afterlife,
+    CosmicRipple: Talents.talents_45.CosmicRipple,
+
+    Censure: Talents.talents_60.Censure,
+    ShiningForce: Talents.talents_60.ShiningForce,
+    PsychicVoice: Talents.talents_60.PsychicVoice,
+
+    SurgeOfLight: Talents.talents_75.SurgeOfLight,
+    CircleOfHealing: Talents.talents_75.CircleOfHealing,
+    BindingHeal: Talents.talents_75.BindingHeal,
+
+    Halo: Talents.talents_90.Halo,
+    Benediction: Talents.talents_90.Benediction,
+    DivineStar: Talents.talents_90.DivineStar,
+
+    LightOfTheNaru: Talents.talents_100.LightOfTheNaru,
+    HolyWordSalvation: Talents.talents_100.HolyWordSalvation,
+    Apotheosis: Talents.talents_100.Apotheosis,
+
     talentCard: TalentCard,
-    trailOfLight: TrailOfLight,
-    cosmicRipple: CosmicRipple,
-    perseverance: Perseverance,
-    enduringRenewal: EnduringRenewal,
 
     // Azerite
     blessedSanctuary: BlessedSanctuary,

@@ -1,3 +1,9 @@
-export * from './BindingHeal';
-export * from './CircleOfHealing';
-export * from './SurgeOfLight';
+import BindingHeal from './BindingHeal';
+import CircleOfHealing from './CircleOfHealing';
+import SurgeOfLight from './SurgeOfLight';
+
+export {
+  BindingHeal,
+  CircleOfHealing,
+  SurgeOfLight,
+};

@@ -6,15 +6,39 @@ import SPELLS from 'common/SPELLS';
 import ExpandableTalentBox from 'Interface/Others/ExpandableTalentBox';
 import SpellIcon from 'common/SpellIcon';
 
-import * as talents_15 from './15';
-import * as talents_30 from './30';
-import * as talents_45 from './45';
-import * as talents_60 from './60';
-import * as talents_75 from './75';
-import * as talents_90 from './90';
-import * as talents_100 from './100';
+import Talents from './';
 
 class TalentCard extends Analyzer {
+  static dependencies = {
+    Enlightenment: Talents.talents_15.Enlightenment,
+    TrailOfLight: Talents.talents_15.TrailOfLight,
+    EnduringRenewal: Talents.talents_15.EnduringRenewal,
+
+    AngelicFeather: Talents.talents_30.AngelicFeather,
+    AngelsMercy: Talents.talents_30.AngelsMercy,
+    Perseverance: Talents.talents_30.Perseverance,
+
+    GuardianAngel: Talents.talents_45.GuardianAngel,
+    Afterlife: Talents.talents_45.Afterlife,
+    CosmicRipple: Talents.talents_45.CosmicRipple,
+
+    Censure: Talents.talents_60.Censure,
+    ShiningForce: Talents.talents_60.ShiningForce,
+    PsychicVoice: Talents.talents_60.PsychicVoice,
+
+    SurgeOfLight: Talents.talents_75.SurgeOfLight,
+    CircleOfHealing: Talents.talents_75.CircleOfHealing,
+    BindingHeal: Talents.talents_75.BindingHeal,
+
+    Halo: Talents.talents_90.Halo,
+    Benediction: Talents.talents_90.Benediction,
+    DivineStar: Talents.talents_90.DivineStar,
+
+    LightOfTheNaru: Talents.talents_100.LightOfTheNaru,
+    HolyWordSalvation: Talents.talents_100.HolyWordSalvation,
+    Apotheosis: Talents.talents_100.Apotheosis,
+  };
+
   statistic() {
     return (
       <ExpandableTalentBox

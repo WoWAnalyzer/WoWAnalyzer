@@ -1,3 +1,9 @@
-export * from './Afterlife';
-export * from './CosmicRipple';
-export * from './GuardianAngel';
+import Afterlife from './Afterlife';
+import CosmicRipple from './CosmicRipple';
+import GuardianAngel from './GuardianAngel';
+
+export {
+  Afterlife,
+  CosmicRipple,
+  GuardianAngel,
+};
