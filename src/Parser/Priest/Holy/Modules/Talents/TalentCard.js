@@ -4,7 +4,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import ExpandableTalentBox from 'Interface/Others/ExpandableTalentBox';
-import SpellIcon from 'common/SpellIcon';
+import SpecIcon from 'common/SpecIcon';
+import SPECS from 'game/SPECS';
 
 import Talents from './';
 
@@ -42,16 +43,9 @@ class TalentCard extends Analyzer {
   statistic() {
     return (
       <ExpandableTalentBox
-        icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
+        icon={<SpecIcon id={SPECS.HOLY_PRIEST.id} />}
         value={`${formatNumber(this.healing)}`}
-        label={(
-          <dfn data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @enragednuke on the WoWAnalyzer discord.<br/><br/>
-            <strong>Please do note this is not 100% accurate.</strong> It is probably around 90% accurate. <br/><br/>
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
-          >
-            Echo of Light
-          </dfn>
-        )}
+        label={'Talent Breakdown'}
       >
         <div>
           Values under 1% of total are omitted.
