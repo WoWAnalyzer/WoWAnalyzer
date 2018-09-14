@@ -243,6 +243,11 @@ export default {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
+  TWIST_OF_FATE_BUFF_DISCIPLINE: {
+    id: 265258,
+    name: 'Twist of Fate',
+    icon: 'spell_shadow_mindtwisting',
+  },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
     name: 'Purge the Wicked',
