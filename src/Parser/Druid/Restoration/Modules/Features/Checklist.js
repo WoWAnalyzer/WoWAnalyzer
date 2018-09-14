@@ -27,6 +27,7 @@ import Cultivation from '../Talents/Cultivation';
 import SpringBlossoms from '../Talents/SpringBlossoms';
 import TreeOfLife from '../Talents/TreeOfLife';
 
+//TODO - blazyb refactor deprecated classes
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
@@ -68,7 +69,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment>Use <SpellLink id={SPELLS.WILD_GROWTH.id} /> effectively</React.Fragment>,
-      description: <React.Fragment>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. It provides not only the directly applied HoT, but also procs <SpellLink id={SPELLS.NATURES_ESSENCE_DRUID.id} /> and <SpellLink id={SPELLS.DREAMWALKER.id} />. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</React.Fragment>,
+      description: <React.Fragment>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({

@@ -8,18 +8,10 @@ import fetchWcl from 'common/fetchWclApi';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const IRONBARK_BASE_DR = 0.20;
-const AOTA_BONUS_DR = 0.02;
 
 class Ironbark extends Analyzer {
-  ironbarkDr = 0;
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
-
-  constructor(...args) {
-    super(...args);
-    const aotaRanks = this.selectedCombatant.traitsBySpellId[SPELLS.ARMOR_OF_THE_ANCIENTS.id];
-    this.ironbarkDr = IRONBARK_BASE_DR + (AOTA_BONUS_DR * aotaRanks);
-  }
 
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.IRONBARK.id) {
@@ -28,7 +20,7 @@ class Ironbark extends Analyzer {
   }
 
   get damageReduced() {
-    return this.damageTakenDuringIronbark / (1 - this.ironbarkDr) * this.ironbarkDr;
+    return this.damageTakenDuringIronbark / (1 - IRONBARK_BASE_DR) * IRONBARK_BASE_DR;
   }
 
   load() {

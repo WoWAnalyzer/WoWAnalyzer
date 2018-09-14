@@ -41,6 +41,7 @@ class Mastery extends Analyzer {
 
     // TODO hook in StatTracker buff list somehow, so new Mastery buffs auto handled?
     this.masteryBuffs = {
+      //TODO - blazyb add bfa specific mastery proccs
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
