@@ -57,7 +57,6 @@ class BlessedSanctuary extends Analyzer {
             {formatPercentage(this.overHealing / this.rawHealing)}% OverHealing
           </React.Fragment>
         )}
-        tooltip={`You have Blessed Sanctuary`}
       />
     );
   }
