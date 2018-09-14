@@ -73,7 +73,7 @@ class FrostMageChecklist extends React.PureComponent {
           name="Avoid downtime"
           description={(
             <React.Fragment>
-              As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+              As a DPS, it is important to spend as much time casting as possible since if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
             </React.Fragment>
           )}
         >
