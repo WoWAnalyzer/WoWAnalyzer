@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatThousands } from 'common/format';
+import { formatNumber } from 'common/format';
 import ItemManaGained from 'Interface/Others/ItemManaGained';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 

@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
