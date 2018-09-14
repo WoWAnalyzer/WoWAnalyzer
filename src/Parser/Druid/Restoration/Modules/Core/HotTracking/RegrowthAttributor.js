@@ -7,21 +7,17 @@ const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> 
 
 /*
  * Backend module tracks attribution of Regrowth
+ * TODO - Dead module?
  */
 class RegrowthAttributor extends Analyzer {
   static dependencies = {
     hotTracker: HotTracker,
   };
 
-  // objects hold attribution running totals
-  powerOfTheArchdruid = { name: 'Power of the Archdrud', healing: 0, masteryHealing: 0, procs: 0 }
 
   // cast tracking stuff
   lastRegrowthCastTimestamp;
   lastRegrowthTarget;
-  lastPotaRegrowthTimestamp;
-  potaFallTimestamp; // FIXME temp until figure out hasBuff problem
-  potaTarget;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -32,14 +28,6 @@ class RegrowthAttributor extends Analyzer {
       this.lastRegrowthCastTimestamp = event.timestamp;
       this.lastRegrowthTarget = targetId;
     }
-
-    // check for PotA proc
-    //const hadPota = this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
-    const hadPota = this.potaFallTimestamp && this.potaFallTimestamp + BUFFER_MS > event.timestamp;
-    if (spellId === SPELLS.REGROWTH.id && hadPota) {
-      this.lastPotaRegrowthTimestamp = event.timestamp;
-      this.potaTarget = targetId;
-    }
   }
 
   on_byPlayer_applybuff(event) {
@@ -48,12 +36,6 @@ class RegrowthAttributor extends Analyzer {
 
   on_byPlayer_refreshbuff(event) {
     this._getRegrowthAttribution(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    if(event.ability.guid === SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id) {
-      this.potaFallTimestamp = event.timestamp; // FIXME temp until figure out hasBuff problem
-    }
   }
 
   // gets attribution for a given applybuff/refreshbuff of Regrowth
@@ -72,8 +54,6 @@ class RegrowthAttributor extends Analyzer {
 
     if (event.prepull || (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
-    } else if (this.lastPotaRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
-      attributions.push(this.powerOfTheArchdruid);
     } else {
       console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
     }

@@ -16,6 +16,7 @@ class HotApplicationNormalizer extends EventsNormalizer {
     SPELLS.REJUVENATION_GERMINATION.id,
     SPELLS.REGROWTH.id,
     SPELLS.WILD_GROWTH.id,
+    //TODO - blazyb
   ];
 
   normalize(events) {

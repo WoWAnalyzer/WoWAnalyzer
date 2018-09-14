@@ -6,6 +6,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
+// TODO - blazyb add use case for Autumn Leaves and tune suggestions
 class WildGrowth extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
