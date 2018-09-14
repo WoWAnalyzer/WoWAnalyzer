@@ -124,19 +124,19 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.serendipity.sanctify.rawReduction / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.serendipity.serenity.rawReduction / 1000}</td>
+                <td>{parser._modules.serenityReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.sanctify.overcast / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.serenity.overcast / 1000}</td>
+                <td>{parser._modules.serenityReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
