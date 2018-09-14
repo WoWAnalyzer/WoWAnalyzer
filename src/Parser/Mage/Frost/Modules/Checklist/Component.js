@@ -41,7 +41,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.ICY_VEINS.id} />
           <AbilityRequirement spell={SPELLS.FROZEN_ORB.id} />
           {combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id) && !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && <AbilityRequirement spell={SPELLS.EBONBOLT_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id) && <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id) && <AbilityRequirement spell={SPELLS.COMET_STORM_TALENT.id} />}
           {combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
           {combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id) && <AbilityRequirement spell={SPELLS.RAY_OF_FROST_TALENT.id} />}
@@ -73,7 +73,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           name="Avoid downtime"
           description={(
             <React.Fragment>
-              As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doint damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+              As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
             </React.Fragment>
           )}
         >
