@@ -2,7 +2,7 @@ import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatThousands } from 'common/format';
 
@@ -34,21 +34,6 @@ class CosmicRipple extends Analyzer {
       this.lastRippleTimeStamp = event.timestamp;
     }
   }
-
-  statistic() {
-    return (
-
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
-        value={this.owner.formatItemHealingDone(this.totalHealing)}
-        label="Cosmic Ripple Healing"
-        tooltip={`<strong>Total Healing:</strong> ${formatThousands(this.totalHealing)}<br>
-                  <strong>Total Overhealing:</strong> ${formatThousands(this.overhealing)}`}
-      />
-
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default CosmicRipple;

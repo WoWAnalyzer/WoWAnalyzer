@@ -15,10 +15,10 @@ import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 //Talents
-import TrailOfLight from './Modules/Talents/TrailOfLight';
-import CosmicRipple from './Modules/Talents/CosmicRipple';
-import Perseverance from './Modules/Talents/Perseverance';
-import EnduringRenewal from './Modules/Talents/EnduringRenewal';
+import TrailOfLight from './Modules/Talents/15/TrailOfLight';
+import CosmicRipple from './Modules/Talents/45/CosmicRipple';
+import Perseverance from './Modules/Talents/30/Perseverance';
+import EnduringRenewal from './Modules/Talents/15/EnduringRenewal';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
