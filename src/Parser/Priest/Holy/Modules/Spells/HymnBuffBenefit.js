@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';

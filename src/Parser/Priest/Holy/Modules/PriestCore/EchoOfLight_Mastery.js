@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
 
-class EchoOfLight extends Analyzer {
+class EchoOfLight_Mastery extends Analyzer {
   _tickMode = {};
   _healValByTargetId = {};
   _maxHealVal = {};
@@ -201,4 +201,4 @@ class EchoOfLight extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
-export default EchoOfLight;
+export default EchoOfLight_Mastery;

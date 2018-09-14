@@ -1,15 +1,14 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 
 // dependencies
-import SerenityReduction from './SerendipityReduction/SerenityReduction';
-import SanctifyReduction from './SerendipityReduction/SanctifyReduction';
+import SerenityReduction from './ReductionCalculators/SerenityReduction';
+import SanctifyReduction from './ReductionCalculators/SanctifyReduction';
 
 // This module might contain too much information but to rewrite some of the output
 // in this file would entail a lot of redundant copying (aka violating the "DRY"
@@ -19,11 +18,11 @@ import SanctifyReduction from './SerendipityReduction/SanctifyReduction';
 // - "Wasted Serendipity" statistic
 // - "Fully missed holy word casts (via Serendipity)" suggestion
 // - "Holy Priest T20 2P Bonus" item
-class Serendipity extends Analyzer {
+class SerendipityWastedAmounts extends Analyzer {
   static dependencies = {
     serenity: SerenityReduction,
     sanctify: SanctifyReduction,
-  }
+  };
 
   statistic() {
     const percWastedVersusTotal = (this.serenity.overcast + this.sanctify.overcast) / (this.serenity.rawReduction + this.sanctify.rawReduction);
@@ -60,4 +59,4 @@ class Serendipity extends Analyzer {
 }
 
 
-export default Serendipity;
+export default SerendipityWastedAmounts;

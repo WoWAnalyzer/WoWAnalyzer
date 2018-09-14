@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format';
 
-class Fortitude extends Analyzer {
+class Fortitude_RaidBuff extends Analyzer {
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.POWER_WORD_FORTITUDE.id) / this.owner.fightDuration;
@@ -32,4 +32,4 @@ class Fortitude extends Analyzer {
 
 }
 
-export default Fortitude;
+export default Fortitude_RaidBuff;

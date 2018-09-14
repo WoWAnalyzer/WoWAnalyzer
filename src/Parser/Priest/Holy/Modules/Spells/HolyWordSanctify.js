@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const MAX_HITS_PER_CAST = 6;
-class Sanctify extends Analyzer {
+class HolyWordSanctify extends Analyzer {
   casts = 0;
   goodHit = 0;
   totalHits = 0;
@@ -18,7 +18,7 @@ class Sanctify extends Analyzer {
       return;
     }
     this.totalHits += 1;
-    // We should consider hits of Sanctify with >80% OH to essentially be "missed" hits since they did very little
+    // We should consider hits of HolyWordSanctify with >80% OH to essentially be "missed" hits since they did very little
     // and likely could have been done better.
     if ((event.overheal || 0) > event.amount * 4) {
       this.overhealHit += 1;
@@ -84,4 +84,4 @@ class Sanctify extends Analyzer {
   }
 }
 
-export default Sanctify;
+export default HolyWordSanctify;

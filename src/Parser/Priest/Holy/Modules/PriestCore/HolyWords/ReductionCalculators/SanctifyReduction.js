@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SANCTIFY.id;
@@ -21,8 +21,6 @@ class SanctifyReduction extends Analyzer {
   maxCooldown = 60000;
   serendipityReduction = 6000;
 
-  holy_t20_2p = 0.0;
-  holy_t20_2p_active = false;
   overcast = 0.0; // Overall wasted serendipity
   rawReduction = 0.0;
   casts = 0;
@@ -34,10 +32,6 @@ class SanctifyReduction extends Analyzer {
     // Set up proper serendipity reduction values
     if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.serendipityReduction += 2000;
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF)) {
-      this.serendipityReduction += 1000;
-      this.holy_t20_2p_active = true;
     }
   }
 
@@ -65,10 +59,6 @@ class SanctifyReduction extends Analyzer {
         this._tempOvercast += overlap;
       }
 
-      // Logic for determining Holy Priest 2P Set Bonus gain
-      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value)) {
-        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value * this.serendipityProccers[spellId]));
-      }
       this.currentCooldown -= actualSerendipityReduction;
     }
   }

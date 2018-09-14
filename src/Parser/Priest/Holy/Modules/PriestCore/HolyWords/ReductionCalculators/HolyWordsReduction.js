@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -21,7 +21,7 @@ const LIGHT_OF_THE_NAARU_MULTIPLIER_ADDITION = 1/3;
  * Feel free to combine this and the Serendipity module as they both are about the same mechanic,
  * the Serindipity one is finding out the wasted reduction while this module simply reduces them.
  */
-class HolyWords extends Analyzer {
+class HolyWordsReduction extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -101,4 +101,4 @@ class HolyWords extends Analyzer {
   }
 }
 
-export default HolyWords;
+export default HolyWordsReduction;
