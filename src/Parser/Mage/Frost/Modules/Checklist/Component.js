@@ -8,7 +8,7 @@ import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
 import PreparationRule from 'Parser/Core/Modules/Features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'Parser/Core/Modules/Features/Checklist2/GenericCastEfficiencyRequirement';
 
-class ArcaneMageChecklist extends React.PureComponent {
+class FrostMageChecklist extends React.PureComponent {
   static propTypes = {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
@@ -98,4 +98,4 @@ class ArcaneMageChecklist extends React.PureComponent {
   }
 }
 
-export default ArcaneMageChecklist;
+export default FrostMageChecklist;
