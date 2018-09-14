@@ -8,6 +8,7 @@ import SpecIcon from 'common/SpecIcon';
 import SPECS from 'game/SPECS';
 
 import Talents from './';
+import SpellIcon from 'common/SpellIcon';
 
 class TalentCard extends Analyzer {
   static dependencies = {
@@ -44,27 +45,79 @@ class TalentCard extends Analyzer {
     return (
       <ExpandableTalentBox
         icon={<SpecIcon id={SPECS.HOLY_PRIEST.id} />}
-        value={`${formatNumber(this.healing)}`}
+        value={`${formatNumber(6600)} HPS | 150 MP5 | 0 DPS`}
         label={'Talent Breakdown'}
       >
         <div>
-          Values under 1% of total are omitted.
+
         </div>
         <table className="table table-condensed">
           <thead>
-            <tr>
-              <th>Spell</th>
-              <th>Amount</th>
-              <th>% of Total</th>
-              <th>% OH</th>
+            <tr >
+              <th width="50">Talent</th>
+              <th>Effects</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Spell</td>
-              <td>Amount</td>
-              <td>% of Total</td>
-              <td>% OH</td>
+              <td>
+                <SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>150 MP5</td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.ANGELIC_FEATHER_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>14 Casts</td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.COSMIC_RIPPLE_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>
+                667 DPS<br />
+                14 Casts
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.CENSURE_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>14 Casts</td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.BINDING_HEAL_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>
+                1800 HPS<br />
+                162 Casts
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.HALO_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>
+                1200 HPS<br />
+                8 Casts
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <SpellIcon id={SPELLS.HOLY_WORD_SALVATION_TALENT.id} style={{ height: '3.0em' }} />
+              </td>
+              <td>
+                3600 HPS<br />
+                8 Casts
+              </td>
             </tr>
           </tbody>
         </table>

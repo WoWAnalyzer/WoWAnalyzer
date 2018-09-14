@@ -59,7 +59,7 @@ class ExpandableTalentBox extends React.PureComponent {
     delete others.position;
 
     return (
-      <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }}>
+      <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }}>
         <div className="panel statistic-box expandable">
           <div className="panel-body">
             <div className="flex">
