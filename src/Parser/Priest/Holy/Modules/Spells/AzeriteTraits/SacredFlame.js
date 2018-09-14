@@ -21,7 +21,7 @@ class SacredFlame extends Analyzer {
     this.ranks = this.selectedCombatant.traitRanks(SPELLS.SACRED_FLAME.id) || [];
 
     this.damageBonus = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.SACRED_FLAME.id, rank)[0]).reduce((total, bonus) => total + bonus, 0);
-    this.manaBonus = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.SACRED_FLAME.id, rank)[1]).reduce((total, bonus) => total + bonus, 0);
+    this.manaBonus = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.SACRED_FLAME.id, rank, -7)[1]).reduce((total, bonus) => total + bonus, 0);
   }
 
   get addedDamage() {
