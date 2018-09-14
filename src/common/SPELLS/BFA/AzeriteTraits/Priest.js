@@ -22,8 +22,13 @@ export default {
     name: 'Everlasting Light',
     icon: 'spell_holy_greaterheal',
   },
-  PERMEATING_GLOW: {
+  PERMEATING_GLOW_TALENT: {
     id: 272780,
+    name: 'Permeating Glow',
+    icon: 'spell_holy_flashheal',
+  },
+  PERMEATING_GLOW_BUFF: {
+    id: 272783,
     name: 'Permeating Glow',
     icon: 'spell_holy_flashheal',
   },
