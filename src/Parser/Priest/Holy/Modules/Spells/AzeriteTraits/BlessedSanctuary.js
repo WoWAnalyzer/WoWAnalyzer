@@ -4,8 +4,8 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import EchoOfLight from 'Parser/Priest/Holy/Modules/PriestCore/EchoOfLight';
-import { formatPercentage, formatThousands } from 'common/format';
+import EchoOfLight from 'Parser/Priest/Holy/Modules/PriestCore/EchoOfLight_Mastery';
+import { formatThousands } from 'common/format';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/nWVBjGLrDQvahH7M#fight=15&type=healing

@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 
-const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
+const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SANCTIFY.id;
 
 // We are giving a buffer of 75% of CD due to the fact that the large
 // majority of players would intentionally use spells to push holy words
@@ -9,20 +9,19 @@ const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 // modification or outright removal depending on opinions.
 const FULL_OVERCAST_LENIENCE = 0.75;
 
-class SerenityReduction extends Analyzer {
+class SanctifyReduction extends Analyzer {
   // Holy Word reduction spells (aka things that apply the respective Serendipity)
   serendipityProccers = {
-    [SPELLS.GREATER_HEAL.id]: 1.0,
-    [SPELLS.FLASH_HEAL.id]: 1.0,
-    [SPELLS.BINDING_HEAL_TALENT.id]: 0.5,
+    [SPELLS.PRAYER_OF_HEALING.id]: () => this.serendipityReduction * 1.0,
+    [SPELLS.BINDING_HEAL_TALENT.id]: () => this.serendipityReduction * 0.5,
   };
+
+  reductionBySpell = {};
 
   currentCooldown = 0;
   maxCooldown = 60000;
   serendipityReduction = 6000;
 
-  holy_t20_2p = 0.0;
-  holy_t20_2p_active = false;
   overcast = 0.0; // Overall wasted serendipity
   rawReduction = 0.0;
   casts = 0;
@@ -35,10 +34,10 @@ class SerenityReduction extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.serendipityReduction += 2000;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.id)) {
-      this.serendipityReduction += 1000;
-      this.holy_t20_2p_active = true;
+    if (this.selectedCombatant.hasTrait(SPELLS.WORD_OF_MENDING.id)) {
+      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = () => 2000;
     }
+
   }
 
   on_byPlayer_cast(event) {
@@ -52,8 +51,13 @@ class SerenityReduction extends Analyzer {
     }
 
     if (this.serendipityProccers[spellId.toString()] !== undefined) {
-      const actualSerendipityReduction = this.serendipityReduction * this.serendipityProccers[spellId];
+      const actualSerendipityReduction = this.serendipityProccers[spellId]();
       this.rawReduction += actualSerendipityReduction;
+
+      if (this.reductionBySpell[spellId.toString()] == null) {
+        this.reductionBySpell[spellId.toString()] = 0;
+      }
+      this.reductionBySpell[spellId.toString()] += actualSerendipityReduction;
 
       const difference = this.currentCooldown - event.timestamp;
       if (difference < actualSerendipityReduction) {
@@ -65,14 +69,9 @@ class SerenityReduction extends Analyzer {
         this._tempOvercast += overlap;
       }
 
-      // Logic for determining Holy Priest 2P Set Bonus gain
-      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value)) {
-        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value * this.serendipityProccers[spellId]));
-      }
       this.currentCooldown -= actualSerendipityReduction;
     }
   }
 }
 
-
-export default SerenityReduction;
+export default SanctifyReduction;

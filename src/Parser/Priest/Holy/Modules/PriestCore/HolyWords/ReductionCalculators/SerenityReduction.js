@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 
-const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SANCTIFY.id;
+const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 
 // We are giving a buffer of 75% of CD due to the fact that the large
 // majority of players would intentionally use spells to push holy words
@@ -9,14 +9,13 @@ const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SANCTIFY.id;
 // modification or outright removal depending on opinions.
 const FULL_OVERCAST_LENIENCE = 0.75;
 
-class SanctifyReduction extends Analyzer {
+class SerenityReduction extends Analyzer {
   // Holy Word reduction spells (aka things that apply the respective Serendipity)
   serendipityProccers = {
-    [SPELLS.PRAYER_OF_HEALING.id]: () => this.serendipityReduction * 1.0,
-    [SPELLS.BINDING_HEAL_TALENT.id]: () => this.serendipityReduction * 0.5,
+    [SPELLS.GREATER_HEAL.id]: 1.0,
+    [SPELLS.FLASH_HEAL.id]: 1.0,
+    [SPELLS.BINDING_HEAL_TALENT.id]: 0.5,
   };
-
-  reductionBySpell = {};
 
   currentCooldown = 0;
   maxCooldown = 60000;
@@ -34,10 +33,6 @@ class SanctifyReduction extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.serendipityReduction += 2000;
     }
-    if (this.selectedCombatant.hasTrait(SPELLS.WORD_OF_MENDING.id)) {
-      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = () => 2000;
-    }
-
   }
 
   on_byPlayer_cast(event) {
@@ -51,13 +46,8 @@ class SanctifyReduction extends Analyzer {
     }
 
     if (this.serendipityProccers[spellId.toString()] !== undefined) {
-      const actualSerendipityReduction = this.serendipityProccers[spellId]();
+      const actualSerendipityReduction = this.serendipityReduction * this.serendipityProccers[spellId];
       this.rawReduction += actualSerendipityReduction;
-
-      if (this.reductionBySpell[spellId.toString()] == null) {
-        this.reductionBySpell[spellId.toString()] = 0;
-      }
-      this.reductionBySpell[spellId.toString()] += actualSerendipityReduction;
 
       const difference = this.currentCooldown - event.timestamp;
       if (difference < actualSerendipityReduction) {
@@ -68,10 +58,10 @@ class SanctifyReduction extends Analyzer {
         this.overcast += overlap;
         this._tempOvercast += overlap;
       }
-
       this.currentCooldown -= actualSerendipityReduction;
     }
   }
 }
 
-export default SanctifyReduction;
+
+export default SerenityReduction;

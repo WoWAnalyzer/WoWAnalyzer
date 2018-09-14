@@ -11,12 +11,14 @@ import Abilities from './Modules/Abilities';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
-import Sanctify from './Modules/Spells/Sanctify';
+import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
+import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 //Talents
 import TrailOfLight from './Modules/Talents/TrailOfLight';
 import CosmicRipple from './Modules/Talents/CosmicRipple';
 import Perseverance from './Modules/Talents/Perseverance';
+import EnduringRenewal from './Modules/Talents/EnduringRenewal';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
@@ -24,14 +26,13 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import SpellUsable from './Modules/Features/SpellUsable';
 import HealingReceived from './Modules/Features/HealingReceived';
 // Priest Core
-import EnduringRenewal from './Modules/Talents/EnduringRenewal';
-import EchoOfLight from './Modules/PriestCore/EchoOfLight';
-import Serendipity from './Modules/PriestCore/Serendipity';
-import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
-import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
-import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
-import HolyWords from './Modules/PriestCore/HolyWords';
-import Fortitude from './Modules/PriestCore/Fortitude';
+import EchoOfLight_Mastery from './Modules/PriestCore/EchoOfLight_Mastery';
+import SerendipityWastedAmounts from './Modules/PriestCore/HolyWords/SerendipityWastedAmounts';
+import SanctifyReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SanctifyReduction';
+import SerenityReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SerenityReduction';
+import HolyWordsReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/HolyWordsReduction';
+import Fortitude_RaidBuff from './Modules/PriestCore/Fortitude_RaidBuff';
+import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWords/HolyWordsReductionBySpell';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 // Azerite
@@ -61,24 +62,25 @@ class CombatLogParser extends CoreCombatLogParser {
     healingReceived: HealingReceived,
 
     // Core
-    enduringRenewal: EnduringRenewal,
-    echoOfLight: EchoOfLight,
-    serendipity: Serendipity,
-    sancReduction: SanctifyReduction,
-    sereReduction: SerenityReduction,
-    hymnBuffBenefit: HymnBuffBenefit,
-    holyWords: HolyWords,
-    fortitude: Fortitude,
+    echoOfLight_Mastery: EchoOfLight_Mastery,
+    serendipityWastedAmounts: SerendipityWastedAmounts,
+    sanctifyReduction: SanctifyReduction,
+    serenityReduction: SerenityReduction,
+    holyWordsReduction: HolyWordsReduction,
+    fortitude_RaidBuff: Fortitude_RaidBuff,
+    holyWordsReductionBySpell: HolyWordsReductionBySpell,
 
     // Spells
     divineHymn: DivineHymn,
-    sanctify: Sanctify,
+    hymnBuffBenefit: HymnBuffBenefit,
+    holyWordSanctify: HolyWordSanctify,
     spiritOfRedemption: SpiritOfRedemption,
 
     // Talents
     trailOfLight: TrailOfLight,
     cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
+    enduringRenewal: EnduringRenewal,
 
     // Azerite
     blessedSanctuary: BlessedSanctuary,

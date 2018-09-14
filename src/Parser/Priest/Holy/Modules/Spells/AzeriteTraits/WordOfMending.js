@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
-import SanctifyReduction from 'Parser/Priest/Holy/Modules/PriestCore/SerendipityReduction/SanctifyReduction';
+import SanctifyReduction from 'Parser/Priest/Holy/Modules/PriestCore/HolyWords/ReductionCalculators/SanctifyReduction';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing

@@ -7,7 +7,7 @@ import Tab from 'Interface/Others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
-import Warning from 'common/Alert/Warning';
+import Warning from 'Interface/common/Alert/Warning';
 
 import WastedShardsIcon from 'Parser/Warlock/Shared/Images/warlock_soulshard_bw.jpg';
 import SoulShardTracker from './SoulShardTracker';
