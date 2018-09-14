@@ -52,8 +52,8 @@ class WordOfMending extends Analyzer {
         trait={SPELLS.WORD_OF_MENDING.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.totalAdditionalHealing)} Bonus Healing.<br />
-            {formatNumber(this.sanctify.reductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id]/1000)}s Sanctify Cooldown.
+            {formatThousands(this.totalAdditionalHealing)} Bonus Healing<br />
+            {formatNumber(this.sanctify.reductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id]/1000)}s Sanctify Cooldown
           </React.Fragment>
         )}
         tooltip={`

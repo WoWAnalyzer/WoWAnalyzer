@@ -65,7 +65,7 @@ class EverlastingLight extends Analyzer {
         trait={SPELLS.EVERLASTING_LIGHT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.totalHealing)} Total Healing <br />
+            {formatThousands(this.totalHealing)} Total Healing<br />
             {formatThousands(this.totalOverhealing)} Overhealing
           </React.Fragment>
         )}

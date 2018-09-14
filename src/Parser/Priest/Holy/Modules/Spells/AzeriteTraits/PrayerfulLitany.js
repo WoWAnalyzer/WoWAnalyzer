@@ -84,8 +84,8 @@ class PrayerfulLitany extends Analyzer {
         trait={SPELLS.PRAYERFUL_LITANY.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.prayerfulLitanyHealing)} Bonus Healing.<br />
-            {formatPercentage(this.prayerfulLitanyOverHealing / this.rawPrayerfulLitanyHealing)}% Overhealing.
+            {formatThousands(this.prayerfulLitanyHealing)} Bonus Healing<br />
+            {formatPercentage(this.prayerfulLitanyOverHealing / this.rawPrayerfulLitanyHealing)}% Overhealing
           </React.Fragment>
         )}
         tooltip={`

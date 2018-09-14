@@ -43,7 +43,7 @@ class Sanctum extends Analyzer {
         trait={SPELLS.SANCTUM_TRAIT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.sanctumAbsormAmount)} Bonus Shielding.
+            {formatThousands(this.sanctumAbsormAmount)} Bonus Shielding
           </React.Fragment>
         )}
         tooltip={`

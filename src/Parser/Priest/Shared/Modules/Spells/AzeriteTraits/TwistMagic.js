@@ -28,7 +28,7 @@ class TwistMagic extends Analyzer {
         trait={SPELLS.TWIST_MAGIC_TRAIT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.twistMagicHealing)} Bonus Healing.
+            {formatThousands(this.twistMagicHealing)} Bonus Healing
           </React.Fragment>
         )}
       />

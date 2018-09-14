@@ -58,7 +58,7 @@ class SacredFlame extends Analyzer {
         trait={SPELLS.SACRED_FLAME.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.extraManaRegen)} Mana gained <br />
+            {formatThousands(this.extraManaRegen)} Mana gained<br />
             {formatThousands(this.addedDamage)} Additional Damage
           </React.Fragment>
         )}

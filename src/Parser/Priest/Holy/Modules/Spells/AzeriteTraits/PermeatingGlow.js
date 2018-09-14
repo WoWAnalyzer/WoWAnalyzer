@@ -63,8 +63,8 @@ class PermeatingGlow extends Analyzer {
         trait={SPELLS.PERMEATING_GLOW_TALENT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.permiatingGlowTotalHealAmount)} Bonus Healing.<br />
-            {formatPercentage(this.permiatingGlowTotalOverHealAmount / (this.permiatingGlowTotalOverHealAmount + this.permiatingGlowTotalHealAmount))}% Overhealing.<br />
+            {formatThousands(this.permiatingGlowTotalHealAmount)} Bonus Healing<br />
+            {formatPercentage(this.permiatingGlowTotalOverHealAmount / (this.permiatingGlowTotalOverHealAmount + this.permiatingGlowTotalHealAmount))}% Overhealing<br />
           </React.Fragment>
         )}
       />
