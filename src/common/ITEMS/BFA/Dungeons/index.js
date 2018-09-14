@@ -74,6 +74,13 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
+  SEABREEZE: {
+    id: 158371,
+    name: 'Seabreeze',
+    icon: 'inv_staff_2h_battledungeon_c_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
   // Siege of Boralus
   HADALS_NAUTILUS: {
     id: 159622,
