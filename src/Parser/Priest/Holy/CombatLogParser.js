@@ -15,6 +15,7 @@ import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 //Talents
+import TalentCard from './Modules/Talents/TalentCard';
 import TrailOfLight from './Modules/Talents/15/TrailOfLight';
 import CosmicRipple from './Modules/Talents/45/CosmicRipple';
 import Perseverance from './Modules/Talents/30/Perseverance';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfRedemption: SpiritOfRedemption,
 
     // Talents
+    talentCard: TalentCard,
     trailOfLight: TrailOfLight,
     cosmicRipple: CosmicRipple,
     perseverance: Perseverance,
