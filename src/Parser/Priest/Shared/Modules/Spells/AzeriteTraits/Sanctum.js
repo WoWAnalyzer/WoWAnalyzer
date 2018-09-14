@@ -9,6 +9,7 @@ import { formatThousands } from 'common/format';
 // Example Log: https://www.warcraftlogs.com/reports/aTBGZk3w4q1JQrKW#fight=5&type=summary&source=9&translate=true
 class Sanctum extends Analyzer {
   sanctumAbsormAmount = 0;
+  fadeCount = 0;
 
   constructor(...args) {
     super(...args);
@@ -26,6 +27,15 @@ class Sanctum extends Analyzer {
     }
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.FADE.id) {
+      this.fadeCount++;
+    }
+
+  }
+
   statistic() {
     return (
       <TraitStatisticBox
@@ -36,6 +46,9 @@ class Sanctum extends Analyzer {
             {formatThousands(this.sanctumAbsormAmount)} Bonus Shielding.
           </React.Fragment>
         )}
+        tooltip={`
+          ${formatThousands(this.fadeCount)} Fade Casts.
+        `}
       />
     );
   }
