@@ -4,7 +4,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 const BASE_MANA = 100000;
 
@@ -65,12 +66,11 @@ class EverlastingLight extends Analyzer {
         trait={SPELLS.EVERLASTING_LIGHT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.totalHealing)} Total Healing<br />
-            {formatThousands(this.totalOverhealing)} Overhealing
+            <ItemHealingDone amount={this.totalHealing} />
           </React.Fragment>
         )}
         tooltip={`
-          ${formatPercentage(this.totalOverhealing / this.totalHealing)}% overhealing
+          ${formatThousands(this.totalHealing)} Total Healing
         `}
       />
     );

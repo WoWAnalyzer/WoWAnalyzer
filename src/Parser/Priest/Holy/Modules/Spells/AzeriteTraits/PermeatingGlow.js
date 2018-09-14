@@ -4,12 +4,14 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatPercentage, formatThousands } from 'common/format';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import { formatThousands } from 'common/format';
 
 // Example Log: https://www.warcraftlogs.com/reports/Lv28aNzMQJhqx9H1#fight=1&type=healing
 class PermeatingGlow extends Analyzer {
   permiatingGlowBuffs = {};
   permiatingGlowProcAmount = 0;
+  permiatingGlowProcCount = 0;
   permiatingGlowTotalHealAmount = 0;
   permiatingGlowTotalOverHealAmount = 0;
 
@@ -26,6 +28,7 @@ class PermeatingGlow extends Analyzer {
 
     if (spellId === SPELLS.FLASH_HEAL.id) {
       if (this.permiatingGlowBuffs[event.targetID.toString()]) {
+        this.permiatingGlowProcCount++;
         let eventHealing = this.permiatingGlowProcAmount;
         let eventOverhealing = 0;
 
@@ -63,10 +66,13 @@ class PermeatingGlow extends Analyzer {
         trait={SPELLS.PERMEATING_GLOW_TALENT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.permiatingGlowTotalHealAmount)} Bonus Healing<br />
-            {formatPercentage(this.permiatingGlowTotalOverHealAmount / (this.permiatingGlowTotalOverHealAmount + this.permiatingGlowTotalHealAmount))}% Overhealing<br />
+            <ItemHealingDone amount={this.permiatingGlowTotalHealAmount} /><br />
           </React.Fragment>
         )}
+        tooltip={`
+          ${formatThousands(this.permiatingGlowTotalHealAmount)} Total Healing<br />
+          ${formatThousands(this.permiatingGlowProcCount)} Total Procs
+        `}
       />
     );
   }

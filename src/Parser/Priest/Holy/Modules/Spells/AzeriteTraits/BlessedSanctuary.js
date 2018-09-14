@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import EchoOfLight from 'Parser/Priest/Holy/Modules/PriestCore/EchoOfLight';
 import { formatPercentage, formatThousands } from 'common/format';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/nWVBjGLrDQvahH7M#fight=15&type=healing
 class BlessedSanctuary extends Analyzer {
@@ -53,10 +54,12 @@ class BlessedSanctuary extends Analyzer {
         trait={SPELLS.BLESSED_SANCTUARY.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.effectiveHealing)} Bonus Healing<br />
-            {formatPercentage(this.overHealing / this.rawHealing)}% OverHealing
+            <ItemHealingDone amount={this.effectiveHealing} /><br />
           </React.Fragment>
         )}
+        tooltip={`
+          ${formatThousands(this.effectiveHealing)} Total Healing
+        `}
       />
     );
   }

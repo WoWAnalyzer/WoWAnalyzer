@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatThousands } from 'common/format';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/aTBGZk3w4q1JQrKW#fight=5&type=summary&source=9&translate=true
 class Sanctum extends Analyzer {
@@ -33,7 +34,6 @@ class Sanctum extends Analyzer {
     if (spellId === SPELLS.FADE.id) {
       this.fadeCount++;
     }
-
   }
 
   statistic() {
@@ -43,11 +43,12 @@ class Sanctum extends Analyzer {
         trait={SPELLS.SANCTUM_TRAIT.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.sanctumAbsormAmount)} Bonus Shielding
+            <ItemHealingDone amount={this.sanctumAbsormAmount} /><br />
           </React.Fragment>
         )}
         tooltip={`
-          ${formatThousands(this.fadeCount)} Fade Casts.
+          ${formatThousands(this.fadeCount)} Fade Casts<br />
+          ${formatThousands(this.sanctumAbsormAmount)} Total Shielding
         `}
       />
     );

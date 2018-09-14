@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
+import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class SacredFlame extends Analyzer {
@@ -58,12 +60,12 @@ class SacredFlame extends Analyzer {
         trait={SPELLS.SACRED_FLAME.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.extraManaRegen)} Mana gained<br />
-            {formatThousands(this.addedDamage)} Additional Damage
+            <ItemManaGained amount={this.extraManaRegen} /><br />
+            <ItemDamageDone amount={this.addedDamage} />
           </React.Fragment>
         )}
         tooltip={`
-          ${formatNumber(this.holyFireCasts)} total holy fire cast(s).
+          ${formatNumber(this.holyFireCasts)} total holy fire cast(s)
         `}
       />
     );

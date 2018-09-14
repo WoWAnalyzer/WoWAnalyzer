@@ -6,6 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
 import SanctifyReduction from 'Parser/Priest/Holy/Modules/PriestCore/SerendipityReduction/SanctifyReduction';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class WordOfMending extends Analyzer {
@@ -52,12 +53,12 @@ class WordOfMending extends Analyzer {
         trait={SPELLS.WORD_OF_MENDING.id}
         value={(
           <React.Fragment>
-            {formatThousands(this.totalAdditionalHealing)} Bonus Healing<br />
+            <ItemHealingDone amount={this.totalAdditionalHealing} /><br />
             {formatNumber(this.sanctify.reductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id]/1000)}s Sanctify Cooldown
           </React.Fragment>
         )}
         tooltip={`
-          ${formatThousands(this.totalAdditionalOverHealing)} total overhealing.
+          ${formatThousands(this.totalAdditionalHealing)} Total Healing
         `}
       />
     );
