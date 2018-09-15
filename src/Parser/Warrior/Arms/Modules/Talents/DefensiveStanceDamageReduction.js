@@ -8,6 +8,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/LazyLoadStatisticBox';
 import makeWclUrl from 'common/makeWclUrl';
 
+const DEFENSIVE_STANCE_DAMAGE_REDUCED = 0.25;
+
 class DefensiveStanceDamageReduction extends Analyzer {
   perSecond(amount) {
     return amount / this.owner.fightDuration * 1000;
@@ -51,7 +53,7 @@ class DefensiveStanceDamageReduction extends Analyzer {
         const actualDamageTaken = json.entries
           .filter(entry => entry.id === this.owner.playerId)
           .reduce((damageTaken, entry) => damageTaken + entry.total, 0);
-        const damageMitigated = actualDamageTaken * 0.25;
+        const damageMitigated = actualDamageTaken * DEFENSIVE_STANCE_DAMAGE_REDUCED;
         this.totalDamageMitigated += damageMitigated;
         this.loaded = true;
       });
