@@ -6,7 +6,7 @@ import BeaconHealSource from '../../Beacons/BeaconHealSource';
 class MightOfTheMountain extends CoreMightOfTheMountain {
   static dependencies = {
     ...CoreMightOfTheMountain.dependencies,
-    // We use its "beacon_heal" event
+    // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
 
@@ -17,7 +17,7 @@ class MightOfTheMountain extends CoreMightOfTheMountain {
     }
     super.on_byPlayer_heal(event);
   }
-  on_beacon_heal(event) {
+  on_beacontransfer(event) {
     if (!this.isApplicableHeal(event.originalHeal)) {
       return;
     }

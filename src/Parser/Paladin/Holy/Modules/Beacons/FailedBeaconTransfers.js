@@ -1,15 +1,17 @@
 import Analyzer from 'Parser/Core/Analyzer';
 
 import BeaconTransferFactor from './BeaconTransferFactor';
+import BeaconHealSource from './BeaconHealSource';
 
 class FailedBeaconTransfers extends Analyzer {
   static dependencies = {
     beaconTransferFactor: BeaconTransferFactor,
+    beaconHealSource: BeaconHealSource, // for the events
   };
 
   lostBeaconHealing = 0;
 
-  on_byPlayer_beacon_heal_failed(event) {
+  on_byPlayer_beacontransferfailed(event) {
     this.lostBeaconHealing += this.beaconTransferFactor.getExpectedTransfer(event);
   }
   on_finished() {

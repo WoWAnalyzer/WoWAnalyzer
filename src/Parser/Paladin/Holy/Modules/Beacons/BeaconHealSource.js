@@ -66,7 +66,7 @@ class BeaconHealSource extends Analyzer {
           ...healEvent,
           // Set the timestamp so we don't jump around in time (since healEvent's timestamp will be atleast 500ms in the past)
           timestamp: beaconTransferEvent.timestamp,
-          type: 'beacon_heal_failed',
+          type: 'beacontransferfailed',
         });
 
         // Remove the heal from the backlog as it is not going to be relevant this late
@@ -93,7 +93,7 @@ class BeaconHealSource extends Analyzer {
     // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
     this.owner.fabricateEvent({
       ...beaconTransferEvent,
-      type: 'beacon_heal',
+      type: 'beacontransfer',
       originalHeal: matchedHeal,
     }, beaconTransferEvent);
 
