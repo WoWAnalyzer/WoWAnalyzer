@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
 
-const debug = true;
+const debug = false;
 
 class BeaconHealSource extends Analyzer {
   static dependencies = {
