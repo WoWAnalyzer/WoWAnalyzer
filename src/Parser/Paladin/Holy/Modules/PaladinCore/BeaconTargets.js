@@ -1,7 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import { BEACON_TYPES } from '../../Constants';
+import { BEACON_TYPES, AVAILABLE_BEACONS } from '../../Constants';
 
 const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 
@@ -19,6 +19,9 @@ class BeaconTargets extends Analyzer {
   }
   get numBeaconsActive() {
     return this.currentBeaconTargets.length;
+  }
+  get numMaxBeacons() {
+    return AVAILABLE_BEACONS[this.selectedCombatant.lv100Talent];
   }
 
   on_byPlayer_applybuff(event) {

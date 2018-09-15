@@ -7,6 +7,7 @@ import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
 import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
+import BeaconTransferFactor from './Modules/PaladinCore/BeaconTransferFactor';
 import BeaconHealSource from './Modules/PaladinCore/BeaconHealSource';
 import BeaconHealingDone from './Modules/PaladinCore/BeaconHealingDone';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // PaladinCore
     healingDone: [HealingDone, { showStatistic: true }],
+    beaconTransferFactor: BeaconTransferFactor,
     beaconHealSource: BeaconHealSource,
     beaconHealingDone: BeaconHealingDone,
     beaconTargets: BeaconTargets,

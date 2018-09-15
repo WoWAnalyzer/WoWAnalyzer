@@ -4,7 +4,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
-import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
+import BeaconTransferFactor from './BeaconTransferFactor';
+import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
 
 const debug = false;
 
@@ -12,16 +13,21 @@ class BeaconHealSource extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
+    beaconTransferFactor: BeaconTransferFactor,
     // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
   };
 
   healBacklog = [];
+  lostBeaconHealingLineOfSight = 0;
+  lostBeaconHealingMissingBeacons = 0;
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
       return;
     }
+    // Not all spells transfer
     const spellBeaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
     if (!spellBeaconTransferFactor) {
       return;
@@ -30,17 +36,26 @@ class BeaconHealSource extends Analyzer {
     const beaconTargets = this.beaconTargets;
 
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
+    if (beaconTargets.numBeaconsActive < beaconTargets.numMaxBeacons) {
+      this.lostBeaconHealingMissingBeacons += this.beaconTransferFactor.getExpectedTransfer(event);
+    }
+    // TODO: If numBeaconsActive < max add to lostBeaconHealing (better to track separately for showing both stats)
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
       debug && this.debug(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
     }
 
     if (remainingBeaconTransfers > 0) {
+      // TODO: Ask BeaconTargets for the target ids and match by that too, that should be more accurate (less likely to match the wrong heal) and allow us to say *who* was out of line of sight
       this.healBacklog.push({
         ...event,
-        spellBeaconTransferFactor,
         remainingBeaconTransfers,
       });
+    }
+  }
+  on_finished() {
+    if (this.lostBeaconHealingLineOfSight > 0) {
+      console.log('Total beacon healing lost due to line of sight: up to', this.owner.formatItemHealingDone(this.lostBeaconHealingLineOfSight), '(raw)');
     }
   }
 
@@ -56,6 +71,11 @@ class BeaconHealSource extends Analyzer {
       const age = this.owner.currentTimestamp - healEvent.timestamp;
       if (age > 500) {
         this.error('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
+
+        // Track the potential healing lost
+        this.lostBeaconHealingLineOfSight += this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
+
+        // Remove the heal from the backlog as it is not going to be relevant this late
         this.healBacklog.splice(index - removals, 1);
         removals += 1; // adjust for the index shifting after removals (can't use filter since we need to report this to the console)
       }
@@ -64,7 +84,10 @@ class BeaconHealSource extends Analyzer {
     let index;
     index = this._matchByHealSize(beaconTransferEvent);
     if (index === -1) {
-      this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target). Falling back to order-based heal selection.');
+      this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target) for', beaconTransferEvent, '. Falling back to order-based heal selection.');
+      if (debug) {
+        this._dumpBacklog(beaconTransferEvent);
+      }
       index = this._matchByOrder(beaconTransferEvent);
     }
     const matchedHeal = this.healBacklog[index];
@@ -85,18 +108,10 @@ class BeaconHealSource extends Analyzer {
       this.healBacklog.splice(index, 1);
     }
   }
-
-  get beaconType() {
-    return this.selectedCombatant.lv100Talent;
-  }
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
    */
   sanityChecker(beaconTransferEvent) {
-    const beaconTransferAmount = beaconTransferEvent.amount;
-    const beaconTransferAbsorbed = beaconTransferEvent.absorbed || 0;
-    const beaconTransferOverheal = beaconTransferEvent.overheal || 0;
-    const beaconTransferRaw = beaconTransferAmount + beaconTransferAbsorbed + beaconTransferOverheal;
     const index = this._matchByHealSize(beaconTransferEvent);
 
     if (index === -1) {
@@ -108,16 +123,17 @@ class BeaconHealSource extends Analyzer {
       // also don't beacon transfer, but right now this isn't common. Fury warrior log:
       // https://www.warcraftlogs.com/reports/TLQ14HfhjRvNrV2y/#view=events&type=healing&source=10&start=7614145&end=7615174&fight=39
       this.error('Failed to match', beaconTransferEvent, 'to a heal at all. Backlog:');
-      this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
+      this._dumpBacklog(beaconTransferEvent);
     } else if (index !== 0) {
       const matchedHeal = this.healBacklog[index];
       this.warn('Matched [', 'Beacon transfer', beaconTransferEvent, '] to [', matchedHeal.ability.name, matchedHeal, `] but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`);
-      this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
+      this._dumpBacklog(beaconTransferEvent);
     }
   }
-  _dumpBacklog(beaconTransferEvent, beaconTransferRaw) {
+  _dumpBacklog(beaconTransferEvent) {
+    const beaconTransferRaw = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
     this.healBacklog.forEach((healEvent, i) => {
-      const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
 
       this.debug(i, {
         ability: healEvent.ability.name,
@@ -126,8 +142,7 @@ class BeaconHealSource extends Analyzer {
         expectedBeaconTransfer,
         actual: beaconTransferRaw,
         difference: Math.abs(expectedBeaconTransfer - beaconTransferRaw),
-        beaconTransferFactor: this.getBeaconTransferFactor(healEvent),
-        spellBeaconTransferFactor: healEvent.spellBeaconTransferFactor,
+        beaconTransferFactor: this.beaconTransferFactor.getFactor(healEvent),
       });
     });
   }
@@ -146,45 +161,10 @@ class BeaconHealSource extends Analyzer {
     const rawBeaconTransfer = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
 
     return this.healBacklog.findIndex(healEvent => {
-      const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
 
       return Math.abs(expectedBeaconTransfer - rawBeaconTransfer) <= 2; // allow for rounding errors on Blizzard's end
     });
-  }
-
-  getBeaconTransferFactor(healEvent) {
-    let beaconFactor = 0.4;
-    if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
-      beaconFactor *= 0.7;
-    }
-
-    return beaconFactor;
-  }
-  getExpectedBeaconTransfer(healEvent, beaconTransferEvent) {
-    const amount = healEvent.amount;
-    const absorbed = healEvent.absorbed || 0;
-    const overheal = healEvent.overheal || 0;
-    let raw = amount + absorbed + overheal;
-
-    const healTargetId = healEvent.targetID;
-    const healCombatant = this.combatants.players[healTargetId];
-    if (healCombatant) {
-      if (healCombatant.hasBuff(SPELLS.VAMPIRIC_BLOOD.id, healEvent.timestamp)) {
-        raw /= 1.3;
-      }
-    }
-
-    let expectedBeaconTransfer = Math.round(raw * this.getBeaconTransferFactor(healEvent) * healEvent.spellBeaconTransferFactor);
-
-    const beaconTargetId = beaconTransferEvent.targetID;
-    const beaconCombatant = this.combatants.players[beaconTargetId];
-    if (beaconCombatant) {
-      if (beaconCombatant.hasBuff(SPELLS.VAMPIRIC_BLOOD.id, healEvent.timestamp)) {
-        expectedBeaconTransfer *= 1.3;
-      }
-    }
-
-    return expectedBeaconTransfer;
   }
 }
 
