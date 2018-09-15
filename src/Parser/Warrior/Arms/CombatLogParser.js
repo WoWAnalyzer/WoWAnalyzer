@@ -13,8 +13,10 @@ import ExecuteRange from './Modules/Features/ExecuteRange';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Channeling from './Modules/Features/Channeling';
 import WarVeteran from './Modules/Items/Tier21_2Set';
+
 // Talents
 import AngerManagement from './Modules/Talents/AngerManagement';
+import DefensiveStanceDamageReduction from './Modules/Talents/DefensiveStanceDamageReduction';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -37,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     angerManagement: AngerManagement,
+    defensiveStance: DefensiveStanceDamageReduction,
 
     // Items:
   };
