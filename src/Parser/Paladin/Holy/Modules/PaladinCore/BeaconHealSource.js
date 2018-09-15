@@ -19,7 +19,6 @@ class BeaconHealSource extends Analyzer {
 
   healBacklog = [];
   lostBeaconHealingLineOfSight = 0;
-  lostBeaconHealingMissingBeacons = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -36,9 +35,6 @@ class BeaconHealSource extends Analyzer {
     const beaconTargets = this.beaconTargets;
 
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
-    if (beaconTargets.numBeaconsActive < beaconTargets.numMaxBeacons) {
-      this.lostBeaconHealingMissingBeacons += this.beaconTransferFactor.getExpectedTransfer(event);
-    }
     // TODO: If numBeaconsActive < max add to lostBeaconHealing (better to track separately for showing both stats)
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
@@ -55,7 +51,7 @@ class BeaconHealSource extends Analyzer {
   }
   on_finished() {
     if (this.lostBeaconHealingLineOfSight > 0) {
-      console.log('Total beacon healing lost due to line of sight: up to', this.owner.formatItemHealingDone(this.lostBeaconHealingLineOfSight), '(raw)');
+      this.warn('Total beacon healing lost due to line of sight: up to', this.owner.formatItemHealingDone(this.lostBeaconHealingLineOfSight), '(raw)');
     }
   }
 
