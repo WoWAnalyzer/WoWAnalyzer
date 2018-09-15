@@ -45,7 +45,6 @@ class ArcaneMageChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />}
           {combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.NETHER_TEMPEST_TALENT.id) && <AbilityRequirement spell={SPELLS.NETHER_TEMPEST_TALENT.id} />}
           {combatant.hasTalent(SPELLS.CHARGED_UP_TALENT.id) && <AbilityRequirement spell={SPELLS.CHARGED_UP_TALENT.id} />}
         </Rule>
         <Rule
@@ -73,7 +72,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           name="Avoid downtime"
           description={(
             <React.Fragment>
-              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
+              As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
             </React.Fragment>
           )}
         >
