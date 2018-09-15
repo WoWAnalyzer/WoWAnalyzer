@@ -16,7 +16,7 @@ import WarVeteran from './Modules/Items/Tier21_2Set';
 
 // Talents
 import AngerManagement from './Modules/Talents/AngerManagement';
-import DefensiveStanceDamageReduction from './Modules/Talents/DefensiveStanceDamageReduction';
+import DefensiveStance from './Modules/Talents/DefensiveStance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -39,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     angerManagement: AngerManagement,
-    defensiveStance: DefensiveStanceDamageReduction,
+    defensiveStance: DefensiveStance,
 
     // Items:
   };

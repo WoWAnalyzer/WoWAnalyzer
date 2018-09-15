@@ -10,7 +10,7 @@ import makeWclUrl from 'common/makeWclUrl';
 
 const DEFENSIVE_STANCE_DAMAGE_REDUCED = 0.25;
 
-class DefensiveStanceDamageReduction extends Analyzer {
+class DefensiveStance extends Analyzer {
   perSecond(amount) {
     return amount / this.owner.fightDuration * 1000;
   }
@@ -96,4 +96,4 @@ class DefensiveStanceDamageReduction extends Analyzer {
   }
 }
 
-export default DefensiveStanceDamageReduction;
+export default DefensiveStance;
