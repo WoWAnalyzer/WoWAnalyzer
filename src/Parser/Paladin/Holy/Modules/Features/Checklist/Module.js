@@ -8,7 +8,7 @@ import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/Pre
 
 import MasteryEffectiveness from '../MasteryEffectiveness';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import DirectBeaconHealing from '../../PaladinCore/DirectBeaconHealing';
+import DirectBeaconHealing from '../../Beacons/DirectBeaconHealing';
 import FillerLightOfTheMartyrs from '../../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../../PaladinCore/FillerFlashOfLight';
 import Overhealing from '../../PaladinCore/Overhealing';

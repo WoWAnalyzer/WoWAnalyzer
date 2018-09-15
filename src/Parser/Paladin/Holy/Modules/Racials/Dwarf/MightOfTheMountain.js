@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreMightOfTheMountain, { CRIT_EFFECT } from 'Parser/Core/Modules/Racials/Dwarf/MightOfTheMountain';
 
-import BeaconHealSource from '../../PaladinCore/BeaconHealSource';
+import BeaconHealSource from '../../Beacons/BeaconHealSource';
 
 class MightOfTheMountain extends CoreMightOfTheMountain {
   static dependencies = {
