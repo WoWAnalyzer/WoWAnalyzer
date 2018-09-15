@@ -55,13 +55,18 @@ class BeaconHealSource extends Analyzer {
     this.healBacklog.forEach((healEvent, index) => {
       const age = this.owner.currentTimestamp - healEvent.timestamp;
       if (age > 500) {
-        this.error('No beacon transfer found for heal:', healEvent);
+        this.error('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
         this.healBacklog.splice(index - removals, 1);
         removals += 1; // adjust for the index shifting after removals (can't use filter since we need to report this to the console)
       }
     });
 
-    const index = this._matchByOrder(beaconTransferEvent);
+    let index;
+    index = this._matchByHealSize(beaconTransferEvent);
+    if (index === -1) {
+      this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target). Falling back to order-based heal selection.');
+      index = this._matchByOrder(beaconTransferEvent);
+    }
     const matchedHeal = this.healBacklog[index];
     if (!matchedHeal) {
       this.error('No heal found for beacon transfer:', beaconTransferEvent);
@@ -106,7 +111,7 @@ class BeaconHealSource extends Analyzer {
       this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
     } else if (index !== 0) {
       const matchedHeal = this.healBacklog[index];
-      this.warn('Matched', beaconTransferEvent, 'to', matchedHeal, `but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`);
+      this.warn('Matched [', 'Beacon transfer', beaconTransferEvent, '] to [', matchedHeal.ability.name, matchedHeal, `] but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`);
       this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
     }
   }
