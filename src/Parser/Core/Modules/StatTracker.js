@@ -246,9 +246,9 @@ class StatTracker extends Analyzer {
     [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
-    264878: { crit: 445 }, // Crow's Nest Scope
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets
