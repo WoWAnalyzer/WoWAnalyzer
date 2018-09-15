@@ -5,7 +5,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
-import LightOfDawnIndexer from './LightOfDawnIndexer';
 
 const debug = false;
 
@@ -13,7 +12,6 @@ class BeaconHealSource extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
-    lightOfDawnIndexer: LightOfDawnIndexer, // for the heal event index
     // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
   };
 
@@ -50,6 +48,18 @@ class BeaconHealSource extends Analyzer {
     if (debug) {
       this.sanityChecker(beaconTransferEvent);
     }
+    // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
+    // Note: this is REQUIRED to account for line of sighting beacons. LoSed beacons don't transfer, without this filter heals would stay stuck in the queue indefinitely and appoint a lot of beacon healing to the wrong spells. Example log: https://www.warcraftlogs.com/reports/Mc1zG8rytgBHYj2X/#fight=5&source=6
+    // This may lead to an issue where sometimes the beacon replication of LoD self-heals can be delayed by a long time and don't properly assign source, but this should be much rarer. (see commit db5dd9a7b8eb3b935abd4d617b400c27abdd7b61)
+    let removals = 0;
+    this.healBacklog.forEach((healEvent, index) => {
+      const age = this.owner.currentTimestamp - healEvent.timestamp;
+      if (age > 500) {
+        this.error('No beacon transfer found for heal:', healEvent);
+        this.healBacklog.splice(index - removals, 1);
+        removals += 1; // adjust for the index shifting after removals (can't use filter since we need to report this to the console)
+      }
+    });
 
     const matchedHeal = this.healBacklog[0];
     if (!matchedHeal) {
@@ -81,7 +91,7 @@ class BeaconHealSource extends Analyzer {
     const beaconTransferAbsorbed = beaconTransferEvent.absorbed || 0;
     const beaconTransferOverheal = beaconTransferEvent.overheal || 0;
     const beaconTransferRaw = beaconTransferAmount + beaconTransferAbsorbed + beaconTransferOverheal;
-    const index = this.healBacklog.findIndex((healEvent) => {
+    const index = this.healBacklog.findIndex(healEvent => {
       const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
 
       return Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2; // allow for rounding errors on Blizzard's end
@@ -95,57 +105,35 @@ class BeaconHealSource extends Analyzer {
       // fragile and the accuracy loss for not including this kind of healing is minimal. I expect other healing received increases likely
       // also don't beacon transfer, but right now this isn't common. Fury warrior log:
       // https://www.warcraftlogs.com/reports/TLQ14HfhjRvNrV2y/#view=events&type=healing&source=10&start=7614145&end=7615174&fight=39
-      console.error('Failed to match', beaconTransferEvent, 'to a heal. Healing backlog:', this.healBacklog, '-', (beaconTransferEvent.timestamp - this.owner.fight.start_time) / 1000, 'seconds into the fight');
-      this.healBacklog.forEach((healEvent, i) => {
-        const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
-
-        this.debug(i, {
-          ability: healEvent.ability.name,
-          healEvent,
-          raw: healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0),
-          expectedBeaconTransfer,
-          actual: beaconTransferRaw,
-          difference: Math.abs(expectedBeaconTransfer - beaconTransferRaw),
-          beaconTransferFactor: this.getBeaconTransferFactor(healEvent),
-          spellBeaconTransferFactor: healEvent.spellBeaconTransferFactor,
-        });
-      });
+      this.error('Failed to match', beaconTransferEvent, 'to a heal at all. Backlog:');
+      this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
     } else if (index !== 0) {
       const matchedHeal = this.healBacklog[index];
-      if (index !== 0) {
-        console.warn('Matched', beaconTransferEvent, 'to', matchedHeal, 'but it wasn\'t the first heal in the Backlog. Something is likely wrong.', this.healBacklog);
-      }
-      this.healBacklog.forEach((healEvent, i) => {
-        const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
-
-        this.debug(i, {
-          ability: healEvent.ability.name,
-          healEvent,
-          raw: healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0),
-          expectedBeaconTransfer,
-          actual: beaconTransferRaw,
-          difference: Math.abs(expectedBeaconTransfer - beaconTransferRaw),
-          beaconTransferFactor: this.getBeaconTransferFactor(healEvent),
-          spellBeaconTransferFactor: healEvent.spellBeaconTransferFactor,
-        });
-      });
+      this.warn('Matched', beaconTransferEvent, 'to', matchedHeal, `but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`);
+      this._dumpBacklog(beaconTransferEvent, beaconTransferRaw);
     }
+  }
+  _dumpBacklog(beaconTransferEvent, beaconTransferRaw) {
+    this.healBacklog.forEach((healEvent, i) => {
+      const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
+
+      this.debug(i, {
+        ability: healEvent.ability.name,
+        healEvent,
+        raw: healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0),
+        expectedBeaconTransfer,
+        actual: beaconTransferRaw,
+        difference: Math.abs(expectedBeaconTransfer - beaconTransferRaw),
+        beaconTransferFactor: this.getBeaconTransferFactor(healEvent),
+        spellBeaconTransferFactor: healEvent.spellBeaconTransferFactor,
+      });
+    });
   }
 
   getBeaconTransferFactor(healEvent) {
     let beaconFactor = 0.4;
-
-    // Light's Embrace (4PT2)
-    // What happens here are 2 situations:
-    // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
-    // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 50ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
-    if (hasLightsEmbrace) {
-      beaconFactor += 0.4;
-    }
-
     if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
-      beaconFactor *= 0.8;
+      beaconFactor *= 0.7;
     }
 
     return beaconFactor;

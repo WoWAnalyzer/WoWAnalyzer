@@ -72,31 +72,29 @@ class BeaconHealingBreakdown extends React.Component {
 
   render() {
     return (
-      <div>
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Name</th>
-              <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Healing</th>
-              <th colSpan="2">
-                <div className="text-right toggle-control">
-                  <Toggle
-                    defaultChecked={false}
-                    icons={false}
-                    onChange={event => this.setState({ absolute: event.target.checked })}
-                    id="absolute-toggle"
-                  />
-                  <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
-                    relative to total healing
-                  </label>
-                </div>
-              </th>
-              <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Overheal</th>
-            </tr>
-          </thead>
-          {this.renderTableBody()}
-        </table>
-      </div>
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Name</th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Healing</th>
+            <th colSpan="2">
+              <div className="text-right toggle-control">
+                <Toggle
+                  defaultChecked={false}
+                  icons={false}
+                  onChange={event => this.setState({ absolute: event.target.checked })}
+                  id="absolute-toggle"
+                />
+                <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
+                  relative to total healing
+                </label>
+              </div>
+            </th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Overheal</th>
+          </tr>
+        </thead>
+        {this.renderTableBody()}
+      </table>
     );
   }
 }

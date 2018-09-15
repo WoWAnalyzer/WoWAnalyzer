@@ -38,6 +38,12 @@ class BeaconHealingDone extends Analyzer {
       url: 'beacon-healing-sources',
       render: () => (
         <Tab>
+          <div style={{ padding: '0 15px 15px' }}>
+            <h1>Beacon healing sources</h1>
+
+            This breakdown shows the amount of effective beacon healing triggered by each beacon transfering heal.
+          </div>
+
           <BeaconHealingBreakdown
             totalHealingDone={this.healingDone.total}
             totalBeaconHealing={this._totalBeaconHealing}

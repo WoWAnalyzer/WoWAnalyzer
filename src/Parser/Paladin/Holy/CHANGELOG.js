@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-09-15'),
+    changes: <React.Fragment>Fixed a bug in <SpellLink id={SPELLS.BEACON_OF_LIGHT_HEAL.id} /> transfer tracking where line of sighting a tank could lead to inaccurate results.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-15'),
     changes: <React.Fragment>Added a <SpellLink id={SPELLS.BEACON_OF_LIGHT_HEAL.id} /> transfer sources breakdown tab.</React.Fragment>,
     contributors: [Zerotorescue],
   },
