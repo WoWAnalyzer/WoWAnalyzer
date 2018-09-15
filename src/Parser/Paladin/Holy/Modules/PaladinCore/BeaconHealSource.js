@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
 
-const debug = false;
+const debug = true;
 
 class BeaconHealSource extends Analyzer {
   static dependencies = {
@@ -61,7 +61,8 @@ class BeaconHealSource extends Analyzer {
       }
     });
 
-    const matchedHeal = this.healBacklog[0];
+    const index = this._matchByOrder(beaconTransferEvent);
+    const matchedHeal = this.healBacklog[index];
     if (!matchedHeal) {
       this.error('No heal found for beacon transfer:', beaconTransferEvent);
       return;
@@ -76,7 +77,7 @@ class BeaconHealSource extends Analyzer {
 
     matchedHeal.remainingBeaconTransfers -= 1;
     if (matchedHeal.remainingBeaconTransfers < 1) {
-      this.healBacklog.splice(0, 1);
+      this.healBacklog.splice(index, 1);
     }
   }
 
@@ -91,11 +92,7 @@ class BeaconHealSource extends Analyzer {
     const beaconTransferAbsorbed = beaconTransferEvent.absorbed || 0;
     const beaconTransferOverheal = beaconTransferEvent.overheal || 0;
     const beaconTransferRaw = beaconTransferAmount + beaconTransferAbsorbed + beaconTransferOverheal;
-    const index = this.healBacklog.findIndex(healEvent => {
-      const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
-
-      return Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2; // allow for rounding errors on Blizzard's end
-    });
+    const index = this._matchByHealSize(beaconTransferEvent);
 
     if (index === -1) {
       // Here's a fun fact for you. Fury Warriors with the legendary "Kazzalax, Fujieda's Fury" (http://www.wowhead.com/item=137053/kazzalax-fujiedas-fury)
@@ -129,6 +126,26 @@ class BeaconHealSource extends Analyzer {
       });
     });
   }
+  /**
+   * @returns {number} Gets the next heal in the backlog without any extra checks. This usually works since beacon healing is ordered in the combat log right after the heal that triggered it, and, while there's a delay before the beacon transfer happens, it's extremely rare for there to be multiple heals happening within short time spans - short enough to be before the beacon transfer.
+   * It does sometimes happen though, such as with Light of Dawn heals as well as Azerite Powers that apply hots and beacon transfer.
+   * @private
+   */
+  _matchByOrder(beaconTransferEvent) {
+    return 0;
+  }
+  /**
+   * @returns {number} Gets the next heal in the backlog that matches the expected source heal amount through simply reversing the transfer formula.
+   */
+  _matchByHealSize(beaconTransferEvent) {
+    const rawBeaconTransfer = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
+
+    return this.healBacklog.findIndex(healEvent => {
+      const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
+
+      return Math.abs(expectedBeaconTransfer - rawBeaconTransfer) <= 2; // allow for rounding errors on Blizzard's end
+    });
+  }
 
   getBeaconTransferFactor(healEvent) {
     let beaconFactor = 0.4;
@@ -157,7 +174,7 @@ class BeaconHealSource extends Analyzer {
     const beaconTargetId = beaconTransferEvent.targetID;
     const beaconCombatant = this.combatants.players[beaconTargetId];
     if (beaconCombatant) {
-      if (beaconCombatant.hasBuff(55233, healEvent.timestamp)) {
+      if (beaconCombatant.hasBuff(SPELLS.VAMPIRIC_BLOOD.id, healEvent.timestamp)) {
         expectedBeaconTransfer *= 1.3;
       }
     }
