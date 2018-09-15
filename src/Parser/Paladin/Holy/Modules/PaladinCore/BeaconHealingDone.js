@@ -1,0 +1,53 @@
+import React from 'react';
+
+import Tab from 'Interface/Others/Tab';
+import Analyzer from 'Parser/Core/Analyzer';
+import HealingValue from 'Parser/Core/Modules/HealingValue';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+
+import BeaconHealSource from './BeaconHealSource';
+import BeaconHealingBreakdown from './BeaconHealingBreakdown';
+
+class BeaconHealingDone extends Analyzer {
+  static dependencies = {
+    beaconHealSource: BeaconHealSource,
+    healingDone: HealingDone,
+  };
+
+  _totalBeaconHealing = new HealingValue();
+  _beaconHealingBySource = {};
+
+  on_beacon_heal(event) {
+    this._totalBeaconHealing = this._totalBeaconHealing.add(event.amount, event.absorbed, event.overheal);
+
+    const source = event.originalHeal;
+    const spellId = source.ability.guid;
+    let sourceHealing = this._beaconHealingBySource[spellId];
+    if (!sourceHealing) {
+      sourceHealing = this._beaconHealingBySource[spellId] = {
+        ability: source.ability,
+        healing: new HealingValue(),
+      };
+    }
+    sourceHealing.healing = sourceHealing.healing.add(event.amount, event.absorbed, event.overheal);
+  }
+
+  tab() {
+    return {
+      title: 'Beacon healing sources',
+      url: 'beacon-healing-sources',
+      render: () => (
+        <Tab>
+          <BeaconHealingBreakdown
+            totalHealingDone={this.healingDone.total}
+            totalBeaconHealing={this._totalBeaconHealing}
+            beaconHealingBySource={this._beaconHealingBySource}
+            fightDuration={this.owner.fightDuration}
+          />
+        </Tab>
+      ),
+    };
+  }
+}
+
+export default BeaconHealingDone;
