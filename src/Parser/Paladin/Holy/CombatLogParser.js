@@ -12,6 +12,7 @@ import BeaconHealSource from './Modules/PaladinCore/BeaconHealSource';
 import BeaconHealingDone from './Modules/PaladinCore/BeaconHealingDone';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 import MissingBeacons from './Modules/PaladinCore/MissingBeacons';
+import FailedBeaconTransfers from './Modules/PaladinCore/FailedBeaconTransfers';
 import DirectBeaconHealing from './Modules/PaladinCore/DirectBeaconHealing';
 import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     beaconHealingDone: BeaconHealingDone,
     beaconTargets: BeaconTargets,
     missingBeacons: MissingBeacons,
+    failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
     castBehavior: CastBehavior,
     overhealing: Overhealing,

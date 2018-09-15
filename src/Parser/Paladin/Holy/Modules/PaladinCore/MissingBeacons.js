@@ -1,5 +1,4 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
@@ -9,7 +8,6 @@ class MissingBeacons extends Analyzer {
   static dependencies = {
     beaconTargets: BeaconTargets,
     beaconTransferFactor: BeaconTransferFactor,
-    // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
   };
 
   lostBeaconHealing = 0;
