@@ -179,6 +179,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
         timelineSortIndex: 33,
       },
@@ -188,6 +191,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 32,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
@@ -197,6 +203,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 32,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
@@ -206,6 +215,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
         timelineSortIndex: 34,
       },
       {
