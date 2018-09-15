@@ -9,7 +9,7 @@ import LightOfDawnIndexer from './LightOfDawnIndexer';
 
 const debug = false;
 
-class BeaconHealOriginMatcher extends Analyzer {
+class BeaconHealSource extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
@@ -178,4 +178,4 @@ class BeaconHealOriginMatcher extends Analyzer {
   }
 }
 
-export default BeaconHealOriginMatcher;
+export default BeaconHealSource;

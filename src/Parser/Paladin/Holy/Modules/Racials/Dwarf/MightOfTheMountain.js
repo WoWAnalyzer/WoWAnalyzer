@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CoreMightOfTheMountain, { CRIT_EFFECT } from 'Parser/Core/Modules/Racials/Dwarf/MightOfTheMountain';
 
-import BeaconHealOriginMatcher from '../../PaladinCore/BeaconHealOriginMatcher';
+import BeaconHealSource from '../../PaladinCore/BeaconHealSource';
 
 class MightOfTheMountain extends CoreMightOfTheMountain {
   static dependencies = {
     ...CoreMightOfTheMountain.dependencies,
     // We use its "beacon_heal" event
-    beaconHealOriginMatcher: BeaconHealOriginMatcher,
+    beaconHealSource: BeaconHealSource,
   };
 
   on_byPlayer_heal(event) {

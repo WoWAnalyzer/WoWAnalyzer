@@ -12,7 +12,7 @@ import Abilities from '../Abilities';
 import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
 
-class BeaconHealing extends Analyzer {
+class DirectBeaconHealing extends Analyzer {
   static dependencies = {
     abilityTracker: PaladinAbilityTracker,
     abilities: Abilities,
@@ -85,4 +85,4 @@ class BeaconHealing extends Analyzer {
   }
 }
 
-export default BeaconHealing;
+export default DirectBeaconHealing;

@@ -106,7 +106,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           name="Don't tunnel the tanks"
           description="A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die."
         >
-          <Requirement name="Direct beacon healing" thresholds={thresholds.beaconHealing} />
+          <Requirement name="Direct beacon healing" thresholds={thresholds.directBeaconHealing} />
         </Rule>
         <Rule
           name={<React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>}

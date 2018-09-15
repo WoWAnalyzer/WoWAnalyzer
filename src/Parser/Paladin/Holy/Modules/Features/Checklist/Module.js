@@ -8,7 +8,7 @@ import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/Pre
 
 import MasteryEffectiveness from '../MasteryEffectiveness';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import BeaconHealing from '../../PaladinCore/BeaconHealing';
+import DirectBeaconHealing from '../../PaladinCore/DirectBeaconHealing';
 import FillerLightOfTheMartyrs from '../../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../../PaladinCore/FillerFlashOfLight';
 import Overhealing from '../../PaladinCore/Overhealing';
@@ -21,7 +21,7 @@ class Checklist extends Analyzer {
     castEfficiency: CastEfficiency,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
-    beaconHealing: BeaconHealing,
+    directBeaconHealing: DirectBeaconHealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
@@ -41,7 +41,7 @@ class Checklist extends Analyzer {
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          beaconHealing: this.beaconHealing.suggestionThresholds,
+          directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
