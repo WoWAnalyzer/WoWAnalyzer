@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-15'),
+    changes: <React.Fragment>Fixed a bug in the analysis of <SpellLink id={SPELLS.HOLY_AVENGER_TALENT.id} /> where beacon healing was included twice.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-09-11'),
     changes: 'Shuffled the checklist to put higher importance things higher in the list.',
     contributors: [Zerotorescue],

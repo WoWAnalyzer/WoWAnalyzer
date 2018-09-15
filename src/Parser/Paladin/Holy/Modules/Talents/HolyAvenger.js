@@ -42,14 +42,14 @@ class HolyAvenger extends Analyzer {
     }
   }
   on_beacon_heal(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.originalHeal.timestamp)) {
-      const effectiveHealing = (event.amount + (event.absorbed || 0));
-      this.regularHealing += effectiveHealing - effectiveHealing / (1 + HOLY_AVENGER_HASTE_INCREASE);
+    // The healing gain from the casting speed for beacon healing is already accounted for in `on_byPlayer_heal`, but the HS heal gain needs to be handled manually as it also affects the beacon transfer
+    const spellId = event.originalHeal.ability.guid;
+    if (spellId !== SPELLS.HOLY_SHOCK_HEAL.id) {
+      return;
+    }
 
-      const spellId = event.originalHeal.ability.guid;
-      if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
-        this.holyShockHealing += calculateEffectiveHealing(event, HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE);
-      }
+    if (this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.originalHeal.timestamp)) {
+      this.holyShockHealing += calculateEffectiveHealing(event, HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE);
     }
   }
 
