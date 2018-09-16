@@ -25,7 +25,7 @@ class SpellUsable extends Analyzer {
     return this._errors / minutesElapsed;
   }
   get isAccurate() {
-    return this.errorsPerMinute < 1;
+    return this.errorsPerMinute < 1.5;
   }
 
   /**
