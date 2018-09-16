@@ -45,14 +45,29 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING + meridianStrikesDamage(this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id]).damage) * (1 + masteryPercentage) * (1 + versatilityPercentage);
+
+    // Calculate Meridian Strikes Modifier Damage if combatant has MS traits
+    const merStrikesTraits = 
+      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id];
+
+    const merStrikesMod = 
+      (merStrikesTraits === undefined) ? 0.0 : meridianStrikesDamage(
+      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id]).damage;   
+
+    this.expectedBaseDamage =
+      (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING +
+        merStrikesMod)
+      * (1 + masteryPercentage)
+      * (1 + versatilityPercentage);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
-    const sefMultiplier = this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+    const sefMultiplier = 
+      this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+
     if (!enemy) {
       return;
     }

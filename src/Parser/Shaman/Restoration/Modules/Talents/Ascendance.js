@@ -26,7 +26,7 @@ class Ascendance extends Analyzer {
       return;
     }
 
-    this.healing += event.amount;
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

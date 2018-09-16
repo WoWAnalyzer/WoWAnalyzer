@@ -42,17 +42,33 @@ async function rawFetchWcl(endpoint, queryParams) {
     throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');
   }
   // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
-  const text = await response.text();
+  let text = await response.text();
   let json = null;
   try {
     json = JSON.parse(text);
   } catch (error) {
-    captureException(error, {
-      extra: {
-        text,
-      },
-    });
-    throw new JsonParseError();
+    // trys to replace non-ascii chars on "unexpected character"-errors
+    // hotfixes the german logs that have control-characters in their names
+    if (error instanceof SyntaxError) {
+      try {
+        text = text.replace(/[^\x20-\x7E]/g, '');
+        json = JSON.parse(text);
+      } catch (asciiFixError) {
+        captureException(error, {
+          extra: {
+            text,
+          },
+        });
+        throw new JsonParseError();
+      }
+    } else {
+      captureException(error, {
+        extra: {
+          text,
+        },
+      });
+      throw new JsonParseError();
+    }
   }
 
   if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {

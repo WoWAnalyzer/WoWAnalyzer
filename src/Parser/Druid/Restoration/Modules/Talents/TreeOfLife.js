@@ -4,12 +4,10 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
@@ -22,7 +20,6 @@ const REJUV_MANA_SAVED = 0.30;
 const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
 const WG_INCREASE = (8 / 6) - 1;
 const TOL_DURATION = 30000;
-const CS_DURATION = 12000;
 
 // have to be careful about applying stacking boosts so we don't double count. Arbitrarily considering all boost to be applied "first"
 // for example, lets say a rejuv tick during ToL heals for 1000 base, but is boosted by 1.15 * 1.5 => 1725... a total of 725 raw boost
@@ -30,13 +27,10 @@ const CS_DURATION = 12000;
 // we correct for this by dividing out the all boost before calcing either the rejuv boost or the wg increase
 
 /*
- * This module handles both the 'Incarnation: Tree of Life' talent and the 'Chameleon Song' legendary
+ * This module handles 'Incarnation: Tree of Life' talent.
  *
  * Incarnation: Tree of Life -
  * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%, and granting protection from Polymorph effects.  Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
- *
- * Chameleon Song -
- * Equip: Wild Growth has a 15% chance to grant you Incarnation: Tree of Life for 12 sec.
  *
  * Tree of Life bonuses:
  *  - ALL: +15% healing
@@ -54,11 +48,8 @@ class TreeOfLife extends Analyzer {
   hasTol = false;
   lastTolCast = null;
 
-  hasCs = false;
-
   lastTolApply = null;
   completedTolUptime = 0;
-  completedCsUptime = 0;
 
   wgCasts = 0;
 
@@ -69,31 +60,22 @@ class TreeOfLife extends Analyzer {
     extraWgHealing: 0,
   };
 
-  chameleonSong = {
-    allBoostHealing: 0,
-    rejuvBoostHealing: 0,
-    rejuvManaSaved: 0,
-    extraWgHealing: 0,
-  };
-
   constructor(...args) {
     super(...args);
     this.hasTol = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
-    this.hasCs = this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id);
-    this.active = this.hasTol || this.hasCs;
+    this.active = this.hasTol;
   }
 
   // gets the appropriate accumulator for tallying this event
   // if ToL buff isn't active, returns null,
   // if ToL buff is due to hardcast, returns the hardcast accumulator,
-  // if ToL buff is due to CS, returns the CS accumulator.
   _getAccumulator(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null;
-    } else if ((!this.hasCs) || (this.lastTolCast && this.lastTolCast + TOL_DURATION > event.timestamp)) {
+    } else if (this.lastTolCast && this.lastTolCast + TOL_DURATION > event.timestamp) {
       return this.hardcast;
     } else {
-      return this.chameleonSong;
+      return null;
     }
   }
 
@@ -103,7 +85,6 @@ class TreeOfLife extends Analyzer {
       return;
     }
 
-    // chooses which attribution accumulator to use based on if the ToL buff is due to a hardcast or a CS proc
     const accumulator = this._getAccumulator(event);
     if (!accumulator) {
       return;
@@ -147,12 +128,9 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       const buffUptime = event.timestamp - this.lastTolApply;
-      // find out how much of this buff uptime was due to ToL and how much due to CS
+
       if (this.lastTolCast) {
         this.completedTolUptime += Math.min(TOL_DURATION, buffUptime);
-        this.completedCsUptime += Math.max(buffUptime - TOL_DURATION, 0);
-      } else {
-        this.completedCsUptime += buffUptime;
       }
 
       this.lastTolCast = null;
@@ -166,27 +144,6 @@ class TreeOfLife extends Analyzer {
   }
   get hardcastUptimePercent() {
     return this.hardcastUptime / this.owner.fightDuration;
-  }
-
-  get csUptime() {
-    let currentUptime = 0;
-    if (this.lastTolApply) {
-      currentUptime = this.owner.currentTimestamp - this.lastTolApply;
-      if (this.lastTolCast) {
-        currentUptime -= Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolApply);
-      }
-    }
-    return currentUptime + this.completedCsUptime;
-  }
-  get csUptimePercent() {
-    return this.csUptime / this.owner.fightDuration;
-  }
-  get csProcs() {
-    const csUptimeRoundedToSeconds = Math.round(this.csUptime / 1000) * 1000; // rounding so that a few errant ms doesn't cause the following ceil to inproperly add a proc
-    return Math.ceil(csUptimeRoundedToSeconds / CS_DURATION); // ceil so that a proc cut off due to fight end or player death still counts as a proc
-  }
-  get estimatedCsProcRate() {
-    return (this.csProcs / this.wgCasts) || 0;
   }
 
   _getManaSavedHealing(accumulator) {
@@ -237,7 +194,7 @@ class TreeOfLife extends Analyzer {
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
         label="Tree of Life Healing"
-        tooltip={`The Tree of Life buff ${this.hasCs ? '(not including from Chameleon Song procs) ' : ''}was active for <b>${(this.hardcastUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.hardcastUptimePercent, 1)}%</b> of the encounter. The displayed healing number ${this.hasCs ? 'does not include healing from Chameleon Song procs and ' : ''} is the sum of several benefits, listed below:
+        tooltip={`The Tree of Life buff was active for <b>${(this.hardcastUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.hardcastUptimePercent, 1)}%</b> of the encounter. The displayed healing number is the sum of several benefits, listed below:
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</b></li>
@@ -249,28 +206,6 @@ class TreeOfLife extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
-  item() {
-    if (!this.hasCs) {
-      return null;
-    }
-
-    return {
-      item: ITEMS.CHAMELEON_SONG,
-      result: (
-        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${(this.csUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. You got <b>${this.csProcs} procs</b>, for a proc rate of <b>${formatPercentage(this.estimatedCsProcRate, 1)}%</b>. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below:
-          <ul>
-            <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
-            <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>
-            <li>Rejuv Mana Saved: <b>${formatNumber(this._getManaSaved(this.chameleonSong))}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.chameleonSong)))}%</b> healing)</li>
-            <li>Increased Wild Growths: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.extraWgHealing))}%</b></li>
-          </ul>`}>
-          <ItemHealingDone amount={this._getTotalHealing(this.chameleonSong)} />
-        </dfn>
-      ),
-    };
-  }
-
 }
 
 export default TreeOfLife;

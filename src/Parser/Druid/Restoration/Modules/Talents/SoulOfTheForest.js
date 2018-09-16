@@ -3,7 +3,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -17,9 +16,6 @@ const WILD_GROWTH_DURATION = 7000;
 const REJUVENATION_BASE_DURATION = 12000;
 
 class SoulOfTheForest extends Analyzer {
-  hasSotf = false;
-  hasSota = false;
-
   regrowths = 0;
   wildGrowths = 0;
   rejuvenations = 0;
@@ -40,12 +36,7 @@ class SoulOfTheForest extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
-    this.hasSota = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
-    this.active = this.hasSotf || this.hasSota;
-
-    const persistenceTraits = this.selectedCombatant.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
-    this.rejuvenationDuration += persistenceTraits * 1000;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
   }
 
   on_byPlayer_applybuff(event) {

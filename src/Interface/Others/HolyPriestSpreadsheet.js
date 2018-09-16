@@ -19,7 +19,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(5);
 
-    const cpm = spellId => (getAbility(spellId).casts / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5);
+    const cpm = spellId => (getAbility(spellId).casts / (parser.fightDuration / 1000 / 60) || 0).toFixed(5);
 
     const targetsPerCast = (spellId, healId) => {
       const ability = getAbility(spellId);
@@ -39,6 +39,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const castEfficiency = (spellId) => {
       const efficiency = parser._modules.CastEfficiency.getCastEfficiencyForSpellId(spellId, true);
+
       if (!efficiency) {
         return 'N/A';
       }
@@ -87,15 +88,15 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td>
               </tr>
               <tr>
-                <td>Leech</td>
+                <td>Leech Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.leech}</td>
               </tr>
               <tr>
-                <td>Avoidance</td>
+                <td>Avoidance Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.avoidance}</td>
               </tr>
               <tr>
-                <td>Speed</td>
+                <td>Speed Rating</td>
                 <td>{parser.selectedCombatant._combatantInfo.speed}</td>
               </tr>
               <tr>
@@ -124,19 +125,19 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.serendipity.sanctify.rawReduction / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.serendipity.serenity.rawReduction / 1000}</td>
+                <td>{parser._modules.serenityReduction.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.sanctify.overcast / 1000}</td>
+                <td>{parser._modules.sanctifyReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.serendipity.serenity.overcast / 1000}</td>
+                <td>{parser._modules.serenityReduction.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
@@ -184,7 +185,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.RENEW.id)}</td>
                 <td>{cpm(SPELLS.RENEW.id)}</td>
                 <td>{castEfficiency(SPELLS.RENEW.id)}</td>
-                <td>{targetsPerCast(SPELLS.RENEW.id)}</td>
+                <td>1</td>
               </tr>
               <tr>
                 <td>Prayer of Healing</td>
@@ -214,7 +215,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>Holy Word: Sanctify</td>
                 <td>{rawHealing(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
-                <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5)}</td>
+                <td>{cpm(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
               </tr>
@@ -242,14 +243,13 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{castEfficiency(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>1</td>
               </tr>
-
               <tr>
                 <td>Cosmic Ripple</td>
                 <td>{rawHealing(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>N/A</td>
+                <td>{parser._modules.cosmicRipple.totalHits / parser._modules.cosmicRipple.totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>
@@ -277,11 +277,11 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Halo</td>
-                <td>{rawHealing(SPELLS.HALO_TALENT.id)}</td>
-                <td>{overhealingSpell(SPELLS.HALO_TALENT.id)}</td>
+                <td>{rawHealing(SPELLS.HALO_HEAL.id)}</td>
+                <td>{overhealingSpell(SPELLS.HALO_HEAL.id)}</td>
                 <td>{cpm(SPELLS.HALO_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HALO_TALENT.id)}</td>
-                <td>{targetsPerCast(SPELLS.HALO_TALENT.id)}</td>
+                <td>{targetsPerCast(SPELLS.HALO_TALENT.id, SPELLS.HALO_HEAL.id)}</td>
               </tr>
               <tr>
                 <td>Holy Word: Salvation</td>
@@ -290,6 +290,22 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{cpm(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SALVATION_TALENT.id)}</td>
+              </tr>
+              <tr>
+                <td>Echo of Light</td>
+                <td>{rawHealing(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>{overhealingSpell(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Leech</td>
+                <td>{rawHealing(SPELLS.LEECH.id)}</td>
+                <td>{overhealingSpell(SPELLS.LEECH.id)}</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>1</td>
               </tr>
             </tbody>
           </table>

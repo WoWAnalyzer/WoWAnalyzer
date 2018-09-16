@@ -363,7 +363,7 @@ export default {
   SHRAPNEL_BOMB_WFI: {
     id: 270335,
     name: 'Shrapnel Bomb',
-    icon: '"inv_wildfirebomb_shrapnel',
+    icon: 'inv_wildfirebomb_shrapnel',
   },
   VOLATILE_BOMB_WFI: {
     id: 271045,

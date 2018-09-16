@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Oratio, Reglitch } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-09-14'),
+    changes: <React.Fragment>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-07-31'),
     changes: <React.Fragment>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</React.Fragment>,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'Interface/Contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-09-16'),
+    changes: <React.Fragment>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-09-12'),
+    changes: 'Added support for item Seabreeze',
+    contributors: [blazyb],
+  },
   {
     date: new Date('2018-09-10'),
     changes: 'Added the engineering weapon enchants to the EnchantChecker and mark them as valid weapon enchants.',

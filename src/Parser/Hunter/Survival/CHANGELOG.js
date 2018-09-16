@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-09-10'),
-    changes: <React.Fragment>Added a <SpellLink id={SPELLS.FLANKERS_ADVANTAGE.id} /> indicator to the time-line, to indicate when <SpellLink id={SPELLS.KILL_COMMAND_SV.id} /> resets.¬</React.Fragment>,
+    changes: <React.Fragment>Added a <SpellLink id={SPELLS.FLANKERS_ADVANTAGE.id} /> indicator to the time-line, to indicate when <SpellLink id={SPELLS.KILL_COMMAND_SV.id} /> resets.</React.Fragment>,
     contributors: [Putro],
   },
   {

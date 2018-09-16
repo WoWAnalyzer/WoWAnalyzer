@@ -4,19 +4,28 @@ import SPECS from 'game/SPECS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
-const CLASSES_NOT_BENEFITTING = [SPECS.FIRE_MAGE, SPECS.FROST_MAGE, SPECS.MARKSMANSHIP_HUNTER];
+const SPECS_NOT_BENEFITTING = [SPECS.FIRE_MAGE, SPECS.FROST_MAGE, SPECS.MARKSMANSHIP_HUNTER];
+
+const SPEC_WITH_LOWER_CAST_EFFICIENCY = [SPECS.SURVIVAL_HUNTER];
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
 
+  castEfficiency = 0;
+
   constructor(...args) {
     super(...args);
     const spec = this.selectedCombatant.spec;
     this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.BloodElf;
-    if (!this.active || CLASSES_NOT_BENEFITTING.includes(spec)) {
+    if (!this.active || SPECS_NOT_BENEFITTING.includes(spec)) {
       return;
+    }
+    if (SPEC_WITH_LOWER_CAST_EFFICIENCY.includes(spec)) {
+      this.castEfficiency = 0.5;
+    } else {
+      this.castEfficiency = 0.8;
     }
 
     this.abilities.add({
@@ -29,6 +38,7 @@ class ArcaneTorrent extends Analyzer {
       timelineSortIndex: 35,
       castEfficiency: {
         suggestion: true,
+        recommendedEfficiency: this.castEfficiency,
       },
     });
   }

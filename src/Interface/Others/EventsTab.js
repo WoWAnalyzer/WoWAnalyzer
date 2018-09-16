@@ -12,7 +12,7 @@ import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Info from 'common/Alert/Info';
+import Info from 'Interface/common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import 'react-virtualized/styles.css';

@@ -43,10 +43,7 @@ class Rejuvenation extends Analyzer {
    * The total healing attributable to Rejuvenation
    */
   get totalRejuvHealing() {
-    const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
-    const dreamwalkerHealing = this.healingDone.byAbility(SPELLS.DREAMWALKER.id).effective;
-
-    return rejuvTotals + dreamwalkerHealing;
+    return this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
   }
 
   /*

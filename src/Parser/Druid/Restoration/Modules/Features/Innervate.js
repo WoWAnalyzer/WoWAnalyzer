@@ -16,11 +16,10 @@ const LIFEBLOOM_BASE_MANA = 0.12;
 const SWIFTMEND_BASE_MANA = 0.14;
 const TRANQUILITY_BASE_MANA = 0.184;
 const REGROWTH_BASE_MANA = 0.14;
-const INFUSION_OF_NATURE_REDUCTION = 0.02;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
 const debug = false;
-
+// TODO - Refactor mana values to use the ones in SPELLS to avoid duplication of the same data so it's easier to maintain.
 class Innervate extends Analyzer {
   manaSaved = 0;
   wildGrowths = 0;
@@ -32,18 +31,12 @@ class Innervate extends Analyzer {
   swiftmends = 0;
   tranquilities = 0;
   freeRegrowths = 0;
-  infusionOfNatureTraits = 0;
   innervateApplyTimestamp = null;
   castsUnderInnervate = 0;
   innervateCount = 0;
   secondsManaCapped = 0;
   lastInnervateTimestamp = 0;
   depleted = false;
-
-  constructor(...args) {
-    super(...args);
-    this.infusionOfNatureTraits = this.selectedCombatant.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
-  }
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -114,9 +107,7 @@ class Innervate extends Analyzer {
   }
 
   addToManaSaved(spellBaseMana) {
-    if (spellBaseMana === WILD_GROWTH_BASE_MANA) {
-      this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - (this.infusionOfNatureTraits * INFUSION_OF_NATURE_REDUCTION)));
-    } else if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
+    if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - TOL_REJUVENATION_REDUCTION));
     } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
       this.freeRegrowths += 1;
