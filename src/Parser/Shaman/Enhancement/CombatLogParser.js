@@ -16,6 +16,7 @@ import FuryOfAir from './Modules/Talents/FuryOfAir';
 import ForcefulWinds from './Modules/Talents/ForcefulWinds';
 import Hailstorm from './Modules/Talents/Hailstorm';
 import Landslide from './Modules/Talents/Landslide';
+import SearingAssault from './Modules/Talents/SearingAssault';
 import Sundering from './Modules/Talents/Sundering';
 
 import StaticCharge from '../Shared/Talents/StaticCharge';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crashingStorm: CrashingStorm,
     forcefulWinds: ForcefulWinds,
     sundering: Sundering,
+    searingAssault: SearingAssault,
 
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,

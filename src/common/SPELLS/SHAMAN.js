@@ -585,6 +585,11 @@ export default {
     name: 'Forceful Winds Buff',
     icon: 'spell_shaman_unleashweapon_wind',
   },
+  SEARING_ASSAULT_DAMAGE: {
+    id: 268429,
+    name: 'Searing Assault Damage',
+    icon: 'ability_rhyolith_magmaflow_wave',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,

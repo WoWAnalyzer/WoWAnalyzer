@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 
 class SearingAssault extends Analyzer {
@@ -18,7 +18,7 @@ class SearingAssault extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if(event.ability.guid!==SPELLS.SEARING_ASSAULT_TALENT.id){
+    if(event.ability.guid!==SPELLS.SEARING_ASSAULT_DAMAGE.id){
       return;
     }
     this.damageGained += event.amount;
@@ -42,7 +42,6 @@ class SearingAssault extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default SearingAssault;
