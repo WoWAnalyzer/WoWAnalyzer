@@ -217,7 +217,7 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
@@ -296,6 +296,19 @@ class StatTracker extends Analyzer {
       itemId: 159625, // Vial of Animated Blood
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
+    267327: { // Harlans Loaded Dice
+      itemId: 155881, // Loaded Dice - Haste
+      haste: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
+    },
+    267325: { // Harlans Loaded Dice
+      itemId: 155881, // Loaded Dice - Mastery
+      mastery: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
+    },
+    267330: { // Harlans Loaded Dice
+      itemId: 155881, // Loaded Dice - Crit
+      crit: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
+    },
+
     // endregion
     // region World boss
     278227: { // Barkspines
