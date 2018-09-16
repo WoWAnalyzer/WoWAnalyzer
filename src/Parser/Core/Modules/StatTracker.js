@@ -219,7 +219,7 @@ class StatTracker extends Analyzer {
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
-    [SPELLS.METICULOUS_SCHEMING.id]: METICULOUS_SCHEMING_STATS, 
+    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
