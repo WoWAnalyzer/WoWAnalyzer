@@ -81,7 +81,7 @@ class UnleashLife extends Analyzer {
     } else if (SPELLS.RIPTIDE.id === spellId && event.tick && this.buffedRiptideTarget === event.targetID) {
       this.healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
     } else if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
-      this.healing += event.amount;
+      this.healing += event.amount + (event.absorbed || 0);
     }
   }
 

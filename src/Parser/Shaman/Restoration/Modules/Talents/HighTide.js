@@ -39,7 +39,7 @@ class HighTide extends Analyzer {
     const FACTOR_CONTRIBUTED_BY_HT_HIT = (1-(Math.pow(bounceReduction,this.chainHealBounce) / Math.pow(bounceReductionHighTide,this.chainHealBounce)));
 
     if(this.chainHealBounce === 4) {
-      this.healing += event.amount;
+      this.healing += event.amount + (event.absorbed || 0);
     } else {
       this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
     }

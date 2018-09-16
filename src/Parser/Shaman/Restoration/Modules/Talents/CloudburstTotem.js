@@ -40,7 +40,7 @@ class CloudburstTotem extends Analyzer {
       this.cbtActive = false;
     }
 
-    this.healing += event.amount;
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_cast(event) {

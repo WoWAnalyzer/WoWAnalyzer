@@ -33,7 +33,7 @@ class EarthShield extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.EARTH_SHIELD_HEAL.id) {
-      this.healing += event.amount;
+      this.healing += event.amount + (event.absorbed || 0);
       return;
     }
 
