@@ -46,7 +46,7 @@ class MeticulousScheming extends Analyzer {
   }
 
   on_byPlayer_refreshbuff(event) {
-    // this.handleBuff(event);
+    this.handleBuff(event);
   }
 
   handleBuff(event) {
