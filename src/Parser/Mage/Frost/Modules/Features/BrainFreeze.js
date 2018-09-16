@@ -11,7 +11,7 @@ const debug = false;
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
 
-// When Glacial Spike is talented, it's OK to overwrite Brain Freeze procs if you have at least this many icicles.
+// When Glacial Spike is talented, it's OK to overwrite Brain Freeze procs if you have at least this many icicles during the frost bolt cast
 const ICICLE_BREAKPOINT = 3;
 
 class BrainFreeze extends Analyzer {
@@ -22,58 +22,40 @@ class BrainFreeze extends Analyzer {
   expiredProcs = 0;
   totalProcs = 0;
   flurryWithoutProc = 0;
-  currentIcicleCount = 0;
 
-  handleIcicleStacks(event) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) {
-      event.stack = 0;
-    }
-    if (event.type === 'applybuff') {
-      event.stack = 1;
-    }
-    this.currentIcicleCount = event.stack;
+  constructor(...args) {
+    super(...args);
+    this.glacialSpikeTalented = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICICLES_BUFF.id) {
-      this.handleIcicleStacks(event);
-      return;
-    }
     if (spellId === SPELLS.BRAIN_FREEZE.id) {
       this.totalProcs += 1;
     }
   }
 
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ICICLES_BUFF.id) {
-      this.handleIcicleStacks(event);
-    }
-  }
-
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICICLES_BUFF.id) {
-      this.handleIcicleStacks(event);
-    }
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {
       return;
     }
     this.totalProcs += 1;
 
-    if (!this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
+    if (!this.glacialSpikeTalented) {
       this.overwrittenProcs += 1;
-      debug && console.log("Brain Freeze proc overwritten w/o GS @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && console.log("Brain Freeze proc overwritten w/o GS talented @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       return;
     }
 
-    if (this.currentIcicleCount < ICICLE_BREAKPOINT) {
+    // Get the number of icicles the player had during the cast of the frostbolt
+    const stacksDuringCast = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, this.owner.currentTimestamp - 250).stacks || 0;
+    if (stacksDuringCast < ICICLE_BREAKPOINT) {
       this.overwrittenProcs += 1;
-      debug && console.log("Brain Freeze proc overwritten w/ GS with too few icicles @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && console.log("Brain Freeze proc overwritten w/ GS talented with too few icicles @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else {
       this.okOverwrittenProcs += 1;
-      debug && console.log("Acceptable Brain Freeze proc overwritten w/ GS @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && console.log("Acceptable Brain Freeze proc overwritten w/ GS talented @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
   }
 
@@ -90,10 +72,6 @@ class BrainFreeze extends Analyzer {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICICLES_BUFF.id) {
-      this.handleIcicleStacks(event);
-      return;
-    }
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {
       return;
     }
@@ -120,6 +98,7 @@ class BrainFreeze extends Analyzer {
   }
 
   get usedProcs() {
+    // Even though okOverwrittenProcs do not count against the player, they are not used procs
     return this.totalProcs - this.wastedProcs - this.okOverwrittenProcs;
   }
 
@@ -139,13 +118,14 @@ class BrainFreeze extends Analyzer {
     };
   }
 
+  // Percentages lowered from .03, .08, .16; with the addition of the forgiveness window it is almost as bad as letting BF expire when you waste a proc
   get overwriteSuggestionThresholds() {
     return {
       actual: this.overwrittenPercent,
       isGreaterThan: {
         minor: 0.00,
-        average: 0.08,
-        major: 0.16,
+        average: 0.05,
+        major: 0.10,
       },
       style: 'percentage',
     };
@@ -181,8 +161,8 @@ class BrainFreeze extends Analyzer {
     when(this.overwriteSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         let suggestBuilder;
-        if (this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
-          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {ICICLE_BREAKPOINT} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</React.Fragment>);
+        if (this.glacialSpikeTalented) {
+          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {ICICLE_BREAKPOINT} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately after a frost bolt and follow up with an ice lance.</React.Fragment>);
         } else {
           suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</React.Fragment>);
         }
