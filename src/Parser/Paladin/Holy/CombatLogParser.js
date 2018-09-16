@@ -6,12 +6,15 @@ import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
 import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
+import BeaconTransferFactor from './Modules/Beacons/BeaconTransferFactor';
+import BeaconHealSource from './Modules/Beacons/BeaconHealSource';
+import BeaconHealingDone from './Modules/Beacons/BeaconHealingDone';
+import BeaconTargets from './Modules/Beacons/BeaconTargets';
+import MissingBeacons from './Modules/Beacons/MissingBeacons';
+import FailedBeaconTransfers from './Modules/Beacons/FailedBeaconTransfers';
+import DirectBeaconHealing from './Modules/Beacons/DirectBeaconHealing';
+
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconTransferFactor from './Modules/PaladinCore/BeaconTransferFactor';
-import BeaconHealSource from './Modules/PaladinCore/BeaconHealSource';
-import BeaconHealingDone from './Modules/PaladinCore/BeaconHealingDone';
-import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import DirectBeaconHealing from './Modules/PaladinCore/DirectBeaconHealing';
 import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
@@ -60,6 +63,8 @@ class CombatLogParser extends CoreCombatLogParser {
     beaconHealSource: BeaconHealSource,
     beaconHealingDone: BeaconHealingDone,
     beaconTargets: BeaconTargets,
+    missingBeacons: MissingBeacons,
+    failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
     castBehavior: CastBehavior,
     overhealing: Overhealing,

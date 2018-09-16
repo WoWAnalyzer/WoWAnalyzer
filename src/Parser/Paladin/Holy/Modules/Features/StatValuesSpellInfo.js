@@ -107,7 +107,7 @@ export default {
     vers: true,
   },
   [SPELLS.BEACON_OF_LIGHT_HEAL.id]: {
-    // This gets special treatment with the `on_beacon_heal` event
+    // This gets special treatment with the `on_beacontransfer` event
     ignored: true,
   },
   [SPELLS.LAY_ON_HANDS.id]: {

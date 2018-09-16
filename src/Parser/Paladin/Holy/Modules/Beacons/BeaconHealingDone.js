@@ -10,14 +10,14 @@ import BeaconHealingBreakdown from './BeaconHealingBreakdown';
 
 class BeaconHealingDone extends Analyzer {
   static dependencies = {
-    beaconHealSource: BeaconHealSource,
+    beaconHealSource: BeaconHealSource, // for the events
     healingDone: HealingDone,
   };
 
   _totalBeaconHealing = new HealingValue();
   _beaconHealingBySource = {};
 
-  on_beacon_heal(event) {
+  on_beacontransfer(event) {
     this._totalBeaconHealing = this._totalBeaconHealing.add(event.amount, event.absorbed, event.overheal);
 
     const source = event.originalHeal;

@@ -3,9 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import Abilities from '../Abilities';
@@ -76,7 +74,7 @@ class DirectBeaconHealing extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(50)}
-        icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
+        icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={`${formatPercentage(totalHealsOnBeaconPercentage)} %`}
         label="Direct beacon healing"
         tooltip={`The amount of heals cast on beacon targets. ${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}

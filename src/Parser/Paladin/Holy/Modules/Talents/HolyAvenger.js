@@ -3,11 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+
+import BeaconHealSource from '../Beacons/BeaconHealSource';
 
 const HOLY_AVENGER_HASTE_INCREASE = 0.3;
 const HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE = 0.3;
@@ -22,6 +22,10 @@ const HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE = 0.3;
  * This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
  */
 class HolyAvenger extends Analyzer {
+  static dependencies = {
+    beaconHealSource: BeaconHealSource, // for the events
+  };
+
   regularHealing = 0;
   holyShockHealing = 0;
 
@@ -41,7 +45,7 @@ class HolyAvenger extends Analyzer {
       }
     }
   }
-  on_beacon_heal(event) {
+  on_beacontransfer(event) {
     // The healing gain from the casting speed for beacon healing is already accounted for in `on_byPlayer_heal`, but the HS heal gain needs to be handled manually as it also affects the beacon transfer
     const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.HOLY_SHOCK_HEAL.id) {

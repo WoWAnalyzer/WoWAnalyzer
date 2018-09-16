@@ -18,8 +18,6 @@ class BeaconHealSource extends Analyzer {
   };
 
   healBacklog = [];
-  lostBeaconHealingLineOfSight = 0;
-  lostBeaconHealingMissingBeacons = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -36,9 +34,6 @@ class BeaconHealSource extends Analyzer {
     const beaconTargets = this.beaconTargets;
 
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
-    if (beaconTargets.numBeaconsActive < beaconTargets.numMaxBeacons) {
-      this.lostBeaconHealingMissingBeacons += this.beaconTransferFactor.getExpectedTransfer(event);
-    }
     // TODO: If numBeaconsActive < max add to lostBeaconHealing (better to track separately for showing both stats)
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
@@ -53,11 +48,6 @@ class BeaconHealSource extends Analyzer {
       });
     }
   }
-  on_finished() {
-    if (this.lostBeaconHealingLineOfSight > 0) {
-      console.log('Total beacon healing lost due to line of sight: up to', this.owner.formatItemHealingDone(this.lostBeaconHealingLineOfSight), '(raw)');
-    }
-  }
 
   processBeaconHealing(beaconTransferEvent) {
     if (debug) {
@@ -65,15 +55,19 @@ class BeaconHealSource extends Analyzer {
     }
     // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
     // Note: this is REQUIRED to account for line of sighting beacons. LoSed beacons don't transfer, without this filter heals would stay stuck in the queue indefinitely and appoint a lot of beacon healing to the wrong spells. Example log: https://www.warcraftlogs.com/reports/Mc1zG8rytgBHYj2X/#fight=5&source=6
-    // This may lead to an issue where sometimes the beacon replication of LoD self-heals can be delayed by a long time and don't properly assign source, but this should be much rarer. (see commit db5dd9a7b8eb3b935abd4d617b400c27abdd7b61)
+    // This may lead to an issue where sometimes the beacon replication of LoD self-heals can be delayed by a long time and don't properly assign source, but this should be much rarer. (see commit db5dd9a7b8eb3b935abd4d617b400c27abdd7b61) Account for this once we find a source to verify this.
     let removals = 0;
     this.healBacklog.forEach((healEvent, index) => {
       const age = this.owner.currentTimestamp - healEvent.timestamp;
       if (age > 500) {
-        this.error('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
+        this.warn('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
 
-        // Track the potential healing lost
-        this.lostBeaconHealingLineOfSight += this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
+        this.owner.fabricateEvent({
+          ...healEvent,
+          // Set the timestamp so we don't jump around in time (since healEvent's timestamp will be atleast 500ms in the past)
+          timestamp: beaconTransferEvent.timestamp,
+          type: 'beacontransferfailed',
+        });
 
         // Remove the heal from the backlog as it is not going to be relevant this late
         this.healBacklog.splice(index - removals, 1);
@@ -99,7 +93,7 @@ class BeaconHealSource extends Analyzer {
     // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
     this.owner.fabricateEvent({
       ...beaconTransferEvent,
-      type: 'beacon_heal',
+      type: 'beacontransfer',
       originalHeal: matchedHeal,
     }, beaconTransferEvent);
 

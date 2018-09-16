@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-16'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BEACON_OF_LIGHT_HEAL.id} /> healing lost from missing beacons as well as beacon line of sighting.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-09-15'),
     changes: <React.Fragment>Improved <SpellLink id={SPELLS.BEACON_OF_LIGHT_HEAL.id} /> transfer tracking accuracy when line of sighting beacon targets.</React.Fragment>,
     contributors: [Zerotorescue],

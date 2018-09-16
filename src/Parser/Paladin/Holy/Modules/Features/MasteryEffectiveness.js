@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import MasteryRadiusImage from 'Interface/Images/mastery-radius.png';
 import PlayerBreakdownTab from 'Interface/Others/PlayerBreakdownTab';
 
-import BeaconTargets from '../PaladinCore/BeaconTargets';
+import BeaconTargets from '../Beacons/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
