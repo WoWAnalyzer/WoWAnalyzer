@@ -116,6 +116,21 @@ export default {
     name: 'Laser Matrix',
     icon: 'spell_nature_groundingtotem',
   },
+  METICULOUS_SCHEMING: {
+    id: 273682,
+    name: 'Meticulous Scheming',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  METICULOUS_SCHEMING_BUFF: { // 8sec buff to trigger haste buff
+    id: 273685,
+    name: 'Meticulous Scheming',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SEIZE_THE_MOMENT: { // haste buff from Meticulous Scheming
+    id: 273714,
+    name: 'Seize the Moment!',
+    icon: 'achievement_bg_killflagcarriers_grabflag_capit',
+  },
   WOUNDBINDER: {
     id: 269085,
     name: 'Woundbinder',
