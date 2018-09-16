@@ -38,14 +38,16 @@ class BrainFreeze extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ICICLES_BUFF.id) {
       this.handleIcicleStacks(event);
-    } else if (spellId === SPELLS.BRAIN_FREEZE.id) {
+      return;
+    }
+    if (spellId === SPELLS.BRAIN_FREEZE.id) {
       this.totalProcs += 1;
     }
   }
 
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICICLES_BUFF.id) {
+    if (spellId !== SPELLS.ICICLES_BUFF.id) {
       this.handleIcicleStacks(event);
     }
   }
@@ -58,19 +60,21 @@ class BrainFreeze extends Analyzer {
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {
       return;
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
-      if (this.currentIcicleCount < ICICLE_BREAKPOINT) {
-        this.overwrittenProcs += 1;
-        debug && console.log("Brain Freeze proc overwritten w/ GS @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      } else {
-        this.okOverwrittenProcs += 1;
-      }
-    } else {
+    this.totalProcs += 1;
+
+    if (!this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
       this.overwrittenProcs += 1;
       debug && console.log("Brain Freeze proc overwritten w/o GS @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      return;
     }
 
-    this.totalProcs += 1;
+    if (this.currentIcicleCount < ICICLE_BREAKPOINT) {
+      this.overwrittenProcs += 1;
+      debug && console.log("Brain Freeze proc overwritten w/ GS with too few icicles @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    } else {
+      this.okOverwrittenProcs += 1;
+      debug && console.log("Acceptable Brain Freeze proc overwritten w/ GS @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    }
   }
 
   on_byPlayer_cast(event) {
@@ -88,15 +92,14 @@ class BrainFreeze extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ICICLES_BUFF.id) {
       this.handleIcicleStacks(event);
+      return;
     }
     if (spellId !== SPELLS.BRAIN_FREEZE.id) {
       return;
     }
     if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
-      if (debug) {
-        console.log("Brain Freeze proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      }
+      debug && console.log("Brain Freeze proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
   }
 
@@ -215,7 +218,7 @@ class BrainFreeze extends Analyzer {
         tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
 						<li>${this.usedProcs} used</li>
-						<li>${this.overwrittenProcs + this.okOverwrittenProcs} overwritten ${this.okOverwrittenProcs > 0 ? ('(' + this.okOverwrittenProcs + ' of which were acceptable holds for Glacial Spike)') : ''}</li>
+						<li>${this.overwrittenProcs + this.okOverwrittenProcs} overwritten${this.okOverwrittenProcs > 0 ? ` (${this.okOverwrittenProcs} of which were acceptable holds for Glacial Spike)` : ''}</li>
 						<li>${this.expiredProcs} expired</li>
 					</ul>
 				`}
