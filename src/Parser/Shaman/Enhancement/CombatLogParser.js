@@ -19,6 +19,7 @@ import Landslide from './Modules/Talents/Landslide';
 import Sundering from './Modules/Talents/Sundering';
 
 import StaticCharge from '../Shared/Talents/StaticCharge';
+import AnkhNormalizer from '../Shared/Normalizers/AnkhNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
+    ankhNormalizer: AnkhNormalizer,
   };
 
 

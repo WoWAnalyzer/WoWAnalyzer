@@ -116,6 +116,20 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
       },
       {
+        spell: SPELLS.HEALING_SURGE_ENHANCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.GHOST_WOLF,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.ASTRAL_SHIFT,
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
@@ -136,6 +150,20 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SUNDERING_TALENT.id),
+      },
+      {
+        spell: SPELLS.REINCARNATION,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.BLOODLUST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }
