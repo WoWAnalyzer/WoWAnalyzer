@@ -49,8 +49,10 @@ class BrainFreeze extends Analyzer {
     }
 
     // Get the number of icicles the player had during the cast of the frostbolt
-    const stacksDuringCast = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, this.owner.currentTimestamp - 250).stacks || 0;
-    if (stacksDuringCast < ICICLE_BREAKPOINT) {
+    // The icicle stack event is before the FB finish / brain freeze proc, so we subtract 1 to see what it was during the cast
+    const stacks = (this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id).stacks || 1) - 1;
+    
+    if (stacks < ICICLE_BREAKPOINT) {
       this.overwrittenProcs += 1;
       debug && console.log("Brain Freeze proc overwritten w/ GS talented with too few icicles @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else {
