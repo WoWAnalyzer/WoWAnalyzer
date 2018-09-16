@@ -131,4 +131,9 @@ export default {
     name: 'Seize the Moment!',
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
+  WOUNDBINDER: {
+    id: 269085,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
 };

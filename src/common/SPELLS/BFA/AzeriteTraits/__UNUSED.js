@@ -1079,11 +1079,6 @@ export default {
     name: 'Winter\'s Reach',
     icon: 'ability_warlock_burningembersblue',
   },
-  WOUNDBINDER: {
-    id: 270677,
-    name: 'Woundbinder',
-    icon: 'inv_misc_emberweavebandage',
-  },
   WRACKING_BRILLIANCE: {
     id: 272891,
     name: 'Wracking Brilliance',

@@ -224,6 +224,7 @@ class StatTracker extends Analyzer {
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
