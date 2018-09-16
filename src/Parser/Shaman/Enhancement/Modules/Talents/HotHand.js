@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const HOT_HANDS = {
+const HOT_HAND = {
   INCREASE: 1.0,
   COST_REDUCTION: SPELLS.LAVA_LASH.maelstrom,
 };
@@ -24,14 +24,14 @@ class HotHand extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND.id)) {
+    if(!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
       return;
     }
-    if (event.ability.guid!==SPELLS.LAVA_LASH){
+    if (event.ability.guid!==SPELLS.LAVA_LASH.id){
       return;
     }
-    this.damageGained += calculateEffectiveDamage(event, HOT_HANDS.INCREASE);
-    this.maelstromSaved += HOT_HANDS.COST_REDUCTION;
+    this.damageGained += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
+    this.maelstromSaved += HOT_HAND.COST_REDUCTION;
 
   }
 
@@ -46,7 +46,7 @@ class HotHand extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LANDSLIDE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.HOT_HAND_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}

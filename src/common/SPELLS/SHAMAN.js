@@ -590,6 +590,11 @@ export default {
     name: 'Searing Assault Damage',
     icon: 'ability_rhyolith_magmaflow_wave',
   },
+  HOT_HAND_BUFF: {
+    id: 215785,
+    name: 'Hot Hand Buff',
+    icon: 'spell_fire_playingwithfire',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,

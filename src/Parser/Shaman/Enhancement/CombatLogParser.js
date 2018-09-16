@@ -16,6 +16,7 @@ import EarthenSpike from './Modules/Talents/EarthenSpike';
 import FuryOfAir from './Modules/Talents/FuryOfAir';
 import ForcefulWinds from './Modules/Talents/ForcefulWinds';
 import Hailstorm from './Modules/Talents/Hailstorm';
+import HotHand from './Modules/Talents/HotHand';
 import Landslide from './Modules/Talents/Landslide';
 import SearingAssault from './Modules/Talents/SearingAssault';
 import Sundering from './Modules/Talents/Sundering';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     forcefulWinds: ForcefulWinds,
     furyOfAir: FuryOfAir,
     hailstorm: Hailstorm,
+    hotHand: HotHand,
     landslide: Landslide,
     searingAssault: SearingAssault,
     sundering: Sundering,
