@@ -8,6 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 
 const EARTHEN_SPIKE = {
@@ -15,6 +16,9 @@ const EARTHEN_SPIKE = {
 };
 
 class EarthenSpike extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
 
   damageGained=0;
 
@@ -30,8 +34,8 @@ class EarthenSpike extends Analyzer {
     }
     const enemy = this.enemies.getEntity(event);
     if(enemy && (enemy.hasBuff(SPELLS.EARTHEN_SPIKE_TALENT.id)) &&
-      (event.ability.type === MAGIC_SCHOOLS.ids.NATURE || event.ability.type === MAGIC_SCHOOLS.ids.NATURE){
-      this.damageGained += calculateEffectiveDamage(event, EARTHEN_SPIKE.INCREASE)
+      ((event.ability.type === MAGIC_SCHOOLS.ids.NATURE) || (event.ability.type === MAGIC_SCHOOLS.ids.NATURE))){
+      this.damageGained += calculateEffectiveDamage(event, EARTHEN_SPIKE.INCREASE);
     }
   }
 
@@ -46,7 +50,7 @@ class EarthenSpike extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LANDSLIDE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}

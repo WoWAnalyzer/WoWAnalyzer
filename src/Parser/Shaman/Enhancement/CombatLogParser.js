@@ -12,6 +12,7 @@ import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
 import Rockbiter from './Modules/ShamanCore/Rockbiter';
 
 import CrashingStorm from './Modules/Talents/CrashingStorm';
+import EarthenSpike from './Modules/Talents/EarthenSpike';
 import FuryOfAir from './Modules/Talents/FuryOfAir';
 import ForcefulWinds from './Modules/Talents/ForcefulWinds';
 import Hailstorm from './Modules/Talents/Hailstorm';
@@ -27,9 +28,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // ShamanCore
     damageDone: [DamageDone, { showStatistic: true }],
     flametongue: Flametongue,
-    landslide: Landslide,
-    hailstorm: Hailstorm,
-    furyOfAir: FuryOfAir,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
     // Features
@@ -39,9 +37,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     crashingStorm: CrashingStorm,
+    earthenSpike: EarthenSpike,
     forcefulWinds: ForcefulWinds,
-    sundering: Sundering,
+    furyOfAir: FuryOfAir,
+    hailstorm: Hailstorm,
+    landslide: Landslide,
     searingAssault: SearingAssault,
+    sundering: Sundering,
 
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
