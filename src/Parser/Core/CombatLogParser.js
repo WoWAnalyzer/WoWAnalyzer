@@ -79,6 +79,7 @@ import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
+import OverWhelmingPower from './Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
@@ -169,6 +170,7 @@ class CombatLogParser {
     // Azerite Traits
     gemhide: Gemhide,
     meticulousScheming: MeticulousScheming,
+    overwhelmingPower: OverWhelmingPower,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,

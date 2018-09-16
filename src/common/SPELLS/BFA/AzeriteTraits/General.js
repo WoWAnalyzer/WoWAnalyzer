@@ -131,4 +131,14 @@ export default {
     name: 'Seize the Moment!',
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
+  OVERWHELMING_POWER: {
+    id: 266180,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  OVERWHELMING_POWER_BUFF: {
+    id: 271711,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
 };
