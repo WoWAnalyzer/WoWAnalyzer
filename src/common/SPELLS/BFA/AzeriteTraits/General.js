@@ -116,4 +116,9 @@ export default {
     name: 'Laser Matrix',
     icon: 'spell_nature_groundingtotem',
   },
+  WOUNDBINDER: {
+    id: 269085,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
 };
