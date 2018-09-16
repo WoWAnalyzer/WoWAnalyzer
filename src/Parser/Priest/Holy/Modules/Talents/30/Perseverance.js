@@ -3,6 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+import SpellIcon from 'common/SpellIcon';
 
 class Perseverance extends Analyzer {
 
@@ -26,6 +29,21 @@ class Perseverance extends Analyzer {
       style: 'percentage',
     };
   }
+
+  statistic() {
+    return (
+
+      <StatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
+        icon={<SpellIcon id={SPELLS.PERSEVERANCE_TALENT.id} />}
+        value={"Value"}
+        label="Preserverance"
+        tooltip={``}
+      />
+
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Perseverance;

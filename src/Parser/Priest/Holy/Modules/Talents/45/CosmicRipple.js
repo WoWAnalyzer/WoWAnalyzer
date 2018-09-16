@@ -5,9 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatThousands } from 'common/format';
-import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
-import DualStatisticBox from 'Interface/Others/DualStatisticBox';
 
 class CosmicRipple extends Analyzer {
 
@@ -45,14 +43,14 @@ class CosmicRipple extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
         value={this.owner.formatItemHealingDone(this.totalHealing)}
-        label="Cosmic Ripple Healing"
-        tooltip={`<strong>Total Healing:</strong> ${formatThousands(this.totalHealing)}<br>
+        label="Cosmic Ripple"
+        tooltip={`<strong>Total Healing:</strong> ${formatThousands(this.totalHealing)}<br />
                   <strong>Total Overhealing:</strong> ${formatThousands(this.overhealing)}`}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default CosmicRipple;

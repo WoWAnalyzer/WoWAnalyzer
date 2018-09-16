@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 class EnduringRenewal extends Analyzer {
   _normalRenewDropoff = {};
@@ -72,6 +73,21 @@ class EnduringRenewal extends Analyzer {
       this._newRenewDropoff[event.targetID] = event.timestamp + this._baseRenewLength * 1000;
     }
   }
+
+  statistic() {
+    return (
+
+      <StatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
+        icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
+        value={"Value"}
+        label="Enduring Renewal"
+        tooltip={``}
+      />
+
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 
