@@ -18,7 +18,7 @@ class ConstructOvercharger extends Analyzer{
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.CONSTRUCT_OVERCHARGER.id);
     if(this.active){
-      this.statBuff = calculateSecondaryStatDefault(350, 21, this.selectedCombatant.getItem(ITEMS.CONSTRUCT_OVERCHARGER.id).itemLevel);
+      this.statBuff = calculateSecondaryStatDefault(355, 35, this.selectedCombatant.getItem(ITEMS.CONSTRUCT_OVERCHARGER.id).itemLevel);
     }
   }
 

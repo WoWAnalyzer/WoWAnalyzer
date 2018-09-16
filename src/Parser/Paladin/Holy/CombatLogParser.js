@@ -6,10 +6,15 @@ import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
 import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
+import BeaconTransferFactor from './Modules/Beacons/BeaconTransferFactor';
+import BeaconHealSource from './Modules/Beacons/BeaconHealSource';
+import BeaconHealingDone from './Modules/Beacons/BeaconHealingDone';
+import BeaconTargets from './Modules/Beacons/BeaconTargets';
+import MissingBeacons from './Modules/Beacons/MissingBeacons';
+import FailedBeaconTransfers from './Modules/Beacons/FailedBeaconTransfers';
+import DirectBeaconHealing from './Modules/Beacons/DirectBeaconHealing';
+
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
-import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
@@ -54,9 +59,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // PaladinCore
     healingDone: [HealingDone, { showStatistic: true }],
-    beaconHealOriginMatcher: BeaconHealOriginMatcher,
+    beaconTransferFactor: BeaconTransferFactor,
+    beaconHealSource: BeaconHealSource,
+    beaconHealingDone: BeaconHealingDone,
     beaconTargets: BeaconTargets,
-    beaconHealing: BeaconHealing,
+    missingBeacons: MissingBeacons,
+    failedBeaconTransfers: FailedBeaconTransfers,
+    directBeaconHealing: DirectBeaconHealing,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,

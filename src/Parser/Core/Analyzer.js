@@ -67,6 +67,9 @@ class Analyzer extends Module {
   debug(...args) {
     console.log(...this.consoleMeta, ...args);
   }
+  warn(...args) {
+    console.warn(...this.consoleMeta, ...args);
+  }
   error(...args) {
     console.error(...this.consoleMeta, ...args);
   }

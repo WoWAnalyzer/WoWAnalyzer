@@ -222,6 +222,7 @@ class StatTracker extends Analyzer {
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
@@ -246,9 +247,9 @@ class StatTracker extends Analyzer {
     [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
-    264878: { crit: 445 }, // Crow's Nest Scope
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets

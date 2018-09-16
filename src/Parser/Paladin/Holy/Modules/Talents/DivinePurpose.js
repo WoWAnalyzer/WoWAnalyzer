@@ -18,8 +18,7 @@ class DivinePurpose extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    this.active = hasDivinePurpose;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
   }
 
   on_toPlayer_applybuff(event) {
