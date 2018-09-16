@@ -5,8 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 class LightningShield extends Analyzer {
 
@@ -58,7 +57,6 @@ class LightningShield extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default LightningShield;

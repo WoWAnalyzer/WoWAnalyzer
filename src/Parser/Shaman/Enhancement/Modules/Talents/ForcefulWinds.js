@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 
@@ -52,7 +52,6 @@ class ForcefulWinds extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ForcefulWinds;

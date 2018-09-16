@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticBox from 'Interface/Others/StatisticBox';
 
 const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
@@ -68,7 +68,6 @@ class FuryOfAir extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default FuryOfAir;
