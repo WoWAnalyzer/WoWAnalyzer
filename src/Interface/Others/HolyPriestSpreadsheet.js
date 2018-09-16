@@ -39,6 +39,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const castEfficiency = (spellId) => {
       const efficiency = parser._modules.CastEfficiency.getCastEfficiencyForSpellId(spellId, true);
+
       if (!efficiency) {
         return 'N/A';
       }
@@ -184,7 +185,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.RENEW.id)}</td>
                 <td>{cpm(SPELLS.RENEW.id)}</td>
                 <td>{castEfficiency(SPELLS.RENEW.id)}</td>
-                <td>{targetsPerCast(SPELLS.RENEW.id)}</td>
+                <td>1</td>
               </tr>
               <tr>
                 <td>Prayer of Healing</td>
