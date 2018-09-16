@@ -19,7 +19,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(5);
 
-    const cpm = spellId => (getAbility(spellId).casts / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5);
+    const cpm = spellId => (getAbility(spellId).casts / (parser.fightDuration / 1000 / 60) || 0).toFixed(5);
 
     const targetsPerCast = (spellId, healId) => {
       const ability = getAbility(spellId);
@@ -39,6 +39,7 @@ class HolyPriestSpreadsheet extends React.Component {
 
     const castEfficiency = (spellId) => {
       const efficiency = parser._modules.CastEfficiency.getCastEfficiencyForSpellId(spellId, true);
+
       if (!efficiency) {
         return 'N/A';
       }
@@ -184,7 +185,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.RENEW.id)}</td>
                 <td>{cpm(SPELLS.RENEW.id)}</td>
                 <td>{castEfficiency(SPELLS.RENEW.id)}</td>
-                <td>{targetsPerCast(SPELLS.RENEW.id)}</td>
+                <td>1</td>
               </tr>
               <tr>
                 <td>Prayer of Healing</td>
@@ -214,7 +215,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>Holy Word: Sanctify</td>
                 <td>{rawHealing(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{overhealingSpell(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
-                <td>{(getAbility(SPELLS.HOLY_WORD_SANCTIFY.id).healingHits / Math.floor(parser.fightDuration / 1000 / 60) || 0).toFixed(5)}</td>
+                <td>{cpm(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{castEfficiency(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
                 <td>{targetsPerCast(SPELLS.HOLY_WORD_SANCTIFY.id)}</td>
               </tr>
@@ -242,7 +243,6 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{castEfficiency(SPELLS.DESPERATE_PRAYER.id)}</td>
                 <td>1</td>
               </tr>
-
               <tr>
                 <td>Cosmic Ripple</td>
                 <td>{rawHealing(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
