@@ -11,7 +11,7 @@ const debug = false;
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
 
-// When Glacial Spike is talented, it's OK to overwrite Brain Freeze procs if you have at least this many icicles during the frost bolt cast
+// When Glacial Spike is talented, it's OK to overwrite Brain Freeze procs if you have at least this many icicles *during* the frost bolt cast
 const ICICLE_BREAKPOINT = 3;
 
 class BrainFreeze extends Analyzer {
@@ -22,6 +22,9 @@ class BrainFreeze extends Analyzer {
   expiredProcs = 0;
   totalProcs = 0;
   flurryWithoutProc = 0;
+
+  // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
+  wasLastGeneratorEB = false;
 
   constructor(...args) {
     super(...args);
@@ -42,17 +45,17 @@ class BrainFreeze extends Analyzer {
     }
     this.totalProcs += 1;
 
-    if (!this.glacialSpikeTalented) {
+    if (!this.glacialSpikeTalented || this.wasLastGeneratorEB) {
       this.overwrittenProcs += 1;
-      debug && console.log("Brain Freeze proc overwritten w/o GS talented @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && console.log("Brain Freeze proc overwritten w/o GS talented or by EB @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       return;
     }
 
-    // Get the number of icicles the player had during the cast of the frostbolt
-    // The icicle stack event is before the FB finish / brain freeze proc, so we subtract 1 to see what it was during the cast
-    const stacks = (this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id).stacks || 1) - 1;
-    
-    if (stacks < ICICLE_BREAKPOINT) {
+    // Get the number of icicles the player had *after* the cast of the frostbolt
+    const stacks = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id).stacks || 0;
+
+    // The breakpoint is based on the number of icicles the player had *during* the cast of frostbolt, so increment by 1 to check against current icicles
+    if (stacks < ICICLE_BREAKPOINT + 1) {
       this.overwrittenProcs += 1;
       debug && console.log("Brain Freeze proc overwritten w/ GS talented with too few icicles @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else {
@@ -63,6 +66,10 @@ class BrainFreeze extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    if(spellId === SPELLS.FROSTBOLT.id || spellId === SPELLS.EBONBOLT_TALENT.id) {
+      this.wasLastGeneratorEB = spellId === SPELLS.EBONBOLT_TALENT.id;
+      return;
+    }
     if (spellId !== SPELLS.FLURRY.id) {
       return;
     }
