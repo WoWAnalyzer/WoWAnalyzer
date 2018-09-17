@@ -39,7 +39,6 @@ class Checklist extends Analyzer {
           agony: this.agonyUptime.suggestionThresholds,
           corruption: this.corruptionUptime.suggestionThresholds,
           siphonLife: this.siphonLifeUptime.suggestionThresholds,
-          //unstableAffliction: this.unstableAfflictionUptime.suggestionThresholds,
           soulShards: this.soulShardDetails.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
         }}

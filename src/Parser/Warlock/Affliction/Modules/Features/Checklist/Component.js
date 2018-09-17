@@ -51,7 +51,6 @@ class AfflictionWarlockChecklist extends React.PureComponent {
           <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
           <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
           {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
-          {/*<DotUptime id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} thresholds={thresholds.unstableAffliction} />*/}
         </Rule>
         <Rule
           name="Don't cap your Soul Shards"
