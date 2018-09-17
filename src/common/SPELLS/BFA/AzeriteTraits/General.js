@@ -111,4 +111,29 @@ export default {
     name: 'Savior',
     icon: 'achievement_guildperk_everyones-a-hero',
   },
+  LASER_MATRIX: {
+    id: 280559,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_HEAL: {
+    id: 280707,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_DAMAGE: {
+    id: 280705,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  ARCHIVE_OF_THE_TITANS: {
+    id: 280555,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
+  REORIGINATION_ARRAY: {
+    id: 280573,
+    name: 'Reorigination Array',
+    icon: 'inv_trinket_80_titan02c',
+  },
 };
