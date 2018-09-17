@@ -124,13 +124,13 @@ export const DRUID_HEAL_INFO = {
     vers: true,
   },
   [SPELLS.TRANQUILITY_HEAL.id]: {
-    ignored: true, // Dreamgrove theorycrafters say should be ignored because it always overheals, could unfairly skew weights against Haste if included. I'd like a better solution, but this will do for now.
+    ignored: false, // Have to enable this again because of the changes to Tranq including a HoT part.
     int: true,
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: true,
-    masteryStack: false,
+    masteryStack: true,
     vers: true,
   },
   [SPELLS.EFFLORESCENCE_HEAL.id]: {
