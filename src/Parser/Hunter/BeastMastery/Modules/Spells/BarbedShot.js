@@ -151,7 +151,6 @@ class BarbedShot extends Analyzer {
   }
 
   statistic() {
-
     return (
       <ExpandableStatisticBox
         position={STATISTIC_ORDER.CORE(17)}
@@ -186,7 +185,6 @@ class BarbedShot extends Analyzer {
           </tbody>
         </table>
       </ExpandableStatisticBox>
-
     );
   }
 

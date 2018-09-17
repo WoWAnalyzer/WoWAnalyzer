@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-13'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.ELUSIVE_FOOTWORK.id} />.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-08-11'),
     changes: <React.Fragment>Added support for <SpellLink id={SPELLS.STAGGERING_STRIKES.id} />.</React.Fragment>,
     contributors: [emallson],

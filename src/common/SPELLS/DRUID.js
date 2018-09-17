@@ -306,16 +306,6 @@ export default {
     name: 'Mark of Shifting',
     icon: 'spell_druid_tirelesspursuit',
   },
-  POWER_OF_THE_ARCHDRUID_BUFF: {
-    id: 189877,
-    name: 'Power of the Archdruid',
-    icon: 'spell_druid_rampantgrowth',
-  },
-  DREAMWALKER: {
-    id: 189853,
-    name: 'Dreamwalker',
-    icon: 'ability_druid_healinginstincts',
-  },
   NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
     id: 189800,
     name: 'Nature\'s Essence',
@@ -341,139 +331,18 @@ export default {
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
-  RESTO_DRUID_T19_2SET_BONUS_BUFF: {
-    id: 211165,
-    name: 'T19 2 set bonus',
-    icon: 'talentspec_druid_restoration',
-  },
-  RESTO_DRUID_T19_4SET_BONUS_BUFF: {
-    id: 211170,
-    name: 'T19 4 set bonus',
-    icon: 'talentspec_druid_restoration',
-  },
-  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242238,
-    name: 'T20 2 set bonus',
-    icon: 'inv_relics_idolofrejuvenation',
-  },
-  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242313,
-    name: 'T20 4 set bonus',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  RESTO_DRUID_T21_2SET_BONUS_BUFF: {
-    id: 251813,
-    name: 'T21 2 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  RESTO_DRUID_T21_4SET_BONUS_BUFF: {
-    id: 251814,
-    name: 'T21 4 set bonus',
-    icon: 'ability_druid_cower',
-  },
   // Visible procs produced by set/item:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
     icon: 'talentspec_druid_restoration',
   },
-  BLOSSOMING_EFFLORESCENCE: { // 4pc T20
-    id: 242315,
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  DREAMER: { // 2pc T21
-    id: 253432,
-    name: 'Dreamer',
-    icon: 'ability_druid_cower',
-  },
-  AWAKENED: { // 4pc T21
-    id: 253434,
-    name: 'Awakened',
-    icon: 'ability_druid_cower',
-  },
-  XONIS_CARESS: {
-    id: 235040,
-    name: "X'oni's Caress",
-    icon: 'spell_druid_ironbark',
-  },
-  //Guardian Druid T19 2set
-  GUARDIAN_DRUID_T19_2SET_BONUS_BUFF: {
-    id: 211149,
-    name: 'T19 2 set bonus',
-    icon: 'trade_engineering',
-  },
 
   // Traits:
-  POWER_OF_THE_ARCHDRUID: {
-    id: 189870,
-    name: 'Power of the Archdruid',
-    icon: 'spell_druid_rampantgrowth',
-  },
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
     name: 'Nature\'s Essence',
     icon: 'ability_druid_flourish',
-  },
-  DREAMWALKER_TRAIT: {
-    id: 189849,
-    name: 'Dreamwalker',
-    icon: 'ability_druid_healinginstincts',
-  },
-  PERSISTENCE_TRAIT: {
-    id: 186396,
-    name: 'Persistence',
-    icon: 'spell_nature_starfall',
-  },
-  GROVEWALKER: {
-    id: 186320,
-    name: 'Grovewalker',
-    icon: 'spell_nature_healingtouch',
-  },
-  NATURAL_MENDING: {
-    id: 189749,
-    name: 'Natural Mending',
-    icon: 'inv_relics_idolofrejuvenation',
-  },
-  ESSENCE_OF_NORDRASSIL: {
-    id: 189760,
-    name: 'Essence of Norddrassil',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  BLESSING_OF_THE_WORLD_TREE: {
-    id: 189744,
-    name: 'Blessing of the World Tree',
-    icon: 'ability_druid_naturalperfection',
-  },
-  ETERNAL_RESTORATION: {
-    id: 238050,
-    name: 'Eternal Restoration',
-    icon: 'inv_staff_2h_artifactnordrassil_d_01',
-  },
-  SEEDS_OF_THE_WORLD_TREE: {
-    id: 189768,
-    name: 'Seeds of the World Tree',
-    icon: 'ability_druid_giftoftheearthmother',
-  },
-  INFUSION_OF_NATURE: {
-    id: 189757,
-    name: 'Infusion of Nature',
-    icon: 'ability_druid_flourish',
-  },
-  KNOWLEDGE_OF_THE_ANCIENTS: {
-    id: 189772,
-    name: 'Knowledge of the Ancients',
-    icon: 'ability_druid_manatree',
-  },
-  ARMOR_OF_THE_ANCIENTS: {
-    id: 189754,
-    name: 'Armor of the Ancients',
-    icon: 'spell_druid_ironbark',
-  },
-  DEEP_ROOTED_TRAIT: {
-    id: 238122,
-    name: 'Deep Rooted',
-    icon: 'inv_misc_herb_liferoot_stem',
   },
 
   // GUARDIAN //

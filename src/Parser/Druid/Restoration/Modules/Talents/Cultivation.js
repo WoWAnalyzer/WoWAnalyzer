@@ -35,9 +35,9 @@ class Cultivation extends Analyzer {
     return {
       actual: this.totalPercent,
       isLessThan: {
-        minor: 0.08,
-        average: 0.06,
-        major: 0.04,
+        minor: 0.06,
+        average: 0.045,
+        major: 0.03,
       },
       style: 'percentage',
     };

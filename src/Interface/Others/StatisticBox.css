@@ -11,11 +11,12 @@
 .panel.statistic-box .value {
   font-size: 1.8em;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .panel.statistic-box .slabel {
   margin-top: -0.3em;
-  color: #bbb;
+  color: #c3c3c3;
+  font-weight: 400;
 }
 .panel.statistic-box > .panel-body > div:first-child img {
   height: 4.3em;

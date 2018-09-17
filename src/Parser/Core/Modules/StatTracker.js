@@ -6,6 +6,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
@@ -218,10 +219,12 @@ class StatTracker extends Analyzer {
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
+    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
@@ -246,9 +249,9 @@ class StatTracker extends Analyzer {
     [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
-    264878: { crit: 445 }, // Crow's Nest Scope
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets

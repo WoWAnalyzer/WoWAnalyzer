@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 
 const HEAL_WINDOW_MS = 500;
 const RECOMMENDED_HIT_THRESHOLD = 3;
-
+//TODO - blazyb refactor this class to not account for Nature's essence
 class NaturesEssence extends Analyzer {
   casts = 0;
   castsWithTargetsHit = []; // index is number of targets hit, value is number of casts that hit that many targets

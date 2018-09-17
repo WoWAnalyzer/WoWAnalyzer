@@ -142,24 +142,6 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.DREAMWALKER.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true, // an approximation, because this scales with number of rejuvs out
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
-  [SPELLS.NATURES_ESSENCE_DRUID.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
   [SPELLS.YSERAS_GIFT_OTHERS.id]: { // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
@@ -196,15 +178,6 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.DREAMER.id]: { // T21 2pc TODO double check this once its live
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: false,
-    mastery: true,
-    masteryStack: true,
-    vers: true,
-  },
   [SPELLS.AUTUMN_LEAVES.id]: {
     int: true,
     crit: true,
@@ -223,7 +196,7 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-
+  // TODO - blazyb add all bfa specific spells of interest
 };
 
 export const getSpellInfo = id => {

@@ -14,6 +14,16 @@ export default [
     contributors: [blazyb],
   },
   {
+    date: new Date('2018-09-16'),
+    changes: <React.Fragment>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-09-12'),
+    changes: 'Added support for item Seabreeze',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-10'),
     changes: 'Added the engineering weapon enchants to the EnchantChecker and mark them as valid weapon enchants.',
     contributors: [Putro],

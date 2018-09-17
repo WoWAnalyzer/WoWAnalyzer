@@ -11,14 +11,12 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.CENARION_WARD_HEAL.id,
   SPELLS.LIFEBLOOM_HOT_HEAL.id,
   SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
-  SPELLS.DREAMWALKER.id,
   SPELLS.SWIFTMEND.id,
-  SPELLS.NATURES_ESSENCE_DRUID.id,
   SPELLS.RENEWAL_TALENT.id,
   SPELLS.SPRING_BLOSSOMS.id,
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH.id,
-  SPELLS.DREAMER.id,
+  //TODO - blazyb
 ];
 
 export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
@@ -30,5 +28,5 @@ export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.LIFEBLOOM_HOT_HEAL.id,
   // Make sure to check that event.tick is true, because regrowth uses the same id for the heal and the HoT part
   SPELLS.REGROWTH.id,
-  SPELLS.DREAMER.id,
+  //TODO - blazyb
 ];

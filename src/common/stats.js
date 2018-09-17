@@ -51,13 +51,14 @@ const AZ_SCALE_FUNCTIONS = {
 // azerite trait. Note that *effects that do not scale are not present!*
 //
 // Effects will always be returned in ascending order of effect ID.
-export function calculateAzeriteEffects(spellId, rank) {
+export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
   const spell = AZERITE_SCALING[spellId];
+  const scalingType = scalingTypeOverride ? scalingTypeOverride : spell.scaling_type;
 
-  if(AZ_SCALE_FUNCTIONS[spell.scaling_type] === undefined) {
-    throw Error(`Unknown scaling type: ${spell.scaling_type}`);
+  if(AZ_SCALE_FUNCTIONS[scalingType] === undefined) {
+    throw Error(`Unknown scaling type: ${scalingType}`);
   }
-  const budget = AZ_SCALE_FUNCTIONS[spell.scaling_type](rank);
+  const budget = AZ_SCALE_FUNCTIONS[scalingType](rank);
 
   return spell.effect_list.map(id => spell.effects[id])
     .filter(({avg}) => avg > 0)

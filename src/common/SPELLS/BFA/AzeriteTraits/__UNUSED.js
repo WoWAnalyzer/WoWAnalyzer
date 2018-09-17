@@ -589,11 +589,6 @@ export default {
     name: 'Meteoric Flare',
     icon: 'ability_warlock_handofguldan',
   },
-  METICULOUS_SCHEMING: {
-    id: 273682,
-    name: 'Meticulous Scheming',
-    icon: 'ability_rogue_masterofsubtlety',
-  },
   MISTY_PEAKS: {
     id: 275975,
     name: 'Misty Peaks',
@@ -1083,11 +1078,6 @@ export default {
     id: 273346,
     name: 'Winter\'s Reach',
     icon: 'ability_warlock_burningembersblue',
-  },
-  WOUNDBINDER: {
-    id: 270677,
-    name: 'Woundbinder',
-    icon: 'inv_misc_emberweavebandage',
   },
   WRACKING_BRILLIANCE: {
     id: 272891,

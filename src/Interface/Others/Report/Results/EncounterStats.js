@@ -73,13 +73,17 @@ class EncounterStats extends React.PureComponent {
         break;
     }
 
+    const now = new Date();
+    const onejan = new Date(now.getFullYear(), 0, 1);
+    const currentWeek = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 ); // current calendar-week
+
     return fetchWcl(`rankings/encounter/${this.props.currentBoss}`, {
       class: SPECS[this.props.spec].ranking.class,
       spec: SPECS[this.props.spec].ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT,
       metric: this.metric,
-      cache: new Date().getUTCMonth(), // cache for a month
+      cache: currentWeek, // cache for a week
     }).then((stats) => {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];

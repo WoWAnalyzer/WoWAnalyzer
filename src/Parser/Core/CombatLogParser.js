@@ -72,11 +72,14 @@ import LingeringSporepods from './Modules/Items/BFA/Dungeons/LingeringSporepods'
 import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfIntertwinedEssence';
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
+import Seabreeze from './Modules/Items/BFA/Dungeons/Seabreeze';
+
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import LaserMatrix from './Modules/Spells/BFA/AzeriteTraits/LaserMatrix';
+import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
@@ -161,11 +164,13 @@ class CombatLogParser {
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
     conchofDarkWhispers: ConchofDarkWhispers,
+    seabreeze: Seabreeze,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     // Azerite Traits
     gemhide: Gemhide,
     laserMatrix: LaserMatrix,
+    meticulousScheming: MeticulousScheming,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
@@ -368,9 +373,11 @@ class CombatLogParser {
       }
     }
 
-    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only takes about 12ms for a full log.
+    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
 
-    this._timestamp = event.timestamp;
+    if (event.timestamp) {
+      this._timestamp = event.timestamp;
+    }
     this._event = event;
 
     const isByPlayer = this.byPlayer(event);
@@ -398,6 +405,7 @@ class CombatLogParser {
           throw err;
         }
         options.module.active = false;
+        // TODO: Disable modules that depend on this module
         console.error('Disabling', module.constructor.name, 'because an error occured', err);
         captureException(err);
       }

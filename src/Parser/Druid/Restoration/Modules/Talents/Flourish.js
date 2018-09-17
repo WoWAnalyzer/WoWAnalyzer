@@ -17,6 +17,7 @@ const debug = false;
 const FLOURISH_EXTENSION = 8000;
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
+// TODO - blazyb add Tranq HoT
 class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTracker,
@@ -35,7 +36,6 @@ class Flourish extends Analyzer {
   lbCount = 0;
   regrowthCount = 0;
   sbCount = 0;
-  dreamerCount = 0;
   cultCount = 0;
 
   // Counters for increased ticking rate of hots
@@ -47,7 +47,6 @@ class Flourish extends Analyzer {
   increasedRateCultivationHealing = 0;
   increasedRateLifebloomHealing = 0;
   increasedRateRegrowthHealing = 0;
-  increasedRateDreamerHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -84,9 +83,6 @@ class Flourish extends Analyzer {
             this.increasedRateRegrowthHealing += amount / 2;
           }
           break;
-        case SPELLS.DREAMER.id:
-          this.increasedRateDreamerHealing += amount / 2;
-          break;
         default:
           console.error('EssenceOfGhanir: Error, could not identify this object as a HoT: %o', event);
       }
@@ -111,7 +107,6 @@ class Flourish extends Analyzer {
       name: `Flourish #${this.flourishCount}`,
       healing: 0,
       masteryHealing: 0,
-      dreamwalkerHealing: 0,
       procs: 0,
       duration: 0,
     };
@@ -140,8 +135,6 @@ class Flourish extends Analyzer {
           this.lbCount += 1;
         } else if (spellId === SPELLS.SPRING_BLOSSOMS.id) {
           this.sbCount += 1;
-        } else if (spellId === SPELLS.DREAMER.id) {
-          this.dreamerCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
         }
@@ -157,7 +150,7 @@ class Flourish extends Analyzer {
   }
 
   get totalExtensionHealing() {
-    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing, 0);
+    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing, 0);
   }
 
   get averageHealing() {
@@ -245,8 +238,6 @@ class Flourish extends Analyzer {
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>`}
               ${this.cultivation === 0 ? '' :
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
-              ${this.dreamer === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateDreamerHealing))}% from Dreamer (T21 2pc)</li>`}
           </ul>
 
           The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
@@ -273,10 +264,6 @@ class Flourish extends Analyzer {
               ? `<li>${this.sbCount} Spring Blossoms</li>`
               : ``
             }
-            ${this.dreamerCount > 0
-              ? `<li>${this.dreamerCount} Dreamers (T21)</li>`
-              : ``
-            }
             ${this.cultCount > 0
               ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>`
               : ``
@@ -300,7 +287,7 @@ class Flourish extends Analyzer {
                 <tr key={index}>
                   <th scope="row">{ index + 1 }</th>
                   <td>{ flourish.procs }</td>
-                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing) }</td>
+                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing) }</td>
                 </tr>
               ))
             }

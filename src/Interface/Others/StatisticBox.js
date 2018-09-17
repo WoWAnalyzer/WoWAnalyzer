@@ -18,11 +18,11 @@ const StatisticBox = ({ icon, value, tooltip, label, footer, footerStyle, contai
             {icon}
           </div>
           <div className="flex-main" style={{ position: 'relative' }}>
-            <div className="value">
-              {value}
-            </div>
             <div className="slabel">
-              {tooltip ? <dfn data-tip={tooltip}>{label}</dfn> : label}
+              {label}
+            </div>
+            <div className="value">
+              {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
             </div>
 
             {warcraftLogs && (

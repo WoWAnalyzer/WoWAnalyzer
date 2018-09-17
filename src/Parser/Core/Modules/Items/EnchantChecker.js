@@ -35,10 +35,6 @@ class EnchantChecker extends Analyzer {
     3370, // Rune of Razorice - Death Knight Only
     3847, // Rune of the Stoneskin Gargoyle - Death Knight Only
 
-    5938, // Seal of Critical Strike
-    5939, // Seal of Haste
-    5940, // Seal of Mastery
-    5941, // Seal of Versatility
     5942, // Pact of Critical Strike
     5943, // Pact of Haste
     5944, // Pact of Mastery

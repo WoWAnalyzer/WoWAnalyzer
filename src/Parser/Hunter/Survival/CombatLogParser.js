@@ -27,8 +27,7 @@ import Trailblazer from '../Shared/Modules/Talents/Trailblazer';
 import NaturalMending from '../Shared/Modules/Talents/NaturalMending';
 import AMurderOfCrows from '../Shared/Modules/Talents/AMurderOfCrows';
 import VipersVenom from './Modules/Talents/VipersVenom';
-import FiveStackBites from './Modules/Talents/MongooseBite/FiveStackBites';
-import FiveBiteWindows from './Modules/Talents/MongooseBite/FiveBiteWindows';
+import MongooseBite from './Modules/Talents/MongooseBite';
 import SteelTrap from './Modules/Talents/SteelTrap';
 import Chakrams from './Modules/Talents/Chakrams';
 
@@ -66,8 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     aMurderOfCrows: AMurderOfCrows,
     vipersVenom: VipersVenom,
-    fiveStackBites: FiveStackBites,
-    fiveBiteWindows: FiveBiteWindows,
+    mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
     chakrams: Chakrams,
 

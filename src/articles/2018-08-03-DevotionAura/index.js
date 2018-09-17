@@ -4,7 +4,7 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import RegularArticle from 'Interface/News/RegularArticle';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Warning from 'common/Alert/Warning';
+import Warning from 'Interface/common/Alert/Warning';
 
 import EqualShare from './EqualShare.png';
 import FairShare from './FairShare.png';

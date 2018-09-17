@@ -4,6 +4,11 @@ import { niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-13'),
+    changes: 'Adding Holy Priest Azerite traits.',
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2018-09-07'),
     changes: 'Creating Holy Priest spreadsheet export.',
     contributors: [Khadaj],
