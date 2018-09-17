@@ -10,7 +10,7 @@ import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
 import PreparationRule from 'Parser/Core/Modules/Features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'Parser/Core/Modules/Features/Checklist2/GenericCastEfficiencyRequirement';
 
-class AfflictionWarlockChecklist extends React.PureComponent {
+class DemonologyWarlockChecklist extends React.PureComponent {
   static propTypes = {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
@@ -101,4 +101,4 @@ class AfflictionWarlockChecklist extends React.PureComponent {
   }
 }
 
-export default AfflictionWarlockChecklist;
+export default DemonologyWarlockChecklist;
