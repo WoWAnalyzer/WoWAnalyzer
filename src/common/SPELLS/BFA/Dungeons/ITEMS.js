@@ -71,6 +71,38 @@ export default {
     icon: 'inv_staff_26',
   },
 
+  //Freehold
+  LOADED_DIE_CRITICAL_STRIKE_SMALL: {
+    id: 267330,
+    name: 'Loaded Die - Critical Strike',
+    icon: 'ability_rogue_rollthebones03',
+  },
+  LOADED_DIE_CRITICAL_STRIKE_BIG: {
+    id: 267331,
+    name: 'Loaded Die - Critical Strike',
+    icon: 'ability_rogue_rollthebones03',
+  },
+  LOADED_DIE_HASTE_SMALL: {
+    id: 267327,
+    name: 'Loaded Die - Haste',
+    icon: 'ability_rogue_rollthebones04',
+  },
+  LOADED_DIE_HASTE_BIG: {
+    id: 267329,
+    name: 'Loaded Die - Haste',
+    icon: 'ability_rogue_rollthebones04',
+  },
+  LOADED_DIE_MASTERY_SMALL: {
+    id: 267325,
+    name: 'Loaded Die - Mastery',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  LOADED_DIE_MASTERY_BIG: {
+    id: 267326,
+    name: 'Loaded Die - Mastery',
+    icon: 'ability_rogue_rollthebones02',
+  },
+
   // Quests.............. upscaled in beta
   DIEMETRADON_FRENZY: {
     id: 268619,

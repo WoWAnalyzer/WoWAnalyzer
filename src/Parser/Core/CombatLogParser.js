@@ -74,6 +74,7 @@ import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
 import Seabreeze from './Modules/Items/BFA/Dungeons/Seabreeze';
 import GalecallersBoon from './Modules/Items/BFA/Dungeons/GalecallersBoon';
+import HarlansLoadedDice from './Modules/Items/BFA/Dungeons/HarlansLoadedDice';
 //Enchants
 
 // Crafted
@@ -167,6 +168,7 @@ class CombatLogParser {
     conchofDarkWhispers: ConchofDarkWhispers,
     seabreeze: Seabreeze,
     galecallersBoon: GalecallersBoon,
+    harlansLoadedDice: HarlansLoadedDice,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     // Enchants
