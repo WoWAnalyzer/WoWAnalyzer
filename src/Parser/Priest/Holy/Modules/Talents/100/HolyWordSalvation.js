@@ -67,9 +67,9 @@ class HolyWordSalvation extends Analyzer {
         )}
         label="Holy Word: Salvation"
         tooltip={`
-          Healing from (~${this.salvTicks}) Salv: ${formatThousands(this.healingFromSalv)}<br />
-          Healing from (~${this.renewCount}) Renews: ${formatThousands(this.healingFromRenew)}<br />
-          Healing from (~${this.pomCount}) PoMs: ${formatThousands(this.healingFromPom)}
+          Healing from Salv: ${formatThousands(this.healingFromSalv)}<br />
+          Healing from Renews: ${formatThousands(this.healingFromRenew)}<br />
+          Healing from PoMs: ${formatThousands(this.healingFromPom)}
         `}
       />
 
