@@ -16,10 +16,7 @@ class PrayerOfMending extends Analyzer {
     if (this.salvCasts === 0) {
       return 0;
     }
-
-    console.log(this.pomCasts, this.pomHealTicks, this.pomBuffCount, this.pomRemovalCount);
     const estSalvPoms = this.pomBuffCount - this.pomTicksFromCast - (this.prepullPomBuffs * 10);
-
     return estSalvPoms;
   }
 
