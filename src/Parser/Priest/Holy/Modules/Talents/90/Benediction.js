@@ -1,11 +1,26 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import Renew from 'Parser/Priest/Holy/Modules/Spells/Renew';
 
 class Benediction extends Analyzer {
+  static dependencies = {
+    renew: Renew,
+  };
+
+  get renewsFromBenediction() {
+    return this.renew.renewsFromBenediction;
+  }
+
+  get healingFromBenedictionRenews() {
+    const healing = this.renew.healingFromRenew(this.renew.renewsFromBenediction);
+    return healing;
+  }
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id);
@@ -14,12 +29,16 @@ class Benediction extends Analyzer {
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.BENEDICTION_TALENT.id} />}
-        value={"Value"}
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.healingFromBenedictionRenews} />
+          </React.Fragment>
+        )}
         label="Benediction"
-        tooltip={``}
+        tooltip={`${this.renewsFromBenediction} total Renews from Benediction`}
       />
 
     );
