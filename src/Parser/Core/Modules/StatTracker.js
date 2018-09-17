@@ -113,6 +113,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.HORN_OF_VALOR.id,
       haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
+    [SPELLS.GALECALLERS_BOON_BUFF]: {
+      itemId: ITEMS.GALECALLERS_BOON.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+    },
 
     // BFA quests
     [SPELLS.DIEMETRADON_FRENZY.id]: {
@@ -218,8 +222,8 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
-    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS, 
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
+    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
@@ -251,6 +255,8 @@ class StatTracker extends Analyzer {
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
     264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 

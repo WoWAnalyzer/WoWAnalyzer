@@ -48,6 +48,16 @@ export default {
     name: 'Seabreeze',
     icon: 'inv_staff_2h_battledungeon_c_02',
   },
+  GALECALLERS_BOON_CAST: {
+    id: 268314,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+  },
+  GALECALLERS_BOON_BUFF: {
+    id: 268311,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+  },
 
   // Waycrest Manor
   KINDLED_SOUL: { // buff from trinket Balefire Branch
