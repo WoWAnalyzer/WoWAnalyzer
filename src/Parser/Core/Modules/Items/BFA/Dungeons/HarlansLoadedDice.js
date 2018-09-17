@@ -13,7 +13,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
  * Example: https://www.warcraftlogs.com/reports/LR2jNyrk3GmPXgZ9#fight=4&type=auras&source=5
 
  */
-class GalecallersBoon extends Analyzer {
+class HarlansLoadedDice extends Analyzer {
   smallBuffValue = 0;
   bigBuffValue = 0;
 
@@ -81,4 +81,4 @@ class GalecallersBoon extends Analyzer {
   }
 }
 
-export default GalecallersBoon;
+export default HarlansLoadedDice;
