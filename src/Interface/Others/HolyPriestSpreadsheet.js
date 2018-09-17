@@ -251,6 +251,14 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>Tier 100 Talent</td>
                 <td>{getChosenTalent(100)}</td>
               </tr>
+              <tr>
+                <td>Total Raw Healing</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneToSelf}</td>
+              </tr>
+              <tr>
+                <td>Total Raw Self Healing</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneTotal}</td>
+              </tr>
 
             </tbody>
           </table>
