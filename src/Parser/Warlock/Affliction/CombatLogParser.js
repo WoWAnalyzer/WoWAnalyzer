@@ -29,7 +29,7 @@ import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
