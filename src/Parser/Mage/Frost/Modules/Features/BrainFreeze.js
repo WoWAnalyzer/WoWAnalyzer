@@ -171,7 +171,7 @@ class BrainFreeze extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         let suggestBuilder;
         if (this.glacialSpikeTalented) {
-          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {ICICLE_BREAKPOINT} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately after a frost bolt and follow up with an ice lance.</React.Fragment>);
+          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {ICICLE_BREAKPOINT} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during your <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, otherwise you should use it immediately.</React.Fragment>);
         } else {
           suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</React.Fragment>);
         }
