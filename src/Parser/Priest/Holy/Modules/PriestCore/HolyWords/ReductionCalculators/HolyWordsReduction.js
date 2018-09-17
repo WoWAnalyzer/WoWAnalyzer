@@ -61,7 +61,7 @@ class HolyWordsReduction extends Analyzer {
         this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_SANCTIFY.id, spellId, spellName);
         return;
       case SPELLS.SMITE.id:
-        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_CHASTICE.id, spellId, spellName);
+        this.reduceHolyWordCooldown(SPELLS.HOLY_WORD_CHASTISE.id, spellId, spellName);
         return;
       default:
         break;

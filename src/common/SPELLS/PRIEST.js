@@ -364,8 +364,20 @@ export default {
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
   },
-  HOLY_WORD_CHASTICE: {
+  HOLY_WORD_CHASTISE: {
     id: 88625,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 2000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE: {
+    id: 200196,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 2000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_STUN: {
+    id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
     manaCost: 2000,
