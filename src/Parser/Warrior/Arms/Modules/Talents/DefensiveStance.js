@@ -23,20 +23,20 @@ class DefensiveStance extends Analyzer {
       return;
     }
     this.addEventListener('damage', this.handleDamageTaken, {
-      toPlayer: true
+      toPlayer: true,
     });
   }
 
   handleDamageTaken(event) {
     if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
-      this.totalDamageMitigated += (event.mitigated || 0)
+      this.totalDamageMitigated += (event.mitigated || 0);
     }
   }
 
   statistic() {
     const tooltip = `
       <b>Total:</b><br />
-      Effective damage reduction: ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br /><br />`
+      Effective damage reduction: ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br /><br />`;
     const footer = (
       <div className="statistic-bar">
         <div
