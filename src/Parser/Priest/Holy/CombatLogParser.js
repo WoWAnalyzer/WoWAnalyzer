@@ -15,7 +15,7 @@ import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 import Renew from './Modules/Spells/Renew';
-
+import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 //Talents
 import Talents from './Modules/Talents';
 import TalentCard from './Modules/Talents/TalentCard';
@@ -76,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSanctify: HolyWordSanctify,
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
+    prayerOfMending: PrayerOfMending,
 
     // Talents
     Enlightenment: Talents.talents_15.Enlightenment,
