@@ -32,11 +32,7 @@ class DarkmoonDeckFathoms extends Analyzer {
   item() {
     return {
       item: ITEMS.DARKMOON_DECK_FATHOMS,
-      result: (
-        <React.Fragment>
-          <ItemDamageDone amount={this.damage} />
-        </React.Fragment>
-      ),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

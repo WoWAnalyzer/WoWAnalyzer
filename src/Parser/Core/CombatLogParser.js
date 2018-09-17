@@ -77,10 +77,10 @@ import Seabreeze from './Modules/Items/BFA/Dungeons/Seabreeze';
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms';
-
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
+import ElementalWhirl from './Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
@@ -172,6 +172,7 @@ class CombatLogParser {
     // Azerite Traits
     gemhide: Gemhide,
     meticulousScheming: MeticulousScheming,
+    elementalWhirl: ElementalWhirl,
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
