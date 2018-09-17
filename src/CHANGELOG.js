@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-17'),
+    changes: <React.Fragment>Added a <ItemLink id={ITEMS.DARKMOON_DECK_FATHOMS.id} /> module.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-09-16'),
     changes: <React.Fragment>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</React.Fragment>,
     contributors: [joshinator],

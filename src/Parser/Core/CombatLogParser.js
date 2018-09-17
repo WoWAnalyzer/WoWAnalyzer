@@ -76,6 +76,8 @@ import Seabreeze from './Modules/Items/BFA/Dungeons/Seabreeze';
 
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
+import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms';
+
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
@@ -166,6 +168,7 @@ class CombatLogParser {
     seabreeze: Seabreeze,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
+    darkmoonDeckFathoms: DarkmoonDeckFathoms,
     // Azerite Traits
     gemhide: Gemhide,
     meticulousScheming: MeticulousScheming,
