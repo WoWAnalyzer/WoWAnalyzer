@@ -34,7 +34,6 @@ class WildernessSurvival extends Analyzer {
     this.active = this.selectedCombatant.hasTrait(SPELLS.WILDERNESS_SURVIVAL.id);
     if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
       this.hasWFI = true;
-//Just using 1 of the WFI bombs, since it'll reduce for all 3 and it's impossible to determine which one is next from the logs
     }
   }
 
