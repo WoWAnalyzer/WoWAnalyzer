@@ -1,14 +1,14 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatThousands } from 'common/format';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 class CosmicRipple extends Analyzer {
-
   totalHealing = 0;
   overhealing = 0;
   absorbed = 0;
@@ -39,13 +39,15 @@ class CosmicRipple extends Analyzer {
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
-        value={this.owner.formatItemHealingDone(this.totalHealing)}
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.totalHealing} />
+          </React.Fragment>
+        )}
         label="Cosmic Ripple"
-        tooltip={`<strong>Total Healing:</strong> ${formatThousands(this.totalHealing)}<br />
-                  <strong>Total Overhealing:</strong> ${formatThousands(this.overhealing)}`}
       />
 
     );

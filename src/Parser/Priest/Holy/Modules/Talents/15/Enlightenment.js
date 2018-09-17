@@ -1,25 +1,47 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
+import SpiritOfRedemption from 'Parser/Priest/Holy/Modules/Spells/SpiritOfRedemption';
+import { formatNumber } from 'common/format';
+import ItemManaGained from 'Interface/Others/ItemManaGained';
+
+const MAX_MANA = 100000;
+const BASE_MANA_REGEN = .04;
 
 class Enlightenment extends Analyzer {
+
+  static dependencies = {
+    spiritOfRedemption: SpiritOfRedemption,
+  };
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id);
   }
 
+  get enlightenmentMana() {
+    const normalManaRegen = MAX_MANA * BASE_MANA_REGEN;
+    const enlightenmentRegen = normalManaRegen * .1;
+    // Convert from MS to S and from 1 second to 5.
+    const totalEnlightenmentManaBack = (this.spiritOfRedemption.aliveTime / 1000 / 5) * enlightenmentRegen;
+    return totalEnlightenmentManaBack;
+  }
+
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} />}
-        value={"Value"}
+        value={(
+          <React.Fragment>
+            <ItemManaGained amount={this.enlightenmentMana} />
+          </React.Fragment>
+        )}
         label="Enlightment"
-        tooltip={``}
       />
 
     );
