@@ -9,6 +9,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
  * Darkmoon Deck: Fathoms
  * Equip: Chance on attack to drop an anchor on your target, dealing damage to them. Size and damage of anchor depends on the topmost card of the deck.
  * Equip: Periodically shuffle the deck while in combat.
+ *
+ * Example: https://www.warcraftlogs.com/reports/Xr7Nxjd1KnMT9QBf/#fight=1&source=13&type=auras
  */
 
 class DarkmoonDeckFathoms extends Analyzer {
