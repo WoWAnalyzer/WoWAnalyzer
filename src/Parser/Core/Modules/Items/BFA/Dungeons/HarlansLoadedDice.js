@@ -9,6 +9,9 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 /**
  * Harlan's Loaded Dice
  * Your attacks and abilities have a chance to roll the loaded dice, gaining a random combination of Mastery, Haste, and Critical Strike for 15 sec.
+ *
+ * Example: https://www.warcraftlogs.com/reports/LR2jNyrk3GmPXgZ9#fight=4&type=auras&source=5
+
  */
 class GalecallersBoon extends Analyzer {
   smallBuffValue = 0;

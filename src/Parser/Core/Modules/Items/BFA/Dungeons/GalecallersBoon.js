@@ -9,6 +9,8 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 /**
  * Galecaller's Boon
  * Place a ward on the ground for 10 sec which increases your Haste by [x] and your Speed by [x] while you stand within it.
+ *
+ * Example: https://www.warcraftlogs.com/reports/BhLHrn1PzQRJ6XVZ/#fight=6&source=8&type=auras&ability=268311
  */
 class GalecallersBoon extends Analyzer {
   statBuff = 0;
