@@ -14,7 +14,7 @@ class HealingTargetTracker extends Analyzer {
   }
 
   on_byPlayer_heal(event) {
-    if (event.sourceID === this.owner.playerId) {
+    if (event.targetID === this.owner.playerId) {
       this.healingDoneToSelf += event.amount;
       this.overHealingDoneToSelf += event.overheal | 0;
     }
