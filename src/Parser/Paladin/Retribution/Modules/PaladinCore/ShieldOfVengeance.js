@@ -6,12 +6,14 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 
 class ShieldOfVengeance extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
+    statTracker: StatTracker,
   };
   totalPossibleAbsorb = 0;
 
@@ -20,7 +22,7 @@ class ShieldOfVengeance extends Analyzer {
     if (SPELLS.SHIELD_OF_VENGEANCE.id !== spellId) {
       return;
     }
-    this.totalPossibleAbsorb += event.maxHitPoints * SHIELD_OF_VENGEANCE_HEALTH_SCALING;
+    this.totalPossibleAbsorb += event.maxHitPoints * SHIELD_OF_VENGEANCE_HEALTH_SCALING * (1+this.statTracker.currentVersatilityPercentage);
   }
 
   get pctAbsorbUsed() {
@@ -40,10 +42,10 @@ class ShieldOfVengeance extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionTresholds).addSuggestion((suggest, _actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<React.Fragment>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters </React.Fragment>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
-        .actual(`${formatPercentage(this.pctAbsorbUsed)}% Shield of Verdict absorb used`)
+        .actual(`${formatPercentage(actual)}% Shield of Verdict absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
@@ -55,7 +57,7 @@ class ShieldOfVengeance extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHIELD_OF_VENGEANCE.id} />}
         value={`${formatPercentage(this.pctAbsorbUsed)}%`}
         label="Shield of Vengeance absorb used"
-        tooltip="This does not account for possible absorb from missed casts Shield of Vengeance casts"
+        tooltip="This does not account for possible absorb from missed Shield of Vengeance casts"
         />
     );
   }
