@@ -1,5 +1,10 @@
-![image](https://user-images.githubusercontent.com/4565223/37793551-57404c5e-2e0f-11e8-98a0-c2fbe06a7bc5.png)
-[![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
+<h1>
+  <img src="https://user-images.githubusercontent.com/4565223/45639348-0a9ef480-bab0-11e8-8688-66e51c80224a.png" height="36" valign="bottom" /> WoWAnalyzer
+</h1>
+
+<a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
+ <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master">
+</a>
 
 Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
