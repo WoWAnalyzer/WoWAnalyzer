@@ -253,11 +253,11 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Total Raw Healing</td>
-                <td>{parser._modules.healingTargetTracker.rawHealingDoneToSelf}</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneTotal}</td>
               </tr>
               <tr>
                 <td>Total Raw Self Healing</td>
-                <td>{parser._modules.healingTargetTracker.rawHealingDoneTotal}</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneToSelf}</td>
               </tr>
 
             </tbody>
