@@ -183,6 +183,11 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  HALO_DAMAGE: {
+    id: 120696,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+  },
   CONTRITION_HEAL: {
     id: 270501,
     name: 'Contrition',

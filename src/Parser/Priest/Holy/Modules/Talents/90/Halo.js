@@ -20,8 +20,7 @@ class Halo extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.HALO_TALENT.id) {
+    if (spellId === SPELLS.HALO_DAMAGE.id) {
       this.haloDamage += event.amount || 0;
     }
   }
@@ -29,7 +28,7 @@ class Halo extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.HALO_TALENT.id) {
+    if (spellId === SPELLS.HALO_HEAL.id) {
       this.haloHealing += event.amount || 0;
       this.haloOverhealing += event.overhealing || 0;
     }
@@ -56,7 +55,7 @@ class Halo extends Analyzer {
           </React.Fragment>
         )}
         label="Halo"
-        tooltip={``}
+        tooltip={`Halos Cast: ${this.haloCasts}`}
       />
 
     );
