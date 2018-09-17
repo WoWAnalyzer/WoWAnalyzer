@@ -1,13 +1,13 @@
-![image](https://user-images.githubusercontent.com/4565223/37793551-57404c5e-2e0f-11e8-98a0-c2fbe06a7bc5.png)
-[![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
+<h1>
+  <img src="https://user-images.githubusercontent.com/4565223/45639348-0a9ef480-bab0-11e8-8688-66e51c80224a.png" height="36" valign="bottom" /> WoWAnalyzer
+  <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
+   <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master">
+  </a>
+</h1>
 
-Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
-
-You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to [upload your own logs](https://www.warcraftlogs.com/help/start/) or change the existing logs to the unlisted privacy option instead.
+> WoWAnalyzer is a tool to help you analyze and improve your World of Warcraft raiding performance through various relevant metrics and gameplay suggestions.
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
-
-Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
 
 ## Contributing
 

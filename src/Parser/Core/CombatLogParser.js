@@ -79,6 +79,8 @@ import HarlansLoadedDice from './Modules/Items/BFA/Dungeons/HarlansLoadedDice';
 
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
+import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms';
+
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
@@ -171,7 +173,9 @@ class CombatLogParser {
     harlansLoadedDice: HarlansLoadedDice,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
+    darkmoonDeckFathoms: DarkmoonDeckFathoms,
     // Enchants
+    
     // Azerite Traits
     gemhide: Gemhide,
     meticulousScheming: MeticulousScheming,
