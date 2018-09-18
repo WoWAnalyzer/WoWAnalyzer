@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -5,8 +6,9 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+
+import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
 
 // Example Log: /report/ZtzgPbjw3hRYvJTc/3-Mythic+Taloc+-+Kill+(6:46)/26-萤火兔
 class EnduringRenewal extends Analyzer {

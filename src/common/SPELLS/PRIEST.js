@@ -416,7 +416,7 @@ export default {
   SURGE_OF_LIGHT_BUFF: {
     id: 114255,
     name: 'Surge of Light',
-    icon: 'spell_holy_surgeoflight'
+    icon: 'spell_holy_surgeoflight',
   },
   COSMIC_RIPPLE_HEAL: {
     id: 243241,
