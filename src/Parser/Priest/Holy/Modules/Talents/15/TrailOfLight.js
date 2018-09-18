@@ -18,7 +18,6 @@ class TrailOfLight extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
   }
 
-  spells = {};
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     this.spells[spellId] = event.ability.name;
