@@ -39,11 +39,10 @@ class AngelsMercy extends Analyzer {
       <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ANGELS_MERCY_TALENT.id} />}
-        value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Desperate Prayer Reduction`}
+        value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used`}
         label="Angels Mercy"
         tooltip={`
-          Desperate Prayers cast ${this.desperatePrayersCast}<br />
-          This number only counts effective reduction.
+          Desperate Prayers cast: ${this.desperatePrayersCast}<br />
         `}
       />
 
