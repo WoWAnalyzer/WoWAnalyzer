@@ -62,9 +62,7 @@ class HolyWordSalvation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.HOLY_WORD_SALVATION_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.totalHealing} />
-          </React.Fragment>
         )}
         label="Holy Word: Salvation"
         tooltip={`
