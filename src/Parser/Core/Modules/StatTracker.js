@@ -6,6 +6,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import { STAT_TRACKER_CRIT as ELEMENTAL_WHIRL_CRIT } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER_HASTE as ELEMENTAL_WHIRL_HASTE } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER_MAST as ELEMENTAL_WHIRL_MAST } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
@@ -224,6 +225,7 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
+    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: ELEMENTAL_WHIRL_CRIT,
     [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: ELEMENTAL_WHIRL_HASTE,
     [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: ELEMENTAL_WHIRL_MAST,

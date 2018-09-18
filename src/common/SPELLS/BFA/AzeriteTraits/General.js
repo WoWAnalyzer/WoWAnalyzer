@@ -141,4 +141,14 @@ export default {
     name: 'Elemental Whirl - Versatility',
     icon: 'ability_skyreach_four_wind',
   },
+  OVERWHELMING_POWER: {
+    id: 266180,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  OVERWHELMING_POWER_BUFF: {
+    id: 271711,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
 };

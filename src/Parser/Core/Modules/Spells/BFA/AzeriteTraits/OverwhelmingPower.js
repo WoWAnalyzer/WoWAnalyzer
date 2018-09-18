@@ -1,11 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+
+const MAX_OVERWHELMING_POWER_STACKS = 25;
 
 const overWhelmingPowerStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.OVERWHELMING_POWER.id, rank);
@@ -17,32 +18,22 @@ const overWhelmingPowerStats = traits => Object.values(traits).reduce((obj, rank
 
 export const STAT_TRACKER = {
   haste: combatant => {
-    const opBuffs = combatant.buffs.filter(e => e.ability.guid === SPELLS.OVERWHELMING_POWER_BUFF.id);
-    let currentStack = 0;
-
-    if (opBuffs[opBuffs.length - 1] && opBuffs[opBuffs.length - 1].stackHistory) {
-      const currentStackEvents = opBuffs[opBuffs.length - 1].stackHistory.sort((a, b) => a.timestamp - b.timestamp);
-      currentStack = currentStackEvents[currentStackEvents.length - 1].stacks;
-    }
-
-    if (currentStack === 25) {
-      console.info("--- applied ---");
-    }
-    
-    console.info(overWhelmingPowerStats(combatant.traitsBySpellId[SPELLS.OVERWHELMING_POWER.id]).haste * currentStack, "haste");
-    console.info(currentStack);
-    return overWhelmingPowerStats(combatant.traitsBySpellId[SPELLS.OVERWHELMING_POWER.id]).haste * currentStack;
+    return overWhelmingPowerStats(combatant.traitsBySpellId[SPELLS.OVERWHELMING_POWER.id]).haste;
   },
 };
 
 /**
- * Meticulous Scheming
- * Gain x haste for 20sec after casting 3 different spells within 8sec after gaining "Meticulous Scheming"
+ * Overwhelming Power
+ * Gain 25 stacks of Overwhelming Power, granting x haste per stack
+ * Lose 1 stack each second and when taking damage (has a 1sec ICD independant of the normal decay)
  *
  * Example report: https://www.warcraftlogs.com/reports/jBthQCZcWRNGyAk1#fight=29&type=auras&source=18
  */
 class OverWhelmingPower extends Analyzer {
   haste = 0;
+  totalHaste = 0;
+  lastTimestamp = 0;
+
   overwhelmingPowerProcs = 0;
   currentStacks = 0;
 
@@ -73,22 +64,33 @@ class OverWhelmingPower extends Analyzer {
     this.handleStacks(event);
   }
 
+  on_byPlayer_refreshbuff(event) {
+    this.handleStacks(event);
+  }
+
   handleStacks(event) {
     if (event.ability.guid !== SPELLS.OVERWHELMING_POWER_BUFF.id) {
       return;
     }
 
+    if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
+      const uptimeOnStack = event.timestamp - this.lastTimestamp;
+      this.totalHaste += this.currentStacks * this.haste * uptimeOnStack;
+    }
+
     if (event.type === "applybuff") {
-      this.overwhelmingPowerProcs += 1;
-      this.currentStacks = 25;
+      this.currentStacks = MAX_OVERWHELMING_POWER_STACKS;
     } else if (event.type === "removebuff") {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;
     }
 
-    console.info(this.currentStacks);
-    console.info("----");
+    if (this.currentStacks === MAX_OVERWHELMING_POWER_STACKS) {
+      this.overwhelmingPowerProcs += 1;
+    }
+
+    this.lastTimestamp = event.timestamp;
   }
 
   get uptime() {
@@ -96,7 +98,7 @@ class OverWhelmingPower extends Analyzer {
   }
 
   get averageHaste() {
-    return (this.haste * this.uptime).toFixed(0);
+    return (this.totalHaste / this.owner.fightDuration).toFixed(0);
   }
 
   statistic() {
@@ -104,10 +106,10 @@ class OverWhelmingPower extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.OVERWHELMING_POWER.id}
-        value={`${this.averageHaste} Haste`}
+        value={`${this.averageHaste} average Haste`}
         tooltip={`
-          ${SPELLS.METICULOUS_SCHEMING.name} grants <b>${this.haste} haste</b> while active.<br/>
-          You procced <b>${SPELLS.METICULOUS_SCHEMING_BUFF.name} ${this.meticulousSchemingProcs} times</b> and activated <b>${SPELLS.SEIZE_THE_MOMENT.name} ${this.seizeTheMomentProcs} times</b>.
+          ${SPELLS.OVERWHELMING_POWER.name} grants <b>${this.haste} haste per stack</b> (${this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @${MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br/>
+          You procced <b>${SPELLS.OVERWHELMING_POWER.name} ${this.overwhelmingPowerProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
         `}
       />
     );
