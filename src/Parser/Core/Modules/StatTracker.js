@@ -338,6 +338,7 @@ class StatTracker extends Analyzer {
       itemId: 159625, // Vial of Animated Blood
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
+
     // endregion
     // region World boss
     278227: { // Barkspines

@@ -28,6 +28,7 @@ import './Modules/Main/main.css';
 import StaticCharge from '../Shared/Talents/StaticCharge';
 import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
 import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
+import AnkhNormalizer from '../Shared/Normalizers/AnkhNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
+    ankhNormalizer: AnkhNormalizer,
   };
 
 }
