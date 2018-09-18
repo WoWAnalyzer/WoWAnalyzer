@@ -348,6 +348,12 @@ export default {
     icon: 'spell_holy_guardianspirit',
     manaCost: 900,
   },
+  GUARDIAN_SPIRIT_HEAL: {
+    id: 48153,
+    name: 'Guardian Spirit',
+    icon: 'spell_holy_guardianspirit',
+    manaCost: 900,
+  },
   DIVINE_HYMN_CAST: {
     id: 64843,
     name: 'Divine Hymn',
