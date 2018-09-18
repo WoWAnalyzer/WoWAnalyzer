@@ -45,52 +45,38 @@ class WildernessSurvival extends Analyzer {
     return this.wastedWSReductionMs / 1000;
   }
 
+  checkCooldown(spellId) {
+    if (this.spellUsable.cooldownRemaining(spellId) < MS_REDUCTION) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
+      this.effectiveWSReductionMs += effectiveReductionMs;
+      this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
+    } else {
+      this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
+    }
+  }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (!TRIGGERING_SPELLS.includes(spellId)) {
       return;
     }
+
     if (this.hasWFI) {
       if (this.spellUsable.isOnCooldown(SPELLS.VOLATILE_BOMB_WFI.id)) {
-        if (this.spellUsable.cooldownRemaining(SPELLS.VOLATILE_BOMB_WFI.id) < MS_REDUCTION) {
-          const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.VOLATILE_BOMB_WFI.id, MS_REDUCTION);
-          this.effectiveWSReductionMs += effectiveReductionMs;
-          this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
-        } else {
-          this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(SPELLS.VOLATILE_BOMB_WFI.id, MS_REDUCTION);
-        }
+        this.checkCooldown(SPELLS.VOLATILE_BOMB_WFI.id);
         return;
       } else if (this.spellUsable.isOnCooldown(SPELLS.PHEROMONE_BOMB_WFI.id)) {
-        if (this.spellUsable.cooldownRemaining(SPELLS.PHEROMONE_BOMB_WFI.id) < MS_REDUCTION) {
-          const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.PHEROMONE_BOMB_WFI.id, MS_REDUCTION);
-          this.effectiveWSReductionMs += effectiveReductionMs;
-          this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
-        } else {
-          this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(SPELLS.PHEROMONE_BOMB_WFI.id, MS_REDUCTION);
-        }
+        this.checkCooldown(SPELLS.PHEROMONE_BOMB_WFI.id);
         return;
       } else if (this.spellUsable.isOnCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id)) {
-        if (this.spellUsable.cooldownRemaining(SPELLS.SHRAPNEL_BOMB_WFI.id) < MS_REDUCTION) {
-          const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id, MS_REDUCTION);
-          this.effectiveWSReductionMs += effectiveReductionMs;
-          this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
-        } else {
-          this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id, MS_REDUCTION);
-        }
+        this.checkCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id);
         return;
       } else {
         this.wastedWSReductionMs += MS_REDUCTION;
       }
-      return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-      if (this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < MS_REDUCTION) {
-        const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, MS_REDUCTION);
-        this.effectiveWSReductionMs += effectiveReductionMs;
-        this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
-      } else {
-        this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, MS_REDUCTION);
-      }
+      this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
     } else {
       this.wastedWSReductionMs += MS_REDUCTION;
     }
