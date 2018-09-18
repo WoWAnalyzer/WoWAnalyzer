@@ -9,6 +9,7 @@ import PrayerOfMending from 'Parser/Priest/Holy/Modules/Spells/PrayerOfMending';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import { formatThousands } from 'common/format';
 
+// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
   salvTicks = 0;
   healingFromSalv = 0;

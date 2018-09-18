@@ -10,6 +10,7 @@ import ItemManaGained from 'Interface/Others/ItemManaGained';
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;
 
+// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Enlightenment extends Analyzer {
 
   static dependencies = {

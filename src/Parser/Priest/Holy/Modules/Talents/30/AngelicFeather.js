@@ -5,6 +5,7 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
+// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class AngelicFeather extends Analyzer {
   angelicFeatherCasts = 0;
   angelicFeatherEffects = 0;

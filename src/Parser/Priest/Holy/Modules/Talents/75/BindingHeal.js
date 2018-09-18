@@ -7,6 +7,7 @@ import React from 'react';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 
+// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class BindingHeal extends Analyzer {
   bindingHealCasts = 0;
   bindingHealSelfHealing = 0;

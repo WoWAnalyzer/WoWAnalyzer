@@ -2,39 +2,46 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
+// Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class TrailOfLight extends Analyzer {
-
-  totalHealing = 0;
-  overhealing = 0;
-  absorbed = 0;
+  totalToLProcs = 0;
+  totalToLHealing = 0;
+  totalToLOverhealing = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
   }
 
+  spells = {};
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TRAIL_OF_LIGHT_HEAL.id) {
-      return;
+    this.spells[spellId] = event.ability.name;
+    if (spellId === SPELLS.TRAIL_OF_LIGHT_HEAL.id) {
+      this.totalToLProcs++;
+      this.totalToLHealing += event.overheal || 0;
+      this.totalToLOverhealing += (event.amount || 0);
     }
-    this.overhealing += event.overheal || 0;
-    this.totalHealing+= (event.amount || 0) + (event.absorbed || 0);
   }
 
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.TRAIL_OF_LIGHT_TALENT.id} />}
-        value={"Value"}
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.totalToLHealing} />
+          </React.Fragment>
+        )}
         label="Trail of Light"
-        tooltip={``}
+        tooltip={`Trail of Light Procs: ${this.totalToLProcs}`}
       />
 
     );

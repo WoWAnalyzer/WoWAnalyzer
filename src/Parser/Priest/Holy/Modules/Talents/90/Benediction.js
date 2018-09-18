@@ -7,6 +7,7 @@ import React from 'react';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import Renew from 'Parser/Priest/Holy/Modules/Spells/Renew';
 
+// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Benediction extends Analyzer {
   static dependencies = {
     renew: Renew,
