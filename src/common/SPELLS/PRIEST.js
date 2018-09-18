@@ -188,6 +188,16 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  DIVINE_STAR_HEAL: {
+    id: 110745,
+    name: 'Halo',
+    icon: 'spell_priest_divinestar',
+  },
+  DIVINE_STAR_DAMAGE: {
+    id: 122128,
+    name: 'Halo',
+    icon: 'spell_priest_divinestar',
+  },
   CONTRITION_HEAL: {
     id: 270501,
     name: 'Contrition',
