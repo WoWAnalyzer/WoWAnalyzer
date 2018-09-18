@@ -31,6 +31,9 @@ import MongooseBite from './Modules/Talents/MongooseBite';
 import SteelTrap from './Modules/Talents/SteelTrap';
 import Chakrams from './Modules/Talents/Chakrams';
 
+//Azerite Traits
+import WildernessSurvival from './Modules/Spells/AzeriteTraits/WildernessSurvival';
+
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -68,6 +71,9 @@ class CombatLogParser extends CoreCombatLogParser {
     mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
     chakrams: Chakrams,
+
+    //Azerite Traits
+    wildernessSurvival: WildernessSurvival,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
