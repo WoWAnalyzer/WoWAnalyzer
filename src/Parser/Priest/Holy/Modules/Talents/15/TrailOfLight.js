@@ -20,7 +20,6 @@ class TrailOfLight extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    this.spells[spellId] = event.ability.name;
     if (spellId === SPELLS.TRAIL_OF_LIGHT_HEAL.id) {
       this.totalToLProcs++;
       this.totalToLHealing += event.overheal || 0;
