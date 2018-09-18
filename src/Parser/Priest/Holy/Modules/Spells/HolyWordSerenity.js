@@ -13,11 +13,19 @@ class HolyWordSerenity extends Analyzer {
   wastedCooldown = 0;
 
   get totalCooldownReduction() {
-
+    let totalCDR = 0;
+    Object.keys(this.reductionBySpell).map(function(key, index) {
+      totalCDR += this.reductionBySpell[key];
+    });
+    return totalCDR;
   }
 
   get apotheosisCooldownReduction() {
-
+    let apothCDR = 0;
+    Object.keys(this.apotheosisReductionBySpell).map(function(key, index) {
+      apothCDR += this.apotheosisReductionBySpell[key];
+    });
+    return apothCDR;
   }
 }
 
