@@ -12,6 +12,7 @@ import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
 import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
+import HolyWordSerenity from './Modules/Spells/HolyWordSerenity';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 import Renew from './Modules/Spells/Renew';
@@ -26,12 +27,8 @@ import SpellUsable from './Modules/Features/SpellUsable';
 import HealingReceived from './Modules/Features/HealingReceived';
 // Priest Core
 import EchoOfLight_Mastery from './Modules/PriestCore/EchoOfLight_Mastery';
-import SerendipityWastedAmounts from './Modules/PriestCore/HolyWords/SerendipityWastedAmounts';
-import SanctifyReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SanctifyReduction';
-import SerenityReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SerenityReduction';
-import HolyWordsReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/HolyWordsReduction';
 import Fortitude_RaidBuff from './Modules/PriestCore/Fortitude_RaidBuff';
-import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWords/HolyWordsReductionBySpell';
+import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWordsReductionBySpell';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 // Azerite
@@ -62,10 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     echoOfLight_Mastery: EchoOfLight_Mastery,
-    serendipityWastedAmounts: SerendipityWastedAmounts,
-    sanctifyReduction: SanctifyReduction,
-    serenityReduction: SerenityReduction,
-    holyWordsReduction: HolyWordsReduction,
     fortitude_RaidBuff: Fortitude_RaidBuff,
     holyWordsReductionBySpell: HolyWordsReductionBySpell,
 
@@ -73,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divineHymn: DivineHymn,
     hymnBuffBenefit: HymnBuffBenefit,
     holyWordSanctify: HolyWordSanctify,
+    holyWordSerenity: HolyWordSerenity,
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
