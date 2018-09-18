@@ -137,7 +137,7 @@ class StatTracker extends Analyzer {
     // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
     //[SPELLS.RISING_TIDES.id]: {
     //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-    //  stat: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
     //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
@@ -180,7 +180,7 @@ class StatTracker extends Analyzer {
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
-    //  stat: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
     // endregion
 
@@ -621,7 +621,7 @@ class StatTracker extends Analyzer {
     return this.critPercentage(this.currentCritRating, true);
   }
   // This is only the percentage from BASE + RATING.
-  // If you're looking for current stat percentage including buffs like Bloodlust, check the Haste module.
+  // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
