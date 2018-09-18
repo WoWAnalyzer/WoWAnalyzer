@@ -70,11 +70,11 @@ class HolyWordSalvation extends Analyzer {
           Healing from Renews: ${formatThousands(this.healingFromRenew)}<br />
           Healing from PoMs: ${formatThousands(this.healingFromPom)}
         `}
+        position={STATISTIC_ORDER.CORE(7)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default HolyWordSalvation;

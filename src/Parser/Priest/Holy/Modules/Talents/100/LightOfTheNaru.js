@@ -21,11 +21,11 @@ class LightOfTheNaru extends Analyzer {
         value={"Value"}
         label="Light of the Naaru"
         tooltip={``}
+        position={STATISTIC_ORDER.CORE(7)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default LightOfTheNaru;

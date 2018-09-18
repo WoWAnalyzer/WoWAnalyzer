@@ -49,11 +49,11 @@ class Censure extends Analyzer {
           ${this.censureStuns} Chastise Stuns<br />
           ${this.censureIncomp} Censure Incapacitates
         `}
+        position={STATISTIC_ORDER.CORE(4)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Censure;

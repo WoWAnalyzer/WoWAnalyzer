@@ -37,11 +37,11 @@ class PsychicVoice extends Analyzer {
         icon={<SpellIcon id={SPELLS.PSYCHIC_VOICE_TALENT.id} />}
         value={`${this.psychicScreamHits} Targets Feared`}
         label="Psychic Voice"
+        position={STATISTIC_ORDER.CORE(4)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default PsychicVoice;

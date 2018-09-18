@@ -61,17 +61,15 @@ class SurgeOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.SURGE_OF_LIGHT_TALENT.id} />}
         value={(
-          <React.Fragment>
-            <ItemHealingDone amount={this.solHealing} />
-          </React.Fragment>
+          <ItemHealingDone amount={this.solHealing} />
         )}
         tooltip={`${this.solFlashHeals} free Flash Heals`}
         label="Surge of Light"
+        position={STATISTIC_ORDER.CORE(5)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default SurgeOfLight;

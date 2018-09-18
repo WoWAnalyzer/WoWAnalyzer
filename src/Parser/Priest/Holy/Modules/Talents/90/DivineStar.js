@@ -57,11 +57,11 @@ class DivineStar extends Analyzer {
         )}
         label="Divine Star"
         tooltip={`Divine Star Cast: ${this.divineStarCasts}`}
+        position={STATISTIC_ORDER.CORE(6)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default DivineStar;

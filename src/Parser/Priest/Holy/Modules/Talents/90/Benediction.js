@@ -38,11 +38,11 @@ class Benediction extends Analyzer {
         )}
         label="Benediction"
         tooltip={`${this.renewsFromBenediction} total Renews from Benediction`}
+        position={STATISTIC_ORDER.CORE(6)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Benediction;

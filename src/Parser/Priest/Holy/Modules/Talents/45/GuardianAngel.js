@@ -70,18 +70,18 @@ class GuardianAngel extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.GUARDIAN_ANGEL_TALENT.id} />}
         value={(
-            <ItemHealingDone amount={this.guardianSpiritSelfHealing} />
+          <ItemHealingDone amount={this.guardianSpiritSelfHealing} />
         )}
         label="Guardian Angel"
         tooltip={`
           Total Guardian Spirits Cast: ${this.guardianSpiritCasts}<br />
           Total Guardian Spirit Resets: ${this.guardianSpiritRefreshes}
         `}
+        position={STATISTIC_ORDER.CORE(3)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default GuardianAngel;

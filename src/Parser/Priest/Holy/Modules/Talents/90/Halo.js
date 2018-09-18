@@ -56,11 +56,11 @@ class Halo extends Analyzer {
         )}
         label="Halo"
         tooltip={`Halos Cast: ${this.haloCasts}`}
+        position={STATISTIC_ORDER.CORE(6)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Halo;

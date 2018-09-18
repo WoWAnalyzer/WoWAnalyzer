@@ -37,11 +37,11 @@ class ShiningForce extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHINING_FORCE_TALENT.id} />}
         value={`${this.shiningForceHits} Knock Back(s)`}
         label="Shining Force"
+        position={STATISTIC_ORDER.CORE(4)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ShiningForce;

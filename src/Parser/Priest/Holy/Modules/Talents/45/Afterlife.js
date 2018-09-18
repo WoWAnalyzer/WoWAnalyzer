@@ -64,15 +64,15 @@ class Afterlife extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.AFTERLIFE_TALENT.id} />}
         value={(
-            <ItemHealingDone amount={this.healingInAfterlife} />
+          <ItemHealingDone amount={this.healingInAfterlife} />
         )}
         label="Afterlife"
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}
+        position={STATISTIC_ORDER.CORE(3)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Afterlife;

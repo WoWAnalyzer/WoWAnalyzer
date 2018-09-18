@@ -54,9 +54,7 @@ class CircleOfHealing extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />}
         value={(
-          <React.Fragment>
-            <ItemHealingDone amount={this.circleOfHealingHealing} />
-          </React.Fragment>
+          <ItemHealingDone amount={this.circleOfHealingHealing} />
         )}
         label="Circle of Healing"
         tooltip={`
@@ -64,11 +62,11 @@ class CircleOfHealing extends Analyzer {
           Total Healing: ${formatThousands(this.circleOfHealingHealing)} (${formatPercentage(this.overHealPercent)}% OH)<br />
           Average Targets Hit: ${this.averageTargetsHit.toFixed(2)}
         `}
+        position={STATISTIC_ORDER.CORE(5)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default CircleOfHealing;

@@ -69,9 +69,7 @@ class BindingHeal extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.BINDING_HEAL_TALENT.id} />}
         value={(
-          <React.Fragment>
-            <ItemHealingDone amount={this.bindingHealHealing} />
-          </React.Fragment>
+          <ItemHealingDone amount={this.bindingHealHealing} />
         )}
         label="Binding Heal"
         tooltip={`
@@ -79,11 +77,11 @@ class BindingHeal extends Analyzer {
           Self Healing:&#9;${formatThousands(this.bindingHealSelfHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />
           Party Healing:&#9;${formatThousands(this.bindingHealPartyHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
         `}
+        position={STATISTIC_ORDER.CORE(5)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BindingHeal;

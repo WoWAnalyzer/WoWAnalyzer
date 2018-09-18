@@ -21,11 +21,11 @@ class Apotheosis extends Analyzer {
         value={"Value"}
         label="Apotheosis"
         tooltip={``}
+        position={STATISTIC_ORDER.CORE(7)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default Apotheosis;
