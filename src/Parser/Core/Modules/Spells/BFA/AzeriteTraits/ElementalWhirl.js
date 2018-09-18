@@ -14,17 +14,11 @@ const elementalWhirlStats = traits => Object.values(traits).reduce((obj, rank) =
   stat: 0,
 });
 
-export const STAT_TRACKER_HASTE = {
-  haste: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).haste,
-};
-export const STAT_TRACKER_CRIT = {
-  crit: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).crit,
-};
-export const STAT_TRACKER_VERS = {
-  versatility: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).versatility,
-};
-export const STAT_TRACKER_MAST = {
-  mastery: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).mastery,
+export const STAT_TRACKER = {
+  [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
+  [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
+  [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
+  [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
 };
 
 /**
@@ -121,14 +115,14 @@ class ElementalWhirl extends Analyzer {
         tooltip={`
           ${SPELLS.ELEMENTAL_WHIRL.name} grants <b>${this.stat}</b> of a secondary stat while active.<br/>
           <ul>
-            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <b>${this.versProcs} times</b>.</li>
-                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}%</li></ul>
-            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <b>${this.masteryProcs} times</b>.</li>
-                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_MASTERY.id))}%</li></ul>
-            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_CRIT.name} <b>${this.critProcs} times</b>.</li>
-                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_CRIT.id))}%</li></ul>
-            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_HASTE.name} <b>${this.hasteProcs} times</b>.</li>
+            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_HASTE.name} <b>${this.hasteProcs} ${(this.hasteProcs > 1 || this.hasteProcs === 0) ? 'times' : 'time'}</b>.</li>
                 <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_HASTE.id))}%</li></ul>
+            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <b>${this.versProcs}  ${(this.versProcs > 1 || this.versProcs === 0) ? 'times' : 'time'}</b>.</li>
+                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}%</li></ul>
+            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_CRIT.name} <b>${this.critProcs}  ${(this.critProcs > 1 || this.critProcs === 0) ? 'times' : 'time'}</b>.</li>
+                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_CRIT.id))}%</li></ul>
+            <li>You procced ${SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <b>${this.masteryProcs}  ${(this.masteryProcs > 1 || this.masteryProcs === 0) ? 'times' : 'time'}</b>.</li>
+                <ul><li>Uptime: ${formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_MASTERY.id))}%</li></ul>
           </ul>
         `}
       />
@@ -137,3 +131,4 @@ class ElementalWhirl extends Analyzer {
 }
 
 export default ElementalWhirl;
+
