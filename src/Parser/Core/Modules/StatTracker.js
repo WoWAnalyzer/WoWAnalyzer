@@ -6,10 +6,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
-import { STAT_TRACKER_CRIT as ELEMENTAL_WHIRL_CRIT } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_HASTE as ELEMENTAL_WHIRL_HASTE } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_MAST as ELEMENTAL_WHIRL_MAST } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_VERS as ELEMENTAL_WHIRL_VERS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
@@ -140,7 +137,7 @@ class StatTracker extends Analyzer {
     // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
     //[SPELLS.RISING_TIDES.id]: {
     //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //  stat: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
     //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
@@ -183,7 +180,7 @@ class StatTracker extends Analyzer {
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
-    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //  stat: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
     // endregion
 
@@ -224,10 +221,18 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: ELEMENTAL_WHIRL_CRIT,
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: ELEMENTAL_WHIRL_HASTE,
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: ELEMENTAL_WHIRL_MAST,
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: ELEMENTAL_WHIRL_VERS,
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
+      crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: {
+      haste: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_HASTE.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: {
+      mastery: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_MASTERY.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: {
+      versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
+    },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
@@ -616,7 +621,7 @@ class StatTracker extends Analyzer {
     return this.critPercentage(this.currentCritRating, true);
   }
   // This is only the percentage from BASE + RATING.
-  // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
+  // If you're looking for current stat percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
@@ -759,3 +764,4 @@ class StatTracker extends Analyzer {
 }
 
 export default StatTracker;
+
