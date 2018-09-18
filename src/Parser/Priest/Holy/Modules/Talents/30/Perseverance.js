@@ -61,7 +61,6 @@ class Perseverance extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Perseverance;
