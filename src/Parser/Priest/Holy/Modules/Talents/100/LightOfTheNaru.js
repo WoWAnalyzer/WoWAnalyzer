@@ -9,6 +9,7 @@ class LightOfTheNaru extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id);
+    this.active = false;
   }
 
   statistic() {

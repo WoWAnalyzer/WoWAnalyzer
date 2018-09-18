@@ -9,6 +9,7 @@ class Apotheosis extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
+    this.active = false;
   }
 
   statistic() {
