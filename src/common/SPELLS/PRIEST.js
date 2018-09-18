@@ -397,6 +397,11 @@ export default {
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
   },
+  SURGE_OF_LIGHT_BUFF: {
+    id: 114255,
+    name: 'Surge of Light',
+    icon: 'spell_holy_surgeoflight'
+  },
   COSMIC_RIPPLE_HEAL: {
     id: 243241,
     name: 'Cosmic Ripple Heal',
