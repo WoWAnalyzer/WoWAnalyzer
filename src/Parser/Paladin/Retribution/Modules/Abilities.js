@@ -23,25 +23,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WAKE_OF_ASHES_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .95,
-          // extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon /> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-        },
-      },
-      {
         spell: SPELLS.CRUSADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -54,6 +42,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -155,6 +146,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_VENGEANCE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 84 : 120,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -247,6 +241,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAMMER_OF_JUSTICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.HAND_OF_RECKONING,
