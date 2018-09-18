@@ -2,11 +2,16 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
+import { formatPercentage, formatThousands } from 'common/format';
 
+// Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class Perseverance extends Analyzer {
+  totalDamageReduced = 0;
+  perseveranceActive = false;
 
   constructor(...args) {
     super(...args);
@@ -17,27 +22,42 @@ class Perseverance extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.RENEW.id) / this.owner.fightDuration;
   }
 
-  get uptimeSuggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.80,
-        average: 0.70,
-        major: .60,
-      },
-      style: 'percentage',
-    };
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.RENEW.id && event.targetID === this.selectedCombatant._combatantInfo.sourceID) {
+      this.perseveranceActive = true;
+    }
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.RENEW.id && event.targetID === this.selectedCombatant._combatantInfo.sourceID) {
+      this.perseveranceActive = false;
+    }
+  }
+
+  on_toPlayer_damage(event) {
+    if (this.perseveranceActive) {
+      this.totalDamageReduced += event.amount * .1;
+    }
   }
 
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.PERSEVERANCE_TALENT.id} />}
-        value={"Value"}
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.totalDamageReduced} />
+          </React.Fragment>
+        )}
         label="Preserverance"
-        tooltip={``}
+        tooltip={`
+          Preserverance Uptime: ${formatPercentage(this.uptime)}%<br />
+          Damage Reduced: ${formatThousands(this.totalDamageReduced)}
+          `}
       />
 
     );

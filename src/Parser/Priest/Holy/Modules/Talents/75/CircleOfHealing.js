@@ -5,6 +5,7 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
+// Example Log: http://localhost:3000/report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class CircleOfHealing extends Analyzer {
   constructor(...args) {
     super(...args);
