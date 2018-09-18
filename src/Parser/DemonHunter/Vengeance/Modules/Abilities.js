@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -20,7 +19,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: <React.Fragment>This is a great Pain filler spell. Try to always cast it on cooldown, specially when using <ItemLink id={ITEMS.KIREL_NARAK.id} /> legendary to trigger it's passive and/or using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.</React.Fragment>,
+          extraSuggestion: <React.Fragment>This is a great Pain filler spell. Try to always cast it on cooldown, specially when using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.</React.Fragment>,
         },
       },
       {

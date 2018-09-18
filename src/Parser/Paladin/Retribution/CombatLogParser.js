@@ -8,6 +8,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist/Module';
 import Judgment from './Modules/PaladinCore/Judgment';
+import ShieldOfVengeance from './Modules/PaladinCore/ShieldOfVengeance';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import ArtOfWar from './Modules/PaladinCore/ArtOfWar';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     judgment: Judgment,
     retribution: Retribution,
+    shieldOfVengeance: ShieldOfVengeance,
     
     // Talents
     divinePurpose: DivinePurpose,
