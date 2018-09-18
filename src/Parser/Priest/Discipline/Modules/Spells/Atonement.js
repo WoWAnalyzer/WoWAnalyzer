@@ -47,6 +47,10 @@ class Atonement extends Analyzer {
     return this.currentAtonementTargets.length;
   }
 
+  get giftActive() {
+    return this.numAtonementsActive >= 3;
+  }
+
   constructor(...args) {
     super(...args);
     this.active = true;

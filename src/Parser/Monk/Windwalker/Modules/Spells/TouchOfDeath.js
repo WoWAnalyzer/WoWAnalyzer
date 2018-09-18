@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import { calculateAzeriteEffects } from 'common/stats';
 
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
@@ -11,6 +12,15 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const TOUCH_OF_DEATH_HP_SCALING = 0.5;
 const GALE_BURST_VALUE = 0.1;
+
+// Meridian Strikes Azerite trait adds damage to Touch of Death
+const meridianStrikesDamage = traits => Object.values(traits).reduce((obj, rank) => {
+  const [damage] = calculateAzeriteEffects(SPELLS.MERIDIAN_STRIKES.id, rank);
+  obj.damage += damage;
+  return obj;
+}, {
+    damage: 0,
+  });
 
 class TouchOfDeath extends Analyzer {
   static dependencies = {
@@ -35,14 +45,29 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING * (1 + masteryPercentage) * (1 + versatilityPercentage);
+
+    // Calculate Meridian Strikes Modifier Damage if combatant has MS traits
+    const merStrikesTraits = 
+      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id];
+
+    const merStrikesMod = 
+      (merStrikesTraits === undefined) ? 0.0 : meridianStrikesDamage(
+      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id]).damage;   
+
+    this.expectedBaseDamage =
+      (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING +
+        merStrikesMod)
+      * (1 + masteryPercentage)
+      * (1 + versatilityPercentage);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
-    const sefMultiplier = this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+    const sefMultiplier = 
+      this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+
     if (!enemy) {
       return;
     }
@@ -73,7 +98,7 @@ class TouchOfDeath extends Analyzer {
         icon={<SpellIcon id={SPELLS.TOUCH_OF_DEATH.id} />}
         value={`${(averageGaleBurst).toFixed(2)}`}
         label={`Average Gale Burst`}
-        tooltip={`Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br> </br> Your average modifier on Touch of Death was ~${((averageVulnerabilityAmplifier * 100).toFixed())}% and your highest was ~${(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was ${(this.highestGaleBurst / 1000000).toFixed(2)} million `}
+        tooltip={`Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br> </br> Your average modifier on Touch of Death was ~${((averageVulnerabilityAmplifier * 100).toFixed())}% and your highest was ~${(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was ${this.highestGaleBurst.toFixed()}`}
       />
     );
   }

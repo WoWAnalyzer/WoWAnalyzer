@@ -38,15 +38,6 @@ class BlackoutKick extends Analyzer {
     }
 
     this.casts += 1;
-    const combatant = this.selectedCombatant;
-    // Blackout Kick sometimes take priority if you're using T21
-    if (combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id) && combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
-      event.meta = event.meta || {};
-      event.meta.isEnhancedCast = true;
-      event.meta.enhancedCastReason = 'You had Combo Breaker and T21-2pc for this Blackout Kick';
-      return;
-    }
-
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
 
     if (hasImportantCastsAvailable) {

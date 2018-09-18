@@ -10,7 +10,7 @@ class ResourceTracker extends Analyzer {
   buildersObj = {};
   spendersObj = {};
 
-  // TODO set this to the resource you wish to track constructor.. see the appropriate objects in common/RESOURCE_TYPES
+  // TODO set this to the resource you wish to track constructor.. see the appropriate objects in game/RESOURCE_TYPES
   resource;
 
   // TODO a classes 'main' resource passes the max along with events, but for other resources this may need to be defined
@@ -114,8 +114,11 @@ class ResourceTracker extends Analyzer {
     this.triggerSpendEvent(cost, event);
   }
 
-  // TODO if your spec has an ability cost reduction that doesn't show in events, handle it manually by overriding here
+  // TODO if your spec has an ability cost reduction that doesn't show in events, handle it manually by overriding here. Or extend SpellResourceCost and apply the discount there.
   getReducedCost(event) {
+    if (event.resourceCost && event.resourceCost[this.resource.id]) {
+      return event.resourceCost[this.resource.id];
+    }
     return this.getResource(event).cost;
   }
 

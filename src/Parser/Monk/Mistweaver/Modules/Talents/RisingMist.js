@@ -29,6 +29,8 @@ class RisingMist extends Analyzer {
   efCount = 0;
   evmCount = 0;
 
+  targetCount = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
@@ -52,6 +54,7 @@ class RisingMist extends Analyzer {
     this.risingMists.push(newRisingMist);
 
     let foundEf = false;
+    let foundTarget = false;
 
     Object.keys(this.hotTracker.hots).forEach(playerId => {
       Object.keys(this.hotTracker.hots[playerId]).forEach(spellIdString => {
@@ -62,10 +65,13 @@ class RisingMist extends Analyzer {
 
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
           foundEf = true;
+          foundTarget = true;
           this.efCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+          foundTarget = true;
           this.remCount += 1;
         } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+          foundTarget = true;
           this.evmCount += 1;
         }
       });
@@ -73,6 +79,9 @@ class RisingMist extends Analyzer {
 
     if (foundEf) {
       this.efsExtended += 1;
+    }
+    if (foundTarget) {
+      this.targetCount += 1;
     }
   }
 
@@ -94,9 +103,14 @@ class RisingMist extends Analyzer {
     return this.risingMistCount === 0 ? 0 : this.totalHealing / this.risingMistCount;
   }
 
+  get averageTargetsPerRM() {
+    return this.targetCount / this.risingMistCount || 0;
+  }
+
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.RISING_MIST_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}%`}
         label="Healing Contributed"
@@ -116,7 +130,6 @@ class RisingMist extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default RisingMist;

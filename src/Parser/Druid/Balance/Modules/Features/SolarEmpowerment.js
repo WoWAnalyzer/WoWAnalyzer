@@ -6,6 +6,7 @@ class SolarEmpowerment extends Empowerment {
 
   constructor(...args) {
     super(...args);
+    this.empowermentBuff = SPELLS.SOLAR_EMP_BUFF;
     this.empoweredSpell = SPELLS.SOLAR_WRATH_MOONKIN;
     this.empowermentPrefix = 'Solar';
     this.spellGenerateAmount = 8;

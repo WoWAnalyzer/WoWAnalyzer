@@ -14,14 +14,14 @@ class Haste extends Analyzer {
     statTracker: StatTracker,
   };
 
-  // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
-  // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = {
+
+    // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
+
     ...BLOODLUST_BUFFS,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
-    [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.1,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.3, // MM Hunter main CD
@@ -36,8 +36,7 @@ class Haste extends Analyzer {
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
-    [SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id]: 0.03, //3% haste hunter legendary
-    // Haste RATING buffs are handled by the StatTracker module
+    [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande

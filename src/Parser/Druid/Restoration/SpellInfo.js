@@ -42,10 +42,10 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.REGROWTH.id]: { // TODO how handle direct vs HoT? Entries for direct for now.
+  [SPELLS.REGROWTH.id]: {
     int: true,
     crit: true,
-    hasteHpm: false,
+    hasteHpm: true,
     hasteHpct: true,
     mastery: true,
     masteryStack: true,
@@ -78,7 +78,7 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.CENARION_WARD.id]: {
+  [SPELLS.CENARION_WARD_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -124,37 +124,19 @@ export const DRUID_HEAL_INFO = {
     vers: true,
   },
   [SPELLS.TRANQUILITY_HEAL.id]: {
-    ignored: true, // Dreamgrove theorycrafters say should be ignored because it always overheals, could unfairly skew weights against Haste if included. I'd like a better solution, but this will do for now.
+    ignored: false, // Have to enable this again because of the changes to Tranq including a HoT part.
     int: true,
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: true,
-    masteryStack: false,
+    masteryStack: true,
     vers: true,
   },
   [SPELLS.EFFLORESCENCE_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
-    hasteHpct: false,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
-  [SPELLS.DREAMWALKER.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true, // an approximation, because this scales with number of rejuvs out
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
-  [SPELLS.NATURES_ESSENCE_DRUID.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
     hasteHpct: false,
     mastery: true,
     masteryStack: false,
@@ -196,15 +178,25 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.DREAMER.id]: { // T21 2pc TODO double check this once its live
+  [SPELLS.AUTUMN_LEAVES.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
-    hasteHpct: false,
+    hasteHpct: true,
     mastery: true,
-    masteryStack: true,
+    masteryStack: false,
     vers: true,
   },
+  [SPELLS.BRACING_CHILL_HEAL.id]: { //TODO Double check
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: false,
+    vers: true,
+  },
+  // TODO - blazyb add all bfa specific spells of interest
 };
 
 export const getSpellInfo = id => {

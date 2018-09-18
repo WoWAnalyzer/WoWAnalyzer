@@ -35,15 +35,16 @@ class PainDetails extends Analyzer {
       actual: this.wastedPercent,
       isGreaterThan: {
         minor: 0.05,
-        average: 0.1,
-        major: .15,
+        average: 0.10,
+        major: 0.15,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
           .icon('ability_demonhunter_demonspikes')
           .actual(`${formatPercentage(actual)}% wasted`)
@@ -54,6 +55,7 @@ class PainDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={<Icon icon="ability_demonhunter_demonspikes" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Pain wasted"
@@ -62,7 +64,6 @@ class PainDetails extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   tab() {
     return {

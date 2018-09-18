@@ -75,6 +75,7 @@ class SplittingIce extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.SPLITTING_ICE_TALENT.id} />}
         value={`${this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %`}
         label="Splitting Ice damage"
@@ -87,7 +88,6 @@ class SplittingIce extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
 }
 

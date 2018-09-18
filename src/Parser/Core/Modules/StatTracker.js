@@ -1,14 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SPECS from 'common/SPECS';
 import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
-
+import SPECS from 'game/SPECS';
+import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
-import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
-import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
+import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
+import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
 
 const debug = false;
 
@@ -170,27 +173,15 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
       mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
     },
-    [SPELLS.FEEDBACK_LOOP.id]: {
-      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
-      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
-    },
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
       intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
-    },
-    [SPELLS.CELESTIAL_BULWARK.id]: {
-      itemId: ITEMS.AGGRAMARS_CONVICTION.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(AGG_CONV_BASE_ILVL, AGG_CONV_VERS, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
-    // endregion
-
-    // region Crafted Trinkets
-    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
 
     // region Misc
@@ -216,22 +207,10 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
-    
-    // region Monk
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id], 
-    },
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id], 
-    },
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: { 
-      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id], 
-    },
-    // endregion
 
     /****************************************\
-    *                    BFA:                *
-    \****************************************/
+     *                    BFA:                *
+     \****************************************/
 
     // region Azerite Traits
     // region General
@@ -240,27 +219,81 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS, 
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
+    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
+      crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: {
+      haste: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_HASTE.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: {
+      mastery: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_MASTERY.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: {
+      versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
+    },
+    [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    [SPELLS.DANCE_OF_DEATH.id]: DANCE_OF_DEATH_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     // endregion
+    //region Death Knight
+    [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
     // endregion
-
+    // region Monk
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
+      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+    },
+    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
+    // endregion
     // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
-    264878: { crit: 445 }, // Crow's Nest Scope
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.GALECALLERS_BOON_BUFF.id]: {
+      itemId: ITEMS.GALECALLERS_BOON.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+    },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
     269887: { // Boiling Time
@@ -305,6 +338,13 @@ class StatTracker extends Analyzer {
       itemId: 159625, // Vial of Animated Blood
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
+
+    // endregion
+    // region World boss
+    278227: { // Barkspines
+      itemId: 161411, // T'zane's Barkspines active TODO: Make an analyzer
+      crit: (_, item) => calculateSecondaryStatDefault(355, 1160, item.itemLevel), // TODO: Verify stats and if it scales with this formula (might be trinket/jewerly scaling)
+    },
     // endregion
     // region Dungeons
     [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
@@ -315,13 +355,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
-    [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
+    [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
     // endregion
     // region Raids
-    [SPELLS.UNCONTAINED_POWER.id] : {
+    [SPELLS.UNCONTAINED_POWER.id]: {
       itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
       intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },
@@ -334,6 +374,13 @@ class StatTracker extends Analyzer {
     251839: { strength: 238 }, // Flask of the Undertow
     152639: { intellect: 238 }, // Flask of Endless Fathoms
     251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // region Potions
+    279153: { strength: 900 }, // Battle Potion of Strength
+    279152: { agility: 900 }, // Battle Potion of Agility
+    279151: { intellect: 900 }, // Battle Potion of Intellect
+    279154: { stamina: 1100 }, // Battle Potion of Stamina
+    251231: { armor: 900 }, // Steelskin Potion
     // endregion
     // endregion
 
@@ -470,28 +517,31 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get baseCritPercentage() {
-    const standard = 0.05;
+    let critChance = 0.05;
+    if (this.selectedCombatant.race === RACES.BloodElf) {
+      critChance += 0.01;
+    }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
-        return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+        return critChance + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.MARKSMANSHIP_HUNTER:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.SURVIVAL_HUNTER:
-        return standard + 0.06; //baseline +6%
+        return critChance + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
-        return standard + 0.06; //baseline +6%
+        return critChance + 0.06; //baseline +6%
       case SPECS.SUBTLETY_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.ASSASSINATION_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       case SPECS.OUTLAW_ROGUE:
-        return standard + 0.05; //baseline +5%
+        return critChance + 0.05; //baseline +5%
       default:
-        return standard;
+        return critChance;
     }
   }
   get baseHastePercentage() {
@@ -519,43 +569,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 17.62 * 100; //72
+    return 72 * 100;
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 16.64 * 100; //68
+    return 68 * 100;
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 17.62 * 100 / this.selectedCombatant.spec.masteryCoefficient; //72
+    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 20.80 * 100; //85
+    return 85 * 100;
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 6.85 * 100; //28
+    return 28 * 100;
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 9.79 * 100; //40
+    return 40 * 100;
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 4.89 * 100; //20
+    return 20 * 100;
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
@@ -715,3 +765,4 @@ class StatTracker extends Analyzer {
 }
 
 export default StatTracker;
+

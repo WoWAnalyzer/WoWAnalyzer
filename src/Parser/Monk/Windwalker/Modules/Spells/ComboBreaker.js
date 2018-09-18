@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -19,7 +18,6 @@ class ComboBreaker extends Analyzer {
   lastCBProcTime = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
-  serenityBoKCast = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -58,13 +56,12 @@ class ComboBreaker extends Analyzer {
   }
   get suggestionThresholds() {
     const usedCBprocs = this.consumedCBProc / this.CBProcsTotal;
-    const baseThreshold = this.selectedCombatant.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
     return {
       actual: usedCBprocs,
       isLessThan: {
-        minor: 1 - baseThreshold,
-        average: 1 - baseThreshold * 2,
-        major: 1 - baseThreshold * 3,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: 'percentage',
     };
@@ -82,18 +79,13 @@ class ComboBreaker extends Analyzer {
   
   statistic() {
     const usedCBProcs = this.consumedCBProc / this.CBProcsTotal;
-    let procsFromTigerPalm = this.CBProcsTotal;
-    // Fist of the White Tiger procs Combo Breaker if legendary head "The Wind Blows" is equipped
-    if (this.selectedCombatant.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
-      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id).casts;
-    }
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * 0.08;
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
         value={`${formatPercentage(usedCBProcs)}%`}
         label="Combo Breaker Procs Used"
-        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
+        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${this.CBProcsTotal}</b>.`}
       />
    );
   }

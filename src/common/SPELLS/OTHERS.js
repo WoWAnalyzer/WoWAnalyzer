@@ -188,16 +188,6 @@ export default {
     name: 'Taste of Mana',
     icon: 'inv_70_dungeon_ring6a',
   },
-  VELENS_FUTURE_SIGHT_BUFF: {
-    id: 235966,
-    name: 'Velen\'s Future Sight',
-    icon: 'spell_holy_healingfocus',
-  },
-  VELENS_FUTURE_SIGHT_HEAL: {
-    id: 235967,
-    name: 'Velen\'s Future Sight',
-    icon: 'spell_holy_healingfocus',
-  },
   XAVARICS_MAGNUM_OPUS: {
     id: 207472,
     name: 'Xavaric\'s Magnum Opus',
@@ -302,7 +292,7 @@ export default {
   COLLAPSE: { //Ring of Collapsing Futures
     id: 234142,
     name: 'Collapse',
-    icon: 'spell_priest_void-blast',
+    icon: 'spell_priest_voidblast',
   },
 
   // Nighthold Trinkets
@@ -332,20 +322,10 @@ export default {
     name: 'Guilty Conscience',
     icon: 'spell_shadow_mindshear',
   },
-  GUIDING_HAND: {
-    id: 242622,
-    name: 'Guiding Hand',
-    icon: 'spell_shadow_mindshear',
-  },
   FRUITFUL_MACHINATIONS: {
     id: 242623,
     name: 'Fruitful Machinations',
     icon: 'spell_shadow_mindshear',
-  },
-  OCEANS_EMBRACE: {
-    id: 242474,
-    name: 'Ocean\'s Embrace',
-    icon: 'inv_jewelcrafting_starofelune_02',
   },
   CEASELESS_TOXIN: {
     id: 242497,
@@ -397,108 +377,6 @@ export default {
     name: 'Lunar Infusion',
     icon: 'ability_druid_lunarguidance',
   },
-  // T21 Healing trinkets
-  TARRATUS_KEYSTONE: {
-    id: 253282,
-    name: 'Tarratus Keystone',
-    icon: 'inv__wod_arakoa4',
-  },
-  HIGHFATHERS_TIMEKEEPING_BUFF: {
-    id: 253287,
-    name: 'Highfather\'s Timekeeping',
-    icon: 'spell_priest_psyfiend',
-  },
-  HIGHFATHERS_TIMEKEEPING_HEAL: {
-    id: 253288,
-    name: 'Highfather\'s Timekeeping',
-    icon: 'spell_priest_psyfiend',
-  },
-  EONARS_COMPASSION_HEAL: {
-    id: 257442,
-    name: 'Emerald Blossom',
-    icon: 'inv_antorus_green',
-  },
-  EONARS_COMPASSION_PROCBUFF: {
-    id: 256824,
-    name: 'Mark of Eonar',
-    icon: 'inv_antorus_green',
-  },
-  EONARS_COMPASSION_PANTHEONSHIELD: {
-    id: 257444,
-    name: 'Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_RDRUID: {
-    id: 257470,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_RMONK: {
-    id: 257471,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_HPALADIN: {
-    id: 257472,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_DPRIEST: {
-    id: 257473,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_HPRIEST: {
-    id: 257474,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN: {
-    id: 257475,
-    name: 'Eonar\'s Verdant Embrace',
-    icon: 'talentspec_druid_restoration',
-  },
-  //T21 Dps Trinket
-  SHADOW_STRIKE: { //Seeping Scourewing Base Damage
-    id: 253324,
-    name: 'Shadow Strike',
-    icon: 'ability_creature_poison_03',
-  },
-  ISOLATED_STRIKE: {
-    id: 255609,
-    name: 'Isolated Strike',
-    icon: 'ability_creature_poison_03',
-  },
-  GORSHALACHS_LEGACY_FIRST_HIT: {
-    id: 253329,
-    name: 'Gorshalach\'s Legacy',
-    icon: 'inv_sword_1h_firelandsraid_d_01',
-  },
-  GORSHALACHS_LEGACY_SECOND_HIT: {
-    id: 255673,
-    name: 'Gorshalach\'s Legacy',
-    icon: 'inv_sword_1h_firelandsraid_d_01',
-  },
-  GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
-    id: 257286,
-    name: 'Ravaging Storm',
-    icon: 'inv_antorus_grey',
-  },
-  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH: {
-    id: 257430,
-    name: 'Golganneth\'s Thunderous Wrath',
-    icon: 'ability_thunderking_thunderstruck',
-  },
-  GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH: {
-    id: 256821,
-    name: 'Mark of Golganneth',
-    icon: 'inv_antorus_grey',
-  },
-  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF: {
-    id: 256833,
-    name: 'Golganneth\'s Thunderous Wrath',
-    icon: 'ability_thunderking_thunderstruck',
-  },
   //Khaz'goroths Courage procs:
   WORLDFORGERS_FLAME_BUFF: {
     id: 256826,
@@ -517,6 +395,11 @@ export default {
   },
   FIRE_MINES: { // forgefiends fabricator
     id: 253321,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  FIRE_MINES_2: { // also forgefiends fabricator
+    id: 253322,
     name: 'Fire Mines',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
@@ -736,18 +619,6 @@ export default {
     name: 'Valarjar\'s Path',
     icon: 'inv_misc_horn_03',
   },
-  // Dot spell for Carafe of Searing Light
-  REFRESHING_AGONY_DOT: {
-    id: 253284,
-    name: 'Refreshing Agony',
-    icon: 'ability_priest_flashoflight',
-  },
-  // Mana return spell for Carafe of Searing Light
-  REFRESHING_AGONY_MANA: {
-    id: 255981,
-    name: 'Refreshing Agonyt',
-    icon: 'ability_priest_flashoflight',
-  },
   FELSHIELD_ABSORB: {
     id: 253277,
     name: 'Felshield',
@@ -757,17 +628,6 @@ export default {
     id: 253278,
     name: 'Felshield',
     icon: 'ability_vehicle_shellshieldgenerator_green',
-  },
-  //Aman'Thul's Vision
-  AMANTHULS_GRANDEUR: { //Pantheon Proc
-    id: 256832,
-    name: 'Aman\'Thul\'s Grandeur',
-    icon: 'ability_shaman_repulsiontotem',
-  },
-  GLIMPSE_OF_ENLIGHTENMENT: { //Regular Proc
-    id: 256818,
-    name: 'Glimpse of Enlightenment',
-    icon: 'inv_antorus_turquoise',
   },
   //Aggramar's Conviction Argus Tanking Pantheon Trinket
   AGGRAMARS_FORTITUDE: { //Pantheon Proc
@@ -800,7 +660,7 @@ export default {
   FROZEN_ARMOR: {
     id: 251941,
     name: 'Frozen Armor',
-    icon : 'ability_hunter_glacialtrap',
+    icon: 'ability_hunter_glacialtrap',
   },
   // Riftworld Codex
   WINDS_OF_KARETH: { //6sec HoT
@@ -836,4 +696,21 @@ export default {
     name: 'Strength of the Sky',
     icon: 'spell_nature_unrelentingstorm',
   },
+  //Toys
+  BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
+    id: 132568,
+    name: 'Blow Darkmoon Whistle',
+    icon: 'ability_hunter_beastcall',
+  },
+  DARKMOON_FIREWORK: { //Darkmoon Firework toy
+    id: 103740,
+    name: 'Darkmoon Firework',
+    icon: 'inv_misc_missilesmallcluster_green',
+  },
+  BIG_RED_RAYS: {
+    id: 229837,
+    name: 'Big Red Rays',
+    icon: 'priest_icon_chakra_red',
+  },
+
 };

@@ -18,12 +18,12 @@ class LuminousBarrier extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LUMINOUS_BARRIER.id) {
+    if (spellId !== SPELLS.LUMINOUS_BARRIER_TALENT.id) {
       return;
     }
     this.totalAbsorb += event.absorb;
@@ -31,7 +31,7 @@ class LuminousBarrier extends Analyzer {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LUMINOUS_BARRIER.id) {
+    if (spellId !== SPELLS.LUMINOUS_BARRIER_TALENT.id) {
       return;
     }
 
@@ -44,7 +44,7 @@ class LuminousBarrier extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LUMINOUS_BARRIER.id} />}
+        icon={<SpellIcon id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />}
         value={`${formatNumber(this.wastedAbsorb / this.owner.fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`The amount of shield absorb remaining on Luminous Barrier instances that have expired. There was a total of ${formatNumber(this.wastedAbsorb)} (${formatPercentage(this.wastedAbsorb / this.totalAbsorb)} %) unused Luminous Barrier absorb on a total of ${formatNumber(this.totalAbsorb)} applied.`}>
@@ -58,13 +58,13 @@ class LuminousBarrier extends Analyzer {
   suggestions(when) {
     const wastedPourcentage = this.wastedAbsorb / this.totalAbsorb || 0;
 
-    when(wastedPourcentage).isGreaterThan(SuggestionThresholds.LUMINOUS_BARRIER_WASTED.minor)
+    when(wastedPourcentage).isGreaterThan(SuggestionThresholds.LUMINOUS_BARRIER_TALENT_WASTED.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.LUMINOUS_BARRIER.id} /> usage can be improved.</span>)
-          .icon(SPELLS.LUMINOUS_BARRIER.icon)
+        return suggest(<span>Your <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} /> usage can be improved.</span>)
+          .icon(SPELLS.LUMINOUS_BARRIER_TALENT.icon)
           .actual(`${formatPercentage(wastedPourcentage)}% wasted`)
           .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.LUMINOUS_BARRIER_WASTED.regular).major(SuggestionThresholds.LUMINOUS_BARRIER_WASTED.major);
+          .regular(SuggestionThresholds.LUMINOUS_BARRIER_TALENT_WASTED.regular).major(SuggestionThresholds.LUMINOUS_BARRIER_TALENT_WASTED.major);
       });
   }
 }

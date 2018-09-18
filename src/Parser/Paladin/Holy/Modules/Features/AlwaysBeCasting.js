@@ -1,6 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
 const debug = false;
@@ -10,7 +8,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.FLASH_OF_LIGHT.id,
     SPELLS.HOLY_LIGHT.id,
     SPELLS.HOLY_SHOCK_CAST.id,
-    // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
+    // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL
     SPELLS.LIGHT_OF_DAWN_CAST.id,
     SPELLS.LIGHT_OF_THE_MARTYR.id,
     SPELLS.BESTOW_FAITH_TALENT.id,
@@ -25,7 +23,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)) {
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
     }
   }

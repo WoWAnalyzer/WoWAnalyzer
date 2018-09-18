@@ -82,6 +82,7 @@ class AuraOfSacrificeLivesSaved extends Analyzer {
       : 'Click to analyze how many lives were saved by the Aura Mastery effect of Aura of Sacrifice.';
     return (
       <LazyLoadStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
         value={`≈${this.livesSaved}`}
@@ -90,7 +91,6 @@ class AuraOfSacrificeLivesSaved extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default AuraOfSacrificeLivesSaved;

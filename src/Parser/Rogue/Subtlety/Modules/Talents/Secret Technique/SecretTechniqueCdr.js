@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Analyzer from 'Parser/Core/Analyzer';
 

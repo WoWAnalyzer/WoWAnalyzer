@@ -6,11 +6,13 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
+ * Has a 25% chance to immediately reset its cooldown.
  *
- * Survival (Level 50) - Has a 25% chance to immediately reset its cooldown
+ * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
 
 class KillCommand extends Analyzer {
@@ -46,6 +48,7 @@ class KillCommand extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(18)}
         icon={<SpellIcon id={SPELLS.KILL_COMMAND_SV.id} />}
         value={`${this.resets}`}
         label="Kill Command resets"

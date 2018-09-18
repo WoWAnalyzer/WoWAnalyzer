@@ -1,15 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
-import MaraadsDyingBreath from '../Items/MaraadsDyingBreath';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -17,7 +14,6 @@ const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
 class FillerLightOfTheMartyrs extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    maraadsDyingBreath: MaraadsDyingBreath,
     spellUsable: SpellUsable,
   };
 
@@ -26,10 +22,6 @@ class FillerLightOfTheMartyrs extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
-      return;
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
-      // Not a filler
       return;
     }
 
@@ -78,26 +70,13 @@ class FillerLightOfTheMartyrs extends Analyzer {
 
   suggestions(when) {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      let suggestionText;
-      let actualText;
-      if (this.maraadsDyingBreath.active) {
-        suggestionText = (
-          <React.Fragment>
-            With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
-          </React.Fragment>
-        );
-        actualText = `${this.cpm.toFixed(2)} Casts Per Minute - ${this.casts} casts total (unbuffed only)`;
-      } else {
-        suggestionText = (
-          <React.Fragment>
-            You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
-          </React.Fragment>
-        );
-        actualText = `${this.cpm.toFixed(2)} Casts Per Minute - ${this.casts} casts total`;
-      }
-      return suggest(suggestionText)
+      return suggest((
+        <React.Fragment>
+          You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
+        </React.Fragment>
+      ))
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(actualText)
+        .actual(`${this.cpm.toFixed(2)} Casts Per Minute - ${this.casts} casts total`)
         .recommended(`<${recommended} Casts Per Minute is recommended`);
     });
 

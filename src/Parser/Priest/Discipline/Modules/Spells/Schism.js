@@ -8,7 +8,7 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import DualStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/DualStatisticBox';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -18,6 +18,8 @@ import Penance from '../Spells/Penance';
 import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
+import Atonement from '../Spells/Atonement';
+import SinsOfTheMany from '../Spells/SinsOfTheMany';
 
 class Schism extends Analyzer {
   static dependencies = {
@@ -25,6 +27,8 @@ class Schism extends Analyzer {
     statTracker: StatTracker,
     atonementDamageSource: AtonementDamageSource,
     penance: Penance,
+    atonement: Atonement,
+    sins: SinsOfTheMany,
   };
 
   // Spell metadata
@@ -47,6 +51,7 @@ class Schism extends Analyzer {
   target = null;
 
   // Estimations
+  giftRanks;
   smiteEstimation;
 
   // Methods
@@ -56,7 +61,8 @@ class Schism extends Analyzer {
       SPELLS.SCHISM_TALENT.id
     );
 
-    this.smiteEstimation = SmiteEstimation(this.statTracker);
+    this.giftRanks = this.selectedCombatant.traitRanks(SPELLS.GIFT_OF_FORGIVENESS.id);
+    this.smiteEstimation = SmiteEstimation(this.statTracker, this.sins, this.giftRanks);
   }
 
   get buffActive() {
@@ -89,15 +95,22 @@ class Schism extends Analyzer {
     // Assume every schism is bad
     this._badSchisms[event] = true;
 
-    // Add direct schism damage
-    const { smiteDamage } = this.smiteEstimation();
+    // Calculate direct schism damage
+    const { smiteDamage } = this.smiteEstimation(this.atonement.giftActive);
 
+    // Substract smite damage (because that is what we would be casting if we didn't pick Schism)
     this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
   }
 
   on_byPlayer_heal(event) {
-    if (!isAtonement(event)) return;
+    if (!isAtonement(event)) {
+      return;
+    }
     const atonenementDamageEvent = this.atonementDamageSource.event;
+    if (!atonenementDamageEvent) {
+      this.error('Atonement damage event unknown for Atonement heal:', event);
+      return;
+    }
 
     // Schism doesn't buff itself, but we need to handle this for better estimations
     if (atonenementDamageEvent.ability.guid === SPELLS.SCHISM_TALENT.id) {
@@ -127,15 +140,16 @@ class Schism extends Analyzer {
     if (!Schism.synergisticAbilities.includes(event.ability.guid)) return;
 
     // Return early if the ability isn't cast during Schism
-    if (this._lastSchismCast.timestamp + Schism.duration <= event.timestamp)
-      {return;}
+    if (this._lastSchismCast.timestamp + Schism.duration <= event.timestamp) {
+      return;
+    }
 
     this._badSchisms[this._lastSchismCast] = false;
   }
 
   // The Atonement from Schism's direct damage component
   processSchismAtonement(event) {
-    const { smiteHealing } = this.smiteEstimation();
+    const { smiteHealing } = this.smiteEstimation(this.atonement.giftActive);
     const estimatedSmiteRawHealing = smiteHealing * event.hitType;
 
     const estimatedOverhealing = calculateOverhealing(
@@ -170,23 +184,23 @@ class Schism extends Analyzer {
           `${formatNumber(
             ((this.directDamage + this.damageFromBuff) /
               this.owner.fightDuration) *
-              1000
+            1000
           )} DPS`,
         ]}
         footer={(
           <dfn
             data-tip={`
               The effective healing contributed by Schism was ${formatPercentage(
-                this.owner.getPercentageOfTotalHealingDone(this.healing)
-              )}% of total healing done.
+              this.owner.getPercentageOfTotalHealingDone(this.healing)
+            )}% of total healing done.
 
               The direct damage contributed by the Schism talent was ${formatPercentage(
-                this.owner.getPercentageOfTotalDamageDone(this.directDamage)
-              )}% of total damage done.
+              this.owner.getPercentageOfTotalDamageDone(this.directDamage)
+            )}% of total damage done.
 
               The effective damage contributed by the Schism bonus was ${formatPercentage(
-                this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff)
-              )}% of total damage done.
+              this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff)
+            )}% of total damage done.
             `}
           >
             Schism Output Details

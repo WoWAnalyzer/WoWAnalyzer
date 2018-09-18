@@ -53,7 +53,8 @@ class SigilOfFlame extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME.id} />}
+        position={STATISTIC_ORDER.CORE(5)}
+        icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         value={`${this.successfulStack} times`}
         label="Sigil of Flame stacked twice"
         tooltip={`Having two stacks of Sigil Of Flames on the boss is a damage increase. This is especially important during Fiery Brand due to the Fiery Demise artifact trait that increases the fire damage you do by 10%. This increases your damage and self healing.</br><br/>
@@ -62,7 +63,6 @@ class SigilOfFlame extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default SigilOfFlame;

@@ -1,6 +1,5 @@
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 class ChiTracker extends ResourceTracker {
@@ -25,9 +24,6 @@ class ChiTracker extends ResourceTracker {
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
     if (spellId === SPELLS.BLACKOUT_KICK.id) {
         cost = 1;     
-    }
-    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id && this.selectedCombatant.hasFeet(ITEMS.KATSUOS_ECLIPSE.id)) {
-      cost = cost - 1;
     }
     return cost;
   }

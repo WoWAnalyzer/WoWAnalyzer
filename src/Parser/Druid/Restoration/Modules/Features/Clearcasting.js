@@ -10,10 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 const debug = false;
 
 class Clearcasting extends Analyzer {
-  // With MoC, there's no actual indication in the events that you have it...
-  // In fact the Clearcasting buff doesn't show with stacks.
-  // You'll appear as casting Regrowths without the buff disappating, and then on the 3rd Regrowth it goes away.
-  hasMoC;
   procsPerCC;
 
   totalProcs = 0;
@@ -21,15 +17,14 @@ class Clearcasting extends Analyzer {
   overwrittenProcs = 0;
   usedProcs = 0;
 
-  availableProcs = 0; // number of free regrowths remaining in current Clearcast. Usually 1, but becomes 3 with MoC.
+  availableProcs = 0;
 
   nonCCRegrowths = 0;
   totalRegrowths = 0;
 
   constructor(...args) {
     super(...args);
-    this.hasMoC = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
-    this.procsPerCC = this.hasMoC ? 3 : 1;
+    this.procsPerCC = 1;
   }
 
   on_byPlayer_applybuff(event) {
@@ -43,7 +38,6 @@ class Clearcasting extends Analyzer {
     this.availableProcs = this.procsPerCC;
   }
 
-  // refreshbuff does show without MoC, but doesn't show with it.... at least I can get overwrites when player doesn't have it...
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
@@ -63,8 +57,7 @@ class Clearcasting extends Analyzer {
     }
 
     debug && console.log(`Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs expired`);
-    if (this.availableProcs < 0) { // there was an invisible refresh after some but not all the MoC charges consumed...
-      debug && console.log(`There was an invisible refresh after some but not all MoC charges consumed ... setting available to 0...`);
+    if (this.availableProcs < 0) {
       this.availableProcs = 0;
     }
     this.expiredProcs += this.availableProcs;
@@ -93,7 +86,7 @@ class Clearcasting extends Analyzer {
 
   get clearcastingUtilPercent() {
     const util = this.usedProcs / this.totalProcs;
-    return (util > 1) ? 1 : util; // invisible refresh + MoC can make util greater than 100% ... in that case clamp to 100%
+    return (util > 1) ? 1 : util;
   }
 
   get hadInvisibleRefresh() {

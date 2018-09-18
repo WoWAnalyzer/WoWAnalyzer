@@ -69,7 +69,7 @@ export default {
     name: 'Azerite Empowered',
     icon: 'inv_misc_azerite_01',
   },
-  AZERITE_FORTIFICATION: {
+  AZERITE_FORTIFICATION: { // we already have another AZERITE_FORTIFICATION in general, is this obsolete?
     id: 268435,
     name: 'Azerite Fortification',
     icon: 'ability_creature_amber_01',
@@ -123,11 +123,6 @@ export default {
     id: 272792,
     name: 'Boiling Brew',
     icon: 'achievement_brewery_2',
-  },
-  BONE_SPIKE_GRAVEYARD: {
-    id: 273088,
-    name: 'Bone Spike Graveyard',
-    icon: 'spell_shadow_deathanddecay',
   },
   BRACING_CHILL: {
     id: 267884,
@@ -193,11 +188,6 @@ export default {
     id: 271536,
     name: 'Crystalline Carapace',
     icon: 'inv_shield_33',
-  },
-  DANCE_OF_DEATH: {
-    id: 274441,
-    name: 'Dance of Death',
-    icon: 'ability_druid_mangle',
   },
   DARK_GRUDGE: {
     id: 269368,
@@ -598,11 +588,6 @@ export default {
     id: 270647,
     name: 'Meteoric Flare',
     icon: 'ability_warlock_handofguldan',
-  },
-  METICULOUS_SCHEMING: {
-    id: 273682,
-    name: 'Meticulous Scheming',
-    icon: 'ability_rogue_masterofsubtlety',
   },
   MISTY_PEAKS: {
     id: 275975,
@@ -1093,11 +1078,6 @@ export default {
     id: 273346,
     name: 'Winter\'s Reach',
     icon: 'ability_warlock_burningembersblue',
-  },
-  WOUNDBINDER: {
-    id: 270677,
-    name: 'Woundbinder',
-    icon: 'inv_misc_emberweavebandage',
   },
   WRACKING_BRILLIANCE: {
     id: 272891,

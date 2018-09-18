@@ -404,7 +404,7 @@ class HotTracker extends Analyzer {
         duration: 15000,
         tickPeriod: 1000,
       },
-      [SPELLS.CENARION_WARD.id]: {
+      [SPELLS.CENARION_WARD_HEAL.id]: {
         duration: 8000,
         tickPeriod: 2000,
       },
@@ -416,10 +416,11 @@ class HotTracker extends Analyzer {
         duration: 6000,
         tickPeriod: 2000,
       },
-      [SPELLS.DREAMER.id]: {
+      [SPELLS.TRANQUILITY_HEAL.id]: {
         duration: 8000,
         tickPeriod: 2000,
       },
+      //TODO - blazyb double check this
     };
   }
 }

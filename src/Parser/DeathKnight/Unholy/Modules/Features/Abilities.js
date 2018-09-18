@@ -1,9 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -48,30 +46,22 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.CHAINS_OF_ICE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 40,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <span>You should be casting Chains of Ice whenever you have 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} />.</span>,
-        },
       },
-
       {
         spell: SPELLS.DARK_TRANSFORMATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60, // TODO: add support for shadow infusion - adding suggestion note to account for difference between Infected Claws and Shadow Infusion as well
+        cooldown: 60, 
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} /> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} />'s CD has less than 30 seconds remaining.</span>,
         },
       },
 
@@ -94,25 +84,46 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown. If you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} />, empowering <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} /> with <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> takes priority, so do not worry if an <SpellLink id={SPELLS.APOCALYPSE.id} /> cast is not empowered. </span>,
+          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.</span>,
         },
       },
 
       {
         spell: SPELLS.SUMMON_GARGOYLE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180, // TODO: needs to account for CoF
+        cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id)),
+        enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>This is your main DPS cooldown.  Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} /> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> can be cast immediatly after.</span>,
         },
       },
-
+      {
+        spell: SPELLS.ARMY_OF_THE_DEAD,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 480,
+        gcd: {
+          base: 1500,
+        },
+      },
+      // defensives
+      {
+        spell: SPELLS.ICEBOUND_FORTITUDE,
+        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.ANTI_MAGIC_SHELL,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 60,
+        gcd: null,
+      },      
       // talents
       {
         spell: SPELLS.DEFILE_TALENT,
@@ -127,7 +138,16 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
-
+      {
+        spell: SPELLS.UNHOLY_FRENZY_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 75,
+        enabled: combatant.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id),
+        castEfficiency:{
+          suggestion: true,
+          recommendedEfficiency: .90,
+        },
+      },
       {
         spell: SPELLS.SOUL_REAPER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -138,50 +158,40 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.85,
         },
       },
-
       {
         spell: SPELLS.EPIDEMIC_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 10 / (1 + haste),
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.EPIDEMIC_TALENT.id),
-        charges: 3,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
       },
       {
-        spell: SPELLS.ICEBOUND_FORTITUDE,
-        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 180,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ANTI_MAGIC_SHELL,
-        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ARMY_OF_THE_DEAD,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 8 * 60,
+        spell: SPELLS.DEATH_AND_DECAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.RAISE_DEAD,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 30,
+        spell: SPELLS.UNHOLY_BLIGHT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id),
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DEATH_PACT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.DEATH_PACT_TALENT.id),
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -195,16 +205,25 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATH_AND_DECAY,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 30,
+        spell: SPELLS.WRAITH_WALK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEATH_STRIKE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      // utility
+      {
+        spell: SPELLS.RAISE_DEAD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -220,14 +239,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 600,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.WRAITH_WALK_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         gcd: {
           base: 1500,
         },

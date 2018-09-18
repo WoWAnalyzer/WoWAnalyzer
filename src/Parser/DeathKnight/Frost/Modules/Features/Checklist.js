@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 
@@ -10,8 +9,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
@@ -23,8 +20,6 @@ class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
-    legendaryCountChecker: LegendaryCountChecker,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
@@ -33,26 +28,6 @@ class Checklist extends CoreChecklist {
   };
 
   rules = [
-    new Rule({
-      name: 'Use core spells as often as possible',
-      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id} /> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id} />(when using Cold Heart) should be used as often as possible</React.Fragment>,
-      requirements: () => {
-        const combatant = this.selectedCombatant;
-        return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.REMORSELESS_WINTER,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CHAINS_OF_ICE,
-            when: combatant.hasChest(ITEMS.COLD_HEART.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-              spell: SPELLS.HORN_OF_WINTER_TALENT,
-              when: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
-          }),
-        ];
-      },
-    }),
     new Rule({
       name: 'Use cooldowns as often as possible',
       description: 'You should aim to use your cooldowns as often as you can to maximize your damage output',
@@ -63,29 +38,18 @@ class Checklist extends CoreChecklist {
               spell: SPELLS.PILLAR_OF_FROST,
             }),
             new GenericCastEfficiencyRequirement({
-              spell: SPELLS.OBLITERATION_TALENT,
-              when: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
-            }),
-            new GenericCastEfficiencyRequirement({
               spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
               when: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
             }),
             new GenericCastEfficiencyRequirement({
               spell: SPELLS.EMPOWER_RUNE_WEAPON,
             }),
-            new GenericCastEfficiencyRequirement({
-                spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
-                when: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
-              }),
-            new GenericCastEfficiencyRequirement({
-                spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
-            }),
           ];
       },
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /></React.Fragment>,
+      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({

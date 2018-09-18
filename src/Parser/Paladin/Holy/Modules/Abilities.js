@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -45,7 +44,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_ALT],
-        buffSpellId: SPELLS.ILTERENDI_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
@@ -55,7 +53,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
+          suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
           extraSuggestion: (
             <React.Fragment>
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.
@@ -176,19 +174,14 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        gcd: null,
-        isUndetectable: true,
-        timelineSortIndex: 35,
-      },
-      {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
         timelineSortIndex: 33,
       },
@@ -198,6 +191,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 32,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
@@ -207,6 +203,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 32,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
@@ -216,13 +215,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
         timelineSortIndex: 34,
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         buffSpellId: SPELLS.BLESSING_OF_SACRIFICE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 150,
+        cooldown: 120,
         gcd: null,
         timelineSortIndex: 101,
       },
@@ -240,7 +243,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR,
-        buffSpellId: SPELLS.MARAADS_DYING_BREATH_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,

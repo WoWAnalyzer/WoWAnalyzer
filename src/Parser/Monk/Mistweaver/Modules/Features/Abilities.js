@@ -147,15 +147,6 @@ class Abilities extends CoreAbilities {
 
       // Utility Spells
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 90,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -203,14 +194,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
         gcd: {
           base: 1500,
         },

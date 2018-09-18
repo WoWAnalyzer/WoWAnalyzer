@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import DamageTakenTableComponent, { MITIGATED_MAGICAL, MITIGATED_PHYSICAL, MITIGATED_UNKNOWN } from 'Interface/Others/DamageTakenTable';
 import Tab from 'Interface/Others/Tab';
 import SPELLS from 'common/SPELLS';
-import SPECS from 'common/SPECS';
+import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 
 import HighTolerance from '../Spells/HighTolerance';

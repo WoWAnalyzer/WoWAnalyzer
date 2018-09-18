@@ -2,8 +2,6 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
@@ -17,8 +15,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AlwaysBeCasting;

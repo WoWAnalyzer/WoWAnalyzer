@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import ComboPointsFromAoE from './ComboPointsFromAoE';
 
@@ -19,7 +19,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 2,
@@ -31,7 +31,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -42,7 +42,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // fabricated combo point energize
           __fabricated: true,
@@ -55,7 +55,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 2,
@@ -67,7 +67,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -205,7 +205,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 2,
@@ -217,7 +217,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage to a second target
           timestamp: 2,
@@ -229,7 +229,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage to the first target again
           timestamp: 3,
@@ -241,7 +241,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -252,7 +252,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // fabricated combo point energize
           __fabricated: true,
@@ -265,7 +265,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 2,
@@ -277,7 +277,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage to a second target
           timestamp: 2,
@@ -289,7 +289,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage to the first target again
           timestamp: 3,
@@ -301,7 +301,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -315,7 +315,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
@@ -327,7 +327,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 0,
           hitType: HIT_TYPES.PARRY,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -338,9 +338,9 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE damage event, but is parried so does 0 damge 
+        { // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
           type: 'damage',
           sourceID: playerId,
@@ -350,7 +350,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 0,
           hitType: HIT_TYPES.PARRY,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -364,7 +364,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from a different AoE ability
           timestamp: 2,
@@ -387,7 +387,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from a different AoE ability
           timestamp: 2,
@@ -413,7 +413,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage event from same ability, but a different player
           timestamp: 2,
@@ -425,7 +425,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -436,7 +436,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage event from same ability, but a different player
           timestamp: 2,
@@ -448,7 +448,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -474,7 +474,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE
           timestamp: 3,
@@ -486,7 +486,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -509,7 +509,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // fabricated combo point energize, showing it wasted a combo point
           __fabricated: true,
@@ -522,7 +522,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 1,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE
           timestamp: 3,
@@ -534,7 +534,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -575,7 +575,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 4,
@@ -587,7 +587,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -625,7 +625,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // fabricated energize event showing no waste
           __fabricated: true,
@@ -638,7 +638,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // AoE does damage
           timestamp: 4,
@@ -650,7 +650,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -664,7 +664,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE 5 seconds after the cast
           timestamp: 5000,
@@ -676,7 +676,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -687,7 +687,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE 5 seconds after the cast
           timestamp: 5000,
@@ -699,7 +699,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -713,7 +713,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // energy energize from another ability
           timestamp: 1,
@@ -758,7 +758,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -769,7 +769,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // fabricated combo point energize
           __fabricated: true,
@@ -782,7 +782,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // energy energize from another ability
           timestamp: 1,
@@ -827,7 +827,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },
@@ -841,7 +841,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // energize combo points from AoE
           timestamp: 1,
@@ -853,7 +853,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE
           timestamp: 2,
@@ -865,7 +865,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
       expected: [
@@ -876,7 +876,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           sourceIsFriendly: true,
           targetID: enemyId,
           targetIsFriendly: false,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // energize combo points from AoE
           timestamp: 1,
@@ -888,7 +888,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           resourceChangeType: RESOURCE_TYPES.COMBO_POINTS.id,
           resourceChange: 1,
           waste: 0,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
         { // damage from AoE
           timestamp: 2,
@@ -900,7 +900,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           absorbed: 0,
           amount: 100,
           hitType: HIT_TYPES.NORMAL,
-          ability: { guid: SPELLS.CAT_SWIPE.id },
+          ability: { guid: SPELLS.SWIPE_CAT.id },
         },
       ],
     },

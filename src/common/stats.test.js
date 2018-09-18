@@ -19,7 +19,7 @@ describe('stats', () => {
   });
 
   it('scales primary stat correctly', () => {
-    // Trinket https://bfa.wowhead.com/item=160651/vigilants-bloodshaper&bonus=4800:1507
+    // Trinket https://wowhead.com/item=160651/vigilants-bloodshaper&bonus=4800:1507
     const vigilantsBloodshaper = itemLevel => calculatePrimaryStat(355, 236, itemLevel);
 
     expect(vigilantsBloodshaper(340)).toBeWithin(205, 1); // LFG
@@ -56,7 +56,7 @@ describe('stats', () => {
     expect(fetidHorrorsTanglecloak(385)).toBeWithin(78, 1); // Mythic
 
     // Azurethos' Ruffling Plumage (Trinket Haste active)
-    // https://bfa.wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
+    // https://wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
     const azurethosRufflingPlumageHaste = itemLevel => calculateSecondaryStatDefault(355, 925, itemLevel);
 
     expect(azurethosRufflingPlumageHaste(340)).toBeWithin(860, 1); // LFG
@@ -66,7 +66,7 @@ describe('stats', () => {
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Rot-Scour Ring (Crit)
-    // https://bfa.wowhead.com/item=160645
+    // https://wowhead.com/item=160645
     const rotScourRingCrit = itemLevel => calculateSecondaryStatJewelry(355, 108, itemLevel);
 
     expect(rotScourRingCrit(340)).toBeWithin(101, 1); // LFG
@@ -83,12 +83,61 @@ describe('stats', () => {
     expect(rotScourRingHaste(385)).toBeWithin(296, 1); // Mythic
   });
 
-  it('scales azerite effects correctly', () => {
-    // elusive footwork
-    expect(calculateAzeriteEffects(278571, 310)).toEqual([684]); // ilvl 310
-    expect(calculateAzeriteEffects(278571, 330)).toEqual([823]); // ilvl 330
-    expect(calculateAzeriteEffects(278571, 355)).toEqual([1038]); // ilvl 355
-    // gemhide
-    expect(calculateAzeriteEffects(268596, 330)).toEqual([115, 508]); // ilvl 330
+  describe('azerite powers', () => {
+    const verifyAzeritePower = (spellId, values) => {
+      Object.keys(values).forEach(itemLevel => {
+        expect(calculateAzeriteEffects(spellId, itemLevel)).toEqual(values[itemLevel]);
+      });
+    };
+
+    it('correct scales -1 scaling azerite powers', () => { // uses primary stat scaling formula
+      // Elusive Footwork
+      verifyAzeritePower(278571, {
+        310: [331],
+        315: [348],
+        340: [438],
+        355: [507],
+        370: [580],
+        385: [670],
+      });
+    });
+    it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
+      // Woundbinder
+      verifyAzeritePower(267880, {
+        340: [544],
+        355: [584],
+        370: [625],
+        385: [666],
+      });
+    });
+    it('correct scales -8 scaling azerite powers', () => { // uses a custom healing stat scaling formula
+      // Moment of Repose
+      verifyAzeritePower(272775, {
+        280: [5693],
+        310: [7558],
+        325: [8736],
+        340: [10012],
+      });
+    });
+    it('correctly computes Gemhide armor but not avoidance', () => {
+      // Gemhide --- nothing matches the new scaling for gemhide's
+      // avoidance :shrug:
+      //
+      // this is a canary test -- it only exists to let us know if
+      // something changes. it also conveniently lets us know that the
+      // armor value is correct and usable
+      const spellId = 268596;
+      const values = {
+        340: [111, 160],
+        355: [120, 184],
+        370: [128, 211],
+        385: [136, 243],
+      };
+      Object.keys(values).forEach(itemLevel => {
+        const [avoidance, armor] = calculateAzeriteEffects(spellId, itemLevel);
+        expect(armor).toEqual(values[itemLevel][1]);
+        expect(avoidance).not.toEqual(values[itemLevel][0]);
+      });
+    });
   });
 });

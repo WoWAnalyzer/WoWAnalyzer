@@ -10,7 +10,7 @@
     nickname: 'NICKNAME',
     github: 'GITHUB_NAME',
     discord: 'DISCORD_NAME INCL #xxxx',
-    avatar: require('./Images/IMAGE'),
+    avatar: require('./images/IMAGE'),
     desc: 'DESC',
     mains: [{
       name: 'CHARNAME',
@@ -35,21 +35,21 @@
   };
 */
 
-import SPECS from 'common/SPECS';
+import SPECS from 'game/SPECS';
 
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
 export const Dummy = {
   nickname: 'Dummy',
   github: 'DummyHub',
   twitter: '@Dummy',
-  avatar: require('./Images/zerotorescue-avatar.png'),
+  avatar: require('./images/zerotorescue-avatar.png'),
 };
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
   twitter: 'Zerotorescue',
   discord: 'Zerotorescue#0724',
-  avatar: require('./Images/zerotorescue-avatar.png'),
+  avatar: require('./images/zerotorescue-avatar.png'),
   desc: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
   mains: [{
     name: 'Zerotorescue',
@@ -81,12 +81,12 @@ export const blazyb = {
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
-  avatar: require('./Images/sref-avatar.png'),
+  avatar: require('./images/sref-avatar.png'),
 };
 export const Iskalla = {
   nickname: 'Iskalla',
   github: 'Iskalla',
-  avatar: require('./Images/iskalla-avatar.png'),
+  avatar: require('./images/iskalla-avatar.png'),
 };
 export const enragednuke = {
   nickname: 'enragednuke',
@@ -114,7 +114,7 @@ export const Bonebasher = {
 export const Sharrq = {
   nickname: 'Sharrq',
   github: 'Sharrq',
-  avatar: require('./Images/Sharrq_avatar.jpg'),
+  avatar: require('./images/Sharrq_avatar.jpg'),
 };
 export const Khazak = {
   nickname: 'Khazak',
@@ -127,7 +127,7 @@ export const Bicepspump = {
 export const Mamtooth = {
   nickname: 'Mamtooth',
   github: 'ronaldpereira',
-  avatar: require('./Images/mamtooth-avatar.png'),
+  avatar: require('./images/mamtooth-avatar.png'),
 };
 export const Thieseract = {
   nickname: 'Thieseract',
@@ -137,7 +137,7 @@ export const Putro = {
   nickname: 'Putro',
   github: 'Pewtro',
   discord: 'Putro#6093',
-  avatar: require('./Images/putro-avatar.png'),
+  avatar: require('./images/putro-avatar.png'),
   mains: [
     {
       name: 'Putro',
@@ -153,22 +153,22 @@ export const Blazballs = {
 export const faide = {
   nickname: 'faide',
   github: 'FaideWW',
-  avatar: require('./Images/faide-avatar.png'),
+  avatar: require('./images/faide-avatar.png'),
 };
 export const Fyruna = {
   nickname: 'Fyruna',
   github: 'Fyruna',
-  avatar: require('./Images/Fyruna_avatar.jpg'),
+  avatar: require('./images/Fyruna_avatar.jpg'),
 };
 export const Anomoly = {
   nickname: 'Anomoly',
   github: 'anom0ly',
-  avatar: require('./Images/anomoly-avatar.jpg'),
+  avatar: require('./images/anomoly-avatar.jpg'),
 };
 export const Juko8 = {
   nickname: 'Juko8',
   github: 'Juko8',
-  avatar: require('./Images/juko8-avatar.jpg'),
+  avatar: require('./images/juko8-avatar.jpg'),
 };
 export const Noichxd = {
   nickname: 'Noichxd',
@@ -177,7 +177,7 @@ export const Noichxd = {
 export const Hewhosmites = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
-  avatar: require('./Images/hewhosmites-avatar.png'),
+  avatar: require('./images/hewhosmites-avatar.png'),
 };
 export const Reglitch = {
   nickname: 'Reglitch',
@@ -222,7 +222,7 @@ export const Versaya = {
 export const Chizu = {
   nickname: 'Chizu',
   github: 'sMteX',
-  avatar: require('./Images/Chizu_avatar.jpg'),
+  avatar: require('./images/Chizu_avatar.jpg'),
 };
 export const Hordehobbs = {
   nickname: 'Hordehobbs',
@@ -230,7 +230,7 @@ export const Hordehobbs = {
 };
 export const TheBadBossy = {
   nickname: 'TheBadBossy',
-  avatar: require('./Images/thebadbossy_avatar.jpg'),
+  avatar: require('./images/thebadbossy_avatar.jpg'),
 };
 export const JLassie82 = {
   nickname: 'JLassie82',
@@ -268,7 +268,31 @@ export const emallson = {
 export const Gebuz = {
   nickname: 'Gebuz',
   github: 'Gebuz',
-  avatar: require('./Images/gebuz-avatar.png'),
+  discord: 'Gebuz#5801',
+  avatar: require('./images/gebuz-avatar.png'),
+  desc: 'Balance Druid theorycrafter and top end mythic raider.',
+  mains: [{
+    name: 'Gebuz',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuz/',
+  }],
+  alts: [{
+    name: 'Gebuzstab',
+    spec: SPECS.SUBTLETY_ROGUE,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzstab/',
+  }, {
+    name: 'Gebuzpray',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzpray/',
+  }, {
+    name: 'Gebuzgrip',
+    spec: SPECS.BLOOD_DEATH_KNIGHT,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzgrip/',
+  }, {
+    name: 'Gebuzroll',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'http://eu.battle.net/wow/character/nagrand/Gebuzroll/',
+  }],
 };
 export const milesoldenburg = {
   nickname: 'milesoldenburg',
@@ -341,11 +365,17 @@ export const Herusx = {
 export const Scaleable = {
   nickname: 'Scaleable',
   github: 'wkrueger',
-  avatar: require('./Images/scaleable-avatar.png'),
+  avatar: require('./images/scaleable-avatar.png'),
 };
 export const Cloake = {
   nickname: 'Cloake',
   github: 'adilasif',
+  discord: 'Cloake#9930',
+  mains: [{
+    name: 'Trixx',
+    spec: SPECS.ASSASSINATION_ROGUE,
+    link: 'https://worldofwarcraft.com/en-us/character/kelthuzad/Trixx',
+  }],
 };
 export const joshinator = {
   nickname: 'joshinator',
@@ -361,7 +391,7 @@ export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
   discord: 'niseko#4130',
-  avatar: require('./Images/niseko-avatar.jpg'),
+  avatar: require('./images/niseko-avatar.jpg'),
   mains: [{
     name: 'Niseko',
     spec: SPECS.RESTORATION_SHAMAN,
@@ -379,7 +409,7 @@ export const niseko = {
 export const Aelexe = {
   nickname: 'Aelexe',
   github: 'Aelexe',
-  avatar: require('./Images/Aelexe-avatar.jpg'),
+  avatar: require('./images/Aelexe-avatar.jpg'),
   maintainer: [
     SPECS.ARMS_WARRIOR,
   ],
@@ -393,7 +423,7 @@ export const CubeLuke = {
   nickname: 'CubeLuke',
   github: 'CubeLuke',
   discord: 'CubeLuke#8595',
-  avatar: require('./Images/CubeLuke-avatar.jpg'),
+  avatar: require('./images/CubeLuke-avatar.jpg'),
   mains: [{
     name: 'Monachi',
     spec: SPECS.MISTWEAVER_MONK,
@@ -404,7 +434,7 @@ export const ackwell = {
   nickname: 'ackwell',
   github: 'ackwell',
   discord: 'ackwell#3835',
-  avatar: require('./Images/ackwell-avatar.png'),
+  avatar: require('./images/ackwell-avatar.png'),
 };
 export const regret = {
   nickname: 'regret',
@@ -414,5 +444,16 @@ export const regret = {
     name: 'Ratchrat',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
+  }],
+};
+export const Khadaj = {
+  nickname: 'Khadaj',
+  github: 'tjmoats',
+  discord: "Khadaj#3519",
+  avatar: require('./images/khadaj-avatar.jpg'),
+  mains: [{
+    name: 'Khadaj',
+    spec: SPECS.HOLY_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
   }],
 };

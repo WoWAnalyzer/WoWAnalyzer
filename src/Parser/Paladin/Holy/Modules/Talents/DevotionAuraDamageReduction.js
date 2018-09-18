@@ -12,7 +12,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => (2.25 + 7.75 / n) / 100;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, (2.25 + 7.75 / n)) / 100;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
@@ -102,17 +102,18 @@ class DevotionAuraDamageReduction extends Analyzer {
       return;
     }
     this.buffsActive += 1;
-    // console.log('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
+    // this.debug('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
   }
   on_byPlayer_removebuff(event) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
     this.buffsActive -= 1;
+    // this.debug('devo removed from', this.combatants.players[event.targetID].name, this.buffsActive);
     if (this.buffsActive === 0) {
-      throw new Error('We lost more Devotion Aura buffs than we gained, this should not be possible as applybuffs are fabricated for all removebuffs.');
+      console.error('We lost more Devotion Aura buffs than we gained, this should not be possible as applybuffs are fabricated for all removebuffs.');
+      this.buffsActive = 1;
     }
-    // console.log('devo removed from', this.combatants.players[event.targetID].name, this.buffsActive);
   }
 
   get auraMasteryUptimeFilter() {
@@ -156,6 +157,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     return (
       <LazyLoadStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
@@ -170,7 +172,6 @@ class DevotionAuraDamageReduction extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default DevotionAuraDamageReduction;

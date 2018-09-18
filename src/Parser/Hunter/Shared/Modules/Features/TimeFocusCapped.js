@@ -5,11 +5,17 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import SPECS from 'common/SPECS';
+import SPECS from 'game/SPECS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import FocusTracker from './FocusChart/FocusTracker';
+
+/**
+ * Tracks the amount of time spent at focus cap.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
 
 class TimeFocusCapped extends Analyzer {
   static dependencies = {
@@ -37,6 +43,7 @@ class TimeFocusCapped extends Analyzer {
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time Focus Capped"
         tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
@@ -50,12 +57,12 @@ class TimeFocusCapped extends Analyzer {
               className="stat-health-bg"
               style={{ width: `${(100 - percentCapped)}%` }}
               data-tip={`You spent <b>${100 - percentCapped}%</b> of your time, or <b>${Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</b> under the focus cap.`}
-             />
+            />
             <div
               className="DeathKnight-bg"
               style={{ width: `${percentCapped}%` }}
               data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.`}
-             />
+            />
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}
@@ -63,27 +70,28 @@ class TimeFocusCapped extends Analyzer {
     );
   }
   get suggestionThresholds() {
-    let minor;
-    let average;
-    let major;
-    if (this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER) {
-      minor = 0.05;
-      average = 0.075;
-      major = 0.1;
+    if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
+      return {
+        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
+        isGreaterThan: {
+          minor: 0.05,
+          average: 0.075,
+          major: 0.125,
+        },
+        style: 'percentage',
+      };
     } else {
-      minor = 0.025;
-      average = 0.035;
-      major = 0.045;
+      return {
+        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
+        isGreaterThan: {
+          minor: 0.025,
+          average: 0.05,
+          major: 0.1,
+        },
+        style: 'percentage',
+      };
     }
-    return {
-      actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
-      isGreaterThan: {
-        minor: minor,
-        average: average,
-        major: major,
-      },
-      style: 'percentage',
-    };
+
   }
   suggestions(when) {
     if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
@@ -105,15 +113,13 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> to stay off the focus cap. If no other focus spender is ready to use, you can cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
         });
     }
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default TimeFocusCapped;

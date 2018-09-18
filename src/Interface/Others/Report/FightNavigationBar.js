@@ -9,7 +9,7 @@ import Icon from 'common/Icon';
 import { getReport } from 'Interface/selectors/report';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
-import { findByBossId } from 'Raids';
+import { findByBossId } from 'raids';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import getWipeCount from 'common/getWipeCount';
 
@@ -50,37 +50,39 @@ class FightNavigationBar extends React.PureComponent {
 
     return (
       <nav className="fight">
-        <ul>
-          {player.fights
-            .map(f => report.fights[f.id - 1])
-            .filter(fight => fight.boss !== 0)
-            .map(fight => {
-              const boss = findByBossId(fight.boss);
+        <div>
+          <ul>
+            {player.fights
+              .map(f => report.fights[f.id - 1])
+              .filter(fight => fight.boss !== 0)
+              .map(fight => {
+                const boss = findByBossId(fight.boss);
 
-              return (
-                <li
-                  key={fight.id}
-                  className={`${fight.id === fightId ? 'selected' : ''} ${fight.kill ? 'kill' : 'wipe'}`}
-                  data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
-                  data-place="right"
-                >
-                  <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
-                    <figure>
-                      {boss && boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
-                        <img
-                          src={boss ? boss.headshot : SkullRaidMarker}
-                          alt={boss ? boss.name : fight.name}
-                        />
-                      )}
-                      <div className="over-image">
-                        {fight.kill ? <SkullIcon /> : `${Math.floor(fight.fightPercentage / 100)}%`}
-                      </div>
-                    </figure>
-                  </Link>
-                </li>
-              );
-            })}
-        </ul>
+                return (
+                  <li
+                    key={fight.id}
+                    className={`${fight.id === fightId ? 'selected' : ''} ${fight.kill ? 'kill' : 'wipe'}`}
+                    data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
+                    data-place="right"
+                  >
+                    <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
+                      <figure>
+                        {boss && boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
+                          <img
+                            src={boss ? boss.headshot : SkullRaidMarker}
+                            alt={boss ? boss.name : fight.name}
+                          />
+                        )}
+                        <div className="over-image">
+                          {fight.kill ? <SkullIcon /> : `${Math.floor(fight.fightPercentage / 100)}%`}
+                        </div>
+                      </figure>
+                    </Link>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </nav>
     );
   }

@@ -3,17 +3,17 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const DAMAGE_BOOST = .15;
-const DURATION_BOOST = 500;
+const DAMAGE_BOOST = .10;
+const DURATION_BOOST_MS = 500;
 const debug = false;
 
 /**
- *Each Rune spent during Remorseless Winter increases its damage by 15%, and extends its duration by 0.5 sec.
+ *Each Rune spent during Remorseless Winter increases its damage by 10%, and extends its duration by 0.5 sec.
  */
 class GatheringStorm extends Analyzer {
   totalCasts = 0;
@@ -72,15 +72,15 @@ class GatheringStorm extends Analyzer {
       return;
     }
     if (event.ability.guid === SPELLS.HOWLING_BLAST.id && this.selectedCombatant.hasBuff(SPELLS.RIME.id)) { // handles the free HB from Rime proc,
-      this.extendedDuration += DURATION_BOOST;
+      this.extendedDuration += DURATION_BOOST_MS;
       return;
     }
     if (event.classResources) {
       event.classResources
         .filter(resource => resource.type === RESOURCE_TYPES.RUNES.id)
         .forEach(({ cost }) => {
-          this.extendedDuration = this.extendedDuration + (DURATION_BOOST * cost);
-          debug && console.log(`Added ${(DURATION_BOOST * cost)} to the duration for a total of ${this.extendedDuration} boost to duration`);
+          this.extendedDuration = this.extendedDuration + (DURATION_BOOST_MS * cost);
+          debug && console.log(`Added ${(DURATION_BOOST_MS * cost)} to the duration for a total of ${this.extendedDuration} boost to duration`);
         });
     }
   }

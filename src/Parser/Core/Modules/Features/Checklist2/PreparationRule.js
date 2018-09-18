@@ -10,22 +10,6 @@ class PreparationRule extends React.PureComponent {
     thresholds: PropTypes.object.isRequired,
   };
 
-  renderLegendaryRequirements() {
-    const { thresholds } = this.props;
-
-    return (
-      <React.Fragment>
-        <Requirement
-          name="Max possible legendaries equipped"
-          thresholds={thresholds.legendariesEquipped}
-        />
-        <Requirement
-          name="Legendaries fully upgraded"
-          thresholds={thresholds.legendariesUpgraded}
-        />
-      </React.Fragment>
-    );
-  }
   renderPotionRequirements() {
     const { thresholds } = this.props;
 
@@ -65,9 +49,8 @@ class PreparationRule extends React.PureComponent {
     return (
       <Rule
         name="Be well prepared"
-        description="Being well prepared with potions, enchants and legendaries is an easy way to improve your performance."
+        description="Being well prepared with potions and enchants is an easy way to improve your performance."
       >
-        {this.renderLegendaryRequirements()}
         {this.renderEnchantRequirements()}
         {this.renderPotionRequirements()}
         {children}

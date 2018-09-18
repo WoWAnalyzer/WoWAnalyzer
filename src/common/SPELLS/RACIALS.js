@@ -6,8 +6,28 @@
 
 export default {
   // Blood Elf
-  ARCANE_TORRENT_MANA: {
+  ARCANE_TORRENT_MANA1: {
     id: 155145,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+  ARCANE_TORRENT_MANA2: {
+    id: 28730,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+  ARCANE_TORRENT_MANA3: {
+    id: 232633,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+  ARCANE_TORRENT_RAGE: {
+    id: 69179,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+  ARCANE_TORRENT_ENERGY: {
+    id: 25046,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
@@ -16,22 +36,17 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
-  ARCANE_TORRENT_FOCUS: {
-    id: 80483,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
-  ARCANE_TORRENT_ROGUE: {
-    id: 25046,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   ARCANE_TORRENT_MONK: {
     id: 129597,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
-  ARCANE_TORRENT_DEMON_HUNTER: {
+  ARCANE_TORRENT_FOCUS: {
+    id: 80483,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+  ARCANE_TORRENT_FURY: {
     id: 202719,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
@@ -69,6 +84,11 @@ export default {
     id: 20594,
     name: 'Stoneform',
     icon: 'spell_shadow_unholystrength',
+  },
+  MIGHT_OF_THE_MOUNTAIN: {
+    id: 59224,
+    name: 'Might of the Mountain',
+    icon: 'inv_hammer_05',
   },
   // Gnome
   ESCAPE_ARTIST: {
@@ -122,6 +142,11 @@ export default {
   },
   // Orc
   BLOOD_FURY_SPELL: {
+    id: 33702,
+    name: 'Blood Fury',
+    icon: 'racial_orc_berserkerstrength',
+  },
+  BLOOD_FURY_SPELL_AND_PHYSICAL: {
     id: 33697,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength',

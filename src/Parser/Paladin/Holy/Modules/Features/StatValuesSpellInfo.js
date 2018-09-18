@@ -107,18 +107,27 @@ export default {
     vers: true,
   },
   [SPELLS.BEACON_OF_LIGHT_HEAL.id]: {
-    // This gets special treatment with the `on_beacon_heal` event
+    // This gets special treatment with the `on_beacontransfer` event
     ignored: true,
   },
   [SPELLS.LAY_ON_HANDS.id]: {
     ignored: true,
   },
 
-  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
+  // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3
+  [SPELLS.GRACE_OF_THE_JUSTICAR.id]: { // Holy Paladin Azerite Power
     int: false,
-    crit: false,
-    hasteHpct: false,
+    crit: true,
+    hasteHpct: true,
     mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/n4kTCKyhp1G2ANDx/#fight=12&source=2&type=healing&ability=278147&view=events
+  [SPELLS.RADIANT_INCANDESCENCE.id]: { // Holy Paladin Azerite trait
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
     vers: true,
   },
 };

@@ -1,7 +1,4 @@
-//import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
@@ -90,8 +87,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 20 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
-        charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        cooldown: haste => 20 / (1 + haste),
+        charges: 1,
         gcd: {
           base: 1500,
         },
@@ -105,8 +102,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
-        charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        cooldown: haste => 15 / (1 + haste),
+        charges: 1,
         gcd: {
           base: 1500,
         },
@@ -182,7 +179,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45 * (combatant.hasTalent(SPELLS.KNIGHT_TEMPLAR_TALENT.id) ? 0.5 : 1),
+        cooldown: 45,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -218,7 +215,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 2.5 * 60 - (combatant.traitsBySpellId[SPELLS.SACRIFICE_OF_THE_JUST.id] || 0) * 60,
+        cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
         //   recommendedEfficiency: 0.85,

@@ -22,6 +22,7 @@ class Momentum extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.MOMENTUM_TALENT.id} />}
         value={`${formatPercentage(momentumUptimePercentage)}%`}
         label="Momentum Uptime"
@@ -29,7 +30,6 @@ class Momentum extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Momentum;

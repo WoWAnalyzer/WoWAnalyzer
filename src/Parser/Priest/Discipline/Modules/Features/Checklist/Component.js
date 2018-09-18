@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 // import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
 import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
@@ -44,7 +44,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
             </React.Fragment>
           )}
         >
-          <AbilityRequirement spell={SPELLS.PENANCE.id} />
+          <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
           {combatant.hasTalent(SPELLS.SCHISM_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SCHISM_TALENT.id} />
           )}
@@ -68,7 +68,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.RAPTURE.id} />
-          {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id) && (
+          {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.POWER_WORD_BARRIER_CAST.id} />
           )}
           {!combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
@@ -80,15 +80,15 @@ class DisciplinePriestChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
           )}
-          {combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id) && (
-            <AbilityRequirement spell={SPELLS.LUMINOUS_BARRIER.id} />
+          {combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.LUMINOUS_BARRIER_TALENT.id} />
           )}
           {combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.EVANGELISM_TALENT.id} />
           )}
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id) && (
-            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
+            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
           )}
         </Rule>
 

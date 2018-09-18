@@ -15,13 +15,13 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 120,
+    manaCost: 600,
   },
   JUDGMENT_CAST_ALT: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 120,
+    manaCost: 600,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -32,7 +32,7 @@ export default {
     id: 220637,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 120,
+    manaCost: 600,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -74,12 +74,6 @@ export default {
     name: 'Blessing of Protection',
     icon: 'spell_holy_sealofprotection',
   },
-  FLASH_OF_LIGHT: {
-    id: 19750,
-    name: 'Flash of Light',
-    icon: 'spell_holy_flashheal',
-    manaCost: 880,
-  },
   HAMMER_OF_JUSTICE: {
     id: 853,
     name: 'Hammer of Justice',
@@ -102,11 +96,17 @@ export default {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
+  FLASH_OF_LIGHT: {
+    id: 19750,
+    name: 'Flash of Light',
+    icon: 'spell_holy_flashheal',
+    manaCost: 4400,
+  },
   HOLY_SHOCK_CAST: {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 400,
+    manaCost: 2000,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -127,24 +127,19 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 560,
+    manaCost: 2800,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 520,
+    manaCost: 2600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 280,
-  },
-  MARAADS_DYING_BREATH_BUFF: {
-    id: 234862,
-    name: 'Maraad\'s Dying Breath',
-    icon: 'paladin_icon_speedoflight',
+    manaCost: 1400,
   },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
@@ -271,6 +266,21 @@ export default {
     name: 'Devotion Aura',
     icon: 'spell_holy_devotionaura',
   },
+  AVENGING_CRUSADER_TALENT: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
+  AVENGING_CRUSADER_HEAL_NORMAL: {
+    id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
+  AVENGING_CRUSADER_HEAL_CRIT: {
+    id: 281465,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
@@ -281,11 +291,6 @@ export default {
     id: 214222,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-  },
-  ILTERENDI_BUFF: {
-    id: 207589,
-    name: 'Ilterendi, Crown Jewel of Silvermoon',
-    icon: 'spell_holy_impholyconcentration',
   },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
@@ -327,21 +332,6 @@ export default {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
-  AVENGING_CRUSADER_TALENT: {
-    id: 216331,
-    name: 'Avenging Crusader',
-    icon: 'ability_paladin_veneration',
-  },
-  AVENGING_CRUSADER_HEAL_NORMAL: {
-    id: 216371,
-    name: 'Avenging Crusader',
-    icon: 'spell_holy_restoration',
-  },
-  AVENGING_CRUSADER_HEAL_CRIT: {
-    id: 281465,
-    name: 'Avenging Crusader',
-    icon: 'spell_holy_restoration',
-  },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
     name: 'Blade of Wrath',
@@ -381,62 +371,6 @@ export default {
     id: 269937,
     name: 'Zeal',
     icon: 'spell_holy_sealofblood',
-  },
-  // Ret Item Effects
-  WHISPER_OF_THE_NATHREZIM_BUFF: {
-    id: 207635,
-    name: 'Whisper of the Nathrezim',
-    icon: 'ability_paladin_sheathoflight',
-  },
-  LIADRINS_FURY_UNLEASHED_BUFF: {
-    id: 208410,
-    name: 'Liandrin\'s Fury Unleashed',
-    icon: 'inv_jewelry_ring_61',
-  },
-  RET_PALADIN_T19_2SET_BONUS: {
-    id: 211444,
-    name: 'T19 2 set bonus',
-    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T19_4SET_BONUS: {
-    id: 211448,
-    name: 'T19 4 set bonus',
-    icon: 'inv_cape_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T19_4SET_HP_GEN: {
-    id: 231372,
-    name: 'T19 4 set bonus',
-    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
-  },
-  RET_PALADIN_T20_2SET_BONUS: {
-    id: 242267,
-    name: 'T20 2 set bonus',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T20_2SET_BONUS_BUFF: {
-    id: 246973,
-    name: 'T20 2 set bonus buff',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T20_4SET_BONUS: {
-    id: 242266,
-    name: 'T20 4 set bonus',
-    icon: 'paladin_retribution',
-  },
-  RET_PALADIN_T21_2SET_BONUS: {
-    id: 251867,
-    name: 'T21 2 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  RET_PALADIN_T21_4SET_BONUS: {
-    id: 251868,
-    name: 'T21 4 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  RET_PALADIN_T21_4SET_BONUS_BUFF: {
-    id: 253806,
-    name: 'T21 4 set bonus buff',
-    icon: 'ability_paladin_conviction',
   },
   // Traits:
 	// Protection

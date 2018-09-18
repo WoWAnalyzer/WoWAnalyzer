@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
@@ -19,9 +18,7 @@ class DivinePurpose extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-    this.active = hasDivinePurpose || hasSoulOfTheHighlord;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
   }
 
   on_toPlayer_applybuff(event) {
@@ -60,6 +57,7 @@ class DivinePurpose extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}
         value={(
           <span>
@@ -87,7 +85,6 @@ class DivinePurpose extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default DivinePurpose;

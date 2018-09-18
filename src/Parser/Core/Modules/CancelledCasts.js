@@ -83,6 +83,7 @@ class CancelledCasts extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<Icon icon="inv_misc_map_01" alt="Cancelled Casts" />}
         value={`${formatPercentage(this.cancelledPercentage)} %`}
         label="Casts Cancelled"
@@ -95,7 +96,6 @@ class CancelledCasts extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default CancelledCasts;

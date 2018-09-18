@@ -16,17 +16,28 @@ import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
-import SoulFragments from './Modules/Statistics/SoulFragments';
-import SpiritBomb from './Modules/Talent/SpiritBomb';
+import Checklist from './Modules/Features/Checklist/Module';
+
+import SoulFragmentsConsume from './Modules/Statistics/SoulFragmentsConsume';
+import SoulFragmentsTracker from './Modules/Features/SoulFragmentsTracker';
+import SoulsOvercap from './Modules/Statistics/SoulsOvercap';
+
+import SpiritBombFrailtyDebuff from './Modules/Talents/SpiritBombFrailtyDebuff';
+import SoulBarrier from './Modules/Talents/SoulBarrier';
+import SpiritBombSoulsConsume from './Modules/Talents/SpiritBombSoulsConsume';
+import VoidReaverDebuff from './Modules/Talents/VoidReaverDebuff';
+import FeedTheDemon from './Modules/Talents/FeedTheDemon';
+import Gluttony from './Modules/Talents/Gluttony';
+import BurningAlive from './Modules/Talents/BurningAlive';
+import FeastOfSouls from './Modules/Talents/FeastOfSouls';
+import AgonizingFlames from './Modules/Talents/AgonizingFlames';
+import RazorSpikes from './Modules/Talents/RazorSpikes';
 
 import ImmolationAura from './Modules/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import SigilOfFlame from './Modules/Spells/SigilOfFlame';
+import SoulCleaveSoulsConsumed from './Modules/Spells/SoulCleaveSoulsConsumed';
 
-import SoulBarrier from './Modules/Spells/SoulBarrier';
-
-import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
-import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
 import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -41,26 +52,36 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    soulFragmentsTracker: SoulFragmentsTracker,
+    checklist: Checklist,
 
-    //Resource Tracker
-    painTracker :PainTracker,
+    // Resource Tracker
+    painTracker: PainTracker,
     painDetails: PainDetails,
 
-    // Spirit Bomb Tracker Module (Frailty uptime tracker)
-    spiritBomb: SpiritBomb,
+    // Talents
+    SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    soulBarrier: SoulBarrier,
+    spiritBombSoulsConsume: SpiritBombSoulsConsume,
+    feedTheDemon: FeedTheDemon,
+    gluttony: Gluttony,
+    burningAlive: BurningAlive,
+    feastOfSouls: FeastOfSouls,
+    agonizingFlames: AgonizingFlames,
+    razorSpikes: RazorSpikes,
 
-    // Soul Fragments Tracker module (includes Generated and Wasted)
-    soulFragments: SoulFragments,
-
-    // Spell Statistics
+    // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
-    soulBarrier: SoulBarrier,
+    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
+    voidReaverDebuff: VoidReaverDebuff,
 
-    // Tier 20
-    tier202PBonus: Tier202PBonus,
-    tier204PBonus: Tier204PBonus,
+    // Stats
+    soulsOvercap: SoulsOvercap,
+    soulFragmentsConsume: SoulFragmentsConsume,
+
+    /// Items
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 

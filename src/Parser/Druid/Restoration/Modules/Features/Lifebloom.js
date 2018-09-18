@@ -15,13 +15,6 @@ class Lifebloom extends Analyzer {
     combatants: Combatants,
   };
 
-  hasDta;
-
-  constructor(...args) {
-    super(...args);
-    this.hasDta = this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
-  }
-
   get uptime() {
     return Object.keys(this.combatants.players)
       .map(key => this.combatants.players[key])
@@ -35,27 +28,15 @@ class Lifebloom extends Analyzer {
 
   // "The Dark Titan's Advice" legendary buffs Lifebloom, making high uptime more important
   get suggestionThresholds() {
-    if (this.hasDta) {
-      return {
-        actual: this.uptimePercent,
-        isLessThan: {
-          minor: 0.90,
-          average: 0.80,
-          major: 0.70,
-        },
-        style: 'percentage',
-      };
-    } else {
-      return {
-        actual: this.uptimePercent,
-        isLessThan: {
-          minor: 0.80,
-          average: 0.60,
-          major: 0.40,
-        },
-        style: 'percentage',
-      };
-    }
+    return {
+      actual: this.uptimePercent,
+      isLessThan: {
+        minor: 0.80,
+        average: 0.60,
+        major: 0.40,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {

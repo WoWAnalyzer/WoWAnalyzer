@@ -38,6 +38,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  PENANCE_CAST: {
+    id: 47540,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+    manaCost: 400,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -50,7 +56,7 @@ export default {
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 500,
-    coefficient: 0.56,
+    coefficient: 0.47,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -182,6 +188,11 @@ export default {
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
+  CONTRITION_HEAL_CRIT: {
+    id: 281469,
+    name: 'Contrition',
+    icon: 'ability_priest_savinggrace',
+  },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
     name: 'T19 2 Set Bonus',
@@ -232,6 +243,11 @@ export default {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
+  TWIST_OF_FATE_BUFF_DISCIPLINE: {
+    id: 265258,
+    name: 'Twist of Fate',
+    icon: 'spell_shadow_mindtwisting',
+  },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
     name: 'Purge the Wicked',
@@ -241,11 +257,6 @@ export default {
     id: 214637,
     name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
-  },
-  LUMINOUS_BARRIER: {
-    id: 271466,
-    name: 'Luminous Barrier',
-    icon: 'spell_priest_burningwill',
   },
 
   // Talents:
@@ -268,19 +279,19 @@ export default {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 380,
+    manaCost: 1900,
   },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 560,
+    manaCost: 3000,
   },
   PRAYER_OF_MENDING_CAST: {
     id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 400,
+    manaCost: 2000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -296,7 +307,7 @@ export default {
     id: 596,
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
-    manaCost: 900,
+    manaCost: 4500,
   },
   ECHO_OF_LIGHT: {
     id: 77489,
@@ -307,19 +318,19 @@ export default {
     id: 139,
     name: 'Renew',
     icon: 'spell_holy_renew',
-    manaCost: 340,
+    manaCost: 1800,
   },
   HOLY_WORD_SERENITY: {
     id: 2050,
     name: 'Holy Word: Serenity',
     icon: 'spell_holy_persuitofjustice',
-    manaCost: 800,
+    manaCost: 4000,
   },
   HOLY_WORD_SANCTIFY: {
     id: 34861,
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
-    manaCost: 1000,
+    manaCost: 5000,
   },
   DESPERATE_PRAYER: {
     id: 19236,
@@ -330,13 +341,13 @@ export default {
     id: 47788,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-    manaCost: 180,
+    manaCost: 900,
   },
   DIVINE_HYMN_CAST: {
     id: 64843,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
-    manaCost: 48400,
+    manaCost: 4400,
   },
   DIVINE_HYMN_HEAL: {
     id: 64844,
@@ -357,69 +368,28 @@ export default {
     id: 88625,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 400,
+    manaCost: 2000,
   },
   SYMBOL_OF_HOPE: {
     id: 64901,
     name: 'Symbol of Hope',
     icon: 'spell_holy_symbolofhope',
   },
-  // Trait related spells
-  LENIENCE: {
-    id: 238063,
-    name: 'Lenience',
-    icon: 'ability_priest_atonement',
+  TRAIL_OF_LIGHT_HEAL: {
+    id: 234946,
+    name: 'Trail of Light',
+    icon: 'ability_priest_wordsofmeaning',
+  },
+  COSMIC_RIPPLE_HEAL: {
+    id: 243241,
+    name: 'Cosmic Ripple Heal',
+    icon: 'spell_holy_summonlightwell',
   },
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
     id: 27827,
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
-  },
-
-  // Holy Legendaries
-  XANSHI_CLOAK_BUFF: {
-    id: 211336,
-    name: "Xan'shi, Shroud of Archbishop Benedictus",
-    icon: 'inv_enchant_essencemagiclarge',
-  },
-
-  // Holy Tier Sets
-  HOLY_PRIEST_T20_2SET_BONUS_BUFF: {
-    id: 242270,
-    name: 'Holy Priest T20 2P Bonus',
-    icon: 'spell_holy_guardianspirit',
-    value: 1000,
-  },
-
-  HOLY_PRIEST_T20_4SET_BONUS_BUFF: {
-    id: 242271,
-    name: 'Holy Priest T20 4P Bonus',
-    icon: 'spell_holy_guardianspirit',
-  },
-
-  HOLY_PRIEST_T21_2SET_BONUS_BUFF: {
-    id: 251831,
-    name: 'Holy Priest T21 2P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  HOLY_PRIEST_ANSWERED_PRAYERS: {
-    id: 253437,
-    name: 'Answered Prayers',
-    icon: 'spell_holy_divinespirit',
-  },
-
-  HOLY_PRIEST_T21_4SET_BONUS_BUFF: {
-    id: 251842,
-    name: 'Holy Priest T21 4P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  HOLY_PRIEST_EVERLASTING_HOPE: {
-    id: 253443,
-    name: 'Everlasting Hope',
-    icon: 'ability_priest_rayofhope',
   },
 
   // Shadow Spells

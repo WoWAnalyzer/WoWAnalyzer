@@ -5,8 +5,6 @@ import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/C
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -16,36 +14,25 @@ import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import ITEMS from 'common/ITEMS/HUNTER';
 import ItemLink from 'common/ItemLink';
 import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 //Talents
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
-import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
+import BarbedShot from 'Parser/Hunter/BeastMastery/Modules/Spells/BarbedShot';
 import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 
 //Spells
-import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
-//Items
-import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
-import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
-import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
-import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
-import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
-import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
-import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
 
     //preparation rules
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
 
@@ -59,17 +46,8 @@ class Checklist extends CoreChecklist {
     aspectOfTheBeast: AspectOfTheBeast,
 
     //Spells
-    aspectOfTheWild: AspectOfTheWild,
-    direFrenzy: DireFrenzy,
+    direFrenzy: BarbedShot,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
-
-    //Legendaries
-    parselsTongue: ParselsTongue,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    theMantleOfCommand: TheMantleOfCommand,
-    soulOfTheHuntmaster: SoulOfTheHuntmaster,
-    roarOfTheSevenLions: RoarOfTheSevenLions,
-    callOfTheWild: CallOfTheWild,
   };
 
   rules = [
@@ -113,11 +91,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <React.Fragment>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
-            check: () => this.direFrenzy.direFrenzyUptimeThreshold,
+            check: () => this.barbedShot.direFrenzyUptimeThreshold,
           }),
           new Requirement({
             name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
-            check: () => this.direFrenzy.direFrenzy3StackThreshold,
+            check: () => this.barbedShot.direFrenzy3StackThreshold,
           }),
         ];
       },

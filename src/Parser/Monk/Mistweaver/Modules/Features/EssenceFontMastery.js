@@ -103,6 +103,7 @@ class EssenceFontMastery extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(0)}
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={`${efMasteryCasts}`}
         label={(
@@ -116,7 +117,6 @@ class EssenceFontMastery extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default EssenceFontMastery;

@@ -171,17 +171,17 @@ export default {
   RING_OF_FROST_DAMAGE: {
     id: 82691,
     name: 'Ring of Frost',
-    icon: 'spell_frost_ring-of-frost',
-  },
-  ICE_TIME_FROST_NOVA: { // proc from Ice Time, which is called "Frost Nova" for some reason
-    id: 235235,
-    name: 'Frost Nova',
-    icon: 'spell_frost_frostnova',
+    icon: 'spell_frost_ringoffrost',
   },
   FREEZING_RAIN_BUFF: {
     id: 240555,
     name: 'Freezing Rain',
     icon: 'spell_frost_icestorm',
+  },
+  BONE_CHILLING_BUFF: {
+    id: 205766,
+    name: 'Bone Chilling',
+    icon: 'ability_mage_chilledtothebone',
   },
 
   //Fire
@@ -327,7 +327,7 @@ export default {
   FREEZE: {
     id: 33395,
     name: 'Freeze',
-    icon: 'spell_frost_frostshock',
+    icon: 'ability_mage_freeze',
   },
   GLACIAL_ERUPTION: {
     id: 242851,
@@ -370,21 +370,6 @@ export default {
     id: 242253,
     name: 'Frozen Mass',
     icon: 'spell_frost_frozenorb',
-  },
-  ZANNESU_JOURNEY_BUFF: {
-    id: 226852,
-    name: 'Zann\'esu Journey',
-    icon: 'inv_belt_71',
-  },
-  MAGTHERIDONS_MIGHT_BUFF: {
-    id: 214404,
-    name: 'Magtheridon\'s Might',
-    icon: 'inv_bracer_64v1',
-  },
-  RAGE_OF_THE_FROST_WYRM: {
-    id: 248177,
-    name: 'Rage of the Frost Wyrm',
-    icon: 'spell_frost_ice-shards',
   },
   HEATING_UP: {
     id: 48107,
@@ -446,28 +431,55 @@ export default {
     name: 'Arcane Familiar',
     icon: 'ability_sorcererking_arcanemines',
   },
+  QUICK_THINKER_BUFF: {
+    id: 253299,
+    name: 'Quick Thinker',
+    icon: 'ability_mage_studentofthemind',
+  },
+  CLEARCASTING_ARCANE: {
+    id: 263725,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  RULE_OF_THREES_BUFF: {
+    id: 264774,
+    name: 'Rule of Threes',
+    icon: 'spell_arcane_starfire',
+  },
+
+  //Azerite Traits
+  GLACIAL_ASSAULT: {
+    id: 279855,
+    name: 'Glacial Assault',
+    icon: 'spell_mage_cometstorm2',
+  },
+  WHITEOUT: {
+    id: 278541,
+    name: 'Whiteout',
+    icon: 'spell_frost_frostblast',
+  },
+  WINTERS_REACH_TRAIT: {
+    id: 273346,
+    name: 'Winter\'s Reach',
+    icon: 'ability_warlock_burningembersblue',
+  },
+  WINTERS_REACH_BUFF: {
+    id: 273347,
+    name: 'Winter\'s Reach',
+    icon: 'ability_warlock_burningembersblue',
+  },
+  ANOMALOUS_IMPACT: {
+    id: 279867,
+    name: 'Anomalous Impact',
+    icon: 'ability_sorcererking_arcanereplication',
+  },
+  GALVANIZING_SPARK: {
+    id: 278536,
+    name: 'Galvanizing Spark',
+    icon: 'spell_arcane_arcane03',
+  },
 
   //Tier Sets
-  FROST_MAGE_T20_2SET_BONUS_BUFF: {
-    id: 242252,
-    name: 'T20 2 set bonus',
-    icon: 'spell_frost_frostbolt02',
-  },
-  FROST_MAGE_T20_4SET_BONUS_BUFF: {
-    id: 242254,
-    name: 'T20 4 set bonus',
-    icon: 'spell_frost_frostbolt02',
-  },
-  FROST_MAGE_T21_2SET_BONUS_BUFF: {
-    id: 251859,
-    name: 'T21 2 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
-  FROST_MAGE_T21_4SET_BONUS_BUFF: {
-    id: 251860,
-    name: 'T21 4 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,
     name: 'T20 2 set bonus',

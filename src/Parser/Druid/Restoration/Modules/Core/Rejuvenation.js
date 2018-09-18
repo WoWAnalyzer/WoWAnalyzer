@@ -4,8 +4,8 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Mastery from '../Core/Mastery';
 
-const BASE_MANA = 220000;
-const REJUV_COST = 0.10; // % of base mana
+const BASE_MANA = 20000;
+const REJUV_COST = 0.105; // % of base mana
 
 /*
  * Backend module for calculating things about Rejuvenation, to be used by other modules.
@@ -43,10 +43,7 @@ class Rejuvenation extends Analyzer {
    * The total healing attributable to Rejuvenation
    */
   get totalRejuvHealing() {
-    const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
-    const dreamwalkerHealing = this.healingDone.byAbility(SPELLS.DREAMWALKER.id).effective;
-
-    return rejuvTotals + dreamwalkerHealing;
+    return this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
   }
 
   /*

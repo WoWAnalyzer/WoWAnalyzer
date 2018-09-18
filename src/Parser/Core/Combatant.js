@@ -1,4 +1,5 @@
-import SPECS from 'common/SPECS';
+import SPECS from 'game/SPECS';
+import RACES from 'game/RACES';
 import traitIdMap from 'common/TraitIdMap';
 
 import Entity from './Entity';
@@ -42,6 +43,9 @@ class Combatant extends Entity {
   }
   get spec() {
     return SPECS[this.specId];
+  }
+  get race() {
+    return this.owner.characterProfile ? Object.values(RACES).find(race => race.id === this.owner.characterProfile.race) : null;
   }
 
   _combatantInfo = null;
@@ -228,6 +232,18 @@ class Combatant extends Entity {
   }
   hasTrinket(itemId) {
     return this.getTrinket(itemId) !== undefined;
+  }
+  hasMainHand(itemId) {
+    return this.mainHand && this.mainHand.id === itemId;
+  }
+  get mainHand() {
+    return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
+  }
+  hasOffHand(itemId) {
+    return this.offHand && this.offHand.id === itemId;
+  }
+  get offHand() {
+    return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
   getItem(itemId) {
     return Object.keys(this._gearItemsBySlotId)

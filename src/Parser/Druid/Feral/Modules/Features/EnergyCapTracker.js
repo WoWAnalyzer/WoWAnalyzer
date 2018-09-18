@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker';
@@ -13,12 +13,7 @@ import RegenResourceCapTracker from 'Parser/Core/Modules/RegenResourceCapTracker
  */
 const debugIsPlayerAbove115 = false;
 
-// If you want to see debug information from RegenResourceCapTracker, you need to set debug there.
-const debug = false;
-
-const BERSERK_COST_MULTIPLIER = 0.6;
-
-const BASE_ENERGY_REGEN = 10;
+const BASE_ENERGY_REGEN = 11;
 const CHATOYANT_SIGNET_REGEN_MULTIPLIER = 1.05;
 
 const BASE_ENERGY_MAX = 100;
@@ -51,26 +46,9 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
   static exemptFromRefund = [
     SPELLS.THRASH_FERAL.id,
-    SPELLS.CAT_SWIPE.id,
+    SPELLS.SWIPE_CAT.id,
     SPELLS.BRUTAL_SLASH_TALENT.id,
   ];
-
-  getReducedCost(event) {
-    let cost = super.getReducedCost(event);
-    if (!cost) {
-      return 0;
-    }
-    // no need to check for Clearcasting as the zero cost is already applied in the log
-    // no need to check for T21_4pc as the free bite already shows as free in the log
-    
-    if (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
-      cost *= BERSERK_COST_MULTIPLIER;
-      debug && console.log(`Cost reduced to ${cost} by Berserk/Incarnation`);
-    }
-
-    return cost;
-  }
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
@@ -87,7 +65,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       // BFA: Chatoyant's effect will stop working after level 115.
       max += CHATOYANT_SIGNET_MAX_ADDITION;
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_FERAL.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id)) {
       max += MOMENT_OF_CLARITY_MAX_ADDITION;
     }
     if (this.combatantHasBuffActive(SPELLS.BERSERK.id) || this.combatantHasBuffActive(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
@@ -145,7 +123,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
             >
               <img src="/img/sword.png" alt="Uncapped Energy" />
             </div>
-            
+
             <div
               className="remainder DeathKnight-bg"
               data-tip={`At capped energy for ${formatDuration(this.atCap / 1000)}`}

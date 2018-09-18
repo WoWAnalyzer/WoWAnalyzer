@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './Checklist.css';
+
 class Checklist extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
+    footNote: PropTypes.node,
   };
 
   render() {
-    const { children } = this.props;
+    const { children, footNote } = this.props;
 
     return (
-      <React.Fragment>
+      <div className="checklist">
         {!children && (
           <div className="item-divider" style={{ padding: '10px 22px' }}>
             <div className="alert alert-danger">
@@ -20,7 +23,13 @@ class Checklist extends React.PureComponent {
         )}
 
         {children}
-      </React.Fragment>
+
+        {footNote && (
+          <div className="checklist-item text-muted">
+            {footNote}
+          </div>
+        )}
+      </div>
     );
   }
 }

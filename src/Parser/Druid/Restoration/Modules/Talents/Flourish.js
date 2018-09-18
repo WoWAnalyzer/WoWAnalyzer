@@ -17,6 +17,7 @@ const debug = false;
 const FLOURISH_EXTENSION = 8000;
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
+// TODO - blazyb add Tranq HoT
 class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTracker,
@@ -28,6 +29,8 @@ class Flourish extends Analyzer {
 
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
   cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
+  tranqsExtended = 0;
+
   hasCenarionWard = false;
 
   rejuvCount = 0;
@@ -35,8 +38,8 @@ class Flourish extends Analyzer {
   lbCount = 0;
   regrowthCount = 0;
   sbCount = 0;
-  dreamerCount = 0;
   cultCount = 0;
+  tranqCount = 0;
 
   // Counters for increased ticking rate of hots
   increasedRateTotalHealing = 0;
@@ -47,7 +50,7 @@ class Flourish extends Analyzer {
   increasedRateCultivationHealing = 0;
   increasedRateLifebloomHealing = 0;
   increasedRateRegrowthHealing = 0;
-  increasedRateDreamerHealing = 0;
+  increasedRateTranqHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -70,7 +73,7 @@ class Flourish extends Analyzer {
         case SPELLS.WILD_GROWTH.id:
           this.increasedRateWildGrowthHealing += amount / 2;
           break;
-        case SPELLS.CENARION_WARD.id:
+        case SPELLS.CENARION_WARD_HEAL.id:
           this.increasedRateCenarionWardHealing += amount / 2;
           break;
         case SPELLS.CULTIVATION.id:
@@ -84,14 +87,16 @@ class Flourish extends Analyzer {
             this.increasedRateRegrowthHealing += amount / 2;
           }
           break;
-        case SPELLS.DREAMER.id:
-          this.increasedRateDreamerHealing += amount / 2;
+        case SPELLS.TRANQUILITY_HEAL.id:
+          if (event.tick === true) {
+            this.increasedRateTranqHealing += amount / 2;
+          }
           break;
         default:
           console.error('EssenceOfGhanir: Error, could not identify this object as a HoT: %o', event);
       }
 
-      if (SPELLS.REGROWTH.id === spellId && event.tick !== true) {
+      if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
         return;
       }
       this.increasedRateTotalHealing += amount / 2;
@@ -111,7 +116,6 @@ class Flourish extends Analyzer {
       name: `Flourish #${this.flourishCount}`,
       healing: 0,
       masteryHealing: 0,
-      dreamwalkerHealing: 0,
       procs: 0,
       duration: 0,
     };
@@ -119,6 +123,7 @@ class Flourish extends Analyzer {
 
     let foundWg = false;
     let foundCw = false;
+    let foundTranq = false;
 
     Object.keys(this.hotTracker.hots).forEach(playerId => {
       Object.keys(this.hotTracker.hots[playerId]).forEach(spellIdString => {
@@ -130,7 +135,7 @@ class Flourish extends Analyzer {
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
           this.wgCount += 1;
-        } else if (spellId === SPELLS.CENARION_WARD.id) {
+        } else if (spellId === SPELLS.CENARION_WARD_HEAL.id) {
           foundCw = true;
         } else if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
           this.rejuvCount += 1;
@@ -140,10 +145,11 @@ class Flourish extends Analyzer {
           this.lbCount += 1;
         } else if (spellId === SPELLS.SPRING_BLOSSOMS.id) {
           this.sbCount += 1;
-        } else if (spellId === SPELLS.DREAMER.id) {
-          this.dreamerCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
+        } else if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
+          foundTranq = true;
+          this.tranqCount += 1;
         }
       });
     });
@@ -154,10 +160,13 @@ class Flourish extends Analyzer {
     if (foundCw) {
       this.cwsExtended += 1;
     }
+    if (foundTranq) {
+      this.tranqsExtended += 1;
+    }
   }
 
   get totalExtensionHealing() {
-    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing, 0);
+    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing, 0);
   }
 
   get averageHealing() {
@@ -212,7 +221,7 @@ class Flourish extends Analyzer {
     if(this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></React.Fragment>)
+          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></React.Fragment>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
             .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -245,8 +254,8 @@ class Flourish extends Analyzer {
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>`}
               ${this.cultivation === 0 ? '' :
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
-              ${this.dreamer === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateDreamerHealing))}% from Dreamer (T21 2pc)</li>`}
+              ${this.traquility === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))}% from Tranquillity</li>`}
           </ul>
 
           The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
@@ -273,12 +282,12 @@ class Flourish extends Analyzer {
               ? `<li>${this.sbCount} Spring Blossoms</li>`
               : ``
             }
-            ${this.dreamerCount > 0
-              ? `<li>${this.dreamerCount} Dreamers (T21)</li>`
-              : ``
-            }
             ${this.cultCount > 0
               ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>`
+              : ``
+            }
+            ${this.tranqCount > 0
+              ? `<li>${this.tranqsExtended}/${this.flourishCount} Tranquillities casts (${this.tranqCount} HoTs)</li>`
               : ``
             }
           </ul>
@@ -300,7 +309,7 @@ class Flourish extends Analyzer {
                 <tr key={index}>
                   <th scope="row">{ index + 1 }</th>
                   <td>{ flourish.procs }</td>
-                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing + flourish.dreamwalkerHealing) }</td>
+                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing) }</td>
                 </tr>
               ))
             }

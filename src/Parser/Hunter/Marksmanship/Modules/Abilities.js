@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -60,7 +59,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <React.Fragment>
-              <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.
+              <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most damage.
             </React.Fragment>
           ),
         },
@@ -140,6 +139,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TRUESHOT,
+        buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
@@ -149,41 +149,33 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_FOCUS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.BERSERKING,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 120,
-        gcd: null,
+        gcd: {
+          static: 1500,
+        },
       },
       {
-        spell: SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF,
+        spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF, SPELLS.SURVIVAL_OF_THE_FITTEST],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
         cooldown: 180,
         gcd: null,
       },
       {
-        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 180,
+        spell: SPELLS.PRIMAL_RAGE,
+        buffSpellId: SPELLS.PRIMAL_RAGE.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 360,
+        gcd: null,
+      },
+
+      {
+        spell: SPELLS.MASTERS_CALL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
         gcd: null,
       },
       {
@@ -231,13 +223,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        isDefensive: true,
+        cooldown: 180,
         gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
+        cooldown: 180,
         gcd: null,
       },
       {
@@ -262,6 +255,30 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: {
           base: 1500,
+        },
+      },
+
+      /**
+       * Racials until we find a better solution
+       */
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
         },
       },
     ];

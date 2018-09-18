@@ -52,6 +52,7 @@ class CrusadersMight extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.CRUSADERS_MIGHT_TALENT.id} />}
         value={(
           <span style={{ fontSize: '75%' }}>
@@ -78,7 +79,6 @@ class CrusadersMight extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default CrusadersMight;

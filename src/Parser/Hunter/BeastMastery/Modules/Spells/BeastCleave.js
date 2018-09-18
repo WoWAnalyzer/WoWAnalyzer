@@ -7,6 +7,8 @@ import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/2TpfdMDFQWR9cYZ7#fight=12&type=damage-done
  */
 class BeastCleave extends Analyzer {
   damage = 0;
@@ -25,7 +27,7 @@ class BeastCleave extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.BEAST_CLEAVE.id} />
+            <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} />
           </div>
           <div className="flex-sub text-right">
             <ItemDamageDone amount={this.damage} />

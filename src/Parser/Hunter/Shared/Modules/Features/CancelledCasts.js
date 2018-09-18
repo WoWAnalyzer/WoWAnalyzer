@@ -7,14 +7,16 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import Icon from 'common/Icon';
 
+/**
+ * Tracks the amount of cancelled casts in %.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ */
+
 class CancelledCasts extends CoreCancelledCasts {
   static IGNORED_ABILITIES = [
     //Include the spells that you do not want to be tracked and spells that are castable while casting
     SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
-    SPELLS.WINDBURST_MOVEMENT_SPEED.id,
-    SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
-    SPELLS.CYCLONIC_BURST_TRAIT.id,
-    SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
   ];
 
   get suggestionThresholds() {
@@ -47,6 +49,7 @@ class CancelledCasts extends CoreCancelledCasts {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label="Cancelled Casts"
@@ -54,7 +57,6 @@ class CancelledCasts extends CoreCancelledCasts {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default CancelledCasts;

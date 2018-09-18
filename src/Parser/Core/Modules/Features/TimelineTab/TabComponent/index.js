@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tab from 'Interface/Others/Tab';
-import Danger from 'common/Alert/Danger';
-import Info from 'common/Alert/Info';
+import Danger from 'Interface/common/Alert/Danger';
+import Info from 'Interface/common/Alert/Info';
 
 import SpellTimeline from './SpellTimeline';
 
@@ -19,7 +19,7 @@ class TimelineTab extends React.PureComponent {
     const { isAbilityCooldownsAccurate, isGlobalCooldownAccurate, ...others } = this.props;
 
     return (
-      <Tab style={{ padding: '10px 22px' }}>
+      <Tab style={{ padding: '10px 22px 0' }}>
         <div className="text-muted">
           This timeline shows the cooldowns of your spells to better illustrate issues with your cast efficiency. The accuracy of this timeline greatly depends on the completion status of your spec.
         </div>

@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import SPECS from 'common/SPECS';
+import SPECS from 'game/SPECS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';

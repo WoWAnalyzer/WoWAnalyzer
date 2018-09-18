@@ -1,18 +1,21 @@
 import React from 'react';
 
-import { Mamtooth } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
+import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
+import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Warning from 'common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
+const textAlignStyle = {
+  textAlign: 'center',
+};
+
 export default {
-  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
-  contributors: [Mamtooth],
+  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
+  contributors: [Mamtooth, Yajinni],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '7.3',
+  patchCompatibility: '8.0.1',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
 	description: (
@@ -25,16 +28,11 @@ export default {
 
 			If you have any more questions about Demon Hunters, feel free to pay a visit to <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">The Fel Hammer Discord</a>, if it's about a general tanking issue, there's also the <a href="https://discord.gg/j9Q5cy7" target="_blank" rel="noopener noreferrer">Tank Chat Discord</a> but if you'd like to discuss anything related to this analyzer, leave a message on GitHub issue or message @Mamtooth on WoWAnalyzer Discord.<br /><br />
 
-			<center>NOW YOU ARE PREPARED!</center><br /><br />
-
-      <Warning>
-        This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
+			<p style={textAlignStyle}>NOW YOU ARE PREPARED!</p><br /><br />
 		</React.Fragment>
 	),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/zRbrjmWkMfnQpC2c/4-Mythic+Garothi+Worldbreaker+-+Kill+(4:26)/88-Sannasta',
+  exampleReport: '/report/p7LdrP8JXZqMNmaC/12-Mythic+Aggramar+-+Kill+(6:09)/4-Munkky',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

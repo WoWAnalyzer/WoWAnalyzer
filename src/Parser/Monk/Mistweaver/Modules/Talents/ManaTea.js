@@ -59,57 +59,48 @@ class ManaTea extends Analyzer {
     const spellId = event.ability.guid;
 
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
-      debug && console.log('Mana Tea Buff present');
-      debug && console.log('Eff Check');
       if (SPELLS.ENVELOPING_MIST.id === spellId) {
         this.addToManaSaved(SPELLS.ENVELOPING_MIST.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.enmCasts += 1;
         this.casted = true;
       }
-      debug && console.log('Enm Check');
       if (SPELLS.ESSENCE_FONT.id === spellId) {
         this.addToManaSaved(SPELLS.ESSENCE_FONT.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.efCasts += 1;
         this.casted = true;
       }
-      debug && console.log('Ef Check');
       if (SPELLS.LIFE_COCOON.id === spellId) {
-        this.addToManaSaved(SPELLS.LIFE_COCOON.manaPCost, spellId);
+        this.addToManaSaved(SPELLS.LIFE_COCOON.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.lcCasts += 1;
         this.casted = true;
       }
-      debug && console.log('LC Check');
       if (SPELLS.RENEWING_MIST.id === spellId) {
         this.addToManaSaved(SPELLS.RENEWING_MIST.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.remCasts += 1;
         this.casted = true;
       }
-      debug && console.log('REM Check');
       if (SPELLS.REVIVAL.id === spellId) {
         this.addToManaSaved(SPELLS.REVIVAL.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.revCasts += 1;
         this.casted = true;
       }
-      debug && console.log('Rev Check');
       if (SPELLS.VIVIFY.id === spellId) {
         this.addToManaSaved(SPELLS.VIVIFY.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.vivCasts += 1;
         this.casted = true;
       }
-      debug && console.log('Viv Check');
       if (SPELLS.REFRESHING_JADE_WIND_TALENT.id === spellId) {
         this.addToManaSaved(SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost, spellId);
         this.castsUnderManaTea += 1;
         this.rjwCasts += 1;
         this.casted = true;
       }
-      debug && console.log('RJW Check');
       // Capture any Non Mana casts during Mana Tea
       if (!this.casted) {
         this.nonManaCasts += 1;
@@ -163,9 +154,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 1500,
-        average: 1200,
-        major: 1000,
+        minor: 15000,
+        average: 12000,
+        major: 10000,
       },
       style: 'number',
     };
@@ -187,6 +178,7 @@ class ManaTea extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(25)}
         icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
         value={`${formatNumber(this.avgMtSaves)}`}
         label={(
@@ -208,7 +200,6 @@ class ManaTea extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(25);
 }
 
 export default ManaTea;

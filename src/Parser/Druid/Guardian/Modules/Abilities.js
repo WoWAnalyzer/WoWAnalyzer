@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import Enemies from 'Parser/Core/Modules/Enemies';
@@ -81,10 +80,6 @@ class Abilities extends CoreAbilities {
             if (!this.enemies.getEntity(event) || !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
               return false;
             }
-            // Check if moonfire was missing on a secondary target (if using LatC)
-            if (combatant.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id)) {
-              return targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp - 1));
-            }
             return true;
           },
           isHighPriority: ({ timestamp }, selectedCombatant) => {
@@ -126,10 +121,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
-          const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
-          return combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? baseCd - (baseCd * 0.85) : baseCd;
+          return combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
         },
-        charges: combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id) ? 3 : 2,
+        charges: 2,
         timelineSortIndex: 9,
       },
       {
@@ -302,18 +296,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 180,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.TIGERS_DASH_TALENT,
-        buffSpellId: SPELLS.TIGERS_DASH_TALENT.id,
+        spell: SPELLS.TIGER_DASH_TALENT,
+        buffSpellId: SPELLS.TIGER_DASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         gcd: {
           base: 1500,
         },

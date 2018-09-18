@@ -64,6 +64,7 @@ class MirrorImage extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.MIRROR_IMAGE_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Mirror Image damage"
@@ -71,7 +72,6 @@ class MirrorImage extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default MirrorImage;

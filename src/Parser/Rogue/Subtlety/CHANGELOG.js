@@ -4,6 +4,16 @@ import { Zerotorescue, tsabo } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-08-12'),
+    changes: 'Initial Checklist.',
+    contributors: [tsabo],
+  },
+  {
+    date: new Date('2018-08-02'),
+    changes: 'Added natural energy regen.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-07-15'),
     changes: 'Find Weakness usage analysis. Stealth ability usage analysis.',
     contributors: [tsabo],

@@ -25,7 +25,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaCost: 300,
+    manaCost: 1500,
   },
   ROLL: {
     id: 109132,
@@ -41,7 +41,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 200,
+    manaCost: 1000,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -73,7 +73,7 @@ export default {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 1040,
+    manaCost: 5200,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -84,7 +84,7 @@ export default {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaCost: 1440,
+    manaCost: 7200,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -95,13 +95,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaCost: 480,
+    manaCost: 2400,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 560,
+    manaCost: 2800,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -112,7 +112,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaCost: 875,
+    manaCost: 4374,
   },
   SHEILUNS_GIFT: {
     id: 205406,
@@ -133,7 +133,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 700,
+    manaCost: 3500,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -206,19 +206,12 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 260,
+    manaCost: 1300,
   },
   FORTIFYING_BREW: {
     id: 243435,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingelixir',
-  },
-  // Talents:
-  REFRESHING_JADE_WIND_TALENT: {
-    id: 196725,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-    manaPerc: 0.035,
   },
 
   // Traits:
@@ -381,6 +374,19 @@ export default {
     id: 253448,
     name: 'Tranquil Mist',
     icon: 'ability_monk_surgingmist',
+  },
+
+  // Mistweaver Azerite Traits
+
+  OVERFLOWING_MISTS_HEAL: {
+    id: 273354,
+    name: 'Overflowing Mists',
+    icon: 'spell_monk_envelopingmist',
+  },
+  BURST_OF_LIFE_HEAL: {
+  id: 278564,
+  name: 'Burst of Life',
+  icon: 'ability_monk_chicocoon',
   },
 
   // Brewmaster
@@ -671,11 +677,6 @@ export default {
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
-  CHI_ORBIT_DAMAGE: {
-    id: 196748,
-    name: 'Chi Orbit',
-    icon: 'ability_monk_forcesphere',
-  },
   FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
     id: 261978,
     name: 'Fist of the White Tiger',
@@ -685,73 +686,5 @@ export default {
     id: 261682,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
-  },
-  // Windwalker legendaries
-  KATSUOS_ECLIPSE: {
-    id: 208045,
-    name: "Katsuo's Eclipse",
-    icon: 'ability_monk_fistoffury',
-  },
-  THE_WIND_BLOWS: {
-    id: 248101,
-    name: 'The Wind Blows',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  THE_EMPERORS_CAPACITOR_STACK: {
-    id: 235054,
-    name: "The Emperor's Capacitor",
-    icon: 'ability_monk_cracklingjadeligthing',
-  },
-  DRINKING_HORN_COVER: {
-    id: 209256,
-    name: 'Drinking Horn Cover',
-    icon: 'spell_nature_giftofthewild',
-  },
-  HIDDEN_MASTERS_FORBIDDEN_TOUCH: {
-    id: 213112,
-    name: "Hidden Master's Forbidden Touch",
-    icon: 'ability_monk_touchofdeath',
-  },
-  CENEDRIL_REFLECTOR_OF_HATRED: {
-    id: 208842,
-    name: 'Cenedril, Reflector of Hatred',
-    icon: 'ability_monk_touchofkarma',
-  },
-  // Windwalker Tiersets
-  WW_TIER19_2PC: {
-    id: 211427,
-    name: 'Windwalker T19 2PC',
-    icon: 'ability_monk_risingsunkick',
-  },
-  WW_TIER20_2PC: {
-    id: 242260,
-    name: 'Windwalker T20 2PC',
-    icon: 'ability_monk_fistoffury',
-  },
-  WW_TIER20_4PC: {
-    id: 242259,
-    name: 'Windwalker T20 4PC',
-    icon: 'ability_monk_risingsunkick',
-  },
-  PRESSURE_POINT: {
-    id: 247255,
-    name: 'Pressure Point',
-    icon: 'spell_monk_windwalker_spec',
-  },
-  WW_TIER21_4PC: {
-    id: 251821,
-    name: 'Windwalker T21 4PC',
-    icon: 'ability_monk_roundhousekick',
-  },
-  WW_TIER21_2PC: {
-    id: 251823,
-    name: 'Windwalker T21 2PC',
-    icon: 'ability_monk_roundhousekick',
-  },
-  // this is the chi gain from T21 2pc
-  FOCUS_OF_XUEN: {
-    id: 252768,
-    name: 'Focus of Xuen',
-    icon: 'ability_monk_roundhousekick',
   },
 };

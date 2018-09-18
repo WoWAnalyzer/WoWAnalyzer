@@ -70,12 +70,15 @@ class HealingDone extends Analyzer {
 
   showStatistic = false;
   statistic() {
-    if (!this.showStatistic) return null;
+    if (!this.showStatistic) {
+      return null;
+    }
 
     const healingWithoutAbsorbs = this.total.regular - this.healingByAbsorbs.regular;
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(0)}
         icon={(
           <img
             src="/img/healing.png"
@@ -125,7 +128,6 @@ class HealingDone extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default HealingDone;

@@ -11,8 +11,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
@@ -29,6 +27,7 @@ import Cultivation from '../Talents/Cultivation';
 import SpringBlossoms from '../Talents/SpringBlossoms';
 import TreeOfLife from '../Talents/TreeOfLife';
 
+//TODO - blazyb refactor deprecated classes
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
@@ -47,8 +46,6 @@ class Checklist extends CoreChecklist {
     springBlossoms: SpringBlossoms,
     treeOfLife: TreeOfLife,
 
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
   };
@@ -72,7 +69,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment>Use <SpellLink id={SPELLS.WILD_GROWTH.id} /> effectively</React.Fragment>,
-      description: <React.Fragment>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. It provides not only the directly applied HoT, but also procs <SpellLink id={SPELLS.NATURES_ESSENCE_DRUID.id} /> and <SpellLink id={SPELLS.DREAMWALKER.id} />. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</React.Fragment>,
+      description: <React.Fragment>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -90,7 +87,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your healing cooldowns',
-      description: <React.Fragment>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> and <SpellLink id={SPELLS.ESSENCE_OF_GHANIR.id} />) around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</React.Fragment>,
+      description: <React.Fragment>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns like (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</React.Fragment>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
@@ -101,14 +98,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.FLOURISH_TALENT,
             when: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ESSENCE_OF_GHANIR,
-            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,

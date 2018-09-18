@@ -37,17 +37,21 @@ class StaggerFabricator extends Analyzer {
 
   removeStagger(event, amount) {
     this._staggerPool -= amount;
+    const overage = (this._staggerPool < 0) ? this._staggerPool : 0;
     // sometimes a stagger tick is recorded immediately after death.
     // this ensures we don't go into negative stagger
+    //
+    // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
     this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    return amount + overage;
   }
 
   on_toPlayer_absorbed(event) {
     if (event.ability.guid !== SPELLS.STAGGER.id) {
       return;
     }
-    if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
+    if (event.extraAbility && event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);

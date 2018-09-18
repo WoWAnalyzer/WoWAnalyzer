@@ -9,6 +9,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
+import Checklist from './Modules/Features/Checklist/Module';
+
 import Momentum from './Modules/Spells/Momentum';
 import Nemesis from './Modules/Spells/Nemesis';
 
@@ -22,21 +24,8 @@ import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 import MoargBionicStabilizers from './Modules/Items/MoargBionicStabilizers';
 import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
 import AngerOfTheHalfGiants from './Modules/Items/AngerOfTheHalfGiants';
-import ChaosTheory from './Modules/Items/ChaosTheory';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
-
-//Talents
-import DemonReborn from './Modules/Talents/DemonReborn';
-
-//Traits
-import RelicTraits from './Modules/Traits/RelicTraits';
-import CriticalChaos from './Modules/Traits/CriticalChaos';
-import ChaosVision from './Modules/Traits/ChaosVision';
-import SharpenedGlaives from './Modules/Traits/SharpenedGlaives';
-import DemonRage from './Modules/Traits/DemonRage';
-import UnleashedDemons from './Modules/Traits/UnleashedDemons';
-import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    checklist: Checklist,
 
     // Spells
     momentum: Momentum,
@@ -67,21 +57,8 @@ class CombatLogParser extends CoreCombatLogParser {
     moargBionicStabilizers: MoargBionicStabilizers,
     soulOfTheSlayer: SoulOfTheSlayer,
     angerOfTheHalfGiants: AngerOfTheHalfGiants,
-    chaosTheory: ChaosTheory,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
-
-    //Talents
-    demonReborn: DemonReborn,
-
-    //Traits
-    relicTraits: RelicTraits,
-    criticalChaos: CriticalChaos,
-    chaosVision: ChaosVision,
-    sharpenedGlaives: SharpenedGlaives,
-    demonRage: DemonRage,
-    unleashedDemons: UnleashedDemons,
-    feastOnTheSouls: FeastOnTheSouls,
   };
 }
 

@@ -1,36 +1,30 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
+import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
+const debug = false;
+
 class HardHowlingBlastCasts extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    enemies: Enemies,
   };
 
-  rimeProcs = 0;
-  castsWithRime = 0;
   castsWithoutRime = 0;
-  hardHowlingBlastCasts = 0;
-  nonrimedHB = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HOWLING_BLAST.id) {
+    const target = this.enemies.getEntity(event);
+    if (spellId !== SPELLS.HOWLING_BLAST.id || !target) {
       return;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp)) {
-      this.castsWithRime += 1;
-    } else {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) && target.hasBuff(SPELLS.FROST_FEVER.id)) {
       this.castsWithoutRime += 1;
-    }
-  }
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.RIME.id) {
-      this.rimeProcs += 1;
+      debug && console.log(`Caught a HB hardcast at ${event.timestamp}`);
     }
   }
 
@@ -39,9 +33,9 @@ class HardHowlingBlastCasts extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
-        value={this.nonrimedHB}
+        value={this.castsWithoutRime}
         label="Howling Blasts without Rime proc"
-        tooltip="You should aim to get this as close to 0 as possible."
+        tooltip="You should aim to get this as close to 0 as possible.  It is almost always a DPS loss to cast Howling Blast without Rime.  It is okay to do this during extended periods of being out of melee range.  In this case, it is acceptable to dump runes to build RP and stop yourself from capping runes.  It is also okay to hardcast to apply Frost Fever to a target.  The analyzer does not count it against you when you do this"
       />
     );
   }

@@ -9,16 +9,19 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/P9G8VRYNTn3Xpv21#fight=8&type=damage-done
  */
 
 class SerpentSting extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  
+
   damage = 0;
 
   constructor(...args) {
@@ -39,6 +42,7 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(22)}
         icon={<SpellIcon id={SPELLS.SERPENT_STING_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting Uptime"

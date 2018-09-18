@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { hassebewlen, Zerotorescue } from 'CONTRIBUTORS';
-import SPECS from 'common/SPECS';
-import Warning from 'common/Alert/Warning';
+// import { Zerotorescue } from 'CONTRIBUTORS';
+import SPECS from 'game/SPECS';
+import Warning from 'Interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
 export default {
-  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
-  contributors: [hassebewlen, Zerotorescue],
+  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
+  contributors: [],
   // The WoW client patch this spec was last updated to be fully compatible with.
   patchCompatibility: '8.0',
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
@@ -16,9 +16,9 @@ export default {
   description: (
     <React.Fragment>
       <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Shadow expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.<br /><br />
+        This spec does not have anyone maintaining it so it may not be helpful. We're actively looking for volunteers to help us support more specs. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information or join us on <a href="https://wowanalyzer.com/discord">Discord</a>.<br /><br />
 
-        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
+        See <a href="https://www.icy-veins.com/wow/shadow-priest-pve-dps-common-worst-mistakes">the Icy Veins "Most Common and Worst Mistakes Shadow Priests Make in Battle for Azeroth (BfA) 8.0.1" page</a> for up-to-date suggestions.
       </Warning>
     </React.Fragment>
   ),

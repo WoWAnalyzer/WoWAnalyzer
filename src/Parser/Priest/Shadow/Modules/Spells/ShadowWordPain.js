@@ -52,14 +52,13 @@ class ShadowWordPain extends Analyzer {
   statistic() {
     return (
       <SmallStatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Shadow Word: Pain uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ShadowWordPain;

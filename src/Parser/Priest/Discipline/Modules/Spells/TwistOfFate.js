@@ -3,36 +3,26 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import ITEMS from 'common/ITEMS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
 
 class TwistOfFate extends Analyzer {
-  hasTwistOfFate = false;
-  hasSoulOfTheHighPriest = false;
-
   healing = 0;
   damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.hasTwistOfFate = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
-    this.hasSoulOfTheHighPriest = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
-    this.active = this.hasTwistOfFate || this.hasSoulOfTheHighPriest;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id);
   }
 
   on_byPlayer_damage(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF_DISCIPLINE.id, event.timestamp)) {
       return;
     }
 
@@ -51,7 +41,7 @@ class TwistOfFate extends Analyzer {
     if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF_DISCIPLINE.id, event.timestamp)) {
       return;
     }
 
@@ -59,27 +49,15 @@ class TwistOfFate extends Analyzer {
   }
 
   suggestions(when) {
-    if (!this.hasSoulOfTheHighPriest) {
-      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
-            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
-            .actual(`${formatPercentage(actual)}% of total healing`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-            .regular(0.045)
-            .major(0.025);
-        });
-    } else {
-      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.03)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} />. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
-            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
-            .actual(`${formatPercentage(actual)}% of total healing`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-            .regular(0.025)
-            .major(0.02);
-        });
-    }
+    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
+          .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
+          .actual(`${formatPercentage(actual)}% of total healing`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended.`)
+          .regular(0.045)
+          .major(0.025);
+      });
   }
 
   statistic() {
@@ -94,7 +72,7 @@ class TwistOfFate extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />}
         value={this.owner.formatItemHealingDone(healing)}
         label={(
           <dfn data-tip={
@@ -107,7 +85,6 @@ class TwistOfFate extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  ;
 }
 
 export default TwistOfFate;

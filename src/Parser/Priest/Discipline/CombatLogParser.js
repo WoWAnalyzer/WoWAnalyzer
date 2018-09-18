@@ -27,12 +27,10 @@ import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
-import InnerHallation from './Modules/Items/InnerHallation';
 import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
-import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
@@ -52,6 +50,8 @@ import DesperatePrayer from '../Shared/Modules/Features/DesperatePrayer';
 import Contrition from './Modules/Spells/Contrition';
 import Grace from './Modules/Spells/Grace';
 import Schism from './Modules/Spells/Schism';
+
+import GiftOfForgiveness from './Modules/AzeriteTraits/GiftOfForgiveness';
 
 import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
@@ -94,12 +94,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
-    innerHallation: InnerHallation,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
-    carafeOfSearingLight: CarafeOfSearingLight,
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
@@ -120,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     schism: Schism,
     sinsOfTheMany: SinsOfTheMany,
+
+    // Azerite Traits
+    gift: GiftOfForgiveness,
   };
 }
 

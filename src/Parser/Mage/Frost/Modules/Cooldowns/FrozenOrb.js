@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-const BLIZZARD_REDUCTION_MS = 500;
+const REDUCTION_MS = 500;
 
 class FrozenOrb extends Analyzer {
 	static dependencies = {
@@ -12,14 +12,24 @@ class FrozenOrb extends Analyzer {
 	baseCooldown = 60;
 	cooldownReduction = 0;
 
+	constructor(...args) {
+		super(...args);
+		this.hasWhiteoutTrait = this.selectedCombatant.hasTrait(SPELLS.WHITEOUT.id);
+	  }
+
   	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.BLIZZARD_DAMAGE.id) {
+		if(spellId !== SPELLS.BLIZZARD_DAMAGE.id && spellId !== SPELLS.ICE_LANCE_DAMAGE.id) {
 			return;
 		}
 		if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, BLIZZARD_REDUCTION_MS);
+			if (spellId === SPELLS.BLIZZARD_DAMAGE.id) {
+				this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, REDUCTION_MS);
+			} else if (spellId === SPELLS.ICE_LANCE_DAMAGE.id && this.hasWhiteoutTrait) {
+				this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, REDUCTION_MS);
+			}
 		}
+		
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Warning from 'common/Alert/Warning';
+import Warning from 'Interface/common/Alert/Warning';
 
 class ResultsWarning extends React.PureComponent {
   static propTypes = {

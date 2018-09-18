@@ -1,16 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
 import FilteredDamageTracker from './FilteredDamageTracker';
+import {isStealth} from '../Stealth/IsStealth';
 
 
 class StealthDamageTracker extends FilteredDamageTracker {
   
   delayWindow = 0;
-
-  STEALTH_BUFFS = [
-    SPELLS.STEALTH_BUFF,
-    SPELLS.VANISH_BUFF,
-  ];
 
   constructor(...args) {
     super(...args);
@@ -24,11 +20,7 @@ class StealthDamageTracker extends FilteredDamageTracker {
   }
   
   shouldProcessEvent(event) {
-    return this.isStealth();
-  }
-
-  isStealth() {
-    return this.STEALTH_BUFFS.some(s=>this.selectedCombatant.hasBuff(s.id, null , this.delayWindow));        
+    return isStealth(this.selectedCombatant, this.delayWindow);
   }
 }
 

@@ -1,7 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
-import ROLES from 'common/ROLES';
+import ROLES from 'game/ROLES';
 
 class ManaValues extends Analyzer {
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason

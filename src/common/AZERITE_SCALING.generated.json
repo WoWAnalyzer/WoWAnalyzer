@@ -4,10 +4,10 @@
     "effect_list": [
       707038
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "707038": {
-        "avg": 10.883929
+        "avg": 82.454002
       }
     }
   },
@@ -16,7 +16,7 @@
     "effect_list": [
       707058
     ],
-    "secondary": false,
+    "scaling_type": 0,
     "effects": {
       "707058": {
         "avg": 0
@@ -28,10 +28,10 @@
     "effect_list": [
       707066
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "707066": {
-        "avg": 1
+        "avg": 0.735425
       }
     }
   },
@@ -41,13 +41,13 @@
       707069,
       713642
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "707069": {
-        "avg": 2
+        "avg": 28.343559
       },
       "713642": {
-        "avg": 0.2
+        "avg": 12.147239
       }
     }
   },
@@ -57,13 +57,13 @@
       707293,
       709390
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "707293": {
-        "avg": 0.361446
+        "avg": 0.222856
       },
       "709390": {
-        "avg": 0.181818
+        "avg": 0.111428
       }
     }
   },
@@ -72,10 +72,10 @@
     "effect_list": [
       707449
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "707449": {
-        "avg": 0.25
+        "avg": 1.67142
       }
     }
   },
@@ -84,10 +84,10 @@
     "effect_list": [
       711012
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "711012": {
-        "avg": 0.05
+        "avg": 0.069642
       }
     }
   },
@@ -97,10 +97,10 @@
       713207,
       739251
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "713207": {
-        "avg": 3
+        "avg": 13.496933
       },
       "739251": {
         "avg": 0
@@ -113,10 +113,10 @@
       713208,
       720336
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "713208": {
-        "avg": 4.504504
+        "avg": 14.3
       },
       "720336": {
         "avg": 0
@@ -129,13 +129,13 @@
       714501,
       714502
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "714501": {
-        "avg": 0.361446
+        "avg": 0.222856
       },
       "714502": {
-        "avg": 0.181818
+        "avg": 0.111428
       }
     }
   },
@@ -144,10 +144,10 @@
     "effect_list": [
       714511
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "714511": {
-        "avg": 0.178571
+        "avg": 0.111428
       }
     }
   },
@@ -156,10 +156,10 @@
     "effect_list": [
       714531
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "714531": {
-        "avg": 0.446429
+        "avg": 50
       }
     }
   },
@@ -169,13 +169,13 @@
       714790,
       714791
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "714790": {
-        "avg": 0.36036
+        "avg": 0.222856
       },
       "714791": {
-        "avg": 0.179104
+        "avg": 0.111428
       }
     }
   },
@@ -184,10 +184,10 @@
     "effect_list": [
       714792
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "714792": {
-        "avg": 0.810811
+        "avg": 1.894276
       }
     }
   },
@@ -196,10 +196,10 @@
     "effect_list": [
       714798
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "714798": {
-        "avg": 0.090909
+        "avg": 0.3
       }
     }
   },
@@ -209,10 +209,10 @@
       714801,
       720348
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "714801": {
-        "avg": 6.035715
+        "avg": 30
       },
       "720348": {
         "avg": 0
@@ -224,10 +224,10 @@
     "effect_list": [
       714803
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "714803": {
-        "avg": 1.082707
+        "avg": 15
       }
     }
   },
@@ -236,10 +236,10 @@
     "effect_list": [
       714807
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "714807": {
-        "avg": 0.019907
+        "avg": 0.044571
       }
     }
   },
@@ -249,10 +249,10 @@
       714812,
       737331
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "714812": {
-        "avg": 2.248201
+        "avg": 11
       },
       "737331": {
         "avg": 0
@@ -264,10 +264,10 @@
     "effect_list": [
       714818
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "714818": {
-        "avg": 1.869159
+        "avg": 0.72
       }
     }
   },
@@ -276,10 +276,10 @@
     "effect_list": [
       715936
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "715936": {
-        "avg": 4.504505
+        "avg": 98.120262
       }
     }
   },
@@ -288,10 +288,10 @@
     "effect_list": [
       715939
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "715939": {
-        "avg": 1.80018
+        "avg": 28.8589
       }
     }
   },
@@ -301,13 +301,13 @@
       716157,
       716158
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "716157": {
-        "avg": 0.044346
+        "avg": 0.055714
       },
       "716158": {
-        "avg": 0.013304
+        "avg": 0.016714
       }
     }
   },
@@ -317,10 +317,10 @@
       716159,
       720319
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "716159": {
-        "avg": 10.810811
+        "avg": 90
       },
       "720319": {
         "avg": 0
@@ -334,13 +334,13 @@
       716161,
       720325
     ],
-    "secondary": true,
+    "scaling_type": -1,
     "effects": {
       "716160": {
-        "avg": 0.420473
+        "avg": 0.389313
       },
       "716161": {
-        "avg": 1.86384
+        "avg": 0.389313
       },
       "720325": {
         "avg": 0
@@ -353,13 +353,13 @@
       716165,
       720314
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "716165": {
-        "avg": 8.108109
+        "avg": 10.177098
       },
       "720314": {
-        "avg": 0.630631
+        "avg": 0.265649
       }
     }
   },
@@ -369,10 +369,10 @@
       716167,
       716168
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "716167": {
-        "avg": 0.903614
+        "avg": 7.695707
       },
       "716168": {
         "avg": 0
@@ -384,10 +384,10 @@
     "effect_list": [
       718012
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "718012": {
-        "avg": 2.252252
+        "avg": 12.269938
       }
     }
   },
@@ -396,10 +396,10 @@
     "effect_list": [
       720338
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "720338": {
-        "avg": 0.18018
+        "avg": 0.312977
       }
     }
   },
@@ -410,13 +410,13 @@
       721834,
       721835
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "721833": {
-        "avg": 1.081081
+        "avg": 0.229008
       },
       "721834": {
-        "avg": 0.934579
+        "avg": 0.198473
       },
       "721835": {
         "avg": 0
@@ -428,10 +428,10 @@
     "effect_list": [
       721842
     ],
-    "secondary": true,
+    "scaling_type": -1,
     "effects": {
       "721842": {
-        "avg": 7.469655
+        "avg": 2
       }
     }
   },
@@ -440,10 +440,10 @@
     "effect_list": [
       721853
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "721853": {
-        "avg": 14.133469
+        "avg": 56.791409
       }
     }
   },
@@ -453,13 +453,13 @@
       721867,
       721868
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "721867": {
         "avg": 24.734451
       },
       "721868": {
-        "avg": 1.44
+        "avg": 0.7
       }
     }
   },
@@ -468,10 +468,10 @@
     "effect_list": [
       723724
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723724": {
-        "avg": 0.321543
+        "avg": 1.533742
       }
     }
   },
@@ -482,10 +482,10 @@
       723790,
       723805
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723789": {
-        "avg": 1.2
+        "avg": 14.110429
       },
       "723790": {
         "avg": 0
@@ -501,10 +501,10 @@
       723791,
       723792
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "723791": {
-        "avg": 1.286174
+        "avg": 1.29771
       },
       "723792": {
         "avg": 0
@@ -516,10 +516,10 @@
     "effect_list": [
       723827
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723827": {
-        "avg": 2
+        "avg": 11.361963
       }
     }
   },
@@ -528,10 +528,10 @@
     "effect_list": [
       723832
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723832": {
-        "avg": 0.406504
+        "avg": 4.049079
       }
     }
   },
@@ -540,10 +540,10 @@
     "effect_list": [
       723883
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723883": {
-        "avg": 4.065041
+        "avg": 98.159508
       }
     }
   },
@@ -552,10 +552,10 @@
     "effect_list": [
       723891
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723891": {
-        "avg": 0.813008
+        "avg": 7.361963
       }
     }
   },
@@ -564,10 +564,10 @@
     "effect_list": [
       723903
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723903": {
-        "avg": 0.325203
+        "avg": 2.447853
       }
     }
   },
@@ -577,13 +577,13 @@
       723910,
       723911
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723910": {
         "avg": 0
       },
       "723911": {
-        "avg": 0.128617
+        "avg": 1.042945
       }
     }
   },
@@ -592,10 +592,10 @@
     "effect_list": [
       723924
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723924": {
-        "avg": 3
+        "avg": 57.599998
       }
     }
   },
@@ -605,10 +605,10 @@
       723926,
       723927
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "723926": {
-        "avg": 0.417084
+        "avg": 2.381773
       },
       "723927": {
         "avg": 0
@@ -621,13 +621,13 @@
       723960,
       723961
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "723960": {
         "avg": 0
       },
       "723961": {
-        "avg": 0.642934
+        "avg": 2.300614
       }
     }
   },
@@ -636,10 +636,10 @@
     "effect_list": [
       723998
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "723998": {
-        "avg": 0.25
+        "avg": 0.334351
       }
     }
   },
@@ -648,10 +648,10 @@
     "effect_list": [
       724045
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724045": {
-        "avg": 1.37
+        "avg": 16.570553
       }
     }
   },
@@ -660,10 +660,10 @@
     "effect_list": [
       724053
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724053": {
-        "avg": 2
+        "avg": 23.705523
       }
     }
   },
@@ -672,10 +672,10 @@
     "effect_list": [
       724083
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724083": {
-        "avg": 0.65
+        "avg": 1.109924
       }
     }
   },
@@ -684,10 +684,10 @@
     "effect_list": [
       724096
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "724096": {
-        "avg": 0.6
+        "avg": 1.782848
       }
     }
   },
@@ -696,10 +696,10 @@
     "effect_list": [
       724115
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724115": {
-        "avg": 0.1
+        "avg": 1.852761
       }
     }
   },
@@ -708,10 +708,10 @@
     "effect_list": [
       724148
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "724148": {
-        "avg": 0.2
+        "avg": 0.824567
       }
     }
   },
@@ -720,10 +720,10 @@
     "effect_list": [
       724153
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724153": {
-        "avg": 3
+        "avg": 23.202456
       }
     }
   },
@@ -732,10 +732,10 @@
     "effect_list": [
       724173
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724173": {
-        "avg": 0.609756
+        "avg": 5.85276
       }
     }
   },
@@ -744,10 +744,10 @@
     "effect_list": [
       724206
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "724206": {
-        "avg": 0.35
+        "avg": 0.95
       }
     }
   },
@@ -756,10 +756,10 @@
     "effect_list": [
       724230
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724230": {
-        "avg": 0.17
+        "avg": 2.828221
       }
     }
   },
@@ -768,10 +768,10 @@
     "effect_list": [
       724241
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724241": {
-        "avg": 4.066253
+        "avg": 60
       }
     }
   },
@@ -780,7 +780,7 @@
     "effect_list": [
       724250
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724250": {
         "avg": 60.975609
@@ -792,10 +792,10 @@
     "effect_list": [
       724256
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724256": {
-        "avg": 0.3
+        "avg": 9.81595
       }
     }
   },
@@ -804,10 +804,10 @@
     "effect_list": [
       724260
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724260": {
-        "avg": 0.2
+        "avg": 4.294478
       }
     }
   },
@@ -816,10 +816,10 @@
     "effect_list": [
       724288
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724288": {
-        "avg": 1.220422
+        "avg": 7.312883
       }
     }
   },
@@ -828,10 +828,10 @@
     "effect_list": [
       724321
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724321": {
-        "avg": 0.45
+        "avg": 11.042946
       }
     }
   },
@@ -841,13 +841,13 @@
       724416,
       724417
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724416": {
-        "avg": 0.609756
+        "avg": 3.680981
       },
       "724417": {
-        "avg": 1.626016
+        "avg": 9.202455
       }
     }
   },
@@ -857,7 +857,7 @@
       724423,
       724424
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724423": {
         "avg": 1
@@ -872,10 +872,10 @@
     "effect_list": [
       724426
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724426": {
-        "avg": 2.03252
+        "avg": 10.317557
       }
     }
   },
@@ -884,7 +884,7 @@
     "effect_list": [
       724530
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724530": {
         "avg": 0.8
@@ -896,7 +896,7 @@
     "effect_list": [
       724531
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724531": {
         "avg": 0.33
@@ -908,7 +908,7 @@
     "effect_list": [
       724538
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724538": {
         "avg": 4
@@ -920,7 +920,7 @@
     "effect_list": [
       724540
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724540": {
         "avg": 1
@@ -933,7 +933,7 @@
       724544,
       724545
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724544": {
         "avg": 2
@@ -949,7 +949,7 @@
       724547,
       724548
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724547": {
         "avg": 3.5
@@ -964,7 +964,7 @@
     "effect_list": [
       724554
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724554": {
         "avg": 1
@@ -976,10 +976,10 @@
     "effect_list": [
       724558
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724558": {
-        "avg": 2.572347
+        "avg": 11.368097
       }
     }
   },
@@ -988,10 +988,10 @@
     "effect_list": [
       724687
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "724687": {
-        "avg": 0.524296
+        "avg": 1.699277
       }
     }
   },
@@ -1001,13 +1001,13 @@
       724697,
       724698
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724697": {
-        "avg": 0.304878
+        "avg": 0.54
       },
       "724698": {
-        "avg": 1.049043
+        "avg": 0.763359
       }
     }
   },
@@ -1016,10 +1016,10 @@
     "effect_list": [
       724751
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724751": {
-        "avg": 1.01626
+        "avg": 1.328244
       }
     }
   },
@@ -1028,10 +1028,10 @@
     "effect_list": [
       724756
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724756": {
-        "avg": 0.8
+        "avg": 3.220859
       }
     }
   },
@@ -1040,10 +1040,10 @@
     "effect_list": [
       724785
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724785": {
-        "avg": 0.465068
+        "avg": 6.441718
       }
     }
   },
@@ -1052,10 +1052,10 @@
     "effect_list": [
       724795
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724795": {
-        "avg": 0.64
+        "avg": 3.380368
       }
     }
   },
@@ -1065,13 +1065,13 @@
       724827,
       724828
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724827": {
-        "avg": 1.626016
+        "avg": 4.907975
       },
       "724828": {
-        "avg": 2.845528
+        "avg": 18.404909
       }
     }
   },
@@ -1080,10 +1080,10 @@
     "effect_list": [
       724838
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724838": {
-        "avg": 1.422764
+        "avg": 9.202454
       }
     }
   },
@@ -1092,10 +1092,10 @@
     "effect_list": [
       724849
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724849": {
-        "avg": 2.03252
+        "avg": 34.785278
       }
     }
   },
@@ -1104,10 +1104,10 @@
     "effect_list": [
       724859
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "724859": {
-        "avg": 0.58
+        "avg": 0.285496
       }
     }
   },
@@ -1116,10 +1116,10 @@
     "effect_list": [
       724861
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724861": {
-        "avg": 0.8
+        "avg": 4.907976
       }
     }
   },
@@ -1128,10 +1128,10 @@
     "effect_list": [
       724865
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724865": {
-        "avg": 1.463415
+        "avg": 7.607362
       }
     }
   },
@@ -1140,10 +1140,10 @@
     "effect_list": [
       724873
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724873": {
-        "avg": 0.3
+        "avg": 13.128834
       }
     }
   },
@@ -1153,13 +1153,13 @@
       724883,
       725191
     ],
-    "secondary": true,
+    "scaling_type": -1,
     "effects": {
       "724883": {
-        "avg": 0.524018
+        "avg": 1.7
       },
       "725191": {
-        "avg": 2.09949
+        "avg": 1
       }
     }
   },
@@ -1169,10 +1169,10 @@
       724886,
       724889
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724886": {
-        "avg": 2.75
+        "avg": 41.276073
       },
       "724889": {
         "avg": 0
@@ -1185,13 +1185,13 @@
       724916,
       736537
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "724916": {
         "avg": 0
       },
       "736537": {
-        "avg": 1.768479
+        "avg": 7
       }
     }
   },
@@ -1201,10 +1201,10 @@
       725007,
       725008
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "725007": {
-        "avg": 0.32
+        "avg": 0.383206
       },
       "725008": {
         "avg": 0.2
@@ -1216,10 +1216,10 @@
     "effect_list": [
       725028
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725028": {
-        "avg": 0.33
+        "avg": 1.699387
       }
     }
   },
@@ -1228,10 +1228,10 @@
     "effect_list": [
       725030
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "725030": {
-        "avg": 0.572644
+        "avg": 0.601711
       }
     }
   },
@@ -1240,10 +1240,10 @@
     "effect_list": [
       725090
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725090": {
-        "avg": 0.406504
+        "avg": 2.453988
       }
     }
   },
@@ -1252,10 +1252,10 @@
     "effect_list": [
       725095
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725095": {
-        "avg": 0.48
+        "avg": 3.638037
       }
     }
   },
@@ -1264,10 +1264,10 @@
     "effect_list": [
       725109
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725109": {
-        "avg": 1.34
+        "avg": 9.693252
       }
     }
   },
@@ -1276,10 +1276,10 @@
     "effect_list": [
       725112
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725112": {
-        "avg": 0.8
+        "avg": 18.404907
       }
     }
   },
@@ -1288,10 +1288,10 @@
     "effect_list": [
       725126
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725126": {
-        "avg": 5.348215
+        "avg": 15.337424
       }
     }
   },
@@ -1301,10 +1301,10 @@
       725163,
       736546
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725163": {
-        "avg": 0.8
+        "avg": 1.521472
       },
       "736546": {
         "avg": 0
@@ -1316,10 +1316,10 @@
     "effect_list": [
       725208
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725208": {
-        "avg": 0.8
+        "avg": 3.214724
       }
     }
   },
@@ -1328,10 +1328,10 @@
     "effect_list": [
       725219
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725219": {
-        "avg": 0.05
+        "avg": 0.503067
       }
     }
   },
@@ -1341,10 +1341,10 @@
       725221,
       725222
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725221": {
-        "avg": 2.5
+        "avg": 13.01227
       },
       "725222": {
         "avg": 0
@@ -1356,10 +1356,10 @@
     "effect_list": [
       725290
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "725290": {
-        "avg": 2.5
+        "avg": 7.5
       }
     }
   },
@@ -1369,10 +1369,10 @@
       725375,
       725376
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725375": {
-        "avg": 0.705882
+        "avg": 2.834356
       },
       "725376": {
         "avg": 0
@@ -1387,7 +1387,7 @@
       725609,
       725610
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "725525": {
         "avg": 0
@@ -1399,7 +1399,7 @@
         "avg": 0
       },
       "725610": {
-        "avg": 0.720721
+        "avg": 2.11156
       }
     }
   },
@@ -1409,13 +1409,13 @@
       725706,
       725707
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725706": {
-        "avg": 2.032459
+        "avg": 19.325155
       },
       "725707": {
-        "avg": 0.406504
+        "avg": 9.662577
       }
     }
   },
@@ -1424,10 +1424,10 @@
     "effect_list": [
       725757
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "725757": {
-        "avg": 1.2
+        "avg": 3.342839
       }
     }
   },
@@ -1437,13 +1437,13 @@
       725766,
       725767
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "725766": {
-        "avg": 0.5
+        "avg": 0.465649
       },
       "725767": {
-        "avg": 1
+        "avg": 0.916031
       }
     }
   },
@@ -1452,10 +1452,10 @@
     "effect_list": [
       725772
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "725772": {
-        "avg": 3.5
+        "avg": 8.699387
       }
     }
   },
@@ -1464,7 +1464,7 @@
     "effect_list": [
       726166
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "726166": {
         "avg": 0.44
@@ -1477,13 +1477,13 @@
       726180,
       726181
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726180": {
-        "avg": 0.5
+        "avg": 5.030674
       },
       "726181": {
-        "avg": 0.375
+        "avg": 1.674847
       }
     }
   },
@@ -1492,10 +1492,10 @@
     "effect_list": [
       726196
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "726196": {
-        "avg": 0.08
+        "avg": 0.122137
       }
     }
   },
@@ -1504,10 +1504,10 @@
     "effect_list": [
       726617
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726617": {
-        "avg": 2.25
+        "avg": 19.239267
       }
     }
   },
@@ -1516,10 +1516,10 @@
     "effect_list": [
       726630
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726630": {
-        "avg": 1.59
+        "avg": 13.852272
       }
     }
   },
@@ -1528,10 +1528,10 @@
     "effect_list": [
       726642
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726642": {
-        "avg": 6.43
+        "avg": 103.892036
       }
     }
   },
@@ -1540,10 +1540,10 @@
     "effect_list": [
       726666
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726666": {
-        "avg": 1.89
+        "avg": 57.7178
       }
     }
   },
@@ -1552,10 +1552,10 @@
     "effect_list": [
       726680
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726680": {
-        "avg": 2.36
+        "avg": 41.556816
       }
     }
   },
@@ -1564,10 +1564,10 @@
     "effect_list": [
       726695
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726695": {
-        "avg": 0.5
+        "avg": 7.153374
       }
     }
   },
@@ -1576,10 +1576,10 @@
     "effect_list": [
       726726
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726726": {
-        "avg": 5.62
+        "avg": 53.100376
       }
     }
   },
@@ -1588,10 +1588,10 @@
     "effect_list": [
       726739
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "726739": {
-        "avg": 1.14
+        "avg": 1.11428
       }
     }
   },
@@ -1600,10 +1600,10 @@
     "effect_list": [
       726746
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726746": {
-        "avg": 0.3
+        "avg": 11.202454
       }
     }
   },
@@ -1612,10 +1612,10 @@
     "effect_list": [
       726761
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726761": {
-        "avg": 0.6
+        "avg": 2.04
       }
     }
   },
@@ -1624,10 +1624,10 @@
     "effect_list": [
       726776
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "726776": {
-        "avg": 1.111
+        "avg": 0.877863
       }
     }
   },
@@ -1636,10 +1636,10 @@
     "effect_list": [
       726781
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "726781": {
-        "avg": 0.1111
+        "avg": 0.445712
       }
     }
   },
@@ -1648,10 +1648,10 @@
     "effect_list": [
       726998
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "726998": {
-        "avg": 0.25
+        "avg": 7.239264
       }
     }
   },
@@ -1661,10 +1661,10 @@
       727008,
       727009
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "727008": {
-        "avg": 0.72
+        "avg": 14.785275
       },
       "727009": {
         "avg": 0
@@ -1676,10 +1676,10 @@
     "effect_list": [
       727013
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "727013": {
-        "avg": 0.35
+        "avg": 1.337136
       }
     }
   },
@@ -1689,10 +1689,10 @@
       727160,
       727161
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "727160": {
-        "avg": 1
+        "avg": 1.604145
       },
       "727161": {
         "avg": 0
@@ -1704,10 +1704,10 @@
     "effect_list": [
       727285
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "727285": {
-        "avg": 1.19
+        "avg": 10.620075
       }
     }
   },
@@ -1716,10 +1716,10 @@
     "effect_list": [
       727372
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "727372": {
-        "avg": 21.280001
+        "avg": 207.784073
       }
     }
   },
@@ -1728,10 +1728,10 @@
     "effect_list": [
       727995
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "727995": {
-        "avg": 1.625724
+        "avg": 26.380365
       }
     }
   },
@@ -1740,10 +1740,10 @@
     "effect_list": [
       728344
     ],
-    "secondary": true,
+    "scaling_type": -1,
     "effects": {
       "728344": {
-        "avg": 0.304878
+        "avg": 0.114504
       }
     }
   },
@@ -1752,10 +1752,10 @@
     "effect_list": [
       728372
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "728372": {
-        "avg": 0.25
+        "avg": 0.891424
       }
     }
   },
@@ -1764,10 +1764,10 @@
     "effect_list": [
       728385
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728385": {
-        "avg": 0.406504
+        "avg": 24.539875
       }
     }
   },
@@ -1776,10 +1776,10 @@
     "effect_list": [
       728400
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728400": {
-        "avg": 0.183
+        "avg": 4.417178
       }
     }
   },
@@ -1788,10 +1788,10 @@
     "effect_list": [
       728411
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "728411": {
-        "avg": 1.6
+        "avg": 1.011209
       }
     }
   },
@@ -1800,10 +1800,10 @@
     "effect_list": [
       728450
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "728450": {
-        "avg": 0.8
+        "avg": 1.337136
       }
     }
   },
@@ -1812,10 +1812,10 @@
     "effect_list": [
       728510
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "728510": {
-        "avg": 2.650975
+        "avg": 1.39285
       }
     }
   },
@@ -1825,13 +1825,13 @@
       728530,
       728531
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "728530": {
-        "avg": 2.5
+        "avg": 2.1
       },
       "728531": {
-        "avg": 2
+        "avg": 0.84
       }
     }
   },
@@ -1840,10 +1840,10 @@
     "effect_list": [
       728551
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728551": {
-        "avg": 1.058824
+        "avg": 13
       }
     }
   },
@@ -1852,10 +1852,10 @@
     "effect_list": [
       728560
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728560": {
-        "avg": 1.56
+        "avg": 26.546013
       }
     }
   },
@@ -1865,10 +1865,10 @@
       728612,
       728613
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "728612": {
-        "avg": 0.0305
+        "avg": 0.11145
       },
       "728613": {
         "avg": 0
@@ -1880,10 +1880,10 @@
     "effect_list": [
       728629
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728629": {
-        "avg": 0.11
+        "avg": 0.552147
       }
     }
   },
@@ -1892,10 +1892,10 @@
     "effect_list": [
       728716
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728716": {
-        "avg": 0.35
+        "avg": 14.11043
       }
     }
   },
@@ -1904,10 +1904,10 @@
     "effect_list": [
       728800
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728800": {
-        "avg": 0.080796
+        "avg": 2.07362
       }
     }
   },
@@ -1916,10 +1916,10 @@
     "effect_list": [
       728943
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "728943": {
-        "avg": 0.75
+        "avg": 4.828221
       }
     }
   },
@@ -1928,10 +1928,10 @@
     "effect_list": [
       729163
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729163": {
-        "avg": 0.089
+        "avg": 2.319018
       }
     }
   },
@@ -1940,7 +1940,7 @@
     "effect_list": [
       729190
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "729190": {
         "avg": 0.101626
@@ -1952,10 +1952,10 @@
     "effect_list": [
       729236
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729236": {
-        "avg": 4.673353
+        "avg": 18.779142
       }
     }
   },
@@ -1964,10 +1964,10 @@
     "effect_list": [
       729242
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729242": {
-        "avg": 0.18
+        "avg": 0.981595
       }
     }
   },
@@ -1976,7 +1976,7 @@
     "effect_list": [
       729255
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "729255": {
         "avg": 0.163551
@@ -1988,10 +1988,10 @@
     "effect_list": [
       729270
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729270": {
-        "avg": 2.803738
+        "avg": 7.97546
       }
     }
   },
@@ -2000,10 +2000,10 @@
     "effect_list": [
       729279
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "729279": {
-        "avg": 1.08885
+        "avg": 1.089209
       }
     }
   },
@@ -2012,10 +2012,10 @@
     "effect_list": [
       729285
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729285": {
-        "avg": 0.32
+        "avg": 1.871166
       }
     }
   },
@@ -2024,10 +2024,10 @@
     "effect_list": [
       729292
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "729292": {
-        "avg": 0.1
+        "avg": 0.134351
       }
     }
   },
@@ -2037,10 +2037,10 @@
       729328,
       729330
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729328": {
-        "avg": 4.672461
+        "avg": 33.128834
       },
       "729330": {
         "avg": 0
@@ -2052,10 +2052,10 @@
     "effect_list": [
       729338
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729338": {
-        "avg": 3.571429
+        "avg": 3.680982
       }
     }
   },
@@ -2064,10 +2064,22 @@
     "effect_list": [
       729339
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "729339": {
-        "avg": 1.66
+        "avg": 1.894276
+      }
+    }
+  },
+  "276007": {
+    "name": "Excoriate",
+    "effect_list": [
+      729381
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "729381": {
+        "avg": 8.055215
       }
     }
   },
@@ -2077,10 +2089,10 @@
       729398,
       729399
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "729398": {
-        "avg": 4.206591
+        "avg": 21.392637
       },
       "729399": {
         "avg": 0
@@ -2092,10 +2104,10 @@
     "effect_list": [
       729498
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "729498": {
-        "avg": 1.639525
+        "avg": 4.011407
       }
     }
   },
@@ -2104,10 +2116,10 @@
     "effect_list": [
       730125
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "730125": {
-        "avg": 1
+        "avg": 4.018405
       }
     }
   },
@@ -2116,10 +2128,10 @@
     "effect_list": [
       730129
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "730129": {
-        "avg": -0.666
+        "avg": -4
       }
     }
   },
@@ -2129,13 +2141,13 @@
       732928,
       735136
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "732928": {
-        "avg": 0.4
+        "avg": 0.534351
       },
       "735136": {
-        "avg": 0.33
+        "avg": 0.66
       }
     }
   },
@@ -2144,10 +2156,10 @@
     "effect_list": [
       732930
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "732930": {
-        "avg": 0.409091
+        "avg": 0.782782
       }
     }
   },
@@ -2157,10 +2169,10 @@
       732931,
       732932
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732931": {
-        "avg": 2.25
+        "avg": 19.325153
       },
       "732932": {
         "avg": 0
@@ -2173,10 +2185,10 @@
       732939,
       732940
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732939": {
-        "avg": 0.738359
+        "avg": 21.75
       },
       "732940": {
         "avg": 0
@@ -2188,10 +2200,10 @@
     "effect_list": [
       732950
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732950": {
-        "avg": 0.730247
+        "avg": 7.361963
       }
     }
   },
@@ -2201,13 +2213,13 @@
       732952,
       733430
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "732952": {
-        "avg": 0.15
+        "avg": 0.183206
       },
       "733430": {
-        "avg": 0.04
+        "avg": 0.167142
       }
     }
   },
@@ -2216,10 +2228,10 @@
     "effect_list": [
       732956
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732956": {
-        "avg": 0.406504
+        "avg": 1.631902
       }
     }
   },
@@ -2230,10 +2242,10 @@
       732959,
       733622
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732958": {
-        "avg": 6.035714
+        "avg": 7.97546
       },
       "732959": {
         "avg": 0
@@ -2248,10 +2260,10 @@
     "effect_list": [
       732964
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732964": {
-        "avg": 0.165
+        "avg": 2.325153
       }
     }
   },
@@ -2260,10 +2272,10 @@
     "effect_list": [
       732966
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732966": {
-        "avg": 0.256316
+        "avg": 3
       }
     }
   },
@@ -2272,10 +2284,10 @@
     "effect_list": [
       732968
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "732968": {
-        "avg": 0.16
+        "avg": 0.233999
       }
     }
   },
@@ -2284,10 +2296,10 @@
     "effect_list": [
       732969
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732969": {
-        "avg": 32.155743
+        "avg": 128.834351
       }
     }
   },
@@ -2296,10 +2308,10 @@
     "effect_list": [
       732971
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732971": {
-        "avg": 0.96572
+        "avg": 17.558283
       }
     }
   },
@@ -2308,7 +2320,7 @@
     "effect_list": [
       732979
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "732979": {
         "avg": 0.066519
@@ -2321,10 +2333,10 @@
       732982,
       732983
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732982": {
-        "avg": 0.33
+        "avg": 1.515337
       },
       "732983": {
         "avg": 0
@@ -2337,13 +2349,13 @@
       732984,
       733671
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732984": {
-        "avg": 0.8
+        "avg": 3.214724
       },
       "733671": {
-        "avg": 0.7
+        "avg": 5.055215
       }
     }
   },
@@ -2352,10 +2364,10 @@
     "effect_list": [
       732985
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732985": {
-        "avg": 2.5
+        "avg": 12.269938
       }
     }
   },
@@ -2364,10 +2376,10 @@
     "effect_list": [
       732986
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "732986": {
-        "avg": 0.3
+        "avg": 0.247927
       }
     }
   },
@@ -2377,10 +2389,10 @@
       732989,
       734266
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "732989": {
-        "avg": 0.45
+        "avg": 1.058015
       },
       "734266": {
         "avg": 0
@@ -2392,10 +2404,10 @@
     "effect_list": [
       732991
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "732991": {
-        "avg": 0.112
+        "avg": 0.216794
       }
     }
   },
@@ -2405,10 +2417,10 @@
       732992,
       734277
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732992": {
-        "avg": 1.125605
+        "avg": 3.680981
       },
       "734277": {
         "avg": 0
@@ -2420,10 +2432,10 @@
     "effect_list": [
       732993
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732993": {
-        "avg": 2.570777
+        "avg": 12.269938
       }
     }
   },
@@ -2432,10 +2444,10 @@
     "effect_list": [
       732994
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "732994": {
-        "avg": 0.322622
+        "avg": 6.13497
       }
     }
   },
@@ -2446,10 +2458,10 @@
       734195,
       734342
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734194": {
-        "avg": 0.5
+        "avg": 1.25
       },
       "734195": {
         "avg": 0
@@ -2465,10 +2477,10 @@
       734196,
       734501
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734196": {
-        "avg": 0.7
+        "avg": 2.312883
       },
       "734501": {
         "avg": 0
@@ -2481,10 +2493,10 @@
       734199,
       734200
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734199": {
-        "avg": 2
+        "avg": 18.404907
       },
       "734200": {
         "avg": 0
@@ -2497,10 +2509,10 @@
       734204,
       734205
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734204": {
-        "avg": 0.5
+        "avg": 0.42
       },
       "734205": {
         "avg": 0
@@ -2514,16 +2526,16 @@
       734209,
       735829
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734208": {
         "avg": 0
       },
       "734209": {
-        "avg": 0.5
+        "avg": 0.674847
       },
       "735829": {
-        "avg": 0.5
+        "avg": 0.674847
       }
     }
   },
@@ -2533,10 +2545,10 @@
       734211,
       734212
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734211": {
-        "avg": 5
+        "avg": 11.86503
       },
       "734212": {
         "avg": 0
@@ -2549,10 +2561,10 @@
       734217,
       734218
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734217": {
-        "avg": 0.262
+        "avg": 0.552147
       },
       "734218": {
         "avg": 0
@@ -2565,7 +2577,7 @@
       734233,
       734234
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734233": {
         "avg": 0
@@ -2581,10 +2593,10 @@
       734236,
       734237
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734236": {
-        "avg": 1.28655
+        "avg": 10.429448
       },
       "734237": {
         "avg": 0
@@ -2597,7 +2609,7 @@
       734239,
       734240
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734239": {
         "avg": 0.77
@@ -2613,13 +2625,13 @@
       734244,
       734245
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734244": {
         "avg": 0
       },
       "734245": {
-        "avg": 2
+        "avg": 14.490798
       }
     }
   },
@@ -2628,10 +2640,10 @@
     "effect_list": [
       734247
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734247": {
-        "avg": 0.321543
+        "avg": 0.343558
       }
     }
   },
@@ -2641,13 +2653,13 @@
       734251,
       734252
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734251": {
         "avg": 0
       },
       "734252": {
-        "avg": 0.024
+        "avg": 0.09816
       }
     }
   },
@@ -2657,10 +2669,10 @@
       734253,
       734254
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734253": {
-        "avg": 0.96463
+        "avg": 11.656441
       },
       "734254": {
         "avg": 0
@@ -2673,7 +2685,7 @@
       734255,
       734256
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734255": {
         "avg": 0
@@ -2689,10 +2701,10 @@
       734259,
       734260
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734259": {
-        "avg": 0.321353
+        "avg": 2.3
       },
       "734260": {
         "avg": 0
@@ -2704,10 +2716,10 @@
     "effect_list": [
       734262
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734262": {
-        "avg": 0.160772
+        "avg": 1.656442
       }
     }
   },
@@ -2716,10 +2728,10 @@
     "effect_list": [
       734282
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734282": {
-        "avg": 0.99
+        "avg": 2.607362
       }
     }
   },
@@ -2729,7 +2741,7 @@
       734283,
       734284
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734283": {
         "avg": 0
@@ -2746,10 +2758,10 @@
       734286,
       734287
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734285": {
-        "avg": 0.765
+        "avg": 3.067485
       },
       "734286": {
         "avg": 0
@@ -2765,13 +2777,13 @@
       734288,
       734289
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734288": {
         "avg": 0
       },
       "734289": {
-        "avg": 0.290168
+        "avg": 1.90184
       }
     }
   },
@@ -2779,15 +2791,19 @@
     "name": "Wilderness Survival",
     "effect_list": [
       734291,
-      734292
+      734292,
+      743265
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734291": {
         "avg": 0
       },
       "734292": {
-        "avg": 0.35
+        "avg": 3.815951
+      },
+      "743265": {
+        "avg": 2.730061
       }
     }
   },
@@ -2797,10 +2813,10 @@
       734294,
       734295
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734294": {
-        "avg": 3.215434
+        "avg": 17.055216
       },
       "734295": {
         "avg": 0
@@ -2813,13 +2829,13 @@
       734300,
       734301
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734300": {
         "avg": 0
       },
       "734301": {
-        "avg": 0.44
+        "avg": 2.02454
       }
     }
   },
@@ -2831,19 +2847,19 @@
       734304,
       734305
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734302": {
         "avg": 0
       },
       "734303": {
-        "avg": 0.065
+        "avg": 3.680981
       },
       "734304": {
         "avg": 0
       },
       "734305": {
-        "avg": 0.65
+        "avg": 25.030676
       }
     }
   },
@@ -2853,13 +2869,13 @@
       734306,
       734307
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734306": {
         "avg": 0
       },
       "734307": {
-        "avg": 0.44
+        "avg": 7.834356
       }
     }
   },
@@ -2869,10 +2885,10 @@
       734308,
       734309
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734308": {
-        "avg": 0.106
+        "avg": 0.116031
       },
       "734309": {
         "avg": 0
@@ -2886,7 +2902,7 @@
       734312,
       735803
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734311": {
         "avg": 0
@@ -2895,7 +2911,7 @@
         "avg": 0
       },
       "735803": {
-        "avg": 0.24
+        "avg": 2.245399
       }
     }
   },
@@ -2904,10 +2920,10 @@
     "effect_list": [
       734313
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734313": {
-        "avg": 0.45
+        "avg": 0.801527
       }
     }
   },
@@ -2918,10 +2934,10 @@
       734365,
       734366
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "734364": {
-        "avg": 0.66
+        "avg": 0.334284
       },
       "734365": {
         "avg": 0
@@ -2938,7 +2954,7 @@
       734371,
       736014
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734370": {
         "avg": 0
@@ -2947,7 +2963,7 @@
         "avg": 0
       },
       "736014": {
-        "avg": 2.2
+        "avg": 4.294478
       }
     }
   },
@@ -2958,7 +2974,7 @@
       734379,
       736011
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734378": {
         "avg": 0
@@ -2967,7 +2983,7 @@
         "avg": 0
       },
       "736011": {
-        "avg": 1.1
+        "avg": 4.417178
       }
     }
   },
@@ -2977,10 +2993,10 @@
       734381,
       734382
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734381": {
-        "avg": 0.2
+        "avg": 9.938649
       },
       "734382": {
         "avg": 0
@@ -2993,10 +3009,10 @@
       734386,
       734387
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734386": {
-        "avg": 20
+        "avg": 160.80368
       },
       "734387": {
         "avg": 0
@@ -3009,10 +3025,10 @@
       734416,
       734421
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734416": {
-        "avg": 1.25
+        "avg": 5.02454
       },
       "734421": {
         "avg": 0
@@ -3026,16 +3042,16 @@
       734418,
       735677
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734417": {
-        "avg": 1
+        "avg": 2.699387
       },
       "734418": {
         "avg": 0
       },
       "735677": {
-        "avg": 1
+        "avg": 2.699387
       }
     }
   },
@@ -3045,10 +3061,10 @@
       734432,
       734433
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "734432": {
-        "avg": 0.2
+        "avg": 0.250713
       },
       "734433": {
         "avg": 0
@@ -3061,10 +3077,10 @@
       734437,
       734438
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734437": {
-        "avg": 0.8
+        "avg": 0.64
       },
       "734438": {
         "avg": 0
@@ -3076,10 +3092,10 @@
     "effect_list": [
       734444
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734444": {
-        "avg": 0.26
+        "avg": 1.196319
       }
     }
   },
@@ -3089,10 +3105,10 @@
       734447,
       734448
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "734447": {
-        "avg": 0.0185
+        "avg": 0.039
       },
       "734448": {
         "avg": 0
@@ -3105,13 +3121,13 @@
       734461,
       734462
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734461": {
         "avg": 0
       },
       "734462": {
-        "avg": 0.406504
+        "avg": 1.631902
       }
     }
   },
@@ -3121,13 +3137,13 @@
       734477,
       734478
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734477": {
         "avg": 0
       },
       "734478": {
-        "avg": 0.804721
+        "avg": 7.055215
       }
     }
   },
@@ -3137,7 +3153,7 @@
       734480,
       734481
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734480": {
         "avg": 0.643382
@@ -3153,13 +3169,13 @@
       734493,
       734494
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734493": {
         "avg": 1.608456
       },
       "734494": {
-        "avg": 1.434426
+        "avg": 0.430534
       }
     }
   },
@@ -3169,10 +3185,10 @@
       734499,
       734500
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734499": {
-        "avg": 0.064348
+        "avg": 2.539877
       },
       "734500": {
         "avg": 0
@@ -3184,10 +3200,10 @@
     "effect_list": [
       734503
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "734503": {
-        "avg": 0.082
+        "avg": 0.139285
       }
     }
   },
@@ -3198,10 +3214,10 @@
       734509,
       734510
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734508": {
-        "avg": 0.45
+        "avg": 1.546012
       },
       "734509": {
         "avg": 0
@@ -3217,10 +3233,10 @@
       734512,
       734513
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734512": {
-        "avg": 0.232816
+        "avg": 5.631902
       },
       "734513": {
         "avg": 0
@@ -3232,10 +3248,10 @@
     "effect_list": [
       734528
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734528": {
-        "avg": 0.4
+        "avg": 0.468702
       }
     }
   },
@@ -3246,10 +3262,10 @@
       734531,
       736175
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734530": {
-        "avg": 0.554727
+        "avg": 1.282209
       },
       "734531": {
         "avg": 0
@@ -3264,7 +3280,7 @@
     "effect_list": [
       734538
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "734538": {
         "avg": 8.960177
@@ -3278,7 +3294,7 @@
       734546,
       736187
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734545": {
         "avg": 0
@@ -3287,7 +3303,7 @@
         "avg": 0
       },
       "736187": {
-        "avg": 0.8
+        "avg": 2.398773
       }
     }
   },
@@ -3298,16 +3314,16 @@
       734563,
       734564
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "734562": {
-        "avg": 0.135
+        "avg": 0.245142
       },
       "734563": {
-        "avg": 0.135
+        "avg": 0.245142
       },
       "734564": {
-        "avg": 0.135
+        "avg": 0.245142
       }
     }
   },
@@ -3319,16 +3335,16 @@
       734580,
       739329
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734578": {
-        "avg": 1
+        "avg": 6.748466
       },
       "734579": {
         "avg": 0
       },
       "734580": {
-        "avg": 1
+        "avg": 7.97546
       },
       "739329": {
         "avg": 0
@@ -3342,10 +3358,10 @@
       734588,
       734589
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734587": {
-        "avg": 40
+        "avg": 50
       },
       "734588": {
         "avg": 0
@@ -3361,10 +3377,10 @@
       734592,
       734593
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734592": {
-        "avg": 8
+        "avg": 24.539879
       },
       "734593": {
         "avg": 0
@@ -3378,10 +3394,10 @@
       734601,
       734602
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734600": {
-        "avg": 0.1
+        "avg": 4.049079
       },
       "734601": {
         "avg": 0
@@ -3397,10 +3413,10 @@
       734606,
       734607
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734606": {
-        "avg": 0.0071
+        "avg": 0.035828
       },
       "734607": {
         "avg": 0
@@ -3413,13 +3429,13 @@
       734619,
       734620
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734619": {
         "avg": 0
       },
       "734620": {
-        "avg": 0.225
+        "avg": 0.625767
       }
     }
   },
@@ -3429,7 +3445,7 @@
       734636,
       734637
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734636": {
         "avg": 0.2
@@ -3444,10 +3460,10 @@
     "effect_list": [
       734638
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734638": {
-        "avg": 9.647519
+        "avg": 77.607361
       }
     }
   },
@@ -3456,10 +3472,10 @@
     "effect_list": [
       734664
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734664": {
-        "avg": 0.128
+        "avg": 0.196947
       }
     }
   },
@@ -3469,13 +3485,13 @@
       734667,
       734668
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734667": {
         "avg": 0
       },
       "734668": {
-        "avg": 1.366
+        "avg": 5.33
       }
     }
   },
@@ -3485,10 +3501,10 @@
       734678,
       734679
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734678": {
-        "avg": 3.215669
+        "avg": 37.177917
       },
       "734679": {
         "avg": 0
@@ -3501,13 +3517,13 @@
       734680,
       734681
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734680": {
         "avg": 0
       },
       "734681": {
-        "avg": 0.804
+        "avg": 49.601227
       }
     }
   },
@@ -3517,13 +3533,13 @@
       734698,
       734699
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734698": {
         "avg": 0
       },
       "734699": {
-        "avg": 0.2
+        "avg": 1.153374
       }
     }
   },
@@ -3533,13 +3549,13 @@
       734700,
       734701
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734700": {
         "avg": 0
       },
       "734701": {
-        "avg": 0.06
+        "avg": 1.472393
       }
     }
   },
@@ -3549,13 +3565,13 @@
       734706,
       734707
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "734706": {
         "avg": 0
       },
       "734707": {
-        "avg": 0.450161
+        "avg": 2.576687
       }
     }
   },
@@ -3565,13 +3581,13 @@
       734717,
       734718
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "734717": {
-        "avg": 0.96401
+        "avg": 0.68
       },
       "734718": {
-        "avg": 0.804878
+        "avg": 0.64
       }
     }
   },
@@ -3582,7 +3598,7 @@
       735377,
       735378
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "735376": {
         "avg": 0
@@ -3591,7 +3607,7 @@
         "avg": 0.407533
       },
       "735378": {
-        "avg": 1.125402
+        "avg": 30.674847
       }
     }
   },
@@ -3601,13 +3617,13 @@
       735844,
       735845
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "735844": {
         "avg": 0
       },
       "735845": {
-        "avg": 0.064309
+        "avg": 0.429448
       }
     }
   },
@@ -3617,13 +3633,13 @@
       735850,
       735851
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "735850": {
-        "avg": 1.286174
+        "avg": 9.079755
       },
       "735851": {
-        "avg": 0.482315
+        "avg": 2.944785
       }
     }
   },
@@ -3634,10 +3650,10 @@
       735910,
       735914
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "735909": {
-        "avg": 0.321543
+        "avg": 0.22508
       },
       "735910": {
         "avg": 0
@@ -3653,13 +3669,13 @@
       735979,
       735980
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "735979": {
         "avg": 0
       },
       "735980": {
-        "avg": 0.192926
+        "avg": 2.699386
       }
     }
   },
@@ -3668,10 +3684,10 @@
     "effect_list": [
       736071
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "736071": {
-        "avg": 0.320856
+        "avg": 0.272
       }
     }
   },
@@ -3680,10 +3696,10 @@
     "effect_list": [
       736321
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736321": {
-        "avg": 0.964059
+        "avg": 13.2
       }
     }
   },
@@ -3692,10 +3708,10 @@
     "effect_list": [
       736377
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "736377": {
-        "avg": 0.4
+        "avg": 2.729986
       }
     }
   },
@@ -3706,13 +3722,13 @@
       736420,
       736422
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736419": {
         "avg": 0
       },
       "736420": {
-        "avg": 1
+        "avg": 3.067485
       },
       "736422": {
         "avg": 0
@@ -3724,10 +3740,10 @@
     "effect_list": [
       736464
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736464": {
-        "avg": 1.912
+        "avg": 27.386503
       }
     }
   },
@@ -3736,10 +3752,10 @@
     "effect_list": [
       736478
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736478": {
-        "avg": 0.32175
+        "avg": 0.533742
       }
     }
   },
@@ -3749,13 +3765,13 @@
       736486,
       736487
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736486": {
         "avg": 0
       },
       "736487": {
-        "avg": 0.34
+        "avg": 2.147239
       }
     }
   },
@@ -3764,10 +3780,10 @@
     "effect_list": [
       736491
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "736491": {
-        "avg": 1.2
+        "avg": 1.279389
       }
     }
   },
@@ -3776,10 +3792,10 @@
     "effect_list": [
       736523
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "736523": {
-        "avg": 0.447912
+        "avg": 0.194999
       }
     }
   },
@@ -3788,10 +3804,10 @@
     "effect_list": [
       736535
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "736535": {
-        "avg": 0.0875
+        "avg": 0.1351
       }
     }
   },
@@ -3803,7 +3819,7 @@
       736549,
       736552
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "736547": {
         "avg": 0
@@ -3815,7 +3831,7 @@
         "avg": 0
       },
       "736552": {
-        "avg": 0.15
+        "avg": 8.484663
       }
     }
   },
@@ -3824,10 +3840,10 @@
     "effect_list": [
       736562
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "736562": {
-        "avg": 0.099778
+        "avg": 0.036641
       }
     }
   },
@@ -3838,7 +3854,7 @@
       737262,
       737448
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737261": {
         "avg": 0
@@ -3847,7 +3863,7 @@
         "avg": 0
       },
       "737448": {
-        "avg": 1
+        "avg": 126.979156
       }
     }
   },
@@ -3857,10 +3873,10 @@
       737263,
       737264
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "737263": {
-        "avg": 0.8
+        "avg": 0.972209
       },
       "737264": {
         "avg": 0
@@ -3872,10 +3888,10 @@
     "effect_list": [
       737265
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737265": {
-        "avg": 5.297
+        "avg": 82.454002
       }
     }
   },
@@ -3884,10 +3900,10 @@
     "effect_list": [
       737266
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737266": {
-        "avg": 22.330357
+        "avg": 138.52272
       }
     }
   },
@@ -3897,10 +3913,10 @@
       737267,
       737268
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737267": {
-        "avg": 21.064301
+        "avg": 115.4356
       },
       "737268": {
         "avg": 0
@@ -3912,10 +3928,10 @@
     "effect_list": [
       737269
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737269": {
-        "avg": 2.215078
+        "avg": 18.469696
       }
     }
   },
@@ -3925,10 +3941,10 @@
       737270,
       737271
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "737270": {
-        "avg": 1.99072
+        "avg": 1.06943
       },
       "737271": {
         "avg": 0
@@ -3941,10 +3957,10 @@
       737273,
       737274
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "737273": {
-        "avg": 1
+        "avg": 1.458313
       },
       "737274": {
         "avg": 0
@@ -3957,10 +3973,10 @@
       737275,
       737276
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737275": {
-        "avg": 13.401786
+        "avg": 53.966145
       },
       "737276": {
         "avg": 0
@@ -3973,13 +3989,13 @@
       737278,
       737279
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737278": {
-        "avg": 2.215078
+        "avg": 18.469696
       },
       "737279": {
-        "avg": 1
+        "avg": 10
       }
     }
   },
@@ -3988,10 +4004,10 @@
     "effect_list": [
       737280
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737280": {
-        "avg": 0.5
+        "avg": 15.3914
       }
     }
   },
@@ -4001,10 +4017,10 @@
       737281,
       737282
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737281": {
-        "avg": 1
+        "avg": 17.31534
       },
       "737282": {
         "avg": 0
@@ -4017,10 +4033,10 @@
       737283,
       737284
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737283": {
-        "avg": 5
+        "avg": 49.079754
       },
       "737284": {
         "avg": 0
@@ -4033,10 +4049,10 @@
       737445,
       737446
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737445": {
-        "avg": 21.064302
+        "avg": 103.892036
       },
       "737446": {
         "avg": 0
@@ -4051,10 +4067,10 @@
       737507,
       738960
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737505": {
-        "avg": 2.90719
+        "avg": 7.15
       },
       "737506": {
         "avg": 0
@@ -4074,7 +4090,7 @@
       737519,
       738961
     ],
-    "secondary": false,
+    "scaling_type": 0,
     "effects": {
       "737518": {
         "avg": 0
@@ -4094,10 +4110,10 @@
       737534,
       738963
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737533": {
-        "avg": 93.457947
+        "avg": 98.120262
       },
       "737534": {
         "avg": 0
@@ -4111,15 +4127,19 @@
     "name": "Synaptic Spark Capacitor",
     "effect_list": [
       737542,
-      738958
+      738958,
+      742699
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737542": {
         "avg": 0
       },
       "738958": {
         "avg": 0
+      },
+      "742699": {
+        "avg": 13.7
       }
     }
   },
@@ -4129,7 +4149,7 @@
       737551,
       738959
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "737551": {
         "avg": 1
@@ -4145,10 +4165,10 @@
       737557,
       738962
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737557": {
-        "avg": 0
+        "avg": 165
       },
       "738962": {
         "avg": 0
@@ -4161,10 +4181,10 @@
       737714,
       737715
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737714": {
-        "avg": 0.1
+        "avg": 2.515337
       },
       "737715": {
         "avg": 0
@@ -4177,10 +4197,10 @@
       737878,
       738006
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737878": {
-        "avg": 3
+        "avg": 11.595092
       },
       "738006": {
         "avg": 0
@@ -4192,10 +4212,10 @@
     "effect_list": [
       737915
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "737915": {
-        "avg": 2.661521
+        "avg": 23.190184
       }
     }
   },
@@ -4204,10 +4224,10 @@
     "effect_list": [
       737922
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "737922": {
-        "avg": 1.129518
+        "avg": 2.025204
       }
     }
   },
@@ -4218,13 +4238,13 @@
       737927,
       737931
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "737926": {
-        "avg": 0.730928
+        "avg": 1.855276
       },
       "737927": {
-        "avg": 0.170316
+        "avg": 0.300856
       },
       "737931": {
         "avg": 0
@@ -4238,10 +4258,10 @@
       737973,
       737974
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "737972": {
-        "avg": 1.5
+        "avg": 2.50713
       },
       "737973": {
         "avg": 0
@@ -4251,19 +4271,47 @@
       }
     }
   },
+  "280555": {
+    "name": "Archive of the Titans",
+    "effect_list": [
+      738151
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "738151": {
+        "avg": 0.018321
+      }
+    }
+  },
+  "280559": {
+    "name": "Laser Matrix",
+    "effect_list": [
+      738156,
+      738401
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "738156": {
+        "avg": 57.97546
+      },
+      "738401": {
+        "avg": 72.472389
+      }
+    }
+  },
   "280577": {
     "name": "Glory in Battle",
     "effect_list": [
       738189,
       738555
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "738189": {
-        "avg": 1.244076
+        "avg": 0.913709
       },
       "738555": {
-        "avg": 0.779789
+        "avg": 0.55714
       }
     }
   },
@@ -4273,13 +4321,13 @@
       738191,
       738573
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738191": {
-        "avg": 0.6
+        "avg": 1.030709
       },
       "738573": {
-        "avg": 8
+        "avg": 3.607634
       }
     }
   },
@@ -4287,15 +4335,19 @@
     "name": "Combined Might",
     "effect_list": [
       738192,
-      738695
+      738695,
+      744340
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738192": {
-        "avg": 3.5
+        "avg": 0.891424
       },
       "738695": {
         "avg": 0
+      },
+      "744340": {
+        "avg": 0.424428
       }
     }
   },
@@ -4305,13 +4357,13 @@
       738193,
       738669
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738193": {
-        "avg": 1
+        "avg": 0.465649
       },
       "738669": {
-        "avg": 6
+        "avg": 9.160305
       }
     }
   },
@@ -4322,10 +4374,10 @@
       738645,
       738646
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "738194": {
-        "avg": 0.665399
+        "avg": 7.288343
       },
       "738645": {
         "avg": 0
@@ -4341,10 +4393,10 @@
       738213,
       738618
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738213": {
-        "avg": 1.108647
+        "avg": 1.270229
       },
       "738618": {
         "avg": 0
@@ -4357,13 +4409,13 @@
       738283,
       738699
     ],
-    "secondary": true,
+    "scaling_type": -7,
     "effects": {
       "738283": {
-        "avg": 1.244076
+        "avg": 0.913709
       },
       "738699": {
-        "avg": 0.780731
+        "avg": 0.55714
       }
     }
   },
@@ -4373,13 +4425,13 @@
       738284,
       738721
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738284": {
-        "avg": 0.6
+        "avg": 1.030709
       },
       "738721": {
-        "avg": 8
+        "avg": 3.607634
       }
     }
   },
@@ -4387,15 +4439,19 @@
     "name": "Stronger Together",
     "effect_list": [
       738285,
-      738730
+      738730,
+      744329
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738285": {
-        "avg": 3.5
+        "avg": 0.891424
       },
       "738730": {
         "avg": 0
+      },
+      "744329": {
+        "avg": 0.424428
       }
     }
   },
@@ -4405,13 +4461,13 @@
       738286,
       738712
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738286": {
-        "avg": 1
+        "avg": 0.465649
       },
       "738712": {
-        "avg": 6
+        "avg": 9.160305
       }
     }
   },
@@ -4422,10 +4478,10 @@
       738705,
       738706
     ],
-    "secondary": false,
+    "scaling_type": -8,
     "effects": {
       "738287": {
-        "avg": 0.665399
+        "avg": 7.288343
       },
       "738705": {
         "avg": 0
@@ -4441,10 +4497,10 @@
       738288,
       738747
     ],
-    "secondary": false,
+    "scaling_type": -1,
     "effects": {
       "738288": {
-        "avg": 1.108999
+        "avg": 1.270229
       },
       "738747": {
         "avg": 0
@@ -4456,10 +4512,38 @@
     "effect_list": [
       738417
     ],
-    "secondary": false,
+    "scaling_type": -7,
     "effects": {
       "738417": {
-        "avg": 0.033
+        "avg": 0.061285
+      }
+    }
+  },
+  "281514": {
+    "name": "Unstable Catalyst",
+    "effect_list": [
+      740102
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "740102": {
+        "avg": 0.625954
+      }
+    }
+  },
+  "281841": {
+    "name": "Tradewinds",
+    "effect_list": [
+      741004,
+      741005
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "741004": {
+        "avg": 2.540558
+      },
+      "741005": {
+        "avg": 0.501426
       }
     }
   }

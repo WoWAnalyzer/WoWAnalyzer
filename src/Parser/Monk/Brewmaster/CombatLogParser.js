@@ -22,8 +22,10 @@ import BreathOfFire from './Modules/Spells/BreathOfFire';
 import BlackOxBrew from './Modules/Spells/BlackOxBrew';
 import HighTolerance from './Modules/Spells/HighTolerance';
 import Guard from './Modules/Spells/Guard';
-// Training of Niuzao
+// Azerite Traits
 import TrainingOfNiuzao from './Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
+import StaggeringStrikes from './Modules/Spells/AzeriteTraits/StaggeringStrikes';
+import ElusiveFootwork from './Modules/Spells/AzeriteTraits/ElusiveFootwork';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
@@ -78,6 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     trainingOfNiuzao: TrainingOfNiuzao,
+    staggeringStrikes: StaggeringStrikes,
+    elusiveFootwork: ElusiveFootwork,
 
     // Items
     t20_2pc: T20_2pc,

@@ -518,4 +518,9 @@ export default {
     name: 'Sweeping Strikes',
     icon: 'ability_rogue_slicedice',
   },
+  FURIOUS_SLASH_TALENT_BUFF: {
+    id: 202539,
+    name: "Furious Slash",
+    icon: "ability_warrior_weaponmastery",
+  },
 };

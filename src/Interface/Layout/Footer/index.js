@@ -19,13 +19,13 @@ class Footer extends React.PureComponent {
             Be a part of us
           </h1>
           <div className="social-links">
-            <a href="/discord" data-tip="Discord">
+            <a href="https://wowanalyzer.com/discord" data-tip="Discord">
               <DiscordLogo />
             </a>
-            <a href="/github" data-tip="GitHub">
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" data-tip="GitHub">
               <GithubLogo />
             </a>
-            <a href="/patreon" data-tip="Patreon">
+            <a href="https://www.patreon.com/wowanalyzer" data-tip="Patreon">
               <PatreonIcon />
             </a>
           </div><br />
@@ -51,6 +51,7 @@ class Footer extends React.PureComponent {
                   <li>Idea by Anne</li>
                   <li>About Document by Deepz</li>
                   <li>Stats by Barracuda</li>
+                  <li>Dropdown by zalhan</li>
                 </ul>
               `}
             >Icons by the <a href="https://thenounproject.com">Noun Project</a>.</dfn><br />

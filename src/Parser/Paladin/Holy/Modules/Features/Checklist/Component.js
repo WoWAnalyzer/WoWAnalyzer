@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
 import Requirement from 'Parser/Core/Modules/Features/Checklist2/Requirement';
@@ -80,54 +78,11 @@ class HolyPaladinChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.HOLY_AVENGER_TALENT.id} />
           )}
-          {combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id) && (
-            <AbilityRequirement
-              spell={SPELLS.VELENS_FUTURE_SIGHT_BUFF.id}
-              name={<ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />}
-            />
-          )}
           <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id) && (
-            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA.id} />
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
+            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
           )}
-        </Rule>
-        <Rule
-          name="Use your supportive abilities"
-          description="While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally."
-        >
-          {combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id) && <AbilityRequirement spell={SPELLS.RULE_OF_LAW_TALENT.id} />}
-          <AbilityRequirement spell={SPELLS.DIVINE_STEED.id} />
-          <AbilityRequirement spell={SPELLS.DIVINE_PROTECTION.id} />
-          <AbilityRequirement spell={SPELLS.BLESSING_OF_SACRIFICE.id} />
-          <AbilityRequirement spell={SPELLS.LAY_ON_HANDS.id} />
-        </Rule>
-        <Rule
-          name={<React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>}
-          description={(
-            <React.Fragment>
-              <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
-            </React.Fragment>
-          )}
-        >
-          <Requirement name="Mastery effectiveness" thresholds={thresholds.masteryEffectiveness} />
-        </Rule>
-        <Rule
-          name="Try to avoid being inactive for a large portion of the fight"
-          description={(
-            <React.Fragment>
-              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
-            </React.Fragment>
-          )}
-        >
-          <Requirement name="Non healing time" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
-          <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
-        </Rule>
-        <Rule
-          name="Don't tunnel the tanks"
-          description="A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die."
-        >
-          <Requirement name="Direct beacon healing" thresholds={thresholds.beaconHealing} />
         </Rule>
         <Rule
           name={<React.Fragment>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</React.Fragment>}
@@ -148,12 +103,38 @@ class HolyPaladinChecklist extends React.PureComponent {
           />
         </Rule>
         <Rule
-          name={<React.Fragment>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively</React.Fragment>}
+          name="Don't tunnel the tanks"
+          description="A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die."
+        >
+          <Requirement name="Direct beacon healing" thresholds={thresholds.directBeaconHealing} />
+        </Rule>
+        <Rule
+          name={<React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>}
+          description={(
+            <React.Fragment>
+              <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
+            </React.Fragment>
+          )}
+        >
+          <Requirement name="Mastery effectiveness" thresholds={thresholds.masteryEffectiveness} />
+        </Rule>
+        <Rule
+          name={<React.Fragment>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /></React.Fragment>}
           description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
         >
           <Requirement name="Mana left" thresholds={thresholds.manaLeft} />
         </Rule>
-        <PreparationRule thresholds={thresholds} />
+        <Rule
+          name="Try to avoid being inactive for a large portion of the fight"
+          description={(
+            <React.Fragment>
+              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
+            </React.Fragment>
+          )}
+        >
+          <Requirement name="Non healing time" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
+          <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+        </Rule>
         <Rule
           name="Avoid overhealing"
           description="Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it's still inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers."
@@ -167,6 +148,17 @@ class HolyPaladinChecklist extends React.PureComponent {
               thresholds={thresholds.overhealing.bestowFaith}
             />
           )}
+        </Rule>
+        <PreparationRule thresholds={thresholds} />
+        <Rule
+          name="Use your supportive abilities"
+          description="While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally."
+        >
+          {combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id) && <AbilityRequirement spell={SPELLS.RULE_OF_LAW_TALENT.id} />}
+          <AbilityRequirement spell={SPELLS.DIVINE_STEED.id} />
+          <AbilityRequirement spell={SPELLS.DIVINE_PROTECTION.id} />
+          <AbilityRequirement spell={SPELLS.BLESSING_OF_SACRIFICE.id} />
+          <AbilityRequirement spell={SPELLS.LAY_ON_HANDS.id} />
         </Rule>
       </Checklist>
     );

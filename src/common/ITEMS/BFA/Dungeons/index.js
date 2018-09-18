@@ -73,6 +73,18 @@ export default {
     icon: 'inv_misc_food_legion_seashellc1',
     quality: ITEM_QUALITIES.BLUE,
   },
+  GALECALLERS_BOON: {
+    id: 159614,
+    name: 'Galecaller\'s Boon',
+    icon: 'ability_shaman_fortifyingwaters',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+  SEABREEZE: {
+    id: 158371,
+    name: 'Seabreeze',
+    icon: 'inv_staff_2h_battledungeon_c_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 
   // Siege of Boralus
   HADALS_NAUTILUS: {
@@ -87,6 +99,14 @@ export default {
     id: 158368,
     name: 'Fangs of Intertwined Essence',
     icon: 'inv_misc_toothb_06',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
+  //Freehold
+  HARLANS_LOADED_DICE: {
+    id: 155881,
+    name: 'Harlan\'s Loaded Dice',
+    icon: 'inv_misc_dice_02',
     quality: ITEM_QUALITIES.BLUE,
   },
 

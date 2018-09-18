@@ -9,8 +9,10 @@ import ComboPointTracker from '../Common/Resources/ComboPointTracker';
 import ComboPoints from './Modules/RogueCore/ComboPoints';
 import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
+import EnergyCapTracker from '../Common/Resources/EnergyCapTracker';
 import Energy from './Modules/RogueCore/Energy';
 import EnemyHpTracker from '../Common/EnemyHpTracker';
+import SpellEnergyCost from '../Common/Resources/SpellEnergyCost';
 
 //Spells
 import EnvenomUptime from './Modules/Spells/EnvenomUptime';
@@ -30,6 +32,7 @@ import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTr
 
 //Talents
 import Blindside from './Modules/Talents/Blindside';
+import ElaboratePlanning from './Modules/Talents/ElaboratePlanning';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,8 +49,10 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
+    energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    spellEnergyCost: SpellEnergyCost,
 
     //Core
     envenomUptime: EnvenomUptime,
@@ -69,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     blindside: Blindside,
+    elaboratePlanning: ElaboratePlanning,
   };
 }
 

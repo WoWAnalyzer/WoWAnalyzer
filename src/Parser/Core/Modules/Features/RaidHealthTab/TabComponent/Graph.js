@@ -151,7 +151,7 @@ class Graph extends React.PureComponent {
               return `${value}%`;
             },
             min: 0,
-            max: 20 * 100,
+            max: players.length * 100,
             fontSize: 14,
           },
           stacked: true,

@@ -31,7 +31,7 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_pet_inquisitoreye',
   },
-  GEMHIDE: { 
+  GEMHIDE: {
     id: 268596,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
@@ -40,26 +40,6 @@ export default {
     id: 270576,
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
-  },
-  ELEMENTAL_WHIRL_CRIT: { // buff
-    id: 268953,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_HASTE: { // buff
-    id: 268954,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_MASTERY: { // buff
-    id: 268955,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_VERSATILITY: { // buff
-    id: 268956,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
   },
   RESOUNDING_PROTECTION: {
     id: 270568,
@@ -80,5 +60,110 @@ export default {
     id: 270117,
     name: 'Impassive Visage',
     icon: 'inv_pet_inquisitoreye',
+  },
+  BRACING_CHILL: {
+    id: 267884,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+  BRACING_CHILL_HEAL: {
+    id: 272428,
+    name: 'Bracing Chill',
+    icon: 'achievement_zone_stormpeaks_01',
+  },
+  BLESSED_PORTENTS: {
+    id: 280052,
+    name: 'Blessed Portents',
+    icon: 'spell_holy_fanaticism',
+  },
+  AZERITE_FORTIFICATION: {
+    id: 270659,
+    name: 'Azerite Fortification',
+    icon: 'ability_creature_amber_01',
+  },
+  AZERITE_VEINS: {
+    id: 270674,
+    name: 'Azerite Veins',
+    icon: 'spell_yorsahj_bloodboil_orangeoil',
+  },
+  SAVIOR: {
+    id: 269108,
+    name: 'Savior',
+    icon: 'achievement_guildperk_everyones-a-hero',
+  },
+  LASER_MATRIX: {
+    id: 280559,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_HEAL: {
+    id: 280707,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_DAMAGE: {
+    id: 280705,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  ARCHIVE_OF_THE_TITANS: {
+    id: 280555,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
+  ARCHIVE_OF_THE_TITANS_BUFF: {
+    id: 280709,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
+  REORIGINATION_ARRAY: {
+    id: 280573,
+    name: 'Reorigination Array',
+    icon: 'inv_trinket_80_titan02c',
+  },
+  METICULOUS_SCHEMING: {
+    id: 273682,
+    name: 'Meticulous Scheming',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  METICULOUS_SCHEMING_BUFF: { // 8sec buff to trigger haste buff
+    id: 273685,
+    name: 'Meticulous Scheming',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SEIZE_THE_MOMENT: { // haste buff from Meticulous Scheming
+    id: 273714,
+    name: 'Seize the Moment!',
+    icon: 'achievement_bg_killflagcarriers_grabflag_capit',
+  },
+  WOUNDBINDER: {
+    id: 269085,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
+  ELEMENTAL_WHIRL: {
+    id: 263984,
+    name: 'Elemental Whirl',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_CRIT: { // buff
+    id: 268953,
+    name: 'Elemental Whirl - Crit',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_HASTE: { // buff
+    id: 268954,
+    name: 'Elemental Whirl - Haste',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_MASTERY: { // buff
+    id: 268955,
+    name: 'Elemental Whirl - Mastery',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_VERSATILITY: { // buff
+    id: 268956,
+    name: 'Elemental Whirl - Versatility',
+    icon: 'ability_skyreach_four_wind',
   },
 };

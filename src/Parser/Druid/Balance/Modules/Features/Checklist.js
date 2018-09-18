@@ -1,16 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
@@ -23,8 +19,6 @@ import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
 import EarlyDotRefreshes from './EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './EarlyDotRefreshesInstants';
-
-import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
 
 import AstralPowerDetails from '../ResourceTracker/AstralPowerDetails';
 
@@ -42,10 +36,6 @@ class Checklist extends CoreChecklist {
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
 
-    soulOfTheArchdruid: SoulOfTheArchdruid,
-
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
 
@@ -123,12 +113,10 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Solar Empowerment efficiency',
             check: () => this.solarEmpowerment.suggestionThresholds,
-            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
           new Requirement({
             name: 'Lunar Empowerment efficiency',
             check: () => this.lunarEmpowerment.suggestionThresholds,
-            when: !this.selectedCombatant.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
         ];
       },
@@ -160,19 +148,6 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWAL_TALENT,
-          }),
-        ];
-      },
-    }),
-    new Rule({
-      name: 'Pick the right tools for the fight',
-      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: <React.Fragment>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /></React.Fragment>,
-            check: () => this.soulOfTheArchdruid.suggestionThresholds,
-            when: this.soulOfTheArchdruid.active,
           }),
         ];
       },

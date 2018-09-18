@@ -5,6 +5,13 @@
  */
 
 export default {
+  // Common Spells
+  GLIDE: {
+    id: 131347,
+    name: 'Glide',
+    icon: 'ability_demonhunter_glide',
+  },
+
   // Vengeance Demon Hunter
 
   // Tier 20 Bonus:
@@ -51,40 +58,85 @@ export default {
   },
 
   // Abilities:
+  FRACTURE: { //Fracture replaces shear when you take the fracture talent
+    id: 209795,
+    painCost: 30,
+    name: "Fracture",
+    icon: "ability_creature_felsunder",
+  },
+  FRACTURE_MAIN_HAND: {
+    id: 225919,
+    painCost: 30,
+    name: "Fracture(Main Hand)",
+    icon: "ability_creature_felsunder",
+  },
+  FRACTURE_OFF_HAND: {
+    id: 225921,
+    painCost: 30,
+    name: "Fracture(Off Hand)",
+    icon: "ability_creature_felsunder",
+  },
+  SHEAR: {
+    id: 203782,
+    name: 'Shear',
+    icon: 'ability_demonhunter_hatefulstrike',
+  },
   SOUL_FRAGMENT: {
     id: 204255,
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
-  SPECTRAL_SIGHT: {
-    id: 188501,
-    name: 'Spectral Sight',
-    icon: 'ability_demonhunter_spectralsight',
+  SOUL_FRAGMENT_KILLING_BLOW: {
+    id: 204062,
+    name: 'Soul Fragment(from killing blow)',
+    icon: 'spell_shadow_soulgem',
   },
   SOUL_FRAGMENT_STACK: {
     id: 203981,
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
-  SIGIL_OF_SILENCE: {
+  VOID_REAVER_DEBUFF: {
+    id: 268178,
+    name: 'Void Reaver Debuff',
+    icon: 'spell_shadow_demonicempathy',
+  },
+  //Sigil of Flame, Misery, and Silence have different spell ids depending on
+  //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
+  SIGIL_OF_FLAME_CONCENTRATED: {
+    id: 204513,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_CONCENTRATED: {
+    id: 202140,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_CONCENTRATED: {
     id: 207682,
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
-  SIGIL_OF_FLAME: {
-    id: 204513,
+  SIGIL_OF_FLAME_QUICKENED: {
+    id: 204596,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_QUICKENED: {
+    id: 207684,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_QUICKENED: {
+    id: 202137,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME_DEBUFF: {
     id: 204598,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY: {
-    id: 202140,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
   },
   DEMON_SPIKES: {
     id: 203720,
@@ -115,12 +167,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    painCost: 43,
-  },
-  THROW_GLAIVE: {
-    id: 204157,
-    name: 'Throw Glaive',
-    icon: 'ability_demonhunter_throwglaive',
+    painCost: 30,
   },
   IMMOLATION_AURA: {
     id: 178740,
@@ -138,15 +185,15 @@ export default {
     name: 'Immolation Aura Buff',
     icon: 'ability_demonhunter_immolation',
   },
-  SHEAR: {
-    id: 203782,
-    name: 'Shear',
-    icon: 'ability_demonhunter_hatefulstrike',
-  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',
     icon: 'ability_demonhunter_infernalstrike1',
+  },
+  THROW_GLAIVE: {
+    id: 204157,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
   },
   TORMENT: {
     id: 185245,
@@ -157,6 +204,22 @@ export default {
     id: 217832,
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
+  },
+  SPECTRAL_SIGHT: {
+    id: 188501,
+    name: 'Spectral Sight',
+    icon: 'ability_demonhunter_spectralsight',
+  },
+  // Ticks that Fiery Brand does due to the Burning Alive talent
+  FIERY_BRAND_DOT: {
+    id: 207771,
+    name: 'FIERY_BRAND_DOT',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  FEAST_OF_SOULS_HEAL: {
+    id: 207693,
+    name: 'Feast of Souls Heal',
+    icon: 'spell_shadow_soulleech',
   },
 
   // Havoc
@@ -178,6 +241,16 @@ export default {
     icon: 'ability_demonhunter_eyebeam',
   },
   //spells
+  IMMOLATION_AURA_FIRST_STRIKE_DPS: {
+    id: 258921,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DPS: {
+    id: 258922,
+    name: 'Immolation Aura Buff',
+    icon: 'ability_demonhunter_immolation',
+  },
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
@@ -268,7 +341,7 @@ export default {
     name: 'Consume Magic',
     icon: 'spell_misc_zandalari_council_soulswap',
   },
-  Disrupt: {
+  DISRUPT: {
     id: 183752,
     name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
@@ -338,6 +411,13 @@ export default {
     name: 'Fel Mastery',
     icon: 'ability_skyreach_piercing_rush',
   },
+  CONSUME_SOUL: {
+    id: 228532,
+    name: 'Consume Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+
+  // Legendary Buffs
   ANGER_OF_THE_HALF_GIANTS_FURY: {
     id: 208828,
     name: 'Gigantic Anger',
@@ -353,12 +433,6 @@ export default {
     name: 'Raddon\'s Cascading Eyes',
     icon: 'inv_misc_bandana_01',
   },
-  CONSUME_SOUL: {
-    id: 228532,
-    name: 'Consume Soul',
-    icon: 'ability_warlock_improvedsoulleech',
-  },
-  //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {
     id: 211796,
     name: 'Chaos Blades',
@@ -369,6 +443,13 @@ export default {
     name: 'Chaos Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
+  CHAOS_BLADES_BUFF: {
+    id: 247938,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+
+  //Havoc Talents
   CHAOS_CLEAVE_DAMAGE: {
     id: 236237,
     name: 'Chaos Cleave',
@@ -424,7 +505,7 @@ export default {
     name: 'Nemesis',
     icon: 'spell_holy_senseundead',
   },
-  // Talents
+  // Vengeance Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',

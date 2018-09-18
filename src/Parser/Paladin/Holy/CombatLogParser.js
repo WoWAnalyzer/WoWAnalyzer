@@ -6,10 +6,15 @@ import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
 import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
+import BeaconTransferFactor from './Modules/Beacons/BeaconTransferFactor';
+import BeaconHealSource from './Modules/Beacons/BeaconHealSource';
+import BeaconHealingDone from './Modules/Beacons/BeaconHealingDone';
+import BeaconTargets from './Modules/Beacons/BeaconTargets';
+import MissingBeacons from './Modules/Beacons/MissingBeacons';
+import FailedBeaconTransfers from './Modules/Beacons/FailedBeaconTransfers';
+import DirectBeaconHealing from './Modules/Beacons/DirectBeaconHealing';
+
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
-import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
@@ -25,6 +30,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import StatValues from './Modules/Features/StatValues';
 
+import MightOfTheMountain from './Modules/Racials/Dwarf/MightOfTheMountain';
+
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './Modules/Talents/DevotionAuraDamageReduction';
 // import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
@@ -34,17 +41,6 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import CrusadersMight from './Modules/Talents/CrusadersMight';
-
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import Ilterendi from './Modules/Items/Ilterendi';
-import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
-import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
-import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
-import SoulOfTheHighlord from './Modules/Items/SoulOfTheHighlord';
-import Tier19_4set from './Modules/Items/Tier19_4set';
-import Tier20_4set from './Modules/Items/Tier20_4set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -63,9 +59,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // PaladinCore
     healingDone: [HealingDone, { showStatistic: true }],
-    beaconHealOriginMatcher: BeaconHealOriginMatcher,
+    beaconTransferFactor: BeaconTransferFactor,
+    beaconHealSource: BeaconHealSource,
+    beaconHealingDone: BeaconHealingDone,
     beaconTargets: BeaconTargets,
-    beaconHealing: BeaconHealing,
+    missingBeacons: MissingBeacons,
+    failedBeaconTransfers: FailedBeaconTransfers,
+    directBeaconHealing: DirectBeaconHealing,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
@@ -82,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     statValues: StatValues,
 
+    // Racials
+    mightOfTheMountain: MightOfTheMountain,
+
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
@@ -92,18 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
-
-    // Items:
-    drapeOfShame: DrapeOfShame,
-    ilterendi: Ilterendi,
-    chainOfThrayn: ChainOfThrayn,
-    obsidianStoneSpaulders: ObsidianStoneSpaulders,
-    maraadsDyingBreath: MaraadsDyingBreath,
-    soulOfTheHighlord: SoulOfTheHighlord,
-    tier19_4set: Tier19_4set,
-    tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
   };
 }
 

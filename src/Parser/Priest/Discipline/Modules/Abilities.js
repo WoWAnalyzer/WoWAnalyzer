@@ -6,7 +6,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.PENANCE,
+        spell: SPELLS.PENANCE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 9,
         gcd: {
@@ -145,16 +145,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
+        enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id),
       },
       {
-        spell: SPELLS.LUMINOUS_BARRIER,
+        spell: SPELLS.LUMINOUS_BARRIER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 3 * 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
+        enabled: combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,
@@ -251,14 +251,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.CLARITY_OF_WILL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.CLARITY_OF_WILL_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_COVENANT_TALENT,

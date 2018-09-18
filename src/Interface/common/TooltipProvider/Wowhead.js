@@ -1,13 +1,22 @@
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import Base from './Base';
 
 class Wowhead extends Base {
   static libraryUrl = '//wow.zamimg.com/widgets/power.js';
-  static baseUrl = 'http://bfa.wowhead.com/';
+  static baseUrl = 'http://wowhead.com/';
 
-  static spellRelative(id) {
-    return `spell=${id}`;
+  static spellRelative(id, details) {
+    const base = `spell=${id}`;
+    if (!details) {
+      return base;
+    } else {
+      const queryString = [base];
+      if (details.ilvl) {
+        queryString.push(`ilvl=${details.ilvl}`);
+      }
+      return queryString.join('&');
+    }
   }
   static itemRelative(id, details) {
     const base = `item=${id}`;

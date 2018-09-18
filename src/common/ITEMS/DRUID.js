@@ -21,44 +21,6 @@ export default {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
-  // Balance legendaries
-  IMPECCABLE_FEL_ESSENCE: {
-    id: 137039,
-    name: 'Impeccable Fel Essence',
-    icon: 'inv_misc_ring_mop13',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ONETHS_INTUITION: {
-    id: 137092,
-    name: 'Oneth\'s Intuition',
-    icon: 'inv_bracer_40',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  LADY_AND_THE_CHILD: {
-    id: 144295,
-    name: 'Lady and the Child',
-    icon: 'inv_shoulder_leather_draenorcrafted_d_01_alliance',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  THE_EMERALD_DREAMCATCHER: {
-    id: 137062,
-    name: 'The Emerald Dreamcatcher',
-    icon: 'inv_helmet_81',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  RADIANT_MOONLIGHT: {
-    id: 151800,
-    name: 'Radiant Moonlight',
-    icon: 'inv_cape_felfire_raid_d_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  PROMISE_OF_ELUNE: {
-    id: 137023,
-    name: 'Promise of Elune, the Moon Goddess',
-    icon: 'inv_boots_leather_raiddruid_j_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-
   // Feral legendaries
   CHATOYANT_SIGNET: {
     id: 137040,
@@ -158,12 +120,6 @@ export default {
     id: 137095,
     name: 'Edraith, Bonds of Aglaya',
     icon: 'inv_bracer_57',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  AMANTHULS_WISDOM: {
-    id: 137072,
-    name: 'Aman\'Thul\'s Wisdom',
-    icon: 'inv_shoulder_leather_raidmonk_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 };

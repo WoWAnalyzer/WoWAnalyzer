@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPECS from './SPECS';
+import SPECS from 'game/SPECS';
 
 const SpecIcon = ({ id, ...others }) => {
   if (!SPECS[id]) {

@@ -6,12 +6,13 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
-import ITEMS from "common/ITEMS/HUNTER";
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
 
 const PROC_CHANCE = 0.05;
@@ -30,7 +31,7 @@ class LockAndLoad extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -143,6 +144,7 @@ class LockAndLoad extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(24)}
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
         label="lost LnL stacks"
@@ -150,8 +152,6 @@ class LockAndLoad extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
-
 }
 
 export default LockAndLoad;

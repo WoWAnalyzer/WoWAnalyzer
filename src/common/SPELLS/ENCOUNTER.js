@@ -1117,4 +1117,675 @@ export default {
     name: "Apocalypsis Zone",
     icon: "inv_ember",
   },
+
+
+  //Uldir
+
+  //Taloc
+  TALOC_BLOOD_STORM: {
+    id: 270288,
+    name: "Blood Storm",
+    icon: "inv_misc_stormlordsfavor",
+  },
+  TALOC_COMBUSTIBLE_FUEL:{
+    id: 272584,
+    name: "Combustible Fuel",
+    icon: "inv_misc_food_legion_goooil_chunk",
+  },
+  TALOC_CUDGEL_OF_GORE_1: {
+    id: 271636,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_2:{
+    id: 271714,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_3: {
+    id: 271296,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_4: {
+    id: 271811,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_CUDGEL_OF_GORE_5: {
+    id: 271519,
+    name: "Cudgel of Gore",
+    icon: "inv_mace_2h_capturedtitanconstruct_d_01",
+  },
+  TALOC_PLASMA_DISCHARGE_1: {
+    id: 278888,
+    name: "Plasma Discharge",
+    icon: "inv_misc_boilingblood",
+  },
+  TALOC_PLASMA_DISCHARGE_2: {
+    id: 271224,
+    name: "Plasma Discharge",
+    icon: "inv_misc_boilingblood",
+  },
+  TALOC_POWERED_DOWN: {
+    id: 271965,
+    name: "Powered Down",
+    icon: "inv_misc_food_legion_gooamber_drop",
+  },
+  TALOC_RETRIEVE_CUDGEL_1: {
+    id: 271729,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_RETRIEVE_CUDGEL_2: {
+    id: 271864,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_RETRIEVE_CUDGEL_3: {
+    id: 271728,
+    name: "Retrieve Cudgel",
+    icon: "inv_gauntlets_86",
+  },
+  TALOC_SANGUINE_STATIC: {
+    id: 271895,
+    name: "Sanguine Static",
+    icon: "sha_ability_mage_firestarter_nightmare",
+  },
+  TALOC_SLOUGH_OFF_1: {
+    id: 278882,
+    name: "Slough Off",
+    icon: "ability_druid_infectedwound",
+  },
+  TALOC_SLOUGH_OFF_2: {
+    id: 275686,
+    name: "Slough Off",
+    icon: "ability_druid_infectedwound",
+  },
+
+  //MOTHER
+
+  MOTHER_CLEANSING_PURGE: {
+    id: 268089,
+    name: "Cleansing Purge",
+    icon: "trade_engineering",
+  },
+  MOTHER_PURIFYING_FLAME_1: {
+    id: 274192,
+    name: "Purifying Flame",
+    icon: "trade_engineering",
+  },
+  MOTHER_PURIFYING_FLAME_2: {
+    id: 267795,
+    name: "Purifying Flame",
+    icon: "ability_mage_firestarter",
+  },
+  MOTHER_SANITIZING_STRIKE: {
+    id: 267787,
+    name: "Sanitizing Strike",
+    icon: "ability_warrior_sunder",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_1: {
+    id: 275228,
+    name: "Uldir Defensive Beam",
+    icon: "ability_mage_rayoffrost",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_2:{
+    id: 277973,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_3: {
+    id: 277742,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_ULDIR_DEFENSIVE_BEAM_4: {
+    id: 269827,
+    name: "Uldir Defensive Beam",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_WIND_TUNNEL_1: {
+    id: 267945,
+    name: "Wind Tunnel",
+    icon: "inv_misc_volatileair",
+  },
+  MOTHER_WIND_TUNNEL_2: {
+    id: 267878,
+    name: "Wind Tunnel",
+    icon: "inv_misc_volatileair",
+  },
+
+
+  //Fetid Devourer
+  FETID_ENTICING_ESSENCE: {
+    id: 262364,
+    name: "Enticing Essence",
+    icon: "inv_misc_food_101_sourcheese",
+  },
+  FETID_FETID_FRENZY: {
+    id: 262378,
+    name: "Fetid Frenzy",
+    icon: "hunter_pvp_direbeastbasilisk",
+  },
+  FETID_ROTTING_REGURGITATION: {
+    id: 262292,
+    name: "Rotting Regurgitation",
+    icon: "spell_deathvortex",
+  },
+  FETID_SHOCKWAVE_STOMP: {
+    id: 262288,
+    name: "Shockwave Stomp",
+    icon: "ability_warstomp",
+  },
+  FETID_TERRIBLE_THRASH: {
+    id: 262277,
+    name: "Terrible Thrash",
+    icon: "trade_archaeology_whitehydrafigurine",
+  },
+  FETID_PUTRID_PAROXYSM: {
+    id: 262314,
+    name: "Putrid Paroxysm",
+    icon: "spell_shadow_plaguecloud",
+  },
+  FETID_MALODOROUS_MIASMA: {
+    id: 262313,
+    name: "Malodorous Miasma",
+    icon: "spell_nature_insect_swarm2",
+  },
+
+  //Zekvoz
+
+  ZEKVOZ_EYE_BEAM: {
+    id: 264382,
+    name: "Eye Beam",
+    icon: "achievement_boss_cthun",
+  },
+  ZEKVOV_ORB_OF_CORRUPTION:{
+    id: 267239,
+    name: "Orb of Corruption",
+    icon: "spell_priest_shadoworbs",
+  },
+  ZEKVOZ_ROILING_DECEIT:{
+    id: 265358,
+    name: "Roiling Deceit",
+    icon: "ability_deathknight_deathsiphon2",
+  },
+  ZEKVOZ_SHATTER:{
+    id: 265248,
+    name: "Shatter",
+    icon: "ability_warrior_shieldbreak",
+  },
+  ZEKVOZ_SHATTER_DEBUFF:{
+    id: 265237,
+    name: "Shatter",
+    icon: "ability_warrior_shieldbreak",
+  },
+  ZEKVOZ_SURGING_DARKNESS_CAST: {
+    id: 265530,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_1: {
+    id: 267350,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_2: {
+    id: 265451,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_3:{
+    id: 265452,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_4:{
+    id: 265454,
+    name: "Surging Darkness",
+    icon: "ability_priest_voidentropy",
+  },
+  ZEKVOZ_VOID_LASH_1: {
+    id: 265231,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZEKVOZ_VOID_LASH_2: {
+    id: 265268,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZEKVOZ_VOID_LASH_DAMAGE:{
+    id: 265264,
+    name: "Void Lash",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZEKVOZ_CORRUPTION_PULSE: {
+    id: 265738,
+    name: "Corruption Pulse",
+    icon: "spell_priest_void-blast",
+  },
+  ZEKVOZ_JAGGED_MANDIBLE: {
+    id: 264210,
+    name: "Jagged Mandible",
+    icon: "ability_warrior_bloodbath",
+  },
+  ZEKVOZ_TITAN_SPARK: {
+    id: 264954,
+    name: "Titan Spark",
+    icon: "item_holyspark",
+  },
+
+
+  //Vectis
+
+  VECTIS_BLOOD_GEYSER_CAST: {
+    id: 265281,
+    name: "Blood Geyser",
+    icon: "inv_artifact_bloodoftheassassinated",
+  },
+  VECTIS_BLOOD_GEYSER_DAMAGE: {
+    id: 265370,
+    name: "Blood Geyser",
+    icon: "inv_artifact_bloodoftheassassinated",
+  },
+  VECTIS_CONTAGION: {
+    id: 267242,
+    name: "Contagion",
+    icon: "ability_creature_cursed_04",
+  },
+  VECTIS_EVOLVING_AFFLICTION: {
+    id: 265178,
+    name: "Evolving Affliction",
+    icon: "ability_ironmaidens_whirlofblood",
+  },
+  VECTIS_GESTATE_CAST: {
+    id: 265209,
+    name: "Gestate",
+    icon: "spell_shadow_abominationexplosion",
+  },
+  VECTIS_GESTATE_DAMAGE:{
+    id: 266077,
+    name: "Gestate",
+    icon: "spell_shadow_abominationexplosion",
+  },
+  VECTIS_IMMUNOSUPPRESSION: {
+    id: 265206,
+    name: "Immunosuppression",
+    icon: "ability_creature_cursed_05",
+  },
+  VECTIS_LIQUEFY: {
+    id: 265217,
+    name: "Liquefy",
+    icon: "inv_misc_boilingblood",
+  },
+  VECTIS_OMEGA_VECTOR_CAST: {
+    id: 276439,
+    name: "Omega Vector",
+    icon: "spell_shadow_corpseexplode",
+  },
+  VECTIS_OMEGA_VECTOR_DAMAGE: {
+    id: 265143,
+    name: "Omega Vector",
+    icon: "spell_shadow_corpseexplode",
+  },
+  VECTIS_PLAGUE_BOMB_CAST: {
+    id: 266459,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  VECTIS_PLAGUE_BOMB_DAMAGE_1:{
+    id: 266948,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  VECTIS_PLAGUE_BOMB_DAMAGE_2: {
+    id: 266953,
+    name: "Plague Bomb",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+
+  //Zul Reborn
+
+  ZUL_ABSORBED_IN_DARKNESS:{
+    id: 272018,
+    name: "Absorbed in Darkness",
+    icon: "spell_priest_void-blast",
+  },
+  ZUL_BLOODSHARD: {
+    id: 273350,
+    name: "Bloodshard",
+    icon: "inv_misc_gem_bloodgem_01",
+  },
+  ZUL_BLOODY_CLEAVB: {
+    id: 273316,
+    name: "Bloody Cleave",
+    icon: "inv_weapon_hand_02",
+  },
+  ZUL_CORRUPTED_BLOOD:{
+    id: 274195,
+    name: "Corrupted Blood",
+    icon: "spell_yorsahj_bloodboil_orangeoil",
+  },
+  ZUL_DARK_REVELATION: {
+    id: 273438,
+    name: "Dark Revelation",
+    icon: "ability_priest_clarityofpower",
+  },
+  ZUL_DARK_REVELATION_CAST: {
+    id: 273365,
+    name: "Dark Revelation",
+    icon: "ability_priest_clarityofpower",
+  },
+  ZUL_DEATHWISH_DAMAGE: {
+    id: 275991,
+    name: "Deathwish",
+    icon: "spell_shadow_deathsembrace",
+  },
+  ZUL_ERUPTING_DARKNESS: {
+    id: 273363,
+    name: "Erupting Darkness",
+    icon: "spell_shadow_shadowfury",
+  },
+  ZUL_RUPTURING_BLOOD: {
+    id: 274358,
+    name: "Rupturing Blood",
+    icon: "spell_shadow_corpseexplode",
+  },
+  ZUL_SHADOW_BARRAGE: {
+    id: 273359,
+    name: "Shadow Barrage",
+    icon: "spell_priest_mindspike",
+  },
+  ZUL_CALL_OF_BLOOD_1: {
+    id: 273889,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CALL_OF_BLOOD_2: {
+    id: 274098,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CALL_OF_BLOOD_3: {
+    id: 274119,
+    name: "Call of Blood",
+    icon: "spell_deathknight_vendetta",
+  },
+  ZUL_CONGEAL_BLOOD:{
+    id: 273451,
+    name: "Congeal Blood",
+    icon: "ability_deathwing_bloodcorruption_earth",
+  },
+  ZUL_DRIPPING_BLOOD: {
+    id: 274396,
+    name: "Dripping Blood",
+    icon: "ability_warrior_bloodfrenzy",
+  },
+  ZUL_HUNGERING_MAW: {
+    id: 273254,
+    name: "Hungering Maw",
+    icon: "ability_druid_primaltenacity",
+  },
+  ZUL_ICHOR_TRANSFUSION: {
+    id: 273556,
+    name: "Ichor Transfusion",
+    icon: "spell_shadow_improvedvampiricembrace",
+  },
+  ZUL_LOCUS_OF_CORRUPTION: {
+    id: 274168,
+    name: "Locus of Corruption",
+    icon: "ability_foundryraid_blastwave",
+  },
+  ZUL_THRUMMING_PULSE: {
+    id: 273288,
+    name: "Thrumming Pulse",
+    icon: "ability_warrior_bloodfrenzy",
+  },
+
+  //Mythrax
+
+  MYTHRAX_ANNIHILATION: {
+    id: 278150,
+    name: "Annihilation",
+    icon: "spell_priest_void-blast",
+  },
+  MYTHRAX_CRASHING_OBLIVION: {
+    id: 276863,
+    name: "Crashing Oblivion",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_ESSENCE_SHEAR: {
+    id: 273282,
+    name: "Essence Shear",
+    icon: "ability_demonhunter_soulcleave2",
+  },
+  MYTHRAX_IMMINENT_RUIN_1: {
+    id: 272543,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_IMMINENT_RUIN_2: {
+    id: 272536,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_IMMINENT_RUIN_3: {
+    id: 272533,
+    name: "Imminent Ruin",
+    icon: "spell_shadow_shadowfury",
+  },
+  MYTHRAX_OBLITERATION_BEAM_1: {
+    id: 274113,
+    name: "Obliteration Beam",
+    icon: "spell_priest_voidsear",
+  },
+  MYTHRAX_OBLITERATION_BEAM_2:{
+    id: 272115,
+    name: "Obliteration Beam",
+    icon: "obliteration_beam",
+  },
+  MYTHRAX_OBLITERATION_BLAST_1: {
+    id: 273554,
+    name: "Obliteration Blast",
+    icon: "ability_priest_voidentropy",
+  },
+  MYTHRAX_OBLITERATION_BLAST_2: {
+    id: 273538,
+    name: "Obliteration Blast",
+    icon: "ability_priest_voidentropy",
+  },
+  MYTHRAX_XALZAIKS_AWAKENING_1:{
+    id: 273811,
+    name: "Xalzaik's Awakening",
+    icon: "ability_rogue_envelopingshadows",
+  },
+  MYTHRAX_XALZAIKS_AWAKENING_2:{
+    id: 273810,
+    name: "Xalzaik's Awakening",
+    icon: "ability_rogue_envelopingshadows",
+  },
+  MYTHRAX_ESSENCE_SHATTER: {
+    id: 279013,
+    name: "Essence Shatter",
+    icon: "spell_fire_twilighthellfire",
+  },
+  MYTHRAX_OBLIVION_SPHERE_1: {
+    id: 272409,
+    name: "Oblivion Sphere",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_OBLIVION_SPHERE_2: {
+    id: 272404,
+    name: "Oblivion Sphere",
+    icon: "spell_priest_shadoworbs",
+  },
+  MYTHRAX_OBLIVION_VEIL:{
+    id: 274230,
+    name: "Oblivion Veil",
+    icon: "inv_icon_shadowcouncilorb_purple",
+  },
+  MYTHRAX_VISIONS_OF_MADNESS_1:{
+    id: 274016,
+    name: "Visions of Madness",
+    icon: "ability_priest_shadowyapparation",
+  },
+  MYTHRAX_VISIONS_OF_MADNESS_2: {
+    id: 273949,
+    name: "Visions of Madness",
+    icon: "ability_priest_shadowyapparition",
+  },
+  MYTHRAX_VOID_VOLLEY_1: {
+    id: 273945,
+    name: "Void Volley",
+    icon: "spell_shadow_shadowbolt",
+  },
+  MYTHRAX_VOID_VOLLEY_2: {
+    id: 273944,
+    name: "Void Volley",
+    icon: "spell_shadow_shadowbolt",
+  },
+
+  //G'huun
+
+  GHUUN_ARCING_DISCHARGE:{
+    id: 276834,
+    name: "Arcing Discharge",
+    icon: "ability_priest_cascade",
+  },
+  GHUUN_BLIGHTED_GROUND: {
+    id: 270287,
+    name: "Blighted Ground",
+    icon: "ability_deathknight_roilingblood",
+  },
+  GHUUN_COLLAPSE_1:{
+    id: 276764,
+    name: "Collapse",
+    icon: "inv_elemental_primal_earth",
+  },
+  GHUUN_COLLAPSE_2: {
+    id: 276839,
+    name: "Collapse",
+    icon: "inv_elemental_primal_earth",
+  },
+  GHUUN_CORRUPTING_BITE: {
+    id: 270454,
+    name: "Corrupting Bite",
+    icon: "inv_misc_monsterfang_02",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_1: {
+    id: 272508,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_2: {
+    id: 272505,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_EXPLOSIVE_CORRUPTION_3:{
+    id: 275756,
+    name: "Explosive Corruption",
+    icon: "spell_shadow_deathcoil",
+  },
+  GHUUN_MALIGNANT_GROWTH_1: {
+    id: 274577,
+    name: "Malignant Growth",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  GHUUN_MALIGNANT_GROWTH_2: {
+    id: 274582,
+    name: "Malignant Growth",
+    icon: "artifactability_blooddeathknight_umbilicuseternus",
+  },
+  GHUUN_MASSIVE_SMASH: {
+    id: 267412,
+    name: "Massive Smash",
+    icon: "spell_holy_devotion",
+  },
+  GHUUN_MIND_NUMBING_CHATTER: {
+    id: 263307,
+    name: "Mind-Numbing Chatter",
+    icon: "ability_warlock_soulswap",
+  },
+  GHUUN_PUTRID_BLOOD: {
+    id: 263334,
+    name: "Putrid Blood",
+    icon: "ability_ironmaidens_bloodritual",
+  },
+  GHUUN_REORIGINATION_BLAST_1: {
+    id: 263503,
+    name: "Reorigination Blast",
+    icon: "ability_druid_cresentburn",
+  },
+  GHUUN_REORIGINATION_BLAST_2: {
+    id: 263482,
+    name: "Reorigination Blast",
+    icon: "ability_druid_cresentburn",
+  },
+  GHUUN_TORMENT_1: {
+    id: 267430,
+    name: "Torment",
+    icon: "spell_priest_voidsear",
+  },
+  GHUUN_TORMENT_2: {
+    id: 267427,
+    name: "Torment",
+    icon: "spell_priest_voidsear",
+  },
+  GHUUN_UNCLEAN_CONTAGION:{
+    id: 267660,
+    name: "Unclean Contagion",
+    icon: "spell_deathknight_necroticplague",
+  },
+  GHUUN_UNDULATING_MASS: {
+    id: 263326,
+    name: "Undulating Mass",
+    icon: "spell_shadow_creepingplague",
+  },
+  GHUUN_VIRULENT_CORRUPTION: {
+    id: 273486,
+    name: "Virulent Corruption",
+    icon: "ability_deathknight_desecratedground",
+  },
+  GHUUN_WAVE_OF_CORRUPTION_1: {
+    id: 270428,
+    name: "Wave of Corruption",
+    icon: "ability_xavius_darkruination",
+  },
+  GHUUN_WAVE_OF_CORRUPTION_2: {
+    id: 270373,
+    name: "Wave of Corruption",
+    icon: "ability_xavius_darkruination",
+  },
+  GHUUN_BLOOD_FEAST: {
+    id: 263235,
+    name: "Blood Feast",
+    icon: "ability_racial_cannibalize",
+  },
+  GHUUN_BLOOD_SHIELD: {
+    id: 263217,
+    name: "Blood Shield",
+    icon: "warlock_-bloodstone",
+  },
+  GHUUN_DARK_BARGAIN: {
+    id: 267409,
+    name: "Dark Bargain",
+    icon: "ability_priest_surgeofdarkness",
+  },
+  GHUUN_GAZE_OF_GHUUN: {
+    id: 275160,
+    name: "Gaze of G'huun",
+    icon: "spell_shadow_possession",
+  },
+  GHUUN_THOUSAND_MAWS: {
+    id: 267509,
+    name: "Thousand Maws",
+    icon: "inv_misc_monsterfang_02",
+  },
+
+
+
+
 };

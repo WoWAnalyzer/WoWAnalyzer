@@ -6,12 +6,25 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CooldownThroughputTracker.cooldownSpells,
     {
+      spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
+      spell: SPELLS.PILLAR_OF_FROST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
       spell: SPELLS.OBLITERATION_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
   ];
+  
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,

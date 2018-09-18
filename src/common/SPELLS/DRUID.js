@@ -6,17 +6,6 @@
 
 export default {
   // Shared
-  STARSURGE: { // Balance has a spec specific spell that replaces this, this is the version everyone has access to due to balance affinity
-    id: 197626,
-    name: 'Starsurge',
-    icon: 'spell_arcane_arcane03',
-  },
-  // the moonkin form granted by Balance Affinity
-  MOONKIN_FORM_AFFINITY: {
-    id: 197625,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
-  },
   HIBERNATE: {
     id: 2637,
     name: 'Hibernate',
@@ -95,6 +84,21 @@ export default {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+
+  //Affinity Spells
+  //Moonkin-Balance
+  //The moonkin form granted by Balance Affinity
+  MOONKIN_FORM_AFFINITY: {
+    id: 197625,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
+  // granted by Balance Affinity to non-Balance druids
+  STARSURGE_AFFINITY: {
+    id: 197626,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+  },
   // granted by Balance Affinity to non-Balance druids
   LUNAR_STRIKE_AFFINITY: {
     id: 197628,
@@ -113,18 +117,24 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  // passive for all Guardian druids and any druid with Guardian Affinity
-  THICK_HIDE: {
-    id: 16931,
-    name: 'Thick Hide',
-    icon: 'inv_misc_pelt_bear_03',
+  //Guardian Affinity Spells
+      //Ironfur gained from affinity has same spell ID as the Guardian spell
+      //Thick Hide gained from affinity has same spell ID as the Guardian spell
+      //Thrash gained from affinity has same spell ID as the Guardian spell
+  //Granted by Guardian affinity
+  FRENZIED_REGENERATION: {
+    id: 22842,
+    name: 'Frenzied Regeneration',
+    icon: 'ability_bullrush',
   },
-  // passive for all Balance druids and any druid with Balance Affinity
-  ASTRAL_INFLUENCE: {
-    id: 197524,
-    name: 'Astral Influence',
-    icon: 'ability_skyreach_lens_flare',
-  },
+
+  //Feral Affinity Spells
+    //Rake gain from affinity has the same spell id as the Feral Spell
+    //Rip gain from affinity has the same spell id as the Feral Spell
+    //Ferocious Bite gain from affinity has the same spell id as the Feral Spell
+    //Swipe (Named SWIPE_CAT)  gain from affinity has the same spell id as the Feral Spell
+
+
 
   // RESTO DRUID //
 
@@ -140,7 +150,7 @@ export default {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
-    manaCost: 736,
+    manaCost: 3680,
   },
   TRANQUILITY_HEAL: {
     id: 157982,
@@ -151,11 +161,6 @@ export default {
     id: 29166,
     name: 'Innervate',
     icon: 'spell_nature_lightning',
-  },
-  ESSENCE_OF_GHANIR: {
-    id: 208253,
-    name: 'Essence of G\'Hanir',
-    icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
   IRONBARK: {
     id: 102342,
@@ -171,25 +176,25 @@ export default {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    //manaCost: 68816,
+    manaCost: 6000,
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 440,
+    manaCost: 2100,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
-    manaCost: 560,
+    manaCost: 2800,
   },
   LIFEBLOOM_HOT_HEAL: {
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
-    manaCost: 480,
+    manaCost: 2400,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -205,14 +210,15 @@ export default {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 864,
+    manaCost: 4320,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-  CENARION_WARD: {
+  //The heal that is trigger by the talent.
+  CENARION_WARD_HEAL: {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
@@ -222,12 +228,7 @@ export default {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
-    manaCost: 560,
-  },
-  FRENZIED_REGENERATION: {
-    id: 22842,
-    name: 'Frenzied Regeneration',
-    icon: 'ability_bullrush',
+    manaCost: 2800,
   },
   BEAR_FORM: {
     id: 5487,
@@ -244,20 +245,10 @@ export default {
     name: 'Dash',
     icon: 'ability_druid_dash',
   },
-  FEROCIOUS_BITE: {
-    id: 22568,
-    name: 'Ferocious Bite',
-    icon: 'ability_druid_ferociousbite',
-  },
   NATURES_CURE: {
     id: 88423,
     name: 'Nature\'s Cure',
     icon: 'ability_shaman_cleansespirit',
-  },
-  RAKE: {
-    id: 1822,
-    name: 'Rake',
-    icon: 'ability_druid_disembowel',
   },
   STAG_FORM: {
     id: 210053,
@@ -269,11 +260,6 @@ export default {
     name: 'Travel Form',
     icon: 'ability_druid_travelform',
   },
-  RIP: {
-    id: 1079,
-    name: 'Rip',
-    icon: 'ability_ghoulfrenzy',
-  },
   SHRED: {
     id: 5221,
     name: 'Shred',
@@ -283,16 +269,6 @@ export default {
     id: 5176,
     name: 'Solar Wrath',
     icon: 'spell_nature_wrathv2',
-  },
-  CAT_SWIPE: {
-    id: 106785,
-    name: 'Swipe',
-    icon: 'inv_misc_monsterclaw_03',
-  },
-  SWIPE_BEAR: {
-    id: 213771,
-    name: 'Swipe',
-    icon: 'inv_misc_monsterclaw_03',
   },
   URSOLS_VORTEX: {
     id: 102793,
@@ -330,16 +306,6 @@ export default {
     name: 'Mark of Shifting',
     icon: 'spell_druid_tirelesspursuit',
   },
-  POWER_OF_THE_ARCHDRUID_BUFF: {
-    id: 189877,
-    name: 'Power of the Archdruid',
-    icon: 'spell_druid_rampantgrowth',
-  },
-  DREAMWALKER: {
-    id: 189853,
-    name: 'Dreamwalker',
-    icon: 'ability_druid_healinginstincts',
-  },
   NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
     id: 189800,
     name: 'Nature\'s Essence',
@@ -365,142 +331,32 @@ export default {
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
-  RESTO_DRUID_T19_2SET_BONUS_BUFF: {
-    id: 211165,
-    name: 'T19 2 set bonus',
-    icon: 'talentspec_druid_restoration',
-  },
-  RESTO_DRUID_T19_4SET_BONUS_BUFF: {
-    id: 211170,
-    name: 'T19 4 set bonus',
-    icon: 'talentspec_druid_restoration',
-  },
-  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242238,
-    name: 'T20 2 set bonus',
-    icon: 'inv_relics_idolofrejuvenation',
-  },
-  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242313,
-    name: 'T20 4 set bonus',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  RESTO_DRUID_T21_2SET_BONUS_BUFF: {
-    id: 251813,
-    name: 'T21 2 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  RESTO_DRUID_T21_4SET_BONUS_BUFF: {
-    id: 251814,
-    name: 'T21 4 set bonus',
-    icon: 'ability_druid_cower',
-  },
   // Visible procs produced by set/item:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
     icon: 'talentspec_druid_restoration',
   },
-  BLOSSOMING_EFFLORESCENCE: { // 4pc T20
-    id: 242315,
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  DREAMER: { // 2pc T21
-    id: 253432,
-    name: 'Dreamer',
-    icon: 'ability_druid_cower',
-  },
-  AWAKENED: { // 4pc T21
-    id: 253434,
-    name: 'Awakened',
-    icon: 'ability_druid_cower',
-  },
-  XONIS_CARESS: {
-    id: 235040,
-    name: "X'oni's Caress",
-    icon: 'spell_druid_ironbark',
-  },
-  //Guardian Druid T19 2set
-  GUARDIAN_DRUID_T19_2SET_BONUS_BUFF: {
-    id: 211149,
-    name: 'T19 2 set bonus',
-    icon: 'trade_engineering',
-  },
 
   // Traits:
-  POWER_OF_THE_ARCHDRUID: {
-    id: 189870,
-    name: 'Power of the Archdruid',
-    icon: 'spell_druid_rampantgrowth',
-  },
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
     name: 'Nature\'s Essence',
     icon: 'ability_druid_flourish',
   },
-  DREAMWALKER_TRAIT: {
-    id: 189849,
-    name: 'Dreamwalker',
-    icon: 'ability_druid_healinginstincts',
-  },
-  PERSISTENCE_TRAIT: {
-    id: 186396,
-    name: 'Persistence',
-    icon: 'spell_nature_starfall',
-  },
-  GROVEWALKER: {
-    id: 186320,
-    name: 'Grovewalker',
-    icon: 'spell_nature_healingtouch',
-  },
-  NATURAL_MENDING: {
-    id: 189749,
-    name: 'Natural Mending',
-    icon: 'inv_relics_idolofrejuvenation',
-  },
-  ESSENCE_OF_NORDRASSIL: {
-    id: 189760,
-    name: 'Essence of Norddrassil',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  BLESSING_OF_THE_WORLD_TREE: {
-    id: 189744,
-    name: 'Blessing of the World Tree',
-    icon: 'ability_druid_naturalperfection',
-  },
-  ETERNAL_RESTORATION: {
-    id: 238050,
-    name: 'Eternal Restoration',
-    icon: 'inv_staff_2h_artifactnordrassil_d_01',
-  },
-  SEEDS_OF_THE_WORLD_TREE: {
-    id: 189768,
-    name: 'Seeds of the World Tree',
-    icon: 'ability_druid_giftoftheearthmother',
-  },
-  INFUSION_OF_NATURE: {
-    id: 189757,
-    name: 'Infusion of Nature',
-    icon: 'ability_druid_flourish',
-  },
-  KNOWLEDGE_OF_THE_ANCIENTS: {
-    id: 189772,
-    name: 'Knowledge of the Ancients',
-    icon: 'ability_druid_manatree',
-  },
-  ARMOR_OF_THE_ANCIENTS: {
-    id: 189754,
-    name: 'Armor of the Ancients',
-    icon: 'spell_druid_ironbark',
-  },
-  DEEP_ROOTED_TRAIT: {
-    id: 238122,
-    name: 'Deep Rooted',
-    icon: 'inv_misc_herb_liferoot_stem',
-  },
 
   // GUARDIAN //
+  // passive for all Guardian druids and any druid with Guardian Affinity
+  THICK_HIDE: {
+    id: 16931,
+    name: 'Thick Hide',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  SWIPE_BEAR: {
+    id: 213771,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
   MANGLE_BEAR: {
     id: 33917,
     name: 'Mangle',
@@ -700,6 +556,12 @@ export default {
     icon: 'spell_druid_primaltenacity',
   },
   // Moonkin
+  // passive for all Balance druids and any druid with Balance Affinity
+  ASTRAL_INFLUENCE: {
+    id: 197524,
+    name: 'Astral Influence',
+    icon: 'ability_skyreach_lens_flare',
+  },
   STARSURGE_MOONKIN: {
     id: 78674,
     name: 'Starsurge',
@@ -777,21 +639,6 @@ export default {
     name: 'Owlkin Frenzy',
     icon: 'ability_druid_owlkinfrenzy',
   },
-  THE_EMERALD_DREAMCATCHER: {
-    id: 224706,
-    name: 'The Emerald Dreamcatcher',
-    icon: 'inv_helmet_81',
-  },
-  ASTRAL_ACCELERATION: {
-    id: 242232,
-    name: 'Astral Acceleration',
-    icon: 'inv_enchant_essenceastrallarge',
-  },
-  STAR_POWER: {
-    id: 202942,
-    name: 'Star Power',
-    icon: 'artifactability_balancedruid_moonandstars',
-  },
   SOLAR_BEAM: {
     id: 78675,
     name: 'Solar Beam',
@@ -802,58 +649,28 @@ export default {
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
   },
-  BLESSING_OF_ANSHE: {
-    id: 202739,
-    name: 'Blessing of An\'she',
-    icon: 'spell_priest_divinestar_holy',
-  },
-  BLESSING_OF_ELUNE: {
-    id: 202737,
-    name: 'Blessing of Elune',
-    icon: 'achievement_worldevent_lunar',
-  },
-  ONETHS_INTUITION: {
-    id: 209406,
-    name: 'Oneth\'s Intuition',
-    icon: 'spell_arcane_invocation',
-  },
-  ONETHS_OVERCONFIDENCE: {
-    id: 209407,
-    name: 'Oneth\'s Overconfidence',
-    icon: 'ability_druid_stellarflare',
-  },
-  ECHOING_STARS: {
-    id: 226104,
-    name: 'Echoing Stars',
-    icon: 'ability_socererking_forcenova',
-  },
-  BALANCE_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242231,
-    name: 'T20 2 set bonus',
-    icon: 'spell_nature_starfall',
-  },
-  BALANCE_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242233,
-    name: 'T20 4 set bonus',
-    icon: 'spell_nature_starfall',
-  },
-  BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
-    id: 251803,
-    name: 'T21 2 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  BALANCE_DRUID_T21_4SET_BONUS_BUFF: {
-    id: 251809,
-    name: 'T21 4 set bonus',
-    icon: 'ability_druid_cower',
-  },
-  SOLAR_SOLSTICE: {
-    id: 252767,
-    name: 'Solar Solstice',
-    icon: 'spell_druid_sunfall',
-  },
 
   // FERAL //
+  SWIPE_CAT: {
+    id: 106785,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
+  FEROCIOUS_BITE: {
+    id: 22568,
+    name: 'Ferocious Bite',
+    icon: 'ability_druid_ferociousbite',
+  },
+  RIP: {
+    id: 1079,
+    name: 'Rip',
+    icon: 'ability_ghoulfrenzy',
+  },
+  RAKE: {
+    id: 1822,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
   TIGERS_FURY: {
     id: 5217,
     name: 'Tiger\'s Fury',
@@ -982,7 +799,7 @@ export default {
     id: 251789,
     name: 'T21 2 set bonus',
     icon: 'ability_druid_cower',
-  },  
+  },
   BLOODY_GASH: {
     id: 252750,
     name: 'Bloody Gash',

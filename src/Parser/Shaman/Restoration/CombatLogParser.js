@@ -36,17 +36,6 @@ import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
 import NaturesGuardian from './Modules/Talents/NaturesGuardian';
-// Items
-import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
-import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
-import Nazjatar from './Modules/Items/Nazjatar';
-import UncertainReminder from './Modules/Items/UncertainReminder';
-import Jonat from './Modules/Items/Jonat';
-import Nobundo from './Modules/Items/Nobundo';
-import Tidecallers from './Modules/Items/Tidecallers';
-import Roots from './Modules/Items/Roots';
-import VelensFutureSight from './Modules/Items/VelensFutureSight';
-import ElementalRebalancers from './Modules/Items/ElementalRebalancers';
 // Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -98,18 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     wellspring: Wellspring,
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
-
-    // Items:
-    t21_2Set: Restoration_Shaman_T21_2Set,
-    t21_4Set: Restoration_Shaman_T21_4Set,
-    nobundo: Nobundo,
-    nazjatar: Nazjatar,
-    uncertainReminder: UncertainReminder,
-    jonat: Jonat,
-    tidecallers: Tidecallers,
-    roots: Roots,
-    velensFutureSight: VelensFutureSight,
-    elementalRebalancers: ElementalRebalancers,
 
     // Spells:
     chainHeal: ChainHeal,

@@ -25,9 +25,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 1.0 seconds.
         cooldown: (haste, combatant) =>
-          (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 1 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+          (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
@@ -117,7 +116,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         gcd: {
           static: 1000,
         },
@@ -182,14 +181,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LEG_SWEEP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.RING_OF_PEACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 45,
@@ -248,13 +239,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT,
+        spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
       },
       // Defensives
       {

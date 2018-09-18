@@ -5,15 +5,11 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Haste from 'Parser/Core/Modules/Haste';
 
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-import UnleashedDemons from './Traits/UnleashedDemons';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
-    unleashedDemons: UnleashedDemons,
     abilityTracker: AbilityTracker,
     haste: Haste,
   };
@@ -22,22 +18,9 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.FURY_OF_THE_ILLIDARI,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `This does a huge ammount of AoE passive damage and it's one of the main damage spells for Havoc Demon Hunters. You should cast it as soon as it become available. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
-        },
-      },
-      {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300 - this.unleashedDemons.traitCooldownReduction,
+        cooldown: 300,
         gcd: {
           base: 1500,
         },
@@ -55,18 +38,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
-        },
-      },
-      {
-        spell: SPELLS.CHAOS_BLADES_TALENT,
-        enabled: combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
-          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
@@ -101,7 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+         // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
         gcd: {
           base: 1500,
         },
@@ -115,7 +86,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EYE_BEAM,
         enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -125,7 +96,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EYE_BEAM,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -182,7 +153,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEL_RUSH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,
         gcd: {
@@ -221,6 +192,17 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
+      },
+      {
+        spell: SPELLS.IMMOLATION_AURA_TALENT,
+        // IMMOLATION_AURA_TALENT is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
+        buffSpellId: SPELLS.IMMOLATION_AURA_TALENT.id,
+        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

@@ -23,17 +23,44 @@ export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel
   return scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTables.jewelry);
 }
 
-const AZ_BASE_ILVL = 251;
-const AZ_BASE_BUDGET = 179.2;
-// note: add + 5 to rank if the item has been fully upgraded (this will
-// be automatic in the future)
-export function calculateAzeriteEffects(spellId, rank) {
+
+// different kinds of (known) scaling for azerite traits
+const AZ_SCALE_PRIMARY = -1;
+const AZ_SCALE_SECONDARY = -7;
+// unlike the previous two, this scale type doesn't have a clear
+// semantic meaning that we know of (yet)
+const AZ_SCALE_UNK8 = -8;
+
+const AZ_SCALE_FUNCTIONS = {
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_PRIMARY]: ilvl => {
+    const SCALE = 17.3;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  },
+  [AZ_SCALE_SECONDARY]: ilvl => AZ_SCALE_FUNCTIONS[AZ_SCALE_PRIMARY](ilvl) * getMultiplier(multiplierTables.general, ilvl),
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_UNK8]: ilvl => {
+    const SCALE = 4.325;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  },
+};
+
+// Calculate the values of each (scaling) effect associated with an
+// azerite trait. Note that *effects that do not scale are not present!*
+//
+// Effects will always be returned in ascending order of effect ID.
+export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
   const spell = AZERITE_SCALING[spellId];
+  const scalingType = scalingTypeOverride ? scalingTypeOverride : spell.scaling_type;
 
-  let budget = calculatePrimaryStat(AZ_BASE_ILVL, AZ_BASE_BUDGET, rank);
-  if(spell.secondary) {
-    budget *= getMultiplier(multiplierTables.general, rank);
-  } 
+  if(AZ_SCALE_FUNCTIONS[scalingType] === undefined) {
+    throw Error(`Unknown scaling type: ${scalingType}`);
+  }
+  const budget = AZ_SCALE_FUNCTIONS[scalingType](rank);
 
-  return Object.values(spell.effects).filter(({avg}) => avg > 0).map(({avg}) => Math.round(avg * budget));
+  return spell.effect_list.map(id => spell.effects[id])
+    .filter(({avg}) => avg > 0)
+    .map(({avg}) => Math.round(avg * budget));
 }

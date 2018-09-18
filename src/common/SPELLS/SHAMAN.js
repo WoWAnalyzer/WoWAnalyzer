@@ -14,7 +14,7 @@ export default {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 260,
+    manaCost: 1300,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -60,7 +60,7 @@ export default {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 92,
+    manaCost: 460,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -76,7 +76,7 @@ export default {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 400,
+    manaCost: 2000,
   },
   EARTH_ELEMENTAL: {
     id: 198103,
@@ -150,7 +150,7 @@ export default {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 240,
+    manaCost: 1200,
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -196,6 +196,21 @@ export default {
     id: 173184,
     name: 'Elemental Blast: Mastery',
     icon: 'shaman_talent_elementalblast',
+  },
+  TAILWIND_TOTEM: {
+    id: 210660,
+    name: 'Totem Mastery: Tailwind Totem',
+    icon: 'spell_nature_invisibilitytotem',
+  },
+  LIQUID_MAGMA_TOTEM_DAMAGE: {
+    id: 192231,
+    name: 'Liquid Magma Totem Damage',
+    icon: 'spell_shaman_spewlava',
+  },
+  EARTHEN_RAGE_DAMAGE: {
+    id: 170379,
+    name: 'Earthen Rage Damage',
+    icon: 'ability_earthen_pillar',
   },
   CHAIN_LIGHTNING: {
     id: 188443,
@@ -310,62 +325,34 @@ export default {
     name: "Master Of The Elements Buff",
     icon: "spell_nature_elementalabsorption",
   },
+  UNLIMITED_POWER_BUFF: {
+    id: 272737,
+    name: "Unlimited Power Buff",
+    icon: "ability_shaman_ascendance",
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 226180,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
-  // Elemental Legendaries
-  PRISTINE_PROTOSCALE_GIRDLE: {
-    id: 224852,
-    name: 'Pristine Proto-Scale Girdle',
-    icon: 'spell_shaman_lavaburst',
+  EYE_OF_THE_STORM: {
+    id: 157375,
+    name: 'Eye Of The Storm',
+    icon: 'inv_elemental_primal_air',
   },
-  THE_DECEIVERS_BLOOD_PACT_BUFF: {
-    id: 214134,
-    name: 'The Deceiver\'s Blood Pact',
-    icon: 'ability_creature_cursed_04',
+  CALL_LIGHTNING: {
+    id: 157348,
+    name: 'Call Lightning',
+    icon: 'ability_vehicle_electrocharge',
   },
-  THE_DECEIVERS_BLOOD_PACT_EQUIP: {
-    id: 214131,
-    name: 'The Deceiver\'s Blood Pact',
-    icon: 'ability_creature_cursed_04',
+  METEOR: {
+    id: 117588,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
   },
-  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
-    id: 208723,
-    name: 'Echoes of the Great Sundering',
-    icon: 'inv_shoulder_plate_raidwarrior_j_01',
-  },
-  //Elemental Sets
-  ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
-    id: 251757,
-    name: 'Tier21 2 Set Bonus',
-    icon: 'ability_creature_cursed_04',
-  },
-  ELEMENTAL_SHAMAN_T21_4SET_BUFF: {
-    id: 251758,
-    name: 'Tier21 4 Set Bonus',
-    icon: 'ability_shaman_ascendance',
-  },
-  EARTHEN_STRENGTH: {
-    id: 252141,
-    name: 'Earthen Strength',
-    icon: 'spell_nature_shamanrage',
-  },
-  FROST_SHOCK_OVERLOAD: {
-    id: 256561,
-    name: 'Frost Shock Overload',
-    icon: 'spell_frost_frostshock',
-  },
-  EARTH_SHOCK_OVERLOAD: {
-    id: 252143,
-    name: 'Earth Shock Overload',
-    icon: 'spell_nature_earthshock',
-  },
-  //PETS
   FIRE_ELEMENTAL_FIRE_BLAST: {
-    id:57984,
+    id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
   },
@@ -461,6 +448,11 @@ export default {
     baseMana: 0.22,
     maelstrom: 20,
   },
+  LIGHTNING_BOLT_ENHANCE: {
+    name: "Lightning Bolt",
+    id: 187837,
+    abilityIcon: "spell_nature_lightning.jpg",
+  },
   FERAL_LUNGE: {
     id: 196881,
     name: 'Feral Lunge',
@@ -509,7 +501,7 @@ export default {
     icon: 'spell_nature_cyclone',
   },
   WINDFURY_ATTACK: {
-    id: 33750,
+    id: 25504,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
@@ -564,7 +556,7 @@ export default {
     icon: 'ability_ironmaidens_swirlingvortex',
   },
   WINDFURY_ATTACK_BUFF: {
-    id: 25504,
+    id: 204608,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
@@ -588,63 +580,48 @@ export default {
     name: 'Lightning Shield Overcharge',
     icon: 'spell_nature_lightningshield',
   },
-  ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242284,
-    name: 'T20 2 set bonus',
-    icon: 'spell_shaman_improvedstormstrike',
+  FORCEFUL_WINDS_BUFF: {
+    id: 262652,
+    name: 'Forceful Winds Buff',
+    icon: 'spell_shaman_unleashweapon_wind',
   },
-  ENHANCE_SHAMAN_T20_2SET_EQUIP: {
-    id: 242283,
-    name: 'T20 2set bonus equip flag',
-    icon: 'spell_shaman_ascendance',
+  SEARING_ASSAULT_DAMAGE: {
+    id: 268429,
+    name: 'Searing Assault Damage',
+    icon: 'ability_rhyolith_magmaflow_wave',
   },
-  ENHANCE_SHAMAN_T21_2SET_EQUIP: {
-    id: 251762,
-    name: 'T21 2set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  FORCE_OF_THE_MOUNTAIN: {
-    id: 254308,
-    name: 'T21 2set bonus buff',
-    icon: 'spell_nature_earthquake',
-  },
-  ENHANCE_SHAMAN_T21_4SET_EQUIP: {
-    id: 251761,
-    name: 'T21 4set bonus equip flag',
-    icon: 'ability_shaman_ascendance',
-  },
-  EXPOSED_ELEMENTS_T21_ENHANCER:{
-    id: 252151,
-    name: 'T21 4set debuff',
-    icon: 'ability_shaman_ascendance',
+  HOT_HAND_BUFF: {
+    id: 215785,
+    name: 'Hot Hand Buff',
+    icon: 'spell_fire_playingwithfire',
   },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 1000,
+    manaCost: 5000,
     color: '#203755',
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 360,
+    manaCost: 1800,
     color: '#146585',
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 800,
+    manaCost: 4000,
     color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 320,
+    manaCost: 1600,
     color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
@@ -656,7 +633,7 @@ export default {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 864,
+    manaCost: 4320,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -667,7 +644,7 @@ export default {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 440,
+    manaCost: 2200,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -678,7 +655,7 @@ export default {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 224,
+    manaCost: 1120,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -694,7 +671,7 @@ export default {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 440,
+    manaCost: 2200,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -721,36 +698,6 @@ export default {
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
-  RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {
-    id: 211992,
-    name: 'T19 2 set bonus',
-    icon: 'spell_shaman_tidalwaves',
-  },
-  RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF: {
-    id: 211993,
-    name: 'T19 4 set bonus',
-    icon: 'inv_spear_04',
-  },
-  RESTORATION_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242287,
-    name: 'T20 2 set bonus',
-    icon: 'spell_nature_magicimmunity',
-  },
-  RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF: {
-    id: 242288,
-    name: 'T20 4 set bonus',
-    icon: 'spell_nature_magicimmunity',
-  },
-  RESTORATION_SHAMAN_T21_2SET_BONUS_BUFF: {
-    id: 251764,
-    name: 'T21 2 set bonus',
-    icon: 'ability_shaman_ascendance',
-  },
-  RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF: {
-    id: 251765,
-    name: 'T21 4 set bonus',
-    icon: 'ability_shaman_ascendance',
-  },
   DEEP_HEALING: {
     id: 77226,
     name: 'Mastery: Deep Healing',
@@ -765,7 +712,7 @@ export default {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 564,
+    manaCost: 2820,
   },
   WELLSPRING_HEAL: {
     id: 197997,
@@ -776,7 +723,7 @@ export default {
     id: 188838,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    manaCost: 600,
+    manaCost: 3000,
   },
   LIGHTNING_BOLT_RESTORATION: {
     id: 403,
@@ -798,20 +745,6 @@ export default {
     name: 'Undulation',
     icon: 'spell_nature_healingwavelesser',
   },
-
-  // Restoration Shaman Set Bonus:
-  RAINFALL: { // T21 2pc
-    id: 252154,
-    name: 'Rainfall',
-    icon: 'spell_nature_giftofthewaterspirit',
-  },
-  DOWNPOUR: { // T21 4pc
-    id: 252159,
-    name: 'Downpour',
-    icon: 'spell_shaman_blessingoftheeternals',
-  },
-
-  // Alpha Stuff
   FLASH_FLOOD_BUFF: {
     id: 280615,
     name: 'Flash Flood',

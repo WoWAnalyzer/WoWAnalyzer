@@ -4,7 +4,6 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -12,14 +11,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.15,
-        major: 0.20,
+        minor: 0.125,
+        average: 0.175,
+        major: 0.225,
       },
       style: 'percentage',
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
