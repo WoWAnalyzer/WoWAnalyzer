@@ -7,10 +7,7 @@ import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
-import { STAT_TRACKER_CRIT as ELEMENTAL_WHIRL_CRIT } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_HASTE as ELEMENTAL_WHIRL_HASTE } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_MAST as ELEMENTAL_WHIRL_MAST } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
-import { STAT_TRACKER_VERS as ELEMENTAL_WHIRL_VERS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
@@ -226,10 +223,18 @@ class StatTracker extends Analyzer {
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
     [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: ELEMENTAL_WHIRL_CRIT,
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: ELEMENTAL_WHIRL_HASTE,
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: ELEMENTAL_WHIRL_MAST,
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: ELEMENTAL_WHIRL_VERS,
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
+      crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: {
+      haste: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_HASTE.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: {
+      mastery: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_MASTERY.id],
+    },
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: {
+      versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
+    },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
@@ -335,6 +340,7 @@ class StatTracker extends Analyzer {
       itemId: 159625, // Vial of Animated Blood
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
+
     // endregion
     // region World boss
     278227: { // Barkspines
@@ -761,3 +767,4 @@ class StatTracker extends Analyzer {
 }
 
 export default StatTracker;
+

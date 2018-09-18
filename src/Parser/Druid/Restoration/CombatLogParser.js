@@ -36,6 +36,12 @@ import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
 
+import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
+import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
+import GroveTending from './Modules/Items/AzeriteTraits/GroveTending';
+import LaserMatrix from './Modules/Items/AzeriteTraits/LaserMatrixRestoDruid';
+import WakingDream from './Modules/Items/AzeriteTraits/WakingDream';
+
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -85,6 +91,13 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
     // Items:
+
+    // Azerite traits
+    fungalEssence: FungalEssence,
+    autumnLeaves: AutumnLeaves,
+    groveTending: GroveTending,
+    laserMatrix: LaserMatrix,
+    wakingDream: WakingDream,
 
     statWeights: StatWeights,
   };
