@@ -3,6 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Your spells and abilities have a chance to release a barrage of lasers, dealing 4058 Arcane damage
@@ -45,12 +46,11 @@ class LaserMatrix extends Analyzer{
           <React.Fragment>
             {formatPercentage(healingThroughputPercent)} % healing<br />
             {formatPercentage(damageThroughputPercent)} % damage<br />
-
+            Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
           </React.Fragment>
         )}
         tooltip={`Healing done: ${formatNumber(this.healing)} <br />
-                  Damage done: ${formatNumber(this.damage)} <br />
-                  Gained <a href="https://www.wowhead.com/spell=280573/reorigination-array" target="_blank" rel="noopener noreferrer">Reorigination Array</a>`
+                  Damage done: ${formatNumber(this.damage)} <br />`
         }
       />
     );
