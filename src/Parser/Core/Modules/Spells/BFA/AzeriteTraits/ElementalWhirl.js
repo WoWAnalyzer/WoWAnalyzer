@@ -28,7 +28,7 @@ export const STAT_TRACKER_MAST = {
 };
 
 /**
- * Meticulous Scheming
+ * Elemental Whirl
  * Your damaging abilities have a chance to grant you Elemental Whirl, increasing your Critical Strike, Haste, Mastery, or Versatility by X for 10 sec.
  *
  * Example report: https://www.warcraftlogs.com/reports/Xr7Nxjd1KnMT9QBf/#fight=1&source=13&type=auras
