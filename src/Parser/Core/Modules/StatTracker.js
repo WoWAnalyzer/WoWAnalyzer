@@ -15,7 +15,7 @@ import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
-
+import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'Parser/Paladin/Retribution/Modules/PaladinCore/AzeriteTraits/RelentlessInquisitor';
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
@@ -251,6 +251,9 @@ class StatTracker extends Analyzer {
       mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
     },
     [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
+    // endregion
+    // region Paladin
+    [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },

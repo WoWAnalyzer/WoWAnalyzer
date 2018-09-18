@@ -20,6 +20,8 @@ import RighteousVerdict from './Modules/Talents/RighteousVerdict';
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
+import RelentlessInquisitor from './Modules/PaladinCore/AzeriteTraits/RelentlessInquisitor';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     haste: Haste,
@@ -45,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Azerite
+    relentlessInquisitor: RelentlessInquisitor,
   };
 }
 
