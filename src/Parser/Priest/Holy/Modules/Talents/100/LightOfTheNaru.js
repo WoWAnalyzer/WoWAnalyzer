@@ -5,11 +5,11 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
+// Example Log: /report/p3WGPqTcdFLBkH9j/22-Normal+Zek'voz+-+Kill+(6:41)/71-Sulfurya
 class LightOfTheNaru extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id);
-    this.active = false;
   }
 
   statistic() {
