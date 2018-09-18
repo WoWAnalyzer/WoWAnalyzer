@@ -1,5 +1,6 @@
 import React from 'react';
 import LaserMatrix from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/LaserMatrix';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
@@ -42,12 +43,11 @@ class LaserMatrixRestoDruid extends LaserMatrix{
           <React.Fragment>
             {formatPercentage(healingThroughputPercent)} % healing<br />
             {formatPercentage(damageThroughputPercent)} % damage<br />
-
+            Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
           </React.Fragment>
         )}
         tooltip={`Healing done: ${formatNumber(this.healing)} <br />
                   Damage done: ${formatNumber(this.damage)} <br />
-                  Gained <a href="https://www.wowhead.com/spell=280573/reorigination-array" target="_blank" rel="noopener noreferrer">Reorigination Array</a><br/>
                   Laser Matrix gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
             per level) item levels (only counting healing).`

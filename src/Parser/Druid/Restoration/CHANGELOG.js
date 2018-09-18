@@ -4,6 +4,11 @@ import { Yajinni, blazyb } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-18'),
+    changes: <React.Fragment>Added implementation of Azerite trait Waking Dream.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-17'),
     changes: <React.Fragment>Added HoT part of tranquillity to all relevant modules. This will change the values in mastery stack, flourish module and stat tracker.</React.Fragment>,
     contributors: [blazyb],

@@ -15,7 +15,7 @@ export default {
     icon: 'spell_nature_resistnature',
   },
   WAKING_DREAM_TRAIT: {
-    id: 278958,
+    id: 278513,
     name: 'Waking Dream',
     icon: 'inv_misc_head_dragon_green',
   },
@@ -44,5 +44,4 @@ export default {
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-
 };

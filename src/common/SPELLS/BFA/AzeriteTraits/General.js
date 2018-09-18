@@ -111,6 +111,11 @@ export default {
     name: 'Archive of the Titans',
     icon: 'inv_trinket_80_titan01b',
   },
+  ARCHIVE_OF_THE_TITANS_BUFF: {
+    id: 280709,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
   REORIGINATION_ARRAY: {
     id: 280573,
     name: 'Reorigination Array',
