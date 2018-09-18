@@ -11,8 +11,8 @@ import Abilities from './Modules/Abilities';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
-import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
-import HolyWordSerenity from './Modules/Spells/HolyWordSerenity';
+import HolyWordSanctify from './Modules/Spells/HolyWords/HolyWordSanctify';
+import HolyWordSerenity from './Modules/Spells/HolyWords/HolyWordSerenity';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 import Renew from './Modules/Spells/Renew';
