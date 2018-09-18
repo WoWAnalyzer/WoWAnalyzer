@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
 
 import Checklist from 'Parser/Core/Modules/Features/Checklist2';
 import Rule from 'Parser/Core/Modules/Features/Checklist2/Rule';
@@ -129,20 +128,6 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           )}
         </Rule>
         )}
-        {combatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id) && (
-        <Rule
-          name="Important Items"
-          description={(
-            <React.Fragment>
-              <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </React.Fragment>
-          )}
-        >
-          {combatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id) && <AbilityRequirement spell={SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB.id} />}
-        </Rule>
-        )}
-
-
 
         <PreparationRule thresholds={thresholds} />
 

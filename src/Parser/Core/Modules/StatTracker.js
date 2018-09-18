@@ -6,8 +6,12 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER_CRIT as ELEMENTAL_WHIRL_CRIT } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER_HASTE as ELEMENTAL_WHIRL_HASTE } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER_MAST as ELEMENTAL_WHIRL_MAST } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
+import { STAT_TRACKER_VERS as ELEMENTAL_WHIRL_VERS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
-import {STAT_TRACKER as DANCE_OF_DEATH_STATS} from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
+import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
@@ -208,8 +212,8 @@ class StatTracker extends Analyzer {
     // endregion
 
     /****************************************\
-    *                    BFA:                *
-    \****************************************/
+     *                    BFA:                *
+     \****************************************/
 
     // region Azerite Traits
     // region General
@@ -220,10 +224,10 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: ELEMENTAL_WHIRL_CRIT,
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: ELEMENTAL_WHIRL_HASTE,
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: ELEMENTAL_WHIRL_MAST,
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: ELEMENTAL_WHIRL_VERS,
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
@@ -251,10 +255,40 @@ class StatTracker extends Analyzer {
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
     264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.GALECALLERS_BOON_BUFF.id]: {
+      itemId: ITEMS.GALECALLERS_BOON.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+    },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
     269887: { // Boiling Time
@@ -328,13 +362,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
-    [SPELLS.KINDLED_SOUL.id] : { // Balefire Branch trinket's buff (stack starts at 100)
+    [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
     // endregion
     // region Raids
-    [SPELLS.UNCONTAINED_POWER.id] : {
+    [SPELLS.UNCONTAINED_POWER.id]: {
       itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
       intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },

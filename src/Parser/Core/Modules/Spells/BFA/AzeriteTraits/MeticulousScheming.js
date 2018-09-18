@@ -57,7 +57,6 @@ class MeticulousScheming extends Analyzer {
 
     if (event.ability.guid === SPELLS.SEIZE_THE_MOMENT.id) {
       this.seizeTheMomentProcs += 1;
-      return;
     }
   }
 
