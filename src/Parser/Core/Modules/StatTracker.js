@@ -255,10 +255,40 @@ class StatTracker extends Analyzer {
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
     264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_SMALL.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_HASTE_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.LOADED_DIE_MASTERY_BIG.id]: {
+      itemId: ITEMS.HARLANS_LOADED_DICE.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
+    },
+    [SPELLS.GALECALLERS_BOON_BUFF.id]: {
+      itemId: ITEMS.GALECALLERS_BOON.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+    },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
     269887: { // Boiling Time

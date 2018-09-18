@@ -10,4 +10,14 @@ export default {
     name: 'Deadly Navigation',
     icon: 'ability_priest_flashoflight',
   },
+  QUICK_NAVIGATION_BUFF_SMALL: {
+    id: 268887, //Enchant id 5963
+    name: 'Quick Navigation',
+    icon: 'trade_engraving',
+  },
+  QUICK_NAVIGATION_BUFF_BIG: {
+    id: 268893, //Enchant id 5963
+    name: 'Quick Navigation',
+    icon: 'trade_engraving',
+  },
 };

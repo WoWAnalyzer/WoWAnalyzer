@@ -73,6 +73,9 @@ import FangsOfIntertwinedEssence from './Modules/Items/BFA/Dungeons/FangsOfInter
 import BalefireBranch from './Modules/Items/BFA/Dungeons/BalefireBranch';
 import ConchofDarkWhispers from './Modules/Items/BFA/Dungeons/ConchofDarkWhispers';
 import Seabreeze from './Modules/Items/BFA/Dungeons/Seabreeze';
+import GalecallersBoon from './Modules/Items/BFA/Dungeons/GalecallersBoon';
+import HarlansLoadedDice from './Modules/Items/BFA/Dungeons/HarlansLoadedDice';
+//Enchants
 
 // Crafted
 import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
@@ -166,9 +169,13 @@ class CombatLogParser {
     balefireBranch: BalefireBranch,
     conchofDarkWhispers: ConchofDarkWhispers,
     seabreeze: Seabreeze,
+    galecallersBoon: GalecallersBoon,
+    harlansLoadedDice: HarlansLoadedDice,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
+    // Enchants
+    
     // Azerite Traits
     gemhide: Gemhide,
     meticulousScheming: MeticulousScheming,
