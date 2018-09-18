@@ -1,12 +1,12 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: /report/ZtzgPbjw3hRYvJTc/3-Mythic+Taloc+-+Kill+(6:46)/26-萤火兔
 class EnduringRenewal extends Analyzer {
@@ -27,8 +27,7 @@ class EnduringRenewal extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
-    this._usingLegendaryLegs = this.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
-    this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
+    this._baseRenewLength = 15;
   }
 
   // We do not track "casts" of Renew because casting Renew on an existing target
@@ -77,12 +76,16 @@ class EnduringRenewal extends Analyzer {
   statistic() {
     return (
 
-      <StatisticBox
+      <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
-        value={"Value"}
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.healing} />
+          </React.Fragment>
+        )}
         label="Enduring Renewal"
-        tooltip={``}
+        tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
       />
 
     );
