@@ -41,26 +41,6 @@ export default {
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
   },
-  ELEMENTAL_WHIRL_CRIT: { // buff
-    id: 268953,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_HASTE: { // buff
-    id: 268954,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_MASTERY: { // buff
-    id: 268955,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
-  ELEMENTAL_WHIRL_VERSATILITY: { // buff
-    id: 268956,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
   RESOUNDING_PROTECTION: {
     id: 270568,
     name: 'Resounding Protection',
@@ -131,14 +111,34 @@ export default {
     name: 'Seize the Moment!',
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
-  OVERWHELMING_POWER: {
-    id: 266180,
-    name: 'Overwhelming Power',
-    icon: 'ability_vehicle_electrocharge',
+  WOUNDBINDER: {
+    id: 269085,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
   },
-  OVERWHELMING_POWER_BUFF: {
-    id: 271711,
-    name: 'Overwhelming Power',
-    icon: 'ability_vehicle_electrocharge',
+  ELEMENTAL_WHIRL: {
+    id: 263984,
+    name: 'Elemental Whirl',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_CRIT: { // buff
+    id: 268953,
+    name: 'Elemental Whirl - Crit',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_HASTE: { // buff
+    id: 268954,
+    name: 'Elemental Whirl - Haste',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_MASTERY: { // buff
+    id: 268955,
+    name: 'Elemental Whirl - Mastery',
+    icon: 'ability_skyreach_four_wind',
+  },
+  ELEMENTAL_WHIRL_VERSATILITY: { // buff
+    id: 268956,
+    name: 'Elemental Whirl - Versatility',
+    icon: 'ability_skyreach_four_wind',
   },
 };

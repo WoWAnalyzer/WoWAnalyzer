@@ -158,7 +158,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 120,
-        gcd: null,
+        gcd: {
+          static: 1500,
+        },
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST,

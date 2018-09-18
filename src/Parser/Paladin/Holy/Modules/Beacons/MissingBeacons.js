@@ -29,7 +29,7 @@ class MissingBeacons extends Analyzer {
       this.lostBeaconHealing += this.beaconTransferFactor.getExpectedTransfer(event) * numMissingBeacons;
     }
   }
-  
+
   statistic() {
     if (this.lostBeaconHealing === 0) {
       // Normally we don't want optional statistics, but this is an exception as this giving any results is very rare.

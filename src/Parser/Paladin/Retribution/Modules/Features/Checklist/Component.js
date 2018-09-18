@@ -142,6 +142,14 @@ class RetributionPaladinChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.SHIELD_OF_VENGEANCE.id} />
           <AbilityRequirement spell={SPELLS.LAY_ON_HANDS.id} />
+          <Requirement
+            name={(
+              <React.Fragment>
+                <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon /> Absorb Used
+              </React.Fragment>
+            )}
+            thresholds={thresholds.shieldOfVengeance}
+          />
         </Rule>
       </Checklist>
     );

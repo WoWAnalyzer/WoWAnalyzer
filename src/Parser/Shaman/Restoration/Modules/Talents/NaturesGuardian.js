@@ -41,7 +41,7 @@ class NaturesGuardian extends Analyzer {
       },
     }, event);
 
-    this.healing += event.amount;
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   get feeding() {

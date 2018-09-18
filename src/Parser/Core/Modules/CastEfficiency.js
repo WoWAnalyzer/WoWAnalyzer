@@ -181,11 +181,11 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts = (availableFightDuration / cooldownMs) + (ability.charges || 1) - 1;
     } else if (casts > 0) {
       let averagetimeSpentOnNoCooldownAbility = this._getTimeSpentCasting(ability) / casts;
-      if (ability.gcd && averagetimeSpentOnNoCooldownAbility < ability.gcd) {
+      if (ability.gcd && averagetimeSpentOnNoCooldownAbility < ability.gcd.base) {
         // edge case for no cast time spells and spells with cast time lower than the gcd.
         averagetimeSpentOnNoCooldownAbility = ability.gcd.base;
       }
-      rawMaxCasts = availableFightDuration / (averagetimeSpentOnNoCooldownAbility);
+      rawMaxCasts = availableFightDuration / averagetimeSpentOnNoCooldownAbility;
     } else {
       // If we don't have any way to tell the cast time of the spell, return null.
       rawMaxCasts = null;

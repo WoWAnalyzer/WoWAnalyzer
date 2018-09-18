@@ -12,6 +12,7 @@ import Judgment from '../../PaladinCore/Judgment';
 import Crusade from '../../Talents/Crusade';
 import Inquisition from '../../Talents/Inquisition';
 import RighteousVerdict from '../../Talents/RighteousVerdict';
+import ShieldOfVengeance from '../../PaladinCore/ShieldOfVengeance';
 
 import Component from './Component';
 
@@ -28,6 +29,7 @@ class Checklist extends Analyzer {
     crusade: Crusade,
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
+    shieldOfVengeance: ShieldOfVengeance,
   };
   render() {
     return (
@@ -44,6 +46,7 @@ class Checklist extends Analyzer {
           crusade: this.crusade.suggestionThresholds,
           inquisition: this.inquisition.suggestionThresholds,
           righteousVerdict: this.righteousVerdict.suggestionThresholds,
+          shieldOfVengeance: this.shieldOfVengeance.suggestionThresholds,
         }}
       />
     );

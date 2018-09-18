@@ -58,7 +58,7 @@ class Downpour extends Analyzer {
     }
 
     this.downpourTimestamp = event.timestamp;
-    this.healing += event.amount;
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

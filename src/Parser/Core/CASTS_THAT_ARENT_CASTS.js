@@ -25,4 +25,5 @@ export default [
   SPELLS.CHAOS_BLADES_DAMAGE_OH.id, // Chaos Blades "casts" when you auto attack with the buff on. So the cast means nothing, just the buff application (SPELLS.CHAOS_BLADES_BUFF)
   SPELLS.CHAOS_BLADES_DAMAGE_MH.id, // Chaos Blades "casts" when you auto attack with the buff on. So the cast means nothing, just the buff application (SPELLS.CHAOS_BLADES_BUFF)
   255724, // proc from a Legion Antorus trinket
+  SPELLS.GALECALLERS_BOON_CAST.id, //This can be used off GCD
 ];

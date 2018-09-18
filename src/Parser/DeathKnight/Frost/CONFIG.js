@@ -14,7 +14,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Welcome to the Frost Death Knight analyzer! This analyzer is still under construction but I hope you will find what is here to be useful.  The current plan is to have a finished analyzer by the release of Battle for Azeroth.  If you have any comments or suggestions feel free to contact Khazak(Khazak#3360) on Discord.<br /><br />
+      Welcome to the Frost Death Knight analyzer! This analyzer only has basic support but I hope you find what is here to be useful.  If you have any comments or suggestions feel free to contact Khazak(Khazak#3360) on Discord.<br /><br />
 
       <br />More resources for Frost:<br />
       <a href="https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />

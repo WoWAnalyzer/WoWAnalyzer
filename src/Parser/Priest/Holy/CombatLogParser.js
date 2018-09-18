@@ -25,6 +25,7 @@ import Checklist from './Modules/Checklist/Module';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import SpellUsable from './Modules/Features/SpellUsable';
 import HealingReceived from './Modules/Features/HealingReceived';
+import HealingTargetTracker from './Modules/Features/HealingTargetTracker';
 // Priest Core
 import EchoOfLight_Mastery from './Modules/PriestCore/EchoOfLight_Mastery';
 import SerendipityWastedAmounts from './Modules/PriestCore/HolyWords/SerendipityWastedAmounts';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
     healingReceived: HealingReceived,
+    healingTargetTracker: HealingTargetTracker,
 
     // Core
     echoOfLight_Mastery: EchoOfLight_Mastery,
