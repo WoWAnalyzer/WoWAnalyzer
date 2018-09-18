@@ -291,6 +291,8 @@ export default {
   480: 280407, // "Blood Rite"
   481: 280410, // "Incite the Pack"
   482: 280380, // "Thunderous Blast"
+  483: 280555, // "Archive of the titans"
+  485: 280559, // "Laser Matrix"
   486: 280577, // "Glory in Battle"
   487: 280579, // "Retaliatory Fury"
   488: 280582, // "Battlefield Focus"

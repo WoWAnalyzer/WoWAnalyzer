@@ -82,6 +82,7 @@ import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import LaserMatrix from './Modules/Spells/BFA/AzeriteTraits/LaserMatrix';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import ElementalWhirl from './Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 // Uldir
@@ -178,6 +179,7 @@ class CombatLogParser {
 
     // Azerite Traits
     gemhide: Gemhide,
+    laserMatrix: LaserMatrix,
     meticulousScheming: MeticulousScheming,
     elementalWhirl: ElementalWhirl,
     // Uldir
