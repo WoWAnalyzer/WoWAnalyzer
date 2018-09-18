@@ -6,6 +6,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
@@ -221,6 +222,7 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
+    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
       crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
     },
