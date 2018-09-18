@@ -61,6 +61,78 @@ class HolyPriestSpreadsheet extends React.Component {
       return 0;
     };
 
+    const getChosenTalent = (talentRow) => {
+      switch (talentRow) {
+        case 15:
+          if (parser.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)){
+            return SPELLS.ENLIGHTENMENT_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id)){
+            return SPELLS.TRAIL_OF_LIGHT_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id)){
+            return SPELLS.ENDURING_RENEWAL_TALENT.name;
+          }
+          break;
+        case 30:
+          if (parser.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id)){
+            return SPELLS.ANGELS_MERCY_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id)){
+            return SPELLS.PERSEVERANCE_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id)){
+            return SPELLS.ANGELIC_FEATHER_TALENT.name;
+          }
+          break;
+        case 45:
+          if (parser.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id)){
+            return SPELLS.COSMIC_RIPPLE_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id)){
+            return SPELLS.GUARDIAN_ANGEL_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id)){
+            return SPELLS.AFTERLIFE_TALENT.name;
+          }
+          break;
+        case 60:
+          if (parser.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id)){
+            return SPELLS.PSYCHIC_VOICE_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.CENSURE_TALENT.id)){
+            return SPELLS.CENSURE_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id)){
+            return SPELLS.SHINING_FORCE_TALENT.name;
+          }
+          break;
+        case 75:
+          if (parser.selectedCombatant.hasTalent(SPELLS.SURGE_OF_LIGHT_TALENT.id)){
+            return SPELLS.SURGE_OF_LIGHT_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id)){
+            return SPELLS.BINDING_HEAL_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id)){
+            return SPELLS.CIRCLE_OF_HEALING_TALENT.name;
+          }
+          break;
+        case 90:
+          if (parser.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)){
+            return SPELLS.BENEDICTION_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id)){
+            return SPELLS.DIVINE_STAR_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id)){
+            return SPELLS.HALO_TALENT.name;
+          }
+          break;
+        case 100:
+          if (parser.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)){
+            return SPELLS.LIGHT_OF_THE_NAARU_TALENT.name;
+          }else if (parser.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id)){
+            return SPELLS.APOTHEOSIS_TALENT.name;
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)){
+            return SPELLS.HOLY_WORD_SALVATION_TALENT.name;
+          }
+          break;
+        default:
+          break;
+      }
+
+      return 'Unknown talent choice!';
+    };
+
     return (
       <div>
         <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
@@ -151,6 +223,44 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>Renews from benediction</td>
                 <td>0</td>
               </tr>
+
+              <tr>
+                <td>Tier 15 Talent</td>
+                <td>{getChosenTalent(15)}</td>
+              </tr>
+              <tr>
+                <td>Tier 30 Talent</td>
+                <td>{getChosenTalent(30)}</td>
+              </tr>
+              <tr>
+                <td>Tier 45 Talent</td>
+                <td>{getChosenTalent(45)}</td>
+              </tr>
+              <tr>
+                <td>Tier 60 Talent</td>
+                <td>{getChosenTalent(60)}</td>
+              </tr>
+              <tr>
+                <td>Tier 75 Talent</td>
+                <td>{getChosenTalent(75)}</td>
+              </tr>
+              <tr>
+                <td>Tier 90 Talent</td>
+                <td>{getChosenTalent(90)}</td>
+              </tr>
+              <tr>
+                <td>Tier 100 Talent</td>
+                <td>{getChosenTalent(100)}</td>
+              </tr>
+              <tr>
+                <td>Total Raw Healing</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneTotal}</td>
+              </tr>
+              <tr>
+                <td>Total Raw Self Healing</td>
+                <td>{parser._modules.healingTargetTracker.rawHealingDoneToSelf}</td>
+              </tr>
+
             </tbody>
           </table>
           <table style={styles.table}>
