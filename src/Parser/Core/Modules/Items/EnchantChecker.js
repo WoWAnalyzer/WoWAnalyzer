@@ -27,9 +27,6 @@ class EnchantChecker extends Analyzer {
     5963, // Weapon Enchant - Quick Navigation
     5966, // Weapon Enchant - Stalwart Navigation
     5962, // Weapon Enchant - Versatile Navigation
-    3368, // Weapon Enchant - Rune of the Fallen Crusader
-    3370, // Weapon Enchant - Rune of Razorice
-    3847, // Weapon Enchant - Rune of the Stoneskin Gargoyle
 
     5938, // Seal of Critical Strike
     5939, // Seal of Haste
