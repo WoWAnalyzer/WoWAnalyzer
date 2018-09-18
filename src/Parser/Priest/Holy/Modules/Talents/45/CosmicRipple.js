@@ -4,7 +4,6 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import { formatThousands } from 'common/format';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 

@@ -18,7 +18,6 @@ import Renew from './Modules/Spells/Renew';
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 //Talents
 import Talents from './Modules/Talents';
-import TalentCard from './Modules/Talents/TalentCard';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
@@ -106,8 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     LightOfTheNaru: Talents.talents_100.LightOfTheNaru,
     HolyWordSalvation: Talents.talents_100.HolyWordSalvation,
     Apotheosis: Talents.talents_100.Apotheosis,
-
-    talentCard: TalentCard,
 
     // Azerite
     blessedSanctuary: BlessedSanctuary,

@@ -5,7 +5,6 @@ import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import SpiritOfRedemption from 'Parser/Priest/Holy/Modules/Spells/SpiritOfRedemption';
-import { formatNumber } from 'common/format';
 import ItemManaGained from 'Interface/Others/ItemManaGained';
 
 const MAX_MANA = 100000;
