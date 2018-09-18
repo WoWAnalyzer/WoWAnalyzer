@@ -43,9 +43,7 @@ class CosmicRipple extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.totalHealing} />
-          </React.Fragment>
         )}
         label="Cosmic Ripple"
       />

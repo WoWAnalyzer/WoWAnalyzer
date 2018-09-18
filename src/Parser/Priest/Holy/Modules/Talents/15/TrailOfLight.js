@@ -35,9 +35,7 @@ class TrailOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.TRAIL_OF_LIGHT_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.totalToLHealing} />
-          </React.Fragment>
         )}
         label="Trail of Light"
         tooltip={`Trail of Light Procs: ${this.totalToLProcs}`}

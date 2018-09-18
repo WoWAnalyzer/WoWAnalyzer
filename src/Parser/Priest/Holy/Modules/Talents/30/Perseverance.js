@@ -49,9 +49,7 @@ class Perseverance extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.PERSEVERANCE_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.totalDamageReduced} />
-          </React.Fragment>
         )}
         label="Preserverance"
         tooltip={`

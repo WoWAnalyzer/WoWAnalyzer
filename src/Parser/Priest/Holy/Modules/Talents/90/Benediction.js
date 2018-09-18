@@ -34,9 +34,7 @@ class Benediction extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.BENEDICTION_TALENT.id} />}
         value={(
-          <React.Fragment>
-            <ItemHealingDone amount={this.healingFromBenedictionRenews} />
-          </React.Fragment>
+          <ItemHealingDone amount={this.healingFromBenedictionRenews} />
         )}
         label="Benediction"
         tooltip={`${this.renewsFromBenediction} total Renews from Benediction`}

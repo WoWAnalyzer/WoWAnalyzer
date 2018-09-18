@@ -37,9 +37,7 @@ class Enlightenment extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemManaGained amount={this.enlightenmentMana} />
-          </React.Fragment>
         )}
         label="Enlightment"
       />

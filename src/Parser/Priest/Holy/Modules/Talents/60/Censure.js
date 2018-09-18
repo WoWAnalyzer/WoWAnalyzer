@@ -40,9 +40,9 @@ class Censure extends Analyzer {
       <TraitStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.CENSURE_TALENT.id} />}
-        value={(
+        value={
           `${this.censureStuns + this.censureIncomp} Censure CC(s)`
-        )}
+        }
         label="Censure"
         tooltip={`
           ${this.chastiseCasts} Chastise Casts<br />

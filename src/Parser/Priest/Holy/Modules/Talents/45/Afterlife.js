@@ -64,9 +64,7 @@ class Afterlife extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.AFTERLIFE_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.healingInAfterlife} />
-          </React.Fragment>
         )}
         label="Afterlife"
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}

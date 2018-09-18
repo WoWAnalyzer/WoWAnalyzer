@@ -70,9 +70,7 @@ class GuardianAngel extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.GUARDIAN_ANGEL_TALENT.id} />}
         value={(
-          <React.Fragment>
             <ItemHealingDone amount={this.guardianSpiritSelfHealing} />
-          </React.Fragment>
         )}
         label="Guardian Angel"
         tooltip={`
