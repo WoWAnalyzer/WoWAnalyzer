@@ -30,7 +30,7 @@ export default {
 
   // Retribution
   EXPURGATION: {
-    id: 273476,
+    id: 273473,
     name: 'Expurgation',
     icon: 'ability_paladin_bladeofjustice',
   },
@@ -40,7 +40,7 @@ export default {
     icon: 'spell_holy_divinepurpose',
   },
   AVENGERS_MIGHT: {
-    id: 272904,
+    id: 272898,
     name: `Avenger's Might`,
     icon: 'spell_holy_avenginewrath',
   },
@@ -50,12 +50,12 @@ export default {
     ïcon: 'spell_holy_righteousfury',
   },
   ZEALOTRY: {
-    id: 278982,
+    id: 278615,
     name: 'Zealotry',
     icon: 'spell_holy_weaponmastery',
   },
   DIVINE_RIGHT: {
-    id: 278519,
+    id: 277678,
     name: 'Divine Right',
     icon: 'ability_paladin_divinestorm',
   },

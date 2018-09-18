@@ -34,18 +34,16 @@ class RelentlessInquisitor extends Analyzer {
       this.hasteBuff = haste;
     }
   }
-
-  averageStatGain() {
-    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.RELENTLESS_INQUISITOR_BUFF.id) / this.owner.fightDuration;
-    return averageStacks * this.hasteBuff;
+  get averageStacks() {
+    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.RELENTLESS_INQUISITOR_BUFF.id) / this.owner.fightDuration;
   }
 
-  totalBuffUptime() {
+  get averageStatGain() {
+    return this.averageStacks * this.hasteBuff;
+  }
+
+  get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.RELENTLESS_INQUISITOR_BUFF.id) / this.owner.fightDuration;
-  }
-
-  buffTriggerCount() {
-    return this.selectedCombatant.getBuffTriggerCount(SPELLS.RELENTLESS_INQUISITOR_BUFF.id);
   }
 
   statistic() {
@@ -55,8 +53,8 @@ class RelentlessInquisitor extends Analyzer {
         trait={SPELLS.RELENTLESS_INQUISITOR.id}
         value={(
           <React.Fragment>
-            {formatPercentage(this.totalBuffUptime())}% uptime.<br />
-            {formatNumber(this.averageStatGain())} average Haste.
+            {formatPercentage(this.totalBuffUptime)}% uptime.<br />
+            {formatNumber(this.averageStatGain)} average Haste.
           </React.Fragment>
         )}
         tooltip={``}
