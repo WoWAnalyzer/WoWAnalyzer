@@ -333,18 +333,6 @@ class StatTracker extends Analyzer {
       itemId: 159625, // Vial of Animated Blood
       strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
     },
-    267327: { // Harlans Loaded Dice
-      itemId: 155881, // Loaded Dice - Haste
-      haste: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
-    },
-    267325: { // Harlans Loaded Dice
-      itemId: 155881, // Loaded Dice - Mastery
-      mastery: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
-    },
-    267330: { // Harlans Loaded Dice
-      itemId: 155881, // Loaded Dice - Crit
-      crit: (_, item) => calculateSecondaryStatDefault(300, 126, item.itemLevel),
-    },
 
     // endregion
     // region World boss
