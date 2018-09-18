@@ -35,15 +35,15 @@ class TrailOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.TRAIL_OF_LIGHT_TALENT.id} />}
         value={(
-            <ItemHealingDone amount={this.totalToLHealing} />
+          <ItemHealingDone amount={this.totalToLHealing} />
         )}
         label="Trail of Light"
         tooltip={`Trail of Light Procs: ${this.totalToLProcs}`}
+        position={STATISTIC_ORDER.CORE(1)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default TrailOfLight;

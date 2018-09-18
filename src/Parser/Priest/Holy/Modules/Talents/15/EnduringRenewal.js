@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -88,11 +87,11 @@ class EnduringRenewal extends Analyzer {
         )}
         label="Enduring Renewal"
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
+        position={STATISTIC_ORDER.CORE(1)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 

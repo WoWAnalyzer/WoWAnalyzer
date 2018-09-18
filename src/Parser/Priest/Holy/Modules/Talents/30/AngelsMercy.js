@@ -44,11 +44,11 @@ class AngelsMercy extends Analyzer {
         tooltip={`
           Desperate Prayers cast: ${this.desperatePrayersCast}<br />
         `}
+        position={STATISTIC_ORDER.CORE(2)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default AngelsMercy;

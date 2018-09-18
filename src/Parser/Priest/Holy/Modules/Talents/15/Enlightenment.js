@@ -37,14 +37,14 @@ class Enlightenment extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} />}
         value={(
-            <ItemManaGained amount={this.enlightenmentMana} />
+          <ItemManaGained amount={this.enlightenmentMana} />
         )}
         label="Enlightment"
+        position={STATISTIC_ORDER.CORE(1)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default Enlightenment;

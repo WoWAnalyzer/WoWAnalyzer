@@ -49,13 +49,14 @@ class Perseverance extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.PERSEVERANCE_TALENT.id} />}
         value={(
-            <ItemHealingDone amount={this.totalDamageReduced} />
+          <ItemHealingDone amount={this.totalDamageReduced} />
         )}
         label="Preserverance"
         tooltip={`
           Preserverance Uptime: ${formatPercentage(this.uptime)}%<br />
           Damage Reduced: ${formatThousands(this.totalDamageReduced)}
           `}
+        position={STATISTIC_ORDER.CORE(2)}
       />
 
     );
