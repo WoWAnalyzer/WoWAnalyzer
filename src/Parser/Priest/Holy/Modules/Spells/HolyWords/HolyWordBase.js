@@ -18,7 +18,8 @@ class HolyWordBase extends Analyzer {
   reductionBySpell = {};
   apotheosisReductionBySpell = {};
   wastedCooldown = 0;
-
+  spellId = 0;
+  spotheosisMultiplier = 3;
   get totalCooldownReduction() {
     let totalCDR = 0;
     Object.keys(this.reductionBySpell).map(function (key, index) {
