@@ -416,6 +416,10 @@ class HotTracker extends Analyzer {
         duration: 6000,
         tickPeriod: 2000,
       },
+      [SPELLS.TRANQUILITY_HEAL.id]: {
+        duration: 8000,
+        tickPeriod: 2000,
+      },
       //TODO - blazyb double check this
     };
   }
