@@ -1,5 +1,5 @@
 import React from 'react';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
@@ -39,7 +39,7 @@ class CosmicRipple extends Analyzer {
   statistic() {
     return (
 
-      <TraitStatisticBox
+      <TalentStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
         value={(
