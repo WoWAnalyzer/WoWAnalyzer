@@ -6,6 +6,8 @@ import { formatThousands, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
+const DEFENSIVE_STANCE_DR = 0.2;
+
 class DefensiveStance extends Analyzer {
   perSecond(amount) {
     return amount / this.owner.fightDuration * 1000;
@@ -29,7 +31,8 @@ class DefensiveStance extends Analyzer {
 
   handleDamageTaken(event) {
     if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
-      this.totalDamageMitigated += (event.mitigated || 0);
+      const preMitigatedDefensiveStance = (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
+      this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
     }
   }
 
