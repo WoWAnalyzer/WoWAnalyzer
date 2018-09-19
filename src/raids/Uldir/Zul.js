@@ -6,7 +6,7 @@ export default {
   name: 'Zul',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_zul',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props

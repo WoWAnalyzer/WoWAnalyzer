@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Yajinni, blazyb } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-09-20'),
+    changes: <React.Fragment>Added mana used doughnut chart (code taken from Hunter focus used module) to resto druid &amp; set icons for Uldir bosses (not headshots)</React.Fragment>,
+    contributors: [fel1ne],
+  },
   {
     date: new Date('2018-09-18'),
     changes: <React.Fragment>Added implementation of Azerite trait Waking Dream.</React.Fragment>,

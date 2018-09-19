@@ -6,7 +6,7 @@ export default {
   name: 'Ghuun',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_ghuun',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props

@@ -6,7 +6,7 @@ export default {
   name: 'Zekvoz',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_zekvoz',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props

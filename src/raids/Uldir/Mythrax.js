@@ -6,7 +6,7 @@ export default {
   name: 'Mythrax',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_mythraxtheunraveler',
   fight: {
     // vantusRuneBuffId: ,
     // TODO: Add fight specific props
