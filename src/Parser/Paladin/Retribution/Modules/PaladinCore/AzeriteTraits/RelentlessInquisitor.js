@@ -15,7 +15,7 @@ const relentlessInquisitorStats = traits => Object.values(traits).reduce((obj, r
   });
 
 export const STAT_TRACKER = {
-  haste: combatant => relentlessInquisitorStats(combatant.traitsBySpellId[SPELLS.RELENTLESS_INQUISITOR.id]),
+  haste: combatant => relentlessInquisitorStats(combatant.traitsBySpellId[SPELLS.RELENTLESS_INQUISITOR.id]).haste,
 };
 
 /**
