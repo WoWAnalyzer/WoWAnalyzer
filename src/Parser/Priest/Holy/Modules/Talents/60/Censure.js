@@ -47,7 +47,6 @@ class Censure extends Analyzer {
         tooltip={`
           ${this.chastiseCasts} Chastise Casts<br />
           ${this.censureStuns} Chastise Stuns<br />
-          ${this.censureIncomp} Censure Incapacitates
         `}
         position={STATISTIC_ORDER.CORE(4)}
       />
