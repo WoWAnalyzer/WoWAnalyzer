@@ -40,10 +40,10 @@ class HolyWordSanctify extends HolyWordBase {
           return 2000;
         },
         lightOfTheNaaruReduction: () => {
-          return 2000;
+          return 2000 * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 2000;
+          return 2000 * this.apotheosisMultiplier;
         },
       };
     }

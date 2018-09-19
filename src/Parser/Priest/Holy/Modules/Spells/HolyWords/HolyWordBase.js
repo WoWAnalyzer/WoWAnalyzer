@@ -18,7 +18,7 @@ class HolyWordBase extends Analyzer {
   baseHolyWordReductionBySpell = {};
 
   lightOfTheNaruActive = false;
-  lightOfTheNaruMultiplier = 1.33;
+  lightOfTheNaruMultiplier = 1.333;
   lightOfTheNaruReductionBySpell = {};
 
   apotheosisCasts = 0;
@@ -117,13 +117,12 @@ class HolyWordBase extends Analyzer {
     if (this.lightOfTheNaruActive) {
       const lightOfTheNaaruReduction = this.serendipityProccers[spellId].lightOfTheNaaruReduction();
       this.lightOfTheNaruReductionBySpell[spellId] = this.lightOfTheNaruReductionBySpell[spellId] || 0;
-      this.lightOfTheNaruReductionBySpell[spellId] = lightOfTheNaaruReduction - baseReductionAmount;
+      this.lightOfTheNaruReductionBySpell[spellId] += lightOfTheNaaruReduction - baseReductionAmount;
       return lightOfTheNaaruReduction;
     }
     else if (this.apotheosisActive) {
       const apotheosisReduction = this.serendipityProccers[spellId].apotheosisReduction();
       this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0;
-      console.log(this, this.apotheosisReductionBySpell[spellId], apotheosisReduction - baseReductionAmount);
       this.apotheosisReductionBySpell[spellId] += apotheosisReduction - baseReductionAmount;
       return apotheosisReduction;
     } else {

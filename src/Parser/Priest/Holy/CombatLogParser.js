@@ -98,7 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     Benediction: Talents.talents_90.Benediction,
     DivineStar: Talents.talents_90.DivineStar,
 
-    LightOfTheNaru: Talents.talents_100.LightOfTheNaru,
+    LightOfTheNaru: Talents.talents_100.LightOfTheNaaru,
     HolyWordSalvation: Talents.talents_100.HolyWordSalvation,
     Apotheosis: Talents.talents_100.Apotheosis,
 

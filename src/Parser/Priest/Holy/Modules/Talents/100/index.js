@@ -1,9 +1,9 @@
 import Apotheosis from './Apotheosis';
 import HolyWordSalvation from './HolyWordSalvation';
-import LightOfTheNaru from './LightOfTheNaru';
+import LightOfTheNaaru from './LightOfTheNaaru';
 
 export {
   Apotheosis,
   HolyWordSalvation,
-  LightOfTheNaru,
+  LightOfTheNaaru,
 };
