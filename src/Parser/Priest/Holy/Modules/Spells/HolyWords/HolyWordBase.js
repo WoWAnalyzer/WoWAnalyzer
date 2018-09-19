@@ -1,4 +1,3 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -32,25 +31,28 @@ class HolyWordBase extends Analyzer {
 
   get baseCooldownReduction() {
     let totalCDR = 0;
-    Object.keys(this.baseHolyWordReductionBySpell).map((key) => {
-      totalCDR += this.baseHolyWordReductionBySpell[key];
-    });
+
+    for (const spellID in this.baseHolyWordReductionBySpell) {
+      totalCDR += this.baseHolyWordReductionBySpell[spellID];
+    }
     return totalCDR;
   }
 
   get lightOfTheNaaruCooldownReduction() {
     let lotnCDR = 0;
-    Object.keys(this.lightOfTheNaruReductionBySpell).map((key) => {
-      lotnCDR += this.lightOfTheNaruReductionBySpell[key];
-    });
+
+    for (const spellID in this.lightOfTheNaruReductionBySpell) {
+      lotnCDR += this.lightOfTheNaruReductionBySpell[spellID];
+    }
     return lotnCDR;
   }
 
   get apotheosisCooldownReduction() {
     let apothCDR = 0;
-    Object.keys(this.apotheosisReductionBySpell).map((key) => {
-      apothCDR += this.apotheosisReductionBySpell[key];
-    });
+
+    for (const spellID in this.apotheosisReductionBySpell) {
+      apothCDR += this.apotheosisReductionBySpell[spellID];
+    }
     return apothCDR;
   }
 
