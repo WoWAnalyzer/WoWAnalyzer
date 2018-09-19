@@ -11,14 +11,7 @@ class PrayerOfMending extends Analyzer {
   pomRemovalCount = 0;
   prepullPomBuffs = 0;
   lastSalvCastTime = 0;
-
-  get pomTicksFromSalv() {
-    if (this.salvCasts === 0) {
-      return 0;
-    }
-    const estSalvPoms = this.pomBuffCount - this.pomTicksFromCast - (this.prepullPomBuffs * 10);
-    return estSalvPoms;
-  }
+  pomTicksFromSalv = 0;
 
   get pomTicksFromCast() {
     return this.pomCasts * 5;
@@ -55,6 +48,9 @@ class PrayerOfMending extends Analyzer {
       this.pomHealTicks++;
       this.totalPoMHealing += event.amount || 0;
       this.totalPoMOverhealing += event.overheal || 0;
+    }
+    if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+      this.pomTicksFromSalv += 2;
     }
   }
 
