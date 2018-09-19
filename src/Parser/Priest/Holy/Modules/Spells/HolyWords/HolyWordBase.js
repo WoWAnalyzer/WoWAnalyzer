@@ -27,6 +27,8 @@ class HolyWordBase extends Analyzer {
   apotheosisReductionBySpell = {};
   apotheosisManaReduction = 0;
   holyWordApotheosisCasts = 0;
+  holyWordHealingDuringApotheosis = 0;
+  holyWordOverhealingDuringApotheosis = 0;
 
   get baseCooldownReduction() {
     let totalCDR = 0;
@@ -134,6 +136,11 @@ class HolyWordBase extends Analyzer {
     if (spellId === this.spellId) {
       this.holyWordHealing += event.amount || 0;
       this.holyWordOverhealing += event.overheal || 0;
+
+      if (this.apotheosisActive) {
+        this.holyWordHealingDuringApotheosis += event.amount || 0;
+        this.holyWordOverhealingDuringApotheosis += event.overheal || 0;
+      }
     }
   }
 
