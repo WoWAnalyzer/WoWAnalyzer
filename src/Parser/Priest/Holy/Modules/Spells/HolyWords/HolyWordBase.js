@@ -76,6 +76,29 @@ class HolyWordBase extends Analyzer {
     return totalReduction;
   }
 
+  get totalHolyWordReductionPerSpellPerTalent() {
+    const totalReduction = {};
+    for (const key in this.baseHolyWordReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || {};
+      totalReduction[key].base = totalReduction[key].base || 0;
+      totalReduction[key].base += this.baseHolyWordReductionBySpell[key];
+    }
+
+    for (const key in this.apotheosisReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || {};
+      totalReduction[key].apotheosis = totalReduction[key].apotheosis || 0;
+      totalReduction[key].apotheosis += this.apotheosisReductionBySpell[key];
+    }
+
+    for (const key in this.lightOfTheNaruReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || {};
+      totalReduction[key].lightOfTheNaaru = totalReduction[key].lightOfTheNaaru || 0;
+      totalReduction[key].lightOfTheNaaru += this.lightOfTheNaruReductionBySpell[key];
+    }
+
+    return totalReduction;
+  }
+
   get totalCooldownReduction() {
     return this.baseCooldownReduction + this.lightOfTheNaaruCooldownReduction + this.apotheosisCooldownReduction;
   }

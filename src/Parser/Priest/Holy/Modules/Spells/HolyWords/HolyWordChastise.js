@@ -11,13 +11,13 @@ class HolyWordSanctify extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.SMITE.id]: {
         baseReduction: () => {
-          return this.serendipityReduction;
+          return 4000;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier;
+          return 4000 * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier;
+          return 4000 * this.apotheosisMultiplier;
         },
       },
     };

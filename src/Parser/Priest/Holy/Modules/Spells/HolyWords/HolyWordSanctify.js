@@ -10,24 +10,35 @@ class HolyWordSanctify extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.PRAYER_OF_HEALING.id]: {
         baseReduction: () => {
-          return this.serendipityReduction;
+          return 6000;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier;
+          return 6000 * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier;
+          return 6000 * this.apotheosisMultiplier;
         },
       },
       [SPELLS.BINDING_HEAL_TALENT.id]: {
         baseReduction: () => {
-          return this.serendipityReduction * .5;
+          return 3000;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier * .5;
+          return 3000 * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier * .5;
+          return 3000 * this.apotheosisMultiplier;
+        },
+      },
+      [SPELLS.RENEW.id]: {
+        baseReduction: () => {
+          return 2000;
+        },
+        lightOfTheNaaruReduction: () => {
+          return 2000 * this.lightOfTheNaruMultiplier;
+        },
+        apotheosisReduction: () => {
+          return 2000 * this.apotheosisMultiplier;
         },
       },
     };
