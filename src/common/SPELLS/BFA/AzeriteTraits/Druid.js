@@ -20,7 +20,12 @@ export default {
     icon: 'inv_misc_head_dragon_green',
   },
   LIVELY_SPIRIT_TRAIT: {
-    id: 279647,
+    id: 279642,
+    name: 'Lively Spirit',
+    icon: 'spell_nature_lightning',
+  },
+  LIVELY_SPIRIT_BUFF: {
+    id: 279648,
     name: 'Lively Spirit',
     icon: 'spell_nature_lightning',
   },
