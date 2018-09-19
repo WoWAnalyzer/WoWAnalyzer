@@ -1,13 +1,15 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
+import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
+
+// Example Log: /report/ZtzgPbjw3hRYvJTc/3-Mythic+Taloc+-+Kill+(6:46)/26-萤火兔
 class EnduringRenewal extends Analyzer {
   _normalRenewDropoff = {};
   _newRenewDropoff = {};
@@ -26,8 +28,7 @@ class EnduringRenewal extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
-    this._usingLegendaryLegs = this.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
-    this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
+    this._baseRenewLength = 15;
   }
 
   // We do not track "casts" of Renew because casting Renew on an existing target
@@ -73,35 +74,24 @@ class EnduringRenewal extends Analyzer {
     }
   }
 
-
   statistic() {
-    const erPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
-    const erHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
-    const erGainPerRefresh = Math.round(this.secsGained / this.refreshedRenews * 100) / 100;
+    return (
 
-    //
-    return this.active && (
-      <StatisticBox
+      <TalentStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
-        value={`${erHPS} HPS`}
-        label={(
-          <dfn data-tip={`
-            Healing done on targets as a result of Enduring Renewal's refresh.
-            This did ${formatNumber(this.healing)} healing and was ${erPercHPS}% of your total healing.
-            <br/><br/>
-            You refreshed renews ${this.refreshedRenews} times for a total of ${formatNumber(this.secsGained)} additional seconds of Renew.
-            (+${erGainPerRefresh}s per refresh on average).
-          `}
-          >
-            Enduring Renewal
-          </dfn>
+        value={(
+          <React.Fragment>
+            <ItemHealingDone amount={this.healing} />
+          </React.Fragment>
         )}
+        label="Enduring Renewal"
+        tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
+        position={STATISTIC_ORDER.CORE(1)}
       />
-    );
-    //
-  }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
+    );
+  }
 }
 
 
