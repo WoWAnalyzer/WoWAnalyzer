@@ -30,6 +30,7 @@ import HealingReceived from './Modules/Features/HealingReceived';
 import EchoOfLight_Mastery from './Modules/PriestCore/EchoOfLight_Mastery';
 import Fortitude_RaidBuff from './Modules/PriestCore/Fortitude_RaidBuff';
 import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWordsReductionBySpell';
+import HolyWordWastedAmounts from './Modules/PriestCore/HolyWordWastedAmounts';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 // Azerite
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoOfLight_Mastery: EchoOfLight_Mastery,
     fortitude_RaidBuff: Fortitude_RaidBuff,
     holyWordsReductionBySpell: HolyWordsReductionBySpell,
+    holyWordWastedAmounts: HolyWordWastedAmounts,
 
     // Spells
     divineHymn: DivineHymn,
