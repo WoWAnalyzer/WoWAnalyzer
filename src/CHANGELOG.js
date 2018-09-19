@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-19'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.OVERWHELMING_POWER.id} /> and <SpellLink id={SPELLS.BLOOD_RITE.id} /> modules.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-09-17'),
     changes: 'Added Azerite trait Laser Matrix.',
     contributors: [blazyb],
