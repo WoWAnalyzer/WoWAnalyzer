@@ -1,5 +1,5 @@
-import HolyWordBase from './HolyWordBase';
 import SPELLS from 'common/SPELLS';
+import HolyWordBase from './HolyWordBase';
 
 class HolyWordSerenity extends HolyWordBase {
   constructor(...args) {

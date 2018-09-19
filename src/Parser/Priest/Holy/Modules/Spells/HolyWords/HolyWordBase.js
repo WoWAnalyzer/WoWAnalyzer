@@ -57,7 +57,7 @@ class HolyWordBase extends Analyzer {
   }
 
   get totalHolyWordReductionPerSpell() {
-    let totalReduction = {};
+    const totalReduction = {};
     for (const key in this.baseHolyWordReductionBySpell) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += this.baseHolyWordReductionBySpell[key];
@@ -72,6 +72,8 @@ class HolyWordBase extends Analyzer {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += this.lightOfTheNaruReductionBySpell[key];
     }
+
+    return totalReduction;
   }
 
   get totalCooldownReduction() {

@@ -1,4 +1,3 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import HolyWordBase from './HolyWordBase';
 
