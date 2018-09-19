@@ -54,7 +54,7 @@ class WordOfMending extends Analyzer {
         value={(
           <React.Fragment>
             <ItemHealingDone amount={this.totalAdditionalHealing} /><br />
-            {formatNumber(this.sanctify.reductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id] / 1000)}s Sanctify Cooldown
+            {formatNumber(this.sanctify.holyWordReductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id] / 1000)}s Sanctify Cooldown
           </React.Fragment>
         )}
         tooltip={`
