@@ -13,6 +13,7 @@ import SpellManaCost from './Modules/Core/SpellManaCost';
 import DivineHymn from './Modules/Spells/DivineHymn';
 import HolyWordSanctify from './Modules/Spells/HolyWords/HolyWordSanctify';
 import HolyWordSerenity from './Modules/Spells/HolyWords/HolyWordSerenity';
+import HolyWordChastise from './Modules/Spells/HolyWords/HolyWordChastise';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
 import Renew from './Modules/Spells/Renew';
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hymnBuffBenefit: HymnBuffBenefit,
     holyWordSanctify: HolyWordSanctify,
     holyWordSerenity: HolyWordSerenity,
+    holyWordChastise: HolyWordChastise,
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
     prayerOfMending: PrayerOfMending,

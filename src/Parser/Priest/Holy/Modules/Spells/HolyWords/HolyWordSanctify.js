@@ -7,6 +7,7 @@ class HolyWordSanctify extends HolyWordBase {
     super(...args);
 
     this.spellId = SPELLS.HOLY_WORD_SANCTIFY.id;
+    this.manaCost = 5000;
     this.serendipityProccers = {
       [SPELLS.PRAYER_OF_HEALING.id]: {
         baseReduction: () => {
@@ -36,13 +37,13 @@ class HolyWordSanctify extends HolyWordBase {
     if (this.selectedCombatant.hasTrait(SPELLS.WORD_OF_MENDING.id)) {
       this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
         baseReduction: () => {
-          return 2;
+          return 2000;
         },
         lightOfTheNaaruReduction: () => {
-          return 2;
+          return 2000;
         },
         apotheosisReduction: () => {
-          return 2;
+          return 2000;
         },
       };
     }

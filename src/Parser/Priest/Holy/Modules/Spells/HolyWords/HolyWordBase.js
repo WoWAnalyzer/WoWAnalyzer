@@ -4,6 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 class HolyWordBase extends Analyzer {
   spellId = 0;
+  manaCost = 0;
   baseCooldown = 60000;
   serendipityReduction = 6000;
   remainingCooldown = 0;
@@ -12,8 +13,9 @@ class HolyWordBase extends Analyzer {
   holyWordHealing = 0;
   holyWordOverhealing = 0;
   holyWordCasts = 0;
-  holyWordReductionBySpell = {};
   holyWordWastedCooldown = 0;
+
+  baseHolyWordReductionBySpell = {};
 
   lightOfTheNaruActive = false;
   lightOfTheNaruMultiplier = 1.33;
@@ -23,11 +25,13 @@ class HolyWordBase extends Analyzer {
   apotheosisActive = false;
   apotheosisMultiplier = 3;
   apotheosisReductionBySpell = {};
+  apotheosisManaReduction = 0;
+  holyWordApotheosisCasts = 0;
 
   get baseCooldownReduction() {
     let totalCDR = 0;
-    Object.keys(this.holyWordReductionBySpell).map((key) => {
-      totalCDR += this.holyWordReductionBySpell[key];
+    Object.keys(this.baseHolyWordReductionBySpell).map((key) => {
+      totalCDR += this.baseHolyWordReductionBySpell[key];
     });
     return totalCDR;
   }
@@ -48,6 +52,24 @@ class HolyWordBase extends Analyzer {
     return apothCDR;
   }
 
+  get totalHolyWordReductionPerSpell() {
+    let totalReduction = {};
+    for (const key in this.baseHolyWordReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || 0;
+      totalReduction[key] += this.baseHolyWordReductionBySpell[key];
+    }
+
+    for (const key in this.apotheosisReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || 0;
+      totalReduction[key] += this.apotheosisReductionBySpell[key];
+    }
+
+    for (const key in this.lightOfTheNaruReductionBySpell) {
+      totalReduction[key] = totalReduction[key] || 0;
+      totalReduction[key] += this.lightOfTheNaruReductionBySpell[key];
+    }
+  }
+
   get totalCooldownReduction() {
     return this.baseCooldownReduction + this.lightOfTheNaaruCooldownReduction + this.apotheosisCooldownReduction;
   }
@@ -64,8 +86,14 @@ class HolyWordBase extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === this.spellId) {
-      this.totalCasts++;
+      this.holyWordCasts++;
       this.remainingCooldown = 60000;
+
+      if (this.apotheosisActive) {
+        this.apotheosisManaReduction += this.manaCost;
+        this.holyWordApotheosisCasts++;
+      }
+
     } else if (this.serendipityProccers[spellId] != null) {
       const reductionAmount = this.parseSerendipityCast(spellId);
       this.remainingCooldown -= reductionAmount;
@@ -80,16 +108,20 @@ class HolyWordBase extends Analyzer {
     // We are casting a spell that will reduce a Holy Word Cooldown.
     // Get the base amount of the reduction
     const baseReductionAmount = this.serendipityProccers[spellId].baseReduction();
-    this.holyWordReductionBySpell += baseReductionAmount;
+    this.baseHolyWordReductionBySpell[spellId] = this.baseHolyWordReductionBySpell[spellId] || 0;
+    this.baseHolyWordReductionBySpell[spellId] += baseReductionAmount;
 
     // Get the modified reduction by spell
     if (this.lightOfTheNaruActive) {
       const lightOfTheNaaruReduction = this.serendipityProccers[spellId].lightOfTheNaaruReduction();
+      this.lightOfTheNaruReductionBySpell[spellId] = this.lightOfTheNaruReductionBySpell[spellId] || 0;
       this.lightOfTheNaruReductionBySpell[spellId] = lightOfTheNaaruReduction - baseReductionAmount;
       return lightOfTheNaaruReduction;
     }
     else if (this.apotheosisActive) {
       const apotheosisReduction = this.serendipityProccers[spellId].apotheosisReduction();
+      this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0;
+      console.log(this, this.apotheosisReductionBySpell[spellId], apotheosisReduction - baseReductionAmount);
       this.apotheosisReductionBySpell[spellId] += apotheosisReduction - baseReductionAmount;
       return apotheosisReduction;
     } else {
