@@ -8,8 +8,11 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
+const LOW_HEALTH_HEALING_THRESHOLD = 0.3;
+const MS_BUFFER = 123;
 
 class Clearcasting extends Analyzer {
+
   procsPerCC;
 
   totalProcs = 0;
@@ -21,6 +24,7 @@ class Clearcasting extends Analyzer {
 
   nonCCRegrowths = 0;
   totalRegrowths = 0;
+  lowHealthRegrowthsNoCC = 0;
 
   constructor(...args) {
     super(...args);
@@ -69,6 +73,7 @@ class Clearcasting extends Analyzer {
     if (spellId !== SPELLS.REGROWTH.id) {
       return;
     }
+
     this.totalRegrowths += 1;
 
     if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
@@ -77,6 +82,19 @@ class Clearcasting extends Analyzer {
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
       this.nonCCRegrowths += 1;
+    }
+  }
+
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.REGROWTH.id || event.tick) {
+      return;
+    }
+    const effectiveHealing = event.amount + (event.absorbed || 0);
+    const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
+    const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
+    if(healthPercentage<LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
+      this.lowHealthRegrowthsNoCC++;
     }
   }
 
@@ -106,7 +124,7 @@ class Clearcasting extends Analyzer {
   }
 
   get nonCCRegrowthsPerMinute() {
-    return this.nonCCRegrowths / (this.owner.fightDuration / 60000);
+    return (this.nonCCRegrowths - this.lowHealthRegrowthsNoCC) / (this.owner.fightDuration / 60000);
   }
 
   get nonCCRegrowthsSuggestionThresholds() {
@@ -150,7 +168,8 @@ class Clearcasting extends Analyzer {
               ${this.hadInvisibleRefresh ? '' : `<li>Overwritten: <b>${this.overwrittenProcs}</b></li>`}
               <li>Expired: <b>${this.expiredProcs}</b></li>
             </ul>
-            <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc</b>.
+            <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</b>
+            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health, so they have been disregarded as bad Regrowth(s).
             Using a clearcasting proc as soon as you get it should be one of your top priorities.
             Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
             Spending your GCD on a free spell also helps with mana management in the long run.<br />

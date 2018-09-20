@@ -14,6 +14,11 @@ export default [
     contributors: [joshinator],
   },
   {
+    date: new Date('2018-09-16'),
+    changes: 'Added the players azerite traits to the character pane.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-09-17'),
     changes: 'Added Azerite trait Laser Matrix.',
     contributors: [blazyb],

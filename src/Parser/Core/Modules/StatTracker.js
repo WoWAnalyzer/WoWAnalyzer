@@ -12,8 +12,9 @@ import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/S
 import { STAT_TRACKER as BLOOD_RITE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/BloodRite';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
-import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
+import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/EternalRuneWeapon';
 
 const debug = false;
 
@@ -248,6 +249,7 @@ class StatTracker extends Analyzer {
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
+    [SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id]: ETERNAL_RUNE_WEAPON_STRENGTH, // Bonue Strength when DRW is up
     // endregion
     // region Monk
     [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {

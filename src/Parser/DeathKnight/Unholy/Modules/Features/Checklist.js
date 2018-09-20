@@ -50,10 +50,6 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EPIDEMIC_TALENT,
-            when: combatant.hasTalent(SPELLS.EPIDEMIC_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.SOUL_REAPER_TALENT,
             when: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
           }),

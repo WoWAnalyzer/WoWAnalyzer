@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 20,
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
           recommendedEfficiency: 0.90,
         },
       },
