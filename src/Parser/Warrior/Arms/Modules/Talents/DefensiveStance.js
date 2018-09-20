@@ -8,18 +8,23 @@ import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 const DEFENSIVE_STANCE_DR = 0.2;
 const DEFENSIVE_STANCE_DL = 0.1;
-const MIN_WIDTH = .1;
+const MAX_WIDTH = .9;
 
 class DefensiveStance extends Analyzer {
   perSecond(amount) {
     return amount / this.owner.fightDuration * 1000;
   }
   damageTradeoff() {
-    if(this.totalDamageLost === 0) {
-      return this.totalDamageMitigated / (this.totalDamageMitigated * (1 + MIN_WIDTH));
+    let tradeoff = this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
+    if(tradeoff > MAX_WIDTH) {
+      tradeoff = MAX_WIDTH;
     }
-    return this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
+    else if(tradeoff < 1 - MAX_WIDTH) {
+      tradeoff = 1 - MAX_WIDTH;
+    }
+    return tradeoff;
   }
+  
   totalDamageMitigated = 0;
   totalDamageLost = 0;
 
