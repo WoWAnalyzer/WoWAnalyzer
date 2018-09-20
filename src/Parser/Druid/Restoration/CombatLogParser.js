@@ -27,6 +27,7 @@ import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
 import Ironbark from './Modules/Features/Ironbark';
 import NaturesEssence from './Modules/Features/NaturesEssence';
+import ManaUsage from './Modules/Features/ManaUsage';
 
 import CenarionWard from './Modules/Talents/CenarionWard';
 import Cultivation from './Modules/Talents/Cultivation';
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cenarionWard: CenarionWard,
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
+    manaUsage: ManaUsage,
     // Items:
 
     // Azerite traits

@@ -3,10 +3,10 @@ import Headshot from './Images/Headshots/Aggramar.png';
 
 export default {
   id: 2122,
-  name: 'Ghuun',
+  name: 'G\'huun',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_ghuun',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props
