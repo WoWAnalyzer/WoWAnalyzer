@@ -1,5 +1,5 @@
-import Background from './Images/Backgrounds/Aggramar.jpg';
-import Headshot from './Images/Headshots/Aggramar.png';
+import Background from './Images/Backgrounds/Taloc.jpg';
+import Headshot from './Images/Headshots/Taloc.png';
 
 export default {
   id: 2144,

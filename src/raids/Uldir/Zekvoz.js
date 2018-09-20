@@ -1,5 +1,5 @@
-import Background from './Images/Backgrounds/Aggramar.jpg';
-import Headshot from './Images/Headshots/Aggramar.png';
+import Background from './Images/Backgrounds/Zekvoz.jpg';
+import Headshot from './Images/Headshots/Zekvoz.png';
 
 export default {
   id: 2136,

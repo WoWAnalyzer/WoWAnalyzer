@@ -1,5 +1,5 @@
-import Background from './Images/Backgrounds/Aggramar.jpg';
-import Headshot from './Images/Headshots/Aggramar.png';
+import Background from './Images/Backgrounds/MOTHER.jpg';
+import Headshot from './Images/Headshots/MOTHER.png';
 
 export default {
   id: 2141,
