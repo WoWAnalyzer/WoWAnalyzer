@@ -52,7 +52,7 @@ class UnstableAfflictionUptime extends Analyzer {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.every(id => !enemy.hasBuff(id))) {
       return;
     }
-    this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS); // TODO: does the UA that applied this buff also benefit from the buff?
+    this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
   }
 
   get uptime() {
@@ -60,12 +60,13 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   get suggestionThresholds() {
+    // TODO: adjust for Cascading Calamity (+5%)
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.6, // hard guessing
-        average: 0.45,
-        major: 0.3,
+        minor: 0.7,
+        average: 0.6,
+        major: 0.5,
       },
       style: 'percentage',
     };
