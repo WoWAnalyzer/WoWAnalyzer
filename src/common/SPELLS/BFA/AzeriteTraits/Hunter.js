@@ -30,4 +30,14 @@ export default {
     name: 'Feeding Frenzy',
     icon: 'ability_hunter_barbedshot',
   },
+  PRIMAL_INSTINCTS: {
+    id: 279806,
+    name: 'Primal Instincts',
+    icon: 'spell_nature_protectionformnature',
+  },
+  PRIMAL_INSTINCTS_BUFF: {
+    id: 279810,
+    name: 'Primal Instincts',
+    icon: 'spell_nature_protectionformnature',
+  },
 };

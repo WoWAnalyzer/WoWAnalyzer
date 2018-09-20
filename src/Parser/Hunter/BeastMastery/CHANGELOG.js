@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-09-20'),
+    changes: <React.Fragment>Added two azerite trait modules, one for <SpellLink id={SPELLS.PRIMAL_INSTINCTS.id} /> and an initial version for <SpellLink id={SPELLS.FEEDING_FRENZY.id} /></React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-12'),
     changes: <React.Fragment>Updated the <SpellLink id={SPELLS.BARBED_SHOT.id} /> statistic to be an expandable statistic box, to showcase uptime of 0->3 stacks separately.</React.Fragment>,
     contributors: [Putro],
