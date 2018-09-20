@@ -2,10 +2,9 @@ import React from 'react';
 import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SPELLS from 'common/SPELLS';
-
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
@@ -163,7 +162,7 @@ class ManaUsage extends Analyzer {
       return;
     }
     this.manaSpenderCasts[spellId].casts += 1;
-    this.manaSpenderCasts[spellId].manaUsed += event.classResources[0].cost || 0;
+    this.manaSpenderCasts[spellId].manaUsed += event.resourceCost[RESOURCE_TYPES.MANA.id] || 0;
   }
 
   manaUsageChart() {
