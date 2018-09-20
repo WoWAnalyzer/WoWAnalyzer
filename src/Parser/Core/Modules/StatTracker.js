@@ -6,13 +6,15 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'Parser/Core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
-import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned.js';
+import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'Parser/Paladin/Retribution/Modules/PaladinCore/AzeriteTraits/RelentlessInquisitor';
+import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/EternalRuneWeapon';
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
@@ -221,6 +223,7 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
+    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
       crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
     },
@@ -244,6 +247,7 @@ class StatTracker extends Analyzer {
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
+    [SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id]: ETERNAL_RUNE_WEAPON_STRENGTH, // Bonue Strength when DRW is up
     // endregion
     // region Monk
     [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {

@@ -11,7 +11,6 @@ import SPELLS from 'common/SPELLS';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
@@ -36,8 +35,13 @@ class Sniping extends Analyzer {
   totalNumOfAdds = 0;
   mobsSniped = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
+  }
+
   on_byPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id && event.ability.guid !== SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) {
+    if (event.ability.guid !== SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) {
       return;
     }
     if (this._lastEnergize !== event.timestamp) {
@@ -47,7 +51,7 @@ class Sniping extends Analyzer {
   }
 
   on_byPlayer_removedebuff(event) {
-    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid) && event.ability.guid !== SPELLS.DRAIN_SOUL_TALENT.id) {
+    if (event.ability.guid !== SPELLS.DRAIN_SOUL_TALENT.id) {
       return;
     }
     if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
@@ -57,7 +61,7 @@ class Sniping extends Analyzer {
       }
       if (enemy.type === 'NPC') {
         if (!this._removeDebuffs.some(e => e.timestamp === event.timestamp && e.targetID === event.targetID && e.targetInstance === event.targetInstance)) {
-          this._removeDebuffs.push({ timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance });
+          this._removeDebuffs.push({ timestamp: event.timestamp, targetID: event.targetID, targetInstance: event.targetInstance });
         }
       } else if (!this._lastEnergizeWasted) {
         // it's a boss kill and we didn't waste the shard, subtract it
@@ -68,13 +72,11 @@ class Sniping extends Analyzer {
 
   on_finished() {
     const allEnemies = this.enemies.getEntities();
-    this.totalNumOfAdds = Object.keys(allEnemies)
-      .map(x => allEnemies[x])
+    this.totalNumOfAdds = Object.values(allEnemies)
       .filter(enemy => enemy.type === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
-    this.active = this.totalNumOfAdds > 0;
     this.mobsSniped = this._removeDebuffs.length;
-    this._shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id) + this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) - this._subtractBossShards;
+    this._shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) - this._subtractBossShards;
   }
 
   get suggestionThresholds() {
@@ -92,7 +94,12 @@ class Sniping extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></React.Fragment>)
+        return suggest(
+            <React.Fragment>
+              You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
+              <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
+            </React.Fragment>
+        )
           .icon('ability_hunter_snipershot')
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`);

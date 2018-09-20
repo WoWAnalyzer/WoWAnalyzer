@@ -15,7 +15,7 @@ export default {
     icon: 'spell_nature_resistnature',
   },
   WAKING_DREAM_TRAIT: {
-    id: 278958,
+    id: 278513,
     name: 'Waking Dream',
     icon: 'inv_misc_head_dragon_green',
   },
@@ -25,12 +25,22 @@ export default {
     icon: 'spell_nature_lightning',
   },
   GROVE_TENDING_TRAIT: {
+    id: 279778,
+    name: 'Grove Tending',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  GROVE_TENDING: {
     id: 279793,
     name: 'Grove Tending',
     icon: 'inv_relics_idolofrejuvenation',
   },
   FUNGAL_ESSENCE_TRAIT: {
-    id: 272805,
+    id: 272802,
+    name: 'Fungal Essence',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  FUNGAL_ESSENCE: {
+    id: 272807,
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
