@@ -7,6 +7,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import StatisticBox from 'Interface/Others/StatisticBox';
 
@@ -70,6 +71,20 @@ class UnstableAfflictionUptime extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <React.Fragment>
+            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
+          </React.Fragment>
+        )
+          .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
+          .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {
