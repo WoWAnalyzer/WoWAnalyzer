@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-09-17'),
+      changes: 'Updated the checklist to better reflect the 8.0 playstyle',
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-09-07'),
       changes: <React.Fragment>Updated the <SpellLink id={SPELLS.HOWLING_BLAST.id} /> module allow for hardcasting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to apply <SpellLink id={SPELLS.FROST_FEVER.id} /></React.Fragment>,
       contributors: [Khazak],

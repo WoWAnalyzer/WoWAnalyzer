@@ -3,7 +3,6 @@ export default {
   name: 'Uldir',
   background: require('./Images/antorus.jpg').default,
   bosses: {
-    BloodElemental: require('./BloodElemental').default,
     Mother: require('./Mother').default,
     FetidDevourer: require('./FetidDevourer').default,
     Mythrax: require('./Mythrax').default,

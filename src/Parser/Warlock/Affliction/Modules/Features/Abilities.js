@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUMMON_DARKGLARE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 180, // TODO: can be shortened with Dreaful Calling trait
         gcd: {
           base: 1500,
         },

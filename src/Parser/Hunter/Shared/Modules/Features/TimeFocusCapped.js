@@ -70,15 +70,28 @@ class TimeFocusCapped extends Analyzer {
     );
   }
   get suggestionThresholds() {
-    return {
-      actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
-      isGreaterThan: {
-        minor: 0.025,
-        average: 0.05,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
+    if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
+      return {
+        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
+        isGreaterThan: {
+          minor: 0.05,
+          average: 0.075,
+          major: 0.125,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
+        isGreaterThan: {
+          minor: 0.025,
+          average: 0.05,
+          major: 0.1,
+        },
+        style: 'percentage',
+      };
+    }
+
   }
   suggestions(when) {
     if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {

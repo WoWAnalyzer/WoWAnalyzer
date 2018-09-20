@@ -457,3 +457,14 @@ export const Khadaj = {
     link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
   }],
 };
+export const fel1ne = {
+  nickname: 'fel1ne',
+  github: 'fel1n3',
+  discord: 'Dr. fel1ne#5614',
+  avatar: require('./images/fel1ne-avatar.png'),
+  mains: [{
+    name: 'Felerai',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://www.worldofwarcraft.com/en-us/character/khazgoroth/Felerai',
+  }],
+};

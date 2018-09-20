@@ -10,6 +10,31 @@ import Contributor from 'Interface/Contributor/Button';
 export default [
   {
     date: new Date('2018-09-16'),
+    changes: 'Added the players azerite traits to the character pane.',
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-09-17'),
+    changes: 'Added Azerite trait Laser Matrix.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-17'),
+    changes: <React.Fragment>Adds <ItemLink id={ITEMS.GALECALLERS_BOON.id} /> and <ItemLink id={ITEMS.HARLANS_LOADED_DICE.id} /> modules.</React.Fragment>,
+    contributors: [Putro],
+  },  
+  {
+    date: new Date('2018-09-17'),
+    changes: <React.Fragment>Added a <SpellLink id={SPELLS.ELEMENTAL_WHIRL.id} /> module.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-09-17'),
+    changes: <React.Fragment>Added a <ItemLink id={ITEMS.DARKMOON_DECK_FATHOMS.id} /> module.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-09-16'),
     changes: <React.Fragment>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</React.Fragment>,
     contributors: [joshinator],
   },

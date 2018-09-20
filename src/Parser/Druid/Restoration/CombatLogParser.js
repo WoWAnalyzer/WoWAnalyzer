@@ -27,6 +27,7 @@ import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
 import Ironbark from './Modules/Features/Ironbark';
 import NaturesEssence from './Modules/Features/NaturesEssence';
+import ManaUsage from './Modules/Features/ManaUsage';
 
 import CenarionWard from './Modules/Talents/CenarionWard';
 import Cultivation from './Modules/Talents/Cultivation';
@@ -35,6 +36,12 @@ import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
+
+import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
+import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
+import GroveTending from './Modules/Items/AzeriteTraits/GroveTending';
+import LaserMatrix from './Modules/Items/AzeriteTraits/LaserMatrixRestoDruid';
+import WakingDream from './Modules/Items/AzeriteTraits/WakingDream';
 
 import StatWeights from './Modules/Features/StatWeights';
 
@@ -84,7 +91,15 @@ class CombatLogParser extends CoreCombatLogParser {
     cenarionWard: CenarionWard,
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
+    manaUsage: ManaUsage,
     // Items:
+
+    // Azerite traits
+    fungalEssence: FungalEssence,
+    autumnLeaves: AutumnLeaves,
+    groveTending: GroveTending,
+    laserMatrix: LaserMatrix,
+    wakingDream: WakingDream,
 
     statWeights: StatWeights,
   };

@@ -29,6 +29,8 @@ class Flourish extends Analyzer {
 
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
   cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
+  tranqsExtended = 0;
+
   hasCenarionWard = false;
 
   rejuvCount = 0;
@@ -37,6 +39,7 @@ class Flourish extends Analyzer {
   regrowthCount = 0;
   sbCount = 0;
   cultCount = 0;
+  tranqCount = 0;
 
   // Counters for increased ticking rate of hots
   increasedRateTotalHealing = 0;
@@ -47,6 +50,7 @@ class Flourish extends Analyzer {
   increasedRateCultivationHealing = 0;
   increasedRateLifebloomHealing = 0;
   increasedRateRegrowthHealing = 0;
+  increasedRateTranqHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -83,11 +87,16 @@ class Flourish extends Analyzer {
             this.increasedRateRegrowthHealing += amount / 2;
           }
           break;
+        case SPELLS.TRANQUILITY_HEAL.id:
+          if (event.tick === true) {
+            this.increasedRateTranqHealing += amount / 2;
+          }
+          break;
         default:
           console.error('EssenceOfGhanir: Error, could not identify this object as a HoT: %o', event);
       }
 
-      if (SPELLS.REGROWTH.id === spellId && event.tick !== true) {
+      if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
         return;
       }
       this.increasedRateTotalHealing += amount / 2;
@@ -114,6 +123,7 @@ class Flourish extends Analyzer {
 
     let foundWg = false;
     let foundCw = false;
+    let foundTranq = false;
 
     Object.keys(this.hotTracker.hots).forEach(playerId => {
       Object.keys(this.hotTracker.hots[playerId]).forEach(spellIdString => {
@@ -137,6 +147,9 @@ class Flourish extends Analyzer {
           this.sbCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
+        } else if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
+          foundTranq = true;
+          this.tranqCount += 1;
         }
       });
     });
@@ -146,6 +159,9 @@ class Flourish extends Analyzer {
     }
     if (foundCw) {
       this.cwsExtended += 1;
+    }
+    if (foundTranq) {
+      this.tranqsExtended += 1;
     }
   }
 
@@ -238,6 +254,8 @@ class Flourish extends Analyzer {
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>`}
               ${this.cultivation === 0 ? '' :
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
+              ${this.traquility === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))}% from Tranquillity</li>`}
           </ul>
 
           The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
@@ -266,6 +284,10 @@ class Flourish extends Analyzer {
             }
             ${this.cultCount > 0
               ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>`
+              : ``
+            }
+            ${this.tranqCount > 0
+              ? `<li>${this.tranqsExtended}/${this.flourishCount} Tranquillities casts (${this.tranqCount} HoTs)</li>`
               : ``
             }
           </ul>

@@ -57,7 +57,6 @@ class MeticulousScheming extends Analyzer {
 
     if (event.ability.guid === SPELLS.SEIZE_THE_MOMENT.id) {
       this.seizeTheMomentProcs += 1;
-      return;
     }
   }
 
@@ -96,10 +95,10 @@ class MeticulousScheming extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.METICULOUS_SCHEMING.id}
-        value={`${this.averageHaste} Haste`}
+        value={`${this.averageHaste} average Haste`}
         tooltip={`
           ${SPELLS.METICULOUS_SCHEMING.name} grants <b>${this.haste} haste</b> while active.<br/>
-          You procced <b>${SPELLS.METICULOUS_SCHEMING_BUFF.name} ${this.meticulousSchemingProcs} times</b> and activated <b>${SPELLS.SEIZE_THE_MOMENT.name} ${this.seizeTheMomentProcs} times</b>.
+          You procced <b>${SPELLS.METICULOUS_SCHEMING_BUFF.name} ${this.meticulousSchemingProcs} times</b> and activated <b>${SPELLS.SEIZE_THE_MOMENT.name} ${this.seizeTheMomentProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
         `}
       />
     );

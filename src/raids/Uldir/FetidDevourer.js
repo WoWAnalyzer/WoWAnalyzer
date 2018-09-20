@@ -6,7 +6,7 @@ export default {
   name: 'Fetid Devourer',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_fetiddevourer',
   fight: {
     // vantusRuneBuffId: ,
     // TODO: Add fight specific props
