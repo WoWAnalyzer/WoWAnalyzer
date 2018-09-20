@@ -27,10 +27,10 @@ class SurgeOfLight extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SURGE_OF_LIGHT_BUFF.id) {
       if (event.stacksGained > 0) {
-        this.solStacksGained++;
+        this.solStacksGained += 1;
       } else {
         this.freeFlashHealPending = true;
-        this.solStacksSpent++;
+        this.solStacksSpent += 1;
       }
       this.currentSolStacks = event.newStacks;
     }

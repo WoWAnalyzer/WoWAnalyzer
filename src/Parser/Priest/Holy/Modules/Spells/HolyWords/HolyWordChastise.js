@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS/index';
 import HolyWordBase from './HolyWordBase';
 
+const SMITE_SERENDIPITY_REDUCTION = 4000;
+
 class HolyWordSanctify extends HolyWordBase {
   constructor(...args) {
     super(...args);
@@ -11,13 +13,13 @@ class HolyWordSanctify extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.SMITE.id]: {
         baseReduction: () => {
-          return 4000;
+          return SMITE_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return 4000 * this.lightOfTheNaruMultiplier;
+          return SMITE_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 4000 * this.apotheosisMultiplier;
+          return SMITE_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
     };

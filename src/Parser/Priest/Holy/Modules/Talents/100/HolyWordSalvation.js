@@ -51,7 +51,7 @@ class HolyWordSalvation extends Analyzer {
     if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.healingFromSalv += event.amount | 0;
       this.overhealingFromSalv += event.overhealing | 0;
-      this.salvTicks++;
+      this.salvTicks += 1;
     }
   }
 
@@ -62,7 +62,7 @@ class HolyWordSalvation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.HOLY_WORD_SALVATION_TALENT.id} />}
         value={(
-            <ItemHealingDone amount={this.totalHealing} />
+          <ItemHealingDone amount={this.totalHealing} />
         )}
         label="Holy Word: Salvation"
         tooltip={`

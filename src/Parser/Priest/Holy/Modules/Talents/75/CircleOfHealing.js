@@ -7,7 +7,7 @@ import React from 'react';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 
-// Example Log: http://localhost:3000/report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
+// Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class CircleOfHealing extends Analyzer {
   circleOfHealingCasts = 0;
   circleOfHealingHealing = 0;

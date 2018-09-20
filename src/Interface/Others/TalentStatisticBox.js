@@ -34,14 +34,8 @@ const TalentStatisticBox = ({ trait, icon, label, value, tooltip, containerProps
 };
 TalentStatisticBox.propTypes = {
   trait: PropTypes.number,
-  /**
-   * Override the trait's icon.
-   */
-  icon: PropTypes.node,
-  /**
-   * Override the trait's label.
-   */
-  label: PropTypes.node,
+  icon: PropTypes.node, // Override the trait's icon.
+  label: PropTypes.node, // Override the trait's label.
   value: PropTypes.node.isRequired,
   tooltip: PropTypes.string,
   containerProps: PropTypes.object,

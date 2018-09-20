@@ -55,7 +55,7 @@ class HolyWordsReductionBySpell extends Analyzer {
   statistic() {
     const reductionRatio = this.totalReduction / (this.owner.fightDuration + this.totalReduction);
     const reductionBySpell = this.reductionBySpell;
-    console.log(Object.keys(reductionBySpell));
+
     return (
       <ExpandableStatisticBox
         position={STATISTIC_ORDER.CORE(6)}

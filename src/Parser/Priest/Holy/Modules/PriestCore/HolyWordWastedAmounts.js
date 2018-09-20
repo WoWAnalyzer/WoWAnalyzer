@@ -30,11 +30,10 @@ class HolyWordWastedAmounts extends Analyzer {
           ${formatNumber(this.serenity.holyWordWastedCooldown / 1000)}s wasted Serenity reduction (of ${formatNumber(this.serenity.totalCooldownReduction / 1000)}s total)<br/>
           ${formatNumber(this.sanctify.holyWordWastedCooldown / 1000)}s wasted Sanctify reduction (of ${formatNumber(this.sanctify.totalCooldownReduction / 1000)}s total)<br/>
         `}
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 

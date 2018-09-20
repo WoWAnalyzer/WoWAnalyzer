@@ -116,7 +116,7 @@ class HolyWordBase extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === this.spellId) {
       this.holyWordCasts++;
-      this.remainingCooldown = 60000;
+      this.remainingCooldown = this.baseCooldown;
 
       if (this.apotheosisActive) {
         this.apotheosisManaReduction += this.manaCost;

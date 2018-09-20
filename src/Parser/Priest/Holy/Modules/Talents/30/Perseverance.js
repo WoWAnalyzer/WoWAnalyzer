@@ -51,9 +51,9 @@ class Perseverance extends Analyzer {
         value={(
           <ItemHealingDone amount={this.totalDamageReduced} />
         )}
-        label="Preserverance"
+        label="Perseverance"
         tooltip={`
-          Preserverance Uptime: ${formatPercentage(this.uptime)}%<br />
+          Perseverance Uptime: ${formatPercentage(this.uptime)}%<br />
           Damage Reduced: ${formatThousands(this.totalDamageReduced)}
           `}
         position={STATISTIC_ORDER.CORE(2)}

@@ -7,7 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
-// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
+// Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {
   totalHealing = 0;
   overhealing = 0;

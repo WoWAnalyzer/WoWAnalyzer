@@ -1,6 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import HolyWordBase from './HolyWordBase';
 
+const GREATER_HEAL_SERENDIPITY_REDUCTION = 6000;
+const FLASH_HEAL_SERENDIPITY_REDUCTION = 6000;
+const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
+
 class HolyWordSerenity extends HolyWordBase {
   constructor(...args) {
     super(...args);
@@ -10,35 +14,35 @@ class HolyWordSerenity extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.GREATER_HEAL.id]: {
         baseReduction: () => {
-          return this.serendipityReduction;
+          return GREATER_HEAL_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier;
+          return GREATER_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier;
+          return GREATER_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
       [SPELLS.FLASH_HEAL.id]: {
         baseReduction: () => {
-          return this.serendipityReduction;
+          return FLASH_HEAL_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier;
+          return FLASH_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier;
+          return FLASH_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
       [SPELLS.BINDING_HEAL_TALENT.id]: {
         baseReduction: () => {
-          return this.serendipityReduction * .5;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return this.serendipityReduction * this.lightOfTheNaruMultiplier * .5;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return this.serendipityReduction * this.apotheosisMultiplier * .5;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
     };

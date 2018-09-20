@@ -7,6 +7,7 @@ import React from 'react';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 
+// Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class Halo extends Analyzer {
   haloDamage = 0;
   haloHealing = 0;
@@ -38,7 +39,7 @@ class Halo extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HALO_TALENT.id) {
-      this.haloCasts++;
+      this.haloCasts += 1;
     }
   }
 

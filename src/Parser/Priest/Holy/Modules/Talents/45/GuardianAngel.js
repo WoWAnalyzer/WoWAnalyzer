@@ -6,6 +6,8 @@ import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
+const GUARDIAN_SPIRIT_HEALING_MULTIPLIER = .4;
+
 // Example Log: /report/mFarpncVW9ALwTq4/7-Mythic+Zek'voz+-+Kill+(8:52)/14-Praydien
 class GuardianAngel extends Analyzer {
   guardianSpiritCasts = 0;
@@ -59,7 +61,7 @@ class GuardianAngel extends Analyzer {
 
     if (this.spiritedTarget != null) {
       // TODO: This is not accurate, but it's close enough for now.
-      this.guardianSpiritBonusHealingFromSelf += event.amount * .4;
+      this.guardianSpiritBonusHealingFromSelf += event.amount * GUARDIAN_SPIRIT_HEALING_MULTIPLIER;
     }
   }
 

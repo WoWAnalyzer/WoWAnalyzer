@@ -1,44 +1,50 @@
 import SPELLS from 'common/SPELLS/index';
 import HolyWordBase from './HolyWordBase';
 
+const PRAYER_OF_HEALING_SERENDIPITY_REDUCTION = 6000;
+const RENEW_SERENDIPITY_REDUCTION = 2000;
+const WORD_OF_MENDING_SERENDIPITY_REDUCTION = 2000;
+const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
+
 class HolyWordSanctify extends HolyWordBase {
   constructor(...args) {
     super(...args);
 
+    this.serendipityReduction = 6000;
     this.spellId = SPELLS.HOLY_WORD_SANCTIFY.id;
     this.manaCost = 5000;
     this.serendipityProccers = {
       [SPELLS.PRAYER_OF_HEALING.id]: {
         baseReduction: () => {
-          return 6000;
+          return PRAYER_OF_HEALING_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return 6000 * this.lightOfTheNaruMultiplier;
+          return PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 6000 * this.apotheosisMultiplier;
+          return PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
       [SPELLS.BINDING_HEAL_TALENT.id]: {
         baseReduction: () => {
-          return 3000;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return 3000 * this.lightOfTheNaruMultiplier;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 3000 * this.apotheosisMultiplier;
+          return BINDING_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
       [SPELLS.RENEW.id]: {
         baseReduction: () => {
-          return 2000;
+          return RENEW_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return 2000 * this.lightOfTheNaruMultiplier;
+          return RENEW_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 2000 * this.apotheosisMultiplier;
+          return RENEW_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       },
     };
@@ -47,13 +53,13 @@ class HolyWordSanctify extends HolyWordBase {
     if (this.selectedCombatant.hasTrait(SPELLS.WORD_OF_MENDING.id)) {
       this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
         baseReduction: () => {
-          return 2000;
+          return WORD_OF_MENDING_SERENDIPITY_REDUCTION;
         },
         lightOfTheNaaruReduction: () => {
-          return 2000 * this.lightOfTheNaruMultiplier;
+          return WORD_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier;
         },
         apotheosisReduction: () => {
-          return 2000 * this.apotheosisMultiplier;
+          return WORD_OF_MENDING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier;
         },
       };
     }

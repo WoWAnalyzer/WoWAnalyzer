@@ -39,7 +39,7 @@ class DivineStar extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.DIVINE_STAR_TALENT.id) {
-      this.divineStarCasts++;
+      this.divineStarCasts+=1;
     }
   }
 
@@ -56,7 +56,7 @@ class DivineStar extends Analyzer {
           </React.Fragment>
         )}
         label="Divine Star"
-        tooltip={`Divine Star Cast: ${this.divineStarCasts}`}
+        tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />
 

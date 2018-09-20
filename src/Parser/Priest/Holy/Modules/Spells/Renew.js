@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
+const MS_BUFFER = 100;
 
 class Renew extends Analyzer {
   totalRenewHealing = 0;
@@ -60,10 +61,10 @@ class Renew extends Analyzer {
     if (spellId === SPELLS.RENEW.id) {
       this.totalRenewApplications++;
 
-      if (event.timestamp - this.lastSalvationCast < 100) {
+      if (event.timestamp - this.lastSalvationCast < MS_BUFFER) {
         this.renewsFromSalv++;
       }
-      else if (event.timestamp - this.lastErSpellCast < 100) {
+      else if (event.timestamp - this.lastErSpellCast < MS_BUFFER) {
         this.renewsFromEnduringRenewal++;
       } else {
         this.renewsFromBenedictionAndRenew++;

@@ -22,6 +22,8 @@ class LightOfTheNaaru extends Analyzer {
   }
 
   statistic() {
+    console.log(this.serenity);
+    console.log(this.sanctify);
     return (
 
       <TalentStatisticBox
@@ -30,8 +32,8 @@ class LightOfTheNaaru extends Analyzer {
         value={`${Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction`}
         label="Light of the Naaru"
         tooltip={`
-          Serenity: ${Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
-          Sanctify: ${Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
+          Serenity: ${Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
+          Sanctify: ${Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
           Chastise: ${Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
         `}
         position={STATISTIC_ORDER.CORE(7)}
