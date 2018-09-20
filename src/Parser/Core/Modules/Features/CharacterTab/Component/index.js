@@ -9,6 +9,7 @@ import Stats from './Stats';
 import Talents from './Talents';
 import Gear from './Gear';
 import Race from './Race';
+import Azerite from './Azerite';
 
 class CharacterTab extends React.PureComponent {
   static propTypes = {
@@ -32,6 +33,11 @@ class CharacterTab extends React.PureComponent {
         <div className="row">
           <div className="col-sm-12">
             <Gear gear={Object.values(combatant._gearItemsBySlotId)} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <Azerite azerite={combatant.traitsBySpellId} />
           </div>
         </div>
         <div className="row">
