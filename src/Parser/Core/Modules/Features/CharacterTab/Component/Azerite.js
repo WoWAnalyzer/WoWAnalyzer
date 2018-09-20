@@ -96,8 +96,8 @@ class Gear extends React.PureComponent {
                     <Icon icon={spell ? spell.icon : FALLBACK_ICON} style={{ border: '3px solid currentColor' }} />
                   </SpellLink>
                 </div>  
-              )}
-            )}
+              );
+            })}
           </div>
         </div>
       </React.Fragment>
