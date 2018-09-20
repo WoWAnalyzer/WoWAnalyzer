@@ -91,7 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cenarionWard: CenarionWard,
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
-    ManaUsage: ManaUsage,
+    manaUsage: ManaUsage,
     // Items:
 
     // Azerite traits
