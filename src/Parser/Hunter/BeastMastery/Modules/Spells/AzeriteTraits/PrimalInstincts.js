@@ -21,7 +21,7 @@ export const STAT_TRACKER = {
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of Barbed Shot.
  *
- * Example report: https://www.warcraftlogs.com/reports/Nt9KGvDncPmVyjpd#boss=-2&difficulty=0&type=summary&source=9
+ * Example report: https://www.warcraftlogs.com/reports/QdrGMj1wFqnacXNW#fight=1&type=auras&source=13
  */
 class PrimalInstincts extends Analyzer {
   mastery = 0;
