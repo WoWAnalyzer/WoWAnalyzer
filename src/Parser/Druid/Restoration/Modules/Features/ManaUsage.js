@@ -167,21 +167,16 @@ class ManaUsage extends Analyzer {
   }
 
   manaUsageChart() {
-    let totalmanaUsed = 0;
-    const items = [];
+    const usedSpells = LIST_OF_MANA_SPENDERS.filter(id => this.manaSpenderCasts[id].casts > 0 && this.manaSpenderCasts[id].manaUsed > 0);
+    const totalmanaUsed = usedSpells.reduce((total, id) => total + this.manaSpenderCasts[id].manaUsed, 0);
+    const items = usedSpells.map(id => ({
+      color: this.manaSpenderCasts[id].color,
+      label: this.manaSpenderCasts[id].name,
+      spellId: id,
+      value: Math.round(this.manaSpenderCasts[id].manaUsed),
+      casts: this.manaSpenderCasts[id].casts,
+    }));
 
-    LIST_OF_MANA_SPENDERS.forEach(id => {
-      if (this.manaSpenderCasts[id].casts > 0 && this.manaSpenderCasts[id].manaUsed > 0) {
-        items.push({
-          color: this.manaSpenderCasts[id].color,
-          label: this.manaSpenderCasts[id].name,
-          spellId: id,
-          value: Math.round(this.manaSpenderCasts[id].manaUsed),
-          casts: this.manaSpenderCasts[id].casts,
-        });
-        totalmanaUsed += this.manaSpenderCasts[id].manaUsed;
-      }
-    });
     return (
       <div className="flex">
         <div className="flex-sub" style={{ paddingRight: 12 }}>
@@ -191,8 +186,7 @@ class ManaUsage extends Analyzer {
           {this.legend(items, totalmanaUsed.toFixed(1))}
         </div>
       </div>
-    )
-      ;
+    );
   }
 
   statistic() {
@@ -211,7 +205,6 @@ class ManaUsage extends Analyzer {
       </StatisticWrapper>
     );
   }
-
 }
 
 export default ManaUsage;
