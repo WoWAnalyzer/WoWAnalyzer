@@ -5,13 +5,13 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
-import SanctifyReduction from 'Parser/Priest/Holy/Modules/PriestCore/HolyWords/ReductionCalculators/SanctifyReduction';
+import HolyWordSanctify from 'Parser/Priest/Holy/Modules/Spells/HolyWords/HolyWordSanctify';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class WordOfMending extends Analyzer {
   static dependencies = {
-    sanctify: SanctifyReduction,
+    sanctify: HolyWordSanctify,
   };
 
   totalWoM = 0;
@@ -54,7 +54,7 @@ class WordOfMending extends Analyzer {
         value={(
           <React.Fragment>
             <ItemHealingDone amount={this.totalAdditionalHealing} /><br />
-            {formatNumber(this.sanctify.reductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id]/1000)}s Sanctify Cooldown
+            {formatNumber(this.sanctify.baseHolyWordReductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id] / 1000)}s Sanctify Cooldown
           </React.Fragment>
         )}
         tooltip={`

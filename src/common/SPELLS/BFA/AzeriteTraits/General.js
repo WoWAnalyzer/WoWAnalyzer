@@ -176,4 +176,14 @@ export default {
     name: 'Overwhelming Power',
     icon: 'ability_vehicle_electrocharge',
   },
+  BLOOD_RITE: {
+    id: 280407,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
+  BLOOD_RITE_BUFF: {
+    id: 280409,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
 };
