@@ -197,19 +197,19 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.sanctifyReduction.rawReduction / 1000}</td>
+                <td>{parser._modules.holyWordSanctify.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.serenityReduction.rawReduction / 1000}</td>
+                <td>{parser._modules.holyWordSerenity.rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.sanctifyReduction.overcast / 1000}</td>
+                <td>{parser._modules.holyWordSanctify.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.serenityReduction.overcast / 1000}</td>
+                <td>{parser._modules.holyWordSerenity.overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
@@ -359,7 +359,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>{parser._modules.cosmicRipple.totalHits / parser._modules.cosmicRipple.totalRipples}</td>
+                <td>{parser._modules.CosmicRipple.totalHits/parser._modules.CosmicRipple.totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>

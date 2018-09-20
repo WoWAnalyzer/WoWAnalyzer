@@ -11,14 +11,15 @@ import Abilities from './Modules/Abilities';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 // Spell data
 import DivineHymn from './Modules/Spells/DivineHymn';
-import HolyWordSanctify from './Modules/Spells/HolyWordSanctify';
+import HolyWordSanctify from './Modules/Spells/HolyWords/HolyWordSanctify';
+import HolyWordSerenity from './Modules/Spells/HolyWords/HolyWordSerenity';
+import HolyWordChastise from './Modules/Spells/HolyWords/HolyWordChastise';
 import SpiritOfRedemption from './Modules/Spells/SpiritOfRedemption';
 import HymnBuffBenefit from './Modules/Spells/HymnBuffBenefit';
+import Renew from './Modules/Spells/Renew';
+import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 //Talents
-import TrailOfLight from './Modules/Talents/TrailOfLight';
-import CosmicRipple from './Modules/Talents/CosmicRipple';
-import Perseverance from './Modules/Talents/Perseverance';
-import EnduringRenewal from './Modules/Talents/EnduringRenewal';
+import Talents from './Modules/Talents';
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Checklist from './Modules/Checklist/Module';
@@ -28,12 +29,9 @@ import HealingReceived from './Modules/Features/HealingReceived';
 import HealingTargetTracker from './Modules/Features/HealingTargetTracker';
 // Priest Core
 import EchoOfLight_Mastery from './Modules/PriestCore/EchoOfLight_Mastery';
-import SerendipityWastedAmounts from './Modules/PriestCore/HolyWords/SerendipityWastedAmounts';
-import SanctifyReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SanctifyReduction';
-import SerenityReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/SerenityReduction';
-import HolyWordsReduction from './Modules/PriestCore/HolyWords/ReductionCalculators/HolyWordsReduction';
 import Fortitude_RaidBuff from './Modules/PriestCore/Fortitude_RaidBuff';
-import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWords/HolyWordsReductionBySpell';
+import HolyWordsReductionBySpell from './Modules/PriestCore/HolyWordsReductionBySpell';
+import HolyWordWastedAmounts from './Modules/PriestCore/HolyWordWastedAmounts';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 // Azerite
@@ -65,24 +63,48 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     echoOfLight_Mastery: EchoOfLight_Mastery,
-    serendipityWastedAmounts: SerendipityWastedAmounts,
-    sanctifyReduction: SanctifyReduction,
-    serenityReduction: SerenityReduction,
-    holyWordsReduction: HolyWordsReduction,
     fortitude_RaidBuff: Fortitude_RaidBuff,
     holyWordsReductionBySpell: HolyWordsReductionBySpell,
+    holyWordWastedAmounts: HolyWordWastedAmounts,
 
     // Spells
     divineHymn: DivineHymn,
     hymnBuffBenefit: HymnBuffBenefit,
     holyWordSanctify: HolyWordSanctify,
+    holyWordSerenity: HolyWordSerenity,
+    holyWordChastise: HolyWordChastise,
     spiritOfRedemption: SpiritOfRedemption,
+    renew: Renew,
+    prayerOfMending: PrayerOfMending,
 
     // Talents
-    trailOfLight: TrailOfLight,
-    cosmicRipple: CosmicRipple,
-    perseverance: Perseverance,
-    enduringRenewal: EnduringRenewal,
+    Enlightenment: Talents.talents_15.Enlightenment,
+    TrailOfLight: Talents.talents_15.TrailOfLight,
+    EnduringRenewal: Talents.talents_15.EnduringRenewal,
+
+    AngelicFeather: Talents.talents_30.AngelicFeather,
+    AngelsMercy: Talents.talents_30.AngelsMercy,
+    Perseverance: Talents.talents_30.Perseverance,
+
+    GuardianAngel: Talents.talents_45.GuardianAngel,
+    Afterlife: Talents.talents_45.Afterlife,
+    CosmicRipple: Talents.talents_45.CosmicRipple,
+
+    Censure: Talents.talents_60.Censure,
+    ShiningForce: Talents.talents_60.ShiningForce,
+    PsychicVoice: Talents.talents_60.PsychicVoice,
+
+    SurgeOfLight: Talents.talents_75.SurgeOfLight,
+    CircleOfHealing: Talents.talents_75.CircleOfHealing,
+    BindingHeal: Talents.talents_75.BindingHeal,
+
+    Halo: Talents.talents_90.Halo,
+    Benediction: Talents.talents_90.Benediction,
+    DivineStar: Talents.talents_90.DivineStar,
+
+    LightOfTheNaru: Talents.talents_100.LightOfTheNaaru,
+    HolyWordSalvation: Talents.talents_100.HolyWordSalvation,
+    Apotheosis: Talents.talents_100.Apotheosis,
 
     // Azerite
     blessedSanctuary: BlessedSanctuary,
