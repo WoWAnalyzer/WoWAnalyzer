@@ -10,9 +10,11 @@ import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../Azerite
 /**
  When Innervate expires, your Intellect is increased by 77 for each spell the target cast using Innervate. Lasts 20 sec.
  TODO - The implementation of this can be more sophisticated, i.e. calculating the actual gain per heal occurring during lively spirit.
+ TODO - Assumes that the druid cast innervate on themselves, is it possible to track this for targetId as well or tracking the int buff in any other way? :thinking:
  */
 
 const LIVELY_SPIRIT_DURATION = 20000;
+const INNERVATE_DURATION = 12000;
 
 class LivelySpirit extends Analyzer{
   static dependencies = {
@@ -41,6 +43,7 @@ class LivelySpirit extends Analyzer{
   castsDuringInnervate = 1;
   intGainPerSpell = 0;
   livelySpirits = [];
+  innervateTimestamp = 0;
 
   constructor(...args){
     super(...args);
@@ -57,7 +60,14 @@ class LivelySpirit extends Analyzer{
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id) && this.ABILITIES_BUFFING_LIVELY_SPIRIT.includes(spellId)) {
+    if(SPELLS.INNERVATE.id === spellId && event.sourceId === event.targetId) {
+      this.innervateTimestamp = event.timestamp;
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
+          && this.ABILITIES_BUFFING_LIVELY_SPIRIT.includes(spellId)
+          && this.innervateTimestamp !== 0
+          && (this.innervateTimestamp+INNERVATE_DURATION) >= event.timestamp) {
       this.castsDuringInnervate++;
     }
   }
@@ -66,7 +76,8 @@ class LivelySpirit extends Analyzer{
     const spellId = event.ability.guid;
     if (SPELLS.LIVELY_SPIRIT_BUFF.id === spellId) {
       this.livelySpirits.push(this.intGainPerSpell * this.castsDuringInnervate);
-      this.castsDuringInnervate = 0;
+      this.castsDuringInnervate = 1;
+      this.innervateTimestamp = 0;
     }
   }
 
@@ -86,7 +97,8 @@ class LivelySpirit extends Analyzer{
             {formatNumber(this.intGain)} average Intellect gained.<br />
           </React.Fragment>
         )}
-        tooltip={`This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />
+        tooltip={`This assumes that you cast your innervates on yourself. <br />
+                  This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />
                   This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)} per level) item levels.`}
       />
     );
