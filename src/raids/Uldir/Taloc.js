@@ -6,7 +6,7 @@ export default {
   name: 'Taloc',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_talocthecorrupted',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props
