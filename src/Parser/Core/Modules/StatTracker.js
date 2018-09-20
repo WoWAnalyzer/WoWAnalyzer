@@ -9,6 +9,7 @@ import { STAT_TRACKER as GEMHIDE_STATS } from 'Parser/Core/Modules/Spells/BFA/Az
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
+import { STAT_TRACKER as BLOOD_RITE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/BloodRite';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned';
@@ -224,6 +225,7 @@ class StatTracker extends Analyzer {
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
     [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
+    [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS, 
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
       crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
     },
