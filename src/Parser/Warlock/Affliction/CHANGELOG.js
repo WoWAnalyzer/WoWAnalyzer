@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-09-20'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> uptime module and added it into Checklist.</React.Fragment>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-09-20'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} icon /> module and made updates to <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /> module.</React.Fragment>,
     contributors: [Chizu],
   },
