@@ -13,6 +13,8 @@ import Crusade from '../../Talents/Crusade';
 import Inquisition from '../../Talents/Inquisition';
 import RighteousVerdict from '../../Talents/RighteousVerdict';
 import ShieldOfVengeance from '../../PaladinCore/ShieldOfVengeance';
+import RelentlessInquisitor from '../../PaladinCore/AzeriteTraits/RelentlessInquisitor';
+//import RelentlessInquisitorStackHandler from '../../PaladinCore/AzeriteTraits/RelentlessInquisitorStackHandler';
 
 import Component from './Component';
 
@@ -30,6 +32,8 @@ class Checklist extends Analyzer {
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
     shieldOfVengeance: ShieldOfVengeance,
+    relentlessInquisitor: RelentlessInquisitor,
+    //relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
   };
   render() {
     return (
@@ -47,6 +51,7 @@ class Checklist extends Analyzer {
           inquisition: this.inquisition.suggestionThresholds,
           righteousVerdict: this.righteousVerdict.suggestionThresholds,
           shieldOfVengeance: this.shieldOfVengeance.suggestionThresholds,
+          relentlessInquisitor: this.relentlessInquisitor.suggestionThresholds,
         }}
       />
     );
