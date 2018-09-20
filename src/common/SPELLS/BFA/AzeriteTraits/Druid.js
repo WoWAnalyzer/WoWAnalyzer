@@ -49,4 +49,14 @@ export default {
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  SYNERGISTIC_GROWTH: {
+    id: 267892,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  SYNERGISTIC_GROWTH_BUFF: {
+    id: 272090,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
 };

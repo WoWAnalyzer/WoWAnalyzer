@@ -1,13 +1,14 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'Parser/Core/Analyzer';
-import { formatThousands } from 'common/format';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+import ItemHealingDone from 'Interface/Others/ItemHealingDone';
 
+// Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {
-
   totalHealing = 0;
   overhealing = 0;
   absorbed = 0;
@@ -38,17 +39,18 @@ class CosmicRipple extends Analyzer {
   statistic() {
     return (
 
-      <StatisticBox
+      <TalentStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
-        value={this.owner.formatItemHealingDone(this.totalHealing)}
-        label="Cosmic Ripple Healing"
-        tooltip={`<strong>Total Healing:</strong> ${formatThousands(this.totalHealing)}<br>
-                  <strong>Total Overhealing:</strong> ${formatThousands(this.overhealing)}`}
+        value={(
+          <ItemHealingDone amount={this.totalHealing} />
+        )}
+        label="Cosmic Ripple"
+        position={STATISTIC_ORDER.CORE(3)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default CosmicRipple;

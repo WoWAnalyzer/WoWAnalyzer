@@ -208,7 +208,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HOLY_WORD_CHASTICE,
+        spell: SPELLS.HOLY_WORD_CHASTISE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: 60, // gets reduced by Smite
         gcd: {
