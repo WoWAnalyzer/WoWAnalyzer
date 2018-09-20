@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import SpellLink from 'common/SpellLink';
-const debug = false;
 
 const GENERATORS = [
   SPELLS.RAGING_BLOW,
@@ -16,17 +15,6 @@ const GENERATORS = [
 
 class MissedRampage extends Analyzer {
   missedRampages = 0;
-  Enraged = false;
-  rampage_cost = 85;
-
-  constructor(...args) {
-    super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.CARNAGE_TALENT.id)) {
-      this.rampage_cost = 75;
-    } else if (this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
-      this.rampage_cost = 95;
-    }
-  }
 
   isGenerator(spellId) {
     return !!GENERATORS.find(generator => generator.id === spellId);

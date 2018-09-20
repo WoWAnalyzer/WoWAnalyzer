@@ -8,10 +8,6 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  get deadTimePercentage() {
-    return this.totalTimeWasted / this.owner.fightDuration;
-  }
-
   get downtimeSuggestionThresholds() {
     return {
       actual: this.downtimePercentage,
