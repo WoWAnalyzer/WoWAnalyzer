@@ -15,6 +15,7 @@ import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spe
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'Parser/Paladin/Retribution/Modules/PaladinCore/AzeriteTraits/RelentlessInquisitor';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/EternalRuneWeapon';
+
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
