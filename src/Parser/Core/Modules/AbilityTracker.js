@@ -2,13 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import SpellManaCost from './SpellManaCost';
-
 class AbilityTracker extends Analyzer {
-  static dependencies = {
-    spellManaCost: SpellManaCost,
-  };
-
   abilities = {};
 
   on_byPlayer_cast(event) {

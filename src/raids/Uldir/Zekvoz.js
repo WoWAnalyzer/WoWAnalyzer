@@ -1,12 +1,12 @@
-import Background from './Images/Backgrounds/Aggramar.jpg';
-import Headshot from './Images/Headshots/Aggramar.png';
+import Background from './Images/Backgrounds/Zekvoz.jpg';
+import Headshot from './Images/Headshots/Zekvoz.png';
 
 export default {
   id: 2136,
-  name: 'Zekvoz',
+  name: 'Zek\'voz',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_zekvoz',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props
