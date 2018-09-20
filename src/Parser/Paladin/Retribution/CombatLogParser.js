@@ -21,6 +21,7 @@ import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
 import RelentlessInquisitor from './Modules/PaladinCore/AzeriteTraits/RelentlessInquisitor';
+import RelentlessInquisitorStackHandler from './Modules/PaladinCore/AzeriteTraits/RelentlessInquisitorStackHandler';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite
     relentlessInquisitor: RelentlessInquisitor,
+    relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
   };
 }
 

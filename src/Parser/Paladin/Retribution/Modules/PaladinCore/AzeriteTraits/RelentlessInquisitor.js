@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
+import RelentlessInquisitorStackHandler from './RelentlessInquisitorStackHandler';
 
 const relentlessInquisitorStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.RELENTLESS_INQUISITOR.id, rank);
@@ -23,6 +24,9 @@ export const STAT_TRACKER = {
  *
  * */
 class RelentlessInquisitor extends Analyzer {
+  static dependencies = {
+    relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
+  };
   hasteBuff = 0;
 
   constructor(...args) {
@@ -35,7 +39,7 @@ class RelentlessInquisitor extends Analyzer {
     }
   }
   get averageStacks() {
-    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.RELENTLESS_INQUISITOR_BUFF.id) / this.owner.fightDuration;
+    return this.relentlessInquisitorStackHandler.averageStacks;
   }
 
   get averageStatGain() {
