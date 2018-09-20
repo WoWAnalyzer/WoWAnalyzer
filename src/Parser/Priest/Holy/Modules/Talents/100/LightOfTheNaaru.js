@@ -22,8 +22,6 @@ class LightOfTheNaaru extends Analyzer {
   }
 
   statistic() {
-    console.log(this.serenity);
-    console.log(this.sanctify);
     return (
 
       <TalentStatisticBox
