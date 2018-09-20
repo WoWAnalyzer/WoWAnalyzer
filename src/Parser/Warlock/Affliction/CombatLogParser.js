@@ -18,6 +18,7 @@ import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
 import Deathbolt from './Modules/Talents/Deathbolt';
+import Haunt from './Modules/Talents/Haunt';
 
 import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
 import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
     deathbolt: Deathbolt,
+    haunt: Haunt,
 
     // Legendaries
     masterHarvester: TheMasterHarvester,
