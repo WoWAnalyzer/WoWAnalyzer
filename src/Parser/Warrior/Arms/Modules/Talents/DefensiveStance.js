@@ -85,7 +85,7 @@ class DefensiveStance extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
-        value={`≈${formatNumber(this.drps)} DRPS`}
+        value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
         tooltip={tooltip}
         footer={footer}
