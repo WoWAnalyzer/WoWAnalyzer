@@ -85,10 +85,10 @@ class KillingMachineEfficiency extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment> You are wasting <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} />as within 1 or 2 GCDs when you have a Killing Machine proc to avoid wasting it.  See one of the guides in the sidebar for more information on when another ability takes precedence over spending Killing Machine</React.Fragment>)
+        return suggest(<React.Fragment> You are wasting <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it.  See one of the guides in the sidebar for more information on when another ability takes precedence over spending Killing Machine</React.Fragment>)
           .icon(SPELLS.KILLING_MACHINE.icon)
-          .actual(`${formatPercentage(this.expiredKMProcs)}% of Killing Machine procs were either refreshed and lost or expired without being used`)
-          .recommended(`<${recommended} is recommended`);
+          .actual(`${formatPercentage(this.wastedProcRate)}% of Killing Machine procs were either refreshed and lost or expired without being used`)
+          .recommended(`>${recommended}% is recommended`);
       });
   }
 
