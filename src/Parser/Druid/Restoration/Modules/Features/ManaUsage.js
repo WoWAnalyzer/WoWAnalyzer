@@ -169,13 +169,15 @@ class ManaUsage extends Analyzer {
   manaUsageChart() {
     const usedSpells = LIST_OF_MANA_SPENDERS.filter(id => this.manaSpenderCasts[id].casts > 0 && this.manaSpenderCasts[id].manaUsed > 0);
     const totalmanaUsed = usedSpells.reduce((total, id) => total + this.manaSpenderCasts[id].manaUsed, 0);
-    const items = usedSpells.map(id => ({
-      color: this.manaSpenderCasts[id].color,
-      label: this.manaSpenderCasts[id].name,
-      spellId: id,
-      value: Math.round(this.manaSpenderCasts[id].manaUsed),
-      casts: this.manaSpenderCasts[id].casts,
-    }));
+    const items = usedSpells
+      .map(id => ({
+        color: this.manaSpenderCasts[id].color,
+        label: this.manaSpenderCasts[id].name,
+        spellId: id,
+        value: Math.round(this.manaSpenderCasts[id].manaUsed),
+        casts: this.manaSpenderCasts[id].casts,
+      }))
+      .sort((a, b) => b.value - a.value);
 
     return (
       <div className="flex">
