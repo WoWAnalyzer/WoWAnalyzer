@@ -4,18 +4,17 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { withRouter } from 'react-router-dom';
 
-import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
+import { ApiDownError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import fetchEvents from 'common/fetchEvents';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
-import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getReportCode, getResultTab } from 'Interface/selectors/url/report';
+import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
-import { fetchReport } from 'Interface/actions/report';
 import { setReportProgress } from 'Interface/actions/reportProgress';
 import { fetchCombatants } from 'Interface/actions/combatants';
 import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
@@ -30,6 +29,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import FightNavigationBar from './FightNavigationBar';
+import ReportFetcher from './ReportFetcher';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -42,7 +42,6 @@ const PROGRESS_COMPLETE = 1.0;
 
 class Report extends React.Component {
   static propTypes = {
-    reportCode: PropTypes.string,
     playerId: PropTypes.number,
     urlPlayerName: PropTypes.string,
     fightId: PropTypes.number,
@@ -60,7 +59,6 @@ class Report extends React.Component {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    fetchReport: PropTypes.func.isRequired,
     setReportProgress: PropTypes.func.isRequired,
     fetchCombatants: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
@@ -94,7 +92,7 @@ class Report extends React.Component {
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
   _jobId = 0;
   get isReportValid() {
-    return this.props.report && this.props.report.code === this.props.reportCode;
+    return !!this.props.report;
   }
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
@@ -277,50 +275,12 @@ class Report extends React.Component {
     this.stopFakeNetworkProgress();
   }
 
-  componentWillMount() {
-    this.fetchReportIfNecessary({});
-  }
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
 
-    this.fetchReportIfNecessary(prevProps);
-    this.refreshReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
     this.updateUrlIfNecessary(prevProps);
-  }
-  fetchReportIfNecessary(prevProps) {
-    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
-      this.fetchReport();
-    }
-  }
-  refreshed = false;
-  refreshReportIfNecessary(prevProps) {
-    if (!this.refreshed && this.props.report && !this.props.fight && this.props.report !== prevProps.report) {
-      this.fetchReport(true);
-      // Only refresh once - the only thing we care about is the initial load if coming from the Discord bot to a fight that's not known yet
-      this.refreshed = true;
-    }
-  }
-  fetchReport(refresh = false) {
-    this.props.fetchReport(this.props.reportCode, refresh)
-      .catch(err => {
-        this.reset();
-        if (err instanceof LogNotFoundError) {
-          this.props.reportNotFoundError();
-        } else if (err instanceof ApiDownError) {
-          this.props.apiDownError();
-        } else if (err instanceof CorruptResponseError) {
-          captureException(err);
-          this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
-        } else if (err instanceof JsonParseError) {
-          this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
-        } else {
-          // Some kind of network error, internet may be down.
-          captureException(err);
-          this.props.unknownNetworkIssueError(err);
-        }
-      });
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
     if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
@@ -486,7 +446,6 @@ const mapStateToProps = state => {
   const fightId = getFightId(state);
 
   return ({
-    reportCode: getReportCode(state),
     fightId,
     urlFightName: getUrlFightName(state),
     playerId: getPlayerId(state),
@@ -503,10 +462,9 @@ const mapStateToProps = state => {
   });
 };
 
-export default withRouter(connect(
+const ConnectedReport = withRouter(connect(
   mapStateToProps,
   {
-    fetchReport,
     setReportProgress,
     fetchCombatants,
     reportNotFoundError,
@@ -516,3 +474,9 @@ export default withRouter(connect(
     appendReportHistory,
   }
 )(Report));
+
+export default props => (
+  <ReportFetcher>
+    {report => <ConnectedReport {...props} report={report} />}
+  </ReportFetcher>
+);
