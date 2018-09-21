@@ -15,6 +15,7 @@ import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 
+import Talents from './Modules/Talents';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
+    talents: Talents,
     drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,

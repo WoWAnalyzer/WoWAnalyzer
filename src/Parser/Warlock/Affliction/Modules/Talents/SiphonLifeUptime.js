@@ -46,6 +46,19 @@ class SiphonLifeUptime extends Analyzer {
       });
   }
 
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.uptime)} %
+        </div>
+      </div>
+    );
+  }
+
   statistic() {
     return (
       <StatisticBox

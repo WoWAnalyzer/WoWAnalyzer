@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Icon from 'common/Icon';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS/index';
 
@@ -104,6 +104,19 @@ class DrainSoulSniping extends Analyzer {
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`);
       });
+  }
+
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} />
+        </div>
+        <div className="flex-sub text-right">
+          {this._shardsGained}
+        </div>
+      </div>
+    );
   }
 
   statistic() {
