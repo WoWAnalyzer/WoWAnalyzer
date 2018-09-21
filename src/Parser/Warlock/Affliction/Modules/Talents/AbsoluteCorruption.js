@@ -4,10 +4,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 const AC_DAMAGE_BONUS = 0.15;
@@ -43,17 +42,6 @@ class AbsoluteCorruption extends Analyzer {
           </dfn>
         </div>
       </div>
-    );
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
-        tooltip={`Your Absolute Corruption talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).<br /><br />Note: This only accounts for the passive 15% increased damage. Actual bonus damage is a lot higher due to saved GCDs.`}
-      />
     );
   }
 

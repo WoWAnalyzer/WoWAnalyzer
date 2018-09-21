@@ -1,13 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class Deathbolt extends Analyzer {
@@ -35,20 +33,6 @@ class Deathbolt extends Analyzer {
           </dfn>
         </div>
       </div>
-    );
-  }
-
-  statistic() {
-    const deathbolt = this.abilityTracker.getAbility(SPELLS.DEATHBOLT_TALENT.id);
-    const total = deathbolt.damageEffective || 0;
-    const avg = total / (deathbolt.casts || 1);
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEATHBOLT_TALENT.id} />}
-        value={formatThousands(avg)}
-        label="Average Deathbolt damage"
-        tooltip={`Total Deathbolt damage: ${formatThousands(total)}`}
-      />
     );
   }
 }

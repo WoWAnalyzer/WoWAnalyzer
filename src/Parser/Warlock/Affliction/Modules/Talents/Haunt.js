@@ -5,11 +5,10 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
@@ -86,23 +85,11 @@ class Haunt extends Analyzer {
           <SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime
         </div>
         <div className="flex-sub text-right">
-          <dfn data-tip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}>
+          <dfn data-tip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}>
             {formatPercentage(this.uptime)} %
           </dfn>
         </div>
       </div>
-    );
-  }
-
-  statistic() {
-    const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAUNT_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Haunt uptime"
-        tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
-      />
     );
   }
 

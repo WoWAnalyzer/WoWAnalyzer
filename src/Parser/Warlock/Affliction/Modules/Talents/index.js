@@ -13,35 +13,30 @@ import SoulConduit from './SoulConduit';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
-    absoluteCorruption: AbsoluteCorruption,
-    deathbolt: Deathbolt,
     drainSoulSniping: DrainSoulSniping,
-    haunt: Haunt,
+    deathbolt: Deathbolt,
+    absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
+    haunt: Haunt,
     soulConduit: SoulConduit,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = [
-      this.absoluteCorruption.active,
-      this.deathbolt.active,
-      this.drainSoulSniping.active,
-      this.haunt.active,
-      this.siphonLifeUptime.active,
-      this.soulConduit.active,
-    ].includes(true);
+    this.active = Object.keys(this.constructor.dependencies)
+      .map(name => this[name].active)
+      .includes(true);
   }
 
   statistic() {
     return (
       <StatisticsListBox title="Talents">
-        {this.drainSoulSniping.active && this.drainSoulSniping.subStatistic()}
-        {this.deathbolt.active && this.deathbolt.subStatistic()}
-        {this.absoluteCorruption.active && this.absoluteCorruption.subStatistic()}
-        {this.siphonLifeUptime.active && this.siphonLifeUptime.subStatistic()}
-        {this.haunt.active && this.haunt.subStatistic()}
-        {this.soulConduit.active && this.soulConduit.subStatistic()}
+        {
+          Object.keys(this.constructor.dependencies)
+            .map(name => this[name])
+            .filter(module => module.active)
+            .map(module => module.subStatistic())
+        }
       </StatisticsListBox>
     );
   }

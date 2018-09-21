@@ -3,12 +3,11 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import Icon from 'common/Icon';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS/index';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
@@ -116,16 +115,6 @@ class DrainSoulSniping extends Analyzer {
           {this._shardsGained}
         </div>
       </div>
-    );
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<Icon icon="ability_hunter_snipershot" />}
-        value={this._shardsGained}
-        label="Shards sniped"
-      />
     );
   }
 
