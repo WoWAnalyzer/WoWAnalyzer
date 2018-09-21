@@ -9,6 +9,7 @@ import { captureException } from 'common/errorLogger';
 import { fetchReport } from 'Interface/actions/report';
 import { getReportCode } from 'Interface/selectors/url/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
+import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 import handleApiError from './handleApiError';
 
@@ -80,8 +81,12 @@ class ReportFetcher extends React.PureComponent {
         this.props.history.push(makeAnalyzerUrl());
       });
     }
+    const report = this.state.report;
+    if (!report) {
+      return <ActivityIndicator text="Pulling report info..." />;
+    }
 
-    return this.props.children(this.state.report);
+    return this.props.children(report);
   }
 }
 

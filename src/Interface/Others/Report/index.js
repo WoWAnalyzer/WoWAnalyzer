@@ -386,9 +386,6 @@ class Report extends React.Component {
   render() {
     const { report, fightId, fight, urlPlayerName } = this.props;
 
-    if (!report) {
-      return <ActivityIndicator text="Pulling report info..." />;
-    }
     if (!fightId || !fight) {
       return (
         <React.Fragment>
