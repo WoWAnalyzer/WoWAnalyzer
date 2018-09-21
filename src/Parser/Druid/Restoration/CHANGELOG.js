@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-21'),
+    changes: <React.Fragment>Updated mana used module to mana tracker. It now also includes HPM (healing per mana) per spell.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-20'),
     changes: <React.Fragment>Added mana used doughnut chart (code taken from Hunter focus used module) to resto druid &amp; set icons for Uldir bosses (not headshots)</React.Fragment>,
     contributors: [fel1ne],

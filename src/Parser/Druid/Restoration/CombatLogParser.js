@@ -15,6 +15,7 @@ import Rejuvenation from './Modules/Core/Rejuvenation';
 import HotTracker from './Modules/Core/HotTracking/HotTracker';
 import RejuvenationAttributor from './Modules/Core/HotTracking/RejuvenationAttributor';
 import RegrowthAttributor from './Modules/Core/HotTracking/RegrowthAttributor';
+import RestoDruidAbilityTracker from './Modules/Core/RestoDruidAbilityTracker';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
@@ -62,7 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
-
+    restoDruidAbilityTracker: RestoDruidAbilityTracker,
     // Checklist
     checklist: Checklist,
 

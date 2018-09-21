@@ -9,6 +9,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import StatisticWrapper from 'Interface/Others/StatisticWrapper';
+import AbilityTracker from '../Core/RestoDruidAbilityTracker';
 
 const CHART_SIZE = 100;
 
@@ -30,60 +31,72 @@ const LIST_OF_MANA_SPENDERS = [
 ];
 
 class ManaUsage extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   manaSpenderCasts = {
     [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
       casts: 0,
       manaUsed: 0,
       name: SPELLS.LIFEBLOOM_HOT_HEAL.name,
       color: '#b2d689',
+      hpm: 0,
     },
     [SPELLS.REJUVENATION.id]: {
       casts: 0,
       manaUsed: 0,
       name: SPELLS.REJUVENATION.name,
       color: '#b013c6',
+      hpm: 0,
     },
     [SPELLS.WILD_GROWTH.id]: {
       casts: 0,
       manaUsed: 0,
       name: SPELLS.WILD_GROWTH.name,
       color: '#70d181',
+      hpm: 0,
     },
     [SPELLS.EFFLORESCENCE_CAST.id]: {
       casts: 0,
       manaUsed: 0,
       name: SPELLS.EFFLORESCENCE_CAST.name,
       color: '#f95160',
+      hpm: 0,
     },
     [SPELLS.REGROWTH.id]: {
       casts: 0,
       manaUsed: 0,
       name: SPELLS.REGROWTH.name,
       color: '#168a45',
+      hpm: 0,
     },
     [SPELLS.SWIFTMEND.id]: {
       casts: 0,
       manaUsed: 0,
       names: SPELLS.SWIFTMEND.name,
       color: '#31558f',
+      hpm: 0,
     },
     [SPELLS.TRANQUILITY_CAST.id]: {
       casts: 0,
       manaUsed: 0,
       names: SPELLS.TRANQUILITY_CAST.name,
       color: '#46709a',
+      hpm: 0,
     },
     [SPELLS.CENARION_WARD_TALENT.id]: {
       casts: 0,
       manaUsed: 0,
       names: SPELLS.CENARION_WARD_TALENT.name,
       color: '#fff',
+      hpm: 0,
     },
   };
 
   legend(items, total) {
     const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, casts, spellId }, index) => {
+    return items.map(({ color, label, tooltip, value, casts, spellId, hpm }, index) => {
       label = tooltip ? (
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
@@ -114,10 +127,13 @@ class ManaUsage extends Analyzer {
           <div className="flex-main" style={{ paddingLeft: 5 }}>
             {label}
           </div>
-          <div className="flex-sub">
+          <div className="flex-sub" >
             <dfn data-tip={`${casts} casts <br/> ${value} mana used`}>
               {formatPercentage(value / total, 1)}%
             </dfn>
+          </div>
+          <div className="flex-sub" style={{ paddingLeft: 5 }}>
+              {hpm.toFixed(2)} hpm
           </div>
         </div>
       );
@@ -175,10 +191,12 @@ class ManaUsage extends Analyzer {
         spellId: id,
         value: Math.round(this.manaSpenderCasts[id].manaUsed),
         casts: this.manaSpenderCasts[id].casts,
+        hpm: this.manaSpenderCasts[id].hpm,
       }))
       .sort((a, b) => b.value - a.value);
 
     return (
+
       <div className="flex">
         <div className="flex-sub" style={{ paddingRight: 12 }}>
           {this.chart(items)}
@@ -190,13 +208,29 @@ class ManaUsage extends Analyzer {
     );
   }
 
+  getHpmForAbility(spellId) {
+    if(spellId == null) {
+      return null;
+    }
+
+    const heal = this.abilityTracker.getAbility(spellId);
+    if(heal != null && this.manaSpenderCasts[spellId]) {
+      return (heal.healingEffective + heal.healingAbsorbed) / heal.manaUsed;
+    } else {
+      return null;
+    }
+  }
+
   statistic() {
+    LIST_OF_MANA_SPENDERS.forEach(function(spellId) {
+      this.manaSpenderCasts[spellId].hpm = this.getHpmForAbility(spellId);
+    }, this);
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(13)}>
         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div className="row">
             <StatisticsListBox
-              title="mana usage"
+              title="mana tracker"
               containerProps={{ className: 'col-xs-12' }}
             >
               {this.manaUsageChart()}
