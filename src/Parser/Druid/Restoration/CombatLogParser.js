@@ -42,6 +42,7 @@ import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
 import GroveTending from './Modules/Items/AzeriteTraits/GroveTending';
 import LaserMatrix from './Modules/Items/AzeriteTraits/LaserMatrixRestoDruid';
 import WakingDream from './Modules/Items/AzeriteTraits/WakingDream';
+import LivelySpirit from './Modules/Items/AzeriteTraits/LivelySpirit';
 import SynergisticGrowth from './Modules/Items/AzeriteTraits/SynergisticGrowth';
 
 import StatWeights from './Modules/Features/StatWeights';
@@ -101,8 +102,9 @@ class CombatLogParser extends CoreCombatLogParser {
     groveTending: GroveTending,
     laserMatrix: LaserMatrix,
     wakingDream: WakingDream,
+    livelySpirit: LivelySpirit,
     synergisticGrowth: SynergisticGrowth,
-
+    
     statWeights: StatWeights,
   };
 }
