@@ -31,7 +31,6 @@ class SoulShardTracker extends ResourceTracker {
   rainOfFireHits = 0;
 
   hasInferno = false;
-  hasT20_2p = false;
 
   constructor(...args) {
     super(...args);
@@ -39,7 +38,6 @@ class SoulShardTracker extends ResourceTracker {
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
     this.resource.name = "Soul Shard Fragments";
     this.current = 30;
-    this.hasT20_2p = this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this.hasInferno = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
   }
 
@@ -58,7 +56,7 @@ class SoulShardTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
-      this._processIncinerateCast(event);
+      this.processInvisibleEnergize(spellId, 2);
     }
     else if (this.shouldProcessCastEvent(event)) {
       const eventResource = this.getResource(event);
@@ -154,19 +152,6 @@ class SoulShardTracker extends ResourceTracker {
 
   _infernalTicked(timestamp) {
     return (this.lastInfernalTick !== undefined) && (timestamp > this.lastInfernalTick + INFERNAL_FRAGMENT_TICK_PERIOD);
-  }
-
-  _processIncinerateCast(event) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    const hasHavoc = enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp);
-    // Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc,
-    // it doesn't matter if we have the set or not, otherwise it counts it in
-    // TODO: Verify for BFA? Still couldn't find anyone with T20 2p on PTR
-    const fragments = hasHavoc ? 2 : (this.hasT20_2p ? 3 : 2);
-    this.processInvisibleEnergize(event.ability.guid, fragments);
   }
 
   _getRandomFragmentDistribution(immolateCrits, rainOfFireHits, totalFragments) {
