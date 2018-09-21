@@ -5,13 +5,13 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox from 'Interface/Others/StatisticBox';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 
@@ -95,6 +95,21 @@ class UnstableAfflictionUptime extends Analyzer {
         label="Unstable Affliction uptime"
         tooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}
       />
+    );
+  }
+
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}>
+            {formatPercentage(this.uptime)} %
+          </dfn>
+        </div>
+      </div>
     );
   }
 }

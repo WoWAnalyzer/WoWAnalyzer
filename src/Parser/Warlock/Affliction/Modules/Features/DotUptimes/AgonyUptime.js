@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -55,6 +55,18 @@ class AgonyUptime extends Analyzer {
     );
   }
 
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.AGONY.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.uptime)} %
+        </div>
+      </div>
+    );
+  }
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 

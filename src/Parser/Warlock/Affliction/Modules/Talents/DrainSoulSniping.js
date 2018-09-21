@@ -6,7 +6,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
@@ -17,7 +17,7 @@ import SoulShardTracker from '../SoulShards/SoulShardTracker';
 // I'll test and adjust if needed
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
 
-class Sniping extends Analyzer {
+class DrainSoulSniping extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     soulShardTracker: SoulShardTracker,
@@ -119,4 +119,4 @@ class Sniping extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
-export default Sniping;
+export default DrainSoulSniping;

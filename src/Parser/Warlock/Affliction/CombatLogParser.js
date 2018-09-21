@@ -5,21 +5,22 @@ import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
-import AgonyUptime from './Modules/Features/AgonyUptime';
-import CorruptionUptime from './Modules/Features/CorruptionUptime';
-import UnstableAfflictionUptime from './Modules/Features/UnstableAfflictionUptime';
+import AgonyUptime from './Modules/Features/DotUptimes/AgonyUptime';
+import CorruptionUptime from './Modules/Features/DotUptimes/CorruptionUptime';
+import UnstableAfflictionUptime from './Modules/Features/DotUptimes/UnstableAfflictionUptime';
+import DotUptimeStatisticBox from './Modules/Features/DotUptimes/DotUptimeStatisticBox';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
-import Sniping from './Modules/Features/Sniping';
 
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
 import Deathbolt from './Modules/Talents/Deathbolt';
 import Haunt from './Modules/Talents/Haunt';
+import DrainSoulSniping from './Modules/Talents/DrainSoulSniping';
 
 import Checklist from './Modules/Features/Checklist/Module';
 
@@ -30,13 +31,13 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
-    sniping: Sniping,
     checklist: Checklist,
 
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     unstableAfflictionUptime: UnstableAfflictionUptime,
+    dotUptimeStatisticBox: DotUptimeStatisticBox,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -45,10 +46,11 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
+    drainSoulSniping: DrainSoulSniping,
+    deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
-    deathbolt: Deathbolt,
     haunt: Haunt,
   };
 }
