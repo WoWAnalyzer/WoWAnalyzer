@@ -8,7 +8,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AgonyUptime from './Modules/Features/DotUptimes/AgonyUptime';
 import CorruptionUptime from './Modules/Features/DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from './Modules/Features/DotUptimes/UnstableAfflictionUptime';
-import DotUptimeStatisticBox from './Modules/Features/DotUptimes/DotUptimeStatisticBox';
+import DotUptimes from './Modules/Features/DotUptimes';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -37,7 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     unstableAfflictionUptime: UnstableAfflictionUptime,
-    dotUptimeStatisticBox: DotUptimeStatisticBox,
+    dotUptimes: DotUptimes,
 
     // Core
     soulShardTracker: SoulShardTracker,
