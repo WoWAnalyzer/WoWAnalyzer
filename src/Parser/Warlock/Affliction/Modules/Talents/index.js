@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
 
 import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
@@ -30,7 +30,9 @@ class TalentStatisticBox extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title="Talents">
+      <StatisticsListBox
+        position={STATISTIC_ORDER.CORE(4)}
+        title="Talents">
         {
           Object.keys(this.constructor.dependencies)
             .map(name => this[name])
