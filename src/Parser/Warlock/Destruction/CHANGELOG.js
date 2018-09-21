@@ -4,6 +4,11 @@ import { Chizu } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-21'),
+    changes: 'Removed all legendaries and tier set modules.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-06-25'),
     changes: 'Updated the basics of the spec for BFA. Reworked Soul Shard Fragment tracking.',
     contributors: [Chizu],

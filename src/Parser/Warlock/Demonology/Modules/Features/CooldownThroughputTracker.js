@@ -5,17 +5,6 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  static cooldownSpells = [
-    ...CoreCooldownThroughputTracker.cooldownSpells,
-    // TODO: remove later once legendaries are no longer working (this can be still procced from Master Harvester)
-    {
-      spell: SPELLS.SOUL_HARVEST,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-  ];
-
   // nether portal, grimoire, demonic tyrant,
   static castCooldowns = [
     {

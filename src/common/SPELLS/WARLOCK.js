@@ -108,13 +108,6 @@ export default {
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
   },
-  // TODO: remove later once legendaries no longer work
-  // Soul Harvest (despite being removed as a talent) can still proc from The Master Harvester
-  SOUL_HARVEST: {
-    id: 196098,
-    name: 'Soul Harvest',
-    icon: 'spell_warlock_demonsoul',
-  },
 
   // --------------
   // Shared talents
@@ -237,37 +230,6 @@ export default {
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
   },
-  // Affliction tier sets
-  WARLOCK_AFFLI_T20_2P_BONUS: {
-    id: 242290,
-    name: 'Affliction Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_AFFLI_T20_4P_BONUS: {
-    id: 242291,
-    name: 'Affliction Warlock T20 4P bonus',
-    icon: 'inv_chest_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_AFFLI_T20_4P_BUFF: {
-    id: 242292,
-    name: 'Demonic Speed',
-    icon: 'spell_shadow_soulleech_3',
-  },
-  WARLOCK_AFFLI_T21_2P_BONUS: {
-    id: 251847,
-    name: 'Affliction Warlock T21 2P bonus',
-    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_AFFLI_T21_4P_BONUS: {
-    id: 251849,
-    name: 'Affliction Warlock T21 4P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_AFFLI_T21_4P_DEBUFF: {
-    id: 252938,
-    name: 'Tormented Agony',
-    icon: 'ability_warlock_improvedsoulleech',
-  },
 
   // Affliction shard generating effects
   AGONY_SHARD_GEN: {
@@ -289,16 +251,6 @@ export default {
     id: 215942,
     name: 'Soul Conduit',
     icon: 'spell_shadow_soulleech_2',
-  },
-  WARLOCK_AFFLI_T20_2P_SHARD_GEN: {
-    id: 247054,
-    name: 'Affliction Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  POWER_CORD_OF_LETHTENDRIS_SHARD_GEN: {
-    id: 205756,
-    name: 'Power Cord of Lethtendris',
-    icon: 'inv_belt_30',
   },
 
   // -----------
@@ -487,11 +439,6 @@ export default {
   },
 
   // Demonology shard generating effects
-  RECURRENT_RITUAL_SHARD_GEN: {
-    id: 214811,
-    name: 'Recurrent Ritual',
-    icon: 'inv_feldreadravenmount',
-  },
   SHADOW_BOLT_SHARD_GEN: {
     id: 194192,
     name: 'Shadow Bolt',
@@ -511,33 +458,6 @@ export default {
     id: 270557,
     name: 'Soul Strike',
     icon: 'inv_polearm_2h_fellord_04',
-  },
-
-  // Demonology Tier sets
-  WARLOCK_DEMO_T19_2P_BONUS: {
-    id: 212005,
-    name: 'Demonology Warlock T19 2P Bonus',
-    icon: 'inv_helm_cloth_raidwarlock_q_01',
-  },
-  WARLOCK_DEMO_T19_4P_BONUS: {
-    id: 212007,
-    name: 'Demonology Warlock T19 4P Bonus',
-    icon: 'inv_helm_cloth_raidwarlock_q_01',
-  },
-  WARLOCK_DEMO_T20_2P_BONUS: {
-    id: 242293,
-    name: 'Demonology Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DEMO_T20_4P_BONUS: {
-    id: 242294,
-    name: 'Demonology Warlock T20 4P bonus',
-    icon: 'inv_chest_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DEMO_T20_4P_BUFF: {
-    id: 246962,
-    name: 'Dreaded Haste',
-    icon: 'spell_shadow_metamorphosis',
   },
 
   // -----------
@@ -638,67 +558,5 @@ export default {
     id: 196448,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
-  },
-  // Destruction set bonuses
-  WARLOCK_DESTRO_T20_2P_BONUS: {
-    id: 242295,
-    name: 'Destruction Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DESTRO_T20_4P_BONUS: {
-    id: 242296,
-    name: 'Destruction Warlock T20 4P bonus',
-    icon: 'inv_chest_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DESTRO_T21_2P_BONUS: {
-    id: 251854,
-    name: 'Destruction Warlock T21 2P bonus',
-    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_DESTRO_T21_4P_BONUS: {
-    id: 251855,
-    name: 'Destruction Warlock T21 4P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_DESTRO_T21_2P_DEBUFF: {
-    id: 253092,
-    name: 'Chaotic Flames',
-    icon: 'ability_mage_worldinflamesgreen',
-  },
-  WARLOCK_DESTRO_T21_4P_DEBUFF: {
-    id: 253097,
-    name: 'Flames of Argus',
-    icon: 'spell_volatilefiregreen',
-  },
-  // Destruction legendary effects
-  FERETORY_OF_SOULS_FRAGMENT_GEN: {
-    id: 205704,
-    name: 'Fiery Soul',
-    icon: 'inv_belt_cloth_raidwarlock_n_01',
-  },
-  ALYTHESSS_PYROGENICS_DEBUFF: {
-    id: 205675,
-    name: 'Alythess\'s Pyrogenics',
-    icon: 'inv_jewelry_ring_65',
-  },
-  SINDOREI_SPITE_BUFF: {
-    id: 208871,
-    name: 'Sin\'dorei Spite',
-    icon: 'creatureportrait_infernal_ball_02',
-  },
-  LESSONS_OF_SPACETIME_BUFF: {
-    id: 236176,
-    name: 'Lessons Of Space-Time',
-    icon: 'spell_warlock_demonicportal_purple',
-  },
-  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
-    id: 212173,
-    name: 'Odr, Shawl of the Ymirjar',
-    icon: 'inv_misc_cape_cataclysm_tank_b_01',
-  },
-  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
-    id: 213229,
-    name: 'Chaos Bolt',
-    icon: 'ability_warlock_chaosbolt',
   },
 };
