@@ -1,12 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -43,16 +42,6 @@ class AgonyUptime extends Analyzer {
           .actual(`${formatPercentage(actual)}% Agony uptime`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.AGONY.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Agony uptime"
-      />
-    );
   }
 
   subStatistic() {

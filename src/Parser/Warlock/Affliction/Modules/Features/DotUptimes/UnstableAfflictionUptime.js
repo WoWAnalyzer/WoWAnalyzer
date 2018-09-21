@@ -6,10 +6,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
-import StatisticBox from 'Interface/Others/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
@@ -85,17 +82,6 @@ class UnstableAfflictionUptime extends Analyzer {
           .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Unstable Affliction uptime"
-        tooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}
-      />
-    );
   }
 
   subStatistic() {
