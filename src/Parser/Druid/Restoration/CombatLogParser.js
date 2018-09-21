@@ -36,6 +36,7 @@ import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
+import Stonebark from './Modules/Talents/Stonebark';
 
 import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
 import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
@@ -92,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    stonebark: Stonebark,
+
     // Items:
 
     // Azerite traits
