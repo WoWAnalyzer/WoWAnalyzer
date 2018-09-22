@@ -5,9 +5,9 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellLink from 'common/SpellLink';
+
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -32,20 +32,13 @@ class AbsoluteCorruption extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Your Absolute Corruption talent contributed ${formatThousands(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).<br /><br />Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage is a lot higher due to saved GCDs.`}>
-            {formatThousands(this.dps)} DPS
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</React.Fragment>}
+        value={`${formatThousands(this.dps)} DPS`}
+        valueTooltip={`Your Absolute Corruption talent contributed ${formatThousands(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).<br /><br />Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage is a lot higher due to saved GCDs.`}
+      />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default AbsoluteCorruption;

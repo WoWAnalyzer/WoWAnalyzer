@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
@@ -80,20 +80,13 @@ class Haunt extends Analyzer {
   subStatistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}>
-            {formatPercentage(this.uptime)} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+        valueTooltip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
+      />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default Haunt;

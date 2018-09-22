@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class SiphonLifeUptime extends Analyzer {
   static dependencies = {
@@ -47,18 +47,12 @@ class SiphonLifeUptime extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.uptime)} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+      />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SiphonLifeUptime;

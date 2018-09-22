@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import SpellLink from 'common/SpellLink';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class Deathbolt extends Analyzer {
   static dependencies = {
@@ -23,16 +24,11 @@ class Deathbolt extends Analyzer {
     const total = deathbolt.damageEffective || 0;
     const avg = total / (deathbolt.casts || 1);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Total Deathbolt damage: ${formatThousands(total)}`}>
-            {formatThousands(avg)}
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</React.Fragment>}
+        value={formatThousands(avg)}
+        valueTooltip={`Total Deathbolt damage: ${formatThousands(total)}`}
+      />
     );
   }
 }

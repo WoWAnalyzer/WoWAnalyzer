@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS/index';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
@@ -107,18 +107,12 @@ class DrainSoulSniping extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {this._shardsGained}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></React.Fragment>}
+        value={this._shardsGained}
+      />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default DrainSoulSniping;
