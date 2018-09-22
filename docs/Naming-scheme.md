@@ -16,7 +16,7 @@
 - **The component's file name** should match the class name.
 - **Property names** should be named using camelCasing. Event handlers (via props) should be named on*Something*.
 - **State** should be named using camelCasing.
-- **Event handlers** should be named handle*Something*.
+- **Event handlers** (methods that are triggered by events) should be named handle*Something*.
 
 # CSS
 
