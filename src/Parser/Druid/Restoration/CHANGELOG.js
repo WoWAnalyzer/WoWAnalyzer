@@ -5,6 +5,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-09-22'),
+    changes: <React.Fragment>Updated azerite trait Grove Tending to also include and show mastery healing.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-22'),
     changes: <React.Fragment>Updated mana used module to mana tracker. HPM also includes mastery healing</React.Fragment>,
     contributors: [blazyb],
   },
