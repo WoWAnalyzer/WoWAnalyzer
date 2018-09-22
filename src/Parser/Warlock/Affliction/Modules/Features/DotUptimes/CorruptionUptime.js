@@ -3,12 +3,11 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -45,13 +44,16 @@ class CorruptionUptime extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CORRUPTION_CAST.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Corruption uptime"
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.uptime)} %
+        </div>
+      </div>
     );
   }
 

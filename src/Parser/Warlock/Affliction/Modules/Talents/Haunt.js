@@ -5,18 +5,16 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
-  // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
   };
@@ -79,15 +77,19 @@ class Haunt extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAUNT_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Haunt uptime"
-        tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}>
+            {formatPercentage(this.uptime)} %
+          </dfn>
+        </div>
+      </div>
     );
   }
 

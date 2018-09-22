@@ -4,11 +4,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class SiphonLifeUptime extends Analyzer {
   static dependencies = {
@@ -46,13 +45,16 @@ class SiphonLifeUptime extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SIPHON_LIFE_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Siphon Life uptime"
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.uptime)} %
+        </div>
+      </div>
     );
   }
 
