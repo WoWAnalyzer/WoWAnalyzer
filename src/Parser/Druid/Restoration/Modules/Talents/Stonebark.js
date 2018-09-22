@@ -10,11 +10,13 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import HotTracker from 'Parser/Druid/Restoration/Modules/Core/HotTracking/HotTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const STONEBARK_HOT_INCREASE = 0.2;
 
 class Stonebark extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     hotTracker: HotTracker,
   };
 
@@ -29,7 +31,17 @@ class Stonebark extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(this.hotTracker.hotInfo[spellId] == null) {
+    const combatant = this.combatants.players[event.targetID];
+    if (!combatant) {
+      // If combatant doesn't exist it's probably a pet.
+      return;
+    }
+    const hasBuff = combatant.hasBuff(SPELLS.IRONBARK.id, event.timestamp, 250);
+    if (!hasBuff) {
+      return;
+    }
+
+    if(this.hotTracker.hotInfo[spellId] != null) {
       this.healing += calculateEffectiveHealing(event, STONEBARK_HOT_INCREASE);
     }
   }
