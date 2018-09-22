@@ -14,8 +14,9 @@
 
 - **Component names** (e.g. a custom tab, or a new StatisticBox type) should be named using PascalCasing.
 - **The component's file name** should match the class name.
-- **Property names** should be named using camelCasing.
+- **Property names** should be named using camelCasing. Event handlers (via props) should be named on*Something*.
 - **State** should be named using camelCasing.
+- **Event handlers** should be named handle*Something*.
 
 # CSS
 
