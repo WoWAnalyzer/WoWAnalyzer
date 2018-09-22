@@ -230,6 +230,11 @@ export default {
     icon: 'inv_relics_idolofrejuvenation',
     manaCost: 2800,
   },
+  ABUNDANCE_BUFF: {
+    id: 207640,
+    name: 'Abundance',
+    icon: 'ability_druid_empoweredrejuvination',
+  },
   BEAR_FORM: {
     id: 5487,
     name: 'Bear Form',
