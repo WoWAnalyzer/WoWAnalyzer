@@ -59,12 +59,12 @@ class RestoDruidAbilityTracker extends AbilityTracker {
   on_finished() {
      // Add mastery healing to various HoTs
     const rejuv = this.getAbility(SPELLS.REJUVENATION.id);
-    rejuv.healingMastery =  this.mastery.getMasteryHealing(SPELLS.REJUVENATION.id);
-    rejuv.healingMastery +=  this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
-    rejuv.healingMastery +=  this.mastery.getMasteryHealing(SPELLS.REJUVENATION_GERMINATION.id);
+    rejuv.healingMastery = this.mastery.getMasteryHealing(SPELLS.REJUVENATION.id);
+    rejuv.healingMastery += this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
+    rejuv.healingMastery += this.mastery.getMasteryHealing(SPELLS.REJUVENATION_GERMINATION.id);
 
     const cw = this.getAbility(SPELLS.CENARION_WARD_TALENT.id);
-    cw.healingMastery =  this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
+    cw.healingMastery = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
 
     const efflo = this.getAbility(SPELLS.EFFLORESCENCE_CAST.id);
     efflo.healingMastery = this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
