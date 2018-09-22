@@ -13,6 +13,7 @@ import HotTracker from 'Parser/Druid/Restoration/Modules/Core/HotTracking/HotTra
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const STONEBARK_HOT_INCREASE = 0.2;
+const BUFFER_MS = 200;
 
 class Stonebark extends Analyzer {
   static dependencies = {
@@ -36,7 +37,7 @@ class Stonebark extends Analyzer {
       // If combatant doesn't exist it's probably a pet.
       return;
     }
-    const hasBuff = combatant.hasBuff(SPELLS.IRONBARK.id, event.timestamp, 250);
+    const hasBuff = combatant.hasBuff(SPELLS.IRONBARK.id, event.timestamp, BUFFER_MS);
     if (!hasBuff) {
       return;
     }
