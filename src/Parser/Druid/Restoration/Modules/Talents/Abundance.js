@@ -1,0 +1,73 @@
+import React from 'react';
+import StatisticBox from 'Interface/Others/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+
+import SPELLS from 'common/SPELLS';
+import Analyzer from 'Parser/Core/Analyzer';
+
+const MS_BUFFER=200;
+const ABUNDANCE_MANA_REDUCTION = 0.06;
+const ABUNDANCE_INCREASED_CRIT = 0.06;
+
+
+/*
+  For each Rejuvenation you have active, Regrowth's cost is reduced by 6% and critical effect chance is increased by 6%.
+ */
+class Abundance extends Analyzer {
+  manaSavings = [];
+  critGains = [];
+  stacks = [];
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT.id);
+  }
+
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if(spellId !== SPELLS.REGROWTH.id) {
+      return;
+    }
+
+    const abundanceBuff = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER);
+    if(abundanceBuff == null) {
+      return;
+    }
+    const abundanceStacks = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER).stacks;
+
+    if (!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      this.manaSavings.push(abundanceStacks * ABUNDANCE_MANA_REDUCTION > 1 ? 1 : abundanceStacks * ABUNDANCE_MANA_REDUCTION);
+    }
+
+    this.critGains.push((abundanceStacks * ABUNDANCE_INCREASED_CRIT) > 1 ? 1 : abundanceStacks * ABUNDANCE_INCREASED_CRIT);
+    this.stacks.push(abundanceStacks);
+  }
+
+  statistic() {
+    const avgManaSavings = this.manaSavings.reduce(function(a, b) { return a + b; }) / this.manaSavings.length;
+    const avgCritGains = this.critGains.reduce(function(a, b) { return a + b; }) / this.critGains.length;
+    const avgStacks = this.stacks.reduce(function(a, b) { return a + b; }) / this.stacks.length;
+
+    // TODO translate these values into healing/throughput.
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} />}
+        value={(
+          <React.Fragment>
+            <span style={{fontSize: 0.6 +'em'}}>
+            Avg. Mana reduction: {formatPercentage(avgManaSavings)}% <br />
+            Avg. Crit gain: {formatPercentage(avgCritGains)}% <br />
+            Avg. stacks: {avgStacks.toFixed(2)} <br />
+            </span>
+          </React.Fragment>
+        )}
+        label={'Abundance'}
+      />
+    );
+  }
+}
+
+export default Abundance;
