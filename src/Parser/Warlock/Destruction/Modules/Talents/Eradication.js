@@ -5,7 +5,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -28,7 +27,7 @@ class Eradication extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
     this._hasCDF = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }
 

@@ -1082,7 +1082,7 @@ export default {
   WRACKING_BRILLIANCE: {
     id: 272891,
     name: 'Wracking Brilliance',
-    icon: 'spell_shadow_curseofsargeras',
+    icon: 'spell_shadow_felmending',
   },
   ZEALOTRY: {
     id: 270596,

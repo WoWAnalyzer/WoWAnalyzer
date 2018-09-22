@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CALL_DREADSTALKERS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20, // can be reset via T20 2pc
+        cooldown: 20,
         gcd: {
           base: 1500,
         },

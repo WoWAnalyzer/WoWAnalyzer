@@ -44,9 +44,9 @@ class RighteousVerdict extends Analyzer {
     return {
       actual: this.spendersInsideBuff / this.totalSpenders,
       isLessThan: {
-        minor: 0.70,
-        average: 0.65,
-        major: 0.60,
+        minor: 0.80,
+        average: 0.75,
+        major: 0.70,
       },
       style: 'percentage',
     };
@@ -54,7 +54,7 @@ class RighteousVerdict extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved. Make sure you aren't letting the <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> buff run out before casting <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> again</React.Fragment>)
+      return suggest(<React.Fragment>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved. Make sure you aren't letting the <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> buff run out before casting <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> again. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency</React.Fragment>)
         .icon(SPELLS.RIGHTEOUS_VERDICT_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of Templars Verdicts with the buff`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
