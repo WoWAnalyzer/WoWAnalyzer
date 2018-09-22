@@ -8,16 +8,16 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
 const GENERATORS = [
-  SPELLS.RAGING_BLOW,
-  SPELLS.BLOODTHIRST,
-  SPELLS.EXECUTE,
+  SPELLS.RAGING_BLOW.id,
+  SPELLS.BLOODTHIRST.id,
+  SPELLS.EXECUTE.id,
 ];
 
 class MissedRampage extends Analyzer {
   missedRampages = 0;
 
   isGenerator(spellId) {
-    return !!GENERATORS.find(generator => generator.id === spellId);
+    return GENERATORS.includes(spellId);
   }
 
   on_byPlayer_cast(event) {

@@ -33,19 +33,15 @@ class FuryWarriorChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           name="Use cooldowns effectively"
-          description={(
-            <React.Fragment>
-              Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows.
-            </React.Fragment>
-          )}
+          description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
         >
           {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />
           )}
           <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
-            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (
+            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />
           )}
         </Rule>
         <Rule

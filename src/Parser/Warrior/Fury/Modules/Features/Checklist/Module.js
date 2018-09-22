@@ -16,7 +16,6 @@ class Checklist extends Analyzer {
     alwaysBeCasting: AlwaysBeCasting,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    manaValues: ManaValues,
     missedRampage: MissedRampage,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
