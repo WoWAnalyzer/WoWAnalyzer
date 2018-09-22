@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-22'),
+    changes: <React.Fragment>Updated mana used module to mana tracker. HPM also includes mastery healing</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-21'),
     changes: <React.Fragment>Updated mana used module to mana tracker. It now also includes HPM (healing per mana) per spell.</React.Fragment>,
     contributors: [blazyb],

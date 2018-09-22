@@ -2,10 +2,12 @@ import SPELLS from 'common/SPELLS';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-
-
+import Mastery from 'Parser/Druid/Restoration/Modules/Core/Mastery';
 
 class RestoDruidAbilityTracker extends AbilityTracker {
+  static dependencies = {
+    mastery: Mastery,
+  };
 
   increaseHealingForAbility(spellId, event) {
     const cast = this.getAbility(spellId);
@@ -31,16 +33,16 @@ class RestoDruidAbilityTracker extends AbilityTracker {
     const spellId = event.ability.guid;
     // A lot of Restoration Druid healing spells does healing in form of multiple spellId.
     // Here we attempt to merge those we know.
-    // TODO - include mastery healing in case if it's a HoT
-    if (spellId === SPELLS.REJUVENATION_GERMINATION.id || spellId === SPELLS.AUTUMN_LEAVES.id) {
-      // Should cultivation be included?
-      // Should a part of ysera's gift be included if you have azerite trait waking dream?
+    if (spellId === SPELLS.REJUVENATION_GERMINATION.id
+          || spellId === SPELLS.AUTUMN_LEAVES.id
+          || spellId === SPELLS.CULTIVATION.id) {
+      // TODO - Add part of ysera's gift to be included if you have azerite trait waking dream
       this.increaseHealingForAbility(SPELLS.REJUVENATION.id, event);
     }
     if(spellId === SPELLS.CENARION_WARD_HEAL.id) {
       this.increaseHealingForAbility(SPELLS.CENARION_WARD_TALENT.id, event);
     }
-    if(spellId === SPELLS.EFFLORESCENCE_HEAL.id) {
+    if(spellId === SPELLS.EFFLORESCENCE_HEAL.id || spellId === SPELLS.SPRING_BLOSSOMS.id) {
       this.increaseHealingForAbility(SPELLS.EFFLORESCENCE_CAST.id, event);
     }
     if(spellId === SPELLS.TRANQUILITY_HEAL.id) {
@@ -53,6 +55,30 @@ class RestoDruidAbilityTracker extends AbilityTracker {
       this.increaseHealingForAbility(SPELLS.LIFEBLOOM_HOT_HEAL.id, event);
     }
   }
+
+  on_finished() {
+     // Add mastery healing to various HoTs
+    const rejuv = this.getAbility(SPELLS.REJUVENATION.id);
+    rejuv.healingMastery =  this.mastery.getMasteryHealing(SPELLS.REJUVENATION.id);
+    rejuv.healingMastery +=  this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
+    rejuv.healingMastery +=  this.mastery.getMasteryHealing(SPELLS.REJUVENATION_GERMINATION.id);
+
+    const cw = this.getAbility(SPELLS.CENARION_WARD_TALENT.id);
+    cw.healingMastery =  this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
+
+    const efflo = this.getAbility(SPELLS.EFFLORESCENCE_CAST.id);
+    efflo.healingMastery = this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
+
+    const tranq = this.getAbility(SPELLS.TRANQUILITY_CAST.id);
+    tranq.healingMastery = this.mastery.getMasteryHealing(SPELLS.TRANQUILITY_HEAL.id);
+
+    const sm = this.getAbility(SPELLS.SWIFTMEND.id);
+    sm.healingMastery = this.mastery.getMasteryHealing(SPELLS.GROVE_TENDING.id);
+
+    const rg = this.getAbility(SPELLS.REGROWTH.id);
+    rg.healingMastery = this.mastery.getMasteryHealing(SPELLS.REGROWTH.id);
+  }
+
 }
 
 export default RestoDruidAbilityTracker;

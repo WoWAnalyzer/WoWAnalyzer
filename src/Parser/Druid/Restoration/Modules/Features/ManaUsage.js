@@ -215,7 +215,7 @@ class ManaUsage extends Analyzer {
 
     const heal = this.abilityTracker.getAbility(spellId);
     if(heal != null && this.manaSpenderCasts[spellId]) {
-      return (heal.healingEffective + heal.healingAbsorbed) / heal.manaUsed;
+      return (heal.healingEffective + heal.healingAbsorbed + (heal.healingMastery ? heal.healingMastery : 0)) / heal.manaUsed;
     } else {
       return null;
     }
