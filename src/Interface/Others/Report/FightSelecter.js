@@ -23,7 +23,7 @@ class FightSelecter extends React.PureComponent {
         kill: PropTypes.bool,
       })),
     }),
-    refresh: PropTypes.func.isRequired,
+    refreshReport: PropTypes.func.isRequired,
   };
   state = {
     killsOnly: false,
@@ -34,7 +34,7 @@ class FightSelecter extends React.PureComponent {
   }
 
   render() {
-    const { report, refresh } = this.props;
+    const { report, refreshReport } = this.props;
     if (!report) {
       // While this component shouldn't be called when report isn't available, Redux might re-render it prior to the container which would otherwise cause a crash
       return null;
@@ -85,7 +85,7 @@ class FightSelecter extends React.PureComponent {
                 </label>
                 <Link
                   to={makeAnalyzerUrl(report)}
-                  onClick={refresh}
+                  onClick={refreshReport}
                   data-tip="This will refresh the fights list which can be useful if you're live logging."
                 >
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh

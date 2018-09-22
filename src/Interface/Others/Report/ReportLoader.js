@@ -13,7 +13,7 @@ import ActivityIndicator from 'Interface/common/ActivityIndicator';
 
 import handleApiError from './handleApiError';
 
-class ReportFetcher extends React.PureComponent {
+class ReportLoader extends React.PureComponent {
   static propTypes = {
     children: PropTypes.func.isRequired,
     reportCode: PropTypes.string,
@@ -110,4 +110,4 @@ export default compose(
   connect(mapStateToProps, {
     setReport,
   })
-)(ReportFetcher);
+)(ReportLoader);

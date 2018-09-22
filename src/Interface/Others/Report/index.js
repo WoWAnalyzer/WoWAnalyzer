@@ -28,7 +28,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import FightNavigationBar from './FightNavigationBar';
-import ReportFetcher from './ReportFetcher';
+import ReportLoader from './ReportLoader';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -58,7 +58,7 @@ class Report extends React.Component {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    refresh: PropTypes.func.isRequired,
+    refreshReport: PropTypes.func.isRequired,
     setReportProgress: PropTypes.func.isRequired,
     fetchCombatants: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
@@ -384,7 +384,7 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fightId, fight, urlPlayerName, refresh } = this.props;
+    const { report, fightId, fight, urlPlayerName, refreshReport } = this.props;
 
     if (!fightId || !fight) {
       return (
@@ -393,7 +393,7 @@ class Report extends React.Component {
 
           <FightSelecter
             report={report}
-            refresh={refresh}
+            refreshReport={refreshReport}
           />
         </React.Fragment>
       );
@@ -475,13 +475,13 @@ const ConnectedReport = withRouter(connect(
 )(Report));
 
 export default props => (
-  <ReportFetcher>
-    {(report, refresh) => (
+  <ReportLoader>
+    {(report, refreshReport) => (
       <ConnectedReport
         {...props}
         report={report}
-        refresh={refresh}
+        refreshReport={refreshReport}
       />
     )}
-  </ReportFetcher>
+  </ReportLoader>
 );
