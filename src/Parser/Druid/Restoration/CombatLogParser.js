@@ -36,12 +36,15 @@ import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
+import Stonebark from './Modules/Talents/Stonebark';
 
 import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
 import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
 import GroveTending from './Modules/Items/AzeriteTraits/GroveTending';
 import LaserMatrix from './Modules/Items/AzeriteTraits/LaserMatrixRestoDruid';
 import WakingDream from './Modules/Items/AzeriteTraits/WakingDream';
+import LivelySpirit from './Modules/Items/AzeriteTraits/LivelySpirit';
+import SynergisticGrowth from './Modules/Items/AzeriteTraits/SynergisticGrowth';
 
 import StatWeights from './Modules/Features/StatWeights';
 
@@ -92,6 +95,8 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    stonebark: Stonebark,
+
     // Items:
 
     // Azerite traits
@@ -100,7 +105,9 @@ class CombatLogParser extends CoreCombatLogParser {
     groveTending: GroveTending,
     laserMatrix: LaserMatrix,
     wakingDream: WakingDream,
-
+    livelySpirit: LivelySpirit,
+    synergisticGrowth: SynergisticGrowth,
+    
     statWeights: StatWeights,
   };
 }
