@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
-import { fetchReport } from 'Interface/actions/report';
-import { getReport } from 'Interface/selectors/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import FightSelectionList from './FightSelectionList';
@@ -26,28 +23,18 @@ class FightSelecter extends React.PureComponent {
         kill: PropTypes.bool,
       })),
     }),
-    fetchReport: PropTypes.func.isRequired,
+    refresh: PropTypes.func.isRequired,
   };
   state = {
     killsOnly: false,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleRefresh = this.handleRefresh.bind(this);
-  }
-
   componentWillUnmount() {
     ReactTooltip.hide();
   }
 
-  handleRefresh() {
-    const { fetchReport, report } = this.props;
-    fetchReport(report.code, true);
-  }
-
   render() {
-    const { report } = this.props;
+    const { report, refresh } = this.props;
     if (!report) {
       // While this component shouldn't be called when report isn't available, Redux might re-render it prior to the container which would otherwise cause a crash
       return null;
@@ -98,7 +85,7 @@ class FightSelecter extends React.PureComponent {
                 </label>
                 <Link
                   to={makeAnalyzerUrl(report)}
-                  onClick={this.handleRefresh}
+                  onClick={refresh}
                   data-tip="This will refresh the fights list which can be useful if you're live logging."
                 >
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
@@ -107,7 +94,11 @@ class FightSelecter extends React.PureComponent {
             </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <FightSelectionList report={report} fights={report.fights} killsOnly={killsOnly} />
+            <FightSelectionList
+              report={report}
+              fights={report.fights}
+              killsOnly={killsOnly}
+            />
           </div>
         </div>
       </div>
@@ -115,10 +106,4 @@ class FightSelecter extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  report: getReport(state),
-});
-
-export default connect(mapStateToProps, {
-  fetchReport,
-})(FightSelecter);
+export default FightSelecter;

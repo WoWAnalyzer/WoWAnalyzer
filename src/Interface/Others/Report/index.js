@@ -13,7 +13,6 @@ import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
 import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
-import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import { setReportProgress } from 'Interface/actions/reportProgress';
 import { fetchCombatants } from 'Interface/actions/combatants';
@@ -59,6 +58,7 @@ class Report extends React.Component {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
+    refresh: PropTypes.func.isRequired,
     setReportProgress: PropTypes.func.isRequired,
     fetchCombatants: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
@@ -384,14 +384,17 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fightId, fight, urlPlayerName } = this.props;
+    const { report, fightId, fight, urlPlayerName, refresh } = this.props;
 
     if (!fightId || !fight) {
       return (
         <React.Fragment>
           <DocumentTitle title={report.title} />
 
-          <FightSelecter />
+          <FightSelecter
+            report={report}
+            refresh={refresh}
+          />
         </React.Fragment>
       );
     }
@@ -449,7 +452,6 @@ const mapStateToProps = state => {
     urlPlayerName: getPlayerName(state),
     resultTab: getResultTab(state),
 
-    report: getReport(state),
     fight: getFightById(state, fightId),
     combatants: getCombatants(state),
 
@@ -474,6 +476,12 @@ const ConnectedReport = withRouter(connect(
 
 export default props => (
   <ReportFetcher>
-    {report => <ConnectedReport {...props} report={report} />}
+    {(report, refresh) => (
+      <ConnectedReport
+        {...props}
+        report={report}
+        refresh={refresh}
+      />
+    )}
   </ReportFetcher>
 );

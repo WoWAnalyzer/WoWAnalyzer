@@ -94,7 +94,7 @@ async function rawFetchWcl(endpoint, queryParams) {
 const defaultOptions = {
   timeout: 10000,
 };
-export default function fetchWclWithTimeout(endpoint, queryParams, options) {
+export default function fetchWcl(endpoint, queryParams, options) {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
 
   return new Promise((resolve, reject) => {
@@ -120,4 +120,28 @@ export default function fetchWclWithTimeout(endpoint, queryParams, options) {
         reject(err);
       });
   });
+}
+
+function rawFetchFights(code, refresh = false, translate = true) {
+  return fetchWcl(`report/fights/${code}`, {
+    _: refresh ? +new Date() : undefined,
+    translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+  });
+}
+export async function fetchFights(code, refresh = false) {
+  // This deals with a bunch of bugs in the fights API so implementers don't have to
+  let json = await rawFetchFights(code, refresh);
+  if (!json.fights) {
+    // This is a relatively common WCL bug. Give it one more try with cache busting on, usually hits the spot.
+    json = await rawFetchFights(code, true);
+  }
+  if (!json.fights) {
+    // This is a new WCL bug where translate doesn't work even after a refresh, one more try without that then
+    json = await rawFetchFights(code, true, false);
+  }
+  if (!json.fights) {
+    throw new CorruptResponseError();
+  }
+
+  return json;
 }
