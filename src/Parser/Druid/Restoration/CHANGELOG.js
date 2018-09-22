@@ -10,6 +10,11 @@ export default [
   },
   {
     date: new Date('2018-09-21'),
+    changes: <React.Fragment>Added tracking of healing gained from Stonebark.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-21'),
     changes: <React.Fragment>Updated mana used module to mana tracker. It now also includes HPM (healing per mana) per spell.</React.Fragment>,
     contributors: [blazyb],
   },
