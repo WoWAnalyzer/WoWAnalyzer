@@ -18,7 +18,7 @@ import ArcaneIntellect from '../Shared/Modules/Features/ArcaneIntellect';
 import SplittingIce from './Modules/Features/SplittingIce';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import WintersReach from './Modules/Traits/WintersReach';
-
+import Whiteout from './Modules/Traits/Whiteout';
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import ColdSnap from './Modules/Cooldowns/ColdSnap';
 
@@ -45,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     wintersReach: WintersReach,
+    whiteout: Whiteout,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
