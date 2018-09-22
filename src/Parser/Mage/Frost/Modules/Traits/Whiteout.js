@@ -116,7 +116,7 @@ class Whiteout extends Analyzer {
           </React.Fragment>
         )}
         tooltip={
-          `DPS value does not take into account any extra Frozen Orb casts due to the lowered cooldown. Whiteout may provide much more DPS than suggested here if extra Frozen Orb casts are used effectively.</i><br />
+          `DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.</i><br />
           Bonus Ice Lance damage: <b>${formatNumber(this.totalWhiteoutDamage)}</b>`
         }
       />
