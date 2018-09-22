@@ -7,6 +7,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
+import UnstableAfflictionUptime from './Modules/Features/UnstableAfflictionUptime';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -19,17 +20,6 @@ import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
 import Deathbolt from './Modules/Talents/Deathbolt';
 import Haunt from './Modules/Talents/Haunt';
-
-import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
-import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
-import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
-import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
-import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
-
-import Tier20_2set from './Modules/Items/Tier20_2set';
-import Tier20_4set from './Modules/Items/Tier20_4set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import Checklist from './Modules/Features/Checklist/Module';
 
@@ -46,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
+    unstableAfflictionUptime: UnstableAfflictionUptime,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -59,19 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulConduit: SoulConduit,
     deathbolt: Deathbolt,
     haunt: Haunt,
-
-    // Legendaries
-    masterHarvester: TheMasterHarvester,
-    stretensSleeplessShackles: StretensSleeplessShackles,
-    soulOfTheNetherlord: SoulOfTheNetherlord,
-    powerCordOfLethtendris: PowerCordOfLethtendris,
-    sacrolashsDarkStrike: SacrolashsDarkStrike,
-
-    // Items
-    tier20_2set: Tier20_2set,
-    tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
   };
 }
 

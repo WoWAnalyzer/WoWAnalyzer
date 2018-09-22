@@ -32,16 +32,13 @@ class CorruptionUptime extends Analyzer {
   }
 
   suggestions(when) {
-    let text;
-    if (this.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
-      text = <React.Fragment>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</React.Fragment>;
-    }
-    else {
-      text = <React.Fragment>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.</React.Fragment>;
-    }
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(text)
+        return suggest(
+          <React.Fragment>
+            Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
+          </React.Fragment>
+        )
           .icon(SPELLS.CORRUPTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Corruption uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

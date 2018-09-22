@@ -121,6 +121,16 @@ class RetributionPaladinChecklist extends React.PureComponent {
               thresholds={thresholds.righteousVerdict}
             />
           )}
+          {combatant.hasTrait(SPELLS.RELENTLESS_INQUISITOR.id) && (
+            <Requirement
+              name={(
+                <React.Fragment>
+                  Average <SpellLink id={SPELLS.RELENTLESS_INQUISITOR.id} icon /> stacks
+                  </React.Fragment>
+              )}
+              thresholds={thresholds.relentlessInquisitor}
+            />
+          )}
         </Rule>
         <Rule
           name="Use your Holy Power efficently"

@@ -7,13 +7,6 @@ const debug = false;
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
-    // TODO: remove once legendaries no longer work (can be still procced by Master Harvester)
-    {
-      spell: SPELLS.SOUL_HARVEST,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
     {
       spell: SPELLS.DARK_SOUL_INSTABILITY_TALENT,
       summary: [
