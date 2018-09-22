@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
@@ -29,14 +30,10 @@ class Stomp extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.STOMP_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.STOMP_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 }

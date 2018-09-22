@@ -9,6 +9,7 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Your auto-shots have a 10% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
@@ -126,14 +127,10 @@ class Volley extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.VOLLEY_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.VOLLEY_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 
