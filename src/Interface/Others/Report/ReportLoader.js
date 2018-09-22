@@ -10,6 +10,7 @@ import { setReport } from 'Interface/actions/report';
 import { getReportCode } from 'Interface/selectors/url/report';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
+import DocumentTitle from 'Interface/common/DocumentTitle';
 
 import handleApiError from './handleApiError';
 
@@ -22,20 +23,14 @@ class ReportLoader extends React.PureComponent {
       push: PropTypes.func.isRequired, // adds to browser history
     }),
   };
+  state = {
+    error: null,
+    report: null,
+  };
 
   constructor(props) {
     super(props);
-    // Setup
-    this.state = {
-      error: null,
-      report: null,
-    };
     this.handleRefresh = this.handleRefresh.bind(this);
-    // Initial load
-    if (this.props.reportCode) {
-      // noinspection JSIgnoredPromiseFromCall
-      this.loadReport(this.props.reportCode);
-    }
   }
   setState(error = null, report = null) {
     super.setState({
@@ -48,6 +43,12 @@ class ReportLoader extends React.PureComponent {
     this.setState(null, null);
   }
 
+  componentDidMount() {
+    if (this.props.reportCode) {
+      // noinspection JSIgnoredPromiseFromCall
+      this.loadReport(this.props.reportCode);
+    }
+  }
   componentDidUpdate(prevProps, prevState) {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.loadReport(this.props.reportCode);
@@ -98,7 +99,14 @@ class ReportLoader extends React.PureComponent {
       return this.renderLoading();
     }
 
-    return this.props.children(report, this.handleRefresh);
+    return (
+      <React.Fragment>
+        {/* TODO: Refactor the DocumentTitle away */}
+        <DocumentTitle title={report.title} />
+
+        {this.props.children(report, this.handleRefresh)}
+      </React.Fragment>
+    );
   }
 }
 

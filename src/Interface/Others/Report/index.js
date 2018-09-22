@@ -11,7 +11,7 @@ import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
-import { getFightId, getFightName as getUrlFightName, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
+import { getFightName as getUrlFightName, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
 import { getFightById } from 'Interface/selectors/fight';
 import { setReportProgress } from 'Interface/actions/reportProgress';
@@ -24,11 +24,11 @@ import DocumentTitle from 'Interface/common/DocumentTitle';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
-import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import FightNavigationBar from './FightNavigationBar';
 import ReportLoader from './ReportLoader';
+import FightSelection from './FightSelection';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -58,7 +58,6 @@ class Report extends React.Component {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    refreshReport: PropTypes.func.isRequired,
     setReportProgress: PropTypes.func.isRequired,
     fetchCombatants: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
@@ -384,27 +383,11 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fightId, fight, urlPlayerName, refreshReport } = this.props;
+    const { report, fight, urlPlayerName } = this.props;
 
-    if (!fightId || !fight) {
-      return (
-        <React.Fragment>
-          <DocumentTitle title={report.title} />
-
-          <FightSelecter
-            report={report}
-            refreshReport={refreshReport}
-          />
-        </React.Fragment>
-      );
-    }
     if (!urlPlayerName) {
       return (
-        <React.Fragment>
-          <DocumentTitle title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title} />
-
-          <PlayerSelecter />
-        </React.Fragment>
+        <PlayerSelecter />
       );
     }
 
@@ -442,24 +425,19 @@ class Report extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const fightId = getFightId(state);
+const mapStateToProps = (state, { fightId }) => ({
+  urlFightName: getUrlFightName(state),
+  playerId: getPlayerId(state),
+  urlPlayerName: getPlayerName(state),
+  resultTab: getResultTab(state),
 
-  return ({
-    fightId,
-    urlFightName: getUrlFightName(state),
-    playerId: getPlayerId(state),
-    urlPlayerName: getPlayerName(state),
-    resultTab: getResultTab(state),
+  fight: getFightById(state, fightId),
+  combatants: getCombatants(state),
 
-    fight: getFightById(state, fightId),
-    combatants: getCombatants(state),
+  articleId: getArticleId(state),
 
-    articleId: getArticleId(state),
-
-    error: getError(state),
-  });
-};
+  error: getError(state),
+});
 
 const ConnectedReport = withRouter(connect(
   mapStateToProps,
@@ -477,11 +455,18 @@ const ConnectedReport = withRouter(connect(
 export default props => (
   <ReportLoader>
     {(report, refreshReport) => (
-      <ConnectedReport
-        {...props}
+      <FightSelection
         report={report}
         refreshReport={refreshReport}
-      />
+      >
+        {fightId => (
+          <ConnectedReport
+            {...props}
+            report={report}
+            fightId={fightId}
+          />
+        )}
+      </FightSelection>
     )}
   </ReportLoader>
 );

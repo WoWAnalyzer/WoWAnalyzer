@@ -8,7 +8,7 @@ import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import Fight from './Fight';
 
-class FightSelectionList extends Component {
+class FightSelectionPanelList extends Component {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -34,11 +34,13 @@ class FightSelectionList extends Component {
 
   render() {
     const { fights, report, killsOnly, playerId, resultTab } = this.props;
+
     return (
       <ul className="list selection">
         {fights
           .filter(fight => {
             if (fight.boss === 0) {
+              // Hide trashfights
               return false;
             }
             if (killsOnly && fight.kill === false) {
@@ -54,11 +56,11 @@ class FightSelectionList extends Component {
             </li>
           ))}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          You will usually get the most helpful results using logs where you're being challenged, such as progress raids.
+          You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.
         </li>
       </ul>
     );
   }
 }
 
-export default FightSelectionList;
+export default FightSelectionPanelList;

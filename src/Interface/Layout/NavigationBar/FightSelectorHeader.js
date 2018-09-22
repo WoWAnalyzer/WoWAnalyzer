@@ -7,7 +7,7 @@ import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
 import getFightName from 'common/getFightName';
-import FightSelectionList from 'Interface/Others/Report/FightSelectionList';
+import FightSelectionPanelList from 'Interface/Others/Report/FightSelectionPanelList';
 
 import SelectorBase from './SelectorBase';
 
@@ -68,7 +68,7 @@ class FightSelectorHeader extends SelectorBase {
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
                 {player && (
-                  <FightSelectionList
+                  <FightSelectionPanelList
                     report={report}
                     fights={
                       player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
