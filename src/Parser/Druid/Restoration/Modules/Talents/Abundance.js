@@ -1,6 +1,6 @@
 import React from 'react';
 import StatisticBox from 'Interface/Others/StatisticBox';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
@@ -36,20 +36,21 @@ class Abundance extends Analyzer {
     if(abundanceBuff == null) {
       return;
     }
-    const abundanceStacks = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER).stacks;
 
     if (!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      this.manaSavings.push(abundanceStacks * ABUNDANCE_MANA_REDUCTION > 1 ? 1 : abundanceStacks * ABUNDANCE_MANA_REDUCTION);
+      this.manaSavings.push(abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION);
+      this.manaCasts++;
     }
 
-    this.critGains.push((abundanceStacks * ABUNDANCE_INCREASED_CRIT) > 1 ? 1 : abundanceStacks * ABUNDANCE_INCREASED_CRIT);
-    this.stacks.push(abundanceStacks);
+    this.critGains.push((abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT) > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT);
+    this.stacks.push(abundanceBuff.stacks);
   }
 
   statistic() {
-    const avgManaSavings = this.manaSavings.reduce(function(a, b) { return a + b; }) / this.manaSavings.length;
+    const avgManaSavingsPercent = this.manaSavings.reduce(function(a, b) { return a + b; }) / this.manaSavings.length;
     const avgCritGains = this.critGains.reduce(function(a, b) { return a + b; }) / this.critGains.length;
     const avgStacks = this.stacks.reduce(function(a, b) { return a + b; }) / this.stacks.length;
+    const avgManaSaings = SPELLS.REGROWTH.manaCost * avgManaSavingsPercent;
 
     // TODO translate these values into healing/throughput.
     return (
@@ -57,14 +58,14 @@ class Abundance extends Analyzer {
         icon={<SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} />}
         value={(
           <React.Fragment>
-            <span style={{fontSize: 0.6 +'em'}}>
-            Avg. Mana reduction: {formatPercentage(avgManaSavings)}% <br />
-            Avg. Crit gain: {formatPercentage(avgCritGains)}% <br />
-            Avg. stacks: {avgStacks.toFixed(2)} <br />
-            </span>
+            {avgStacks.toFixed(2)}  Avg. stacks<br />
           </React.Fragment>
         )}
         label={'Abundance'}
+        tooltip={`Average mana reductions gained was ${formatPercentage(avgManaSavingsPercent)}% or ${formatNumber(avgManaSaings)} mana per cast.<br />
+                  Maximum mana saved was ${avgManaSaings * this.manaSavings.length} <br />
+                  Average crit gain was ${formatPercentage(avgCritGains)}%.
+                `}
       />
     );
   }

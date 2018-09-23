@@ -71,7 +71,7 @@ class WakingDream extends Analyzer{
         tooltip={`Healing from rejuv part: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamHealing))} % / ${formatNumber(this.wakingDreamHealing)} healing.<br />
                   Healing from increased tick rate: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamExtraTickHealing))} % / ${formatNumber(this.wakingDreamExtraTickHealing)} healing.<br />
                   Total Ysera's gift healing: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} % / ${formatNumber(this.totalHealing)} healing.<br />
-            Walking Dream gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
+            Waking Dream gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
             per level) item levels.`}
       />
