@@ -76,7 +76,7 @@ class FightSelecter extends React.PureComponent {
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title} />
 
-        {this.props.children(fightId)}
+        {this.props.children(fight)}
       </React.Fragment>
     );
   }

@@ -5,7 +5,8 @@ import FullscreenError from 'Interface/common/FullscreenError';
 import ApiDownBackground from 'Interface/common/Images/api-down-background.gif';
 import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
 
-export default function handleApiError(error, onClose) {
+export default function handleApiError(error, onBack) {
+  console.error(error);
   if (error instanceof LogNotFoundError) {
     return (
       <FullscreenError
@@ -20,7 +21,7 @@ export default function handleApiError(error, onClose) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={onClose}
+            onClick={onBack}
           >
             &lt; Back
           </button>
@@ -54,7 +55,7 @@ export default function handleApiError(error, onClose) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={onClose}
+            onClick={onBack}
           >
             &lt; Back
           </button>
@@ -72,7 +73,7 @@ export default function handleApiError(error, onClose) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={onClose}
+            onClick={onBack}
           >
             &lt; Back
           </button>
@@ -88,7 +89,7 @@ export default function handleApiError(error, onClose) {
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >
         <div className="text-muted">
-          {error.details.message}
+          {error.message}
         </div>
         <div>
           <a className="btn btn-primary" href={window.location.href}>Refresh</a>

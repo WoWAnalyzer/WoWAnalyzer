@@ -21,7 +21,7 @@ class ReportLoader extends React.PureComponent {
     setReport: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired, // adds to browser history
-    }),
+    }).isRequired,
   };
   state = {
     error: null,
@@ -37,6 +37,7 @@ class ReportLoader extends React.PureComponent {
       error,
       report,
     });
+    // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
     this.props.setReport(report);
   }
   resetState() {
@@ -51,6 +52,7 @@ class ReportLoader extends React.PureComponent {
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
+      // noinspection JSIgnoredPromiseFromCall
       this.loadReport(this.props.reportCode);
     }
   }
@@ -58,8 +60,8 @@ class ReportLoader extends React.PureComponent {
     try {
       this.resetState();
       const report = await fetchFights(reportCode, refresh);
-      if (reportCode !== this.props.reportCode) {
-        return; // the user switched reports already
+      if (this.props.reportCode !== reportCode) {
+        return; // the user switched report already
       }
       this.setState(null, {
         ...report,
@@ -76,6 +78,7 @@ class ReportLoader extends React.PureComponent {
     }
   }
   handleRefresh() {
+    // noinspection JSIgnoredPromiseFromCall
     this.loadReport(this.props.reportCode, true);
   }
 

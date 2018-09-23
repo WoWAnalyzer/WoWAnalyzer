@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getPlayerName } from 'Interface/selectors/url/report';
-import PlayerSelectionList from 'Interface/Others/Report/PlayerSelectionList';
+import PlayerSelectionList from 'Interface/Others/Report/PlayerSelectionPanelList';
 
 import SelectorBase from './SelectorBase';
 

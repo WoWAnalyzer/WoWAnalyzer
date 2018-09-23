@@ -145,3 +145,38 @@ export async function fetchFights(code, refresh = false) {
 
   return json;
 }
+function rawFetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
+  return fetchWcl(`report/events/${code}`, {
+    start,
+    end,
+    actorid: actorId,
+    filter,
+    translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
+  });
+}
+export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined) {
+  let pageStartTimestamp = fightStart;
+
+  let events = [];
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const json = await rawFetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
+    events = [
+      ...events,
+      ...json.events,
+    ];
+    if (json.nextPageTimestamp) {
+      if (json.nextPageTimestamp > fightEnd) {
+        console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
+      }
+      pageStartTimestamp = json.nextPageTimestamp;
+    } else {
+      break;
+    }
+  }
+  return events;
+}
+export function fetchCombatants(code, start, end) {
+  return fetchEvents(code, start, end, undefined, 'type="combatantinfo"');
+}

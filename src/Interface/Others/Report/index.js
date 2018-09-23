@@ -4,31 +4,26 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { withRouter } from 'react-router-dom';
 
-import { ApiDownError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
-import fetchEvents from 'common/fetchEvents';
+import { ApiDownError, fetchEvents, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
-import { getCombatants } from 'Interface/selectors/combatants';
 import { getError } from 'Interface/selectors/error';
-import { getFightName as getUrlFightName, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
+import { getResultTab } from 'Interface/selectors/url/report';
 import { getArticleId } from 'Interface/selectors/url/news';
-import { getFightById } from 'Interface/selectors/fight';
 import { setReportProgress } from 'Interface/actions/reportProgress';
-import { fetchCombatants } from 'Interface/actions/combatants';
 import { apiDownError, reportNotFoundError, unknownError, unknownNetworkIssueError } from 'Interface/actions/error';
 import { appendReportHistory } from 'Interface/actions/reportHistory';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'Interface/common/ActivityIndicator';
-import DocumentTitle from 'Interface/common/DocumentTitle';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
 
-import PlayerSelecter from './PlayerSelecter';
-import Results from './Results';
-import FightNavigationBar from './FightNavigationBar';
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
+import PlayerSelection from './PlayerSelection';
+import FightNavigationBar from './FightNavigationBar';
+import Results from './Results';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -41,25 +36,22 @@ const PROGRESS_COMPLETE = 1.0;
 
 class Report extends React.Component {
   static propTypes = {
-    playerId: PropTypes.number,
-    urlPlayerName: PropTypes.string,
-    fightId: PropTypes.number,
-    urlFightName: PropTypes.string,
-    resultTab: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
-    }),
+    }).isRequired,
+    player: PropTypes.object.isRequired,
+
+    resultTab: PropTypes.string,
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
     setReportProgress: PropTypes.func.isRequired,
-    fetchCombatants: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
     apiDownError: PropTypes.func.isRequired,
     unknownNetworkIssueError: PropTypes.func.isRequired,
@@ -90,9 +82,6 @@ class Report extends React.Component {
 
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
   _jobId = 0;
-  get isReportValid() {
-    return !!this.props.report;
-  }
   getConfig(specId) {
     return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
@@ -242,26 +231,6 @@ class Report extends React.Component {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async fetchCombatantsForFight(report, fight) {
-    try {
-      await this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
-    } catch (err) {
-      // TODO: Redirect to homepage
-      this.reset();
-      if (err instanceof LogNotFoundError) {
-        this.props.reportNotFoundError();
-      } else if (err instanceof ApiDownError) {
-        this.props.apiDownError();
-      } else if (err instanceof JsonParseError) {
-        this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
-      } else {
-        // Some kind of network error, internet may be down.
-        captureException(err);
-        this.props.unknownNetworkIssueError(err);
-      }
-    }
-  }
-
   reset() {
     this._jobId += 1;
     this.setState({
@@ -274,59 +243,30 @@ class Report extends React.Component {
     this.stopFakeNetworkProgress();
   }
 
+  componentDidMount() {
+    this.fetchEventsAndParseIfNecessary({}, {});
+    this.updateUrlIfNecessary({});
+  }
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
 
-    this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
     this.updateUrlIfNecessary(prevProps);
   }
-  fetchCombatantsIfNecessary(prevProps, prevState) {
-    if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
-      // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatantsForFight(this.props.report, this.props.fight);
-    }
-  }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
     const changed = this.props.report !== prevProps.report
-      || this.props.combatants !== prevProps.combatants
-      || this.props.fightId !== prevProps.fightId
-      || this.props.urlPlayerName !== prevProps.urlPlayerName
-      || this.props.playerId !== prevProps.playerId;
+      || this.props.fight !== prevProps.fight
+      || this.props.player !== prevProps.player;
     if (changed) {
       this.reset();
 
       const report = this.props.report;
       const fight = this.props.fight;
       const combatants = this.props.combatants;
-      const playerId = this.props.playerId;
-      const urlPlayerName = this.props.urlPlayerName;
-      const valid = report && fight && combatants && (urlPlayerName || playerId);
-      if (valid) {
-        //check log if no combatantID is set and the name appears more than once
-        if (!playerId && urlPlayerName && report.friendlies.filter(friendly => friendly.name === urlPlayerName).length > 1) {
-          alert(`It appears like another '${urlPlayerName}' is in this log, please select the correct one`);
-          this.props.history.push(makeAnalyzerUrl(report, fight.id));
-          return;
-        }
-        const player = this.getPlayerFromReport(report, playerId, urlPlayerName);
-        if (!player) {
-          alert(`Unknown player: ${urlPlayerName}`);
-          this.props.history.push(makeAnalyzerUrl(report, fight.id));
-          return;
-        }
-        const combatant = combatants.find(combatant => combatant.sourceID === player.id);
-        if (!combatant) {
-          alert('This player does not seem to be in this fight.');
-          return;
-        }
-        if (!combatant.specID) {
-          alert('The data received from WCL for this player is corrupt, this fight can not be analyzed.');
-          return;
-        }
-        this.fetchEventsAndParse(report, fight, combatants, combatant, player);
-        this.appendHistory(report, fight, player);
-      }
+      const player = this.props.player;
+      const combatant = combatants.find(combatant => combatant.sourceID === player.id);
+      this.fetchEventsAndParse(report, fight, combatants, combatant, player);
+      this.appendHistory(report, fight, player);
     }
   }
   updateUrlIfNecessary(prevProps) {
@@ -339,34 +279,13 @@ class Report extends React.Component {
       return;
     }
 
-    if (this.isFightNameMissingFromUrl || this.isPlayerNameMissingFromUrl) {
-      const url = makeAnalyzerUrl(this.props.report, this.props.fightId, this.props.playerId, this.props.resultTab);
-      console.log('Replacing URL from', this.props.history.location.pathname, 'to', url);
-      this.props.history.replace(url);
-    }
-  }
-  get isFightNameMissingFromUrl() {
-    const isFightSelected = this.props.report && this.props.fightId && this.props.fight;
-    const isUrlMissingFightName = !this.props.urlFightName;
-    return isFightSelected && isUrlMissingFightName;
-  }
-  get isPlayerNameMissingFromUrl() {
-    const isPlayerSelected = this.props.report && this.props.playerId;
-    // urlPlayerName currently defaults to the id when it's not supplied (this should be refactored)
-    const isUrlMissingPlayerName = !this.props.urlPlayerName || this.props.urlPlayerName === `${this.props.playerId}`;
-    return isPlayerSelected && isUrlMissingPlayerName;
+    // if (this.isFightNameMissingFromUrl || this.isPlayerNameMissingFromUrl) {
+    //   const url = makeAnalyzerUrl(this.props.report, this.props.fight, this.props.playerId, this.props.resultTab);
+    //   console.log('Replacing URL from', this.props.history.location.pathname, 'to', url);
+    //   this.props.history.replace(url);
+    // }
   }
 
-  getPlayerFromReport(report, playerId, playerName) {
-    if (playerId) {
-      return report.friendlies.find(friendly => friendly.id === playerId);
-    }
-    const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
-    if (!fetchByNameAttempt) {
-      return report.friendlies.find(friendly => friendly.id === Number(playerName));
-    }
-    return fetchByNameAttempt;
-  }
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
@@ -383,21 +302,13 @@ class Report extends React.Component {
   }
 
   render() {
-    const { report, fight, urlPlayerName } = this.props;
-
-    if (!urlPlayerName) {
-      return (
-        <PlayerSelecter />
-      );
-    }
+    const { report, fight, player } = this.props;
 
     const { parser } = this.state;
     if (!parser) {
       return (
         <React.Fragment>
           <FightNavigationBar />
-
-          <DocumentTitle title={fight && urlPlayerName ? `${getFightName(report, fight)} by ${urlPlayerName} in ${report.title}` : report.title} />
 
           <div className="container">
             <ActivityIndicator text="Initializing analyzer..." />
@@ -410,14 +321,12 @@ class Report extends React.Component {
       <React.Fragment>
         <FightNavigationBar />
 
-        <DocumentTitle title={`${getFightName(report, fight)} by ${urlPlayerName} in ${report.title}`} />
-
         <div className="container">
           <Results
             parser={parser}
             finished={this.state.finished}
             characterProfile={this.state.characterProfile}
-            makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+            makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
           />
         </div>
       </React.Fragment>
@@ -425,14 +334,8 @@ class Report extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { fightId }) => ({
-  urlFightName: getUrlFightName(state),
-  playerId: getPlayerId(state),
-  urlPlayerName: getPlayerName(state),
+const mapStateToProps = state => ({
   resultTab: getResultTab(state),
-
-  fight: getFightById(state, fightId),
-  combatants: getCombatants(state),
 
   articleId: getArticleId(state),
 
@@ -443,7 +346,6 @@ const ConnectedReport = withRouter(connect(
   mapStateToProps,
   {
     setReportProgress,
-    fetchCombatants,
     reportNotFoundError,
     apiDownError,
     unknownNetworkIssueError,
@@ -459,12 +361,21 @@ export default props => (
         report={report}
         refreshReport={refreshReport}
       >
-        {fightId => (
-          <ConnectedReport
-            {...props}
+        {fight => (
+          <PlayerSelection
             report={report}
-            fightId={fightId}
-          />
+            fight={fight}
+          >
+            {(player, combatants) => ( // TODO: Config/parser loader
+              <ConnectedReport
+                {...props}
+                report={report}
+                fight={fight}
+                player={player}
+                combatants={combatants}
+              />
+            )}
+          </PlayerSelection>
         )}
       </FightSelection>
     )}
