@@ -37,11 +37,7 @@ class Gutripper extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GUTRIPPER.id}
-        value={(
-          <React.Fragment>
-            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS<br />
-          </React.Fragment>
-        )}
+        value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
         tooltip={`Damage done: ${formatNumber(this.damage)}<br />
                   Gutripper procced a total of <b>${this.totalProcs}</b> times, <b>${critPercent}</b> of which were critital hits.`
         }
