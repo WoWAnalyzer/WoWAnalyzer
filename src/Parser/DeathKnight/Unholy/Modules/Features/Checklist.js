@@ -33,17 +33,13 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id} />(when using Cold Heart) should be used as often as possible</React.Fragment>,
+      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> should be used as often as possible</React.Fragment>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DARK_TRANSFORMATION,
             onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CHAINS_OF_ICE,
-            when: combatant.hasChest(ITEMS.COLD_HEART.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEFILE_TALENT,
