@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import ItemHealingDone from 'Interface/Others/ItemHealingDone';
