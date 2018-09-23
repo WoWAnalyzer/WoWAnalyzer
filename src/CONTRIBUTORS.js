@@ -468,3 +468,13 @@ export const fel1ne = {
     link: 'https://www.worldofwarcraft.com/en-us/character/khazgoroth/Felerai',
   }],
 };
+export const Dambroda = {
+  nickname: 'Dambroda',
+  github: 'Dambroda',
+  discord: 'Dambroda#1290',
+  mains: [{
+    name: 'Dambroma',
+    spec: SPECS.FROST_MAGE,
+    link: 'https://worldofwarcraft.com/en-us/character/lightbringer/dambroma',
+  }],
+};
