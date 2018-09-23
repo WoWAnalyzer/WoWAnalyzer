@@ -53,7 +53,7 @@ class Stonebark extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.STONEBARK_TALENT.id} />}
         value={`${formatPercentage(throughputPercent)} %`}
-        label={'Ironbark'}
+        label={'Stonebark'}
         tooltip={`This only calculates the increased HoT healing from Stonebark and does not account for the reduced CD.
         Add 25% of the result from the Ironbark module to get an estimate on what this talent actually did.`}
       />
