@@ -12,6 +12,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
@@ -94,14 +95,10 @@ class Downpour extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.DOWNPOUR_TALENT.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.DOWNPOUR_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.DOWNPOUR_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+      />
     );
   }
 

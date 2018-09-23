@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class Ascendance extends Analyzer {
   static dependencies = {
@@ -32,14 +33,10 @@ class Ascendance extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_HEAL.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+      />
     );
   }
 

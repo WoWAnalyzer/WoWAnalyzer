@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 /**
  * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
  * Cannot occur more than once every 45 sec.
@@ -50,14 +51,10 @@ class NaturesGuardian extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding))} %`}
+      />
     );
   }
 }

@@ -11,6 +11,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;
@@ -316,14 +317,10 @@ class UnleashLife extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.UNLEASH_LIFE_TALENT.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+      />
     );
   }
 
