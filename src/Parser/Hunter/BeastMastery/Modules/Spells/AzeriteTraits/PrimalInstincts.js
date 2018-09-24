@@ -6,7 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatis
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
-const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => {
+const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
   obj.mastery += mastery;
   return obj;
@@ -15,7 +15,7 @@ const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => 
 });
 
 export const STAT_TRACKER = {
-  mastery: combatant => danceOfDeathStats(combatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]).mastery,
+  mastery: combatant => primalInstinctsStats(combatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]).mastery,
 };
 
 /**
@@ -32,7 +32,7 @@ class PrimalInstincts extends Analyzer {
     if (!this.active) {
       return;
     }
-    const { mastery } = danceOfDeathStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]);
+    const { mastery } = primalInstinctsStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]);
     this.mastery = mastery;
   }
 
