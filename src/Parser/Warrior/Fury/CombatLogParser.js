@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import Checklist from './Modules/Features/Checklist/Module';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -10,6 +11,7 @@ import EnrageUptime from './Modules/BuffDebuff/EnrageUptime';
 import FrothingBerserkerUptime from './Modules/BuffDebuff/FrothingBerserkerUptime';
 import Juggernaut from './Modules/BuffDebuff/Juggernaut';
 
+import MissedRampage from './Modules/Spells/MissedRampage';
 import RampageFrothingBerserker from './Modules/Features/RampageFrothingBerserker';
 import RampageCancelled from './Modules/Features/RampageCancelled';
 import AngerManagement from './Modules/Talents/AngerManagement';
@@ -23,6 +25,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, {showStatistic: true}],
 
+    checklist: Checklist,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
@@ -32,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frothingBerserkerUptime: FrothingBerserkerUptime,
     juggernaut: Juggernaut,
 
+    missedRampage: MissedRampage,
     rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
     angerManagement: AngerManagement,
