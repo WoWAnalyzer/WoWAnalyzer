@@ -56,7 +56,6 @@ class PrimalInstincts extends Analyzer {
         value={(
           <React.Fragment>
             {formatNumber(this.avgMastery)} Average Mastery <br />
-            {formatPercentage(this.uptime)}% Uptime <br />
             Up to {this.numProcs} <SpellLink id={SPELLS.BARBED_SHOT.id} /> charges regained
           </React.Fragment>
         )}
