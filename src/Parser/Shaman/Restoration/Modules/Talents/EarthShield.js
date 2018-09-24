@@ -11,9 +11,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.10;
 

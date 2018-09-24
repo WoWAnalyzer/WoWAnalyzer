@@ -8,8 +8,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import HealingRainLocation from '../ShamanCore/HealingRainLocation';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
+import HealingRainLocation from '../ShamanCore/HealingRainLocation';
 
 const DELUGE_HEALING_INCREASE = 0.20;
 

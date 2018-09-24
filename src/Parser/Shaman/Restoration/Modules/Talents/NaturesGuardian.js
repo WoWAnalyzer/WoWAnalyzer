@@ -6,8 +6,9 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
+import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 /**
  * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
  * Cannot occur more than once every 45 sec.

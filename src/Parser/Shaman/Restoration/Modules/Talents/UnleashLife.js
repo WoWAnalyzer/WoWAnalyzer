@@ -6,12 +6,12 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
-import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;

@@ -6,8 +6,9 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
+import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
 class Wellspring extends Analyzer {
   static dependencies = {

@@ -6,13 +6,13 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
-import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
