@@ -43,6 +43,7 @@ class Photosynthesis extends Analyzer {
   increasedRateTranqHealing = 0;
   increasedRateSpringBlossomsHealing = 0;
   increasedRateEffloHealing = 0;
+  increasedRateGroveTendingHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -101,6 +102,9 @@ class Photosynthesis extends Analyzer {
         case SPELLS.EFFLORESCENCE_HEAL.id:
           this.increasedRateEffloHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
           break;
+        case SPELLS.GROVE_TENDING.id:
+          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
+          break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
             this.increasedRateRegrowthHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
@@ -133,6 +137,7 @@ class Photosynthesis extends Analyzer {
       + this.increasedRateTranqHealing
       + this.increasedRateSpringBlossomsHealing
       + this.increasedRateEffloHealing
+      + this.increasedRateGroveTendingHealing
       + this.lifebloomIncrease);
     const sourceID = this.selectedCombatant._combatantInfo.sourceID;
     const selfUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, sourceID);
@@ -158,6 +163,7 @@ class Photosynthesis extends Analyzer {
               <li>Tranquility HoT: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))} %</b></li>
               <li>Spring blossoms: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateSpringBlossomsHealing))} %</b></li>
               <li>Efflorescence: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateEffloHealing))} %</b></li>
+              <li>Grove Tending: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</b></li>
               <hr>
               <li>Total HoT increase part: <b>${formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
               <li>Lifebloom random bloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
