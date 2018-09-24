@@ -43,6 +43,7 @@ class EternalRuneWeapon extends Analyzer {
   traits = 0;
 
   bonusDurations = [];
+  firstDancingRuneWeaponCheck = true;
 
   constructor(...args) {
     super(...args);
@@ -57,7 +58,8 @@ class EternalRuneWeapon extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) {
+    if ((event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) || this.firstDancingRuneWeaponCheck && this.selectedCombatant.hasBuff(SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id)) {
+      this.firstDancingRuneWeaponCheck = false;
       this.bonusDurations.push([]);
       return;
     }
@@ -110,6 +112,7 @@ class EternalRuneWeapon extends Analyzer {
   }
 
   statistic() {
+    console.info(this.bonusDurations);
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
