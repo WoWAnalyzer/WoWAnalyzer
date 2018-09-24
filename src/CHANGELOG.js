@@ -9,6 +9,11 @@ import Contributor from 'Interface/Contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-24'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.HEED_MY_CALL.id} /> module.</React.Fragment>,
+    contributors: [Dambroda],
+  },
+  {
     date: new Date('2018-09-22'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.GUTRIPPER.id} /> module.</React.Fragment>,
     contributors: [Dambroda],
