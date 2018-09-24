@@ -45,10 +45,6 @@ class DanceOfDeath extends Analyzer{
     return this.uptime * this.agility;
   }
 
-  get numProcs(){
-    return this.selectedCombatant.getBuffTriggerCount(SPELLS.DANCE_OF_DEATH_BUFF.id);
-  }
-
   statistic(){
     return (
       <TraitStatisticBox

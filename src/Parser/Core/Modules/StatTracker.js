@@ -11,6 +11,7 @@ import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'Parser/Core/Modules/Spell
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import { STAT_TRACKER as BLOOD_RITE_STATS } from 'Parser/Core/Modules/Spells/BFA/AzeriteTraits/BloodRite';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/DanceOfDeath';
+import { STAT_TRACKER as PRIMAL_INSTINCTS_STATS } from 'Parser/Hunter/BeastMastery/Modules/Spells/AzeriteTraits/PrimalInstincts';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'Parser/DeathKnight/Blood/Modules/Spells/AzeriteTraits/BonesOfTheDamned';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'Parser/Monk/Windwalker/Modules/Spells/AzeriteTraits/IronFists';
@@ -225,8 +226,8 @@ class StatTracker extends Analyzer {
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
-    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS, 
-    [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS, 
+    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS,
+    [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS,
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
       crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
     },
@@ -244,6 +245,7 @@ class StatTracker extends Analyzer {
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
     [SPELLS.DANCE_OF_DEATH.id]: DANCE_OF_DEATH_STATS,
+    [SPELLS.PRIMAL_INSTINCTS.id]: PRIMAL_INSTINCTS_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
