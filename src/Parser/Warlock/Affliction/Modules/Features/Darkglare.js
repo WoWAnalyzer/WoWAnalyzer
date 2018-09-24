@@ -67,10 +67,14 @@ class Darkglare extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id)) {
       this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id] = undefined;
     }
-    UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => this._dotDurations[id] = 8000);
+    UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
+      this._dotDurations[id] = 8000;
+    });
     if (this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)) {
       // Creeping Death talent shortens the period and duration of dots by 15%
-      DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(id => this._dotDurations[id] *= 0.85);
+      DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(id => {
+          this._dotDurations[id] *= 0.85;
+      });
     }
   }
 
