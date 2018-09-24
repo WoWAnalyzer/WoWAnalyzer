@@ -83,6 +83,7 @@ import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
 import Gutripper from './Modules/Spells/BFA/AzeriteTraits/Gutripper';
+import HeedMyCall from './Modules/Spells/BFA/AzeriteTraits/HeedMyCall';
 import LaserMatrix from './Modules/Spells/BFA/AzeriteTraits/LaserMatrix';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import OverWhelmingPower from './Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
@@ -183,6 +184,7 @@ class CombatLogParser {
     // Azerite Traits
     gemhide: Gemhide,
     gutripper: Gutripper,
+    heedMyCall: HeedMyCall,
     laserMatrix: LaserMatrix,
     meticulousScheming: MeticulousScheming,
     overwhelmingPower: OverWhelmingPower,
