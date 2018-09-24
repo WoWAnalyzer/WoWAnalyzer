@@ -19,7 +19,7 @@ class TigersFuryEnergy extends Analyzer {
 
   get suggestionThresholds() {
     const tracked = this.energyTracker.buildersObj[SPELLS.TIGERS_FURY.id];
-    const wastedShare = (tracked.wasted / (tracked.generated + tracked.wasted));
+    const wastedShare = tracked.wasted / (tracked.generated + tracked.wasted);
     return {
       actual: wastedShare,
       isGreaterThan: {
