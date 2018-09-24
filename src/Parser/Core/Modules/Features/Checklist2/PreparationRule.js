@@ -42,6 +42,60 @@ class PreparationRule extends React.PureComponent {
       </React.Fragment>
     );
   }
+  renderFlaskRequirements() {
+    const { thresholds } = this.props;
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Flask used"
+          thresholds={thresholds.flaskPresent}
+        />
+      </React.Fragment>
+    );
+  }
+  renderFoodRequirements() {
+    const { thresholds } = this.props;
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Food used"
+          thresholds={thresholds.foodPresent}
+        />
+      </React.Fragment>
+    );
+  }
+  renderGemRequirements() {
+    const { thresholds } = this.props;
+
+    return (
+      <React.Fragment>
+        {thresholds.socketsGemmed.max !== 0 &&
+        (
+          <Requirement
+            name="Every slot gemmed"
+            thresholds={thresholds.socketsGemmed}
+          />
+        )
+        }
+        {thresholds.socketsBestGemmed.max !== 0 &&
+        (
+          <Requirement
+            name="Every slot best gemmed"
+            thresholds={thresholds.socketsBestGemmed}
+          />
+        )
+        }
+        {thresholds.socketsContainsUnique.max !== 0 &&
+        (
+          <Requirement
+            name="One slot has unique gem"
+            thresholds={thresholds.socketsContainsUnique}
+          />
+        )
+        }
+      </React.Fragment>
+    );
+  }
 
   render() {
     const { children } = this.props;
@@ -53,6 +107,9 @@ class PreparationRule extends React.PureComponent {
       >
         {this.renderEnchantRequirements()}
         {this.renderPotionRequirements()}
+        {this.renderFlaskRequirements()}
+        {this.renderFoodRequirements()}
+        {this.renderGemRequirements()}
         {children}
       </Rule>
     );

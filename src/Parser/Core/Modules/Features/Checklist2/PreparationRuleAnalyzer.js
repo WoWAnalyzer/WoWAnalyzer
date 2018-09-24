@@ -1,11 +1,17 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import FlaskChecker from 'Parser/Core/Modules/Items/FlaskChecker';
+import FoodChecker from 'Parser/Core/Modules/Items/FoodChecker';
+import GemChecker from 'Parser/Core/Modules/Items/GemChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
+    flaskChecker: FlaskChecker,
+    foodChecker: FoodChecker,
+    gemChecker: GemChecker,
   };
 
   get thresholds() {
@@ -25,10 +31,14 @@ class PreparationRuleAnalyzer extends Analyzer {
         isLessThan: this.enchantChecker.numEnchantableGear,
         style: 'number',
       },
-
+      flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
+      foodPresent: this.foodChecker.foodSuggestionThresholds,
+      bestFoodPresent: this.foodChecker.bestFoodSuggestionThresholds,
+      socketsGemmed: this.gemChecker.socketsGemmedThresholds,
+      socketsBestGemmed: this.gemChecker.socketsBestGemmedThresholds,
+      socketsContainsUnique: this.gemChecker.socketsContainsUniqueThresholds,
     };
   }
-
 }
 
 export default PreparationRuleAnalyzer;
