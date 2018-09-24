@@ -112,7 +112,6 @@ class EternalRuneWeapon extends Analyzer {
   }
 
   statistic() {
-    console.info(this.bonusDurations);
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
