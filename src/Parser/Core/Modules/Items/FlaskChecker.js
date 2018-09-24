@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS';

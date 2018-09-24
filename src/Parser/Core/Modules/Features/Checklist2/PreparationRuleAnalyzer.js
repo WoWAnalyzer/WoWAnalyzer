@@ -33,10 +33,6 @@ class PreparationRuleAnalyzer extends Analyzer {
       },
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
       foodPresent: this.foodChecker.foodSuggestionThresholds,
-      bestFoodPresent: this.foodChecker.bestFoodSuggestionThresholds,
-      socketsGemmed: this.gemChecker.socketsGemmedThresholds,
-      socketsBestGemmed: this.gemChecker.socketsBestGemmedThresholds,
-      socketsContainsUnique: this.gemChecker.socketsContainsUniqueThresholds,
     };
   }
 }
