@@ -1,10 +1,10 @@
 import Analyzer from 'Parser/Core/Analyzer';
 
 import PETS from 'common/PETS';
-import SPELLS from 'common/SPELLS';
 
 // tracks individual pet (as in pet type) damage, summed together across pet instances
 // also tracks pet summons and despawns and provides getPets(timestamp)
+const debug = false;
 class Pets extends Analyzer {
   // Keys are ids in PETS.js
   petDamage = {
@@ -31,10 +31,11 @@ class Pets extends Analyzer {
       // pet that's not in PETS.js, which is most likely a permanent pet, return something neutral
       return 0;
     }
-    if (guid !== PETS.WILDIMP_ON_DREADSTALKER.id && guid !== PETS.DREADSTALKER.id) {
+    if (PETS[guid]) {
       return PETS[guid].baseDuration;
     }
-    return (this.selectedCombatant.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
+    debug && console.error(`Found unknown guid in Warlock Pets._getCorrectDuration() - ${guid}`);
+    return 0;
   }
 
   _isPermanentPet(guid) {
