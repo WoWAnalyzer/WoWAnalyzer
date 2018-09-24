@@ -10,7 +10,6 @@ class PreparationRuleAnalyzer extends Analyzer {
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
-    gemChecker: GemChecker,
   };
 
   get thresholds() {
