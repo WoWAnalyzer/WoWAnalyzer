@@ -58,7 +58,7 @@ class EternalRuneWeapon extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if ((event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) || this.firstDancingRuneWeaponCheck && this.selectedCombatant.hasBuff(SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id)) {
+    if ((event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) || (this.firstDancingRuneWeaponCheck && this.selectedCombatant.hasBuff(SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id))) {
       this.firstDancingRuneWeaponCheck = false;
       this.bonusDurations.push([]);
       return;
