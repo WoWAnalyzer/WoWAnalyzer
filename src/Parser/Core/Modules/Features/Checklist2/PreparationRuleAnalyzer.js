@@ -3,7 +3,6 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import FlaskChecker from 'Parser/Core/Modules/Items/FlaskChecker';
 import FoodChecker from 'Parser/Core/Modules/Items/FoodChecker';
-import GemChecker from 'Parser/Core/Modules/Items/GemChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
