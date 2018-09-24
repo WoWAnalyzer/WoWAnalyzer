@@ -8,6 +8,7 @@ import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const MAX_STACKS = 5;
 
@@ -137,14 +138,10 @@ class MongooseBite extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 }

@@ -3,9 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -46,17 +48,12 @@ class AgonyUptime extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.AGONY.id} /> uptime
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.uptime)} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.AGONY.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+      />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default AgonyUptime;

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class JuggernautReset extends Analyzer {
 
@@ -60,57 +61,43 @@ class JuggernautReset extends Analyzer {
 
   juggernautResets() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Resets
-        </div>
-        <div className="flex-sub text-right">{this.resets}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Resets</React.Fragment>}
+        value={this.resets}
+      />
     );
   }
 
   juggernautStacksDropped() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Stacks lost
-        </div>
-        <div className="flex-sub text-right">{this.stacksDropped}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Stacks lost</React.Fragment>}
+        value={this.stacksDropped}
+      />
     );
   }
 
   juggernautStacksMax() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks
-        </div>
-        <div className="flex-sub text-right">{this.stacksMax}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks</React.Fragment>}
+        value={this.stacksMax}
+      />
     );
   }
 
   juggernautStacksMaxDamageIncrease() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks damage increase
-        </div>
-        <div className="flex-sub text-right">{this.stacksMax * 3}%
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks damage increase</React.Fragment>}
+        value={`${this.stacksMax * 3} %`}
+      />
     );
   }
 
   statistic() {
     return (
-      <StatisticsListBox
-        title="Juggernaut Statistics"
-      >
+      <StatisticsListBox title="Juggernaut Statistics">
         {this.juggernautResets()}
         {this.juggernautStacksDropped()}
         {this.juggernautStacksMax()}

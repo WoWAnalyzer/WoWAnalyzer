@@ -8,6 +8,8 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
@@ -86,16 +88,11 @@ class UnstableAfflictionUptime extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}>
-            {formatPercentage(this.uptime)} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+        valueTooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}
+      />
     );
   }
 }

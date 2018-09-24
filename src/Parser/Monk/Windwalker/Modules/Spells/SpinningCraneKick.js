@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
@@ -122,47 +123,32 @@ class SpinningCraneKick extends Analyzer {
   averageHits() {
     const averageHits = this.spinningCraneKickHits / this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts;
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <dfn data-tip="Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds">
-            Average hits
-          </dfn>
-        </div>
-        <div className="flex-sub text-right">
-          {averageHits.toFixed(2)}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title="Average hits"
+        titleTooltip="Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds"
+        value={averageHits.toFixed(2)}
+      />
     );
   }
 
   averageMarks() {
     const averageMarks = this.totalMarksDuringHits / this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts;
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <dfn data-tip={`You had an average of ${averageMarks.toFixed(2)} Mark of the Crane stacks while hitting enemies with Spinning Crane Kick`}>
-            Average marks
-          </dfn>
-        </div>
-        <div className="flex-sub text-right">
-          {averageMarks.toFixed(2)}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title="Average marks"
+        titleTooltip={`You had an average of ${averageMarks.toFixed(2)} Mark of the Crane stacks while hitting enemies with Spinning Crane Kick`}
+        value={averageMarks.toFixed(2)}
+      />
     );
   }
 
   badCastsStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <dfn data-tip="Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.">
-            Bad casts
-          </dfn>
-        </div>
-        <div className="flex-sub text-right">
-          {this.badCasts}
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title="Bad casts"
+        titleTooltip="Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick."
+        value={this.badCasts}
+      />
     );
   }
 

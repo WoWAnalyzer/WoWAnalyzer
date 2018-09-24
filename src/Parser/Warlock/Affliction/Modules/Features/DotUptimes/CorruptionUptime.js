@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -46,18 +46,12 @@ class CorruptionUptime extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.uptime)} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+      />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default CorruptionUptime;

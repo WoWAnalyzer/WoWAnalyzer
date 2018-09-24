@@ -10,6 +10,7 @@ import StatisticBox from 'Interface/Others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
@@ -52,14 +53,10 @@ class SerpentSting extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 }

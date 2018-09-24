@@ -11,6 +11,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -100,16 +102,11 @@ class EarthShield extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing buff.`}>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing + feeding))} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing + feeding))} %`}
+        valueTooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing buff.`}
+      />
     );
   }
 
