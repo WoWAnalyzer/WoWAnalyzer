@@ -444,11 +444,6 @@ export default {
     name: 'Heavy Rain',
     icon: 'spell_shadow_rainoffire',
   },
-  HEED_MY_CALL: {
-    id: 263987,
-    name: 'Heed My Call',
-    icon: 'spell_shaman_thunderstorm',
-  },
   HORRID_EXPULSION: {
     id: 273095,
     name: 'Horrid Expulsion',

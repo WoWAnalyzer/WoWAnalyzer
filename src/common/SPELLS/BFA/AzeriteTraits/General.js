@@ -196,4 +196,19 @@ export default {
     name: 'Gutripper',
     icon: 'ability_criticalstrike',
   },
+  HEED_MY_CALL: {
+    id: 263987,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_PRIMARY_DAMAGE: {
+    id: 271685,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_AOE_DAMAGE: {
+    id: 271686,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
 };
