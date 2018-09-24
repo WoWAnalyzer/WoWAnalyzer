@@ -404,11 +404,6 @@ export default {
     name: 'Glacial Contagion',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  GUTRIPPER: {
-    id: 266937,
-    name: 'Gutripper',
-    icon: 'ability_criticalstrike',
-  },
   HARROWING_DECAY: {
     id: 275929,
     name: 'Harrowing Decay',

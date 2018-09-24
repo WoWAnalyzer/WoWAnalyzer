@@ -186,4 +186,14 @@ export default {
     name: 'Blood Rite',
     icon: 'inv_misc_volatilelife',
   },
+  GUTRIPPER: {
+    id: 266937,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  GUTRIPPER_DAMAGE: {
+    id: 269031,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
 };
