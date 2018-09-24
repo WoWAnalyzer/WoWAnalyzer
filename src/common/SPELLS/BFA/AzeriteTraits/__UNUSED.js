@@ -404,11 +404,6 @@ export default {
     name: 'Glacial Contagion',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  GUTRIPPER: {
-    id: 266937,
-    name: 'Gutripper',
-    icon: 'ability_criticalstrike',
-  },
   HARROWING_DECAY: {
     id: 275929,
     name: 'Harrowing Decay',
@@ -1082,7 +1077,7 @@ export default {
   WRACKING_BRILLIANCE: {
     id: 272891,
     name: 'Wracking Brilliance',
-    icon: 'spell_shadow_curseofsargeras',
+    icon: 'spell_shadow_felmending',
   },
   ZEALOTRY: {
     id: 270596,

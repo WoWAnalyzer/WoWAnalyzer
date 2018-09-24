@@ -186,6 +186,7 @@ class Pyroclasm extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.PYROCLASM_TALENT.id} />}
         value={`${formatPercentage(this.procUtilization, 0)} %`}
         label="Pyroclasm Utilization"
@@ -199,7 +200,6 @@ class Pyroclasm extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default Pyroclasm;

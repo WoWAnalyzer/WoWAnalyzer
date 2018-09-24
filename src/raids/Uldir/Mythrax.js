@@ -3,10 +3,10 @@ import Headshot from './Images/Headshots/Aggramar.png';
 
 export default {
   id: 2135,
-  name: 'Mythrax',
+  name: 'Mythrax the Unraveler',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_mythraxtheunraveler',
   fight: {
     // vantusRuneBuffId: ,
     // TODO: Add fight specific props

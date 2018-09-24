@@ -4,9 +4,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
+
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class ChannelDemonfire extends Analyzer {
   static dependencies = {
@@ -27,20 +28,17 @@ class ChannelDemonfire extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {    
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}>
-            Channel Demonfire Gain
-          </SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Your Channel Demonfire contributed ${formatNumber(this.damage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%).`}>
-            {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}>Channel Demonfire gain</SpellLink>}
+        value={`${formatThousands(this.dps)} DPS`}
+        valueTooltip={`Your Channel Demonfire contributed ${formatThousands(this.damage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%).`}
+      />
     );
   }
 }

@@ -5,18 +5,16 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
-  // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
   };
@@ -49,29 +47,16 @@ class Haunt extends Analyzer {
     }
   }
 
-  get unbuffedTicks() {
-    return this.totalTicks - this.buffedTicks;
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.HAUNT_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
     return {
-      actual: (this.unbuffedTicks / this.totalTicks) || 1,
-      isGreaterThan: {
-        minor: 0.15,
-        average: 0.2,
-        major: 0.25,
-      },
-      style: 'percentage',
-    };
-  }
-
-  // used in Checklist, mirrors the numbers from suggestionThresholds()
-  get positiveSuggestionThresholds() {
-    return {
-      actual: (this.buffedTicks / this.totalTicks) || 0,
+      actual: this.uptime,
       isLessThan: {
-        minor: 0.85,
-        average: 0.8,
+        minor: 0.9,
+        average: 0.85,
         major: 0.75,
       },
       style: 'percentage',
@@ -81,26 +66,27 @@ class Haunt extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> aren't buffed enough by <SpellLink id={SPELLS.HAUNT_TALENT.id} />. You should try to cast your Unstable Affliction in the burst windows provided by Haunt (but <strong>don't overcap</strong> your Soul Shards while waiting).</React.Fragment>)
+        return suggest(
+          <React.Fragment>
+            Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
+          </React.Fragment>
+        )
           .icon(SPELLS.HAUNT_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
-          .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+          .actual(`${formatPercentage(actual)}% Haunt uptime.`)
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
       });
   }
 
-  statistic() {
+  subStatistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAUNT_TALENT.id} />}
-        value={`${formatPercentage(buffedTicksPercentage)} %`}
-        label="UA ticks buffed by Haunt"
-        tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</React.Fragment>}
+        value={`${formatPercentage(this.uptime)} %`}
+        valueTooltip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default Haunt;

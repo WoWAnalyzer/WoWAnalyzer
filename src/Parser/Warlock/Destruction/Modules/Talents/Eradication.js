@@ -5,11 +5,11 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const ERADICATION_DAMAGE_BONUS = 0.1;
 
@@ -28,7 +28,7 @@ class Eradication extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
     this._hasCDF = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }
 
@@ -91,55 +91,39 @@ class Eradication extends Analyzer {
       });
   }
 
-
   get uptimeStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          Uptime
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Your Eradication contributed ${this.owner.formatItemDamageDone(this.bonusDmg)} (${formatNumber(this.bonusDmg)} damage).`}>
-            {formatPercentage(this.uptime)} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title="Uptime"
+        value={`${formatPercentage(this.uptime)} %`}
+        valueTooltip={`Your Eradication contributed ${this.owner.formatItemDamageDone(this.bonusDmg)} (${formatNumber(this.bonusDmg)} damage).`}
+      />
     );
   }
 
   get chaosBoltStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          Buffed <SpellLink id={SPELLS.CHAOS_BOLT.id} icon>Chaos Bolts</SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`${this._buffedCB} / ${this._totalCB}`}>
-            {formatPercentage(this.CBpercentage)} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment>Buffed <SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink></React.Fragment>}
+        value={`${formatPercentage(this.CBpercentage)} %`}
+        valueTooltip={`${this._buffedCB} / ${this._totalCB}`}
+      />
     );
   }
 
   get channelDemonfireStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon /> ticks
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`${this._buffedCDF} / ${this._totalCDF}`}>
-            {formatPercentage(this.CDFpercentage)} %
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<React.Fragment>Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} /> ticks</React.Fragment>}
+        value={`${formatPercentage(this.CDFpercentage)} %`}
+        valueTooltip={`${this._buffedCDF} / ${this._totalCDF}`}
+      />
     );
   }
 
   statistic() {
     return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} icon />}>
+      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} />}>
         {this.uptimeStatistic}
         {this.chaosBoltStatistic}
         {this._hasCDF && this.channelDemonfireStatistic}

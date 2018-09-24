@@ -5,6 +5,7 @@
  */
 
 export default {
+  //Beast Mastery
   HAZE_OF_RAGE: {
     id: 273262,
     name: 'Haze of Rage',
@@ -22,8 +23,15 @@ export default {
   },
   DANCE_OF_DEATH_BUFF: {
     id: 274443,
-    name: "Dance of Death",
-    icon: "ability_druid_mangle",
+    name: 'Dance of Death',
+    icon: 'ability_druid_mangle',
+  },
+
+  //Survival
+  WILDERNESS_SURVIVAL: {
+    id: 278532,
+    name: 'Wilderness Survival',
+    icon: 'ability_hunter_survivalinstincts',
   },
   FEEDING_FRENZY: {
     id: 278529,

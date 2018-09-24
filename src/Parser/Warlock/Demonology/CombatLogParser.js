@@ -5,8 +5,7 @@ import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Felstorm from './Modules/Features/Felstorm';
-import SpellUsable from './Modules/Features/SpellUsable';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 
 import DoomUptime from './Modules/Features/DoomUptime';
 
@@ -17,15 +16,6 @@ import DemoPets from './Modules/WarlockCore/Pets';
 import DemonicCalling from './Modules/Talents/DemonicCalling';
 import GrimoireFelguard from './Modules/Talents/GrimoireFelguard';
 
-import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
-import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
-import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
-import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
-
-import T20_2set from './Modules/Items/T20_2set';
-import T20_4set from './Modules/Items/T20_4set';
-
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -34,7 +24,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     felstorm: Felstorm,
-    spellUsable: SpellUsable,
     checklist: Checklist,
 
     // DoTs
@@ -48,16 +37,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     demonicCalling: DemonicCalling,
     grimoireFelguard: GrimoireFelguard,
-
-    // Legendaries
-    recurrentRitual: RecurrentRitual,
-    kazzaksFinalCurse: KazzaksFinalCurse,
-    masterHarvester: TheMasterHarvester,
-    soulOfTheNetherlord: SoulOfTheNetherlord,
-
-    // Items
-    t20_2set: T20_2set,
-    t20_4set: T20_4set,
   };
 }
 

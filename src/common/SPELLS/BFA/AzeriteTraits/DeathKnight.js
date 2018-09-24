@@ -16,6 +16,16 @@ export default {
     name: 'Bones of the Damned',
     icon: 'ability_deathknight_marrowrend',
   },
+  ETERNAL_RUNE_WEAPON: {
+    id: 278479,
+    name: 'Eternal Rune Weapon',
+    icon: 'inv_sword_07',
+  },
+  ETERNAL_RUNE_WEAPON_BUFF: {
+    id: 278543,
+    name: 'Eternal Rune Weapon',
+    icon: 'inv_sword_07',
+  },
 
   //Shared
   BONE_SPIKE_GRAVEYARD: {

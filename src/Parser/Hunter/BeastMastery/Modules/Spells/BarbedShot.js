@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
@@ -190,14 +191,10 @@ class BarbedShot extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.BARBED_SHOT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.BARBED_SHOT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 }

@@ -183,6 +183,21 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  HALO_DAMAGE: {
+    id: 120696,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+  },
+  DIVINE_STAR_HEAL: {
+    id: 110745,
+    name: 'Halo',
+    icon: 'spell_priest_divinestar',
+  },
+  DIVINE_STAR_DAMAGE: {
+    id: 122128,
+    name: 'Halo',
+    icon: 'spell_priest_divinestar',
+  },
   CONTRITION_HEAL: {
     id: 270501,
     name: 'Contrition',
@@ -343,6 +358,12 @@ export default {
     icon: 'spell_holy_guardianspirit',
     manaCost: 900,
   },
+  GUARDIAN_SPIRIT_HEAL: {
+    id: 48153,
+    name: 'Guardian Spirit',
+    icon: 'spell_holy_guardianspirit',
+    manaCost: 900,
+  },
   DIVINE_HYMN_CAST: {
     id: 64843,
     name: 'Divine Hymn',
@@ -364,8 +385,20 @@ export default {
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
   },
-  HOLY_WORD_CHASTICE: {
+  HOLY_WORD_CHASTISE: {
     id: 88625,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 2000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE: {
+    id: 200196,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 2000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_STUN: {
+    id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
     manaCost: 2000,
@@ -379,6 +412,11 @@ export default {
     id: 234946,
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
+  },
+  SURGE_OF_LIGHT_BUFF: {
+    id: 114255,
+    name: 'Surge of Light',
+    icon: 'spell_holy_surgeoflight',
   },
   COSMIC_RIPPLE_HEAL: {
     id: 243241,

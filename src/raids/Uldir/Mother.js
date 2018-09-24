@@ -1,12 +1,12 @@
-import Background from './Images/Backgrounds/Aggramar.jpg';
-import Headshot from './Images/Headshots/Aggramar.png';
+import Background from './Images/Backgrounds/MOTHER.jpg';
+import Headshot from './Images/Headshots/MOTHER.png';
 
 export default {
   id: 2141,
-  name: 'Mother',
+  name: 'MOTHER',
   background: Background,
   headshot: Headshot,
-  icon: '',
+  icon: 'achievement_nazmir_boss_mother',
   fight: {
     //vantusRuneBuffId: 250144,
     // TODO: Add fight specific props

@@ -304,7 +304,7 @@ class RuneTracker extends ResourceTracker {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You overcapped {formatPercentage(actual)}% of your runes. Try to always have atleast 3 runes on cooldown.</React.Fragment>)
+      return suggest(<React.Fragment>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</React.Fragment>)
         .icon(SPELLS.RUNE_1.icon)
         .actual(`${formatPercentage(actual)}% runes overcapped`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

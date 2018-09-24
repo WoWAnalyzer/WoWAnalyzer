@@ -92,9 +92,34 @@ export default {
     icon: 'achievement_guildperk_everyones-a-hero',
   },
   LASER_MATRIX: {
+    id: 280559,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_HEAL: {
     id: 280707,
     name: 'Laser Matrix',
     icon: 'spell_nature_groundingtotem',
+  },
+  LASER_MATRIX_DAMAGE: {
+    id: 280705,
+    name: 'Laser Matrix',
+    icon: 'spell_nature_groundingtotem',
+  },
+  ARCHIVE_OF_THE_TITANS: {
+    id: 280555,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
+  ARCHIVE_OF_THE_TITANS_BUFF: {
+    id: 280709,
+    name: 'Archive of the Titans',
+    icon: 'inv_trinket_80_titan01b',
+  },
+  REORIGINATION_ARRAY: {
+    id: 280573,
+    name: 'Reorigination Array',
+    icon: 'inv_trinket_80_titan02c',
   },
   METICULOUS_SCHEMING: {
     id: 273682,
@@ -140,5 +165,35 @@ export default {
     id: 268956,
     name: 'Elemental Whirl - Versatility',
     icon: 'ability_skyreach_four_wind',
+  },
+  OVERWHELMING_POWER: {
+    id: 266180,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  OVERWHELMING_POWER_BUFF: {
+    id: 271711,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  BLOOD_RITE: {
+    id: 280407,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
+  BLOOD_RITE_BUFF: {
+    id: 280409,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
+  GUTRIPPER: {
+    id: 266937,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  GUTRIPPER_DAMAGE: {
+    id: 269031,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
   },
 };

@@ -8,6 +8,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import HealingRainLocation from '../ShamanCore/HealingRainLocation';
 
 const DELUGE_HEALING_INCREASE = 0.20;
@@ -79,14 +81,10 @@ class Deluge extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.DELUGE_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.DELUGE_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
     );
   }
 
