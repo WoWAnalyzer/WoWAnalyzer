@@ -15,7 +15,7 @@ import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../Constants';
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
 const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
-const BLOOM_BUFFER_MS = 200;
+const BLOOM_BUFFER_MS = 32;
 
 /*
 While your Lifebloom is on yourself, your periodic heals heal 20% faster.
@@ -71,7 +71,7 @@ class Photosynthesis extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
 
     // Lifebloom random bloom procc
-    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS)){
+    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) < BLOOM_BUFFER_MS)){
       this.lifebloomIncrease += amount;
     }
 
@@ -123,7 +123,12 @@ class Photosynthesis extends Analyzer {
     if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
       return;
     }
-    this.increasedRateTotalHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
+
+    if(spellId === SPELLS.SPRING_BLOSSOMS.id) {
+      calculateEffectiveHealing(event, PHOTOSYNTHESIS_SB_INCREASE);
+    } else {
+      this.increasedRateTotalHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
+    }
   }
 
   statistic() {
