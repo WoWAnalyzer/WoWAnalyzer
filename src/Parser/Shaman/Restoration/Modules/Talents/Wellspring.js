@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
 class Wellspring extends Analyzer {
@@ -32,14 +34,10 @@ class Wellspring extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.WELLSPRING_HEAL.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.WELLSPRING_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+      />
     );
   }
 

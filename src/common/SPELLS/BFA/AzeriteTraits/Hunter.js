@@ -5,27 +5,47 @@
  */
 
 export default {
+  //Beast Mastery
   HAZE_OF_RAGE: {
     id: 273262,
     name: 'Haze of Rage',
     icon: 'ability_druid_ferociousbite',
   },
-
   HAZE_OF_RAGE_BUFF: {
     id: 273264,
     name: 'Haze of Rage',
     icon: 'ability_druid_ferociousbite',
   },
-
   DANCE_OF_DEATH: {
     id: 274441,
     name: 'Dance of Death',
     icon: 'ability_druid_mangle',
   },
-
   DANCE_OF_DEATH_BUFF: {
     id: 274443,
-    name: "Dance of Death",
-    icon: "ability_druid_mangle",
+    name: 'Dance of Death',
+    icon: 'ability_druid_mangle',
+  },
+
+  //Survival
+  WILDERNESS_SURVIVAL: {
+    id: 278532,
+    name: 'Wilderness Survival',
+    icon: 'ability_hunter_survivalinstincts',
+  },
+  FEEDING_FRENZY: {
+    id: 278529,
+    name: 'Feeding Frenzy',
+    icon: 'ability_hunter_barbedshot',
+  },
+  PRIMAL_INSTINCTS: {
+    id: 279806,
+    name: 'Primal Instincts',
+    icon: 'spell_nature_protectionformnature',
+  },
+  PRIMAL_INSTINCTS_BUFF: {
+    id: 279810,
+    name: 'Primal Instincts',
+    icon: 'spell_nature_protectionformnature',
   },
 };

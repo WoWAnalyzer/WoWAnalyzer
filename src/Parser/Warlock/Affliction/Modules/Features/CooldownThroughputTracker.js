@@ -13,13 +13,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    // TODO: remove later once legendaries no longer work (this is procced by The Master Harvester)
-    {
-      spell: SPELLS.SOUL_HARVEST,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
   ];
 
   static castCooldowns = [

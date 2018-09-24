@@ -27,6 +27,7 @@ import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
 import Ironbark from './Modules/Features/Ironbark';
 import NaturesEssence from './Modules/Features/NaturesEssence';
+import ManaUsage from './Modules/Features/ManaUsage';
 
 import CenarionWard from './Modules/Talents/CenarionWard';
 import Cultivation from './Modules/Talents/Cultivation';
@@ -35,12 +36,16 @@ import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
 import Photosynthesis from './Modules/Talents/Photosynthesis';
+import Stonebark from './Modules/Talents/Stonebark';
+import Abundance from './Modules/Talents/Abundance';
 
 import FungalEssence from './Modules/Items/AzeriteTraits/FungalEssence';
 import AutumnLeaves from './Modules/Items/AzeriteTraits/AutumnLeaves';
 import GroveTending from './Modules/Items/AzeriteTraits/GroveTending';
 import LaserMatrix from './Modules/Items/AzeriteTraits/LaserMatrixRestoDruid';
 import WakingDream from './Modules/Items/AzeriteTraits/WakingDream';
+import LivelySpirit from './Modules/Items/AzeriteTraits/LivelySpirit';
+import SynergisticGrowth from './Modules/Items/AzeriteTraits/SynergisticGrowth';
 
 import StatWeights from './Modules/Features/StatWeights';
 
@@ -80,16 +85,22 @@ class CombatLogParser extends CoreCombatLogParser {
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     clearcasting: Clearcasting,
+    innervate: Innervate,
+    springBlossoms: SpringBlossoms,
+    cultivation: Cultivation,
+    ironbark: Ironbark,
+    naturesEssence: NaturesEssence,
+    manaUsage: ManaUsage,
+
+    // Talents
+    stonebark: Stonebark,
+    soulOfTheForest: SoulOfTheForest,
     treeOfLife: TreeOfLife,
     photosynthesis: Photosynthesis,
     flourish: Flourish,
-    innervate: Innervate,
-    soulOfTheForest: SoulOfTheForest,
-    springBlossoms: SpringBlossoms,
-    cultivation: Cultivation,
     cenarionWard: CenarionWard,
-    ironbark: Ironbark,
-    naturesEssence: NaturesEssence,
+    abundance: Abundance,
+
     // Items:
 
     // Azerite traits
@@ -98,6 +109,8 @@ class CombatLogParser extends CoreCombatLogParser {
     groveTending: GroveTending,
     laserMatrix: LaserMatrix,
     wakingDream: WakingDream,
+    livelySpirit: LivelySpirit,
+    synergisticGrowth: SynergisticGrowth,
 
     statWeights: StatWeights,
   };

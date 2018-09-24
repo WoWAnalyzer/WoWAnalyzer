@@ -34,7 +34,7 @@ class Apocalypse extends Analyzer {
   suggestions(when) {
     const averageWoundsPopped = (this.apocalypseWoundsPopped/this.totalApocalypseCasts).toFixed(1);
 	//Getting 6 wounds on every Apocalypse isn't difficult and should be expected
-    when(averageWoundsPopped).isLessThan(6)
+    when(averageWoundsPopped).isLessThan(4)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
             .icon(SPELLS.APOCALYPSE.icon)

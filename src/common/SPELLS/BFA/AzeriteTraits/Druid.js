@@ -20,7 +20,12 @@ export default {
     icon: 'inv_misc_head_dragon_green',
   },
   LIVELY_SPIRIT_TRAIT: {
-    id: 279647,
+    id: 279642,
+    name: 'Lively Spirit',
+    icon: 'spell_nature_lightning',
+  },
+  LIVELY_SPIRIT_BUFF: {
+    id: 279648,
     name: 'Lively Spirit',
     icon: 'spell_nature_lightning',
   },
@@ -43,5 +48,15 @@ export default {
     id: 272807,
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
+  },
+  SYNERGISTIC_GROWTH: {
+    id: 267892,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  SYNERGISTIC_GROWTH_BUFF: {
+    id: 272090,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
   },
 };

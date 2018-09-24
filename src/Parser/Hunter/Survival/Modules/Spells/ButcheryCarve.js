@@ -7,6 +7,7 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -116,14 +117,10 @@ class ButcheryCarve extends Analyzer {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={this.spellKnown.id} />
-          </div>
-          <div className="flex-sub text-right">
-            <ItemDamageDone amount={this.bonusDamage} />
-          </div>
-        </div>
+        <StatisticListBoxItem
+          title={<SpellLink id={this.spellKnown.id} />}
+          value={<ItemDamageDone amount={this.bonusDamage} />}
+        />
       );
     }
     return null;

@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
@@ -25,14 +26,10 @@ class BeastCleave extends Analyzer {
     //Beast Cleave is only used on AoE - no reason to show this statistic on single-target, so this just checks if Beast Cleave did any damage at all, since it only makes sense to show it on AoE fights.
     if (this.damage > 0) {
       return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} />
-          </div>
-          <div className="flex-sub text-right">
-            <ItemDamageDone amount={this.damage} />
-          </div>
-        </div>
+        <StatisticListBoxItem
+          title={<SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} />}
+          value={<ItemDamageDone amount={this.damage} />}
+        />
       );
     }
     return null;

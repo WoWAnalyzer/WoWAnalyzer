@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.75,
         },
       },
       {
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.85,
         },
       },
       {

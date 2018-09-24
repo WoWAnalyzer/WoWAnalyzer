@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
 const DELAY_MS = 200;
@@ -77,14 +79,10 @@ class CloudburstTotem extends Analyzer {
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.CLOUDBURST_TOTEM_HEAL.id);
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+      />
     );
   }
 

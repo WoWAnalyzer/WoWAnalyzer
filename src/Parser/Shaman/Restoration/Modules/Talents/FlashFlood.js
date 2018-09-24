@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -110,16 +111,11 @@ class FlashFlood extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Cast time saved by Flash Flood. <br /> ${(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.`}>
-            {(this.totalTimeSaved / 1000).toFixed(2)} seconds
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} />}
+        value={`${(this.totalTimeSaved / 1000).toFixed(2)} seconds`}
+        valueTooltip={`Cast time saved by Flash Flood. <br /> ${(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.`}
+      />
     );
   }
 

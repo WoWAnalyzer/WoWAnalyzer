@@ -33,7 +33,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 13 / (1 + haste),
         charges: 2,
-        // TODO: T19 4p set bonus grants another charge and reduces CD
         gcd: {
           base: 1500,
         },
@@ -58,7 +57,6 @@ class Abilities extends CoreAbilities {
         cooldown: 12,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
-        // TODO: T19 4p set bonus grants another charge and reduces CD
         gcd: {
           base: 1500,
         },

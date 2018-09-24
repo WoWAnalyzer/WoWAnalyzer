@@ -44,12 +44,11 @@ class Checklist extends Analyzer {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          
+
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           boneChillingUptime: this.boneChilling.suggestionThresholds,
           brainFreezeUtilization: this.brainFreeze.utilSuggestionThresholds,
           brainFreezeOverwrites: this.brainFreeze.overwriteSuggestionThresholds,
-          brainFreezeGlacialOverwrite: this.brainFreeze.glacialSpikeOverwriteSuggestionThresholds,
           brainFreezeExpired: this.brainFreeze.expiredSuggestionThresholds,
           brainFreezeUnbuffedFlurry: this.brainFreeze.flurryWithoutProcSuggestionThresholds,
           glacialSpikeUtilization: this.glacialSpike.utilSuggestionThresholds,

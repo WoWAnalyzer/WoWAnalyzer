@@ -6,11 +6,6 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-09-17'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> </React.Fragment>,
-    contributors: [Juko8],
-  },
-  {
     date: new Date('2018-09-09'),
     changes: <React.Fragment>Added Azerite statistic for <SpellLink id={SPELLS.SWIFT_ROUNDHOUSE.id} /> </React.Fragment>,
     contributors: [Juko8],

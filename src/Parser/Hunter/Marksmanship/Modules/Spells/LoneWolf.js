@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from "common/SpellLink";
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const RAMP_INTERVAL = 6000;
 const INCREASE_PER_RAMP = 0.01;
@@ -85,14 +86,10 @@ class LoneWolf extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.LONE_WOLF_BUFF.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.LONE_WOLF_BUFF.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 

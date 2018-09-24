@@ -26,6 +26,7 @@ import Guard from './Modules/Spells/Guard';
 import TrainingOfNiuzao from './Modules/Spells/AzeriteTraits/TrainingOfNiuzao';
 import StaggeringStrikes from './Modules/Spells/AzeriteTraits/StaggeringStrikes';
 import ElusiveFootwork from './Modules/Spells/AzeriteTraits/ElusiveFootwork';
+import FitToBurst from './Modules/Spells/AzeriteTraits/FitToBurst';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Abilities';
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trainingOfNiuzao: TrainingOfNiuzao,
     staggeringStrikes: StaggeringStrikes,
     elusiveFootwork: ElusiveFootwork,
+    fitToBurst: FitToBurst,
 
     // Items
     t20_2pc: T20_2pc,

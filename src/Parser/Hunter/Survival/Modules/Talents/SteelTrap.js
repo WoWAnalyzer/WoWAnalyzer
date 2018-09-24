@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Hurls a Steel Trap to the target location that snaps shut on the
@@ -51,14 +52,10 @@ class SteelTrap extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDamage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />}
+        value={<ItemDamageDone amount={this.bonusDamage} />}
+      />
     );
   }
 }

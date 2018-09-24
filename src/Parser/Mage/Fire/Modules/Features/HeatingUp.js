@@ -1,5 +1,4 @@
 import React from 'react';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -29,13 +28,11 @@ class HeatingUp extends Analyzer {
   targetId = 0;
   currentHealth = 0;
   maxHealth = 0;
-  hasFirestarterTalent;
-  hasLegendaryBelt;
 
   constructor(...args) {
     super(...args);
     this.hasFirestarterTalent = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-    this.hasLegendaryBelt = this.selectedCombatant.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
+    this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
     this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
   }
 
@@ -60,7 +57,7 @@ class HeatingUp extends Analyzer {
       return;
     }
 
-    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasLegendaryBelt && this.healthPercent < .30)) && !hasHotStreak) {
+    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasSearingTouch && this.healthPercent < .30)) && !hasHotStreak) {
       debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
       if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
@@ -158,6 +155,7 @@ class HeatingUp extends Analyzer {
     if (this.hasPhoenixFlames) {
       return (
         <StatisticBox
+          position={STATISTIC_ORDER.CORE(14)}
           icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
           value={(
             <span>
@@ -205,7 +203,6 @@ class HeatingUp extends Analyzer {
       );
     }
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
 }
 
 export default HeatingUp;

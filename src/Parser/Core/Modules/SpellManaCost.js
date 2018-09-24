@@ -41,7 +41,9 @@ class SpellManaCost extends SpellResourceCost {
 
   on_finished() {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
-    if (incorrectCostCount === 0) return;
+    if (incorrectCostCount === 0) {
+      return;
+    }
 
     console.warn(`There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`);
     Object.values(this.incorrectCosts).forEach(ability => console.warn(ability));

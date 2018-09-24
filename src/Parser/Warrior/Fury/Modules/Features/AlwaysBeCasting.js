@@ -8,12 +8,23 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.10,
+        average: 0.15,
+        major: 0.20,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(deadTimePercentage).isGreaterThan(0.1)
+  suggestions(when) {
+
+    when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Try casting your filler whether it be <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> or <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> in between cooldowns. If on the move, try casting <SpellLink id={SPELLS.HEROIC_THROW.id} />.</span>)
+        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC). It's better to cast low-priority abilities such as <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> than it is to do nothing./>.</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)

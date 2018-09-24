@@ -166,4 +166,49 @@ export default {
     name: 'Elemental Whirl - Versatility',
     icon: 'ability_skyreach_four_wind',
   },
+  OVERWHELMING_POWER: {
+    id: 266180,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  OVERWHELMING_POWER_BUFF: {
+    id: 271711,
+    name: 'Overwhelming Power',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  BLOOD_RITE: {
+    id: 280407,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
+  BLOOD_RITE_BUFF: {
+    id: 280409,
+    name: 'Blood Rite',
+    icon: 'inv_misc_volatilelife',
+  },
+  GUTRIPPER: {
+    id: 266937,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  GUTRIPPER_DAMAGE: {
+    id: 269031,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  HEED_MY_CALL: {
+    id: 263987,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_PRIMARY_DAMAGE: {
+    id: 271685,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_AOE_DAMAGE: {
+    id: 271686,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
 };

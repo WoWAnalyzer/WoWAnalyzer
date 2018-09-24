@@ -404,11 +404,6 @@ export default {
     name: 'Glacial Contagion',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  GUTRIPPER: {
-    id: 266937,
-    name: 'Gutripper',
-    icon: 'ability_criticalstrike',
-  },
   HARROWING_DECAY: {
     id: 275929,
     name: 'Harrowing Decay',
@@ -448,11 +443,6 @@ export default {
     id: 272956,
     name: 'Heavy Rain',
     icon: 'spell_shadow_rainoffire',
-  },
-  HEED_MY_CALL: {
-    id: 263987,
-    name: 'Heed My Call',
-    icon: 'spell_shaman_thunderstorm',
   },
   HORRID_EXPULSION: {
     id: 273095,
@@ -1082,7 +1072,7 @@ export default {
   WRACKING_BRILLIANCE: {
     id: 272891,
     name: 'Wracking Brilliance',
-    icon: 'spell_shadow_curseofsargeras',
+    icon: 'spell_shadow_felmending',
   },
   ZEALOTRY: {
     id: 270596,
