@@ -47,9 +47,9 @@ class Abundance extends Analyzer {
   }
 
   statistic() {
-    const avgManaSavingsPercent = this.manaSavings.reduce(function(a, b) { return a + b; }) / this.manaSavings.length;
-    const avgCritGains = this.critGains.reduce(function(a, b) { return a + b; }) / this.critGains.length;
-    const avgStacks = this.stacks.reduce(function(a, b) { return a + b; }) / this.stacks.length;
+    const avgManaSavingsPercent = (this.manaSavings.reduce(function(a, b) { return a + b; }, 0) / this.manaSavings.length) || 0;
+    const avgCritGains = (this.critGains.reduce(function(a, b) { return a + b; }, 0) / this.critGains.length) || 0;
+    const avgStacks = (this.stacks.reduce(function(a, b) { return a + b; }, 0) / this.stacks.length) || 0;
     const avgManaSaings = SPELLS.REGROWTH.manaCost * avgManaSavingsPercent;
 
     // TODO translate these values into healing/throughput.
