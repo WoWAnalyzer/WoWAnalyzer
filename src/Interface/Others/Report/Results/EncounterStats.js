@@ -26,6 +26,7 @@ class EncounterStats extends React.PureComponent {
   SHOW_TOP_ENTRYS = 6;
   SHOW_TOP_ENTRYS_AZERITE = 10;
   metric = 'dps';
+  amountOfParses = 0;
 
   constructor(props) {
     super(props);
@@ -75,7 +76,7 @@ class EncounterStats extends React.PureComponent {
 
     const now = new Date();
     const onejan = new Date(now.getFullYear(), 0, 1);
-    const currentWeek = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 ); // current calendar-week
+    const currentWeek = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7); // current calendar-week
 
     return fetchWcl(`rankings/encounter/${this.props.currentBoss}`, {
       class: SPECS[this.props.spec].ranking.class,
@@ -170,7 +171,7 @@ class EncounterStats extends React.PureComponent {
       <div key={item.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row">
           <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
-            {formatPercentage(item.amount / this.LIMIT, 0)}%
+            {formatPercentage(item.amount / Math.min(this.LIMIT, this.amountOfParses), 0)}%
           </div>
           <div className="col-md-10">
             <ItemLink id={item.id} className={item.quality} icon={false}>
@@ -218,11 +219,13 @@ class EncounterStats extends React.PureComponent {
         </div>
       );
     }
-
+    // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
+    // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
+    this.amountOfParses = Object.values(this.state.mostUsedTalents[0]).reduce((a, b) => a + b);
     return (
       <React.Fragment>
         <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
-          <h2>Statistics of this fight of the top {this.LIMIT} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
+          <h2>Statistics of this fight of the top {Math.min(this.LIMIT, this.amountOfParses)} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
         </div>
         <div className="row">
           <div className="col-md-12" style={{ padding: '0 30px' }}>
@@ -259,7 +262,7 @@ class EncounterStats extends React.PureComponent {
                         <SpellLink id={Number(talent)} icon={false}>
                           <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
                         </SpellLink>
-                        <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
+                        <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / Math.min(this.LIMIT, this.amountOfParses), 0)}%</span>
                       </div>
                     ))}
                   </div>
