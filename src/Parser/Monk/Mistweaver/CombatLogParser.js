@@ -39,6 +39,7 @@ import EnvelopingMists from './Modules/Spells/EnvelopingMists';
 import SoothingMist from './Modules/Spells/SoothingMist';
 import Vivify from './Modules/Spells/Vivify';
 import LifeCocoon from './Modules/Spells/LifeCocoon';
+import AzeriteTraits from './Modules/Spells/AzeriteTraits';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -86,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
     lifeCocoon: LifeCocoon,
+    azeriteTraits: AzeriteTraits,
 
     // Talents
     chiBurst: ChiBurst,

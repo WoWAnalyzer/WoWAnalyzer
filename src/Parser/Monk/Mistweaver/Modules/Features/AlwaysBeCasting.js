@@ -14,6 +14,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.CHI_BURST_TALENT.id,
     SPELLS.CHI_WAVE_TALENT.id,
     SPELLS.REFRESHING_JADE_WIND_TALENT.id,
+    SPELLS.SOOTHING_MIST.id,
   ];
 
   get nonHealingTimeSuggestionThresholds() {
