@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-09-11'),
+    changes: 'Added healing contribution statistic box for the Mistweaver Specific Azerite traits.',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2018-09-08'),
     changes: 'Updated Checklist to leverage new format and included updates to the suggestions and thresholds. Cleaned up unused legendary files also.',
     contributors: [Anomoly],

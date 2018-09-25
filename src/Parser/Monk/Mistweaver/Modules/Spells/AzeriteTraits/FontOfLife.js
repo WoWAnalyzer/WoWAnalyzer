@@ -1,4 +1,10 @@
+import React from 'react';
+
+import SpellLink from 'common/SpellLink';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -10,8 +16,10 @@ class FontOfLife extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
+    abilityTracker: AbilityTracker,
   };
 
+  getAbility = spellId => this.abilityTracker.getAbility(spellId);
   /**
    * Your Essence Font's initial heal is increased by 150 and has a chance to reduce the cooldown of Thunder Focus Tea by 1 sec.
    */
@@ -38,12 +46,30 @@ class FontOfLife extends Analyzer {
 
       this.baseHeal = (intRating * ESSENCE_FONT_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
 
-      if (event.hitType === 2) {
+      if (event.hitType === HIT_TYPES.CRIT) {
         this.baseHeal = this.baseHeal * 2;
       }
       this.healing += (healAmount - this.baseHeal);
     }
   }
+
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.FONT_OF_LIFE.id}>
+             Font of Life
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}>
+            {formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing
+          </dfn>
+        </div>
+      </div>
+    );
+  }
+
 }
 
 export default FontOfLife;
