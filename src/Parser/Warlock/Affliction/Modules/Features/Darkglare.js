@@ -19,6 +19,7 @@ const DOT_DEBUFF_IDS = [
   SPELLS.PHANTOM_SINGULARITY_TALENT.id,
   ...DOTS_AFFECTED_BY_CREEPING_DEATH,
 ];
+const debug = true;
 class Darkglare extends Analyzer {
   // Summon Darkglare - 3m CD, possibly reduced by Dreadful Calling trait, extends all DOTs on ALL ENEMIES (???) by 8s (ignores max duration possibly) and does damage on its own
   // track - amount of "bonus" damage from the extend, amount of extended dots (just count)
@@ -41,7 +42,10 @@ class Darkglare extends Analyzer {
     /*
       {
         timestamp: number
-        [encoded target string]: [dot IDs],
+        [encoded target string]: {
+          targetName: name,
+          dots: [dot IDs],
+        }
         ...
       },
       ...
@@ -50,6 +54,7 @@ class Darkglare extends Analyzer {
   // tracking all dots
   dots = {
     /*[encoded target string]: {
+        targetName: mob name + instance
         [dot ID]: {
           cast: timestamp
           expectedEnd: timestamp,
@@ -87,8 +92,8 @@ class Darkglare extends Analyzer {
     if (!enemy) {
       return;
     }
-    const encoded = encodeTargetString(enemy.targetID, enemy.targetInstance);
-    this.dots[encoded] = this.dots[encoded] || {};
+    const encoded = encodeTargetString(event.targetID, event.targetInstance);
+    this.dots[encoded] = this.dots[encoded] || { targetName: enemy.name };
     this.dots[encoded][spellId] = {
       cast: event.timestamp,
       expectedEnd: event.timestamp + this._dotDurations[spellId],
@@ -97,6 +102,22 @@ class Darkglare extends Analyzer {
     };
   }
 
+  on_byPlayer_removedebuff(event) {
+    const spellId = event.ability.guid;
+    if (!DOT_DEBUFF_IDS.includes(spellId)) {
+      return;
+    }
+    const encoded = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.dots[encoded]) {
+      debug && console.log(`Remove debuff on not-recorded mob - ${encoded}`, event);
+      return;
+    }
+    delete this.dots[encoded][spellId];
+    if (Object.values(this.dots[encoded]).length === 1) {
+      // the 1 remaining key-value pair is "targetName" which we ignore
+      delete this.dots[encoded];
+    }
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -113,12 +134,38 @@ class Darkglare extends Analyzer {
   _processDarkglareCast(event) {
     // DG was cast, record it and start tracking dots
     // get all current dots on targets from this.dots, record it into this.casts
-
+    const dgCast = {
+      timestamp: event.timestamp,
+    };
+    Object.entries(this.dots).forEach(([encoded, dots]) => {
+      const dotIds = Object.keys(dots).filter(key => key !== 'targetName').map(stringId => Number(stringId));
+      dgCast[encoded] = {
+        targetName: dots.targetName,
+        dots: dotIds,
+      };
+    });
+    this.casts.push(dgCast);
+    console.log(this.casts);
   }
 
   _processDotCast(event) {
     // if it's a dot, refresh its data in this.dots
-
+    const spellId = event.ability.guid;
+    if (!DOT_DEBUFF_IDS.includes(spellId)) {
+      return;
+    }
+    // return if the target doesn't have the debuff (cast should always precede applydebuff)
+    const encoded = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.dots[encoded] || !this.dots[encoded][spellId]) {
+      return;
+    }
+    debug && console.log(`Refreshed dot ${event.ability.name} on ${encoded} at ${event.timestamp}`);
+    this.dots[encoded][spellId] = {
+      cast: event.timestamp,
+      expectedEnd: event.timestamp + this._dotDurations[spellId],
+      extendStart: null,
+      extendExpectedEnd: null,
+    };
   }
 }
 
