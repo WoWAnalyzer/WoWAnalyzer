@@ -10,6 +10,7 @@ import TreeOfLifeNormalizer from './Normalizers/TreeOfLifeNormalizer';
 import Checklist from './Modules/Features/Checklist';
 
 import Mastery from './Modules/Core/Mastery';
+import SpellManaCost from './Modules/Core/SpellManaCost';
 import Rejuvenation from './Modules/Core/Rejuvenation';
 
 import HotTracker from './Modules/Core/HotTracking/HotTracker';
@@ -29,6 +30,7 @@ import Innervate from './Modules/Features/Innervate';
 import Ironbark from './Modules/Features/Ironbark';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 import ManaUsage from './Modules/Features/ManaUsage';
+import HPMTracker from './Modules/Features/HPMTracker';
 
 import CenarionWard from './Modules/Talents/CenarionWard';
 import Cultivation from './Modules/Talents/Cultivation';
@@ -68,6 +70,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenation: Rejuvenation,
     mastery: Mastery,
     restoDruidAbilityTracker: RestoDruidAbilityTracker,
+    spellManaCost: SpellManaCost,
+
     // Checklist
     checklist: Checklist,
 
@@ -92,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    hpmTracker: HPMTracker,
 
     // Talents
     stonebark: Stonebark,
