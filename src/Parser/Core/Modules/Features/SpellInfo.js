@@ -92,7 +92,7 @@ export default {
     vers: true,
   },
   // https://www.warcraftlogs.com/reports/zxXDd7CJFbLQpHGM/#fight=12&source=3
-  [SPELLS.CONCENTRATED_MENDING.id]: { // Healing Azerite Power
+  [SPELLS.CONCENTRATED_MENDING_HEALING.id]: { // Healing Azerite Power
     int: false,
     crit: true,
     hasteHpct: true,
