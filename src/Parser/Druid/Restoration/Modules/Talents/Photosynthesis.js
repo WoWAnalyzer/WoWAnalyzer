@@ -32,8 +32,6 @@ class Photosynthesis extends Analyzer {
   lastRealBloomTimestamp = null;
 
   // Counters for increased ticking rate of hots
-  increasedRateTotalHealing = 0;
-
   increasedRateRejuvenationHealing = 0;
   increasedRateWildGrowthHealing = 0;
   increasedRateCenarionWardHealing = 0;
@@ -50,6 +48,7 @@ class Photosynthesis extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
   }
 
+
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
 
@@ -57,6 +56,7 @@ class Photosynthesis extends Analyzer {
       this.lastRealBloomTimestamp = event.timestamp;
     }
   }
+
 
   on_byPlayer_removebuff(event){
     const spellId = event.ability.guid;
@@ -68,15 +68,34 @@ class Photosynthesis extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    const amount = event.amount + (event.absorbed || 0);
 
     // Lifebloom random bloom procc
-    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) < BLOOM_BUFFER_MS)){
-      this.lifebloomIncrease += amount;
+    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS)){
+      //this.lifebloomIncrease += amount;
+      // TODO - Fix the implementation of lifebloom random proccs. Some information gathered:
+      /*
+          // LB timing out, natural proc
+          00:00:48.609 removeBuff
+          00:00:48.609 heal (bloom)
+          00:00:49.894 gainBuff
+          00:00:49.894 cast
+
+          // Refreshing LB pandemic
+          00:01:04.076 heal (bloom)
+          00:01:04.077 refreshBuff
+          00:01:04.077 cast
+
+          // Random procs
+          00:04:55.725 cast
+          00:04:55.725 gainBuff
+          00:04:56.720 heal (bloom)
+          00:04:57.377 heal (bloom)
+          00:04:59.043 heal (bloom)
+       */
     }
 
     // Yes it actually buffs efflorescence, confirmed by Voulk and Bastas
-    if(this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id) && (HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId) || spellId === SPELLS.EFFLORESCENCE_HEAL.id || spellId === SPELLS.SPRING_BLOSSOMS.id)) {
+    if(this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID) && (HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId) || spellId === SPELLS.EFFLORESCENCE_HEAL.id || spellId === SPELLS.SPRING_BLOSSOMS.id)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
@@ -116,18 +135,8 @@ class Photosynthesis extends Analyzer {
           }
           break;
         default:
-          console.error('EssenceOfGhanir: Error, could not identify this object as a HoT: %o', event);
+          console.error('Photosynthesis: Error, could not identify this object as a HoT: %o', event);
       }
-    }
-
-    if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
-      return;
-    }
-
-    if(spellId === SPELLS.SPRING_BLOSSOMS.id) {
-      calculateEffectiveHealing(event, PHOTOSYNTHESIS_SB_INCREASE);
-    } else {
-      this.increasedRateTotalHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
     }
   }
 
@@ -157,7 +166,7 @@ class Photosynthesis extends Analyzer {
         value={`${formatPercentage(totalPercent)} %`}
         label={'Photosynthesis'}
         tooltip={`
-            Healing contribution
+            Healing contribution (right now random lifebloom blooms are not accounted for, thus potentially showing lower value than the actual gain).
             <ul>
               <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))} %</b></li>
               <li>Wild Growth: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))} %</b></li>
@@ -171,7 +180,7 @@ class Photosynthesis extends Analyzer {
               <li>Grove Tending: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</b></li>
               <hr>
               <li>Total HoT increase part: <b>${formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
-              <li>Lifebloom random bloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
+              <li>Lifebloom random bloom: <b>NOT YET IMPLEMENTED</b></li>
             </ul>
             Lifebloom uptime
             <ul>
