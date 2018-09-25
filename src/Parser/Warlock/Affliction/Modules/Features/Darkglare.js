@@ -24,16 +24,13 @@ const DOT_DEBUFF_IDS = [
   SPELLS.PHANTOM_SINGULARITY_TALENT.id,
   ...DOTS_AFFECTED_BY_CREEPING_DEATH,
 ];
-const debug = true;
+const debug = false;
 
 class Darkglare extends Analyzer {
-  // Summon Darkglare - 3m CD, possibly reduced by Dreadful Calling trait, extends all DOTs on ALL ENEMIES (???) by 8s (ignores max duration possibly) and does damage on its own
-  // track - amount of "bonus" damage from the extend, amount of extended dots (just count)
-  // average amount of dots applied, when DG is cast (or even show table with all the casts so it's visualized)
-  // be careful not to count dmg from Corruption if AC (nothing gets extended, no *bonus* damage)
   static dependencies = {
     enemies: Enemies,
   };
+
   _dotDurations = {
     [SPELLS.AGONY.id]: 18000,
     [SPELLS.CORRUPTION_DEBUFF.id]: 14000,
@@ -53,12 +50,9 @@ class Darkglare extends Analyzer {
           targetName: name,
           dots: [dot IDs],
         }
-        ...
       },
-      ...
      */
   ];
-  // tracking all dots
   dots = {
     /*[encoded target string]: {
         targetName: name
@@ -70,14 +64,13 @@ class Darkglare extends Analyzer {
             extendExpectedEnd: timestamp | null
           },
         }
-        ...
       },
-      ...
     */
   };
 
   constructor(...args) {
     super(...args);
+    // if player has Absolute Corruption, disregard the Corruption duration (it's permanent debuff then)
     this._hasAC = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
     if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
@@ -117,6 +110,7 @@ class Darkglare extends Analyzer {
     if (!DOT_DEBUFF_IDS.includes(spellId)) {
       return;
     }
+    // possible Mythrax or other shenanigans with dotting Mind Controlled players
     if (event.targetIsFriendly) {
       return;
     }
@@ -139,7 +133,6 @@ class Darkglare extends Analyzer {
     }
     if (DOT_DEBUFF_IDS.includes(spellId)) {
       this._processDotCast(event);
-      return;
     }
   }
 
@@ -158,7 +151,7 @@ class Darkglare extends Analyzer {
       return;
     }
     const dotInfo = this.dots[encoded].dots[spellId];
-    // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct
+    // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct (if it's permanent, it can't get extended - no actual bonus damage)
     if (dotInfo.extendStart !== null
           && dotInfo.expectedEnd <= event.timestamp
           && event.timestamp <= dotInfo.extendExpectedEnd) {
@@ -174,12 +167,12 @@ class Darkglare extends Analyzer {
   }
 
   _processDarkglareCast(event) {
-    // DG was cast, record it and start tracking dots
     // get all current dots on targets from this.dots, record it into this.casts
     const dgCast = {
       timestamp: event.timestamp,
     };
     Object.entries(this.dots).forEach(([encoded, obj]) => {
+      // convert string ID keys to numbers
       const dotIds = Object.keys(obj.dots).map(stringId => Number(stringId));
       dgCast[encoded] = {
         targetName: obj.targetName,
@@ -225,6 +218,7 @@ class Darkglare extends Analyzer {
 
   statistic() {
     let totalExtendedDots = 0;
+    // for each cast, and each enemy in that cast, count the amount of dots on the enemy (disregard Corruption if player has Absolute Corruption)
     Object.values(this.casts).forEach(cast => {
       Object.keys(cast).filter(key => key !== 'timestamp').forEach(target => {
         if (this._hasAC) {
