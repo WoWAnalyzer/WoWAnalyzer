@@ -35,11 +35,14 @@ class StaggerPoolGraph extends Analyzer {
   }
 
   on_removestagger(event) {
-    this._staggerEvents.push(event);
-
     if (event.trigger.ability && event.trigger.ability.guid === SPELLS.PURIFYING_BREW.id) {
-      this._purifyTimestamps.push(event.timestamp);
+      // record the *previous* timestamp for purification. this will
+      // make the purifies line up with peaks in the plot, instead of
+      // showing up *after* peaks
+      this._purifyTimestamps.push(this._staggerEvents[this._staggerEvents.length-1].timestamp);
     }
+
+    this._staggerEvents.push(event);
   }
 
   on_toPlayer_death(event) {
@@ -67,7 +70,7 @@ class StaggerPoolGraph extends Analyzer {
     }, {});
     const hpBySeconds = Object.assign({}, poolBySeconds);
 
-    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1);
+    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return {
         seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
@@ -77,9 +80,11 @@ class StaggerPoolGraph extends Analyzer {
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
-      // for simplicity, we plot the right-edge of each bin. stagger
-      // actually ticks twice a second
-      poolBySeconds[seconds] = newPooledDamage;
+      // show the peak rather than left or right edge of the bin. this
+      // can cause display issues if there is a rapid sequence of
+      // hit->purify->hit but has the upside of making purifies after
+      // big hits (aka good purifies) very visible
+      poolBySeconds[seconds] = (poolBySeconds[seconds] > newPooledDamage) ? poolBySeconds[seconds] : newPooledDamage;
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
