@@ -211,4 +211,14 @@ export default {
     name: 'Heed My Call',
     icon: 'spell_shaman_thunderstorm',
   },
+  CONCENTRATED_MENDING: {
+    id: 267882,
+    name: 'Concentrated Mending',
+    icon: 'inv_offhand_1h_pvpdraenors1_d_02',
+  },
+  CONCENTRATED_MENDING_HEALING: {
+    id: 272260,
+    name: 'Concentrated Mending',
+    icon: 'inv_offhand_1h_pvpdraenors1_d_02',
+  },
 };

@@ -33,7 +33,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
   SPELLS.BESTOW_FAITH_TALENT.id,
   SPELLS.GRACE_OF_THE_JUSTICAR.id,
-  SPELLS.CONCENTRATED_MENDING.id, // TODO: Re-evaluate, going on word of mouth and I have my doubts
+  SPELLS.CONCENTRATED_MENDING_HEALING.id, // TODO: Re-evaluate, going on word of mouth and I have my doubts
   SPELLS.RADIANT_INCANDESCENCE.id, // https://www.warcraftlogs.com/reports/n4kTCKyhp1G2ANDx/#fight=12&source=2&type=healing&ability=278147&view=events
 ];
 
