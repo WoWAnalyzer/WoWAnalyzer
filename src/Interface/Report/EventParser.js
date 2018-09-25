@@ -10,12 +10,12 @@ import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import REPORT_HISTORY_TYPES from 'Interface/Home/ReportHistory/REPORT_HISTORY_TYPES';
-import handleApiError from 'Interface/Others/Report/handleApiError';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 import { setReportProgress } from 'Interface/actions/reportProgress';
 import { appendReportHistory } from 'Interface/actions/reportHistory';
 
 import Odyn from './Results/Images/odyn.jpg';
+import handleApiError from './handleApiError';
 import './EventParser.css';
 
 const timeAvailable = console.time && console.timeEnd;

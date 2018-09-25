@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
+import getFightName from 'common/getFightName';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'Interface/selectors/url/report';
 import { getReport } from 'Interface/selectors/report';
 import { getFightById } from 'Interface/selectors/fight';
-import getFightName from 'common/getFightName';
-import FightSelectionPanelList from 'Interface/Others/Report/FightSelectionPanelList';
+import FightSelectionPanelList from 'Interface/Report/FightSelectionPanelList';
 
 import SelectorBase from './SelectorBase';
 

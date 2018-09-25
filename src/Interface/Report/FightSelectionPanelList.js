@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import getWipeCount from 'common/getWipeCount';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
-import Fight from './Fight';
+import FightSelectionPanelListItem from './FightSelectionPanelListItem';
 
 class FightSelectionPanelList extends Component {
   static propTypes = {
@@ -51,7 +51,7 @@ class FightSelectionPanelList extends Component {
           .map(fight => (
             <li key={fight.id} className="item selectable">
               <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>
-                <Fight {...fight} wipes={getWipeCount(report.fights, fight)} />
+                <FightSelectionPanelListItem {...fight} wipes={getWipeCount(report.fights, fight)} />
               </Link>
             </li>
           ))}

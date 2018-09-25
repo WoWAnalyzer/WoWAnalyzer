@@ -21,11 +21,11 @@ import HomePage from 'Interface/Home/Page';
 import NewsPage from 'Interface/News/Page';
 import PremiumPage from 'Interface/Premium/Page';
 import ThunderSoundEffect from 'Interface/Audio/Thunder Sound effect.mp3';
+import ReportPage from 'Interface/Report';
 
 import 'react-toggle/style.css';
 import './App.css';
 
-import ReportPage from './Report';
 
 import Header from './Header';
 

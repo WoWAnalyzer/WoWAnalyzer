@@ -4,7 +4,8 @@ import Toggle from 'react-toggle';
 import { Link } from 'react-router-dom';
 
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
-import FightSelectionPanelList from 'Interface/Others/Report/FightSelectionPanelList';
+
+import FightSelectionPanelList from './FightSelectionPanelList';
 
 class FightSelectionPanel extends React.PureComponent {
   static propTypes = {

@@ -21,8 +21,8 @@ import ErrorBoundary from 'Interface/common/ErrorBoundary';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
-import FightNavigationBar from 'Interface/Others/Report/FightNavigationBar';
 
+import FightNavigationBar from '../FightNavigationBar';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTabPanel from './DetailsTabPanel';

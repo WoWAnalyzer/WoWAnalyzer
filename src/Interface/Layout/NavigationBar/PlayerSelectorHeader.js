@@ -7,7 +7,7 @@ import { getCombatants } from 'Interface/selectors/combatants';
 import { getReport } from 'Interface/selectors/report';
 import { getFightId, getPlayerName } from 'Interface/selectors/url/report';
 import { getFightFromReport } from 'Interface/selectors/fight';
-import PlayerSelectionPanelList from 'Interface/Others/Report/PlayerSelectionPanelList';
+import PlayerSelectionPanelList from 'Interface/Report/PlayerSelectionPanelList';
 
 import SelectorBase from './SelectorBase';
 

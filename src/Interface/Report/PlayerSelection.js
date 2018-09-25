@@ -12,10 +12,10 @@ import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import DocumentTitle from 'Interface/common/DocumentTitle';
 import { setCombatants } from 'Interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'Interface/selectors/url/report';
-import handleApiError from 'Interface/Others/Report/handleApiError';
 import makeAnalyzerUrl from 'Interface/common/makeAnalyzerUrl';
 
 import PlayerSelectionPanel from './PlayerSelectionPanel';
+import handleApiError from './handleApiError';
 
 class PlayerSelection extends React.PureComponent {
   static propTypes = {
