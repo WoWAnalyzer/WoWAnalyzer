@@ -108,6 +108,9 @@ class Combatant extends Entity {
   _parseTraits(traits) {
     traits.forEach(({ traitID, rank }) => {
       const spellId = traitIdMap[traitID];
+      if (spellId === undefined) {
+        return;
+      }
       if (!this.traitsBySpellId[spellId]) {
         this.traitsBySpellId[spellId] = [];
       }

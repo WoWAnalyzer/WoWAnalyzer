@@ -89,6 +89,7 @@ import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousSch
 import OverWhelmingPower from './Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import ElementalWhirl from './Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import BloodRite from './Modules/Spells/BFA/AzeriteTraits/BloodRite';
+import ConcentratedMending from './Modules/Spells/BFA/AzeriteTraits/ConcentratedMending';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
@@ -190,6 +191,7 @@ class CombatLogParser {
     overwhelmingPower: OverWhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
+    concentratedMending: ConcentratedMending,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,

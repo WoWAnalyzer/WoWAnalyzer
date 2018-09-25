@@ -40,6 +40,7 @@ class Flourish extends Analyzer {
   sbCount = 0;
   cultCount = 0;
   tranqCount = 0;
+  groveTendingCount = 0;
 
   // Counters for increased ticking rate of hots
   increasedRateTotalHealing = 0;
@@ -51,6 +52,7 @@ class Flourish extends Analyzer {
   increasedRateLifebloomHealing = 0;
   increasedRateRegrowthHealing = 0;
   increasedRateTranqHealing = 0;
+  increasedRateGroveTendingHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -81,6 +83,9 @@ class Flourish extends Analyzer {
           break;
         case SPELLS.LIFEBLOOM_HOT_HEAL.id:
           this.increasedRateLifebloomHealing += amount / 2;
+          break;
+        case SPELLS.GROVE_TENDING.id:
+          this.increasedRateGroveTendingHealing += amount / 2;
           break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
@@ -147,6 +152,8 @@ class Flourish extends Analyzer {
           this.sbCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
+        } else if (spellId === SPELLS.GROVE_TENDING.id) {
+          this.groveTendingCount += 1;
         } else if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
           foundTranq = true;
           this.tranqCount += 1;
@@ -256,6 +263,8 @@ class Flourish extends Analyzer {
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
               ${this.traquility === 0 ? '' :
               `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))}% from Tranquillity</li>`}
+              ${this.groveTending === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))}% from Grove Tending</li>`}
           </ul>
 
           The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
@@ -288,6 +297,10 @@ class Flourish extends Analyzer {
             }
             ${this.tranqCount > 0
               ? `<li>${this.tranqsExtended}/${this.flourishCount} Tranquillities casts (${this.tranqCount} HoTs)</li>`
+              : ``
+            }
+            ${this.groveTendingCount > 0
+              ? `<li>${this.groveTendingCount}/${this.flourishCount} Grove tendings</li>`
               : ``
             }
           </ul>

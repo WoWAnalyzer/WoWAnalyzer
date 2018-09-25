@@ -478,3 +478,13 @@ export const Dambroda = {
     link: 'https://worldofwarcraft.com/en-us/character/lightbringer/dambroma',
   }],
 };
+export const Nalhan = {
+  nickname: 'Nalhan',
+  github: 'Nalhan',
+  discord: 'rye bread#9105',
+  mains: [{
+    name: 'Doughmaker',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'http://us.battle.net/wow/character/arthas/Doughmaker',
+  }],
+};

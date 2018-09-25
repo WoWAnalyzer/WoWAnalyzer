@@ -420,6 +420,10 @@ class HotTracker extends Analyzer {
         duration: 8000,
         tickPeriod: 2000,
       },
+      [SPELLS.GROVE_TENDING.id]: {
+        duration: 9000,
+        tickPeriod: 2000,
+      },
       //TODO - blazyb double check this
     };
   }
