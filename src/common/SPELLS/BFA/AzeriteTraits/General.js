@@ -72,6 +72,16 @@ export default {
     icon: 'achievement_zone_stormpeaks_01',
   },
   BLESSED_PORTENTS: {
+    id: 267889,
+    name: 'Blessed Portents',
+    icon: 'spell_holy_fanaticism',
+  },
+  BLESSED_PORTENTS_BUFF: {
+    id: 271843,
+    name: 'Blessed Portents',
+    icon: 'spell_holy_fanaticism',
+  },
+  BLESSED_PORTENTS_HEAL: {
     id: 280052,
     name: 'Blessed Portents',
     icon: 'spell_holy_fanaticism',
