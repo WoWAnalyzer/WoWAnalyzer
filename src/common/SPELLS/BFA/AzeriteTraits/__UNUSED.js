@@ -159,11 +159,6 @@ export default {
     name: 'Cascading Calamity',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  CONCENTRATED_MENDING: {
-    id: 272258,
-    name: 'Concentrated Mending',
-    icon: 'inv_misc_emberweavebandage',
-  },
   CONTAMINANT: {
     id: 269308,
     name: 'Contaminant',
