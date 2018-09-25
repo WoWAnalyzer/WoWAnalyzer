@@ -22,11 +22,6 @@ export default {
     name: 'Grace of the Justicar',
     icon: 'spell_holy_healingaura',
   },
-  CONCENTRATED_MENDING: {
-    id: 272260,
-    name: 'Concentrated Mending',
-    icon: 'inv_offhand_1h_pvpdraenors1_d_02',
-  },
 
   // Retribution
   EXPURGATION: {
