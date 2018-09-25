@@ -4,6 +4,16 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-24'),
+    changes: <React.Fragment>Updated mana used module to mana tracker. It now also includes HPM (healing per mana) per spell.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-22'),
+    changes: <React.Fragment>Added module for tracking Abundance.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-22'),
     changes: <React.Fragment>Updated azerite trait Grove Tending to also include and show mastery healing.</React.Fragment>,
     contributors: [blazyb],
@@ -20,11 +30,6 @@ export default [
   },
   {
     date: new Date('2018-09-21'),
-    changes: <React.Fragment>Updated mana used module to mana tracker. It now also includes HPM (healing per mana) per spell.</React.Fragment>,
-    contributors: [blazyb],
-  },
-  {
-    date: new Date('2018-09-19'),
     changes: <React.Fragment>Added implementation of Azerite trait Lively spirit.</React.Fragment>,
     contributors: [blazyb],
   },

@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-09-21'),
+    changes: 'Grouped dot uptimes and talents into their respective statistic boxes.',
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-09-21'),
     changes: 'Removed all legendaries and tier set modules.',
     contributors: [Chizu],
   },

@@ -468,3 +468,23 @@ export const fel1ne = {
     link: 'https://www.worldofwarcraft.com/en-us/character/khazgoroth/Felerai',
   }],
 };
+export const Dambroda = {
+  nickname: 'Dambroda',
+  github: 'Dambroda',
+  discord: 'Dambroda#1290',
+  mains: [{
+    name: 'Dambroma',
+    spec: SPECS.FROST_MAGE,
+    link: 'https://worldofwarcraft.com/en-us/character/lightbringer/dambroma',
+  }],
+};
+export const Nalhan = {
+  nickname: 'Nalhan',
+  github: 'Nalhan',
+  discord: 'rye bread#9105',
+  mains: [{
+    name: 'Doughmaker',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'http://us.battle.net/wow/character/arthas/Doughmaker',
+  }],
+};

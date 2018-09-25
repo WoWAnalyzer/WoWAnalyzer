@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import STATISTIC_ORDER from 'Interface/Others/STATISTIC_ORDER';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Raptor Strike (or Monogoose Bite) has a chance to make your next
@@ -138,14 +139,10 @@ class VipersVenom extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDamage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} />}
+        value={<ItemDamageDone amount={this.bonusDamage} />}
+      />
     );
   }
 

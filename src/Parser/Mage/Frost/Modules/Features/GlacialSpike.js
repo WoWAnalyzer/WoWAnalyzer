@@ -7,14 +7,12 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const DAMAGE_BUFFER = 250;
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
-    abilityTracker: AbilityTracker,
   };
 
   constructor(...args) {
@@ -24,7 +22,8 @@ class GlacialSpike extends Analyzer {
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
   }
 
-  goodCasts = 0
+  goodCasts = 0;
+  totalCasts = 0;
   damageTimestamp = 0;
 
   on_byPlayer_damage(event) {
@@ -41,9 +40,11 @@ class GlacialSpike extends Analyzer {
 
     //It is considered a good use of Glacial Spike if either Glacial Spike lands into Winter's Chill (they used a Brain Freeze Proc with it) or the Glacial Spike cleaved and hit a second target.
     if (this.castTarget === damageTarget && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
+      this.totalCasts += 1;
       this.goodCasts += 1;
       this.damageTimestamp = event.timestamp;
     } else if (this.hasSplittingIce && this.castTarget !== damageTarget && event.timestamp - this.damageTimestamp < DAMAGE_BUFFER) {
+      this.totalCasts += 1;
       this.goodCasts += 1;
     }
   }
@@ -60,11 +61,11 @@ class GlacialSpike extends Analyzer {
   }
 
   get utilPercentage() {
-    return (this.goodCasts / this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts) || 0;
+    return (this.goodCasts / this.totalCasts) || 0;
   }
 
   get badCasts() {
-    return this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts - this.goodCasts;
+    return this.totalCasts - this.goodCasts;
   }
 
   get utilSuggestionThresholds() {

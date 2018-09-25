@@ -1,12 +1,13 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -45,17 +46,14 @@ class AgonyUptime extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.AGONY.id} />}
+      <StatisticListBoxItem
+        title={<React.Fragment><SpellLink id={SPELLS.AGONY.id} /> uptime</React.Fragment>}
         value={`${formatPercentage(this.uptime)} %`}
-        label="Agony uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default AgonyUptime;

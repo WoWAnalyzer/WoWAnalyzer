@@ -82,11 +82,14 @@ import DarkmoonDeckTides from './Modules/Items/BFA/Crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from './Modules/Items/BFA/Crafted/DarkmoonDeckFathoms';
 // Azerite Traits
 import Gemhide from './Modules/Spells/BFA/AzeriteTraits/Gemhide';
+import Gutripper from './Modules/Spells/BFA/AzeriteTraits/Gutripper';
+import HeedMyCall from './Modules/Spells/BFA/AzeriteTraits/HeedMyCall';
 import LaserMatrix from './Modules/Spells/BFA/AzeriteTraits/LaserMatrix';
 import MeticulousScheming from './Modules/Spells/BFA/AzeriteTraits/MeticulousScheming';
 import OverWhelmingPower from './Modules/Spells/BFA/AzeriteTraits/OverwhelmingPower';
 import ElementalWhirl from './Modules/Spells/BFA/AzeriteTraits/ElementalWhirl';
 import BloodRite from './Modules/Spells/BFA/AzeriteTraits/BloodRite';
+import ConcentratedMending from './Modules/Spells/BFA/AzeriteTraits/ConcentratedMending';
 // Uldir
 import TwitchingTentacleofXalzaix from './Modules/Items/BFA/Raids/Uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './Modules/Items/BFA/Raids/Uldir/VigilantsBloodshaper';
@@ -181,11 +184,15 @@ class CombatLogParser {
 
     // Azerite Traits
     gemhide: Gemhide,
+    gutripper: Gutripper,
+    heedMyCall: HeedMyCall,
     laserMatrix: LaserMatrix,
     meticulousScheming: MeticulousScheming,
     overwhelmingPower: OverWhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
+    concentratedMending: ConcentratedMending,
+
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,

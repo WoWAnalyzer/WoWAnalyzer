@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
@@ -29,14 +30,10 @@ class Stampede extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.STAMPEDE_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.damage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.STAMPEDE_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
+      />
     );
   }
 }

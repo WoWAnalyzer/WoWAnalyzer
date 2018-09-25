@@ -159,11 +159,6 @@ export default {
     name: 'Cascading Calamity',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  CONCENTRATED_MENDING: {
-    id: 272258,
-    name: 'Concentrated Mending',
-    icon: 'inv_misc_emberweavebandage',
-  },
   CONTAMINANT: {
     id: 269308,
     name: 'Contaminant',
@@ -404,11 +399,6 @@ export default {
     name: 'Glacial Contagion',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  GUTRIPPER: {
-    id: 266937,
-    name: 'Gutripper',
-    icon: 'ability_criticalstrike',
-  },
   HARROWING_DECAY: {
     id: 275929,
     name: 'Harrowing Decay',
@@ -448,11 +438,6 @@ export default {
     id: 272956,
     name: 'Heavy Rain',
     icon: 'spell_shadow_rainoffire',
-  },
-  HEED_MY_CALL: {
-    id: 263987,
-    name: 'Heed My Call',
-    icon: 'spell_shaman_thunderstorm',
   },
   HORRID_EXPULSION: {
     id: 273095,

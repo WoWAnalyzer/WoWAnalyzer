@@ -186,4 +186,39 @@ export default {
     name: 'Blood Rite',
     icon: 'inv_misc_volatilelife',
   },
+  GUTRIPPER: {
+    id: 266937,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  GUTRIPPER_DAMAGE: {
+    id: 269031,
+    name: 'Gutripper',
+    icon: 'ability_criticalstrike',
+  },
+  HEED_MY_CALL: {
+    id: 263987,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_PRIMARY_DAMAGE: {
+    id: 271685,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  HEED_MY_CALL_AOE_DAMAGE: {
+    id: 271686,
+    name: 'Heed My Call',
+    icon: 'spell_shaman_thunderstorm',
+  },
+  CONCENTRATED_MENDING: {
+    id: 267882,
+    name: 'Concentrated Mending',
+    icon: 'inv_offhand_1h_pvpdraenors1_d_02',
+  },
+  CONCENTRATED_MENDING_HEALING: {
+    id: 272260,
+    name: 'Concentrated Mending',
+    icon: 'inv_offhand_1h_pvpdraenors1_d_02',
+  },
 };

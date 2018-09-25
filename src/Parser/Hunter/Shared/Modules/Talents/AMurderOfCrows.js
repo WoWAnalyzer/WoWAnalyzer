@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown
@@ -49,14 +50,10 @@ class AMurderOfCrows extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDamage} />
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
+        value={<ItemDamageDone amount={this.bonusDamage} />}
+      />
     );
   }
 }

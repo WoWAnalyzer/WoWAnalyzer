@@ -15,6 +15,21 @@ export default {
     name: 'Staggering Strikes',
     icon: 'ability_monk_blackoutstrike',
   },
+  FIT_TO_BURST: {
+    id: 275892,
+    name: 'Fit to Burst',
+    icon: 'inv_misc_beer_06',
+  },
+  FIT_TO_BURST_BUFF: {
+    id: 275893,
+    name: 'Fit to Burst',
+    icon: 'inv_misc_beer_06',
+  },
+  FIT_TO_BURST_HEAL: {
+    id: 275894,
+    name: 'Fit to Burst',
+    icon: 'inv_misc_beer_06',
+  },
   // Windwalker Traits
   IRON_FISTS: {
     id: 272804,

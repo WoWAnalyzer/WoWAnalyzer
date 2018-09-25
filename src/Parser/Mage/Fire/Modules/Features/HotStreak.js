@@ -136,13 +136,13 @@ class HotStreak extends Analyzer {
     return this.wastedCrits / (this.owner.fightDuration / 60000);
   }
 
-  get expiredProcsThresholds() {
+  get hotStreakUtilizationThresholds() {
     return {
-      actual: this.expiredProcsPercent,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.10,
-        major: 0.20,
+      actual: this.hotStreakUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.80,
       },
       style: 'percentage',
     };
@@ -173,11 +173,11 @@ class HotStreak extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.expiredProcsThresholds)
+    when(this.hotStreakUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You allowed {formatPercentage(this.expiredProcsThresholds)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
+        return suggest(<React.Fragment>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
           .icon(SPELLS.HOT_STREAK.icon)
-          .actual(`${formatPercentage(this.expiredProcsPercent)}% expired`)
+          .actual(`${formatPercentage(this.hotStreakUtil)}% expired`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
       when(this.wastedCritsThresholds)
@@ -199,6 +199,7 @@ class HotStreak extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(12)}
         icon={<SpellIcon id={SPELLS.HOT_STREAK.id} />}
         value={(
           <span>
@@ -226,7 +227,6 @@ class HotStreak extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default HotStreak;

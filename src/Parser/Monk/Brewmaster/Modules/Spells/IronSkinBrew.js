@@ -112,13 +112,11 @@ class IronSkinBrew extends Analyzer {
   }
 
   suggestions(when) {
-    const isbUptimePercentage = this.selectedCombatant.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
-
-    when(isbUptimePercentage).isLessThan(0.9)
+    when(this.uptimeSuggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> uptime was {formatPercentage(isbUptimePercentage)}%, unless there are extended periods of downtime it should be near 100%.</span>)
+        return suggest(<span> You mitigated {formatPercentage(actual)}% of hits with <SpellLink id={SPELLS.IRONSKIN_BREW.id} />. Outside of very rare circumstances, this should be near 100%.</span>)
           .icon(SPELLS.IRONSKIN_BREW.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
+          .actual(`${formatPercentage(actual)}% Hits Mitigated`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.2);
       });

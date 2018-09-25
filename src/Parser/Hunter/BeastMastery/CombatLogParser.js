@@ -38,6 +38,8 @@ import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 //Azerite Traits
 import DanceOfDeath from './Modules/Spells/AzeriteTraits/DanceOfDeath';
 import HazeOfRage from './Modules/Spells/AzeriteTraits/HazeOfRage';
+import FeedingFrenzy from './Modules/Spells/AzeriteTraits/FeedingFrenzy';
+import PrimalInstincts from './Modules/Spells/AzeriteTraits/PrimalInstincts';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,6 +82,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Azerite Traits
     danceOfDeath: DanceOfDeath,
     hazeOfRage: HazeOfRage,
+    feedingFrenzy: FeedingFrenzy,
+    primalInstincts: PrimalInstincts,
   };
 }
 

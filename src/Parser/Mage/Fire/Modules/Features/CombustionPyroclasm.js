@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatMilliseconds, formatPercentage } from 'common/format';
@@ -8,32 +7,24 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-const debug = true;
+const debug = false;
+const COMBUSTION_DURATION = 10000;
 
-class CombustionMarqueeBindings extends Analyzer {
+class CombustionPyroclasm extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
 
   buffUsedDuringCombustion = false;
-  combustionDuration = 0;
   combustionCastTimestamp = 0;
   pyroblastCastTimestamp = 0;
   expectedPyroblastCasts = 0;
   actualPyroblastCasts = 0;
 
-  //Check for Marquee Bindings Item, and calculate the duration of Combustion
-  //Accounts for the extra 2 seconds from Tier 21 2 Set, and 1 Second per point of Pre Ignited
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
-    const hasTierBonus = this.selectedCombatant.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
-    if (hasTierBonus) {
-      this.combustionDuration = 12 * 1000;
-    } else {
-      this.combustionDuration = 10 * 1000;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
   }
 
   //Get the time stamp for Pyroblast to be used elsewhere
@@ -47,13 +38,13 @@ class CombustionMarqueeBindings extends Analyzer {
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id && spellId !== SPELLS.COMBUSTION.id) {
+    if (spellId !== SPELLS.PYROCLASM_BUFF.id && spellId !== SPELLS.COMBUSTION.id) {
       return;
     }
     if (spellId === SPELLS.COMBUSTION.id) {
       this.combustionCastTimestamp = event.timestamp;
       //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
-      if (this.selectedCombatant.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
         this.expectedPyroblastCasts += 1;
         debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
@@ -69,7 +60,7 @@ class CombustionMarqueeBindings extends Analyzer {
   //Check to see if the player used their Bracer Proc during Combustion
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
+    if (spellId !== SPELLS.PYROCLASM_BUFF.id) {
       return;
     }
     if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
@@ -80,22 +71,22 @@ class CombustionMarqueeBindings extends Analyzer {
   }
 
   on_finished() {
-    debug && console.log('Combustion Duration MS: ' + this.combustionDuration);
+    debug && console.log('Combustion Duration MS: ' + COMBUSTION_DURATION);
     debug && console.log('Expected Pyroblasts: ' + this.expectedPyroblastCasts);
     debug && console.log('Actual Pyroblasts: ' + this.actualPyroblastCasts);
   }
 
-  get bracerBuffUtil() {
+  get pyroclasmBuffUtil() {
     return (this.actualPyroblastCasts / this.expectedPyroblastCasts) || 0;
   }
 
   get combustionEndTime() {
-    return this.combustionCastTimestamp + this.combustionDuration;
+    return this.combustionCastTimestamp + COMBUSTION_DURATION;
   }
 
-  get bracerUtilThresholds() {
+  get pyrloclasmUtilThresholds() {
     return {
-      actual: this.bracerBuffUtil,
+      actual: this.pyroclasmBuffUtil,
       isLessThan: {
         minor: 1,
         average: .80,
@@ -107,14 +98,14 @@ class CombustionMarqueeBindings extends Analyzer {
 
   suggestions(when) {
     if (this.expectedPyroblastCasts > 0) {
-      when(this.bracerUtilThresholds)
+      when(this.pyrloclasmUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 300% damage and be guaranteed to crit.</React.Fragment>)
-            .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
-            .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
+          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</React.Fragment>)
+            .icon(SPELLS.PYROCLASM_TALENT.icon)
+            .actual(`${formatPercentage(this.pyroclasmBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);
         });
     }
   }
 }
-export default CombustionMarqueeBindings;
+export default CombustionPyroclasm;

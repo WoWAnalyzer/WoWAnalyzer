@@ -3,11 +3,13 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+
+// TODO: Broken on BFA - try on for example /report/1A2cLdJDwfxWhHaZ/18-Normal+Zek'voz+-+Kill+(3:47)/11-Clibano
 class FireAndBrimstone extends Analyzer {
   _primaryTargets = [];
 
@@ -63,18 +65,11 @@ class FireAndBrimstone extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id}>
-            <SpellIcon id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} noLink /> FnB Gain
-          </SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Your Fire and Brimstone talent also contributed ${formatNumber(this.bonusDmg)} bonus cleave damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
-            {this.generatedCleaveFragments} Bonus Fragments
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id}>FnB Gain</SpellLink>}
+        value={`${this.generatedCleaveFragments} bonus Fragments`}
+        valueTooltip={`Your Fire and Brimstone talent also contributed ${formatNumber(this.bonusDmg)} bonus cleave damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
+      />
     );
   }
 }

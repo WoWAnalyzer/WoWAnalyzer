@@ -45,6 +45,7 @@ class SoulShardDetails extends Analyzer {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
         icon={(
           <img
             src={WastedShardsIcon}

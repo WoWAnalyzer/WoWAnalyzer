@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const TORRENT_HEALING_INCREASE = 0.3;
 
@@ -39,14 +40,10 @@ class Torrent extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.TORRENT_TALENT.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.TORRENT_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
     );
   }
 

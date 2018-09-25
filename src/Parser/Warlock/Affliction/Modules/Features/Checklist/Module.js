@@ -6,9 +6,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import PreparationRuleAnalyzer from 'Parser/Core/Modules/Features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import AgonyUptime from '../AgonyUptime';
-import CorruptionUptime from '../CorruptionUptime';
-import UnstableAfflictionUptime from '../UnstableAfflictionUptime';
+import AgonyUptime from '../DotUptimes/AgonyUptime';
+import CorruptionUptime from '../DotUptimes/CorruptionUptime';
+import UnstableAfflictionUptime from '../DotUptimes/UnstableAfflictionUptime';
 import SiphonLifeUptime from '../../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../../SoulShards/SoulShardDetails';
 import SoulShardTracker from '../../SoulShards/SoulShardTracker';

@@ -3,12 +3,11 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
@@ -17,7 +16,7 @@ import SoulShardTracker from '../SoulShards/SoulShardTracker';
 // I'll test and adjust if needed
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
 
-class Sniping extends Analyzer {
+class DrainSoulSniping extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     soulShardTracker: SoulShardTracker,
@@ -106,17 +105,14 @@ class Sniping extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<Icon icon="ability_hunter_snipershot" />}
+      <StatisticListBoxItem
+        title={<React.Fragment>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></React.Fragment>}
         value={this._shardsGained}
-        label="Shards sniped"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
-export default Sniping;
+export default DrainSoulSniping;
