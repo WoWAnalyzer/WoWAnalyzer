@@ -18,20 +18,18 @@ import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
-import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
+import FightNavigationBar from 'Interface/Others/Report/FightNavigationBar';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
-import Odyn from './Images/odyn.jpg';
 import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
-import FightNavigationBar from 'Interface/Others/Report/FightNavigationBar';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Interface/Others/DevelopmentTab').then(exports => exports.default));
 const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Interface/Others/EventsTab').then(exports => exports.default));
