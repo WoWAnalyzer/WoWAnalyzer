@@ -7,8 +7,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
-import StatisticsListBox from 'Interface/Others/StatisticsListBox';
-import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -107,16 +107,6 @@ class FlashFlood extends Analyzer {
 
   get totalTimeWasted() {
     return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => {return sum + spell.timeWasted;}, 0);
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} />}
-        value={`${(this.totalTimeSaved / 1000).toFixed(2)} seconds`}
-        valueTooltip={`Cast time saved by Flash Flood. <br /> ${(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.`}
-      />
-    );
   }
 
   legend(items, total) {
@@ -247,16 +237,24 @@ class FlashFlood extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</span>}
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.flashFloodUsageRatioChart()}
-          </StatisticsListBox>
+      <StatisticsListBox
+        title={<span><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</span>}
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(90)}
+        containerProps={{ className: 'col-lg-3 col-md-4 col-sm-6 col-xs-12' }}
+      >
+        <div className="flex">
+          <div className="flex-main">
+            Total Cast Time Saved:
+          </div>
+          <div className="flex-sub text-right">
+            <dfn data-tip={`Cast time saved by Flash Flood. <br /> ${(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.`} >
+              {`${(this.totalTimeSaved / 1000).toFixed(2)} seconds`}
+            </dfn>
+          </div>
         </div>
-      </div>
+        {this.flashFloodUsageRatioChart()}
+      </StatisticsListBox>
     );
   }
 

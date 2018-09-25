@@ -10,6 +10,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 class EarthenWallTotem extends Analyzer {
@@ -91,6 +92,8 @@ class EarthenWallTotem extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.earthenShieldEfficiency)} %`}
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(60)}
         label={(
           <dfn data-tip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.potentialHealing)}, which absorbed a total of ${formatNumber(this.healing)} damage.`}>
             Earthen Wall Totem efficiency
@@ -99,7 +102,6 @@ class EarthenWallTotem extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   subStatistic() {
     return (
