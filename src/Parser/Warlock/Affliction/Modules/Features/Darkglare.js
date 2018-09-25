@@ -35,7 +35,6 @@ class Darkglare extends Analyzer {
     // UA IDs added in constructor
     [SPELLS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
   };
-  _hasAC = false;
 
   totalDamage = 0;
   casts = [
@@ -54,13 +53,15 @@ class Darkglare extends Analyzer {
   // tracking all dots
   dots = {
     /*[encoded target string]: {
-        targetName: mob name + instance
-        [dot ID]: {
-          cast: timestamp
-          expectedEnd: timestamp,
-          extendStart: timestamp | null,
-          extendExpectedEnd: timestamp | null
-        } | null,
+        targetName: name
+        dots: {
+          [dot ID]: {
+            cast: timestamp
+            expectedEnd: timestamp,
+            extendStart: timestamp | null,
+            extendExpectedEnd: timestamp | null
+          },
+        }
         ...
       },
       ...
@@ -70,7 +71,7 @@ class Darkglare extends Analyzer {
   constructor(...args) {
     super(...args);
     if (this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id)) {
-      this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id] = undefined;
+      delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }
     UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
       this._dotDurations[id] = 8000;
@@ -93,8 +94,8 @@ class Darkglare extends Analyzer {
       return;
     }
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
-    this.dots[encoded] = this.dots[encoded] || { targetName: enemy.name };
-    this.dots[encoded][spellId] = {
+    this.dots[encoded] = this.dots[encoded] || { targetName: enemy.name, dots: {} };
+    this.dots[encoded].dots[spellId] = {
       cast: event.timestamp,
       expectedEnd: event.timestamp + this._dotDurations[spellId],
       extendStart: null,
@@ -107,14 +108,16 @@ class Darkglare extends Analyzer {
     if (!DOT_DEBUFF_IDS.includes(spellId)) {
       return;
     }
+    if (event.targetIsFriendly) {
+      return;
+    }
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.dots[encoded]) {
       debug && console.log(`Remove debuff on not-recorded mob - ${encoded}`, event);
       return;
     }
-    delete this.dots[encoded][spellId];
-    if (Object.values(this.dots[encoded]).length === 1) {
-      // the 1 remaining key-value pair is "targetName" which we ignore
+    delete this.dots[encoded].dots[spellId];
+    if (Object.values(this.dots[encoded].dots).length === 0) {
       delete this.dots[encoded];
     }
   }
@@ -131,27 +134,60 @@ class Darkglare extends Analyzer {
     }
   }
 
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (!DOT_DEBUFF_IDS.includes(spellId)) {
+      return;
+    }
+    if (event.targetIsFriendly) {
+      return;
+    }
+    // check if it's an extended dot dmg
+    const encoded = encodeTargetString(event.targetID, event.targetInstance);
+    const dotInfo = this.dots[encoded].dots[spellId];
+    // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct
+    if (dotInfo.extendStart !== null
+          && dotInfo.expectedEnd <= event.timestamp
+          && event.timestamp <= dotInfo.extendExpectedEnd) {
+      this.totalDamage += event.amount + (event.absorb || 0);
+    }
+  }
+
   _processDarkglareCast(event) {
     // DG was cast, record it and start tracking dots
     // get all current dots on targets from this.dots, record it into this.casts
     const dgCast = {
       timestamp: event.timestamp,
     };
-    Object.entries(this.dots).forEach(([encoded, dots]) => {
-      const dotIds = Object.keys(dots).filter(key => key !== 'targetName').map(stringId => Number(stringId));
+    Object.entries(this.dots).forEach(([encoded, obj]) => {
+      const dotIds = Object.keys(obj.dots).map(stringId => Number(stringId));
       dgCast[encoded] = {
-        targetName: dots.targetName,
+        targetName: obj.targetName,
         dots: dotIds,
       };
+      // while already iterating through the collection, modify it, filling out extendStart and extendExpectedEnd
+      Object.values(obj.dots).forEach((dotInfo) => {
+        dotInfo.extendStart = event.timestamp;
+        // to calculate the extendExpectedEnd, we:
+        // take remaining duration at the time of the cast
+        const remaining = dotInfo.expectedEnd - event.timestamp;
+        // add extend duration to it
+        const extended = remaining + BONUS_DURATION;
+        // and add it to the time of the cast
+        dotInfo.extendExpectedEnd = event.timestamp + extended;
+      });
     });
     this.casts.push(dgCast);
-    console.log(this.casts);
   }
 
   _processDotCast(event) {
     // if it's a dot, refresh its data in this.dots
     const spellId = event.ability.guid;
-    if (!DOT_DEBUFF_IDS.includes(spellId)) {
+    // Corruption cast has different spell ID than the debuff (it's not in DOT_DEBUFF_IDS)
+    if (!DOT_DEBUFF_IDS.includes(spellId) && spellId !== SPELLS.CORRUPTION_CAST.id) {
+      return;
+    }
+    if (event.targetIsFriendly) {
       return;
     }
     // return if the target doesn't have the debuff (cast should always precede applydebuff)
@@ -159,8 +195,7 @@ class Darkglare extends Analyzer {
     if (!this.dots[encoded] || !this.dots[encoded][spellId]) {
       return;
     }
-    debug && console.log(`Refreshed dot ${event.ability.name} on ${encoded} at ${event.timestamp}`);
-    this.dots[encoded][spellId] = {
+    this.dots[encoded].dots[spellId] = {
       cast: event.timestamp,
       expectedEnd: event.timestamp + this._dotDurations[spellId],
       extendStart: null,
