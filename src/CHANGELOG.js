@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'Interface/Contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-09-24'),
+    changes: <React.Fragment> Added <SpellLink id={SPELLS.CONCENTRATED_MENDING.id} /> module. </React.Fragment>,
+    contributors: [Nalhan],
+  },
   {
     date: new Date('2018-09-24'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.HEED_MY_CALL.id} /> module.</React.Fragment>,

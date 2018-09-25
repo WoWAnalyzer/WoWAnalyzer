@@ -21,6 +21,7 @@ class ConcentratedMending extends Analyzer {
     if (spellId !== SPELLS.CONCENTRATED_MENDING_HEALING.id) {
       return;
     }
+
     this.healing += event.amount + (event.absorbed || 0);
   }
    statistic() {
@@ -31,8 +32,7 @@ class ConcentratedMending extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CONCENTRATED_MENDING.id}
         value={`${formatPercentage(healingThroughputPercent)} % / ${formatNumber(hps)} HPS`}
-        tooltip={`Healing done: ${formatNumber(this.healing)}`
-        }
+        tooltip={`Healing done: ${formatNumber(this.healing)}`}
       />
     );
   }
