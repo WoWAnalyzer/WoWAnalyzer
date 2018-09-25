@@ -9,6 +9,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, ESSENCE_FONT_SPELLPOWER_COEFFICIENT } from '../../../Constants';
 
@@ -55,18 +56,10 @@ class FontOfLife extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.FONT_OF_LIFE.id}>
-             Font of Life
-          </SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}>
-            {formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.FONT_OF_LIFE.id} />}
+        value={<dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}>{formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing</dfn>}
+      />
     );
   }
 

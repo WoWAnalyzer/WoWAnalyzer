@@ -9,6 +9,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT } from '../../../Constants';
 
@@ -72,18 +73,10 @@ class InvigoratingBrew extends Analyzer {
 
   subStatistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.INVIGORATING_BREW.id}>
-             Invigorating Brew
-          </SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          <dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}>
-            {formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing
-          </dfn>
-        </div>
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.INVIGORATING_BREW.id} />}
+        value={<dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}>{formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing</dfn>}
+      />
     );
   }
 }
