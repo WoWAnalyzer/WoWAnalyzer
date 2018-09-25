@@ -24,7 +24,13 @@ const defaultProps = {
       },
     ],
   },
-  fightId: 2,
+  fight: {
+    id: 2,
+    kill: true,
+    start_time: 0,
+    end_time: 0,
+    name: 'Test Fight',
+  },
 };
 
 describe('PlayerSelectionList', () => {
