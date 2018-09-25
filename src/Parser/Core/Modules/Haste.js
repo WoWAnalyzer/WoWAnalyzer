@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -40,7 +39,6 @@ class Haste extends Analyzer {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 
   current = null;
@@ -49,12 +47,6 @@ class Haste extends Analyzer {
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);
-
-    // TODO: Move this to the Sephuz module
-    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
-      // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
-      this._applyHasteGain(null, 0.02);
-    }
   }
   on_toPlayer_applybuff(event) {
     this._applyActiveBuff(event);

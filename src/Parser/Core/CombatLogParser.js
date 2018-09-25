@@ -493,8 +493,6 @@ class CombatLogParser {
     return this.playerPets.some(pet => pet.id === event.targetID);
   }
 
-  // TODO: Damage taken from LOTM
-
   getPercentageOfTotalHealingDone(healingDone) {
     return healingDone / this._modules.healingDone.total.effective;
   }

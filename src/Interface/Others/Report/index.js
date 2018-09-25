@@ -9,9 +9,8 @@ import ConfigLoader from './ConfigLoader';
 import EventParser from './EventParser';
 import Results from './Results';
 
-/* eslint-disable no-alert */
-
 const Report = props => (
+  // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <ReportLoader>
     {(report, refreshReport) => (
       <FightSelection
@@ -23,7 +22,7 @@ const Report = props => (
             report={report}
             fight={fight}
           >
-            {(player, combatant, combatants) => ( // TODO: Config/parser loader
+            {(player, combatant, combatants) => (
               <ConfigLoader
                 specId={combatant.specID}
               >

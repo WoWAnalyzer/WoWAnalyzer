@@ -55,7 +55,6 @@ class Ability {
         minimum: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
       }),
     ]),
-    // TODO: Add properties `staticGCD` and `baseGcd` since the baseGcd can be different per spell (e.g. Brewmaster's Effuse has a 1.5sec base GCD and most other spells are 1sec)
     castEfficiency: PropTypes.shape({
       /**
        * If this is set to `true`, this spell will trigger a Cast Efficiency suggestion when the efficiency is below the set threshold (with one of the props below, or the default 80%).
