@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 
+const PRE_INTELLECT_POTION_BUFF = 900;
+
 class MonkSpreadsheet extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -22,6 +24,8 @@ class MonkSpreadsheet extends React.Component {
 
     const cpm = spellId => getAbility(spellId).casts / (parser.fightDuration / 1000 / 60) >= 0 ? (getAbility(spellId).casts / (parser.fightDuration / 1000 / 60)).toFixed(2) : '';
 
+    const prePotion = parser._modules.prePotion.usedPrePotion ? PRE_INTELLECT_POTION_BUFF : 0;
+
     return (
 
       <div>
@@ -29,7 +33,7 @@ class MonkSpreadsheet extends React.Component {
         <div>
           <table style={styles.table}>
           <tbody>
-            <tr><td>Intellect Rating</td><td>{parser.selectedCombatant._combatantInfo.intellect}</td></tr>
+            <tr><td>Intellect Rating</td><td>{parser.selectedCombatant._combatantInfo.intellect - prePotion}</td></tr>
             <tr><td>Critical Strike Rating</td><td>{parser.selectedCombatant._combatantInfo.critSpell}</td></tr>
             <tr><td>Haste Rating</td><td>{parser.selectedCombatant._combatantInfo.hasteSpell}</td></tr>
             <tr><td>Mastery Rating</td><td>{parser.selectedCombatant._combatantInfo.mastery}</td></tr>
@@ -68,6 +72,7 @@ class MonkSpreadsheet extends React.Component {
               <tr><td>Chi Wave</td><td>{overhealingSpell(SPELLS.CHI_WAVE_TALENT.id)}</td><td>{cpm(SPELLS.CHI_WAVE_TALENT.id)}</td></tr>
               <tr><td>Refreshing Jade Wind</td><td>{overhealingSpell(SPELLS.REFRESHING_JADE_WIND_HEAL.id)}</td><td>{cpm(SPELLS.REFRESHING_JADE_WIND_TALENT.id)}</td></tr>
               <tr><td>Invoke Chi-Ji, the Red Crane</td><td>{(parser._modules.chiJi.chiJiOverHealing >= 0 ? parser._modules.chiJi.chiJiOverHealing : '')}</td><td>{cpm(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id)}</td></tr>
+              <tr><td>Jade Serpent Statue</td><td>{}</td><td>{}</td></tr>
           </tbody>
           </table>
         </div>
