@@ -4,6 +4,16 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-09-24'),
+    changes: <React.Fragment>Including Grove Tending in Flourish and Photosynthesis module.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-24'),
+    changes: <React.Fragment>Updated Photosynthesis module to use correct calculations.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-22'),
     changes: <React.Fragment>Added module for tracking Abundance.</React.Fragment>,
     contributors: [blazyb],
