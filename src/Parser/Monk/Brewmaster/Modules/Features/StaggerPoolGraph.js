@@ -59,7 +59,7 @@ class StaggerPoolGraph extends Analyzer {
 
   plot() {
     // x indices
-    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 1000) }, (x, i) => i);
+    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 500) }, (x, i) => i);
 
     // somethingBySeconds are all objects mapping from seconds ->
     // something, where if a value is unknown for that timestamp it is
@@ -70,25 +70,28 @@ class StaggerPoolGraph extends Analyzer {
     }, {});
     const hpBySeconds = Object.assign({}, poolBySeconds);
 
-    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
+    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 500));
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return {
-        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
+        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 500),
         ability: killingAbility,
       };
     });
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 500);
       // show the peak rather than left or right edge of the bin. this
       // can cause display issues if there is a rapid sequence of
       // hit->purify->hit but has the upside of making purifies after
-      // big hits (aka good purifies) very visible
+      // big hits (aka good purifies) very visible.
+      //
+      // note for future me: upping resolution from 1s -> 500ms
+      // eliminated the issue mentioned above
       poolBySeconds[seconds] = (poolBySeconds[seconds] > newPooledDamage) ? poolBySeconds[seconds] : newPooledDamage;
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 500);
       // we fill in the blanks later if hitPoints is not defined
       if (!!hitPoints) {
         hpBySeconds[seconds] = { hitPoints, maxHitPoints };
