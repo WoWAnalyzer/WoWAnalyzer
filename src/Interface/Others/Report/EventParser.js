@@ -99,20 +99,35 @@ class EventParser extends React.PureComponent {
     let parserClass = null;
     let characterProfile = null;
     let events = null;
-    await Promise.all([
-      this.loadParser().then(result => { parserClass = result; }),
-      this.loadCharacterProfile().then(result => { characterProfile = result; }),
-      this.loadEvents().then(result => { events = result; }),
-    ]).then(() => {
-      this.stopFakeNetworkProgress();
-    }, error => {
-      this.stopFakeNetworkProgress();
-      throw error;
-    });
+    return Promise.all([
+      this.loadParser().then(result => {
+        parserClass = result;
+      }),
+      this.loadCharacterProfile().then(result => {
+        characterProfile = result;
+      }),
+      this.loadEvents().then(result => {
+        events = result;
+      }),
+    ])
+      .then(() => {
+        this.stopFakeNetworkProgress();
+        timeAvailable && console.time('full parse');
+        const parser = new parserClass(report, player, fight, combatants, characterProfile);
+        return this.parseEvents(parser, report, player, fight, events);
+      })
+      .catch(error => {
+        this.stopFakeNetworkProgress();
+        const isCommonError = error instanceof LogNotFoundError;
+        if (!isCommonError) {
+          captureException(error);
+        }
+        this.reset();
+        this.setState({
+          error,
+        });
+      });
 
-    timeAvailable && console.time('full parse');
-    const parser = new parserClass(report, player, fight, combatants, characterProfile);
-    await this.parseEvents(parser, report, player, fight, events);
   }
   async parseEvents(parser, report, player, fight, events) {
     const jobId = this._jobId;
@@ -214,16 +229,7 @@ class EventParser extends React.PureComponent {
   loadEvents() {
     const { report, fight, player } = this.props;
 
-    return fetchEvents(report.code, fight.start_time, fight.end_time, player.id)
-      .catch(err => {
-        const isCommonError = err instanceof LogNotFoundError;
-        if (!isCommonError) {
-          captureException(err);
-        }
-        this.setState({
-          error: err,
-        });
-      });
+    return fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
   }
 
   async setStatePromise(newState) {
@@ -263,7 +269,7 @@ class EventParser extends React.PureComponent {
 
   renderError(error) {
     return handleApiError(error, () => {
-      this.resetState();
+      this.reset();
       this.props.history.push(makeAnalyzerUrl());
     });
   }
