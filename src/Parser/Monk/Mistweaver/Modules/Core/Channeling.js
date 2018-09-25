@@ -16,7 +16,7 @@ class Channeling extends CoreChanneling {
       // We track Crackling Jade Lightning differently
       return;
     }
-    if (event.ability.guid === SPELLS.ESSENCE_FONT.id) {
+    if (event.ability.guid === SPELLS.ESSENCE_FONT.id || event.ability.guid === SPELLS.SOOTHING_MIST.id) {
       this.beginChannel(event);
       return;
     }
@@ -24,7 +24,7 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event, ability) {
-    if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ESSENCE_FONT.id)) {
+    if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
       this.endChannel(event);
@@ -53,10 +53,10 @@ class Channeling extends CoreChanneling {
     this.endChannel(event);
   }
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.ESSENCE_FONT.id) {
+    if (event.ability.guid !== SPELLS.ESSENCE_FONT.id || SPELLS.SOOTHING_MIST.id) {
       return;
     }
-    if (!this.isChannelingSpell(SPELLS.ESSENCE_FONT.id)) {
+    if (!this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || !this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
       return;
     }
