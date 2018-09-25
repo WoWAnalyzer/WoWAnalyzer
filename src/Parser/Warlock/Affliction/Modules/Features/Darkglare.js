@@ -153,6 +153,10 @@ class Darkglare extends Analyzer {
     }
     // check if it's an extended dot dmg
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.dots[encoded]) {
+      debug && console.log(`Dot tick on unknown encoded target - ${encoded}, time: ${this.owner.formatTimestamp(event.timestamp, 3)} (${event.timestamp}), current this.dots:`, JSON.parse(JSON.stringify(this.dots)));
+      return;
+    }
     const dotInfo = this.dots[encoded].dots[spellId];
     // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct
     if (dotInfo.extendStart !== null
@@ -242,7 +246,7 @@ class Darkglare extends Analyzer {
         />
         <StatisticListBoxItem
           title="Average dots extended per cast"
-          value={averageExtendedDots}
+          value={averageExtendedDots.toFixed(2)}
         />
         <StatisticListBoxItem
           title="Total damage"
