@@ -5,6 +5,11 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import { formatThousands } from 'common/format';
+
+import StatisticsListBox from 'Interface/Others/StatisticsListBox';
+import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
@@ -20,6 +25,7 @@ const DOT_DEBUFF_IDS = [
   ...DOTS_AFFECTED_BY_CREEPING_DEATH,
 ];
 const debug = true;
+
 class Darkglare extends Analyzer {
   // Summon Darkglare - 3m CD, possibly reduced by Dreadful Calling trait, extends all DOTs on ALL ENEMIES (???) by 8s (ignores max duration possibly) and does damage on its own
   // track - amount of "bonus" damage from the extend, amount of extended dots (just count)
@@ -35,8 +41,10 @@ class Darkglare extends Analyzer {
     // UA IDs added in constructor
     [SPELLS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
   };
+  _hasAC = false;
 
-  totalDamage = 0;
+  bonusDotDamage = 0;
+  darkglareDamage = 0;
   casts = [
     /*
       {
@@ -70,7 +78,8 @@ class Darkglare extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id)) {
+    this._hasAC = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }
     UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
@@ -149,8 +158,15 @@ class Darkglare extends Analyzer {
     if (dotInfo.extendStart !== null
           && dotInfo.expectedEnd <= event.timestamp
           && event.timestamp <= dotInfo.extendExpectedEnd) {
-      this.totalDamage += event.amount + (event.absorb || 0);
+      this.bonusDotDamage += event.amount + (event.absorb || 0);
     }
+  }
+
+  on_byPlayerPet_damage(event) {
+    if (event.ability.guid !== SPELLS.SUMMON_DARKGLARE_DAMAGE.id) {
+      return;
+    }
+    this.darkglareDamage += event.amount + (event.absorb || 0);
   }
 
   _processDarkglareCast(event) {
@@ -201,6 +217,41 @@ class Darkglare extends Analyzer {
       extendStart: null,
       extendExpectedEnd: null,
     };
+  }
+
+  statistic() {
+    let totalExtendedDots = 0;
+    Object.values(this.casts).forEach(cast => {
+      Object.keys(cast).filter(key => key !== 'timestamp').forEach(target => {
+        if (this._hasAC) {
+          totalExtendedDots += cast[target].dots.filter(id => id !== SPELLS.CORRUPTION_DEBUFF.id).length;
+        }
+        else {
+          totalExtendedDots += cast[target].dots.length;
+        }
+      });
+    });
+    const averageExtendedDots = (totalExtendedDots / this.casts.length) || 0;
+    const totalDamage = this.bonusDotDamage + this.darkglareDamage;
+    return (
+      <StatisticsListBox title={<SpellLink id={SPELLS.SUMMON_DARKGLARE.id} />}>
+        <StatisticListBoxItem
+          title="Bonus damage from extended dots"
+          value={formatThousands(this.bonusDotDamage)}
+          valueTooltip="This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)"
+        />
+        <StatisticListBoxItem
+          title="Average dots extended per cast"
+          value={averageExtendedDots}
+        />
+        <StatisticListBoxItem
+          title="Total damage"
+          titleTooltip="Combined damage from extended dots and the pet itself"
+          value={formatThousands(totalDamage)}
+          valueTooltip={`Extended dot damage: ${formatThousands(this.bonusDotDamage)}<br />Pet damage: ${formatThousands(this.darkglareDamage)}<br />Percentage of total damage done: ${this.owner.formatItemDamageDone(totalDamage)}`}
+        />
+      </StatisticsListBox>
+    );
   }
 }
 
