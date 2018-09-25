@@ -1,7 +1,5 @@
 import React from 'react';
 
-import StatisticBox from 'Interface/Others/StatisticBox';
-
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
@@ -11,7 +9,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
+import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
@@ -95,6 +95,8 @@ class EarthShield extends Analyzer {
         icon={<SpellIcon id={SPELLS.EARTH_SHIELD_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercent)} %`}
         label="Earth Shield Uptime"
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(30)}
       />
     );
   }

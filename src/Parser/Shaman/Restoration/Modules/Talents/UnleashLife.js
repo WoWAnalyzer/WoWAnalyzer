@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -300,16 +301,14 @@ class UnleashLife extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</span>}
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.unleashLifeCastRatioChart()}
-          </StatisticsListBox>
-        </div>
-      </div>
+      <StatisticsListBox
+        title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</span>}
+        containerProps={{ className: 'col-lg-3 col-md-4 col-sm-6 col-xs-12' }}
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+      >
+        {this.unleashLifeCastRatioChart()}
+      </StatisticsListBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(10);

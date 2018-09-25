@@ -73,7 +73,6 @@ class CombatLogParser extends CoreCombatLogParser {
     statValues: StatValues,
 
     // Talents:
-    talentStatisticBox: TalentStatisticBox,
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
@@ -87,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wellspring: Wellspring,
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
+    talentStatisticBox: TalentStatisticBox,
 
     // Spells:
     chainHeal: ChainHeal,
