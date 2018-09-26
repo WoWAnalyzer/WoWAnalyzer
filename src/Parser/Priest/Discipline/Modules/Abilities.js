@@ -23,7 +23,6 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          casts: castCount => castCount.casts,
         },
       },
       {
@@ -36,7 +35,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          casts: castCount => castCount.casts,
         },
       },
       {
