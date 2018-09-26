@@ -15,6 +15,9 @@ import ActivityIndicator from 'Interface/common/ActivityIndicator';
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
+
+const LEVEL_15_TALENT_ROW_INDEX = 0;
+
 class EncounterStats extends React.PureComponent {
   static propTypes = {
     currentBoss: PropTypes.number.isRequired,
@@ -171,7 +174,7 @@ class EncounterStats extends React.PureComponent {
       <div key={item.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row">
           <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
-            {formatPercentage(item.amount / Math.min(this.LIMIT, this.amountOfParses), 0)}%
+            {formatPercentage(item.amount / this.amountOfParses, 0)}%
           </div>
           <div className="col-md-10">
             <ItemLink id={item.id} className={item.quality} icon={false}>
@@ -221,11 +224,11 @@ class EncounterStats extends React.PureComponent {
     }
     // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
-    this.amountOfParses = Object.values(this.state.mostUsedTalents[0]).reduce((a, b) => a + b);
+    this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
     return (
       <React.Fragment>
         <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
-          <h2>Statistics of this fight of the top {Math.min(this.LIMIT, this.amountOfParses)} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
+          <h2>Statistics of this fight of the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
         </div>
         <div className="row">
           <div className="col-md-12" style={{ padding: '0 30px' }}>
@@ -262,7 +265,7 @@ class EncounterStats extends React.PureComponent {
                         <SpellLink id={Number(talent)} icon={false}>
                           <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
                         </SpellLink>
-                        <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / Math.min(this.LIMIT, this.amountOfParses), 0)}%</span>
+                        <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.amountOfParses, 0)}%</span>
                       </div>
                     ))}
                   </div>
