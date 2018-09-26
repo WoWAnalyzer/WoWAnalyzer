@@ -6,7 +6,7 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
-import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist/Module';
 import MitigationCheck from './Modules/Features/MitigationCheck';
 
 
