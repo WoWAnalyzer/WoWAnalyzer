@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.7 : .9,
         },
         timelineSortIndex: 3,
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,

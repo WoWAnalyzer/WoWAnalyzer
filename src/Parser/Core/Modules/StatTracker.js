@@ -273,7 +273,7 @@ class StatTracker extends Analyzer {
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
     [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
-    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
+    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { haste: 600 },
     264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
@@ -305,6 +305,10 @@ class StatTracker extends Analyzer {
     [SPELLS.GALECALLERS_BOON_BUFF.id]: {
       itemId: ITEMS.GALECALLERS_BOON.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+    },
+    [SPELLS.TITANIC_OVERCHARGE.id]: {
+      itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
+      haste: (_, item) => calculateSecondaryStatDefault(355, 35, item.itemLevel),
     },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here

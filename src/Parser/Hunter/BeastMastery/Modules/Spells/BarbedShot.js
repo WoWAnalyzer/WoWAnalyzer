@@ -9,6 +9,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
@@ -21,11 +22,15 @@ import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 const MAX_FRENZY_STACKS = 3;
 
 class BarbedShot extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
 
   damage = 0;
   barbedShotStacks = [];
   lastBarbedShotStack = 0;
   lastBarbedShotUpdate = this.owner.fight.start_time;
+  buffStarters = 0;
 
   constructor(...args) {
     super(...args);
@@ -62,6 +67,10 @@ class BarbedShot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
+    if (this.selectedCombatant.hasBuff(SPELLS.BARBED_SHOT_BUFF.id) && this.buffStarters === 0) {
+      this.buffStarters = 1;
+      this.spellUsable.beginCooldown(SPELLS.BARBED_SHOT.id, this.owner.fight.start_time);
+    }
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
@@ -81,6 +90,7 @@ class BarbedShot extends Analyzer {
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
     }
+    this.buffStarters += 1;
     this.handleStacks(event);
   }
 

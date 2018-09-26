@@ -175,7 +175,7 @@ class SerpentSting extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff, or the debuff has less than {formatPercentage(PANDEMIC)}% duration remaining.</React.Fragment>)
+      return suggest(<React.Fragment>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) ? <React.Fragment>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</React.Fragment> : ''}.</React.Fragment>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
