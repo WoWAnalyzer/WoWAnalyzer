@@ -426,9 +426,9 @@ class CombatLogParser {
         if (process.env.NODE_ENV === 'development') {
           throw err;
         }
-        options.module.active = false;
-        // TODO: Disable modules that depend on this module
-        console.error('Disabling', module.constructor.name, 'because an error occured', err);
+        console.error('Disabling', options.module.constructor.name, 'and child dependencies because an error occured', err);
+        // Disable this module and all active modules that have this as a dependency
+        this.deepDisable(options.module);
         captureException(err);
       }
     };
@@ -452,6 +452,19 @@ class CombatLogParser {
     // TODO: This can probably be removed since we only render upon completion now
     this.eventCount += 1;
   }
+
+  deepDisable(module) {
+    console.error('Disabling', module.constructor.name);
+    module.active = false;
+    this.activeModules.forEach(active => {
+        const deps = active.constructor.dependencies;
+        if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
+          this.deepDisable(active);
+        }
+      }
+    );
+  }
+
   fabricateEvent(event = null, trigger = null) {
     this.triggerEvent({
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
