@@ -30,7 +30,6 @@ class BarbedShot extends Analyzer {
   barbedShotStacks = [];
   lastBarbedShotStack = 0;
   lastBarbedShotUpdate = this.owner.fight.start_time;
-  buffStarters = 0;
 
   constructor(...args) {
     super(...args);
@@ -67,10 +66,6 @@ class BarbedShot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (this.selectedCombatant.hasBuff(SPELLS.BARBED_SHOT_BUFF.id) && this.buffStarters === 0) {
-      this.buffStarters = 1;
-      this.spellUsable.beginCooldown(SPELLS.BARBED_SHOT.id, this.owner.fight.start_time);
-    }
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
@@ -90,7 +85,6 @@ class BarbedShot extends Analyzer {
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
     }
-    this.buffStarters += 1;
     this.handleStacks(event);
   }
 
