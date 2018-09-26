@@ -128,15 +128,27 @@ class BarbedShot extends Analyzer {
   }
 
   get direFrenzy3StackThreshold() {
-    return {
-      actual: this.percentUptimeMaxStacks,
-      isLessThan: {
-        minor: 0.45,
-        average: 0.40,
-        major: 0.35,
-      },
-      style: 'percentage',
-    };
+    if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
+      return {
+        actual: this.percentUptimeMaxStacks,
+        isLessThan: {
+          minor: 0.60,
+          average: 0.55,
+          major: 0.50,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.percentUptimeMaxStacks,
+        isLessThan: {
+          minor: 0.45,
+          average: 0.40,
+          major: 0.35,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   suggestions(when) {
