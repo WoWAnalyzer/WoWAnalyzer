@@ -255,7 +255,7 @@ class StaggerPoolGraph extends Analyzer {
                 ticks: {
                   fontColor: '#ccc',
                   callback: function (x) {
-                    const label = formatDuration(x, 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
+                    const label = formatDuration(Math.floor(x/2), 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
                     return label.substring(0, label.length - 2);
                   },
                 },
