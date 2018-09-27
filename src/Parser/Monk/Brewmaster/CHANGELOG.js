@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-27'),
+    changes: 'Updated Stagger plot to show very quick purifies more accurately.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-09-22'),
     changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> and <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestions to use hits mitigated instead of uptime.</React.Fragment>,
     contributors: [emallson],
