@@ -12,6 +12,8 @@ import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 
 const MAX_STACKS = 5;
 
+const MAX_TRAVEL_TIME = 500;
+
 /**
  * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive
  * attacks do not increase duration.
@@ -26,6 +28,8 @@ class MongooseBite extends Analyzer {
   lastMongooseBiteStack = 0;
   totalWindowsStarted = 0;
   fiveBiteWindows = 0;
+  aspectOfTheEagleFixed = false;
+  buffApplicationTimestamp = null;
 
   constructor(...args) {
     super(...args);
@@ -38,10 +42,20 @@ class MongooseBite extends Analyzer {
       this.lastMongooseBiteStack = 0;
     }
     if (event.type === 'damage') {
+      // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
+      // This fixes that, ensuring we reduce by 1, and later increasing it by one.
+      if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
+        this.lastMongooseBiteStack -= 1;
+        this.aspectOfTheEagleFixed = true;
+      }
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
         this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
       } else {
         this.mongooseBiteStacks[this.lastMongooseBiteStack]++;
+      }
+      if (this.aspectOfTheEagleFixed) {
+        this.lastMongooseBiteStack += 1;
+        this.aspectOfTheEagleFixed = false;
       }
       this.damage += event.amount + (event.absorbed || 0);
     }
@@ -83,6 +97,7 @@ class MongooseBite extends Analyzer {
       return;
     }
     this.handleStacks(event);
+    this.buffApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_applybuffstack(event) {

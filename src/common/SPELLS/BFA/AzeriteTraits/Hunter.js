@@ -27,6 +27,18 @@ export default {
     icon: 'ability_druid_mangle',
   },
 
+  //Marksmanship
+  STEADY_AIM: {
+    id: 277651,
+    name: 'Steady Aim',
+    icon: 'inv_spear_07',
+  },
+  STEADY_AIM_DEBUFF: {
+    id: 277959,
+    name: 'Steady Aim',
+    icon: 'inv_spear_07',
+  },
+
   //Survival
   WILDERNESS_SURVIVAL: {
     id: 278532,

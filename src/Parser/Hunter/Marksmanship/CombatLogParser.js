@@ -38,6 +38,9 @@ import SteadyFocus from './Modules/Talents/SteadyFocus';
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 
+//Azerite Traits
+import SteadyAim from './Modules/Spells/AzeriteTraits/SteadyAim';
+
 //Traits and Talents
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -83,6 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     steadyFocus: SteadyFocus,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
+
+    //Azerite Traits
+    steadyAim: SteadyAim,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,

@@ -22,6 +22,16 @@ class TimeFocusCapped extends Analyzer {
     focusTracker: FocusTracker,
   };
 
+  hasSA = false;
+
+  constructor(...args) {
+    super(...args);
+    // This Azerite Trait makes it so you want to spam your focus generator even whilst focus capped for procs,
+    // this leads to gameplay where you're spending 50% of the time focuscapped, making this module irrelevant
+    this.hasSA = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
+    this.active = !this.hasSA;
+  }
+
   get getTotalWaste() {
     let waste = this.focusTracker.secondsCapped * this.focusTracker.focusGen;
     if (this.focusTracker.generatorCasts) {
@@ -70,28 +80,15 @@ class TimeFocusCapped extends Analyzer {
     );
   }
   get suggestionThresholds() {
-    if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
-      return {
-        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
-        isGreaterThan: {
-          minor: 0.05,
-          average: 0.075,
-          major: 0.125,
-        },
-        style: 'percentage',
-      };
-    } else {
-      return {
-        actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
-        isGreaterThan: {
-          minor: 0.025,
-          average: 0.05,
-          major: 0.1,
-        },
-        style: 'percentage',
-      };
-    }
-
+    return {
+      actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
+      isGreaterThan: {
+        minor: 0.075,
+        average: 0.125,
+        major: 0.175,
+      },
+      style: 'percentage',
+    };
   }
   suggestions(when) {
     if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {

@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-09-28'),
+    changes: <React.Fragment>Adds simple tracking for <SpellLink id={SPELLS.STEADY_AIM.id} /> azerite trait, and disables focus capping module when that trait is active.</React.Fragment>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-08-06'),
     changes: <React.Fragment>Adds initial tracking for <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> to ensure the GCD is accurate in the analyzer.</React.Fragment>,
     contributors: [Putro],
