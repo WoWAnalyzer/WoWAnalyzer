@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-09-26'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> module.</React.Fragment>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-09-21'),
     changes: 'Grouped dot uptimes and talents into their respective statistic boxes.',
     contributors: [Chizu],
