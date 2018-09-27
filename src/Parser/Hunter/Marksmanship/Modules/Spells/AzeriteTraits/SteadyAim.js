@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.
+ *
+ * Example: https://www.warcraftlogs.com/reports/2vJyCmRVKgQWLHcY/#fight=9&source=3
  */
 
 const MAX_STACKS = 5;

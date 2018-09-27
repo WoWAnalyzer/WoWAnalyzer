@@ -123,7 +123,7 @@ class MongooseBite extends Analyzer {
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
         value={`${this.fiveStackMongooseBites}/${this.totalMongooseBites}`}
         label="5 stack bites"
-        tooltip={`
+        tooltip={`This may look like it's bugged, but this is actually how Mongoose Bite functions live in-game. There is no such thing as a 1-stack Mongoose Bite.
         <ul>
           <li>You hit an average of ${(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had ${MAX_STACKS} stacks of Mongoose Fury. </li>
           <li>You hit an average of ${(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
