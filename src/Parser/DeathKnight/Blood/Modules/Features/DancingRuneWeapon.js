@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Abilities from 'Parser/Core/Modules/Abilities';
 
 const ALLOWED_CASTS_DURING_DRW = [
@@ -15,6 +16,7 @@ const ALLOWED_CASTS_DURING_DRW = [
 
 class DancingRuneWeapon extends Analyzer {
   static dependencies = {
+    spellUsable: SpellUsable,
     abilities: Abilities,
   };
 
@@ -30,6 +32,13 @@ class DancingRuneWeapon extends Analyzer {
       this.abilities.getAbility(event.ability.guid) !== undefined &&
       this.abilities.getAbility(event.ability.guid).gcd) {
       this.castsDuringDRW.push(event.ability.guid);
+    }
+  }
+
+  on_byPlayer_applybuff(event) {
+    // start DRWs cooldown when used pre-pull
+    if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON_BUFF.id && event.prepull) {
+      this.spellUsable.beginCooldown(SPELLS.DANCING_RUNE_WEAPON.id, this.owner.fight.start_time);
     }
   }
 
