@@ -62,7 +62,6 @@ class EternalRuneWeapon extends Analyzer {
     }
   }
 
-
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) {
       this.bonusDurations.push([]);
