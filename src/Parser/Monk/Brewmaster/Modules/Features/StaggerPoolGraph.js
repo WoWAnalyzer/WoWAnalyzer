@@ -35,11 +35,14 @@ class StaggerPoolGraph extends Analyzer {
   }
 
   on_removestagger(event) {
-    this._staggerEvents.push(event);
-
     if (event.trigger.ability && event.trigger.ability.guid === SPELLS.PURIFYING_BREW.id) {
-      this._purifyTimestamps.push(event.timestamp);
+      // record the *previous* timestamp for purification. this will
+      // make the purifies line up with peaks in the plot, instead of
+      // showing up *after* peaks
+      this._purifyTimestamps.push(this._staggerEvents[this._staggerEvents.length-1].timestamp);
     }
+
+    this._staggerEvents.push(event);
   }
 
   on_toPlayer_death(event) {
@@ -56,37 +59,42 @@ class StaggerPoolGraph extends Analyzer {
 
   plot() {
     // x indices
-    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 1000) }, (x, i) => i);
+    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 500) }, (x, i) => i);
 
-    // somethingBySeconds are all objects mapping from seconds ->
+    // somethingByLabels are all objects mapping from label ->
     // something, where if a value is unknown for that timestamp it is
-    // undefined (the key is still present)
-    const poolBySeconds = labels.reduce((obj, sec) => {
+    // undefined (the key is still present).
+    const poolByLabels = labels.reduce((obj, sec) => {
       obj[sec] = undefined;
       return obj;
     }, {});
-    const hpBySeconds = Object.assign({}, poolBySeconds);
+    const hpByLabels = Object.assign({}, poolByLabels);
 
-    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1);
+    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 500));
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return {
-        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
+        label: Math.floor((timestamp - this.owner.fight.start_time) / 500),
         ability: killingAbility,
       };
     });
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
-      // for simplicity, we plot the right-edge of each bin. stagger
-      // actually ticks twice a second
-      poolBySeconds[seconds] = newPooledDamage;
+      const label = Math.floor((timestamp - this.owner.fight.start_time) / 500);
+      // show the peak rather than left or right edge of the bin. this
+      // can cause display issues if there is a rapid sequence of
+      // hit->purify->hit but has the upside of making purifies after
+      // big hits (aka good purifies) very visible.
+      //
+      // note for future me: upping resolution from 1s -> 500ms
+      // eliminated the issue mentioned above
+      poolByLabels[label] = (poolByLabels[label] > newPooledDamage) ? poolByLabels[label] : newPooledDamage;
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      const label = Math.floor((timestamp - this.owner.fight.start_time) / 500);
       // we fill in the blanks later if hitPoints is not defined
       if (!!hitPoints) {
-        hpBySeconds[seconds] = { hitPoints, maxHitPoints };
+        hpByLabels[label] = { hitPoints, maxHitPoints };
       }
     });
 
@@ -102,36 +110,36 @@ class StaggerPoolGraph extends Analyzer {
     let lastPoolContents = 0;
     let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
     for (const label in labels) {
-      if (poolBySeconds[label] === undefined) {
-        poolBySeconds[label] = lastPoolContents;
+      if (poolByLabels[label] === undefined) {
+        poolByLabels[label] = lastPoolContents;
       } else {
-        lastPoolContents = poolBySeconds[label];
+        lastPoolContents = poolByLabels[label];
       }
 
-      if (hpBySeconds[label] === undefined) {
-        hpBySeconds[label] = lastHpContents;
+      if (hpByLabels[label] === undefined) {
+        hpByLabels[label] = lastHpContents;
       } else {
-        lastHpContents = hpBySeconds[label];
+        lastHpContents = hpByLabels[label];
       }
 
-      if (!!deaths.find(event => event.seconds === Number(label))) {
+      if (!!deaths.find(event => event.label === Number(label))) {
         lastPoolContents = 0;
         lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
       }
     }
 
-    const purifiesBySeconds = Object.keys(poolBySeconds).map(sec => {
-      if (purifies.includes(Number(sec))) {
-        return poolBySeconds[sec];
+    const purifiesByLabels = Object.keys(poolByLabels).map(label => {
+      if (purifies.includes(Number(label))) {
+        return poolByLabels[label];
       } else {
         return undefined;
       }
     });
 
-    const deathsBySeconds = Object.keys(hpBySeconds).map(sec => {
-      const deathEvent = deaths.find(event => event.seconds === Number(sec));
+    const deathsByLabels = Object.keys(hpByLabels).map(label => {
+      const deathEvent = deaths.find(event => event.label === Number(label));
       if (!!deathEvent) {
-        return { hp: hpBySeconds[sec].maxHitPoints, ...deathEvent };
+        return { hp: hpByLabels[label].maxHitPoints, ...deathEvent };
       } else {
         return undefined;
       }
@@ -149,13 +157,13 @@ class StaggerPoolGraph extends Analyzer {
           label: DEATH_LABEL,
           borderColor: '#ff2222',
           borderWidth: 2,
-          data: deathsBySeconds.map(obj => !!obj ? obj.hp : undefined),
+          data: deathsByLabels.map(obj => !!obj ? obj.hp : undefined),
           pointStyle: 'line',
           verticalLine: true,
         },
         {
           label: 'Max Health',
-          data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
+          data: Object.values(hpByLabels).map(({ maxHitPoints }) => maxHitPoints),
           backgroundColor: 'rgba(255, 139, 45, 0.0)',
           borderColor: 'rgb(183, 76, 75)',
           borderWidth: 2,
@@ -163,7 +171,7 @@ class StaggerPoolGraph extends Analyzer {
         },
         {
           label: HP_LABEL,
-          data: Object.values(hpBySeconds).map(({ hitPoints }) => hitPoints),
+          data: Object.values(hpByLabels).map(({ hitPoints }) => hitPoints),
           backgroundColor: 'rgba(255, 139, 45, 0.2)',
           borderColor: 'rgb(255, 139, 45)',
           borderWidth: 2,
@@ -173,13 +181,13 @@ class StaggerPoolGraph extends Analyzer {
           label: PURIFY_LABEL,
           pointBackgroundColor: '#00ff96',
           backgroundColor: '#00ff96',
-          data: purifiesBySeconds,
+          data: purifiesByLabels,
           fillOpacity: 0,
           pointRadius: 4,
         },
         {
           label: STAGGER_LABEL,
-          data: Object.values(poolBySeconds),
+          data: Object.values(poolByLabels),
           backgroundColor: 'rgba(240, 234, 214, 0.2)',
           borderColor: 'rgb(240, 234, 214)',
           borderWidth: 2,
@@ -202,7 +210,7 @@ class StaggerPoolGraph extends Analyzer {
       const dataset = data.datasets[tooltipItem.datasetIndex];
       switch (dataset.label) {
         case DEATH_LABEL:
-          return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
+          return `Player died when hit by ${safeAbilityName(deathsByLabels[index].ability)} at ${formatNumber(deathsByLabels[index].hp)} HP.`;
         case PURIFY_LABEL:
           return `Purifying Brew cast with ${formatNumber(tooltipItem.yLabel)} damage staggered.`;
         default:
@@ -247,7 +255,7 @@ class StaggerPoolGraph extends Analyzer {
                 ticks: {
                   fontColor: '#ccc',
                   callback: function (x) {
-                    const label = formatDuration(x, 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
+                    const label = formatDuration(Math.floor(x/2), 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
                     return label.substring(0, label.length - 2);
                   },
                 },
