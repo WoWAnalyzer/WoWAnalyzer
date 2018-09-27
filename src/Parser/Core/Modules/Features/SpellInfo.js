@@ -118,7 +118,7 @@ export default {
     vers: true,
   },
   // https://www.warcraftlogs.com/reports/axKCmGyfgXFw6QVL/#fight=28&source=156
-  [SPELLS.BLESSED_PORTENTS.id]: { // General Azerite Power
+  [SPELLS.BLESSED_PORTENTS_HEAL.id]: { // General Azerite Power
     int: false,
     crit: true,
     hasteHpct: true,
