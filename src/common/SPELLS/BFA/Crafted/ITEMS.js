@@ -11,4 +11,9 @@ export default {
     name: 'Fathom Fall',
     icon: 'inv_misc_anchor',
   },
+  BLOCKADES_DECK: { // Darkmoon Deck: Blockades
+    id: 276202,
+    name: 'Blockades Deck',
+    icon: 'Inv_inscription_80_deck_blockades',
+  },
 };
