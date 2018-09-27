@@ -15,8 +15,6 @@ class BlessedPortents extends Analyzer {
   expiredBuffs = 0;
   refreshedBuffs = 0;
   activeBuffs = 0;
-
-  buffed = {};
   
   constructor(...args) {
     super(...args);
@@ -30,8 +28,6 @@ class BlessedPortents extends Analyzer {
     }
 
     this.healing += event.amount + (event.absorbed || 0);
-
-    //const targetId = event.targetID;
 
     this.proccedBuffs++;
     this.expiredBuffs--;
@@ -69,7 +65,7 @@ class BlessedPortents extends Analyzer {
     return this.proccedBuffs + this.expiredBuffs + this.refreshedBuffs + this.activeBuffs;
   }
 
-   statistic() {
+  statistic() {
     const healingThroughputPercent = this.owner.getPercentageOfTotalHealingDone(this.healing);
     const hps = this.healing / this.owner.fightDuration * 1000;
     return (
