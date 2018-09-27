@@ -29,5 +29,5 @@ export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   // Make sure to check that event.tick is true, because regrowth/tranq uses the same id for the heal and the HoT part
   SPELLS.REGROWTH.id,
   SPELLS.TRANQUILITY_HEAL.id,
-  //TODO - blazyb double check if any non resto druid spells scales with mastery stacks.
+  SPELLS.GROVE_TENDING.id,
 ];

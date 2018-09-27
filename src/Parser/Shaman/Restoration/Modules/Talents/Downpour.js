@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -78,7 +79,9 @@ class Downpour extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={`${downpourAverageCooldown.toFixed(1)} seconds`} 
+        value={`${downpourAverageCooldown.toFixed(1)} seconds`}
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(90)}
         label={(
           <dfn data-tip={`
             You cast a total of ${downpourCasts} Downpours, which on average hit ${(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br /> 
@@ -90,7 +93,6 @@ class Downpour extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.DOWNPOUR_TALENT.id);

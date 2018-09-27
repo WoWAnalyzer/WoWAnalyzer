@@ -1,6 +1,7 @@
 import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticsListBox';
+import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -13,7 +14,6 @@ import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
 import NaturesGuardian from './NaturesGuardian';
 import Downpour from './Downpour';
-import FlashFlood from './FlashFlood';
 import CloudburstTotem from './CloudburstTotem';
 import Ascendance from './Ascendance';
 import Wellspring from './Wellspring';
@@ -30,7 +30,6 @@ class TalentStatisticBox extends Analyzer {
     earthenWallTotem: EarthenWallTotem,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
-    flashFlood: FlashFlood,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
     wellspring: Wellspring,
@@ -40,11 +39,13 @@ class TalentStatisticBox extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
-        title="Talents"
+        title="Healing Contribution"
         tooltip={`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
         <b>Not Supported:</b><br />
         Echo of the Elements
         `}
+        position={STATISTIC_ORDER.CORE(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         {this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
@@ -53,7 +54,6 @@ class TalentStatisticBox extends Analyzer {
         {this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id) ? this.naturesGuardian.subStatistic() : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) ? this.flashFlood.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? this.highTide.subStatistic() : ''}
@@ -62,7 +62,6 @@ class TalentStatisticBox extends Analyzer {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1000);
 }
 
 export default TalentStatisticBox;

@@ -38,7 +38,6 @@ class KillCommand extends Analyzer {
       return;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_SV.id)) {
-      this.resetWhileNotOnCD++;
       return;
     }
     this.resets++;
@@ -52,7 +51,6 @@ class KillCommand extends Analyzer {
         icon={<SpellIcon id={SPELLS.KILL_COMMAND_SV.id} />}
         value={`${this.resets}`}
         label="Kill Command resets"
-        tooltip={`You had ${this.resetWhileNotOnCD} resets whilst Kill Command was not on cooldown`}
       />
     );
   }

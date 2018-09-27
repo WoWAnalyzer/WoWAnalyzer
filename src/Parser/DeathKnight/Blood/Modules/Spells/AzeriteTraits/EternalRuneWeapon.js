@@ -56,6 +56,12 @@ class EternalRuneWeapon extends Analyzer {
     this.traits = traits;
   }
 
+  on_byPlayer_applybuff(event) {
+    if (event.ability.guid === SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id && event.prepull) {
+      this.bonusDurations.push([]);
+    }
+  }
+
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) {
       this.bonusDurations.push([]);
