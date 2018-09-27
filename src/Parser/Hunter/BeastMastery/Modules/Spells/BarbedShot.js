@@ -9,6 +9,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'Interface/Others/ItemDamageDone';
 import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
@@ -21,6 +22,9 @@ import StatisticListBoxItem from 'Interface/Others/StatisticListBoxItem';
 const MAX_FRENZY_STACKS = 3;
 
 class BarbedShot extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
 
   damage = 0;
   barbedShotStacks = [];
@@ -124,15 +128,27 @@ class BarbedShot extends Analyzer {
   }
 
   get direFrenzy3StackThreshold() {
-    return {
-      actual: this.percentUptimeMaxStacks,
-      isLessThan: {
-        minor: 0.45,
-        average: 0.40,
-        major: 0.35,
-      },
-      style: 'percentage',
-    };
+    if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
+      return {
+        actual: this.percentUptimeMaxStacks,
+        isLessThan: {
+          minor: 0.60,
+          average: 0.55,
+          major: 0.50,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.percentUptimeMaxStacks,
+        isLessThan: {
+          minor: 0.45,
+          average: 0.40,
+          major: 0.35,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   suggestions(when) {
