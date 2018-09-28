@@ -29,6 +29,7 @@ class PlayerSelection extends React.PureComponent {
       })),
     }).isRequired,
     fight: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
     }).isRequired,
@@ -37,7 +38,8 @@ class PlayerSelection extends React.PureComponent {
     playerId: PropTypes.number,
     children: PropTypes.func.isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired, // adds to browser history
+      push: PropTypes.func.isRequired,
+      replace: PropTypes.func.isRequired,
     }).isRequired,
   };
   state = {
@@ -61,9 +63,14 @@ class PlayerSelection extends React.PureComponent {
     this.loadCombatants(this.props.report, this.props.fight);
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
-    if (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight) {
+    const changedReport = this.props.report !== prevProps.report;
+    const changedFight = this.props.fight !== prevProps.fight;
+    if (changedReport || changedFight) {
       // noinspection JSIgnoredPromiseFromCall
       this.loadCombatants(this.props.report, this.props.fight);
+    }
+    if (this.props.playerId && (!this.props.playerName || this.props.playerName === `${this.props.playerId}`)) {
+      this.props.history.replace(makeAnalyzerUrl(this.props.report, this.props.fight.id, this.props.playerId));
     }
   }
   componentWillUnmount() {
