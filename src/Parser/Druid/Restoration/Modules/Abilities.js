@@ -7,6 +7,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+
       {
         spell: SPELLS.TRANQUILITY_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -22,7 +23,24 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.TRANQUILITY_HEAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.INNERVATE,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -109,6 +127,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CENARION_WARD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+          averageIssueEfficiency: 0.55,
+          majorIssueEfficiency: 0.30,
         },
       },
       {

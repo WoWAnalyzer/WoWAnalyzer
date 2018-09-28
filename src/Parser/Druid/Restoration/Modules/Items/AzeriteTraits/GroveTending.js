@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Mastery from 'Parser/Druid/Restoration/Modules/Core/Mastery';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'Interface/Others/TraitStatisticBox';
 import StatWeights from '../../Features/StatWeights';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../AzeriteTraits/common';
@@ -12,6 +13,7 @@ import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../Azerite
 class GroveTending extends Analyzer{
   static dependencies = {
     statWeights: StatWeights,
+    mastery: Mastery,
   };
 
   healing = 0;
@@ -36,7 +38,7 @@ class GroveTending extends Analyzer{
   }
 
   statistic(){
-    const throughputPercent = this.owner.getPercentageOfTotalHealingDone(this.healing);
+    const throughputPercent = this.owner.getPercentageOfTotalHealingDone(this.healing + this.mastery.getMasteryHealing(SPELLS.GROVE_TENDING.id));
     const onePercentThroughputInInt = this.statWeights._ratingPerOnePercent(this.statWeights.totalOneInt);
     const intGain = onePercentThroughputInInt * throughputPercent * 100;
     const ilvlGain = findItemLevelByPrimaryStat(getPrimaryStatForItemLevel(this.avgItemLevel) + intGain) - this.avgItemLevel;
@@ -50,7 +52,8 @@ class GroveTending extends Analyzer{
             {formatPercentage(throughputPercent)} %<br />
           </React.Fragment>
         )}
-        tooltip={`Grove Tending gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
+        tooltip={`Direct healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}%</b> Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.mastery.getMasteryHealing(SPELLS.GROVE_TENDING.id)))}%</b><br />
+            Grove Tending gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
             per level) item levels.`}
       />
