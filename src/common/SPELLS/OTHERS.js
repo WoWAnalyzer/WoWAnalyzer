@@ -81,6 +81,106 @@ export default {
     name: 'Flask of Ten Thousand Scars',
     icon: 'inv_alchemy_70_flask03green',
   },
+  FLASK_OF_THE_CURRENTS: {
+    id: 251836,
+    name: 'Flask of the Currents',
+    icon: 'inv_alchemy_80_flask01green',
+  },
+  FLASK_OF_ENDLESS_FATHOMS: {
+    id: 251837,
+    name: 'Flask of Endless Fathoms',
+    icon: 'inv_alchemy_80_flask01purple',
+  },
+  FLASK_OF_THE_UNDERTOW: {
+    id: 251839,
+    name: 'Flask of the Undertow',
+    icon: 'inv_alchemy_80_flask01orange',
+  },
+  FLASK_OF_THE_VAST_HORIZON: {
+    id: 251838,
+    name: 'Flask of the Vast Horizon',
+    icon: 'inv_alchemy_80_flask01red',
+  },
+  KUL_TIRAMISU: {
+    id: 257409,
+    name: 'Kul Tiramisu',
+    icon: 'inv_cooking_80_kultiramisu',
+  },
+  LOA_LEAF: {
+    id: 257419,
+    name: 'Loa Leaf',
+    icon: 'inv_cooking_80_loaloaf',
+  },
+  RAVENBERRY_TARTS: {
+    id: 257414,
+    name: 'Ravenberry Tarts',
+    icon: 'inv_cooking_80_ravenberrytart',
+  },
+  MON_DAZI: {
+    id: 257423,
+    name: 'Mon\'Dazi',
+    icon: 'inv_cooking_80_mondazi',
+  },
+  HONEY_GLAZED_HAUNCHES: {
+    id: 257411,
+    name: 'Honey-Glazed Haunches',
+    icon: 'inv_cooking_80_honeyglazedhaunch',
+  },
+  SAILOR_PIE: {
+    id: 257421,
+    name: 'Sailor\'s Pie',
+    icon: 'inv_cooking_80_sailorspie',
+  },
+  SWAMP_FISH_N_CHIPS: {
+    id: 257417,
+    name: 'Swamp Fish \'n Chips',
+    icon: 'inv_cooking_80_swampfishnchips',
+  },
+  SPICED_SNAPPER: {
+    id: 257425,
+    name: 'Spiced Snapper',
+    icon: 'inv_cooking_80_spicedcatfish',
+  },
+  GALLEY_BANQUET_INT: {
+    id: 259449,
+    name: 'Galley Banquet',
+    icon: 'inv_misc_food_157_fish_80',
+  },
+  GALLEY_BANQUET_STR: {
+    id: 259452,
+    name: 'Galley Banquet',
+    icon: 'inv_misc_food_157_fish_80',
+  },
+  GALLEY_BANQUET_AGI: {
+    id: 259448,
+    name: 'Galley Banquet',
+    icon: 'inv_misc_food_157_fish_80',
+  },
+  GALLEY_BANQUET_STA: {
+    id: 259453,
+    name: 'Galley Banquet',
+    icon: 'inv_misc_food_157_fish_80',
+  },
+  BOUNTIFUL_CAPTAIN_FEAST_INT: {
+    id: 259455,
+    name: 'Bountiful Captain\'s Feast',
+    icon: 'inv_cooking_80_majorfeast',
+  },
+  BOUNTIFUL_CAPTAIN_FEAST_STR: {
+    id: 259456,
+    name: 'Bountiful Captain\'s Feast',
+    icon: 'inv_cooking_80_majorfeast',
+  },
+  BOUNTIFUL_CAPTAIN_FEAST_AGI: {
+    id: 259454,
+    name: 'Bountiful Captain\'s Feast',
+    icon: 'inv_cooking_80_majorfeast',
+  },
+  BOUNTIFUL_CAPTAIN_FEAST_STA: {
+    id: 259457,
+    name: 'Bountiful Captain\'s Feast',
+    icon: 'inv_cooking_80_majorfeast',
+  },
   DEFILED_AUGMENT_RUNE: {
     id: 224001,
     name: 'Defiled Augment Rune',
