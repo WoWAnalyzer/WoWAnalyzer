@@ -1,6 +1,6 @@
 import { SimpleFight } from 'tests/parser/brewmaster/fixtures/SimpleFight';
 import TestCombatLogParser from 'tests/TestCombatLogParser';
-import GiftOfTheOx from '../normalizers/GiftOfTheOx';
+import GiftOfTheOx from '../../normalizers/GiftOfTheOx';
 
 import T20_2pc from './T20_2pc';
 

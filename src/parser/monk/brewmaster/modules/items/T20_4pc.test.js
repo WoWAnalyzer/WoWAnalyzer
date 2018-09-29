@@ -3,7 +3,7 @@ import { SimpleFight } from 'tests/parser/brewmaster/fixtures/SimpleFight';
 import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import StaggerFabricator from '../core/StaggerFabricator';
-import GiftOfTheOx from '../normalizers/GiftOfTheOx';
+import GiftOfTheOx from '../../normalizers/GiftOfTheOx';
 import T20_4pc from './T20_4pc';
 
 describe('Brewmaster.T20_4pc', () => {
