@@ -13,4 +13,5 @@ export default combineReducers({
   combatants: require('./combatants').default,
   reportHistory: require('./reportHistory').default,
   language: require('./language').default,
+  specsIgnoredNotSupportedWarning: require('./specsIgnoredNotSupportedWarning').default,
 });

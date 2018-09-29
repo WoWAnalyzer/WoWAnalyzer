@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { connect } from 'react-redux';
 
+import Icon from 'common/Icon';
 import isLatestPatch from 'game/isLatestPatch';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Icon from 'common/Icon';
+import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
+import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
 
 import Background from './images/weirdnelf.png';
 
@@ -16,6 +19,9 @@ class SupportChecker extends React.PureComponent {
     children: PropTypes.node.isRequired,
     config: PropTypes.shape({
       patchCompatibility: PropTypes.string.isRequired,
+      spec: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }).isRequired,
     }).isRequired,
     report: PropTypes.object.isRequired,
     fight: PropTypes.shape({
@@ -24,13 +30,12 @@ class SupportChecker extends React.PureComponent {
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
+    ignoreSpecNotSupportedWarning: PropTypes.func.isRequired,
+    ignored: PropTypes.array.isRequired,
   };
 
   constructor() {
     super();
-    this.state = {
-      continue: false,
-    };
     this.handleClickContinue = this.handleClickContinue.bind(this);
   }
   componentDidMount() {
@@ -41,9 +46,11 @@ class SupportChecker extends React.PureComponent {
   }
 
   handleClickContinue() {
-    this.setState({
-      continue: true,
-    });
+    this.props.ignoreSpecNotSupportedWarning(this.props.config.spec.id);
+  }
+
+  get continue() {
+    return this.props.ignored.includes(this.props.config.spec.id);
   }
 
   render() {
@@ -51,7 +58,7 @@ class SupportChecker extends React.PureComponent {
 
     const spec = config.spec;
 
-    if (!this.state.continue && !isLatestPatch(config.patchCompatibility)) {
+    if (!this.continue && !isLatestPatch(config.patchCompatibility)) {
       return (
         <div className="container">
           <h1>
@@ -110,4 +117,9 @@ class SupportChecker extends React.PureComponent {
   }
 }
 
-export default SupportChecker;
+const mapStateToProps = state => ({
+  ignored: getSpecsIgnoredNotSupportedWarning(state),
+});
+export default connect(mapStateToProps, {
+  ignoreSpecNotSupportedWarning,
+})(SupportChecker);
