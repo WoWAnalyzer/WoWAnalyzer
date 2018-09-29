@@ -38,6 +38,4 @@ Functions that aren't part of a class should be camelCased.
 
 # Folders
 
-If you put an `index.js` in a folder that is a Class or Component, use the applicable naming scheme (basically, the folder name should be PascalCased). In any other case the folder should be lowercased or camelCased. Single word folder names are preferred, and generally lower-casing is preferred (e.g. deathknight, demonhunter).
-
-> At the time of writing this not all folders follow this naming scheme yet. We're slowly renaming them but it's slowed down because it causes issues for developers running Windows.
+If you put an `index.js` in a folder that is a Class or Component, use the applicable naming scheme (basically, the folder name should be PascalCased). In any other case the folder should be lowercased. Single word folder names are preferred.
