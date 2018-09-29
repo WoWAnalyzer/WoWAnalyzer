@@ -8,11 +8,11 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
-import Contributor from 'Interface/Contributor/Button';
-import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
-import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
-import AntorusImage from 'raids/AntorusTheBurningThrone/Images/antorus.jpg';
-import RegularArticle from 'Interface/News/RegularArticle';
+import Contributor from 'interface/contributor/Button';
+import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
+import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
+import AntorusImage from 'raids/antorustheburningthrone/images/antorus.jpg';
+import RegularArticle from 'interface/news/RegularArticle';
 
 import Timeline from './Timeline';
 import Item from './TimelineItem';
@@ -768,7 +768,7 @@ class Article extends React.PureComponent {
         <Item title="Added support for healer stat weights" date="24 Oct">
           <Contributor {...CONTRIBUTORS.sref} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604">added</a> a module to generate stat weights based on what actually happened in a fight. This module generates the players stat weights using the actual logged events. We keep a listing of all the player's healing spells along with which stats those spells scales with, and for each stat a heal scales with we do some simple math to find out how much the last point of that stat healed. We compare the total healing increases of each stat in order to generate weights. The simplicity of this module is pretty brilliant and makes calculating stat weights from logs pretty easy.<br /><br />
 
-          <Contributor {...CONTRIBUTORS.sref} /> wrote a full explanation of the calculation of the Restoration Druid Stat Weights <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/Parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">here</a>.<br /><br />
+          <Contributor {...CONTRIBUTORS.sref} /> wrote a full explanation of the calculation of the Restoration Druid Stat Weights <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">here</a>.<br /><br />
 
           <Image source={RestoDruidStatWeights} description="The initial Stat Weights panel" /><br />
 

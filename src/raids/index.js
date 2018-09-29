@@ -1,9 +1,9 @@
 const raids = {
   // Battle for Azeroth
-  Uldir: require('./Uldir').default, // 22
+  Uldir: require('./uldir').default, // 22
   // Legion
-  AntorusTheBurningThrone: require('./AntorusTheBurningThrone').default, // 21
-  TombOfSargeras: require('./TombOfSargeras').default, // 20
+  AntorusTheBurningThrone: require('./antorustheburningthrone').default, // 21
+  TombOfSargeras: require('./tombofsargeras').default, // 20
 };
 export default raids;
 

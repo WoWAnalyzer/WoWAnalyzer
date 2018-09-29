@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'Interface/News/RegularArticle';
+import RegularArticle from 'interface/news/RegularArticle';
 
 import FightDowntimeToggle from './FightDowntimeToggle.png';
 import ArgusBalance from './ArgusBalance.png';

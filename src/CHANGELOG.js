@@ -5,7 +5,7 @@ import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Contributor from 'Interface/Contributor/Button';
+import Contributor from 'interface/contributor/Button';
 
 export default [
   {

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'Parser/Core/Modules/Channeling';
+import CoreChanneling from 'parser/core/modules/Channeling';
 
 class Channeling extends CoreChanneling {
   on_byPlayer_cast(event) {
