@@ -46,6 +46,7 @@ class SupportChecker extends React.PureComponent {
   }
 
   handleClickContinue() {
+    // I chose on purpose not to store this in a cookie since I don't want this to be forgotten. It should not be a big deal if this happens every time the page is loaded, so long as it isn't shown every fight.
     this.props.ignoreSpecNotSupportedWarning(this.props.config.spec.id);
   }
 
