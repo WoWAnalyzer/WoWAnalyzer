@@ -19,7 +19,6 @@ import Consecration from './Modules/Features/Consecration';
 //Talents
 import Seraphim from './Modules/Talents/Seraphim';
 import RighteousProtector from './Modules/Talents/RighteousProtector';
-import LastDefender from './Modules/Talents/LastDefender';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -47,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousProtector: RighteousProtector,
     judgment: Judgment,
     seraphim: Seraphim,
-    lastDefender: LastDefender,
   };
 }
 
