@@ -17,7 +17,7 @@ import Druid from 'common/SPELLS/BFA/AzeriteTraits/Druid';
 import Unused from 'common/SPELLS/BFA/AzeriteTraits/__UNUSED';
 
 const AZERITE_SPELLS = Object.values({...General, ...Hunter, ...Paladin, ...Shaman, ...Warlock, ...Monk, ...DeathKnight, ...Priest, ...Druid, ...Unused});
-const FALLBACK_ICON = 'quest_khadgar';
+const FALLBACK_ICON = 'inv_misc_questionmark';
 
 class Gear extends React.PureComponent {
   static propTypes = {
@@ -63,7 +63,8 @@ class Gear extends React.PureComponent {
           this.setState({
             azerite: newAzerite,
           });
-        });
+        })
+        .catch(err => {}); // ignore errors
     });
   }
 
