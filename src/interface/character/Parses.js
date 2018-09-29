@@ -206,7 +206,8 @@ class Parses extends React.Component {
             this.setState({
               trinkets: updatedTrinkets,
             });
-          });
+          })
+          .catch(err => {}); // ignore errors;;
       }
       return null;
     });

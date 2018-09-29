@@ -163,7 +163,8 @@ class EncounterStats extends React.PureComponent {
             });
 
             this.forceUpdate();
-          });
+          })
+          .catch(err => {}); // ignore errors;
       }
       return null;
     });
