@@ -149,7 +149,10 @@ class EncounterStats extends React.PureComponent {
     this.state.mostUsedTrinkets.forEach(trinket => {
       if (ITEMS[trinket.id] === undefined) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) { throw response; }
+            return response.json();
+          })
           .then(data => {
             const updatedItems = this.state.items;
             updatedItems[trinket.id] = {
@@ -163,6 +166,9 @@ class EncounterStats extends React.PureComponent {
             });
 
             this.forceUpdate();
+          })
+          .catch(err => {
+            return null;
           });
       }
       return null;

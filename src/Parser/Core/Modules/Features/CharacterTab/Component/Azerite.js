@@ -51,7 +51,10 @@ class Gear extends React.PureComponent {
     Object.keys(missingIcons).forEach(e => {
       const traitId = parseInt(missingIcons[e].id, 10);
       fetch(`https://eu.api.battle.net/wow/spell/${traitId}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) { throw response; }
+          return response.json();
+        })
         .then(data => {
           const newTrait = {
             id: traitId,
@@ -63,6 +66,9 @@ class Gear extends React.PureComponent {
           this.setState({
             azerite: newAzerite,
           });
+        })
+        .catch(err => {
+          return null;
         });
     });
   }

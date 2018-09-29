@@ -200,12 +200,18 @@ class Parses extends React.Component {
     Object.values(updatedTrinkets).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) { throw response; }
+            return response.json();
+          })
           .then((data) => {
             updatedTrinkets[trinket.id].icon = data.icon;
             this.setState({
               trinkets: updatedTrinkets,
             });
+          })
+          .catch(err => {
+            return null;
           });
       }
       return null;
