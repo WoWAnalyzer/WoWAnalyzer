@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
-import { PANDEMIC_FRACTION } from '../../Constants';
+import { PANDEMIC_FRACTION } from '../../constants';
 
 const debug = false;
 

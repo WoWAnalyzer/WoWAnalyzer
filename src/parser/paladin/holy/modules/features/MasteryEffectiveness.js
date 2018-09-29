@@ -10,7 +10,7 @@ import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
 import BeaconTargets from '../beacons/BeaconTargets';
-import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../constants';
 
 const debug = false;
 

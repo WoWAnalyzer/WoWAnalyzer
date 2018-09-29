@@ -55,7 +55,7 @@ import GiftOfForgiveness from './modules/azeritetraits/GiftOfForgiveness';
 
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

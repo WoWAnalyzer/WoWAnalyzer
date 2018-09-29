@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellManaCost from 'parser/core/modules/SpellManaCost';
 
-import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../constants';
 
 const debug = false;
 

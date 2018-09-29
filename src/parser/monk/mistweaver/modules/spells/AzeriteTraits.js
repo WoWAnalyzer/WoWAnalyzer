@@ -5,9 +5,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import FontOfLife from './AzeriteTraits/FontOfLife';
-import UpliftedSpirits from './AzeriteTraits/UpliftedSpirits';
-import InvigoratingBrew from './AzeriteTraits/InvigoratingBrew';
+import FontOfLife from './azeritetraits/FontOfLife';
+import UpliftedSpirits from './azeritetraits/UpliftedSpirits';
+import InvigoratingBrew from './azeritetraits/InvigoratingBrew';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {

@@ -9,7 +9,7 @@ import { formatNumber, formatDuration } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class ComboStrikes extends Analyzer {
   _lastSpellUsed = null;

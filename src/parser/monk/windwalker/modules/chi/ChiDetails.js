@@ -5,7 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import ResourceBreakdown from 'parser/core/modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
 import ChiTracker from './ChiTracker';
 
 import WastedChiIcon from '../../images/ability_monk_forcesphere.jpg';

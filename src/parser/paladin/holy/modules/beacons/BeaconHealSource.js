@@ -5,7 +5,7 @@ import Combatants from 'parser/core/modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
-import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
+import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 
 const debug = false;
 

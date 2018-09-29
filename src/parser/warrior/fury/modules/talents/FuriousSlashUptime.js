@@ -7,7 +7,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import StatTracker from 'parser/core/modules/StatTracker';
-import FuriousSlashTimesByStacks from '../Talents/FuriousSlashTimesByStacks';
+import FuriousSlashTimesByStacks from './/FuriousSlashTimesByStacks';
 
 class FuriousSlashUptime extends Analyzer {
 	static dependencies = {

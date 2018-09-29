@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../Constants';
+import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
 
 // Example Log: /report/ZtzgPbjw3hRYvJTc/3-Mythic+Taloc+-+Kill+(6:46)/26-萤火兔
 class EnduringRenewal extends Analyzer {

@@ -42,7 +42,7 @@ import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

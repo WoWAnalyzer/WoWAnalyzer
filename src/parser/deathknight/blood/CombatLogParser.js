@@ -46,18 +46,18 @@ import RuneStrike from './modules/talents/RuneStrike';
 import Consumption from './modules/talents/Consumption';
 
 // Items
-import T20_2pc from './modules/Items/T20_2pc';
-import T20_4pc from './modules/Items/T20_4pc';
-import T21_2pc from './modules/Items/T21_2pc';
-import T21_4pc from './modules/Items/T21_4pc';
-import SkullflowersHaemostasis from './modules/Items/SkullflowersHaemostasis';
-import ShacklesofBryndaor from './modules/Items/ShacklesofBryndaor';
-import SoulflayersCorruption from './modules/Items/SoulflayersCorruption';
+import T20_2pc from './modules/items/T20_2pc';
+import T20_4pc from './modules/items/T20_4pc';
+import T21_2pc from './modules/items/T21_2pc';
+import T21_4pc from './modules/items/T21_4pc';
+import SkullflowersHaemostasis from './modules/items/SkullflowersHaemostasis';
+import ShacklesofBryndaor from './modules/items/ShacklesofBryndaor';
+import SoulflayersCorruption from './modules/items/SoulflayersCorruption';
 
 // Azerite Traits
-import BonesOfTheDamned from './modules/spells/AzeriteTraits/BonesOfTheDamned';
+import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
 import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
-import EternalRuneWeapon from './modules/spells/AzeriteTraits/EternalRuneWeapon';
+import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

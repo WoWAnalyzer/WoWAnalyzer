@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/core/modules/SpellUsable';
 import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
-import { RAKE_BASE_DURATION, RIP_BASE_DURATION, THRASH_FERAL_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
+import { RAKE_BASE_DURATION, RIP_BASE_DURATION, THRASH_FERAL_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
 const BLEED_BASE_DURATIONS = {

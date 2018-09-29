@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { ATONEMENT_COEFFICIENT } from './Constants';
+import { ATONEMENT_COEFFICIENT } from './constants';
 
 // 50% dmg increase passive
 const SMITE_DAMAGE_BUFF = 0.5;

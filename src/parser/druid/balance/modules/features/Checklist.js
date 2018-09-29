@@ -20,7 +20,7 @@ import SolarEmpowerment from './SolarEmpowerment';
 import EarlyDotRefreshes from './EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './EarlyDotRefreshesInstants';
 
-import AstralPowerDetails from '../ResourceTracker/AstralPowerDetails';
+import AstralPowerDetails from '../resourcetracker/AstralPowerDetails';
 
 class Checklist extends CoreChecklist {
   static dependencies = {

@@ -4,7 +4,7 @@ import DamageDone from 'parser/core/modules/DamageDone';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/features/Checklist/Module';
+import Checklist from './modules/features/checklist/Module';
 // Chi
 import ChiDetails from './modules/chi/ChiDetails';
 import ChiTracker from './modules/chi/ChiTracker';
@@ -23,9 +23,9 @@ import HitCombo from './modules/talents/HitCombo';
 import EnergizingElixir from './modules/talents/EnergizingElixir';
 import Serenity from './modules/talents/Serenity';
 // Azerite
-import IronFists from './modules/spells/AzeriteTraits/IronFists';
-import MeridianStrikes from './modules/spells/AzeriteTraits/MeridianStrikes';
-import SwiftRoundhouse from './modules/spells/AzeriteTraits/SwiftRoundhouse';
+import IronFists from './modules/spells/azeritetraits/IronFists';
+import MeridianStrikes from './modules/spells/azeritetraits/MeridianStrikes';
+import SwiftRoundhouse from './modules/spells/azeritetraits/SwiftRoundhouse';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core

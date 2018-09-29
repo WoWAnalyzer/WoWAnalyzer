@@ -1,4 +1,4 @@
-import ResourceTracker from 'parser/core/modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
 import Enemies from 'parser/core/modules/Enemies';
 

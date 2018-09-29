@@ -17,7 +17,7 @@ import SoulBarrier from '../../talents/SoulBarrier';
 import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
 
 // Resources
-import PainDetails from '../../Pain/PainDetails';
+import PainDetails from '../../pain/PainDetails';
 import SoulsOvercap from '../../statistics/SoulsOvercap';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';

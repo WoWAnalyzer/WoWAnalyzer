@@ -5,31 +5,31 @@ import DamageDone from 'parser/core/modules/DamageDone';
 import DamageTaken from 'parser/core/modules/DamageTaken';
 
 import Abilities from './modules/Abilities';
-import ActiveTargets from './modules/Features/ActiveTargets';
-import Gore from './modules/Features/Gore';
-import GalacticGuardian from './modules/Features/GalacticGuardian';
-import GuardianOfElune from './modules/Features/GuardianOfElune';
-import IronFurGoEProcs from './modules/Features/IronFurGoEProcs';
-import FrenziedRegenGoEProcs from './modules/Features/FrenziedRegenGoEProcs';
-import RageWasted from './modules/Features/RageWasted';
-import AntiFillerSpam from './modules/Features/AntiFillerSpam';
-import MitigationCheck from './modules/Features/MitigationCheck';
+import ActiveTargets from './modules/features/ActiveTargets';
+import Gore from './modules/features/Gore';
+import GalacticGuardian from './modules/features/GalacticGuardian';
+import GuardianOfElune from './modules/features/GuardianOfElune';
+import IronFurGoEProcs from './modules/features/IronFurGoEProcs';
+import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
+import RageWasted from './modules/features/RageWasted';
+import AntiFillerSpam from './modules/features/AntiFillerSpam';
+import MitigationCheck from './modules/features/MitigationCheck';
 
-import IronFur from './modules/Spells/IronFur';
-import Thrash from './modules/Spells/Thrash';
-import Moonfire from './modules/Spells/Moonfire';
-import Pulverize from './modules/Spells/Pulverize';
-import Earthwarden from './modules/Talents/Earthwarden';
-import Incarnation from './modules/Talents/Incarnation';
-import FrenziedRegeneration from './modules/Spells/FrenziedRegeneration';
+import IronFur from './modules/spells/IronFur';
+import Thrash from './modules/spells/Thrash';
+import Moonfire from './modules/spells/Moonfire';
+import Pulverize from './modules/spells/Pulverize';
+import Earthwarden from './modules/talents/Earthwarden';
+import Incarnation from './modules/talents/Incarnation';
+import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 
-import SkysecsHold from './modules/Items/Skysecs';
-import LuffaWrappings from './modules/Items/LuffaWrappings';
-import FuryOfNature from './modules/Items/FuryOfNature';
-import SoulOfTheArchdruid from '../shared/modules/Items/SoulOfTheArchdruid';
+import SkysecsHold from './modules/items/Skysecs';
+import LuffaWrappings from './modules/items/LuffaWrappings';
+import FuryOfNature from './modules/items/FuryOfNature';
+import SoulOfTheArchdruid from '../shared/modules/items/SoulOfTheArchdruid';
 
-import Tier21_2P from './modules/Sets/Tier21_2P';
-import Tier21_4P from './modules/Sets/Tier21_4P';
+import Tier21_2P from './modules/sets/Tier21_2P';
+import Tier21_4P from './modules/sets/Tier21_4P';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

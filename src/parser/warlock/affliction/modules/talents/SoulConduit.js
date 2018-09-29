@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;

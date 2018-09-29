@@ -1,4 +1,4 @@
-import ResourceTracker from 'parser/core/modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class SoulShardTracker extends ResourceTracker {

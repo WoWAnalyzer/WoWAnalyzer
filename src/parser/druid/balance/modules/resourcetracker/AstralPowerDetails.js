@@ -3,7 +3,7 @@ import React from 'react';
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import ResourceBreakdown from 'parser/core/modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 

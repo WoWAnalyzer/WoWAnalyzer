@@ -15,7 +15,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/core/modules/Combatants';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../Constants';
+import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 

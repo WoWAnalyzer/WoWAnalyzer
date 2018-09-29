@@ -12,9 +12,9 @@ import Checklist from './modules/features/Checklist';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
 
-import HotTracker from './modules/core/HotTracking/HotTracker';
-import RejuvenationAttributor from './modules/core/HotTracking/RejuvenationAttributor';
-import RegrowthAttributor from './modules/core/HotTracking/RegrowthAttributor';
+import HotTracker from './modules/core/hottracking/HotTracker';
+import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
+import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
@@ -39,17 +39,17 @@ import Photosynthesis from './modules/talents/Photosynthesis';
 import Stonebark from './modules/talents/Stonebark';
 import Abundance from './modules/talents/Abundance';
 
-import FungalEssence from './modules/items/AzeriteTraits/FungalEssence';
-import AutumnLeaves from './modules/items/AzeriteTraits/AutumnLeaves';
-import GroveTending from './modules/items/AzeriteTraits/GroveTending';
-import LaserMatrix from './modules/items/AzeriteTraits/LaserMatrixRestoDruid';
-import WakingDream from './modules/items/AzeriteTraits/WakingDream';
-import LivelySpirit from './modules/items/AzeriteTraits/LivelySpirit';
-import SynergisticGrowth from './modules/items/AzeriteTraits/SynergisticGrowth';
+import FungalEssence from './modules/items/azeritetraits/FungalEssence';
+import AutumnLeaves from './modules/items/azeritetraits/AutumnLeaves';
+import GroveTending from './modules/items/azeritetraits/GroveTending';
+import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
+import WakingDream from './modules/items/azeritetraits/WakingDream';
+import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
+import SynergisticGrowth from './modules/items/azeritetraits/SynergisticGrowth';
 
 import StatWeights from './modules/features/StatWeights';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 
 class CombatLogParser extends CoreCombatLogParser {

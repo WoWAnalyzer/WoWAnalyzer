@@ -5,7 +5,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import AMurderOfCrows from 'parser/hunter/shared/modules/Talents/AMurderOfCrows';
+import AMurderOfCrows from 'parser/hunter/shared/modules/talents/AMurderOfCrows';
 import SteelTrap from '../talents/SteelTrap';
 import SerpentSting from '../spells/SerpentSting';
 import VipersVenom from '../talents/VipersVenom';

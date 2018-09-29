@@ -10,7 +10,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/core/modules/SpellUsable';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import FuryTracker from '../ResourceTracker/FuryTracker';
+import FuryTracker from '../resourcetracker/FuryTracker';
 
 /*
 * Equip: The remaining cooldown on Metamorphosis is reduced by 1 sec for every 30 Fury you spend.

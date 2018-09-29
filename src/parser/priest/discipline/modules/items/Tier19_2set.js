@@ -8,7 +8,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/core/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 
 const debug = false;
 

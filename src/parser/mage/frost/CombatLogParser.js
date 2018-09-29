@@ -1,26 +1,26 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
 
-import Checklist from './modules/Checklist/Module';
+import Checklist from './modules/checklist/Module';
 
-import Abilities from './modules/Features/Abilities';
-import AlwaysBeCasting from './modules/Features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/Features/CooldownThroughputTracker';
-import WintersChill from './modules/Features/WintersChill';
-import BrainFreeze from './modules/Features/BrainFreeze';
-import IceLance from './modules/Features/IceLance';
-import ThermalVoid from './modules/Features/ThermalVoid';
-import GlacialSpike from './modules/Features/GlacialSpike';
-import BoneChilling from './modules/Features/BoneChilling';
+import Abilities from './modules/features/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import WintersChill from './modules/features/WintersChill';
+import BrainFreeze from './modules/features/BrainFreeze';
+import IceLance from './modules/features/IceLance';
+import ThermalVoid from './modules/features/ThermalVoid';
+import GlacialSpike from './modules/features/GlacialSpike';
+import BoneChilling from './modules/features/BoneChilling';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
-import SplittingIce from './modules/Features/SplittingIce';
+import SplittingIce from './modules/features/SplittingIce';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
-import WintersReach from './modules/Traits/WintersReach';
-import Whiteout from './modules/Traits/Whiteout';
-import FrozenOrb from './modules/Cooldowns/FrozenOrb';
-import ColdSnap from './modules/Cooldowns/ColdSnap';
+import WintersReach from './modules/traits/WintersReach';
+import Whiteout from './modules/traits/Whiteout';
+import FrozenOrb from './modules/cooldowns/FrozenOrb';
+import ColdSnap from './modules/cooldowns/ColdSnap';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

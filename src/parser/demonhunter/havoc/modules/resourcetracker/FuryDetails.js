@@ -5,7 +5,7 @@ import Tab from 'interface/others/Tab';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ResourceBreakdown from 'parser/core/modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
 import FuryTracker from './FuryTracker';
 
 import WastedFuryIcon from '../../images/dh_wasted_fury.jpg';

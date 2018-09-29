@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import FuryTracker from '../ResourceTracker/FuryTracker';
+import FuryTracker from '../resourcetracker/FuryTracker';
 
 /**
 * Anger Of The Half Giants

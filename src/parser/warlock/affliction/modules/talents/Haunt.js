@@ -10,7 +10,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 

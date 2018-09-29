@@ -1,5 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/core/modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 
 class HolyPowerTracker extends ResourceTracker {

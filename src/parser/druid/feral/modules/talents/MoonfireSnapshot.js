@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
 import Snapshot from '../core/Snapshot';
-import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../Constants';
+import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 
 /**
  * Moonfire benefits from the damage bonus of Tiger's Fury over its whole duration, even if the

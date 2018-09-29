@@ -20,8 +20,8 @@ import RighteousVerdict from './modules/talents/RighteousVerdict';
 import HolyPowerTracker from './modules/holypower/HolyPowerTracker';
 import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
 
-import RelentlessInquisitor from './modules/core/AzeriteTraits/RelentlessInquisitor';
-import RelentlessInquisitorStackHandler from './modules/core/AzeriteTraits/RelentlessInquisitorStackHandler';
+import RelentlessInquisitor from './modules/core/azeritetraits/RelentlessInquisitor';
+import RelentlessInquisitorStackHandler from './modules/core/azeritetraits/RelentlessInquisitorStackHandler';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

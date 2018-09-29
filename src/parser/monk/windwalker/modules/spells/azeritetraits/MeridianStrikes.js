@@ -5,7 +5,7 @@ import SpellUsable from 'parser/core/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../../Constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../../constants';
 
 const COOLDOWN_REDUCTION_MS = 250;
 

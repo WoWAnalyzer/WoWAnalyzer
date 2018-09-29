@@ -1,25 +1,25 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
 
-import Checklist from './modules/Features/Checklist/Module';
+import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/Features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/Features/CooldownThroughputTracker';
-import SpellUsable from './modules/Features/SpellUsable';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import SpellUsable from './modules/features/SpellUsable';
 
-import EnrageUptime from './modules/BuffDebuff/EnrageUptime';
-import FrothingBerserkerUptime from './modules/BuffDebuff/FrothingBerserkerUptime';
-import Juggernaut from './modules/BuffDebuff/Juggernaut';
+import EnrageUptime from './modules/buffdebuff/EnrageUptime';
+import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
+import Juggernaut from './modules/buffdebuff/Juggernaut';
 
-import MissedRampage from './modules/Spells/MissedRampage';
-import RampageFrothingBerserker from './modules/Features/RampageFrothingBerserker';
-import RampageCancelled from './modules/Features/RampageCancelled';
-import AngerManagement from './modules/Talents/AngerManagement';
-import FuriousSlashTimesByStacks from './modules/Talents/FuriousSlashTimesByStacks';
-import FuriousSlashUptime from './modules/Talents/FuriousSlashUptime';
+import MissedRampage from './modules/spells/MissedRampage';
+import RampageFrothingBerserker from './modules/features/RampageFrothingBerserker';
+import RampageCancelled from './modules/features/RampageCancelled';
+import AngerManagement from './modules/talents/AngerManagement';
+import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
+import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 
-import T21_2set from './modules/Items/T21_2set';
-import T21_4set from './modules/Items/T21_4set';
+import T21_2set from './modules/items/T21_2set';
+import T21_4set from './modules/items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

@@ -7,9 +7,9 @@ import HealingDone from 'parser/core/modules/HealingDone';
 import DamageDone from 'parser/core/modules/DamageDone';
 import DamageTaken from 'parser/core/modules/DamageTaken';
 
-import PainChart from './modules/PainChart/Pain';
-import PainTracker from './modules/Pain/PainTracker';
-import PainDetails from './modules/Pain/PainDetails';
+import PainChart from './modules/painchart/Pain';
+import PainTracker from './modules/pain/PainTracker';
+import PainDetails from './modules/pain/PainDetails';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -38,7 +38,7 @@ import DemonSpikes from './modules/spells/DemonSpikes';
 import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 
-import SoulOfTheSlayer from '../shared/modules/Items/SoulOfTheSlayer';
+import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

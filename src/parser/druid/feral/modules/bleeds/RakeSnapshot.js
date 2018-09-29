@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
+import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
 
 /**

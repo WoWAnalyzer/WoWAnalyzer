@@ -8,9 +8,9 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-import HotTracker from '../core/HotTracking/HotTracker';
+import HotTracker from '../core/hottracking/HotTracker';
 
-import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../Constants';
+import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 
 const debug = false;
 

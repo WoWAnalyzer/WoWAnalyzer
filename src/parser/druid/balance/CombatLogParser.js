@@ -28,8 +28,8 @@ import StellarDrift from './modules/talents/StellarDrift';
 import Starlord from './modules/talents/Starlord';
 
 //Resources
-import AstralPowerDetails from './modules/ResourceTracker/AstralPowerDetails';
-import AstralPowerTracker from './modules/ResourceTracker/AstralPowerTracker';
+import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
+import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 
 //Items
 

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/core/modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
 
 class EnergyTracker extends ResourceTracker {
   constructor(...args) {

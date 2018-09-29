@@ -6,7 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
+import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 class EchoOfLight_Mastery extends Analyzer {
   _tickMode = {};

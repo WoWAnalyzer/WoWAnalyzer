@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
+import Checklist from './modules/features/checklist/Module';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';

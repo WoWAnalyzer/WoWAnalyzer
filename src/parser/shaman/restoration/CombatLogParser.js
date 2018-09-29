@@ -14,7 +14,7 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/features/Checklist/Module';
+import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';
 import StatValues from './modules/features/StatValues';
 
@@ -48,7 +48,7 @@ import StaticCharge from '../shared/talents/StaticCharge';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

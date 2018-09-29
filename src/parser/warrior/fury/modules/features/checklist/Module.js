@@ -6,7 +6,7 @@ import Combatants from 'parser/core/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import MissedRampage from '../../Spells/MissedRampage';
+import MissedRampage from '../../spells/MissedRampage';
 
 import Component from './Component';
 

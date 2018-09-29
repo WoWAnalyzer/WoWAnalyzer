@@ -2,8 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
 import Abilities from './modules/Abilities';
 
-import MaelstromTracker from '../shared/MaelstromChart/MaelstromTracker';
-import MaelstromTab from '../shared/MaelstromChart/MaelstromTab';
+import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
+import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';

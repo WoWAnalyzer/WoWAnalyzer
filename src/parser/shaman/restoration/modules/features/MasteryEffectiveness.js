@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
 
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {

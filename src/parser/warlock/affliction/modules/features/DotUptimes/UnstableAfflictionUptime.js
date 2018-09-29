@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 

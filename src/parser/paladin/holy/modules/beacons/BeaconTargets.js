@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/core/modules/Combatants';
 
-import { BEACON_TYPES, AVAILABLE_BEACONS } from '../../Constants';
+import { BEACON_TYPES, AVAILABLE_BEACONS } from '../../constants';
 
 const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 

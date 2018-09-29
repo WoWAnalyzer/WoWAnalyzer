@@ -8,7 +8,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import { ELEMENTAL_BLAST_IDS } from '../../Constants';
+import { ELEMENTAL_BLAST_IDS } from '../../constants';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount=0;

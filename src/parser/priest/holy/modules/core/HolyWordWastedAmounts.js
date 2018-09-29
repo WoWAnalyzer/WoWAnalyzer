@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 
 // dependencies
-import HolyWordSanctify from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSanctify';
-import HolyWordChastise from 'parser/priest/holy/modules/spells/HolyWord/HolyWordChastise';
-import HolyWordSerenity from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSerenity';
+import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 
 class HolyWordWastedAmounts extends Analyzer {
   static dependencies = {

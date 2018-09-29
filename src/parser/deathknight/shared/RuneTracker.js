@@ -11,7 +11,7 @@ import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import SpellUsable from 'parser/core/modules/SpellUsable';
 import CastEfficiency from 'parser/core/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
-import ResourceTracker from 'parser/core/modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption

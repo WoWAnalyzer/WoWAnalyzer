@@ -7,13 +7,13 @@ import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import FocusUsage from '../shared/modules/Features/FocusUsage';
-import TimeFocusCapped from '../shared/modules/Features/TimeFocusCapped';
+import FocusUsage from '../shared/modules/features/FocusUsage';
+import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
 
 //Talents
-import NaturalMending from '../shared/modules/Talents/NaturalMending';
-import Trailblazer from '../shared/modules/Talents/Trailblazer';
-import Barrage from '../shared/modules/Talents/Barrage';
+import NaturalMending from '../shared/modules/talents/NaturalMending';
+import Trailblazer from '../shared/modules/talents/Trailblazer';
+import Barrage from '../shared/modules/talents/Barrage';
 import ChimaeraShot from './modules/talents/ChimaeraShot';
 import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
@@ -30,8 +30,8 @@ import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 
 //Focus
-import FocusTracker from '../shared/modules/Features/FocusChart/FocusTracker';
-import FocusTab from '../shared/modules/Features/FocusChart/FocusTab';
+import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
+import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Traits and talents
 import TraitsAndTalents from './modules/features/TraitsAndTalents';

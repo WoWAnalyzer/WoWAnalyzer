@@ -4,7 +4,7 @@ import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatWeights from '../../features/StatWeights';
-import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../AzeriteTraits/common';
+import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
 
 const WAKING_DREAM_EXTRA_TICK_RATE=0.2;
 const YSERAS_GIFT_HEALING_BASE=0.03;

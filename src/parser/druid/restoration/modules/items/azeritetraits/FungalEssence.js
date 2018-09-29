@@ -4,12 +4,12 @@ import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatWeights from '../../features/StatWeights';
-import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../AzeriteTraits/common';
+import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
 
 /**
- If Rejuvenation is your only heal over time effect on the target, increase the healing of Rejuvenation by 107.
+ * Swiftmend causes your Efflorescence mushroom to burst, healing a nearby injured ally for 4637
  */
-class AutumnLeaves extends Analyzer{
+class FungalEssence extends Analyzer{
   static dependencies = {
     statWeights: StatWeights,
   };
@@ -20,17 +20,17 @@ class AutumnLeaves extends Analyzer{
 
   constructor(...args){
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.AUTUMN_LEAVES_TRAIT.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.FUNGAL_ESSENCE_TRAIT.id);
     if(this.active) {
-      this.avgItemLevel = this.selectedCombatant.traitsBySpellId[SPELLS.AUTUMN_LEAVES_TRAIT.id]
-        .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.AUTUMN_LEAVES_TRAIT.id].length;
-      this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.AUTUMN_LEAVES_TRAIT.id].length;
+      this.avgItemLevel = this.selectedCombatant.traitsBySpellId[SPELLS.FUNGAL_ESSENCE_TRAIT.id]
+        .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.FUNGAL_ESSENCE_TRAIT.id].length;
+      this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.FUNGAL_ESSENCE_TRAIT.id].length;
     }
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.AUTUMN_LEAVES.id) {
+    if (spellId === SPELLS.FUNGAL_ESSENCE.id) {
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
@@ -44,13 +44,13 @@ class AutumnLeaves extends Analyzer{
     return(
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.AUTUMN_LEAVES_TRAIT.id}
+        trait={SPELLS.FUNGAL_ESSENCE_TRAIT.id}
         value={(
           <React.Fragment>
             {formatPercentage(throughputPercent)} %<br />
           </React.Fragment>
         )}
-        tooltip={`Autumn Leaves gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
+        tooltip={`Fungal essence healing gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
             per level) item levels.`}
       />
@@ -58,4 +58,4 @@ class AutumnLeaves extends Analyzer{
   }
 }
 
-export default AutumnLeaves;
+export default FungalEssence;

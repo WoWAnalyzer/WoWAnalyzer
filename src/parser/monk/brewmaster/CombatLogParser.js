@@ -23,10 +23,10 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
 // Azerite Traits
-import TrainingOfNiuzao from './modules/spells/AzeriteTraits/TrainingOfNiuzao';
-import StaggeringStrikes from './modules/spells/AzeriteTraits/StaggeringStrikes';
-import ElusiveFootwork from './modules/spells/AzeriteTraits/ElusiveFootwork';
-import FitToBurst from './modules/spells/AzeriteTraits/FitToBurst';
+import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
+import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
+import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
+import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
 // Features
 import Checklist from './modules/features/Checklist';
 import Abilities from './modules/Abilities';

@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import BeaconTargets from './BeaconTargets';
-import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
+import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import BeaconTransferFactor from './BeaconTransferFactor';
 
 class MissingBeacons extends Analyzer {

@@ -11,7 +11,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/core/modules/Combatants';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT } from '../../../Constants';
+import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
 
 class InvigoratingBrew extends Analyzer {

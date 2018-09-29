@@ -15,14 +15,14 @@ import Momentum from './modules/spells/Momentum';
 import Nemesis from './modules/spells/Nemesis';
 
 //Resources
-import FuryDetails from './modules/ResourceTracker/FuryDetails';
-import FuryTracker from './modules/ResourceTracker/FuryTracker';
+import FuryDetails from './modules/resourcetracker/FuryDetails';
+import FuryTracker from './modules/resourcetracker/FuryTracker';
 
 //Items
 import DelusionsOfGrandeur from './modules/items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './modules/items/RaddonsCascadingEyes';
 import MoargBionicStabilizers from './modules/items/MoargBionicStabilizers';
-import SoulOfTheSlayer from '../shared/modules/Items/SoulOfTheSlayer';
+import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
 import AngerOfTheHalfGiants from './modules/items/AngerOfTheHalfGiants';
 import Tier21_2set from './modules/items/Tier21_2set';
 import Tier21_4set from './modules/items/Tier21_4set';

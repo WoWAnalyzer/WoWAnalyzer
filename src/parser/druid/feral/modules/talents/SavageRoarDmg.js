@@ -9,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import getDamageBonus from '../core/getDamageBonus';
-import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../Constants';
+import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
 
 /**
  * Since 8.0 only affects "cat" abilities.

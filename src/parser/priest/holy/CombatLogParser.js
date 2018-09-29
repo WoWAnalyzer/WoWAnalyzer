@@ -11,9 +11,9 @@ import Abilities from './modules/Abilities';
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
 import DivineHymn from './modules/spells/DivineHymn';
-import HolyWordSanctify from './modules/spells/HolyWord/HolyWordSanctify';
-import HolyWordSerenity from './modules/spells/HolyWord/HolyWordSerenity';
-import HolyWordChastise from './modules/spells/HolyWord/HolyWordChastise';
+import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
+import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import Renew from './modules/spells/Renew';
@@ -22,7 +22,7 @@ import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Talents from './modules/talents';
 // Features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/Checklist/Module';
+import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import HealingReceived from './modules/features/HealingReceived';
@@ -33,7 +33,7 @@ import Fortitude_RaidBuff from './modules/core/Fortitude_RaidBuff';
 import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
 import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 // Azerite
 import BlessedSanctuary from './modules/spells/azeritetraits/BlessedSanctuary';
 import EverlastingLight from './modules/spells/azeritetraits/EverlastingLight';

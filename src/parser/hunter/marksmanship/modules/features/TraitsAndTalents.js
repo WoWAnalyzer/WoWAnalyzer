@@ -5,8 +5,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import AMurderOfCrows from 'parser/hunter/shared/modules/Talents/AMurderOfCrows';
-import Barrage from 'parser/hunter/shared/modules/Talents/Barrage';
+import AMurderOfCrows from 'parser/hunter/shared/modules/talents/AMurderOfCrows';
+import Barrage from 'parser/hunter/shared/modules/talents/Barrage';
 import LoneWolf from '../spells/LoneWolf';
 import Volley from '../talents/Volley';
 import ExplosiveShot from '../talents/ExplosiveShot';

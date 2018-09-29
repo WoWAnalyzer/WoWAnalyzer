@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
+import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../constants';
 const MS_BUFFER = 100;
 
 class Renew extends Analyzer {

@@ -7,9 +7,9 @@ import Abilities from './modules/Abilities';
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import TimeFocusCapped from '../shared/modules/Features/TimeFocusCapped';
-import CancelledCasts from "../shared/modules/Features/CancelledCasts";
-import FocusUsage from '../shared/modules/Features/FocusUsage';
+import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
+import CancelledCasts from "../shared/modules/features/CancelledCasts";
+import FocusUsage from '../shared/modules/features/FocusUsage';
 //Normalizers
 import RapidFireNormalizer from './normalizers/RapidFire';
 
@@ -18,8 +18,8 @@ import Trueshot from './modules/spells/Trueshot';
 import LoneWolf from './modules/spells/LoneWolf';
 
 //Talents
-import AMurderOfCrows from '../shared/modules/Talents/AMurderOfCrows';
-import Barrage from '../shared/modules/Talents/Barrage';
+import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
+import Barrage from '../shared/modules/talents/Barrage';
 import Volley from './modules/talents/Volley';
 import ExplosiveShot from './modules/talents/ExplosiveShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
@@ -30,13 +30,13 @@ import DoubleTap from './modules/talents/DoubleTap';
 import CallingTheShots from './modules/talents/CallingTheShots';
 import HuntersMark from './modules/talents/HuntersMark';
 import SerpentSting from './modules/talents/SerpentSting';
-import NaturalMending from '../shared/modules/Talents/NaturalMending';
-import Trailblazer from '../shared/modules/Talents/Trailblazer';
+import NaturalMending from '../shared/modules/talents/NaturalMending';
+import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 
 //Focus
-import FocusTracker from '../shared/modules/Features/FocusChart/FocusTracker';
-import FocusTab from '../shared/modules/Features/FocusChart/FocusTab';
+import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
+import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Azerite Traits
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';

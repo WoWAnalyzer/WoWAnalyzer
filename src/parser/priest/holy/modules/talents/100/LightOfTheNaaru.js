@@ -4,9 +4,9 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
-import HolyWordSanctify from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSanctify';
-import HolyWordChastise from 'parser/priest/holy/modules/spells/HolyWord/HolyWordChastise';
-import HolyWordSerenity from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSerenity';
+import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {

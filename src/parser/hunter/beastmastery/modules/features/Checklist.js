@@ -18,7 +18,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'parser/hunter/beastmastery/modules/features/AlwaysBeCasting';
-import TimeFocusCapped from 'parser/hunter/shared/modules/Features/TimeFocusCapped';
+import TimeFocusCapped from 'parser/hunter/shared/modules/features/TimeFocusCapped';
 
 //Talents
 import KillerCobra from 'parser/hunter/beastmastery/modules/talents/KillerCobra';

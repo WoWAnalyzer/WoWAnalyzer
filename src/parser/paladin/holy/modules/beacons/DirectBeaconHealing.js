@@ -8,7 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Abilities from '../Abilities';
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
-import { BEACON_TRANSFERING_ABILITIES } from '../../Constants';
+import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 
 class DirectBeaconHealing extends Analyzer {
   static dependencies = {

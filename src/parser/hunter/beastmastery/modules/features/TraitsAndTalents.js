@@ -5,7 +5,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import Barrage from 'parser/hunter/shared/modules/Talents/Barrage';
+import Barrage from 'parser/hunter/shared/modules/talents/Barrage';
 import ChimaeraShot from 'parser/hunter/beastmastery/modules/talents/ChimaeraShot';
 import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
 import Stomp from 'parser/hunter/beastmastery/modules/talents/Stomp';

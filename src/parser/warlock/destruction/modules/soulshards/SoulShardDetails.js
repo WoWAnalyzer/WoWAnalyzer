@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import ResourceBreakdown from 'parser/core/modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
 
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Warning from 'interface/common/Alert/Warning';
 
-import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
+import WastedShardsIcon from 'parser/warlock/Shared/images/warlock_soulshard_bw.jpg';
 import SoulShardTracker from './SoulShardTracker';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';

@@ -7,23 +7,23 @@ import PyroclasmBuff from './normalizers/PyroclasmBuff';
 
 import Checklist from './modules/Checklist/Module';
 
-import AlwaysBeCasting from './modules/Features/AlwaysBeCasting';
-import Abilities from './modules/Features/Abilities';
-import CooldownThroughputTracker from './modules/Features/CooldownThroughputTracker';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Abilities from './modules/features/Abilities';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
-import Kindling from './modules/Features/Kindling';
-import HotStreak from './modules/Features/HotStreak';
-import CombustionFirestarter from './modules/Features/CombustionFirestarter';
-import CombustionCharges from './modules/Features/CombustionCharges';
-import CombustionSpellUsage from './modules/Features/CombustionSpellUsage';
-import CombustionPyroclasm from './modules/Features/CombustionPyroclasm';
-import HeatingUp from './modules/Features/HeatingUp';
-import Pyroclasm from './modules/Features/Pyroclasm';
-import SearingTouch from './modules/Features/SearingTouch';
+import Kindling from './modules/features/Kindling';
+import HotStreak from './modules/features/HotStreak';
+import CombustionFirestarter from './modules/features/CombustionFirestarter';
+import CombustionCharges from './modules/features/CombustionCharges';
+import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
+import CombustionPyroclasm from './modules/features/CombustionPyroclasm';
+import HeatingUp from './modules/features/HeatingUp';
+import Pyroclasm from './modules/features/Pyroclasm';
+import SearingTouch from './modules/features/SearingTouch';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

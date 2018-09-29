@@ -25,8 +25,8 @@ import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesBy
 import './main.css';
 
 import StaticCharge from '../shared/talents/StaticCharge';
-import MaelstromTab from '../shared/MaelstromChart/MaelstromTab';
-import MaelstromTracker from '../shared/MaelstromChart/MaelstromTracker';
+import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
+import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {

@@ -9,7 +9,7 @@ import SPECS from 'game/SPECS';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import FocusTracker from './FocusChart/FocusTracker';
+import FocusTracker from './focuschart/FocusTracker';
 
 /**
  * Tracks the amount of time spent at focus cap.

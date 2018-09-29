@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
 
-import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../Constants';
+import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../constants';
 
 // The purpose of this class is threefold:
 // 1) provide cooldown data for the cooldowns tab. I had to rewrite some of the functions because

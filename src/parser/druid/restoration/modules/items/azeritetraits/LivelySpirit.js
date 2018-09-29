@@ -5,7 +5,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatWeights from '../../features/StatWeights';
-import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from '../AzeriteTraits/common';
+import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
 
 /**
  When Innervate expires, your Intellect is increased by 77 for each spell the target cast using Innervate. Lasts 20 sec.

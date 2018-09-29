@@ -51,11 +51,11 @@ import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
 
 // Azerite Traits
-import FontOfLife from './modules/spells/AzeriteTraits/FontOfLife';
-import InvigoratingBrew from './modules/spells/AzeriteTraits/InvigoratingBrew';
-import UpliftedSpirits from './modules/spells/AzeriteTraits/UpliftedSpirits';
+import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
+import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
+import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

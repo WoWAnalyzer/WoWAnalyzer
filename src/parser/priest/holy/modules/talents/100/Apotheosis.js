@@ -4,9 +4,9 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 import React from 'react';
-import HolyWordSanctify from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSanctify';
-import HolyWordSerenity from 'parser/priest/holy/modules/spells/HolyWord/HolyWordSerenity';
-import HolyWordChastise from 'parser/priest/holy/modules/spells/HolyWord/HolyWordChastise';
+import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
+import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import { formatNumber } from 'common/format';
 import ItemManaGained from 'interface/others/ItemManaGained';
 

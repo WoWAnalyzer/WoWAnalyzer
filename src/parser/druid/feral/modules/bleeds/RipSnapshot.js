@@ -7,7 +7,7 @@ import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import Snapshot from '../core/Snapshot';
 import ComboPointTracker from '../combopoints/ComboPointTracker';
-import { RIP_BASE_DURATION, BITE_EXECUTE_RANGE, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../Constants';
+import { RIP_BASE_DURATION, BITE_EXECUTE_RANGE, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../constants';
 
 const debug = false;
 

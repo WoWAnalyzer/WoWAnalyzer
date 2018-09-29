@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 

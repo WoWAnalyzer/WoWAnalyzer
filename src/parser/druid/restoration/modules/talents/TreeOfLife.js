@@ -10,7 +10,7 @@ import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
 
 const ALL_BOOST = 0.15;

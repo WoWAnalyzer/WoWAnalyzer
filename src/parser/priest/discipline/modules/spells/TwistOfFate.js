@@ -8,7 +8,7 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 
 const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
 

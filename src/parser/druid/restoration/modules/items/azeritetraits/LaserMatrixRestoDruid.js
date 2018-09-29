@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import { findItemLevelByPrimaryStat, getPrimaryStatForItemLevel } from 'parser/druid/restoration/modules/items/AzeriteTraits/common';
+import { findItemLevelByPrimaryStat, getPrimaryStatForItemLevel } from 'parser/druid/restoration/modules/items/azeritetraits/common';
 import StatWeights from 'parser/druid/restoration/modules/features/StatWeights';
 
 /**

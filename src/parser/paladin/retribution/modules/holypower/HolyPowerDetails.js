@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ResourceBreakdown from 'parser/core/modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
 import HolyPowerTracker from './HolyPowerTracker';
 
 import WastedHPIcon from '../../images/paladin_hp.jpg';

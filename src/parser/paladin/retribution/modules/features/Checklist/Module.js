@@ -13,7 +13,7 @@ import Crusade from '../../talents/Crusade';
 import Inquisition from '../../talents/Inquisition';
 import RighteousVerdict from '../../talents/RighteousVerdict';
 import ShieldOfVengeance from '../../core/ShieldOfVengeance';
-import RelentlessInquisitor from '../../core/AzeriteTraits/RelentlessInquisitor';
+import RelentlessInquisitor from '../../core/azeritetraits/RelentlessInquisitor';
 
 import Component from './Component';
 
