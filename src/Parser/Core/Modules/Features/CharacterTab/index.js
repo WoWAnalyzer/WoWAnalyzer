@@ -5,7 +5,8 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import Component from './Component';
 
-class ChatacterTab extends Analyzer {
+// TODO: Remove and make part of Interface/Report/Results and async load (chunk)
+class CharacterTab extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -20,4 +21,4 @@ class ChatacterTab extends Analyzer {
   }
 }
 
-export default ChatacterTab;
+export default CharacterTab;
