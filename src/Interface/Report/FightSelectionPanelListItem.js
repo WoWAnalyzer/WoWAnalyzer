@@ -13,7 +13,7 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPercentage, boss: bossId, ...others }) => {
+const FightSelectionPanelListItem = ({ difficulty, name, kill, start_time, end_time, wipes, fightPercentage, boss: bossId, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);
 
   delete others.bossPercentage;
@@ -38,7 +38,7 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPerce
     </div>
   );
 };
-Fight.propTypes = {
+FightSelectionPanelListItem.propTypes = {
   id: PropTypes.number.isRequired,
   difficulty: PropTypes.number.isRequired,
   boss: PropTypes.number.isRequired,
@@ -50,4 +50,4 @@ Fight.propTypes = {
   fightPercentage: PropTypes.number,
 };
 
-export default Fight;
+export default FightSelectionPanelListItem;

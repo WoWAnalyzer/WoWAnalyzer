@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow /*mount*/ } from 'enzyme';
 // import { MemoryRouter } from 'react-router-dom';
 
-import { PlayerSelectionList } from './PlayerSelectionList';
+import { PlayerSelectionPanelList } from './PlayerSelectionPanelList';
 
 const playerId = 11;
 const defaultProps = {
@@ -24,7 +24,13 @@ const defaultProps = {
       },
     ],
   },
-  fightId: 2,
+  fight: {
+    id: 2,
+    kill: true,
+    start_time: 0,
+    end_time: 0,
+    name: 'Test Fight',
+  },
 };
 
 describe('PlayerSelectionList', () => {
@@ -46,7 +52,7 @@ describe('PlayerSelectionList', () => {
   // });
   it('matches snapshot when combatants list is empty', () => {
     const tree = shallow((
-      <PlayerSelectionList
+      <PlayerSelectionPanelList
         {...defaultProps}
         combatants={[]}
       />
@@ -56,7 +62,7 @@ describe('PlayerSelectionList', () => {
   it('does not show combatants with missing specID', () => {
     // This happens for bugged combatantinfo events as found here: CJBdLf3c2zQXkPtg/13-Heroic+Kil'jaeden+-+Kill+(7:40)
     const tree = shallow((
-      <PlayerSelectionList
+      <PlayerSelectionPanelList
         {...defaultProps}
         combatants={[
           {
@@ -70,7 +76,7 @@ describe('PlayerSelectionList', () => {
   });
   it('shows a loading indicator when still loading', () => {
     const tree = shallow((
-      <PlayerSelectionList
+      <PlayerSelectionPanelList
         {...defaultProps}
         combatants={null}
       />

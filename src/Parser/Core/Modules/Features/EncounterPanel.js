@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import EncounterStats from 'Interface/Others/Report/Results/EncounterStats';
+import EncounterStats from 'Interface/Report/Results/EncounterStats';
 
 // TODO: Refactor this module
 class EncounterPanel extends Analyzer {

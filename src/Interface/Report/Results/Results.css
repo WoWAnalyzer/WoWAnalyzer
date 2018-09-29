@@ -176,11 +176,3 @@
   animation: fade-in 1000ms 800ms ease-in forwards;
   opacity: 0;
 }
-.results .loading-text {
-  animation: fade-in 1000ms 2600ms ease-in forwards;
-  opacity: 0;
-  font-size: 2em;
-  text-transform: uppercase;
-  text-align: center;
-  width: 100%;
-}

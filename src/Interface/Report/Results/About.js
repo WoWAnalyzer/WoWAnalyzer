@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import isLatestPatch from 'game/isLatestPatch';
 import ReadableList from 'Interface/common/ReadableList';
-import parseVersionString from 'common/parseVersionString';
 import Warning from 'Interface/common/Alert/Warning';
 import Contributor from 'Interface/Contributor/Button';
 
@@ -23,9 +23,6 @@ class About extends React.PureComponent {
 
   render() {
     const { spec, description, contributors, patchCompatibility } = this.props.config;
-    const specPatchCompatibility = parseVersionString(patchCompatibility);
-    const latestPatch = parseVersionString(process.env.REACT_APP_CURRENT_GAME_PATCH);
-    const isOutdated = specPatchCompatibility.major < latestPatch.major || specPatchCompatibility.minor < latestPatch.minor || specPatchCompatibility.patch < latestPatch.patch;
 
     return (
       <div className="panel">
@@ -53,7 +50,7 @@ class About extends React.PureComponent {
               {patchCompatibility}
             </div>
           </div>
-          {isOutdated && (
+          {!isLatestPatch(patchCompatibility) && (
             <Warning style={{ marginTop: '1em' }}>
               The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.
             </Warning>

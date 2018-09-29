@@ -18,17 +18,16 @@ import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'Interface/selectors/url/report';
 import { hasPremium } from 'Interface/selectors/user';
 import ErrorBoundary from 'Interface/common/ErrorBoundary';
-import ActivityIndicator from 'Interface/common/ActivityIndicator';
 import Ad from 'Interface/common/Ad';
 import WipefestLogo from 'Interface/Images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'Interface/Others/STATISTIC_CATEGORY';
 
+import FightNavigationBar from '../FightNavigationBar';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
-import Odyn from './Images/odyn.jpg';
 import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
 
@@ -319,50 +318,32 @@ class Results extends React.PureComponent {
       </div>
     );
   }
-  renderLoading() {
-    return (
-      <div className="loading-text">
-        <Trans>Loading...</Trans><br /><br />
-
-        <img src={Odyn} alt="Odyn" style={{ maxWidth: 300 }} />
-      </div>
-    );
-  }
-
   render() {
-    const { parser, i18n, characterProfile } = this.props;
-    const report = parser.report;
+    const { parser, characterProfile } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
 
-    if (!selectedCombatant) {
-      return (
-        <div>
-          <div className="back-button">
-            <Link to={`/report/${report.code}/${fight.id}`} data-tip={i18n.t`Back to player selection`}>
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
-            </Link>
-          </div>
-
-          <ActivityIndicator text={i18n.t`Fetching players...`} />
-        </div>
-      );
-    }
-
     return (
-      <div className="results" style={{ minHeight: !parser.finished ? 5000 : undefined }}>{/* while loading we want to jump the scroll position from out last position as little as possible */}
-        <Header
-          config={config}
-          playerName={selectedCombatant.name}
-          playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
-          boss={parser.boss}
-          fight={fight}
-        />
+      <React.Fragment>
+        {/* TODO: Put this in a higher component such as ConfigLoader to make it easier to switch fights early */}
+        <FightNavigationBar />
 
-        {!parser.finished ? this.renderLoading() : this.renderContent()}
-      </div>
+        <div className="container">
+          <div className="results">
+            <Header
+              config={config}
+              playerName={selectedCombatant.name}
+              playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
+              boss={parser.boss}
+              fight={fight}
+            />
+
+            {this.renderContent()}
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
