@@ -9,6 +9,16 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-09-29'),
+    changes: 'Added a "spec currently not supported" page, since the about panel appeared to be insufficient.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-29'),
+    changes: 'Completely reworked the way reports are loaded to be much more maintainable. There were also some minor performance imprpvements.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-09-25'),
     changes: <React.Fragment> Added <SpellLink id={SPELLS.BLESSED_PORTENTS.id} /> module.</React.Fragment>,
     contributors: [Nalhan],
