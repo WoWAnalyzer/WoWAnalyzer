@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import isLatestPatch from 'game/isLatestPatch';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
@@ -31,6 +32,12 @@ class SupportChecker extends React.PureComponent {
       continue: false,
     };
     this.handleClickContinue = this.handleClickContinue.bind(this);
+  }
+  componentDidMount() {
+    ReactTooltip.rebuild();
+  }
+  componentDidUpdate() {
+    ReactTooltip.hide();
   }
 
   handleClickContinue() {
@@ -72,7 +79,12 @@ class SupportChecker extends React.PureComponent {
                     <GitHubButton />{' '}
                     <DiscordButton />
                   </div>
-                  <Link to={makeAnalyzerUrl(report, fight.id, player.id)} onClick={this.handleClickContinue} style={{ fontSize: '1.1em' }}>
+                  <Link
+                    to={makeAnalyzerUrl(report, fight.id, player.id)}
+                    onClick={this.handleClickContinue}
+                    style={{ fontSize: '1.1em' }}
+                    data-tip="Khadgar approves your bravery"
+                  >
                     <Icon icon="quest_khadgar" /> Continue anyway
                   </Link>
                 </div>
