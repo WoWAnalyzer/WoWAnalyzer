@@ -20,13 +20,9 @@ const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = (surrenderToMadness) => surrenderToMadness ? 100 * 100 : 65 * 100; // 6500;
 
-const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
-const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
-
 const VoidformGraph = ({
   insanityEvents,
   surrenderToMadness = false,
-  setT20P4 = false,
   fightEnd,
   ...voidform
 }) => {
@@ -38,7 +34,6 @@ const VoidformGraph = ({
 
   const stacksData = [];
   const insanityData = [];
-  const insanityGeneratedData = [];
   const insanityDrain = [];
   const initialInsanity = insanityEvents.length > 0 ?
     insanityEvents[0].classResources[0].amount - (insanityEvents[0].resourceChange * 100) - (insanityEvents[0].waste * 100) :
@@ -52,14 +47,8 @@ const VoidformGraph = ({
   const endOfVoidformData = [];
   const endData = [];
 
-  const INSANITY_DRAIN_MODIFIER = setT20P4 ?
-    (surrenderToMadness ?
-      T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS :
-      T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL)
-    : 1;
-
-  const INSANITY_DRAIN_START = INSANITY_DRAIN_INITIAL * INSANITY_DRAIN_MODIFIER;
-  const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
+  const INSANITY_DRAIN_START = INSANITY_DRAIN_INITIAL;
+  const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE);
 
   const atLabel = timestamp => Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
 
@@ -101,7 +90,6 @@ const VoidformGraph = ({
 
     // fill in all data:
     insanityData[i] = null;
-    insanityGeneratedData[i] = null;
     mindbenderData[i] = null;
     voidTorrentData[i] = null;
     dispersionData[i] = null;
@@ -290,7 +278,6 @@ VoidformGraph.propTypes = {
   voidTorrentEvents: PropTypes.array,
   dispersionEvents: PropTypes.array,
   surrenderToMadness: PropTypes.bool,
-  setT20P4: PropTypes.bool.isRequired,
 };
 
 export default VoidformGraph;

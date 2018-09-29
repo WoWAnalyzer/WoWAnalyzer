@@ -12,7 +12,6 @@ import TacticianProc from './modules/buffdebuff/TacticianProc';
 import ExecuteRange from './modules/features/ExecuteRange';
 import SpellUsable from './modules/features/SpellUsable';
 import Channeling from './modules/features/Channeling';
-import WarVeteran from './modules/items/Tier21_2Set';
 
 // Talents
 import AngerManagement from './modules/talents/AngerManagement';
@@ -35,7 +34,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tacticianProc: TacticianProc,
     spellUsable: SpellUsable,
     channeling: Channeling,
-    WarVeteran: WarVeteran,
 
     // Talents
     angerManagement: AngerManagement,

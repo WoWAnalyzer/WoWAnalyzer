@@ -274,7 +274,6 @@ class Voidform extends Analyzer {
             insanityEvents={this.insanity.events}
             fightEnd={this.owner.fight.end_time}
             surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-            setT20P4={this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
           />
         </Tab>
       ),

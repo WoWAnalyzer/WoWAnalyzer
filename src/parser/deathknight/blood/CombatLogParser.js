@@ -46,10 +46,6 @@ import RuneStrike from './modules/talents/RuneStrike';
 import Consumption from './modules/talents/Consumption';
 
 // Items
-import T20_2pc from './modules/items/T20_2pc';
-import T20_4pc from './modules/items/T20_4pc';
-import T21_2pc from './modules/items/T21_2pc';
-import T21_4pc from './modules/items/T21_4pc';
 import SkullflowersHaemostasis from './modules/items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './modules/items/ShacklesofBryndaor';
 import SoulflayersCorruption from './modules/items/SoulflayersCorruption';
@@ -112,10 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     consumption: Consumption,
 
     // Items:
-    t20_2pc: T20_2pc,
-    t20_4pc: T20_4pc,
-    t21_2pc: T21_2pc,
-    t21_4pc: T21_4pc,
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
     soulflayersCorruption:SoulflayersCorruption,

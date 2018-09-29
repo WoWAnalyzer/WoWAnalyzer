@@ -24,7 +24,6 @@ import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 
-import T21_2pc from './modules/items/T21_2pc';
 import ThundergodsVigor from './modules/items/ThundergodsVigor';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
     //Items
-    t21: T21_2pc,
     thunderlordsVigor: ThundergodsVigor,
   };
 }

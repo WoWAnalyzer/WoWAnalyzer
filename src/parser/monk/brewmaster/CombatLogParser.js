@@ -35,8 +35,6 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import MitigationCheck from './modules/features/MitigationCheck';
 
 // Items
-import T20_2pc from './modules/items/T20_2pc';
-import T20_4pc from './modules/items/T20_4pc';
 import AnvilHardenedWristwraps from './modules/items/AnvilHardenedWristwraps';
 import StormstoutsLastGasp from './modules/items/StormstoutsLastGasp';
 import SalsalabimsLostTunic from './modules/items/SalsalabimsLostTunic';
@@ -86,8 +84,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fitToBurst: FitToBurst,
 
     // Items
-    t20_2pc: T20_2pc,
-    t20_4pc: T20_4pc,
     ahw: AnvilHardenedWristwraps,
     stormstoutsLastGasp: StormstoutsLastGasp,
     salsalabim: SalsalabimsLostTunic,

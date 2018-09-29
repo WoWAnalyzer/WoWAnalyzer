@@ -25,17 +25,12 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import Lenience from './modules/spells/Lenience';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 
-import Tier19_2set from './modules/items/Tier19_2set';
 import CordOfMaiev from './modules/items/CordOfMaiev';
 import Skjoldr from './modules/items/Skjoldr';
 import Xalan from './modules/items/Xalan';
 import NeroBandOfPromises from './modules/items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './modules/items/TarnishedSentinelMedallion';
 import MarchOfTheLegion from './modules/items/MarchOfTheLegion';
-import Tier20_2set from './modules/items/Tier20_2set';
-import Tier20_4set from './modules/items/Tier20_4set';
-import Tier21_2set from './modules/items/Tier21_2set';
-import Tier21_4set from './modules/items/Tier21_4set';
 import Estel from './modules/items/Estel';
 import SoulOfTheHighPriest from './modules/items/SoulOfTheHighPriest';
 
@@ -92,17 +87,12 @@ class CombatLogParser extends CoreCombatLogParser {
     purgeTheWicked: PurgeTheWicked,
 
     // Items:
-    tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
-    tier20_2set: Tier20_2set,
-    tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
     estel: Estel,
     soulOfTheHighPriest: SoulOfTheHighPriest,
 

@@ -396,35 +396,6 @@ export default {
     icon: 'inv_misc_map08',
   },
 
-  //Tier
-  ASSA_ROGUE_T21_2SET_BONUS: {
-    id: 251776,
-    name: 'T21 2 Set Bonus',
-    icon: 'ability_demonhunter_eyebeam',
-  },
-  ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
-    id: 252277,
-    name: 'Virulent Poisons',
-    icon: 'ability_rogue_poisonedknife',
-  },
-  ASSA_ROGUE_T21_4SET_BONUS: {
-    id: 251777,
-    name: 'Toxic Rush',
-    icon: 'ability_rogue_eviscerate',
-  },
-  ASSA_ROGUE_T21_4SET_BONUS_ENERGY_EFFECT: {
-    id: 252284,
-    name: 'Toxic Rush',
-    icon: 'ability_rogue_eviscerate',
-  },
-  //Traits
-  SHROUDED_SUFFOCATION_TRAIT: {
-    id: 279703,
-    name: 'Shrouded Suffocation',
-    icon: 'ability_rogue_garrote',
-  }, 
-
-
   //Outlaw
 
   //Builders
@@ -546,5 +517,4 @@ export default {
     name: 'Ace Up Your Sleeve',
     icon: 'inv_weapon_rifle_01',
   },
-  
 };

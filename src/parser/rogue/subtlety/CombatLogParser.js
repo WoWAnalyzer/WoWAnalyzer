@@ -10,11 +10,6 @@ import ComboPointTracker from '../shared/resources/ComboPointTracker';
 import EnergyDetails from '../shared/resources/EnergyDetails';
 import EnergyTracker from '../shared/resources/EnergyTracker';
 import StealthDamageTracker from '../shared/casttracker/StealthDamageTracker';
-import MantleDamageTracker from '../shared/legendaries/MantleDamageTracker';
-import SoulOfTheShadowblade from '../shared/legendaries/SoulOfTheShadowblade';
-import InsigniaOfRavenholdt from '../shared/legendaries/InsigniaOfRavenholdt';
-import DreadlordsDeceit from '../shared/legendaries/DreadlordsDeceit';
-import MantleOfTheMasterAssassin from '../shared/legendaries/MantleOfTheMasterAssassin';
 import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
@@ -32,10 +27,6 @@ import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from "./modules/talents/DarkShadow/DarkShadowContribution";
 import FindWeakness from "./modules/talents/FindWeakness";
-import T21_2P from './modules/items/T21_2P';
-import DenialOfHalfGiants from './modules/legendaries/DenialOfHalfGiants';
-import FirstOfTheDead from './modules/legendaries/FirstOfTheDead';
-import ShadowSatyrsWalk from './modules/legendaries/ShadowSatyrsWalk';
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
@@ -61,23 +52,12 @@ class CombatLogParser extends CoreCombatLogParser {
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
     stealthDamageTracker: StealthDamageTracker,
-    mantleDamageTracker: MantleDamageTracker,
 
     //Core
     danceCooldownReduction: DeepeningShadows,
 
     //Items
-    t21_2P: T21_2P,
     darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
-
-    //Legendaries
-    denialOfHalfGiants: DenialOfHalfGiants,
-    firstOfTheDead: FirstOfTheDead,
-    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
-    shadowSatyrsWalk: ShadowSatyrsWalk,
-    soulOfTheShadowblade: SoulOfTheShadowblade,
-    insigniaOfRavenholdt: InsigniaOfRavenholdt,
-    dreadlordsDeceit: DreadlordsDeceit,
 
     //Casts
     symbolsOfDeathUptime:  SymbolsOfDeathUptime,

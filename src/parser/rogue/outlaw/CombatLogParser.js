@@ -16,10 +16,6 @@ import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 
-import MantleOfTheMasterAssassin from '../shared/legendaries/MantleOfTheMasterAssassin';
-import SoulOfTheShadowblade from '../shared/legendaries/SoulOfTheShadowblade';
-import InsigniaOfRavenholdt from '../shared/legendaries/InsigniaOfRavenholdt';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -41,11 +37,6 @@ class CombatLogParser extends CoreCombatLogParser {
     sliceAndDiceUptime: SliceAndDiceUptime,
     restlessBlades: RestlessBlades,
     //Items
-
-    //Legendaries
-    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
-    soulOfTheShadowblade: SoulOfTheShadowblade,
-    insigniaOfRavenholdt: InsigniaOfRavenholdt,
 
     //Casts
     

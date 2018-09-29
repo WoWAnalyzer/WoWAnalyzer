@@ -559,43 +559,6 @@ export default {
     icon: 'ability_paladin_conviction',
   },
 
-  COILS_OF_DEVASTATION: { // debuff and damage from t21 2p
-    id: 253367,
-    name: 'Coils of Devastation (T21 2 Set Bonus)',
-    icon: 'ability_malkorok_blightofyshaarj_green',
-  },
-  //Legendary Item Buffs
-  TAKTHERITRIXS_COMMAND: {
-    id: 215069,
-    name: 'Tak\'theritrix\'s Command',
-    icon: 'achievement_boss_festergutrotface',
-  },
-
-  // Artifact traits:
-  SUDDEN_DOOM: {
-    id: 49530,
-    name: 'Sudden Doom',
-    icon: 'spell_shadow_painspike',
-  },
-
-  ETERNAL_AGONY: {
-    id: 208598,
-    name: 'Eternal Agony',
-    icon: 'achievement_boss_festergutrotface',
-  },
-
-  SCOURGE_OF_WORLDS: {
-    id: 191747,
-    name: 'Scourge of Worlds',
-    icon: 'artifactability_unholydeathknight_flagellation',
-  },
-
-  SCOURGE_OF_WORLDS_DEBUFF: {
-    id: 191748,
-    name: 'Scourge of Worlds',
-    icon: 'artifactability_unholydeathknight_flagellation',
-  },
-
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,

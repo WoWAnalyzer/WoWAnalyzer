@@ -37,8 +37,6 @@ import ThrashHitCount from './modules/spells/ThrashHitCount';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 
-import SoulOfTheArchdruid from '../shared/modules/items/SoulOfTheArchdruid';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -84,9 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
-
-    // items
-    soulOfTheArchdruid : SoulOfTheArchdruid,
   };
 }
 

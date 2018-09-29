@@ -23,14 +23,6 @@ import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
 import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 
-import SkysecsHold from './modules/items/Skysecs';
-import LuffaWrappings from './modules/items/LuffaWrappings';
-import FuryOfNature from './modules/items/FuryOfNature';
-import SoulOfTheArchdruid from '../shared/modules/items/SoulOfTheArchdruid';
-
-import Tier21_2P from './modules/sets/Tier21_2P';
-import Tier21_4P from './modules/sets/Tier21_4P';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -60,16 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     earthwarden: Earthwarden,
     incarnation: Incarnation,
-
-    // Legendaries:
-    skysecs: SkysecsHold,
-    luffaWrappings: LuffaWrappings,
-    furyOfNature: FuryOfNature,
-    soulOfTheArchdruid : SoulOfTheArchdruid,
-
-    // Sets
-    tier21_2p: Tier21_2P,
-    tier21_4p: Tier21_4P,
   };
 }
 
