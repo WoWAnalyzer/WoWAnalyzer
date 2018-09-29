@@ -45,8 +45,6 @@ class ConfigLoader extends React.PureComponent {
       return null;
     }
 
-    // TODO: If spec is outdated, show a warning with a button to continue anyway and this component's state stores if it was clicked
-
     return this.props.children(config);
   }
 }

@@ -6,6 +6,7 @@ import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
 import PlayerSelection from './PlayerSelection';
 import ConfigLoader from './ConfigLoader';
+import SupportChecker from './SupportChecker';
 import EventParser from './EventParser';
 import Results from './Results';
 
@@ -27,22 +28,29 @@ const Report = props => (
                 specId={combatant.specID}
               >
                 {config => (
-                  <EventParser
-                    {...props}
+                  <SupportChecker
+                    config={config}
                     report={report}
                     fight={fight}
                     player={player}
-                    combatants={combatants}
-                    config={config}
                   >
-                    {parser => (
-                      <Results
-                        parser={parser}
-                        characterProfile={parser.characterProfile}
-                        makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
-                      />
-                    )}
-                  </EventParser>
+                    <EventParser
+                      {...props}
+                      report={report}
+                      fight={fight}
+                      player={player}
+                      combatants={combatants}
+                      config={config}
+                    >
+                      {parser => (
+                        <Results
+                          parser={parser}
+                          characterProfile={parser.characterProfile}
+                          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+                        />
+                      )}
+                    </EventParser>
+                  </SupportChecker>
                 )}
               </ConfigLoader>
             )}
