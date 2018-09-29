@@ -1,7 +1,6 @@
- import React from 'react';
+import React from 'react';
 
- import { HawkCorrigan } from 'CONTRIBUTORS';
-
+import { HawkCorrigan } from 'CONTRIBUTORS';
 
 export default [
   {
