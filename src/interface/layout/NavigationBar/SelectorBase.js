@@ -5,14 +5,15 @@ class SelectorBase extends React.PureComponent {
   static propTypes = {
   };
 
+  ref = null;
   constructor(props) {
     super(props);
     this.state = {
       show: false,
     };
+    this.ref = React.createRef();
     this.handleClick = this.handleClick.bind(this);
     this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.setRef = this.setRef.bind(this);
   }
 
   componentDidMount() {
@@ -31,13 +32,11 @@ class SelectorBase extends React.PureComponent {
   }
 
   handleDocumentClick(event) {
-    if (this.ref && !this.ref.contains(event.target)) {
-      this.setState({ show: false });
+    if (this.ref.current && !this.ref.current.contains(event.target)) {
+      this.setState({
+        show: false,
+      });
     }
-  }
-
-  setRef(node) {
-    this.ref = node;
   }
 }
 

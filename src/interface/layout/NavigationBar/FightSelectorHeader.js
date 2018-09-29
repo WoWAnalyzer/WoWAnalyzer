@@ -43,7 +43,7 @@ class FightSelectorHeader extends SelectorBase {
     const player = playerId ? report.friendlies.find(friendly => friendly.id === playerId) : report.friendlies.find(friendly => friendly.name === playerName);
 
     return (
-      <div ref={this.setRef} {...others}>
+      <div ref={this.ref} {...others}>
         <a onClick={this.handleClick}>{getFightName(report, fight)}</a>
         {show && player && (
           <span className="selectorHeader">

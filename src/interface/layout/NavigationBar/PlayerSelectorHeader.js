@@ -16,14 +16,19 @@ class PlayerSelectorHeader extends SelectorBase {
     selectedPlayerName: PropTypes.string.isRequired,
     report: PropTypes.object.isRequired,
     fight: PropTypes.object.isRequired,
-    combatants: PropTypes.array.isRequired,
+    combatants: PropTypes.array,
   };
 
   render() {
     const { selectedPlayerName, report, fight, combatants, ...others } = this.props;
     delete others.dispatch;
+
+    if (!combatants) {
+      return null;
+    }
+
     return (
-      <div ref={this.setRef} {...others}>
+      <div ref={this.ref} {...others}>
         <a onClick={this.handleClick}>{selectedPlayerName}</a>
         {this.state.show && (
           <span className="selectorHeader">
