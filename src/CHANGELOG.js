@@ -10,6 +10,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2018-09-30'),
+    changes: 'The "you had mana left" suggestion will no longer show up on wipes.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-30'),
     changes: 'The "you died" suggestion will no longer show up when you died within 15 seconds of a wipe.',
     contributors: [Zerotorescue],
   },
