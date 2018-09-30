@@ -55,6 +55,12 @@ class ManaValues extends Analyzer {
     };
   }
   suggestions(when) {
+    const fight = this.owner.fight;
+    const isWipe = !fight.kill;
+    if (isWipe) {
+      return;
+    }
+
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.')
