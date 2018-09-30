@@ -1,4 +1,5 @@
 export default {
+  'What are YOUR suggestions?': '2018-09-30-Suggestions',
   'Analyzing Devotion Aura\'s DRPS': '2018-08-03-DevotionAura',
   'Improve your performance in the Battle for Azeroth pre-patch': '2018-07-18-Prepatch',
   'Fight downtime': '2018-07-06-FightDowntime',
