@@ -11,6 +11,8 @@ export default {
   contributors: [tsabo],
   // The WoW client patch this spec was last updated to be fully compatible with.
   patchCompatibility: '7.3',
+  // If set to  false`, the spec will show up as unsupported.
+  isSupported: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (

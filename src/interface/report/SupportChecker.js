@@ -59,7 +59,7 @@ class SupportChecker extends React.PureComponent {
 
     const spec = config.spec;
 
-    if (!this.continue && !isLatestPatch(config.patchCompatibility)) {
+    if (!this.continue && !config.isSupported) {
       return (
         <div className="container">
           <h1>
