@@ -46,6 +46,7 @@ class MarrowrendUsage extends Analyzer {
 
     if(this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)) {
       this.hasBonesOfTheDamned = true;
+      this.refreshAtStacks = REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED;
     }
   }
 
