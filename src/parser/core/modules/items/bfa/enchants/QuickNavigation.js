@@ -10,7 +10,7 @@ const ENCHANTABLE_SLOTS = {
   16: 'OffHand',
 };
 const QUICK_NAVIGATION_ENCHANT = 5963;
-const MAX_STACKS = 4;
+const MAX_STACKS = 5;
 const HASTE_PER_STACK = 50;
 const HASTE_AT_MAX = 600;
 /**
@@ -30,16 +30,11 @@ class QuickNavigation extends Analyzer {
     }, {});
   }
   itemHasQuickNavigationEnchant(item) {
-    if (typeof item === "undefined") {
-      return false;
-    }
-    return item.hasOwnProperty('permanentEnchant') && item.permanentEnchant === QUICK_NAVIGATION_ENCHANT;
+    return item && item.permanentEnchant === QUICK_NAVIGATION_ENCHANT;
   }
   hasQuickNavigationEnchant() {
     const items = this.getEnchantableGear();
-    return Object.values(items).some((item) => {
-      return this.itemHasQuickNavigationEnchant(item);
-    });
+    return Object.values(items).some(item => this.itemHasQuickNavigationEnchant(item));
   }
   constructor(...args) {
     super(...args);
