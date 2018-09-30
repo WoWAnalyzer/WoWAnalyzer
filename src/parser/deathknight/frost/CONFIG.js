@@ -23,7 +23,7 @@ export default {
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/CHgcAy9mV7MwRPxB/4-Mythic+Garothi+Worldbreaker+-+Kill+(3:42)/19-Khazakk',
+  exampleReport: '/report/D4wCaZgKjAXLnMPV/16-Heroic+Vectis+-+Kill+(5:14)/13-Jayshawn',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -14,7 +14,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Welcome to the Unholy Death Knight analyzer! We worked hard to provide useful statistics and suggestions.  If you have questions or comments feel free to contact Khazak(Khazak#3360) or Bicepspump(<span role="img" aria-label="Muscle">💪</span>Bicepspump<span role="img" aria-label="Muscle">💪</span>#6318) on Discord.  We are still working on full support for Battle For Azeroth.  If you want to help, check the Github link in the top right corner.    
+      Welcome to the Unholy Death Knight analyzer! We worked hard to provide useful statistics and suggestions.  If you have questions or comments feel free to contact Khazak(Khazak#3360) or Bicepspump(<span role="img" aria-label="Muscle">💪</span>Bicepspump<span role="img" aria-label="Muscle">💪</span>#6318) on Discord.  We are still working on full support for Battle For Azeroth.  If you want to help, check the Github link in the top right corner.
 
       <br /><br />More resources for Unholy:<br />
       <a href=" https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />
@@ -24,7 +24,7 @@ export default {
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/72t9vbcAqdpVRfBQ/12-Mythic+Garothi+Worldbreaker+-+Kill+(6:15)/Maxweii',
+  exampleReport: '/report/F4ZTXHqR1vCxy7jG/32-Heroic+Vectis+-+Kill+(6:38)/5-Chrestina',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
