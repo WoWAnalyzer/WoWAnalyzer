@@ -12,7 +12,7 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
-class FightSelecter extends React.PureComponent {
+class FightSelection extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -86,4 +86,4 @@ const mapStateToProps = state => ({
   // Because fightId comes from the URL we can't use local state
   fightId: getFightId(state),
 });
-export default connect(mapStateToProps)(FightSelecter);
+export default connect(mapStateToProps)(FightSelection);
