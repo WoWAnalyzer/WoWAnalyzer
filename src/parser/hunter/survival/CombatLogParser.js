@@ -30,6 +30,7 @@ import VipersVenom from './modules/talents/VipersVenom';
 import MongooseBite from './modules/talents/MongooseBite';
 import SteelTrap from './modules/talents/SteelTrap';
 import Chakrams from './modules/talents/Chakrams';
+import BirdOfPrey from './modules/talents/BirdOfPrey';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
     chakrams: Chakrams,
+    birdOfPrey: BirdOfPrey,
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,

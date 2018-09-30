@@ -8,6 +8,7 @@ import StatisticBox from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown of Exhilaration by 1 sec.
@@ -59,6 +60,7 @@ class NaturalMending extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.NATURAL_MENDING_TALENT.id} />}
         value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s`}
         label="Exhilaration CDR"
