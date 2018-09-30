@@ -3,6 +3,8 @@ import React from 'react';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
+const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
+
 const debug = false;
 
 // Log where someone died: https://wowanalyzer.com/report/RjH6AnYdP8GWzX4h/2-Heroic+Aggramar+-+Kill+(6:23)/Kantasai
@@ -78,7 +80,12 @@ class DeathTracker extends Analyzer {
 
   suggestions(when) {
     const boss = this.owner.boss;
-    if (!boss || !boss.fight.disableDeathSuggestion) {
+    const fight = this.owner.fight;
+    const disableDeathSuggestion = boss && boss.fight.disableDeathSuggestion;
+    const isWipe = !fight.kill;
+    const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
+
+    if (!disableDeathSuggestion && !isWipeDeath) {
       when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(
