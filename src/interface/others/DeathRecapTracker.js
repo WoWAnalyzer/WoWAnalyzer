@@ -77,15 +77,12 @@ class DeathRecapTracker extends Analyzer {
   on_toPlayer_heal(event) {
     this.addEvent(event);
   }
-
   on_toPlayer_damage(event) {
     this.addEvent(event);
   }
-
   on_toPlayer_instakill(event) {
     this.addEvent(event);
   }
-
   on_toPlayer_death(event) {
     this.addEvent(event);
     this.deaths.push(event.timestamp);

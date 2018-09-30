@@ -10,6 +10,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2018-09-30'),
+    changes: 'Removed the suggestions for Healing Potions and Healthstones, and added their status to the death recap panel. The "you died" suggestions will now refer to this for more information.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-30'),
     changes: 'The "you had mana left" suggestion will no longer show up on wipes.',
     contributors: [Zerotorescue],
   },
