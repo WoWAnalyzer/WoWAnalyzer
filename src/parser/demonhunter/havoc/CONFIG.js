@@ -21,10 +21,15 @@ export default {
         This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
+
+      <br /><br />More resources for Unholy:<br />
+      <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">Demon Hunter Class Discord</a> <br />
+      <a href="https://www.wowhead.com/havoc-demon-hunter-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
+      <a href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/Gqg7WLar8JnRNptx/10-Mythic+Aggramar+-+Kill+(6:21)/5-Devidara',
+  exampleReport: '/report/CKpVzL4nxD9dckb8/11-Heroic+Vectis+-+Kill+(5:14)/18-Shisei',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
