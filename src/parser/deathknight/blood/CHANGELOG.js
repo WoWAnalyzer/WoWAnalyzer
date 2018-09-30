@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-09-28'),
+    changes: <React.Fragment>Updated the <SpellLink id={SPELLS.MARROWREND.id} />-usage module to account for <SpellLink id={SPELLS.BONES_OF_THE_DAMNED.id} /> and updated <SpellLink id={SPELLS.HEARTBREAKER_TALENT.id} />-Module.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-08-03'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.BONE_SPIKE_GRAVEYARD.id} />-Module.</React.Fragment>,
     contributors: [joshinator],
