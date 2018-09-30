@@ -82,6 +82,8 @@ class SupportChecker extends React.PureComponent {
 
                   We have no ETA for support for {spec.specName} {spec.className}. We need volunteer contributors to maintain specs, and seeing as {spec.specName} {spec.className} is out of date, it's likely nobody is currently maintaining it. If you are interested or know someone who might be interested helping people help themselves, check out <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or <a href="https://wowanalyzer.com/discord">Discord</a> for more information.<br /><br />
 
+                  If you want us to prioritize support for this spec, consider upvoting support for this spec on <a href="https://suggestions.wowanalyzer.com/">the suggestions board</a>. The most popular suggestions will be bountied with funds raised from <Link to="/premium">Premium</Link>.<br /><br />
+
                   <div style={{ paddingBottom: '0.5em' }}>
                     <GitHubButton />{' '}
                     <DiscordButton />
