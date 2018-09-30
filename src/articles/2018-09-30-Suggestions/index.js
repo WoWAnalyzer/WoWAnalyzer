@@ -19,6 +19,6 @@ export default (
       }}
     />
 
-    We'd love to hear your suggestions. What can we do better? Do you have a grand idea? Is there a spec we should prioritize working on? Let us know on the new <a href="https://suggestions.wowanalyzer.com/">suggestions board</a>. There you can share your ideas and vote on other people's ideas. Using the funds raised with <Link to="/premium">Premium</Link> we'll put bounties on the most popular suggestions.
+    We'd love to hear your suggestions. What can we do better? Do you have a grand idea? Is there a spec we should prioritize? Let us know on the new <a href="https://suggestions.wowanalyzer.com/">suggestions board</a>! There you can share your suggestions or give a vote to other people's amazing suggestions. And we'll even put a bounty on the best suggestions using the funds raised with <Link to="/premium">Premium</Link>!
   </RegularArticle>
 );
