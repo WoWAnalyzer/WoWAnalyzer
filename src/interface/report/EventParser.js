@@ -75,7 +75,8 @@ class EventParser extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     const changed = this.props.report !== prevProps.report
       || this.props.fight !== prevProps.fight
-      || this.props.player !== prevProps.player;
+      || this.props.player !== prevProps.player
+      || this.props.config !== prevProps.config;
     if (changed) {
       // noinspection JSIgnoredPromiseFromCall
       this.parse();
