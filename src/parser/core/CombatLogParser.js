@@ -76,6 +76,7 @@ import Seabreeze from './modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from './modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
+import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
 
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -184,6 +185,7 @@ class CombatLogParser {
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
     // Enchants
+    quickNavigation: QuickNavigation,
 
     // Azerite Traits
     gemhide: Gemhide,
