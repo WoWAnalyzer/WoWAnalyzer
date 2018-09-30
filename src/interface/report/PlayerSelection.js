@@ -17,6 +17,12 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import PlayerSelectionPanel from './PlayerSelectionPanel';
 import handleApiError from './handleApiError';
 
+const defaultState = {
+  error: null,
+  combatants: null,
+  combatantsFightId: null,
+};
+
 class PlayerSelection extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
@@ -42,21 +48,14 @@ class PlayerSelection extends React.PureComponent {
       replace: PropTypes.func.isRequired,
     }).isRequired,
   };
-  state = {
-    combatants: null,
-  };
-
-  setState(error = null, combatants = null) {
-    super.setState({
-      error,
-      combatants,
-    });
-    // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-    this.props.setCombatants(combatants);
+  static getDerivedStateFromProps(props, state) {
+    if (props.fight.id !== state.combatantsFightId) {
+      // When switching fights we need to unset combatants before rendering to avoid children from doing API calls twice
+      return defaultState;
+    }
+    return state;
   }
-  resetState() {
-    this.setState(null, null);
-  }
+  state = defaultState;
 
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall
@@ -78,24 +77,36 @@ class PlayerSelection extends React.PureComponent {
   }
   async loadCombatants(report, fight) {
     try {
-      this.resetState();
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
-      this.setState(null, combatants);
-    } catch (err) {
-      const isCommonError = err instanceof LogNotFoundError;
+      super.setState({
+        ...defaultState,
+        combatants,
+        combatantsFightId: fight.id,
+      });
+      // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
+      this.props.setCombatants(combatants);
+    } catch (error) {
+      const isCommonError = error instanceof LogNotFoundError;
       if (!isCommonError) {
-        captureException(err);
+        captureException(error);
       }
-      this.setState(err, null);
+      super.setState({
+        ...defaultState,
+        error,
+      });
+      // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
+      this.props.setCombatants(null);
     }
   }
 
   renderError(error) {
     return handleApiError(error, () => {
-      this.resetState();
+      super.setState(defaultState);
+      // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
+      this.props.setCombatants(null);
       this.props.history.push(makeAnalyzerUrl());
     });
   }
