@@ -12,41 +12,38 @@ const COOLDOWN_MS = 60000; // one minute
  * Healthstones, health pots and combat pots (DPS, HPS, mana and mitigation).
  * pot cooldown is one minute, but the cooldown does not start until the
  * actor is out of combat or dead.
- * args[3] = spell
- * args[4] = recommendedEfficiency
  */
-
 class Potion extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
+  static spells = null;
+  static recommendedEfficiency = null;
+  static extraAbilityInfo = {};
 
-  spells = null;
-  efficiency = 0;
   maxCasts = 1;
   lastDeathWithPotionReady = null;
 
   constructor(...args) {
     super(...args);
-    this.spells = args[3];
-    this.efficiency = args[4];
     this.abilities.add({
-      spell: this.spells,
+      spell: this.constructor.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
       cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
         suggestion: false,
-        maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-          return this.maxCasts;
-        },
+        maxCasts: () => this.maxCasts,
       },
+      ...this.constructor.extraAbilityInfo,
     });
   }
 
   get spellId() {
-    return this.spells[0] ? this.abilities.getAbility(this.spells[0].id).primarySpell.id : this.abilities.getAbility(this.spells.id).primarySpell.id;
+    const spells = this.constructor.spells;
+    const ability = this.abilities.getAbility(spells[0].id);
+    return ability.primarySpell.id;
   }
 
   on_toPlayer_death(event) {
@@ -88,7 +85,7 @@ class Potion extends Analyzer {
     return {
       actual: this.potionCasts / this.maxCasts,
       isLessThan: {
-        minor: this.efficiency,
+        minor: this.constructor.efficiency,
       },
       style: 'percent',
     };

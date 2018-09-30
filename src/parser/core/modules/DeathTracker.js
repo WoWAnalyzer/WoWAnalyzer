@@ -90,7 +90,7 @@ class DeathTracker extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(
             <React.Fragment>
-              You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.
+              You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the death recap below to see the damage taken and what defensives and potions were still available.
             </React.Fragment>
           )
             .icon('ability_fiegndead')
