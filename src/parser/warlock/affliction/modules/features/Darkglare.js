@@ -14,6 +14,8 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
 
 const BONUS_DURATION = 8000;
+const UNSTABLE_AFFLICTION_DURATION = 8000;
+const CREEPING_DEATH_COEFFICIENT = 0.85; // Creeping Death talent shortens duration and period of certain dots by 15%
 const DOTS_AFFECTED_BY_CREEPING_DEATH = [
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
@@ -76,12 +78,11 @@ class Darkglare extends Analyzer {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }
     UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
-      this._dotDurations[id] = 8000;
+      this._dotDurations[id] = UNSTABLE_AFFLICTION_DURATION;
     });
     if (this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)) {
-      // Creeping Death talent shortens the period and duration of dots by 15%
       DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(id => {
-          this._dotDurations[id] *= 0.85;
+          this._dotDurations[id] *= CREEPING_DEATH_COEFFICIENT;
       });
     }
   }
@@ -223,8 +224,7 @@ class Darkglare extends Analyzer {
       Object.keys(cast).filter(key => key !== 'timestamp').forEach(target => {
         if (this._hasAC) {
           totalExtendedDots += cast[target].dots.filter(id => id !== SPELLS.CORRUPTION_DEBUFF.id).length;
-        }
-        else {
+        } else {
           totalExtendedDots += cast[target].dots.length;
         }
       });
