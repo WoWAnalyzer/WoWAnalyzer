@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PremiumIcon from 'Interface/Icons/Premium';
-import PatreonIcon from 'Interface/Icons/Patreon';
-import GitHubIcon from 'Interface/Icons/GitHub';
+import PremiumIcon from 'interface/icons/Premium';
+import PatreonIcon from 'interface/icons/Patreon';
+import GitHubIcon from 'interface/icons/GitHub';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'Interface/News/RegularArticle';
+import RegularArticle from 'interface/news/RegularArticle';
 
 export default (
   <RegularArticle title="WoWAnalyzer Premium" publishedAt="2018-06-21" publishedBy={Zerotorescue}>
