@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2018-09-11'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> to spreadsheet tab for use importing into Monk spreadsheet.</React.Fragment>,
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2018-09-11'),
     changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SOOTHING_MIST.id} /> channeling time to be taken into account with Downtime statistic and suggestion.</React.Fragment>,
     contributors: [Anomoly],
   },

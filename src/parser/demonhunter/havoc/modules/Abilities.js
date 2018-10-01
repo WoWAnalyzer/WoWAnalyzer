@@ -130,14 +130,16 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLADE_DANCE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //10 / (1 + haste),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEATH_SWEEP,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //8 / (1+ haste),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -204,12 +206,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-	  {
-		  spell: SPELLS.DISRUPT,
-		  category: Abilities.SPELL_CATEGORIES.UTILITY,
-		  cooldown: 15,
-		  gcd: null,
-	  },
+	    {
+        spell: SPELLS.DISRUPT,
+		    category: Abilities.SPELL_CATEGORIES.UTILITY,
+		    cooldown: 15,
+		    gcd: null,
+      },
+      {
+        spell: SPELLS.GLIDE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 1.5,
+        gcd: null,
+	    },
     ];
   }
 }
