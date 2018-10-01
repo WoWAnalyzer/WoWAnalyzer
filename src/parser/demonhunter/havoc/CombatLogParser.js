@@ -8,6 +8,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import FuryUsage from '../havoc/modules/features/FuryUsage';
 
 import Checklist from './modules/features/Checklist/Module';
 
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    furyUsage: FuryUsage,
 
     // Spells
     momentum: Momentum,
