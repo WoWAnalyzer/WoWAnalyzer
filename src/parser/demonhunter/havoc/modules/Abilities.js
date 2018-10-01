@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300,
+        cooldown: 240,
         gcd: {
           base: 1500,
         },
