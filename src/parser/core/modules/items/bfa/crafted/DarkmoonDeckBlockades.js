@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { calculatePrimaryStat } from 'common/stats';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import ItemIcon from 'common/ItemIcon';
@@ -104,12 +103,12 @@ class DarkmoonDeckBlockades extends Analyzer {
     if (!this.cardTracker.hasOwnProperty(spellId)) {
       return;
     }
-    const lastOccurrenceOfThisCard = this.cardTracker[spellId].pop();
+    const lastOccurrenceOfThisCard = this.cardTracker[spellId][this.cardTracker[spellId].length -1];
+    console.log(lastOccurrenceOfThisCard);
     lastOccurrenceOfThisCard.end = event.timestamp;
-    this.cardTracker[spellId].push(lastOccurrenceOfThisCard);
   }
 
-  _getStaminaSummary() {
+  get staminaSummary() {
     const summary = {};
     Object.keys(this.cardTracker).forEach((cardId) => {
       const card = this.cardTracker[cardId];
@@ -145,13 +144,13 @@ class DarkmoonDeckBlockades extends Analyzer {
   }
 
   item() {
-    const summary = this._getStaminaSummary();
+    const summary = this.staminaSummary;
     const totals = this._getSummaryTotals(summary);
     const tooltipData = (
       <ExpandableStatisticBox
         icon={<ItemIcon id={ITEMS.DARKMOON_DECK_BLOCKADES.id} />}
-        value=""
-        label={<ItemHealingDone amount={this.healing} />}
+        value={this.owner.formatItemHealingDone(this.healing)}
+        label="Darkmoon Deck: Blockades"
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <table className="table table-condensed">
@@ -159,7 +158,6 @@ class DarkmoonDeckBlockades extends Analyzer {
             <tr>
               <th>Name</th>
               <th>Stamina</th>
-              <th>Procs</th>
               <th>Time (s)</th>
               <th>Time (%)</th>
             </tr>
@@ -169,7 +167,6 @@ class DarkmoonDeckBlockades extends Analyzer {
               <tr key={index}>
                 <td>{card.name}</td>
                 <th>{card.staminaIncrease}</th>
-                <td>{card.occurrences}</td>
                 <td>{formatDuration(card.duration / 1000)}</td>
                 <td>{formatPercentage(card.duration / this.owner.fightDuration)}%</td>
               </tr>
@@ -177,7 +174,6 @@ class DarkmoonDeckBlockades extends Analyzer {
             <tr key="total">
               <th>Total</th>
               <th>{formatNumber(totals.averageStaminaIncrease)}</th>
-              <td>{totals.totaloccurrences}</td>
               <td>{formatDuration(totals.totalDuration / 1000)}</td>
               <td>{formatPercentage(totals.totalDuration / this.owner.fightDuration)}%</td>
             </tr>
