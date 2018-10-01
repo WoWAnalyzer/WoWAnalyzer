@@ -4,6 +4,7 @@ import DamageDone from 'parser/core/modules/DamageDone';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Darkglare from './modules/features/Darkglare';
 
 import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
 import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     checklist: Checklist,
+    darkglare: Darkglare,
 
     // DoTs
     agonyUptime: AgonyUptime,
