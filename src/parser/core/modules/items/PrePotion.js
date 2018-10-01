@@ -35,10 +35,10 @@ const STR_SPECS = [
   SPECS.PROTECTION_WARRIOR.id,
   SPECS.BLOOD_DEATH_KNIGHT.id,
   SPECS.RETRIBUTION_PALADIN.id,
-  SPECS.ARMS_WARRIOR.id, //They use agi pot for AoE
-  SPECS.FURY_WARRIOR.id, //They use agi pot for AoE
-  SPECS.FROST_DEATH_KNIGHT.id, //They use agi pot for AoE
-  SPECS.UNHOLY_DEATH_KNIGHT.id, //They use agi pot for AoE
+  SPECS.ARMS_WARRIOR.id, //They use str pot for AoE
+  SPECS.FURY_WARRIOR.id, //They use str pot for AoE
+  SPECS.FROST_DEATH_KNIGHT.id, //They str agi pot for AoE
+  SPECS.UNHOLY_DEATH_KNIGHT.id, //They str agi pot for AoE
 ];
 
 const INT_SPECS = [
