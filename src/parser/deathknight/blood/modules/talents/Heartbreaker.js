@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
@@ -39,28 +38,6 @@ class Heartbreaker extends Analyzer {
 
   get averageHearStrikeHits() {
     return (this.rpGains.length / this.hsCasts).toFixed(2);
-  }
-
-  get averageHitSuggestionThresholds() {
-    return {
-      actual: this.averageHearStrikeHits,
-      isLessThan: {
-        minor: 4,
-        average: 2.5,
-        major: 2,
-      },
-      style: 'number',
-    };
-  }
-
-  suggestions(when) {
-    when(this.averageHitSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment><SpellLink id={SPELLS.HEARTBREAKER_TALENT.id} /> relies heavily on the amount of targets you can hit with <SpellLink id={SPELLS.HEART_STRIKE.id} /> to perform on par with <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} />. Consider picking <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> if you can't hit reliable multiple (4+) targets.</React.Fragment>)
-            .icon(SPELLS.HEARTBREAKER_TALENT.icon)
-            .actual(`on average ${actual} targets hit with Heart Strike`)
-            .recommended(`>${recommended} is recommended`);
-        });
   }
 
   statistic() {
