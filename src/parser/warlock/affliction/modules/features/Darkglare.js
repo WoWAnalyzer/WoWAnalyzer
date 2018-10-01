@@ -98,12 +98,7 @@ class Darkglare extends Analyzer {
     }
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
     this.dots[encoded] = this.dots[encoded] || { targetName: enemy.name, dots: {} };
-    this.dots[encoded].dots[spellId] = {
-      cast: event.timestamp,
-      expectedEnd: event.timestamp + this._dotDurations[spellId],
-      extendStart: null,
-      extendExpectedEnd: null,
-    };
+    this._resetDotOnTarget(spellId, encoded, event.timestamp);
   }
 
   on_byPlayer_removedebuff(event) {
@@ -120,7 +115,9 @@ class Darkglare extends Analyzer {
       debug && console.log(`Remove debuff on not-recorded mob - ${encoded}`, event);
       return;
     }
+    // remove dot from tracking
     delete this.dots[encoded].dots[spellId];
+    // if it was the last dot on a mob, remove mob as well
     if (Object.values(this.dots[encoded].dots).length === 0) {
       delete this.dots[encoded];
     }
@@ -153,9 +150,9 @@ class Darkglare extends Analyzer {
     }
     const dotInfo = this.dots[encoded].dots[spellId];
     // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct (if it's permanent, it can't get extended - no actual bonus damage)
-    if (dotInfo.extendStart !== null
-          && dotInfo.expectedEnd <= event.timestamp
-          && event.timestamp <= dotInfo.extendExpectedEnd) {
+    const isExtended = dotInfo.extendStart !== null;
+    const isInExtendedWindow = dotInfo.expectedEnd <= event.timestamp && event.timestamp <= dotInfo.extendExpectedEnd;
+    if (isExtended && isInExtendedWindow) {
       this.bonusDotDamage += event.amount + (event.absorb || 0);
     }
   }
@@ -209,9 +206,13 @@ class Darkglare extends Analyzer {
     if (!this.dots[encoded] || !this.dots[encoded][spellId]) {
       return;
     }
-    this.dots[encoded].dots[spellId] = {
-      cast: event.timestamp,
-      expectedEnd: event.timestamp + this._dotDurations[spellId],
+    this._resetDotOnTarget(spellId, encoded, event.timestamp);
+  }
+
+  _resetDotOnTarget(spellId, target, timestamp) {
+    this.dots[target].dots[spellId] = {
+      cast: timestamp,
+      expectedEnd: timestamp + this._dotDurations[spellId],
       extendStart: null,
       extendExpectedEnd: null,
     };
