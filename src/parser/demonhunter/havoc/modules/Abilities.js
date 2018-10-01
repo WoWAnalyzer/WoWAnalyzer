@@ -41,20 +41,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_ERUPTION_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Fury per cast. Should definitively be used as soon as it gets available.',
-        },
-      },
-      {
         spell: SPELLS.FEL_BARRAGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
