@@ -41,6 +41,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.FEL_ERUPTION_TALENT,
+        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.FEL_BARRAGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
