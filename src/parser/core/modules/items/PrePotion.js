@@ -190,7 +190,7 @@ class PrePotion extends Analyzer {
       );
     when(this.secondPotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={this.potionId} /> {this.isHealer ? <React.Fragment>or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /> for example.</React.Fragment> : ''}. {this.addedSuggestionText ? <React.Fragment>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</React.Fragment> : ''}</React.Fragment>)
+        return suggest(<React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : '' } increasing output through <ItemLink id={this.potionId} />{this.isHealer ? <React.Fragment> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /> for example</React.Fragment> : ''}. {this.addedSuggestionText ? <React.Fragment>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</React.Fragment> : ''}</React.Fragment>)
           .icon(this.potionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       })
