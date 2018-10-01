@@ -9,7 +9,7 @@ import ManaUsage from 'common/ManaUsage';
  * Example log: /report/tVvxzMN74jDCbkZF/28-Heroic+G'huun+-+Kill+(6:49)/1-Blazyb
  */
 
-class DruidManaUsage extends ManaUsage {
+class RestoDruidManaUsage extends ManaUsage {
   constructor(...args) {
     super(...args);
 
@@ -77,4 +77,4 @@ class DruidManaUsage extends ManaUsage {
   }
 }
 
-export default DruidManaUsage;
+export default RestoDruidManaUsage;

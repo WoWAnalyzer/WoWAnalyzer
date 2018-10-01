@@ -27,7 +27,7 @@ import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import NaturesEssence from './modules/features/NaturesEssence';
-import ManaUsage from './modules/features/ManaUsage';
+import ManaUsage from './modules/features/RestoDruidManaUsage';
 
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
