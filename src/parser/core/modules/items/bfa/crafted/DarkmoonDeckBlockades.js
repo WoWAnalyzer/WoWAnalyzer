@@ -104,7 +104,6 @@ class DarkmoonDeckBlockades extends Analyzer {
       return;
     }
     const lastOccurrenceOfThisCard = this.cardTracker[spellId][this.cardTracker[spellId].length -1];
-    console.log(lastOccurrenceOfThisCard);
     lastOccurrenceOfThisCard.end = event.timestamp;
   }
 
