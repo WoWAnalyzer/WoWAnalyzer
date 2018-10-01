@@ -14,6 +14,7 @@ import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
+import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
 import TalentHub from './modules/talents/TalentHub';
 
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eradication: Eradication,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
+    grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
     talentHub: TalentHub,
   };
