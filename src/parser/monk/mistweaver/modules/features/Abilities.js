@@ -144,6 +144,16 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 3,
       },
+      {
+        spell: SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        enabled: combatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 10,
+        timelineSortIndex: 15,
+      },
 
       // Utility Spells
       {
