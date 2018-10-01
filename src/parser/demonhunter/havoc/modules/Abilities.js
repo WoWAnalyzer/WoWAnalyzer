@@ -206,12 +206,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-	  {
+	    {
+        spell: SPELLS.DISRUPT,
+		    category: Abilities.SPELL_CATEGORIES.UTILITY,
+		    cooldown: 15,
+		    gcd: null,
+      },
+      {
         spell: SPELLS.GLIDE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 1.5,
         gcd: null,
-	  },
+	    },
     ];
   }
 }
