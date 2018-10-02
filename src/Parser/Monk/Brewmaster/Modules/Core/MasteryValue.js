@@ -1,9 +1,10 @@
 import React from 'react';
+import { Line as LineChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import ExpandableStatisticBox from 'Interface/Others/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
@@ -316,9 +317,92 @@ class MasteryValue extends Analyzer {
     return this.noMasteryExpectedMitigation / this.owner.fightDuration * 1000;
   }
 
+  plot() {
+    // not the most efficient, but close enough and pretty safe
+    function binom(n, k) {
+      if(k > n) {
+        return null;
+      }
+      if(k === 0) {
+        return 1;
+      }
+
+      return n / k * binom(n-1, k-1);
+    }
+    const dodge_prob = (i) => binom(this.totalDodgeableHits, i) * Math.pow(this.expectedMeanDodge, i) * Math.pow(1 - this.expectedMeanDodge, this.totalDodgeableHits - i);
+    // probability of having dodge exactly k of the n incoming hits
+    // assuming the expected mean dodge % is the true mean dodge %
+    const dodge_probs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
+      return { x: i, y: dodge_prob(i) };
+    });
+
+    return (
+      <LineChart
+        data={{
+          labels: Array.from({length: this.totalDodgeableHits}, (_x, i) => i),
+          datasets: [
+            {
+              label: 'Actual Dodge',
+              data: [{ x: this.totalDodges, y: dodge_prob(this.totalDodges) }],
+              backgroundColor: '#00ff96',
+              type: 'scatter',
+            },
+            {
+              label: 'Dodge',
+              data: dodge_probs,
+              backgroundColor: 'rgba(255, 139, 45, 0.2)',
+              borderColor: 'rgb(255, 139, 45)',
+              borderWidth: 2,
+              radius: 0,
+            },
+          ],
+        }}
+        options={{
+          tooltips: {
+            callbacks: {
+              title: (tooltipItem, data) => data.datasets[tooltipItem[0].datasetIndex].label,
+              label: (tooltipItem, data) => `${formatPercentage(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].x / this.totalDodgeableHits)}%`,
+            },
+          },
+          legend: {
+            display: false,
+          },
+          scales: {
+            xAxes: [{
+              stacked: true,
+              scaleLabel: { 
+                display: true,
+                labelString: 'Dodge %',
+                lineHeight: 1,
+                padding: 0,
+                fontColor: '#ccc',
+              },
+              ticks: {
+                fontColor: '#ccc',
+                callback: (x) => `${formatPercentage(x / this.totalDodgeableHits, 0)}%`,
+              },
+            }],
+            yAxes: [{
+              stacked: true,
+              scaleLabel: { 
+                display: true,
+                labelString: 'Likelihood',
+                fontColor: '#ccc',
+              },
+              ticks: {
+                fontColor: '#ccc',
+                callback: (y) => `${formatPercentage(y, 0)}%`,
+              },
+            }],
+          },
+        }}
+        />
+    );
+  }
+
   statistic() {
     return (
-      <StatisticBox
+      <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
         value={`${formatNumber(this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond)} DTPS`}
         label="Expected Mitigation by Mastery"
@@ -328,7 +412,12 @@ class MasteryValue extends Analyzer {
           <b>Estimated Actual Damage</b> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br/>
           <b>Expected</b> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br/>
           An ability is considered <b>dodgeable</b> if you dodged it at least once.`}
-        />
+        >
+          <div style={{padding: '8px'}}>
+            {this.plot()}
+            <p>Likelihood of dodging <em>exactly</em> as much as you did with your level of Mastery.</p>
+          </div>
+      </ExpandableStatisticBox>
     );
   }
 }
