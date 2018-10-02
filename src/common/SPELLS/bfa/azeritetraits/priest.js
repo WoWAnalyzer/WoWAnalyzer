@@ -11,6 +11,11 @@ export default {
     name: 'Gift of the Forgiveness',
     icon: 'spell_holy_holysmite',
   },
+  ENDURING_LUMINESCENCE: {
+    id: 278643,
+    name: 'Enduring Luminescence',
+    icon: 'spell_priest_power-word',
+  },
   // Holy
   BLESSED_SANCTUARY: {
     id: 273313,

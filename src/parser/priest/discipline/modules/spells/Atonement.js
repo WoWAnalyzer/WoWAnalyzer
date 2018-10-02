@@ -15,6 +15,7 @@ const debug = false;
 
 /** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
 const IMPROPER_REFRESH_TIME = 3000;
+const ENDURING_LUMINESCENCE_BONUS_DURATION = 1.5;
 
 class Atonement extends Analyzer {
   static dependencies = {
@@ -28,19 +29,24 @@ class Atonement extends Analyzer {
   currentAtonementTargets = [];
   improperAtonementRefreshes = [];
 
+  constructor(...args) {
+    super(...args);
+    this.active = true;
+    this.hasEnduring = this.selectedCombatant.traitRanks(SPELLS.ENDURING_LUMINESCENCE.id);
+  }
+
   get atonementDuration() {
     const applicatorEvent = this.atonementApplicationSource.event;
     if (!applicatorEvent) {
       return 15;
     }
     const applicatorSpellId = applicatorEvent.ability.guid;
-    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId);
 
-    if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
-      duration += 6;
+    if (applicatorSpellId === SPELLS.POWER_WORD_RADIANCE.id && this.hasEnduring) {
+      return this.atonementApplicationSource.duration.get(applicatorSpellId) + ENDURING_LUMINESCENCE_BONUS_DURATION;
     }
 
-    return duration;
+    return this.atonementApplicationSource.duration.get(applicatorSpellId);
   }
 
   get numAtonementsActive() {
@@ -51,21 +57,19 @@ class Atonement extends Analyzer {
     return this.numAtonementsActive >= 3;
   }
 
-  constructor(...args) {
-    super(...args);
-    this.active = true;
-  }
-
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
       return;
     }
+    const applicationSource = this.atonementApplicationSource &&
+    this.atonementApplicationSource.event && this.atonementApplicationSource.event.ability.guid;
 
     const atonement = {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
       atonementExpirationTimestamp: event.timestamp + this.atonementDuration * 1000,
+      isEnduringEmpowered: applicationSource === SPELLS.POWER_WORD_RADIANCE.id,
     };
 
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);

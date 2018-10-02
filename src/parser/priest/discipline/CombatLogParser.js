@@ -47,6 +47,7 @@ import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
 import GiftOfForgiveness from './modules/azeritetraits/GiftOfForgiveness';
+import EnduringLuminescence from './modules/azeritetraits/EnduringLuminescence';
 
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     gift: GiftOfForgiveness,
+    enduringLuminescence: EnduringLuminescence,
   };
 }
 
