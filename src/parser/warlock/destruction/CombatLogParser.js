@@ -5,6 +5,7 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ImmolateUptime from './modules/features/ImmolateUptime';
+import Conflagrate from './modules/features/Conflagrate';
 import Havoc from './modules/features/Havoc';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
@@ -31,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     immolateUptime: ImmolateUptime,
 
     // Core
+    conflagrate: Conflagrate,
     havoc: Havoc,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,

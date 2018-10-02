@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-10-02'),
+    changes: <React.Fragment>Added a statistic box showing wasted <SpellLink id={SPELLS.CONFLAGRATE.id} /> casts.</React.Fragment>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-10-02'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stack tracker.</React.Fragment>,
     contributors: [Chizu],
   },
