@@ -16,7 +16,11 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Hi! Welcome to the Shadow Priest analyzer.
+      Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics useful.<br /><br />
+
+      If you need general help learning the spec, Wowhead has a great getting started guide for Shadow. You can find it <a href="https://www.wowhead.com/shadow-priest-guide" target="_blank" rel="noopener noreferrer">here</a>.<br /><br />
+
+      If you have any questions about playing Shadow Priest, join the Priest community at the <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">Warcraft Priests discord channel</a>.
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
