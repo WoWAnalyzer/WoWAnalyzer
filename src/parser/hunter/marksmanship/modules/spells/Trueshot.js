@@ -108,7 +108,7 @@ class Trueshot extends Analyzer {
   }
 
   get averageAimedShots() {
-    return this.aimedShotsPrTS / this.trueshotCasts;
+    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
   }
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
