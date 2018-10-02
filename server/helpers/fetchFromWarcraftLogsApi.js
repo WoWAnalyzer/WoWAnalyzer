@@ -10,7 +10,6 @@ export const WCL_REPORT_DOES_NOT_EXIST_HTTP_CODE = 400;
 const USER_AGENT = process.env.USER_AGENT;
 const WCL_API_KEY = process.env.WCL_API_KEY;
 const TIMEOUT = 4000; // ms after which to abort the request
-const MAX_ATTEMPTS = 2;
 
 function getWclApiUrl(path, query) {
   return `${WCL_DOMAIN}/v1/${path}?${querystring.stringify({
@@ -40,7 +39,6 @@ export default async function fetchFromWarcraftLogsApi(path, query, attempt = 1)
       // we'll be making several requests, so pool connections
       forever: true,
       timeout: TIMEOUT,
-      maxAttempts: MAX_ATTEMPTS,
     });
 
     // WCL maintenance mode returns 200 http code :(

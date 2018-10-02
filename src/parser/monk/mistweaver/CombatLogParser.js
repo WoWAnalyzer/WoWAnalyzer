@@ -42,6 +42,7 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import AzeriteTraits from './modules/spells/AzeriteTraits';
 
 // Talents
+import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
 import ChiJi from './modules/talents/ChiJi';
 import ChiBurst from './modules/talents/ChiBurst';
 import ManaTea from './modules/talents/ManaTea';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifecycles: Lifecycles,
     spiritOfTheCrane: SpiritOfTheCrane,
     risingMist: RisingMist,
+    jadeSerpentStatue: JadeSerpentStatue,
 
     // Azerite Traits
     fontOfLife: FontOfLife,

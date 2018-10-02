@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 
 import Icon from 'common/Icon';
-import isLatestPatch from 'game/isLatestPatch';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -59,7 +58,7 @@ class SupportChecker extends React.PureComponent {
 
     const spec = config.spec;
 
-    if (!this.continue && !isLatestPatch(config.patchCompatibility)) {
+    if (!this.continue && !config.isSupported) {
       return (
         <div className="container">
           <h1>

@@ -12,10 +12,12 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
+import ReverseEntropy from './modules/talents/ReverseEntropy';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
+import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
-import TalentHub from './modules/talents/TalentHub';
+import Talents from './modules/talents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -36,10 +38,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     backdraft: Backdraft,
     eradication: Eradication,
+    reverseEntropy: ReverseEntropy,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
+    grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
-    talentHub: TalentHub,
+    talents: Talents,
   };
 }
 

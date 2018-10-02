@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300,
+        cooldown: 240,
         gcd: {
           base: 1500,
         },
@@ -43,15 +43,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_ERUPTION_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Fury per cast. Should definitively be used as soon as it gets available.',
         },
       },
       {
@@ -130,14 +125,16 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLADE_DANCE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //10 / (1 + haste),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEATH_SWEEP,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //8 / (1+ haste),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -204,6 +201,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+	    {
+        spell: SPELLS.DISRUPT,
+		    category: Abilities.SPELL_CATEGORIES.UTILITY,
+		    cooldown: 15,
+		    gcd: null,
+      },
+      {
+        spell: SPELLS.GLIDE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 1.5,
+        gcd: null,
+	    },
     ];
   }
 }

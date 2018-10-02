@@ -9,7 +9,8 @@ import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 
-const REFRESH_AT_STACKS = 6;
+const REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED = 6;
+const REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED = 7;
 const REFRESH_AT_SECONDS = 6;
 const BS_DURATION = 30;
 const MR_GAIN = 3;
@@ -35,6 +36,7 @@ class MarrowrendUsage extends Analyzer {
   totalMRCasts = 0;
 
   hasBonesOfTheDamned = false;
+  refreshAtStacks = REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED;
 
   bonesOfTheDamnedProc = 0;
   totalStacksGenerated = 0;
@@ -44,6 +46,7 @@ class MarrowrendUsage extends Analyzer {
 
     if(this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)) {
       this.hasBonesOfTheDamned = true;
+      this.refreshAtStacks = REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED;
     }
   }
 
@@ -85,7 +88,7 @@ class MarrowrendUsage extends Analyzer {
       this.refreshMRCasts += 1;
     } else {
       const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
-      if (boneShieldStacks > REFRESH_AT_STACKS) {
+      if (boneShieldStacks > this.refreshAtStacks) {
         this.badMRCasts += 1;
         const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         if (wasted > 0) {
@@ -155,7 +158,7 @@ class MarrowrendUsage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</React.Fragment>)
+        return suggest(<React.Fragment>You casted {this.badMRCasts} Marrowrends with more than {this.refreshAtStacks} stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</React.Fragment>)
           .icon(SPELLS.MARROWREND.icon)
           .actual(`${formatPercentage(actual)}% bad Marrowrend casts`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -169,10 +172,12 @@ class MarrowrendUsage extends Analyzer {
         icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
         value={`${ this.badMRCasts } / ${ this.totalMRCasts }`}
         label="Bad Marrowrend casts"
-        tooltip={`${ this.refreshMRCasts } casts to refresh Bone Shield<br>
-        ${ this.badMRCasts } casts with more than 6 stacks of Bone Shield wasting at least ${ this.bsStacksWasted } stacks<br>
-        <br>
-        Avoid casting Marrowrend unless you have 6 or less stacks or if Bone Shield has less than 6sec duration left.`}
+        tooltip={`
+          ${ this.refreshMRCasts } casts to refresh Bone Shield<br>
+          ${ this.badMRCasts } casts with more than ${this.refreshAtStacks} stacks of Bone Shield wasting at least ${ this.bsStacksWasted } stacks<br>
+          <br>
+          Avoid casting Marrowrend unless you have ${this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec duration left.
+        `}
       />
 
     );
