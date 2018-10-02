@@ -71,8 +71,8 @@ class MonkSpreadsheet extends React.Component {
               <tr><td>Chi Burst</td><td>{overhealingSpell(SPELLS.CHI_BURST_HEAL.id)}</td><td>{cpm(SPELLS.CHI_BURST_TALENT.id)}</td></tr>
               <tr><td>Chi Wave</td><td>{overhealingSpell(SPELLS.CHI_WAVE_TALENT.id)}</td><td>{cpm(SPELLS.CHI_WAVE_TALENT.id)}</td></tr>
               <tr><td>Refreshing Jade Wind</td><td>{overhealingSpell(SPELLS.REFRESHING_JADE_WIND_HEAL.id)}</td><td>{cpm(SPELLS.REFRESHING_JADE_WIND_TALENT.id)}</td></tr>
-              <tr><td>Invoke Chi-Ji, the Red Crane</td><td>{(parser._modules.chiJi.chiJiOverHealing >= 0 ? parser._modules.chiJi.chiJiOverHealing : '')}</td><td>{cpm(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id)}</td></tr>
-              <tr><td>Jade Serpent Statue</td><td>{}</td><td>{}</td></tr>
+              <tr><td>Invoke Chi-Ji, the Red Crane</td><td>{(parser._modules.chiJi.active ? parser._modules.chiJi.chiJiOverHealing : '')}</td><td>{cpm(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id)}</td></tr>
+              <tr><td>Jade Serpent Statue</td><td>{(parser._modules.jadeSerpentStatue.active ? parser._modules.jadeSerpentStatue.jadeSerpentStatueOverHealing : '')}</td><td>{(parser._modules.jadeSerpentStatue.active ? (parser._modules.jadeSerpentStatue.casts / (parser.fightDuration / 1000 / 60)).toFixed(2) : '')}</td></tr>
           </tbody>
           </table>
         </div>
