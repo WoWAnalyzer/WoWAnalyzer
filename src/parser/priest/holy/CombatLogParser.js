@@ -27,6 +27,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 import HealingReceived from './modules/features/HealingReceived';
 import HealingTargetTracker from './modules/features/HealingTargetTracker';
+import HolyPriestManaUsage from './modules/features/HolyPriestManaUsage';
+
 // Priest Core
 import EchoOfLight_Mastery from './modules/core/EchoOfLight_Mastery';
 import Fortitude_RaidBuff from './modules/core/Fortitude_RaidBuff';
@@ -60,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     healingReceived: HealingReceived,
     healingTargetTracker: HealingTargetTracker,
+    holyPriestManaUsage: HolyPriestManaUsage,
 
     // Core
     echoOfLight_Mastery: EchoOfLight_Mastery,

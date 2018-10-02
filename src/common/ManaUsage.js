@@ -1,7 +1,6 @@
 import React from 'react';
 import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
-import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -13,73 +12,15 @@ import StatisticWrapper from 'interface/others/StatisticWrapper';
 const CHART_SIZE = 100;
 
 /**
- * Tracks the mana usage of resto druid and creates a piechart with the breakdown.
+ * Tracks the mana usage of spell casts and creates a piechart with the breakdown.
  *
- * Example log: https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ * Example log: /report/tVvxzMN74jDCbkZF/28-Heroic+G'huun+-+Kill+(6:49)/1-Blazyb
  */
 
-const LIST_OF_MANA_SPENDERS = [
-  SPELLS.LIFEBLOOM_HOT_HEAL.id,
-  SPELLS.REJUVENATION.id,
-  SPELLS.WILD_GROWTH.id,
-  SPELLS.EFFLORESCENCE_CAST.id,
-  SPELLS.REGROWTH.id,
-  SPELLS.SWIFTMEND.id,
-  SPELLS.TRANQUILITY_CAST.id,
-  SPELLS.CENARION_WARD_TALENT.id,
-];
-
 class ManaUsage extends Analyzer {
-  manaSpenderCasts = {
-    [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
-      casts: 0,
-      manaUsed: 0,
-      name: SPELLS.LIFEBLOOM_HOT_HEAL.name,
-      color: '#b2d689',
-    },
-    [SPELLS.REJUVENATION.id]: {
-      casts: 0,
-      manaUsed: 0,
-      name: SPELLS.REJUVENATION.name,
-      color: '#b013c6',
-    },
-    [SPELLS.WILD_GROWTH.id]: {
-      casts: 0,
-      manaUsed: 0,
-      name: SPELLS.WILD_GROWTH.name,
-      color: '#70d181',
-    },
-    [SPELLS.EFFLORESCENCE_CAST.id]: {
-      casts: 0,
-      manaUsed: 0,
-      name: SPELLS.EFFLORESCENCE_CAST.name,
-      color: '#f95160',
-    },
-    [SPELLS.REGROWTH.id]: {
-      casts: 0,
-      manaUsed: 0,
-      name: SPELLS.REGROWTH.name,
-      color: '#168a45',
-    },
-    [SPELLS.SWIFTMEND.id]: {
-      casts: 0,
-      manaUsed: 0,
-      names: SPELLS.SWIFTMEND.name,
-      color: '#31558f',
-    },
-    [SPELLS.TRANQUILITY_CAST.id]: {
-      casts: 0,
-      manaUsed: 0,
-      names: SPELLS.TRANQUILITY_CAST.name,
-      color: '#46709a',
-    },
-    [SPELLS.CENARION_WARD_TALENT.id]: {
-      casts: 0,
-      manaUsed: 0,
-      names: SPELLS.CENARION_WARD_TALENT.name,
-      color: '#fff',
-    },
-  };
+  listOfManaSpenders = {};
+  manaSpenderCasts = {};
+  totalManaSpent = 0;
 
   legend(items, total) {
     const numItems = items.length;
@@ -123,6 +64,7 @@ class ManaUsage extends Analyzer {
       );
     });
   }
+
   chart(items) {
     return (
       <DoughnutChart
@@ -154,7 +96,7 @@ class ManaUsage extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (LIST_OF_MANA_SPENDERS.every(id => spellId !== id)) {
+    if (this.listOfManaSpenders.every(id => spellId !== id)) {
       return;
     }
     //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
@@ -163,10 +105,11 @@ class ManaUsage extends Analyzer {
     }
     this.manaSpenderCasts[spellId].casts += 1;
     this.manaSpenderCasts[spellId].manaUsed += event.resourceCost[RESOURCE_TYPES.MANA.id] || 0;
+    this.totalManaSpent += event.resourceCost[RESOURCE_TYPES.MANA.id] || 0;
   }
 
   manaUsageChart() {
-    const usedSpells = LIST_OF_MANA_SPENDERS.filter(id => this.manaSpenderCasts[id].casts > 0 && this.manaSpenderCasts[id].manaUsed > 0);
+    const usedSpells = this.listOfManaSpenders.filter(id => this.manaSpenderCasts[id].casts > 0 && this.manaSpenderCasts[id].manaUsed > 0);
     const totalmanaUsed = usedSpells.reduce((total, id) => total + this.manaSpenderCasts[id].manaUsed, 0);
     const items = usedSpells
       .map(id => ({
