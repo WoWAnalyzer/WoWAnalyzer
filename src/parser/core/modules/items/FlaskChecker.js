@@ -33,4 +33,5 @@ class FlaskChecker extends Analyzer {
       });
   }
 }
+
 export default FlaskChecker;
