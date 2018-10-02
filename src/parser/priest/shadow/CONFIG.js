@@ -16,7 +16,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Hi! Welcome to the Holy Priest analyzer.
+      Hi! Welcome to the Shadow Priest analyzer.
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
