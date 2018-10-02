@@ -17,11 +17,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      <Warning>
-        This spec does not have anyone maintaining it so it may not be helpful. We're actively looking for volunteers to help us support more specs. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information or join us on <a href="https://wowanalyzer.com/discord">Discord</a>.<br /><br />
-
-        See <a href="https://www.icy-veins.com/wow/shadow-priest-pve-dps-common-worst-mistakes">the Icy Veins "Most Common and Worst Mistakes Shadow Priests Make in Battle for Azeroth (BfA) 8.0.1" page</a> for up-to-date suggestions.
-      </Warning>
+      Hi! Welcome to the Holy Priest analyzer.
     </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
