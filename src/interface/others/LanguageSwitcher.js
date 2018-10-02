@@ -46,7 +46,7 @@ class LanguageSwitcher extends React.PureComponent {
     return (
       <ReadableList groupType="or">
         {Object.keys(languages).map(code => (
-          <a key={code} onClick={() => this.selectLanguage(code)}>
+          <a key={code} onClick={() => this.selectLanguage(code)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             {languages[code].localName}
           </a>
         ))}
@@ -61,7 +61,7 @@ class LanguageSwitcher extends React.PureComponent {
     }
 
     return (
-      <a onClick={this.handleClickExpand}>
+      <a onClick={this.handleClickExpand}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
         <dfn data-tip={i18n.t`Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`}>
           {languages[language].localName}
         </dfn>

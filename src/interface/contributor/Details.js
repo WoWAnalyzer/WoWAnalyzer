@@ -75,9 +75,11 @@ class Details extends React.PureComponent {
 
     const value = [];
     Object.keys(object).forEach((key) => {
-      value.push(<div>
-        <a href={object[key]} target="_blank">{key}</a>
-      </div>);
+      value.push(
+        <div>
+          <a href={object[key]} target="_blank" rel="noopener noreferrer">{key}</a>
+        </div>
+      );
     });
     return (
       <div className="row" style={{ marginBottom: 20 }}>
@@ -253,7 +255,7 @@ class Details extends React.PureComponent {
                   <div className="row">
                     <div className="col-md-3"><b>GitHub:</b></div>
                     <div className="col-md-9">
-                      <a href={'https://github.com/' + contributor.github} target="_blank">{contributor.github}</a>
+                      <a href={'https://github.com/' + contributor.github} target="_blank" rel="noopener noreferrer">{contributor.github}</a>
                     </div>
                   </div>
                   {this.text(contributor.discord, 'Discord')}
