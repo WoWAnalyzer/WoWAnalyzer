@@ -76,7 +76,11 @@ import Seabreeze from './modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from './modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
+import DeadlyNavigation from './modules/items/bfa/enchants/DeadlyNavigation';
+import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigation';
 import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
+import StalwartNavigation from './modules/items/bfa/enchants/StalwartNavigation';
+import VersatileNavigation from './modules/items/bfa/enchants/VersatileNavigation';
 
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -185,7 +189,11 @@ class CombatLogParser {
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
     // Enchants
+    deadlyNavigation: DeadlyNavigation,
+    masterfulNavigation: MasterfulNavigation,
     quickNavigation: QuickNavigation,
+    stalwartNavigation: StalwartNavigation,
+    versatileNavigation: VersatileNavigation,
 
     // Azerite Traits
     gemhide: Gemhide,
