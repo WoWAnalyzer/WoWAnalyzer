@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: haste => 18 / (1 + haste),
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST_PROTECTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -87,7 +87,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: haste => 17 / (1 + haste),
         charges: 1,
         gcd: {
           base: 1500,
