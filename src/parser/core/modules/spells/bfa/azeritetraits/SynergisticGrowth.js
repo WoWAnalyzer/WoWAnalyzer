@@ -3,7 +3,7 @@ import GenericStatProc, { azeriteStats } from 'parser/core/modules/spells/bfa/az
 import STAT from 'parser/core/modules/features/STAT';
 
 export const STAT_TRACKER = {
-  mastery: combatant => azeriteStats(combatant.traitsBySpellId[SPELLS.BLOOD_RITE.id]).stat,
+  mastery: combatant => azeriteStats(combatant.traitsBySpellId[SPELLS.SYNERGISTIC_GROWTH.id]).stat,
 };
 
 /**
