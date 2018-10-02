@@ -7,6 +7,7 @@ import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/OverwhelmingPower';
+import { STAT_TRACKER as SYNERGISTIC_GROWTH_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/SynergisticGrowth';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/MeticulousScheming';
 import { STAT_TRACKER as BLOOD_RITE_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/BloodRite';
@@ -227,6 +228,7 @@ class StatTracker extends Analyzer {
     [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
     [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS,
+    [SPELLS.SYNERGISTIC_GROWTH_BUFF.id]: SYNERGISTIC_GROWTH_STATS,
     [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS,
     [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
       crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
