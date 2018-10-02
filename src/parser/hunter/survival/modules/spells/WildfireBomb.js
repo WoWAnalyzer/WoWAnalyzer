@@ -128,7 +128,7 @@ class WildfireBomb extends Analyzer {
         icon={<SpellIcon id={SPELLS.WILDFIRE_BOMB.id} />}
         value={`${this.averageTargetsHit}`}
         label="Average targets hit"
-        tooltip={`You had an uptime of ${formatPercentage(this.uptimePercentage)}%.`}
+        tooltip={`You had an uptime of ${formatPercentage(this.uptimePercentage)}% on the DoT from Wildfire Bomb.`}
       />
     );
   }
