@@ -55,7 +55,10 @@ class Navigation extends Analyzer {
 
     Object.values(this.buffStacks).forEach((stackChain) => {
       stackChain.forEach((stack) => {
-        const stackSize = stack.stacks;
+        let stackSize = stack.stacks;
+        if (stackSize === 5){
+          stackSize = 0;
+        }
         const stackStart = stack.timestamp;
 
         if (cleanStacks.hasOwnProperty(lastHandledStack)) {
