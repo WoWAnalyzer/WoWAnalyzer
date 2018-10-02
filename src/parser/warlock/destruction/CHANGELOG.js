@@ -12,6 +12,11 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-10-02'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stack tracker.</React.Fragment>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-10-01'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime tracking.</React.Fragment>,
     contributors: [Chizu],
