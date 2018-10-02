@@ -8,6 +8,8 @@ import HIT_TYPES from 'parser/core/HIT_TYPES';
 /**
  * Your damaging spells and abilities have a chance to release a tidal surge,
  * dealing 1623 Frost damage to your target and slowing their movement speed by 20% for 6 sec.
+ *
+ * https://www.warcraftlogs.com/reports/1PzGDqayN6ATQJXZ#fight=last&type=damage-done&source=13
  */
 class TidalSurge extends Analyzer {
   damage = 0;
