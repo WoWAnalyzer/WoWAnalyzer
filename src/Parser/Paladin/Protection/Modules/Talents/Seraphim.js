@@ -7,7 +7,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatPercentage } from 'common/format';
 
 /**
- * Consumes up to 2 SotR charges to provice 5500 Haste+Vers+Mastery+Crit for 8sec per consumed charge
+ * Consumes up to 2 SotR charges to provice 1007 Haste+Vers+Mastery+Crit for 8sec per consumed charge
 */
 
 const SERAPHIM_STAT_BUFF = 1007;
