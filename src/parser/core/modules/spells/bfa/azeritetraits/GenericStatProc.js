@@ -29,7 +29,7 @@ class GenericStatProc extends Analyzer {
     this.buffId = buffId;
     this.statId = statId;
 
-    if (this.traitId == null || this.buffId == null || this.statId == null){
+    if (this.traitId == null || this.buffId == null || this.statId == null) {
       this.active = false;
       return;
     }

@@ -7,7 +7,7 @@ export const STAT_TRACKER = {
 };
 
 /**
- * BloodRite
+ * Blood Rite
  * Gain x haste while active
  *
  * Example report: https://www.warcraftlogs.com/reports/k4bAJZKWVaGt12j9#fight=3&type=auras&source=14
