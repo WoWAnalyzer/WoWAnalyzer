@@ -1,12 +1,14 @@
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS';
+
 const MAX_FLASK_IDS = [
   SPELLS.FLASK_OF_THE_CURRENTS.id,
   SPELLS.FLASK_OF_ENDLESS_FATHOMS.id,
   SPELLS.FLASK_OF_THE_UNDERTOW.id,
   SPELLS.FLASK_OF_THE_VAST_HORIZON.id,
 ];
+
 class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
   on_toPlayer_applybuff(event) {
