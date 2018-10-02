@@ -52,6 +52,8 @@ import CritEffectBonus from './modules/helpers/CritEffectBonus';
 
 import PrePotion from './modules/items/PrePotion';
 import EnchantChecker from './modules/items/EnchantChecker';
+import FlaskChecker from './modules/items/FlaskChecker';
+import FoodChecker from './modules/items/FoodChecker';
 import Healthstone from './modules/items/Healthstone';
 import HealthPotion from './modules/items/HealthPotion';
 import CombatPotion from './modules/items/CombatPotion';
@@ -158,6 +160,8 @@ class CombatLogParser {
 
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
+    flaskChecker: FlaskChecker,
+    foodChecker: FoodChecker,
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
