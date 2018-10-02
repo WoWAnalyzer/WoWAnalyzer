@@ -5,19 +5,22 @@ import { formatDuration, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 const ENCHANTABLE_SLOTS = {
   15: 'MainHand',
   16: 'OffHand',
 };
 const MASTERFUL_NAVIGATION_ENCHANT = 5964;
-const MAX_STACKS = 5;
+const MAX_STACKS = 4;
 const MASTERY_PER_STACK = 50;
 const MASTERY_AT_MAX = 600;
+const INDEX_FOR_0_STACK_UPTIME = 0;
+
 /**
  * Masterful Navigation
  * Permanently enchant a weapon to sometimes increase Mastery by 50 for 30 sec, stacking up to 5 times. Upon reaching 5 stacks, all stacks are consumed to grant you 600 Mastery for 10 sec.
  *
- * Example: https://www.warcraftlogs.com/reports/j7XQrN8LcJKw1qM3#fight=29&type=auras&view=timeline&target=36
+ * Example: https://www.warcraftlogs.com/reports/1PzGDqayN6ATQJXZ#fight=last&type=auras&source=16
  */
 class MasterfulNavigation extends Analyzer {
   buffStacks = [];
@@ -81,6 +84,7 @@ class MasterfulNavigation extends Analyzer {
   }
   on_finished(event) {
     this.handleStacks(event, this.lastStacks);
+    this.buffStacks[INDEX_FOR_0_STACK_UPTIME].push(-this.maxStackBuffUptime()); //We lower 0 stack uptime by the amount of uptime we have on the big buff, as you cannot start stacking the small buff before the large one has fallen off.
   }
   maxStackBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.MASTERFUL_NAVIGATION_BUFF_BIG.id);
@@ -129,4 +133,5 @@ class MasterfulNavigation extends Analyzer {
     return tooltipData;
   }
 }
+
 export default MasterfulNavigation;
