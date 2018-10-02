@@ -77,6 +77,7 @@ import GalecallersBoon from './modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
 import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
+import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigation';
 
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -186,6 +187,7 @@ class CombatLogParser {
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
     // Enchants
     quickNavigation: QuickNavigation,
+    masterfulNavigation: MasterfulNavigation,
 
     // Azerite Traits
     gemhide: Gemhide,

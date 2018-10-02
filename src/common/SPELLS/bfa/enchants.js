@@ -20,4 +20,14 @@ export default {
     name: 'Quick Navigation',
     icon: 'ability_rogue_quickrecovery',
   },
+  MASTERFUL_NAVIGATION_BUFF_SMALL: {
+    id: 268898, //Enchant id 5964
+    name: 'Masterful Navigation',
+    icon: 'ability_paladin_selflesshealer',
+  },
+  MASTERFUL_NAVIGATION_BUFF_BIG: {
+    id: 268899, //Enchant id 5964
+    name: 'Masterful Navigation',
+    icon: 'ability_paladin_selflesshealer',
+  },
 };
