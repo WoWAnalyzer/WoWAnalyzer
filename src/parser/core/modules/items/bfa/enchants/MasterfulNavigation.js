@@ -110,11 +110,11 @@ class MasterfulNavigation extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {this.buffStacks.map((e, i) => (
-              <tr key={i}>
-                <th>{(i * MASTERY_PER_STACK).toFixed(0)}</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+            {this.buffStacks.map((buffUptime, stacks) => (
+              <tr key={stacks}>
+                <th>{(stacks * MASTERY_PER_STACK).toFixed(0)}</th>
+                <td>{formatDuration(buffUptime.reduce((sum, current) => sum + current, 0) / 1000)}</td>
+                <td>{formatPercentage(buffUptime.reduce((sum, current) => sum + current, 0) / this.owner.fightDuration)}%</td>
               </tr>
             ))}
             <tr key={this.buffStacks.length + 1}>
