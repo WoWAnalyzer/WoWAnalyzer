@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Khadaj } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
