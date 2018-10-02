@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-02'),
+    changes: <React.Fragment>Re-enabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module and added additional distribution information to it.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-09-22'),
     changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> and <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestions to use hits mitigated instead of uptime.</React.Fragment>,
     contributors: [emallson],

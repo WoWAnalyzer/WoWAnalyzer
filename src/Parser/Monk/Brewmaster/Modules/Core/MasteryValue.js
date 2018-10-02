@@ -329,7 +329,11 @@ class MasteryValue extends Analyzer {
 
       return n / k * binom(n-1, k-1);
     }
+
+    // pmf of the binomial distribution with n = totalDodgeableHits and
+    // p = expectedMeanDodge
     const dodge_prob = (i) => binom(this.totalDodgeableHits, i) * Math.pow(this.expectedMeanDodge, i) * Math.pow(1 - this.expectedMeanDodge, this.totalDodgeableHits - i);
+
     // probability of having dodge exactly k of the n incoming hits
     // assuming the expected mean dodge % is the true mean dodge %
     const dodge_probs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
