@@ -5,9 +5,39 @@ import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Contributor from 'Interface/Contributor/Button';
+import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-10-02'),
+    changes: 'Added a BFA-ready food and flasker checker to the well prepared checklist, with a lot of help from ArthurEnglebert',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-09-30'),
+    changes: 'Removed the suggestions for Healing Potions and Healthstones, and added their status to the death recap panel. The "you died" suggestions will now refer to this for more information.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-30'),
+    changes: 'The "you had mana left" suggestion will no longer show up on wipes.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-30'),
+    changes: 'The "you died" suggestion will no longer show up when you died within 15 seconds of a wipe.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-29'),
+    changes: 'Added a "spec currently not supported" page, since the about panel appeared to be insufficient.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-09-29'),
+    changes: 'Completely reworked the way reports are loaded to be much more maintainable. There were also some minor performance imprpvements.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-09-25'),
     changes: <React.Fragment> Added <SpellLink id={SPELLS.BLESSED_PORTENTS.id} /> module.</React.Fragment>,

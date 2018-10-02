@@ -1,4 +1,4 @@
-import CombatLogParser from 'Parser/Core/CombatLogParser';
+import CombatLogParser from 'parser/core/CombatLogParser';
 
 class TestCombatLogParser extends CombatLogParser {
   static defaultModules = {};

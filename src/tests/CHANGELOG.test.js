@@ -1,5 +1,5 @@
 import CHANGELOG from 'CHANGELOG';
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
 
 describe('CHANGELOG', () => {
   const allChangelogs = AVAILABLE_CONFIGS.reduce((obj, config) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'Interface/News/RegularArticle';
+import RegularArticle from 'interface/news/RegularArticle';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Warning from 'Interface/common/Alert/Warning';
+import Warning from 'interface/common/Alert/Warning';
 
 import EqualShare from './EqualShare.png';
 import FairShare from './FairShare.png';
