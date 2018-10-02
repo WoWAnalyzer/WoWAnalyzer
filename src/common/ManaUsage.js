@@ -20,6 +20,7 @@ const CHART_SIZE = 100;
 class ManaUsage extends Analyzer {
   listOfManaSpenders = {};
   manaSpenderCasts = {};
+  totalManaSpent = 0;
 
   legend(items, total) {
     const numItems = items.length;
@@ -104,6 +105,7 @@ class ManaUsage extends Analyzer {
     }
     this.manaSpenderCasts[spellId].casts += 1;
     this.manaSpenderCasts[spellId].manaUsed += event.resourceCost[RESOURCE_TYPES.MANA.id] || 0;
+    this.totalManaSpent += event.resourceCost[RESOURCE_TYPES.MANA.id] || 0;
   }
 
   manaUsageChart() {
