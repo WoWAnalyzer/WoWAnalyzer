@@ -5,9 +5,9 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const BONUS_DAMAGE_PER_STACK = 0.08;
 
@@ -48,13 +48,12 @@ class GrimoireOfSupremacy extends Analyzer {
     return (this.casts.reduce((total, current) => total + current, 0) / this.casts.length) || 0;
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<React.Fragment>Average <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stacks</React.Fragment>}
         value={this.averageStacks.toFixed(2)}
-        label="Average Grimoire of Supremacy stacks"
-        tooltip={`Bonus Chaos Bolt damage: ${formatThousands(this.damage)}. Note that due to Destruction Mastery, this is only an estimate (not taking Mastery into account).`}
+        valueTooltip={`Bonus Chaos Bolt damage: ${formatThousands(this.damage)}. Note that due to Destruction Mastery, this is only an estimate (not taking Mastery into account).`}
       />
     );
   }
