@@ -8,14 +8,10 @@ import Navigation from 'parser/core/modules/items/bfa/enchants/Navigation';
  * Example: https://www.warcraftlogs.com/reports/MNzkd2Kx9TCFwtgH/#fight=last&type=damage-done&source=88
  */
 class StalwartNavigation extends Navigation {
-  constructor(...args) {
-    super(...args);
-    this.enchantToTrack = 5966; // Weapon Enchant - Stalwart Navigation
-    this.smallBuffToTrack = SPELLS.STALWART_NAVIGATION_BUFF_SMALL.id;
-    this.bigBuffToTrack = SPELLS.STALWART_NAVIGATION_BUFF_BIG.id;
-    this.primairyStat = 'Armor';
-    this.active = this.hasTrackedEnchant();
-  }
+    static enchantId = 5966; // Weapon Enchant - Stalwart Navigation
+    static smallBuffId = SPELLS.STALWART_NAVIGATION_BUFF_SMALL.id;
+    static bigBuffId = SPELLS.STALWART_NAVIGATION_BUFF_BIG.id;
+    static primaryStat = 'Armor';
 }
 
 export default StalwartNavigation;

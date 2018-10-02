@@ -8,14 +8,10 @@ import Navigation from 'parser/core/modules/items/bfa/enchants/Navigation';
  * Example: https://www.warcraftlogs.com/reports/j7XQrN8LcJKw1qM3#fight=29&type=auras&view=timeline&target=36
  */
 class QuickNavigation extends Navigation {
-  constructor(...args) {
-    super(...args);
-    this.enchantToTrack = 5963; // Weapon Enchant - Quick Navigation
-    this.smallBuffToTrack = SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id;
-    this.bigBuffToTrack = SPELLS.QUICK_NAVIGATION_BUFF_BIG.id;
-    this.primairyStat = 'Haste';
-    this.active = this.hasTrackedEnchant();
-  }
+  static enchantId = 5963; // Weapon Enchant - Quick Navigation
+  static smallBuffId = SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id;
+  static bigBuffId = SPELLS.QUICK_NAVIGATION_BUFF_BIG.id;
+  static primaryStat = 'Haste';
 }
 
 export default QuickNavigation;

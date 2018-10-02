@@ -8,14 +8,10 @@ import Navigation from 'parser/core/modules/items/bfa/enchants/Navigation';
  * Example: https://www.warcraftlogs.com/reports/MNzkd2Kx9TCFwtgH/#fight=last&type=damage-done&source=7
  */
 class MasterfulNavigation extends Navigation {
-  constructor(...args) {
-    super(...args);
-    this.enchantToTrack = 5964; // Weapon Enchant - Masterful Navigation
-    this.smallBuffToTrack = SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id;
-    this.bigBuffToTrack = SPELLS.MASTERFUL_NAVIGATION_BUFF_BIG.id;
-    this.primairyStat = 'Mastery';
-    this.active = this.hasTrackedEnchant();
-  }
+  static enchantId = 5964; // Weapon Enchant - Masterful Navigation
+  static smallBuffId = SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id;
+  static bigBuffId = SPELLS.MASTERFUL_NAVIGATION_BUFF_BIG.id;
+  static primaryStat = 'Mastery';
 }
 
 export default MasterfulNavigation;

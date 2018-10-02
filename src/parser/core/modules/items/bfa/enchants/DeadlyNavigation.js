@@ -8,14 +8,10 @@ import Navigation from 'parser/core/modules/items/bfa/enchants/Navigation';
  * Example: https://www.warcraftlogs.com/reports/MNzkd2Kx9TCFwtgH/#fight=last&type=damage-done&source=14
  */
 class DeadlyNavigation extends Navigation {
-  constructor(...args) {
-    super(...args);
-    this.enchantToTrack = 5965; // Weapon Enchant - Deadly Navigation
-    this.smallBuffToTrack = SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id;
-    this.bigBuffToTrack = SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id;
-    this.primairyStat = 'Crit';
-    this.active = this.hasTrackedEnchant();
-  }
+  static enchantId = 5965; // Weapon Enchant - Deadly Navigation
+  static smallBuffId = SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id;
+  static bigBuffId = SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id;
+  static primaryStat = 'Crit';
 }
 
 export default DeadlyNavigation;
