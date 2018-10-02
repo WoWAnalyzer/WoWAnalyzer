@@ -13,8 +13,11 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
-const debug = true;
-// TODO: continue using this log http://localhost:3000/report/tkRQpja7Dc1GBFV2/42-Mythic+Taloc+-+Kill+(5:13)/24-Extji/events
+const debug = false;
+
+/*
+  Eradication - Chaos Bolt increases the damage you deal to the target by 10% for 7 sec
+ */
 class Eradication extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -80,7 +83,7 @@ class Eradication extends Analyzer {
   }
 
   get CBpercentage() {
-    return this._buffedCB / this._totalCB || 0;
+    return (this._buffedCB / this._totalCB) || 0;
   }
 
   get suggestionThresholds() {
@@ -96,18 +99,24 @@ class Eradication extends Analyzer {
   }
 
   _handleTravelSpellDamage(event) {
+    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
+      this._totalCB += 1;
+    }
     // first filter out old casts (could happen if player would cast something on a target and BEFORE it hits, it would die - then it couldn't be paired)
-    this.queue = this.queue.filter(cast => cast.timestamp <= (event.timestamp - MAX_TRAVEL_TIME));
+    this.queue = this.queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
     // try pairing damage event with casts in this.queue
     const castIndex = this.queue.findIndex(queuedCast => queuedCast.targetID === event.targetID
                                                   && queuedCast.targetInstance === event.targetInstance
                                                   && queuedCast.spellId === event.ability.guid);
     if (castIndex === -1) {
-      debug && console.log('Encountered damage event with no buffed cast associated, queue:', JSON.parse(JSON.stringify(this.queue)), 'event', event);
+      debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Encountered damage event with no buffed cast associated, queue:`, JSON.parse(JSON.stringify(this.queue)), 'event', event);
       return;
     }
 
     debug && console.log('Paired damage event', event, 'with queued cast', JSON.parse(JSON.stringify(this.queue[castIndex])));
+    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
+      this._buffedCB += 1;
+    }
     this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
     this.queue.splice(castIndex, 1);
   }
