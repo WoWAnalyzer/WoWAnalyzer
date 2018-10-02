@@ -10,5 +10,5 @@ describe('MasteryValue', function() {
     expect(roundDodge(baseDodge(4849))).toBe(0.1281);
     expect(roundDodge(baseDodge(4306))).toBe(0.1181);
     expect(roundDodge(baseDodge(3681))).toBe(0.1064);
-  })
-})
+  });
+});
