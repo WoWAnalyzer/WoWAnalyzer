@@ -112,6 +112,7 @@ class Navigation extends Analyzer {
   }
   item() {
     const buffStacks = this.cleanStacks;
+    const maxStackBuffDuration = this.maxStackBuffUptime();
     const tooltipData = (
       <ExpandableStatisticBox
         icon={<SpellIcon id={this.smallBuffToTrack} />}
@@ -134,6 +135,9 @@ class Navigation extends Analyzer {
                 buffStacks[stackSize].forEach((occurrence) => {
                   totalStackDuration += occurrence.duration;
                 });
+                if (stackSize === '0'){
+                  totalStackDuration -= maxStackBuffDuration;
+                }
 
                 return (
                   <tr key={stackSize}>
@@ -146,8 +150,8 @@ class Navigation extends Analyzer {
             }
             <tr key="max">
               <th>{this.statAtMax}</th>
-              <td>{formatDuration(this.maxStackBuffUptime() / 1000)}</td>
-              <td>{formatPercentage(this.maxStackBuffUptime() / this.owner.fightDuration)}%</td>
+              <td>{formatDuration(maxStackBuffDuration / 1000)}</td>
+              <td>{formatPercentage(maxStackBuffDuration / this.owner.fightDuration)}%</td>
             </tr>
           </tbody>
         </table>
