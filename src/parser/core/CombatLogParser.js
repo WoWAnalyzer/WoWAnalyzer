@@ -207,7 +207,8 @@ class CombatLogParser {
     bloodRite: BloodRite,
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
-
+    tidalSurge: TidalSurge,
+    
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
