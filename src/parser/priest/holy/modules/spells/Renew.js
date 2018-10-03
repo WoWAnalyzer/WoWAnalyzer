@@ -13,7 +13,7 @@ class Renew extends Analyzer {
   renewsCast = 0;
   totalRenewApplications = 0;
 
-  salvationEnabled = false;
+  salvationActive = false;
   lastSalvationCast = 0;
   renewsFromSalvation = 0;
 
@@ -27,6 +27,9 @@ class Renew extends Analyzer {
   constructor(...args) {
     super(...args);
 
+    if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
+      this.salvationActive = true;
+    }
     if (this.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id)) {
       this.enduringRenewalEnabled = true;
     }
@@ -95,7 +98,7 @@ class Renew extends Analyzer {
 
     this.totalRenewApplications++;
 
-    if (this.salvationEnabled && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
+    if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
       this.renewsFromSalvation++;
     }
     else if (this.enduringRenewalActive && event.timestamp - this.lastEnduringRenewalSpellCast < MS_BUFFER) {
