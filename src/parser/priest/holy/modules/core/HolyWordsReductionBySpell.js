@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
@@ -17,6 +18,7 @@ class HolyWordsReductionBySpell extends Analyzer {
     sanctify: HolyWordSanctify,
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
+    salvation: HolyWordSalvation,
   };
 
   constructor(...args) {
@@ -35,6 +37,8 @@ class HolyWordsReductionBySpell extends Analyzer {
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.sanctify.totalHolyWordReductionPerSpellPerTalent);
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.serenity.totalHolyWordReductionPerSpellPerTalent);
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.chastise.totalHolyWordReductionPerSpellPerTalent);
+    totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.salvation.totalHolyWordReductionPerSpellPerTalent);
+
     return totalReductionBySpell;
   }
 
