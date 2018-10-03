@@ -44,7 +44,13 @@
     "@babel/core": "^7.1.2",
     "@lingui/cli": "^2.7.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "9.x",
     "dotenv": "^6.0.0",
+    "eslint": "5.x",
+    "eslint-plugin-flowtype": "2.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "^7.5",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "webpack": "4.19.1"
