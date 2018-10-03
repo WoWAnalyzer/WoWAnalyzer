@@ -5,14 +5,17 @@ import { formatDuration, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 const ENCHANTABLE_SLOTS = {
   15: 'MainHand',
   16: 'OffHand',
 };
 const QUICK_NAVIGATION_ENCHANT = 5963;
-const MAX_STACKS = 5;
+const MAX_STACKS = 4; //Max Stacks is 4 - the fifth stack triggers the big buff.
 const HASTE_PER_STACK = 50;
 const HASTE_AT_MAX = 600;
+const INDEX_FOR_0_STACK_UPTIME = 0;
+
 /**
  * Quick Navigation
  * Permanently enchant a weapon to sometimes increase Haste by 50 for 30 sec, stacking up to 5 times. Upon reaching 5 stacks, all stacks are consumed to grant you 600 Haste for 10 sec.
@@ -81,6 +84,7 @@ class QuickNavigation extends Analyzer {
   }
   on_finished(event) {
     this.handleStacks(event, this.lastStacks);
+    this.buffStacks[INDEX_FOR_0_STACK_UPTIME].push(-this.maxStackBuffUptime()); //We lower 0 stack uptime by the amount of uptime we have on the big buff, as you cannot start stacking the small buff before the large one has fallen off.
   }
   maxStackBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.QUICK_NAVIGATION_BUFF_BIG.id);
@@ -90,9 +94,11 @@ class QuickNavigation extends Analyzer {
     this.buffStacks.forEach((durations, stackSize) => {
       averageStacks += durations.reduce((totalDuration, duration) => totalDuration + duration) / this.owner.fightDuration * stackSize;
     });
+
     const maxStackUptimePercentage = this.maxStackBuffUptime() / this.owner.fightDuration;
     return (averageStacks * HASTE_PER_STACK + maxStackUptimePercentage * HASTE_AT_MAX).toFixed(2);
   }
+
   item() {
     const tooltipData = (
       <ExpandableStatisticBox
@@ -129,4 +135,5 @@ class QuickNavigation extends Analyzer {
     return tooltipData;
   }
 }
+
 export default QuickNavigation;
