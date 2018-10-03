@@ -28,8 +28,8 @@ const BOP_ABILITIES = [
 
 class BirdOfPrey extends Analyzer {
 
-  petTarget;
-  playerTarget;
+  petTarget = null;
+  playerTarget = null;
   coordinatedAssaultExtended = 0;
   wastedExtension = 0;
   timestampAoE = 0;
