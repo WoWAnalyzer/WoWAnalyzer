@@ -92,13 +92,7 @@ class Darkglare extends Analyzer {
     if (!DOT_DEBUFF_IDS.includes(spellId)) {
       return;
     }
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    const encoded = encodeTargetString(event.targetID, event.targetInstance);
-    this.dots[encoded] = this.dots[encoded] || { targetName: enemy.name, dots: {} };
-    this._resetDotOnTarget(spellId, encoded, event.timestamp);
+    this._resetDotOnTarget(event);
   }
 
   on_byPlayer_removedebuff(event) {
@@ -111,7 +105,7 @@ class Darkglare extends Analyzer {
       return;
     }
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.dots[encoded]) {
+    if (!this.dots[encoded] || !this.dots[encoded].dots[spellId]) {
       debug && console.log(`Remove debuff on not-recorded mob - ${encoded}`, event);
       return;
     }
@@ -144,8 +138,11 @@ class Darkglare extends Analyzer {
     }
     // check if it's an extended dot dmg
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.dots[encoded]) {
-      debug && console.log(`Dot tick on unknown encoded target - ${encoded}, time: ${this.owner.formatTimestamp(event.timestamp, 3)} (${event.timestamp}), current this.dots:`, JSON.parse(JSON.stringify(this.dots)));
+    if (!this.dots[encoded] || !this.dots[encoded].dots[spellId]) {
+      debug && console.log(`Dot tick (${event.ability.name}) on unknown encoded target - ${encoded}, time: ${this.owner.formatTimestamp(event.timestamp, 3)} (${event.timestamp}), current this.dots:`, JSON.parse(JSON.stringify(this.dots)));
+      // I know this isn't entirely accurate, but it's better to be a little off than not track the dot altogether (until the first recast)
+      // for example Agony casted somehow "prepull" (no applybuff or cast in logs), and extended can tick for about 20 seconds without being "recognized"
+      this._resetDotOnTarget(event);
       return;
     }
     const dotInfo = this.dots[encoded].dots[spellId];
@@ -201,18 +198,17 @@ class Darkglare extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    // return if the target doesn't have the debuff (cast should always precede applydebuff)
-    const encoded = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.dots[encoded] || !this.dots[encoded][spellId]) {
-      return;
-    }
-    this._resetDotOnTarget(spellId, encoded, event.timestamp);
+    this._resetDotOnTarget(event);
   }
 
-  _resetDotOnTarget(spellId, target, timestamp) {
+  _resetDotOnTarget(event) {
+    const enemy = this.enemies.getEntity(event);
+    const spellId = event.ability.guid;
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    this.dots[target] = this.dots[target] || { targetName: enemy.name, dots: {} };
     this.dots[target].dots[spellId] = {
-      cast: timestamp,
-      expectedEnd: timestamp + this._dotDurations[spellId],
+      cast: event.timestamp,
+      expectedEnd: event.timestamp + this._dotDurations[spellId],
       extendStart: null,
       extendExpectedEnd: null,
     };
