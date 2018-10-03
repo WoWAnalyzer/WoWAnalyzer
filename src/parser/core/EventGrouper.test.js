@@ -36,8 +36,6 @@ describe('EventGrouper', () => {
     // Add the boys in
     events.forEach(eventProcessor);
 
-    console.log(eventGrouper.cache);
-
     expect(eventGrouper.cache[1][0]).toEqual({ timestamp: 1 });
     expect(eventGrouper.cache[1][1]).toEqual({ timestamp: 99 });
     expect(eventGrouper.cache[102][0]).toEqual({ timestamp: 102 });

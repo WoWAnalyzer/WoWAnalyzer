@@ -21,7 +21,7 @@ jobs:
         directories:
           - node_modules
       install:
-        - npm install
+        - npm install --dev
       script:
         - npm run test -- --maxWorkers=2
     - stage: test
@@ -42,7 +42,7 @@ jobs:
           - node_modules
           - server/node_modules
       install:
-        - npm install
+        - npm install --dev
         - cd server && npm install --dev && cd ..
       script:
         - echo "> Build server"
