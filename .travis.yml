@@ -13,7 +13,7 @@ jobs:
         directories:
           - node_modules
       install:
-        - npm install
+        - npm install --dev
       script:
         - npm run lint -- --max-warnings=0
     - stage: test
