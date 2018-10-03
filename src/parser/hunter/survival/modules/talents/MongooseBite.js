@@ -9,10 +9,11 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MAX_STACKS = 5;
 
-const MAX_TRAVEL_TIME = 500;
+const MAX_TRAVEL_TIME = 700;
 
 /**
  * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive
@@ -44,9 +45,13 @@ class MongooseBite extends Analyzer {
     if (event.type === 'damage') {
       // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
       // This fixes that, ensuring we reduce by 1, and later increasing it by one.
+
       if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
         this.lastMongooseBiteStack -= 1;
         this.aspectOfTheEagleFixed = true;
+      }
+      if (this.lastMongooseBiteStack === 1) {
+        console.log("Her er der 1 stack", event.timestamp);
       }
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
         this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
@@ -120,6 +125,7 @@ class MongooseBite extends Analyzer {
     return (
       <ExpandableStatisticBox
         position={STATISTIC_ORDER.CORE(15)}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
         value={`${this.fiveStackMongooseBites}/${this.totalMongooseBites}`}
         label="5 stack bites"

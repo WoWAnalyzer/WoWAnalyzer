@@ -38,6 +38,9 @@ class StatTracker extends Analyzer {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
     [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
+    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 },
+    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 },
+    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 },
     // endregion
 
     // region Runes
@@ -49,6 +52,10 @@ class StatTracker extends Analyzer {
     [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 59 },
     [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 59 },
     [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 88 },
+    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 238 },
+    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect : 238 },
+    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength : 238 },
+    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina : 357 },
     // endregion
 
     //region Food
@@ -61,6 +68,22 @@ class StatTracker extends Analyzer {
     [SPELLS.AGI_FEAST.id]: { agility: 23 },
     [SPELLS.INT_FEAST.id]: { intellect: 23 },
     [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
+    [SPELLS.KUL_TIRAMISU.id]: { crit: 41},
+    [SPELLS.LOA_LEAF.id]: { mastery: 41 },
+    [SPELLS.RAVENBERRY_TARTS.id]: { haste: 41 },
+    [SPELLS.MON_DAZI.id]: { versatility: 41 },
+    [SPELLS.HONEY_GLAZED_HAUNCHES.id]: { crit: 55 },
+    [SPELLS.SAILOR_PIE.id]: { mastery: 55 },
+    [SPELLS.SWAMP_FISH_N_CHIPS.id]: { haste: 55 },
+    [SPELLS.SPICED_SNAPPER.id]: { versatility: 55 },
+    [SPELLS.GALLEY_BANQUET_INT.id]: { intellect: 75 },
+    [SPELLS.GALLEY_BANQUET_STR.id]: { strength: 75 },
+    [SPELLS.GALLEY_BANQUET_AGI.id]: { agility: 75 },
+    [SPELLS.GALLEY_BANQUET_STA.id]: { stamina: 113 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id]: { intellect: 100 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 100 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 100 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STA.id]: { stamina: 150 },
     //endregion
 
     // region Dungeon Trinkets

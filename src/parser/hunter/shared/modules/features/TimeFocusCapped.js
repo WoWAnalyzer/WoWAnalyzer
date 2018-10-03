@@ -29,7 +29,9 @@ class TimeFocusCapped extends Analyzer {
     // This Azerite Trait makes it so you want to spam your focus generator even whilst focus capped for procs,
     // this leads to gameplay where you're spending 50% of the time focuscapped, making this module irrelevant
     this.hasSA = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
-    this.active = !this.hasSA;
+    if (this.hasSA && this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
+      this.active = false;
+    }
   }
 
   get getTotalWaste() {

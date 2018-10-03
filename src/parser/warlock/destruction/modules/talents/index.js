@@ -8,6 +8,7 @@ import ReverseEntropy from './ReverseEntropy';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
 import SoulConduit from './SoulConduit';
+import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
@@ -15,6 +16,7 @@ class TalentStatisticBox extends Analyzer {
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
+    grimoireOfSupremacy: GrimoireOfSupremacy,
   };
 
   constructor(...args) {

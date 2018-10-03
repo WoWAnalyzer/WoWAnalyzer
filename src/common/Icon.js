@@ -7,7 +7,7 @@ const Icon = ({ icon, alt, ...others }) => {
   if (!icon) {
     return null;
   }
-  icon = icon.replace('.jpg', '').replace('-', '');
+  icon = icon.replace('.jpg', '').replace(/-/g, '');
   if (icon === 'petbattle_healthdown') {
     // Blizzard seems to have forgotten to remove the dash for this one... or something
     icon = 'petbattle_health-down';

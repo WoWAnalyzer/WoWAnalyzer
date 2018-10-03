@@ -10,19 +10,19 @@ const ENCHANTABLE_SLOTS = {
   15: 'MainHand',
   16: 'OffHand',
 };
-const QUICK_NAVIGATION_ENCHANT = 5963;
-const MAX_STACKS = 4; //Max Stacks is 4 - the fifth stack triggers the big buff.
-const HASTE_PER_STACK = 50;
-const HASTE_AT_MAX = 600;
+const MASTERFUL_NAVIGATION_ENCHANT = 5964;
+const MAX_STACKS = 4;
+const MASTERY_PER_STACK = 50;
+const MASTERY_AT_MAX = 600;
 const INDEX_FOR_0_STACK_UPTIME = 0;
 
 /**
- * Quick Navigation
- * Permanently enchant a weapon to sometimes increase Haste by 50 for 30 sec, stacking up to 5 times. Upon reaching 5 stacks, all stacks are consumed to grant you 600 Haste for 10 sec.
+ * Masterful Navigation
+ * Permanently enchant a weapon to sometimes increase Mastery by 50 for 30 sec, stacking up to 5 times. Upon reaching 5 stacks, all stacks are consumed to grant you 600 Mastery for 10 sec.
  *
- * Example: https://www.warcraftlogs.com/reports/j7XQrN8LcJKw1qM3#fight=29&type=auras&view=timeline&target=36
+ * Example: https://www.warcraftlogs.com/reports/1PzGDqayN6ATQJXZ#fight=last&type=auras&source=16
  */
-class QuickNavigation extends Analyzer {
+class MasterfulNavigation extends Analyzer {
   buffStacks = [];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
@@ -32,16 +32,16 @@ class QuickNavigation extends Analyzer {
       return obj;
     }, {});
   }
-  itemHasQuickNavigationEnchant(item) {
-    return item && item.permanentEnchant === QUICK_NAVIGATION_ENCHANT;
+  itemHasMasterfulNavigationEnchant(item) {
+    return item && item.permanentEnchant === MASTERFUL_NAVIGATION_ENCHANT;
   }
-  hasQuickNavigationEnchant() {
+  hasMasterfulNavigationEnchant() {
     const items = this.getEnchantableGear();
-    return Object.values(items).some(item => this.itemHasQuickNavigationEnchant(item));
+    return Object.values(items).some(item => this.itemHasMasterfulNavigationEnchant(item));
   }
   constructor(...args) {
     super(...args);
-    this.active = this.hasQuickNavigationEnchant();
+    this.active = this.hasMasterfulNavigationEnchant();
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
   handleStacks(event, stack = null) {
@@ -59,25 +59,25 @@ class QuickNavigation extends Analyzer {
     this.lastStacks = event.stack;
   }
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id) {
+    if (event.ability.guid !== SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id) {
       return;
     }
     this.handleStacks(event);
   }
   on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id) {
+    if (event.ability.guid !== SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id) {
       return;
     }
     this.handleStacks(event);
   }
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id) {
+    if (event.ability.guid !== SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id) {
       return;
     }
     this.handleStacks(event);
   }
   on_byPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id) {
+    if (event.ability.guid !== SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id) {
       return;
     }
     this.handleStacks(event);
@@ -87,44 +87,42 @@ class QuickNavigation extends Analyzer {
     this.buffStacks[INDEX_FOR_0_STACK_UPTIME].push(-this.maxStackBuffUptime()); //We lower 0 stack uptime by the amount of uptime we have on the big buff, as you cannot start stacking the small buff before the large one has fallen off.
   }
   maxStackBuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.QUICK_NAVIGATION_BUFF_BIG.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.MASTERFUL_NAVIGATION_BUFF_BIG.id);
   }
-  get averageHaste() {
+  get averageMastery() {
     let averageStacks = 0;
     this.buffStacks.forEach((durations, stackSize) => {
       averageStacks += durations.reduce((totalDuration, duration) => totalDuration + duration) / this.owner.fightDuration * stackSize;
     });
-
     const maxStackUptimePercentage = this.maxStackBuffUptime() / this.owner.fightDuration;
-    return (averageStacks * HASTE_PER_STACK + maxStackUptimePercentage * HASTE_AT_MAX).toFixed(2);
+    return (averageStacks * MASTERY_PER_STACK + maxStackUptimePercentage * MASTERY_AT_MAX).toFixed(2);
   }
-
   item() {
     const tooltipData = (
       <ExpandableStatisticBox
-        icon={<SpellIcon id={SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id} />}
-        value={`${this.averageHaste}`}
-        label="average haste gained"
+        icon={<SpellIcon id={SPELLS.MASTERFUL_NAVIGATION_BUFF_SMALL.id} />}
+        value={`${this.averageMastery}`}
+        label="average mastery gained"
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Haste-Bonus</th>
+              <th>Mastery-Bonus</th>
               <th>Time (s)</th>
               <th>Time (%)</th>
             </tr>
           </thead>
           <tbody>
-            {this.buffStacks.map((e, i) => (
-              <tr key={i}>
-                <th>{(i * HASTE_PER_STACK).toFixed(0)}</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+            {this.buffStacks.map((buffUptime, stacks) => (
+              <tr key={stacks}>
+                <th>{(stacks * MASTERY_PER_STACK).toFixed(0)}</th>
+                <td>{formatDuration(buffUptime.reduce((sum, current) => sum + current, 0) / 1000)}</td>
+                <td>{formatPercentage(buffUptime.reduce((sum, current) => sum + current, 0) / this.owner.fightDuration)}%</td>
               </tr>
             ))}
             <tr key={this.buffStacks.length + 1}>
-              <th>{HASTE_AT_MAX}</th>
+              <th>{MASTERY_AT_MAX}</th>
               <td>{formatDuration(this.maxStackBuffUptime() / 1000)}</td>
               <td>{formatPercentage(this.maxStackBuffUptime() / this.owner.fightDuration)}%</td>
             </tr>
@@ -136,4 +134,4 @@ class QuickNavigation extends Analyzer {
   }
 }
 
-export default QuickNavigation;
+export default MasterfulNavigation;

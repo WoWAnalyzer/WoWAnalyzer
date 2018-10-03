@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
@@ -17,6 +18,7 @@ class HolyWordsReductionBySpell extends Analyzer {
     sanctify: HolyWordSanctify,
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
+    salvation: HolyWordSalvation,
   };
 
   constructor(...args) {
@@ -35,6 +37,8 @@ class HolyWordsReductionBySpell extends Analyzer {
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.sanctify.totalHolyWordReductionPerSpellPerTalent);
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.serenity.totalHolyWordReductionPerSpellPerTalent);
     totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.chastise.totalHolyWordReductionPerSpellPerTalent);
+    totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.salvation.totalHolyWordReductionPerSpellPerTalent);
+
     return totalReductionBySpell;
   }
 
@@ -61,20 +65,19 @@ class HolyWordsReductionBySpell extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
         value={`${formatPercentage(reductionRatio)} %`}
-        label="Effective HolyWord reduction"
+        label="Effective Holy Word reduction"
         tooltip={`The % above is the total CD reduction normalize against the fight length.</br>
                   This allows for comparision across different fights more easily.</br></br>
                   Talents like <b>Light of the Naaru</b> and <b>Apotheosis</b> which provide </br>
                   further CD reduction are taken into account when calculating these numbers.</br></br>
                   If you took the talent <b>Holy Word Salvation</b>, <b>Holy Words Sanctify	and Serenity</b>
                   will show since they provide CD reduction for <b>Holy World Salvation</b>.`}
-
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Spell</th>
-              <th>Base</th>
+              <td className={"text-left"}>Spell</td>
+              <td>Base</td>
               {this.apotheosisActive ? <th>Apotheosis</th> : ''}
               {this.lightOfTheNaaruActive ? <th>Light of the Naaru</th> : ''}
             </tr>
@@ -82,7 +85,7 @@ class HolyWordsReductionBySpell extends Analyzer {
           <tbody>
             {Object.keys(reductionBySpell).map((e, i) => (
               <tr key={i}>
-                <td><SpellIcon id={e} /></td>
+                <td className={"text-left"}><SpellIcon id={e} /> {SPELLS[e].name}</td>
                 <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
                 {this.apotheosisActive ? <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td> : ''}
                 {this.lightOfTheNaaruActive ? <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td> : ''}
