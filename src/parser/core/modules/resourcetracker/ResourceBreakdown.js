@@ -63,7 +63,7 @@ class ResourceBreakdown extends React.Component {
           <tbody>
             {generated && generated
               .map(ability => (
-                <tr>
+                <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.abilityId} />
                   </td>
@@ -101,7 +101,7 @@ class ResourceBreakdown extends React.Component {
             <tbody>
               {spent && spent
                 .map(ability => (
-                  <tr>
+                  <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
                       <SpellLink id={ability.abilityId} />
                     </td>
