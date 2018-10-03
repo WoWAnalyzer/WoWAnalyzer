@@ -11,6 +11,8 @@ class HpmBreakdown extends React.Component {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
 
+    console.log(tracker.spellDetails);
+
     return (
       <div>
         <table className="data-table">
@@ -22,9 +24,11 @@ class HpmBreakdown extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <td>Ability</td>
-            <td colSpan="2">{resourceName} generated</td>
-            <td colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></td>
+            <tr>
+              <td>Ability</td>
+              <td colSpan="2">{resourceName} generated</td>
+              <td colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></td>
+            </tr>
           </tbody>
         </table>
       </div>
