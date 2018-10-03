@@ -11,6 +11,7 @@ import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
 
 import ArcaneCharges from './normalizers/ArcaneCharges';
+import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
 
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcanePower from './modules/features/ArcanePower';
@@ -32,7 +33,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     arcaneCharges: ArcaneCharges,
-    
+    prePullCooldowns: PrePullCooldowns,
+
     // Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
