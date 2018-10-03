@@ -46,6 +46,7 @@ import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
 // Mana Tracker
 import HpmDetails from './modules/features/hpmTracker/HpmDetails';
 import HpmTracker from './modules/features/hpmTracker/HpmTracker';
+import ManaTracker from './modules/features/hpmTracker/ManaTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -120,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     twistMagic: TwistMagic,
 
     // Mana Tab
+    manaTracker: ManaTracker,
     hpmDetails: HpmDetails,
     hpmTracker: HpmTracker,
   };
