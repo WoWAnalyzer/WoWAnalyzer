@@ -197,6 +197,16 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
       },
+      {
+        spell: SPELLS.PROVOKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SPEAR_HAND_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {
         spell: SPELLS.DETOX,

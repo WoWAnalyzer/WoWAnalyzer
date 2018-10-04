@@ -3,7 +3,6 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/core/modules/StatTracker';
-import { HIGH_TOLERANCE_HASTE_FNS } from 'parser/monk/brewmaster/modules/spells/HighTolerance';
 import BLOODLUST_BUFFS from 'parser/core/constants/BLOODLUST_BUFFS';
 
 const debug = false;
@@ -25,7 +24,6 @@ class Haste extends Analyzer {
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-    ...HIGH_TOLERANCE_HASTE_FNS,
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
