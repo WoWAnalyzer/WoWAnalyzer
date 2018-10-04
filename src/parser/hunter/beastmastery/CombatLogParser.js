@@ -19,6 +19,7 @@ import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
+import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 
 //Spells
 import BestialWrathAverageFocus from "./modules/spells/bestialwrath/BestialWrathAverageFocus";
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     killerCobra: KillerCobra,
     stampede: Stampede,
     stomp: Stomp,
+    aMurderOfCrows: AMurderOfCrows,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
