@@ -183,7 +183,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.1,
           importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: <React.Fragment>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</React.Fragment>,
+          extraSuggestion: <>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</>,
         },
       },
       {

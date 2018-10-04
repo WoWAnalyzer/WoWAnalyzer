@@ -86,7 +86,7 @@ class Stats extends React.PureComponent {
     ];
 
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col-md-12">
             <h2>
@@ -135,7 +135,7 @@ class Stats extends React.PureComponent {
             </div>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -12,7 +12,7 @@ export default [
   },
   { 
     date: new Date('2018-6-21'),
-    changes: <React.Fragment>Removed Stellar Empowerment and added haste tracker for <SpellLink id={SPELLS.STARLORD_TALENT.id} /></React.Fragment>,
+    changes: <>Removed Stellar Empowerment and added haste tracker for <SpellLink id={SPELLS.STARLORD_TALENT.id} /></>,
     contributors: [Gebuz],
   },
 ];

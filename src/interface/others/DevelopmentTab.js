@@ -282,7 +282,7 @@ class DevelopmentTab extends React.Component {
     const combatant = parser._modules.combatants.selected;
 
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col-md-12">
             <div className="alert alert-success">
@@ -366,7 +366,7 @@ class DevelopmentTab extends React.Component {
             </ul>
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -201,28 +201,28 @@ class ArcanePower extends Analyzer {
 	suggestions(when) {
 		when(this.cooldownSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.badUses} times without meeting the pre-requisites. Before casting Arcane Power you should ensure that you have 4 Arcane Charges{this.hasOverpowered ? '' : ' and at least 40% mana to avoid going OOM during Arcane Power'}. {this.hasRuneOfPower ? 'Additionally, you should ensure that you have at least 1 charge of Rune of Power, and you should cast it immediately before casting Arcane Power.' : ''}</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.badUses} times without meeting the pre-requisites. Before casting Arcane Power you should ensure that you have 4 Arcane Charges{this.hasOverpowered ? '' : ' and at least 40% mana to avoid going OOM during Arcane Power'}. {this.hasRuneOfPower ? 'Additionally, you should ensure that you have at least 1 charge of Rune of Power, and you should cast it immediately before casting Arcane Power.' : ''}</>)
 					.icon(SPELLS.ARCANE_POWER.icon)
 					.actual(`${formatPercentage(this.cooldownUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 		when(this.castSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</React.Fragment>)
+				return suggest(<>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</>)
 					.icon(SPELLS.ARCANE_POWER.icon)
 					.actual(`${formatPercentage(this.castUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 		when(this.manaUtilizationThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : '' }</React.Fragment>)
+				return suggest(<>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : '' }</>)
 					.icon(SPELLS.ARCANE_POWER.icon)
 					.actual(`${formatPercentage(this.manaUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 		when(this.arcanePowerOnKillSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment><SpellLink id={SPELLS.ARCANE_POWER.id} /> was available to be cast when the boss died. You should ensure that you are casting Arcane Power on cooldown, especially at the end of the fight to get a little bit of last minute damage into the boss.</React.Fragment>)
+				return suggest(<><SpellLink id={SPELLS.ARCANE_POWER.id} /> was available to be cast when the boss died. You should ensure that you are casting Arcane Power on cooldown, especially at the end of the fight to get a little bit of last minute damage into the boss.</>)
 					.icon(SPELLS.ARCANE_POWER.icon)
 					.staticImportance(ISSUE_IMPORTANCE.REGULAR);
 			});

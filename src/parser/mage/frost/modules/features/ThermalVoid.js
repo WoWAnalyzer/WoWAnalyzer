@@ -58,7 +58,7 @@ class ThermalVoid extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> duration boost can be improved. Make sure you use <SpellLink id={SPELLS.FROZEN_ORB.id} /> during <SpellLink id={SPELLS.ICY_VEINS.id} /> in order to get extra <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> Procs</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> duration boost can be improved. Make sure you use <SpellLink id={SPELLS.FROZEN_ORB.id} /> during <SpellLink id={SPELLS.ICY_VEINS.id} /> in order to get extra <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> Procs</>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`);

@@ -83,7 +83,7 @@ class MeticulousScheming extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You procced <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} /> {this.meticulousSchemingProcs} times but got <SpellLink id={SPELLS.SEIZE_THE_MOMENT.id} /> only {this.seizeTheMomentProcs} times. That means you failed to cast 3 different spells within the 8sec window to trigger the haste buff. Pay more attention to the proc to get the most ouf of this trait.</React.Fragment>)
+        return suggest(<>You procced <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} /> {this.meticulousSchemingProcs} times but got <SpellLink id={SPELLS.SEIZE_THE_MOMENT.id} /> only {this.seizeTheMomentProcs} times. That means you failed to cast 3 different spells within the 8sec window to trigger the haste buff. Pay more attention to the proc to get the most ouf of this trait.</>)
           .icon(SPELLS.METICULOUS_SCHEMING.icon)
           .actual(`${(formatPercentage(actual))}% ${SPELLS.METICULOUS_SCHEMING.name} efficiency`)
           .recommended(`100% is recommended`);

@@ -87,9 +87,9 @@ class Overhealing extends Analyzer {
   suggestions(when) {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
         .actual(`${formatPercentage(actual)}% overhealing`)
@@ -98,9 +98,9 @@ class Overhealing extends Analyzer {
 
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
         .actual(`${formatPercentage(actual)}% overhealing`)
@@ -109,9 +109,9 @@ class Overhealing extends Analyzer {
 
     when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
         .actual(`${formatPercentage(actual)}% overhealing`)
@@ -120,9 +120,9 @@ class Overhealing extends Analyzer {
 
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
         .actual(`${formatPercentage(actual)}% overhealing`)

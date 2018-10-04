@@ -103,12 +103,12 @@ class ReportLoader extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle title={report.title} />
 
         {this.props.children(report, this.handleRefresh)}
-      </React.Fragment>
+      </>
     );
   }
 }

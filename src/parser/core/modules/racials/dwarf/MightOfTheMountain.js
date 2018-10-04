@@ -107,10 +107,10 @@ class MightOfTheMountain extends Analyzer {
         break;
       default:
         value = (
-          <React.Fragment>
+          <>
             <ItemHealingDone amount={this.healing} /><br />
             <ItemDamageDone amount={this.damage} />
-          </React.Fragment>
+          </>
         );
         break;
     }
