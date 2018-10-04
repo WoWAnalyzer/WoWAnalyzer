@@ -11,6 +11,7 @@ import SerpentSting from '../spells/SerpentSting';
 import VipersVenom from '../talents/VipersVenom';
 import ButcheryCarve from '../spells/ButcheryCarve';
 import MongooseBite from '../talents/MongooseBite';
+import CoordinatedAssault from '../spells/CoordinatedAssault';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
@@ -20,6 +21,7 @@ class TraitsAndTalents extends Analyzer {
     butcheryCarve: ButcheryCarve,
     steelTrap: SteelTrap,
     mongooseBite: MongooseBite,
+    coordinatedAssault: CoordinatedAssault,
   };
 
   constructor(...args) {
@@ -43,6 +45,7 @@ class TraitsAndTalents extends Analyzer {
         {this.vipersVenom.active && this.vipersVenom.subStatistic()}
         {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
+        {this.coordinatedAssault.active && this.coordinatedAssault.subStatistic()}
       </StatisticsListBox>
 
     );

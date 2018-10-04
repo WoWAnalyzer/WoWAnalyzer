@@ -79,6 +79,7 @@ import GalecallersBoon from './modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
 import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
+import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigation';
 
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -95,6 +96,8 @@ import ElementalWhirl from './modules/spells/bfa/azeritetraits/ElementalWhirl';
 import BloodRite from './modules/spells/bfa/azeritetraits/BloodRite';
 import ConcentratedMending from './modules/spells/bfa/azeritetraits/ConcentratedMending';
 import BlessedPortents from './modules/spells/bfa/azeritetraits/BlessedPortents';
+import TidalSurge from './modules/spells/bfa/azeritetraits/TidalSurge';
+
 // Uldir
 import TwitchingTentacleofXalzaix from './modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -190,6 +193,7 @@ class CombatLogParser {
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
     // Enchants
     quickNavigation: QuickNavigation,
+    masterfulNavigation: MasterfulNavigation,
 
     // Azerite Traits
     gemhide: Gemhide,
@@ -202,6 +206,7 @@ class CombatLogParser {
     bloodRite: BloodRite,
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
+    tidalSurge: TidalSurge,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,

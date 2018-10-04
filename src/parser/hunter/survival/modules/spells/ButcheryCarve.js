@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -32,10 +33,12 @@ class ButcheryCarve extends Analyzer {
   casts = 0;
   spellKnown;
   bonusDamage = 0;
+  hasButchery = false;
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
+    this.hasButchery = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id);
+    if (this.hasButchery) {
       this.spellKnown = SPELLS.BUTCHERY_TALENT;
     } else {
       this.spellKnown = SPELLS.CARVE;
@@ -101,14 +104,25 @@ class ButcheryCarve extends Analyzer {
   statistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
-      return (
-        <StatisticBox
-          position={STATISTIC_ORDER.CORE(16)}
-          icon={<SpellIcon id={this.spellKnown.id} />}
-          value={this.averageTargetsHit}
-          label="Average targets hit"
-        />
-      );
+      if (this.hasButchery) {
+        return (
+          <TalentStatisticBox
+            position={STATISTIC_ORDER.CORE(16)}
+            icon={<SpellIcon id={this.spellKnown.id} />}
+            value={this.averageTargetsHit}
+            label="Average targets hit"
+          />
+        );
+      } else {
+        return (
+          <StatisticBox
+            position={STATISTIC_ORDER.CORE(16)}
+            icon={<SpellIcon id={this.spellKnown.id} />}
+            value={this.averageTargetsHit}
+            label="Average targets hit"
+          />
+        );
+      }
     }
     return null;
   }

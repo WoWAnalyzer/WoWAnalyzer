@@ -286,7 +286,7 @@ export default {
   475: 280022, // "Desperate Power"
   476: 280023, // "Moment of Glory"
   477: 280128, // "Bury the Hatchet"
-  478: 280402, // "Tidal Surge"
+  478: 280404, // "Tidal Surge"
   479: 280284, // "Dagger in the Back"
   480: 280407, // "Blood Rite"
   481: 280410, // "Incite the Pack"

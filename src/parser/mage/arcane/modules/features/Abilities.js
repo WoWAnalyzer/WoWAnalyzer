@@ -87,9 +87,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TIME_WARP,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         cooldown: 300,
         castEfficiency: {
           disabled: true,

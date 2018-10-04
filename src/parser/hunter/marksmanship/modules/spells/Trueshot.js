@@ -78,7 +78,7 @@ class Trueshot extends Analyzer {
         icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <React.Fragment>
-            {this.averageAimedShots.toFixed(2)}{' '}
+            {this.averageAimedShots}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{
@@ -108,7 +108,7 @@ class Trueshot extends Analyzer {
   }
 
   get averageAimedShots() {
-    return this.aimedShotsPrTS / this.trueshotCasts;
+    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
   }
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
