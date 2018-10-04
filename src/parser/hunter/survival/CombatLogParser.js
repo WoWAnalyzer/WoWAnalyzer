@@ -34,6 +34,7 @@ import BirdOfPrey from './modules/talents/BirdOfPrey';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
+import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 
 //Traits and Talents
 import TraitsAndTalents from './modules/features/TraitsAndTalents';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,
+    latentPoison: LatentPoison,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,

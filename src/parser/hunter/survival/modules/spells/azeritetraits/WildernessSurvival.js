@@ -62,15 +62,8 @@ class WildernessSurvival extends Analyzer {
     }
 
     if (this.hasWFI) {
-      if (this.spellUsable.isOnCooldown(SPELLS.VOLATILE_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.VOLATILE_BOMB_WFI.id);
-        return;
-      } else if (this.spellUsable.isOnCooldown(SPELLS.PHEROMONE_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.PHEROMONE_BOMB_WFI.id);
-        return;
-      } else if (this.spellUsable.isOnCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id);
-        return;
+      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
+        this.checkCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id);
       } else {
         this.wastedWSReductionMs += MS_REDUCTION;
       }
