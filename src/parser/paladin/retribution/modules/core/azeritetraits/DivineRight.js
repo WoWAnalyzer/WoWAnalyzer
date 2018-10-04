@@ -6,13 +6,10 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 
-const divineRightStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [strength] = calculateAzeriteEffects(SPELLS.DIVINE_RIGHT.id, rank);
-  obj.strength += strength;
-  return obj;
-}, {
-  strength: 0,
-});
+const divineRightStats = traits => Object.values(traits).reduce((strengthSum, trait) => {
+  const [strength] = calculateAzeriteEffects(SPELLS.DIVINE_RIGHT.id, trait);
+  return strengthSum + strength;
+}, 0);
 
 export const STAT_TRACKER = {
   strength: combatant => divineRightStats(combatant.traitsBySpellId[SPELLS.DIVINE_RIGHT.id]).strength,
@@ -32,8 +29,7 @@ class DivineRight extends Analyzer{
     if(!this.active){
       return;
     }
-    const {strength} = divineRightStats(this.selectedCombatant.traitsBySpellId[SPELLS.DIVINE_RIGHT.id]);
-    this.strength = strength;
+    this.strength = divineRightStats(this.selectedCombatant.traitsBySpellId[SPELLS.DIVINE_RIGHT.id]);
   }
 
   get uptime(){
@@ -51,7 +47,7 @@ class DivineRight extends Analyzer{
         trait={SPELLS.DIVINE_RIGHT.id}
         value={(
           <React.Fragment>
-            {formatNumber(this.avgstrength)} Average strength <br />
+            {formatNumber(this.avgstrength)} Average Strength <br />
             {formatPercentage(this.uptime)}% Uptime
           </React.Fragment>
         )}
