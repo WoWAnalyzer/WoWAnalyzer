@@ -22,10 +22,12 @@ export function trainingOfNiuzaoStats(combatant) {
   };
 }
 
+const zero_mastery = { mastery: 0 };
+
 export const MASTERY_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || {}).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || zero_mastery).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || zero_mastery).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || zero_mastery).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
 };
 
 /**
