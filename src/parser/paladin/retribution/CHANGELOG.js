@@ -6,6 +6,11 @@ import { Juko8 } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-10-04'),
+    changes: <React.Fragment> Added <SpellLink id={SPELLS.DIVINE_RIGHT.id} /> </React.Fragment>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-09-20'),
     changes: <React.Fragment> Added <SpellLink id={SPELLS.RELENTLESS_INQUISITOR.id} /> </React.Fragment>,
     contributors: [Juko8],
