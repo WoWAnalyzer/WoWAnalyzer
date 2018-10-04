@@ -78,7 +78,7 @@ class Trueshot extends Analyzer {
         icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <React.Fragment>
-            {this.averageAimedShots.toFixed(2)}{' '}
+            {this.averageAimedShots}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{

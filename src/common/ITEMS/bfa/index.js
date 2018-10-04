@@ -4,5 +4,6 @@ import Raids from './raids';
 import Potions from './potions';
 import Crafted from './crafted';
 import Enchants from './enchants';
+import Gems from './gems';
 
-export default safeMerge(Dungeons, Raids, Potions, Crafted, Enchants);
+export default safeMerge(Dungeons, Raids, Potions, Crafted, Enchants, Gems);

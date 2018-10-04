@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-10-02'),
+    changes: 'Added a BFA-ready food and flasker checker to the well prepared checklist, with a lot of help from ArthurEnglebert',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-09-30'),
     changes: 'Removed the suggestions for Healing Potions and Healthstones, and added their status to the death recap panel. The "you died" suggestions will now refer to this for more information.',
     contributors: [Zerotorescue],
