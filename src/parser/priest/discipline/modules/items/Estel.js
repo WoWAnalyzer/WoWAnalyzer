@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
@@ -82,11 +80,7 @@ class Estel extends Analyzer {
 
     return {
       item: ITEMS.ESTEL_DEJAHNAS_INSPIRATION,
-      result: (
-        <>
-          {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
-        </>
-      ),
+      result: `${formatPercentage(avgHaste)} % average haste / ${formatPercentage(uptimePercent)} % uptime`,
     };
   }
 }
