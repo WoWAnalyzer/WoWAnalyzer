@@ -11,14 +11,6 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
-// const HEALER_SPECS = [
-//   SPECS.HOLY_PALADIN.id,
-//   SPECS.RESTORATION_DRUID.id,
-//   SPECS.HOLY_PRIEST.id,
-//   SPECS.DISCIPLINE_PRIEST.id,
-//   SPECS.MISTWEAVER_MONK.id,
-//   SPECS.RESTORATION_SHAMAN.id,
-// ];
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
 // recommend to use Rising Death or Bursting Blood in certain situations.
@@ -35,6 +27,7 @@ const AGI_SPECS = [
   SPECS.WINDWALKER_MONK.id,
   SPECS.VENGEANCE_DEMON_HUNTER.id,
   SPECS.HAVOC_DEMON_HUNTER.id,
+  SPECS.SURVIVAL_HUNTER.id, //They use agi pot for AoE
 ];
 
 const STR_SPECS = [
@@ -42,6 +35,31 @@ const STR_SPECS = [
   SPECS.PROTECTION_WARRIOR.id,
   SPECS.BLOOD_DEATH_KNIGHT.id,
   SPECS.RETRIBUTION_PALADIN.id,
+  SPECS.ARMS_WARRIOR.id, //They use str pot for AoE
+  SPECS.FURY_WARRIOR.id, //They use str pot for AoE
+  SPECS.FROST_DEATH_KNIGHT.id, //They str agi pot for AoE
+  SPECS.UNHOLY_DEATH_KNIGHT.id, //They str agi pot for AoE
+];
+
+const INT_SPECS = [
+  SPECS.SHADOW_PRIEST.id, //They use int pot for AoE
+  SPECS.FROST_MAGE.id, //They use int pot for AoE
+  SPECS.AFFLICTION_WARLOCK.id,
+  SPECS.DEMONOLOGY_WARLOCK.id,
+  SPECS.DESTRUCTION_WARLOCK.id,
+  SPECS.ELEMENTAL_SHAMAN.id,
+  SPECS.FIRE_MAGE.id,
+  SPECS.ARCANE_MAGE.id,
+  SPECS.BALANCE_DRUID.id,
+];
+
+const HEALER_SPECS = [
+  SPECS.HOLY_PALADIN.id,
+  SPECS.RESTORATION_DRUID.id,
+  SPECS.HOLY_PRIEST.id,
+  SPECS.DISCIPLINE_PRIEST.id,
+  SPECS.MISTWEAVER_MONK.id,
+  SPECS.RESTORATION_SHAMAN.id,
 ];
 
 const BURSTING_BLOOD = [
@@ -90,6 +108,7 @@ class PrePotion extends Analyzer {
   potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
   addedSuggestionText = false;
   alternatePotion = null;
+  isHealer = false;
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -137,24 +156,26 @@ class PrePotion extends Analyzer {
   }
 
   potionAdjuster(specID) {
-    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_STRENGTH.id : ITEMS.BATTLE_POTION_OF_AGILITY.id;
-    if (AGI_SPECS.includes(specID)) {
+    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_AGILITY.id : ITEMS.BATTLE_POTION_OF_INTELLECT.id;
+    if (BURSTING_BLOOD.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_BURSTING_BLOOD.id;
+      this.potionIcon = ITEMS.POTION_OF_BURSTING_BLOOD.icon;
+      this.addedSuggestionText += true;
+    } else if (RISING_DEATH.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_RISING_DEATH.id;
+      this.potionIcon = ITEMS.POTION_OF_RISING_DEATH.icon;
+      this.addedSuggestionText = true;
+    } else if (AGI_SPECS.includes(specID)) {
       this.potionId = ITEMS.BATTLE_POTION_OF_AGILITY.id;
       this.potionIcon = ITEMS.BATTLE_POTION_OF_AGILITY.icon;
     } else if (STR_SPECS.includes(specID)) {
       this.potionId = ITEMS.BATTLE_POTION_OF_STRENGTH.id;
       this.potionIcon = ITEMS.BATTLE_POTION_OF_STRENGTH.icon;
-    } else if (RISING_DEATH.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_RISING_DEATH.id;
-      this.potionIcon = ITEMS.POTION_OF_RISING_DEATH.icon;
-      this.addedSuggestionText = true;
-    } else if (BURSTING_BLOOD.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_BURSTING_BLOOD.id;
-      this.potionIcon = ITEMS.POTION_OF_BURSTING_BLOOD.icon;
-      this.addedSuggestionText += true;
-    } else {
+    } else if (INT_SPECS.includes(specID)) {
       this.potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id;
       this.potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon;
+    } else if (HEALER_SPECS.includes(specID)) {
+      this.isHealer = true;
     }
   }
   suggestions(when) {
@@ -169,7 +190,7 @@ class PrePotion extends Analyzer {
       );
     when(this.secondPotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={this.potionId} /> {this.potionId === ITEMS.BATTLE_POTION_OF_INTELLECT.id ? <React.Fragment>or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} />,</React.Fragment> : ''} for example.</React.Fragment>)
+        return suggest(<React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.potionId} />{this.isHealer ? <React.Fragment> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></React.Fragment> : ''}. {this.addedSuggestionText ? <React.Fragment>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</React.Fragment> : ''}</React.Fragment>)
           .icon(this.potionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       })
