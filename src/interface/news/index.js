@@ -79,14 +79,14 @@ class News extends React.PureComponent {
         <div className="row">
           <div className="col-xs-6">
             {this.hasOlder && (
-              <a role="button" onClick={this.handleOlderClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+              <a role="button" onClick={this.handleOlderClick} style={{ fontSize: '1.3em' }}>
                 &lt; Older
               </a>
             )}
           </div>
           <div className="col-xs-6 text-right">
             {this.hasNewer && (
-              <a role="button" onClick={this.handleNewerClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+              <a role="button" onClick={this.handleNewerClick} style={{ fontSize: '1.3em' }}>
                 Newer &gt;
               </a>
             )}

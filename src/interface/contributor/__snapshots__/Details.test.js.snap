@@ -61,7 +61,6 @@ exports[`ContributorDetails matches snapshot 1`] = `
               >
                 <a
                   href="https://github.com/DummyHub"
-                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   DummyHub

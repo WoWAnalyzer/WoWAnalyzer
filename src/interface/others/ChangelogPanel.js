@@ -35,7 +35,7 @@ class ChangelogPanel extends React.PureComponent {
             />
           </div>
           {limit !== null && (
-            <a onClick={() => this.setState({ expanded: true })}>More</a> // eslint-disable-line jsx-a11y/anchor-is-valid
+            <a onClick={() => this.setState({ expanded: true })}>More</a>
           )}
         </div>
       </div>

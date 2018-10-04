@@ -4,6 +4,7 @@ import DamageDone from 'parser/core/modules/DamageDone';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import Scorch from './normalizers/Scorch';
 import PyroclasmBuff from './normalizers/PyroclasmBuff';
+import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
 
 import Checklist from './modules/Checklist/Module';
 
@@ -31,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     FlameStrikeNormalizer: FlamestrikeNormalizer,
     scorch: Scorch,
     pyroclasmBuff: PyroclasmBuff,
+    prePullCooldowns: PrePullCooldowns,
 
     //Checklist
     checklist: Checklist,
