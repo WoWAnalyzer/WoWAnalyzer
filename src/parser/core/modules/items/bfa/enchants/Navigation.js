@@ -111,18 +111,20 @@ class Navigation extends Analyzer {
     return this.selectedCombatant.getBuffUptime(this.constructor.bigBuffId);
   }
   get averageStat() {
-    let averageStacks = 0;
     const buffStacks = this.cleanStacks;
 
-    Object.keys(buffStacks).forEach((stackSize) => {
-      let totalStackDuration = 0;
-      buffStacks[stackSize].forEach((occurrence) => {
-        totalStackDuration += occurrence.duration;
-      });
-      averageStacks += totalStackDuration / this.owner.fightDuration * stackSize;
-    });
-    const maxStackUptimePercentage = this.maxStackBuffUptime() / this.owner.fightDuration;
-    return ((averageStacks * this.constructor.statPerStack) + (maxStackUptimePercentage * this.constructor.statAtMax)).toFixed(2);
+    const smallBuffDuration = Object.keys(buffStacks).reduce((total, stackSize) => {
+      const totalStackDuration = buffStacks[stackSize]
+        .map(element => element.duration)
+        .reduce((total, current) => total + current);
+
+      return total + (totalStackDuration * stackSize);
+    }, 0);
+
+    const smallBuffIncrease = smallBuffDuration * this.constructor.statPerStack;
+    const bigBuffIncrease = this.maxStackBuffUptime() * this.constructor.statAtMax;
+
+    return ((smallBuffIncrease + bigBuffIncrease) / this.owner.fightDuration).toFixed(2);
   }
   item() {
     const buffStacks = this.cleanStacks;
@@ -130,7 +132,7 @@ class Navigation extends Analyzer {
     const tooltipData = (
       <ExpandableStatisticBox
         icon={<SpellIcon id={this.constructor.smallBuffId} />}
-        value={`${this.averageStat}`}
+        value={this.averageStat}
         label={`average ${this.constructor.primaryStat} gained`}
         category={STATISTIC_CATEGORY.ITEMS}
       >
@@ -145,10 +147,10 @@ class Navigation extends Analyzer {
           <tbody>
             {
               Object.keys(buffStacks).map((stackSize) => {
-                let totalStackDuration = 0;
-                buffStacks[stackSize].forEach((occurrence) => {
-                  totalStackDuration += occurrence.duration;
-                });
+                let totalStackDuration = buffStacks[stackSize]
+                  .map(element => element.duration)
+                  .reduce((total, current) => total + current);
+
                 if (stackSize === '0'){
                   totalStackDuration -= maxStackBuffDuration;
                 }
