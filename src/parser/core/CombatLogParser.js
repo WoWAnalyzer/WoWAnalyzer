@@ -42,7 +42,6 @@ import DistanceMoved from './modules/others/DistanceMoved';
 
 import CharacterTab from './modules/features/CharacterTab';
 import EncounterPanel from './modules/features/EncounterPanel';
-
 // Tabs
 import TimelineTab from './modules/features/TimelineTab';
 import ManaTab from './modules/features/ManaTab';
@@ -61,10 +60,8 @@ import PreparationRuleAnalyzer from './modules/features/Checklist2/PreparationRu
 
 import ArcaneTorrent from './modules/racials/bloodelf/ArcaneTorrent';
 import MightOfTheMountain from './modules/racials/dwarf/MightOfTheMountain';
-
 // Shared Buffs
 import VantusRune from './modules/spells/VantusRune';
-
 // BFA
 import GildedLoaFigurine from './modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from './modules/items/bfa/FirstMatesSpyglass';
@@ -80,7 +77,6 @@ import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
 import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
 import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigation';
-
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from './modules/items/bfa/crafted/DarkmoonDeckFathoms';
@@ -98,7 +94,6 @@ import ConcentratedMending from './modules/spells/bfa/azeritetraits/Concentrated
 import BlessedPortents from './modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from './modules/spells/bfa/azeritetraits/TidalSurge';
 import SynergisticGrowth from './modules/spells/bfa/azeritetraits/SynergisticGrowth';
-
 // Uldir
 import TwitchingTentacleofXalzaix from './modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -208,7 +203,8 @@ class CombatLogParser {
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
-    
+    synergisticGrowth: SynergisticGrowth,
+
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
     vigilantsBloodshaper: VigilantsBloodshaper,
