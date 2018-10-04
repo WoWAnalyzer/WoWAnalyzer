@@ -12,7 +12,7 @@ const divineRightStats = traits => traits.reduce((strengthSum, trait) => {
 }, 0);
 
 export const STAT_TRACKER = {
-  strength: combatant => divineRightStats(combatant.traitsBySpellId[SPELLS.DIVINE_RIGHT.id]).strength,
+  strength: combatant => divineRightStats,
 };
 
 /**
