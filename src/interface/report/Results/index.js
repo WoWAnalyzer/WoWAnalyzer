@@ -83,27 +83,27 @@ class Results extends React.PureComponent {
     switch (tab) {
       case MAIN_TAB.CHECKLIST:
         return (
-          <React.Fragment>
+          <>
             <ChecklistIcon /> <Trans>Checklist</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.SUGGESTIONS:
         return (
-          <React.Fragment>
+          <>
             <SuggestionIcon /> <Trans>Suggestions</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.CHARACTER:
         return (
-          <React.Fragment>
+          <>
             <ArmorIcon /> <Trans>Character</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.STATS:
         return (
-          <React.Fragment>
+          <>
             <StatisticsIcon /> <Trans>Statistics</Trans>
-          </React.Fragment>
+          </>
         );
       default: return tab;
     }
@@ -136,7 +136,7 @@ class Results extends React.PureComponent {
     }, {});
 
     return (
-      <React.Fragment>
+      <>
         {Object.keys(groups).map(name => {
           const statistics = groups[name];
           return (
@@ -153,7 +153,7 @@ class Results extends React.PureComponent {
             </React.Fragment>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -326,7 +326,7 @@ class Results extends React.PureComponent {
     const selectedCombatant = modules.combatants.selected;
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Put this in a higher component such as ConfigLoader to make it easier to switch fights early */}
         <FightNavigationBar />
 
@@ -343,7 +343,7 @@ class Results extends React.PureComponent {
             {this.renderContent()}
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -1,3 +1,3 @@
 module.exports = {
-  extends: 'wowanalyzer-app',
+  extends: '@wowanalyzer/eslint-config-react-app',
 };

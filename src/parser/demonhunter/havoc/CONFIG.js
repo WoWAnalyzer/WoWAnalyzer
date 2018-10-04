@@ -16,7 +16,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
       <Warning>
@@ -29,7 +29,7 @@ export default {
       <a href="https://www.wowhead.com/havoc-demon-hunter-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
       <a href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
 
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/CKpVzL4nxD9dckb8/11-Heroic+Vectis+-+Kill+(5:14)/18-Shisei',

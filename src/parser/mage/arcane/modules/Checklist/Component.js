@@ -34,9 +34,9 @@ class ArcaneMageChecklist extends React.PureComponent {
         <Rule
           name="Use your cooldowns"
           description={(
-            <React.Fragment>
+            <>
               Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
-            </React.Fragment>
+            </>
           )}
         >
           <AbilityRequirement spell={SPELLS.ARCANE_POWER.id} />
@@ -50,9 +50,9 @@ class ArcaneMageChecklist extends React.PureComponent {
         <Rule
           name="Use Arcane Power effectively"
           description={(
-            <React.Fragment>
+            <>
               Using <SpellLink id={SPELLS.ARCANE_POWER.id} /> properly is one of the most important aspects of playing Arcane well. Therefore it is critical that you make the most of the time that you have while Arcane Power is active. This include things such as not wasting time or GCDs while Arcane Power is active and ensuring that you properly setup for your "burn phase" before hitting Arcane Power.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Spells Cast During Arcane Power" tooltip="Your cast utilization during Arcane Power. You should be ensuring that you are using the most of the short Arcane Power window and only casting damage abilities like Arcane Blast, Arcane Missiles, and Arcane Explosion." thresholds={thresholds.arcanePowerCasts} />
@@ -71,9 +71,9 @@ class ArcaneMageChecklist extends React.PureComponent {
         <Rule
           name="Avoid downtime"
           description={(
-            <React.Fragment>
+            <>
               As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
@@ -82,20 +82,20 @@ class ArcaneMageChecklist extends React.PureComponent {
         <Rule
           name="Maintain your buffs"
           description={(
-            <React.Fragment>
+            <>
               You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> if you are talented into them.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />
           {combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id) && <Requirement name="Arcane Familiar Uptime" thresholds={thresholds.arcaneFamiliarUptime} />}
         </Rule>
         <Rule
-          name={<React.Fragment>Manage your mana</React.Fragment>}
+          name={<>Manage your mana</>}
           description={(
-            <React.Fragment>
+            <>
               The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too long, or ending the fight with mana remaining all have negative effects on your DPS. 
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />

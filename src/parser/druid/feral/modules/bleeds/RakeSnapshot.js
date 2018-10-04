@@ -111,9 +111,9 @@ class RakeSnapshot extends Snapshot {
   suggestions(when) {
     when(this.prowlLostSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           When <SpellLink id={SPELLS.RAKE.id} /> is empowered by <SpellLink id={SPELLS.PROWL.id} /> avoid refreshing it unless the replacement would also be empowered. You ended {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed{this.prowlLostCastCount!==1?'s':''} more than 1 second early.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.RAKE.icon)
         .actual(`${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`)
@@ -122,9 +122,9 @@ class RakeSnapshot extends Snapshot {
 
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.RAKE.icon)
         .actual(`${formatPercentage(actual)}% of Rake refreshes were early downgrades.`)

@@ -27,9 +27,9 @@ class DemonologyWarlockChecklist extends React.PureComponent {
     const DotUptime = props => (
       <Requirement
         name={(
-          <React.Fragment>
+          <>
             <SpellLink id={props.id} icon /> uptime
-          </React.Fragment>
+          </>
         )}
         thresholds={props.thresholds}
       />
@@ -75,10 +75,10 @@ class DemonologyWarlockChecklist extends React.PureComponent {
         <Rule
           name="Use your utility and defensive spells"
           description={(
-            <React.Fragment>
+            <>
               Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon />, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
               While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
-            </React.Fragment>
+            </>
           )}
         >
           {combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />}
@@ -88,9 +88,9 @@ class DemonologyWarlockChecklist extends React.PureComponent {
         <Rule
           name="Always be casting"
           description={(
-            <React.Fragment>
+            <>
               You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtime} />

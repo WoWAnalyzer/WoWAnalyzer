@@ -143,9 +143,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.9,
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
-            <React.Fragment>
+            <>
               Your <SpellLink id={SPELLS.NEW_MOON_TALENT.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
-            </React.Fragment>
+            </>
           ),
         },
         timelineSortIndex: 11,

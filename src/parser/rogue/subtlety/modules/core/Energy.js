@@ -33,7 +33,7 @@ class Energy extends Analyzer {
       minor: 0.10,
       avg: 0.20, 
       major: 0.50,
-      extraSuggestion: <React.Fragment>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </React.Fragment>,
+      extraSuggestion: <>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </>,
     });
       
     resourceSuggest(when, this.energyTracker, {
@@ -41,7 +41,7 @@ class Energy extends Analyzer {
       minor: 0.15,
       avg: 0.25, 
       major: 0.40,
-      extraSuggestion: <React.Fragment> You are wasting more energy then normal. You may be pooling too much energy or not casting enough spenders. </React.Fragment>,
+      extraSuggestion: <> You are wasting more energy then normal. You may be pooling too much energy or not casting enough spenders. </>,
     });
   }
 }

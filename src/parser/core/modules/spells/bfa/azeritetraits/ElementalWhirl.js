@@ -105,13 +105,13 @@ class ElementalWhirl extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ELEMENTAL_WHIRL.id}
         value={(
-          <React.Fragment>
+          <>
             {formatPercentage(this.averageUptime)}% average uptime <br />
             {formatNumber(this.averageHaste)} average Haste <br />
             {formatNumber(this.averageVers)} average Versatility <br />
             {formatNumber(this.averageCrit)} average Crit <br />
             {formatNumber(this.averageMast)} average Mastery
-          </React.Fragment>)}
+          </>)}
         tooltip={`
           ${SPELLS.ELEMENTAL_WHIRL.name} grants <b>${this.stat}</b> of a secondary stat while active.<br/>
           <ul>

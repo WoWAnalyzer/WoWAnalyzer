@@ -1,12 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PlayerSelectionList does not show combatants with missing specID 1`] = `
-Array [
-  <div
-    className="card"
-    key="UNKNOWN_ROLE"
-/>,
-]
+<div
+  className="card"
+  key="UNKNOWN_ROLE"
+>
+  <h4
+    className="card-title"
+  >
+    <img
+      alt="Role Icon"
+      src="/roles/tank.jpg"
+      style={
+        Object {
+          "borderRadius": "50%",
+          "marginLeft": 10,
+          "marginRight": 10,
+          "visibility": "hidden",
+        }
+      }
+    />
+    Unparsable due to corrupt combatlog event.
+  </h4>
+  <ul
+    className="list selection players item-divider item-divider-top clearfix"
+    style={
+      Object {
+        "border": 0,
+      }
+    }
+  >
+    <li
+      className="item selectable col-md-6"
+      key="11"
+    >
+      <Link
+        onClick={[Function]}
+        replace={false}
+        style={
+          Object {
+            "marginLeft": 47,
+          }
+        }
+        to="/report/MY_REPORT_CODE/2-+Test+Fight+-+Kill+(0:00)/11-Zerotorescue"
+      >
+        Zerotorescue
+         (Error - Spec unknown)
+      </Link>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] = `

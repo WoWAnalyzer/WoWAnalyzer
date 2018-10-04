@@ -133,7 +133,7 @@ class WintersReach extends Analyzer {
   suggestions(when) {
     when(this.procUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> procs. These procs make your hard cast <SpellLink id={SPELLS.FLURRY.id} /> casts deal extra damage, so try and use them as quickly as possible to avoid losing over overwriting the procs.</React.Fragment>)
+        return suggest(<>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> procs. These procs make your hard cast <SpellLink id={SPELLS.FLURRY.id} /> casts deal extra damage, so try and use them as quickly as possible to avoid losing over overwriting the procs.</>)
           .icon(SPELLS.WINTERS_REACH_TRAIT.icon)
           .actual(`${formatPercentage(this.procUtilization)}% Utilization`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

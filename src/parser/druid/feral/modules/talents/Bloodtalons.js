@@ -209,9 +209,9 @@ class Bloodtalons extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} />.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.BLOODTALONS_TALENT.icon)
         .actual(`${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`)
@@ -326,9 +326,9 @@ class Bloodtalons extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox title={(
-        <React.Fragment>
+        <>
           <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage
-        </React.Fragment>
+        </>
       )}>
         {this.combinedChart()}
       </StatisticsListBox>

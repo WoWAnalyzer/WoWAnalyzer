@@ -62,7 +62,7 @@ class BreathOfFire extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
           .actual(`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);

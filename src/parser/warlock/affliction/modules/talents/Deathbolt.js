@@ -25,7 +25,7 @@ class Deathbolt extends Analyzer {
     const avg = total / (deathbolt.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<React.Fragment>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</React.Fragment>}
+        title={<>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</>}
         value={formatThousands(avg)}
         valueTooltip={`Total Deathbolt damage: ${formatThousands(total)}`}
       />

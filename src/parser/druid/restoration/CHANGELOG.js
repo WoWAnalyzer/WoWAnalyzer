@@ -5,82 +5,82 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-09-24'),
-    changes: <React.Fragment>Including Grove Tending in Flourish and Photosynthesis module.</React.Fragment>,
+    changes: <>Including Grove Tending in Flourish and Photosynthesis module.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-24'),
-    changes: <React.Fragment>Updated Photosynthesis module to use correct calculations.</React.Fragment>,
+    changes: <>Updated Photosynthesis module to use correct calculations.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-22'),
-    changes: <React.Fragment>Added module for tracking Abundance.</React.Fragment>,
+    changes: <>Added module for tracking Abundance.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-21'),
-    changes: <React.Fragment>Added tracking of healing gained from Stonebark.</React.Fragment>,
+    changes: <>Added tracking of healing gained from Stonebark.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-21'),
-    changes: <React.Fragment>Added implementation of Azerite trait Lively spirit.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Lively spirit.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-20'),
-    changes: <React.Fragment>Added implementation of Azerite trait Synergistic Growth.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Synergistic Growth.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-20'),
-    changes: <React.Fragment>Added mana used doughnut chart (code taken from Hunter focus used module) to resto druid &amp; set icons for Uldir bosses (not headshots)</React.Fragment>,
+    changes: <>Added mana used doughnut chart (code taken from Hunter focus used module) to resto druid &amp; set icons for Uldir bosses (not headshots)</>,
     contributors: [fel1ne],
   },
   {
     date: new Date('2018-09-20'),
-    changes: <React.Fragment>Updated bad Regrowth usage suggestions - using a non clearcasting regrowth on low health target is not considered bad.</React.Fragment>,
+    changes: <>Updated bad Regrowth usage suggestions - using a non clearcasting regrowth on low health target is not considered bad.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-18'),
-    changes: <React.Fragment>Added implementation of Azerite trait Waking Dream.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Waking Dream.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-17'),
-    changes: <React.Fragment>Added HoT part of tranquillity to all relevant modules. This will change the values in mastery stack, flourish module and stat tracker.</React.Fragment>,
+    changes: <>Added HoT part of tranquillity to all relevant modules. This will change the values in mastery stack, flourish module and stat tracker.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-12'),
-    changes: <React.Fragment>Added implementation of Azerite trait Grove Tending.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Grove Tending.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-12'),
-    changes: <React.Fragment>Added implementation of Azerite trait Autumn Leaves.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Autumn Leaves.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-12'),
-    changes: <React.Fragment>Added implementation of Azerite trait Fungal Essence.</React.Fragment>,
+    changes: <>Added implementation of Azerite trait Fungal Essence.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-12'),
-    changes: <React.Fragment>Updated changes on rejuvenation mana cost from hotfix september 10th.</React.Fragment>,
+    changes: <>Updated changes on rejuvenation mana cost from hotfix september 10th.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-10'),
-    changes: <React.Fragment>Cleanup of old references from Legion and new updates from BFA.</React.Fragment>,
+    changes: <>Cleanup of old references from Legion and new updates from BFA.</>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-07-27'),
-    changes: <React.Fragment>Spell, talent, and GCD update to spells for BFA.</React.Fragment>,
+    changes: <>Spell, talent, and GCD update to spells for BFA.</>,
     contributors: [Yajinni],
   },
 ];

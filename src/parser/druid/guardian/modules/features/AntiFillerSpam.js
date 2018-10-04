@@ -130,9 +130,9 @@ class AntiFillerSpam extends Analyzer {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.SWIPE_BEAR.icon)
           .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)

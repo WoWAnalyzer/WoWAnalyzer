@@ -162,12 +162,12 @@ class PlayerSelection extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle title={`${getFightName(report, fight)} by ${player.name} in ${report.title}`} />
 
         {this.props.children(player, combatant, combatants)}
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -54,12 +54,12 @@ class SoulflayersCorruption extends Analyzer {
     return {
       item: ITEMS.SOULFLAYERS_CORRUPTION,
       result: (
-        <React.Fragment>
+        <>
           <ItemHealingDone amount={this.heal} /><br />
           <ItemDamageDone amount={this.damage} /><br />
           Increased <SpellLink id={SPELLS.UMBILICUS_ETERNUS.id} /> trait absorbs by: <br />
           <b>Avg Per Proc:</b> {formatNumber(perProc)}  |  <b>Total:</b> {formatNumber(this.absorb)}
-        </React.Fragment>
+        </>
       ),
     };
   }

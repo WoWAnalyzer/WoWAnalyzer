@@ -54,10 +54,10 @@ class PrimalInstincts extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PRIMAL_INSTINCTS.id}
         value={(
-          <React.Fragment>
+          <>
             {formatNumber(this.avgMastery)} Average Mastery <br />
             Up to {this.numProcs} <SpellLink id={SPELLS.BARBED_SHOT.id} /> charges regained
-          </React.Fragment>
+          </>
         )}
         tooltip={`Primal Instincts granted <b>${this.mastery}</b> mastery for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
       />
