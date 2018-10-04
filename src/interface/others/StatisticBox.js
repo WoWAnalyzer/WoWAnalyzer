@@ -27,7 +27,7 @@ const StatisticBox = ({ icon, value, tooltip, label, footer, footerStyle, contai
 
             {warcraftLogs && (
               <div className="warcraft-logs-link">
-                <a href={warcraftLogs} target="_blank" data-tip="View details on Warcraft Logs">
+                <a href={warcraftLogs} target="_blank" rel="noopener noreferrer" data-tip="View details on Warcraft Logs">
                   <img src="/img/wcl.png" alt="Warcraft Logs logo" />
                 </a>
               </div>
