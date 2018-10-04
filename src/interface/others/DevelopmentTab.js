@@ -244,9 +244,9 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
 }
 
 const Code = ({ children, dump, className, ...others }) => (
-  <a
+  <a // eslint-disable-line jsx-a11y/anchor-is-valid
     href={`javascript:console.log(${children})`}
-    onClick={(e) => {
+    onClick={e => {
       e.preventDefault();
       console.log(dump);
     }}

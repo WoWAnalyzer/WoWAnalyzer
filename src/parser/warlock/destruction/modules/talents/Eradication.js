@@ -11,47 +11,68 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
+const debug = false;
 
-// only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
+/*
+  Eradication - Chaos Bolt increases the damage you deal to the target by 10% for 7 sec
+ */
 class Eradication extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
-  _hasCDF = false;
   _buffedCB = 0;
   _totalCB = 0;
-  _buffedCDF = 0;
-  _totalCDF = 0;
   bonusDmg = 0;
 
+  // queues spells CAST with target having Eradication (except DoTs)
+  queue = [
+    /*
+    {
+      timestamp
+      spellId
+      targetID
+      targetInstance
+    }
+     */
+  ];
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
-    this._hasCDF = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }
 
-  // TODO: SPELL QUEUE ON CAST, SPELLS SNAPSHOT ON CAST, NOT ON HIT SO THIS IS INACCURATE
-  on_byPlayer_damage(event) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
+  on_byPlayer_cast(event) {
+    // only queue spells with travel time
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.INCINERATE.id && spellId !== SPELLS.CHAOS_BOLT.id) {
       return;
     }
 
-    const buffed = enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp);
-
-    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
-      if (buffed) {
-        this._buffedCB += 1;
-      }
-      this._totalCB += 1;
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
+      return;
     }
-    if (event.ability.guid === SPELLS.CHANNEL_DEMONFIRE_DAMAGE.id) {
-      if (buffed) {
-        this._buffedCDF += 1;
-      }
-      this._totalCDF += 1;
+    this.queue.push({
+      timestamp: event.timestamp,
+      spellId: spellId,
+      targetID: event.targetID,
+      targetInstance: event.targetInstance,
+    });
+    debug && console.log('Pushed a buffed cast into queue', JSON.parse(JSON.stringify(this.queue)));
+  }
+
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.INCINERATE.id || spellId === SPELLS.CHAOS_BOLT.id) {
+      this._handleTravelSpellDamage(event);
+      return;
+    }
+
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
+      return;
     }
 
     this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
@@ -62,11 +83,7 @@ class Eradication extends Analyzer {
   }
 
   get CBpercentage() {
-    return this._buffedCB / this._totalCB || 0;
-  }
-
-  get CDFpercentage() {
-    return this._buffedCDF / this._totalCDF || 0;
+    return (this._buffedCB / this._totalCB) || 0;
   }
 
   get suggestionThresholds() {
@@ -79,6 +96,29 @@ class Eradication extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  _handleTravelSpellDamage(event) {
+    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
+      this._totalCB += 1;
+    }
+    // first filter out old casts (could happen if player would cast something on a target and BEFORE it hits, it would die - then it couldn't be paired)
+    this.queue = this.queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
+    // try pairing damage event with casts in this.queue
+    const castIndex = this.queue.findIndex(queuedCast => queuedCast.targetID === event.targetID
+                                                  && queuedCast.targetInstance === event.targetInstance
+                                                  && queuedCast.spellId === event.ability.guid);
+    if (castIndex === -1) {
+      debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Encountered damage event with no buffed cast associated, queue:`, JSON.parse(JSON.stringify(this.queue)), 'event', event);
+      return;
+    }
+
+    debug && console.log('Paired damage event', event, 'with queued cast', JSON.parse(JSON.stringify(this.queue[castIndex])));
+    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
+      this._buffedCB += 1;
+    }
+    this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
+    this.queue.splice(castIndex, 1);
   }
 
   suggestions(when) {
@@ -111,22 +151,11 @@ class Eradication extends Analyzer {
     );
   }
 
-  get channelDemonfireStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<React.Fragment>Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} /> ticks</React.Fragment>}
-        value={`${formatPercentage(this.CDFpercentage)} %`}
-        valueTooltip={`${this._buffedCDF} / ${this._totalCDF}`}
-      />
-    );
-  }
-
   statistic() {
     return (
       <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} />}>
         {this.uptimeStatistic}
         {this.chaosBoltStatistic}
-        {this._hasCDF && this.channelDemonfireStatistic}
       </StatisticsListBox>
     );
   }

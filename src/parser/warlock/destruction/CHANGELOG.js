@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-10-02'),
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> to snapshot the debuff on cast instead of damage.</React.Fragment>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-10-02'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stack tracker.</React.Fragment>,
     contributors: [Chizu],
   },
