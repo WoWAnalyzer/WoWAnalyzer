@@ -63,7 +63,7 @@ class Bonestorm extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</>)
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</React.Fragment>)
           .icon(SPELLS.BONESTORM_TALENT.icon)
           .actual(`${ formatPercentage(actual) }% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`)
           .recommended(`${ formatPercentage(recommended) }%is recommended`);

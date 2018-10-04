@@ -33,9 +33,9 @@ class FrostMageChecklist extends React.PureComponent {
         <Rule
           name="Use your cooldowns"
           description={(
-            <>
+            <React.Fragment>
               Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
-            </>
+            </React.Fragment>
           )}
         >
           <AbilityRequirement spell={SPELLS.ICY_VEINS.id} />
@@ -50,9 +50,9 @@ class FrostMageChecklist extends React.PureComponent {
         <Rule
           name="Use your procs effectively"
           description={(
-            <>
+            <React.Fragment>
               Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that when you get a proc, you use it correctly to prevent them from expiring and to lessen the likelyhood of overwriting them or wasting them.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Used Brain Freeze Procs" thresholds={thresholds.brainFreezeUtilization} tooltip="Your Brain Freeze Utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly." />
@@ -72,9 +72,9 @@ class FrostMageChecklist extends React.PureComponent {
         <Rule
           name="Avoid downtime"
           description={(
-            <>
+            <React.Fragment>
               As a DPS, it is important to spend as much time casting as possible since if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
@@ -83,9 +83,9 @@ class FrostMageChecklist extends React.PureComponent {
         <Rule
           name="Maintain your buffs"
           description={(
-            <>
+            <React.Fragment>
               You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also ensure that you are maximizing your uptime of <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> if you are talented into it.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />

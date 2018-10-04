@@ -21,7 +21,7 @@ class ReverseEntropy extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime</>}
+        title={<React.Fragment><SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime</React.Fragment>}
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

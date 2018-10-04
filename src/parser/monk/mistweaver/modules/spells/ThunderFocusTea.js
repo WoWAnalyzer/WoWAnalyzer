@@ -217,9 +217,9 @@ class ThunderFocusTea extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
-            <>
+            <React.Fragment>
               You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
-            </>
+            </React.Fragment>
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
             .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
@@ -231,7 +231,7 @@ class ThunderFocusTea extends Analyzer {
     return (
       <StatisticsListBox
         position={STATISTIC_ORDER.CORE(20)}
-        title={<><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</>}
+        title={<React.Fragment><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</React.Fragment>}
       >
         {this.tftCastRatioChart()}
       </StatisticsListBox>

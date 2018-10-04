@@ -137,8 +137,7 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="javascript:void(0)" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
                   </div>
                 </div>
               </div>
@@ -164,8 +163,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
                   </div>
                 </div>
               </div>
@@ -195,8 +194,8 @@ class Cooldown extends React.Component {
                     )}
                   </div>
                 ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>
               </div>
             )}
           </div>

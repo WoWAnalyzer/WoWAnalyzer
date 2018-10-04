@@ -55,9 +55,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
           extraSuggestion: (
-            <>
+            <React.Fragment>
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.
-            </>
+            </React.Fragment>
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
@@ -75,9 +75,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
           extraSuggestion: (
-            <>
+            <React.Fragment>
               If you can't or don't want to cast it more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.
-            </>
+            </React.Fragment>
           ),
         },
         timelineSortIndex: 15,
@@ -118,9 +118,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <>
+            <React.Fragment>
               When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.
-            </>
+            </React.Fragment>
           ),
           recommendedEfficiency: 0.35,
         },

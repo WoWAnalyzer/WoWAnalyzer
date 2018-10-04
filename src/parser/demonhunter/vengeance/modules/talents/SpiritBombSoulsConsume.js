@@ -94,7 +94,7 @@ class SpiritBombSoulsConsume extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</>)
+        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</React.Fragment>)
           .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
           .actual(`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

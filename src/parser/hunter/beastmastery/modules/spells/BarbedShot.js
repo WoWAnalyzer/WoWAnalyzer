@@ -154,13 +154,13 @@ class BarbedShot extends Analyzer {
   suggestions(when) {
     when(this.direFrenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
+        return suggest(<React.Fragment>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </React.Fragment>)
           .icon(SPELLS.BARBED_SHOT.icon)
           .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
     when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
+      return suggest(<React.Fragment>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </React.Fragment>)
         .icon(SPELLS.BARBED_SHOT.icon)
         .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

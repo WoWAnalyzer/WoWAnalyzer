@@ -50,10 +50,10 @@ class DanceOfDeath extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DANCE_OF_DEATH.id}
         value={(
-          <>
+          <React.Fragment>
             {formatNumber(this.avgAgility)} Average Agility <br />
             {formatPercentage(this.uptime)}% Uptime
-          </>
+          </React.Fragment>
         )}
         tooltip={`Dance of Death granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
       />

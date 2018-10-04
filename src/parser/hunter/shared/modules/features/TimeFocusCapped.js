@@ -96,7 +96,7 @@ class TimeFocusCapped extends Analyzer {
     if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -104,7 +104,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -112,7 +112,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);

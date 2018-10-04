@@ -54,7 +54,7 @@ class SearingTouch extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</React.Fragment>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);

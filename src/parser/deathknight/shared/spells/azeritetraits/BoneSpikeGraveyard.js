@@ -50,10 +50,10 @@ class BoneSpikeGraveyard extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BONE_SPIKE_GRAVEYARD.id}
         value={(
-          <>
+          <React.Fragment>
             <ItemDamageDone amount={this.damage} /><br />
             <ItemHealingDone amount={this.heal} />
-          </>
+          </React.Fragment>
         )}
         tooltip={`${SPELLS.BONE_SPIKE_GRAVEYARD.name} did a total of ${formatNumber(this.damage)} damage and ${formatNumber(this.heal)} healing.`}
       />

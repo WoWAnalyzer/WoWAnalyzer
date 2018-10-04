@@ -38,7 +38,7 @@ class SiphonLifeUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</React.Fragment>)
           .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Siphon Life uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -48,7 +48,7 @@ class SiphonLifeUptime extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime</>}
+        title={<React.Fragment><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime</React.Fragment>}
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

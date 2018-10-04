@@ -64,9 +64,9 @@ class Lifecycles extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <>
+          <React.Fragment>
             Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.
-          </>
+          </React.Fragment>
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
           .actual(`${formatNumber(actual)} mana saved through Lifecycles`)

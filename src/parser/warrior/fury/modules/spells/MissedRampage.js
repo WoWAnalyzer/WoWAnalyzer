@@ -46,9 +46,9 @@ class MissedRampage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <React.Fragment>
           There were {actual} times when you cast another ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
-        </>
+        </React.Fragment>
       )
         .icon(SPELLS.RAMPAGE.icon)
         .actual(`${actual} missed Rampages.`)

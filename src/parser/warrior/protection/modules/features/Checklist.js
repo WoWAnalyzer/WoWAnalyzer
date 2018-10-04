@@ -54,16 +54,16 @@ class Checklist extends CoreChecklist {
 
     new Rule({
       name: (
-        <>
+        <React.Fragment>
           Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and <SpellLink id={SPELLS.IGNORE_PAIN.id} />
-        </>
+        </React.Fragment>
       ),
       description: (
-        <>
+        <React.Fragment>
           Blocking incoming damage is our main mitigation tool.
           Maintain <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> as much as possible while tanking or dealing with mechanics that are blockable.
           Avoid casting <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> while not tanking actively to refill your charges. Spend your excess rage with <SpellLink id={SPELLS.IGNORE_PAIN.id} /> to smooth out damage, especially damage that's not blockable.
-        </>
+        </React.Fragment>
       ),
       requirements: () => {
         return [
@@ -72,7 +72,7 @@ class Checklist extends CoreChecklist {
             check: () => this.shieldBlock.suggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.IGNORE_PAIN.id} /> Uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.IGNORE_PAIN.id} /> Uptime</React.Fragment>,
             check: () => this.ignorePain.uptimeSuggestionThresholds,
           }),
         ];
@@ -94,7 +94,7 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new Requirement({
-            name: <>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</>,
+            name: <React.Fragment>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</React.Fragment>,
             check: () => this.dragonRoar.hitSuggestionThreshold,
             when: this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
           }),

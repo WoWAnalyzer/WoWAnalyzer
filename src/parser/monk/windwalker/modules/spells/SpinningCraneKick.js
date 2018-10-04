@@ -110,9 +110,9 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <>
+          <React.Fragment>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </>
+          </React.Fragment>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
           .actual(`${this.badCasts} Bad Casts`)

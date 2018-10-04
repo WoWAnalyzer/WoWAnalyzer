@@ -236,10 +236,12 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
         >
           Inactive
         </span>
-         
-        because of a recent GitHub contribution (active until 
-        Mon, 02 Jul 2018 11:48:40 GMT
-        )
+        <React.Fragment>
+           
+          because of a recent GitHub contribution (active until 
+          Mon, 02 Jul 2018 11:48:40 GMT
+          )
+        </React.Fragment>
         . 
         You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
       </div>

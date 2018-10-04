@@ -121,10 +121,10 @@ class EternalRuneWeapon extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ETERNAL_RUNE_WEAPON.id}
         value={(
-          <>
+          <React.Fragment>
             {this.averageStrength} average Strength <br />
             {this.averageDancingRuneWeaponBonusDuration}sec average bonus duration
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${SPELLS.ETERNAL_RUNE_WEAPON.name} grants <b>${this.strength} strength</b> while active and an uptime of ${formatPercentage(this.uptime)}%.<br/>

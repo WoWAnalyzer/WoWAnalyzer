@@ -31,10 +31,10 @@ class TwitchingTentacleofXalzaix extends Analyzer {
     return {
       item: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX,
       result: (
-        <>
+        <React.Fragment>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.totalBuffUptime * this.statBuff)} average {this.selectedCombatant.spec.primaryStat}
-        </>
+        </React.Fragment>
       ),
     };
   }

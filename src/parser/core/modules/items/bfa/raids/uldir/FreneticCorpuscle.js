@@ -32,11 +32,11 @@ class FreneticCorpuscle extends Analyzer {
     return {
       item: ITEMS.FRENETIC_CORPUSCLE,
       result: (
-        <>
+        <React.Fragment>
           <dfn data-tip={`Hit <b>${this.hits}</b> times for an average of <b>${formatNumber(this.totalDamage/this.hits)}</b> damage per hit.`}>
             <ItemDamageDone amount={this.totalDamage} />
           </dfn>
-        </>
+        </React.Fragment>
       ),
     };
   }

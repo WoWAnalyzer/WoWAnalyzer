@@ -66,7 +66,7 @@ class Checklist extends CoreChecklist {
             when: this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</>,
+            name: <React.Fragment><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</React.Fragment>,
             check: () => this.crimsonScourge.efficiencySuggestionThresholds,
             when: !this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
@@ -96,15 +96,15 @@ class Checklist extends CoreChecklist {
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</>,
+            name: <React.Fragment><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</React.Fragment>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> efficiency</>,
+            name: <React.Fragment><SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> efficiency</React.Fragment>,
             check: () => this.runeStrike.cooldownReductionThresholds,
           }),
           new Requirement({
-            name: <>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></>,
+            name: <React.Fragment>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></React.Fragment>,
             check: () => this.deathsCaress.averageCastSuggestionThresholds,
           }),
         ];
@@ -121,12 +121,12 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new Requirement({
-            name: <>Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> hits</>,
+            name: <React.Fragment>Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> hits</React.Fragment>,
             check: () => this.consumption.hitSuggestionThreshold,
             when: this.selectedCombatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</>,
+            name: <React.Fragment><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</React.Fragment>,
             check: () => this.bonestorm.suggestionThresholds,
             when: this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),
@@ -139,20 +139,20 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <><SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime</React.Fragment>,
             check: () => this.bloodplagueUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime</React.Fragment>,
             when: this.selectedCombatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
             check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime</React.Fragment>,
             check: () => this.boneShield.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.OSSUARY.id} /> Uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id} /> Uptime</React.Fragment>,
             when: this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id),
             check: () => this.ossuary.uptimeSuggestionThresholds,
           }),

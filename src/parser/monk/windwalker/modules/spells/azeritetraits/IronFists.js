@@ -51,10 +51,10 @@ class IronFists extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.IRON_FISTS.id}
         value={(
-          <>
+          <React.Fragment>
             {formatPercentage(this.totalBuffUptime)}% Uptime<br />
             {formatNumber(averageCrit)} Average Crit
-          </>
+          </React.Fragment>
         )}
         tooltip={`You hit 4 or more enemies with your Fists of Fury ${this.buffTriggerCount} times`}
        />

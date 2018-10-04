@@ -40,12 +40,12 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: <>Maximize <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> & <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime</>,
+      name: <React.Fragment>Maximize <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> & <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime</React.Fragment>,
       description: (
-        <>
+        <React.Fragment>
           Both <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> and <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> duration extends when the target or a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
           Due to this, you often only need to apply these spells to new targets and refresh them on targets that are too far away from your primary target.
-        </>
+        </React.Fragment>
       ),
       requirements: () => {
         return [
@@ -61,11 +61,11 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <>Minimize casting downtime</>,
+      name: <React.Fragment>Minimize casting downtime</React.Fragment>,
       description: (
-        <>
+        <React.Fragment>
           Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> cast towards that location. During high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> as a filler.
-        </>
+        </React.Fragment>
       ),
       requirements: () => {
         return [
@@ -78,7 +78,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <>Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} />, <SpellLink id={SPELLS.MIND_BLAST.id} />, or <SpellLink id={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> are your most important spells. Try to cast them as much as possible.</>,
+      description: <React.Fragment>Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} />, <SpellLink id={SPELLS.MIND_BLAST.id} />, or <SpellLink id={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> are your most important spells. Try to cast them as much as possible.</React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -97,13 +97,13 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <>Maximize <SpellLink id={SPELLS.VOIDFORM.id} /> stacks</>,
+      name: <React.Fragment>Maximize <SpellLink id={SPELLS.VOIDFORM.id} /> stacks</React.Fragment>,
       description: (
-        <>
+        <React.Fragment>
           Your Voidforms are an important part of your overall damage.
           Try to get at least 20 stacks every Voidform with proper <SpellLink id={SPELLS.VOID_BOLT.id} /> and <SpellLink id={SPELLS.MIND_BLAST.id} /> usage.
           Use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown (even outside of Voidform).
-        </>
+        </React.Fragment>
       ),
       performanceMethod: 'average',
       requirements: () => {
@@ -125,7 +125,7 @@ class Checklist extends CoreChecklist {
     }),
     this.mindbender.active && new Rule({
       name: 'Use Mindbender as often as possible',
-      description: <>You should use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.</>,
+      description: <React.Fragment>You should use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.</React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({

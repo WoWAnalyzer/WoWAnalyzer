@@ -21,7 +21,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. If you have to move, try casting something like <SpellLink id={SPELLS.STEADY_SHOT.id} />, since it's castable while moving and doesn't cost any focus. Spells like <SpellLink id={SPELLS.RAPID_FIRE.id} /> and <SpellLink id={SPELLS.ARCANE_SHOT.id} /> are also castable whilst moving and good for single target - for multiple targets <SpellLink id={SPELLS.MULTISHOT_MM.id} /> might take their place. </>)
+      return suggest(<React.Fragment>Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. If you have to move, try casting something like <SpellLink id={SPELLS.STEADY_SHOT.id} />, since it's castable while moving and doesn't cost any focus. Spells like <SpellLink id={SPELLS.RAPID_FIRE.id} /> and <SpellLink id={SPELLS.ARCANE_SHOT.id} /> are also castable whilst moving and good for single target - for multiple targets <SpellLink id={SPELLS.MULTISHOT_MM.id} /> might take their place. </React.Fragment>)
         .icon('spell_mage_altertime')
         .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

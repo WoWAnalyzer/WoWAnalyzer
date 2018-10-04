@@ -49,10 +49,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <>
+        <React.Fragment>
           <ItemHealingDone amount={healing} /><br />
           <ItemDamageDone amount={damage} />
-        </>
+        </React.Fragment>
       ),
     };
   }

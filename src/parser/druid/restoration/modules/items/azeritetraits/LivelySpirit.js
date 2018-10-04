@@ -93,9 +93,9 @@ class LivelySpirit extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LIVELY_SPIRIT_TRAIT.id}
         value={(
-          <>
+          <React.Fragment>
             {formatNumber(this.intGain)} average Intellect gained.<br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`This assumes that you cast your innervates on yourself. <br />
                   This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />

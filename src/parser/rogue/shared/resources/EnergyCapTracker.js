@@ -60,9 +60,9 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <React.Fragment>
           You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
-        </>
+        </React.Fragment>
       )
         .icon('spell_shadow_shadowworddominate')
         .actual(`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`)

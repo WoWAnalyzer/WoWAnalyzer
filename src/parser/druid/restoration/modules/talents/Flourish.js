@@ -219,7 +219,7 @@ class Flourish extends Analyzer {
 
     when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></React.Fragment>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
           .actual(`${formatPercentage(this.wildGrowthCasts / this.flourishCount, 0)}% WGs extended.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -228,7 +228,7 @@ class Flourish extends Analyzer {
     if(this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
+          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></React.Fragment>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
             .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);

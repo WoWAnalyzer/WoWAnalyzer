@@ -44,7 +44,7 @@ class FightSelectorHeader extends SelectorBase {
 
     return (
       <div ref={this.ref} {...others}>
-        <a onClick={this.handleClick}>{getFightName(report, fight)}</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+        <a onClick={this.handleClick}>{getFightName(report, fight)}</a>
         {show && player && (
           <span className="selectorHeader">
             <div className="panel">

@@ -18,9 +18,9 @@ class Page extends React.PureComponent {
       <React.Fragment key={index}>
         {item}
         {index !== (breadcrumbs.length - 1) && (
-          <>
+          <React.Fragment>
             {' '}&gt;{' '}
-          </>
+          </React.Fragment>
         )}
       </React.Fragment>
     ));
@@ -45,15 +45,15 @@ class Page extends React.PureComponent {
           fileName={fileName}
         >
           {({ article, showLoader }) => showLoader ? (
-            <>
+            <React.Fragment>
               {this.renderBreadcrumbs(breadcrumbs)}<br /><br />
 
               <div className="spinner" style={{ fontSize: 5 }} />
 
               <DocumentTitle title="News" />
-            </>
+            </React.Fragment>
           ) : (
-            <>
+            <React.Fragment>
               {this.renderBreadcrumbs([
                 ...breadcrumbs,
                 article.props.title,
@@ -62,7 +62,7 @@ class Page extends React.PureComponent {
               {article}
 
               <DocumentTitle title={article.props.title} />
-            </>
+            </React.Fragment>
           )}
         </ArticleLoader>
       </div>

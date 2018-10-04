@@ -54,7 +54,7 @@ class RighteousVerdict extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved. Make sure you aren't letting the <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> buff run out before casting <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> again. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency</>)
+      return suggest(<React.Fragment>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved. Make sure you aren't letting the <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> buff run out before casting <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> again. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency</React.Fragment>)
         .icon(SPELLS.RIGHTEOUS_VERDICT_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of Templars Verdicts with the buff`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

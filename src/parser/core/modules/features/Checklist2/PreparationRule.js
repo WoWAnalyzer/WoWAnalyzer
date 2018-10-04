@@ -14,7 +14,7 @@ class PreparationRule extends React.PureComponent {
     const { thresholds } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <Requirement
           name="Used a pre-potion"
           thresholds={thresholds.prePotion}
@@ -23,14 +23,14 @@ class PreparationRule extends React.PureComponent {
           name="Used a second potion"
           thresholds={thresholds.secondPotion}
         />
-      </>
+      </React.Fragment>
     );
   }
   renderEnchantRequirements() {
     const { thresholds } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <Requirement
           name="All items enchanted"
           thresholds={thresholds.itemsEnchanted}
@@ -39,29 +39,29 @@ class PreparationRule extends React.PureComponent {
           name="Using high quality enchants"
           thresholds={thresholds.itemsBestEnchanted}
         />
-      </>
+      </React.Fragment>
     );
   }
   renderFlaskRequirements() {
     const { thresholds } = this.props;
     return (
-      <>
+      <React.Fragment>
         <Requirement
           name="Flask used"
           thresholds={thresholds.flaskPresent}
         />
-      </>
+      </React.Fragment>
     );
   }
   renderFoodRequirements() {
     const { thresholds } = this.props;
     return (
-      <>
+      <React.Fragment>
         <Requirement
           name="Food used"
           thresholds={thresholds.foodPresent}
         />
-      </>
+      </React.Fragment>
     );
   }
   render() {

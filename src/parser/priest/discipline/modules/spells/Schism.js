@@ -227,12 +227,12 @@ class Schism extends Analyzer {
     when(this.badSchismThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <>
+          <React.Fragment>
             Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
             casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
             <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
             <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
-          </>
+          </React.Fragment>
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(

@@ -82,7 +82,7 @@ class GlacialSpike extends Analyzer {
   suggestions(when) {
     when(this.utilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You misused <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {this.badCasts} times. In order to get the most out of Glacial Spike, you should only cast it if you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to cast alongside it (Glacial Spike > Flurry > Ice Lance) {this.hasSplittingIce ? ' or if Glacial Spike will cleave to a second target (If you have Splitting Ice talented).' : ''} If you are consistently spending a long time fishing for a Brain Freeze Proc, {this.hasEbonbolt ? 'then hold Ebonbolt to generate a proc when you need it.' : 'then consider taking Ebonbolt and not casting it unless you need a Brain Freeze Proc for Glacial Spike.'}</>)
+        return suggest(<React.Fragment>You misused <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {this.badCasts} times. In order to get the most out of Glacial Spike, you should only cast it if you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to cast alongside it (Glacial Spike > Flurry > Ice Lance) {this.hasSplittingIce ? ' or if Glacial Spike will cleave to a second target (If you have Splitting Ice talented).' : ''} If you are consistently spending a long time fishing for a Brain Freeze Proc, {this.hasEbonbolt ? 'then hold Ebonbolt to generate a proc when you need it.' : 'then consider taking Ebonbolt and not casting it unless you need a Brain Freeze Proc for Glacial Spike.'}</React.Fragment>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
           .actual(`${formatPercentage(this.utilPercentage, 1)}% utilization`)
           .recommended(`${formatPercentage(recommended, 1)}% is recommended`);

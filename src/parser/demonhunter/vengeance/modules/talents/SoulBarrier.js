@@ -74,7 +74,7 @@ class SoulBarrier extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
+        return suggest(<React.Fragment>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</React.Fragment>)
           .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Soul Barrier`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

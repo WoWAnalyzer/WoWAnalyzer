@@ -42,9 +42,9 @@ class Sanctum extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SANCTUM_TRAIT.id}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.sanctumAbsormAmount} /><br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${formatThousands(this.fadeCount)} Fade Casts<br />

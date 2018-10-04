@@ -62,7 +62,7 @@ class Blindside extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
+      return suggest(<React.Fragment>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </React.Fragment>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
         .actual(`You used Mutilate ${this.badMutilates} times when Blindside was available`)
         .recommended(`${recommended} is recommended`);

@@ -60,7 +60,7 @@ class DoubleTap extends Analyzer {
         position={STATISTIC_ORDER.CORE(18)}
         icon={<SpellIcon id={SPELLS.DOUBLE_TAP_TALENT.id} />}
         value={(
-          <>
+          <React.Fragment>
             {this.aimedUsage}{'  '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
@@ -78,7 +78,7 @@ class DoubleTap extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-          </>
+          </React.Fragment>
         )}
         label="Double Tap"
         tooltip={tooltipText}

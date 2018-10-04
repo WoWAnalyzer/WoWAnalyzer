@@ -100,7 +100,7 @@ class CombustionPyroclasm extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.pyrloclasmUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</>)
+          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</React.Fragment>)
             .icon(SPELLS.PYROCLASM_TALENT.icon)
             .actual(`${formatPercentage(this.pyroclasmBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

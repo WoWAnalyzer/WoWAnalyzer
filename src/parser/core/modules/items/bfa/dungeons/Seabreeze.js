@@ -38,10 +38,10 @@ class Seabreeze extends Analyzer {
     return {
       item: ITEMS.SEABREEZE,
       result: (
-        <>
+        <React.Fragment>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           <dfn data-tip={`The stat budget for a non-proc main hand would yield ${formatNumber(this.statBudget)} secondary stats`}>{formatNumber(this.averageStatGain)} average Haste gained.</dfn>
-        </>
+        </React.Fragment>
       ),
     };
   }

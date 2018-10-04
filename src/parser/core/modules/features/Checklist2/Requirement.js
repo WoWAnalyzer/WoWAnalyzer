@@ -52,9 +52,9 @@ class Requirement extends React.PureComponent {
 
     const performance = this.performance;
     const actual = (
-      <>
+      <React.Fragment>
         {prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {suffix}
-      </>
+      </React.Fragment>
     );
 
     return (

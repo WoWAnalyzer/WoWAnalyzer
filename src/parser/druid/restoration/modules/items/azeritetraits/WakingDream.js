@@ -64,9 +64,9 @@ class WakingDream extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WAKING_DREAM_TRAIT.id}
         value={(
-          <>
+          <React.Fragment>
             {formatPercentage(throughputPercent)} %<br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`Healing from rejuv part: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamHealing))} % / ${formatNumber(this.wakingDreamHealing)} healing.<br />
                   Healing from increased tick rate: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamExtraTickHealing))} % / ${formatNumber(this.wakingDreamExtraTickHealing)} healing.<br />

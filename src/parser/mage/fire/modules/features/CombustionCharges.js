@@ -85,7 +85,7 @@ class CombustionCharges extends Analyzer {
     if (this.hasPhoenixFlames) {
       when(this.phoenixFlamesThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowPhoenixFlamesCharges} times with less than 2 charges of <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} />. Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowPhoenixFlamesCharges} times with less than 2 charges of <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} />. Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization`)
           .recommended(`${formatPercentage(recommended)} is recommended`);
@@ -93,7 +93,7 @@ class CombustionCharges extends Analyzer {
     }
     when(this.fireBlastThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowFireBlastCharges} times with less than {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowFireBlastCharges} times with less than {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${formatPercentage(this.fireBlastChargeUtil)}% Utilization`)
           .recommended(`${formatPercentage(recommended)} is recommended`);

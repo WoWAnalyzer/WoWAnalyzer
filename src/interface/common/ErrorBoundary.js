@@ -42,7 +42,7 @@ class ErrorBoundary extends React.Component {
           details="An error occured while trying to render (a part of) this page. Please try again."
           background={ApiDownBackground}
           errorDetails={(
-            <>
+            <React.Fragment>
               <p>{this.state.error.message}</p>
               {this.state.error.stack && (
                 <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
@@ -54,7 +54,7 @@ class ErrorBoundary extends React.Component {
                   {this.state.errorDetails}
                 </pre>
               )}
-            </>
+            </React.Fragment>
           )}
         >
           <div className="text-muted">

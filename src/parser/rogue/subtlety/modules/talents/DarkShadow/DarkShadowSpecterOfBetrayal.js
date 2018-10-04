@@ -21,7 +21,7 @@ class DarkShadowSpecterOfBetrayal extends DarkShadow {
     const castsInDanceShare = totalSpecterCastsInShadowDance / totalSpecterCast;
     when(castsInDanceShare).isLessThan(0.90)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Use <ItemLink id={ITEMS.SPECTER_OF_BETRAYAL.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </>)
+      return suggest(<React.Fragment>Use <ItemLink id={ITEMS.SPECTER_OF_BETRAYAL.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </React.Fragment>)
         .icon(ITEMS.SPECTER_OF_BETRAYAL.icon)
         .actual(`You used Specter of Betrayal in Shadow Dance ${formatPercentage(actual)}% of the time`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)

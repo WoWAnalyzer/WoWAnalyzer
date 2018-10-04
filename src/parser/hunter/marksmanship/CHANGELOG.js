@@ -7,12 +7,12 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-09-28'),
-    changes: <>Adds simple tracking for <SpellLink id={SPELLS.STEADY_AIM.id} /> azerite trait, and disables focus capping module when that trait is active.</>,
+    changes: <React.Fragment>Adds simple tracking for <SpellLink id={SPELLS.STEADY_AIM.id} /> azerite trait, and disables focus capping module when that trait is active.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-08-06'),
-    changes: <>Adds initial tracking for <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> to ensure the GCD is accurate in the analyzer.</>,
+    changes: <React.Fragment>Adds initial tracking for <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> to ensure the GCD is accurate in the analyzer.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -22,7 +22,7 @@ export default [
   },
   {
     date: new Date('2018-08-06'),
-    changes: <>Adds buff indicators to relevant spells in the timeline, adjusted placement of statistic boxes and added example logs to everything BFA related.</>,
+    changes: <React.Fragment>Adds buff indicators to relevant spells in the timeline, adjusted placement of statistic boxes and added example logs to everything BFA related.</React.Fragment>,
     contributors: [Putro],
   },
   {

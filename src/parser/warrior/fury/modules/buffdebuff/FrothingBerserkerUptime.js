@@ -40,7 +40,7 @@ class FrothingBerserkerUptime extends Analyzer {
 
     when(this.frothingBerserkerUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</React.Fragment>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
           .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

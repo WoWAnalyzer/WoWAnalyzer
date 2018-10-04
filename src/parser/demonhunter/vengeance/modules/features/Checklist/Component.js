@@ -36,10 +36,10 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Use your short cooldowns"
           description={(
-            <>
+            <React.Fragment>
               These should generally always be on recharge to maximize DPS, HPS and efficiency.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
@@ -52,10 +52,10 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Use your rotational defensive/healing abilities"
           description={(
-            <>
+            <React.Fragment>
               Use these to block damage spikes and keep damage smooth to reduce external healing required.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           {/* As I can't track the cast efficiency with Feed the Demon talent equipped, I'm disabling the checklist item */}
@@ -63,9 +63,9 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&(
             <Requirement
               name={(
-                <>
+                <React.Fragment>
                   <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> 4+ souls casts
-                </>
+                </React.Fragment>
               )}
               thresholds={thresholds.spiritBombSoulsConsume}
             />
@@ -73,9 +73,9 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           {(!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) &&(
             <Requirement
               name={(
-                <>
+                <React.Fragment>
                   <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> souls consumed
-                </>
+                </React.Fragment>
               )}
               thresholds={thresholds.soulCleaveSoulsConsumed}
             />
@@ -86,10 +86,10 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Use your long defensive/healing cooldowns"
           description={(
-            <>
+            <React.Fragment>
               Use these to mitigate large damage spikes or in emergency situations.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           <AbilityRequirement spell={SPELLS.METAMORPHOSIS_TANK.id} />
@@ -100,18 +100,18 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Maintain your buffs and debuffs"
           description={(
-            <>
+            <React.Fragment>
               It is important to maintain these as they contribute a large amount to your DPS and HPS.<br />
               <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&(
             <Requirement
               name={(
-                <>
+                <React.Fragment>
                   <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime
-                </>
+                </React.Fragment>
               )}
               thresholds={thresholds.spiritBombFrailtyDebuff}
             />
@@ -119,9 +119,9 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id) &&(
             <Requirement
               name={(
-                <>
+                <React.Fragment>
                   <SpellLink id={SPELLS.VOID_REAVER_TALENT.id} /> debuff uptime
-                </>
+                </React.Fragment>
               )}
               thresholds={thresholds.voidReaverDebuff}
             />

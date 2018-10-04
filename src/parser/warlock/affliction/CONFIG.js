@@ -16,12 +16,12 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   // TODO: once there is an estabilished "rule of thumb" rotation, put it in the description
   description: (
-    <>
+    <React.Fragment>
       Hello fellow Netherlords! With some help from a theorycrafter from Warlock Discord, we've put together this tool to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />
 
       If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>
       or <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>, if you'd like to discuss anything about this analyzer, message me @Chizu on WoWAnalyzer Discord.
-    </>
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/c6B17F3nNdtgTbxV/8-Heroic+Vectis+-+Kill+(5:08)/25-Plazudnug',

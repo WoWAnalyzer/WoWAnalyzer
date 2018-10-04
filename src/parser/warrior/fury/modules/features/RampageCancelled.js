@@ -53,7 +53,7 @@ class RampageCancelled extends Analyzer {
 
     when(wasted / (max * RAMPAGE_HITS_PER_CAST)).isGreaterThan(minor)
       .addSuggestion((suggest, actual) => {
-        return suggest(<>Your <SpellLink id={SPELLS.RAMPAGE.id} /> cast are being cancelled prematurely. Be sure to be facing the target within melee distance to avoid this.</>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.RAMPAGE.id} /> cast are being cancelled prematurely. Be sure to be facing the target within melee distance to avoid this.</React.Fragment>)
           .icon(SPELLS.RAMPAGE.icon)
           .actual(`${formatPercentage(actual)}% (${wasted} out of ${max * RAMPAGE_HITS_PER_CAST}) of your Rampage hits were cancelled.`)
           .recommended(`0% is recommended`)

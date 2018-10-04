@@ -13,7 +13,7 @@ class ComboPoints extends Analyzer {
   };
 
   makeExtraSuggestion(spell) {
-    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Combo points for Seal Fate are not considered. </>;
+    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Combo points for Seal Fate are not considered. </React.Fragment>;
   }
 
   suggestions(when) {

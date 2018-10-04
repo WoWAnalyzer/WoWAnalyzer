@@ -17,14 +17,14 @@ class ItemDamageDone extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <>
+      <React.Fragment>
         <img
           src="/img/sword.png"
           alt="Damage"
           className="icon"
         />{' '}
         {approximate && '≈'}{parser.formatItemDamageDone(amount)}
-      </>
+      </React.Fragment>
     );
   }
 }

@@ -46,9 +46,9 @@ class GroveTending extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GROVE_TENDING_TRAIT.id}
         value={(
-          <>
+          <React.Fragment>
             {formatPercentage(throughputPercent)} %<br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`Grove Tending gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}

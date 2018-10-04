@@ -18,7 +18,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <>
+    <React.Fragment>
       <Warning>
         Hey there! Right now the Protection Paladin parser only holds very basic functionality. What we do show should be good to use, but it does not show the complete picture.
       </Warning>
@@ -26,7 +26,7 @@ export default {
       <Warning>
         Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <dfn data-tip="The combatlog does not contain any events for random cooldown resets.">can't be tracked</dfn> properly, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <dfn data-tip="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</dfn>.
       </Warning>
-    </>
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/YngbjftpzhCAQFPL/1-Heroic+Vectis+-+Kill+(5:23)/1-Terdburglar',

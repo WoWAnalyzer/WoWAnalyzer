@@ -83,9 +83,9 @@ class Estel extends Analyzer {
     return {
       item: ITEMS.ESTEL_DEJAHNAS_INSPIRATION,
       result: (
-        <>
+        <React.Fragment>
           {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
-        </>
+        </React.Fragment>
       ),
     };
   }

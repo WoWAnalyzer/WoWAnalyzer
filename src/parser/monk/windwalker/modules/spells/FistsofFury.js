@@ -67,7 +67,7 @@ class FistsofFury extends Analyzer {
         icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
         value={this.averageTicks.toFixed(2)}
         label={(
-          <>You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast.</>
+          <React.Fragment>You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast.</React.Fragment>
         )}
       />
     );

@@ -45,9 +45,9 @@ class ThundergodsVigor extends Analyzer {
       item: ITEMS.THUNDERGODS_VIGOR,
       result: (
         <dfn data-tip={`${formatDuration(this.wastedReduction / 1000)} minutes wasted`}>
-          <>
+          <React.Fragment>
             Reduced the cooldown of <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> by {formatDuration(this.effectiveReduction / 1000)} minutes
-          </>
+          </React.Fragment>
         </dfn>
       ),
     };

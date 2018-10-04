@@ -33,11 +33,11 @@ class VigilantsBloodshaper extends Analyzer{
     return{
       item: ITEMS.VIGILANTS_BLOODSHAPER,
       result: (
-        <>
+        <React.Fragment>
           <dfn data-tip={`Hit <b>${this.hits}</b> targets, causing <b>${formatNumber(this.damage)}</b> damage.`}>
             <ItemDamageDone amount={this.damage} />
           </dfn>
-        </>
+        </React.Fragment>
       ),
     };
   }

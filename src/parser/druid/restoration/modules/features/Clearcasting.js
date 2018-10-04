@@ -142,14 +142,14 @@ class Clearcasting extends Analyzer {
   suggestions(when) {
     when(this.clearcastingUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</React.Fragment>)
           .icon(SPELLS.CLEARCASTING_BUFF.icon)
           .actual(`You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`)
           .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`);
       });
     when(this.nonCCRegrowthsSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</>)
+        return suggest(<React.Fragment><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</React.Fragment>)
           .icon(SPELLS.REGROWTH.icon)
           .actual(`You cast ${this.nonCCRegrowthsPerMinute.toFixed(1)} Regrowths per minute without a Clearcasting proc.`)
           .recommended(`${recommended.toFixed(1)} CPM is recommended`);

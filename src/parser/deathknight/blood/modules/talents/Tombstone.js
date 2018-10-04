@@ -84,7 +84,7 @@ class Tombstone extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</>)
+        return suggest(<React.Fragment>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</React.Fragment>)
           .icon(SPELLS.TOMBSTONE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% bad Tombstone casts`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

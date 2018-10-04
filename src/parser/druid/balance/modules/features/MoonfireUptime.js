@@ -29,7 +29,7 @@ class MoonfireUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</React.Fragment>)
         .icon(SPELLS.MOONFIRE_BEAR.icon)
         .actual(`${formatPercentage(actual)}% Moonfire uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

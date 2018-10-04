@@ -16,11 +16,11 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <>
+    <React.Fragment>
       <Warning>
         Hey there! Right now the Elemental Shaman parser only holds basic functionality. What we do show should be good to use, but it does not show the complete picture.
       </Warning>
-    </>
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/MFAjn61xgwtkfVaP/5-Heroic+Vectis+-+Kill+(5:23)/36-Bigt%C3%B8tem',

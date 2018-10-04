@@ -29,7 +29,7 @@ class PlayerSelectorHeader extends SelectorBase {
 
     return (
       <div ref={this.ref} {...others}>
-        <a onClick={this.handleClick}>{selectedPlayerName}</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+        <a onClick={this.handleClick}>{selectedPlayerName}</a>
         {this.state.show && (
           <span className="selectorHeader">
             <div className="panel">

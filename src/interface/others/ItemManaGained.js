@@ -19,10 +19,10 @@ class ItemManaGained extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <>
+      <React.Fragment>
         <ResourceIcon id={RESOURCE_TYPES.MANA.id} />{' '}
         {approximate && '≈'}{parser.formatManaRestored(amount)}
-      </>
+      </React.Fragment>
     );
   }
 }

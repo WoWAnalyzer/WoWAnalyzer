@@ -68,7 +68,7 @@ class Shield_Block extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You only had the <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Shield Block buff up to mitigate as much physical damage as possible.</>)
+          return suggest(<React.Fragment>You only had the <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Shield Block buff up to mitigate as much physical damage as possible.</React.Fragment>)
             .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
             .actual(`${formatPercentage(actual)}% was mitigated by Shield Block`)
             .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`);

@@ -25,7 +25,7 @@ class SoulConduit extends Analyzer {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id) / 10;
     return (
       <StatisticListBoxItem
-        title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
+        title={<React.Fragment>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></React.Fragment>}
         value={shardsGained}
         valueTooltip={`Your Soul Conduit refunded ${formatPercentage(shardsGained/spent)} % of soul shards spent`}
       />

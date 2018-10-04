@@ -238,7 +238,7 @@ class App extends React.Component {
     const { error } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
           <NavigationBar />
           <Header showReportSelecter={this.showReportSelecter} />
@@ -252,7 +252,7 @@ class App extends React.Component {
         </div>
         {!error && <Footer />}
         <div id="portal" />
-      </>
+      </React.Fragment>
     );
   }
 }

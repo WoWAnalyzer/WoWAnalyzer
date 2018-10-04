@@ -57,9 +57,9 @@ class Abundance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} />}
         value={(
-          <>
+          <React.Fragment>
             {avgStacks.toFixed(2)}  Avg. stacks<br />
-          </>
+          </React.Fragment>
         )}
         label={'Abundance'}
         tooltip={`Average mana reductions gained was ${formatPercentage(avgManaSavingsPercent)}% or ${formatNumber(avgManaSaings)} mana per cast.<br />

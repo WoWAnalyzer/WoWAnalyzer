@@ -7,27 +7,27 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-09-21'),
-    changes: <>Added statistics for <SpellLink id={SPELLS.WHITEOUT.id} /></>,
+    changes: <React.Fragment>Added statistics for <SpellLink id={SPELLS.WHITEOUT.id} /></React.Fragment>,
     contributors: [Dambroda],
   },
   {
     date: new Date('2018-09-10'),
-    changes: <>Updated Checklist, Better <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> Support, Added Support for <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /></>,
+    changes: <React.Fragment>Updated Checklist, Better <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> Support, Added Support for <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /></React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-28'),
-    changes: <>Added support for <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> and <SpellLink id={SPELLS.WHITEOUT.id} /></>,
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> and <SpellLink id={SPELLS.WHITEOUT.id} /></React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-08-11'),
-    changes: <>Updated for Level 120</>,
+    changes: <React.Fragment>Updated for Level 120</React.Fragment>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-06-10'),
-    changes: <>Updated for 8.0 Prepatch</>,
+    changes: <React.Fragment>Updated for 8.0 Prepatch</React.Fragment>,
     contributors: [Sharrq],
   },
 ];

@@ -54,9 +54,9 @@ class ComboPointDetails extends Analyzer {
   suggestions(when) {
     when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <React.Fragment>
           You are wasting combo points. Avoid using generators once you reach the maximum.
-        </>
+        </React.Fragment>
       )
         .icon('creatureportrait_bubble')
         .actual(`${actual.toFixed(1)} combo points wasted per minute`)
@@ -65,9 +65,9 @@ class ComboPointDetails extends Analyzer {
 
     when(this.finishersBelowMaxSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <React.Fragment>
           You are casting too many finishers with less that 5 combo points. Apart from <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> during the opening of a fight you should always use finishers with a full 5 combo points.
-        </>
+        </React.Fragment>
       )
         .icon('creatureportrait_bubble')
         .actual(`${formatPercentage(actual)}% of finishers were cast with 5 combo points`)

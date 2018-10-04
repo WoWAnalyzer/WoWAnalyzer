@@ -58,9 +58,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
-            <>
+            <React.Fragment>
               <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most damage.
-            </>
+            </React.Fragment>
           ),
         },
       },

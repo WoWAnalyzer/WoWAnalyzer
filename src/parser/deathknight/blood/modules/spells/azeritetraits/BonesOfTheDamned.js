@@ -66,10 +66,10 @@ class BonesOfTheDamned extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BONES_OF_THE_DAMNED.id}
         value={(
-          <>
+          <React.Fragment>
             {formatNumber(this.marrowrendUsage.bonesOfTheDamnedProcs)} Procs <br />
             {formatNumber(this.averageArmor)} average Armor
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>

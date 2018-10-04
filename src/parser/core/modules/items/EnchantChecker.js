@@ -92,9 +92,9 @@ class EnchantChecker extends Analyzer {
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <>
+              <React.Fragment>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </>
+              </React.Fragment>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
@@ -104,9 +104,9 @@ class EnchantChecker extends Analyzer {
         when(noMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <>
+              <React.Fragment>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </>
+              </React.Fragment>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);

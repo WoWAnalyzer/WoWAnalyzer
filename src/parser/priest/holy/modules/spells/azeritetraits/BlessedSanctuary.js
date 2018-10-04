@@ -53,9 +53,9 @@ class BlessedSanctuary extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLESSED_SANCTUARY.id}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.effectiveHealing} /><br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${formatThousands(this.effectiveHealing)} Total Healing

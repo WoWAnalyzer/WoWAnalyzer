@@ -36,7 +36,7 @@ class MarkOfBlood extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</>)
+          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</React.Fragment>)
             .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
             .actual(`${formatPercentage(actual)}% Mark Of Blood Uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`);

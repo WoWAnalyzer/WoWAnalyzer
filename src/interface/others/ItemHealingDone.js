@@ -18,7 +18,7 @@ class ItemHealingDone extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <>
+      <React.Fragment>
         <img
           src="/img/healing.png"
           alt="Healing"
@@ -26,7 +26,7 @@ class ItemHealingDone extends React.PureComponent {
         />{' '}
         {approximate && '≈'}
         {greaterThan && '>'}{parser.formatItemHealingDone(amount)}
-      </>
+      </React.Fragment>
     );
   }
 }

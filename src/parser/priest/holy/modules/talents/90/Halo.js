@@ -50,10 +50,10 @@ class Halo extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.HALO_TALENT.id} />}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.haloHealing} /><br />
             <ItemDamageDone amount={this.haloDamage} />
-          </>
+          </React.Fragment>
         )}
         label="Halo"
         tooltip={`Halos Cast: ${this.haloCasts}`}

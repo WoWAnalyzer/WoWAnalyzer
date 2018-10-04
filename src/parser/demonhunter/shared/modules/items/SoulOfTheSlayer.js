@@ -42,7 +42,7 @@ class SoulOfTheSlayer extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_SLAYER,
-      result: <>This gave you <SpellLink id={this.talentGained} />.</>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} />.</React.Fragment>,
     };
   }
 
@@ -57,7 +57,7 @@ class SoulOfTheSlayer extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<>When using <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</>)
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_SLAYER.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

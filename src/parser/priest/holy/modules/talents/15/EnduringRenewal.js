@@ -81,9 +81,9 @@ class EnduringRenewal extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.healing} />
-          </>
+          </React.Fragment>
         )}
         label="Enduring Renewal"
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}

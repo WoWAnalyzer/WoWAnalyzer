@@ -36,10 +36,10 @@ class HeartOfTheVoid extends Analyzer {
     return {
       item: ITEMS.HEART_OF_THE_VOID,
       result: (
-        <>
+        <React.Fragment>
           <ItemDamageDone amount={this.bonusDamage} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
-        </>
+        </React.Fragment>
       ),
     };
   }

@@ -124,7 +124,7 @@ class Eradication extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></>)
+        return suggest(<React.Fragment>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></React.Fragment>)
           .icon(SPELLS.ERADICATION_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Eradication uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -144,7 +144,7 @@ class Eradication extends Analyzer {
   get chaosBoltStatistic() {
     return (
       <StatisticListBoxItem
-        title={<>Buffed <SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink></>}
+        title={<React.Fragment>Buffed <SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink></React.Fragment>}
         value={`${formatPercentage(this.CBpercentage)} %`}
         valueTooltip={`${this._buffedCB} / ${this._totalCB}`}
       />

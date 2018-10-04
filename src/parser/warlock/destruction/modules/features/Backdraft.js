@@ -75,7 +75,7 @@ class Backdraft extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</>)
+        return suggest(<React.Fragment>You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</React.Fragment>)
           .icon(SPELLS.BACKDRAFT.icon)
           .actual(`${actual.toFixed(2)} wasted Backdraft stacks per minute`)
           .recommended(`< ${recommended} is recommended`);

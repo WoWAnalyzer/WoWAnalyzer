@@ -73,7 +73,7 @@ class Judgment extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
+      return suggest(<React.Fragment>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</React.Fragment>)
         .icon(SPELLS.JUDGMENT_DEBUFF.icon)
         .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

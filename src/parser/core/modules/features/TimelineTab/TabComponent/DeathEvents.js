@@ -19,7 +19,7 @@ class DeathEvents extends React.PureComponent {
     const { start, secondWidth, deaths, resurrections } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         {deaths.map(event => {
           const eventStart = event.start || event.timestamp;
           const fightDuration = (eventStart - start) / 1000;
@@ -50,7 +50,7 @@ class DeathEvents extends React.PureComponent {
             />
           );
         })}
-      </>
+      </React.Fragment>
     );
   }
 }

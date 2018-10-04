@@ -33,7 +33,7 @@ class AbsoluteCorruption extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</>}
+        title={<React.Fragment><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</React.Fragment>}
         value={`${formatThousands(this.dps)} DPS`}
         valueTooltip={`Your Absolute Corruption talent contributed ${formatThousands(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).<br /><br />Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage is a lot higher due to saved GCDs.`}
       />

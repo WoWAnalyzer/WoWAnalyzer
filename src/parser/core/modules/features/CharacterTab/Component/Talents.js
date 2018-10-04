@@ -15,7 +15,7 @@ class Talents extends React.PureComponent {
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     return (
-      <>
+      <React.Fragment>
         <div className="row">
           <div className="col-md-12">
             <h2>
@@ -29,7 +29,7 @@ class Talents extends React.PureComponent {
               {rows[index]}
             </div>
             {spellId ? (
-              <>
+              <React.Fragment>
                 <div className="col-xs-2">
                   <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
                 </div>
@@ -38,7 +38,7 @@ class Talents extends React.PureComponent {
                     {SPELLS[spellId] ? SPELLS[spellId].name : `Unknown spell: ${spellId}`}
                   </SpellLink>
                 </div>
-              </>
+              </React.Fragment>
             ) : (
               <div className="col-xs-offset-2 col-xs-7">
                 <i>No talent active</i>
@@ -46,7 +46,7 @@ class Talents extends React.PureComponent {
             )}
           </div>
         ))}
-      </>
+      </React.Fragment>
     );
   }
 }

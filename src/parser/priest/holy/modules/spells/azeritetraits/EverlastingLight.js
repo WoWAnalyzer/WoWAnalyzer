@@ -65,9 +65,9 @@ class EverlastingLight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.EVERLASTING_LIGHT.id}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.totalHealing} />
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${formatThousands(this.totalHealing)} Total Healing

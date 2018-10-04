@@ -169,10 +169,10 @@ class BrainFreeze extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         let suggestBuilder;
         if (this.glacialSpikeTalented) {
-          suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should use <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> immediately following <SpellLink id={SPELLS.FROSTBOLT.id} /> if you have fewer than {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
-          // suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should only hold <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {CONST_NAME} icicles, or would have {CONST_NAME} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> after your current <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
+          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should use <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> immediately following <SpellLink id={SPELLS.FROSTBOLT.id} /> if you have fewer than {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</React.Fragment>);
+          // suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should only hold <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {CONST_NAME} icicles, or would have {CONST_NAME} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> after your current <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</React.Fragment>);
         } else {
-          suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</>);
+          suggestBuilder = suggest(<React.Fragment>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</React.Fragment>);
         }
         return suggestBuilder.icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
@@ -181,7 +181,7 @@ class BrainFreeze extends Analyzer {
 
     when(this.expiredSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
+        return suggest(<React.Fragment>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(this.expiredPercent)}% expired`)
           .recommended(`Letting none expire is recommended`);
@@ -189,7 +189,7 @@ class BrainFreeze extends Analyzer {
 
     when(this.flurryWithoutProcSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> or <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> {this.flurryWithoutProc} times. The only time it is acceptable to hard case Flurry is if you have a proc of the Winter's Reach Azerite Trait.</>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> or <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> {this.flurryWithoutProc} times. The only time it is acceptable to hard case Flurry is if you have a proc of the Winter's Reach Azerite Trait.</React.Fragment>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(this.flurryWithoutProc)} casts`)
           .recommended(`Casting none is recommended`);

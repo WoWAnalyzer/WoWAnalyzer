@@ -48,10 +48,10 @@ class Apotheosis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.APOTHEOSIS_TALENT.id} />}
         value={(
-          <>
+          <React.Fragment>
             <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
             {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
-          </>
+          </React.Fragment>
         )}
         label="Apotheosis"
         tooltip={`

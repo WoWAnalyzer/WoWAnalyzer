@@ -45,7 +45,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Always be casting',
-      description: <><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</>,
+      description: <React.Fragment><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -65,15 +65,15 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime</React.Fragment>,
             check: () => this.moonfireUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.SUNFIRE.id} /> uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.SUNFIRE.id} /> uptime</React.Fragment>,
             check: () => this.sunfireUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime</>,
+            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime</React.Fragment>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: this.stellarFlareUptime.active,
           }),
@@ -86,15 +86,15 @@ class Checklist extends CoreChecklist {
           requirements: () => {
             return [
               new Requirement({
-                name: <><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> good refreshes</>,
+                name: <React.Fragment><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> good refreshes</React.Fragment>,
                 check: () => this.earlyDotRefreshesInstants.suggestionThresholdsMoonfireEfficiency,
               }),
               new Requirement({
-                name: <><SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes</>,
+                name: <React.Fragment><SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes</React.Fragment>,
                 check: () => this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
               }),
               new Requirement({
-                name: <><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes</>,
+                name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes</React.Fragment>,
                 check: () => this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
                 when: this.earlyDotRefreshes.active,
               }),
@@ -103,7 +103,7 @@ class Checklist extends CoreChecklist {
         }),
     new Rule({
       name: 'Do not overcap your resources',
-      description: <>You should try to always avoid overcapping your Astral Power and your solar and lunar empowerments. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power.</>,
+      description: <React.Fragment>You should try to always avoid overcapping your Astral Power and your solar and lunar empowerments. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -123,7 +123,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your cooldowns',
-      description: <>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</>,
+      description: <React.Fragment>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -137,7 +137,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your supportive abilities',
-      description: <>While you should not aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough.</>,
+      description: <React.Fragment>While you should not aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough.</React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({

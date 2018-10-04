@@ -109,13 +109,13 @@ class VipersVenom extends Analyzer {
 
   suggestions(when) {
     when(this.raptorWithBuffThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> before you cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> again.</>)
+      return suggest(<React.Fragment>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> before you cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> again.</React.Fragment>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
         .actual(`${actual} raptor casts with Viper's Venom buff active`)
         .recommended(`<${recommended} casts is recommended`);
     });
     when(this.wastedProcsThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs, and to not cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> before you've spent the <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff.</>)
+      return suggest(<React.Fragment>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs, and to not cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> before you've spent the <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff.</React.Fragment>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
         .actual(`${actual} wasted procs of Viper's Venom`)
         .recommended(`<${recommended} is recommended`);

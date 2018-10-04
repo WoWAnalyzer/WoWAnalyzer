@@ -19,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Your downtime can be improved. Try to Always Be Casting (ABC)...</>)
+        return suggest(<React.Fragment> Your downtime can be improved. Try to Always Be Casting (ABC)...</React.Fragment>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`${formatPercentage(recommended)}% or less is recommended`);

@@ -227,7 +227,7 @@ class EncounterStats extends React.PureComponent {
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
     this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
     return (
-      <>
+      <React.Fragment>
         <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
           <h2>Statistics of this fight of the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
         </div>
@@ -275,7 +275,7 @@ class EncounterStats extends React.PureComponent {
             </div>
           </div>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }

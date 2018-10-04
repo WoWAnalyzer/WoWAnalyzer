@@ -36,10 +36,10 @@ class HolyPaladinChecklist extends React.PureComponent {
         <Rule
           name="Use core abilities as often as possible"
           description={(
-            <>
+            <React.Fragment>
               Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
               <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
@@ -51,10 +51,10 @@ class HolyPaladinChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id) && <AbilityRequirement spell={SPELLS.HOLY_PRISM_TALENT.id} />}
           <Requirement
             name={(
-              <>
+              <React.Fragment>
                 Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while{' '}
                 <span style={{ whiteSpace: 'nowrap' }}><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /></span> was available
-              </>
+              </React.Fragment>
             )}
             thresholds={thresholds.fillerFlashOfLight}
           />
@@ -62,10 +62,10 @@ class HolyPaladinChecklist extends React.PureComponent {
         <Rule
           name="Use cooldowns effectively"
           description={(
-            <>
+            <React.Fragment>
               Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.{' '}
               <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </>
+            </React.Fragment>
           )}
         >
           {/* Avenging Crusader replaces Avenging Wrath */}
@@ -85,19 +85,19 @@ class HolyPaladinChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name={<>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</>}
+          name={<React.Fragment>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</React.Fragment>}
           description={(
-            <>
+            <React.Fragment>
               <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Total filler casts per minute" thresholds={thresholds.fillerLightOfTheMartyrsCpm} />
           <Requirement
             name={(
-              <>
+              <React.Fragment>
                 Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available
-              </>
+              </React.Fragment>
             )}
             thresholds={thresholds.fillerLightOfTheMartyrsInefficientCpm}
           />
@@ -109,17 +109,17 @@ class HolyPaladinChecklist extends React.PureComponent {
           <Requirement name="Direct beacon healing" thresholds={thresholds.directBeaconHealing} />
         </Rule>
         <Rule
-          name={<>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></>}
+          name={<React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>}
           description={(
-            <>
+            <React.Fragment>
               <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Mastery effectiveness" thresholds={thresholds.masteryEffectiveness} />
         </Rule>
         <Rule
-          name={<>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /></>}
+          name={<React.Fragment>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /></React.Fragment>}
           description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
         >
           <Requirement name="Mana left" thresholds={thresholds.manaLeft} />
@@ -127,9 +127,9 @@ class HolyPaladinChecklist extends React.PureComponent {
         <Rule
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
-            <>
+            <React.Fragment>
               While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
-            </>
+            </React.Fragment>
           )}
         >
           <Requirement name="Non healing time" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />

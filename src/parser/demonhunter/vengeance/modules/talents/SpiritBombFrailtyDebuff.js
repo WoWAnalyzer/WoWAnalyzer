@@ -40,7 +40,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</React.Fragment>)
           .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Frailty uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

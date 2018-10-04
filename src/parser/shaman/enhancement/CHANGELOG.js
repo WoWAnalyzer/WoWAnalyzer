@@ -5,7 +5,7 @@ import { HawkCorrigan } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-09-16'),
-    changes: <>Updated Enhancement Shaman for BfA.</>,
+    changes: <React.Fragment>Updated Enhancement Shaman for BfA.</React.Fragment>,
     contributors: [HawkCorrigan],
   },
 ];

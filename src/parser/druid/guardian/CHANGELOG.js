@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-08-09'),
-    changes: <>Fixed <SpellLink id={SPELLS.IRONFUR.id} /> tracking module.</>,
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.IRONFUR.id} /> tracking module.</React.Fragment>,
     contributors: [Yajinni],
   },
 ];

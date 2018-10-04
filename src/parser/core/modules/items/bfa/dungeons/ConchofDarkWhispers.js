@@ -30,10 +30,10 @@ class ConchofDarkWhispers extends Analyzer {
     return {
       item: ITEMS.CONCH_OF_DARK_WHISPERS,
       result: (
-        <>
+        <React.Fragment>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.totalBuffUptime * this.statBuff)} average Critical Strike
-        </>
+        </React.Fragment>
       ),
     };
   }

@@ -78,7 +78,7 @@ class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
 
   suggestions(when) {
     when(this.gcdThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Try to use every GCD available during <SpellLink id={SPELLS.RECKLESSNESS.id} icon />. Damage dealt during <SpellLink id={SPELLS.RECKLESSNESS.id} icon /> comprises a large portion of total damage done, so maximizing ability use during the buff window is critical.</>)
+      return suggest(<React.Fragment>Try to use every GCD available during <SpellLink id={SPELLS.RECKLESSNESS.id} icon />. Damage dealt during <SpellLink id={SPELLS.RECKLESSNESS.id} icon /> comprises a large portion of total damage done, so maximizing ability use during the buff window is critical.</React.Fragment>)
         .icon(SPELLS.RECKLESSNESS.icon)
         .actual(`You missed ${actual} GCDs across ${this.battleCries.length} Battle Cries.`)
         .recommended(`${recommended} is recommended`);

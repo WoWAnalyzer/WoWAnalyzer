@@ -82,9 +82,9 @@ class PrayerfulLitany extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PRAYERFUL_LITANY.id}
         value={(
-          <>
+          <React.Fragment>
             <ItemHealingDone amount={this.prayerfulLitanyHealing} /><br />
-          </>
+          </React.Fragment>
         )}
         tooltip={`
           ${formatThousands(this.prayerfulLitanyHealing)} Total Healing

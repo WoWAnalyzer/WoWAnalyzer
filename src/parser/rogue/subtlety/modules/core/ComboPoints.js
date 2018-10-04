@@ -13,7 +13,7 @@ class ComboPoints extends Analyzer {
   };
 
   makeExtraSuggestion(spell) {
-    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </>;
+    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </React.Fragment>;
   }
   
   get comboPointThresholds() {

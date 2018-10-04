@@ -67,7 +67,7 @@ class ArcaneOrb extends Analyzer {
 	suggestions(when) {
 		when(this.averageHitThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast,2)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
+				return suggest(<React.Fragment>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast,2)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</React.Fragment>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
 					.actual(`${formatNumber(this.averageHitPerCast)} Hits Per Cast`)
 					.recommended(`${formatNumber(recommended)} is recommended`);
