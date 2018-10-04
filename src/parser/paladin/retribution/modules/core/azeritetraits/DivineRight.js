@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 
-const divineRightStats = traits => Object.values(traits).reduce((strengthSum, trait) => {
+const divineRightStats = traits => traits.reduce((strengthSum, trait) => {
   const [strength] = calculateAzeriteEffects(SPELLS.DIVINE_RIGHT.id, trait);
   return strengthSum + strength;
 }, 0);
