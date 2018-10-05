@@ -203,9 +203,9 @@ class Voidform extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.7,
-        average: 0.65,
-        major: 0.6,
+        minor: .65,
+        average: 0.6,
+        major: 0.55,
       },
       style: 'percentage',
     };
@@ -215,9 +215,9 @@ class Voidform extends Analyzer {
     return (voidform) => ({
       actual: voidform.stacks.length,
       isLessThan: {
-        minor: 22,
-        average: 20,
-        major: 18,
+        minor: 18,
+        average: 16,
+        major: 14,
       },
       style: 'number',
     });
