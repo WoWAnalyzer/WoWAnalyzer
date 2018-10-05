@@ -78,16 +78,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_RUNIC_POWER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 90,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
@@ -219,7 +209,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_COMMAND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: 8,        
+        cooldown: 8,
       },
       {
         spell: SPELLS.RAISE_ALLY,
@@ -263,7 +253,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 60,        
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.BLINDING_SLEET_TALENT.id),
       },
       {
@@ -273,9 +263,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),        
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
       },
-      // RUNES     
+      // RUNES
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
