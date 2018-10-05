@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { withI18n } from '@lingui/react';
 import { Trans } from '@lingui/macro';
 import ReactTooltip from 'react-tooltip';
 
 import REGION_CODES from 'common/REGION_CODES';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import './ReportSelecter.css';
 
@@ -19,7 +18,6 @@ export function getReportCode(input) {
 class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,
-    i18n: PropTypes.object.isRequired,
   };
 
   static getFight(input) {
@@ -110,8 +108,6 @@ class ReportSelecter extends React.PureComponent {
   }
 
   render() {
-    const { i18n } = this.props;
-
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
@@ -149,9 +145,6 @@ class ReportSelecter extends React.PureComponent {
   }
 }
 
-export default compose(
-  withI18n(),
-  connect(null, {
-    push,
-  })
-)(ReportSelecter);
+export default connect(null, {
+  push,
+})(ReportSelecter);

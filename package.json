@@ -4,9 +4,10 @@
   "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@lingui/core": "^2.7.0",
     "@lingui/loader": "^2.7.0",
-    "@lingui/react": "^2.7.0",
     "@lingui/macro": "^2.7.0",
+    "@lingui/react": "^2.7.0",
     "@wowanalyzer/react-scripts": "2.0.4b",
     "chart.js": "^2.7.2",
     "enzyme": "^3.6.0",

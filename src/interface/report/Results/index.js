@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
-import { withI18n } from '@lingui/react';
 import { Trans } from '@lingui/macro';
 
 import ChecklistIcon from 'interface/icons/Checklist';
@@ -22,6 +20,7 @@ import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import FightNavigationBar from '../FightNavigationBar';
 import ResultsWarning from './ResultsWarning';
@@ -47,7 +46,6 @@ class Results extends React.PureComponent {
     parser: PropTypes.object.isRequired,
     selectedDetailsTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
-    i18n: PropTypes.object.isRequired,
     premium: PropTypes.bool,
     characterProfile: PropTypes.shape({
       region: PropTypes.string.isRequired,
@@ -110,8 +108,6 @@ class Results extends React.PureComponent {
     }
   }
   renderFightDowntimeToggle() {
-    const { i18n } = this.props;
-
     return (
       <div className="toggle-control" style={{ marginTop: 5 }}>
         <Toggle
@@ -183,14 +179,14 @@ class Results extends React.PureComponent {
     );
   }
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
     const config = this.context.config;
 
     const results = parser.generateResults({
-      i18n,
+      i18n, // TODO: Remove and use singleton
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
@@ -354,9 +350,6 @@ const mapStateToProps = state => ({
   premium: hasPremium(state),
 });
 
-export default compose(
-  withI18n(),
-  connect(
-    mapStateToProps
-  )
+export default connect(
+  mapStateToProps
 )(Results);

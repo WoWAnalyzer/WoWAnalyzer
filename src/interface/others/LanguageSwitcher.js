@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { withI18n } from '@lingui/react';
 
 import { getLanguage } from 'interface/selectors/language';
 import { setLanguage } from 'interface/actions/language';
 import ReadableList from 'interface/common/ReadableList';
 import languages from 'common/languages';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 class LanguageSwitcher extends React.PureComponent {
   static propTypes = {
     language: PropTypes.string.isRequired,
     setLanguage: PropTypes.func.isRequired,
-    i18n: PropTypes.object.isRequired,
   };
   state = {
     expanded: false,
@@ -54,7 +52,7 @@ class LanguageSwitcher extends React.PureComponent {
     );
   }
   render() {
-    const { language, i18n } = this.props;
+    const { language } = this.props;
 
     if (this.state.expanded) {
       return this.renderExpanded();
@@ -73,9 +71,6 @@ class LanguageSwitcher extends React.PureComponent {
 const mapStateToProps = state => ({
   language: getLanguage(state),
 });
-export default compose(
-  withI18n(),
-  connect(mapStateToProps, {
-    setLanguage,
-  })
-)(LanguageSwitcher);
+export default connect(mapStateToProps, {
+  setLanguage,
+})(LanguageSwitcher);
