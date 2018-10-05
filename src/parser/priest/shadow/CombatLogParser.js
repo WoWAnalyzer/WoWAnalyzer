@@ -11,7 +11,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
 
 // spells:
