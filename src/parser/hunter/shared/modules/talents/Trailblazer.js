@@ -1,10 +1,10 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Trailblazer increases your movement speed by 30% whenever you have not attacked for 3 seconds.
@@ -24,11 +24,11 @@ class Trailblazer extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(2)}
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.TRAILBLAZER_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label="Trailblazer Uptime"
+        label="Trailblazer uptime"
       />
     );
   }

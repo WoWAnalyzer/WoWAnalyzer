@@ -4,12 +4,12 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/core/modules/StatTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Raptor Strike (or Monogoose Bite) has a chance to make your next
@@ -127,7 +127,7 @@ class VipersVenom extends Analyzer {
     tooltip += this.wastedProcs > 0 ? `<li>You wasted ${this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>` : ``;
     tooltip += `</ul></li></ul>`;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(22)}
         icon={<SpellIcon id={SPELLS.VIPERS_VENOM_TALENT.id} />}
         value={`${this.procs}`}

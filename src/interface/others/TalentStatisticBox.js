@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-const TalentStatisticBox = ({ trait, icon, label, value, tooltip, containerProps, alignIcon, ...others }) => {
+const TalentStatisticBox = ({ talent, icon, label, value, tooltip, containerProps, alignIcon, ...others }) => {
   delete others.category;
   delete others.position;
   return (
@@ -17,11 +17,11 @@ const TalentStatisticBox = ({ trait, icon, label, value, tooltip, containerProps
       <div className="panel statistic-box item" {...others}>
         <div className="panel-body flex">
           <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
-            {icon || <SpellIcon id={trait} />}
+            {icon || <SpellIcon id={talent} />}
           </div>
           <div className="flex-main">
             <div className="slabel">
-              {label || <SpellLink id={trait} icon={false} />}
+              {label || <SpellLink id={talent} icon={false} />}
             </div>
             <dfn data-tip={tooltip} className="value">
               {value}
@@ -33,9 +33,9 @@ const TalentStatisticBox = ({ trait, icon, label, value, tooltip, containerProps
   );
 };
 TalentStatisticBox.propTypes = {
-  trait: PropTypes.number,
-  icon: PropTypes.node, // Override the trait's icon.
-  label: PropTypes.node, // Override the trait's label.
+  talent: PropTypes.number,
+  icon: PropTypes.node, // Override the talent icon.
+  label: PropTypes.node, // Override the talent label.
   value: PropTypes.node.isRequired,
   tooltip: PropTypes.string,
   containerProps: PropTypes.object,
@@ -45,7 +45,7 @@ TalentStatisticBox.propTypes = {
 };
 TalentStatisticBox.defaultProps = {
   alignIcon: 'center',
-  category: STATISTIC_CATEGORY.AZERITE_POWERS,
+  category: STATISTIC_CATEGORY.TALENTS,
 };
 
 export default TalentStatisticBox;

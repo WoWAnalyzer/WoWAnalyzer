@@ -34,6 +34,31 @@ const HTTP_CODES = {
 };
 const WCL_API_ERROR_TEXT = 'Warcraft Logs API error';
 
+async function toJson(response) {
+  // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
+  let text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    // tries to replace non-ascii chars on "unexpected character"-errors
+    // hotfixes the german logs that have control-characters in their names
+    if (error instanceof SyntaxError) {
+      try {
+        text = text.replace(/[^\x20-\x7E]/g, '');
+        return JSON.parse(text);
+      } catch (asciiFixError) {
+        // Ignore the error since we're more interested in the original error.
+      }
+    }
+    captureException(error, {
+      extra: {
+        text,
+      },
+    });
+    throw new JsonParseError();
+  }
+}
+
 async function rawFetchWcl(endpoint, queryParams) {
   const url = makeWclApiUrl(endpoint, queryParams);
   const response = await fetch(url);
@@ -41,35 +66,7 @@ async function rawFetchWcl(endpoint, queryParams) {
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');
   }
-  // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
-  let text = await response.text();
-  let json = null;
-  try {
-    json = JSON.parse(text);
-  } catch (error) {
-    // trys to replace non-ascii chars on "unexpected character"-errors
-    // hotfixes the german logs that have control-characters in their names
-    if (error instanceof SyntaxError) {
-      try {
-        text = text.replace(/[^\x20-\x7E]/g, '');
-        json = JSON.parse(text);
-      } catch (asciiFixError) {
-        captureException(error, {
-          extra: {
-            text,
-          },
-        });
-        throw new JsonParseError();
-      }
-    } else {
-      captureException(error, {
-        extra: {
-          text,
-        },
-      });
-      throw new JsonParseError();
-    }
-  }
+  const json = await toJson(response);
 
   if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {
     const message = json.message;

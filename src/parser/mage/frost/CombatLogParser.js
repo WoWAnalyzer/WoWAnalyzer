@@ -3,6 +3,8 @@ import DamageDone from 'parser/core/modules/DamageDone';
 
 import Checklist from './modules/checklist/Module';
 
+import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -22,9 +24,13 @@ import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
 
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
+
+    // Normalizers
+    prePullCooldowns: PrePullCooldowns,
 
     // Features
     abilities: Abilities,

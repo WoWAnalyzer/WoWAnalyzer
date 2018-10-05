@@ -1,14 +1,14 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import {formatNumber, formatPercentage} from 'common/format';
-import {calculateAzeriteEffects} from 'common/stats';
+import { formatNumber, formatPercentage } from 'common/format';
+import { calculateAzeriteEffects } from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
-
 
 const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
   obj.agility += agility;
+  obj.agility *= 1.2; //Hotfix from 26th September
   return obj;
 }, {
   agility: 0,
@@ -19,33 +19,32 @@ export const STAT_TRACKER = {
 };
 
 /**
- * Barbed Shot has a chance equal to your critical strike chance to grant you 314 agility
- * for 8 sec.
+ * Barbed Shot has a chance equal to your critical strike chance to grant you 314 agility for 8 sec.
  *
  * Example report: https://www.warcraftlogs.com/reports/Nt9KGvDncPmVyjpd#boss=-2&difficulty=0&type=summary&source=9
  */
-class DanceOfDeath extends Analyzer{
+class DanceOfDeath extends Analyzer {
   agility = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DANCE_OF_DEATH.id);
-    if(!this.active){
+    if (!this.active) {
       return;
     }
-    const {agility} = danceOfDeathStats(this.selectedCombatant.traitsBySpellId[SPELLS.DANCE_OF_DEATH.id]);
+    const { agility } = danceOfDeathStats(this.selectedCombatant.traitsBySpellId[SPELLS.DANCE_OF_DEATH.id]);
     this.agility = agility;
   }
 
-  get uptime(){
+  get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_DEATH_BUFF.id) / this.owner.fightDuration;
   }
 
-  get avgAgility(){
+  get avgAgility() {
     return this.uptime * this.agility;
   }
 
-  statistic(){
+  statistic() {
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}

@@ -42,7 +42,28 @@ class PreparationRule extends React.PureComponent {
       </React.Fragment>
     );
   }
-
+  renderFlaskRequirements() {
+    const { thresholds } = this.props;
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Flask used"
+          thresholds={thresholds.flaskPresent}
+        />
+      </React.Fragment>
+    );
+  }
+  renderFoodRequirements() {
+    const { thresholds } = this.props;
+    return (
+      <React.Fragment>
+        <Requirement
+          name="Food used"
+          thresholds={thresholds.foodPresent}
+        />
+      </React.Fragment>
+    );
+  }
   render() {
     const { children } = this.props;
 
@@ -53,6 +74,8 @@ class PreparationRule extends React.PureComponent {
       >
         {this.renderEnchantRequirements()}
         {this.renderPotionRequirements()}
+        {this.renderFlaskRequirements()}
+        {this.renderFoodRequirements()}
         {children}
       </Rule>
     );
