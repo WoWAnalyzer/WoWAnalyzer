@@ -6,9 +6,9 @@ import Combatants from 'parser/core/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
-import ShadowWordPain from 'parser/priest/shadow/modules/spells/ShadowWordPain';
-import VampiricTouch from 'parser/priest/shadow/modules/spells/VampiricTouch';
-import Voidform from 'parser/priest/shadow/modules/spells/Voidform';
+import ShadowWordPain from '../spells/ShadowWordPain';
+import VampiricTouch from '../spells/VampiricTouch';
+import Voidform from '../spells/Voidform';
 
 class Checklist extends Analyzer {
   static dependencies = {

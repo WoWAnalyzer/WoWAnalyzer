@@ -21,10 +21,8 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
-import VoidTorrent from './modules/talents/90/VoidTorrent';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
-import TwistOfFate from './modules/talents/45/TwistOfFate';
 
 // talents
 import Talents from './modules/talents';
