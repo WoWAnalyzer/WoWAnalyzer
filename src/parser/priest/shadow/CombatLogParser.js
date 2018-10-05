@@ -25,8 +25,8 @@ import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
 
 // talents
-import TwistOfFate from './modules/talents/45/TwistOfFate';
-import VoidTorrent from './modules/talents/90/VoidTorrent';
+import TwistOfFate from './modules/talents/TwistOfFate';
+import VoidTorrent from './modules/talents/VoidTorrent';
 
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
