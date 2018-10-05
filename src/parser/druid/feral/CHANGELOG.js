@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-05'),
+    changes: <React.Fragment>Added tracking for using <SpellLink id={SPELLS.SHADOWMELD.id} /> to buff <SpellLink id={SPELLS.RAKE.id} /> damage.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-08-11'),
     changes: <React.Fragment>Added tracking for wasted energy from <SpellLink id={SPELLS.TIGERS_FURY.id} /> and a breakdown of how energy is spent.</React.Fragment>,
     contributors: [Anatta336],
