@@ -133,8 +133,7 @@ class RakeSnapshot extends Snapshot {
   }
 
   statistic() {
-    return super.generateStatistic(SPELLS.RAKE.name);
+    return super.generateStatistic(SPELLS.RAKE.name, STATISTIC_ORDER.CORE(10));
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 export default RakeSnapshot;
