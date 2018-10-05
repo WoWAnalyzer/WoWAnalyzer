@@ -45,6 +45,7 @@ class ShadowPriestChecklist extends React.PureComponent {
 
       for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex++) {
         requirements.push(<Requirement
+          key={voidFormIndex}
           name={`Voidform #${voidFormIndex + 1} stacks`}
           thresholds={props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex])}
         />);
