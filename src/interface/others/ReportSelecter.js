@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Trans } from '@lingui/macro';
 import ReactTooltip from 'react-tooltip';
+import { t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
 import { i18n } from 'interface/RootLocalizationProvider';
@@ -112,7 +113,7 @@ class ReportSelecter extends React.PureComponent {
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
           <input
-            data-tip={i18n.t`
+            data-tip={i18n._(t`
               Parsable links:<br/>
               <ul>
                 <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
@@ -120,7 +121,7 @@ class ReportSelecter extends React.PureComponent {
                 <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
                 <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
               </ul>
-            `}
+            `)}
             data-delay-show="200"
             type="text"
             name="code"
@@ -130,7 +131,7 @@ class ReportSelecter extends React.PureComponent {
             }}
             onChange={this.handleChange}
             style={{ width: 360, cursor: 'help' }}
-            placeholder={i18n.t`https://www.warcraftlogs.com/reports/<report code>`}
+            placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"

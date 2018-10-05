@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { t } from '@lingui/macro';
 
 import { getLanguage } from 'interface/selectors/language';
 import { setLanguage } from 'interface/actions/language';
@@ -60,7 +61,7 @@ class LanguageSwitcher extends React.PureComponent {
 
     return (
       <a onClick={this.handleClickExpand}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-        <dfn data-tip={i18n.t`Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`}>
+        <dfn data-tip={i18n._(t`Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`)}>
           {languages[language].localName}
         </dfn>
       </a>
