@@ -13,7 +13,7 @@ class Fortitude_RaidBuff extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: .95,
-        average: .50,
+        average: .90,
         major: 0,
       },
       style: 'percentage',
