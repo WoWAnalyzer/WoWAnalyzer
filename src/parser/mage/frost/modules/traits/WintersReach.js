@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const CAST_BUFFER = 250;
 const FIGHT_END_BUFFER = 7500;
@@ -36,7 +36,7 @@ class WintersReach extends Analyzer {
     this.buffUsed = false;
     this.totalProcs += 1;
     this.buffAppliedTimestamp = event.timestamp;
-    debug && console.log("Buff Applied @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Applied");
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -47,7 +47,7 @@ class WintersReach extends Analyzer {
     this.buffUsed = false;
     this.wastedProcs += 1;
     this.totalProcs += 1;
-    debug && console.log("Buff Refreshed " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Refreshed");
   }
 
   on_byPlayer_removebuff(event) {
@@ -55,10 +55,10 @@ class WintersReach extends Analyzer {
     if (spellId !== SPELLS.WINTERS_REACH_BUFF.id) {
       return;
     }
-    debug && console.log("Buff Removed @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Removed");
     if (this.buffUsed === false) {
       this.wastedProcs += 1;
-      debug && console.log("Buff Expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Buff Expired");
     } else {
       this.usedProcs += 1;
     }
@@ -72,7 +72,7 @@ class WintersReach extends Analyzer {
     this.beginCastTimestamp = event.timestamp;
     this.beginCastFound = true;
 
-    debug && console.log("Flurry Begin Cast @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Flurry Begin Cast");
   }
 
   on_byPlayer_cast(event) {
@@ -81,13 +81,13 @@ class WintersReach extends Analyzer {
       return;
     }
     this.beginCastFound = false;
-    debug && console.log("Flurry Casted @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Flurry Casted");
     this.castTimestamp = event.timestamp;
     const castTime = this.castTimestamp - this.beginCastTimestamp;
 
     if (castTime >= CAST_BUFFER && this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
       this.buffUsed = true;
-      debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Buff Used");
     }
   }
 
@@ -100,14 +100,14 @@ class WintersReach extends Analyzer {
       const adjustedFightEnding = this.owner.currentTimestamp - FIGHT_END_BUFFER;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {
         this.wastedProcs += 1;
-        debug && console.log("Fight Ended with Unused Proc @ " + formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time));
+        debug && this.log("Fight Ended with Unused Proc");
       } else {
         this.totalProcs -= 1;
       }
     }
-    debug && console.log("Total Procs: " + this.totalProcs);
-    debug && console.log("Used Procs: " + this.usedProcs);
-    debug && console.log("Wasted Procs: " + this.wastedProcs);
+    debug && this.log("Total Procs: " + this.totalProcs);
+    debug && this.log("Used Procs: " + this.usedProcs);
+    debug && this.log("Wasted Procs: " + this.wastedProcs);
   }
 
   get procsPerMinute() {

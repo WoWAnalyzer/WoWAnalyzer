@@ -3,7 +3,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatMilliseconds, formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
@@ -69,10 +69,10 @@ class HotStreak extends Analyzer {
     }
     //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this.
     if ((spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id || spellId === SPELLS.PYROBLAST.id) && this.pyromaniacProc) {
-      debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Wasted Crit Ignored");
     } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
       this.wastedCrits += 1;
-      debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Hot Streak overwritten");
     }
   }
 
@@ -107,12 +107,12 @@ class HotStreak extends Analyzer {
     //Also checks to see if the player has Firestarter or Combustion and if they have Firestarter, checks to see if the boss is less than 90% health
     if (!this.lastCastTimestamp || this.lastCastTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1;
-      debug && console.log("Hot Streak proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Hot Streak proc expired");
     } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved || this.hotStreakRemoved - PROC_WINDOW_MS < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else if (!this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) && (!this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) || (this.currentHealth / this.maxHealth) < 0.90)) {
       this.noCastBeforeHotStreak += 1;
-      debug && console.log("No hard cast before Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("No hard cast before Hot Streak");
     }
   }
 

@@ -1,4 +1,3 @@
-import { formatMilliseconds } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 const debug = false;
@@ -56,10 +55,7 @@ class Entities extends Analyzer {
       return;
     }
 
-    if (debug) {
-      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
-      console.log(fightDuration, 'Entities', `Apply buff ${event.ability.name} to ${entity.name}`);
-    }
+    debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
 
     const buff = {
       ...event,
@@ -86,10 +82,7 @@ class Entities extends Analyzer {
       return;
     }
 
-    if (debug) {
-      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
-      console.log(fightDuration, 'Entities', `Apply buff stack ${event.ability.name} to ${entity.name}`);
-    }
+    debug && this.log(`Apply buff stack ${event.ability.name} to ${entity.name}`);
 
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
     if (existingBuff) {
@@ -113,10 +106,7 @@ class Entities extends Analyzer {
       return;
     }
 
-    if (debug) {
-      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
-      console.log(fightDuration, 'Entities', `Remove buff ${event.ability.name} from ${entity.name}`);
-    }
+    debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
 
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
     if (existingBuff) {

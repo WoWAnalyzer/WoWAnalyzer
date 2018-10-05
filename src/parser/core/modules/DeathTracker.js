@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
@@ -20,14 +20,14 @@ class DeathTracker extends Analyzer {
 
   die(event) {
     this.lastDeathTimestamp = this.owner.currentTimestamp;
-    debug && console.log("Player Died @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Player Died");
     this.isAlive = false;
     this.deaths.push(event);
   }
   resurrect(event) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
     this._timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
-    debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Player was Resurrected");
     this.isAlive = true;
     this.resurrections.push(event);
   }

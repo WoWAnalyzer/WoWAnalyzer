@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import getDamageBonus from 'parser/mage/shared/modules/GetDamageBonus';
 
 const BONUS_DAMAGE = 2.25;
@@ -39,7 +39,7 @@ class Pyroclasm extends Analyzer {
     this.buffUsed = false;
     this.totalProcs += 1;
     this.buffAppliedTimestamp = event.timestamp;
-    debug && console.log("Buff Applied @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Applied");
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -50,7 +50,7 @@ class Pyroclasm extends Analyzer {
     this.buffUsed = false;
     this.totalProcs += 1;
     this.buffAppliedTimestamp = event.timestamp;
-    debug && console.log("Buff Applied @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Applied");
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -61,7 +61,7 @@ class Pyroclasm extends Analyzer {
     this.buffUsed = false;
     this.wastedProcs += 1;
     this.totalProcs += 1;
-    debug && console.log("Buff Refreshed " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Refreshed");
   }
 
   on_byPlayer_removebuff(event) {
@@ -69,10 +69,10 @@ class Pyroclasm extends Analyzer {
     if (spellId !== SPELLS.PYROCLASM_BUFF.id) {
       return;
     }
-    debug && console.log("Buff Removed @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Removed");
     if (this.buffUsed === false) {
       this.wastedProcs += 1;
-      debug && console.log("Buff Expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Buff Expired");
     } else {
       this.usedProcs += 1;
     }
@@ -83,10 +83,10 @@ class Pyroclasm extends Analyzer {
     if (spellId !== SPELLS.PYROCLASM_BUFF.id) {
       return;
     }
-    debug && console.log("Buff Removed @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Buff Removed");
     if (this.buffUsed === false) {
       this.wastedProcs += 1;
-      debug && console.log("Buff Expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Buff Expired");
     } else {
       this.usedProcs += 1;
     }
@@ -100,7 +100,7 @@ class Pyroclasm extends Analyzer {
     this.beginCastTimestamp = event.timestamp;
     this.beginCastFound = true;
 
-    debug && console.log("Pyroblast Begin Cast @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Pyroblast Begin Cast");
   }
 
   on_byPlayer_cast(event) {
@@ -109,14 +109,14 @@ class Pyroclasm extends Analyzer {
       return;
     }
     this.beginCastFound = false;
-    debug && console.log("Pyroblast Casted @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Pyroblast Casted");
     this.castTimestamp = event.timestamp;
     const castTime = this.castTimestamp - this.beginCastTimestamp;
     //Checks the begincast and cast timestamps to determine if it is instant cast or not. This doesnt matter for ABT and ToS because hot streak pyroblasts dont have a begincast, but in Nighthold they do. So this needs to remain for backwards compatibility
     if (castTime >= CAST_BUFFER && this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
       this.isBuffed = true;
       this.buffUsed = true;
-      debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Buff Used");
     }
   }
 
@@ -128,9 +128,9 @@ class Pyroclasm extends Analyzer {
       if (this.isBuffed === true) {
         this.damage += getDamageBonus(event, BONUS_DAMAGE);
         this.isBuffed = false;
-        debug && console.log("Pyroblast Damage @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Pyroblast Damage");
       } else {
-        debug && console.log("Non Buffed Pyroblast Damage @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Non Buffed Pyroblast Damage");
       }
   }
 
@@ -139,14 +139,14 @@ class Pyroclasm extends Analyzer {
       const adjustedFightEnding = this.owner.currentTimestamp - 7500;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {
         this.wastedProcs += 1;
-        debug && console.log("Fight Ended with Unused Proc @ " + formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time));
+        debug && this.log("Fight Ended with Unused Proc");
       } else {
         this.totalProcs -= 1;
       }
     }
-    debug && console.log("Total Procs: " + this.totalProcs);
-    debug && console.log("Used Procs: " + this.usedProcs);
-    debug && console.log("Wasted Procs: " + this.wastedProcs);
+    debug && this.log("Total Procs: " + this.totalProcs);
+    debug && this.log("Used Procs: " + this.usedProcs);
+    debug && this.log("Wasted Procs: " + this.wastedProcs);
   }
 
   get avgBonusDamage() {
@@ -154,7 +154,6 @@ class Pyroclasm extends Analyzer {
   }
 
   get procsPerMinute() {
-    console.log(this.owner.fightDuration / 60000);
     return this.totalProcs / (this.owner.fightDuration / 60000);
   }
 

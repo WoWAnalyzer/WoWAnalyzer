@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
@@ -62,30 +62,30 @@ class ArcanePower extends Analyzer {
 
 			if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_POWER.id)) {
 				this.buffEndTimestamp = event.timestamp + 10000;
-				debug && console.log("Arcane Power Cast During Arcane Power Proc @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-				debug && console.log("Arcane Power End Time adjusted to: " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+				debug && this.log("Arcane Power Cast During Arcane Power Proc");
+				debug && this.log("Arcane Power End Time adjusted to");
 			}
 
 			if (this.arcaneChargeTracker.charges < 4 || (this.hasRuneOfPower && event.timestamp - this.runeTimestamp > 200) || (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD)) {
-				debug && console.log("Bad Cast of Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-				debug && console.log("Arcane Charges: " + this.arcaneChargeTracker.charges + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-				debug && this.hasRuneOfPower && console.log("Rune of Power Delay: " + (event.timestamp - this.runeTimestamp) + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-				debug && !this.hasOverpowered && console.log("Mana Percent: " + currentManaPercent + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+				debug && this.log("Bad Cast of Arcane Power");
+				debug && this.log("Arcane Charges: " + this.arcaneChargeTracker.charges);
+				debug && this.hasRuneOfPower && this.log("Rune of Power Delay: " + (event.timestamp - this.runeTimestamp));
+				debug && !this.hasOverpowered && this.log("Mana Percent: " + currentManaPercent);
 				this.badUses += 1;
 			}
 		} else {
 			this.totalCastsDuringAP += 1;
 			if (UNACCEPTABLE_ARCANE_POWER_SPELLS.includes(spellId)) {
-				debug && console.log("Cast " + event.ability.name + " during Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+				debug && this.log("Cast " + event.ability.name + " during Arcane Power");
 				this.badCastsDuringAP += 1;
 			} else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
 				const manaRemaining = event.classResources[0].amount - (event.resourceCost[0] + (event.resourceCost[0] * this.arcaneChargeTracker.charges));
 				const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
 				if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
-					debug && console.log("Ran Out of Mana during Arcane Power @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-					debug && console.log("Mana Remaining: " + manaRemaining + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-					debug && console.log("Estimated Mana Cost: " + this.estimatedManaCost(spellId) + " @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-					debug && console.log("Time left on Arcane Power: " + buffTimeRemaining);
+					debug && this.log("Ran Out of Mana during Arcane Power");
+					debug && this.log("Mana Remaining: " + manaRemaining);
+					debug && this.log("Estimated Mana Cost: " + this.estimatedManaCost(spellId));
+					debug && this.log("Time left on Arcane Power: " + buffTimeRemaining);
 					this.outOfMana += 1;
 				}
 			}
@@ -99,13 +99,13 @@ class ArcanePower extends Analyzer {
 		}
 		
 		if (this.arcanePowerCasted) {
-			debug && console.log("Arcane Power Cast @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Power Cast");
 			this.buffEndTimestamp = event.timestamp + 10000;
-			debug && console.log("Arcane Power Ends @ " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Power Ends");
 		} else {
-			debug && console.log("Arcane Power Proc @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Power Proc");
 			this.buffEndTimestamp = event.timestamp + 8000;
-			debug && console.log("Arcane Power Ends @ " + formatMilliseconds(this.buffEndTimestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Power Ends");
 		}
 	}
 

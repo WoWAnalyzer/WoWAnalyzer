@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 
@@ -30,7 +30,7 @@ class SearingTouch extends Analyzer {
       }
       if (spellId === SPELLS.FIREBALL.id && healthPercent < .30) {
         this.badCasts += 1;
-        debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Cast Fireball under 30% Health");
       }
     }
   }

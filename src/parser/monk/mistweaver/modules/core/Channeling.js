@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/core/modules/Channeling';
-import { formatMilliseconds } from 'common/format';
 
 /**
  * Crackling Jade Lightning don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.
@@ -26,7 +25,7 @@ class Channeling extends CoreChanneling {
   cancelChannel(event, ability) {
     if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

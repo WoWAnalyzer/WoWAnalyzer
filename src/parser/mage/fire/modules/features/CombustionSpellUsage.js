@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/core/modules/SpellUsable';
@@ -24,7 +24,7 @@ class CombustionSpellUsage extends Analyzer {
     }
     if (this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id) > 0 || this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) > 0) {
       this.castedWithInstants += 1;
-      debug && console.log("Casted with Instants Available @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Casted with Instants Available");
     }
   }
 

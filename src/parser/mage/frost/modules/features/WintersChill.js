@@ -5,7 +5,7 @@ import EnemyInstances from 'parser/core/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -75,7 +75,7 @@ class WintersChill extends Analyzer {
     } else if (this.iceLanceHits === 2) {
       this.doubleIceLanceCasts += 1;
     } else {
-      console.error(`Unexpected number of Ice Lances inside Winter's Chill @ ${formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time)} -> ${this.iceLanceHits}`);
+      this.error(`Unexpected number of Ice Lances inside Winter's Chill -> ${this.iceLanceHits}`);
     }
 
     if (this.hardcastHits === 0) {
@@ -83,7 +83,7 @@ class WintersChill extends Analyzer {
     } else if (this.hardcastHits === 1) {
       this.singleHardcasts += 1;
     } else {
-      console.error(`Unexpected number of Frostbolt hits inside Winter's Chill @ ${formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time)} -> ${this.hardcastHits}`);
+      this.error(`Unexpected number of Frostbolt hits inside Winter's Chill -> ${this.hardcastHits}`);
     }
   }
 

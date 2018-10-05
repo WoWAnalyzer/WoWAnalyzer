@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -25,7 +25,7 @@ class RuleOfThrees extends Analyzer {
 			return;
 		}
 		if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id)) {
-			debug && console.log("Arcane Barrage with Rule of Threes Buff @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Barrage with Rule of Threes Buff");
 			this.barrageWithRuleOfThrees += 1;
 		}
 	}
