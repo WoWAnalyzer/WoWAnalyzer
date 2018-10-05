@@ -5,9 +5,15 @@ import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import CastEfficiency from 'parser/core/modules/CastEfficiency';
+import { formatPercentage } from 'common/format';
 
 // Example Log: /report/CaTNxpcDP6tRgrXG/3-Heroic+MOTHER+-+Kill+(4:12)/4-Iuxury
 class DarkAscension extends Analyzer {
+  static dependencies = {
+    castEfficiency: CastEfficiency,
+  };
+
   casts = 0;
 
   constructor(...args) {
@@ -23,14 +29,15 @@ class DarkAscension extends Analyzer {
   }
 
   statistic() {
+    console.log(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DARK_ASCENSION_TALENT.id));
     return (
 
       <TalentStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.DARK_ASCENSION_TALENT.id} />}
-        value={`${this.casts} Total Dark Ascension Casts`}
+        value={`${this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DARK_ASCENSION_TALENT.id).casts}/${this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DARK_ASCENSION_TALENT.id).maxCasts} Possible Dark Ascension Casts`}
         label="Dark Ascension"
-        tooltip={``}
+        tooltip={`${formatPercentage(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DARK_ASCENSION_TALENT.id).efficiency)}% Efficiency`}
         position={STATISTIC_ORDER.CORE(7)}
       />
 
