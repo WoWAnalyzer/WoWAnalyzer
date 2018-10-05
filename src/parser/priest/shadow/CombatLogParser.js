@@ -21,10 +21,13 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
-import VoidTorrent from './modules/spells/VoidTorrent';
+import VoidTorrent from './modules/talents/90/VoidTorrent';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
-import TwistOfFate from './modules/spells/TwistOfFate';
+import TwistOfFate from './modules/talents/45/TwistOfFate';
+
+// talents
+import Talents from './modules/talents';
 
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
@@ -55,10 +58,15 @@ class CombatLogParser extends MainCombatLogParser {
     shadowWordPain: ShadowWordPain,
     voidform: Voidform,
     voidformAverageStacks: VoidformAverageStacks,
-    voidTorrent: VoidTorrent,
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
-    twistOfFate: TwistOfFate,
+
+    // talents:
+    twistOfFate: Talents.talents_45.TwistOfFate,
+
+    voidTorrent: Talents.talents_90.VoidTorrent,
+
+    darkAscension: Talents.talents_100.DarkAscension,
 
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,
