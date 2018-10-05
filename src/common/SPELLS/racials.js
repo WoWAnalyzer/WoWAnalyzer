@@ -85,6 +85,11 @@ export default {
     name: 'Stoneform',
     icon: 'spell_shadow_unholystrength',
   },
+  STONEFORM_BUFF: {
+    id: 65116,
+    name: 'Stoneform',
+    icon: 'spell_shadow_unholystrength',
+  },
   MIGHT_OF_THE_MOUNTAIN: {
     id: 59224,
     name: 'Might of the Mountain',
