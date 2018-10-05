@@ -37,12 +37,15 @@ class Stoneform extends Analyzer {
 
   on_toPlayer_damage(event) {
     const spellId = event.ability.guid;
+
+    if (event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
+      return;
+    }
+
     if (spellId === FALLING_DAMAGE_ABILITY_ID) { // Falling damage is the same type as physical but ignores DRs.
       return;
     }
-    if (event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
-      return;
-    }
+
     const damageTaken = event.amount + (event.absorbed || 0);
     const isStoneformActive = this.selectedCombatant.hasBuff(SPELLS.STONEFORM_BUFF.id, event.timestamp, this.owner.playerId);
     
