@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
-import { withI18n, Trans } from '@lingui/react';
+import { withI18n } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import ChecklistIcon from 'interface/icons/Checklist';
 import SuggestionIcon from 'interface/icons/Suggestion';

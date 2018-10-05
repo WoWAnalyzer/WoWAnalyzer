@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { withI18n, Trans } from '@lingui/react';
+import { withI18n } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import ReactTooltip from 'react-tooltip';
 
 import REGION_CODES from 'common/REGION_CODES';
