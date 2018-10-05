@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import Combatants from 'parser/core/modules/Combatants';
 import { formatNumber } from 'common/format';
+import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import RACES from 'game/RACES';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
@@ -16,7 +17,6 @@ import StatisticBox from 'interface/others/StatisticBox';
 
 const STONEFORM_DAMAGE_REDUCTION = 0.1;
 const FALLING_DAMAGE_ABILITY_ID = 3;
-const PHYSICAL_EVENT_TYPE = 1;
 
 class Stoneform extends Analyzer {
   static dependencies = {
@@ -28,7 +28,11 @@ class Stoneform extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.Dwarf;
+    this.active = this.selectedCombatant.race === RACES.Dwarf;
+  }
+
+  get drps() {
+    return this.damageReduced / this.owner.fightDuration * 1000;
   }
 
   on_toPlayer_damage(event) {
@@ -36,11 +40,13 @@ class Stoneform extends Analyzer {
     if (spellId === FALLING_DAMAGE_ABILITY_ID) { // Falling damage is the same type as physical but ignores DRs.
       return;
     }
-    
+    if (event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
+      return;
+    }
     const damageTaken = event.amount + (event.absorbed || 0);
     const isStoneformActive = this.selectedCombatant.hasBuff(SPELLS.STONEFORM_BUFF.id, event.timestamp, this.owner.playerId);
     
-    if (isStoneformActive && event.ability.type === PHYSICAL_EVENT_TYPE) { 
+    if (isStoneformActive) { 
       this.physicalDamageTaken += damageTaken;
       this.damageReduced += damageTaken / (1 - STONEFORM_DAMAGE_REDUCTION) * STONEFORM_DAMAGE_REDUCTION;
     }
@@ -50,9 +56,10 @@ class Stoneform extends Analyzer {
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.STONEFORM_BUFF.id} />}
-        value={`≈${formatNumber(this.damageReduced)}`}
-        label="Stoneform Damage Reduced"
-        tooltip={`Over the course of the encounter you took ${formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active`}
+        value={`≈${formatNumber(this.drps)} DRPS`}
+        label="Stoneform damage reduced"
+        tooltip={`You took a total of ${formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active. </br>
+                  Stoneform reduced a total of ${formatNumber(this.damageReduced)} physical damage taken.`}
       />
     );
 
