@@ -79,11 +79,10 @@ class Predator extends Analyzer {
         value={this.extraCastsPerMinute.toFixed(2)}
         label="Extra Tiger's Fury casts per minute"
         tooltip={this.extraCasts > 0 ? hadExtraCasts : noExtraCasts}
+        positon={STATISTIC_ORDER.OPTIONAL(3)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default Predator;

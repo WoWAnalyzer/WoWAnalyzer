@@ -88,8 +88,7 @@ class MoonfireSnapshot extends Snapshot {
   }
 
   statistic() {
-    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name);
+    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10)
 }
 export default MoonfireSnapshot;

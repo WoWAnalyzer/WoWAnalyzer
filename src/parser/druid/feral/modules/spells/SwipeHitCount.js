@@ -12,6 +12,10 @@ import HitCountAoE from '../core/HitCountAoE';
 class SwipeHitCount extends HitCountAoE {
   static spell = SPELLS.SWIPE_CAT;
 
+  statistic() {
+    return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(10));
+  }
+
   get hitNoneThresholds() {
     return {
       actual: this.hitZeroPerMinute,
@@ -59,8 +63,6 @@ class SwipeHitCount extends HitCountAoE {
         .recommended(`${recommended} is recommended`);
     });
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 }
 
 export default SwipeHitCount;

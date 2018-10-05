@@ -104,9 +104,9 @@ class EnergyCapTracker extends RegenResourceCapTracker {
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}
+        position={STATISTIC_ORDER.CORE(1)}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 export default EnergyCapTracker;

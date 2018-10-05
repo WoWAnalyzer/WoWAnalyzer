@@ -147,11 +147,10 @@ class PredatorySwiftness extends Analyzer {
           <li>The buff was allowed to expire <b>${this.expired}</b> time${this.expired !== 1 ? 's' : ''}.
           <li>You used another finisher while the buff was still active and overwrote it <b>${this.overwritten}</b> time${this.overwritten !== 1 ? 's' : ''}.
           <li>You had <b>${this.remainAfterFight}</b> remaining unused at the end of the fight.`}
+        position={STATISTIC_ORDER.OPTIONAL(5)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default PredatorySwiftness;

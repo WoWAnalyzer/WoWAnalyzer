@@ -47,11 +47,10 @@ class RakeUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.RAKE.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Rake uptime"
+        position={STATISTIC_ORDER.CORE(3)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default RakeUptime;
