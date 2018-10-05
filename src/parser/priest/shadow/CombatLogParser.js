@@ -66,8 +66,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     voidTorrent: Talents.talents_90.VoidTorrent,
 
-    darkAscension: Talents.talents_100.DarkAscension,
-
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,
     anundsSearedShackles: AnundsSearedShackles,
