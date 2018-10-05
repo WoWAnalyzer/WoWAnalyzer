@@ -25,7 +25,8 @@ import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
 
 // talents
-import Talents from './modules/talents';
+import TwistOfFate from './modules/talents/45/TwistOfFate';
+import VoidTorrent from './modules/talents/90/VoidTorrent';
 
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
@@ -60,9 +61,8 @@ class CombatLogParser extends MainCombatLogParser {
     callToTheVoid: CallToTheVoid,
 
     // talents:
-    twistOfFate: Talents.talents_45.TwistOfFate,
-
-    voidTorrent: Talents.talents_90.VoidTorrent,
+    twistOfFate: TwistOfFate,
+    voidTorrent: VoidTorrent,
 
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,
