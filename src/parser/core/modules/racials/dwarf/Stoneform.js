@@ -34,11 +34,8 @@ class Stoneform extends Analyzer {
     const isStoneformActive = this.selectedCombatant.hasBuff(SPELLS.STONEFORM_BUFF.id, event.timestamp, this.owner.playerId);
     
     if (isStoneformActive && event.ability.type === PHYSICAL_EVENT_TYPE) { 
-      //console.log(event);
-      console.log("Damage taken: " + damageTaken);
       this.physicalDamageTaken += damageTaken;
       this.damageReduced += damageTaken / (1 - STONEFORM_DAMAGE_REDUCTION) * STONEFORM_DAMAGE_REDUCTION;
-      console.log("Total reduction: " + this.damageReduced);
     }
   }
 
