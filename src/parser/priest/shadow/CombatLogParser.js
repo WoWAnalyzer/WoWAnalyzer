@@ -11,7 +11,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
 
 // spells:
@@ -21,10 +21,12 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
-import VoidTorrent from './modules/spells/VoidTorrent';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
-import TwistOfFate from './modules/spells/TwistOfFate';
+
+// talents
+import TwistOfFate from './modules/talents/TwistOfFate';
+import VoidTorrent from './modules/talents/VoidTorrent';
 
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
@@ -55,10 +57,12 @@ class CombatLogParser extends MainCombatLogParser {
     shadowWordPain: ShadowWordPain,
     voidform: Voidform,
     voidformAverageStacks: VoidformAverageStacks,
-    voidTorrent: VoidTorrent,
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
+
+    // talents:
     twistOfFate: TwistOfFate,
+    voidTorrent: VoidTorrent,
 
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,
