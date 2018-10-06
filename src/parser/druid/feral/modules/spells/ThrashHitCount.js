@@ -13,6 +13,10 @@ import HitCountAoE from '../core/HitCountAoE';
 class ThrashHitCount extends HitCountAoE {
   static spell = SPELLS.THRASH_FERAL;
   
+  statistic() {
+    return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(11));
+  }
+
   get hitNoneThresholds() {
     return {
       actual: this.hitZeroPerMinute,
@@ -49,8 +53,6 @@ class ThrashHitCount extends HitCountAoE {
         .recommended(`${recommended} is recommended`);
     });
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(11);
 }
 
 export default ThrashHitCount;

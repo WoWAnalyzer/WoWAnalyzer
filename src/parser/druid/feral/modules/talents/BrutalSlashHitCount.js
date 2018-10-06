@@ -18,6 +18,10 @@ class BrutalSlashHitCount extends HitCountAoE {
     this.active = this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id);
   }
 
+  statistic() {
+    return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(10));
+  }
+
   get wrongTalentThresholds() {
     return {
       // Interested in how many targets are available so exclude any "zero hit" casts.
@@ -65,8 +69,6 @@ class BrutalSlashHitCount extends HitCountAoE {
         .recommended(`${recommended} is recommended`);
     });
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 }
 
 export default BrutalSlashHitCount;

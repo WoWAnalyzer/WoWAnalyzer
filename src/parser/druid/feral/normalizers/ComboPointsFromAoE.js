@@ -68,8 +68,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
         combo = Math.min(MAX_COMBO, combo + (event.resourceChange - event.waste));
       }
       if ((event.type === 'cast') && (event.sourceID === this.playerId) &&
-          eventComboResource && eventComboResource.cost &&
-          (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id || !this.isBiteFree(event))) {
+          eventComboResource && eventComboResource.cost) {
         // Spent combo points, which always puts a Feral druid back to 0
         combo = 0;
       }
@@ -136,11 +135,6 @@ class ComboPointsFromAoE extends EventsNormalizer {
       return null;
     }
     return event.classResources.find(resource => (resource.type === type));
-  }
-
-  isBiteFree(event) {
-    // Unlike normal Bites, one made free by the T21 4pc proc doesn't provide an energy entry on its classResources
-    return !this.getResource(event, RESOURCE_TYPES.ENERGY.id);
   }
 }
 

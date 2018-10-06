@@ -18,8 +18,6 @@ const debug = false;
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
  * It's recommended that feral druids use Bite when at 50 energy or higher.
- * An exception to this is when the bonus from 4-piece T21 is active, which makes Bite cost no
- * energy and ignore the current energy level.
  */
 class FerociousBiteEnergy extends Analyzer {
   biteCount = 0;
@@ -51,10 +49,10 @@ class FerociousBiteEnergy extends Analyzer {
     }
     
     if (this.lastBiteCast.energy === 0) {
-      this.freeBiteCount++;
+      this.freeBiteCount += 1;
     }
     else if (this.lastBiteCast.energy < ENERGY_FOR_FULL_DAMAGE_BITE) {
-      this.lowEnergyBiteCount++;
+      this.lowEnergyBiteCount += 1;
       this.energySpentOnBiteTotal += this.lastBiteCast.energy;
       const actualDamage = event.amount + event.absorbed;
       const lostDamage = this.calcPotentialBiteDamage(actualDamage, this.lastBiteCast.energy) - actualDamage;
@@ -63,7 +61,7 @@ class FerociousBiteEnergy extends Analyzer {
     else {
       this.energySpentOnBiteTotal += this.lastBiteCast.energy;
     }
-    this.biteCount++;
+    this.biteCount += 1;
     this.lastBiteCast.isPaired = true;
   }
 

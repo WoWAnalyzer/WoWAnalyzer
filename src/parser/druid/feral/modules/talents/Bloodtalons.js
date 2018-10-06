@@ -329,13 +329,13 @@ class Bloodtalons extends Analyzer {
         <React.Fragment>
           <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage
         </React.Fragment>
-      )}>
+      )}
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+      >
         {this.combinedChart()}
       </StatisticsListBox>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default Bloodtalons;
