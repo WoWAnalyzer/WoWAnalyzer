@@ -48,7 +48,7 @@ class StaggerFabricator extends Analyzer {
     this._staggerPool += amount;
     const staggerEvent = this._fab(EVENT_STAGGER_POOL_ADDED, event, amount);
     this.owner.fabricateEvent(staggerEvent, event);
-    if(this.ht.active) {
+    if(this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
     }
   }
@@ -61,7 +61,11 @@ class StaggerFabricator extends Analyzer {
     //
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    const staggerEvent = this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount);
+    this.owner.fabricateEvent(staggerEvent, event);
+    if(this.ht && this.ht.active) {
+      this._updateHaste(event, staggerEvent);
+    }
     return amount + overage;
   }
 
