@@ -81,7 +81,8 @@ class MongooseBite extends Analyzer {
   }
 
   get totalMongooseBites() {
-    return this.mongooseBiteStacks.flatten().reduce((totalHits, stackHits) => totalHits + stackHits, 0);
+    const flattenArray = this.mongooseBiteStacks.reduce((acc, val) => acc.concat(val), []);
+    return flattenArray.reduce((totalHits, stackHits) => totalHits + stackHits, 0);
   }
 
   get fiveStackMongooseBites() {
