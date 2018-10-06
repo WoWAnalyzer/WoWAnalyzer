@@ -117,7 +117,7 @@ class Results extends React.PureComponent {
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n.t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`}>experimental</dfn>)</Trans>
+          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</dfn>)</Trans>
         </label>
       </div>
     );
@@ -191,7 +191,7 @@ class Results extends React.PureComponent {
     });
 
     results.tabs.push({
-      title: i18n.t`Events`,
+      title: i18n._(t`Events`),
       url: 'events',
       order: 99999,
       render: () => (
@@ -202,7 +202,7 @@ class Results extends React.PureComponent {
     });
     if (process.env.NODE_ENV === 'development') {
       results.tabs.push({
-        title: i18n.t`Development`,
+        title: i18n._(t`Development`),
         url: 'development',
         order: 100000,
         render: () => (
@@ -227,7 +227,7 @@ class Results extends React.PureComponent {
                 rel="noopener noreferrer"
                 className="btn"
                 style={{ fontSize: 24 }}
-                data-tip={i18n.t`View the original report`}
+                data-tip={i18n._(t`View the original report`)}
               >
                 <img src="/img/wcl.png" alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
               </a>
@@ -238,7 +238,7 @@ class Results extends React.PureComponent {
                 rel="noopener noreferrer"
                 className="btn"
                 style={{ fontSize: 24 }}
-                data-tip={i18n.t`View insights and timelines for raid encounters`}
+                data-tip={i18n._(t`View insights and timelines for raid encounters`)}
               >
                 <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
               </a>
