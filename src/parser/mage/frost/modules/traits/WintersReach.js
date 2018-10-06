@@ -12,7 +12,6 @@ const FIGHT_END_BUFFER = 7500;
 const debug = false;
 
 class WintersReach extends Analyzer {
-
   usedProcs = 0;
   totalProcs = 0;
 
@@ -70,9 +69,9 @@ class WintersReach extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
       const gracePeriod = this.owner.currentTimestamp - FIGHT_END_BUFFER;
       if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id, gracePeriod)) {
-        debug && console.log("Fight ended with an old unused Winter's Reach buff");
+        debug && this.log("Fight ended with an old unused Winter's Reach buff");
       } else {
-        debug && console.log("Fight ended with a newish unused Winter's Reach buff, forgiven");
+        debug && this.log("Fight ended with a newish unused Winter's Reach buff, forgiven");
         this.totalProcs -= 1;
       }
     }
@@ -131,7 +130,6 @@ class WintersReach extends Analyzer {
       />
     );
   }
-
 }
 
 export default WintersReach;

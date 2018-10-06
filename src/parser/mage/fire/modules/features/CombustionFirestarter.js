@@ -1,7 +1,7 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
@@ -42,7 +42,7 @@ class CombustionFirestarter extends Analyzer {
     const healthPercent = event.hitPoints / event.maxHitPoints;
     if (healthPercent > .90) {
       this.combustionDuringFirestarter = true;
-      debug && console.log("Combustion Used During Firestarter @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Combustion Used During Firestarter");
     }
   }
 

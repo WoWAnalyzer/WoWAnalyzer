@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { formatDuration } from 'common/format';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -50,8 +49,7 @@ class ApplyBuff extends EventsNormalizer {
           continue;
         }
 
-        const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
-        debug && console.warn(fightDuration, 'Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+        debug && this.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.

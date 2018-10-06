@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
@@ -58,22 +58,22 @@ class HeatingUp extends Analyzer {
     }
 
     if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasSearingTouch && this.healthPercent < .30)) && !hasHotStreak) {
-      debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Event Ignored @ ");
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
       if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
         this.fireBlastWithHotStreak += 1;
-        debug && console.log("Fire Blast with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Fire Blast with Hot Streak");
       } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
         this.fireBlastWithoutHeatingUp += 1;
-        debug && console.log("Fire Blast without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Fire Blast without Heating Up");
       }
     } else if (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id) {
         if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
           this.phoenixFlamesWithHotStreak += 1;
-          debug && console.log("Phoenix Flames with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+          debug && this.log("Phoenix Flames with Hot Streak");
         } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
           this.phoenixFlamesWithoutHeatingUp += 1;
-          debug && console.log("Phoenix Flames without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+          debug && this.log("Phoenix Flames without Heating Up");
         }
     }
   }

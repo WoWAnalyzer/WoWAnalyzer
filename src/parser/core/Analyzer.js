@@ -65,6 +65,9 @@ class Analyzer extends Module {
     return [fightDuration, `(module: ${this.constructor.name})`];
   }
   debug(...args) {
+    console.debug(...this.consoleMeta, ...args);
+  }
+  log(...args) {
     console.log(...this.consoleMeta, ...args);
   }
   warn(...args) {

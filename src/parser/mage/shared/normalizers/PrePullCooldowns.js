@@ -65,7 +65,7 @@ class PrePullCooldowns extends EventsNormalizer {
 
         const spellId = event.ability.guid;
         if (PREPULL_BUFF_CDS.includes(spellId) && event.prepull) {
-          debug && console.log(`Detected a precast CD: ${event.ability.name} fight start: ${this.owner.fight.start_time}`);
+          debug && this.log(`Detected a precast CD: ${event.ability.name} fight start: ${this.owner.fight.start_time}`);
           prepullCasts.push(this.constructor._fabricateCastEvent(event));
         }
         continue;

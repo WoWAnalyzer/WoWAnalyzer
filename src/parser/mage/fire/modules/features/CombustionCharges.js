@@ -1,7 +1,8 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/core/modules/SpellUsable';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
@@ -30,21 +31,21 @@ class CombustionCharges extends Analyzer {
       return;
     }
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    debug && console.log("Fire Blast Charges: " + fireBlastCharges + " - " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    debug && this.log("Fire Blast Charges: " + fireBlastCharges);
     if (this.hasFlameOn && fireBlastCharges < 2) {
       this.lowFireBlastCharges += 1;
-      debug && console.log("Low Fire Blast Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Low Fire Blast Charges");
     } else if (fireBlastCharges < 1) {
       this.lowFireBlastCharges += 1;
-      debug && console.log("Low Fire Blast Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Low Fire Blast Charges");
     }
 
     if (this.hasPhoenixFlames) {
       const phoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id);
-      debug && console.log("Phoenix Flames Charges: " + phoenixFlamesCharges + " - " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Phoenix Flames Charges: " + phoenixFlamesCharges);
       if (phoenixFlamesCharges < 2) {
         this.lowPhoenixFlamesCharges += 1;
-        debug && console.log("Low Phoenix Flames Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Low Phoenix Flames Charges");
       }
     }
   }

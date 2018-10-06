@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 const debug = false;
@@ -26,7 +26,7 @@ class ArcaneMissiles extends Analyzer {
 			return;
 		}
 		if (spellId === SPELLS.ARCANE_MISSILES.id && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id)) {
-			debug && console.log("Arcane Missiles cast without Clearcasting @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log('Arcane Missiles cast without Clearcasting');
 			this.castWithoutClearcasting += 1;
 		} else if (spellId === SPELLS.ARCANE_BARRAGE.id && this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id,event.timestamp - 100) && this.hasAnomalousImpactTrait) {
 			this.barrageWithProcs += 1;

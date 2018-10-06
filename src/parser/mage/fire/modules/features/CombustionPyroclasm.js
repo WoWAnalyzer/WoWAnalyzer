@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/core/modules/SpellUsable';
@@ -46,13 +46,13 @@ class CombustionPyroclasm extends Analyzer {
       //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
       if (this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
         this.expectedPyroblastCasts += 1;
-        debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Pyroblast Expected During Combustion");
       }
     } else {
       //If the player gets a Bracer Proc, and there is more than 5 seconds left on the duration of Combustion, then its expected for them to cast it during Combustion.
       if (this.combustionEndTime - event.timestamp > 5000) {
         this.expectedPyroblastCasts += 1;
-        debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Pyroblast Expected During Combustion");
       }
     }
   }
@@ -66,7 +66,7 @@ class CombustionPyroclasm extends Analyzer {
     if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
       this.actualPyroblastCasts += 1;
       this.buffUsedDuringCombustion = true;
-      debug && console.log("Pyroblast Hard Cast During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Pyroblast Hard Cast During Combustion");
     }
   }
 
