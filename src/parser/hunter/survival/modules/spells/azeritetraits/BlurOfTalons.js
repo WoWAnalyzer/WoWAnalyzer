@@ -123,6 +123,7 @@ class BlurOfTalons extends Analyzer {
               <th>Stacks</th>
               <th>Time (m:s)</th>
               <th>Time (%)</th>
+              <th>Agility gained</th>
             </tr>
           </thead>
           <tbody>
@@ -131,6 +132,7 @@ class BlurOfTalons extends Analyzer {
                 <th>{i}</th>
                 <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                 <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                <td>{formatNumber(this.agility * i)}</td>
               </tr>
             ))}
           </tbody>
