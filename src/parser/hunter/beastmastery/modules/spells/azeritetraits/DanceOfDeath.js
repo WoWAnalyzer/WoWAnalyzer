@@ -15,7 +15,7 @@ const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => 
 });
 
 export const STAT_TRACKER = {
-  agility: combatant => danceOfDeathStats(combatant.traitsBySpelld[SPELLS.DANCE_OF_DEATH.id]).agility,
+  agility: combatant => danceOfDeathStats(combatant.traitsBySpellId[SPELLS.DANCE_OF_DEATH.id]).agility,
 };
 
 /**

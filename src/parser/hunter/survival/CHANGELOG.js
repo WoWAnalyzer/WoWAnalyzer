@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-10-06'),
+    changes: <>Added a <SpellLink id={SPELLS.BLUR_OF_TALONS.id} /> and a <SpellLink id={SPELLS.LATENT_POISON.id} /> module.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-09-17'),
     changes: <>Added a <SpellLink id={SPELLS.WILDERNESS_SURVIVAL.id} /> module.</>,
     contributors: [Putro],

@@ -60,18 +60,18 @@ class WildernessSurvival extends Analyzer {
     if (!TRIGGERING_SPELLS.includes(spellId)) {
       return;
     }
-
     if (this.hasWFI) {
       if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
         this.checkCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id);
       } else {
         this.wastedWSReductionMs += MS_REDUCTION;
       }
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-      this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
     } else {
-      this.wastedWSReductionMs += MS_REDUCTION;
+      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
+        this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
+      } else {
+        this.wastedWSReductionMs += MS_REDUCTION;
+      }
     }
   }
 
@@ -80,7 +80,7 @@ class WildernessSurvival extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WILDERNESS_SURVIVAL.id}
-        value={`${this.effectiveCDRInSeconds}/${this.effectiveCDRInSeconds + this.wastedCDRInSeconds}s`}
+        value={`${this.effectiveCDRInSeconds}/${this.effectiveCDRInSeconds + this.wastedCDRInSeconds}s effective CDR`}
         tooltip={`Wilderness Survival reduced ${this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by ${this.effectiveCDRInSeconds} seconds out of ${this.effectiveCDRInSeconds + this.wastedCDRInSeconds} possible.`}
       />
     );

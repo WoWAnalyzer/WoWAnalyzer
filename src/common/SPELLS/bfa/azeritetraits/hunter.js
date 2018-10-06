@@ -70,4 +70,14 @@ export default {
     name: 'Latent Poison',
     icon: 'spell_nature_corrosivebreath',
   },
+  BLUR_OF_TALONS: {
+    id: 277653,
+    name: 'Blur of Talons',
+    icon: 'inv_coordinatedassault',
+  },
+  BLUR_OF_TALONS_BUFF: {
+    id: 277969,
+    name: 'Blur of Talons',
+    icon: 'inv_coordinatedassault',
+  },
 };
