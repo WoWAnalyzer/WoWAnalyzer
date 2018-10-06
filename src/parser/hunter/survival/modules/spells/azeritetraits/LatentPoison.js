@@ -90,7 +90,7 @@ class LatentPoison extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LATENT_POISON.id}
         value={`${this.averageStacksPerRaptorOrMongoose} pr ${this.spellKnown}`}
-        tooltip={`${this.utilised} debuffs applied / ${this.maxPossible} possible`} />
+        tooltip={`${this.utilised} debuffs consumed / ${this.maxPossible} possible. ${this.wasted > 0 ? <><br /> You cast ${this.spellKnown} ${this.wasted} times while you already had ${MAX_STACKS} stacks on the target.</> : ''}`} />
     );
   }
 }
