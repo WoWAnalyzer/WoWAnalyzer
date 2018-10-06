@@ -44,6 +44,10 @@
   transform: scaleY(1.1);
   text-transform: uppercase;
 }
+@media (max-width: 1200px) { #splash h1 { font-size: 150px; } }
+@media (max-width: 1000px) { #splash h1 { font-size: 130px; } }
+@media (max-width: 800px) { #splash h1 { font-size: 90px; } }
+@media (max-width: 530px) { #splash h1 { font-size: 50px; } }
 #splash p {
   color: #aaa;
   font-size: 0.9em;
@@ -71,6 +75,34 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+window.onerror = function (message, url, lineNo, colNo, error) {
+  console.log(arguments);
+
+  let container = document.createElement('div');
+
+  container.style.color = 'red';
+  container.style.position = 'fixed';
+  container.style.background = '#eee';
+  container.style.padding = '2em';
+  container.style.top = '1em';
+  container.style.left = '1em';
+
+  let msg = document.createElement('pre');
+  msg.innerText = [
+    'Message: ' + message,
+    'URL: ' + url,
+    'Line: ' + lineNo,
+    'Column: ' + colNo,
+    'Stack: ' + (error && error.stack)
+  ].join('\n');
+
+  container.appendChild(msg);
+
+  document.body.appendChild(container);
+};
+</script>
 
 </body>
 

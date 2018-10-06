@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import RACES from 'game/RACES';
 import Checklist from 'parser/core/modules/features/Checklist2';
 import Rule from 'parser/core/modules/features/Checklist2/Rule';
 import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
@@ -204,7 +205,7 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Cast efficiency of Berserk or Incarnation (depending on talent)
           ☐ Make the most of Berserk/Incarnation by using as many abilities as possible during the buff (importance of this may be so low that it's not worth checking - run some simulations to find out)
           🗵 Cast efficiency of Tiger's Fury
-          ☐ Shadowmeld for Night Elves, both cast efficiency and correctly using it to buff Rake}
+          🗵 Shadowmeld for Night Elves: cast efficiency of correctly using it to buff Rake
         */}
         <Rule
           name="Use your cooldowns"
@@ -221,6 +222,13 @@ class FeralDruidChecklist extends React.PureComponent {
             <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
           )}
           <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
+          {combatant.race === RACES.NightElf && (
+            <Requirement
+              name={<SpellLink id={SPELLS.SHADOWMELD.id} />}
+              thresholds={thresholds.shadowmeld}
+              tooltip="This measures how many of the possible uses of Shadowmeld were used to provide the double damage bonus to Rake."
+            />
+          )}
         </Rule>
 
         {/*Manage Snapshots
