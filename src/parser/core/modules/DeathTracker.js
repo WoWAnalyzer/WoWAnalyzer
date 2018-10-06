@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -88,11 +86,9 @@ class DeathTracker extends Analyzer {
     if (!disableDeathSuggestion && !isWipeDeath) {
       when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(
-            <React.Fragment>
-              You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the death recap below to see the damage taken and what defensives and potions were still available.
-            </React.Fragment>
-          )
+          return suggest(`
+            You died during this fight and were dead for ${formatPercentage(actual)}% of the fight duration (${formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the death recap below to see the damage taken and what defensives and potions were still available.
+          `)
             .icon('ability_fiegndead')
             .actual(`You were dead for ${formatPercentage(actual)}% of the fight`)
             .recommended('0% is recommended')

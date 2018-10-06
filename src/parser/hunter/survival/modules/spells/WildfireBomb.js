@@ -106,13 +106,13 @@ class WildfireBomb extends Analyzer {
 
   suggestions(when) {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</React.Fragment>)
+      return suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${actual} casts unnecessarily refreshed WFB`)
         .recommended(`<${recommended} is recommended`);
     });
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </React.Fragment>)
+      return suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

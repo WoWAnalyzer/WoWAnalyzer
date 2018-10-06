@@ -49,7 +49,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping</React.Fragment>,
+      description: <>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping</>,
       requirements: () => {
         return [
           new Requirement({
@@ -61,7 +61,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid capping Runic Power',
-      description: <React.Fragment>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</React.Fragment>,
+      description: <>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</>,
       requirements: () => {
         return [
           new Requirement({

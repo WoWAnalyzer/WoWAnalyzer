@@ -7,12 +7,12 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-08-05'),
-    changes: <React.Fragment>Fixed a bug where the Haste gained from <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> was never removed when not using <SpellLink id={SPELLS.LINGERING_INSANITY_TALENT.id} />.</React.Fragment>,
+    changes: <>Fixed a bug where the Haste gained from <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> was never removed when not using <SpellLink id={SPELLS.LINGERING_INSANITY_TALENT.id} />.</>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-08-05'),
-    changes: <React.Fragment>Fixed crash when using <SpellLink id={SPELLS.DARK_ASCENSION_TALENT.id} />.</React.Fragment>,
+    changes: <>Fixed crash when using <SpellLink id={SPELLS.DARK_ASCENSION_TALENT.id} />.</>,
     contributors: [Zerotorescue],
   },
   {

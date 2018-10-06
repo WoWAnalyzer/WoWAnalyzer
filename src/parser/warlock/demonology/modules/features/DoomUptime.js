@@ -39,7 +39,7 @@ class DoomUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
           .icon(SPELLS.DOOM_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Doom uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

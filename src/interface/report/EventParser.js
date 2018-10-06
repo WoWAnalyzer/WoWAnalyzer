@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';

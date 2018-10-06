@@ -40,27 +40,27 @@ export default [
   },
   {
     date: new Date('2018-09-25'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.BLESSED_PORTENTS.id} /> module.</React.Fragment>,
+    changes: <> Added <SpellLink id={SPELLS.BLESSED_PORTENTS.id} /> module.</>,
     contributors: [Nalhan],
   },
   {
     date: new Date('2018-09-24'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.CONCENTRATED_MENDING.id} /> module. </React.Fragment>,
+    changes: <> Added <SpellLink id={SPELLS.CONCENTRATED_MENDING.id} /> module. </>,
     contributors: [Nalhan],
   },
   {
     date: new Date('2018-09-24'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.HEED_MY_CALL.id} /> module.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.HEED_MY_CALL.id} /> module.</>,
     contributors: [Dambroda],
   },
   {
     date: new Date('2018-09-22'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.GUTRIPPER.id} /> module.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.GUTRIPPER.id} /> module.</>,
     contributors: [Dambroda],
   },
   {
     date: new Date('2018-09-19'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.OVERWHELMING_POWER.id} /> and <SpellLink id={SPELLS.BLOOD_RITE.id} /> modules.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.OVERWHELMING_POWER.id} /> and <SpellLink id={SPELLS.BLOOD_RITE.id} /> modules.</>,
     contributors: [joshinator],
   },
   {
@@ -75,22 +75,22 @@ export default [
   },
   {
     date: new Date('2018-09-17'),
-    changes: <React.Fragment>Adds <ItemLink id={ITEMS.GALECALLERS_BOON.id} /> and <ItemLink id={ITEMS.HARLANS_LOADED_DICE.id} /> modules.</React.Fragment>,
+    changes: <>Adds <ItemLink id={ITEMS.GALECALLERS_BOON.id} /> and <ItemLink id={ITEMS.HARLANS_LOADED_DICE.id} /> modules.</>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-09-17'),
-    changes: <React.Fragment>Added a <SpellLink id={SPELLS.ELEMENTAL_WHIRL.id} /> module.</React.Fragment>,
+    changes: <>Added a <SpellLink id={SPELLS.ELEMENTAL_WHIRL.id} /> module.</>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-09-17'),
-    changes: <React.Fragment>Added a <ItemLink id={ITEMS.DARKMOON_DECK_FATHOMS.id} /> module.</React.Fragment>,
+    changes: <>Added a <ItemLink id={ITEMS.DARKMOON_DECK_FATHOMS.id} /> module.</>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-09-16'),
-    changes: <React.Fragment>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</React.Fragment>,
+    changes: <>Added a <SpellLink id={SPELLS.METICULOUS_SCHEMING.id} />-module.</>,
     contributors: [joshinator],
   },
   {
@@ -120,7 +120,7 @@ export default [
   },
   {
     date: new Date('2018-08-05'),
-    changes: <React.Fragment>Added a <SpellLink id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} /> racial contribution module. Thanks to @Iyob for the suggestion.</React.Fragment>,
+    changes: <>Added a <SpellLink id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} /> racial contribution module. Thanks to @Iyob for the suggestion.</>,
     contributors: [Zerotorescue],
   },
   {
@@ -130,7 +130,7 @@ export default [
   },
   {
     date: new Date('2018-08-03'),
-    changes: <React.Fragment>Added an <SpellLink id={SPELLS.ARCANE_TORRENT_MANA1.id} /> module that works for all Blood Elfs.</React.Fragment>,
+    changes: <>Added an <SpellLink id={SPELLS.ARCANE_TORRENT_MANA1.id} /> module that works for all Blood Elfs.</>,
     contributors: [Zerotorescue],
   },
   {
@@ -140,7 +140,7 @@ export default [
   },
   {
     date: new Date('2018-07-26'),
-    changes: <React.Fragment>Updated our GlobalCooldown module to automatically ignore certain casts if we've marked them as not being actual casts. BM Hunter casting two spells (one for buff, one for damage) per <SpellLink id={SPELLS.BARBED_SHOT.id} /> is an example.</React.Fragment>,
+    changes: <>Updated our GlobalCooldown module to automatically ignore certain casts if we've marked them as not being actual casts. BM Hunter casting two spells (one for buff, one for damage) per <SpellLink id={SPELLS.BARBED_SHOT.id} /> is an example.</>,
     contributors: [Putro],
   },
   {
@@ -155,12 +155,12 @@ export default [
   },
   {
     date: new Date('2018-07-19'),
-    changes: <React.Fragment>Fixed Darkmoon Deck: Promises squished mana values.</React.Fragment>,
+    changes: <>Fixed Darkmoon Deck: Promises squished mana values.</>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-07-19'),
-    changes: <React.Fragment>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</React.Fragment>,
+    changes: <>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</>,
     contributors: [Zerotorescue],
   },
   {
@@ -170,12 +170,12 @@ export default [
   },
   {
     date: new Date('2018-07-11'),
-    changes: <React.Fragment>Added support for the <SpellLink id={SPELLS.GEMHIDE.id} /> trait.</React.Fragment>,
+    changes: <>Added support for the <SpellLink id={SPELLS.GEMHIDE.id} /> trait.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-07-11'),
-    changes: <React.Fragment>Parsing time is about 35% quicker! Thanks to <Contributor {...ackwell} /> for showing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/1799">the idea</a> worked out in <a href="https://github.com/xivanalysis/xivanalysis">xivanalysis</a>.</React.Fragment>,
+    changes: <>Parsing time is about 35% quicker! Thanks to <Contributor {...ackwell} /> for showing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/1799">the idea</a> worked out in <a href="https://github.com/xivanalysis/xivanalysis">xivanalysis</a>.</>,
     contributors: [Zerotorescue],
   },
   {
@@ -205,7 +205,7 @@ export default [
   },
   {
     date: new Date('2018-06-24'),
-    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.HEALTHSTONE.id} /> suggestion to always be of minor importance.</React.Fragment>,
+    changes: <>Changed the <SpellLink id={SPELLS.HEALTHSTONE.id} /> suggestion to always be of minor importance.</>,
     contributors: [Zerotorescue],
   },
   {
@@ -260,7 +260,7 @@ export default [
   },
   {
     date: new Date('2018-06-01'),
-    changes: <React.Fragment>Removed all changelog entries before June 2018, and updated spec contributors to match. If you're interested in older changelogs, visit <a href="https://legion.wowanalyzer.com/">https://legion.wowanalyzer.com/</a>.</React.Fragment>,
+    changes: <>Removed all changelog entries before June 2018, and updated spec contributors to match. If you're interested in older changelogs, visit <a href="https://legion.wowanalyzer.com/">https://legion.wowanalyzer.com/</a>.</>,
     contributors: [Zerotorescue],
   },
 ];

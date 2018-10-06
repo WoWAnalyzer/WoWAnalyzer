@@ -43,7 +43,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <React.Fragment>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />.</React.Fragment>,
+      description: <>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />.</>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -55,7 +55,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns effectively',
-      description: <React.Fragment>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.</React.Fragment>,
+      description: <>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.</>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
@@ -91,22 +91,22 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment>Position yourself well to maximize your most effective spells</React.Fragment>,
-      description: <React.Fragment>Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} /> has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both <SpellLink id={SPELLS.ESSENCE_FONT.id} /> and other spells such as <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />.</React.Fragment>,
+      name: <>Position yourself well to maximize your most effective spells</>,
+      description: <>Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} /> has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both <SpellLink id={SPELLS.ESSENCE_FONT.id} /> and other spells such as <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />.</>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</React.Fragment>,
+            name: <><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</>,
             check: () => this.essenceFont.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</React.Fragment>,
+            name: <><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</>,
             check: () => this.refreshingJadeWind.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</React.Fragment>,
+            name: <><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</>,
             check: () => this.chiBurst.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
           }),
@@ -120,17 +120,17 @@ class Checklist extends CoreChecklist {
         const combatant = this.selectedCombatant;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</React.Fragment>,
+            name: <><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</>,
             check: () => this.spiritOfTheCrane.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved</React.Fragment>,
+            name: <><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved</>,
             check: () => this.manaTea.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved</React.Fragment>,
+            name: <><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved</>,
             check: () => this.lifecycles.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id),
           }),
@@ -139,16 +139,16 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs and short CDs',
-      description: <React.Fragment>Make sure to use your procs and spells at the correct time.</React.Fragment>,
+      description: <>Make sure to use your procs and spells at the correct time.</>,
       requirements: () => {
         return [
           /* Removed for now while this is finalized going into BfA
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts</React.Fragment>,
+            name: <><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts</>,
             check: () => this.thunderFocusTea.suggestionThresholds,
           }), */
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast</React.Fragment>,
+            name: <><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast</>,
             check: () => this.essenceFontMastery.suggestionThresholds,
           }),
         ];
@@ -156,7 +156,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also, there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} /> for extended periods of time.</React.Fragment>,
+      description: <>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also, there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} /> for extended periods of time.</>,
       requirements: () => {
         return [
           new Requirement({
@@ -172,7 +172,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your defensive cooldowns effectively',
-      description: <React.Fragment>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} /> on Charged Blasts during the Imonar the Soulhunter encounter.</React.Fragment>,
+      description: <>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} /> on Charged Blasts during the Imonar the Soulhunter encounter.</>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [

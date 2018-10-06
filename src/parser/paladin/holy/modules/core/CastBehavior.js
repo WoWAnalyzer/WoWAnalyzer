@@ -196,7 +196,7 @@ class CastBehavior extends Analyzer {
         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div className="row">
             <StatisticsListBox
-              title={<React.Fragment><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</React.Fragment>}
+              title={<><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</>}
               containerProps={{ className: 'col-xs-12' }}
             >
               {this.iolCastRatioChart()}

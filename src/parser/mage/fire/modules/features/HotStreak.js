@@ -175,21 +175,21 @@ class HotStreak extends Analyzer {
   suggestions(when) {
     when(this.hotStreakUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
+        return suggest(<>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.HOT_STREAK.icon)
           .actual(`${formatPercentage(this.hotStreakUtil)}% expired`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
       when(this.wastedCritsThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</React.Fragment>)
+          return suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
             .recommended(`${formatNumber(recommended)} is recommended`);
       });
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>While <SpellLink id={SPELLS.COMBUSTION.id} /> was not active, you failed to <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> just before using your <SpellLink id={SPELLS.HOT_STREAK.id} /> {this.noCastBeforeHotStreak} times ({formatPercentage(this.castBeforeHotStreakUtil)}%). Make sure you hard cast Fireball{this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch just before each instant <SpellLink id={SPELLS.PYROBLAST.id} /> to increase the odds of getting a <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. Additionally, it is also acceptable to use your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs if you need to move.</React.Fragment>)
+          return suggest(<>While <SpellLink id={SPELLS.COMBUSTION.id} /> was not active, you failed to <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> just before using your <SpellLink id={SPELLS.HOT_STREAK.id} /> {this.noCastBeforeHotStreak} times ({formatPercentage(this.castBeforeHotStreakUtil)}%). Make sure you hard cast Fireball{this.selectedCombatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? `, a hard casted Pyroblast (if you have a bracer proc), ` : ` `}or Scorch just before each instant <SpellLink id={SPELLS.PYROBLAST.id} /> to increase the odds of getting a <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. Additionally, it is also acceptable to use your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs if you need to move.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);

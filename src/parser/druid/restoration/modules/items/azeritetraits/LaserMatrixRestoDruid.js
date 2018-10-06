@@ -40,11 +40,11 @@ class LaserMatrixRestoDruid extends LaserMatrix{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LASER_MATRIX.id}
         value={(
-          <React.Fragment>
+          <>
             {formatPercentage(healingThroughputPercent)} % healing<br />
             {formatPercentage(damageThroughputPercent)} % damage<br />
             Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
-          </React.Fragment>
+          </>
         )}
         tooltip={`Healing done: ${formatNumber(this.healing)} <br />
                   Damage done: ${formatNumber(this.damage)} <br />

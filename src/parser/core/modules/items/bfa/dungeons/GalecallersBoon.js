@@ -32,10 +32,10 @@ class GalecallersBoon extends Analyzer {
     return {
       item: ITEMS.GALECALLERS_BOON,
       result: (
-        <React.Fragment>
+        <>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.totalBuffUptime * this.statBuff)} average Haste/Speed
-        </React.Fragment>
+        </>
       ),
     };
   }

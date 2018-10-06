@@ -33,9 +33,9 @@ class ChangelogTabTitle extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <>
         Changelog {recentChanges > 0 && <span className="badge">{recentChanges}</span>}
-      </React.Fragment>
+      </>
     );
   }
 }

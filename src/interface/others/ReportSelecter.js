@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { withI18n, Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import ReactTooltip from 'react-tooltip';
+import { t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import './ReportSelecter.css';
 
@@ -18,7 +19,6 @@ export function getReportCode(input) {
 class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,
-    i18n: PropTypes.object.isRequired,
   };
 
   static getFight(input) {
@@ -109,13 +109,11 @@ class ReportSelecter extends React.PureComponent {
   }
 
   render() {
-    const { i18n } = this.props;
-
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
           <input
-            data-tip={i18n.t`
+            data-tip={i18n._(t`
               Parsable links:<br/>
               <ul>
                 <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
@@ -123,7 +121,7 @@ class ReportSelecter extends React.PureComponent {
                 <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
                 <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
               </ul>
-            `}
+            `)}
             data-delay-show="200"
             type="text"
             name="code"
@@ -133,7 +131,7 @@ class ReportSelecter extends React.PureComponent {
             }}
             onChange={this.handleChange}
             style={{ width: 360, cursor: 'help' }}
-            placeholder={i18n.t`https://www.warcraftlogs.com/reports/<report code>`}
+            placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
@@ -148,9 +146,6 @@ class ReportSelecter extends React.PureComponent {
   }
 }
 
-export default compose(
-  withI18n(),
-  connect(null, {
-    push,
-  })
-)(ReportSelecter);
+export default connect(null, {
+  push,
+})(ReportSelecter);

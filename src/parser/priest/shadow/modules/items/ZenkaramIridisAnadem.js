@@ -39,10 +39,10 @@ class ZenkaramIridisAnadem extends Analyzer {
     return {
       item: ITEMS.ZENKARAM_IRIDIS_ANADEM,
       result: (
-        <React.Fragment>
+        <>
           <ItemDamageDone amount={this.bonusDamage} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
-        </React.Fragment>
+        </>
       ),
     };
   }

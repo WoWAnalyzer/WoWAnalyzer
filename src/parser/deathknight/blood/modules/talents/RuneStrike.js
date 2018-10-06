@@ -88,7 +88,7 @@ class RuneStrike extends Analyzer {
   suggestions(when) {
     when(this.cooldownReductionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You wasted {formatDuration(this.wastedReduction / 1000)} worth of reduction by capping out on <SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> charges.</React.Fragment>)
+          return suggest(<>You wasted {formatDuration(this.wastedReduction / 1000)} worth of reduction by capping out on <SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> charges.</>)
             .icon(SPELLS.RUNE_STRIKE_TALENT.icon)
             .actual(`${formatPercentage(this.cooldownReductionEfficiency)}% cooldown reduction used`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);
