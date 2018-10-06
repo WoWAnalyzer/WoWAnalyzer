@@ -5,7 +5,7 @@ import EnemyInstances from 'parser/core/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -75,7 +75,7 @@ class WintersChill extends Analyzer {
     } else if (this.iceLanceHits === 2) {
       this.doubleIceLanceCasts += 1;
     } else {
-      console.error(`Unexpected number of Ice Lances inside Winter's Chill @ ${formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time)} -> ${this.iceLanceHits}`);
+      this.error(`Unexpected number of Ice Lances inside Winter's Chill -> ${this.iceLanceHits}`);
     }
 
     if (this.hardcastHits === 0) {
@@ -83,7 +83,7 @@ class WintersChill extends Analyzer {
     } else if (this.hardcastHits === 1) {
       this.singleHardcasts += 1;
     } else {
-      console.error(`Unexpected number of Frostbolt hits inside Winter's Chill @ ${formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time)} -> ${this.hardcastHits}`);
+      this.error(`Unexpected number of Frostbolt hits inside Winter's Chill -> ${this.hardcastHits}`);
     }
   }
 
@@ -136,14 +136,14 @@ class WintersChill extends Analyzer {
   suggestions(when) {
     when(this.iceLanceUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id} /> after each <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</React.Fragment>)
+        return suggest(<>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id} /> after each <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.iceLanceMissedPercent)}% Winter's Chill not shattered with Ice Lance`)
           .recommended(`<${formatPercentage(1 - this.iceLanceUtilSuggestionThresholds.isLessThan.minor)}% is recommended`);
       });
     when(this.hardcastUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</React.Fragment>)
+        return suggest(<>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</>)
         .icon(SPELLS.FROSTBOLT.icon)
         .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`);

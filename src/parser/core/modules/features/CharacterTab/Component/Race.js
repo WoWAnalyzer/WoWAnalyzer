@@ -9,7 +9,7 @@ class Race extends React.PureComponent {
     const race = this.props.race;
 
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col-md-12">
             <h2>
@@ -22,7 +22,7 @@ class Race extends React.PureComponent {
             {race ? race.name : 'Unknown'}
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

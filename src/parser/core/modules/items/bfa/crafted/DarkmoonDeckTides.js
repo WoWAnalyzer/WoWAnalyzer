@@ -55,10 +55,10 @@ class DarkmoonDeckTides extends Analyzer {
     return {
       item: ITEMS.DARKMOON_DECK_TIDES,
       result: (
-        <React.Fragment>
+        <>
           <ItemHealingDone amount={this.healing} /><br />
           <ItemManaGained amount={this.manaGained} />
-        </React.Fragment>
+        </>
       ),
     };
   }

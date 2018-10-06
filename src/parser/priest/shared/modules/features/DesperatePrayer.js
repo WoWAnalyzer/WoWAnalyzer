@@ -91,7 +91,7 @@ class DesperatePrayer extends Analyzer {
     if (!boss || !boss.fight.disableDeathSuggestion) {
       when(this.deathsWithDPReady).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</React.Fragment>)
+          return suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
             .icon(SPELLS.DESPERATE_PRAYER.icon)
             .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
             .recommended(`0 is recommended`);

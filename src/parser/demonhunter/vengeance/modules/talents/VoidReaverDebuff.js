@@ -38,7 +38,7 @@ class VoidReaverDebuff extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> uptime can be improved.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> uptime can be improved.</>)
           .icon(SPELLS.VOID_REAVER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Void Reaver uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

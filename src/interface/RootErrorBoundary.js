@@ -58,7 +58,7 @@ class RootErrorBoundary extends React.Component {
           details="An unexpected error occured in the app. Please try again."
           background={ApiDownBackground}
           errorDetails={(
-            <React.Fragment>
+            <>
               <p>{this.state.error.message}</p>
               <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
                 {this.state.error.stack}
@@ -68,7 +68,7 @@ class RootErrorBoundary extends React.Component {
                   {this.state.errorDetails}
                 </pre>
               )}
-            </React.Fragment>
+            </>
           )}
         >
           <div className="text-muted">

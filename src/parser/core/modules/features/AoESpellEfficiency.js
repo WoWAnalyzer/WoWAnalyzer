@@ -92,7 +92,7 @@ class AoESpellEfficiency extends Analyzer {
   suggestions(when) {
     when(this.hitSuggestionThreshold)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</React.Fragment>)
+          return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
             .icon(this.ability.icon)
             .actual(`${this.totalHits} total hits`)
             .recommended(`${this.possibleHits} or more hits were possible`);

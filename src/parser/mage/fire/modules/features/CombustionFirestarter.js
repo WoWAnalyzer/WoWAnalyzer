@@ -1,7 +1,7 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatMilliseconds } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
@@ -42,7 +42,7 @@ class CombustionFirestarter extends Analyzer {
     const healthPercent = event.hitPoints / event.maxHitPoints;
     if (healthPercent > .90) {
       this.combustionDuringFirestarter = true;
-      debug && console.log("Combustion Used During Firestarter @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Combustion Used During Firestarter");
     }
   }
 
@@ -57,7 +57,7 @@ class CombustionFirestarter extends Analyzer {
   suggestions(when) {
     when(this.SuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<React.Fragment>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</React.Fragment>)
+        return suggest(<>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</>)
           .icon(SPELLS.COMBUSTION.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
       });

@@ -233,7 +233,7 @@ class Snapshot extends Analyzer {
     return info;
   }
 
-  generateStatistic(spellName) {
+  generateStatistic(spellName, statisticPosition) {
     const subStats = [];
     const buffNames = [];
     if (this.constructor.isProwlAffected) {
@@ -261,11 +261,12 @@ class Snapshot extends Analyzer {
     return (
       <StatisticsListBox
         title={(
-          <React.Fragment>
+          <>
             <SpellIcon id={this.constructor.spellCastId} noLink /> {spellName} Snapshot
-          </React.Fragment>
+          </>
         )}
         tooltip={`${spellName} maintains the damage bonus from ${buffsComment} if ${isPlural ? 'they were' : 'it was'} present when the DoT was applied. This lists how many of your ${spellName} ticks benefited from ${isPlural ? 'each' : 'the'} buff. ${isPlural ? 'As a tick can benefit from multiple buffs at once these percentages can add up to more than 100%.' : ''}`}
+        position={statisticPosition}
       >
         {subStats}
       </StatisticsListBox>

@@ -61,6 +61,7 @@ import PreparationRuleAnalyzer from './modules/features/Checklist2/PreparationRu
 
 import ArcaneTorrent from './modules/racials/bloodelf/ArcaneTorrent';
 import MightOfTheMountain from './modules/racials/dwarf/MightOfTheMountain';
+import Stoneform from './modules/racials/dwarf/Stoneform';
 
 // Shared Buffs
 import VantusRune from './modules/spells/VantusRune';
@@ -173,7 +174,8 @@ class CombatLogParser {
     // Racials
     arcaneTorrent: ArcaneTorrent,
     mightOfTheMountain: MightOfTheMountain,
-
+    stoneform: Stoneform,
+    
     // Items:
     // BFA
     gildedLoaFigurine: GildedLoaFigurine,

@@ -200,9 +200,9 @@ class RipSnapshot extends Snapshot {
   suggestions(when) {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.RIP.icon)
         .actual(`${formatPercentage(actual)}% of Rip refreshes were early downgrades.`)
@@ -213,15 +213,15 @@ class RipSnapshot extends Snapshot {
       let suggestText;
       if (this.constructor.hasSabertooth) {
         suggestText = (
-          <React.Fragment>
+          <>
             With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed."}>snapshot.</dfn>
-          </React.Fragment>
+          </>
         );
       } else {
         suggestText = (
-          <React.Fragment>
+          <>
             When the enemy is below {Math.round(BITE_EXECUTE_RANGE * 100)}% health you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed."}>snapshot.</dfn>
-          </React.Fragment>
+          </>
         );
       }
 
@@ -233,8 +233,7 @@ class RipSnapshot extends Snapshot {
   }
 
   statistic() {
-    return super.generateStatistic(SPELLS.RIP.name);
+    return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 export default RipSnapshot;

@@ -111,10 +111,10 @@ class Whiteout extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WHITEOUT.id}
         value={(
-          <React.Fragment>
+          <>
             {formatNumber(this.totalWhiteoutDamage / this.owner.fightDuration * 1000)} DPS<br />
             {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} sec. CD reduction<br />
-          </React.Fragment>
+          </>
         )}
         tooltip={
           `DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.</i><br />

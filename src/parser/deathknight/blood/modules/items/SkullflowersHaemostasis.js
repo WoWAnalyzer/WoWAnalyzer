@@ -69,11 +69,11 @@ class SkullflowersHaemostasis extends Analyzer {
     return {
       item: ITEMS.SKULLFLOWERS_HAEMOSTASIS,
       result:(
-        <React.Fragment>
+        <>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.heal} /><br />
           Overcapped {this.wastedBuff} times
-        </React.Fragment>
+        </>
       ),
     };
   }

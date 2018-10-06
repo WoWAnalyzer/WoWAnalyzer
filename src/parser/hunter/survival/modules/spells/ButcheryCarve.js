@@ -108,7 +108,7 @@ class ButcheryCarve extends Analyzer {
   suggestions(when) {
     if (this.casts > 0) { //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
       when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</React.Fragment>)
+        return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
           .actual(`${actual} average targets hit per cast`)
           .recommended(`>${recommended} is recommended`);

@@ -31,9 +31,9 @@ class RipUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.RIP.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -47,11 +47,10 @@ class RipUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIP.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Rip uptime"
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default RipUptime;

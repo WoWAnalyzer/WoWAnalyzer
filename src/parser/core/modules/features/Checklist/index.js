@@ -156,7 +156,7 @@ class Checklist extends Analyzer {
         )}
         <div className="row">
           {requirements.map(({ requirement, thresholds, performance }, index) => {
-            const displayedValue = <React.Fragment>{thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {thresholds.suffix}</React.Fragment>;
+            const displayedValue = <>{thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {thresholds.suffix}</>;
             return (
               <div key={index} className="col-md-6">
                 <div className="flex">
@@ -197,7 +197,7 @@ class Checklist extends Analyzer {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         {this.rules.length === 0 && (
           <div className="item-divider" style={{ padding: '10px 22px' }}>
             <div className="alert alert-danger">
@@ -208,7 +208,7 @@ class Checklist extends Analyzer {
         {this.rules
           .filter(this.whenFilter)
           .map(this.renderRule)}
-      </React.Fragment>
+      </>
     );
   }
 }

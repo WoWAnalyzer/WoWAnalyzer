@@ -33,10 +33,10 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Use your short cooldowns"
           description={(
-            <React.Fragment>
+            <>
               <p>These should generally always be on recharge to maximize DPS and efficiency.</p>
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </React.Fragment>
+            </>
           )}
         >
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH.id} />}
@@ -46,10 +46,10 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Maintain your buffs and debuffs"
           description={(
-            <React.Fragment>
+            <>
               <p>It is important to maintain these as they contribute a large amount to your DPS and HPS.</p>
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </React.Fragment>
+            </>
           )}
         >
           {combatant.hasTalent(SPELLS.NEMESIS_TALENT.id) && <AbilityRequirement spell={SPELLS.NEMESIS_TALENT.id} />}
@@ -59,10 +59,10 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         <Rule
           name="Use your offensive cooldowns"
           description={(
-            <React.Fragment>
+            <>
               <p>You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.</p>
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-            </React.Fragment>
+            </>
           )}
         >
           <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />

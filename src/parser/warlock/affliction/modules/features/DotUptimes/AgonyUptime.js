@@ -33,9 +33,9 @@ class AgonyUptime extends Analyzer {
   suggestions(when) {
     let text;
     if (this.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
-      text = <React.Fragment>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</React.Fragment>;
+      text = <>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</>;
     } else {
-      text = <React.Fragment>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</React.Fragment>;
+      text = <>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</>;
     }
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
@@ -49,7 +49,7 @@ class AgonyUptime extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellLink id={SPELLS.AGONY.id} /> uptime</React.Fragment>}
+        title={<><SpellLink id={SPELLS.AGONY.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

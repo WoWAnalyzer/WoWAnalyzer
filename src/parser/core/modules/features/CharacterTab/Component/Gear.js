@@ -17,7 +17,7 @@ class Gear extends React.PureComponent {
     const relics = artifact && artifact.gems ? artifact.gems : [];
 
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col-md-12">
             <h2>
@@ -53,7 +53,7 @@ class Gear extends React.PureComponent {
               })}
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

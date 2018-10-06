@@ -67,9 +67,9 @@ class Haunt extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.HAUNT_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Haunt uptime.`)
@@ -81,7 +81,7 @@ class Haunt extends Analyzer {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</React.Fragment>}
+        title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
         valueTooltip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
       />

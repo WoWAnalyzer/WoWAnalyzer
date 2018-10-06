@@ -253,9 +253,9 @@ class CastEfficiency extends Analyzer {
 
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''}
-          </React.Fragment>
+          </>
         )
           .icon(mainSpell.icon)
           .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)

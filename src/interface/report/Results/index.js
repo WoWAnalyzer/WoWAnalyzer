@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
-import { withI18n, Trans } from '@lingui/react';
+import { Trans, t } from '@lingui/macro';
 
 import ChecklistIcon from 'interface/icons/Checklist';
 import SuggestionIcon from 'interface/icons/Suggestion';
@@ -21,6 +20,7 @@ import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import FightNavigationBar from '../FightNavigationBar';
 import ResultsWarning from './ResultsWarning';
@@ -46,7 +46,6 @@ class Results extends React.PureComponent {
     parser: PropTypes.object.isRequired,
     selectedDetailsTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
-    i18n: PropTypes.object.isRequired,
     premium: PropTypes.bool,
     characterProfile: PropTypes.shape({
       region: PropTypes.string.isRequired,
@@ -83,34 +82,32 @@ class Results extends React.PureComponent {
     switch (tab) {
       case MAIN_TAB.CHECKLIST:
         return (
-          <React.Fragment>
+          <>
             <ChecklistIcon /> <Trans>Checklist</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.SUGGESTIONS:
         return (
-          <React.Fragment>
+          <>
             <SuggestionIcon /> <Trans>Suggestions</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.CHARACTER:
         return (
-          <React.Fragment>
+          <>
             <ArmorIcon /> <Trans>Character</Trans>
-          </React.Fragment>
+          </>
         );
       case MAIN_TAB.STATS:
         return (
-          <React.Fragment>
+          <>
             <StatisticsIcon /> <Trans>Statistics</Trans>
-          </React.Fragment>
+          </>
         );
       default: return tab;
     }
   }
   renderFightDowntimeToggle() {
-    const { i18n } = this.props;
-
     return (
       <div className="toggle-control" style={{ marginTop: 5 }}>
         <Toggle
@@ -120,7 +117,7 @@ class Results extends React.PureComponent {
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>Adjust statistics for <dfn data-tip={i18n.t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`}>fight downtime</dfn> (<dfn data-tip={i18n.t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`}>experimental</dfn>)</Trans>
+          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n.t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`}>experimental</dfn>)</Trans>
         </label>
       </div>
     );
@@ -136,7 +133,7 @@ class Results extends React.PureComponent {
     }, {});
 
     return (
-      <React.Fragment>
+      <>
         {Object.keys(groups).map(name => {
           const statistics = groups[name];
           return (
@@ -153,7 +150,7 @@ class Results extends React.PureComponent {
             </React.Fragment>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -182,14 +179,14 @@ class Results extends React.PureComponent {
     );
   }
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, i18n, premium, characterProfile } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const modules = parser._modules;
     const config = this.context.config;
 
     const results = parser.generateResults({
-      i18n,
+      i18n, // TODO: Remove and use singleton
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
@@ -326,7 +323,7 @@ class Results extends React.PureComponent {
     const selectedCombatant = modules.combatants.selected;
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Put this in a higher component such as ConfigLoader to make it easier to switch fights early */}
         <FightNavigationBar />
 
@@ -343,7 +340,7 @@ class Results extends React.PureComponent {
             {this.renderContent()}
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -353,9 +350,6 @@ const mapStateToProps = state => ({
   premium: hasPremium(state),
 });
 
-export default compose(
-  withI18n(),
-  connect(
-    mapStateToProps
-  )
+export default connect(
+  mapStateToProps
 )(Results);

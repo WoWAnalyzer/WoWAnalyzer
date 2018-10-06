@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Voidform from './Voidform';
+import Voidform from '../spells/Voidform';
 
 function formatSeconds(seconds) {
   return Math.round(seconds * 10) / 10;
@@ -94,7 +94,7 @@ class VoidTorrent extends Analyzer {
   suggestions(when) {
     when(this.totalWasted).isGreaterThan(this.suggestionThresholds.average)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</React.Fragment>)
+        return suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
           .icon(SPELLS.VOID_TORRENT_TALENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
           .recommended('No time wasted is recommended.')
