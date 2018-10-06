@@ -5,21 +5,14 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
-const CAST_BUFFER = 250;
 const FIGHT_END_BUFFER = 7500;
 
 const debug = false;
 
 class WintersReach extends Analyzer {
 
-  beginCastTimestamp = 0;
-  castTimestamp = 0;
-  buffUsed = false;
-  beginCastFound = false;
-  count = 0;
-  wastedProcs = 0;
   usedProcs = 0;
   totalProcs = 0;
 
@@ -33,10 +26,8 @@ class WintersReach extends Analyzer {
     if (spellId !== SPELLS.WINTERS_REACH_BUFF.id) {
       return;
     }
-    this.buffUsed = false;
+    debug && this.debug("Winter's Reach applied");
     this.totalProcs += 1;
-    this.buffAppliedTimestamp = event.timestamp;
-    debug && console.log("Buff Applied @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -44,70 +35,53 @@ class WintersReach extends Analyzer {
     if (spellId !== SPELLS.WINTERS_REACH_BUFF.id) {
       return;
     }
-    this.buffUsed = false;
-    this.wastedProcs += 1;
+    debug && this.debug("Winter's Reach refreshed");
     this.totalProcs += 1;
-    debug && console.log("Buff Refreshed " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WINTERS_REACH_BUFF.id) {
-      return;
-    }
-    debug && console.log("Buff Removed @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    if (this.buffUsed === false) {
-      this.wastedProcs += 1;
-      debug && console.log("Buff Expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else {
-      this.usedProcs += 1;
-    }
-  }
-
-  on_byPlayer_begincast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLURRY.id) {
-      return;
-    }
-    this.beginCastTimestamp = event.timestamp;
-    this.beginCastFound = true;
-
-    debug && console.log("Flurry Begin Cast @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLURRY.id || this.beginCastFound === false) {
+    if (spellId !== SPELLS.FLURRY.id) {
       return;
     }
-    this.beginCastFound = false;
-    debug && console.log("Flurry Casted @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    this.castTimestamp = event.timestamp;
-    const castTime = this.castTimestamp - this.beginCastTimestamp;
 
-    if (castTime >= CAST_BUFFER && this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
-      this.buffUsed = true;
-      debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    // If the player had Brain Freeze at the time of casting Flurry, it wasn't a hardcast
+    if (this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id, event.timestamp)) {
+      return;
+    }
+
+    const hadBuff = this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id, event.timestamp);
+    if (hadBuff) {
+      this.usedProcs += 1;
+      debug && this.debug("Flurry hardcast with Winter's Reach buff");
+    } else {
+      debug && this.debug("Flurry hardcast without Winter's Reach buff");
     }
   }
 
   /*
-    If the player gets a proc within the last 7.5 seconds of the fight then it wont count against them if they dont use it. This is mainly taking into account the reaction time of realizing you have the proc,
-    potentially needing to clear the Brain Freeze procs they already have, the cast time on Flurry, and the travel time for all of the projectiles to hit the target.
-  */
+   * If the player gets a proc within the last 7.5 seconds of the fight then it
+   * wont count against them if they dont use it. This is mainly taking into
+   * account the reaction time of realizing you have the proc, potentially
+   * needing to clear the Brain Freeze procs they already have, the cast time
+   * on Flurry, and the travel time for all of the projectiles to hit the target.
+   */
   on_finished() {
     if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
-      const adjustedFightEnding = this.owner.currentTimestamp - FIGHT_END_BUFFER;
-      if (this.buffAppliedTimestamp < adjustedFightEnding) {
-        this.wastedProcs += 1;
-        debug && console.log("Fight Ended with Unused Proc @ " + formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time));
+      const gracePeriod = this.owner.currentTimestamp - FIGHT_END_BUFFER;
+      if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id, gracePeriod)) {
+        debug && console.log("Fight ended with an old unused Winter's Reach buff");
       } else {
+        debug && console.log("Fight ended with a newish unused Winter's Reach buff, forgiven");
         this.totalProcs -= 1;
       }
     }
-    debug && console.log("Total Procs: " + this.totalProcs);
-    debug && console.log("Used Procs: " + this.usedProcs);
-    debug && console.log("Wasted Procs: " + this.wastedProcs);
+    debug && this.debug("Total Procs: " + this.totalProcs);
+    debug && this.debug("Used Procs: " + this.usedProcs);
+  }
+
+  get wastedProcs() {
+    return this.totalProcs - this.usedProcs;
   }
 
   get procsPerMinute() {
@@ -135,27 +109,29 @@ class WintersReach extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> procs. These procs make your hard cast <SpellLink id={SPELLS.FLURRY.id} /> casts deal extra damage, so try and use them as quickly as possible to avoid losing over overwriting the procs.</React.Fragment>)
           .icon(SPELLS.WINTERS_REACH_TRAIT.icon)
-          .actual(`${formatPercentage(this.procUtilization)}% Utilization`)
+          .actual(`${formatPercentage(this.procUtilization)}% utilization`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
+
   statistic() {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.WINTERS_REACH_TRAIT.id} />}
         value={`${formatPercentage(this.procUtilization, 0)} %`}
-        label="Winter's Reach Utilization"
-        tooltip={`This is a measure of how well you utilized your Winter's Reach Procs.
+        label="Winter's Reach utilization"
+        tooltip={`This is a measure of how well you utilized your Winter's Reach procs.
         <ul>
-          <li>${this.procsPerMinute.toFixed(2)} Procs Per Minute</li>
-          <li>${formatNumber(this.usedProcs)} Procs Used</li>
-          <li>${formatNumber(this.wastedProcs)} Procs Wasted</li>
+          <li>${this.procsPerMinute.toFixed(2)} procs per minute</li>
+          <li>${formatNumber(this.usedProcs)} procs used</li>
+          <li>${formatNumber(this.wastedProcs)} procs wasted</li>
         </ul>
       `}
       />
     );
   }
+
 }
 
 export default WintersReach;
