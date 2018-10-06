@@ -17,6 +17,7 @@ import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spe
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules/spells/azeritetraits/IronFists';
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
+import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
 
 const debug = false;
 
@@ -291,6 +292,7 @@ class StatTracker extends Analyzer {
     // endregion
     // region Paladin
     [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
+    [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
