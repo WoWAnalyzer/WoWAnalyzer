@@ -52,7 +52,7 @@ class BreathOfFire extends Analyzer {
     if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
-      if (DEBUG_ABILITIES) {
+      if (DEBUG_ABILITIES && event.ability.guid !== SPELLS.MELEE.id) {
         console.log('hit w/o bof', event);
       }
       this.hitsWithoutBoF += 1;

@@ -325,17 +325,18 @@ class Bloodtalons extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title={(
-        <>
-          <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage
-        </>
-      )}>
+      <StatisticsListBox
+        title={(
+          <>
+            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage
+          </>
+        )}
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+      >
         {this.combinedChart()}
       </StatisticsListBox>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default Bloodtalons;

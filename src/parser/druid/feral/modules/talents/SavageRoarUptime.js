@@ -47,11 +47,10 @@ class SavageRoarUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Savage Roar uptime"
+        position={STATISTIC_ORDER.OPTIONAL(0)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default SavageRoarUptime;

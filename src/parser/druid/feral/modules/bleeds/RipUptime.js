@@ -47,11 +47,10 @@ class RipUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIP.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Rip uptime"
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default RipUptime;

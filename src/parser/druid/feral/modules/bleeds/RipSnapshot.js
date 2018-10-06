@@ -233,8 +233,7 @@ class RipSnapshot extends Snapshot {
   }
 
   statistic() {
-    return super.generateStatistic(SPELLS.RIP.name);
+    return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 export default RipSnapshot;

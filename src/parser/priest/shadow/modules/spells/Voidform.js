@@ -215,8 +215,8 @@ class Voidform extends Analyzer {
     return (voidform) => ({
       actual: voidform.stacks.length,
       isLessThan: {
-        minor: 22,
-        average: 20,
+        minor: 20,
+        average: 19,
         major: 18,
       },
       style: 'number',

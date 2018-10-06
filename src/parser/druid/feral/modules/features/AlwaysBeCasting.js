@@ -6,7 +6,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     // override the suggestions from CoreAlwaysBeCasting so there's never any generated, but we still get the statistic.
     return null;
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  position = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;
