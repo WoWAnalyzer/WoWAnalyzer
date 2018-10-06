@@ -18,7 +18,7 @@ const BUFF_WINDOW_TIME = 60;
 class Shadowmeld extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-  }
+  };
 
   wastedDuringStealth = 0;
   correctUses = 0;
@@ -26,10 +26,7 @@ class Shadowmeld extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.race !== RACES.NightElf) {
-      // only run if we know the active combatant has Shadowmeld
-      this.active = false;
-    }
+    this.active = this.selectedCombatant.race === RACES.NightElf;
   }
 
   on_byPlayer_cast(event) {
@@ -116,8 +113,8 @@ class Shadowmeld extends Analyzer {
         </React.Fragment>
       )
         .icon(SPELLS.SHADOWMELD.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of casts were used when already stealthed.`)
-        .recommended('None is recommended');
+        .actual(`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`)
+        .recommended('0 is recommended');
     });
   }
 }

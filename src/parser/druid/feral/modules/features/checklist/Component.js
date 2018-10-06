@@ -224,13 +224,9 @@ class FeralDruidChecklist extends React.PureComponent {
           <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
           {combatant.race === RACES.NightElf && (
             <Requirement
-              name={(
-                <React.Fragment>
-                  <SpellLink id={SPELLS.SHADOWMELD.id} />
-                </React.Fragment>
-              )}
+              name={<SpellLink id={SPELLS.SHADOWMELD.id} />}
               thresholds={thresholds.shadowmeld}
-              tooltip={'This measures how many of the possible uses of Shadowmeld were used to provide the double damage bonus to Rake.'}
+              tooltip="This measures how many of the possible uses of Shadowmeld were used to provide the double damage bonus to Rake."
             />
           )}
         </Rule>
