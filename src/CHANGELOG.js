@@ -10,7 +10,7 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2018-10-06'),
-    changes: <React.Fragment> Added a damage reduction tracker for <SpellLink id={SPELLS.STONEFORM.id} /> </React.Fragment>,
+    changes: <React.Fragment> Added a damage reduction module for dwarf racial <SpellLink id={SPELLS.STONEFORM.id} /> </React.Fragment>,
     contributors: [Satyric],
   },
   {
