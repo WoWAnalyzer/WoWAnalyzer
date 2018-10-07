@@ -20,7 +20,7 @@ export default {
 
       As a rule of thumb: Never overcap Astral Power, don't overcap empowerments and keep your dots up on the target(s) at all times. Remember to pool Astral Power prior to movement.<br /><br />
 
-      If you want to learn more about how to play Moonkin, visit <a href="https://goo.gl/xNHVnK" target="_blank" rel="noopener noreferrer">DreamGrove, the Druid's Discord</a>. Don't forget to check the <kbd>#resources</kbd> channel while you are there!
+      If you want to learn more about how to play Moonkin, visit <a href="https://discordapp.com/invite/0dWu0WkuetF87H9H" target="_blank" rel="noopener noreferrer">DreamGrove, the Druid's Discord</a> or <a href="https://dreamgrove.gg/" target="_blank" rel="noopener noreferrer">DreamGrove.gg</a>.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
