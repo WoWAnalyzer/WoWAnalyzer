@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/core/modules/SpellUsable';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const ICECAP_COOLDOWN_REDUCTION_MS = 1000;
 

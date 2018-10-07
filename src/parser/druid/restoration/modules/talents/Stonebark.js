@@ -10,7 +10,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import HotTracker from 'parser/druid/restoration/modules/core/hottracking/HotTracker';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 const STONEBARK_HOT_INCREASE = 0.2;
 const BUFFER_MS = 200;

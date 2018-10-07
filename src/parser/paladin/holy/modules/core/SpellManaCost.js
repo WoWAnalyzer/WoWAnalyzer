@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellManaCost from 'parser/core/modules/SpellManaCost';
-import Combatants from 'parser/core/modules/Combatants';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
+import Combatants from 'parser/shared/modules/Combatants';
 
 class SpellManaCost extends CoreSpellManaCost {
   static dependencies = {

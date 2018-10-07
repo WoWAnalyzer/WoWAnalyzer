@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import DeathDowntime from 'parser/core/modules/downtime/DeathDowntime';
+import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {

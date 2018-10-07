@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import IronSkinBrew from '../spells/IronSkinBrew';
 import BrewCDR from '../core/BrewCDR';
 import BreathOfFire from '../spells/BreathOfFire';

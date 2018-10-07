@@ -2,8 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Combatants from 'parser/core/modules/Combatants';
-import StatTracker from 'parser/core/modules/StatTracker';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';

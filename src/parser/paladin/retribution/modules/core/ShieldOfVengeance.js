@@ -4,9 +4,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 

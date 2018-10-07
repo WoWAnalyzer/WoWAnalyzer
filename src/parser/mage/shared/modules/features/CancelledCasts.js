@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CoreCancelledCasts from 'parser/core/modules/CancelledCasts';
+import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';

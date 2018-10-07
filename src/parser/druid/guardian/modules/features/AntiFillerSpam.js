@@ -5,8 +5,8 @@ import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import EnemyInstances from 'parser/core/modules/EnemyInstances';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
 
 import Abilities from '../Abilities';

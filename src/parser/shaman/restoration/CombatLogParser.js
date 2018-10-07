@@ -4,7 +4,7 @@ import Tab from 'interface/others/Tab';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';

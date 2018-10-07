@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;
 const FR_WINDOW_MS = 5000;

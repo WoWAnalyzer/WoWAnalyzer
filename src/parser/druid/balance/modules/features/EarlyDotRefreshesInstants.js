@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import StatTracker from 'parser/core/modules/StatTracker';
-import CoreEarlyDotRefreshesInstants from 'parser/core/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
-import suggest from 'parser/core/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import CoreEarlyDotRefreshesInstants from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
+import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
 
 const DOTS = [
   {

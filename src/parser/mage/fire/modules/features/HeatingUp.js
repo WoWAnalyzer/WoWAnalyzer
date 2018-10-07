@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import EnemyInstances, { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const debug = false;
 

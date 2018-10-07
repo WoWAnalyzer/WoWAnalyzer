@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import SCHOOLS from 'common/MAGIC_SCHOOLS';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 

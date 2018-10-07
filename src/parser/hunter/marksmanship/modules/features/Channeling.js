@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/index';
-import CoreChanneling from 'parser/core/modules/Channeling';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 const debug = false;
 

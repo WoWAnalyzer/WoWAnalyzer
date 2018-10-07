@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import Combatants from 'parser/core/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import CombustionCharges from '../features/CombustionCharges';
 import CombustionFirestarter from '../features/CombustionFirestarter';

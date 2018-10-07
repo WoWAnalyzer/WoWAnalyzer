@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker from '../core/HotTracker';
 
 const debug = false;

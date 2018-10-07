@@ -1,16 +1,16 @@
 import React from 'react';
 
 //Core
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import PrePotion from 'parser/core/modules/items/PrePotion';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
 import SPELLS from 'common/SPELLS';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import ITEMS from 'common/ITEMS/hunter';
 import ItemLink from 'common/ItemLink';
 import ResourceIcon from 'common/ResourceIcon';

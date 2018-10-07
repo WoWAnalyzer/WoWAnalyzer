@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Icon from 'common/Icon';
-import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 import EnergyTracker from './EnergyTracker';
 

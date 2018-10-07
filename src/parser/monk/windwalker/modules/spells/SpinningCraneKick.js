@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import StatTracker from 'parser/core/modules/StatTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 class SpinningCraneKick extends Analyzer {

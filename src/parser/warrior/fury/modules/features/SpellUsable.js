@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/core/modules/SpellUsable';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {

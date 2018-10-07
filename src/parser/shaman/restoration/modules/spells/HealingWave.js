@@ -4,8 +4,8 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format'; 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class HealingWave extends Analyzer {
   static dependencies = {

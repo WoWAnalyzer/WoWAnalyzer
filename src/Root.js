@@ -8,7 +8,7 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
 import reducers from 'interface/reducers';
 import RootErrorBoundary from 'interface/RootErrorBoundary';
-import App from 'interface/others/App';
+import App from 'interface/App';
 import RootLocalizationProvider from 'interface/RootLocalizationProvider';
 
 // Create a history of your choosing (we're using a browser history in this case)

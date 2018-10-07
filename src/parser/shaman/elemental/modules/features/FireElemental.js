@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from "common/SPELLS/shaman";
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class FireElemental extends Analyzer {
 

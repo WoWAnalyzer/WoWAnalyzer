@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';

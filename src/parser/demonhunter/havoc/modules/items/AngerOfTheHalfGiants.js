@@ -7,7 +7,7 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import FuryTracker from '../resourcetracker/FuryTracker';
 
 /**

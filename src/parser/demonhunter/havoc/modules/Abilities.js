@@ -2,10 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import Haste from 'parser/core/modules/Haste';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Haste from 'parser/shared/modules/Haste';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 
 class Abilities extends CoreAbilities {

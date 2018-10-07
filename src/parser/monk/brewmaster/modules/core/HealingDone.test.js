@@ -1,5 +1,5 @@
-import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from 'tests/parser/brewmaster/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingDone from './HealingDone';
 

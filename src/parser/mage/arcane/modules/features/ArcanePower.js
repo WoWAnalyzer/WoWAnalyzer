@@ -7,10 +7,10 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import DeathTracker from 'parser/core/modules/DeathTracker';
-import SpellManaCost from 'parser/core/modules/SpellManaCost';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import DeathTracker from 'parser/shared/modules/DeathTracker';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import Analyzer from 'parser/core/Analyzer';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 

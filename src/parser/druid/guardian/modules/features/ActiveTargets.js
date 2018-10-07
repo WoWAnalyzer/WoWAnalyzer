@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /*
  * The amount of time elapsed without a combat event before a target is considered inactive.

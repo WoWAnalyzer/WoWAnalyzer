@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import SpellLink from 'common/SpellLink';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {

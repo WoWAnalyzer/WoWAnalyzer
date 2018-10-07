@@ -1,5 +1,5 @@
-import { SimpleFight, incomingDamage } from 'tests/parser/brewmaster/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { SimpleFight, incomingDamage } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import IronSkinBrew from './IronSkinBrew';
 

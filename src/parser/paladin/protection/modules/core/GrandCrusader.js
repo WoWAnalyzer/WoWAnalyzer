@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 
 const BASE_PROC_CHANCE = 0.15;
