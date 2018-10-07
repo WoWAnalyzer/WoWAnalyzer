@@ -31,6 +31,10 @@ const AZ_SCALE_SECONDARY = -7;
 // semantic meaning that we know of (yet)
 const AZ_SCALE_UNK8 = -8;
 
+// special effect type that always uses secondary scaling regardless of
+// scaling type
+const AZ_TYPE_MODIFY_RATING = 189;
+
 const AZ_SCALE_FUNCTIONS = {
   // this function was given by @Atonement, and has matched
   // everything tested against
@@ -62,5 +66,10 @@ export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
 
   return spell.effect_list.map(id => spell.effects[id])
     .filter(({avg}) => avg > 0)
-    .map(({avg}) => Math.round(avg * budget));
+    .map(({avg, type}) => {
+      if(type === AZ_TYPE_MODIFY_RATING) {
+        return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_SECONDARY](rank));
+      }
+      return Math.round(avg * budget);
+    });
 }
