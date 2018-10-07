@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 9,
       },
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 9,
       },
@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 10,
       },
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 10,
       },

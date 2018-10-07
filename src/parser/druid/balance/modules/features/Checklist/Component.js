@@ -122,6 +122,18 @@ class BalanceDruidChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
           )}
+          {combatant.hasTalent(SPELLS.FORCE_OF_NATURE_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.FORCE_OF_NATURE_TALENT.id} />
+          )}
+          {combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.WARRIOR_OF_ELUNE_TALENT.id} />
+          )}
+          {combatant.hasTalent(SPELLS.FURY_OF_ELUNE_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.FURY_OF_ELUNE_TALENT.id} />
+          )}
+          {combatant.hasTalent(SPELLS.NEW_MOON_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.NEW_MOON_TALENT.id} />
+          )}
         </Rule>
         <Rule
           name="Use your supportive abilities"
