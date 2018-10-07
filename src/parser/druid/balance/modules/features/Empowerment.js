@@ -31,6 +31,7 @@ class Empowerment extends Analyzer {
       return;
     }
     this.wasted += 1;
+    this.generated += 1;
   }
 
   on_toPlayer_applybuff(event) {
