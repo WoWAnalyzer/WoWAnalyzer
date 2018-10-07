@@ -9,14 +9,36 @@
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
 
-## Contributing
+## Getting started
 
-You don't need to to do anything special to contribute. The real issue preventing specs from being worked out is that in order to make something useful for a spec, you need to have the following 3 properties:
-1. Know the spec well enough to actually create something useful
-2. Know how to program well enough to implement the analysis (or be willing to learn)
-3. Have the time and motivation to actually do it
+Before starting, make sure you have the following:
+- [git](https://git-scm.com/)
+  - Optional: Get a UI such as [GitHub Desktop](https://desktop.github.com/) or [TortoiseGit](https://tortoisegit.org/)
+- [Node.js](https://nodejs.org/). We recommend the *current* version.
 
-See the [contributing guidelines](CONTRIBUTING.md) if you want to give it a try.
+To get the code running on your computer you will need a few things. You might already have a bunch of things, feel free to skip ahead.
+
+1. [**Make a *fork* of the repo**](https://help.github.com/articles/fork-a-repo/); this is your own public copy on GitHub for you to work in before sharing it.
+2. **Clone your fork to your computer.** Open your fork on GitHub, click the green "Clone of download" button, and copy the HTTPS link (or SSH if you have that setup). Then run `git clone <paste link>`
+3. Open a command window to the cloned repo.
+4. Run this command: `npm install`, this will take a minute the first time.
+5. Meanwhile:
+    1. Go to project root
+    2. Copy the `.env.local.example` file in the same directory
+    3. Name it `.env.local`
+    4. Go to https://www.warcraftlogs.com/profile to get your WCL API key (at the bottom)
+    5. On that page just above the API key, enter "WoWAnalyzer (development)" as the application name
+    5. Open `.env.local` with your IDE and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with your _public_ API key
+6. You're done installing once `npm install` finishes.
+
+<table align="center">
+  <tr>
+    <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
+    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow steps 1-3 and do the <code>.env.local</code> thing and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running.</td>
+  </tr>
+</table>
+
+See the [contributing guidelines](CONTRIBUTING.md) for further information.
 
 ## Collaboration
 
