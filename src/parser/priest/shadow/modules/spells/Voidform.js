@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tab from 'interface/others/Tab';
 

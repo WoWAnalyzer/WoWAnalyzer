@@ -2,9 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 

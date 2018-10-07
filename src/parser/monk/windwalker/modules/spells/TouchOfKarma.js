@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class TouchOfKarma extends Analyzer {

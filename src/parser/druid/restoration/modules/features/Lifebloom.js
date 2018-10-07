@@ -8,7 +8,7 @@ import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 class Lifebloom extends Analyzer {
   static dependencies = {

@@ -3,7 +3,7 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 import BattleCryAnalyzer from './BattleCry';
 

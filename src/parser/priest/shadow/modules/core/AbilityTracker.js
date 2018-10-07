@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilityTracker from 'parser/core/modules/AbilityTracker';
+import CoreAbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class AbilityTracker extends CoreAbilityTracker {
   getAbility(spellId, abilityInfo = null) {

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const COMBUST_REDUCTION_SPELLS = [
   SPELLS.FIREBALL.id,

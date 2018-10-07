@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import { BEACON_TYPES, AVAILABLE_BEACONS } from '../../constants';
 

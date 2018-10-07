@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {

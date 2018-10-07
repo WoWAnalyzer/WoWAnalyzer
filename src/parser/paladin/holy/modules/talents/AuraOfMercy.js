@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 

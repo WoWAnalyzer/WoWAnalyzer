@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';

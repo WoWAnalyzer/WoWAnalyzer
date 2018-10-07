@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/core/modules/features/Checklist2';
-import Rule from 'parser/core/modules/features/Checklist2/Rule';
-import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/core/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/core/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist2';
+import Rule from 'parser/shared/modules/features/Checklist2/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class FrostMageChecklist extends React.PureComponent {
   static propTypes = {

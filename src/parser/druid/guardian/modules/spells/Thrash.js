@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 
 class Thrash extends Analyzer {

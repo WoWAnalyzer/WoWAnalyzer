@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

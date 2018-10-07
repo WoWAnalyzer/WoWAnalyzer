@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';

@@ -6,9 +6,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
-import Abilities from 'parser/core/modules/Abilities';
+import Abilities from 'parser/shared/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 /**

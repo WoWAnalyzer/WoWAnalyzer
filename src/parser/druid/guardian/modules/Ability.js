@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import CoreAbility from 'parser/core/modules/Ability';
+import CoreAbility from 'parser/shared/modules/Ability';
 
 class Ability extends CoreAbility {
   static propTypes = {

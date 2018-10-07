@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';

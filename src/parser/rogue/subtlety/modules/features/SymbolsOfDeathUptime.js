@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 
 class SymbolsOfDeathUptime extends Analyzer {

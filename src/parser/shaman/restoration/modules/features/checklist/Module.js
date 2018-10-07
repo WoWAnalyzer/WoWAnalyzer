@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import Combatants from 'parser/core/modules/Combatants';
-import ManaValues from 'parser/core/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+import ManaValues from 'parser/shared/modules/ManaValues';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import TidalWaves from '../TidalWaves';

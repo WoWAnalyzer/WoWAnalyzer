@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';

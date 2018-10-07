@@ -8,7 +8,7 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 
 const EARTHEN_SPIKE = {

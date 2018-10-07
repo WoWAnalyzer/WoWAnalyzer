@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 
 const RPPERCHARGE = 6;

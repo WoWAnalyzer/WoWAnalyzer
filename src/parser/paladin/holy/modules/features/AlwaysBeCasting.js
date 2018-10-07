@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAlwaysBeCastingHealing from 'parser/core/modules/AlwaysBeCastingHealing';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 const debug = false;
 

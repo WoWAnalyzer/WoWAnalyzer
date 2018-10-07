@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
-import SpellManaCost from 'parser/core/modules/SpellManaCost';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticWrapper from 'interface/others/StatisticWrapper';

@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.

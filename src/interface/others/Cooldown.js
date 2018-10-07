@@ -6,7 +6,7 @@ import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
 

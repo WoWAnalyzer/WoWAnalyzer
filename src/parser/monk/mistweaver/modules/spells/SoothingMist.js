@@ -1,5 +1,5 @@
 import React from 'react';
-import CoreChanneling from 'parser/core/modules/Channeling';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

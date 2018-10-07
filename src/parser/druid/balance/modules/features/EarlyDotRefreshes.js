@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
-import EarlyDotRefreshesCore from 'parser/core/modules/earlydotrefreshes/EarlyDotRefreshes';
-import suggest from 'parser/core/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
+import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
+import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
 
 const DOTS = [
   {

@@ -3,12 +3,12 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
 
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, ESSENCE_FONT_SPELLPOWER_COEFFICIENT } from '../../../constants';

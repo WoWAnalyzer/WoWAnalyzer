@@ -1,5 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 

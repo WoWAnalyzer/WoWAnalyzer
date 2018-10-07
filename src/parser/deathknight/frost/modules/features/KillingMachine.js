@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const LAG_BUFFER_MS = 100;

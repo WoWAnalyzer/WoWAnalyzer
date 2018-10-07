@@ -5,8 +5,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import HealingDone from 'parser/core/modules/HealingDone';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 import DivinePurpose from '../talents/DivinePurpose';
 

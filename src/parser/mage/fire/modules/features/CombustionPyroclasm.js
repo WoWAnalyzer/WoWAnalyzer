@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 const COMBUSTION_DURATION = 10000;

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 

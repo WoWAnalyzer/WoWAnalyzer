@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**

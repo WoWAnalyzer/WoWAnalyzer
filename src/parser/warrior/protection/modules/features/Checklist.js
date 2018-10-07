@@ -2,13 +2,13 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import PrePotion from 'parser/core/modules/items/PrePotion';
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
 import Shield_Block from '../spells/ShieldBlock';

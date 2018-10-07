@@ -5,9 +5,9 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const ART_OF_WAR_DURATION = 10000;
 

@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 

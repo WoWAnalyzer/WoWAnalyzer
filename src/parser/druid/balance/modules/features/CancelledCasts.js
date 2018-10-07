@@ -1,4 +1,4 @@
-import CoreCancelledCasts from 'parser/core/modules/CancelledCasts';
+import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import RegenResourceCapTracker from 'parser/core/modules/RegenResourceCapTracker';
+import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
 import SpellEnergyCost from './SpellEnergyCost';
 
 const BASE_ENERGY_REGEN = 11;

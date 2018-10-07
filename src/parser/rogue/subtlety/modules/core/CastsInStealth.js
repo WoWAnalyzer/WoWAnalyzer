@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import CastsInStealthBase from './CastsInStealthBase';
 import StealthDamageTracker from '../../../shared/casttracker/StealthDamageTracker';

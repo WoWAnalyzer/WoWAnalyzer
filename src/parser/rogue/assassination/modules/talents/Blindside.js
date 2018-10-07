@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import EnemyInstances from 'parser/core/modules/EnemyInstances';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer from 'parser/core/Analyzer';
 
 const BLINDSIDE_EXECUTE = 0.3; 

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-import CoreHaste from 'parser/core/modules/Haste';
+import CoreHaste from 'parser/shared/modules/Haste';
 
 const debug = false;
 
