@@ -119,13 +119,7 @@ describe('stats', () => {
         340: [10012],
       });
     });
-    it('correctly computes Gemhide armor but not avoidance', () => {
-      // Gemhide --- nothing matches the new scaling for gemhide's
-      // avoidance :shrug:
-      //
-      // this is a canary test -- it only exists to let us know if
-      // something changes. it also conveniently lets us know that the
-      // armor value is correct and usable
+    it('correctly computes Gemhide armor and avoidance', () => {
       const spellId = 268596;
       const values = {
         340: [111, 160],
@@ -136,7 +130,11 @@ describe('stats', () => {
       Object.keys(values).forEach(itemLevel => {
         const [avoidance, armor] = calculateAzeriteEffects(spellId, itemLevel);
         expect(armor).toEqual(values[itemLevel][1]);
-        expect(avoidance).not.toEqual(values[itemLevel][0]);
+        // couple of values are off-by-1, but the only way to fix is
+        // with better coefficients that I don't have. Willing to accept
+        // it saying "112 Avoidance" when it should be "111 Avoidance",
+        // at least for now
+        expect(Math.abs(avoidance - values[itemLevel][0])).toBeLessThanOrEqual(1);
       });
     });
   });
