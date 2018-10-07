@@ -73,9 +73,9 @@ class Gemhide extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GEMHIDE.id}
         value={(
-          <React.Fragment>
+          <>
             {formatNumber(this.avgArmor)} Armor & {formatNumber(this.avgAvoidance)} Avoidance
-          </React.Fragment>
+          </>
         )}
         tooltip={`Gemhide grants <b>${this.armor} Armor</b> and <b>${this.avoidance} Avoidance</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
       />

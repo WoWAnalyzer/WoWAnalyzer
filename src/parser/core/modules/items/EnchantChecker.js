@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS/bfa/enchants';
 
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -18,27 +19,26 @@ class EnchantChecker extends Analyzer {
   };
   static MAX_ENCHANT_IDS = [
     //BfA enchants
-    5946, // Weapon Enchant - Coastal Surge
-    5950, // Weapon Enchant - Gale-Force Striking
-    5949, // Weapon Enchant - Torrent of Elements
-    5948, // Weapon Enchant - Siphoning
-    5965, // Weapon Enchant - Deadly Navigation
-    5964, // Weapon Enchant - Masterful Navigation
-    5963, // Weapon Enchant - Quick Navigation
-    5966, // Weapon Enchant - Stalwart Navigation
-    5962, // Weapon Enchant - Versatile Navigation
-    5955, // Crow's Nest Scope
-    5956, // Monelite Scope of Alacrity
-    5957, // Incendiary Ammunition
-    5958, // Frost-Laced Ammunition
+    ITEMS.ENCHANT_RING_PACT_OF_CRITICAL_STRIKE.effectId,
+    ITEMS.ENCHANT_RING_PACT_OF_HASTE.effectId,
+    ITEMS.ENCHANT_RING_PACT_OF_MASTERY.effectId,
+    ITEMS.ENCHANT_RING_PACT_OF_VERSATILITY.effectId,
+    ITEMS.ENCHANT_WEAPON_COASTAL_SURGE.effectId,
+    ITEMS.ENCHANT_WEAPON_GALE_FORCE_STRIKING.effectId,
+    ITEMS.ENCHANT_WEAPON_TORRENT_OF_ELEMENTS.effectId,
+    ITEMS.ENCHANT_WEAPON_SIPHONING.effectId,
+    ITEMS.ENCHANT_WEAPON_DEADLY_NAVIGATION.effectId,
+    ITEMS.ENCHANT_WEAPON_MASTERGUL_NAVIGATION.effectId,
+    ITEMS.ENCHANT_WEAPON_QUICK_NAVIGATION.effectId,
+    ITEMS.ENCHANT_WEAPON_STALWART_NAVIGATION.effectId,
+    ITEMS.ENCHANT_WEAPON_VERSATILE_NAVIGATION.effectId,
+    ITEMS.CROWS_NEST_SCOPE.effectId,
+    ITEMS.MONELITE_SCOPE_OF_ALACRITY.effectId,
+    ITEMS.INCENDIARY_AMMUNITION.effectId,
+    ITEMS.FROST_LACED_AMMUNITION.effectId,
     3368, // Rune of the Fallen Crusader - Death Knight Only
     3370, // Rune of Razorice - Death Knight Only
     3847, // Rune of the Stoneskin Gargoyle - Death Knight Only
-
-    5942, // Pact of Critical Strike
-    5943, // Pact of Haste
-    5944, // Pact of Mastery
-    5945, // Pact of Versatility
   ];
 
   get enchantableGear() {
@@ -92,9 +92,9 @@ class EnchantChecker extends Analyzer {
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <React.Fragment>
+              <>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </React.Fragment>
+              </>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
@@ -104,9 +104,9 @@ class EnchantChecker extends Analyzer {
         when(noMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <React.Fragment>
+              <>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </React.Fragment>
+              </>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);

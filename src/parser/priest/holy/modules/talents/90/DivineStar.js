@@ -50,10 +50,10 @@ class DivineStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.DIVINE_STAR_TALENT.id} />}
         value={(
-          <React.Fragment>
+          <>
             <ItemHealingDone amount={this.divineStarHealing} /><br />
             <ItemDamageDone amount={this.divineStarDamage} />
-          </React.Fragment>
+          </>
         )}
         label="Divine Star"
         tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}

@@ -15,10 +15,14 @@ import Judgment from './modules/spells/Judgment';
 import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTiming';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import Consecration from './modules/features/Consecration';
+import GrandCrusader from './modules/core/GrandCrusader';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
+
+//Azerite Traits
+import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -29,7 +33,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
 
-    // Paladin Core
+    // Core
+    grandCrusader: GrandCrusader,
 
     // Features
     abilities: Abilities,
@@ -41,6 +46,9 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     //cooldownTracker: CooldownTracker,
+    
+    // Azerite Traits
+    inspiringVanguard: InspiringVanguard,
 
     // Talents
     righteousProtector: RighteousProtector,

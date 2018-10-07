@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import { hasPremium } from 'interface/selectors/user';

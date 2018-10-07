@@ -40,10 +40,10 @@ class SynergisticGrowth extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SYNERGISTIC_GROWTH.id}
         value={(
-          <React.Fragment>
+          <>
             {formatPercentage(this.totalBuffUptime)}% uptime<br />
             {formatNumber(this.averageStatGain)} average mastery gained.
-          </React.Fragment>
+          </>
         )}
       />
     );

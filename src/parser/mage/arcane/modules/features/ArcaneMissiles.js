@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 const debug = false;
@@ -26,7 +26,7 @@ class ArcaneMissiles extends Analyzer {
 			return;
 		}
 		if (spellId === SPELLS.ARCANE_MISSILES.id && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id)) {
-			debug && console.log("Arcane Missiles cast without Clearcasting @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log('Arcane Missiles cast without Clearcasting');
 			this.castWithoutClearcasting += 1;
 		} else if (spellId === SPELLS.ARCANE_BARRAGE.id && this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id,event.timestamp - 100) && this.hasAnomalousImpactTrait) {
 			this.barrageWithProcs += 1;
@@ -68,7 +68,7 @@ class ArcaneMissiles extends Analyzer {
 	suggestions(when) {
 		when(this.missilesSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> without <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> {this.castWithoutClearcasting} times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> without <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> {this.castWithoutClearcasting} times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.</>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(`${formatPercentage(this.missilesUtilization)}% Uptime`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -76,7 +76,7 @@ class ArcaneMissiles extends Analyzer {
 		if (this.hasAnomalousImpactTrait) {
 			when(this.barrageSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-					return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> without clearing your <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> Proc {this.barrageWithProcs} times. While normally this does not matter, the <SpellLink id={SPELLS.ANOMALOUS_IMPACT.id} /> Azerite Trait adds extra damage to <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> based on the number of Arcane Charges you have. Therefore, you should make sure you are clearing your Clearcasting procs before you clear your Arcane Charges.</React.Fragment>)
+					return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> without clearing your <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> Proc {this.barrageWithProcs} times. While normally this does not matter, the <SpellLink id={SPELLS.ANOMALOUS_IMPACT.id} /> Azerite Trait adds extra damage to <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> based on the number of Arcane Charges you have. Therefore, you should make sure you are clearing your Clearcasting procs before you clear your Arcane Charges.</>)
 						.icon(SPELLS.CLEARCASTING_ARCANE.icon)
 						.actual(`${formatPercentage(this.barrageUtilization)}% Uptime`)
 						.recommended(`${formatPercentage(recommended)}% is recommended`);

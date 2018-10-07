@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
@@ -58,22 +58,22 @@ class HeatingUp extends Analyzer {
     }
 
     if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasSearingTouch && this.healthPercent < .30)) && !hasHotStreak) {
-      debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Event Ignored @ ");
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
       if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
         this.fireBlastWithHotStreak += 1;
-        debug && console.log("Fire Blast with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Fire Blast with Hot Streak");
       } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
         this.fireBlastWithoutHeatingUp += 1;
-        debug && console.log("Fire Blast without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Fire Blast without Heating Up");
       }
     } else if (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id) {
         if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
           this.phoenixFlamesWithHotStreak += 1;
-          debug && console.log("Phoenix Flames with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+          debug && this.log("Phoenix Flames with Hot Streak");
         } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
           this.phoenixFlamesWithoutHeatingUp += 1;
-          debug && console.log("Phoenix Flames without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+          debug && this.log("Phoenix Flames without Heating Up");
         }
     }
   }
@@ -137,14 +137,14 @@ class HeatingUp extends Analyzer {
   suggestions(when) {
 		when(this.fireBlastUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</>)
 					.icon(SPELLS.FIRE_BLAST.icon)
 					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
     when(this.phoenixFlamesUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
 					.icon(SPELLS.PHOENIX_FLAMES_TALENT.icon)
 					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);

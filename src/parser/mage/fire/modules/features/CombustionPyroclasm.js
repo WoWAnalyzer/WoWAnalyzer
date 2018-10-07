@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/core/modules/SpellUsable';
@@ -46,13 +46,13 @@ class CombustionPyroclasm extends Analyzer {
       //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
       if (this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
         this.expectedPyroblastCasts += 1;
-        debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Pyroblast Expected During Combustion");
       }
     } else {
       //If the player gets a Bracer Proc, and there is more than 5 seconds left on the duration of Combustion, then its expected for them to cast it during Combustion.
       if (this.combustionEndTime - event.timestamp > 5000) {
         this.expectedPyroblastCasts += 1;
-        debug && console.log("Pyroblast Expected During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Pyroblast Expected During Combustion");
       }
     }
   }
@@ -66,7 +66,7 @@ class CombustionPyroclasm extends Analyzer {
     if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
       this.actualPyroblastCasts += 1;
       this.buffUsedDuringCombustion = true;
-      debug && console.log("Pyroblast Hard Cast During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && this.log("Pyroblast Hard Cast During Combustion");
     }
   }
 
@@ -100,7 +100,7 @@ class CombustionPyroclasm extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.pyrloclasmUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</React.Fragment>)
+          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</>)
             .icon(SPELLS.PYROCLASM_TALENT.icon)
             .actual(`${formatPercentage(this.pyroclasmBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

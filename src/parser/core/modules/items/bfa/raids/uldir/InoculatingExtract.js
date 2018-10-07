@@ -65,11 +65,11 @@ class InoculatingExtract extends Analyzer{
     return{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
-        <React.Fragment>
+        <>
           <dfn data-tip={`Used <b>${this.uses}</b> times, consuming <b>${this.charges}</b> charges.`}>
             <ItemHealingDone amount={this.healing} />
           </dfn>
-        </React.Fragment>
+        </>
       ),
     };
   }
@@ -79,10 +79,10 @@ class InoculatingExtract extends Analyzer{
     when(chargeEff).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             You had wasted charges from your <ItemLink id={ITEMS.INOCULATING_EXTRACT.id} />.
             Make sure that every buff placed on a target is consumed.
-          </React.Fragment>
+          </>
         ).icon(ITEMS.INOCULATING_EXTRACT.icon)
           .actual(`${formatPercentage(actual)}% charges used.`)
           .recommended(` ${formatPercentage(recommended)}% is recommended`)

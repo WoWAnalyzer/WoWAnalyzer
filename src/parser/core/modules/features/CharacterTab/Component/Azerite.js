@@ -72,7 +72,7 @@ class Gear extends React.PureComponent {
     const azerite = this.props.azerite;
 
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col-md-12">
             <h2>
@@ -101,7 +101,7 @@ class Gear extends React.PureComponent {
             })}
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

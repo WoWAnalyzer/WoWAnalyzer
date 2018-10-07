@@ -42,6 +42,7 @@ class PrePullCooldowns extends EventsNormalizer {
 
   normalize(events) {
     const prepullCasts = [];
+    let precastClassResources = null;
 
     const firstEventIndex = this.getFightStartIndex(events);
     const firstTimestamp = events[firstEventIndex].timestamp;
@@ -64,13 +65,28 @@ class PrePullCooldowns extends EventsNormalizer {
 
         const spellId = event.ability.guid;
         if (PREPULL_BUFF_CDS.includes(spellId) && event.prepull) {
-          debug && console.log(`Detected a precast CD: ${event.ability.name} fight start: ${this.owner.fight.start_time}`);
+          debug && this.log(`Detected a precast CD: ${event.ability.name} fight start: ${this.owner.fight.start_time}`);
           prepullCasts.push(this.constructor._fabricateCastEvent(event));
         }
         continue;
       }
 
       if (event.type === 'cast') {
+
+        if (precastClassResources === null && event.classResources) {
+          /* This will copy the first resource information to all precast events.
+           * It's not pretty or 100% accurate, but it prevents errors on analyzers
+           * that require resource information and usually wont be too far off.
+           *
+           * In the future, a better way to handle this would be to make sure any
+           * analyzers that need the resource information check for .prepull, or
+           * we gain access to spell data that lets us build the resource
+           * information more accurately.
+           */
+          debug && console.log("Setting prepull class resources to:", event.classResources);
+          precastClassResources = event.classResources;
+        }
+
         const spellId = event.ability.guid;
         PREPULL_DMG_CDS.forEach(cdInfo => {
           if (cdInfo.cast === spellId) {
@@ -109,6 +125,7 @@ class PrePullCooldowns extends EventsNormalizer {
       const gcd = (ability && ability.gcd && ability.gcd.base) || 1500;
       totalGCD += gcd;
       event.timestamp = firstTimestamp - totalGCD;
+      event.classResources = precastClassResources;
     }
     events.unshift(...prepullCasts);
     return events;

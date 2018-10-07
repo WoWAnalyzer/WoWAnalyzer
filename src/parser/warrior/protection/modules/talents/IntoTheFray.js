@@ -13,7 +13,6 @@ const HASTE_PER_STACK = 3;
 //update haste per stack in ./core/Haste.js aswell
 
 class IntoTheFray extends Analyzer {
-
   buffStacks = [];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;

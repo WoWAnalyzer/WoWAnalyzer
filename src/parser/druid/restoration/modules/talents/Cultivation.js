@@ -62,8 +62,8 @@ class Cultivation extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
-          content, thus having low cultivation proc rate. You may considering selecting another talent.</React.Fragment>)
+        return suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
+          content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
           .icon(SPELLS.CULTIVATION.icon)
           .actual(`${formatPercentage(this.totalPercent)}% healing`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

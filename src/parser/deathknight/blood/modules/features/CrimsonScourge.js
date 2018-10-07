@@ -87,7 +87,7 @@ class CrimsonScourge extends Analyzer {
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</React.Fragment>)
+      return suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
         .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

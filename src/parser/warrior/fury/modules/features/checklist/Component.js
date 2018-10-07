@@ -47,16 +47,16 @@ class FuryWarriorChecklist extends React.PureComponent {
         <Rule
           name="Use Rampage"
           description={(
-            <React.Fragment>
+            <>
               Using <SpellLink id={SPELLS.RAMPAGE.id} /> is an important part of the Fury rotation. If you aren't Enraged, <SpellLink id={SPELLS.RAMPAGE.id} /> should be used as soon as you have enough rage. Also, use <SpellLink id={SPELLS.RAMPAGE.id} /> if you would reach maximum rage otherwise.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement
             name={(
-              <React.Fragment>
+              <>
                 Number of missed <SpellLink id={SPELLS.RAMPAGE.id} /> casts
-              </React.Fragment>
+              </>
             )}
             thresholds={thresholds.missedRampage}
           />
@@ -64,9 +64,9 @@ class FuryWarriorChecklist extends React.PureComponent {
         <Rule
           name="Avoid downtime"
           description={(
-            <React.Fragment>
+            <>
               As a melee DPS, it is important to stay within range of the target and cast your abiltiies promptly. If you find yourself out of range, try using <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get back more quickly.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />

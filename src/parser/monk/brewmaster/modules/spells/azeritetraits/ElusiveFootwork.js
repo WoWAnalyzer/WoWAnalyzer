@@ -42,7 +42,9 @@ class ElusiveFootwork extends Analyzer {
       return;
     }
 
-    this._ebStacksGenerated += 1;
+    if(event.hitType === HIT_TYPES.CRIT) {
+      this._ebStacksGenerated += 1;
+    }
     this._bonusDamage += this._expectedBonusDamage(event);
     this._casts += 1;
   }

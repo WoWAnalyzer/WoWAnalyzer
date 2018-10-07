@@ -65,11 +65,10 @@ class SavageRoar extends Analyzer {
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
         tooltip={`Your Savage Roar talent contributed <b>${formatNumber(this.bonusDmg)}</b> total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default SavageRoar;

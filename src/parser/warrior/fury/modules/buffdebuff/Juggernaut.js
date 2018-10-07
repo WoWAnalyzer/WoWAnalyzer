@@ -51,7 +51,7 @@ class JuggernautReset extends Analyzer {
 
     when(this.resets).isGreaterThan(minor)
       .addSuggestion((suggest, actual) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
           .recommended(`0 is recommended`)
@@ -62,7 +62,7 @@ class JuggernautReset extends Analyzer {
   juggernautResets() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Resets</React.Fragment>}
+        title={<><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Resets</>}
         value={this.resets}
       />
     );
@@ -71,7 +71,7 @@ class JuggernautReset extends Analyzer {
   juggernautStacksDropped() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Stacks lost</React.Fragment>}
+        title={<><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Stacks lost</>}
         value={this.stacksDropped}
       />
     );
@@ -80,7 +80,7 @@ class JuggernautReset extends Analyzer {
   juggernautStacksMax() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks</React.Fragment>}
+        title={<><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks</>}
         value={this.stacksMax}
       />
     );
@@ -89,7 +89,7 @@ class JuggernautReset extends Analyzer {
   juggernautStacksMaxDamageIncrease() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks damage increase</React.Fragment>}
+        title={<><SpellIcon id={SPELLS.JUGGERNAUT.id} noLink /> Max stacks damage increase</>}
         value={`${this.stacksMax * 3} %`}
       />
     );

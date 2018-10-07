@@ -1,5 +1,4 @@
 import Analyzer from 'parser/core/Analyzer';
-import { formatMilliseconds } from 'common/format';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
@@ -21,14 +20,13 @@ class Channeling extends Analyzer {
     };
     this._currentChannel = channelingEvent;
     this.owner.fabricateEvent(channelingEvent, event);
-    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', ability.name);
+    debug && this.log('Beginning channel of', ability.name);
   }
   endChannel(event) {
     const currentChannel = this._currentChannel;
     const start = currentChannel ? currentChannel.timestamp : this.owner.fight.start_time;
     if (!this.isChanneling()) {
-      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
-      console.warn(fightDuration, 'Channeling', event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
+      this.warn(event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
     }
 
     const duration = event.timestamp - start;
@@ -44,7 +42,7 @@ class Channeling extends Analyzer {
       start,
       beginChannel: currentChannel,
     }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
-    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Ending channel of', ability.name);
+    debug && this.log('Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
     this.owner.fabricateEvent({
@@ -53,7 +51,7 @@ class Channeling extends Analyzer {
       sourceID: event.sourceID,
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
     }, event);
-    debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Canceled channel of', ability.name);
+    debug && this.warn('Canceled channel of', ability.name);
   }
 
   on_byPlayer_begincast(event) {

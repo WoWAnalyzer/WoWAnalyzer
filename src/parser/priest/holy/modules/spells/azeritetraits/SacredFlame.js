@@ -59,10 +59,10 @@ class SacredFlame extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SACRED_FLAME.id}
         value={(
-          <React.Fragment>
+          <>
             <ItemManaGained amount={this.extraManaRegen} /><br />
             <ItemDamageDone amount={this.addedDamage} />
-          </React.Fragment>
+          </>
         )}
         tooltip={`
           ${formatNumber(this.holyFireCasts)} total holy fire cast(s)

@@ -53,18 +53,18 @@ class Details extends React.PureComponent {
   contributionHeader(spec) {
     if (spec === '0') {
       return (
-        <React.Fragment>
+        <>
           <img src="/favicon.png" style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Core" />
           Core
-        </React.Fragment>
+        </>
       );
     }
 
     return (
-      <React.Fragment>
+      <>
         <SpecIcon id={Number(spec)} style={{ height: '2em', width: '2em', marginRight: 10 }} />
         {SPECS[spec].specName} {SPECS[spec].className}
-      </React.Fragment>
+      </>
     );
   }
 

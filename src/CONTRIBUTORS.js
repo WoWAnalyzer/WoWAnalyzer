@@ -486,5 +486,15 @@ export const Nalhan = {
     name: 'Doughmaker',
     spec: SPECS.DISCIPLINE_PRIEST,
     link: 'http://us.battle.net/wow/character/arthas/Doughmaker',
+  }], 
+};
+export const Satyric = {
+  nickname: 'Satyric',
+  github: 'kujan',
+  discord: 'Satyric#9107',
+  mains: [{
+    name: 'Satyric',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/Satyric',
   }],
 };

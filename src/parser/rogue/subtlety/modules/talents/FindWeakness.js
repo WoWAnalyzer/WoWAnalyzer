@@ -69,7 +69,7 @@ class FindWeakness extends Analyzer {
   suggestions(when) {
     when(this.vanishThresholds)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </React.Fragment>)
+      return suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </>)
         .icon(SPELLS.VANISH.icon)
         .actual(`You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`)
         .recommended(`${recommended} is recommended`);

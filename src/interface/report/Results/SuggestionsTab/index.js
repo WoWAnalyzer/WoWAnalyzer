@@ -24,7 +24,7 @@ class SuggestionsTab extends React.Component {
     const { issues } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
@@ -63,7 +63,7 @@ class SuggestionsTab extends React.Component {
             </li>
           </ul>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
