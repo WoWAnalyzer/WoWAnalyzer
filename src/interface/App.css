@@ -7,7 +7,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   font-weight: 200;
   text-rendering: optimizeLegibility;
-  background: url(../images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: url(images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background: #14161a;
   color: #fff;
   padding-top: 48px;

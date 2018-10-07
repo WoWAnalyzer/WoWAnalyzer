@@ -1,5 +1,5 @@
 .app > header {
-  background-image: url(../images/header.jpg); /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
+  background-image: url(images/header.jpg); /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
   background-size: cover;
   background-position: center center;
   margin-top: 0px;
@@ -14,7 +14,7 @@
 }
 .app > header:after {
   content: '';
-  background: url(../images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: url(images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background-size: auto 200%;
   background-position: 50% 0;
   position: absolute;

@@ -13,13 +13,13 @@ import TwitterIcon from 'interface/icons/Twitter';
 import { i18n } from 'interface/RootLocalizationProvider';
 import DelayRender from 'interface/common/DelayRender';
 import { hasPremium } from 'interface/selectors/user';
-import SectionDivider from 'interface/others/SectionDivider';
+import SectionDivider from 'interface/home/SectionDivider';
 import News from 'interface/news';
 import SpecListing from 'interface/home/SpecListing';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import DocumentTitle from 'interface/common/DocumentTitle';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
-import ChangelogPanel from 'interface/others/ChangelogPanel';
+import ChangelogPanel from 'interface/home/ChangelogPanel';
 
 import DiscordBanner from './images/discord-banner.jpg';
 import ReportHistory from './ReportHistory/Panel';

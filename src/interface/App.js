@@ -6,7 +6,7 @@ import { getLocation, push } from 'react-router-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'interface/common/TooltipProvider';
+import TooltipProvider from 'interface/common/TooltipProvider/index';
 import { track } from 'common/analytics';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
@@ -15,13 +15,13 @@ import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/common/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import NavigationBar from 'interface/layout/NavigationBar';
-import Footer from 'interface/layout/Footer';
+import NavigationBar from 'interface/layout/NavigationBar/index';
+import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
 import NewsPage from 'interface/news/Page';
 import PremiumPage from 'interface/premium/Page';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
-import ReportPage from 'interface/report';
+import ReportPage from 'interface/report/index';
 
 import 'react-toggle/style.css';
 import './App.css';
