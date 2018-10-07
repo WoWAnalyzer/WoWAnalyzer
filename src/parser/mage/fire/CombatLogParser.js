@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import Scorch from './normalizers/Scorch';
@@ -58,6 +59,8 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
 
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

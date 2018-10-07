@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
-import GlobalCooldown from 'parser/hunter/marksmanship/modules/core/GlobalCooldown';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
+import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/features/Channeling';
 import Abilities from './modules/Abilities';
 
@@ -92,6 +94,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Checklist from './modules/checklist/Module';
 
@@ -23,7 +24,6 @@ import WintersReach from './modules/traits/WintersReach';
 import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
 	  //Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

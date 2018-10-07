@@ -4,8 +4,6 @@ import SPECS from 'game/SPECS';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
-const SPECS_NOT_BENEFITTING = [SPECS.FIRE_MAGE, SPECS.FROST_MAGE, SPECS.MARKSMANSHIP_HUNTER, SPECS.HAVOC_DEMON_HUNTER];
-
 const SPEC_WITH_LOWER_CAST_EFFICIENCY = [SPECS.SURVIVAL_HUNTER];
 
 class ArcaneTorrent extends Analyzer {
@@ -13,20 +11,15 @@ class ArcaneTorrent extends Analyzer {
     abilities: Abilities,
   };
 
-  castEfficiency = 0;
+  castEfficiency = 0.8;
 
-  constructor(...args) {
-    super(...args);
-    const spec = this.selectedCombatant.spec;
+  constructor(options) {
+    super(options);
     this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.BloodElf;
-    if (!this.active || SPECS_NOT_BENEFITTING.includes(spec)) {
+    if (!this.active) {
       return;
     }
-    if (SPEC_WITH_LOWER_CAST_EFFICIENCY.includes(spec)) {
-      this.castEfficiency = 0.5;
-    } else {
-      this.castEfficiency = 0.8;
-    }
+    this.castEfficiency = options.castEfficiency || this.castEfficiency;
 
     this.abilities.add({
       spell: [SPELLS.ARCANE_TORRENT_MANA1, SPELLS.ARCANE_TORRENT_MANA2, SPELLS.ARCANE_TORRENT_MANA3, SPELLS.ARCANE_TORRENT_RAGE, SPELLS.ARCANE_TORRENT_ENERGY, SPELLS.ARCANE_TORRENT_RUNIC_POWER, SPELLS.ARCANE_TORRENT_MONK, SPELLS.ARCANE_TORRENT_FOCUS, SPELLS.ARCANE_TORRENT_FURY],
@@ -37,7 +30,7 @@ class ArcaneTorrent extends Analyzer {
       },
       timelineSortIndex: 35,
       castEfficiency: {
-        suggestion: true,
+        suggestion: this.castEfficiency !== null,
         recommendedEfficiency: this.castEfficiency,
       },
     });

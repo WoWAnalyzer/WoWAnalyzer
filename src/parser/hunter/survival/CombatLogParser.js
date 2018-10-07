@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/core/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import Abilities from './modules/Abilities';
 
 //Features
@@ -83,6 +85,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
+
+    // Survival's throughput benefit isn't as big as for other classes
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],
   };
 }
 
