@@ -21,6 +21,10 @@ const DOTS = [
   },
 ];
 
+const MINOR_THRESHOLD = 0.9;
+const AVERAGE_THRESHOLD = 0.8;
+const MAJOR_THRESHOLD = 0.6;
+
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   static dependencies = {
     ...CoreEarlyDotRefreshesInstants.dependencies,
@@ -43,9 +47,9 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
       count: this.badCasts[DOTS[0].castId],
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -57,9 +61,9 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
       count: this.badCasts[DOTS[1].castId],
       actual: this.badCastsPercent(DOTS[1].castId),
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -70,9 +74,9 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
       spell: SPELLS.MOONFIRE_BEAR,
       actual: 1 - this.badCastsPercent(DOTS[0].castId),
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -83,9 +87,9 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
       spell: SPELLS.SUNFIRE,
       actual: 1 - this.badCastsPercent(DOTS[1].castId),
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };

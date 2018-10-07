@@ -12,6 +12,10 @@ const DOTS = [
   },
 ];
 
+const MINOR_THRESHOLD = 0.9;
+const AVERAGE_THRESHOLD = 0.8;
+const MAJOR_THRESHOLD = 0.6;
+
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   static dots = DOTS;
 
@@ -26,9 +30,9 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
       count: this.badCasts[DOTS[0].castId],
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -39,9 +43,9 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
       spell: SPELLS.STELLAR_FLARE_TALENT,
       actual: 1 - this.badCastsPercent(DOTS[0].castId),
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
