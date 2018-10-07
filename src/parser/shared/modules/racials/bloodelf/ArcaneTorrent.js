@@ -1,10 +1,7 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import SPECS from 'game/SPECS';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-
-const SPEC_WITH_LOWER_CAST_EFFICIENCY = [SPECS.SURVIVAL_HUNTER];
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
