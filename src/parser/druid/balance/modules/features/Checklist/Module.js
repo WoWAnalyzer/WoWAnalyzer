@@ -54,7 +54,7 @@ class Checklist extends Analyzer {
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
           solarEmpowermentEfficiency: this.solarEmpowerment.suggestionThresholds,
-          lunarEmpowermentEfficiency: this.lunarEmpowerment.suggestionThresholds
+          lunarEmpowermentEfficiency: this.lunarEmpowerment.suggestionThresholds,
         }}
       />
     );
