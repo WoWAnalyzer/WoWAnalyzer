@@ -36,14 +36,12 @@ class EnduringLuminescence extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this.ranks =
-      this.selectedCombatant.traitRanks(SPELLS.ENDURING_LUMINESCENCE.id) || [];
-    this.bonusHealing =
-      this.ranks
-        .map(rank =>
-          calculateAzeriteEffects(SPELLS.ENDURING_LUMINESCENCE.id, rank)
-        )
-        .reduce((total, bonus) => total + bonus, 0) * HEALING_MULTIPLIER;
+    this.ranks = this.selectedCombatant.traitRanks(SPELLS.ENDURING_LUMINESCENCE.id) || [];
+    this.bonusHealing = this.ranks
+      .map(rank =>
+        calculateAzeriteEffects(SPELLS.ENDURING_LUMINESCENCE.id, rank)
+      )
+      .reduce((total, bonus) => total + bonus, 0) * HEALING_MULTIPLIER;
 
     this.active = this.ranks.length > 0;
   }
@@ -55,7 +53,9 @@ class EnduringLuminescence extends Analyzer {
 
   handlePWRBonus(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.POWER_WORD_RADIANCE.id) return;
+    if (spellId !== SPELLS.POWER_WORD_RADIANCE.id) {
+      return;
+    }
 
     let eventHealing = this.bonusHealing;
     let eventOverhealing = 0;
@@ -73,13 +73,15 @@ class EnduringLuminescence extends Analyzer {
     const target = this.atonement.currentAtonementTargets.find(
       id => id.target === event.targetID
     );
-    if (!target) return;
-    if (!target.isEnduringEmpowered) return;
+    if (!target || !target.isEnduringEmpowered) {
+      return;
+    }
     if (
       event.timestamp <
       target.atonementExpirationTimestamp - EnduringLuminescence.bonusDuration
-    )
-      {return;}
+    ) {
+      return;
+    }
 
     if (isAtonement(event)) {
       this.atonementBonusHealing += event.amount + (event.absorbed || 0);
@@ -92,14 +94,12 @@ class EnduringLuminescence extends Analyzer {
         footer="PWR HPS is from the healing bonus."
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={
-          (
-<SpellIcon
-  id={SPELLS.ENDURING_LUMINESCENCE.id}
-  ilvl={this.ranks[0]}
+        icon={(
+          <SpellIcon
+            id={SPELLS.ENDURING_LUMINESCENCE.id}
+            ilvl={this.ranks[0]}
           />
-)
-        }
+        )}
         values={[
           `${formatNumber(
             (this.atonementBonusHealing / this.owner.fightDuration) * 1000
