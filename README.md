@@ -11,30 +11,23 @@
 
 ## Getting started
 
-Before starting, make sure you have the following:
+**NOTE:** Join our server on [Discord](https://wowanalyzer.com/discord) to have a chat and get any assistance needed.
+
+First make sure you have the following:
 - [git](https://git-scm.com/)
   - Optional: Get a UI such as [GitHub Desktop](https://desktop.github.com/) or [TortoiseGit](https://tortoisegit.org/)
 - [Node.js](https://nodejs.org/). We recommend the *current* version.
 
-To get the code running on your computer you will need a few things. You might already have a bunch of things, feel free to skip ahead.
+Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your *Clone with HTTPS* URL, and then run the command `git clone <paste link>` on your computer. This will take a minute.
 
-1. [**Make a *fork* of the repo**](https://help.github.com/articles/fork-a-repo/); this is your own public copy on GitHub for you to work in before sharing it.
-2. **Clone your fork to your computer.** Open your fork on GitHub, click the green "Clone of download" button, and copy the HTTPS link (or SSH if you have that setup). Then run `git clone <paste link>`
-3. Open a command window to the cloned repo.
-4. Run this command: `npm install`, this will take a minute the first time.
-5. Meanwhile:
-    1. Go to project root
-    2. Copy the `.env.local.example` file in the same directory
-    3. Name it `.env.local`
-    4. Go to https://www.warcraftlogs.com/profile to get your WCL API key (at the bottom)
-    5. On that page just above the API key, enter "WoWAnalyzer (development)" as the application name
-    5. Open `.env.local` with your IDE and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with your _public_ API key
-6. You're done installing once `npm install` finishes.
+When cloning finishes, open a command window to the source and run the command `npm install`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key login on Warcraft Logs and go to https://www.warcraftlogs.com/profile. Enter an **Application Name** (this is required) and copy the **public key**, and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key
+
+Once that's done you're ready to fire up the development server! Just run the command `npm start`. The first start will take another minute.
 
 <table align="center">
   <tr>
     <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
-    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow steps 1-3 and do the <code>.env.local</code> thing and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running.</td>
+    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow the above steps, skipping all `npm` commands and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running.</td>
   </tr>
 </table>
 
