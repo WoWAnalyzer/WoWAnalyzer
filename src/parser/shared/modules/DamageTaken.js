@@ -2,7 +2,7 @@ import React from 'react';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import SPELLS from 'common/SPELLS/index';
-import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 import Analyzer from 'parser/core/Analyzer';
 

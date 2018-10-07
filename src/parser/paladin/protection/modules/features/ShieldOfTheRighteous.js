@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 
 class ShieldOfTheRighteous extends Analyzer {

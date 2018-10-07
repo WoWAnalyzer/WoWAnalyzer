@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox from 'interface/others/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Enemies from 'parser/shared/modules/Enemies';
 
 
