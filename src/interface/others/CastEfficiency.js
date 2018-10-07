@@ -46,7 +46,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                           <div className="flex performance-bar-container">
                             <div
                               className="flex-sub performance-bar"
-                              style={{ width: `${efficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                              style={{ width: `${efficiency * 100}%`, backgroundColor: (canBeImproved && ability.castEfficiency && ability.castEfficiency.suggestion) ? '#ff8000' : '#70b570' }}
                             />
                           </div>
                         )}

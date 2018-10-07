@@ -27,7 +27,7 @@ class CastEfficiency extends Analyzer {
     abilities: Abilities,
   };
 
-  /*
+  /**
    * Gets info about spell's cooldown behavior. All values are as of the current timestamp.
    * completedRechargeTime is the total ms of completed cooldowns
    * endingRechargeTime is the total ms into current cooldown
@@ -106,7 +106,7 @@ class CastEfficiency extends Analyzer {
     return timeSpentCasting;
   }
 
-  /*
+  /**
    * Time spent waiting for a GCD that reset the cooldown of the spell to finish
    */
   _getTimeWaitingOnGCD(ability) {
@@ -128,7 +128,7 @@ class CastEfficiency extends Analyzer {
     return timeWaitingOnGCD;
   }
 
-  /*
+  /**
    * Packs cast efficiency results for use by suggestions / tab
    */
   getCastEfficiency() {
@@ -144,7 +144,7 @@ class CastEfficiency extends Analyzer {
     const spellId = ability.primarySpell.id;
     const availableFightDuration = this.owner.fightDuration;
 
-    const cooldown = ability.castEfficiency.disabled ? null : ability.cooldown;
+    const cooldown = ability.cooldown;
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this._getCooldownInfo(ability);
     const timeSpentCasting = (cooldown && ability.charges < 2) ? this._getTimeSpentCasting(ability) : 0;
@@ -171,7 +171,7 @@ class CastEfficiency extends Analyzer {
     // This same behavior should be managable using SpellUsable's interface, so maxCasts is deprecated.
     // Legacy support: if maxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
     let rawMaxCasts;
-    const averageCooldown = (cdInfo.recharges === 0) || ability.castEfficiency.disabled ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
+    const averageCooldown = (cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
     if (ability.castEfficiency.maxCasts) {
       // maxCasts expects cooldown in seconds
       rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, availableFightDuration, this.abilityTracker.getAbility, this.owner);
@@ -216,7 +216,7 @@ class CastEfficiency extends Analyzer {
     const majorIssueEfficiency = ability.castEfficiency.majorIssueEfficiency || (recommendedEfficiency - DEFAULT_MAJOR_DOWNSTEP);
 
     const gotMaxCasts = (casts === maxCasts);
-    const canBeImproved = efficiency !== null && efficiency < recommendedEfficiency && !gotMaxCasts;
+    const canBeImproved = ability.castEfficiency.suggestion && efficiency !== null && efficiency < recommendedEfficiency && !gotMaxCasts;
 
     return {
       ability,
