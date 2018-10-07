@@ -533,7 +533,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TREANT_FORM,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
-          fixed: 1500,
+          static: 1500,
         },
       },
       {
