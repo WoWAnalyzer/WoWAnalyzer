@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import RACES from 'game/RACES';
 import SpellIcon from 'common/SpellIcon';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import StatisticBox from 'interface/others/StatisticBox';
 
 /**

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import RACES from 'game/RACES';
 import SPECS from 'game/SPECS';
 import Analyzer from 'parser/core/Analyzer';

@@ -59,9 +59,9 @@ import HealthPotion from './modules/items/HealthPotion';
 import CombatPotion from './modules/items/CombatPotion';
 import PreparationRuleAnalyzer from './modules/features/Checklist2/PreparationRuleAnalyzer';
 
-import ArcaneTorrent from './modules/racials/bloodelf/ArcaneTorrent';
-import MightOfTheMountain from './modules/racials/dwarf/MightOfTheMountain';
-import Stoneform from './modules/racials/dwarf/Stoneform';
+import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
+import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
+import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
 
 // Shared Buffs
 import VantusRune from './modules/spells/VantusRune';

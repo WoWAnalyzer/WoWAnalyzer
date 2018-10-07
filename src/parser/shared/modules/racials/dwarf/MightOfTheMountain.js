@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
