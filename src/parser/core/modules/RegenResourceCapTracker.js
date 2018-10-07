@@ -1,6 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/core/modules/Haste';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
+import SpellResourceCost from 'parser/core/modules/SpellResourceCost';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.
 const debug = false;
@@ -53,6 +54,8 @@ const verboseDebug = false;
  class RegenResourceCapTracker extends Analyzer {
   static dependencies = {
     haste: Haste,
+    // Needed for the `resourceCost` prop of events
+    spellResourceCost: SpellResourceCost,
   };
 
   // -- Start of IMPLEMENTME statics
@@ -255,7 +258,7 @@ const verboseDebug = false;
    * @param {object} event A cast event object with a resource cost associated with it.
    */
   getCost(event) {
-    if (event.resourceCost[this.constructor.resourceType.id]) {
+    if (event.resourceCost[this.constructor.resourceType.id] !== undefined) {
       return event.resourceCost[this.constructor.resourceType.id];
     }
     return this.getResource(event).cost;

@@ -1,9 +1,15 @@
 import Analyzer from 'parser/core/Analyzer';
-/*
+
+/**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
  * Extend it by following the instructions in the TODO comments below
  */
 class ResourceTracker extends Analyzer {
+  static dependencies = {
+    // Optional dependency for the `resourceCost` prop of events
+    // spellResourceCost: SpellResourceCost,
+  };
+
   current = 0;
 
   // stores resource gained/spent/wasted by ability ID
@@ -116,7 +122,7 @@ class ResourceTracker extends Analyzer {
 
   // TODO if your spec has an ability cost reduction that doesn't show in events, handle it manually by overriding here. Or extend SpellResourceCost and apply the discount there.
   getReducedCost(event) {
-    if (event.resourceCost && event.resourceCost[this.resource.id]) {
+    if (event.resourceCost && event.resourceCost[this.resource.id] !== undefined) {
       return event.resourceCost[this.resource.id];
     }
     return this.getResource(event).cost;

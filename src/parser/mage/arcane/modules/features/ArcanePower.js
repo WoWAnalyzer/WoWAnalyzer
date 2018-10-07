@@ -1,13 +1,16 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import AbilityTracker from 'parser/core/modules/AbilityTracker';
 import SpellUsable from 'parser/core/modules/SpellUsable';
 import DeathTracker from 'parser/core/modules/DeathTracker';
+import SpellManaCost from 'parser/core/modules/SpellManaCost';
 import Analyzer from 'parser/core/Analyzer';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
@@ -32,6 +35,8 @@ class ArcanePower extends Analyzer {
     arcaneChargeTracker: ArcaneChargeTracker,
     spellUsable: SpellUsable,
     deathTracker: DeathTracker,
+    // Needed for the `resourceCost` prop of events
+    spellManaCost: SpellManaCost,
   };
 
   badUses = 0;
@@ -79,7 +84,13 @@ class ArcanePower extends Analyzer {
         debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
         this.badCastsDuringAP += 1;
       } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
-        const manaRemaining = event.classResources[0].amount - (event.resourceCost[0] + (event.resourceCost[0] * this.arcaneChargeTracker.charges));
+        const manaInfo = event.classResources.find(resource => resource.type === RESOURCE_TYPES.MANA.id);
+        if (!manaInfo) {
+          return;
+        }
+        const currentMana = manaInfo.amount;
+        const manaCost = (event.resourceCost[RESOURCE_TYPES.MANA.id] + (event.resourceCost[RESOURCE_TYPES.MANA.id] * this.arcaneChargeTracker.charges));
+        const manaRemaining = currentMana - manaCost;
         const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
         if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
           debug && this.log('Ran Out of Mana during Arcane Power');
@@ -234,34 +245,35 @@ class ArcanePower extends Analyzer {
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.ARCANE_POWER.id} />}
         value={(
-          <>
-            <SpellIcon
-              id={SPELLS.ARCANE_POWER.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            /> {formatPercentage(this.cooldownUtilization, 0)} %<br />
-            <SpellIcon
-              id={SPELLS.ARCANE_BLAST.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            /> {formatPercentage(this.castUtilization, 0)} %
-          </>
+          <span>
+      <SpellIcon
+        id={SPELLS.ARCANE_POWER.id}
+        style={{
+          height: '1.2em',
+          marginBottom: '.15em',
+        }}
+      />
+            {' '}{formatPercentage(this.cooldownUtilization, 0)}{' %'}
+            <br />
+      <SpellIcon
+        id={SPELLS.ARCANE_BLAST.id}
+        style={{
+          height: '1.2em',
+          marginBottom: '.15em',
+        }}
+      />
+            {' '}{formatPercentage(this.castUtilization, 0)}{' %'}
+    </span>
         )}
         label="Arcane Power Utilization"
-        tooltip={`
-          Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown.<br />
-          <ul>
-            <li>You have 4 Arcane Charges</li>
-            ${this.hasRuneOfPower ? `<li>You have a charge of Rune of Power (cast this immediately before Arcane Power)</li>` : ''}
-            ${!this.hasOverpowered ? `<li>You have more than 40% mana (to avoid going OOM during Arcane Power)</li>` : ''}
-          </ul>
+        tooltip={`Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown
+		<ul>
+			<li>You have 4 Arcane Charges</li>
+			${this.hasRuneOfPower ? `<li>You have a charge of Rune of Power (cast this immediately before Arcane Power)</li>` : ''}
+			${!this.hasOverpowered ? `<li>You have more than 40% mana (to avoid going OOM during Arcane Power)</li>` : ''}
+		</ul>
 
-          Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.
-        `}
+		Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.`}
       />
     );
   }

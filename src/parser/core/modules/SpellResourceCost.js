@@ -12,7 +12,6 @@ import Analyzer from 'parser/core/Analyzer';
  * 
  * An example implementation can be found at parser/Druid/Feral/Modules/Features/SpellEnergyCost
  * Check the "IMPLEMENTME" comments for what typically needs to be customised.
- * 
  */
 class SpellResourceCost extends Analyzer {
   // IMPLEMENTME set to one of game/RESOURCE_TYPES
@@ -41,9 +40,9 @@ class SpellResourceCost extends Analyzer {
     if (!event.classResources) {
       return 0;
     }
-    return event.classResources.reduce((cost, resource) => (
-      resource.type === this.constructor.resourceType.id ? (resource.cost || 0) : cost
-    ), 0);
+    return event.classResources
+      .filter(resource => resource.type === this.constructor.resourceType.id)
+      .reduce((totalCost, resource) => totalCost + (resource.cost || 0), 0);
   }
 
   /**

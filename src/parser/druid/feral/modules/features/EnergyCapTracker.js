@@ -5,6 +5,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RegenResourceCapTracker from 'parser/core/modules/RegenResourceCapTracker';
+import Haste from 'parser/core/modules/Haste';
+import SpellEnergyCost from './SpellEnergyCost';
 
 
 const BASE_ENERGY_REGEN = 11;
@@ -24,6 +26,12 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * Reduced drain cost from Berserk/Incarnation on Ferocious Bite is already applied in the log.
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
+  static dependencies = {
+    ...RegenResourceCapTracker.dependencies,
+    // Needed for the `resourceCost` prop of events
+    spellResourceCost: SpellEnergyCost,
+  };
+
   static resourceType = RESOURCE_TYPES.ENERGY;
   static baseRegenRate = BASE_ENERGY_REGEN;
   static isRegenHasted = true;

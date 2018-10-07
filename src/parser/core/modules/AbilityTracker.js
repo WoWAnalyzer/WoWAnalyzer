@@ -2,7 +2,14 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'parser/core/HIT_TYPES';
 
+import SpellManaCost from './SpellManaCost';
+
 class AbilityTracker extends Analyzer {
+  static dependencies = {
+    // Needed for the `resourceCost` prop of events
+    spellManaCost: SpellManaCost,
+  };
+
   abilities = {};
 
   on_byPlayer_cast(event) {
@@ -10,7 +17,7 @@ class AbilityTracker extends Analyzer {
 
     const cast = this.getAbility(spellId, event.ability);
     cast.casts = (cast.casts || 0) + 1;
-    if (event.resourceCost[RESOURCE_TYPES.MANA.id]) {
+    if (event.resourceCost[RESOURCE_TYPES.MANA.id] !== undefined) {
       cast.manaUsed = (cast.manaUsed || 0) + event.resourceCost[RESOURCE_TYPES.MANA.id];
     }
   }
