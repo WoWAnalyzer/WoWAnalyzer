@@ -10,6 +10,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2018-10-06'),
+    changes: <>Corrected Azerite Scaling for traits with split stat scaling (e.g. <SpellLink id={SPELLS.GEMHIDE.id} />).</>,
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-10-06'),
     changes: <React.Fragment> Added a damage reduction module for dwarf racial <SpellLink id={SPELLS.STONEFORM.id} /> </React.Fragment>,
     contributors: [Satyric],
   },
