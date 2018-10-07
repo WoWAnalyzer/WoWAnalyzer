@@ -1,12 +1,20 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import Haste from 'parser/core/modules/Haste';
 import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
+import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
 const PURIFY_BASE = 0.5;
 const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
 export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
+
+const STAGGER_THRESHOLDS = {
+  HEAVY: 0.6,
+  MODERATE: 0.3,
+  LIGHT: 0.0,
+};
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -16,6 +24,12 @@ class StaggerFabricator extends Analyzer {
   // causes an orb consumption to clear 5% of stagger
   _hasTier20_4pc = false;
   _staggerPool = 0;
+  _lastKnownMaxHp = 0;
+
+  static dependencies = {
+    ht: HighTolerance,
+    haste: Haste,
+  };
 
   constructor(...args) {
     super(...args);
@@ -32,7 +46,11 @@ class StaggerFabricator extends Analyzer {
 
   addStagger(event, amount) {
     this._staggerPool += amount;
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_ADDED, event, amount), event);
+    const staggerEvent = this._fab(EVENT_STAGGER_POOL_ADDED, event, amount);
+    this.owner.fabricateEvent(staggerEvent, event);
+    if(this.ht && this.ht.active) {
+      this._updateHaste(event, staggerEvent);
+    }
   }
 
   removeStagger(event, amount) {
@@ -43,7 +61,11 @@ class StaggerFabricator extends Analyzer {
     //
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    const staggerEvent = this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount);
+    this.owner.fabricateEvent(staggerEvent, event);
+    if(this.ht && this.ht.active) {
+      this._updateHaste(event, staggerEvent);
+    }
     return amount + overage;
   }
 
@@ -59,6 +81,9 @@ class StaggerFabricator extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
+    // used for buff tracking
+    this._lastKnownMaxHp = event.maxHitPoints;
+
     if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       return;
     }
@@ -67,6 +92,9 @@ class StaggerFabricator extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    // used for buff tracking
+    this._lastKnownMaxHp = event.maxHitPoints;
+
     if (event.ability.guid !== SPELLS.PURIFYING_BREW.id) {
       return;
     }
@@ -95,6 +123,27 @@ class StaggerFabricator extends Analyzer {
       newPooledDamage: this._staggerPool,
       _reason: reason,
     };
+  }
+
+  _previousBuff = null;
+  _updateHaste(sourceEvent, staggerEvent) {
+    let currentBuff;
+    const staggerRatio = staggerEvent.newPooledDamage / (sourceEvent.maxHitPoints || this._lastKnownMaxHp);
+    if(staggerRatio === 0) {
+      currentBuff = null;
+    } else if(staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
+      currentBuff = SPELLS.LIGHT_STAGGER_DEBUFF.id;
+    } else if(staggerRatio < STAGGER_THRESHOLDS.HEAVY) {
+      currentBuff = SPELLS.MODERATE_STAGGER_DEBUFF.id;
+    } else {
+      currentBuff = SPELLS.HEAVY_STAGGER_DEBUFF.id;
+    }
+
+    if(currentBuff !== this._previousBuff) {
+      this._previousBuff && this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
+      currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
+      this._previousBuff = currentBuff;
+    }
   }
 }
 
