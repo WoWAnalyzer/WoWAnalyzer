@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import connectParser from 'common/connectParser';
 
 class ItemManaGained extends React.PureComponent {
   static propTypes = {
@@ -27,8 +26,4 @@ class ItemManaGained extends React.PureComponent {
   }
 }
 
-const mapParserToProps = parser => ({
-  // Ensure the component is re-rendered when the Parser-context changes
-  key: `${parser.eventCount}-${parser.adjustForDowntime}`,
-});
-export default connectParser(mapParserToProps)(ItemManaGained);
+export default ItemManaGained;

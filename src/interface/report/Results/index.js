@@ -215,7 +215,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div>
+      <div key={this.state.adjustForDowntime}>
         <div className="row">
           <div className="col-md-4">
             <About config={config} />
