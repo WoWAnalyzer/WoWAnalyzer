@@ -514,11 +514,6 @@ export default {
     name: 'Latent Chill',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  LATENT_POISON: {
-    id: 273283,
-    name: 'Latent Poison',
-    icon: 'spell_hunter_exoticmunitions_poisoned',
-  },
   LAVA_SHOCK: {
     id: 273453,
     name: 'Lava Shock',

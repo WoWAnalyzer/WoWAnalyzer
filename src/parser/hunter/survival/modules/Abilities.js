@@ -290,6 +290,14 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       /**
        * Racials until we find a better solution

@@ -12,6 +12,7 @@ import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'parser/core/modules/s
 import { STAT_TRACKER as BLOOD_RITE_STATS } from 'parser/core/modules/spells/bfa/azeritetraits/BloodRite';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/DanceOfDeath';
 import { STAT_TRACKER as PRIMAL_INSTINCTS_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PrimalInstincts';
+import { STAT_TRACKER as BLUR_OF_TALON_STATS } from 'parser/hunter/survival/modules/spells/azeritetraits/BlurOfTalons';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'parser/monk/brewmaster/modules/spells/azeritetraits/TrainingOfNiuzao';
 import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spells/azeritetraits/BonesOfTheDamned';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules/spells/azeritetraits/IronFists';
@@ -53,9 +54,9 @@ class StatTracker extends Analyzer {
     [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 59 },
     [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 88 },
     [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 238 },
-    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect : 238 },
-    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength : 238 },
-    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina : 357 },
+    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
+    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
+    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
     // endregion
 
     //region Food
@@ -68,7 +69,7 @@ class StatTracker extends Analyzer {
     [SPELLS.AGI_FEAST.id]: { agility: 23 },
     [SPELLS.INT_FEAST.id]: { intellect: 23 },
     [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
-    [SPELLS.KUL_TIRAMISU.id]: { crit: 41},
+    [SPELLS.KUL_TIRAMISU.id]: { crit: 41 },
     [SPELLS.LOA_LEAF.id]: { mastery: 41 },
     [SPELLS.RAVENBERRY_TARTS.id]: { haste: 41 },
     [SPELLS.MON_DAZI.id]: { versatility: 41 },
@@ -268,8 +269,9 @@ class StatTracker extends Analyzer {
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
-    [SPELLS.DANCE_OF_DEATH.id]: DANCE_OF_DEATH_STATS,
+    [SPELLS.DANCE_OF_DEATH_BUFF.id]: DANCE_OF_DEATH_STATS,
     [SPELLS.PRIMAL_INSTINCTS.id]: PRIMAL_INSTINCTS_STATS,
+    [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },

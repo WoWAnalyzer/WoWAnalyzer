@@ -27,13 +27,15 @@ class ButcheryCarve extends Analyzer {
   };
 
   reductionAtCurrentCast = 0;
-  effectiveWFBReductionMs = 0;
-  wastedWFBReductionMs = 0;
+  effectiveReductionMs = 0;
+  wastedReductionMs = 0;
   targetsHit = 0;
   casts = 0;
-  spellKnown;
+  spellKnown = null;
   bonusDamage = 0;
   hasButchery = false;
+  hasWFI = false;
+  bombSpellKnown = SPELLS.WILDFIRE_BOMB.id;
 
   constructor(...args) {
     super(...args);
@@ -42,6 +44,10 @@ class ButcheryCarve extends Analyzer {
       this.spellKnown = SPELLS.BUTCHERY_TALENT;
     } else {
       this.spellKnown = SPELLS.CARVE;
+    }
+    if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
+      this.hasWFI = true;
+      this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
     }
   }
 
@@ -65,13 +71,22 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.reductionAtCurrentCast++;
-    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-      this.wastedWFBReductionMs += COOLDOWN_REDUCTION_MS;
-      return;
+    if (this.spellUsable.isOnCooldown(this.bombSpellKnown)) {
+      this.checkCooldown(this.bombSpellKnown);
+    } else {
+      this.wastedReductionMs += COOLDOWN_REDUCTION_MS;
     }
-    const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.WILDFIRE_BOMB.id, COOLDOWN_REDUCTION_MS);
-    this.effectiveWFBReductionMs += effectiveReductionMs;
-    this.wastedWFBReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
+
+  }
+
+  checkCooldown(spellId) {
+    if (this.spellUsable.cooldownRemaining(spellId) < COOLDOWN_REDUCTION_MS) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
+      this.effectiveReductionMs += effectiveReductionMs;
+      this.wastedReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
+    } else {
+      this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
+    }
   }
 
   get averageTargetsHit() {
