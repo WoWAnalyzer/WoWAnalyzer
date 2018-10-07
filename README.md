@@ -18,11 +18,11 @@ First make sure you have the following:
   - Optional: Get a UI such as [GitHub Desktop](https://desktop.github.com/) or [TortoiseGit](https://tortoisegit.org/)
 - [Node.js](https://nodejs.org/). We recommend the *current* version.
 
-Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your *Clone with HTTPS* URL, and then run the command `git clone <paste link>` on your computer. This will take a minute.
+Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your *Clone with HTTPS* URL, and then run the command `git clone <paste link>`. This will take a minute.
 
-When cloning finishes, open a command window to the source and run the command `npm install`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key login on Warcraft Logs and go to https://www.warcraftlogs.com/profile. Enter an **Application Name** (this is required) and copy the **public key**, and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key
+When cloning finishes, open a command window to the source and run the command `npm install`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter an **Application Name** (this is required) and copy the **public key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
 
-Once that's done you're ready to fire up the development server! Just run the command `npm start`. The first start will take another minute.
+Once all that's done you're ready to fire up the development server! Just run the command `npm start` in the project root. The first start will take another minute.
 
 <table align="center">
   <tr>
