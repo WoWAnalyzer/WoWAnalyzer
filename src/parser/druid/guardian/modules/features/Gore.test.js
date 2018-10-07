@@ -13,7 +13,10 @@ describe('Druid/Guardian/Gore', () => {
   let parser;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    gore = new Gore(parser, { spellUsable: mockSpellUsable });
+    gore = new Gore({
+      owner: parser,
+      spellUsable: mockSpellUsable,
+    });
   });
   it('track gore procs with no events', () => {
     expect(gore.totalProcs).toBe(0);

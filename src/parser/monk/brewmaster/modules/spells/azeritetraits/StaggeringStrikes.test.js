@@ -35,8 +35,8 @@ describe('Brewmaster.Spells.AzeriteTraits.StaggeringStrikes', () => {
     parser._combatant.traitsBySpellId = {
       [SPELLS.STAGGERING_STRIKES.id]: RANKS,
     };
-    ss = new StaggeringStrikes(parser);
-    ss.fab = new StaggerFabricator(parser);
+    ss = new StaggeringStrikes({ owner: parser });
+    ss.fab = new StaggerFabricator({ owner: parser });
   });
 
   it('should correctly calculate stagger removed by BoS', () => {

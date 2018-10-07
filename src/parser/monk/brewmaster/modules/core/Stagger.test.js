@@ -12,8 +12,8 @@ describe('Brewmaster.Stagger', () => {
   beforeEach(() => {
     parser = new TestCombatLogParser();
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.STAGGERING_AROUND.id]: 0 };
-    fab = new StaggerFabricator(parser);
-    stagger = new Stagger(parser);
+    fab = new StaggerFabricator({ owner: parser });
+    stagger = new Stagger({ owner: parser });
     stagger.fab = fab;
   });
   it('total amount of stagger taken with no events', () => {

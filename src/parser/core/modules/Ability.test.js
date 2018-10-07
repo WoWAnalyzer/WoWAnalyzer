@@ -14,7 +14,8 @@ describe('core/Modules/Ability', () => {
       current: 0,
     };
 
-    abilitiesMock = new Abilities(parserMock, {
+    abilitiesMock = new Abilities({
+      owner: parserMock,
       haste: hasteMock,
     });
   });

@@ -39,8 +39,8 @@ const MAX_COMBO = 5;
  */
 class ComboPointsFromAoE extends EventsNormalizer {
   playerId = null;
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
 
     // when being tested this.owner may be null (the test will set playerId)
     this.playerId = this.owner ? this.owner.playerId : null;

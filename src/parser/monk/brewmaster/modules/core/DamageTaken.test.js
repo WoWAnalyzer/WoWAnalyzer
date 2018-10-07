@@ -3,12 +3,14 @@ import TestCombatLogParser from 'tests/TestCombatLogParser';
 
 import DamageTaken from './DamageTaken';
 
-describe('Brewmaster.DamageTaken', () => {
+describe('Brewmaster/DamageTaken', () => {
   let parser;
   let damageTaken;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    damageTaken = new DamageTaken(parser);
+    damageTaken = new DamageTaken({
+      owner: parser,
+    });
   });
   it('damage taken with no events', () => {
     expect(damageTaken.total.regular).toBe(0);

@@ -908,7 +908,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
 
   scenarios.forEach(scenario => {
     it(scenario.it, () => {
-      const parser = new ComboPointsFromAoE();
+      const parser = new ComboPointsFromAoE({});
       parser.playerId = playerId;
       expect(parser.normalize(scenario.events)).toEqual(scenario.expected);
     });

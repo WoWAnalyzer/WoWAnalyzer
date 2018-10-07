@@ -18,7 +18,8 @@ describe('core/Modules/SpellUsable', () => {
       getAbility: jest.fn((id) => ({spell: {id: id}})),
     };
 
-    instance = new SpellUsable(parserMock, {
+    instance = new SpellUsable({
+      owner: parserMock,
       abilities: abilitiesMock,
     });
     triggerCast = (spellId, extra) => {

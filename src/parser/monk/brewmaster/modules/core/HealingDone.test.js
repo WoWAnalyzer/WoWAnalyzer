@@ -5,12 +5,12 @@ import HealingDone from './HealingDone';
 
 // Uses the same test structure as damage taken with the healing object.
 // All stagger absorbs should be excluded
-describe('Brewmaster.DamageTaken', () => {
+describe('Brewmaster/HealingDone', () => {
   let parser;
   let healingDone;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    healingDone = new HealingDone(parser);
+    healingDone = new HealingDone({ owner: parser });
   });
   it('healing done with no events', () => {
     expect(healingDone.total.regular).toBe(0);

@@ -8,7 +8,7 @@ describe('Features.GuardianOfElune', () => {
   let guardian;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    guardian = new GuardianOfElune(parser);
+    guardian = new GuardianOfElune({ owner: parser });
   });
   it('trach GoE procs with no events', () => {
     expect(guardian.GoEProcsTotal).toBe(0);

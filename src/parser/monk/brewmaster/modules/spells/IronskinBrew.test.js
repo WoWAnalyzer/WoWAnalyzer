@@ -12,7 +12,7 @@ describe('Brewmaster.IronskinBrew', () => {
   let isb;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    isb = new IronSkinBrew(parser);
+    isb = new IronSkinBrew({ owner: parser });
     isb.enemies = ENEMIES;
     isb.brews = {
       consumeCharge: () => {},

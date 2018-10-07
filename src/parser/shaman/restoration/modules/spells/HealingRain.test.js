@@ -35,7 +35,7 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   let healingRain;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    healingRain = new HealingRain(parser);
+    healingRain = new HealingRain({ owner: parser });
   });
 
   it(`can detect ticks`, () => {
