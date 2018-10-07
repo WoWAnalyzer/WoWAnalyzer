@@ -1,11 +1,11 @@
 import React from 'react';
+import { t, Trans } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/core/modules/SpellHistory';
-
+import { i18n } from 'interface/RootLocalizationProvider';
 import Tab from 'interface/others/Tab';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 
@@ -254,12 +254,12 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <>
-            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''}
+            <Trans>Try to cast <SpellLink id={mainSpell.id} /> more often.</Trans> {ability.castEfficiency.extraSuggestion || ''}
           </>
         )
           .icon(mainSpell.icon)
-          .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
-          .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
+          .actual(<Trans>{abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on cooldown {formatPercentage(actual, 0)}% of the time.</Trans>)
+          .recommended(<Trans>&gt;{formatPercentage(recommended, 0)}% is recommended</Trans>)
           .staticImportance(ability.castEfficiency.importance);
       });
     });
@@ -267,7 +267,7 @@ class CastEfficiency extends Analyzer {
 
   tab() {
     return {
-      title: 'Abilities',
+      title: i18n._(t`Abilities`),
       url: 'abilities',
       render: () => (
         <Tab>

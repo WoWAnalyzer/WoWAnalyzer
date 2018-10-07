@@ -1,5 +1,5 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
-
 
 const ASSERTION_MODES = {
   IS_GREATER_THAN: '>',
@@ -126,7 +126,7 @@ class SuggestionAssertion {
       this._addIssue({
         issue: suggestion._text,
         // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
-        stat: suggestion._actualText ? `${suggestion._actualText} (${suggestion._recommendedText})` : null,
+        stat: suggestion._actualText ? <>{suggestion._actualText} ({suggestion._recommendedText})</> : null,
         icon: suggestion._icon,
         importance: this._getIssueImportance(suggestion),
         details: suggestion._details,

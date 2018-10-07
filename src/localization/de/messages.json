@@ -1,5 +1,7 @@
 {
   "<0/> usage": "",
+  ">{0}% is recommended": "",
+  "Abilities": "",
   "About WoWAnalyzer": "Über WoWAnalyzer",
   "About unlisted logs": "Über nicht aufgelistete Logs",
   "Adjust statistics for <0>fight downtime</0> (<1>experimental</1>)": "Statistiken anpassen für <0>Ausfallzeiten bekämpfen</0> (<1>experimentell</1>)",
@@ -31,6 +33,7 @@
   "Statistics": "Statistiken",
   "Suggestions": "Vorschläge",
   "The amount of Infusion of Lights you did not use out of the total available. You cast {holyShockCasts} Holy Shocks with a {0}% crit ratio. This gave you {totalIolProcs} Infusion of Light procs, of which you used {totalIolUsages}.": "",
+  "Try to cast <0/> more often.": "",
   "View insights and timelines for raid encounters": "",
   "View the original report": "",
   "Wasted procs": "",
@@ -44,6 +47,7 @@
   "Your ad here?": "",
   "https://www.warcraftlogs.com/reports/<report code>": "https://www.warcraftlogs.com/reports/<Berichtscode>",
   "viewed {0}d ago": "",
+  "{0} out of {1} possible casts. You kept it on cooldown {2}% of the time.": "",
   "{0} uptime": "{0} Betriebszeit",
   "{0}d old report": ""
 }
