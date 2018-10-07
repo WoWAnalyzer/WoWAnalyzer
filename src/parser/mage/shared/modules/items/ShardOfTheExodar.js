@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import BLOODLUST_BUFFS from 'parser/core/BLOODLUST_BUFFS';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 const TEAM_COOLDOWN = 600;
 const PERSONAL_COOLDOWN = 300;

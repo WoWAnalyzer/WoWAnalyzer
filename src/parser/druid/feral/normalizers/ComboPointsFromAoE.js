@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;

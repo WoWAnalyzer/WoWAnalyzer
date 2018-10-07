@@ -1,5 +1,5 @@
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';

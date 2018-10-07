@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import GrandCrusader from '../core/GrandCrusader';
 
 class SpellUsable extends CoreSpellUsable {

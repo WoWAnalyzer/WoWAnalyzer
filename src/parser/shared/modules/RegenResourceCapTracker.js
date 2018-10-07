@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.

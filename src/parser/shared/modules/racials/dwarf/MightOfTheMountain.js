@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticBox from 'interface/others/StatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';

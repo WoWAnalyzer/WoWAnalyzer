@@ -3,7 +3,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BLOODLUST_BUFFS from 'parser/core/BLOODLUST_BUFFS';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 const debug = false;
 

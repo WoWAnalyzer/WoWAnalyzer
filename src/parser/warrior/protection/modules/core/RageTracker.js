@@ -2,7 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
 const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms

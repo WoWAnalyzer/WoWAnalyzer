@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import STAT from 'parser/shared/modules/features/STAT';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
