@@ -10,11 +10,24 @@
   height: 28px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.spell-timeline .legend .lane {
+.spell-timeline .legend {
   min-width: 200px;
+}
+@media (max-width: 800px) {
+  .spell-timeline .legend {
+    min-width: auto;
+    max-width: 100px;
+  }
+}
+.spell-timeline .legend .lane {
+  width: 100%;
   padding-top: 1px;
   padding-left: 6px;
   padding-right: 15px;
+  min-width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .spell-timeline .legend img {
   height: 23px;
