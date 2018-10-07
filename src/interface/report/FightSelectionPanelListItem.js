@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
-import DIFFICULTIES from 'common/DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import { findByBossId } from 'raids';
 
 import ProgressBar from './ProgressBar';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
-import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
+import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 
 class Gear extends React.PureComponent {
   static propTypes = {

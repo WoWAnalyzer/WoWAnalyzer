@@ -3,6 +3,8 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
 // only inclused the raids from Legion (showing older logs wouldn't make sense)
 
+// TODO: Refactor this (it's kind of strange and feels misplaced)
+
 const ZONES = [
   {
     "id": 19,
@@ -50,6 +52,6 @@ const ZONES = [
       }
     ],
   },
-]
+];
 
 export default ZONES;
