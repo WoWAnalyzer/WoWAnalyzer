@@ -42,7 +42,6 @@ import DistanceMoved from './modules/others/DistanceMoved';
 
 import CharacterTab from './modules/features/CharacterTab';
 import EncounterPanel from './modules/features/EncounterPanel';
-
 // Tabs
 import TimelineTab from './modules/features/TimelineTab';
 import ManaTab from './modules/features/ManaTab';
@@ -62,10 +61,8 @@ import PreparationRuleAnalyzer from './modules/features/Checklist2/PreparationRu
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
-
 // Shared Buffs
 import VantusRune from './modules/spells/VantusRune';
-
 // BFA
 import GildedLoaFigurine from './modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from './modules/items/bfa/FirstMatesSpyglass';
@@ -84,7 +81,6 @@ import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigatio
 import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from './modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from './modules/items/bfa/enchants/VersatileNavigation';
-
 // Crafted
 import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from './modules/items/bfa/crafted/DarkmoonDeckFathoms';
@@ -101,7 +97,6 @@ import BloodRite from './modules/spells/bfa/azeritetraits/BloodRite';
 import ConcentratedMending from './modules/spells/bfa/azeritetraits/ConcentratedMending';
 import BlessedPortents from './modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from './modules/spells/bfa/azeritetraits/TidalSurge';
-
 // Uldir
 import TwitchingTentacleofXalzaix from './modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from './modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -178,7 +173,7 @@ class CombatLogParser {
     arcaneTorrent: ArcaneTorrent,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
-    
+
     // Items:
     // BFA
     gildedLoaFigurine: GildedLoaFigurine,
@@ -298,42 +293,63 @@ class CombatLogParser {
     });
   }
 
-  // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
+  _getModuleClass(config) {
+    let moduleClass;
+    let options;
+    if (config instanceof Array) {
+      moduleClass = config[0];
+      options = config[1];
+    } else {
+      moduleClass = config;
+      options = {};
+    }
+    return [moduleClass, options];
+  }
+  _resolveDependencies(dependencies) {
+    const availableDependencies = {};
+    const missingDependencies = [];
+    if (dependencies) {
+      Object.keys(dependencies).forEach(desiredDependencyName => {
+        const dependencyClass = dependencies[desiredDependencyName];
+
+        const dependencyModule = this.findModule(dependencyClass);
+        if (dependencyModule) {
+          availableDependencies[desiredDependencyName] = dependencyModule;
+        } else {
+          missingDependencies.push(dependencyClass);
+        }
+      });
+    }
+    return [availableDependencies, missingDependencies];
+  }
+  _loadModule(desiredModuleName, moduleClass, options) {
+    // eslint-disable-next-line new-cap
+    const module = new moduleClass({
+      ...options,
+      owner: this,
+    });
+    if (options) {
+      // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+      // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+      Object.keys(options).forEach(key => {
+        module[key] = options[key];
+      });
+    }
+    this._modules[desiredModuleName] = module;
+  }
   initializeModules(modules, iteration = 0) {
+    // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
         return;
       }
-      let moduleClass;
-      let options;
-      if (moduleConfig instanceof Array) {
-        moduleClass = moduleConfig[0];
-        options = moduleConfig[1];
-      } else {
-        moduleClass = moduleConfig;
-        options = null;
-      }
+      const [moduleClass, options] = this._getModuleClass(moduleConfig);
+      const [availableDependencies, missingDependencies] = this._resolveDependencies(moduleClass.dependencies);
+      const hasMissingDependency = missingDependencies.length === 0;
 
-      // region Resolve dependencies
-      const availableDependencies = {};
-      const missingDependencies = [];
-      if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
-          const dependencyClass = moduleClass.dependencies[desiredDependencyName];
-
-          const dependencyModule = this.findModule(dependencyClass);
-          if (dependencyModule) {
-            availableDependencies[desiredDependencyName] = dependencyModule;
-          } else {
-            missingDependencies.push(dependencyClass);
-          }
-        });
-      }
-      // endregion
-
-      if (missingDependencies.length === 0) {
+      if (hasMissingDependency) {
         if (debugDependencyInjection) {
           if (Object.keys(availableDependencies).length === 0) {
             console.log('Loading', moduleClass.name);
@@ -341,19 +357,13 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        // region Load Module
-        // eslint-disable-next-line new-cap
-        const module = new moduleClass(this, availableDependencies, priority);
-        if (options) {
-          // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-          // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-          Object.keys(options).forEach(key => {
-            module[key] = options[key];
-          });
-        }
-        this._modules[desiredModuleName] = module;
-        // endregion
+        this._loadModule(desiredModuleName, moduleClass, {
+          ...options,
+          ...availableDependencies,
+          priority,
+        });
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
