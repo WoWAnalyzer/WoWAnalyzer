@@ -49,7 +49,7 @@ class DistanceMoved extends Analyzer {
   }
 
   timeSinceLastMovement() {
-    return this.owner.timestamp - this.lastPositionChange.timestamp;
+    return this.owner.currentTimestamp - this.lastPositionChange.timestamp;
   }
 
   // Data parsing
