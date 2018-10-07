@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { EarlyFinish, incomingDamage, SimpleFight } from 'tests/parser/brewmaster/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import StaggerFabricator from './StaggerFabricator';
 import Stagger from './Stagger';

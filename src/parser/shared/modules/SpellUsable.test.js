@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/index';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import SpellUsable from './SpellUsable';
 

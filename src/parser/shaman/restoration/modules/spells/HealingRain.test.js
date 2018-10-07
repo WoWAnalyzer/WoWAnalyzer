@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
 

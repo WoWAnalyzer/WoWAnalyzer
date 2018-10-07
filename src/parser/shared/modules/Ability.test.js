@@ -1,4 +1,4 @@
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Ability from './Ability';
 import Abilities from './Abilities';

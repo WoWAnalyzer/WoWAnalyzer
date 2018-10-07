@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
 const thisPlayer = 1;
 const enemy = 2;

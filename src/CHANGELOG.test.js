@@ -1,5 +1,5 @@
-import CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
+import CORE_CHANGELOG from './CHANGELOG';
 
 describe('CHANGELOG', () => {
   const allChangelogs = AVAILABLE_CONFIGS.reduce((obj, config) => {
@@ -7,7 +7,7 @@ describe('CHANGELOG', () => {
     obj[specName] = config.changelog;
     return obj;
   }, {
-    'Core': CHANGELOG,
+    'Core': CORE_CHANGELOG,
   });
   const testEntries = test => {
     Object.keys(allChangelogs).forEach(name => {

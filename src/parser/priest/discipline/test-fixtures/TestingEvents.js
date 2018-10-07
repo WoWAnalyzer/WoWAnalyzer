@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
 export const thisPlayer = 1;
 const otherPlayer1 = 2;

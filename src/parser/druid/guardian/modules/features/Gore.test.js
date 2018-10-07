@@ -1,5 +1,5 @@
-import { SimpleFight, damageTaken, buffsRefreshed, casts } from 'tests/parser/guardian/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { SimpleFight, damageTaken, buffsRefreshed, casts } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Gore from './Gore';
 
