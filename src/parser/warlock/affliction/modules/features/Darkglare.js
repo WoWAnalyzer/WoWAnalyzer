@@ -203,6 +203,9 @@ class Darkglare extends Analyzer {
 
   _resetDotOnTarget(event) {
     const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
     const spellId = event.ability.guid;
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.dots[target] = this.dots[target] || { targetName: enemy.name, dots: {} };

@@ -8,6 +8,10 @@ class Enemies extends Entities {
   getEntities() {
     return this.enemies;
   }
+  /**
+   * @param {object} event
+   * @returns {Enemy|null}
+   */
   getEntity(event) {
     if (event.targetIsFriendly) {
       return null;
