@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const Table = (props) => {
   const { tracker } = props;
@@ -16,23 +17,25 @@ const Table = (props) => {
 
 const SpellRow = (spellDetail) => {
   return (
-    <tr>
+    <tr key={spellDetail.spell.id}>
       <td>
         <SpellIcon id={spellDetail.spell.id} />
       </td>
       <td>{spellDetail.casts}</td>
       <td>{spellDetail.healingHits}</td>
       <td>{spellDetail.healingDone}</td>
-      <td>% Healing Done</td>
+      <td>{formatPercentage(spellDetail.percentHealingDone)}</td>
       <td>{spellDetail.damageHits}</td>
       <td>{spellDetail.damageDone}</td>
-      <td>% Damage Done</td>
-      <td>Time Spent Casting</td>
-      <td>% Time Spent Casting</td>
+      <td>{formatPercentage(spellDetail.percentDamageDone)}</td>
       <td>{spellDetail.manaSpent}</td>
-      <td>% Mana Spent</td>
-      <td>Healing Per Mana Spent</td>
-      <td>Damage Per Mana Spent</td>
+      <td>{formatPercentage(spellDetail.manaPercentSpent)}</td>
+      <th>{formatNumber(spellDetail.hpm)}</th>
+      <th>{formatNumber(spellDetail.dpm)}</th>
+      <th>{Math.floor(spellDetail.timeSpentCasting / 1000)}s</th>
+      <th>{formatNumber(spellDetail.percentTimeSpentCasting)}</th>
+      <th>Healing Per Time Spent Casting</th>
+      <th>Damage Per Time Spent Casting</th>
     </tr>
   );
 };
@@ -59,12 +62,14 @@ class HpmBreakdown extends React.Component {
               <th>Damage Hits</th>
               <th>Total Damage Done</th>
               <th>% Damage Done</th>
-              <th>Time Spent Casting</th>
-              <th>% Time Spent Casting</th>
               <th>Mana Spent</th>
               <th>% Mana Spent</th>
               <th>Healing Per Mana Spent</th>
               <th>Damage Per Mana Spent</th>
+              <th>Time Spent Casting</th>
+              <th>% Time Spent Casting</th>
+              <th>Healing Per Time Spent Casting</th>
+              <th>Damage Per Time Spent Casting</th>
             </tr>
           </thead>
           <tbody>

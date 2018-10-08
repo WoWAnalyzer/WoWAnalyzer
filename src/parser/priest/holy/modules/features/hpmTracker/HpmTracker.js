@@ -4,12 +4,18 @@ import SPELLS from 'common/SPELLS';
 import ManaTracker from './ManaTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
 class HpmTracker extends Analyzer {
   static dependencies = {
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
+    healingDone: HealingDone,
+    damageDone: DamageDone,
     renew: Renew,
+    castEfficiency: CastEfficiency,
   };
 
   getSpellDetails(spellId) {
@@ -23,13 +29,22 @@ class HpmTracker extends Analyzer {
     spellInfo.healingDone = ability.healingEffective || 0;
     spellInfo.overhealingDone = ability.healingOverheal || 0;
     spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
+    spellInfo.percentHealingDone = ability.healingEffective / this.healingDone.total.regular || 0;
 
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
     spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
+    spellInfo.percentDamageDone = ability.damageEffective / this.damageDone.total.regular || 0;
 
     spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
+    spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
     spellInfo.manaGained = this.manaTracker;
+
+    spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent;
+    spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent;
+
+    spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
+    spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
     if (spellId === SPELLS.RENEW.id) {
       return this.getRenewDetails(spellInfo);

@@ -106,6 +106,16 @@ class CastEfficiency extends Analyzer {
     return timeSpentCasting;
   }
 
+  getTimeSpentCasting(abilityId) {
+    const timeSpentCasting = this._getTimeSpentCasting({ primarySpell: { id: abilityId } });
+    const gcdSpent = 0;
+
+    return {
+      timeSpentCasting,
+      gcdSpent,
+    };
+  }
+
   /**
    * Time spent waiting for a GCD that reset the cooldown of the spell to finish
    */
