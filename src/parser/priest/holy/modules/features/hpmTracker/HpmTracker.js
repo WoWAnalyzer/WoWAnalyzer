@@ -53,6 +53,9 @@ class HpmTracker extends Analyzer {
   }
 
   getPomDetails(spellInfo) {
+    // This represents that amount of healing done by HARD CASTING PoM.
+    // We don't want PoM to get Hpm credit for healing that we didn't spend mana on.
+    // We *do* want PoM to get credit for any renews it leave behind from Benediction.
     return spellInfo;
   }
 
@@ -96,7 +99,7 @@ class HpmTracker extends Analyzer {
         [SPELLS.HALO_TALENT.id]: this.getSpellDetails(SPELLS.HALO_TALENT.id),
         [SPELLS.DIVINE_STAR_TALENT.id]: this.getSpellDetails(SPELLS.DIVINE_STAR_TALENT.id),
         [SPELLS.SHINING_FORCE_TALENT.id]: this.getSpellDetails(SPELLS.SHINING_FORCE_TALENT.id),
-      }
+      };
     }
 
     return this.detailsCache;
