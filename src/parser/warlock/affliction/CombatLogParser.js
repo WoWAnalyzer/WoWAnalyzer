@@ -22,6 +22,7 @@ import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import SoulConduit from './modules/talents/SoulConduit';
 import Deathbolt from './modules/talents/Deathbolt';
 import Haunt from './modules/talents/Haunt';
+import DrainSoul from './modules/talents/DrainSoul';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
 import Nightfall from './modules/talents/Nightfall';
 
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     talents: Talents,
     nightfall: Nightfall,
+    drainSoul: DrainSoul,
     drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
