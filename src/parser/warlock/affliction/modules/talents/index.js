@@ -7,6 +7,7 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsL
 import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoulSniping from './DrainSoulSniping';
+import VileTaint from './VileTaint';
 import Haunt from './Haunt';
 import SiphonLifeUptime from './SiphonLifeUptime';
 import SoulConduit from './SoulConduit';
@@ -17,6 +18,7 @@ class TalentStatisticBox extends Analyzer {
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
+    vileTaint: VileTaint,
     haunt: Haunt,
     soulConduit: SoulConduit,
   };

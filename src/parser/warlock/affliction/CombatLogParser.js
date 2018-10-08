@@ -21,6 +21,7 @@ import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import SoulConduit from './modules/talents/SoulConduit';
 import Deathbolt from './modules/talents/Deathbolt';
+import VileTaint from './modules/talents/VileTaint';
 import Haunt from './modules/talents/Haunt';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
 
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
+    vileTaint: VileTaint,
     soulConduit: SoulConduit,
     haunt: Haunt,
   };
