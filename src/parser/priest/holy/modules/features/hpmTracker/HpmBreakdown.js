@@ -15,7 +15,6 @@ const Table = (props) => {
 };
 
 const SpellRow = (spellDetail) => {
-  console.log(spellDetail);
   return (
     <tr>
       <td>

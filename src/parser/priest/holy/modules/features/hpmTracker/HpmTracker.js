@@ -2,30 +2,31 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ManaTracker from './ManaTracker';
-import HealingTracker from 'parser/shared/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 
 class HpmTracker extends Analyzer {
   static dependencies = {
     manaTracker: ManaTracker,
-    healingTracker: HealingTracker,
+    abilityTracker: AbilityTracker,
     renew: Renew,
   };
 
   getSpellDetails(spellId) {
     const spellInfo = {};
+    const ability = this.abilityTracker.getAbility(spellId);
 
     spellInfo.spell = SPELLS[spellId];
-    spellInfo.casts = this.healingTracker.getAbility(spellId).casts || 0;
+    spellInfo.casts = ability.casts || 0;
 
-    spellInfo.healingHits = this.healingTracker.getAbility(spellId).healingHits || 0;
-    spellInfo.healingDone = this.healingTracker.getAbility(spellId).healingEffective || 0;
-    spellInfo.overhealingDone = this.healingTracker.getAbility(spellId).healingOverheal || 0;
-    spellInfo.healingAbsorbed = this.healingTracker.getAbility(spellId).healingAbsorbed || 0;
+    spellInfo.healingHits = ability.healingHits || 0;
+    spellInfo.healingDone = ability.healingEffective || 0;
+    spellInfo.overhealingDone = ability.healingOverheal || 0;
+    spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
 
-    spellInfo.damageHits = this.healingTracker.getAbility(spellId).damageHits || 0;
-    spellInfo.damageDone = this.healingTracker.getAbility(spellId).damageEffective || 0;
-    spellInfo.damageAbsorbed = this.healingTracker.getAbility(spellId).damageAbsorbed || 0;
+    spellInfo.damageHits = ability.damageHits || 0;
+    spellInfo.damageDone = ability.damageEffective || 0;
+    spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
 
     spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
     spellInfo.manaGained = this.manaTracker;
