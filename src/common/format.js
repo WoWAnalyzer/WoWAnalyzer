@@ -36,12 +36,14 @@ export function formatPercentage(percentage, precision = 2) {
  * Ex: 317.3 => 5:17
  */
 export function formatDuration(duration, precision = 0) {
+  const neg = duration < 0 ? '-' : '';
+  duration = Math.abs(duration);
   const minutes = Math.floor(duration / 60);
   const mult = Math.pow(10, precision);
   const rest = (Math.floor(duration % 60 * mult) / mult).toFixed(precision);
   const seconds = rest < 10 ? `0${rest}` : rest;
 
-  return `${minutes}:${seconds}`;
+  return `${neg}${minutes}:${seconds}`;
 }
 
 /**

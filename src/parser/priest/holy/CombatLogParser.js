@@ -4,8 +4,8 @@ import Tab from 'interface/others/Tab';
 import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import Abilities from './modules/Abilities';
 
 import SpellManaCost from './modules/core/SpellManaCost';

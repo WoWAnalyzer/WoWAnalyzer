@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
@@ -34,9 +34,9 @@ class CorruptionUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.CORRUPTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Corruption uptime`)
@@ -47,7 +47,7 @@ class CorruptionUptime extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime</React.Fragment>}
+        title={<><SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

@@ -86,7 +86,7 @@ class SteadyAim extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.STEADY_AIM.id}
         value={`${this.averageStacksPerAimed} Stacks / Aimed`}
-        tooltip={`${this.utilised} debuffs applied / ${this.maxPossible} possible`} />
+        tooltip={`${this.utilised} debuffs utilised / ${this.maxPossible} possible`} />
     );
   }
 }

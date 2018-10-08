@@ -13,7 +13,7 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Info from 'interface/common/Alert/Info';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
@@ -327,7 +327,7 @@ class EventsTab extends React.Component {
                   cellRenderer={({ rowData }) => {
                     if (rowData.type === 'damage') {
                       return (
-                        <React.Fragment>
+                        <>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -337,12 +337,12 @@ class EventsTab extends React.Component {
                             alt="Damage"
                             className="icon"
                           />
-                        </React.Fragment>
+                        </>
                       );
                     }
                     if (rowData.type === 'heal') {
                       return (
-                        <React.Fragment>
+                        <>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -352,12 +352,12 @@ class EventsTab extends React.Component {
                             alt="Healing"
                             className="icon"
                           />
-                        </React.Fragment>
+                        </>
                       );
                     }
                     if (rowData.type === 'absorbed') {
                       return (
-                        <React.Fragment>
+                        <>
                           <span className={rowData.type}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -366,12 +366,12 @@ class EventsTab extends React.Component {
                             alt="Absorbed"
                             className="icon"
                           />
-                        </React.Fragment>
+                        </>
                       );
                     }
                     if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
                       return (
-                        <React.Fragment>
+                        <>
                           Applied an absorb of{' '}
                           <span className="absorbed">
                             {formatThousands(rowData.absorb)}
@@ -381,19 +381,19 @@ class EventsTab extends React.Component {
                             alt="Absorbed"
                             className="icon"
                           />
-                        </React.Fragment>
+                        </>
                       );
                     }
                     if (rowData.type === 'energize') {
                       const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                       if (resource) {
                         return (
-                          <React.Fragment>
+                          <>
                             <span className={resource.url}>
                               {formatThousands(rowData.resourceChange)} {resource.name}
                             </span>{' '}
                             {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
-                          </React.Fragment>
+                          </>
                         );
                       }
                     }

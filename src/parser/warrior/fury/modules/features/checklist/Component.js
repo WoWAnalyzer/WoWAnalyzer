@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/core/modules/features/Checklist2';
-import Rule from 'parser/core/modules/features/Checklist2/Rule';
-import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/core/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/core/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist2';
+import Rule from 'parser/shared/modules/features/Checklist2/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class FuryWarriorChecklist extends React.PureComponent {
   static propTypes = {
@@ -47,16 +47,16 @@ class FuryWarriorChecklist extends React.PureComponent {
         <Rule
           name="Use Rampage"
           description={(
-            <React.Fragment>
+            <>
               Using <SpellLink id={SPELLS.RAMPAGE.id} /> is an important part of the Fury rotation. If you aren't Enraged, <SpellLink id={SPELLS.RAMPAGE.id} /> should be used as soon as you have enough rage. Also, use <SpellLink id={SPELLS.RAMPAGE.id} /> if you would reach maximum rage otherwise.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement
             name={(
-              <React.Fragment>
+              <>
                 Number of missed <SpellLink id={SPELLS.RAMPAGE.id} /> casts
-              </React.Fragment>
+              </>
             )}
             thresholds={thresholds.missedRampage}
           />
@@ -64,9 +64,9 @@ class FuryWarriorChecklist extends React.PureComponent {
         <Rule
           name="Avoid downtime"
           description={(
-            <React.Fragment>
+            <>
               As a melee DPS, it is important to stay within range of the target and cast your abiltiies promptly. If you find yourself out of range, try using <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get back more quickly.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />

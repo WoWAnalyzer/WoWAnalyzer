@@ -1,9 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
 
@@ -30,7 +30,7 @@ class SearingTouch extends Analyzer {
       }
       if (spellId === SPELLS.FIREBALL.id && healthPercent < .30) {
         this.badCasts += 1;
-        debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+        debug && this.log("Cast Fireball under 30% Health");
       }
     }
   }
@@ -54,7 +54,7 @@ class SearingTouch extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);

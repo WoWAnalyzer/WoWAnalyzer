@@ -10,11 +10,9 @@ import Analyzer from 'parser/core/Analyzer';
 const DURATION = 30000;
 
 class Efflorescence extends Analyzer {
-
   precastUptime = 0;
   castUptime = 0;
   castTimestamps = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
-
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.EFFLORESCENCE_CAST.id) {
@@ -85,7 +83,6 @@ class Efflorescence extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(12);
-
 }
 
 export default Efflorescence;

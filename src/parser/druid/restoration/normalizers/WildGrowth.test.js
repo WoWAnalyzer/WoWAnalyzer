@@ -109,7 +109,9 @@ describe('RestoDruid/Modules/Normalizers/WildGrowth', () => {
   reorderScenarios.forEach((scenario, idx) => {
     it(`can reorder events ${idx}`, () => {
       const parser = new WildGrowth({
-        playerId: scenario.playerId,
+        owner: {
+          playerId: scenario.playerId,
+        },
       });
       expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });

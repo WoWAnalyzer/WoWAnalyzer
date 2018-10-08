@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Eye Beam's cast event is actually a beginchannel event, so it shouldn't add the GCD as active time.

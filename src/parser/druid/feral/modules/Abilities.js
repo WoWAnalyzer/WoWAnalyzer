@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -533,7 +533,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TREANT_FORM,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
-          fixed: 1500,
+          static: 1500,
         },
       },
       {

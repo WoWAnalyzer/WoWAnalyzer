@@ -6,7 +6,7 @@ import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
 
@@ -137,7 +137,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:void(0)" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
                   </div>
                 </div>
               </div>
@@ -163,8 +164,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                   </div>
                 </div>
               </div>
@@ -194,8 +195,8 @@ class Cooldown extends React.Component {
                     )}
                   </div>
                 ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
               </div>
             )}
           </div>

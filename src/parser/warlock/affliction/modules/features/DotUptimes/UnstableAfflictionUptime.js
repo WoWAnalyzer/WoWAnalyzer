@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
@@ -76,9 +76,9 @@ class UnstableAfflictionUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
@@ -89,7 +89,7 @@ class UnstableAfflictionUptime extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime</React.Fragment>}
+        title={<><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
         valueTooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}
       />

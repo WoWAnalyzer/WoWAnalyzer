@@ -1,12 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-
-/* 
-  boneShieldTimesByStacks() returns an array with the durations of each BS charge
-*/
+import Analyzer from 'parser/core/Analyzer';
 
 const MAX_BONE_SHIELD_STACKS = 10;
 
+/**
+ boneShieldTimesByStacks() returns an array with the durations of each BS charge
+ */
 class BoneShieldStacksBySeconds extends Analyzer {
   boneShieldStacks = [];
   lastBoneShieldStack = 0;

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Trans } from '@lingui/macro';
 
 import { makePlainUrl } from 'interface/common/makeAnalyzerUrl';
 import makeUrl from 'interface/character/makeUrl';
@@ -32,23 +33,33 @@ class ReportHistory extends React.PureComponent {
         {[...reportHistory].reverse().map(report => (
           <li key={report.code} className="selectable">
             {report.type === REPORT_HISTORY_TYPES.CHARACTER && (
-              <Link to={makeUrl(report.playerRegion, report.playerRealm, report.playerName)} style={{ color: '#fff', textDecoration: 'none' }}>
+              <Link
+                to={makeUrl(report.playerRegion, report.playerRealm, report.playerName)}
+                style={{ color: '#fff', textDecoration: 'none' }}
+              >
                 <div>
                   <div className={`playerName ${report.playerClass}`}>{report.playerName}</div>
                   <div className="flex wrapable">
                     <div>{report.playerRealm} ({report.playerRegion})</div>
-                    <div className="flex-sub">viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago</div>
+                    <div className="flex-sub">
+                      <Trans>viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago</Trans>
+                    </div>
                   </div>
                 </div>
               </Link>
             )}
             {(report.type === REPORT_HISTORY_TYPES.REPORT || !report.type) && (
-              <Link to={makePlainUrl(report.code, report.fightId, report.fightName, report.playerId, report.playerName)} style={{ color: '#fff', textDecoration: 'none' }}>
+              <Link
+                to={makePlainUrl(report.code, report.fightId, report.fightName, report.playerId, report.playerName)}
+                style={{ color: '#fff', textDecoration: 'none' }}
+              >
                 <div>
                   <div className={`playerName ${report.playerClass}`}>{report.playerName}</div>
                   <div className="flex wrapable">
                     <div>{report.fightName}</div>
-                    <div className="flex-sub">{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</div>
+                    <div className="flex-sub">
+                      <Trans>{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</Trans>
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -57,7 +68,7 @@ class ReportHistory extends React.PureComponent {
         ))}
         {reportHistory.length === 0 && (
           <li style={{ padding: '10px 22px' }}>
-            You haven't viewed anything yet.
+            <Trans>You haven't viewed anything yet.</Trans>
           </li>
         )}
       </ul>

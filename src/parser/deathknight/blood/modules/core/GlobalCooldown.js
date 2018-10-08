@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 class GlobalCooldown extends CoreGlobalCooldown {
   on_byPlayer_cast(event) {

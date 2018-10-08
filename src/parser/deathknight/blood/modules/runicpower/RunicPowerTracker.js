@@ -1,7 +1,7 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class RunicPowerTracker extends ResourceTracker {
   static dependencies = {

@@ -1,4 +1,4 @@
-import CoreCooldownThroughputTracker from 'parser/core/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker from 'parser/shared/modules/CooldownThroughputTracker';
 
 
 const debug = false;

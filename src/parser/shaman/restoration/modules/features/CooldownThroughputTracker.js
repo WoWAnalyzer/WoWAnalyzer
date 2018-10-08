@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../constants';
 

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import Abilities from 'parser/shared/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * A quick shot causing Physical damage.

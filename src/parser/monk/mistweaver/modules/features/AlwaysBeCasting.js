@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import CoreAlwaysBeCastingHealing from 'parser/core/modules/AlwaysBeCastingHealing';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [

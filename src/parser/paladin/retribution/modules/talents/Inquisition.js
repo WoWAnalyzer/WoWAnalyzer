@@ -54,7 +54,7 @@ class Inquisition extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage</React.Fragment>)
+      return suggest(<>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage</>)
         .icon(SPELLS.INQUISITION_TALENT.icon)
         .actual(`${formatPercentage(this.efficiency)}% of damage buffed`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

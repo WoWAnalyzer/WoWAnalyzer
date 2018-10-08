@@ -1,4 +1,4 @@
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 class FilteredDamageTracker extends DamageTracker {
   

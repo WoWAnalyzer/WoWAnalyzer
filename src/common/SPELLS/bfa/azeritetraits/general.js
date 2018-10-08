@@ -231,4 +231,9 @@ export default {
     name: 'Concentrated Mending',
     icon: 'inv_offhand_1h_pvpdraenors1_d_02',
   },
+  TIDAL_SURGE: {
+    id: 280404,
+    name: 'Tidal Surge',
+    icon: 'ability_mage_waterjet',
+  },
 };

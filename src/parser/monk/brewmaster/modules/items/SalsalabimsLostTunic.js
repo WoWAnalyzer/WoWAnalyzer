@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * The Brewmaster legendary Sal'salabim's Lost Tunic, aka 'saladbums'.
@@ -37,7 +37,7 @@ class SalsalabimsLostTunic extends Analyzer {
     return {
       item: ITEMS.SALSALABIMS_LOST_TUNIC,
       result: (
-          <React.Fragment>{this.cooldownResets} <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> resets</React.Fragment>
+          <>{this.cooldownResets} <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> resets</>
       ),
     };
   }

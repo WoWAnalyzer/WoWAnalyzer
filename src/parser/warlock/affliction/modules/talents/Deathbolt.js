@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -25,7 +25,7 @@ class Deathbolt extends Analyzer {
     const avg = total / (deathbolt.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<React.Fragment>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</React.Fragment>}
+        title={<>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</>}
         value={formatThousands(avg)}
         valueTooltip={`Total Deathbolt damage: ${formatThousands(total)}`}
       />

@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -60,9 +60,9 @@ class Vivify extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2 <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.VIVIFY.icon)
           .actual(`${this.averageRemPerVivify} Unused Uplifting Trance procs`)

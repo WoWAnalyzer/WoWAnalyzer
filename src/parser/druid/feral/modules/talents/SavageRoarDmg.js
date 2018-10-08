@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -65,11 +65,10 @@ class SavageRoar extends Analyzer {
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
         tooltip={`Your Savage Roar talent contributed <b>${formatNumber(this.bonusDmg)}</b> total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default SavageRoar;

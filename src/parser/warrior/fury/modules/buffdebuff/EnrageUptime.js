@@ -35,7 +35,7 @@ class EnrageUptime extends Analyzer {
 
     when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
           .icon(SPELLS.ENRAGE.icon)
           .actual(`${formatPercentage(actual)}% Enrage uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

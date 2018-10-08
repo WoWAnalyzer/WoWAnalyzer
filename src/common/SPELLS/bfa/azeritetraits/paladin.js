@@ -81,4 +81,16 @@ export default {
     name: 'Divine Right',
     icon: 'ability_paladin_divinestorm',
   },
+
+  // Protection
+  INSPIRING_VANGUARD: {
+    id: 278609,
+    name: 'Inspiring Vanguard',
+    icon: 'inv_helmet_74',
+  },
+  INSPIRING_VANGUARD_BUFF: {
+    id: 279397,
+    name: 'Inspiring Vanguard',
+    icon: 'inv_helmet_74',
+  },
 };

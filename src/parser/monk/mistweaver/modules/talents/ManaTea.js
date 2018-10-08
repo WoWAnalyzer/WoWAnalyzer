@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -165,9 +165,9 @@ class ManaTea extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMTsaves)} average mana saved per Mana Tea cast`)

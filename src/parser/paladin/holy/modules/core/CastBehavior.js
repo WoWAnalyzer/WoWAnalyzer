@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import ManaValues from 'parser/core/modules/ManaValues';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 
@@ -196,7 +196,7 @@ class CastBehavior extends Analyzer {
         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div className="row">
             <StatisticsListBox
-              title={<React.Fragment><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</React.Fragment>}
+              title={<><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</>}
               containerProps={{ className: 'col-xs-12' }}
             >
               {this.iolCastRatioChart()}

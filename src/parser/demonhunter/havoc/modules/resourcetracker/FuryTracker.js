@@ -1,8 +1,8 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const DOG_COOLDOWN_REDUCTION_MS = 1000/30;
 

@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import StatTracker from 'parser/core/modules/StatTracker';
-import Enemies from 'parser/core/modules/Enemies';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -227,12 +227,12 @@ class Schism extends Analyzer {
     when(this.badSchismThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
             casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
             <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
             <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(

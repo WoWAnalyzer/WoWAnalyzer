@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import Portal from 'interface/others/Portal';
 
+import Portal from './Portal';
 import makeContributorUrl from './makeUrl';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ './Details').then(exports => exports.default));

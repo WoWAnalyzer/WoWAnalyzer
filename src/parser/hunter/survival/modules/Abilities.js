@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -286,6 +286,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },

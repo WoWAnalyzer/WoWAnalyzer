@@ -42,12 +42,12 @@ class ShacklesofBryndaor extends Analyzer {
     return {
       item: ITEMS.SHACKLES_OF_BRYNDAOR,
       result:(
-        <React.Fragment>
+        <>
           Refunded {Math.trunc(this.rpGainedPerMinute)} Runic Power per minute ({this.runicPowerGained} total).<br />
           {formatPercentage(rpPercent)} % of total Runic Power generated <br />
           This is a potential {Math.trunc(extraDS)} extra <SpellLink id={SPELLS.DEATH_STRIKE.id} /> casts.
 
-        </React.Fragment>
+        </>
       ),
     };
   }

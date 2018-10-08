@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Crackling Jade Lightning has ticks marked as "cast", and we fix its channel in the CracklingJadeLightning module. This also fixes its GCD.

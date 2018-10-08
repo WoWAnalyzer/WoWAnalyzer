@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { SimpleFight, applybuff, refreshBuff, dpsCasts } from 'tests/parser/brewmaster/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { SimpleFight, applybuff, refreshBuff, dpsCasts } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import BlackoutCombo from './BlackoutCombo';
 
@@ -9,20 +9,20 @@ describe('Brewmaster.BlackoutCombo', () => {
   let blackoutCombo;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    blackoutCombo = new BlackoutCombo(parser);
+    blackoutCombo = new BlackoutCombo({ owner: parser });
   });
   it('blackout combo is active by default', () => {
     expect(blackoutCombo.active).toBe(true);
   });
   it('blackout combo checks to see if active while talent is not selected', () => {
     parser.selectedCombatant.hasTalent = jest.fn(() => false);
-    blackoutCombo = new BlackoutCombo(parser);
+    blackoutCombo = new BlackoutCombo({ owner: parser });
     expect(parser.selectedCombatant.hasTalent).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(false);
   });
   it('blackout combo checks to see if active while talent is selected', () => {
     parser.selectedCombatant.hasTalent = jest.fn(() => true);
-    blackoutCombo = new BlackoutCombo(parser);
+    blackoutCombo = new BlackoutCombo({ owner: parser });
     expect(parser.selectedCombatant.hasTalent).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(true);
   });
