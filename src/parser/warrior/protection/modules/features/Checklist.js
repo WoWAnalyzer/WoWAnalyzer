@@ -2,13 +2,13 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import PrePotion from 'parser/core/modules/items/PrePotion';
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
 import Shield_Block from '../spells/ShieldBlock';
@@ -54,16 +54,16 @@ class Checklist extends CoreChecklist {
 
     new Rule({
       name: (
-        <React.Fragment>
+        <>
           Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and <SpellLink id={SPELLS.IGNORE_PAIN.id} />
-        </React.Fragment>
+        </>
       ),
       description: (
-        <React.Fragment>
+        <>
           Blocking incoming damage is our main mitigation tool.
           Maintain <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> as much as possible while tanking or dealing with mechanics that are blockable.
           Avoid casting <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> while not tanking actively to refill your charges. Spend your excess rage with <SpellLink id={SPELLS.IGNORE_PAIN.id} /> to smooth out damage, especially damage that's not blockable.
-        </React.Fragment>
+        </>
       ),
       requirements: () => {
         return [
@@ -72,7 +72,7 @@ class Checklist extends CoreChecklist {
             check: () => this.shieldBlock.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.IGNORE_PAIN.id} /> Uptime</React.Fragment>,
+            name: <><SpellLink id={SPELLS.IGNORE_PAIN.id} /> Uptime</>,
             check: () => this.ignorePain.uptimeSuggestionThresholds,
           }),
         ];
@@ -94,7 +94,7 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new Requirement({
-            name: <React.Fragment>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</React.Fragment>,
+            name: <>Possible <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> hits</>,
             check: () => this.dragonRoar.hitSuggestionThreshold,
             when: this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
           }),

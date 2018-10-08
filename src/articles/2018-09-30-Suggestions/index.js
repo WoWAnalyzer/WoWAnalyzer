@@ -7,7 +7,7 @@ import RegularArticle from 'interface/news/RegularArticle';
 import RandomImageToMakeThisArticleLessBland from './weirdnelfandherfriend.png';
 
 export default (
-  <RegularArticle title={<React.Fragment>What are <i>YOUR</i> suggestions?</React.Fragment>} publishedAt="2018-09-30" publishedBy={Zerotorescue}>
+  <RegularArticle title={<>What are <i>YOUR</i> suggestions?</>} publishedAt="2018-09-30" publishedBy={Zerotorescue}>
     <img
       src={RandomImageToMakeThisArticleLessBland}
       alt=""

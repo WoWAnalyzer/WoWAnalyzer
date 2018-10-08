@@ -16,7 +16,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       <Warning>
         Assassination rogue analysis isn't complete yet. Analysis should pick up most general mistakes, however:
         <ul>
@@ -26,7 +26,7 @@ export default {
         <br />
         If something is missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Cloake</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/8HDXjhqwk6Q97mgV/21-Heroic+Vectis+-+Kill+(5:31)/22-Cinios',

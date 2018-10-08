@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
   SPELLS.COLOSSUS_SMASH.id,

@@ -4,8 +4,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import EnemyInstances, { encodeTargetString } from 'parser/core/modules/EnemyInstances';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 
 const SHATTER_EFFECTS = [
@@ -126,7 +126,7 @@ class IceLance extends Analyzer {
   suggestions(when) {
     when(this.nonShatteredSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(this.nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</React.Fragment>)
+        return suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(this.nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.nonShatteredPercent)}% missed`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -58,9 +58,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
-            <React.Fragment>
+            <>
               <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most damage.
-            </React.Fragment>
+            </>
           ),
         },
       },
@@ -253,6 +253,28 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLARE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DISMISS_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },

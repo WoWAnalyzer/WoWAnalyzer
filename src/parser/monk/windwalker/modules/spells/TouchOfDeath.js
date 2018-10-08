@@ -2,13 +2,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
-import StatTracker from 'parser/core/modules/StatTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import { calculateAzeriteEffects } from 'common/stats';
 
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const TOUCH_OF_DEATH_HP_SCALING = 0.5;
 const GALE_BURST_VALUE = 0.1;

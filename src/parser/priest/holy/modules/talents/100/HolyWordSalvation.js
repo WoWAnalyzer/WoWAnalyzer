@@ -21,7 +21,7 @@ class HolyWordSalvation extends Analyzer {
   };
 
   get renewCount() {
-    return this.renew.renewsFromSalv;
+    return this.renew.renewsFromSalvation;
   }
 
   get healingFromRenew() {

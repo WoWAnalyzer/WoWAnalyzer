@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -36,7 +36,7 @@ class MarkOfBlood extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</React.Fragment>)
+          return suggest(<>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</>)
             .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
             .actual(`${formatPercentage(actual)}% Mark Of Blood Uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`);

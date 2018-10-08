@@ -15,9 +15,9 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
-      Hi! Welcome to the Holy Priest analyzer.
-    </React.Fragment>
+    <>
+      Hi! Welcome to the <i>Holy Priest analyzer</i>.
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/A3X2gamPht4vRdDV/6-Heroic+Vectis+-+Kill+(5:36)/4-Flinkz',

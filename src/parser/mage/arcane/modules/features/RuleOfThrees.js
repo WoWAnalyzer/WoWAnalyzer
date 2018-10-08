@@ -1,8 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatMilliseconds } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import { formatPercentage } from 'common/format';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 
 const debug = false;
@@ -25,7 +25,7 @@ class RuleOfThrees extends Analyzer {
 			return;
 		}
 		if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id)) {
-			debug && console.log("Arcane Barrage with Rule of Threes Buff @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			debug && this.log("Arcane Barrage with Rule of Threes Buff");
 			this.barrageWithRuleOfThrees += 1;
 		}
 	}
@@ -49,7 +49,7 @@ class RuleOfThrees extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithRuleOfThrees} times while you had the <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithRuleOfThrees} times while you had the <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.</>)
 					.icon(SPELLS.RULE_OF_THREES_TALENT.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

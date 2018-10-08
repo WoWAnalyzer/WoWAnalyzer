@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -94,10 +94,10 @@ class DrainSoulSniping extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-            <React.Fragment>
+            <>
               You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
               <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
-            </React.Fragment>
+            </>
         )
           .icon('ability_hunter_snipershot')
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
@@ -108,7 +108,7 @@ class DrainSoulSniping extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></React.Fragment>}
+        title={<>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></>}
         value={this._shardsGained}
       />
     );

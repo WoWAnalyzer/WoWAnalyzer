@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class TouchOfKarma extends Analyzer {
@@ -37,7 +37,7 @@ class TouchOfKarma extends Analyzer {
   suggestions(when) {
     const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </React.Fragment>)
+      return suggest(<> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </>)
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(`${formatPercentage(absorbUsed)}% Touch of Karma absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

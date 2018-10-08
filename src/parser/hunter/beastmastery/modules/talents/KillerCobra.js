@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
@@ -74,7 +74,7 @@ class KillerCobra extends Analyzer {
   }
   suggestions(when) {
     when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </React.Fragment>)
+      return suggest(<>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </>)
         .icon(SPELLS.KILLER_COBRA_TALENT.icon)
         .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`)
         .recommended(`${recommended} is recommended.`);

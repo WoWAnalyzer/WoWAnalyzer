@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreHealingDone from 'parser/core/modules/HealingDone';
+import CoreHealingDone from 'parser/shared/modules/HealingDone';
 
 class HealingDone extends CoreHealingDone {
   on_toPlayer_absorbed(event) {

@@ -41,7 +41,7 @@ class DarkShadowNightblade extends DarkShadow {
   suggestions(when) {
     when(this.thresholds).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </React.Fragment>)
+      return suggest(<>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </>)
         .icon(SPELLS.NIGHTBLADE.icon)
         .actual(`You cast Nightblade ${actual} times during Shadow Dance.`)
         .recommended(`${recommended} is recommended`);

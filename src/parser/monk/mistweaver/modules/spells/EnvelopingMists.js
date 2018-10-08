@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 

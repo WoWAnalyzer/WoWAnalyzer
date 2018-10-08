@@ -1,4 +1,4 @@
-import COMBATANTINFO from 'tests/parser/core/COMBATANTINFO.json';
+import COMBATANTINFO from 'parser/core/tests/COMBATANTINFO.json';
 
 import Combatant from './Combatant';
 

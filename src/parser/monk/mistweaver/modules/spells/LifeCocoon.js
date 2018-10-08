@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 const debug = false;
 const LC_HEALING_INCREASE = 0.5;

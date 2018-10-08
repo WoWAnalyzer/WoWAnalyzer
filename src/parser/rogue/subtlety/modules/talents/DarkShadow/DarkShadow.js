@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 
 

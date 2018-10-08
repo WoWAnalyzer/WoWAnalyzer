@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -177,7 +177,7 @@ class TreeOfLife extends Analyzer {
 
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% healing`)
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`);

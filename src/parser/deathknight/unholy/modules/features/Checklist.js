@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import PrePotion from 'parser/core/modules/items/PrePotion';
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 import VirulentPlagueUptime from './VirulentPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -32,7 +32,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> should be used as often as possible</React.Fragment>,
+      description: <>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> should be used as often as possible</>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
@@ -70,7 +70,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Maintain Disease',
-      description: <React.Fragment><SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> is a significant source of damage.  Remember to keep it active on all targets at all times.</React.Fragment>,
+      description: <><SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> is a significant source of damage.  Remember to keep it active on all targets at all times.</>,
       requirements: () => {
         return [
           new Requirement({
@@ -82,7 +82,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.OUTBREAK.id} /> or <SpellLink id={SPELLS.DEATH_COIL.id} /></React.Fragment>,
+      description: <>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.OUTBREAK.id} /> or <SpellLink id={SPELLS.DEATH_COIL.id} /></>,
       requirements: () => {
         return [
           new Requirement({

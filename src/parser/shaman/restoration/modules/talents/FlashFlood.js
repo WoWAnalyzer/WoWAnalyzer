@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 

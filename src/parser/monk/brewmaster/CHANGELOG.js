@@ -8,48 +8,53 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-02'),
+    changes: <React.Fragment>Re-enabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module and added additional distribution information to it.</React.Fragment>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-09-27'),
     changes: 'Updated Stagger plot to show very quick purifies more accurately.',
     contributors: [emallson],
   },
   {
     date: new Date('2018-09-22'),
-    changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> and <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestions to use hits mitigated instead of uptime.</React.Fragment>,
+    changes: <>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> and <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestions to use hits mitigated instead of uptime.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-09-22'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.FIT_TO_BURST.id} />.</React.Fragment>,
+    changes: <>Added support for <SpellLink id={SPELLS.FIT_TO_BURST.id} />.</>,
     contributors: [emallson],
   }, 
   {
     date: new Date('2018-09-13'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.ELUSIVE_FOOTWORK.id} />.</React.Fragment>,
+    changes: <>Added support for <SpellLink id={SPELLS.ELUSIVE_FOOTWORK.id} />.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-08-11'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.STAGGERING_STRIKES.id} />.</React.Fragment>,
+    changes: <>Added support for <SpellLink id={SPELLS.STAGGERING_STRIKES.id} />.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-07-22'),
-    changes: <React.Fragment>Updated support for <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> and temporarily disabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module pending new formula coefficients.</React.Fragment>,
+    changes: <>Updated support for <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> and temporarily disabled the <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module pending new formula coefficients.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-07-18'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} />.</React.Fragment>,
+    changes: <>Added support for <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} />.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-07-15'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.TRAINING_OF_NIUZAO.id} /> support.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.TRAINING_OF_NIUZAO.id} /> support.</>,
     contributors: [emallson],
   },
   {
     date: new Date('2018-06-16'),
-    changes: <React.Fragment>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> cooldown and duration and added <SpellLink id={SPELLS.GUARD_TALENT.id} />, along with other changes in beta build 26812.</React.Fragment>,
+    changes: <>Updated <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> cooldown and duration and added <SpellLink id={SPELLS.GUARD_TALENT.id} />, along with other changes in beta build 26812.</>,
     contributors: [emallson],
   },
 ];

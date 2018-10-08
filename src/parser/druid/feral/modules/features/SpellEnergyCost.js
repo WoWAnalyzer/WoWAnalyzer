@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import SpellResourceCost from 'parser/core/modules/SpellResourceCost';
+import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 const debug = false;
 
@@ -14,7 +14,6 @@ class SpellEnergyCost extends SpellResourceCost {
     const cost = super.getResourceCost(event);
     
     // no need to check for Clearcasting as the zero cost is already applied in the log
-    // no need to check for T21_4pc as the free bite already shows as free in the log
     
     if (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
         this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {

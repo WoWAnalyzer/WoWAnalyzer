@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
-import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 import EnergyTracker from './EnergyTracker';
 

@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import SymbolsDamageTracker from './SymbolsDamageTracker';
 
@@ -42,7 +42,7 @@ class NightbladeDuringSymbols extends Analyzer {
   suggestions(when) {
     when(this.thresholds).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Do not refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> - cast <SpellLink id={SPELLS.EVISCERATE.id} /> instead. You can refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> early to make sure that its up for the full duration of <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />. </React.Fragment>)
+      return suggest(<>Do not refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> - cast <SpellLink id={SPELLS.EVISCERATE.id} /> instead. You can refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> early to make sure that its up for the full duration of <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />. </>)
         .icon(SPELLS.NIGHTBLADE.icon)
         .actual(`You refreshed Nightblade ${actual} times during Symbols of Death.`)
         .recommended(`${recommended} is recommended`);

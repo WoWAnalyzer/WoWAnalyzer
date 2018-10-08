@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import CoreAlwaysBeCasting from 'parser/core/modules/AlwaysBeCasting';
+import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
@@ -21,8 +21,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
-        </React.Fragment>)
+        <>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
+        </>)
         .icon('spell_mage_altertime')
         .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
-import Channeling from 'parser/core/modules/Channeling';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import Abilities from '../Abilities';
 import Haste from './Haste';

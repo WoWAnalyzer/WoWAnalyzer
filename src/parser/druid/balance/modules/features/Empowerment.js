@@ -31,6 +31,7 @@ class Empowerment extends Analyzer {
       return;
     }
     this.wasted += 1;
+    this.generated += 1;
   }
 
   on_toPlayer_applybuff(event) {
@@ -79,7 +80,7 @@ class Empowerment extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</React.Fragment>)
+      return suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
         .icon(this.icon)
         .actual(`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

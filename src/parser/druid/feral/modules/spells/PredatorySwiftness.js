@@ -1,7 +1,6 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -22,11 +21,6 @@ const POTENTIAL_SPENDERS = [
  * which makes the next Regrowth or Entangling Roots instant cast and usable in cat form. Normally
  * this provides occasional extra utility. But with the Bloodtalons talent it becomes an important
  * part of the damage rotation.
- * 
- * The Feral legendary Ailuro Pouncers breaks this Analyzer. The Pouncers allow Predatory Swiftness
- * to have up to 3 stacks, but the combat log still only shows an event for gaining or losing the buff
- * overall, not the change in stacks. We cannot reliably predict when the stacks will change because
- * there can be randomness as to whether a stack is generated.
  */
 class PredatorySwiftness extends Analyzer {
   hasSwiftness = false;
@@ -38,18 +32,10 @@ class PredatorySwiftness extends Analyzer {
   overwritten = 0;
 
   /**
-   * The combat log reports the player gaining Predatory Swiftness twice when they use a free
-   * Ferocious Bite from the T21 4pc set bonus. Avoid this by tracking time of last gain event.
+   * The combat log sometimes reports the player gaining Predatory Swiftness twice from a single finisher.
+   * Avoid this by tracking time of last gain event.
    */
   timeLastGain = null;
-
-  constructor(...args) {
-    super(...args);
-    if (this.selectedCombatant.hasFeet(ITEMS.AILURO_POUNCERS.id)) {
-      // disable entirely as the legendary breaks our ability to track Predatory Swiftness
-      this.isActive = false;
-    }
-  }
 
   on_finished() {
     if (this.hasSwiftness) {
@@ -141,9 +127,9 @@ class PredatorySwiftness extends Analyzer {
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           You are not making use of all your chances to trigger <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> through <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />. Try to use it to instant-cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> before you generate another charge of the buff, and before it wears off.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
         .actual(`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`)
@@ -161,11 +147,10 @@ class PredatorySwiftness extends Analyzer {
           <li>The buff was allowed to expire <b>${this.expired}</b> time${this.expired !== 1 ? 's' : ''}.
           <li>You used another finisher while the buff was still active and overwrote it <b>${this.overwritten}</b> time${this.overwritten !== 1 ? 's' : ''}.
           <li>You had <b>${this.remainAfterFight}</b> remaining unused at the end of the fight.`}
+        position={STATISTIC_ORDER.OPTIONAL(5)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default PredatorySwiftness;

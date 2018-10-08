@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 const debug = false;
 
@@ -23,7 +23,7 @@ class ChiBurst extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
-    this.raidSize = Object.entries(this.combatants.players).length;
+    this.raidSize = Object.keys(this.combatants.players).length;
   }
 
   on_byPlayer_cast(event) {
@@ -67,9 +67,9 @@ class ChiBurst extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.CHI_BURST_TALENT.icon)
           .actual(`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`)

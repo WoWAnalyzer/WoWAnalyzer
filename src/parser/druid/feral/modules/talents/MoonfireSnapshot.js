@@ -77,9 +77,9 @@ class MoonfireSnapshot extends Snapshot {
   suggestions(when) {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Moonfire with Tiger's Fury will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)
         .actual(`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`)
@@ -88,8 +88,7 @@ class MoonfireSnapshot extends Snapshot {
   }
 
   statistic() {
-    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name);
+    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10)
 }
 export default MoonfireSnapshot;

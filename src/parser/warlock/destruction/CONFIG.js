@@ -18,7 +18,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       Hello fellow Netherlords! While I gotta admit this tool feels more like a statistic than something that really helps you (just yet!), I hope it still is useful to you. Any suggestions as to what could be useful to see are welcome and I'll try to implement them in order for this tool to be more than just a glorified WCL log. <br /> <br />
 
       As for a general rule of thumb - keep your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> up as much as you can, cast <SpellLink id={SPELLS.CONFLAGRATE.id} /> on CD. Dump shards into fat <SpellLink id={SPELLS.CHAOS_BOLT.id} /> and just overall don't forget to cast spells when you have them (<SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />, <SpellLink id={SPELLS.HAVOC.id} /> when there's something to cleave etc.). <br /> <br />
@@ -29,7 +29,7 @@ export default {
         The Destruction Warlock analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/LYXJDPpyN68QaWrm/24-Heroic+Vectis+-+Kill+(7:13)/9-Jeanvoeruler',

@@ -3,7 +3,7 @@ import React from 'react';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 
 import SpellLink from 'common/SpellLink';

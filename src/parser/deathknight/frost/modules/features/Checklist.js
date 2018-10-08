@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import PrePotion from 'parser/core/modules/items/PrePotion';
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import RunicPowerDetails from '../runicpower/RunicPowerDetails';
@@ -49,7 +49,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping</React.Fragment>,
+      description: <>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping</>,
       requirements: () => {
         return [
           new Requirement({
@@ -61,7 +61,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid capping Runic Power',
-      description: <React.Fragment>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</React.Fragment>,
+      description: <>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</>,
       requirements: () => {
         return [
           new Requirement({

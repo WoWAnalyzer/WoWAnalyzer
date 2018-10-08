@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 
 class ShieldOfTheRighteous extends Analyzer {
@@ -40,7 +40,7 @@ class ShieldOfTheRighteous extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You only had the <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have Shield of the Righteous up to mitigate as much physical damage as possible.</React.Fragment>)
+          return suggest(<>You only had the <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
             .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
             .actual(`${formatPercentage(actual)}% was mitigated by Shield of the Righteous`)
             .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`);

@@ -10,7 +10,7 @@ import { getReport } from 'interface/selectors/report';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { findByBossId } from 'raids';
-import DIFFICULTIES from 'common/DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import getWipeCount from 'common/getWipeCount';
 
 import './FightNavigationBar.css';

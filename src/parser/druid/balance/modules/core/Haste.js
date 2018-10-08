@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreHaste from 'parser/core/modules/Haste';
+import CoreHaste from 'parser/shared/modules/Haste';
 
 class Haste extends CoreHaste {
   static HASTE_BUFFS = {

@@ -5,6 +5,8 @@
  */
 
 const SHARED = [
+  // ULDIR
+  266948, // Vectis, Plague Bomb (intermission soak)
   // ANTORUS
   // Garothi Worldbreaker
   247159, // Luring Destruction, intermission pulse
@@ -28,6 +30,11 @@ const SHARED = [
 ];
 
 export const BOF = SHARED.concat([
+  // ULDIR
+  265178, // Vectis, Evolving Affliction
+  265143, // Vectis, Omega Vector (tank *shouldnt* get, but w/e)
+  274358, // Zul, Rupturing Blood (dot interaction with bof is unknown; assuming that it won't change individual ticks for now)
+  263334, // G'huun, Putrid Blood
   // ANTORUS
   // Kin'Garoth
   246779, // Empowered bombs (Kin'garoth)

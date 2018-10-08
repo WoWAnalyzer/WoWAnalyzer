@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
@@ -48,7 +48,7 @@ class SoulsOvercap extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</React.Fragment>)
+        return suggest(<>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</>)
           .icon(SPELLS.SOUL_FRAGMENT.icon)
           .actual(`${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`)
           .recommended(`${formatPercentage(recommended)}% or less is recommended`);

@@ -4,15 +4,15 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
 
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';

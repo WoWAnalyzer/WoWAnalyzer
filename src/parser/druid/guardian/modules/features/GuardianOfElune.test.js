@@ -1,5 +1,5 @@
-import { damageTaken, buffsApplied, SimpleFight } from 'tests/parser/guardian/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { damageTaken, buffsApplied, SimpleFight } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import GuardianOfElune from './GuardianOfElune';
 
@@ -8,7 +8,7 @@ describe('Features.GuardianOfElune', () => {
   let guardian;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    guardian = new GuardianOfElune(parser);
+    guardian = new GuardianOfElune({ owner: parser });
   });
   it('trach GoE procs with no events', () => {
     expect(guardian.GoEProcsTotal).toBe(0);

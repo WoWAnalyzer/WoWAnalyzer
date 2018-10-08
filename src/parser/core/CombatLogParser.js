@@ -13,93 +13,96 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 
-import HealingDone from './modules/HealingDone';
-import DamageDone from './modules/DamageDone';
-import DamageTaken from './modules/DamageTaken';
-import DeathTracker from './modules/DeathTracker';
+import HealingDone from '../shared/modules/HealingDone';
+import DamageDone from '../shared/modules/DamageDone';
+import DamageTaken from '../shared/modules/DamageTaken';
+import DeathTracker from '../shared/modules/DeathTracker';
 
-import Combatants from './modules/Combatants';
-import AbilityTracker from './modules/AbilityTracker';
-import Haste from './modules/Haste';
-import StatTracker from './modules/StatTracker';
-import AlwaysBeCasting from './modules/AlwaysBeCasting';
-import Abilities from './modules/Abilities';
-import CastEfficiency from './modules/CastEfficiency';
-import SpellUsable from './modules/SpellUsable';
-import SpellHistory from './modules/SpellHistory';
-import GlobalCooldown from './modules/GlobalCooldown';
-import Enemies from './modules/Enemies';
-import EnemyInstances from './modules/EnemyInstances';
-import Pets from './modules/Pets';
-import ManaValues from './modules/ManaValues';
-import SpellManaCost from './modules/SpellManaCost';
-import Channeling from './modules/Channeling';
-import TimelineBuffEvents from './modules/TimelineBuffEvents';
-import DeathDowntime from './modules/downtime/DeathDowntime';
-import TotalDowntime from './modules/downtime/TotalDowntime';
+import Combatants from '../shared/modules/Combatants';
+import AbilityTracker from '../shared/modules/AbilityTracker';
+import Haste from '../shared/modules/Haste';
+import StatTracker from '../shared/modules/StatTracker';
+import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
+import Abilities from '../shared/modules/Abilities';
+import CastEfficiency from '../shared/modules/CastEfficiency';
+import SpellUsable from '../shared/modules/SpellUsable';
+import SpellHistory from '../shared/modules/SpellHistory';
+import GlobalCooldown from '../shared/modules/GlobalCooldown';
+import Enemies from '../shared/modules/Enemies';
+import EnemyInstances from '../shared/modules/EnemyInstances';
+import Pets from '../shared/modules/Pets';
+import ManaValues from '../shared/modules/ManaValues';
+import SpellManaCost from '../shared/modules/SpellManaCost';
+import Channeling from '../shared/modules/Channeling';
+import TimelineBuffEvents from '../shared/modules/TimelineBuffEvents';
+import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
+import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 
-import DistanceMoved from './modules/others/DistanceMoved';
+import DistanceMoved from '../shared/modules/others/DistanceMoved';
 
-import CharacterTab from './modules/features/CharacterTab';
-import EncounterPanel from './modules/features/EncounterPanel';
+import CharacterTab from '../shared/modules/features/CharacterTab';
+import EncounterPanel from '../shared/modules/features/EncounterPanel';
 // Tabs
-import TimelineTab from './modules/features/TimelineTab';
-import ManaTab from './modules/features/ManaTab';
-import RaidHealthTab from './modules/features/RaidHealthTab';
+import TimelineTab from '../shared/modules/features/TimelineTab';
+import ManaTab from '../shared/modules/features/ManaTab';
+import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
-import CritEffectBonus from './modules/helpers/CritEffectBonus';
+import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
 
-import PrePotion from './modules/items/PrePotion';
-import EnchantChecker from './modules/items/EnchantChecker';
-import FlaskChecker from './modules/items/FlaskChecker';
-import FoodChecker from './modules/items/FoodChecker';
-import Healthstone from './modules/items/Healthstone';
-import HealthPotion from './modules/items/HealthPotion';
-import CombatPotion from './modules/items/CombatPotion';
-import PreparationRuleAnalyzer from './modules/features/Checklist2/PreparationRuleAnalyzer';
+import PrePotion from '../shared/modules/items/PrePotion';
+import EnchantChecker from '../shared/modules/items/EnchantChecker';
+import FlaskChecker from '../shared/modules/items/FlaskChecker';
+import FoodChecker from '../shared/modules/items/FoodChecker';
+import Healthstone from '../shared/modules/items/Healthstone';
+import HealthPotion from '../shared/modules/items/HealthPotion';
+import CombatPotion from '../shared/modules/items/CombatPotion';
+import PreparationRuleAnalyzer from '../shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
-import ArcaneTorrent from './modules/racials/bloodelf/ArcaneTorrent';
-import MightOfTheMountain from './modules/racials/dwarf/MightOfTheMountain';
+import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
+import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
+import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
 // Shared Buffs
-import VantusRune from './modules/spells/VantusRune';
+import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA
-import GildedLoaFigurine from './modules/items/bfa/GildedLoaFigurine';
-import FirstMatesSpyglass from './modules/items/bfa/FirstMatesSpyglass';
+import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
+import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 // Dungeons
-import RevitalizingVoodooTotem from './modules/items/bfa/dungeons/RevitalizingVoodooTotem';
-import LingeringSporepods from './modules/items/bfa/dungeons/LingeringSporepods';
-import FangsOfIntertwinedEssence from './modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
-import BalefireBranch from './modules/items/bfa/dungeons/BalefireBranch';
-import ConchofDarkWhispers from './modules/items/bfa/dungeons/ConchofDarkWhispers';
-import Seabreeze from './modules/items/bfa/dungeons/Seabreeze';
-import GalecallersBoon from './modules/items/bfa/dungeons/GalecallersBoon';
-import HarlansLoadedDice from './modules/items/bfa/dungeons/HarlansLoadedDice';
+import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
+import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
+import FangsOfIntertwinedEssence from '../shared/modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
+import BalefireBranch from '../shared/modules/items/bfa/dungeons/BalefireBranch';
+import ConchofDarkWhispers from '../shared/modules/items/bfa/dungeons/ConchofDarkWhispers';
+import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
+import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
+import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 //Enchants
-import QuickNavigation from './modules/items/bfa/enchants/QuickNavigation';
-import MasterfulNavigation from './modules/items/bfa/enchants/MasterfulNavigation';
+import DeadlyNavigation from '../shared/modules/items/bfa/enchants/DeadlyNavigation';
+import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulNavigation';
+import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
+import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
+import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
 // Crafted
-import DarkmoonDeckTides from './modules/items/bfa/crafted/DarkmoonDeckTides';
-import DarkmoonDeckFathoms from './modules/items/bfa/crafted/DarkmoonDeckFathoms';
-import DarkmoonDeckBlockades from './modules/items/bfa/crafted/DarkmoonDeckBlockades';
+import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
+import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
+import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
 // Azerite Traits
-import Gemhide from './modules/spells/bfa/azeritetraits/Gemhide';
-import Gutripper from './modules/spells/bfa/azeritetraits/Gutripper';
-import HeedMyCall from './modules/spells/bfa/azeritetraits/HeedMyCall';
-import LaserMatrix from './modules/spells/bfa/azeritetraits/LaserMatrix';
-import MeticulousScheming from './modules/spells/bfa/azeritetraits/MeticulousScheming';
-import OverWhelmingPower from './modules/spells/bfa/azeritetraits/OverwhelmingPower';
-import ElementalWhirl from './modules/spells/bfa/azeritetraits/ElementalWhirl';
-import BloodRite from './modules/spells/bfa/azeritetraits/BloodRite';
-import ConcentratedMending from './modules/spells/bfa/azeritetraits/ConcentratedMending';
-import BlessedPortents from './modules/spells/bfa/azeritetraits/BlessedPortents';
-import TidalSurge from './modules/spells/bfa/azeritetraits/TidalSurge';
-import SynergisticGrowth from './modules/spells/bfa/azeritetraits/SynergisticGrowth';
+import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
+import Gutripper from '../shared/modules/spells/bfa/azeritetraits/Gutripper';
+import HeedMyCall from '../shared/modules/spells/bfa/azeritetraits/HeedMyCall';
+import LaserMatrix from '../shared/modules/spells/bfa/azeritetraits/LaserMatrix';
+import MeticulousScheming from '../shared/modules/spells/bfa/azeritetraits/MeticulousScheming';
+import OverWhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
+import ElementalWhirl from '../shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
+import BloodRite from '../shared/modules/spells/bfa/azeritetraits/BloodRite';
+import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/ConcentratedMending';
+import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
+import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
 // Uldir
-import TwitchingTentacleofXalzaix from './modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
-import VigilantsBloodshaper from './modules/items/bfa/raids/uldir/VigilantsBloodshaper';
-import InoculatingExtract from './modules/items/bfa/raids/uldir/InoculatingExtract';
-import FreneticCorpuscle from './modules/items/bfa/raids/uldir/FreneticCorpuscle';
-import ConstructOvercharger from './modules/items/bfa/raids/uldir/ConstructOvercharger';
+import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
+import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
+import InoculatingExtract from '../shared/modules/items/bfa/raids/uldir/InoculatingExtract';
+import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticCorpuscle';
+import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -169,6 +172,7 @@ class CombatLogParser {
     // Racials
     arcaneTorrent: ArcaneTorrent,
     mightOfTheMountain: MightOfTheMountain,
+    stoneform: Stoneform,
 
     // Items:
     // BFA
@@ -188,8 +192,11 @@ class CombatLogParser {
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
     // Enchants
-    quickNavigation: QuickNavigation,
+    deadlyNavigation: DeadlyNavigation,
     masterfulNavigation: MasterfulNavigation,
+    quickNavigation: QuickNavigation,
+    stalwartNavigation: StalwartNavigation,
+    versatileNavigation: VersatileNavigation,
 
     // Azerite Traits
     gemhide: Gemhide,
@@ -203,7 +210,6 @@ class CombatLogParser {
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
-    synergisticGrowth: SynergisticGrowth,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -287,42 +293,63 @@ class CombatLogParser {
     });
   }
 
-  // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
+  _getModuleClass(config) {
+    let moduleClass;
+    let options;
+    if (config instanceof Array) {
+      moduleClass = config[0];
+      options = config[1];
+    } else {
+      moduleClass = config;
+      options = {};
+    }
+    return [moduleClass, options];
+  }
+  _resolveDependencies(dependencies) {
+    const availableDependencies = {};
+    const missingDependencies = [];
+    if (dependencies) {
+      Object.keys(dependencies).forEach(desiredDependencyName => {
+        const dependencyClass = dependencies[desiredDependencyName];
+
+        const dependencyModule = this.findModule(dependencyClass);
+        if (dependencyModule) {
+          availableDependencies[desiredDependencyName] = dependencyModule;
+        } else {
+          missingDependencies.push(dependencyClass);
+        }
+      });
+    }
+    return [availableDependencies, missingDependencies];
+  }
+  _loadModule(desiredModuleName, moduleClass, options) {
+    // eslint-disable-next-line new-cap
+    const module = new moduleClass({
+      ...options,
+      owner: this,
+    });
+    if (options) {
+      // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+      // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+      Object.keys(options).forEach(key => {
+        module[key] = options[key];
+      });
+    }
+    this._modules[desiredModuleName] = module;
+  }
   initializeModules(modules, iteration = 0) {
+    // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
         return;
       }
-      let moduleClass;
-      let options;
-      if (moduleConfig instanceof Array) {
-        moduleClass = moduleConfig[0];
-        options = moduleConfig[1];
-      } else {
-        moduleClass = moduleConfig;
-        options = null;
-      }
+      const [moduleClass, options] = this._getModuleClass(moduleConfig);
+      const [availableDependencies, missingDependencies] = this._resolveDependencies(moduleClass.dependencies);
+      const hasMissingDependency = missingDependencies.length === 0;
 
-      // region Resolve dependencies
-      const availableDependencies = {};
-      const missingDependencies = [];
-      if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
-          const dependencyClass = moduleClass.dependencies[desiredDependencyName];
-
-          const dependencyModule = this.findModule(dependencyClass);
-          if (dependencyModule) {
-            availableDependencies[desiredDependencyName] = dependencyModule;
-          } else {
-            missingDependencies.push(dependencyClass);
-          }
-        });
-      }
-      // endregion
-
-      if (missingDependencies.length === 0) {
+      if (hasMissingDependency) {
         if (debugDependencyInjection) {
           if (Object.keys(availableDependencies).length === 0) {
             console.log('Loading', moduleClass.name);
@@ -330,19 +357,13 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        // region Load Module
-        // eslint-disable-next-line new-cap
-        const module = new moduleClass(this, availableDependencies, priority);
-        if (options) {
-          // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-          // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-          Object.keys(options).forEach(key => {
-            module[key] = options[key];
-          });
-        }
-        this._modules[desiredModuleName] = module;
-        // endregion
+        this._loadModule(desiredModuleName, moduleClass, {
+          ...options,
+          ...availableDependencies,
+          priority,
+        });
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);

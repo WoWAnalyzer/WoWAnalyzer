@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
 const DEBUG_ABILITIES = false;
@@ -52,7 +52,7 @@ class BreathOfFire extends Analyzer {
     if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
-      if (DEBUG_ABILITIES) {
+      if (DEBUG_ABILITIES && event.ability.guid !== SPELLS.MELEE.id) {
         console.log('hit w/o bof', event);
       }
       this.hitsWithoutBoF += 1;
@@ -62,7 +62,7 @@ class BreathOfFire extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
           .actual(`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);

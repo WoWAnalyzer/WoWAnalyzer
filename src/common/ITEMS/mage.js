@@ -1,4 +1,4 @@
-import ITEM_QUALITIES from '../ITEM_QUALITIES';
+import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 
 export default {
   // Shared legendaries

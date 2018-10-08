@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';

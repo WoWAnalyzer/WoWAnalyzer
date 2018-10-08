@@ -46,9 +46,9 @@ class FungalEssence extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FUNGAL_ESSENCE_TRAIT.id}
         value={(
-          <React.Fragment>
+          <>
             {formatPercentage(throughputPercent)} %<br />
-          </React.Fragment>
+          </>
         )}
         tooltip={`Fungal essence healing gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}

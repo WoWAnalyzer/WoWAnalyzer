@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer

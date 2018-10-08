@@ -32,7 +32,7 @@ class BoneChilling extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BONE_CHILLING_BUFF.id} /> was up for {formatPercentage(this.uptime)}% of the fight. Bone Chilling is a stacking buff that increases your damage by up to 5%, so it is important that you have the buff up for as much of the fight as possible. If you are unable to maintain this buff, then consider taking a different talent.</React.Fragment>)
+				return suggest(<>Your <SpellLink id={SPELLS.BONE_CHILLING_BUFF.id} /> was up for {formatPercentage(this.uptime)}% of the fight. Bone Chilling is a stacking buff that increases your damage by up to 5%, so it is important that you have the buff up for as much of the fight as possible. If you are unable to maintain this buff, then consider taking a different talent.</>)
 					.icon(SPELLS.BONE_CHILLING_TALENT.icon)
 					.actual(`${formatPercentage(this.uptime)}% Uptime`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

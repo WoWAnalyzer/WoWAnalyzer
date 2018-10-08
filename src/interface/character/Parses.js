@@ -14,9 +14,9 @@ import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
 import ArmoryLogo from 'interface/images/Armory-logo.png';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 
-import ZONES from 'common/ZONES';
+import ZONES from 'game/ZONES';
 import SPECS from 'game/SPECS';
-import DIFFICULTIES from 'common/DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import { captureException } from 'common/errorLogger';

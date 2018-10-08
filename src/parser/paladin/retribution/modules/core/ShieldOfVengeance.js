@@ -4,9 +4,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 
@@ -43,7 +43,7 @@ class ShieldOfVengeance extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters </React.Fragment>)
+      return suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters </>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
         .actual(`${formatPercentage(actual)}% Shield of Vengeance absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

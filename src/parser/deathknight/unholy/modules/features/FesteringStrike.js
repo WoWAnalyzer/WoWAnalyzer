@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
-import Combatants from 'parser/core/modules/Combatants';
+import Enemies from 'parser/shared/modules/Enemies';
+import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class FesteringStrike extends Analyzer {

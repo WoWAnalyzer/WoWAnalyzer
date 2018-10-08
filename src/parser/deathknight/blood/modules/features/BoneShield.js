@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import BoneShieldTimesByStacks from './/BoneShieldTimesByStacks';
 
 

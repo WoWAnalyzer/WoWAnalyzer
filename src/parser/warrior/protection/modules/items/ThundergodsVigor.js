@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatDuration } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -45,9 +45,9 @@ class ThundergodsVigor extends Analyzer {
       item: ITEMS.THUNDERGODS_VIGOR,
       result: (
         <dfn data-tip={`${formatDuration(this.wastedReduction / 1000)} minutes wasted`}>
-          <React.Fragment>
+          <>
             Reduced the cooldown of <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> by {formatDuration(this.effectiveReduction / 1000)} minutes
-          </React.Fragment>
+          </>
         </dfn>
       ),
     };

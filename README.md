@@ -9,14 +9,39 @@
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
 
+## Getting started
+
+**NOTE:** Join our server on [Discord](https://wowanalyzer.com/discord) to have a chat and get any assistance needed.
+
+First make sure you have the following:
+- [git](https://git-scm.com/)
+  - Optional: Get a UI such as [GitHub Desktop](https://desktop.github.com/) or [TortoiseGit](https://tortoisegit.org/)
+- [Node.js](https://nodejs.org/). We recommend the *current* version.
+
+Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your *Clone with HTTPS* URL, and then run the command `git clone <paste link>`. This will take a minute.
+
+When cloning finishes, open a command window to the source and run the command `npm install`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter an **Application Name** (this is required) and copy the **public key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
+
+Once all that's done you're ready to fire up the development server! Just run the command `npm start` in the project root. The first start will take another minute.
+
+<table align="center">
+  <tr>
+    <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
+    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow the above steps, skipping all `npm` commands, and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running. The app will be available at <a href="http://localhost:3000/">http://localhost:3000/</a>.</td>
+  </tr>
+</table>
+
+### Troubleshooting
+
+If you are currently dealing with some path errors (module not found), instead of running `npm start`, run `NODE_PATH=src/ npm run start`.
+
+If you are getting `Error: Invalid key specified`, ensure your key is correct in `.env.local` and restart `npm start` after changing the file so the new value is loaded (.env files are cached).
+
+If you are getting an error about a missing module or library you might have to update your dependencies. Run `npm install` or `docker-compose build dev` if you're using the Docker container. Make sure there's no running `npm start` or `npm test` when you do as they might lock files.
+
 ## Contributing
 
-You don't need to to do anything special to contribute. The real issue preventing specs from being worked out is that in order to make something useful for a spec, you need to have the following 3 properties:
-1. Know the spec well enough to actually create something useful
-2. Know how to program well enough to implement the analysis (or be willing to learn)
-3. Have the time and motivation to actually do it
-
-See the [contributing guidelines](CONTRIBUTING.md) if you want to give it a try.
+See the [contributing guidelines](CONTRIBUTING.md) for further information.
 
 ## Collaboration
 

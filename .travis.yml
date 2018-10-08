@@ -9,22 +9,25 @@ env:
 jobs:
   include:
     - stage: test
+      name: "eslint"
       cache:
         directories:
           - node_modules
       install:
-        - npm install
+        - npm install --dev
       script:
         - npm run lint -- --max-warnings=0
     - stage: test
+      name: "tests"
       cache:
         directories:
           - node_modules
       install:
-        - npm install
+        - npm install --dev
       script:
         - npm run test -- --maxWorkers=2
     - stage: test
+      name: "server tests"
       cache:
         directories:
           - server/node_modules
@@ -42,7 +45,7 @@ jobs:
           - node_modules
           - server/node_modules
       install:
-        - npm install
+        - npm install --dev
         - cd server && npm install --dev && cd ..
       script:
         - echo "> Build server"
