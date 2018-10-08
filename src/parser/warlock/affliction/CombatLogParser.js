@@ -23,6 +23,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import Deathbolt from './modules/talents/Deathbolt';
 import VileTaint from './modules/talents/VileTaint';
 import Haunt from './modules/talents/Haunt';
+import GrimoireOfSacrifice from './modules/talents/GrimoireOfSacrifice';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
 
 import Checklist from './modules/features/Checklist/Module';
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vileTaint: VileTaint,
     soulConduit: SoulConduit,
     haunt: Haunt,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
   };
 }
 

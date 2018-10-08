@@ -8,6 +8,7 @@ import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoulSniping from './DrainSoulSniping';
 import VileTaint from './VileTaint';
+import GrimoireOfSacrifice from './GrimoireOfSacrifice';
 import Haunt from './Haunt';
 import SiphonLifeUptime from './SiphonLifeUptime';
 import SoulConduit from './SoulConduit';
@@ -20,6 +21,7 @@ class TalentStatisticBox extends Analyzer {
     siphonLifeUptime: SiphonLifeUptime,
     vileTaint: VileTaint,
     haunt: Haunt,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
   };
 
