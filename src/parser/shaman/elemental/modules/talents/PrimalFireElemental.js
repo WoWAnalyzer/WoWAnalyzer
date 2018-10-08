@@ -9,16 +9,16 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const damagingCasts = [SPELLS.METEOR.id, SPELLS.IMMOLATE.id, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id];
+const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id];
 
 class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
   PFEcasts = 0;
 
   usedCasts = {
-    meteor: false,
-    immolate: false,
-    fire_blast: false,
+    'Meteor': false,
+    'Immolate': false,
+    'Fire Blast': false,
   };
 
   damageGained = 0;
@@ -31,11 +31,7 @@ class PrimalFireElemental extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.FIRE_ELEMENTAL.id){
-      return;
-    }
 
-    this.PFEcasts+=1;
   }
 
   on_damage(event) {
@@ -43,11 +39,6 @@ class PrimalFireElemental extends Analyzer {
       return;
     }
     this.damageGained+=event.amount;
-
-    if(event.ability.guid !== SPELLS.METEOR.id) {
-      return;
-    }
-    this.meteorCasts+=1;
   }
 
   on_byPlayer_energize(event) {
@@ -59,20 +50,22 @@ class PrimalFireElemental extends Analyzer {
   }
 
   on_cast(event) {
-    if(!damagingCasts.includes(event.ability.guid)){
+    if (event.ability.guid === SPELLS.FIRE_ELEMENTAL.id){
+      this.PFEcasts++;
       return;
     }
 
     if(event.ability.guid===SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id){
-      this.usedCasts.fire_blast=true;
+      this.usedCasts['Fire Blast']=true;
       return;
     }
-    if(event.ability.guid===SPELLS.IMMOLATE.id){
-      this.usedCasts.immolate=true;
+    if(event.ability.guid === SPELLS.FIRE_ELEMENTAL_IMMOLATE.id){
+      this.usedCasts.Immolate=true;
       return;
     }
-    if(event.ability.guid===SPELLS.METEOR.id){
-      this.usedCasts.meteor=true;
+    if(event.ability.guid === SPELLS.FIRE_ELEMENTAL_METEOR.id){
+      this.usedCasts.Meteor=true;
+      this.meteorCasts++;
     }
   }
 
@@ -89,22 +82,24 @@ class PrimalFireElemental extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedSpellsCount = Object.values(this.usedCasts).filter(x=>!x).length;
+    const unusedSpells = Object.keys(this.usedCasts).filter(key => !this.usedCasts[key]);
+    const unusedSpellsString = unusedSpells.join(', ');
+    const unusedSpellsCount = unusedSpells.length;
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are set to autocast and you are using Meteor.</span>)
           .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental`)
+          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental(${unusedSpellsString})`)
           .recommended(`You should be using all spells of your Fire Elemental.`)
-          .regular(recommended+1).major(recommended+2);
+          .major(recommended+1);
       });
     when(this.missedMeteorCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are not using <SpellLink id={SPELLS.METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
+        return suggest(<span>You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> if you are using <SpellLink id={SPELLS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
           .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(`${formatNumber(this.missedMeteorCasts)}`)
-          .recommended(`0 is recommended`)
-          .regular(recommended+1).major(recommended+2);
+          .actual(`${formatNumber(this.missedMeteorCasts)} times not cast Meteor.`)
+          .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
+          .major(recommended+1);
       });
   }
 
@@ -114,7 +109,7 @@ class PrimalFireElemental extends Analyzer {
         icon={<SpellIcon id={SPELLS.FIRE_ELEMENTAL.id} />}
         value={`~ ${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
-        tooltip={`PFE contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
+        tooltip={`PFE contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage) and also generated ${formatNumber(this.maelstromGained)} Maelstrom.`}
       />
     );
   }

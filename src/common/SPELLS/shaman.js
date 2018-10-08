@@ -346,7 +346,7 @@ export default {
     name: 'Call Lightning',
     icon: 'ability_vehicle_electrocharge',
   },
-  METEOR: {
+  FIRE_ELEMENTAL_METEOR: {
     id: 117588,
     name: 'Meteor',
     icon: 'spell_mage_meteor',
@@ -355,6 +355,11 @@ export default {
     id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
+  },
+  FIRE_ELEMENTAL_IMMOLATE: {
+    id: 118297,
+    name: 'Fire Elemental Immolate',
+    icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
   ROCKBITER: {
