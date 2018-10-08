@@ -69,7 +69,7 @@ class BalanceDruidChecklist extends React.PureComponent {
                   <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime
                 </>
               )}
-              thresholds={thresholds.stellarFLareUptime}
+              thresholds={thresholds.stellarFlareUptime}
             />
           )}          
         </Rule>
@@ -100,7 +100,7 @@ class BalanceDruidChecklist extends React.PureComponent {
                   <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes
                 </>
               )}
-              thresholds={thresholds.stellarFLareRefresh}
+              thresholds={thresholds.stellarFlareRefresh}
             />
           )}
         </Rule>
