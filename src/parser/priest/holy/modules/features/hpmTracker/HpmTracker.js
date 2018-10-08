@@ -2,7 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ManaTracker from './ManaTracker';
-import HealingTracker from 'parser/core/modules/AbilityTracker';
+import HealingTracker from 'parser/shared/modules/AbilityTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 
 class HpmTracker extends Analyzer {
