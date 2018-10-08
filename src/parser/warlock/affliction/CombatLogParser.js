@@ -22,6 +22,7 @@ import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import SoulConduit from './modules/talents/SoulConduit';
 import Deathbolt from './modules/talents/Deathbolt';
 import VileTaint from './modules/talents/VileTaint';
+import ShadowEmbrace from './modules/talents/ShadowEmbrace';
 import Haunt from './modules/talents/Haunt';
 import GrimoireOfSacrifice from './modules/talents/GrimoireOfSacrifice';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     siphonLifeUptime: SiphonLifeUptime,
     vileTaint: VileTaint,
     soulConduit: SoulConduit,
+    shadowEmbrace: ShadowEmbrace,
     haunt: Haunt,
     grimoireOfSacrifice: GrimoireOfSacrifice,
   };
