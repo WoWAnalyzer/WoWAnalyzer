@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SpellIcon from 'common/SpellIcon';
 
 class HpmBreakdown extends React.Component {
   static propTypes = {
@@ -7,11 +8,43 @@ class HpmBreakdown extends React.Component {
     showSpenders: PropTypes.bool,
   };
 
+  Table = () => {
+    const { tracker } = this.props;
+
+    const spellDetails = tracker.spellDetails;
+    const spellRows = [];
+    for (let spellId in spellDetails) {
+      spellRows.push(this.SpellRow(spellDetails[spellId]));
+
+    }
+    return spellRows;
+  };
+
+  SpellRow = (spellDetail) => {
+    return (
+      <tr>
+        <td>
+          <SpellIcon id={spellDetail.spell.id} />
+        </td>
+        <th>Casts</th>
+        <th>Hits</th>
+        <th>Total Healing Done</th>
+        <th>% Healing Done</th>
+        <th>Total Damage Done</th>
+        <th>% Damage Done</th>
+        <th>Time Spent Casting</th>
+        <th>% Time Spent Casting</th>
+        <th>Mana Spent</th>
+        <th>% Mana Spent</th>
+        <th>Healing Per Mana Spent</th>
+        <th>Damage Per Mana Spent</th>
+      </tr>
+    );
+  };
+
   render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
-
-    console.log(tracker.spellDetails);
 
     return (
       <div>
@@ -19,15 +52,23 @@ class HpmBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">{resourceName} generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></th>
+              <th>Casts</th>
+              <th>Hits</th>
+              <th>Total Healing Done</th>
+              <th>% Healing Done</th>
+              <th>Total Damage Done</th>
+              <th>% Damage Done</th>
+              <th>Time Spent Casting</th>
+              <th>% Time Spent Casting</th>
+              <th>Mana Spent</th>
+              <th>% Mana Spent</th>
+              <th>Healing Per Mana Spent</th>
+              <th>Damage Per Mana Spent</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Ability</td>
-              <td colSpan="2">{resourceName} generated</td>
-              <td colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></td>
+              <this.Table />
             </tr>
           </tbody>
         </table>
