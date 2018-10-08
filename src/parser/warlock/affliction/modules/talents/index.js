@@ -8,11 +8,13 @@ import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoulSniping from './DrainSoulSniping';
 import Haunt from './Haunt';
+import Nightfall from './Nightfall';
 import SiphonLifeUptime from './SiphonLifeUptime';
 import SoulConduit from './SoulConduit';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
+    nightfall: Nightfall,
     drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,

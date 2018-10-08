@@ -23,6 +23,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import Deathbolt from './modules/talents/Deathbolt';
 import Haunt from './modules/talents/Haunt';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
+import Nightfall from './modules/talents/Nightfall';
 
 import Checklist from './modules/features/Checklist/Module';
 
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     talents: Talents,
+    nightfall: Nightfall,
     drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
