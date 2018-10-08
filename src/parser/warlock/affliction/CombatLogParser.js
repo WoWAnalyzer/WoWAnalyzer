@@ -25,6 +25,7 @@ import Haunt from './modules/talents/Haunt';
 import DrainSoul from './modules/talents/DrainSoul';
 import DrainSoulSniping from './modules/talents/DrainSoulSniping';
 import Nightfall from './modules/talents/Nightfall';
+import PhantomSingularity from './modules/talents/PhantomSingularity';
 
 import Checklist from './modules/features/Checklist/Module';
 
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
+    phantomSingularity: PhantomSingularity,
     soulConduit: SoulConduit,
     haunt: Haunt,
   };

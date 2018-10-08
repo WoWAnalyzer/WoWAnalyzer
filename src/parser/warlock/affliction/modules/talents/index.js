@@ -10,6 +10,7 @@ import DrainSoul from './DrainSoul';
 import DrainSoulSniping from './DrainSoulSniping';
 import Haunt from './Haunt';
 import Nightfall from './Nightfall';
+import PhantomSingularity from './PhantomSingularity';
 import SiphonLifeUptime from './SiphonLifeUptime';
 import SoulConduit from './SoulConduit';
 
@@ -21,6 +22,7 @@ class TalentStatisticBox extends Analyzer {
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
+    phantomSingularity: PhantomSingularity,
     haunt: Haunt,
     soulConduit: SoulConduit,
   };
