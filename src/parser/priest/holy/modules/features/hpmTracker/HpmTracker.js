@@ -17,11 +17,18 @@ class HpmTracker extends Analyzer {
 
     spellInfo.spell = SPELLS[spellId];
     spellInfo.casts = this.healingTracker.getAbility(spellId).casts || 0;
-    spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
-    spellInfo.manaGained = this.manaTracker;
+
+    spellInfo.healingHits = this.healingTracker.getAbility(spellId).healingHits || 0;
     spellInfo.healingDone = this.healingTracker.getAbility(spellId).healingEffective || 0;
     spellInfo.overhealingDone = this.healingTracker.getAbility(spellId).healingOverheal || 0;
     spellInfo.healingAbsorbed = this.healingTracker.getAbility(spellId).healingAbsorbed || 0;
+
+    spellInfo.damageHits = this.healingTracker.getAbility(spellId).damageHits || 0;
+    spellInfo.damageDone = this.healingTracker.getAbility(spellId).damageEffective || 0;
+    spellInfo.damageAbsorbed = this.healingTracker.getAbility(spellId).damageAbsorbed || 0;
+
+    spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
+    spellInfo.manaGained = this.manaTracker;
 
     if (spellId === SPELLS.RENEW.id) {
       return this.getRenewDetails(spellInfo);
