@@ -10,9 +10,9 @@ const T20_4PC_PURIFY = 0.05;
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
 export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
 
-const STAGGER_THRESHOLDS = {
-  HEAVY: 0.6,
-  MODERATE: 0.3,
+const HT_STAGGER_THRESHOLDS = {
+  HEAVY: 0.7,
+  MODERATE: 0.4,
   LIGHT: 0.0,
 };
 
@@ -131,9 +131,9 @@ class StaggerFabricator extends Analyzer {
     const staggerRatio = staggerEvent.newPooledDamage / (sourceEvent.maxHitPoints || this._lastKnownMaxHp);
     if(staggerRatio === 0) {
       currentBuff = null;
-    } else if(staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
+    } else if(staggerRatio < HT_STAGGER_THRESHOLDS.MODERATE) {
       currentBuff = SPELLS.LIGHT_STAGGER_DEBUFF.id;
-    } else if(staggerRatio < STAGGER_THRESHOLDS.HEAVY) {
+    } else if(staggerRatio < HT_STAGGER_THRESHOLDS.HEAVY) {
       currentBuff = SPELLS.MODERATE_STAGGER_DEBUFF.id;
     } else {
       currentBuff = SPELLS.HEAVY_STAGGER_DEBUFF.id;
