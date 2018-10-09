@@ -55,9 +55,9 @@ class FrostMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Used Brain Freeze Procs" thresholds={thresholds.brainFreezeUtilization} tooltip="Your Brain Freeze Utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly." />
-          <Requirement name="Used Fingers of Frost Procs" thresholds={thresholds.fingersOfFrostUtilization} />
-          <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillIceLance} tooltip="Using Brain Freeze will apply the Winter's Chill Debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
+          <Requirement name="Used Brain Freeze procs" thresholds={thresholds.brainFreezeUtilization} tooltip="Your Brain Freeze utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly." />
+          <Requirement name="Used Fingers of Frost procs" thresholds={thresholds.fingersOfFrostUtilization} />
+          <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillIceLance} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
           <Requirement name="Hardcast into Winter's Chill" thresholds={thresholds.wintersChillHardCasts} tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill Debuff and dealing bonus shatter damage." />
           {combatant.hasTrait(SPELLS.WINTERS_REACH_TRAIT.id) && <Requirement name="Winter's Reach Utilization" thresholds={thresholds.wintersReachUtilization} tooltip="The Winter's Reach azerite trait gives you a chance to make your next non instant Flurry deal extra damage (similar to Pyroclasm for Fire Mage). Make sure you are using these procs to get some extra damage or if you are unable to use these buffs effectively, then consider taking a different trait." />}
         </Rule>
@@ -78,7 +78,7 @@ class FrostMageChecklist extends React.PureComponent {
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
-          <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
+          <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
         <Rule
           name="Maintain your buffs"
@@ -88,10 +88,10 @@ class FrostMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />
-          {combatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id) && <Requirement name="Bone Chilling Uptime" thresholds={thresholds.boneChillingUptime} />}
+          <Requirement name="Arcane Intellect uptime" thresholds={thresholds.arcaneIntellectUptime} />
+          {combatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id) && <Requirement name="Bone Chilling uptime" thresholds={thresholds.boneChillingUptime} />}
         </Rule>
-        
+
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );
