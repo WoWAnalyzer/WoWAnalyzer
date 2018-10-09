@@ -15,7 +15,7 @@ class HpmBreakdown extends React.Component {
     this.state = {
       showHealing: true,
       showDamage: false,
-      showPercentages: false,
+      showPercentages: true,
     };
   }
 
@@ -126,7 +126,7 @@ class HpmBreakdown extends React.Component {
             </div>
             <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
               <Toggle
-                defaultChecked={false}
+                defaultChecked
                 icons={false}
                 onChange={event => this.setState({ showPercentages: event.target.checked })}
                 id="percent-toggle"
