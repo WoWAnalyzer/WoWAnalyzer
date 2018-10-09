@@ -5,13 +5,14 @@ import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
+import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
+
+import SPELLS from 'common/SPELLS/index';
 import ManaTracker from './ManaTracker';
 
-class HpmTracker extends Analyzer {
+class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
@@ -143,4 +144,4 @@ class HpmTracker extends Analyzer {
   }
 }
 
-export default HpmTracker;
+export default HolyPriestHealingEfficiencyTracker;

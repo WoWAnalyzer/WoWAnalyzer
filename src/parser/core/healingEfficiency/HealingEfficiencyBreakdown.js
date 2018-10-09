@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
 
-class HpmBreakdown extends React.Component {
+class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
     tracker: PropTypes.object.isRequired,
   };
@@ -187,4 +187,4 @@ class HpmBreakdown extends React.Component {
   }
 }
 
-export default HpmBreakdown;
+export default HealingEfficiencyBreakdown;
