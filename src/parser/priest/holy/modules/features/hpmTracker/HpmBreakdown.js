@@ -55,6 +55,10 @@ class HpmBreakdown extends React.Component {
           <SpellIcon id={spellDetail.spell.id} /> {spellDetail.spell.name}
         </td>
         <td>{spellDetail.casts} ({spellDetail.healingHits + spellDetail.damageHits})</td>
+        <td>
+          {formatNumber(spellDetail.manaSpent)}
+          {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)' : ''}
+        </td>
         {this.state.showHealing &&
         <>
           <td>
@@ -65,7 +69,9 @@ class HpmBreakdown extends React.Component {
             {formatNumber(spellDetail.overhealingDone)}
             {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
           </td>
-          <td>{formatNumber(spellDetail.hpm)}</td>
+          <td>
+            {formatNumber(spellDetail.hpm)}
+          </td>
           <td>{formatNumber(spellDetail.healingPerTimeSpentCasting * 1000)}</td>
         </>
         }
@@ -75,18 +81,12 @@ class HpmBreakdown extends React.Component {
             {formatNumber(spellDetail.damageDone)}
             {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
           </td>
-          <td>{formatNumber(spellDetail.dpm)}</td>
+          <td>
+            {formatNumber(spellDetail.dpm)}
+          </td>
           <td>{formatNumber(spellDetail.damagePerTimeSpentCasting * 1000)}</td>
         </>
         }
-        <td>
-          {formatNumber(spellDetail.manaSpent)}
-          {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)' : ''}
-        </td>
-        <td>
-          {Math.floor(spellDetail.timeSpentCasting / 1000)}s
-          {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentTimeSpentCasting) + '%)' : ''}
-        </td>
       </tr>
     );
   };
@@ -142,6 +142,7 @@ class HpmBreakdown extends React.Component {
                 <tr>
                   <th>Ability</th>
                   <th>Casts</th>
+                  <th>Mana Spent</th>
                   {this.state.showHealing &&
                   <>
                     <th>Healing Done</th>
@@ -150,7 +151,7 @@ class HpmBreakdown extends React.Component {
                       <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
                     </th>
                     <th>
-                      <dfn data-tip={`Healing per second spent casting the spell`}>HPSC</dfn>
+                      <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
                     </th>
                   </>
                   }
@@ -161,12 +162,10 @@ class HpmBreakdown extends React.Component {
                       <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
                     </th>
                     <th>
-                      <dfn data-tip={`Damage per second spent casting the spell`}>DPSC</dfn>
+                      <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
                     </th>
                   </>
                   }
-                  <th>Mana Spent</th>
-                  <th>Time Spent Casting</th>
                 </tr>
               </thead>
               <tbody>
