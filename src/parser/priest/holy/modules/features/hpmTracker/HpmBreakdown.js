@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
+import ReactTooltip from 'react-tooltip';
 
 class HpmBreakdown extends React.Component {
   static propTypes = {
@@ -74,8 +75,13 @@ class HpmBreakdown extends React.Component {
     );
   };
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+  
   render() {
     const { tracker } = this.props;
+
 
     return (
       <div>
