@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Trans, t } from '@lingui/macro';
 
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
+import { i18n } from 'interface/RootLocalizationProvider';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
@@ -46,15 +48,15 @@ class NavigationBar extends React.PureComponent {
             </Link>
           </div>
           {report && (
-            <div className="menu-item" data-tip="Back to fight selection">
+            <div className="menu-item" data-tip={i18n._(t`Back to fight selection`)}>
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
           )}
           {report && fight && (
-            <FightSelectorHeader className="menu-item" data-tip="Change fight" />
+            <FightSelectorHeader className="menu-item" data-tip={i18n._(t`Change fight`)} />
           )}
           {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" data-tip="Change player" />
+            <PlayerSelectorHeader className="menu-item" data-tip={i18n._(t`Change player`)} />
           )}
           <div className="spacer" />
           <div className="menu-item required">
@@ -63,8 +65,8 @@ class NavigationBar extends React.PureComponent {
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>
             ) : (
-              <Link to="/premium" className="premium" data-tip="Premium">
-                <PremiumIcon /> <span className="optional">Premium</span>
+              <Link to="/premium" className="premium" data-tip={i18n._(t`Premium`)}>
+                <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
               </Link>
             )}
           </div>

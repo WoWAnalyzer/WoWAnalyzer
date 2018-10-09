@@ -15,11 +15,12 @@ exports[`PlayerSelectionList does not show combatants with missing specID 1`] = 
         Object {
           "borderRadius": "50%",
           "marginLeft": 10,
-          "marginRight": 10,
+          "marginRight": 5,
           "visibility": "hidden",
         }
       }
     />
+     
     Unparsable due to corrupt combatlog event.
   </h4>
   <ul
@@ -45,7 +46,15 @@ exports[`PlayerSelectionList does not show combatants with missing specID 1`] = 
         to="/report/MY_REPORT_CODE/2-+Test+Fight+-+Kill+(0:00)/11-Zerotorescue"
       >
         Zerotorescue
-         (Error - Spec unknown)
+         (
+        <WithI18n
+          id="Error"
+        />
+         - 
+        <WithI18n
+          id="Spec unknown"
+        />
+        )
       </Link>
     </li>
   </ul>
@@ -61,10 +70,13 @@ exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] 
     }
   }
 >
-  No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with 
-  <b>
-    Advanced Combat Logging
-  </b>
-   enabled. Make sure it is enabled, you can enable this in-game in the network settings.
+  <WithI18n
+    components={
+      Array [
+        <b />,
+      ]
+    }
+    id="No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with <0>Advanced Combat Logging</0> enabled. Make sure it is enabled, you can enable this in-game in the network settings."
+  />
 </div>
 `;

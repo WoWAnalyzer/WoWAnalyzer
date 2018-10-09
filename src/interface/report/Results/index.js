@@ -122,11 +122,20 @@ class Results extends React.PureComponent {
       </div>
     );
   }
+  renderStatisticGroupName(key) {
+    switch (key) {
+      case STATISTIC_CATEGORY.GENERAL: return i18n._(t`Statistics`);
+      case STATISTIC_CATEGORY.TALENTS: return i18n._(t`Talents`);
+      case STATISTIC_CATEGORY.AZERITE_POWERS: return i18n._(t`Azerite Powers`);
+      case STATISTIC_CATEGORY.ITEMS: return i18n._(t`Items`);
+      default: throw new Error(`Unknown category: ${key}`);
+    }
+  }
   renderStatistics(statistics) {
     const parser = this.props.parser;
 
     const groups = statistics.reduce((obj, statistic) => {
-      const category = statistic.props.category || 'Statistics';
+      const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
       obj[category] = obj[category] || [];
       obj[category].push(statistic);
       return obj;
@@ -141,7 +150,7 @@ class Results extends React.PureComponent {
               <StatisticsSectionTitle
                 rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
               >
-                {name}
+                {this.renderStatisticGroupName(name)}
               </StatisticsSectionTitle>
 
               <Masonry className="row statistics">
@@ -172,7 +181,7 @@ class Results extends React.PureComponent {
       ) : (
         <div className="item-divider" style={{ padding: '10px 22px' }}>
           <div className="alert alert-danger">
-            The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+            <Trans>The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.</Trans>
           </div>
         </div>
       )
