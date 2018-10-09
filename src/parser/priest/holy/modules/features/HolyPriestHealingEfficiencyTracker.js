@@ -1,14 +1,15 @@
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Renew from 'parser/priest/holy/modules/spells/Renew';
-import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-
 import SPELLS from 'common/SPELLS/index';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+
+import Abilities from 'parser/priest/holy/modules/Abilities';
+import Renew from 'parser/priest/holy/modules/spells/Renew';
+import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
+import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -18,12 +19,14 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     damageDone: DamageDone,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
+
+    // Custom dependencies
     salvation: HolyWordSalvation,
     castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
 
   getCustomSpellDetails(spellInfo, spellId) {
-
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
       spellInfo = this.getRenewDetails(spellInfo);
@@ -64,44 +67,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingAbsorbed = this.salvation.totalAbsorbed;
 
     return spellInfo;
-  }
-
-  detailsCache;
-  get spellDetails() {
-    if (this.detailsCache === undefined) {
-      this.detailsCache = {
-        [SPELLS.GREATER_HEAL.id]: this.getSpellDetails(SPELLS.GREATER_HEAL.id),
-        [SPELLS.FLASH_HEAL.id]: this.getSpellDetails(SPELLS.FLASH_HEAL.id),
-        [SPELLS.RENEW.id]: this.getSpellDetails(SPELLS.RENEW.id),
-        [SPELLS.PRAYER_OF_MENDING_CAST.id]: this.getSpellDetails(SPELLS.PRAYER_OF_MENDING_CAST.id),
-        [SPELLS.PRAYER_OF_HEALING.id]: this.getSpellDetails(SPELLS.PRAYER_OF_HEALING.id),
-        [SPELLS.GUARDIAN_SPIRIT.id]: this.getSpellDetails(SPELLS.GUARDIAN_SPIRIT.id),
-        [SPELLS.DIVINE_HYMN_CAST.id]: this.getSpellDetails(SPELLS.DIVINE_HYMN_CAST.id),
-        [SPELLS.HOLY_WORD_SERENITY.id]: this.getSpellDetails(SPELLS.HOLY_WORD_SERENITY.id),
-        [SPELLS.HOLY_WORD_SANCTIFY.id]: this.getSpellDetails(SPELLS.HOLY_WORD_SANCTIFY.id),
-        [SPELLS.HOLY_WORD_CHASTISE.id]: this.getSpellDetails(SPELLS.HOLY_WORD_CHASTISE.id),
-        [SPELLS.HOLY_NOVA.id]: this.getSpellDetails(SPELLS.HOLY_NOVA.id),
-        [SPELLS.HOLY_FIRE.id]: this.getSpellDetails(SPELLS.HOLY_FIRE.id),
-        [SPELLS.SHACKLE_UNDEAD.id]: this.getSpellDetails(SPELLS.SHACKLE_UNDEAD.id),
-        [SPELLS.PURIFY.id]: this.getSpellDetails(SPELLS.PURIFY.id),
-        [SPELLS.DISPEL_MAGIC.id]: this.getSpellDetails(SPELLS.DISPEL_MAGIC.id),
-        [SPELLS.MASS_DISPEL.id]: this.getSpellDetails(SPELLS.MASS_DISPEL.id),
-        [SPELLS.LEAP_OF_FAITH.id]: this.getSpellDetails(SPELLS.LEAP_OF_FAITH.id),
-        [SPELLS.PSYCHIC_SCREAM.id]: this.getSpellDetails(SPELLS.PSYCHIC_SCREAM.id),
-        [SPELLS.POWER_WORD_FORTITUDE.id]: this.getSpellDetails(SPELLS.POWER_WORD_FORTITUDE.id),
-        [SPELLS.MIND_VISION.id]: this.getSpellDetails(SPELLS.MIND_VISION.id),
-        [SPELLS.LEVITATE.id]: this.getSpellDetails(SPELLS.LEVITATE.id),
-        [SPELLS.MIND_CONTROL.id]: this.getSpellDetails(SPELLS.MIND_CONTROL.id),
-        [SPELLS.BINDING_HEAL_TALENT.id]: this.getSpellDetails(SPELLS.BINDING_HEAL_TALENT.id),
-        [SPELLS.CIRCLE_OF_HEALING_TALENT.id]: this.getSpellDetails(SPELLS.CIRCLE_OF_HEALING_TALENT.id),
-        [SPELLS.HOLY_WORD_SALVATION_TALENT.id]: this.getSpellDetails(SPELLS.HOLY_WORD_SALVATION_TALENT.id),
-        [SPELLS.HALO_TALENT.id]: this.getSpellDetails(SPELLS.HALO_TALENT.id),
-        [SPELLS.DIVINE_STAR_TALENT.id]: this.getSpellDetails(SPELLS.DIVINE_STAR_TALENT.id),
-        [SPELLS.SHINING_FORCE_TALENT.id]: this.getSpellDetails(SPELLS.SHINING_FORCE_TALENT.id),
-      };
-    }
-
-    return this.detailsCache;
   }
 }
 

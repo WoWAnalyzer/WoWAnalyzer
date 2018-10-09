@@ -6,20 +6,26 @@ import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
 import colorForPerformance from 'parser/shared/modules/features/Checklist2/helpers/colorForPerformance';
 
-const PerformanceBar = (props) => {
-  return (
-    <div className="performance-bar-container">
-      <div
-        className="performance-bar"
-        style={{
-          width: `${props.percent * 100}%`,
-          transition: 'background-color 800ms',
-          backgroundColor: colorForPerformance(props.percent),
-        }}
-      />
-    </div>
-  );
-};
+class PerformanceBar extends React.Component {
+  static propTypes = {
+    percent: PropTypes.number.isRequired,
+  };
+
+  render() {
+    return (
+      <div className="performance-bar-container">
+        <div
+          className="performance-bar"
+          style={{
+            width: `${this.props.percent * 100}%`,
+            transition: 'background-color 800ms',
+            backgroundColor: colorForPerformance(this.props.percent),
+          }}
+        />
+      </div>
+    );
+  }
+}
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -82,7 +88,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     );
   };
 
-  BarHeader = (props) => {
+  BarHeader = () => {
     return (
       <>
         {this.state.showHealing &&
@@ -142,7 +148,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     );
   };
 
-  DetailHeader = (props) => {
+  DetailHeader = () => {
     return (
       <>
         <th>

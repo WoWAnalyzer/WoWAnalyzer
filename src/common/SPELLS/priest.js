@@ -10,13 +10,13 @@ export default {
     id: 132157,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 320,
+    manaCost: 1600,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 800,
+    manaCost: 3000,
   },
   // Discipline Priest:
   GRACE: {
@@ -86,22 +86,25 @@ export default {
     id: 32375,
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
+    manaCost: 8000,
   },
   DISPEL_MAGIC: {
     id: 528,
     name: 'Dispel Magic',
     icon: 'spell_nature_nullifydisease',
+    manaCost: 4000,
   },
   LEAP_OF_FAITH: {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
-    manaCost: 520,
+    manaCost: 2600,
   },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
+    manaCost: 900,
   },
   LIGHTS_WRATH: {
     id: 207946,
@@ -112,6 +115,7 @@ export default {
     id: 605,
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
+    manaCost: 500,
   },
   POWER_WORD_BARRIER_CAST: {
     id: 62618,
@@ -127,11 +131,13 @@ export default {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
+    manaCost: 1300,
   },
   SHACKLE_UNDEAD: {
     id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
+    manaCost: 4000,
   },
   SHADOWFIEND: {
     id: 34433,
@@ -162,6 +168,7 @@ export default {
     id: 8122,
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
+    manaCost: 3000,
   },
   ATONEMENT_HEAL_NON_CRIT: {
     id: 81751,
@@ -362,7 +369,6 @@ export default {
     id: 48153,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-    manaCost: 900,
   },
   DIVINE_HYMN_CAST: {
     id: 64843,
@@ -384,6 +390,7 @@ export default {
     id: 14914,
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
+    manaCost: 1000,
   },
   HOLY_WORD_CHASTISE: {
     id: 88625,
@@ -518,6 +525,7 @@ export default {
     id: 2096,
     name: 'Mind Vision',
     icon: 'spell_holy_mindvision',
+    manaCost: 1000
   },
 
   MIND_SEAR: {

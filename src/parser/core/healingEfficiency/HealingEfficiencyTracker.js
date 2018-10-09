@@ -2,7 +2,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-
+import CoreAbilities from 'parser/shared/modules/Abilities';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
@@ -15,6 +15,7 @@ class HealingEfficiencyTracker extends Analyzer {
     healingDone: HealingDone,
     damageDone: DamageDone,
     castEfficiency: CastEfficiency,
+    abilities: CoreAbilities,
   };
 
   get topHpm() {
@@ -106,6 +107,17 @@ class HealingEfficiencyTracker extends Analyzer {
   get spellDetails() {
     if (this.detailsCache === undefined) {
       this.detailsCache = {};
+
+      for (let index in this.abilities.abilities) {
+        const ability = this.abilities.abilities[index];
+        const abilityDetails = this.abilities;
+        console.log(abilityDetails);
+        if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
+          this.detailsCache[ability.spell.id] = this.getSpellDetails(ability.spell.id);
+        } else {
+          console.log(ability);
+        }
+      }
     }
 
     return this.detailsCache;
