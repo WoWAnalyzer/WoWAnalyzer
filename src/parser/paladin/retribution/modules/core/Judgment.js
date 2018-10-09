@@ -84,6 +84,7 @@ class Judgment extends Analyzer {
     const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
         value={`${formatPercentage(this.percentageJudgmentsConsumed)}%`}
         label="Judgments Consumed"
@@ -95,7 +96,6 @@ class Judgment extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Judgment;
