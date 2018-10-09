@@ -98,10 +98,6 @@ class HpmTracker extends Analyzer {
     return spellInfo;
   }
 
-  getEnduringRenewalValue() {
-
-  }
-
   detailsCache;
   get spellDetails() {
     if (this.detailsCache === undefined) {
