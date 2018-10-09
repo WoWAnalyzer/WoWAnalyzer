@@ -34,8 +34,14 @@ class HpmBreakdown extends React.Component {
         return -1;
       }
       else {
-        return 0;
+        if (a.damageDone < b.damageDone) {
+          return 1;
+        }
+        else if (a.damageDone > b.damageDone) {
+          return -1;
+        }
       }
+      return 0;
     });
 
     const spellRows = detailsArray.map((value => {
@@ -49,6 +55,10 @@ class HpmBreakdown extends React.Component {
   };
 
   SpellRow = (spellDetail) => {
+    const hasHealing = spellDetail.healingDone;
+    const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
+    const hasDamage = spellDetail.damageDone > 0;
+
     return (
       <tr key={spellDetail.spell.id}>
         <td>
@@ -62,29 +72,25 @@ class HpmBreakdown extends React.Component {
         {this.state.showHealing &&
         <>
           <td>
-            {formatNumber(spellDetail.healingDone)}
-            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentHealingDone) + '%)' : ''}
+            {hasHealing ? formatNumber(spellDetail.healingDone) : '-'}
+            {hasHealing && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentHealingDone) + '%)' : ''}
           </td>
           <td>
-            {formatNumber(spellDetail.overhealingDone)}
-            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
+            {hasOverhealing ? formatNumber(spellDetail.overhealingDone) : '-'}
+            {hasOverhealing && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
           </td>
-          <td>
-            {formatNumber(spellDetail.hpm)}
-          </td>
-          <td>{formatNumber(spellDetail.healingPerTimeSpentCasting * 1000)}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.healingPerTimeSpentCasting * 1000) : '-'}</td>
         </>
         }
         {this.state.showDamage &&
         <>
           <td>
-            {formatNumber(spellDetail.damageDone)}
-            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
+            {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
+            {hasDamage && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
           </td>
-          <td>
-            {formatNumber(spellDetail.dpm)}
-          </td>
-          <td>{formatNumber(spellDetail.damagePerTimeSpentCasting * 1000)}</td>
+          <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+          <td>{hasDamage ? formatNumber(spellDetail.damagePerTimeSpentCasting * 1000) : '-'}</td>
         </>
         }
       </tr>
@@ -141,7 +147,9 @@ class HpmBreakdown extends React.Component {
               <thead>
                 <tr>
                   <th>Ability</th>
-                  <th>Casts</th>
+                  <th>
+                    <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
+                  </th>
                   <th>Mana Spent</th>
                   {this.state.showHealing &&
                   <>
