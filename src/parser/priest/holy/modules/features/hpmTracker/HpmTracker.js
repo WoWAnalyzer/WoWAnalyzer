@@ -48,7 +48,7 @@ class HpmTracker extends Analyzer {
       spellInfo = this.getSalvationDetails(spellInfo);
     }
 
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / this.healingDone.total.overheal || 0;
+    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / (spellInfo.healingDone + spellInfo.healingAbsorbed) || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
 
