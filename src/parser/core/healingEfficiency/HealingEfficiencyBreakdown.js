@@ -4,6 +4,22 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
+import colorForPerformance from 'parser/shared/modules/features/Checklist2/helpers/colorForPerformance';
+
+const PerformanceBar = (props) => {
+  return (
+    <div className="performance-bar-container">
+      <div
+        className="performance-bar"
+        style={{
+          width: `${props.percent * 100}%`,
+          transition: 'background-color 800ms',
+          backgroundColor: colorForPerformance(props.percent),
+        }}
+      />
+    </div>
+  );
+};
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -81,7 +97,6 @@ class HealingEfficiencyBreakdown extends React.Component {
         }
         {this.state.showDamage &&
         <>
-          <th>Damage Done</th>
           <th colSpan={2}>
             <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
           </th>
@@ -95,22 +110,29 @@ class HealingEfficiencyBreakdown extends React.Component {
   };
 
   BarView = (props) => {
+    const { tracker } = this.props;
     const { spellDetail } = props;
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
-
+    console.log(tracker);
     return (
       <>
         {this.state.showHealing &&
         <>
           <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td width="200px;"><PerformanceBar percent={spellDetail.hpm / tracker.topHpm} /></td>
+
           <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td width="200px;"><PerformanceBar percent={spellDetail.hpet / tracker.topHpet} /></td>
         </>
         }
         {this.state.showDamage &&
         <>
           <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td width="200px;"><PerformanceBar percent={spellDetail.dpm / tracker.topDpm} /></td>
+
+          <td>{hasHealing ? formatNumber(spellDetail.dpec) : '-'}</td>
+          <td width="200px;"><PerformanceBar percent={spellDetail.dpet / tracker.topDpet} /></td>
         </>
         }
       </>
@@ -175,7 +197,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             {hasOverhealing && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
           </td>
           <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
-          <td>{hasHealing ? formatNumber(spellDetail.healingPerTimeSpentCasting * 1000) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpec * 1000) : '-'}</td>
         </>
         }
         {this.state.showDamage &&
@@ -185,7 +207,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             {hasDamage && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
           </td>
           <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td>{hasDamage ? formatNumber(spellDetail.damagePerTimeSpentCasting * 1000) : '-'}</td>
+          <td>{hasDamage ? formatNumber(spellDetail.dpec * 1000) : '-'}</td>
         </>
         }
       </>

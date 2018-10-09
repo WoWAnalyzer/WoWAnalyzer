@@ -79,7 +79,7 @@ class Requirement extends React.PureComponent {
           <div className="flex-sub content-middle" style={{ width: 50 }}>
             <div className="performance-bar-container">
               <div
-                className="performance-bar small"
+                className="performance-bar"
                 style={{
                   width: `${performance * 100}%`,
                   transition: 'background-color 800ms',

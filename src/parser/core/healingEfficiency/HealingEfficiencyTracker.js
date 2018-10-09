@@ -9,6 +9,46 @@ import SPELLS from 'common/SPELLS/index';
 import ManaTracker from './ManaTracker';
 
 class HealingEfficiencyTracker extends Analyzer {
+  get topHpm() {
+    let top = 0;
+    for (const spellId in this.spellDetails) {
+      if (this.spellDetails[spellId].hpm > top) {
+        top = this.spellDetails[spellId].hpm;
+      }
+    }
+    return top;
+  }
+
+  get topHpet() {
+    let top = 0;
+    for (const spellId in this.spellDetails) {
+      if (this.spellDetails[spellId].hpet > top) {
+        top = this.spellDetails[spellId].hpet;
+      }
+    }
+    return top;
+  }
+
+  get topDpm() {
+    let top = 0;
+    for (const spellId in this.spellDetails) {
+      if (this.spellDetails[spellId].dpm > top) {
+        top = this.spellDetails[spellId].dpm;
+      }
+    }
+    return top;
+  }
+
+  get topDpet() {
+    let top = 0;
+    for (const spellId in this.spellDetails) {
+      if (this.spellDetails[spellId].dpet > top) {
+        top = this.spellDetails[spellId].dpet;
+      }
+    }
+    return top;
+  }
+
   static dependencies = {
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
@@ -47,8 +87,8 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
-    spellInfo.healingPerTimeSpentCasting = spellInfo.healingDone / spellInfo.timeSpentCasting;
-    spellInfo.damagePerTimeSpentCasting = spellInfo.damageDone / spellInfo.timeSpentCasting;
+    spellInfo.hpet = spellInfo.healingDone / spellInfo.timeSpentCasting;
+    spellInfo.dpet = spellInfo.damageDone / spellInfo.timeSpentCasting;
 
     return spellInfo;
   }

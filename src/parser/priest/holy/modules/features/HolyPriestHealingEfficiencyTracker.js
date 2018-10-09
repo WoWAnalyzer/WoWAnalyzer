@@ -12,7 +12,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS/index';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     manaTracker: ManaTracker,
@@ -26,20 +25,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   };
 
   getSpellDetails(spellId) {
-    let spellInfo = {};
-    const ability = this.abilityTracker.getAbility(spellId);
-
-    spellInfo.spell = SPELLS[spellId];
-    spellInfo.casts = ability.casts || 0;
-
-    spellInfo.healingHits = ability.healingHits || 0;
-    spellInfo.healingDone = ability.healingEffective || 0;
-    spellInfo.overhealingDone = ability.healingOverheal || 0;
-    spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
-
-    spellInfo.damageHits = ability.damageHits || 0;
-    spellInfo.damageDone = ability.damageEffective || 0;
-    spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
+    let spellInfo = super.getSpellDetails(spellId);
 
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
