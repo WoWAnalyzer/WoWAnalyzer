@@ -9,6 +9,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ManaTracker from './ManaTracker';
+import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 
 class HpmTracker extends Analyzer {
   static dependencies = {
@@ -18,6 +19,7 @@ class HpmTracker extends Analyzer {
     damageDone: DamageDone,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
+    salvation: HolyWordSalvation,
     castEfficiency: CastEfficiency,
   };
 
@@ -32,22 +34,23 @@ class HpmTracker extends Analyzer {
     spellInfo.healingDone = ability.healingEffective || 0;
     spellInfo.overhealingDone = ability.healingOverheal || 0;
     spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
-    spellInfo.percentOverhealingDone = ability.healingOverheal / this.healingDone.total.overheal || 0;
-    spellInfo.percentHealingDone = ability.healingEffective / this.healingDone.total.regular || 0;
 
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
     spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
-    spellInfo.percentDamageDone = ability.damageEffective / this.damageDone.total.regular || 0;
 
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
       spellInfo = this.getRenewDetails(spellInfo);
     } else if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
       spellInfo = this.getPomDetails(spellInfo);
-    } else if (spellId === SPELLS.HOLY_WORD_SANCTIFY.id) {
-      spellInfo = this.getSanctifyDetails(spellInfo);
+    } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+      spellInfo = this.getSalvationDetails(spellInfo);
     }
+
+    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / this.healingDone.total.overheal || 0;
+    spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
+    spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
 
     spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
@@ -71,7 +74,7 @@ class HpmTracker extends Analyzer {
     spellInfo.healingDone = this.renew.healingFromRenew(this.renew.renewsCast);
     spellInfo.overhealingDone = this.renew.overhealingFromRenew(this.renew.renewsCast);
     spellInfo.healingAbsorbed = this.renew.absorptionFromRenew(this.renew.renewsCast);
-
+    spellInfo.healingHits = (this.renew.renewsCast / this.renew.totalRenewApplications) * this.renew.totalRenewTicks;
     return spellInfo;
   }
 
@@ -82,7 +85,10 @@ class HpmTracker extends Analyzer {
     return spellInfo;
   }
 
-  getSanctifyDetails(spellInfo) {
+  getSalvationDetails(spellInfo) {
+    spellInfo.healingDone = this.salvation.totalHealing;
+    spellInfo.overhealingDone = this.salvation.totalOverHealing;
+    spellInfo.healingAbsorbed = this.salvation.totalAbsorbed;
     return spellInfo;
   }
 
