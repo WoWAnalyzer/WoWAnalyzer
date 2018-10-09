@@ -4,12 +4,12 @@ import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ManaTracker from './ManaTracker';
-import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 
 class HpmTracker extends Analyzer {
   static dependencies = {
@@ -82,6 +82,11 @@ class HpmTracker extends Analyzer {
     // This represents that amount of healing done by HARD CASTING PoM.
     // We don't want PoM to get Hpm credit for healing that we didn't spend mana on.
     // We *do* want PoM to get credit for any renews it leave behind from Benediction.
+    spellInfo.healingDone = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickHeal;
+    spellInfo.overhealingDone = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickOverheal;
+    spellInfo.healingAbsorbed = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickAbsorption;
+    spellInfo.healingHits = this.prayerOfMending.pomTicksFromCast;
+
     return spellInfo;
   }
 
@@ -89,6 +94,7 @@ class HpmTracker extends Analyzer {
     spellInfo.healingDone = this.salvation.totalHealing;
     spellInfo.overhealingDone = this.salvation.totalOverHealing;
     spellInfo.healingAbsorbed = this.salvation.totalAbsorbed;
+
     return spellInfo;
   }
 
