@@ -22,7 +22,7 @@ class HpmTracker extends Analyzer {
   };
 
   getSpellDetails(spellId) {
-    const spellInfo = {};
+    let spellInfo = {};
     const ability = this.abilityTracker.getAbility(spellId);
 
     spellInfo.spell = SPELLS[spellId];
@@ -42,11 +42,11 @@ class HpmTracker extends Analyzer {
 
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
-      return this.getRenewDetails(spellInfo);
+      spellInfo = this.getRenewDetails(spellInfo);
     } else if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
-      return this.getPomDetails(spellInfo);
+      spellInfo = this.getPomDetails(spellInfo);
     } else if (spellId === SPELLS.HOLY_WORD_SANCTIFY.id) {
-      return this.getSanctifyDetails(spellInfo);
+      spellInfo = this.getSanctifyDetails(spellInfo);
     }
 
     spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
