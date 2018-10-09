@@ -14,7 +14,7 @@ class HpmBreakdown extends React.Component {
     super();
     this.state = {
       showHealing: true,
-      showDamage: true,
+      showDamage: false,
       showPercentages: false,
     };
   }
@@ -22,12 +22,29 @@ class HpmBreakdown extends React.Component {
   Table = (props) => {
     const { tracker } = props;
     const spellDetails = tracker.spellDetails;
-    const spellRows = [];
-    for (const spellId in spellDetails) {
-      if (spellDetails[spellId].casts > 0) {
-        spellRows.push(this.SpellRow(spellDetails[spellId]));
+
+    const detailsArray = Object.keys(spellDetails).map(function (key) {
+      return spellDetails[key];
+    });
+    detailsArray.sort((a, b) => {
+      if (a.healingDone < b.healingDone) {
+        return 1;
       }
-    }
+      else if (a.healingDone > b.healingDone) {
+        return -1;
+      }
+      else {
+        return 0;
+      }
+    });
+
+    const spellRows = detailsArray.map((value => {
+      if (value.casts > 0) {
+        return this.SpellRow(value);
+      }
+      return null;
+    }));
+
     return spellRows;
   };
 
@@ -81,14 +98,13 @@ class HpmBreakdown extends React.Component {
   render() {
     const { tracker } = this.props;
 
-
     return (
       <div>
         <div className="row">
           <div className="col-md-12">
-            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
               <Toggle
-                defaultChecked
+                defaultChecked={false}
                 icons={false}
                 onChange={event => this.setState({ showDamage: event.target.checked })}
                 id="damage-toggle"
@@ -97,7 +113,7 @@ class HpmBreakdown extends React.Component {
                 Show Damage
               </label>
             </div>
-            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
               <Toggle
                 defaultChecked
                 icons={false}
@@ -108,7 +124,7 @@ class HpmBreakdown extends React.Component {
                 Show Healing
               </label>
             </div>
-            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
               <Toggle
                 defaultChecked={false}
                 icons={false}
