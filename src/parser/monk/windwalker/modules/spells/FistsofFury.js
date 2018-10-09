@@ -16,7 +16,6 @@ class FistsofFury extends Analyzer {
   previousTickTimestamp = null;
   fistsTickNumber = 0;
   fistsCastNumber = 0;
-  averageTicks = 0;
 
   isNewFistsTick(timestamp) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
@@ -28,8 +27,6 @@ class FistsofFury extends Analyzer {
       return;
     }
     this.fistsCastNumber += 1;
-    // average ticks is calculated here in case you don't hit any ticks during a cast'
-    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
   }
 
   on_byPlayer_damage(event) {
@@ -39,8 +36,12 @@ class FistsofFury extends Analyzer {
     }
     this.fistsTickNumber += 1;
     this.previousTickTimestamp = event.timestamp;
-    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
   }
+
+  get averageTicks() {
+    return this.fistsTickNumber / this.fistsCastNumber;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.averageTicks,

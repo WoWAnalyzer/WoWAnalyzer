@@ -21,10 +21,13 @@ class TouchOfKarma extends Analyzer {
     this.totalPossibleAbsorb += event.maxHitPoints * (this.selectedCombatant.hasTalent(SPELLS.GOOD_KARMA_TALENT.id) ? 1 : 0.5);
   }
 
+  get absorbUsed() {
+    return this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
+  }
+
   get suggestionThresholds() {
-    const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     return {
-      actual: absorbUsed,
+      actual: this.absorbUsed,
       isLessThan: {
         minor: 0.8,
         average: 0.65,
@@ -35,22 +38,20 @@ class TouchOfKarma extends Analyzer {
   }
 
   suggestions(when) {
-    const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </>)
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
-        .actual(`${formatPercentage(absorbUsed)}% Touch of Karma absorb used`)
+        .actual(`${formatPercentage(actual)}% Touch of Karma absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
 
   statistic() {
-    const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.TOUCH_OF_KARMA_CAST.id} />}
-        value={`${formatPercentage(absorbUsed)}%`}
+        value={`${formatPercentage(this.absorbUsed)}%`}
         label="Touch of Karma Absorb used"
         tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
       />

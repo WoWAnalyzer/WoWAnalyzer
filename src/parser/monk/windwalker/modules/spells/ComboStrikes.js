@@ -60,7 +60,7 @@ class ComboStrikes extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row. This directly lowers your overall damage, and if you have <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> talented, you will also drop all stacks of this damage buff.</span>)
           .icon(SPELLS.COMBO_STRIKES.icon)
-          .actual(`${this.masteryDropSpellSequence.length} instances where mastery dropped.`)
+          .actual(`${actual} instances where mastery dropped.`)
           .recommended(`${recommended} times mastery should be dropped`);
       });
   }

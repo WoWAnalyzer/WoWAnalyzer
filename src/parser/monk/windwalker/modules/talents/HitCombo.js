@@ -19,10 +19,13 @@ class HitCombo extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
   }
 
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
-    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
     return {
-      actual: hitComboUptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.98,
         average: 0.95,
@@ -33,24 +36,21 @@ class HitCombo extends Analyzer {
   }
 
   suggestions(when) {
-    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
-
     when(this.suggestionThresholds).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
-          .actual(`${formatPercentage(hitComboUptime)} % uptime`)
+          .actual(`${formatPercentage(actual)} % uptime`)
           .recommended(`>${formatPercentage(recommended)} % is recommended`);
       });
   }
 
   statistic() {
-    const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.HIT_COMBO_TALENT.id} />}
-        value={`${formatPercentage(hitComboUptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         tooltip="Hit Combo Uptime"
       />
     );
