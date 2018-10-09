@@ -10,7 +10,8 @@ import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEffic
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import SPELLS from 'common/SPELLS/index';
-import ManaTracker from './ManaTracker';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {

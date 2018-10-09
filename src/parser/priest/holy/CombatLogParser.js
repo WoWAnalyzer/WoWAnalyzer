@@ -46,7 +46,7 @@ import Sanctum from '../shared/modules/spells/azeritetraits/Sanctum';
 import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
 // Mana Tracker
 import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from '../../core/healingEfficiency/HealingEfficiencyTracker';
+import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
