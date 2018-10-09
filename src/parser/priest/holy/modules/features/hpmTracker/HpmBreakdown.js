@@ -2,43 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-
-const Table = (props) => {
-  const { tracker } = props;
-  const spellDetails = tracker.spellDetails;
-  const spellRows = [];
-  for (let spellId in spellDetails) {
-    if (spellDetails[spellId].casts > 0) {
-      spellRows.push(SpellRow(spellDetails[spellId]));
-    }
-  }
-  return spellRows;
-};
-
-const SpellRow = (spellDetail) => {
-  return (
-    <tr key={spellDetail.spell.id}>
-      <td>
-        <SpellIcon id={spellDetail.spell.id} />
-      </td>
-      <td>{spellDetail.casts}</td>
-      <td>{spellDetail.healingHits}</td>
-      <td>{spellDetail.healingDone}</td>
-      <td>{formatPercentage(spellDetail.percentHealingDone)}</td>
-      <td>{spellDetail.damageHits}</td>
-      <td>{spellDetail.damageDone}</td>
-      <td>{formatPercentage(spellDetail.percentDamageDone)}</td>
-      <td>{spellDetail.manaSpent}</td>
-      <td>{formatPercentage(spellDetail.manaPercentSpent)}</td>
-      <th>{formatNumber(spellDetail.hpm)}</th>
-      <th>{formatNumber(spellDetail.dpm)}</th>
-      <th>{Math.floor(spellDetail.timeSpentCasting / 1000)}s</th>
-      <th>{formatNumber(spellDetail.percentTimeSpentCasting)}</th>
-      <th>Healing Per Time Spent Casting</th>
-      <th>Damage Per Time Spent Casting</th>
-    </tr>
-  );
-};
+import Toggle from 'react-toggle';
 
 class HpmBreakdown extends React.Component {
   static propTypes = {
@@ -46,36 +10,150 @@ class HpmBreakdown extends React.Component {
     showSpenders: PropTypes.bool,
   };
 
+  constructor() {
+    super();
+    this.state = {
+      showHealing: true,
+      showDamage: true,
+      showPercentages: false,
+    };
+  }
+
+  Table = (props) => {
+    const { tracker } = props;
+    const spellDetails = tracker.spellDetails;
+    const spellRows = [];
+    for (let spellId in spellDetails) {
+      if (spellDetails[spellId].casts > 0) {
+        spellRows.push(this.SpellRow(spellDetails[spellId]));
+      }
+    }
+    return spellRows;
+  };
+
+  SpellRow = (spellDetail) => {
+    return (
+      <tr key={spellDetail.spell.id}>
+        <td>
+          <SpellIcon id={spellDetail.spell.id} /> {spellDetail.spell.name}
+        </td>
+        <td>{spellDetail.casts} ({spellDetail.healingHits + spellDetail.damageHits})</td>
+        {this.state.showHealing &&
+        <>
+          <td>
+            {formatNumber(spellDetail.healingDone)}
+            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentHealingDone) + '%)' : ''}
+          </td>
+          <td>
+            {formatNumber(spellDetail.overhealingDone)}
+            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
+          </td>
+          <td>{formatNumber(spellDetail.hpm)}</td>
+          <td>{formatNumber(spellDetail.healingPerTimeSpentCasting * 1000)}</td>
+        </>
+        }
+        {this.state.showDamage &&
+        <>
+          <td>
+            {formatNumber(spellDetail.damageDone)}
+            {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
+          </td>
+          <td>{formatNumber(spellDetail.dpm)}</td>
+          <td>{formatNumber(spellDetail.damagePerTimeSpentCasting * 1000)}</td>
+        </>
+        }
+        <td>
+          {formatNumber(spellDetail.manaSpent)}
+          {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)' : ''}
+        </td>
+        <td>
+          {Math.floor(spellDetail.timeSpentCasting / 1000)}s
+          {this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentTimeSpentCasting) + '%)' : ''}
+        </td>
+      </tr>
+    );
+  };
+
   render() {
-    const { tracker, showSpenders } = this.props;
+    const { tracker } = this.props;
 
     return (
       <div>
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th>Casts</th>
-              <th>Healing Hits</th>
-              <th>Total Healing Done</th>
-              <th>% Healing Done</th>
-              <th>Damage Hits</th>
-              <th>Total Damage Done</th>
-              <th>% Damage Done</th>
-              <th>Mana Spent</th>
-              <th>% Mana Spent</th>
-              <th>Healing Per Mana Spent</th>
-              <th>Damage Per Mana Spent</th>
-              <th>Time Spent Casting</th>
-              <th>% Time Spent Casting</th>
-              <th>Healing Per Time Spent Casting</th>
-              <th>Damage Per Time Spent Casting</th>
-            </tr>
-          </thead>
-          <tbody>
-            <Table tracker={tracker} />
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+              <Toggle
+                defaultChecked={true}
+                icons={false}
+                onChange={event => this.setState({ showDamage: event.target.checked })}
+                id="damage-toggle"
+              />
+              <label htmlFor="damage-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Damage
+              </label>
+            </div>
+            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+              <Toggle
+                defaultChecked={true}
+                icons={false}
+                onChange={event => this.setState({ showHealing: event.target.checked })}
+                id="healing-toggle"
+              />
+              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Healing
+              </label>
+            </div>
+            <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ showPercentages: event.target.checked })}
+                id="percent-toggle"
+              />
+              <label htmlFor="percent-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Percentages
+              </label>
+            </div>
+          </div>
+          <div className="col-md-12">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Ability</th>
+                  <th>Casts</th>
+                  {this.state.showHealing &&
+                  <>
+                    <th>Healing Done</th>
+                    <th>Overhealing</th>
+                    <th>
+                      <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+                    </th>
+                    <th>
+                      <dfn data-tip={`Healing per second spent casting the spell`}>HPSC</dfn>
+                    </th>
+                  </>
+                  }
+                  {this.state.showDamage &&
+                  <>
+                    <th>Damage Done</th>
+                    <th>
+                      <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+                    </th>
+                    <th>
+                      <dfn data-tip={`Damage per second spent casting the spell`}>DPSC</dfn>
+                    </th>
+                  </>
+                  }
+                  <th>Mana Spent</th>
+                  <th>Time Spent Casting</th>
+                </tr>
+              </thead>
+              <tbody>
+                <this.Table tracker={tracker} showHealing={this.state.showHealing} showDamage={this.state.showDamage} />
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }

@@ -29,6 +29,7 @@ class HpmTracker extends Analyzer {
     spellInfo.healingDone = ability.healingEffective || 0;
     spellInfo.overhealingDone = ability.healingOverheal || 0;
     spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
+    spellInfo.percentOverhealingDone = ability.healingOverheal/ this.healingDone.total.overheal || 0;
     spellInfo.percentHealingDone = ability.healingEffective / this.healingDone.total.regular || 0;
 
     spellInfo.damageHits = ability.damageHits || 0;
@@ -45,6 +46,9 @@ class HpmTracker extends Analyzer {
 
     spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
+
+    spellInfo.healingPerTimeSpentCasting = spellInfo.healingDone / spellInfo.timeSpentCasting;
+    spellInfo.damagePerTimeSpentCasting = spellInfo.damageDone / spellInfo.timeSpentCasting;
 
     if (spellId === SPELLS.RENEW.id) {
       return this.getRenewDetails(spellInfo);
