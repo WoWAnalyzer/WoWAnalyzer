@@ -1,12 +1,13 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import ManaTracker from './ManaTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import ManaTracker from './ManaTracker';
 
 class HpmTracker extends Analyzer {
   static dependencies = {

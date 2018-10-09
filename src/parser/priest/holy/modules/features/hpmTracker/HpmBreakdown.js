@@ -8,7 +8,6 @@ import ReactTooltip from 'react-tooltip';
 class HpmBreakdown extends React.Component {
   static propTypes = {
     tracker: PropTypes.object.isRequired,
-    showSpenders: PropTypes.bool,
   };
 
   constructor() {
@@ -24,7 +23,7 @@ class HpmBreakdown extends React.Component {
     const { tracker } = props;
     const spellDetails = tracker.spellDetails;
     const spellRows = [];
-    for (let spellId in spellDetails) {
+    for (const spellId in spellDetails) {
       if (spellDetails[spellId].casts > 0) {
         spellRows.push(this.SpellRow(spellDetails[spellId]));
       }
@@ -78,7 +77,7 @@ class HpmBreakdown extends React.Component {
   componentDidUpdate() {
     ReactTooltip.rebuild();
   }
-  
+
   render() {
     const { tracker } = this.props;
 
@@ -89,7 +88,7 @@ class HpmBreakdown extends React.Component {
           <div className="col-md-12">
             <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
               <Toggle
-                defaultChecked={true}
+                defaultChecked
                 icons={false}
                 onChange={event => this.setState({ showDamage: event.target.checked })}
                 id="damage-toggle"
@@ -100,7 +99,7 @@ class HpmBreakdown extends React.Component {
             </div>
             <div className="toggle-control pull-right" style={{ 'margin-left': '.5em', 'margin-right': '.5em' }}>
               <Toggle
-                defaultChecked={true}
+                defaultChecked
                 icons={false}
                 onChange={event => this.setState({ showHealing: event.target.checked })}
                 id="healing-toggle"

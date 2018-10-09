@@ -119,7 +119,7 @@ class CastEfficiency extends Analyzer {
         casts = cdInfo.casts;
       }
 
-      let averagetimeSpentOnAbility = this._getTimeSpentCasting(ability) / casts;
+      const averagetimeSpentOnAbility = this._getTimeSpentCasting(ability) / casts;
       // If the abilities GCD is longer than the time spent casting, use the GCD
       if (ability.gcd && averagetimeSpentOnAbility < ability.gcd.base) {
         return ability.gcd.base * casts;
