@@ -106,6 +106,38 @@ class CastEfficiency extends Analyzer {
     return timeSpentCasting;
   }
 
+  _getTimeSpentOnGcd(spellId) {
+    const ability = this.abilities.getAbility(spellId);
+
+    if (ability) {
+      const cdInfo = this._getCooldownInfo(ability);
+
+      let casts;
+      if (ability.castEfficiency.casts) {
+        casts = ability.castEfficiency.casts(this.abilityTracker.getAbility(spellId), this.owner);
+      } else {
+        casts = cdInfo.casts;
+      }
+
+      const averagetimeSpentOnAbility = this._getTimeSpentCasting(ability) / casts;
+      // If the abilities GCD is longer than the time spent casting, use the GCD
+      if (ability.gcd && averagetimeSpentOnAbility < ability.gcd.base) {
+        return ability.gcd.base * casts;
+      }
+    }
+    return 0;
+  }
+
+  getTimeSpentCasting(abilityId) {
+    const timeSpentCasting = this._getTimeSpentCasting({ primarySpell: { id: abilityId } });
+    const gcdSpent = this._getTimeSpentOnGcd(abilityId);
+
+    return {
+      timeSpentCasting,
+      gcdSpent,
+    };
+  }
+
   /**
    * Time spent waiting for a GCD that reset the cooldown of the spell to finish
    */

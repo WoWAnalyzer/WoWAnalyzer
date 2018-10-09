@@ -44,6 +44,10 @@ import SacredFlame from './modules/spells/azeritetraits/SacredFlame';
 import WordOfMending from './modules/spells/azeritetraits/WordOfMending';
 import Sanctum from '../shared/modules/spells/azeritetraits/Sanctum';
 import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
+// Mana Tracker
+import HpmDetails from './modules/features/hpmTracker/HpmDetails';
+import HpmTracker from './modules/features/hpmTracker/HpmTracker';
+import ManaTracker from './modules/features/hpmTracker/ManaTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -118,6 +122,11 @@ class CombatLogParser extends CoreCombatLogParser {
     wordOfMending: WordOfMending,
     sanctum: Sanctum,
     twistMagic: TwistMagic,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: HpmDetails,
+    hpmTracker: HpmTracker,
   };
 
   generateResults(...args) {
