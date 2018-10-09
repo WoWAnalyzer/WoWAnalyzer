@@ -43,6 +43,7 @@ class ChiDetails extends Analyzer {
     const chiWasted = this.chiTracker.wasted;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={(
           <img
             src={WastedChiIcon}
@@ -70,7 +71,6 @@ class ChiDetails extends Analyzer {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default ChiDetails;

@@ -64,15 +64,14 @@ class FistsofFury extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
         value={this.averageTicks.toFixed(2)}
-        label={(
-          <>You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast.</>
-        )}
+        label="Average Fists of Fury Ticks"
+        tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default FistsofFury;

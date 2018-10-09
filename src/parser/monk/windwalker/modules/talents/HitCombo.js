@@ -44,23 +44,17 @@ class HitCombo extends Analyzer {
       });
   }
 
-
   statistic() {
     const hitComboUptime = this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
-
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.HIT_COMBO_TALENT.id} />}
         value={`${formatPercentage(hitComboUptime)} %`}
-        label={(
-          <dfn>
-            Hit Combo Uptime
-          </dfn>
-        )}
+        tooltip="Hit Combo Uptime"
       />
-      );
-    }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+    );
+  }
 }
 
 export default HitCombo;

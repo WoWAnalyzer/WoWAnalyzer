@@ -48,14 +48,14 @@ class TouchOfKarma extends Analyzer {
     const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.TOUCH_OF_KARMA_CAST.id} />}
         value={`${formatPercentage(absorbUsed)}%`}
         label="Touch of Karma Absorb used"
         tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
-        />
+      />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default TouchOfKarma;

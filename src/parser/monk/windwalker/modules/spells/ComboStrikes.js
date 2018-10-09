@@ -70,6 +70,7 @@ class ComboStrikes extends Analyzer {
 
     return (
       <ExpandableStatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
         value={`${formatNumber(masteryDropEvents)}`}
         label={(
@@ -110,8 +111,6 @@ class ComboStrikes extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
-
 }
 
 export default ComboStrikes;
