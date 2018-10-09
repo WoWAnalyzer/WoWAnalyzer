@@ -9,6 +9,14 @@ import SPELLS from 'common/SPELLS/index';
 import ManaTracker from './ManaTracker';
 
 class HealingEfficiencyTracker extends Analyzer {
+  static dependencies = {
+    manaTracker: ManaTracker,
+    abilityTracker: AbilityTracker,
+    healingDone: HealingDone,
+    damageDone: DamageDone,
+    castEfficiency: CastEfficiency,
+  };
+
   get topHpm() {
     let top = 0;
     for (const spellId in this.spellDetails) {
@@ -49,14 +57,6 @@ class HealingEfficiencyTracker extends Analyzer {
     return top;
   }
 
-  static dependencies = {
-    manaTracker: ManaTracker,
-    abilityTracker: AbilityTracker,
-    healingDone: HealingDone,
-    damageDone: DamageDone,
-    castEfficiency: CastEfficiency,
-  };
-
   getSpellDetails(spellId) {
     let spellInfo = {};
     const ability = this.abilityTracker.getAbility(spellId);
@@ -72,6 +72,10 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
     spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
+
+    // All of the following information can be derived from the data in SpellInfo.
+    // Now we can add custom logic for spells.
+    spellInfo = this.getCustomSpellDetails(spellInfo, spellId);
 
     spellInfo.percentOverhealingDone = spellInfo.overhealingDone / (spellInfo.healingDone + spellInfo.healingAbsorbed) || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
@@ -90,6 +94,11 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.hpet = spellInfo.healingDone / spellInfo.timeSpentCasting;
     spellInfo.dpet = spellInfo.damageDone / spellInfo.timeSpentCasting;
 
+    return spellInfo;
+  }
+
+  getCustomSpellDetails(spellInfo, spellId) {
+    // Overwrite this function to add specific logic for spells.
     return spellInfo;
   }
 

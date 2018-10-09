@@ -125,7 +125,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpm / tracker.topHpm} /></td>
 
-          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpet) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpet / tracker.topHpet} /></td>
         </>
         }
@@ -134,7 +134,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpm / tracker.topDpm} /></td>
 
-          <td>{hasHealing ? formatNumber(spellDetail.dpec) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.dpet) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpet / tracker.topDpet} /></td>
         </>
         }
@@ -200,7 +200,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             {hasOverhealing && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
           </td>
           <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
-          <td>{hasHealing ? formatNumber(spellDetail.hpec * 1000) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
         </>
         }
         {this.state.showDamage &&
@@ -210,7 +210,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             {hasDamage && this.state.showPercentages ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
           </td>
           <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td>{hasDamage ? formatNumber(spellDetail.dpec * 1000) : '-'}</td>
+          <td>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
         </>
         }
       </>

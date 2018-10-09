@@ -7,8 +7,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 import SPELLS from 'common/SPELLS/index';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
@@ -24,8 +22,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     castEfficiency: CastEfficiency,
   };
 
-  getSpellDetails(spellId) {
-    let spellInfo = super.getSpellDetails(spellId);
+  getCustomSpellDetails(spellInfo, spellId) {
 
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
@@ -35,23 +32,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       spellInfo = this.getSalvationDetails(spellInfo);
     }
-
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / (spellInfo.healingDone + spellInfo.healingAbsorbed) || 0;
-    spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
-    spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
-
-    spellInfo.manaSpent = this.manaTracker.spendersObj[spellId] ? this.manaTracker.spendersObj[spellId].spent : 0;
-    spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
-    spellInfo.manaGained = this.manaTracker;
-
-    spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent;
-    spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent;
-
-    spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
-    spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
-
-    spellInfo.healingPerTimeSpentCasting = spellInfo.healingDone / spellInfo.timeSpentCasting;
-    spellInfo.damagePerTimeSpentCasting = spellInfo.damageDone / spellInfo.timeSpentCasting;
 
     return spellInfo;
   }
@@ -122,12 +102,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     }
 
     return this.detailsCache;
-  }
-
-  constructor(...args) {
-    super(...args);
-    this.resource = RESOURCE_TYPES.MANA;
-    this.maxResource = 100000;
   }
 }
 
