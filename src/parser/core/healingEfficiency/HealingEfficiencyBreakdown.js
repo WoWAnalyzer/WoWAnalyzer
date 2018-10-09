@@ -16,6 +16,7 @@ class HealingEfficiencyBreakdown extends React.Component {
       showHealing: true,
       showDamage: false,
       showPercentages: true,
+      detailedView: false,
     };
   }
 
@@ -55,15 +56,109 @@ class HealingEfficiencyBreakdown extends React.Component {
   };
 
   SpellRow = (spellDetail) => {
-    const hasHealing = spellDetail.healingDone;
-    const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
-    const hasDamage = spellDetail.damageDone > 0;
-
     return (
       <tr key={spellDetail.spell.id}>
         <td>
           <SpellIcon id={spellDetail.spell.id} /> {spellDetail.spell.name}
         </td>
+        {this.state.detailedView ? <this.DetailView spellDetail={spellDetail} /> : <this.BarView spellDetail={spellDetail} />}
+      </tr>
+    );
+  };
+
+  BarHeader = (props) => {
+    return (
+      <>
+        {this.state.showHealing &&
+        <>
+          <th colSpan={2}>
+            <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+          </th>
+          <th colSpan={2}>
+            <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
+          </th>
+        </>
+        }
+        {this.state.showDamage &&
+        <>
+          <th>Damage Done</th>
+          <th colSpan={2}>
+            <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+          </th>
+          <th colSpan={2}>
+            <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
+          </th>
+        </>
+        }
+      </>
+    );
+  };
+
+  BarView = (props) => {
+    const { spellDetail } = props;
+    const hasHealing = spellDetail.healingDone;
+    const hasDamage = spellDetail.damageDone > 0;
+
+    return (
+      <>
+        {this.state.showHealing &&
+        <>
+          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+        </>
+        }
+        {this.state.showDamage &&
+        <>
+          <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+        </>
+        }
+      </>
+    );
+  };
+
+  DetailHeader = (props) => {
+    return (
+      <>
+        <th>
+          <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
+        </th>
+        <th>Mana Spent</th>
+        {this.state.showHealing &&
+        <>
+          <th>Healing Done</th>
+          <th>Overhealing</th>
+          <th>
+            <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+          </th>
+          <th>
+            <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
+          </th>
+        </>
+        }
+        {this.state.showDamage &&
+        <>
+          <th>Damage Done</th>
+          <th>
+            <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+          </th>
+          <th>
+            <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
+          </th>
+        </>
+        }
+      </>
+    );
+  };
+
+  DetailView = (props) => {
+    const { spellDetail } = props;
+    const hasHealing = spellDetail.healingDone;
+    const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
+    const hasDamage = spellDetail.damageDone > 0;
+
+    return (
+      <>
         <td>{spellDetail.casts} ({spellDetail.healingHits + spellDetail.damageHits})</td>
         <td>
           {formatNumber(spellDetail.manaSpent)}
@@ -93,7 +188,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td>{hasDamage ? formatNumber(spellDetail.damagePerTimeSpentCasting * 1000) : '-'}</td>
         </>
         }
-      </tr>
+      </>
     );
   };
 
@@ -141,39 +236,24 @@ class HealingEfficiencyBreakdown extends React.Component {
                 Show Percentages
               </label>
             </div>
+            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ detailedView: event.target.checked })}
+                id="detailed-toggle"
+              />
+              <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
+                Detailed View
+              </label>
+            </div>
           </div>
           <div className="col-md-12">
             <table className="data-table">
               <thead>
                 <tr>
                   <th>Ability</th>
-                  <th>
-                    <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
-                  </th>
-                  <th>Mana Spent</th>
-                  {this.state.showHealing &&
-                  <>
-                    <th>Healing Done</th>
-                    <th>Overhealing</th>
-                    <th>
-                      <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
-                    </th>
-                    <th>
-                      <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
-                    </th>
-                  </>
-                  }
-                  {this.state.showDamage &&
-                  <>
-                    <th>Damage Done</th>
-                    <th>
-                      <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
-                    </th>
-                    <th>
-                      <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
-                    </th>
-                  </>
-                  }
+                  {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
                 </tr>
               </thead>
               <tbody>
