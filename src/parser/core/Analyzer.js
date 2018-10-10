@@ -52,7 +52,7 @@ class Analyzer extends Module {
     // Set is required here to avoid duplicate methods (if a class extends another it might override the same method)
     const methods = new Set();
     // eslint-disable-next-line no-cond-assign
-    while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
+    while ((obj = Object.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
       const keys = Reflect.ownKeys(obj);
       keys.forEach(k => methods.add(k));
     }
