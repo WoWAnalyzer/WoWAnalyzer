@@ -106,6 +106,10 @@ class Ability {
      * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
      */
     isUndetectable: PropTypes.bool,
+    /**
+     * An array of healing effects that this spell cast causes.
+     */
+    healSpellId: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;

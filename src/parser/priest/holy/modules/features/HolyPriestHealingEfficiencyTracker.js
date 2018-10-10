@@ -17,16 +17,16 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
     damageDone: DamageDone,
-    renew: Renew,
-    prayerOfMending: PrayerOfMending,
+    castEfficiency: CastEfficiency,
 
     // Custom dependencies
-    salvation: HolyWordSalvation,
-    castEfficiency: CastEfficiency,
     abilities: Abilities,
+    salvation: HolyWordSalvation,
+    renew: Renew,
+    prayerOfMending: PrayerOfMending,
   };
 
-  getCustomSpellDetails(spellInfo, spellId) {
+  getCustomSpellStats(spellInfo, spellId) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
       spellInfo = this.getRenewDetails(spellInfo);

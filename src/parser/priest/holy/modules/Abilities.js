@@ -16,6 +16,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF.id,
+        healSpellId: [
+          SPELLS.PRAYER_OF_MENDING_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.DESPERATE_PRAYER,
@@ -106,6 +110,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellId: [
+          SPELLS.DIVINE_STAR_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.HALO_TALENT,
@@ -118,6 +125,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellId: [
+          SPELLS.HALO_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.CIRCLE_OF_HEALING_TALENT,
@@ -188,6 +198,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellId: [
+          SPELLS.TWIST_MAGIC_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.HOLY_FIRE,
@@ -235,6 +248,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GUARDIAN_SPIRIT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180, // guardian angel talent can reduce this
+        healSpellId: [
+          SPELLS.GUARDIAN_SPIRIT_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.LEAP_OF_FAITH,
