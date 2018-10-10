@@ -104,12 +104,6 @@ class HealingEfficiencyTracker extends Analyzer {
       topDpet,
     };
   }
-
-  constructor(...args) {
-    super(...args);
-    this.resource = RESOURCE_TYPES.MANA;
-    this.maxResource = 100000;
-  }
 }
 
 export default HealingEfficiencyTracker;
