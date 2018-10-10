@@ -119,19 +119,19 @@ class HealingEfficiencyBreakdown extends React.Component {
       <>
         {this.state.showHealing &&
         <>
-          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
-          <td>{hasHealing ? formatNumber(spellDetail.hpet) : '-'}</td>
+          <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpet) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpet / topHpet} /></td>
         </>
         }
         {this.state.showDamage &&
         <>
-          <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+          <td className={'text-right'}>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
-          <td>{hasHealing ? formatNumber(spellDetail.dpet) : '-'}</td>
+          <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.dpet) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpet / topDpet} /></td>
         </>
         }
