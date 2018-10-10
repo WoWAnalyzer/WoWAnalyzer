@@ -53,6 +53,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellId: [
+          SPELLS.DIVINE_HYMN_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,
