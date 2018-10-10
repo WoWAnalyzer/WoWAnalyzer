@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
+import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
@@ -36,7 +38,7 @@ class FightSelection extends React.PureComponent {
         <div className="row">
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
-              <Link to={makeAnalyzerUrl()} data-tip="Back to home">
+              <Link to={makeAnalyzerUrl()} data-tip={i18n._(t`Back to home`)}>
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
               </Link>
             </div>
@@ -74,7 +76,7 @@ class FightSelection extends React.PureComponent {
     return (
       <>
         {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title} />
+        <DocumentTitle title={fight ? i18n._(t`${getFightName(report, fight)} in ${report.title}`) : report.title} />
 
         {this.props.children(fight)}
       </>

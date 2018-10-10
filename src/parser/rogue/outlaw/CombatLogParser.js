@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
 import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 
@@ -41,6 +42,12 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
     
     //Talents
+
+    // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
+    arcaneTorrent: [ArcaneTorrent, {
+      castEfficiency: 0.5,
+      extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
+    }],
   };
 }
 

@@ -9,6 +9,7 @@ env:
 jobs:
   include:
     - stage: test
+      name: "eslint"
       cache:
         directories:
           - node_modules
@@ -17,6 +18,7 @@ jobs:
       script:
         - npm run lint -- --max-warnings=0
     - stage: test
+      name: "tests"
       cache:
         directories:
           - node_modules
@@ -25,6 +27,7 @@ jobs:
       script:
         - npm run test -- --maxWorkers=2
     - stage: test
+      name: "server tests"
       cache:
         directories:
           - server/node_modules

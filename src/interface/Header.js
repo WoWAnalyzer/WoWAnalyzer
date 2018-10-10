@@ -70,12 +70,11 @@ class Header extends React.PureComponent {
                 </div>
               )}
                 
-              {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
-                {' '}| <a href="https://legion.wowanalyzer.com/">Legion analyzer</a>
-                {' '}| <a href="https://prepatch.wowanalyzer.com/">Prepatch analyzer</a>
+                {' '}| <a href="https://legion.wowanalyzer.com/"><Trans>Legion analyzer</Trans></a>
+                {' '}| <a href="https://prepatch.wowanalyzer.com/"><Trans>Prepatch analyzer</Trans></a>
                 {' '}| <Link to="/premium"><Trans>Premium</Trans></Link>
                 {' '}| <LanguageSwitcher />
               </div>

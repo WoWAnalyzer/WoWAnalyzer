@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { t } from '@lingui/macro';
 
 import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
+import { i18n } from 'interface/RootLocalizationProvider';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { findByBossId } from 'raids';
 
@@ -28,7 +30,7 @@ const FightSelectionPanelListItem = ({ difficulty, name, kill, start_time, end_t
     <div className="flex wrapable" {...others}>
       <div className="flex-sub" style={{ minWidth: 350 }}>
         {boss && boss.headshot && <img src={boss.headshot} style={{ height: '1.8em', borderRadius: 5, marginRight: 10, marginTop: '-0.2em', marginBottom: '-0.2em' }} alt="Boss headshot" />}
-        {DIFFICULTIES[difficulty]} {name} {!kill && `(Wipe ${wipes})`}
+        {DIFFICULTIES[difficulty]} {name} {!kill && `(${i18n._(t`Wipe ${wipes}`)})`}
       </div>
       <div className={`flex-main ${kill ? 'kill' : 'wipe'}`} style={{ whiteSpace: 'nowrap' }}>
         <Icon />

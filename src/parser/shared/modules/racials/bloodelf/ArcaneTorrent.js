@@ -9,6 +9,7 @@ class ArcaneTorrent extends Analyzer {
   };
 
   castEfficiency = 0.8;
+  extraSuggestion = null;
 
   constructor(options) {
     super(options);
@@ -29,6 +30,7 @@ class ArcaneTorrent extends Analyzer {
       castEfficiency: {
         suggestion: this.castEfficiency !== null,
         recommendedEfficiency: this.castEfficiency,
+        extraSuggestion: this.extraSuggestion,
       },
     });
   }
