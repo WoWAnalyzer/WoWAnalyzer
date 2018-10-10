@@ -91,6 +91,7 @@ class HealingEfficiencyBreakdown extends React.Component {
   BarHeader = () => {
     return (
       <>
+        <th>Mana Spent</th>
         {this.state.showHealing &&
         <>
           <th colSpan={2} className={'text-center'}>Healing per mana spent</th>
@@ -117,13 +118,17 @@ class HealingEfficiencyBreakdown extends React.Component {
 
     return (
       <>
+        <td>
+          {formatNumber(spellDetail.manaSpent)}
+          {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
+        </td>
         {this.state.showHealing &&
         <>
           <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
           <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpet) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={spellDetail.hpet / topHpet} /></td>
+          <td width={width + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet) * 1000} /></td>
         </>
         }
         {this.state.showDamage &&
@@ -132,7 +137,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
           <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.dpet) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={spellDetail.dpet / topDpet} /></td>
+          <td width={width + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet) * 1000} /></td>
         </>
         }
       </>
