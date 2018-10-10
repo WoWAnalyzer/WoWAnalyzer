@@ -93,22 +93,14 @@ class HealingEfficiencyBreakdown extends React.Component {
       <>
         {this.state.showHealing &&
         <>
-          <th colSpan={2}>
-            <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
-          </th>
-          <th colSpan={2}>
-            <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
-          </th>
+          <th colSpan={2} className={'text-center'}>Healing per mana spent</th>
+          <th colSpan={2} className={'text-center'}>Healing per second spent casting</th>
         </>
         }
         {this.state.showDamage &&
         <>
-          <th colSpan={2}>
-            <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
-          </th>
-          <th colSpan={2}>
-            <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
-          </th>
+          <th colSpan={2} className={'text-center'}>Damage per mana spent</th>
+          <th colSpan={2} className={'text-center'}>Damage per second spent casting</th>
         </>
         }
       </>
