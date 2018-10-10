@@ -30,10 +30,6 @@ class PrimalFireElemental extends Analyzer {
       && (!this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id));
   }
 
-  on_byPlayer_cast(event) {
-
-  }
-
   on_damage(event) {
     if (!damagingCasts.includes(event.ability.guid)) {
       return;
@@ -50,22 +46,22 @@ class PrimalFireElemental extends Analyzer {
   }
 
   on_cast(event) {
-    if (event.ability.guid === SPELLS.FIRE_ELEMENTAL.id){
-      this.PFEcasts++;
-      return;
-    }
-
-    if(event.ability.guid===SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id){
-      this.usedCasts['Fire Blast']=true;
-      return;
-    }
-    if(event.ability.guid === SPELLS.FIRE_ELEMENTAL_IMMOLATE.id){
-      this.usedCasts.Immolate=true;
-      return;
-    }
-    if(event.ability.guid === SPELLS.FIRE_ELEMENTAL_METEOR.id){
-      this.usedCasts.Meteor=true;
-      this.meteorCasts++;
+    switch(event.ability.guid) {
+      case SPELLS.FIRE_ELEMENTAL.id:
+        this.PFEcasts++;
+        break;
+      case SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id:
+        this.usedCasts['Fire Blast']=true;
+        break;
+      case SPELLS.FIRE_ELEMENTAL_IMMOLATE.id:
+        this.usedCasts.Immolate=true;
+        break;
+      case SPELLS.FIRE_ELEMENTAL_METEOR.id:
+        this.usedCasts.Meteor=true;
+        this.meteorCasts++;
+        break;
+      default:
+        break;
     }
   }
 
@@ -97,7 +93,7 @@ class PrimalFireElemental extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> if you are using <SpellLink id={SPELLS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
           .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(`${formatNumber(this.missedMeteorCasts)} times not cast Meteor.`)
+          .actual(`${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`)
           .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
           .major(recommended+1);
       });
@@ -108,12 +104,12 @@ class PrimalFireElemental extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FIRE_ELEMENTAL.id} />}
         value={`~ ${formatPercentage(this.damagePercent)} %`}
+        position={STATISTIC_ORDER.OPTIONAL()}
         label="Of total damage"
         tooltip={`PFE contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage) and also generated ${formatNumber(this.maelstromGained)} Maelstrom.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default PrimalFireElemental;
