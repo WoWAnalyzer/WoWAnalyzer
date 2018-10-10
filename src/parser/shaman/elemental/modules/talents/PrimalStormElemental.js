@@ -106,13 +106,13 @@ class PrimalStormElemental extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.STORM_ELEMENTAL_TALENT.id} />}
+        position={STATISTIC_ORDER.OPTIONAL()}
         value={`~ ${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Buffed casts contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default PrimalStormElemental;
