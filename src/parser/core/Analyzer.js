@@ -53,7 +53,7 @@ class Analyzer extends Module {
     const methods = new Set();
     // eslint-disable-next-line no-cond-assign
     while ((obj = Object.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
-      const keys = Reflect.ownKeys(obj);
+      const keys = Object.getOwnPropertyNames(obj).concat(Object.getOwnPropertySymbols(obj));
       keys.forEach(k => methods.add(k));
     }
     return methods;
