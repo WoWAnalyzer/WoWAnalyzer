@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-10'),
+    changes: 'New Tab added: "Player Log Data" with exports for the Restoration Shaman Spreadsheet.',
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-09-09'),
     changes: <>Added a spell breakdown for your <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> buff usage.</>,
     contributors: [niseko],
