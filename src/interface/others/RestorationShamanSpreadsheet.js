@@ -42,7 +42,7 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{cpm(SPELLS.HEALING_RAIN_CAST.id)}</td></tr>
               <tr><td>{cpm(SPELLS.HEALING_TIDE_TOTEM_CAST.id)}</td></tr>
               <tr><td>{cpm(SPELLS.SPIRIT_LINK_TOTEM.id)}</td></tr>
-              <tr><td>{cpm(SPELLS.HEALING_STREAM_TOTEM_CAST.id)}</td></tr>
+              <tr><td>{parser.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? cpm(SPELLS.CLOUDBURST_TOTEM_TALENT.id) : cpm(SPELLS.HEALING_STREAM_TOTEM_CAST.id)}</td></tr>
               <tr><td>{cpm(SPELLS.CHAIN_HEAL.id)}</td></tr>
               <tr><td>{parser._modules.spreadsheet.surgingTideProcsPerMinute}</td></tr>
               <tr><td>{(parser._modules.spreadsheet.spoutingSpiritsHits / casts(SPELLS.SPIRIT_LINK_TOTEM.id)).toFixed(2)}</td></tr>
