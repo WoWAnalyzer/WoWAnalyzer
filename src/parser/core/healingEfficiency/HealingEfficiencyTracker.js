@@ -3,7 +3,6 @@ import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CoreAbilities from 'parser/shared/modules/Abilities';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import ManaTracker from './ManaTracker';
