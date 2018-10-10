@@ -525,7 +525,7 @@ export default {
     id: 2096,
     name: 'Mind Vision',
     icon: 'spell_holy_mindvision',
-    manaCost: 1000
+    manaCost: 1000,
   },
 
   MIND_SEAR: {

@@ -18,7 +18,7 @@ class HealingEfficiencyTracker extends Analyzer {
     abilities: CoreAbilities,
   };
 
-  getSpellStats(spellId) {
+  getSpellStats(spellId, healingSpellIds = null) {
     let spellInfo = {};
     const ability = this.abilityTracker.getAbility(spellId);
 
@@ -29,6 +29,17 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.healingDone = ability.healingEffective || 0;
     spellInfo.overhealingDone = ability.healingOverheal || 0;
     spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
+
+    if (healingSpellIds) {
+      for (const healingSpellId in healingSpellIds) {
+        const healingAbility = this.abilityTracker.getAbility(healingSpellId);
+
+        spellInfo.healingHits += healingAbility.healingHits || 0;
+        spellInfo.healingDone += healingAbility.healingEffective || 0;
+        spellInfo.overhealingDone += healingAbility.healingOverheal || 0;
+        spellInfo.healingAbsorbed += healingAbility.healingAbsorbed || 0;
+      }
+    }
 
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
@@ -70,12 +81,12 @@ class HealingEfficiencyTracker extends Analyzer {
     let topHpet = 0;
     let topDpet = 0;
 
-    for (let index in this.abilities.abilities) {
+    for (const index in this.abilities.abilities) {
       const ability = this.abilities.abilities[index];
 
       if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
         if (includeCooldowns || ability.category !== 'Cooldown') {
-          spells[ability.spell.id] = this.getSpellStats(ability.spell.id);
+          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellId);
 
           topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
           topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
