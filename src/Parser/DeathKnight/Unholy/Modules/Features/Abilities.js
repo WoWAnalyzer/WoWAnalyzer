@@ -238,7 +238,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
         gcd: {
           base: 1500,
         },
