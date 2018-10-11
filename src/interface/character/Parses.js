@@ -20,11 +20,12 @@ import DIFFICULTIES from 'game/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import { captureException } from 'common/errorLogger';
+import retryingPromise from 'common/retryingPromise';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
 
-const loadRealms = () => import('common/REALMS').then(exports => exports.default);
+const loadRealms = () => retryingPromise(() => import('common/REALMS').then(exports => exports.default));
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
