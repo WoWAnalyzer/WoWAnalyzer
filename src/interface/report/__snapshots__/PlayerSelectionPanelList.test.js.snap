@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerSelectionList does not show combatants with missing specID 1`] = `
+<div
+  className="card"
+  key="UNKNOWN_ROLE"
+>
+  <h4
+    className="card-title"
+  >
+    <img
+      alt="Role Icon"
+      src="/roles/tank.jpg"
+      style={
+        Object {
+          "borderRadius": "50%",
+          "marginLeft": 10,
+          "marginRight": 5,
+          "visibility": "hidden",
+        }
+      }
+    />
+     
+    Unparsable due to corrupt combatlog event.
+  </h4>
+  <ul
+    className="list selection players item-divider item-divider-top clearfix"
+    style={
+      Object {
+        "border": 0,
+      }
+    }
+  >
+    <li
+      className="item selectable col-md-6"
+      key="11"
+    >
+      <Link
+        onClick={[Function]}
+        replace={false}
+        style={
+          Object {
+            "marginLeft": 47,
+          }
+        }
+        to="/report/MY_REPORT_CODE/2-+Test+Fight+-+Kill+(0:00)/11-Zerotorescue"
+      >
+        Zerotorescue
+         (
+        <WithI18n
+          id="Error"
+        />
+         - 
+        <WithI18n
+          id="Spec unknown"
+        />
+        )
+      </Link>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] = `
+<div
+  className="text-danger"
+  style={
+    Object {
+      "padding": "15px 22px",
+    }
+  }
+>
+  <WithI18n
+    components={
+      Array [
+        <b />,
+      ]
+    }
+    id="No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with <0>Advanced Combat Logging</0> enabled. Make sure it is enabled, you can enable this in-game in the network settings."
+  />
+</div>
+`;
