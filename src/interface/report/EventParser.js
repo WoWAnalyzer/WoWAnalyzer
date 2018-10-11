@@ -9,6 +9,7 @@ import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
+import sleep from 'common/sleep';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { setReportProgress } from 'interface/actions/reportProgress';
@@ -157,7 +158,7 @@ class EventParser extends React.PureComponent {
         const progress = Math.min(1, eventIndex / numEvents);
         this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
         // Delay the next iteration until next frame so the browser doesn't appear to be frozen
-        await this.timeout(0); // eslint-disable-line no-await-in-loop
+        await sleep(0); // eslint-disable-line no-await-in-loop
       }
       timeAvailable && console.timeEnd('player event parsing');
 
@@ -191,7 +192,7 @@ class EventParser extends React.PureComponent {
       const progress = Math.min(1, step * stepInterval / expectedDuration);
       this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress));
       // eslint-disable-next-line no-await-in-loop
-      await this.timeout(stepInterval);
+      await sleep(stepInterval);
       step += 1;
     }
   }
@@ -237,9 +238,6 @@ class EventParser extends React.PureComponent {
     return new Promise((resolve, reject) => {
       this.setState(newState, resolve);
     });
-  }
-  timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   reset() {
