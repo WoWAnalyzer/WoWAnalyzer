@@ -1,11 +1,11 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'Interface/Others/StatisticBox';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_SEC = 10;
