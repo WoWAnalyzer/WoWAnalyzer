@@ -1,21 +1,21 @@
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 
-import OTHERS from './OTHERS';
-import BFA from './BFA';
+import OTHERS from './others';
+import BFA from './bfa';
 
-import DEATH_KNIGHT from './DEATH_KNIGHT';
-import DEMON_HUNTER from './DEMON_HUNTER';
-import DRUID from './DRUID';
-import HUNTER from './HUNTER';
-import MAGE from './MAGE';
-import MONK from './MONK';
-import PALADIN from './PALADIN';
-import PRIEST from './PRIEST';
-import ROGUE from './ROGUE';
-import SHAMAN from './SHAMAN';
-import WARLOCK from './WARLOCK';
-import WARRIOR from './WARRIOR';
+import DEATH_KNIGHT from './deathknight';
+import DEMON_HUNTER from './demonhunter';
+import DRUID from './druid';
+import HUNTER from './hunter';
+import MAGE from './mage';
+import MONK from './monk';
+import PALADIN from './paladin';
+import PRIEST from './priest';
+import ROGUE from './rogue';
+import SHAMAN from './shaman';
+import WARLOCK from './warlock';
+import WARRIOR from './warrior';
 
 export default indexById(
   safeMerge(

@@ -31,6 +31,10 @@ const AZ_SCALE_SECONDARY = -7;
 // semantic meaning that we know of (yet)
 const AZ_SCALE_UNK8 = -8;
 
+// special effect type that always uses secondary scaling regardless of
+// scaling type
+const AZ_TYPE_MODIFY_RATING = 189;
+
 const AZ_SCALE_FUNCTIONS = {
   // this function was given by @Atonement, and has matched
   // everything tested against
@@ -51,15 +55,21 @@ const AZ_SCALE_FUNCTIONS = {
 // azerite trait. Note that *effects that do not scale are not present!*
 //
 // Effects will always be returned in ascending order of effect ID.
-export function calculateAzeriteEffects(spellId, rank) {
+export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
   const spell = AZERITE_SCALING[spellId];
+  const scalingType = scalingTypeOverride ? scalingTypeOverride : spell.scaling_type;
 
-  if(AZ_SCALE_FUNCTIONS[spell.scaling_type] === undefined) {
-    throw Error(`Unknown scaling type: ${spell.scaling_type}`);
+  if(AZ_SCALE_FUNCTIONS[scalingType] === undefined) {
+    throw Error(`Unknown scaling type: ${scalingType}`);
   }
-  const budget = AZ_SCALE_FUNCTIONS[spell.scaling_type](rank);
+  const budget = AZ_SCALE_FUNCTIONS[scalingType](rank);
 
   return spell.effect_list.map(id => spell.effects[id])
     .filter(({avg}) => avg > 0)
-    .map(({avg}) => Math.round(avg * budget));
+    .map(({avg, type}) => {
+      if(type === AZ_TYPE_MODIFY_RATING) {
+        return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_SECONDARY](rank));
+      }
+      return Math.round(avg * budget);
+    });
 }

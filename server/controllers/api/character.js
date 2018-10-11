@@ -49,8 +49,9 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
     const { statusCode, message, response } = error;
     console.log('Error fetching character', statusCode, message);
     const body = response ? response.body : null;
-    if (statusCode !== 404 || !body || !body.includes('Character not found.')) {
-      // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
+    // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
+    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
+    if (!isCharacterNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
     res.status(statusCode || 500);
