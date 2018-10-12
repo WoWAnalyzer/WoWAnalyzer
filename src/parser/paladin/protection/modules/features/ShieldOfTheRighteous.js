@@ -12,7 +12,7 @@ import {findByBossId} from 'raids/index';
 
 const SOTR_DURATION = 4500;
 
-const isGoodCast = cast => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35;
+const isGoodCast = (cast, end_time) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > end_time;
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -30,9 +30,11 @@ class ShieldOfTheRighteous extends Analyzer {
     /*
     {
         castTime: <timestamp>,
-        buffStartTime: <timestamp>, // if extending, when the "new" buff starts
+        buffStartTime: <timestamp>, // if extending, when the "new" buff starts. otherwise just castTime
+        buffEndTime: <timestamp>, // end time of the buff. if the current buff is > 2x SOTR_DURATION then this can be < SOTR_DURATION
         melees: <number>, // melees received while during buff
         tankbusters: <number>, // tankbusters mitigated by buff
+        remainingCharges: <number>, // fractional number of charges remaining *after* cast
      }
      */
   ];
@@ -60,17 +62,29 @@ class ShieldOfTheRighteous extends Analyzer {
     if(event.ability.guid !== SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) {
       return;
     }
+
+    const buffEndTime = Math.min(
+      // if the buff expired before the current event, its just
+      // event.timestamp + SOTR_DURATION ...
+      Math.max(this._buffExpiration, event.timestamp) + SOTR_DURATION, 
+      // ... otherwise limit it to no more than 3x SOTR_DURATION from
+      // now due to buff duration caps
+      event.timestamp + SOTR_DURATION * 3
+    );
+
     const cast = {
       castTime: event.timestamp,
       buffStartTime: Math.max(this._buffExpiration, event.timestamp),
+      buffEndTime: buffEndTime,
       melees: 0,
       tankbusters: 0,
       remainingCharges: this.spellUsable.chargesAvailable(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) + this._partialCharge(),
       _event: event,
     };
 
-    this._buffExpiration = Math.min(Math.max(this._buffExpiration, event.timestamp) + SOTR_DURATION, SOTR_DURATION * 3);
+    this._buffExpiration = buffEndTime;
     
+    this._updateActiveCast(event);
     if(cast.buffStartTime > cast.castTime) {
       this._futureCasts.push(cast);
     } else {
@@ -99,6 +113,11 @@ class ShieldOfTheRighteous extends Analyzer {
     }
   }
 
+  on_finished(event) {
+    this._markupCast(this._activeCast);
+    this._futureCasts.forEach(this._markupCast.bind(this));
+  }
+
   _processPhysicalHit(event) {
     this._updateActiveCast(event);
     if(!this._activeCast) {
@@ -120,24 +139,24 @@ class ShieldOfTheRighteous extends Analyzer {
   // if the buff associated with the current active cast is no longer
   // active, move to the next.
   _updateActiveCast(event) {
-    while(this._activeCast && (this._activeCast.buffStartTime + SOTR_DURATION) < event.timestamp) {
-      this._markupActiveCast();
+    while(this._activeCast && this._activeCast.buffEndTime < event.timestamp) {
+      this._markupCast(this._activeCast);
       this._activeCast = this._futureCasts.shift();
     }
   }
 
-  _markupActiveCast() {
-    if(isGoodCast(this._activeCast)) {
+  _markupCast(cast) {
+    if(isGoodCast(cast, this.owner.fight.end_time)) {
       return;
     }
-    const meta = this._activeCast._event.meta || {};
+    const meta = cast._event.meta || {};
     meta.isInefficientCast = true;
     meta.inefficientCastReason = 'This cast did not block many melee attacks, or block a tankbuster, or prevent you from capping SotR charges.';
-    this._activeCast._event.meta = meta;
+    cast._event.meta = meta;
   }
 
   get goodCasts() {
-    return this._sotrCasts.filter(isGoodCast);
+    return this._sotrCasts.filter(cast => isGoodCast(cast, this.owner.fight.end_time));
   }
 
   get suggestionThresholds() {
