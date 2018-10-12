@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 
-const SPIRIT_WOLF_DAMAGE_REDUCTION = 0.05;
+const SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK = 0.05;
 
 class SpiritWolf extends Analyzer {
   damageReduced = 0;
@@ -24,7 +24,7 @@ class SpiritWolf extends Analyzer {
       return;
     }
     const stacks = this.selectedCombatant.getBuff(SPELLS.SPIRIT_WOLF_BUFF.id).stacks;
-    this.damageReduced += event.amount / (1 - (SPIRIT_WOLF_DAMAGE_REDUCTION * stacks)) * (SPIRIT_WOLF_DAMAGE_REDUCTION * stacks);
+    this.damageReduced += event.amount / (1 - (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks)) * (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks);
   }
 
   get totalDrps() {
