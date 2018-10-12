@@ -51,6 +51,7 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{parser._modules.combatants.playerCount}</td></tr>
               <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
               <tr><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2)}</td></tr>
+              <tr><td>{parser._modules.masteryEffectiveness.masteryEffectivenessPercent.toFixed(2)}</td></tr>
               <tr><td>{parser.selectedCombatant.race ? parser.selectedCombatant.race.name : 'Unknown'}</td></tr>
             </tbody>
           </table>
