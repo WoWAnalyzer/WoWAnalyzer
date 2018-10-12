@@ -4,7 +4,8 @@ import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -69,6 +70,8 @@ class AncestralVigor extends Analyzer {
         value={`≈${this.totalLifeSaved}`}
         label="Lives saved"
         tooltip={tooltip}
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(60)}
       />
     );
   }
