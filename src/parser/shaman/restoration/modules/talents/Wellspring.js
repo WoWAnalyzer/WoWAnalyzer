@@ -24,6 +24,7 @@ class Wellspring extends Analyzer {
   wellspringCasts = [];
   wellspringTimestamps = [];
   castNumber = 0;
+  castEvent = {};
 
   constructor(...args) {
     super(...args);
@@ -35,8 +36,20 @@ class Wellspring extends Analyzer {
       return;
     }
 
+    if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6) {
+      this.registerInefficientCast();
+    }
+
     this.castNumber += 1;
     this.wellspringTimestamps[this.castNumber] = event.timestamp;
+  }
+
+  on_byPlayer_cast(event) {
+    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
+      return;
+    }
+
+    this.castEvent = event;
   }
 
   on_byPlayer_heal(event) {
@@ -64,6 +77,22 @@ class Wellspring extends Analyzer {
     }
     
     this.wellspringCasts[this.castNumber] += 1;
+  }
+
+  on_finished() {
+    if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && !this.castEvent.meta) {
+      this.registerInefficientCast();
+    }
+  }
+
+  registerInefficientCast() {
+    // Avoid breaking the page on pre-combat casts
+    if (!this.castEvent) {
+      return;
+    }
+    this.castEvent.meta = this.castEvent.meta || {};
+    this.castEvent.meta.isInefficientCast = true;
+    this.castEvent.meta.inefficientCastReason = `This Wellspring cast hit less than 6 targets.`;
   }
 
   get averageHitsPerCast() {
@@ -116,8 +145,8 @@ class Wellspring extends Analyzer {
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
-        label="Average Wellspring Targets"
-        value={`${this.averageHitsPerCast.toFixed(2)}`}
+        label="Wellspring target efficiency"
+        value={`${formatPercentage(this.wellspringEfficiency)} %`}
         tooltip={`The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing.`}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(100)}
