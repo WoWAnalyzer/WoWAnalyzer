@@ -21,7 +21,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return 0;
     }
     if (spellId && spellId === SPELLS.WAKE_OF_ASHES_TALENT.id) {
-      return Math.max(gcd / (1 + this.haste.current));
+      return Math.max(gcd / (1 + this.haste.current), MIN_GCD);
     }
     return Math.max(MIN_GCD, gcd);
   }
