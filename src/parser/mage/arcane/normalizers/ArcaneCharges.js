@@ -1,5 +1,12 @@
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import SPELLS from 'common/SPELLS';
+
+const ARCANE_CHARGE_SPELLS = [
+  SPELLS.ARCANE_BLAST.id,
+  SPELLS.CHARGED_UP_TALENT.id,
+  SPELLS.GALVANIZING_SPARK.id,
+];
 
 class ArcaneCharges extends EventsNormalizer {
   /**
@@ -18,7 +25,7 @@ class ArcaneCharges extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'cast') {
+      if (event.type === 'cast' && ARCANE_CHARGE_SPELLS.includes(event.ability.guid)) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
