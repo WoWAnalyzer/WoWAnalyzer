@@ -1,6 +1,5 @@
 language: node_js
-node_js:
-  - 10.12
+node_js: 10.12
 # every second counts
 git:
   depth: 5
@@ -39,6 +38,7 @@ jobs:
         - cd server && npm run test:once -- --maxWorkers=2 && cd ..
     # TODO: Code duplication calculator
     - stage: build
+      language: generic
       services: docker
       script: docker build -f .docker/production/Dockerfile --tag wowanalyzer .
       # Reminder: deploy doesn't run on PRs
