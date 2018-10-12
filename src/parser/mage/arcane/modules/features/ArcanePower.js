@@ -171,15 +171,17 @@ class ArcanePower extends Analyzer {
   }
 
   get requiredChecks() {
-    if (this.hasOverpowered && !this.hasRuneOfPower) {
-      return 1;
-    } else if (!this.hasOverpowered && !this.hasRuneOfPower) {
-      return 2;
-    } else if (this.hasOverpowered && this.hasRuneOfPower) {
-      return 3;
-    } else {
-      return 4;
+    let checks = 1;
+    if (!this.hasOverpowered) {
+      //Also checks mana level if you dont have Overpowered talented
+      checks += 1;
     }
+    if (this.hasRuneOfPower) {
+      //Also checks to see if RoP was delayed or missing if RoP is talented
+      checks += 1;
+    }
+    return checks;
+
   }
 
   get failedChecks() {
