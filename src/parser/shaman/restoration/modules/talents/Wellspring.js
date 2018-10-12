@@ -90,8 +90,8 @@ class Wellspring extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</span>)
           .icon(SPELLS.WELLSPRING_TALENT.icon)
-          .actual(`${suggestionThreshold.actual.toFixed(2)}% efficiency`)
-          .recommended(`${suggestionThreshold.isLessThan.minor}% efficiency`)
+          .actual(`${formatPercentage(suggestionThreshold.actual)}% efficiency`)
+          .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
           .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average);
       });
   }
