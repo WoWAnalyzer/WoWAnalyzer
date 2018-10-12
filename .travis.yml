@@ -40,10 +40,6 @@ jobs:
     # TODO: Code duplication calculator
     - stage: build
       services: docker
-      cache:
-        directories:
-          - node_modules
-          - server/node_modules
       script: docker build -f .docker/production/Dockerfile --tag wowanalyzer .
       # Reminder: deploy doesn't run on PRs
       deploy:
