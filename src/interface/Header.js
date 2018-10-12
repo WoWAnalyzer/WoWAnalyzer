@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import retryingPromise from 'common/retryingPromise';
 import { hasPremium } from 'interface/selectors/user';
 import Ad from 'interface/common/Ad';
 import makeNewsUrl from 'interface/news/makeUrl';
@@ -16,7 +17,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 import './Header.css';
 
-const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
 class Header extends React.PureComponent {
   static propTypes = {

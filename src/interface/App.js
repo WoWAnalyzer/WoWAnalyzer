@@ -8,6 +8,7 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'interface/common/TooltipProvider/index';
 import { track } from 'common/analytics';
+import retryingPromise from 'common/retryingPromise';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
@@ -28,8 +29,8 @@ import './App.css';
 
 import Header from './Header';
 
-const ContributorPage = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default));
-const CharacterParsesPage = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default));
+const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
+const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
