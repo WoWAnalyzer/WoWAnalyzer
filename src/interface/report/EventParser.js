@@ -15,7 +15,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { setReportProgress } from 'interface/actions/reportProgress';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 
-import Odyn from './Results/images/odyn.jpg';
+import Ghuun from './images/Ghuun.gif';
 import handleApiError from './handleApiError';
 import './EventParser.css';
 
@@ -277,7 +277,7 @@ class EventParser extends React.PureComponent {
       <div className="event-parser-loading-text">
         <Trans>Loading...</Trans><br /><br />
 
-        <img src={Odyn} alt="Odyn" style={{ maxWidth: 300 }} />
+        <img src={Ghuun} alt="Ghuun" style={{ transform: 'scaleX(-1)' }} />
       </div>
     );
   }
@@ -287,9 +287,9 @@ class EventParser extends React.PureComponent {
       return this.renderError(error);
     }
 
-    if (!this.state.finished) {
+    // if (!this.state.finished) {
       return this.renderLoading();
-    }
+    // }
 
     return this.props.children(this.state.parser);
   }
