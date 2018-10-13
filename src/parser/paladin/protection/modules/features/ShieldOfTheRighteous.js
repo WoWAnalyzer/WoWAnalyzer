@@ -114,7 +114,9 @@ class ShieldOfTheRighteous extends Analyzer {
   }
 
   on_finished(event) {
-    this._markupCast(this._activeCast);
+    if(this._activeCast) {
+      this._markupCast(this._activeCast);
+    }
     this._futureCasts.forEach(this._markupCast.bind(this));
   }
 
