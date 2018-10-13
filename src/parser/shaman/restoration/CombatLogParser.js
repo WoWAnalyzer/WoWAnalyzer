@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Tab from 'interface/others/Tab';
+import RestorationShamanSpreadsheet from 'interface/others/RestorationShamanSpreadsheet';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -10,6 +11,7 @@ import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import ShamanAbilityTracker from './modules/core/ShamanAbilityTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
+import Spreadsheet from './modules/core/Spreadsheet';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -61,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
+    spreadsheet: Spreadsheet,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -110,6 +113,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+            <RestorationShamanSpreadsheet parser={this} />
+          </Tab>
+        ),
+      },
       {
         title: 'Feeding',
         url: 'feeding',
