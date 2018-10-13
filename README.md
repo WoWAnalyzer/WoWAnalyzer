@@ -9,9 +9,13 @@
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
 
-## Getting started
+## New to Open Source?
 
-**NOTE:** Join our server on [Discord](https://wowanalyzer.com/discord) to have a chat and get any assistance needed.
+This guide is an excellent introduction and explains all the jargon we may use: https://medium.com/clarifai-champions/99-pr-oblems-a-beginners-guide-to-open-source-abc1b867385a
+
+If you ever get stuck or want to have a chat, join us on our [Discord](https://wowanalyzer.com/discord) server. We love to hear what you're (going to be) working on!
+
+## Getting started
 
 First make sure you have the following:
 - [git](https://git-scm.com/)
