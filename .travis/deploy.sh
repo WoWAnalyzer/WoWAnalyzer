@@ -1,4 +1,4 @@
-export REPO=martijnhols/wowanalyzer;
+export REPO=wowanalyzer/wowanalyzer;
 export BUILD_TAG="build-$TRAVIS_BUILD_NUMBER";
 export DEPLOY_TAG=$(
   if [ "$TRAVIS_BRANCH" == "master" ]; then
