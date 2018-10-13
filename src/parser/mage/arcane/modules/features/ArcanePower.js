@@ -69,6 +69,10 @@ class ArcanePower extends Analyzer {
       const currentManaPercent = event.classResources[0].amount / event.classResources[0].max;
       this.arcanePowerCasted = true;
 
+      if (this.arcaneChargeTracker.charges < 4 || (this.hasRuneOfPower && event.timestamp - this.runeTimestamp > 200) || (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD)) {
+        this.badUses += 1;
+      }
+
       if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_POWER.id)) {
         this.buffEndTimestamp = event.timestamp + 10000;
         debug && this.log('Arcane Power Cast During Arcane Power Proc');
@@ -247,7 +251,13 @@ class ArcanePower extends Analyzer {
   suggestions(when) {
     when(this.cooldownSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> with less than 4 Arcane Charges {this.lowChargesCast} times and with low mana {this.lowManaCast} times. {this.hasRuneOfPower ? 'Additionally, you cast Arcane Power without Rune of Power ' + this.noRuneCast + ' times and delayed Arcane Power after Rune of Power ' + this.delayedRuneCast + ' times.' : ''} It is very important that you do not cast Arcane Power unless you have 4 Arcane Charges, have over 40% Mana (Unless talented into <SpellLink id={SPELLS.OVERPOWERED_TALENT.id} />), and <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> was cast immediately before Arcane Power (if talented into Rune of Power).</>)
+        return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without meeting all of the pre-requisites {this.badUses} times. Arcane Power has a short duration so it is important that you meet all of the following pre-requisites before casting Arcane Power to ensure you get the most out of it. If the necessary abilities are not available or you dont have enough resources, consider modifying your rotation to ensure that these requirements are met before Arcane Power comes off cooldown.
+        <ul>
+          <li>You have 4 Arcane Charges - Failed {this.lowChargesCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
+          {this.hasRuneOfPower ? <li>You cast Rune of Power <dfn data-tip={`Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.`}>immediately</dfn> before Arcane Power - Failed {this.delayedRuneCast + this.noRuneCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
+          {!this.hasOverpowered ? <li>You have more than 40% mana - Failed {this.lowManaCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}  
+        </ul>
+        </>)
           .icon(SPELLS.ARCANE_POWER.icon)
           .actual(`${formatPercentage(this.cooldownUtilization)}% Utilization`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
