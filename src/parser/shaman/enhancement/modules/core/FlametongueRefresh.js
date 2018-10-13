@@ -10,6 +10,7 @@ class FlametongueRefresh extends Analyzer {
   flametongueCasts = 0;
   earlyRefresh = 0;
   refreshPercentageCast = 0;
+  hasSearingAssaultTalent = this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
 
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.FLAMETONGUE.id) {
@@ -26,7 +27,7 @@ class FlametongueRefresh extends Analyzer {
   }
 
   on_byPlayer_refreshbuff(event) {
-    if(event.ability.guid === SPELLS.FLAMETONGUE_BUFF.id) {
+    if(!this.hasSearingAssaultTalent && event.ability.guid === SPELLS.FLAMETONGUE_BUFF.id) {
       if(this.flametongueTimestamp !== 0) {
         if(event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
           this.earlyRefresh += 1;
