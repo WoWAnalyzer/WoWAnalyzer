@@ -287,9 +287,9 @@ class EventParser extends React.PureComponent {
       return this.renderError(error);
     }
 
-    // if (!this.state.finished) {
+    if (!this.state.finished) {
       return this.renderLoading();
-    // }
+    }
 
     return this.props.children(this.state.parser);
   }
