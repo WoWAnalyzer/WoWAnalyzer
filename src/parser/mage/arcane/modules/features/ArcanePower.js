@@ -251,10 +251,10 @@ class ArcanePower extends Analyzer {
   suggestions(when) {
     when(this.cooldownSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without meeting all of the pre-requisites {this.badUses} times. Arcane Power has a short duration so it is important that you meet all of the following pre-requisites before casting Arcane Power to ensure you get the most out of it. If the necessary abilities are not available or you dont have enough resources, consider modifying your rotation to ensure that these requirements are met before Arcane Power comes off cooldown.
+        return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without properly setting up for it {this.badUses} times. Arcane Power has a short duration so it is important that you get the most out of it by ensuring you meet all of the below requirements before casting Arcane Power.
         <ul>
-          <li>You have 4 Arcane Charges - Failed {this.lowChargesCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
-          {this.hasRuneOfPower ? <li>You cast Rune of Power <dfn data-tip={`Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.`}>immediately</dfn> before Arcane Power - Failed {this.delayedRuneCast + this.noRuneCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
+          <li>You have 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - Failed {this.lowChargesCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
+          {this.hasRuneOfPower ? <li>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> <dfn data-tip={`Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.`}>immediately</dfn> before Arcane Power - Failed {this.delayedRuneCast + this.noRuneCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
           {!this.hasOverpowered ? <li>You have more than 40% mana - Failed {this.lowManaCast} of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}  
         </ul>
         </>)
