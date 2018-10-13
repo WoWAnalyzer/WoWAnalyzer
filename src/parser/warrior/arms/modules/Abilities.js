@@ -299,9 +299,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
         gcd: null,
-        castEfficiency: {
-          disabled: true,
-        },
       },
     ];
   }
