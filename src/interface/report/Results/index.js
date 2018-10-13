@@ -13,6 +13,7 @@ import ArmorIcon from 'interface/icons/Armor';
 import StatisticsIcon from 'interface/icons/Statistics';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
@@ -31,8 +32,8 @@ import StatisticsSectionTitle from './StatisticsSectionTitle';
 import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
 
-const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default));
-const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default));
+const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
+const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
 
 const MAIN_TAB = {
   CHECKLIST: 'CHECKLIST',
