@@ -44,6 +44,7 @@ import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
 // Shared
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resurgence: Resurgence,
 
     // Shared:
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
 
     // Normalizers:
