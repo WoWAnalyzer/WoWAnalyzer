@@ -34,8 +34,8 @@ COPY --from=server /usr/src/app/node_modules/ /usr/src/app/node_modules/
 WORKDIR /usr/src/app/
 
 ENV NODE_ENV=production
-ENV PORT=80
-EXPOSE 80
+ENV PORT=3000
+EXPOSE 3000
 USER node
 
 CMD node_modules/.bin/sequelize db:migrate && node --harmony index.js
