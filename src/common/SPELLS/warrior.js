@@ -28,7 +28,7 @@ export default {
     icon: 'ability_warrior_savageblow',
   },
   EXECUTE: {
-    id: 163201,
+    id: 281000,
     name: 'Execute',
     icon: 'inv_sword_48',
   },
@@ -78,7 +78,7 @@ export default {
     name: 'Charge',
     icon: 'ability_warrior_charge',
   },
-  CHARGE_DAMAGE: {
+  CHARGE_2: {
     id: 126664,
     name: 'Charge',
     icon: 'ability_warrior_charge',
@@ -229,7 +229,7 @@ export default {
     name: 'Piercing Howl',
     icon: 'spell_shadow_deathscream',
   },
-  HEROIC_LEAP_FURY: {
+  HEROIC_LEAP: {
     id: 52174,
     name: 'Heroic Leap',
     icon: 'ability_heroicleap',
@@ -403,11 +403,6 @@ export default {
     icon: 'ability_warrior_shieldreflection',
   },
   //Utility Spells
-  HEROIC_LEAP: {
-    id: 6544,
-    name: 'Heroic Leap',
-    icon: 'ability_heroicleap',
-  },
   HEROIC_THROW: {
     id: 57755,
     name: 'Heroic Throw',

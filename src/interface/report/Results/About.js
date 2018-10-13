@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans, Plural } from '@lingui/macro';
 
 import isLatestPatch from 'game/isLatestPatch';
 import ReadableList from 'interface/common/ReadableList';
@@ -27,14 +28,18 @@ class About extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <h2>About {spec.specName} {spec.className}</h2>
+          <h2><Trans>About {spec.specName} {spec.className}</Trans></h2>
         </div>
         <div className="panel-body">
           {description}
 
           <div className="row" style={{ marginTop: '1em' }}>
             <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-              Contributor{contributors.length > 1 && 's'}
+              <Plural
+                value={contributors.length}
+                one="Contributor"
+                other="Contributors"
+              />
             </div>
             <div className="col-lg-8">
               <ReadableList>
@@ -44,7 +49,7 @@ class About extends React.PureComponent {
           </div>
           <div className="row" style={{ marginTop: '0.5em' }}>
             <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-              Updated for patch
+              <Trans>Updated for patch</Trans>
             </div>
             <div className="col-lg-8">
               {patchCompatibility}
@@ -52,7 +57,7 @@ class About extends React.PureComponent {
           </div>
           {!isLatestPatch(patchCompatibility) && (
             <Warning style={{ marginTop: '1em' }}>
-              The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.
+              <Trans>The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.</Trans>
             </Warning>
           )}
         </div>

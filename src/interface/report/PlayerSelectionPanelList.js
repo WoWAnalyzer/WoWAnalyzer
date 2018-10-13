@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { Trans, t, plural } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import SpecIcon from 'common/SpecIcon';
+import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 
@@ -48,28 +50,42 @@ export class PlayerSelectionPanelList extends React.PureComponent {
     let styles = {
       borderRadius: '50%',
       marginLeft: 10,
-      marginRight: 10,
+      marginRight: 5,
     };
     switch (Number(roleID)) {
       case ROLES.TANK:
         icon = 'tank';
-        header = numFriendlies === 1 ? 'Tank' : 'Tanks';
+        header = i18n._(plural({
+          value: numFriendlies,
+          one: 'Tank',
+          other: 'Tanks',
+        }));
         break;
       case ROLES.HEALER:
         icon = 'healer';
-        header = numFriendlies === 1 ? 'Healer' : 'Healers';
+        header = i18n._(plural({
+          value: numFriendlies,
+          one: 'Healer',
+          other: 'Healers',
+        }));
         break;
       case ROLES.DPS.MELEE:
         icon = 'dps';
-        header = 'Melee DPS';
+        header = i18n._(plural({
+          value: numFriendlies,
+          other: 'Melee DPS',
+        }));
         break;
       case ROLES.DPS.RANGED:
         icon = 'dps.ranged';
-        header = 'Ranged DPS';
+        header = i18n._(plural({
+          value: numFriendlies,
+          other: 'Ranged DPS',
+        }));
         break;
       default: // Use a non-visible image for correct spacing
         icon = 'tank';
-        header = 'Unparsable due to corrupt combatlog event.';
+        header = i18n._(t`Unparsable due to corrupt combatlog event.`);
         styles = {
           ...styles,
           visibility: 'hidden',
@@ -79,7 +95,7 @@ export class PlayerSelectionPanelList extends React.PureComponent {
 
     return (
       <h4 className="card-title">
-        <img src={`/roles/${icon}.jpg`} alt="Role Icon" style={styles} />{header}
+        <img src={`/roles/${icon}.jpg`} alt="Role Icon" style={styles} /> {header}
       </h4>
     );
   }
@@ -95,10 +111,10 @@ export class PlayerSelectionPanelList extends React.PureComponent {
           style={{ marginLeft: 47 }}
           onClick={e => {
             e.preventDefault();
-            alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
+            alert(i18n._(t`The combatlog did not give us any information about this player. This player can not be analyzed.`));
           }}
         >
-          {friendly.name} (Error - Spec unknown)
+          {friendly.name} (<Trans>Error</Trans> - <Trans>Spec unknown</Trans>)
         </Link>
       );
     } else {
@@ -114,12 +130,12 @@ export class PlayerSelectionPanelList extends React.PureComponent {
     const { report, fight, combatants } = this.props;
 
     if (!combatants) {
-      return <ActivityIndicator text="Fetching players..." />;
+      return <ActivityIndicator text={i18n._(t`Fetching players...`)} />;
     }
     if (combatants.length === 0) {
       return (
         <div className="text-danger" style={{ padding: '15px 22px' }}>
-          No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with <b>Advanced Combat Logging</b> enabled. Make sure it is enabled, you can enable this in-game in the network settings.
+          <Trans>No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with <b>Advanced Combat Logging</b> enabled. Make sure it is enabled, you can enable this in-game in the network settings.</Trans>
         </div>
       );
     }
