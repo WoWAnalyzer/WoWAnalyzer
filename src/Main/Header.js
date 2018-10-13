@@ -73,7 +73,7 @@ class Header extends React.PureComponent {
               )}
 
               <div style={{ fontSize: '1.2em', fontWeight: 600, marginTop: 5 }} className={`alert alert-info`}>
-                Welcome to the WoWAnalyzer for Legion. <a href="https://bfa.wowanalyzer.com">Click here</a> to switch to the BFA version.
+                Welcome to the WoWAnalyzer for Legion. <a href="https://wowanalyzer.com">Click here</a> to switch to today's version.
               </div>
                 
               {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
