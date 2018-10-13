@@ -29,11 +29,13 @@ RUN npm prune --production
 FROM node:10.12-alpine
 
 COPY --from=app /usr/src/app/build/ /usr/src/app/build/
-COPY --from=server /usr/src/app/build/ /usr/src/app/server/
-WORKDIR /usr/src/app/server/
+COPY --from=server /usr/src/app/build/ /usr/src/app/
+COPY --from=server /usr/src/app/node_modules/ /usr/src/app/node_modules/
+WORKDIR /usr/src/app/
 
 ENV NODE_ENV=production
-EXPOSE 3000
+ENV PORT=80
+EXPOSE 80
 USER node
 
-CMD npm run serve
+CMD node_modules/.bin/sequelize db:migrate && node --harmony index.js
