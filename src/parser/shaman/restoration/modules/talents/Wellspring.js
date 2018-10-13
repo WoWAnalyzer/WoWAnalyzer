@@ -3,7 +3,7 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -141,6 +141,7 @@ class Wellspring extends Analyzer {
     if (isNaN(this.averageHitsPerCast)) {
       return false;
     }
+    const nth = (number) => ["st","nd","rd"][((number+90)%100-10)%10-1]||"th";
 
     return (
       <ExpandableStatisticBox
@@ -156,16 +157,16 @@ class Wellspring extends Analyzer {
             <tr>
               <th>Cast</th>
               <th>Time</th>
-              <th># of Hits</th>
+              <th />
             </tr>
           </thead>
           <tbody>
             {
               this.wellspringCasts.map((hits, index) => (
                 <tr key={index}>
-                  <th scope="row">{ index }</th>
-                  <td>{ formatMilliseconds(this.wellspringTimestamps[index] - this.owner.fight.start_time) || 0 }</td>
-                  <td style={hits < 6 ? {color: 'red' , fontWeight: 'bold'} : {fontWeight: 'bold'}}>{ hits }</td>
+                  <th scope="row">{ index }{ nth(index) }</th>
+                  <td>{ formatDuration((this.wellspringTimestamps[index] - this.owner.fight.start_time) / 1000) || 0 }</td>
+                  <td style={hits < 6 ? {color: 'red' , fontWeight: 'bold'} : {fontWeight: 'bold'}}>{ hits } hits</td>
                 </tr>
               ))
             }
