@@ -32,7 +32,7 @@ class MitigationCheck extends Analyzer {
     }
     const boss = findByBossId(this.owner.boss.id);
     if (boss.fight.softMitigationChecks) {
-      this.checks = Object.values(boss.fight.softMitigationChecks);
+      this.checks = boss.fight.softMitigationChecks;
       if (this.checks === undefined) {
         this.checks = [];
       }
