@@ -5,14 +5,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
+import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
-import { SHRED_COEFFICIENT, SWIPE_CAT_COEFFICIENT, SWIPE_BEAR_COEFFICIENT, BRUTAL_SLASH_COEFFICIENT } from '../../constants.js';
+import { SHRED_COEFFICIENT, SWIPE_CAT_COEFFICIENT, SWIPE_BEAR_COEFFICIENT, BRUTAL_SLASH_COEFFICIENT, FERAL_DRUID_DAMAGE_AURA, INCARNATION_SHRED_DAMAGE, SAVAGE_ROAR_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS, MOMENT_OF_CLARITY_DAMAGE_BONUS, SHRED_SWIPE_BONUS_ON_BLEEDING } from '../../constants.js';
 
-const debug = false;
+const debug = true;
 // Swipe has a bear and a cat version, both are affected by the trait. It can be replaced by the talent Brutal Slash which benefits in the same way.
 const SWIPE_SPELLS = [
   SPELLS.SWIPE_BEAR.id,
@@ -33,6 +35,7 @@ const HIT_TYPES_TO_IGNORE = [
 class WildFleshrending extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    statTracker: StatTracker,
   };
 
   shredBonus = 0;
@@ -143,6 +146,41 @@ class WildFleshrending extends Analyzer {
     } else {
       this.swipeDamage += traitDamageContribution;
       debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Swipe (or BrS) increased by ${traitDamageContribution.toFixed(0)}.`);
+    }
+
+    if (debug) {
+      // As an accuracy check, during debug also calculate the trait's damage bonus using another method based on that used for Frost Mage's Whiteout.
+      const critMultiplier = this.selectedCombatant.race === RACES.Tauren ? 2.04 : 2.00;
+      const externalModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? critMultiplier : 1.0);
+      console.log(`externalModifier: ${externalModifier.toFixed(3)}`);
+
+      let estimatedDamage = traitBonus * (1 + this.statTracker.currentVersatilityPercentage) * FERAL_DRUID_DAMAGE_AURA;
+      if (event.ability.guid === SPELLS.SHRED.id || event.ability.guid === SPELLS.SWIPE_CAT.id) {
+        estimatedDamage *= SHRED_SWIPE_BONUS_ON_BLEEDING;
+      }
+      if (isShred && this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
+        estimatedDamage *= INCARNATION_SHRED_DAMAGE;
+      }
+      if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id) && this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_FERAL.id, event.timestamp, 500)) {
+        estimatedDamage *= 1 + MOMENT_OF_CLARITY_DAMAGE_BONUS;
+      }
+      if (this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id)) {
+        estimatedDamage *= 1 + TIGERS_FURY_DAMAGE_BONUS;
+      }
+      if (this.selectedCombatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, 100)) {
+        estimatedDamage *= 1 + BLOODTALONS_DAMAGE_BONUS;
+      }
+      if (this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id)) {
+        estimatedDamage *= 1 + SAVAGE_ROAR_DAMAGE_BONUS;
+      }
+      if (event.hitType === HIT_TYPES.CRIT) {
+        estimatedDamage *= critMultiplier;
+      }
+      estimatedDamage *= externalModifier;
+      console.log(`estimatedDamage: ${estimatedDamage.toFixed(0)}`);
+
+      const variation = estimatedDamage / traitDamageContribution;
+      console.log(`Matching of contribution calculations: ${(variation * 100).toFixed(1)}%`);
     }
   }
 
