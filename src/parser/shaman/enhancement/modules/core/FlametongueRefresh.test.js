@@ -1,5 +1,5 @@
-import FlametongueRefresh from './FlametongueRefresh';
 import SPELLS from 'common/SPELLS';
+import FlametongueRefresh from './FlametongueRefresh';
 
 describe('Flametongue Refresh module', () => {
     it('should be disabled when Searing assault is taken', () => {
