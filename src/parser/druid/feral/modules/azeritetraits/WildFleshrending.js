@@ -12,9 +12,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
-import { SHRED_COEFFICIENT, SWIPE_CAT_COEFFICIENT, SWIPE_BEAR_COEFFICIENT, BRUTAL_SLASH_COEFFICIENT, FERAL_DRUID_DAMAGE_AURA, INCARNATION_SHRED_DAMAGE, SAVAGE_ROAR_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS, MOMENT_OF_CLARITY_DAMAGE_BONUS, SHRED_SWIPE_BONUS_ON_BLEEDING } from '../../constants.js';
+import { FERAL_DRUID_DAMAGE_AURA, INCARNATION_SHRED_DAMAGE, SAVAGE_ROAR_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS, MOMENT_OF_CLARITY_DAMAGE_BONUS, SHRED_SWIPE_BONUS_ON_BLEEDING } from '../../constants.js';
+import Abilities from '../Abilities.js';
 
-const debug = true;
+const debug = false;
 // Swipe has a bear and a cat version, both are affected by the trait. It can be replaced by the talent Brutal Slash which benefits in the same way.
 const SWIPE_SPELLS = [
   SPELLS.SWIPE_BEAR.id,
@@ -34,6 +35,7 @@ const HIT_TYPES_TO_IGNORE = [
  */
 class WildFleshrending extends Analyzer {
   static dependencies = {
+    abilities: Abilities,
     enemies: Enemies,
     statTracker: StatTracker,
   };
@@ -119,23 +121,7 @@ class WildFleshrending extends Analyzer {
      * Assumptions: There are no effects in play that adjust damage by a set number rather than by multiplying, apart from those that appear in the log as absorbed damage. Everything that modifies the ability's base damage also modifies the trait's bonus damage in the same way. I've yet to find anything that violates these assumptions.
      */
     
-    let coefficient = 1.0;
-    switch (event.ability.guid) {
-      case SPELLS.SHRED.id:
-        coefficient = SHRED_COEFFICIENT;
-        break;
-      case SPELLS.SWIPE_CAT.id:
-        coefficient = SWIPE_CAT_COEFFICIENT;
-        break;
-      case SPELLS.SWIPE_BEAR.id:
-        coefficient = SWIPE_BEAR_COEFFICIENT;
-        break;
-      case SPELLS.BRUTAL_SLASH_TALENT.id:
-        coefficient = BRUTAL_SLASH_COEFFICIENT;
-        break;
-      default:
-        debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Unexpected ability guid: ${event.ability.guid}`);
-    }
+    const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
     const traitBonus = isShred ? this.shredBonus : this.swipeBonus;
     const damageDone = event.amount + event.absorbed;
     const modifier = damageDone / (this.attackPower * coefficient + traitBonus);
@@ -148,8 +134,8 @@ class WildFleshrending extends Analyzer {
       debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Swipe (or BrS) increased by ${traitDamageContribution.toFixed(0)}.`);
     }
 
+    // As an accuracy check, during debug also calculate the trait's damage bonus using a method based on that used for Frost Mage's Whiteout trait.
     if (debug) {
-      // As an accuracy check, during debug also calculate the trait's damage bonus using another method based on that used for Frost Mage's Whiteout.
       const critMultiplier = this.selectedCombatant.race === RACES.Tauren ? 2.04 : 2.00;
       const externalModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? critMultiplier : 1.0);
       console.log(`externalModifier: ${externalModifier.toFixed(3)}`);
