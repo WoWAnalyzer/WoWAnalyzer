@@ -28,6 +28,9 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
     // Tick 4
     { type: 'heal', timestamp: 340, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, targetID: 2 },
     { type: 'heal', timestamp: 350, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, targetID: 2 },
+    // Filter out Pets that received no effective healing
+    { type: 'heal', timestamp: 350, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, amount: 0, overheal: 1, targetID: 3 },
+    { type: 'heal', timestamp: 350, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, amount: 0, overheal: 1, targetID: 3 },
     // Tick 5
     { type: 'heal', timestamp: 426, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, targetID: 2 },
   ];
