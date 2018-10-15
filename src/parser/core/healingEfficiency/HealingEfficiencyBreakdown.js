@@ -91,7 +91,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     const { spellDetail, topHpm, topDpm, topHpet, topDpet } = props;
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
-    let width = 20;
+    const barWidth = 20;
 
     return (
       <>
@@ -102,19 +102,19 @@ class HealingEfficiencyBreakdown extends React.Component {
         {this.state.showHealing &&
         <>
           <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
+          <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
           <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
+          <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
         </>
         }
         {!this.state.showHealing &&
         <>
           <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
+          <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
           <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
-          <td width={width + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
+          <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
         </>
         }
       </>
