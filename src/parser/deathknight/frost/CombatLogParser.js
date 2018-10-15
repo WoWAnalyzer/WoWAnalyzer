@@ -4,7 +4,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/checklist/Module';
 
 import FrostFeverUptime from './modules/features/FrostFeverUptime';
 import RimeEfficiency from './modules/features/RimeEfficiency';

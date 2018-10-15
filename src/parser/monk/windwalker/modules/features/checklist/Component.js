@@ -116,7 +116,7 @@ class WindwalkerMonkChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts
+                Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts per minute
               </>
             )}
             thresholds={thresholds.spinningCraneKick}

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
+import { Khadaj, niseko, Yajinni } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
@@ -16,7 +17,10 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hi! Welcome to the <i>Holy Priest analyzer</i>.
+      Welcome to the Holy Priest analyzer. If you are new to holy, here are a few guides to get you started:<br /><br />
+      <a href="https://www.icy-veins.com/wow/holy-priest-pve-healing-guide">Icy-Veins</a><br />
+      <a href="https://warcraftpriests.com/holy/holy-priest-quickstart/">Warcraftpriests</a><br /><br />
+      This page is maintained with help from the Holy Team at the <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">Warcraft Priests Discord</a>. You can join the #holy channel to ask any priestly questions you may have.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -28,7 +32,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Priest" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "HolyPriest" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

@@ -32,7 +32,7 @@ function escapeHtml(unsafe) {
 // Any files that exist can be accessed directly.
 // If the server has been compiled, the path will be different.
 const appDirectory = fs.realpathSync(process.cwd());
-const buildFolder = path.basename(appDirectory) === 'build' ? path.join(appDirectory, '..', '..', 'build') : path.join(appDirectory, '..', 'build');
+const buildFolder = path.basename(appDirectory) === 'server' ? path.join(appDirectory, '..', 'build') : path.join(appDirectory, 'build');
 
 // Load the index file into memory so we don't have to access it all the time
 const index = fs.readFileSync(path.join(buildFolder, 'index.html'), 'utf8');

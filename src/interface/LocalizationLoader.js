@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import retryingPromise from 'common/retryingPromise';
 import { getLanguage } from 'interface/selectors/language';
 
 class LocalizationLoader extends React.PureComponent {
@@ -25,7 +26,7 @@ class LocalizationLoader extends React.PureComponent {
   }
 
   async loadCatalog(language) {
-    const catalog = await import(/* webpackMode: "lazy", webpackChunkName: "locale-[request]" */ `@lingui/loader!localization/${language}/messages.json`);
+    const catalog = await retryingPromise(() => import(/* webpackMode: "lazy", webpackChunkName: "locale-[request]" */ `@lingui/loader!localization/${language}/messages.json`));
 
     this.setState(state => ({
       catalogs: {

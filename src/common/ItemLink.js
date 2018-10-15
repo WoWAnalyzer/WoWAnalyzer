@@ -32,6 +32,10 @@ class ItemLink extends React.PureComponent {
     const { id, children, details, icon, ...others } = this.props;
     delete others.quality;
 
+    if (process.env.NODE_ENV === 'development' && !children && !ITEMS[id]) {
+      throw new Error(`Unknown item: ${id}`);
+    }
+
     let quality = this.props.quality;
     if (quality === undefined || quality === null) {
       quality = ITEMS[id] ? ITEMS[id].quality : 0;

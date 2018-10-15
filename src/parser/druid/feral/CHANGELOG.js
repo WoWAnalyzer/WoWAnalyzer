@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-10'),
+    changes: <>Added tracking to Feral for the <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> Azerite trait.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-10-05'),
     changes: <React.Fragment>Added tracking for using <SpellLink id={SPELLS.SHADOWMELD.id} /> to buff <SpellLink id={SPELLS.RAKE.id} /> damage.</React.Fragment>,
     contributors: [Anatta336],
