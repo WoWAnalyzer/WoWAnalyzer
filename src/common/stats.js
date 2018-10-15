@@ -1,25 +1,75 @@
-/*
-Garg - 28/02/2017
-Stat Scaling past ilvl 800:
-Primary Stat Formula (includes damage/healing done): `BaseStat * 1.15 ^ ((iLvL - Base iLvL) / 15)`
-Secondary Stat Formula for Armor/Weapons/Trinket: `BaseStat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.994435486 ^ (iLvL - Base iLvL)`
-Secondary Stat Formula for Jewelry: `Base Stat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.996754034 ^ (iLvL - Base iLvL)`
-Take the stat of an item at a given iLvL (for example, 300 Crit at 850 iLvL).
-To figure out how much crit that would have at 860 iLvL, you'd do: `300 * 1.15 ^ ((860 - 850) / 15) * 0.994435486 ^(860-850)` for 311 Crit.
-Once the stat at a given iLvL is found, the only variable that needs to be changed is `iLvL`
-*/
-// can confirm this formula works if given ilevel/stat other than whatever the "base" is. - kfinch
+import multiplierTables from './statsMultiplierTables.generated';
+import AZERITE_SCALING from './AZERITE_SCALING.generated';
+
+function scaleStat(baseItemLevel, baseStat, itemLevel) {
+  return Math.round(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)));
+}
+function getMultiplier(multiplierTable, itemLevel) {
+  return multiplierTable[itemLevel - 1];
+}
+function scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTable) {
+  const base = baseStat / getMultiplier(multiplierTable, baseItemLevel);
+  const scaledBase = scaleStat(baseItemLevel, base, itemLevel);
+  return Math.round(scaledBase * getMultiplier(multiplierTable, itemLevel));
+}
 
 export function calculatePrimaryStat(baseItemLevel, baseStat, itemLevel) {
-  // Blizzard looks to be rounding this up always
-  // BaseStat * 1.15 ^ ((iLvL - Base iLvL) / 15)
-  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)));
+  return scaleStat(baseItemLevel, baseStat, itemLevel);
 }
 export function calculateSecondaryStatDefault(baseItemLevel, baseStat, itemLevel) {
-  // BaseStat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.994435486 ^ (iLvL - Base iLvL)
-  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)) * (0.994435486 ** (itemLevel - baseItemLevel)));
+  return scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTables.general);
 }
 export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel) {
-  // Base Stat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.996754034 ^ (iLvL - Base iLvL)
-  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)) * (0.996754034 ** (itemLevel - baseItemLevel)));
+  return scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTables.jewelry);
+}
+
+
+// different kinds of (known) scaling for azerite traits
+const AZ_SCALE_PRIMARY = -1;
+const AZ_SCALE_SECONDARY = -7;
+// unlike the previous two, this scale type doesn't have a clear
+// semantic meaning that we know of (yet)
+const AZ_SCALE_UNK8 = -8;
+
+// special effect type that always uses secondary scaling regardless of
+// scaling type
+const AZ_TYPE_MODIFY_RATING = 189;
+
+const AZ_SCALE_FUNCTIONS = {
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_PRIMARY]: ilvl => {
+    const SCALE = 17.3;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  },
+  [AZ_SCALE_SECONDARY]: ilvl => AZ_SCALE_FUNCTIONS[AZ_SCALE_PRIMARY](ilvl) * getMultiplier(multiplierTables.general, ilvl),
+  // this function was given by @Atonement, and has matched
+  // everything tested against
+  [AZ_SCALE_UNK8]: ilvl => {
+    const SCALE = 4.325;
+    return Math.floor(SCALE * (1.15**(ilvl/15)));
+  },
+};
+
+// Calculate the values of each (scaling) effect associated with an
+// azerite trait. Note that *effects that do not scale are not present!*
+//
+// Effects will always be returned in ascending order of effect ID.
+export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
+  const spell = AZERITE_SCALING[spellId];
+  const scalingType = scalingTypeOverride ? scalingTypeOverride : spell.scaling_type;
+
+  if(AZ_SCALE_FUNCTIONS[scalingType] === undefined) {
+    throw Error(`Unknown scaling type: ${scalingType}`);
+  }
+  const budget = AZ_SCALE_FUNCTIONS[scalingType](rank);
+
+  return spell.effect_list.map(id => spell.effects[id])
+    .filter(({avg}) => avg > 0)
+    .map(({avg, type}) => {
+      if(type === AZ_TYPE_MODIFY_RATING) {
+        return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_SECONDARY](rank));
+      }
+      return Math.round(avg * budget);
+    });
 }

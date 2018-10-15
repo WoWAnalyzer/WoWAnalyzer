@@ -1,8 +1,8 @@
 import indexById from './indexById';
 
-// courtesy of @wopr on WoWAnalyzer Discord
-
+// TODO: Refactor this away: you should make a spec specific PETS file in your spec folder
 const PETS = {
+  // TODO: revise Warlock pets
   WILDIMP_ON_DREADSTALKER: {
     id: 99737,
     name: 'Wild Imp riding Dreadstalker',

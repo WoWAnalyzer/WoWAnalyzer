@@ -1,26 +1,28 @@
 {
-  "name": "WoWAnalyzer",
+  "name": "wowanalyzer",
   "description": "The WoWAnalyzer client-side app.",
   "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@lingui/core": "^2.7.0",
+    "@lingui/loader": "^2.7.0",
+    "@lingui/macro": "^2.7.0",
+    "@lingui/react": "^2.7.0",
+    "@wowanalyzer/react-scripts": "2.0.4c",
     "chart.js": "^2.7.2",
-    "chartist": "^0.11.0",
-    "chartist-plugin-legend": "^0.6.2",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "es6-error": "^4.1.1",
     "fuse.js": "^3.2.1",
     "history": "^4.7.2",
-    "jest": "^22.0.0",
-    "jest-enzyme": "^6.0.2",
+    "jest": "^23.6.0",
+    "jest-enzyme": "^6.1.2",
     "prop-types": "^15.6.2",
-    "raven-js": "^3.26.3",
-    "rc-slider": "^8.6.1",
-    "react": "^16.4.1",
-    "react-chartist": "^0.13.1",
-    "react-chartjs-2": "^2.7.2",
-    "react-dom": "^16.4.1",
+    "raven-js": "^3.27.0",
+    "rc-slider": "^8.6.3",
+    "react": "^16.5.2",
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.5.2",
     "react-gemini-scrollbar": "^2.3.4",
     "react-masonry-component": "^6.2.1",
     "react-onclickoutside": "^6.7.1",
@@ -28,17 +30,32 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-select-search": "^0.5.6",
-    "react-test-renderer": "^16.4.1",
+    "react-test-renderer": "^16.5.2",
     "react-textfit": "^1.1.0",
     "react-toggle": "^4.0.2",
-    "react-tooltip": "^3.6.1",
+    "react-tooltip": "^3.8.4",
     "react-transition-group": "^1.2.1",
-    "react-virtualized": "^9.19.1",
+    "react-virtualized": "^9.20.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
-    "universal-cookie": "^2.2.0",
-    "wowanalyzer-react-scripts": "1.1.13"
+    "universal-cookie": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@lingui/cli": "^2.7.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "9.x",
+    "dotenv": "^6.0.0",
+    "eslint": "5.6.0",
+    "eslint-plugin-flowtype": "2.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "^7.5",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "webpack": "4.19.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +63,27 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
-  }
+    "lint": "eslint .",
+    "extract": "set NODE_ENV=development&&node --harmony scripts/localization/extract.js",
+    "script": "set NODE_ENV=development&&babel-node"
+  },
+  "babel": {
+    "presets": [
+      "@wowanalyzer/babel-preset-react-app"
+    ]
+  },
+  "lingui": {
+    "sourceLocale": "en",
+    "localeDir": "<rootDir>/src/localization",
+    "format": "minimal",
+    "srcPathDirs": [
+      "<rootDir>/src"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

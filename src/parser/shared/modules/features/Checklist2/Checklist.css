@@ -1,0 +1,12 @@
+.checklist .checklist-item {
+  padding: 12px 20px;
+  font-size: 1.4em;
+}
+.checklist .checklist-item .chevron {
+  color: #aaa;
+  font-size: 0.35em;
+  transition: all 400ms;
+}
+.checklist .expanded .checklist-item .chevron {
+  color: #fff;
+}

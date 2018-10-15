@@ -12,37 +12,39 @@
  * use the named spell by default, this makes things much more readable.
  **************************************************************************************************************** */
 
-import indexById from '../indexById';
-import safeMerge from '../safeMerge';
+import indexById from 'common/indexById';
+import safeMerge from 'common/safeMerge';
 
-import OTHERS from './OTHERS';
-import RACIALS from './RACIALS';
+import OTHERS from './others';
+import RACIALS from './racials';
+import BFA from './bfa';
+import ENCOUNTER from './encounter';
 
-import TALENTS_DEATH_KNIGHT from './TALENTS/DEATH_KNIGHT';
-import TALENTS_DEMON_HUNTER from './TALENTS/DEMON_HUNTER';
-import TALENTS_DRUID from './TALENTS/DRUID';
-import TALENTS_HUNTER from './TALENTS/HUNTER';
-import TALENTS_MAGE from './TALENTS/MAGE';
-import TALENTS_MONK from './TALENTS/MONK';
-import TALENTS_PALADIN from './TALENTS/PALADIN';
-import TALENTS_PRIEST from './TALENTS/PRIEST';
-import TALENTS_ROGUE from './TALENTS/ROGUE';
-import TALENTS_SHAMAN from './TALENTS/SHAMAN';
-import TALENTS_WARLOCK from './TALENTS/WARLOCK';
-import TALENTS_WARRIOR from './TALENTS/WARRIOR';
+import TALENTS_DEATH_KNIGHT from './talents/deathknight';
+import TALENTS_DEMON_HUNTER from './talents/demonhunter';
+import TALENTS_DRUID from './talents/druid';
+import TALENTS_HUNTER from './talents/hunter';
+import TALENTS_MAGE from './talents/mage';
+import TALENTS_MONK from './talents/monk';
+import TALENTS_PALADIN from './talents/paladin';
+import TALENTS_PRIEST from './talents/priest';
+import TALENTS_ROGUE from './talents/rogue';
+import TALENTS_SHAMAN from './talents/shaman';
+import TALENTS_WARLOCK from './talents/warlock';
+import TALENTS_WARRIOR from './talents/warrior';
 
-import DEATH_KNIGHT from './DEATH_KNIGHT';
-import DEMON_HUNTER from './DEMON_HUNTER';
-import DRUID from './DRUID';
-import HUNTER from './HUNTER';
-import MAGE from './MAGE';
-import MONK from './MONK';
-import PALADIN from './PALADIN';
-import PRIEST from './PRIEST';
-import ROGUE from './ROGUE';
-import SHAMAN from './SHAMAN';
-import WARLOCK from './WARLOCK';
-import WARRIOR from './WARRIOR';
+import DEATH_KNIGHT from './deathknight';
+import DEMON_HUNTER from './demonhunter';
+import DRUID from './druid';
+import HUNTER from './hunter';
+import MAGE from './mage';
+import MONK from './monk';
+import PALADIN from './paladin';
+import PRIEST from './priest';
+import ROGUE from './rogue';
+import SHAMAN from './shaman';
+import WARLOCK from './warlock';
+import WARRIOR from './warrior';
 
 const ABILITIES = {
   // Talents are auto generated
@@ -63,6 +65,7 @@ const ABILITIES = {
   // Talents can be overwritten with custom spell objects
   ...safeMerge(
     OTHERS,
+    ENCOUNTER,
     RACIALS,
     DEATH_KNIGHT,
     DEMON_HUNTER,
@@ -75,7 +78,8 @@ const ABILITIES = {
     ROGUE,
     SHAMAN,
     WARLOCK,
-    WARRIOR
+    WARRIOR,
+    BFA
   ),
 };
 

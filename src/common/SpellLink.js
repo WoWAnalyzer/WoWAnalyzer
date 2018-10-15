@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TooltipProvider from 'Interface/common/TooltipProvider';
+import TooltipProvider from 'interface/common/TooltipProvider';
 
 import SPELLS from './SPELLS';
 import SpellIcon from './SpellIcon';
@@ -13,6 +13,7 @@ class SpellLink extends React.PureComponent {
     category: PropTypes.string,
     icon: PropTypes.bool,
     iconStyle: PropTypes.object,
+    ilvl: PropTypes.number,
   };
   static defaultProps = {
     icon: true,
@@ -28,15 +29,20 @@ class SpellLink extends React.PureComponent {
   }
 
   render() {
-    const { id, children, category = undefined, icon, iconStyle, ...other } = this.props;
+    const { id, children, category = undefined, icon, iconStyle, ilvl, ...other } = this.props;
 
     if (process.env.NODE_ENV === 'development' && !children && !SPELLS[id]) {
       throw new Error(`Unknown spell: ${id}`);
     }
 
+    const tooltipDetails = {};
+    if (ilvl) {
+      tooltipDetails.ilvl = ilvl;
+    }
+
     return (
       <a
-        href={TooltipProvider.spell(id)}
+        href={TooltipProvider.spell(id, tooltipDetails)}
         target="_blank"
         rel="noopener noreferrer"
         className={category}
@@ -45,7 +51,7 @@ class SpellLink extends React.PureComponent {
         }}
         {...other}
       >
-        {icon && <SpellIcon id={id} noLink style={iconStyle} />}{' '}
+        {icon && <SpellIcon id={id} noLink style={iconStyle} alt="" />}{' '}
         {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
       </a>
     );
