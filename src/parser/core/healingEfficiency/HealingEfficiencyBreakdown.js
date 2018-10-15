@@ -27,7 +27,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     const spellArray = Object.values(spells);
 
     spellArray.sort((a, b) => {
-      if (this.state.showHealing){
+      if (this.state.showHealing) {
         if (a.hpm < b.hpm) {
           return 1;
         }
@@ -71,18 +71,18 @@ class HealingEfficiencyBreakdown extends React.Component {
     return (
       <>
         <th>Mana Spent</th>
-        {this.state.showHealing &&
-        <>
-          <th colSpan={2} className="text-center">Healing per mana spent</th>
-          <th colSpan={2} className="text-center">Healing per second spent casting</th>
-        </>
-        }
-        {!this.state.showHealing &&
-        <>
-          <th colSpan={2} className="text-center">Damage per mana spent</th>
-          <th colSpan={2} className="text-center">Damage per second spent casting</th>
-        </>
-        }
+        {this.state.showHealing && (
+          <>
+            <th colSpan={2} className="text-center">Healing per mana spent</th>
+            <th colSpan={2} className="text-center">Healing per second spent casting</th>
+          </>
+        )}
+        {!this.state.showHealing && (
+          <>
+            <th colSpan={2} className="text-center">Damage per mana spent</th>
+            <th colSpan={2} className="text-center">Damage per second spent casting</th>
+          </>
+        )}
       </>
     );
   };
@@ -99,7 +99,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
-        {this.state.showHealing &&
+        {this.state.showHealing && (
         <>
           <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
           <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
@@ -107,8 +107,8 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
           <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
         </>
-        }
-        {!this.state.showHealing &&
+        )}
+        {!this.state.showHealing && (
         <>
           <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
           <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
@@ -116,7 +116,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
           <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
         </>
-        }
+        )}
       </>
     );
   };
@@ -128,7 +128,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
         </th>
         <th>Mana Spent</th>
-        {this.state.showHealing &&
+        {this.state.showHealing && (
         <>
           <th>Healing Done</th>
           <th>Overhealing</th>
@@ -139,8 +139,8 @@ class HealingEfficiencyBreakdown extends React.Component {
             <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
           </th>
         </>
-        }
-        {!this.state.showHealing &&
+        )}
+        {!this.state.showHealing && (
         <>
           <th>Damage Done</th>
           <th>
@@ -150,7 +150,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
           </th>
         </>
-        }
+          )}
       </>
     );
   };
@@ -168,30 +168,30 @@ class HealingEfficiencyBreakdown extends React.Component {
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
-        {this.state.showHealing &&
-        <>
-          <td>
-            {hasHealing ? formatNumber(spellDetail.healingDone) : '-'}
-            {hasHealing ? ' (' + formatPercentage(spellDetail.percentHealingDone) + '%)' : ''}
-          </td>
-          <td>
-            {hasOverhealing ? formatNumber(spellDetail.overhealingDone) : '-'}
-            {hasOverhealing ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
-          </td>
-          <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
-          <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
-        </>
-        }
-        {!this.state.showHealing &&
-        <>
-          <td>
-            {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
-            {hasDamage ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
-          </td>
-          <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
-        </>
-        }
+        {this.state.showHealing && (
+          <>
+            <td>
+              {hasHealing ? formatNumber(spellDetail.healingDone) : '-'}
+              {hasHealing ? ' (' + formatPercentage(spellDetail.percentHealingDone) + '%)' : ''}
+            </td>
+            <td>
+              {hasOverhealing ? formatNumber(spellDetail.overhealingDone) : '-'}
+              {hasOverhealing ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
+            </td>
+            <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+            <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
+          </>
+        )}
+        {!this.state.showHealing && (
+          <>
+            <td>
+              {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
+              {hasDamage ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
+            </td>
+            <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+            <td>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
+          </>
+        )}
       </>
     );
   };
@@ -228,7 +228,7 @@ class HealingEfficiencyBreakdown extends React.Component {
                   onChange={event => this.setState({ showCooldowns: event.target.checked })}
                   id="cooldown-toggle"
                 />
-                <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em'}}>
+                <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
                   Show Cooldowns
                 </label>
               </div>
