@@ -246,7 +246,6 @@ class HealingEfficiencyBreakdown extends React.Component {
                   Show Healing
                 </label>
               </div>
-
             </div>
           </div>
           <div className="col-md-12">
