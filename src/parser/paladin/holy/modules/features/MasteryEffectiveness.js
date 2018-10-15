@@ -1,10 +1,12 @@
 import React from 'react';
+import { Trans, t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { i18n } from 'interface/RootLocalizationProvider';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
@@ -249,9 +251,9 @@ class MasteryEffectiveness extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
+        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt={i18n._(t`Mastery effectiveness`)} />}
         value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
-        label="Mastery effectiveness"
+        label={i18n._(t`Mastery effectiveness`)}
       />
     );
   }
@@ -269,16 +271,16 @@ class MasteryEffectiveness extends Analyzer {
   }
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
+      return suggest(<Trans>Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.</Trans>)
         .icon('inv_hammer_04')
-        .actual(`${formatPercentage(actual)}% mastery effectiveness`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+        .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
+        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`));
     });
   }
 
   tab() {
     return {
-      title: 'Mastery effectiveness',
+      title: i18n._(t`Mastery effectiveness`),
       url: 'mastery-effectiveness',
       render: () => (
         <PlayerBreakdownTab

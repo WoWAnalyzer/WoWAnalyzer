@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Aelexe, Zerotorescue } from 'CONTRIBUTORS';
+import { Aelexe, Zerotorescue, Sharrq } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-10-12'),
+    changes: <>Fixed some spell IDs and ability information. Updated Config.</>,
+    contributors: [Sharrq],
+  },
   {
     date: new Date('2018-06-30'),
     changes: <>Update all abilities to new BFA values, removed incompatible modules and added an <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> statistic.</>,

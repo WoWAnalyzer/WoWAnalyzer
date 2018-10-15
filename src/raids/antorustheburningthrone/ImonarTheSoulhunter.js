@@ -12,10 +12,10 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      ShockLance: 247367,
-      Sever: 247687,
-      EmpoweredShockLance: 250255,
-    },
+    softMitigationChecks: [
+      247367, // ShockLance
+      247687, // Sever
+      250255, // EmpoweredShockLance
+    ],
   },
 };

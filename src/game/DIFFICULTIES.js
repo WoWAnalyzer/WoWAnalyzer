@@ -1,8 +1,12 @@
+import { t } from '@lingui/macro';
+
+import { i18n } from 'interface/RootLocalizationProvider';
+
 export default [
   '',
-  'LFR', // confirmed
+  i18n._(t`LFR`), // confirmed
   '',
-  'Normal',
-  'Heroic',
-  'Mythic',
+  i18n._(t`Normal`),
+  i18n._(t`Heroic`),
+  i18n._(t`Mythic`),
 ];

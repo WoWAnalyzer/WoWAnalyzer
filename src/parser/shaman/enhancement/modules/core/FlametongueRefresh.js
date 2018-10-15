@@ -11,6 +11,11 @@ class FlametongueRefresh extends Analyzer {
   earlyRefresh = 0;
   refreshPercentageCast = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
+  }
+
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.FLAMETONGUE.id) {
       this.flametongueCasts += 1;

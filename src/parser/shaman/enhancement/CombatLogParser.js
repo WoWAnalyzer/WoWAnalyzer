@@ -21,6 +21,7 @@ import Landslide from './modules/talents/Landslide';
 import SearingAssault from './modules/talents/SearingAssault';
 import Sundering from './modules/talents/Sundering';
 
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     searingAssault: SearingAssault,
     sundering: Sundering,
 
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,

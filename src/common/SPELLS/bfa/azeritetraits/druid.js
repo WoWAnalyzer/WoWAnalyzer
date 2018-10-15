@@ -59,4 +59,9 @@ export default {
     name: 'Synergistic Growth',
     icon: 'inv_misc_markoftheworldtree',
   },
+  WILD_FLESHRENDING: {
+    id: 279527,
+    name: 'Wild Fleshrending',
+    icon: 'ability_warrior_bloodnova',
+  },
 };

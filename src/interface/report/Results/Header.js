@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
+import { Trans } from '@lingui/macro';
 
 import getBossName from 'common/getBossName';
 import SpecIcon from 'common/SpecIcon';
@@ -34,7 +35,7 @@ class Headers extends React.PureComponent {
             {playerName}
           </Textfit>
         </div>
-        <div className="versus">versus</div>
+        <div className="versus"><Trans>versus</Trans></div>
         <div className="boss">
           <img src={boss ? boss.headshot : SkullRaidMarker} alt="" />
           <Textfit mode="single" max={80}>

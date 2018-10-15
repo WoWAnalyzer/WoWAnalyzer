@@ -95,12 +95,13 @@ class SpinningCraneKick extends Analyzer {
   }
 
   get suggestionThresholds() {
+    const badCastsPerMinute = (this.badCasts / this.owner.fightDuration) * 1000 * 60;
     return {
-      actual: this.badCasts,
+      actual: badCastsPerMinute,
       isGreaterThan: {
         minor: 0,
-        average: 2,
-        major: 4,
+        average: 1,
+        major: 2,
       },
       style: 'number',
     };
@@ -115,8 +116,8 @@ class SpinningCraneKick extends Analyzer {
           </>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-          .actual(`${this.badCasts} Bad Casts`)
-          .recommended('0 Bad Casts are recommended');
+          .actual(`${actual} Bad Casts Per Minute`)
+          .recommended(`${recommended} Bad Casts are recommended`);
       });
   }
 

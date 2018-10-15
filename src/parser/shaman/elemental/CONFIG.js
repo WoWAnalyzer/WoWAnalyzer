@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { HawkCorrigan } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -31,15 +32,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Shaman" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
-  // footer: (
-  //   <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
-  //     <div className="panel-body text-muted">
-  //       Based on Guides from <a href="https://www.stormearthandlava.com/">Storm Earth and Lava</a>.<br />
-  //       Questions about Elementals? Visit <a href="http://www.discord.me/earthshrine">Earthshrine</a> Discord.<br />
-  //     </div>
-  //   </div>
-  // ),
 };
