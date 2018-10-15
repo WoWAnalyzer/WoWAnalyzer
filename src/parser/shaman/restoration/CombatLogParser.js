@@ -20,7 +20,6 @@ import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';
 import StatValues from './modules/features/StatValues';
 
-import AncestralVigor from './modules/features/AncestralVigor';
 import TidalWaves from './modules/features/TidalWaves';
 import CastBehavior from './modules/features/CastBehavior';
 // Talents
@@ -31,6 +30,7 @@ import Deluge from './modules/talents/Deluge';
 import Undulation from './modules/talents/Undulation';
 import FlashFlood from './modules/talents/FlashFlood';
 import EarthShield from './modules/talents/EarthShield';
+import AncestralVigor from './modules/talents/AncestralVigor';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import Downpour from './modules/talents/Downpour';
 import CloudburstTotem from './modules/talents/CloudburstTotem';
@@ -69,7 +69,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    ancestralVigor: AncestralVigor,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
@@ -83,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deluge: Deluge,
     flashFlood: FlashFlood,
     earthShield: EarthShield,
+    ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
     cloudburstTotem: CloudburstTotem,

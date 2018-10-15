@@ -619,7 +619,7 @@ export default {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 4000,
+    manaCost: 3800,
     color: '#40b3bf',
   },
   RIPTIDE: {
