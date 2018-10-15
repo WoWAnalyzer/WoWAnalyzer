@@ -5,14 +5,22 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import Abilities from '../Abilities';
 
 const ASCENDENCE_DURATION = 15000;
 
 class Ascendance extends Analyzer {
 
-  resolveAbilityGcdField(value) {
+  static dependencies = {
+    abilities: Abilities,
+    enemies: EnemyInstances,
+  };
+
+  _resolveAbilityGcdField(value) {
     if (typeof value === 'function') {
       return value.call(this.owner, this.selectedCombatant);
     } else {
@@ -48,9 +56,11 @@ class Ascendance extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    const target = this.enemies.getEntity(event);
+
 
     if(spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-      if(this.enemy.getBuffUptime(SPELLS.FLAME_SHOCK.id) < ASCENDENCE_DURATION){
+      if(target && target.getBuffUptime(SPELLS.FLAME_SHOCK.id) < ASCENDENCE_DURATION){
         this.badFSAscendence++;
       }
     }
@@ -60,7 +70,7 @@ class Ascendance extends Analyzer {
     if(!ability){
       return;
     }
-    if(!this.selectedCombatant.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)){
+    if(!this.selectedCombatant.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp) || spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id){
       return;
     }
 
@@ -80,27 +90,19 @@ class Ascendance extends Analyzer {
   }
 
   statistic() {
-    let tooltip = "";
-    if (this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id)){
-      tooltip = `With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
-        Casts while Ascendance was up:<br>
-        <ul>
-          <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-          <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>
-          <li>Lava Burst: ${this.numCasts[SPELLS.LAVA_BURST.id]}</li>
-          <li>Other Spells: ${this.numCasts.others}</li>
-        </ul>
-        `;
-    } else {
-      tooltip = `With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
-        Casts while Ascendance was up:<br>
-        <ul>
-          <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-          <li>Lava Burst: ${this.numCasts[SPELLS.LAVA_BURST.id]}</li>
-          <li>Other Spells: ${this.numCasts.others}</li>
-        </ul>
-        `;
+    let EBtooltip = "";
+    if(this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id)) {
+      EBtooltip = <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>;
     }
+    const tooltip = `With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
+        Casts while Ascendance was up:<br>
+        <ul>
+          <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+          <li>Lava Burst: ${this.numCasts[SPELLS.LAVA_BURST.id]}</li>
+          ${EBtooltip}
+          <li>Other Spells: ${this.numCasts.others}</li>
+        </ul>
+        `;
 
     return (
       <StatisticBox
@@ -113,12 +115,13 @@ class Ascendance extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.numCasts[SPELLS.LIGHTNING_BOLT.id]).isGreaterThan(0)
+    const abilities = `Lava Burst${this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``} and Earth Shock`;
+    when(this.numCasts.others).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Maximize your damage during ascendence by only casting Lava Burst and EarthShock.</span>)
-          .icon(SPELLS.FIRE_ELEMENTAL.icon)
+        return suggest(<span> Maximize your damage during ascendence by not casting weak spells.</span>)
+          .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
           .actual(`${formatNumber(this.numCasts.others)} other casts during Ascendence`)
-          .recommended(`Only cast Lava Burst and Earth Shock during Ascendence.`)
+          .recommended(`Only cast ${abilities} during Ascendence.`)
           .major(recommended+1);
       });
   }

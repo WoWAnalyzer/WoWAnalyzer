@@ -24,7 +24,8 @@ class FlameShock extends Analyzer {
       return;
     }
 
-    if(!this.enemies.hasBuff(SPELLS.FLAME_SHOCK.id)){
+    const target = this.enemies.getEntity(event);
+    if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
       this.badLavaBursts++;
     }
   }
