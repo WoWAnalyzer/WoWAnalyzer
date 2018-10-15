@@ -2,6 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import GrimoireOfSacrificeNormalizer from './modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -42,6 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     checklist: Checklist,
     darkglare: Darkglare,
+
+    // Normalizers
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 
     // DoTs
     agonyUptime: AgonyUptime,
