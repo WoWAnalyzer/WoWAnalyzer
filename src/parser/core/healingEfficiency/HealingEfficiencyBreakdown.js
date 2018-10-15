@@ -1,31 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
-import colorForPerformance from 'parser/shared/modules/features/Checklist2/helpers/colorForPerformance';
-
-class PerformanceBar extends React.Component {
-  static propTypes = {
-    percent: PropTypes.number.isRequired,
-  };
-
-  render() {
-    return (
-      <div className="performance-bar-container">
-        <div
-          className="performance-bar"
-          style={{
-            width: `${this.props.percent * 100}%`,
-            transition: 'background-color 800ms',
-            backgroundColor: colorForPerformance(this.props.percent),
-          }}
-        />
-      </div>
-    );
-  }
-}
+import PerformanceBar from 'common/performanceBar';
+import SpellLink from 'common/SpellLink';
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -36,7 +15,6 @@ class HealingEfficiencyBreakdown extends React.Component {
     super();
     this.state = {
       showHealing: true,
-      showDamage: false,
       detailedView: false,
       showCooldowns: false,
     };
@@ -46,17 +24,17 @@ class HealingEfficiencyBreakdown extends React.Component {
     const { tracker } = props;
     const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(this.state.showCooldowns);
 
-    const spellArray = Object.keys(spells).map(function (key) {
-      return spells[key];
-    });
+    const spellArray = Object.values(spells);
+
     spellArray.sort((a, b) => {
-      if (a.hpm < b.hpm) {
-        return 1;
-      }
-      else if (a.hpm > b.hpm) {
-        return -1;
-      }
-      else {
+      if (this.state.showHealing){
+        if (a.hpm < b.hpm) {
+          return 1;
+        }
+        else if (a.hpm > b.hpm) {
+          return -1;
+        }
+      } else {
         if (a.dpm < b.dpm) {
           return 1;
         }
@@ -64,6 +42,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           return -1;
         }
       }
+
       return 0;
     });
 
@@ -81,7 +60,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     return (
       <tr key={spellDetail.spell.id}>
         <td>
-          <SpellIcon id={spellDetail.spell.id} /> {spellDetail.spell.name}
+          <SpellLink id={spellDetail.spell.id} />
         </td>
         {this.state.detailedView ? <this.DetailView spellDetail={spellDetail} /> : <this.BarView spellDetail={spellDetail} topHpm={topHpm} topDpm={topDpm} topHpet={topHpet} topDpet={topDpet} />}
       </tr>
@@ -94,14 +73,14 @@ class HealingEfficiencyBreakdown extends React.Component {
         <th>Mana Spent</th>
         {this.state.showHealing &&
         <>
-          <th colSpan={2} className={'text-center'}>Healing per mana spent</th>
-          <th colSpan={2} className={'text-center'}>Healing per second spent casting</th>
+          <th colSpan={2} className="text-center">Healing per mana spent</th>
+          <th colSpan={2} className="text-center">Healing per second spent casting</th>
         </>
         }
-        {this.state.showDamage &&
+        {!this.state.showHealing &&
         <>
-          <th colSpan={2} className={'text-center'}>Damage per mana spent</th>
-          <th colSpan={2} className={'text-center'}>Damage per second spent casting</th>
+          <th colSpan={2} className="text-center">Damage per mana spent</th>
+          <th colSpan={2} className="text-center">Damage per second spent casting</th>
         </>
         }
       </>
@@ -112,9 +91,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     const { spellDetail, topHpm, topDpm, topHpet, topDpet } = props;
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
-    let width = 30;
-    if (this.state.showHealing) width -= 10;
-    if (this.state.showDamage) width -= 10;
+    let width = 20;
 
     return (
       <>
@@ -124,19 +101,19 @@ class HealingEfficiencyBreakdown extends React.Component {
         </td>
         {this.state.showHealing &&
         <>
-          <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+          <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
-          <td className={'text-right'}>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
+          <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
         </>
         }
-        {this.state.showDamage &&
+        {!this.state.showHealing &&
         <>
-          <td className={'text-right'}>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+          <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
-          <td className={'text-right'}>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
+          <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
           <td width={width + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
         </>
         }
@@ -163,7 +140,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           </th>
         </>
         }
-        {this.state.showDamage &&
+        {!this.state.showHealing &&
         <>
           <th>Damage Done</th>
           <th>
@@ -205,7 +182,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
         </>
         }
-        {this.state.showDamage &&
+        {!this.state.showHealing &&
         <>
           <td>
             {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
@@ -230,49 +207,46 @@ class HealingEfficiencyBreakdown extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-12">
-            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
-              <Toggle
-                defaultChecked={false}
-                icons={false}
-                onChange={event => this.setState({ showDamage: event.target.checked })}
-                id="damage-toggle"
-              />
-              <label htmlFor="damage-toggle" style={{ marginLeft: '0.5em' }}>
-                Show Damage
-              </label>
+            <div className="pull-left">
+              <div className="toggle-control pull-right" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+                <Toggle
+                  defaultChecked={false}
+                  icons={false}
+                  onChange={event => this.setState({ detailedView: event.target.checked })}
+                  id="detailed-toggle"
+                />
+                <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
+                  Detailed View
+                </label>
+              </div>
             </div>
-            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
-              <Toggle
-                defaultChecked
-                icons={false}
-                onChange={event => this.setState({ showHealing: event.target.checked })}
-                id="healing-toggle"
-              />
-              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                Show Healing
-              </label>
-            </div>
-            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
-              <Toggle
-                defaultChecked={false}
-                icons={false}
-                onChange={event => this.setState({ showCooldowns: event.target.checked })}
-                id="cooldown-toggle"
-              />
-              <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                Show Cooldowns
-              </label>
-            </div>
-            <div className="toggle-control pull-right" style={{ 'marginLeft': '.5em', 'marginRight': '.5em' }}>
-              <Toggle
-                defaultChecked={false}
-                icons={false}
-                onChange={event => this.setState({ detailedView: event.target.checked })}
-                id="detailed-toggle"
-              />
-              <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
-                Detailed View
-              </label>
+            <div className="pull-right">
+              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+                <Toggle
+                  defaultChecked={false}
+                  icons={false}
+                  onChange={event => this.setState({ showCooldowns: event.target.checked })}
+                  id="cooldown-toggle"
+                />
+                <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em'}}>
+                  Show Cooldowns
+                </label>
+              </div>
+              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
+                  Show Damage
+                </label>
+                <Toggle
+                  defaultChecked
+                  icons={false}
+                  onChange={event => this.setState({ showHealing: event.target.checked })}
+                  id="healing-toggle"
+                />
+                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
+                  Show Healing
+                </label>
+              </div>
+
             </div>
           </div>
           <div className="col-md-12">
@@ -284,7 +258,7 @@ class HealingEfficiencyBreakdown extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} showDamage={this.state.showDamage} />
+                <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
               </tbody>
             </table>
           </div>

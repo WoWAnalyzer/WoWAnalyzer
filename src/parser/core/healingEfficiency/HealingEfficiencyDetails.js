@@ -12,8 +12,8 @@ class HealingEfficiencyDetails extends Analyzer {
 
   tab() {
     return {
-      title: 'Mana Usage',
-      url: 'mana-usage',
+      title: 'Mana Efficiency',
+      url: 'mana-efficiency',
       render: () => (
         <Tab>
           <HealingEfficiencyBreakdown

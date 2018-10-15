@@ -109,7 +109,7 @@ class Ability {
     /**
      * An array of healing effects that this spell cast causes.
      */
-    healSpellId: PropTypes.arrayOf(PropTypes.number),
+    healSpellIds: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;

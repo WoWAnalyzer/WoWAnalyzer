@@ -85,7 +85,7 @@ class HealingEfficiencyTracker extends Analyzer {
 
       if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
         if (includeCooldowns || ability.category !== 'Cooldown') {
-          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellId);
+          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
           topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
           topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
