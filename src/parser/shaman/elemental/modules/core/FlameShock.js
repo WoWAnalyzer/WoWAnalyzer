@@ -19,6 +19,16 @@ class FlameShock extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.owner.fightDuration;
   }
 
+  on_byPlayer_cast(event) {
+    if(event.ability.guid !== SPELLS.LAVA_BURST.id) {
+      return;
+    }
+
+    if(!this.enemies.hasBuff(SPELLS.FLAME_SHOCK.id)){
+      this.badLavaBursts++;
+    }
+  }
+
   suggestions(when) {
 
     when(this.uptime).isLessThan(0.99)
