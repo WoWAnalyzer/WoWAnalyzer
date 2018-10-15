@@ -24,6 +24,8 @@ import ChangelogPanel from 'interface/home/ChangelogPanel';
 import DiscordBanner from './images/discord-banner.jpg';
 import ReportHistory from './ReportHistory/Panel';
 
+import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
+
 import './Home.css';
 
 class Home extends React.PureComponent {
@@ -129,7 +131,9 @@ class Home extends React.PureComponent {
                 </a><br />
                 <a href="https://www.twitter.com/wowanalyzer" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 24 }}>
                   <TwitterIcon style={{ fontSize: '1.4em' }} colored /> @WoWAnalyzer
-                </a>
+                </a><br />
+                <a className="btn" style={{ fontSize: 24 }}        href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"><img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3, borderRadius: 0 }} /> bot             </a>
+                ( <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a> )
               </div>
             </div>
             <div className="col-lg-8 col-md-7">
