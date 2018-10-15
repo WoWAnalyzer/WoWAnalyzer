@@ -332,7 +332,7 @@ export default {
   },
   // Elemental Pet Spells
   WIND_GUST: {
-    id: 226180,
+    id: 157331,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
