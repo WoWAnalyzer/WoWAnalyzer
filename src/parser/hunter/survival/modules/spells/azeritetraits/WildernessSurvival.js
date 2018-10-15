@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.
@@ -60,25 +60,18 @@ class WildernessSurvival extends Analyzer {
     if (!TRIGGERING_SPELLS.includes(spellId)) {
       return;
     }
-
     if (this.hasWFI) {
-      if (this.spellUsable.isOnCooldown(SPELLS.VOLATILE_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.VOLATILE_BOMB_WFI.id);
-        return;
-      } else if (this.spellUsable.isOnCooldown(SPELLS.PHEROMONE_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.PHEROMONE_BOMB_WFI.id);
-        return;
-      } else if (this.spellUsable.isOnCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id)) {
-        this.checkCooldown(SPELLS.SHRAPNEL_BOMB_WFI.id);
-        return;
+      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
+        this.checkCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id);
       } else {
         this.wastedWSReductionMs += MS_REDUCTION;
       }
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-      this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
     } else {
-      this.wastedWSReductionMs += MS_REDUCTION;
+      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
+        this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
+      } else {
+        this.wastedWSReductionMs += MS_REDUCTION;
+      }
     }
   }
 
@@ -87,7 +80,7 @@ class WildernessSurvival extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WILDERNESS_SURVIVAL.id}
-        value={`${this.effectiveCDRInSeconds}/${this.effectiveCDRInSeconds + this.wastedCDRInSeconds}s`}
+        value={`${this.effectiveCDRInSeconds}/${this.effectiveCDRInSeconds + this.wastedCDRInSeconds}s effective CDR`}
         tooltip={`Wilderness Survival reduced ${this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by ${this.effectiveCDRInSeconds} seconds out of ${this.effectiveCDRInSeconds + this.wastedCDRInSeconds} possible.`}
       />
     );

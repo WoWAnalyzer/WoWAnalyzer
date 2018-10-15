@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom';
 import SkullIcon from 'interface/icons/Skull';
 
 import Icon from 'common/Icon';
+import getFightName from 'common/getFightName';
 import { getReport } from 'interface/selectors/report';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { findByBossId } from 'raids';
-import DIFFICULTIES from 'common/DIFFICULTIES';
-import getWipeCount from 'common/getWipeCount';
 
 import './FightNavigationBar.css';
 import SkullRaidMarker from './Results/images/skull-raidmarker.png';
@@ -62,7 +61,7 @@ class FightNavigationBar extends React.PureComponent {
                   <li
                     key={fight.id}
                     className={`${fight.id === fightId ? 'selected' : ''} ${fight.kill ? 'kill' : 'wipe'}`}
-                    data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
+                    data-tip={getFightName(report, fight)}
                     data-place="right"
                   >
                     <Link to={makeAnalyzerUrl(report, fight.id, playerId, resultTab)}>

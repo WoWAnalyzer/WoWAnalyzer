@@ -1,5 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 // Core
 import HealingDone from './modules/core/HealingDone';
 import DamageTaken from './modules/core/DamageTaken';
@@ -28,7 +28,7 @@ import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes'
 import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
 import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
 // Features
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';

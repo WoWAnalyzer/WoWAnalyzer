@@ -5,7 +5,7 @@ import Toggle from 'react-toggle';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import HealingValue from 'parser/core/modules/HealingValue';
+import HealingValue from 'parser/shared/modules/HealingValue';
 
 class BeaconHealingBreakdown extends React.Component {
   static propTypes = {

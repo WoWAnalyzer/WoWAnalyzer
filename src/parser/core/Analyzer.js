@@ -11,8 +11,8 @@ class Analyzer extends Module {
    * Called when the parser finished initializing; after all required dependencies are loaded, normalizers have ran and combatants were initialized.
    * Use this method to toggle the module on/off based on having items equipped, talents selected, etc.
    */
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
 
     const methods = this.constructor.getAllChildMethods(this);
     // Check for any methods that match the old magic method names and connect them to the new event listeners
@@ -40,7 +40,6 @@ class Analyzer extends Module {
   }
 
   addEventListener(eventType, listener, options = null) {
-    // DO NOT MANUALLY CALL THIS METHOD YET. The API is not locked down yet. The current implementation is merely here for an initial performance boost (32%!!!), the final implementation will have more options and performance improvements.
     this.owner.addEventListener(eventType, listener.bind(this), this, options);
   }
   /**
@@ -53,8 +52,8 @@ class Analyzer extends Module {
     // Set is required here to avoid duplicate methods (if a class extends another it might override the same method)
     const methods = new Set();
     // eslint-disable-next-line no-cond-assign
-    while ((obj = Reflect.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
-      const keys = Reflect.ownKeys(obj);
+    while ((obj = Object.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
+      const keys = Object.getOwnPropertyNames(obj).concat(Object.getOwnPropertySymbols(obj));
       keys.forEach(k => methods.add(k));
     }
     return methods;
@@ -65,6 +64,9 @@ class Analyzer extends Module {
     return [fightDuration, `(module: ${this.constructor.name})`];
   }
   debug(...args) {
+    console.debug(...this.consoleMeta, ...args);
+  }
+  log(...args) {
     console.log(...this.consoleMeta, ...args);
   }
   warn(...args) {

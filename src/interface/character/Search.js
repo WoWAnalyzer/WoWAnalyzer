@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+import { Trans, t } from '@lingui/macro';
 
 import REALMS from 'common/REALMS';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import makeUrl from './makeUrl';
 
@@ -38,11 +40,11 @@ class Search extends React.PureComponent {
     const char = this.charInput.value;
 
     if (!region || !realm || !char) {
-      alert('Please select a region, realm and player.');
+      alert(i18n._(t`Please select a region, realm and player.`));
       return;
     }
     if (this.state.loading) {
-      alert('Still working...');
+      alert(i18n._(t`Still working...`));
       return;
     }
 
@@ -55,14 +57,14 @@ class Search extends React.PureComponent {
     if (region !== 'CN') {
       const response = await fetch(makeCharacterApiUrl(null, region, realm, char, 'talents'));
       if (response.status === 500) {
-        alert(`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually`);
+        alert(i18n._(t`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`));
         this.setState({
           loading: false,
         });
         return;
       }
       if (!response.ok) {
-        alert(`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try it again later.`);
+        alert(i18n._(t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try it again later.`));
         this.setState({
           loading: false,
         });
@@ -70,7 +72,7 @@ class Search extends React.PureComponent {
       }
       const data = await response.json();
       if (data.status === 'nok') {
-        alert(`${char} of ${realm} could not be found.`);
+        alert(i18n._(t`${char} of ${realm} could not be found.`));
         this.setState({
           loading: false,
         });
@@ -105,7 +107,7 @@ class Search extends React.PureComponent {
             onChange={value => {
               this.setState({ currentRealm: value.name });
             }}
-            placeholder="Realm"
+            placeholder={i18n._(t`Realm`)}
           />
           <input
             type="text"
@@ -117,10 +119,10 @@ class Search extends React.PureComponent {
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
-            placeholder="Character"
+            placeholder={i18n._(t`Character`)}
           />
           <button type="submit" className={`btn btn-primary analyze animated-button ${this.state.loading ? 'fill-button' : ''}`}>
-            Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            <Trans>Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
       </form>

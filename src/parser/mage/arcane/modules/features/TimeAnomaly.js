@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -49,7 +49,7 @@ class TimeAnomaly extends Analyzer {
 	suggestions(when) {
 		when(this.manaUtilizationThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> with greater than 70% mana {this.conservedTooHigh} times. Because of the way <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the <SpellLink id={SPELLS.EVOCATION.id} /> effect causing your mana to rapidly increase. If you are conserving your mana too high, this can cause your mana to cap out at 100% which is a waste. So if you are using the Time Anomaly talent, you should make sure you conserve below 70% mana to help prevent mana capping.</React.Fragment>)
+				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> with greater than 70% mana {this.conservedTooHigh} times. Because of the way <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the <SpellLink id={SPELLS.EVOCATION.id} /> effect causing your mana to rapidly increase. If you are conserving your mana too high, this can cause your mana to cap out at 100% which is a waste. So if you are using the Time Anomaly talent, you should make sure you conserve below 70% mana to help prevent mana capping.</>)
 					.icon(SPELLS.TIME_ANOMALY_TALENT.icon)
 					.actual(`${formatPercentage(this.manaUtilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

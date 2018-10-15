@@ -16,6 +16,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Object.values,Object.entries,fetch,Array.prototype.includes&unknown=polyfill"></script>
 
 <style type="text/css">
 #splash {
@@ -44,6 +45,10 @@
   transform: scaleY(1.1);
   text-transform: uppercase;
 }
+@media (max-width: 1200px) { #splash h1 { font-size: 150px; } }
+@media (max-width: 1000px) { #splash h1 { font-size: 130px; } }
+@media (max-width: 800px) { #splash h1 { font-size: 90px; } }
+@media (max-width: 530px) { #splash h1 { font-size: 50px; } }
 #splash p {
   color: #aaa;
   font-size: 0.9em;
@@ -72,6 +77,13 @@
   </div>
 </div>
 
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-8048055232081854",
+  enable_page_level_ads: true
+});
+</script>
 </body>
 
 </html>

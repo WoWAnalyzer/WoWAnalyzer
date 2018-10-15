@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
@@ -46,11 +44,7 @@ class CordOfMaiev extends Analyzer {
 
     return {
       item: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON,
-      result: (
-        <React.Fragment>
-          {procTimeSaved} seconds off the cooldown, {numProcs} Penances cast earlier
-        </React.Fragment>
-      ),
+      result: `${procTimeSaved} seconds off the cooldown, ${numProcs} Penances cast earlier`,
     };
   }
 }

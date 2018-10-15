@@ -12,9 +12,9 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      FoeBreaker: 244291,
-      EmpoweredFoeBreaker: 255060,
-    },
+    softMitigationChecks: [
+      244291, // FoeBreaker
+      255060, // EmpoweredFoeBreaker
+    ],
   },
 };

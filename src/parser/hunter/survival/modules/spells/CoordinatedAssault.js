@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';

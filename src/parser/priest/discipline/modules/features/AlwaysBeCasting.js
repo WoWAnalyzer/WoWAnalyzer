@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAlwaysBeCastingHealing from 'parser/core/modules/AlwaysBeCastingHealing';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { formatPercentage } from 'common/format';
 
 import SuggestionThresholds from '../../SuggestionThresholds';

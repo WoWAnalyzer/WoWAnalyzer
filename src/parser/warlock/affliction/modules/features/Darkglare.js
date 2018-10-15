@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -203,6 +203,9 @@ class Darkglare extends Analyzer {
 
   _resetDotOnTarget(event) {
     const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
     const spellId = event.ability.guid;
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.dots[target] = this.dots[target] || { targetName: enemy.name, dots: {} };

@@ -332,7 +332,7 @@ export default {
   },
   // Elemental Pet Spells
   WIND_GUST: {
-    id: 226180,
+    id: 157331,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
@@ -346,7 +346,7 @@ export default {
     name: 'Call Lightning',
     icon: 'ability_vehicle_electrocharge',
   },
-  METEOR: {
+  FIRE_ELEMENTAL_METEOR: {
     id: 117588,
     name: 'Meteor',
     icon: 'spell_mage_meteor',
@@ -355,6 +355,11 @@ export default {
     id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
+  },
+  FIRE_ELEMENTAL_IMMOLATE: {
+    id: 118297,
+    name: 'Fire Elemental Immolate',
+    icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
   ROCKBITER: {
@@ -614,7 +619,7 @@ export default {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 4000,
+    manaCost: 3800,
     color: '#40b3bf',
   },
   RIPTIDE: {

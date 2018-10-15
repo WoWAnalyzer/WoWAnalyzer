@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -196,6 +196,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+      },
+      {
+        spell: SPELLS.PROVOKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SPEAR_HAND_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
       },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {

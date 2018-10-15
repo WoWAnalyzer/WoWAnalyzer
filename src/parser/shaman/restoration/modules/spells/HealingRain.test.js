@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
 
@@ -35,7 +35,7 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   let healingRain;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    healingRain = new HealingRain(parser);
+    healingRain = new HealingRain({ owner: parser });
   });
 
   it(`can detect ticks`, () => {

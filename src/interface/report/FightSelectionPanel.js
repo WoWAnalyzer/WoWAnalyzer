@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import { Link } from 'react-router-dom';
+import { Trans, t } from '@lingui/macro';
 
+import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import FightSelectionPanelList from './FightSelectionPanelList';
@@ -27,7 +29,7 @@ class FightSelectionPanel extends React.PureComponent {
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
-              <h2>Select the fight to parse</h2>
+              <h2><Trans>Select the fight to parse</Trans></h2>
             </div>
             <div className="col-md-4 text-right toggle-control action-buttons">
               <Toggle
@@ -37,14 +39,14 @@ class FightSelectionPanel extends React.PureComponent {
                 id="kills-only-toggle"
               />
               <label htmlFor="kills-only-toggle">
-                {' '}Kills only
+                {' '}<Trans>Kills only</Trans>
               </label>
               <Link
                 to={makeAnalyzerUrl(report)}
                 onClick={refreshReport}
-                data-tip="This will refresh the fights list which can be useful if you're live logging."
+                data-tip={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)}
               >
-                <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
               </Link>
             </div>
           </div>

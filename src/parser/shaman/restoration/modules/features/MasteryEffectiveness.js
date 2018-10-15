@@ -4,9 +4,9 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
-import StatTracker from 'parser/core/modules/StatTracker';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
@@ -65,15 +65,18 @@ class MasteryEffectiveness extends Analyzer {
     this.on_byPlayer_heal(event);
   }
 
+  get masteryEffectivenessPercent() {
+    return this.totalMasteryHealing / this.totalMaxPotentialMasteryHealing;
+  }
+
   statistic() {
-    const masteryEffectivenessPercent = this.totalMasteryHealing / this.totalMaxPotentialMasteryHealing;
     const masteryPercent = this.statTracker.currentMasteryPercentage;
-    const avgEffectiveMasteryPercent = masteryEffectivenessPercent * masteryPercent;
+    const avgEffectiveMasteryPercent = this.masteryEffectivenessPercent * masteryPercent;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
-        value={`${formatPercentage(masteryEffectivenessPercent)} %`}
+        value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
         label={(
           <dfn data-tip={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
             Mastery benefit

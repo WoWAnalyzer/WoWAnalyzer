@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -73,7 +73,7 @@ class Judgment extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</React.Fragment>)
+      return suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
         .icon(SPELLS.JUDGMENT_DEBUFF.icon)
         .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

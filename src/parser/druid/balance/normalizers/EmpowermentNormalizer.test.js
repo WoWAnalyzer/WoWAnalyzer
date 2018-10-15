@@ -44,7 +44,7 @@ describe('Druid/Balance/Normalizers/EmpowermentNormalizer', () => {
   ];
   reorderScenarios.forEach(scenario => {
     it(scenario.it, () => {
-      const parser = new LunarEmpowermentNormalizer();
+      const parser = new LunarEmpowermentNormalizer({});
       expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });

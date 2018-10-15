@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreSpellManaCost from 'parser/core/modules/SpellManaCost';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 // import Penance from '../Spells/Penance';
 
 /** The amount of time during which it's impossible a second Penance could have started */

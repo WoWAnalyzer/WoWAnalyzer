@@ -1,5 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
@@ -24,6 +24,7 @@ import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesBy
 
 import './main.css';
 
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
 
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,

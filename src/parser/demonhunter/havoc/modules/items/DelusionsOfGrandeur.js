@@ -8,8 +8,8 @@ import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import FuryTracker from '../resourcetracker/FuryTracker';
 
 /*
@@ -60,7 +60,7 @@ class DelusionsOfGrandeur extends Analyzer {
   suggestions(when) {
   	when(this.suggestionThresholds).addSuggestion((suggest) =>{
   		return suggest(
-  			<React.Fragment>The fight duration of {formatDuration(this.owner.fightDuration / 1000)} minutes was shorter than your cooldown on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> ({formatDuration(this.metaCooldownWithShoulders)} minutes). <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon /> are only useful if you get and extra cast of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon />.</React.Fragment>
+  			<>The fight duration of {formatDuration(this.owner.fightDuration / 1000)} minutes was shorter than your cooldown on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> ({formatDuration(this.metaCooldownWithShoulders)} minutes). <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon /> are only useful if you get and extra cast of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon />.</>
   		)
   		.icon(ITEMS.DELUSIONS_OF_GRANDEUR.icon)
   		.staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
@@ -72,9 +72,9 @@ class DelusionsOfGrandeur extends Analyzer {
 			item: ITEMS.DELUSIONS_OF_GRANDEUR,
 			result:(
 				<dfn data-tip={`You had ${formatNumber(this.furyTracker.cooldownReduction)} seconds of cooldown reduction, ${formatNumber(this.furyTracker.cooldownReductionWasted)} seconds of which were wasted.`}>
-					<React.Fragment>
+					<>
 						Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> by {formatPercentage(this.cooldownReductionRatio)}% ({formatDuration(this.metaCooldown)} minutes to {formatDuration(this.metaCooldownWithShoulders)} minutes on average)
-					</React.Fragment>
+					</>
 				</dfn>
 			),
 		};

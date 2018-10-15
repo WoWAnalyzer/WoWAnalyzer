@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingDone from 'parser/core/modules/HealingDone';
-import DamageDone from 'parser/core/modules/DamageDone';
-import DamageTaken from 'parser/core/modules/DamageTaken';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import DamageTaken from 'parser/shared/modules/DamageTaken';
 
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';

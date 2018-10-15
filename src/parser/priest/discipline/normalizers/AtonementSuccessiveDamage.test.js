@@ -1,4 +1,4 @@
-import { AtonementOnPlayer1, AtonementOnPlayer2, DamagingEvent1, DamagingEvent2, thisPlayer } from 'tests/parser/priest/discipline/fixtures/TestingEvents';
+import { AtonementOnPlayer1, AtonementOnPlayer2, DamagingEvent1, DamagingEvent2, thisPlayer } from 'parser/priest/discipline/test-fixtures/TestingEvents';
 
 import AtonementSuccessiveDamage from './AtonementSuccessiveDamage';
 

@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -82,7 +82,7 @@ class EarthShield extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> uptime can be improved.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> uptime can be improved.</>)
           .icon(SPELLS.EARTH_SHIELD_TALENT.icon)
           .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

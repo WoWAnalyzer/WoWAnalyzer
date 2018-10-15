@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import Enemies from 'parser/core/modules/Enemies';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
@@ -40,7 +40,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
           .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Frailty uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

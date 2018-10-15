@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
 
@@ -77,7 +77,7 @@ class BoomingVoice extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</React.Fragment>)
+          return suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
             .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
             .actual(`${actual} Rage wasted`)
             .recommended(`<${recommended} wasted Rage is recommended`);

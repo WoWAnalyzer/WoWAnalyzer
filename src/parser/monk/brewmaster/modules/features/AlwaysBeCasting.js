@@ -1,6 +1,6 @@
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import CoreAlwaysBeCasting from 'parser/core/modules/AlwaysBeCasting';
+import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {

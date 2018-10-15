@@ -414,7 +414,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 117906,
-    masteryCoefficient: 3,
+    masteryCoefficient: 1,
     ranking: {
       class: 5,
       spec: 1,

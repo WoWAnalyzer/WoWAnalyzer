@@ -1,5 +1,5 @@
 import React from 'react';
-import LaserMatrix from 'parser/core/modules/spells/bfa/azeritetraits/LaserMatrix';
+import LaserMatrix from 'parser/shared/modules/spells/bfa/azeritetraits/LaserMatrix';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -40,11 +40,11 @@ class LaserMatrixRestoDruid extends LaserMatrix{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LASER_MATRIX.id}
         value={(
-          <React.Fragment>
+          <>
             {formatPercentage(healingThroughputPercent)} % healing<br />
             {formatPercentage(damageThroughputPercent)} % damage<br />
             Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
-          </React.Fragment>
+          </>
         )}
         tooltip={`Healing done: ${formatNumber(this.healing)} <br />
                   Damage done: ${formatNumber(this.damage)} <br />

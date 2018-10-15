@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import resourceSuggest from 'parser/core/modules/resourcetracker/ResourceSuggest';
+import resourceSuggest from 'parser/shared/modules/resourcetracker/ResourceSuggest';
 
 import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
 
@@ -13,7 +13,7 @@ class ComboPoints extends Analyzer {
   };
 
   makeExtraSuggestion(spell) {
-    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Combo points for Seal Fate are not considered. </React.Fragment>;
+    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} />. Combo points for Seal Fate are not considered. </>;
   }
 
   suggestions(when) {

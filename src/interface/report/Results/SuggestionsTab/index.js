@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
+import { Trans } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -24,11 +25,11 @@ class SuggestionsTab extends React.Component {
     const { issues } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
-              <h2>Suggestions</h2>
+              <h2><Trans>Suggestions</Trans></h2>
             </div>
             <div className="col-md-4 text-right toggle-control">
               <Toggle
@@ -38,7 +39,7 @@ class SuggestionsTab extends React.Component {
                 id="minor-issues-toggle"
               />
               <label htmlFor="minor-issues-toggle">
-                Minor importance
+                <Trans>Minor importance</Trans>
               </label>
             </div>
           </div>
@@ -51,7 +52,7 @@ class SuggestionsTab extends React.Component {
                   <Icon icon="thumbsup" alt="Thumbsup" />
                 </div>
                 <div className="suggestion">
-                  There are no major issues in this fight. Good job!
+                  <Trans>There are no major issues in this fight. Good job!</Trans>
                 </div>
               </li>
             )}
@@ -59,11 +60,11 @@ class SuggestionsTab extends React.Component {
               .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
               .map((issue, i) => <Suggestion key={i} {...issue} />)}
             <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-              Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.
+              <Trans>Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.</Trans>
             </li>
           </ul>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

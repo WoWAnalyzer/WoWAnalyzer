@@ -1,12 +1,11 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 
 const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
 const SOUL_OF_THE_FOREST_REDUCTION = 10;
 
 class AstralPowerTracker extends ResourceTracker {
-
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.ASTRAL_POWER;
@@ -43,7 +42,6 @@ class AstralPowerTracker extends ResourceTracker {
   	}
   	return cost;
   }
-
 }
 
 export default AstralPowerTracker;

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
 
@@ -71,9 +71,9 @@ class FillerLightOfTheMartyrs extends Analyzer {
   suggestions(when) {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest((
-        <React.Fragment>
+        <>
           You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
-        </React.Fragment>
+        </>
       ))
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
         .actual(`${this.cpm.toFixed(2)} Casts Per Minute - ${this.casts} casts total`)
@@ -82,9 +82,9 @@ class FillerLightOfTheMartyrs extends Analyzer {
 
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
-        <React.Fragment>
+        <>
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <dfn data-tip={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}>available</dfn> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available<dfn data-tip="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.">*</dfn>.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
         .actual(`${this.inefficientCasts.length} casts while Holy Shock was available`)

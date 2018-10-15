@@ -2,10 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import Haste from 'parser/core/modules/Haste';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Haste from 'parser/shared/modules/Haste';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 
 class Abilities extends CoreAbilities {
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
-          extraSuggestion: <React.Fragment>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon /> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon /> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon /> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon />.</React.Fragment>,
+          extraSuggestion: <>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon /> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon /> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon /> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon />.</>,
         },
       },
       {

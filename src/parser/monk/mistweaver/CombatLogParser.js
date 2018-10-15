@@ -13,8 +13,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Tab from 'interface/others/Tab';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';

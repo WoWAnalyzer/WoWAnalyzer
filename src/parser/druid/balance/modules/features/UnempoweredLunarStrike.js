@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-const TARGETS_FOR_GOOD_CAST = 4;
+const TARGETS_FOR_GOOD_CAST = 3;
 
 class UnempoweredLunarStrike extends Analyzer {
   badCasts = 0;
@@ -18,7 +18,7 @@ class UnempoweredLunarStrike extends Analyzer {
     this.badCasts += 1;
     this.lastCast.meta = this.lastCast.meta || {};
     this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = 'Lunar Strike was cast without Lunar Empowerment, Owlkin Frenzy and Warrior of Elune and hit less than 4 targets.';
+    this.lastCast.meta.inefficientCastReason = `Lunar Strike was cast without Lunar Empowerment, Owlkin Frenzy and Warrior of Elune and hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
   }
 
   on_byPlayer_cast(event) {
@@ -62,7 +62,7 @@ class UnempoweredLunarStrike extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</React.Fragment>)
+      return suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</>)
         .icon(SPELLS.LUNAR_STRIKE.icon)
         .actual(`${actual.toFixed(1)} Unempowered Lunar Strikes per minute`)
         .recommended(`${recommended} is recommended`);

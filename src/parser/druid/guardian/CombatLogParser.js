@@ -1,8 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import HealingDone from 'parser/core/modules/HealingDone';
-import DamageDone from 'parser/core/modules/DamageDone';
-import DamageTaken from 'parser/core/modules/DamageTaken';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import DamageTaken from 'parser/shared/modules/DamageTaken';
 
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';

@@ -1,10 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/checklist/Module';
 
 import FrostFeverUptime from './modules/features/FrostFeverUptime';
 import RimeEfficiency from './modules/features/RimeEfficiency';

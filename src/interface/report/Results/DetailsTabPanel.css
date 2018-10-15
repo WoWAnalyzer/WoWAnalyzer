@@ -20,11 +20,12 @@
 .results .details-tab-panel menu .btn-link {
   display: block;
   outline: none;
-  padding: 15px 30px 15px 15px;
   transition: 200ms background;
   color: #fff;
   font-weight: 400;
   letter-spacing: 0.1em;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .results .details-tab-panel menu .btn-link, .results .details-tab-panel menu .btn-link:hover, .results .details-tab-panel menu .btn-link:active {
   text-decoration: none;

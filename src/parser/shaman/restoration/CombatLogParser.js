@@ -1,15 +1,17 @@
 import React from 'react';
 
 import Tab from 'interface/others/Tab';
+import RestorationShamanSpreadsheet from 'interface/others/RestorationShamanSpreadsheet';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
 import ShamanAbilityTracker from './modules/core/ShamanAbilityTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
+import Spreadsheet from './modules/core/Spreadsheet';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -18,7 +20,6 @@ import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';
 import StatValues from './modules/features/StatValues';
 
-import AncestralVigor from './modules/features/AncestralVigor';
 import TidalWaves from './modules/features/TidalWaves';
 import CastBehavior from './modules/features/CastBehavior';
 // Talents
@@ -29,6 +30,7 @@ import Deluge from './modules/talents/Deluge';
 import Undulation from './modules/talents/Undulation';
 import FlashFlood from './modules/talents/FlashFlood';
 import EarthShield from './modules/talents/EarthShield';
+import AncestralVigor from './modules/talents/AncestralVigor';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import Downpour from './modules/talents/Downpour';
 import CloudburstTotem from './modules/talents/CloudburstTotem';
@@ -44,6 +46,7 @@ import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
 // Shared
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
@@ -60,12 +63,12 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
+    spreadsheet: Spreadsheet,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    ancestralVigor: AncestralVigor,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
@@ -79,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deluge: Deluge,
     flashFlood: FlashFlood,
     earthShield: EarthShield,
+    ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
@@ -97,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resurgence: Resurgence,
 
     // Shared:
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
 
     // Normalizers:
@@ -108,6 +113,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+            <RestorationShamanSpreadsheet parser={this} />
+          </Tab>
+        ),
+      },
       {
         title: 'Feeding',
         url: 'feeding',

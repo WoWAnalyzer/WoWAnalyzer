@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { damageTaken, buffsApplied, SimpleFight } from 'tests/parser/guardian/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { damageTaken, buffsApplied, SimpleFight } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import IronFur from './IronFur';
 
@@ -10,7 +10,7 @@ describe('Core.IronFur', () => {
   beforeEach(() => {
     parser = new TestCombatLogParser();
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.URSOCS_ENDURANCE.id]: 0 };
-    ironfur = new IronFur(parser);
+    ironfur = new IronFur({ owner: parser });
   });
   it('track last ironfur time with noevents', () => {
     expect(ironfur.overallIronfurUptime).toBe(0);

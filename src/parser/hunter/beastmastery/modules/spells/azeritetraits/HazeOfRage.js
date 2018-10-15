@@ -50,10 +50,10 @@ class HazeOfRage extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.HAZE_OF_RAGE.id}
         value={(
-          <React.Fragment>
+          <>
             {formatNumber(this.avgAgility)} Average Agility <br />
             {formatPercentage(this.uptime)}% Uptime
-          </React.Fragment>
+          </>
         )}
         tooltip={`Haze of Rage granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
       />

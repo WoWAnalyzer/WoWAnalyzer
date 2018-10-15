@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {

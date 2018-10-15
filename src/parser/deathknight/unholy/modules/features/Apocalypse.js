@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import EnemyInstances from 'parser/core/modules/EnemyInstances';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class Apocalypse extends Analyzer {

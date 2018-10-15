@@ -18,16 +18,20 @@ const parser = {
 describe('Rushing Jade Wind', () => {
   it('should be inactive for a user without the talent', () => {
     const rjw = new RushingJadeWind({
-      ...parser,
-      selectedCombatant: talentless_combatant,
+      owner: {
+        ...parser,
+        selectedCombatant: talentless_combatant,
+      },
     });
     expect(rjw.active).toBe(false);
   });
 
   it('should be active for a user with the talent', () => {
     const rjw = new RushingJadeWind({
-      ...parser,
-      selectedCombatant: talented_combatant,
+      owner: {
+        ...parser,
+        selectedCombatant: talented_combatant,
+      },
     });
     expect(rjw.active).toBe(true);
   });
