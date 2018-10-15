@@ -5,7 +5,7 @@ import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';
-import FireElemental from './modules/features/FireElemental';
+import StormFireElemental from './modules/features/StormFireElemental';
 
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
@@ -38,7 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     flameShock: FlameShock,
     overload: Overload,
-    fireElemental: FireElemental,
+    stormfireElemental: StormFireElemental,
 
     // Talents
     aftershock: Aftershock,
