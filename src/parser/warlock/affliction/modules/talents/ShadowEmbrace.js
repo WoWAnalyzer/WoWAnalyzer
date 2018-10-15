@@ -7,10 +7,12 @@ import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'parser/monk/brewmaster/modules/core/GetDamageBonus';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const BONUS_PER_STACK = 0.03;
+const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
+const debug = false;
 
 class ShadowEmbrace extends Analyzer {
   static dependencies = {
@@ -19,15 +21,30 @@ class ShadowEmbrace extends Analyzer {
 
   damage = 0;
 
+  _lastEventTimestamp = null;
+
   debuffs = {
-    /*
-    [target string]: {
-      [stack]: {
-        start: timestamp,
-        uptime: time
-      }
-    }
-     */
+    0: {
+      // ignored, see comment in stackedUptime getter
+      start: null,
+      count: 1,
+      uptime: 0,
+    },
+    1: {
+      start: null,
+      count: 0,
+      uptime: 0,
+    },
+    2: {
+      start: null,
+      count: 0,
+      uptime: 0,
+    },
+    3: {
+      start: null,
+      count: 0,
+      uptime: 0,
+    },
   };
 
   constructor(...args) {
@@ -47,28 +64,6 @@ class ShadowEmbrace extends Analyzer {
     this.damage += getDamageBonus(event, shadowEmbrace.stacks * BONUS_PER_STACK);
   }
 
-  get defaultObj() {
-    return {
-      0: {
-        // ignored, see comment in changedebuffstack handler
-        start: null,
-        uptime: 0,
-      },
-      1: {
-        start: null,
-        uptime: 0,
-      },
-      2: {
-        start: null,
-        uptime: 0,
-      },
-      3: {
-        start: null,
-        uptime: 0,
-      },
-    };
-  }
-
   on_byPlayer_changedebuffstack(event) {
     if (event.ability.guid !== SPELLS.SHADOW_EMBRACE_DEBUFF.id) {
       return;
@@ -76,46 +71,63 @@ class ShadowEmbrace extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    const target = encodeTargetString(event.targetID, event.targetInstance);
-    this.debuffs[target] = this.debuffs[target] || this.defaultObj;
-    // add uptime on oldStacks, start counting uptime on newStacks
-    this.debuffs[target][event.oldStacks].uptime += event.timestamp - this.debuffs[target][event.oldStacks].start;
-    this.debuffs[target][event.oldStacks].start = null;
-    this.debuffs[target][event.newStacks].start = event.timestamp;
+    if (this._lastEventTimestamp !== null && event.timestamp <= this._lastEventTimestamp + BUFFER) {
+      debug && console.log(`!! (${this.owner.formatTimestamp(event.timestamp, 3)}) ignoring duplicate event`);
+      return;
+    }
+    this._lastEventTimestamp = event.timestamp;
+    debug && console.log(`-- (${this.owner.formatTimestamp(event.timestamp, 3)}) changedebuffstack on ${encodeTargetString(event.targetID, event.targetInstance)}`);
+
+    const oldStacks = this.debuffs[event.oldStacks];
+    const newStacks = this.debuffs[event.newStacks];
+    oldStacks.count = Math.max(oldStacks.count - 1, 0);
+    debug && console.log(`OLD (${event.oldStacks}), count reduced to ${oldStacks.count}`);
+    if (oldStacks.count === 0) {
+      oldStacks.uptime += event.timestamp - oldStacks.start;
+      debug && console.log(`OLD (${event.oldStacks}) count 0, updated uptime to ${oldStacks.uptime}`);
+    }
+
+    if (newStacks.count === 0) {
+      newStacks.start = event.timestamp;
+      debug && console.log(`NEW (${event.newStacks}) count 0, started counting`);
+    }
+    newStacks.count += 1;
+    debug && console.log(`NEW (${event.newStacks}), count increased to ${newStacks.count}`);
+  }
+
+  get totalUptimePercentage() {
+    return this.enemies.getBuffUptime(SPELLS.SHADOW_EMBRACE_DEBUFF.id) / this.owner.fightDuration;
   }
 
   get stackedUptime() {
     const duration = this.owner.fightDuration;
-    const uptimes = {
-      1: 0,
-      2: 0,
-      3: 0,
+    // it's easier to calculate no stack uptime as 1 - anyStackUptimePercentage, that's why we ignore this.debuffs[0]
+    return {
+      0: 1 - this.totalUptimePercentage,
+      1: this.debuffs[1].uptime / duration,
+      2: this.debuffs[2].uptime / duration,
+      3: this.debuffs[3].uptime / duration,
     };
-    Object.values(this.debuffs).forEach((target) => {
-      // I got confused trying to iterate through the objects, and this is easier, albeit verbose
-      uptimes[1] += target[1].uptime;
-      uptimes[2] += target[2].uptime;
-      uptimes[3] += target[3].uptime;
-    });
-    Object.keys(uptimes).forEach(key => {
-      uptimes[key] /= duration;
-    });
-    // we ignore the 0-stack part from this.debuffs:
-    // 1) it's unknown when to initialize (encounter start? add spawn?)
-    // 2) uptime without stacks is easier to calculate as 1 - "anyStackUptimePercentage"
-    const totalUptimePercentage = this.enemies.getBuffUptime(SPELLS.SHADOW_EMBRACE_DEBUFF.id) / duration;
-    uptimes[0] = 1 - totalUptimePercentage;
-    return uptimes;
   }
 
   subStatistic() {
-    console.log('Stacked uptime', this.stackedUptime);
+    const uptimes = this.stackedUptime;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> bonus damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
-      />
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime</>}
+          value={`${formatPercentage(this.totalUptimePercentage)} %`}
+          valueTooltip={`No stacks: ${formatPercentage(uptimes[0])} %<br />
+            1 stack: ${formatPercentage(uptimes[1])} %<br />
+            2 stacks: ${formatPercentage(uptimes[2])} %<br />
+            3 stacks: ${formatPercentage(uptimes[3])} %`}
+        />
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> bonus damage</>}
+          value={formatThousands(this.damage)}
+          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        />
+      </>
     );
   }
 }
