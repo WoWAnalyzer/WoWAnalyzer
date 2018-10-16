@@ -73,7 +73,7 @@ class RampageFrothingBerserker extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
       when(prematureCastRatio).isGreaterThan(minor)
         .addSuggestion((suggest, actual) => {
-          return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</React.Fragment>)
+          return suggest(<>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</>)
             .icon(SPELLS.RAMPAGE.icon)
             .actual(`${formatPercentage(actual)}% (${this.premature_counter} out of ${this.casts_counter}) of your Rampage casts were cast below 100 rage.`)
             .recommended(`0% is recommended`)

@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Abilities from 'parser/core/modules/Abilities';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import Abilities from 'parser/shared/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.

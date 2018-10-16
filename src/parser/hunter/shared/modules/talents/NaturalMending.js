@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown of Exhilaration by 1 sec.
@@ -57,8 +57,8 @@ class NaturalMending extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.NATURAL_MENDING_TALENT.id} />}
         value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s`}
         label="Exhilaration CDR"

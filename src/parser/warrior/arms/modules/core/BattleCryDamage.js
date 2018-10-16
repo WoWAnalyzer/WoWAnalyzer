@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import BattleCryAnalyzer from './BattleCry';
 

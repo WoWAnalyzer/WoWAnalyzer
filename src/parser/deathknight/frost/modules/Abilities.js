@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -74,17 +74,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</React.Fragment>,
-        },
-      },
-      {
-        spell: SPELLS.ARCANE_TORRENT_RUNIC_POWER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 90,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
+          extraSuggestion: <>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</>,
         },
       },
       {
@@ -219,7 +209,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_COMMAND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: 8,        
+        cooldown: 8,
       },
       {
         spell: SPELLS.RAISE_ALLY,
@@ -263,7 +253,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 60,        
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.BLINDING_SLEET_TALENT.id),
       },
       {
@@ -273,9 +263,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),        
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
       },
-      // RUNES     
+      // RUNES
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -74,9 +74,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 20,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.FLAMESTRIKE,
@@ -109,6 +106,12 @@ class Abilities extends CoreAbilities {
       },
 
       // Cooldowns
+      {
+        spell: SPELLS.TIME_WARP,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
+        cooldown: 300,
+      },
       {
         spell: SPELLS.COMBUSTION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -156,9 +159,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.ICE_BLOCK,
@@ -168,9 +168,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 240,
-        castEfficiency: {
-          disabled: true,
-        },
       },
 
       //Utility
@@ -189,9 +186,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 30,
         charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.BLINK,
@@ -201,9 +195,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 15,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
@@ -212,18 +203,12 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 24,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.REMOVE_CURSE,
@@ -232,9 +217,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 8,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SLOW_FALL,
@@ -257,9 +239,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 300,
-        castEfficiency: {
-          disabled: true,
-        },
       },
     ];
   }

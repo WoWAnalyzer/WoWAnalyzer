@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CoreAlwaysBeCasting from 'parser/core/modules/AlwaysBeCasting';
+import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

@@ -136,9 +136,9 @@ export class Premium extends React.PureComponent {
                 Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}
                 {user.patreon && user.patreon.premium && ' because of your Patreonage'}
                 {user.github && user.github.premium && (
-                  <React.Fragment>
+                  <>
                     {' '}because of a recent GitHub contribution (active until {this.props.dateToLocaleString(new Date(user.github.expires))})
-                  </React.Fragment>
+                  </>
                 )}
                 . {user.premium ? 'Awesome!' : 'You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.'}
               </div>

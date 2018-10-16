@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import ShardOfTheExodar from './ShardOfTheExodar';
 
@@ -10,7 +10,7 @@ describe('Mage/Shared/Items/ShardOfTheExodar', () => {
   });
 
   it('counts freshly applied Bloodlusts', () => {
-    const module = new ShardOfTheExodar(parser);
+    const module = new ShardOfTheExodar({ owner: parser });
     const makeEvent = spellId => ({
       type: 'applybuff',
       targetID: parser.playerId,

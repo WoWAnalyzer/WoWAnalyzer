@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import CoreMightOfTheMountain, { CRIT_EFFECT } from 'parser/core/modules/racials/dwarf/MightOfTheMountain';
+import BaseMightOfTheMountain, { CRIT_EFFECT } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
 
 import BeaconHealSource from '../../beacons/BeaconHealSource';
 
-class MightOfTheMountain extends CoreMightOfTheMountain {
+class MightOfTheMountain extends BaseMightOfTheMountain {
   static dependencies = {
-    ...CoreMightOfTheMountain.dependencies,
+    ...BaseMightOfTheMountain.dependencies,
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };

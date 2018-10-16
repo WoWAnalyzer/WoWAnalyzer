@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
@@ -36,6 +36,9 @@ import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import ThrashHitCount from './modules/spells/ThrashHitCount';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
+import Shadowmeld from './modules/racials/Shadowmeld';
+
+import WildFleshrending from './modules/azeritetraits/WildFleshrending';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thrashHitCount: ThrashHitCount,
     swipeHitCount: SwipeHitCount,
     tigersFuryEnergy: TigersFuryEnergy,
+    shadowmeld: Shadowmeld,
 
     // talents
     savageRoarUptime: SavageRoarUptime,
@@ -82,6 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+
+    // azerite traits
+    wildFleshrending: WildFleshrending,
   };
 }
 

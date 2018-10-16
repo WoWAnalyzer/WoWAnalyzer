@@ -1,6 +1,7 @@
 import React from 'react';
 
 // import { Zerotorescue } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -16,7 +17,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       <Warning>
         Hey there! A good basis has been implemented for this spec, but it needs to be fleshed out more to provide all the feedback possible.<br /><br />
 
@@ -26,7 +27,7 @@ export default {
       <Warning>
         Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Fury expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
       </Warning>
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: 'http://wow-analyzer.docker/report/XxGPJ8Y1dWcqV79T/6-Heroic+Vectis+-+Kill+(6:49)/14-Garoddon',
@@ -37,7 +38,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Warrior" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "FuryWarrior" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

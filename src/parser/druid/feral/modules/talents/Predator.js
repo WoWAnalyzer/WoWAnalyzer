@@ -58,9 +58,9 @@ class Predator extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           You're not gaining much benefit from <SpellLink id={SPELLS.PREDATOR_TALENT.id} />. If the fight has adds make sure they have bleeds on them when they die, and make use of your <SpellLink id={SPELLS.TIGERS_FURY.id} /> cooldown being reset. If the fight doesn't have adds it would be a good idea to switch to another talent.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.PREDATOR_TALENT.icon)
         .actual(`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`)
@@ -79,11 +79,10 @@ class Predator extends Analyzer {
         value={this.extraCastsPerMinute.toFixed(2)}
         label="Extra Tiger's Fury casts per minute"
         tooltip={this.extraCasts > 0 ? hadExtraCasts : noExtraCasts}
+        positon={STATISTIC_ORDER.OPTIONAL(3)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default Predator;

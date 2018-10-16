@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { niseko } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -16,7 +17,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the <a href="https://ancestralguidance.com/">website</a>.<br /><br />
@@ -24,7 +25,7 @@ export default {
       <Warning>
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/3jzL7DNhb8arByxR/19-Heroic+G\'huun+-+Wipe+9+(10:38)/7-Kamnie',
@@ -35,7 +36,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Shaman" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "RestorationShaman" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

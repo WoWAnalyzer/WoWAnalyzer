@@ -1,5 +1,5 @@
-import { SimpleFight, incomingDamage } from 'tests/parser/brewmaster/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { SimpleFight, incomingDamage } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import IronSkinBrew from './IronSkinBrew';
 
@@ -12,7 +12,7 @@ describe('Brewmaster.IronskinBrew', () => {
   let isb;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    isb = new IronSkinBrew(parser);
+    isb = new IronSkinBrew({ owner: parser });
     isb.enemies = ENEMIES;
     isb.brews = {
       consumeCharge: () => {},

@@ -1,10 +1,13 @@
 import React from 'react';
+
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import RegenResourceCapTracker from 'parser/core/modules/RegenResourceCapTracker';
+import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+
+import SpellEnergyCost from './SpellEnergyCost';
 
 const BASE_ENERGY_REGEN = 10;
 const VIGOR_REGEN_MULTIPLIER = 1.1;
@@ -20,6 +23,12 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * the maximum energy amount, and the regeneration rate.
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
+  static dependencies = {
+    ...RegenResourceCapTracker.dependencies,
+    // Needed for the `resourceCost` prop of events
+    spellResourceCost: SpellEnergyCost,
+  };
+
   static resourceType = RESOURCE_TYPES.ENERGY;
   static baseRegenRate = BASE_ENERGY_REGEN;
   static isRegenHasted = true;
@@ -60,9 +69,9 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
-        </React.Fragment>
+        </>
       )
         .icon('spell_shadow_shadowworddominate')
         .actual(`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`)

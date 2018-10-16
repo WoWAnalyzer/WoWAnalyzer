@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import Abilities from './modules/Abilities';
 
 //Features
@@ -30,9 +32,12 @@ import VipersVenom from './modules/talents/VipersVenom';
 import MongooseBite from './modules/talents/MongooseBite';
 import SteelTrap from './modules/talents/SteelTrap';
 import Chakrams from './modules/talents/Chakrams';
+import BirdOfPrey from './modules/talents/BirdOfPrey';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
+import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
+import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 
 //Traits and Talents
 import TraitsAndTalents from './modules/features/TraitsAndTalents';
@@ -71,12 +76,18 @@ class CombatLogParser extends CoreCombatLogParser {
     mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
     chakrams: Chakrams,
+    birdOfPrey: BirdOfPrey,
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,
+    latentPoison: LatentPoison,
+    blurOfTalons: BlurOfTalons,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
+
+    // Survival's throughput benefit isn't as big as for other classes
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],
   };
 }
 

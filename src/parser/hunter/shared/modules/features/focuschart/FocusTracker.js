@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 

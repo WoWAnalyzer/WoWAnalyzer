@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import AoESpellEfficiency from 'parser/core/modules/features/AoESpellEfficiency';
+import AoESpellEfficiency from 'parser/shared/modules/features/AoESpellEfficiency';
 
 class DragonRoar extends AoESpellEfficiency {
   

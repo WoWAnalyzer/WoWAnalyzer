@@ -52,7 +52,7 @@ class AtonementHealingBreakdown extends React.Component {
             const reason = this.reason(spellId);
 
             return (
-              <React.Fragment>
+              <>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid} icon={false}>
@@ -60,9 +60,9 @@ class AtonementHealingBreakdown extends React.Component {
                       {ability.name}
                     </SpellLink>
                     {reason && (
-                      <React.Fragment>
+                      <>
                         {' '}({reason})
-                      </React.Fragment>
+                      </>
                     )}
                   </td>
                   <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -118,7 +118,7 @@ class AtonementHealingBreakdown extends React.Component {
                     </tr>
                   );
                 })}
-              </React.Fragment>
+              </>
             );
           })}
 

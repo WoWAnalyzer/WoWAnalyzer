@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const EXECUTE_RANGE = 0.2;
 

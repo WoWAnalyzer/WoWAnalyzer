@@ -13,7 +13,7 @@ export default [
   },
   {
     date: new Date('2018-07-27'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> support.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> support.</>,
     contributors: [Cloake],
   },
   {

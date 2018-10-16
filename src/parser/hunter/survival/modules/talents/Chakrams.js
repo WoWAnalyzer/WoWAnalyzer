@@ -3,11 +3,11 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Throw a pair of chakrams at your target, slicing all enemies in the chakrams' path for (40% of Attack power) Physical damage. The chakrams will return to you, damaging enemies again.
@@ -65,7 +65,7 @@ class Chakrams extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(21)}
         icon={<SpellIcon id={SPELLS.CHAKRAMS_TALENT.id} />}
         value={`${this.averageTargetsHit}`}

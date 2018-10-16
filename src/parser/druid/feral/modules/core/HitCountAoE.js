@@ -80,7 +80,7 @@ class HitCountAoE extends Analyzer {
     return (this.castsWithOneHit / this.owner.fightDuration) * (1000 * 60);
   }
 
-  statistic() {
+  generateStatistic(statisticPosition) {
     if (this.casts === 0) {
       // Only show statistic if the ability is used.
       return null;
@@ -93,6 +93,7 @@ class HitCountAoE extends Analyzer {
         tooltip={`You used ${this.constructor.spell.name} <b>${this.casts}</b> time${(this.casts === 1) ? '' : 's'}.<br />
           <li><b>${this.castsWithOneHit}</b> hit just 1 target.
           <li><b>${this.castsWithZeroHits}</b> hit nothing at all.`}
+        position={statisticPosition}
       />
     );
   }

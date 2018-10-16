@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { t } from '@lingui/macro';
 
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
+import { i18n } from 'interface/RootLocalizationProvider';
 import { setReport } from 'interface/actions/report';
 import { getReportCode } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -89,7 +91,7 @@ class ReportLoader extends React.PureComponent {
     });
   }
   renderLoading() {
-    return <ActivityIndicator text="Pulling report info..." />;
+    return <ActivityIndicator text={i18n._(t`Pulling report info...`)} />;
   }
   render() {
     const error = this.state.error;
@@ -103,12 +105,12 @@ class ReportLoader extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle title={report.title} />
 
         {this.props.children(report, this.handleRefresh)}
-      </React.Fragment>
+      </>
     );
   }
 }

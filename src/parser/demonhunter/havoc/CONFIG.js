@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Mamtooth } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
+import retryingPromise from 'common/retryingPromise';
 import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
@@ -16,7 +17,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
       <Warning>
@@ -29,7 +30,7 @@ export default {
       <a href="https://www.wowhead.com/havoc-demon-hunter-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
       <a href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
 
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/CKpVzL4nxD9dckb8/11-Heroic+Vectis+-+Kill+(5:14)/18-Shisei',
@@ -40,7 +41,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "DemonHunter" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "HavocDemonHunter" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

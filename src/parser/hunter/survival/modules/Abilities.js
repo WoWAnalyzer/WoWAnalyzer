@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.7 : .9,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.65 : .85,
         },
         timelineSortIndex: 3,
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
@@ -23,10 +23,21 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.RAPTOR_STRIKE, SPELLS.RAPTOR_STRIKE_AOTE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 1,
+      },
+      {
+        spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
+        buffSpellId: SPELLS.MONGOOSE_FURY.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.WILDFIRE_BOMB,
@@ -37,7 +48,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: .85,
         },
         charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: haste => 18 / (1 + haste),
@@ -70,19 +81,9 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: .85,
         },
         timelineSortIndex: 6,
-      },
-      {
-        spell: [SPELLS.MONGOOSE_BITE_TALENT, SPELLS.MONGOOSE_BITE_TALENT_AOTE],
-        buffSpellId: SPELLS.MONGOOSE_FURY.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
@@ -94,7 +95,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: .85,
         },
       },
       {
@@ -107,7 +108,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
         },
       },
       {
@@ -131,7 +132,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: .85,
         },
         charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: haste => 18 / (1 + haste),
@@ -190,7 +191,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         cooldown: () => {
           const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
+          return 180 * hasBornToBeWild ? 0.8 : 1;
         },
         gcd: null,
       },
@@ -285,6 +286,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },

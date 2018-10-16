@@ -1,5 +1,5 @@
 // Items only found in this instance
-import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
+import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 
 export default {
   // Group by boss (with comments)

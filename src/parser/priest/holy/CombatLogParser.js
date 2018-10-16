@@ -4,8 +4,8 @@ import Tab from 'interface/others/Tab';
 import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import Abilities from './modules/Abilities';
 
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -14,6 +14,7 @@ import DivineHymn from './modules/spells/DivineHymn';
 import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
+import HolyWordSalvationCooldown from './modules/spells/holyword/HolyWordSalvation';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import Renew from './modules/spells/Renew';
@@ -73,6 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSanctify: HolyWordSanctify,
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
+    holyWordSalvation: HolyWordSalvationCooldown,
+
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
     prayerOfMending: PrayerOfMending,

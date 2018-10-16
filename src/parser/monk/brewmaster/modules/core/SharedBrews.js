@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import SpellHistory from 'parser/core/modules/SpellHistory';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellHistory from 'parser/shared/modules/SpellHistory';
 
 class SharedBrews extends Analyzer {
   static dependencies = {

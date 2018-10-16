@@ -1,16 +1,16 @@
 import React from 'react';
 
 //Core
-import CoreChecklist, { Rule, Requirement } from 'parser/core/modules/features/Checklist';
-import Abilities from 'parser/core/modules/Abilities';
-import { GenericCastEfficiencyRequirement } from 'parser/core/modules/features/Checklist/Requirements';
-import { PreparationRule } from 'parser/core/modules/features/Checklist/Rules';
-import PrePotion from 'parser/core/modules/items/PrePotion';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import Abilities from 'parser/shared/modules/Abilities';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import PrePotion from 'parser/shared/modules/items/PrePotion';
 import SPELLS from 'common/SPELLS';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
-import EnchantChecker from 'parser/core/modules/items/EnchantChecker';
+import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import ITEMS from 'common/ITEMS/hunter';
 import ItemLink from 'common/ItemLink';
 import ResourceIcon from 'common/ResourceIcon';
@@ -53,7 +53,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <React.Fragment>Spells such as <SpellLink id={SPELLS.KILL_COMMAND.id} /> and <SpellLink id={SPELLS.DIRE_BEAST.id} /> should be used on cooldown. <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> should never be capping stacks, but you also want to maximize buff uptime by spreading out the casts as much as possible. You'll want as many good casts of <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> as possible - this is achieved by lining them up with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> for each cast, and in preparation for each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> you want to have saved up some focus. <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
+      description: <>Spells such as <SpellLink id={SPELLS.KILL_COMMAND.id} /> and <SpellLink id={SPELLS.DIRE_BEAST.id} /> should be used on cooldown. <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> should never be capping stacks, but you also want to maximize buff uptime by spreading out the casts as much as possible. You'll want as many good casts of <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TITANS_THUNDER.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> as possible - this is achieved by lining them up with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> for each cast, and in preparation for each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> you want to have saved up some focus. <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></>,
       requirements: () => {
         const combatant = this.selectedCombatant;
         return [
@@ -85,32 +85,32 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment>Use your Dire ability properly</React.Fragment>,
-      description: <React.Fragment>Using <SpellLink id={SPELLS.BARBED_SHOT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
+      name: <>Use your Dire ability properly</>,
+      description: <>Using <SpellLink id={SPELLS.BARBED_SHOT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></>,
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
+            name: <>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </>,
             check: () => this.barbedShot.direFrenzyUptimeThreshold,
           }),
           new Requirement({
-            name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
+            name: <>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </>,
             check: () => this.barbedShot.direFrenzy3StackThreshold,
           }),
         ];
       },
     }),
     new Rule({
-      name: <React.Fragment>Cooldown efficiency</React.Fragment>,
-      description: <React.Fragment> Use <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> & <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> properly. This means having a high amount of focus going into <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> windows, and by using your <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up.</React.Fragment>,
+      name: <>Cooldown efficiency</>,
+      description: <> Use <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> & <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> properly. This means having a high amount of focus going into <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> windows, and by using your <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up.</>,
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment>Average focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> cast</React.Fragment>,
+            name: <>Average focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> cast</>,
             check: () => this.bestialWrathAverageFocus.focusOnBestialWrathCastThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> casts w/o <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up</React.Fragment>,
+            name: <><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> casts w/o <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up</>,
             check: () => this.aspectOfTheWild.badCastThreshold,
           }),
         ];
@@ -123,62 +123,62 @@ class Checklist extends CoreChecklist {
         const combatant = this.selectedCombatant;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> damage</React.Fragment>,
+            name: <><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> damage</>,
             when: combatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id),
             check: () => this.aspectOfTheBeast.aspectOfTheBeastDamageThreshold,
           }),
           new Requirement({
-            name: <React.Fragment>Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets</React.Fragment>,
+            name: <>Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets</>,
             when: combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
             check: () => this.killerCobra.wastedKillerCobraThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts with less than 7s remaining of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> duration</React.Fragment>,
+            name: <><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts with less than 7s remaining of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> duration</>,
             when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
             check: () => this.aMurderOfCrows.shouldHaveSavedThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> ready to cast after</React.Fragment>,
+            name: <><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> ready to cast after</>,
             when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
             check: () => this.aMurderOfCrows.badCastThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> and <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /></React.Fragment>,
+            name: <><SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> and <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /></>,
             when: combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
             check: () => this.qaplaEredunWarOrder.killerCobraThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> average reduction</React.Fragment>,
+            name: <><ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> average reduction</>,
             when: combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
             check: () => this.qaplaEredunWarOrder.wastedSuggestionThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> buffs dropped</React.Fragment>,
+            name: <><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> buffs dropped</>,
             when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
             check: () => this.parselsTongue.timesDroppedThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> uptime</React.Fragment>,
+            name: <><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> uptime</>,
             when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
             check: () => this.parselsTongue.buffUptimeThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} /> uptime</React.Fragment>,
+            name: <><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} /> uptime</>,
             when: combatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id),
             check: () => this.theMantleOfCommand.buffUptimeThreshold,
           }),
           new Requirement({
-            name: <React.Fragment>Other talent active with <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /></React.Fragment>,
+            name: <>Other talent active with <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /></>,
             when: combatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id),
             check: () => this.soulOfTheHuntmaster.suggestionThreshold,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /></React.Fragment>,
+            name: <><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /></>,
             when: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id),
             check: () => this.callOfTheWild.suggestionsThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} /></React.Fragment>,
+            name: <><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} /></>,
             when: combatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id),
             check: () => this.roarOfTheSevenLions.focusSavedThreshold,
           }),
@@ -186,30 +186,30 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment><Icon
+      name: <><Icon
         icon="spell_mage_altertime"
         alt="Casting downtime"
         style={{
           height: '1.3em',
           marginTop: '-.1em',
         }}
-      /> Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping </React.Fragment>,
-      description: <React.Fragment> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</React.Fragment>,
+      /> Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping </>,
+      description: <> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</>,
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment><Icon
+            name: <><Icon
               icon="spell_mage_altertime"
               alt="Casting downtime"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
-            /> Downtime</React.Fragment>,
+            /> Downtime</>,
             check: () => this.alwaysBeCasting.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</React.Fragment>,
+            name: <><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</>,
             check: () => this.timeFocusCapped.suggestionThresholds,
           }),
         ];

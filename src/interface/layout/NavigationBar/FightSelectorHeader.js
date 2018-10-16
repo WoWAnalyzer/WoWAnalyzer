@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
+import { Trans } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
 import { getFightId, getPlayerId, getPlayerName, getResultTab } from 'interface/selectors/url/report';
@@ -44,14 +45,14 @@ class FightSelectorHeader extends SelectorBase {
 
     return (
       <div ref={this.ref} {...others}>
-        <a onClick={this.handleClick}>{getFightName(report, fight)}</a>
+        <a onClick={this.handleClick}>{getFightName(report, fight)}</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
         {show && player && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
                 <div className="flex wrapable">
                   <div className="flex-main" style={{ minWidth: 200 }}>
-                    <h2>Select the fight to parse for {player.name}</h2>
+                    <h2><Trans>Select the fight to parse for {player.name}</Trans></h2>
                   </div>
                   <div className="flex-sub text-right toggle-control action-buttons">
                     <Toggle
@@ -61,7 +62,7 @@ class FightSelectorHeader extends SelectorBase {
                       id="kills-only-toggle"
                     />
                     <label htmlFor="kills-only-toggle">
-                      {' '}Kills only
+                      {' '}<Trans>Kills only</Trans>
                     </label>
                   </div>
                 </div>

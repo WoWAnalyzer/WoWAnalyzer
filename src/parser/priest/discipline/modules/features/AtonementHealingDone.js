@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import Tab from 'interface/others/Tab';
 import Analyzer from 'parser/core/Analyzer';
-import HealingValue from 'parser/core/modules/HealingValue';
+import HealingValue from 'parser/shared/modules/HealingValue';
 
 import isAtonement from '../core/isAtonement';
 import AtonementDamageSource from './AtonementDamageSource';

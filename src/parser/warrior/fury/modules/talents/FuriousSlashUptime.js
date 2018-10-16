@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import FuriousSlashTimesByStacks from './/FuriousSlashTimesByStacks';
 
 class FuriousSlashUptime extends Analyzer {
@@ -44,7 +44,7 @@ class FuriousSlashUptime extends Analyzer {
   
   suggestions(when){
 		  when(this.uptimeSuggestionThresholds)
-		  .addSuggestion((suggest, actual, recommended) => {return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</React.Fragment>)
+		  .addSuggestion((suggest, actual, recommended) => {return suggest(<>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</>)
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
 		  .actual(`${formatPercentage(actual)}% Furious Slash Uptime At Maximum Stacks`)
 		  .recommended(`>${formatPercentage(recommended)} is recommended`);

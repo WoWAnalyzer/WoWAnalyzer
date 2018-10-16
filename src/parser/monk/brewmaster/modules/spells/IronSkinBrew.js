@@ -4,9 +4,9 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SharedBrews from '../core/SharedBrews';
 import { ISB as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 

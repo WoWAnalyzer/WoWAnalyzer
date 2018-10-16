@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { setupI18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 
 import LocalizationLoader from './LocalizationLoader';
+
+export const i18n = setupI18n();
 
 class RootLocalizationProvider extends React.PureComponent {
   static propTypes = {
@@ -13,7 +16,7 @@ class RootLocalizationProvider extends React.PureComponent {
     return (
       <LocalizationLoader>
         {({ language, catalogs }) => (
-          <I18nProvider language={language} catalogs={catalogs}>
+          <I18nProvider i18n={i18n} language={language} catalogs={catalogs}>
             {this.props.children}
           </I18nProvider>
         )}

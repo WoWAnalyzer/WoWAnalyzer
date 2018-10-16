@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -13,7 +14,7 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
-import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+// import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
@@ -39,11 +40,14 @@ class CombatLogParser extends CoreCombatLogParser {
     backdraft: Backdraft,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
-    fireAndBrimstone: FireAndBrimstone,
+    // fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
     talents: Talents,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

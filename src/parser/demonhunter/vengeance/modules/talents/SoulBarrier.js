@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
@@ -74,7 +74,7 @@ class SoulBarrier extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</React.Fragment>)
+        return suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
           .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Soul Barrier`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

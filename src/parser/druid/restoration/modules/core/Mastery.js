@@ -1,8 +1,8 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Combatants from 'parser/core/modules/Combatants';
-import HealingValue from 'parser/core/modules/HealingValue';
-import StatTracker from 'parser/core/modules/StatTracker';
+import Combatants from 'parser/shared/modules/Combatants';
+import HealingValue from 'parser/shared/modules/HealingValue';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { calculateAzeriteEffects } from 'common/stats';
 

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import SCHOOLS from 'common/MAGIC_SCHOOLS';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -45,7 +45,7 @@ class DemonSpikes extends Analyzer {
     const hitsWithDSOffCDPercent = this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
     when(hitsWithDSOffCDPercent).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(hitsWithDSOffCDPercent)}% of physical hits.</React.Fragment>)
+        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(hitsWithDSOffCDPercent)}% of physical hits.</>)
           .icon(SPELLS.DEMON_SPIKES.icon)
           .actual(`${formatPercentage(actual)}% unmitigated physical hits`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)

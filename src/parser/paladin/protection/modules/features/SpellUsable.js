@@ -1,10 +1,12 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/core/modules/SpellUsable';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import HIT_TYPES from 'game/HIT_TYPES';
+import GrandCrusader from '../core/GrandCrusader';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
+    gc: GrandCrusader,
   };
 
   constructor(...args) {
@@ -42,6 +44,7 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId, timestamp) {
     if (spellId === SPELLS.AVENGERS_SHIELD.id) {
       if (this.isOnCooldown(spellId)) {
+        this.gc.triggerInferredReset(this.lastPotentialTriggerForAvengersShield);
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForAvengersShield ? this.lastPotentialTriggerForAvengersShield.timestamp : undefined);
       }
     } else if (this.hasCrusadersJudgment && spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {

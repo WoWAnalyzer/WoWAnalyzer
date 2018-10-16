@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -54,10 +54,14 @@ class ComboBreaker extends Analyzer {
       }
     }
   }
+
+  get usedCBProcs() {
+    return this.consumedCBProc / this.CBProcsTotal;
+  }
+
   get suggestionThresholds() {
-    const usedCBprocs = this.consumedCBProc / this.CBProcsTotal;
     return {
-      actual: usedCBprocs,
+      actual: this.usedCBProcs,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
@@ -68,28 +72,26 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-          .actual(`${formatPercentage(unusedCBprocs)}% used Combo Breaker procs`)
+          .actual(`${formatPercentage(actual)}% used Combo Breaker procs`)
           .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
     });
   }
   
   statistic() {
-    const usedCBProcs = this.consumedCBProc / this.CBProcsTotal;
     const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
-        value={`${formatPercentage(usedCBProcs)}%`}
+        value={`${formatPercentage(this.usedCBProcs)}%`}
         label="Combo Breaker Procs Used"
         tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${this.CBProcsTotal}</b>.`}
       />
    );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ComboBreaker;

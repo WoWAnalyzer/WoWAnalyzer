@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import DamageTracker from 'parser/core/modules/AbilityTracker';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 
 const RPPERCHARGE = 6;
@@ -84,7 +84,7 @@ class Tombstone extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</React.Fragment>)
+        return suggest(<>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</>)
           .icon(SPELLS.TOMBSTONE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% bad Tombstone casts`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

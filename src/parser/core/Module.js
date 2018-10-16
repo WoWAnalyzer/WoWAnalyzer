@@ -10,27 +10,26 @@ class Module {
   active = true;
   /** @var {number} This module's execution priority, this makes sure dependencies are executed before modules that depend on them. */
   priority = 0;
+  /** @var {Combatant} */
   get selectedCombatant() {
     return this.owner.selectedCombatant;
   }
   /**
-   * @param {CombatLogParser} parser
-   * @param {object} dependencies
-   * @param {int} priority
+   * @param {object} options
    */
-  constructor(parser, dependencies, priority) {
+  constructor({ owner, priority, ...others }) {
     if (this.constructor.__dangerousInvalidUsage) {
       throw new TypeError('The class Module can not be used directly, you probably want to use Analyzer instead.');
     }
 
-    this.owner = parser;
+    this.owner = owner;
     this.priority = priority;
 
-    if (dependencies) {
-      Object.keys(dependencies).forEach(key => {
-        this[key] = dependencies[key];
-      });
-    }
+    // This doesn't set the properties of any class that inherits this class since a parent constructor can't override the values of a child's class properties.
+    // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+    Object.keys(others).forEach(key => {
+      this[key] = others[key];
+    });
   }
 }
 
