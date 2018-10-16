@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-		buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+        buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
         cooldown: 240,
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
