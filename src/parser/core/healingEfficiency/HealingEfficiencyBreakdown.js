@@ -100,22 +100,22 @@ class HealingEfficiencyBreakdown extends React.Component {
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
         {this.state.showHealing && (
-        <>
-          <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
-          <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
+          <>
+            <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+            <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
-          <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
-          <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
-        </>
+            <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
+            <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
+          </>
         )}
         {!this.state.showHealing && (
-        <>
-          <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
-          <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
+          <>
+            <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+            <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
-          <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
-          <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
-        </>
+            <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
+            <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
+          </>
         )}
       </>
     );
@@ -129,28 +129,28 @@ class HealingEfficiencyBreakdown extends React.Component {
         </th>
         <th>Mana Spent</th>
         {this.state.showHealing && (
-        <>
-          <th>Healing Done</th>
-          <th>Overhealing</th>
-          <th>
-            <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
-          </th>
-          <th>
-            <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
-          </th>
-        </>
+          <>
+            <th>Healing Done</th>
+            <th>Overhealing</th>
+            <th>
+              <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+            </th>
+            <th>
+              <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
+            </th>
+          </>
         )}
         {!this.state.showHealing && (
-        <>
-          <th>Damage Done</th>
-          <th>
-            <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
-          </th>
-          <th>
-            <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
-          </th>
-        </>
-          )}
+          <>
+            <th>Damage Done</th>
+            <th>
+              <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+            </th>
+            <th>
+              <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
+            </th>
+          </>
+        )}
       </>
     );
   };
@@ -163,7 +163,7 @@ class HealingEfficiencyBreakdown extends React.Component {
 
     return (
       <>
-        <td>{spellDetail.casts} ({Math.floor(spellDetail.healingHits + spellDetail.damageHits)})</td>
+        <td>{spellDetail.casts} ({this.state.showHealing ? Math.floor(spellDetail.healingHits) : Math.floor(spellDetail.damageHits)})</td>
         <td>
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
@@ -202,7 +202,7 @@ class HealingEfficiencyBreakdown extends React.Component {
 
   render() {
     const { tracker } = this.props;
-
+console.log(tracker);
     return (
       <div>
         <div className="row">
