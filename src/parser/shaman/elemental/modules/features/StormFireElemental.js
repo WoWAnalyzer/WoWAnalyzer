@@ -8,21 +8,44 @@ class StormFireElemental extends Analyzer {
   static dependencies = {
     spellUsable:SpellUsable,
   };
+  elementalData = {
+    FireElemental: {
+      summon: SPELLS.FIRE_ELEMENTAL.id,
+      damageSpells: [
+        SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id,
+        SPELLS.FIRE_ELEMENTAL_METEOR.id,
+        SPELLS.FIRE_ELEMENTAL_IMMOLATE.id,
+      ],
+    },
+    StormElemental: {
+      summon: TALENTS.STORM_ELEMENTAL_TALENT,
+      damageSpells: [
+        SPELLS.EYE_OF_THE_STORM.id,
+        SPELLS.WIND_GUST.id,
+        SPELLS.CALL_LIGHTNING.id,
+      ],
+    },
+  };
 
   last_pet_summon_timeStamp=null;
 
-  summon_spell = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) ? 192249 : SPELLS.FIRE_ELEMENTAL.id;
+  relevantData = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) ? this.data.StormElemental : this.data.FireElemental;
 
 
   on_byPlayerPet_damage(event){
-      if(this.last_pet_summon_timeStamp===null){
-        this.spellUsable.beginCooldown(this.summon_spell, event.timestamp);
-        this.last_pet_summon_timeStamp=event.timestamp;
+      if(this.last_pet_summon_timeStamp!==null) {
+        return;
       }
+      if(!this.relevant.damageSpells.includes(event.ability.guid)) {
+        return;
+      }
+      this.spellUsable.beginCooldown(this.summon_spell, event.timestamp);
+      this.last_pet_summon_timeStamp=event.timestamp;
+
   }
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
-    if (spellId !== this.summon_spell) {
+    if (spellId !== this.relevant.summon) {
       return;
     }
     this.last_pet_summon_timeStamp=event.timestamp;
