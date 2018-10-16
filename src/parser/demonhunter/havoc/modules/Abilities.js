@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.IMMOLATION_AURA_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
+        cooldown: haste => 30 / (1 + haste),
         gcd: {
           base: 1500,
         },
