@@ -21,7 +21,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
 
   render() {
     const { combatant, castEfficiency, thresholds } = this.props;
-
+    
     const AbilityRequirement = props => (
       <GenericCastEfficiencyRequirement
         castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -97,8 +97,12 @@ class BrewmasterMonkChecklist extends React.PureComponent {
               thresholds={thresholds.bocDpsWaste} />
           </>
         ) : null}
-        <Requirement name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
-          thresholds={thresholds.rjw} />
+        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id) ? (
+          <>
+            <Requirement name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
+              thresholds={thresholds.rjw} />
+          </>
+        ) : null}
         {combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id) ? 
             <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> :
             null}
