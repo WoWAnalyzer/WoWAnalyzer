@@ -202,7 +202,7 @@ class HealingEfficiencyBreakdown extends React.Component {
 
   render() {
     const { tracker } = this.props;
-console.log(tracker);
+
     return (
       <div>
         <div className="row">
