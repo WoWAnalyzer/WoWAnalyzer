@@ -128,14 +128,6 @@ class StaggerPoolGraph extends Analyzer {
       }
     }
 
-    const purifiesByLabels = Object.keys(poolByLabels).map(label => {
-      if (purifies.includes(Number(label))) {
-        return poolByLabels[label];
-      } else {
-        return undefined;
-      }
-    });
-
     const deathsByLabels = Object.keys(hpByLabels).map(label => {
       const deathEvent = deaths.find(event => event.label === Number(label));
       if (!!deathEvent) {
@@ -144,6 +136,8 @@ class StaggerPoolGraph extends Analyzer {
         return undefined;
       }
     });
+
+    const labelIndices = Object.keys(poolByLabels).reduce ((obj, label, index) => { obj[label] = index; return obj; }, {});
 
     // some labels are referred to later for drawing tooltips
     const DEATH_LABEL = 'Player Death';
@@ -179,11 +173,11 @@ class StaggerPoolGraph extends Analyzer {
         },
         {
           label: PURIFY_LABEL,
-          pointBackgroundColor: '#00ff96',
           backgroundColor: '#00ff96',
-          data: purifiesByLabels,
-          fillOpacity: 0,
+          data: purifies.map(label => { return { x: labelIndices[String(label)], y: poolByLabels[String(label)] }; }),
+          type: 'scatter',
           pointRadius: 4,
+          showLine: false,
         },
         {
           label: STAGGER_LABEL,
@@ -227,7 +221,7 @@ class StaggerPoolGraph extends Analyzer {
           options={{
             tooltips: {
               callbacks: {
-                label: labelItem,
+                label: labelItem.bind(this),
               },
             },
             legend: {
