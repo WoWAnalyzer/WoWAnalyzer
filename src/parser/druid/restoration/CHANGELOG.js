@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-10-16'),
+    changes: 'Added first version of module for premature rejuvenations with statistics and suggestions',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-24'),
     changes: 'Including Grove Tending in Flourish and Photosynthesis module.',
     contributors: [blazyb],

@@ -28,6 +28,7 @@ import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import NaturesEssence from './modules/features/NaturesEssence';
 import ManaUsage from './modules/features/ManaUsage';
+import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    prematureRejuvenations: PrematureRejuvenations,
 
     // Talents
     stonebark: Stonebark,
