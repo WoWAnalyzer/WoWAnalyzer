@@ -1,23 +1,33 @@
 import React from 'react';
 
+import HIT_TYPES from 'game/HIT_TYPES';
+
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-const HEAL_WINDOW_MS = 100;
+const HEAL_WINDOW_MS = 150;
 const bounceReduction = 0.7;
 const bounceReductionHighTide = 0.85;
 
 class HighTide extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+    critEffectBonus: CritEffectBonus,
+  };
   healing = 0;
   chainHealBounce = 0;
   chainHealTimestamp = 0;
   chainHealFeedBounce = 0;
   chainHealFeedTimestamp = 0;
+
+  buffer = [];
 
   constructor(...args) {
     super(...args);
@@ -31,21 +41,45 @@ class HighTide extends Analyzer {
       return;
     }
 
-    // resets the bounces to 0 if its a new chain heal, can't use the cast event for this as its often somewhere in the middle of the healing events
-    if(!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
+    // resets if its a new chain heal, can't use the cast event for this as its often somewhere in the middle of the healing events
+    if (!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
+      this.processBuffer();
       this.chainHealTimestamp = event.timestamp;
-      this.chainHealBounce = 0;
     }
 
-    const FACTOR_CONTRIBUTED_BY_HT_HIT = (1-(Math.pow(bounceReduction,this.chainHealBounce) / Math.pow(bounceReductionHighTide,this.chainHealBounce)));
-
-    if(this.chainHealBounce === 4) {
-      this.healing += event.amount + (event.absorbed || 0);
-    } else {
-      this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
+    const currentMastery = this.statTracker.currentMasteryPercentage;
+    let heal = event.amount + (event.absorb || 0) + (event.overheal || 0);
+    if (event.hitType === HIT_TYPES.CRIT) {
+      const critMult = this.critEffectBonus.getBonus(event);
+      heal /= critMult;
     }
+    const masteryEffectiveness = Math.max(0, 1 - (event.hitPoints - event.amount) / event.maxHitPoints);
+    const baseHealingDone = heal / (1 + currentMastery * masteryEffectiveness);
 
-    this.chainHealBounce++;
+    this.buffer.push({
+      baseHealingDone: baseHealingDone,
+      ...event,
+    });
+
+  }
+
+  processBuffer() {
+    this.buffer.sort((a, b) => parseFloat(b.baseHealingDone) - parseFloat(a.baseHealingDone));
+
+    for (const [index, event] of Object.entries(this.buffer)) {
+      const FACTOR_CONTRIBUTED_BY_HT_HIT = (bounceReductionHighTide ** index) / (bounceReduction ** index) - 1;
+
+      if (parseInt(index) === 4) {
+        this.healing += event.amount + (event.absorbed || 0);
+      } else {
+        this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
+      }
+    }
+    this.buffer = [];
+  }
+
+  on_finished() {
+    this.processBuffer();
   }
 
   on_feed_heal(event) {
@@ -60,7 +94,7 @@ class HighTide extends Analyzer {
       this.chainHealFeedBounce = 0;
     }
 
-    const FACTOR_CONTRIBUTED_BY_HT_HIT = (1-(Math.pow(bounceReduction,this.chainHealFeedBounce) / Math.pow(bounceReductionHighTide,this.chainHealBounce)));
+    const FACTOR_CONTRIBUTED_BY_HT_HIT = (bounceReductionHighTide ** this.chainHealFeedBounce) / (bounceReduction ** this.chainHealFeedBounce) - 1;
 
     if(this.chainHealFeedBounce === 4) {
       this.healing += event.feed;
@@ -70,7 +104,6 @@ class HighTide extends Analyzer {
 
     this.chainHealFeedBounce++;
   }
-  
 
   subStatistic() {
     return (
@@ -80,7 +113,6 @@ class HighTide extends Analyzer {
       />
     );
   }
-
 }
 
 export default HighTide;
