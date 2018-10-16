@@ -158,7 +158,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VENGEFUL_RETREAT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 25,
+        cooldown: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
       },
