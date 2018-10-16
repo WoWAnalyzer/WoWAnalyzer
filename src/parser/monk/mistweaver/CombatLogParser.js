@@ -31,7 +31,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
-import CastRatio from './modules/features/CastRatio';
+import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -81,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
     statValues: StatValues,
-    castRatio: CastRatio,
+    evmVivCastRatio: EvmVivCastRatio,
 
     // Spells
     essenceFont: EssenceFont,
