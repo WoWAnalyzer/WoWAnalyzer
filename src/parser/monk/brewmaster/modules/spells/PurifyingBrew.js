@@ -14,7 +14,7 @@ const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in cas
 function markupPurify(event, delay, hasHeavyStagger) {
   const msgs = [];
   if(delay > PURIFY_DELAY_THRESHOLD) {
-    msgs.push(`<li>You delayed casting it for <b>${(delay / 1000).toFixed(2)}s</b>, allowing Stagger to tick down.</li>`);
+    msgs.push(`<li>You delayed casting it for <b>${(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>`);
   }
   if(!hasHeavyStagger) {
     msgs.push(`<li>You cast without reaching at least Heavy Stagger, which is <em>almost always</em> inefficient.</li>`);
@@ -89,7 +89,7 @@ class PurifyingBrew extends Analyzer {
     if(this.purifyDelays.length === 0) {
       return 0;
     }
-    return this.purifyDelays.reduce((delay, total) => total + delay) / this.purifyDelays.length;
+    return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
   }
 
   on_addstagger(event) {
@@ -122,6 +122,30 @@ class PurifyingBrew extends Analyzer {
       this.heavyPurifies += 1;
     }
     this._heavyStaggerDropped = false;
+  }
+
+  get purifyDelaySuggestion() {
+    return {
+      actual: this.avgPurifyDelay / 1000,
+      isGreaterThan: {
+        minor: 1,
+        average: PURIFY_DELAY_THRESHOLD / 1000,
+        major: PURIFY_DELAY_THRESHOLD / 1000 + 1,
+      },
+      style: 'seconds',
+    };
+  }
+
+  get purifyHeavySuggestion() {
+    return {
+      actual: this.badPurifies / this.totalPurifies,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.15,
+        major: 0.2,
+      },
+      style: 'percentage',
+    };
   }
 
   statistic() {
