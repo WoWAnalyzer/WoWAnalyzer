@@ -12,6 +12,12 @@ export default {
     icon: 'spell_holy_holynova',
     manaCost: 1600,
   },
+  HOLY_NOVA_HEAL: {
+    id: 281265,
+    name: 'Holy Nova',
+    icon: 'spell_holy_holynova',
+    manaCost: 1600,
+  },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
