@@ -64,10 +64,10 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         } >
         <Requirement name={'Effective CDR from your rotation'}
           thresholds={thresholds.totalCDR} />
-        <AbilityRequirement spell={SPELLS.KEG_SMASH.id} 
+        <AbilityRequirement spell={SPELLS.KEG_SMASH.id}
           name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
         {combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id} 
+          <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id}
             name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
         )}
         <Requirement name={(
@@ -88,10 +88,10 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         <AbilityRequirement spell={SPELLS.BLACKOUT_STRIKE.id} />
         {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) &&
           <>
-            <Requirement 
+            <Requirement
               name={<><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} />-empowered <SpellLink id={SPELLS.TIGER_PALM.id} >Tiger Palms</SpellLink></>}
               thresholds={thresholds.bocTp} />
-            <Requirement 
+            <Requirement
               name={<><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent on <SpellLink id={SPELLS.TIGER_PALM.id} /></>}
               thresholds={thresholds.bocDpsWaste} />
           </>

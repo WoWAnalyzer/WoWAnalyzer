@@ -9,6 +9,10 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
+const LC_MANA_PER_SECOND_RETURN_AVERAGE = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
+const LC_MANA_PER_SECOND_RETURN_MAJOR = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
+
 const debug = false;
 
 class Lifecycles extends Analyzer {
@@ -53,9 +57,9 @@ class Lifecycles extends Analyzer {
     return {
       actual: this.manaSaved,
       isLessThan: {
-        minor: 20000,
-        average: 17000,
-        major: 14000,
+        minor: LC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
+        average: LC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
+        major: LC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
       },
       style: 'number',
     };
