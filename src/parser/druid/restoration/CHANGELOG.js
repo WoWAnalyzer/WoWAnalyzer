@@ -5,6 +5,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-10-17'),
+    changes: 'Improved Tree of Life throughput calculation (Don\'t count rejuv mana savings if player has innervate).',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-17'),
     changes: 'Fixed some minor errors for the innervate module.',
     contributors: [blazyb],
   },
