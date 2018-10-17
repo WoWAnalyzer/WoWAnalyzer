@@ -5,11 +5,10 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 import Voidform from '../spells/Voidform';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { formatNumber } from 'common/format';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 function formatSeconds(seconds) {
   return Math.round(seconds * 10) / 10;
