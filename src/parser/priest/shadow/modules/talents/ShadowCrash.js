@@ -8,29 +8,24 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
+import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 
 // Example Log: /report/zgBQ3kr6aAv19MXq/22-Normal+Zul+-+Kill+(2:26)/3-Selur
 class ShadowCrash extends Analyzer {
-  casts = 0;
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   damage = 0;
   totalTargetsHit = 0;
 
   get averageTargetsHit() {
-    return this.totalTargetsHit / this.casts;
+    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts;
   }
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id);
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_CRASH_TALENT.id) {
-      return;
-    }
-
-    this.casts++;
   }
 
   on_byPlayer_damage(event) {
@@ -43,6 +38,7 @@ class ShadowCrash extends Analyzer {
   }
 
   statistic() {
+
     return (
       <TalentStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
