@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-10-17'),
+    changes: 'Fixed some minor errors for the innervate module.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-09-24'),
     changes: 'Including Grove Tending in Flourish and Photosynthesis module.',
     contributors: [blazyb],
