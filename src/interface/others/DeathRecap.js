@@ -144,9 +144,10 @@ class DeathRecap extends React.PureComponent {
                           `You healed yourself for ${formatNumber(event.amount)}` :
                           `${sourceName} healed you for ${formatNumber(event.amount)}`
                           }
+                          ${event.absorbed > 0 ? ` and ${formatNumber(event.absorbed)} of that healing was absorbed<br/>` : ''}
                           ${event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}<br/>` : ''}
-                        `} style={{ color: 'green' }}>
-                          +{formatNumber(event.amount)} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
+                        `} style={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}>
+                          +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
                         </dfn>
                       );
                     } else if (event.type === 'damage') {
