@@ -498,3 +498,8 @@ export const Satyric = {
     link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/Satyric',
   }],
 };
+export const jos3p = {
+  nickname: 'jos3p',
+  github: 'jos3p',
+  discord: 'jos3p#9746',
+};
