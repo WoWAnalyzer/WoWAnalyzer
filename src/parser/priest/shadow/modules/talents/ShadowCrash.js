@@ -54,7 +54,7 @@ class ShadowCrash extends Analyzer {
         )}
         label={`${SPELLS.SHADOW_CRASH_TALENT.name}`}
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(5)}
       />
     );
   }
