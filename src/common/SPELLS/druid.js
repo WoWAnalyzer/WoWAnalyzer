@@ -222,7 +222,6 @@ export default {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
-    manaCost: 368,
   },
   SWIFTMEND: {
     id: 18562,

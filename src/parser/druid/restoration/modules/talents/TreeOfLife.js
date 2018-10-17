@@ -103,7 +103,7 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
       this.lastTolCast = event.timestamp;
-    } else if (spellId === SPELLS.REJUVENATION.id) {
+    } else if (spellId === SPELLS.REJUVENATION.id && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       const accumulator = this._getAccumulator(event);
       if (!accumulator) {
         return;

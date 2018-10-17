@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-10-17'),
+    changes: <>Fixed mana usage for innervate in cooldown tabs for healers.</>,
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-10-06'),
     changes: <>Corrected Azerite Scaling for traits with split stat scaling (e.g. <SpellLink id={SPELLS.GEMHIDE.id} />).</>,
     contributors: [emallson],

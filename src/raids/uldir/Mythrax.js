@@ -1,5 +1,5 @@
-import Background from './images/Backgrounds/Aggramar.jpg';
-import Headshot from './images/Headshots/Aggramar.png';
+import Background from './images/Backgrounds/Mythrax.jpg';
+import Headshot from './images/Headshots/Mythrax.png';
 
 export default {
   id: 2135,
