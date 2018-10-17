@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
 
+// Example Log: /report/zgBQ3kr6aAv19MXq/22-Normal+Zul+-+Kill+(2:26)/3-Selur
 class ShadowCrash extends Analyzer {
   casts = 0;
   damage = 0;
