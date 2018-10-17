@@ -5,11 +5,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Checklist from 'parser/core/modules/features/Checklist2';
-import Rule from 'parser/core/modules/features/Checklist2/Rule';
-import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/core/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/core/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist2';
+import Rule from 'parser/shared/modules/features/Checklist2/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class RestoShamanChecklist extends React.PureComponent {
   static propTypes = {
@@ -90,6 +90,9 @@ class RestoShamanChecklist extends React.PureComponent {
         >
           <Requirement name={(<>Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</>)} thresholds={thresholds.chainHealTargetThresholds} />
           <Requirement name={(<>Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</>)} thresholds={thresholds.healingRainTargetThreshold} />
+          {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
+            <Requirement name={(<>Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency</>)} thresholds={thresholds.wellspringTargetThreshold} />
+          )}
         </Rule>
         <Rule
           name="Try to avoid being inactive for a large portion of the fight"

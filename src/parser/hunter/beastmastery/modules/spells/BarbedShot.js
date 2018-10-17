@@ -9,7 +9,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.

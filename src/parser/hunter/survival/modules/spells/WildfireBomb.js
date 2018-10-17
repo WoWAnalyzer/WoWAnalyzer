@@ -6,12 +6,12 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import Enemies from 'parser/core/modules/Enemies';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import StatTracker from 'parser/core/modules/StatTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire

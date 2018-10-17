@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 
-import HIT_TYPES from 'parser/core/HIT_TYPES';
-import BaseHealerStatValues from 'parser/core/modules/features/BaseHealerStatValues';
-import STAT from 'parser/core/modules/features/STAT';
-import HealingValue from 'parser/core/modules/HealingValue';
-import CritEffectBonus from 'parser/core/modules/helpers/CritEffectBonus';
-import StatTracker from 'parser/core/modules/StatTracker';
+import HIT_TYPES from 'game/HIT_TYPES';
+import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
+import STAT from 'parser/shared/modules/features/STAT';
+import HealingValue from 'parser/shared/modules/HealingValue';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';

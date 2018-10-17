@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * The Brewmaster legendary Sal'salabim's Lost Tunic, aka 'saladbums'.

@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -154,9 +154,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 15000,
-        average: 12000,
-        major: 10000,
+        minor: 13000,
+        average: 11000,
+        major: 9000,
       },
       style: 'number',
     };

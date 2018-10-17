@@ -1,4 +1,4 @@
-import CoreDamageTaken from 'parser/core/modules/DamageTaken';
+import CoreDamageTaken from 'parser/shared/modules/DamageTaken';
 import SPELLS from 'common/SPELLS';
 
 class DamageTaken extends CoreDamageTaken {

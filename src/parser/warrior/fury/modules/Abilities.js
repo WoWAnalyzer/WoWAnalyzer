@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
@@ -173,7 +173,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HEROIC_LEAP_FURY,
+        spell: SPELLS.HEROIC_LEAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
         cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),

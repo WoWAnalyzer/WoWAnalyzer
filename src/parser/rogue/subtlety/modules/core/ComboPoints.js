@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import resourceSuggest from 'parser/core/modules/resourcetracker/ResourceSuggest';
+import resourceSuggest from 'parser/shared/modules/resourcetracker/ResourceSuggest';
 
 import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
 

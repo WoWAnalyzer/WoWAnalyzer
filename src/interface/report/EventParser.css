@@ -1,5 +1,5 @@
 .event-parser-loading-text {
-  animation: fade-in 1000ms 2600ms ease-in forwards;
+  animation: fade-in 1500ms ease-in forwards;
   opacity: 0;
   font-size: 2em;
   text-transform: uppercase;

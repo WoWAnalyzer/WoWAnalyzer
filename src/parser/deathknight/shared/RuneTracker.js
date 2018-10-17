@@ -8,10 +8,10 @@ import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import Abilities from 'parser/core/modules/Abilities';
-import ResourceTracker from 'parser/core/modules/resourcetracker/ResourceTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Abilities from 'parser/shared/modules/Abilities';
+import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption

@@ -1,6 +1,6 @@
 export default {
-  GENERAL: 'Statistics',
-  TALENTS: 'Talents',
-  AZERITE_POWERS: 'Azerite Powers',
-  ITEMS: 'Items',
+  GENERAL: 'GENERAL',
+  TALENTS: 'TALENTS',
+  AZERITE_POWERS: 'AZERITE_POWERS',
+  ITEMS: 'ITEMS',
 };

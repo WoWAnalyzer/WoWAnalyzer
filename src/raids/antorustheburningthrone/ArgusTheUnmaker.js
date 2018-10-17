@@ -13,10 +13,10 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      SweepingScythe: 248499,
-      DeadlyScythe: 258039,
-      SoulrendingScythe: 258838,
-    },
+    softMitigationChecks: [
+      248499, // SweepingScythe
+      258039, // DeadlyScythe
+      258838, // SoulrendingScythe
+    ],
   },
 };

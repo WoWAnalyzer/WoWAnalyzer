@@ -1,5 +1,5 @@
-import Background from './images/Backgrounds/Aggramar.jpg';
-import Headshot from './images/Headshots/Aggramar.png';
+import Background from './images/Backgrounds/Ghuun.jpg';
+import Headshot from './images/Headshots/Ghuun.png';
 
 export default {
   id: 2122,
@@ -12,8 +12,8 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      MassiveSmash: 267412,
-    },
+    softMitigationChecks: [
+      267412, // MassiveSmash
+    ],
   },
 };

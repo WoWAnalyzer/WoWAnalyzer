@@ -1,9 +1,9 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';

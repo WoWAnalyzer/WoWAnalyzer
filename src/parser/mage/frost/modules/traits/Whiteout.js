@@ -7,10 +7,10 @@ import {calculateAzeriteEffects} from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
-import EnemyInstances from 'parser/core/modules/EnemyInstances';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import StatTracker from 'parser/core/modules/StatTracker';
+import HIT_TYPES from 'game/HIT_TYPES';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 // Enemy debuffs that provide the triple damage multiplier onto Ice Lance
 const SHATTER_EFFECTS = [

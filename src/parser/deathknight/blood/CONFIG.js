@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import retryingPromise from 'common/retryingPromise';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -40,7 +40,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "DeathKnight" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "BloodDeathKnight" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

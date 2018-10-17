@@ -1,5 +1,5 @@
 import React from 'react';
-import LaserMatrix from 'parser/core/modules/spells/bfa/azeritetraits/LaserMatrix';
+import LaserMatrix from 'parser/shared/modules/spells/bfa/azeritetraits/LaserMatrix';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

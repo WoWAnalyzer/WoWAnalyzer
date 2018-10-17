@@ -13,8 +13,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Tab from 'interface/others/Tab';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
@@ -31,6 +31,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
+import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
     statValues: StatValues,
+    evmVivCastRatio: EvmVivCastRatio,
 
     // Spells
     essenceFont: EssenceFont,

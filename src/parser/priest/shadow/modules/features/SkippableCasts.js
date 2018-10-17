@@ -6,8 +6,8 @@ import SpellIcon from 'common/SpellIcon';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import Haste from 'parser/core/modules/Haste';
-import GlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import Haste from 'parser/shared/modules/Haste';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.4;
 

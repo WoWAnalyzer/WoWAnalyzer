@@ -3,8 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import Abilities from 'parser/core/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Abilities from 'parser/shared/modules/Abilities';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,

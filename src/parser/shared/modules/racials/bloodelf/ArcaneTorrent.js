@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
+import Abilities from 'parser/shared/modules/Abilities';
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
@@ -9,6 +9,7 @@ class ArcaneTorrent extends Analyzer {
   };
 
   castEfficiency = 0.8;
+  extraSuggestion = null;
 
   constructor(options) {
     super(options);
@@ -29,6 +30,7 @@ class ArcaneTorrent extends Analyzer {
       castEfficiency: {
         suggestion: this.castEfficiency !== null,
         recommendedEfficiency: this.castEfficiency,
+        extraSuggestion: this.extraSuggestion,
       },
     });
   }

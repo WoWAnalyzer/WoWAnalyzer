@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 1,
+        primaryCoefficient: 0.380562,
       },
       {
         spell: SPELLS.RAKE,
@@ -74,6 +75,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 11,
+        primaryCoefficient: 0.25,
       },
       {
         spell: SPELLS.BRUTAL_SLASH_TALENT,
@@ -88,6 +90,17 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 11,
+        primaryCoefficient: 0.60,
+      },
+      {
+        spell: SPELLS.SWIPE_BEAR,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 11,
+        primaryCoefficient: 0.30,
       },
 
       {

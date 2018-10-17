@@ -8,8 +8,8 @@ import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import FuryTracker from '../resourcetracker/FuryTracker';
 
 /*

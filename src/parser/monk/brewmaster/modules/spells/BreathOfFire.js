@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
 const DEBUG_ABILITIES = false;

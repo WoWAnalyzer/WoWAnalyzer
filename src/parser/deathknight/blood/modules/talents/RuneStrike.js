@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatPercentage, formatDuration } from 'common/format';
 import RuneTracker from '../../../shared/RuneTracker';
 

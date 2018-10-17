@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -103,7 +103,7 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
       this.lastTolCast = event.timestamp;
-    } else if (spellId === SPELLS.REJUVENATION.id) {
+    } else if (spellId === SPELLS.REJUVENATION.id && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       const accumulator = this._getAccumulator(event);
       if (!accumulator) {
         return;

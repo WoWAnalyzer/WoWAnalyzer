@@ -1,11 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 const COMBUSTION_DURATION = 10000;
@@ -100,7 +99,7 @@ class CombustionPyroclasm extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.pyrloclasmUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</>)
+          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</>)
             .icon(SPELLS.PYROCLASM_TALENT.icon)
             .actual(`${formatPercentage(this.pyroclasmBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import EnemyInstances, { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const DAMAGE_BUFFER = 250;
 

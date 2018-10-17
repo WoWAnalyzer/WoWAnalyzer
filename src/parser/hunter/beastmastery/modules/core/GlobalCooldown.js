@@ -1,8 +1,8 @@
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
-import StatTracker from 'parser/core/modules/StatTracker';
-import Channeling from 'parser/core/modules/Channeling';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import Abilities from '../Abilities';
 
 const ASPECT_AFFECTED_ABILTIES = [

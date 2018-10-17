@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SCHOOLS from 'common/MAGIC_SCHOOLS';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/others/ItemDamageDone';

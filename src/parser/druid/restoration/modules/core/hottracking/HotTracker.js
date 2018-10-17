@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Haste from 'parser/core/modules/Haste';
-import Combatants from 'parser/core/modules/Combatants';
+import Haste from 'parser/shared/modules/Haste';
+import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
 

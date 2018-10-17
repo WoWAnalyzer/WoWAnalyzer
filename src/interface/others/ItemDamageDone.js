@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import connectParser from 'common/connectParser';
-
 class ItemDamageDone extends React.PureComponent {
   static propTypes = {
     amount: PropTypes.number.isRequired,
@@ -29,8 +27,4 @@ class ItemDamageDone extends React.PureComponent {
   }
 }
 
-const mapParserToProps = parser => ({
-  // Ensure the component is re-rendered when the Parser-context changes
-  key: `${parser.eventCount}-${parser.adjustForDowntime}`,
-});
-export default connectParser(mapParserToProps)(ItemDamageDone);
+export default ItemDamageDone;

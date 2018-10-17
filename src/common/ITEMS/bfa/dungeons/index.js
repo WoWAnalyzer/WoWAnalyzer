@@ -1,6 +1,6 @@
 // Items only found in dungeons
 
-import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
+import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 
 export default {
   // Group by instance (with comments)

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
 

@@ -13,7 +13,7 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Info from 'interface/common/Alert/Info';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';

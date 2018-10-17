@@ -1,4 +1,4 @@
-import Abilities from 'parser/core/modules/Abilities';
+import Abilities from 'parser/shared/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
