@@ -5,8 +5,10 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+// Example log: /report/9fLF3NhHTqCBtmXy/10-Normal+Zul+-+Kill+(2:26)/7-Nospheratu
 class TwistOfFate extends Analyzer {
 
   constructor(...args) {
@@ -17,11 +19,12 @@ class TwistOfFate extends Analyzer {
   statistic() {
     const uptime = this.selectedCombatant.getBuffUptime(SPELLS.TWIST_OF_FATE_BUFF.id) / this.owner.fightDuration;
     return (
-      <SmallStatisticBox
+      <TalentStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_BUFF.id} />}
-        value={`${formatPercentage(uptime)} %`}
-        label="Twist of Fate uptime"
+        value={`${formatPercentage(uptime)} % uptime`}
+        label="Twist of Fate"
       />
     );
   }
