@@ -26,7 +26,6 @@ import Efflorescence from './modules/features/Efflorescence';
 import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
-import NaturesEssence from './modules/features/NaturesEssence';
 import ManaUsage from './modules/features/ManaUsage';
 
 import CenarionWard from './modules/talents/CenarionWard';
@@ -89,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
-    naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
 
     // Talents
