@@ -17,6 +17,7 @@ class EnchantChecker extends Analyzer {
     15: 'Weapon',
     16: 'OffHand',
   };
+
   static MAX_ENCHANT_IDS = [
     //BfA enchants
     ITEMS.ENCHANT_RING_PACT_OF_CRITICAL_STRIKE.effectId,
@@ -57,7 +58,7 @@ class EnchantChecker extends Analyzer {
     }, {});
   }
   get numEnchantableGear() {
-    return Object.keys(this.constructor.ENCHANTABLE_SLOTS).length;
+    return Object.keys(this.enchantableGear).length;
   }
   get slotsMissingEnchant() {
     const gear = this.enchantableGear;
