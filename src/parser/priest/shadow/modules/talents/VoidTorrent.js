@@ -120,11 +120,8 @@ class VoidTorrent extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
-        value={(
-          <dfn data-tip={`${formatSeconds(this.totalWasted)} seconds wasted`}>
-            <ItemDamageDone amount={this.damage} />
-          </dfn>
-        )}
+        value={<ItemDamageDone amount={this.damage} />}
+        tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
         label="Void Torrent"
       />
     );
