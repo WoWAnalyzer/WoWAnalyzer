@@ -4,7 +4,9 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 import Voidform from '../spells/Voidform';
 
@@ -16,6 +18,7 @@ function formatSeconds(seconds) {
 const TIMESTAMP_ERROR_MARGIN = 100;
 const VOID_TORRENT_MAX_TIME = 4000;
 
+// Example Log: /report/hmJqLPZ7GVgY1CNa/16-Normal+Fetid+Devourer+-+Kill+(1:52)/44-베시잉/events
 class VoidTorrent extends Analyzer {
   static dependencies = {
     voidform: Voidform,
@@ -28,6 +31,7 @@ class VoidTorrent extends Analyzer {
 
   _voidTorrents = {};
   _previousVoidTorrentCast = null;
+  damage = 0;
 
   startedVoidTorrent(event) {
     this._voidTorrents[event.timestamp] = {
@@ -45,9 +49,9 @@ class VoidTorrent extends Analyzer {
     };
 
     // due to sometimes being able to cast it at the same time as you leave voidform:
-    if(this.voidform.inVoidform){
+    if (this.voidform.inVoidform) {
       this.voidform.addVoidformEvent(SPELLS.VOID_TORRENT_TALENT.id, {
-        start: this.voidform.normalizeTimestamp({timestamp: this._previousVoidTorrentCast.timestamp}),
+        start: this.voidform.normalizeTimestamp({ timestamp: this._previousVoidTorrentCast.timestamp }),
         end: this.voidform.normalizeTimestamp(event),
       });
     }
@@ -79,6 +83,14 @@ class VoidTorrent extends Analyzer {
     }
   }
 
+  on_byPlayer_damage(event) {
+    const spellID = event.ability.guid;
+    if (spellID !== SPELLS.VOID_TORRENT_TALENT.id) {
+      return;
+    }
+    this.damage += event.amount || 0;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.totalWasted,
@@ -104,15 +116,13 @@ class VoidTorrent extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(7)}
+      <TalentStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
-        value={`${formatSeconds(this.totalWasted)} seconds`}
-        label={(
-          <dfn data-tip="Lost Void Torrent channeling time.">
-            Interrupted Void Torrents
-          </dfn>
-        )}
+        value={<ItemDamageDone amount={this.damage} />}
+        tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
+        label="Void Torrent"
       />
     );
   }
