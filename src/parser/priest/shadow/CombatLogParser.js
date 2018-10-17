@@ -1,19 +1,16 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
-
 // core
 import Haste from './modules/core/Haste';
 import AbilityTracker from './modules/core/AbilityTracker';
 import Insanity from './modules/core/Insanity';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
-
 // spells:
 import Mindbender from './modules/spells/Mindbender';
 import Shadowfiend from './modules/spells/Shadowfiend';
@@ -23,11 +20,10 @@ import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
-
 // talents
 import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
-
+import ShadowCrash from './modules/talents/ShadowCrash';
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
 import AnundsSearedShackles from './modules/items/AnundsSearedShackles';
@@ -63,6 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     // talents:
     twistOfFate: TwistOfFate,
     voidTorrent: VoidTorrent,
+    shadowCrash: ShadowCrash,
 
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,
