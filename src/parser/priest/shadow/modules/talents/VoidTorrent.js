@@ -18,6 +18,7 @@ function formatSeconds(seconds) {
 const TIMESTAMP_ERROR_MARGIN = 100;
 const VOID_TORRENT_MAX_TIME = 4000;
 
+// Example Log: /report/hmJqLPZ7GVgY1CNa/16-Normal+Fetid+Devourer+-+Kill+(1:52)/44-베시잉/events
 class VoidTorrent extends Analyzer {
   static dependencies = {
     voidform: Voidform,
