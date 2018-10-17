@@ -36,7 +36,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           description={
             <>
               <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
-              </>
+            </>
           }
         >
       <Requirement
@@ -61,16 +61,15 @@ class BrewmasterMonkChecklist extends React.PureComponent {
 
             <p>Note that <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> is <em>almost always</em> the best talent for brew generation in a raiding environment. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges. If you are using <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} /> and seeing low brew CDR, consider switching talents.</p>
             </>
-        }
-      >
+        } >
         <Requirement name={'Effective CDR from your rotation'}
           thresholds={thresholds.totalCDR} />
-        <AbilityRequirement spell={SPELLS.KEG_SMASH.id} 
+        <AbilityRequirement spell={SPELLS.KEG_SMASH.id}
           name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
-        {combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id) ? (
-          <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id} 
+        {combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id}
             name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
-        ) : null} 
+        )}
         <Requirement name={(
             <dfn data-tip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 16 seconds) wastes part of the brew.">
               <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> duration lost to clipping
@@ -87,21 +86,21 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         } >
         <AbilityRequirement spell={SPELLS.KEG_SMASH.id} />
         <AbilityRequirement spell={SPELLS.BLACKOUT_STRIKE.id} />
-        {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) ? (
+        {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) &&
           <>
-            <Requirement 
+            <Requirement
               name={<><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} />-empowered <SpellLink id={SPELLS.TIGER_PALM.id} >Tiger Palms</SpellLink></>}
               thresholds={thresholds.bocTp} />
-            <Requirement 
+            <Requirement
               name={<><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent on <SpellLink id={SPELLS.TIGER_PALM.id} /></>}
               thresholds={thresholds.bocDpsWaste} />
           </>
-        ) : null}
-        <Requirement name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
-          thresholds={thresholds.rjw} />
-        {combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id) ? 
-            <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> :
-            null}
+        }
+        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id) && (
+          <Requirement name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
+            thresholds={thresholds.rjw} />
+        )}
+        {combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

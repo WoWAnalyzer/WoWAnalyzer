@@ -1,5 +1,5 @@
-import Background from './images/Backgrounds/Aggramar.jpg';
-import Headshot from './images/Headshots/Aggramar.png';
+import Background from './images/Backgrounds/Ghuun.jpg';
+import Headshot from './images/Headshots/Ghuun.png';
 
 export default {
   id: 2122,
