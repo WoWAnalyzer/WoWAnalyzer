@@ -28,6 +28,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90, // todo: Account for Angel's Mercy if possible
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.35,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0,
         },
       },
       {
@@ -40,6 +43,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.30,
+          averageIssueEfficiency: 0.10,
+          majorIssueEfficiency: 0,
         },
       },
       {
@@ -52,6 +58,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.30,
+          averageIssueEfficiency: 0.10,
+          majorIssueEfficiency: 0,
         },
         healSpellIds: [
           SPELLS.DIVINE_HYMN_HEAL.id,
@@ -66,6 +75,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.01, // This spell should be cast at least one per encounter
+          majorIssueEfficiency: 0,
         },
       },
       {
@@ -78,6 +89,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.30,
+          averageIssueEfficiency: 0.10,
+          majorIssueEfficiency: 0,
         },
       },
       {
@@ -254,6 +268,11 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GUARDIAN_SPIRIT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180, // guardian angel talent can reduce this
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.01, // This spell should be cast at least one per encounter
+          majorIssueEfficiency: 0,
+        },
         healSpellIds: [
           SPELLS.GUARDIAN_SPIRIT_HEAL.id,
         ],
