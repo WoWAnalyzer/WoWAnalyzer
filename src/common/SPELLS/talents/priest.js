@@ -30,7 +30,6 @@ export default {
   AUSPICIOUS_SPIRITS_TALENT: { id: 155271, name: "Auspicious Spirits", icon: "ability_priest_auspiciousspirits" },
   SHADOW_WORD_DEATH_TALENT: { id: 32379, name: "Shadow Word: Death", icon: "spell_shadow_demonicfortitude" },
   SHADOW_CRASH_TALENT: { id: 205385, name: "Shadow Crash", icon: "spell_shadow_shadowfury" },
-  SHADOW_CRASH_TALENT_DAMAGE: { id: 205386, name: "Shadow Crash", icon: "spell_shadow_shadowfury" },
   LINGERING_INSANITY_TALENT: { id: 199849, name: "Lingering Insanity", icon: "spell_shadow_twistedfaith" },
   VOID_TORRENT_TALENT: { id: 263165, name: "Void Torrent", icon: "spell_priest_voidsear" },
   LEGACY_OF_THE_VOID_TALENT: { id: 193225, name: "Legacy of the Void", icon: "inv_enchant_voidcrystal" },
