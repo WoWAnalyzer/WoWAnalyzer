@@ -36,7 +36,7 @@ class StormFireElemental extends Analyzer {
       if(this.last_pet_summon_timeStamp!==null) {
         return;
       }
-      if(!this.relevant.damageSpells.includes(event.ability.guid)) {
+      if(!this.relevantData.damageSpells.includes(event.ability.guid)) {
         return;
       }
       this.spellUsable.beginCooldown(this.summon_spell, event.timestamp);
