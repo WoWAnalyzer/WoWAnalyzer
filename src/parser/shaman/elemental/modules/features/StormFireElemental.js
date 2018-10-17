@@ -29,7 +29,7 @@ class StormFireElemental extends Analyzer {
 
   last_pet_summon_timeStamp=null;
 
-  relevantData = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) ? this.data.StormElemental : this.data.FireElemental;
+  relevantData = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) ? this.elementalData.StormElemental : this.elementalData.FireElemental;
 
 
   on_byPlayerPet_damage(event){
@@ -45,7 +45,7 @@ class StormFireElemental extends Analyzer {
   }
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
-    if (spellId !== this.relevant.summon) {
+    if (spellId !== this.relevantData.summon) {
       return;
     }
     this.last_pet_summon_timeStamp=event.timestamp;
