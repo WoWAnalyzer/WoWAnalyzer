@@ -5,16 +5,11 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
-import Voidform from '../spells/Voidform';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
 
 class ShadowCrash extends Analyzer {
-  static dependencies = {
-    voidform: Voidform,
-  };
-
   casts = 0;
   damage = 0;
   totalTargetsHit = 0;
