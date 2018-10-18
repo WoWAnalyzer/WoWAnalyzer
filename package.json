@@ -9,7 +9,7 @@
     "@lingui/macro": "^2.7.0",
     "@lingui/react": "^2.7.0",
     "@wowanalyzer/react-scripts": "2.0.4c",
-    "chart.js": "^2.7.2",``
+    "chart.js": "^2.7.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "es6-error": "^4.1.1",
@@ -29,6 +29,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "^2.0.5",
     "react-select-search": "^0.5.6",
     "react-test-renderer": "^16.5.2",
     "react-textfit": "^1.1.0",

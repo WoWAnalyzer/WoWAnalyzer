@@ -20,6 +20,7 @@ class Checklist extends Analyzer {
 
   render() {
     return (
+      <>
       <Component 
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
@@ -29,7 +30,10 @@ class Checklist extends Analyzer {
         alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
       }}
       />
+      {console.log(this.alwaysBeCasting)}
+      </>
     );
   }
-
 }
+
+export default Checklist;
