@@ -1,15 +1,6 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-// Damaging spells that do not cause Atonement healing
-const DAMAGING_SPELLS_THAT_DO_NOT_TRANSFER = [
-  // Void Elf Racial
-  SPELLS.ENTROPIC_EMBRACE_DAMAGE.id,
-  // Ring of Collapsing Futures
-  SPELLS.COLLAPSE.id,
-  // When a target is immune, heals sometimes turn into damage events but that does not proc Atonement healing (Varimathras)
-  SPELLS.ATONEMENT_HEAL_NON_CRIT.id,
-];
+import { DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT } from '../../constants';
 
 class AtonementDamageSource extends Analyzer {
   _event = null;
@@ -21,7 +12,7 @@ class AtonementDamageSource extends Analyzer {
     if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
       return;
     }
-    if (DAMAGING_SPELLS_THAT_DO_NOT_TRANSFER.includes(event.ability.guid)) {
+    if (!DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT.includes(event.ability.guid)) {
       return;
     }
     if (event.targetIsFriendly) {

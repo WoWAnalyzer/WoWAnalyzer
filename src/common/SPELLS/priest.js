@@ -589,4 +589,11 @@ export default {
     name: 'Shadow Priest T21 4P Bonus',
     icon: 'ability_priest_ascension',
   },
+
+  SHADOW_CRASH_TALENT_DAMAGE: {
+    id: 205386,
+    name: "Shadow Crash",
+    icon: "spell_shadow_shadowfury",
+  },
+
 };
