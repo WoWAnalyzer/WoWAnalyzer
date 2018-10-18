@@ -19,7 +19,7 @@ export default {
     <>
       Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by <a href="//raider.io/characters/us/arthas/Eisenpelz"><code>emallson</code></a>, and there are currently no known issues.<br />
 
-      If you have questions about the output, please ask in the <code>#brew_questions</code> channel of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have theorycrafting questions or want to contribute, come say hi in <code>#craft-brewing</code>.
+      If you have questions about the output, please ask in the <code>#brew-questions</code> channel of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have theorycrafting questions or want to contribute, come say hi in <code>#craft-brewing</code>.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

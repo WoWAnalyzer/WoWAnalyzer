@@ -5,6 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import IronSkinBrew from '../../spells/IronSkinBrew';
+import PurifyingBrew from '../../spells/PurifyingBrew';
 import BrewCDR from '../../core/BrewCDR';
 import BreathOfFire from '../../spells/BreathOfFire';
 import TigerPalm from '../../spells/TigerPalm';
@@ -20,6 +21,7 @@ class Checklist extends Analyzer {
 
     bof: BreathOfFire,
     isb: IronSkinBrew,
+    pb: PurifyingBrew,
     brewcdr: BrewCDR,
     tp: TigerPalm,
     rjw: RushingJadeWind,
@@ -35,6 +37,8 @@ class Checklist extends Analyzer {
           ...this.preparationRuleAnalyzer.thresholds,
 
           isb: this.isb.uptimeSuggestionThreshold,
+          purifyHeavy: this.pb.purifyHeavySuggestion,
+          purifyDelay: this.pb.purifyDelaySuggestion,
           totalCDR: this.brewcdr.suggestionThreshold,
           isbClipping: this.isb.clipSuggestionThreshold,
           bof: this.bof.suggestionThreshold,

@@ -8,6 +8,9 @@ import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoul from './DrainSoul';
 import DrainSoulSniping from './DrainSoulSniping';
+import VileTaint from './VileTaint';
+import ShadowEmbrace from './ShadowEmbrace';
+import GrimoireOfSacrifice from './GrimoireOfSacrifice';
 import Haunt from './Haunt';
 import Nightfall from './Nightfall';
 import PhantomSingularity from './PhantomSingularity';
@@ -23,7 +26,10 @@ class TalentStatisticBox extends Analyzer {
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     phantomSingularity: PhantomSingularity,
+    vileTaint: VileTaint,
+    shadowEmbrace: ShadowEmbrace,
     haunt: Haunt,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
   };
 

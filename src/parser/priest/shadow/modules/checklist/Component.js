@@ -103,6 +103,10 @@ class ShadowPriestChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.DARK_ASCENSION_TALENT.id} />
           )}
+
+          {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
+          )}
         </Rule>
 
         <Rule
