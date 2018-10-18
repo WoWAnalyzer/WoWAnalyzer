@@ -7,6 +7,7 @@ import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
 import Flametongue from './modules/core/Flametongue';
 import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Rockbiter from './modules/core/Rockbiter';
@@ -32,9 +33,11 @@ class CombatLogParser extends CoreCombatLogParser {
     flametongue: Flametongue,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Talents
