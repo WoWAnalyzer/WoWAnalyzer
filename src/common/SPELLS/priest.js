@@ -532,6 +532,12 @@ export default {
     icon: 'ability_priest_shadowyapparition',
   },
 
+  SHADOWY_APPARITION_DAMAGE: {
+    id: 148859,
+    name: 'Shadowy Apparition',
+    icon: 'ability_priest_shadowyapparition',
+  },
+
   // Shadow Buffs
 
   VOIDFORM: {
