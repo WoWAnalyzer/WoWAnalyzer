@@ -11,7 +11,7 @@ const debug = false;
 
 const REJUV_DURATION = 15000;
 const MS_BUFFER = 200;
-const PENDEMIC_THRESHOLD = 0.7;
+const PANDEMIC_THRESHOLD = 0.7;
 const FLOURISH_EXTENSION = 8000;
 
 /*
@@ -61,7 +61,7 @@ class PrematureRejuvenations extends Analyzer {
         return;
       }
 
-      const pandemicTimestamp = oldRejuv.timestamp + ((REJUV_DURATION * PENDEMIC_THRESHOLD) + MS_BUFFER);
+      const pandemicTimestamp = oldRejuv.timestamp + ((REJUV_DURATION * PANDEMIC_THRESHOLD) + MS_BUFFER);
       if (pandemicTimestamp > event.timestamp) {
         this.earlyRefreshments++;
         this.timeLost += pandemicTimestamp - event.timestamp;
@@ -71,10 +71,14 @@ class PrematureRejuvenations extends Analyzer {
       let pandemicTime = 0;
       if (event.timestamp >= pandemicTimestamp && event.timestamp <= oldRejuv.timestamp + REJUV_DURATION) {
         pandemicTime = (oldRejuv.timestamp + REJUV_DURATION) - event.timestamp;
-        debug && console.log("Extended within pandemic time frame: " + pandemicTime);
+        this.pandemicExtensions++;
+        this.pandemicExtensionsTime += pandemicTime;
+      } else if(event.timestamp <= pandemicTime) {
+        pandemicTime = REJUV_DURATION - (REJUV_DURATION * PANDEMIC_THRESHOLD);
         this.pandemicExtensions++;
         this.pandemicExtensionsTime += pandemicTime;
       }
+      debug && console.log("Extended within pandemic time frame: " + pandemicTime);
 
       // Set the new timestamp
       oldRejuv.timestamp = event.timestamp + pandemicTime;
