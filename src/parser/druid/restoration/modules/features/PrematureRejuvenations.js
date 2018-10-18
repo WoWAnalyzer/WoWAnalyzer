@@ -29,8 +29,6 @@ class PrematureRejuvenations extends Analyzer {
   rejuvenations = [];
   earlyRefreshments = 0;
   timeLost = 0;
-  pandemicExtensions = 0;
-  pandemicExtensionsTime = 0;
 
   constructor(...args) {
     super(...args);
@@ -71,12 +69,8 @@ class PrematureRejuvenations extends Analyzer {
       let pandemicTime = 0;
       if (event.timestamp >= pandemicTimestamp && event.timestamp <= oldRejuv.timestamp + REJUV_DURATION) {
         pandemicTime = (oldRejuv.timestamp + REJUV_DURATION) - event.timestamp;
-        this.pandemicExtensions++;
-        this.pandemicExtensionsTime += pandemicTime;
       } else if(event.timestamp <= pandemicTime) {
         pandemicTime = REJUV_DURATION - (REJUV_DURATION * PANDEMIC_THRESHOLD);
-        this.pandemicExtensions++;
-        this.pandemicExtensionsTime += pandemicTime;
       }
       debug && console.log("Extended within pandemic time frame: " + pandemicTime);
 
@@ -92,8 +86,6 @@ class PrematureRejuvenations extends Analyzer {
     debug && console.log("Finished: %o", this.rejuvenations);
     debug && console.log("Early refreshments: "+ this.earlyRefreshments);
     debug && console.log("Time lost: " + this.timeLost);
-    debug && console.log("Pandemic extensions: " + this.pandemicExtensions);
-    debug && console.log("Pandemic time: " + this.pandemicExtensionsTime);
   }
 
   get timeLostInSeconds() {
@@ -130,9 +122,7 @@ class PrematureRejuvenations extends Analyzer {
         label={`Early rejuvenation refreshments`}
         tooltip={`
           The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.</br>
-          <!--You refreshed within the pandemic time frame ${this.pandemicExtensions} times which equaled to ${(this.pandemicExtensionsTime/1000).toFixed(2)} seconds.->
           `}
-        //TODO Format refreshments to red text color and pandemic time fram extensions to green color.
       />
     );
   }
