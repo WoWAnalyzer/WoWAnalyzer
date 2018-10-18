@@ -68,7 +68,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
         {combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id}
-            name={<><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</>} />
+            name={<><SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Cast Efficiency</>} />
         )}
         <Requirement name={(
             <dfn data-tip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 16 seconds) wastes part of the brew.">
