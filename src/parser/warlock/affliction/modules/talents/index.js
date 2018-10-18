@@ -7,7 +7,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsL
 import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoul from './DrainSoul';
-import DrainSoulSniping from './DrainSoulSniping';
 import VileTaint from './VileTaint';
 import ShadowEmbrace from './ShadowEmbrace';
 import GrimoireOfSacrifice from './GrimoireOfSacrifice';
@@ -21,7 +20,6 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     nightfall: Nightfall,
     drainSoul: DrainSoul,
-    drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,

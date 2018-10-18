@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
