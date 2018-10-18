@@ -82,12 +82,12 @@ class Clearcasting extends Analyzer {
       this.usedProcs += 1;
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
-		var abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
-		if (abundance) {
-			this.nonCCRegrowths += abundance.stacks < ABUNDANCE_EXCEPTION_STACKS;
-		} else {
-			this.nonCCRegrowths += 1;
-		}
+        var abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
+        if (abundance) {
+          this.nonCCRegrowths += abundance.stacks < ABUNDANCE_EXCEPTION_STACKS;
+        } else {
+          this.nonCCRegrowths += 1;
+      }
     }
   }
 
