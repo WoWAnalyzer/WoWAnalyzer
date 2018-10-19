@@ -10,6 +10,11 @@ export default [
   },
   {
     date: new Date('2018-10-17'),
+    changes: 'Reintroduced Wild Growth average hit tracker.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-17'),
     changes: 'Improved Tree of Life throughput calculation (Don\'t count rejuv mana savings if player has innervate).',
     contributors: [blazyb],
   },
