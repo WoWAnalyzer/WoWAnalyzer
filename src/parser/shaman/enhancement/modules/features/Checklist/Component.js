@@ -23,7 +23,7 @@ class EnhancementShamanChecklist extends React.PureComponent {
   };
 
   render() {
-    const { combatant, castEfficiency, thresholds } = this.props;
+    const { thresholds } = this.props;
 
     return (
       <Checklist>
