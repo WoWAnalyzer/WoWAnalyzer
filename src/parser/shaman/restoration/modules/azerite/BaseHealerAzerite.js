@@ -124,7 +124,7 @@ class BaseHealerAzerite extends Analyzer {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.azerite.map((trait, index) => {
+                    {this.azerite.reverse().map((trait, index) => {
                       return (
                         <tr key={index}>
                           {numTraits > 1 && (<td>{index + 1}{nth(index + 1)}</td>)}
