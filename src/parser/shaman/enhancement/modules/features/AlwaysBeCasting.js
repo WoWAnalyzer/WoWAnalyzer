@@ -12,9 +12,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.5,
-        average: 0.6,
-        major: 0.7,
+        minor: 0.125,
+        average: 0.175,
+        major: 0.225,
       },
       style: 'percentage',
     };
@@ -33,12 +33,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
 
       if(!boss || !boss.fight.disableDowntimeSuggestion) {
-        when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></span>)
-            .icon('spell_mage_altertime')
-            .actual(`${formatPercentage(actual)}% downtime`)
-            .recommended(`<${formatPercentage(recommended)}% is recommended`); 
-        });
+        when(this.suggestionThresholds)
+          .addSuggestion((suggest, actual, recommended) => {
+            return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></span>)
+              .icon('spell_mage_altertime')
+              .actual(`${formatPercentage(actual)}% downtime`)
+              .recommended(`<${formatPercentage(recommended)}% is recommended`); 
+          });
       }
   }
 
