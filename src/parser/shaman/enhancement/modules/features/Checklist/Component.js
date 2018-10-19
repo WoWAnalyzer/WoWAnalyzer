@@ -29,7 +29,7 @@ class EnhancementShamanChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           name="Always be casting"
-          description={DowntimeDescription} 
+          description={<DowntimeDescription />} 
         >
           <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
         </Rule>
