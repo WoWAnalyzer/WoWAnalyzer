@@ -61,7 +61,7 @@ class StaggerFabricator extends Analyzer {
     //
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
-    const staggerEvent = this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount);
+    const staggerEvent = this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount, overage);
     this.owner.fabricateEvent(staggerEvent, event);
     if(this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
@@ -115,11 +115,12 @@ class StaggerFabricator extends Analyzer {
     this.removeStagger(event, amount);
   }
 
-  _fab(type, reason, amount) {
+  _fab(type, reason, amount, overage = 0) {
     return {
       timestamp: reason.timestamp,
       type: type,
-      amount: amount,
+      amount: amount + overage,
+      overheal: -overage,
       newPooledDamage: this._staggerPool,
       _reason: reason,
     };

@@ -98,6 +98,12 @@ class PurifyingBrew extends Analyzer {
   }
 
   on_removestagger(event) {
+    if(this._lastHit === null) {
+      if(event.amount > 0) {
+        console.warn('Stagger removed but player hasn\'t been hit yet', event);
+      }
+      return; // no hit yet
+    }
     // tracking gap from peak --- ideally you want to purify as close to
     // a peak as possible, but if no purify charges are available we
     // want to get the new pooled amount
