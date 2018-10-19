@@ -21,16 +21,15 @@ class Checklist extends Analyzer {
   render() {
     return (
       <>
-      <Component 
-        combatant={this.combatants.selected}
-        castEfficiency={this.castEfficiency}
-        thresholds={{
-        ...this.preparationRuleAnalyzer.thresholds,
+        <Component 
+          combatant={this.combatants.selected}
+          castEfficiency={this.castEfficiency}
+          thresholds={{
+          ...this.preparationRuleAnalyzer.thresholds,
 
-        alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
-      }}
-      />
-      {console.log(this.alwaysBeCasting)}
+          alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
+        }}
+        />
       </>
     );
   }
