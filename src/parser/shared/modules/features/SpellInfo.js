@@ -95,7 +95,7 @@ export default {
   [SPELLS.CONCENTRATED_MENDING_HEALING.id]: { // Healing Azerite Power
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpm: true,
     mastery: true, // TODO: Re-evaluate, going on word of mouth and I have my doubts
     vers: true,
   },
@@ -103,8 +103,8 @@ export default {
   271682: { // Harmonious Chord - Lady Waycrest's Music Box (trinket)
     int: false,
     crit: true,
-    hasteHpct: true,
-    hasteHpm: false,
+    hasteHpct: false,
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
@@ -112,7 +112,7 @@ export default {
   267537: { // Coastal Surge (Weapon enchant)
     int: false,
     crit: true,
-    hasteHpct: false, // TODO: Verify
+    hasteHpct: false,
     hasteHpm: true,
     mastery: false,
     vers: true,
@@ -121,7 +121,7 @@ export default {
   [SPELLS.BLESSED_PORTENTS_HEAL.id]: { // General Azerite Power
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
@@ -129,7 +129,7 @@ export default {
   [SPELLS.BRACING_CHILL_HEAL.id]: { // General Azerite Power
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
@@ -145,7 +145,7 @@ export default {
   [SPELLS.AZERITE_VEINS.id]: { // General Azerite Power
     int: false,
     crit: true,
-    hasteHpct: true, // not sure
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
@@ -153,15 +153,15 @@ export default {
   [SPELLS.SAVIOR.id]: { // General Azerite Power
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
   // https://www.warcraftlogs.com/reports/LpM43CgfYQ9ntXyz/#fight=4&source=3
-  [SPELLS.LASER_MATRIX.id]: { // General Azerite trait
+  [SPELLS.LASER_MATRIX_HEAL.id]: { // General Azerite trait
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpm: true,
     mastery: false,
     vers: true,
   },
