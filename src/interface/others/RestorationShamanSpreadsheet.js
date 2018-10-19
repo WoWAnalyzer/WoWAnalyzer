@@ -20,8 +20,10 @@ class RestorationShamanSpreadsheet extends React.Component {
     const minutes = (parser.fightDuration / 1000 / 60);
     const getAbility = spellId => parser._modules.abilityTracker.getAbility(spellId);
     const casts = spellId => getAbility(spellId).casts;
-    const cpm = spellId => casts(spellId) / minutes >= 0 ? (casts(spellId) / minutes).toFixed(2) : '0';
-    const twcpm = spellId => getAbility(spellId).healingTwHits / minutes >= 0 ? (getAbility(spellId).healingTwHits / minutes).toFixed(2) : '0';
+    const cpm = (spellId, TW = undefined) => {
+      const castAmount = TW ? getAbility(spellId).healingTwHits : casts(spellId);
+      return castAmount / minutes >= 0 ? (castAmount / minutes).toFixed(2) : '0';
+    };
     const prePotion = parser._modules.prePotion.usedPrePotion ? PRE_INTELLECT_POTION_BUFF : 0;
 
     return (
@@ -55,8 +57,8 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2)}</td></tr>
               <tr><td>{parser._modules.masteryEffectiveness.masteryEffectivenessPercent.toFixed(2)}</td></tr>
               <tr><td>{parser.selectedCombatant.race ? parser.selectedCombatant.race.name : 'Unknown'}</td></tr>
-              <tr><td>{twcpm(SPELLS.HEALING_WAVE.id,true)}</td></tr>
-              <tr><td>{twcpm(SPELLS.HEALING_SURGE_RESTORATION.id,true)}</td></tr>
+              <tr><td>{cpm(SPELLS.HEALING_WAVE.id,true)}</td></tr>
+              <tr><td>{cpm(SPELLS.HEALING_SURGE_RESTORATION.id,true)}</td></tr>
             </tbody>
           </table>
       </div>
