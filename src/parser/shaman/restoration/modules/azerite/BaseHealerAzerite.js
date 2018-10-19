@@ -23,7 +23,7 @@ class BaseHealerAzerite extends Analyzer {
   hasTrait;
   azerite = [];
 
-  trait = (factor, ilvl, raw) => ({
+  trait = (factor, raw, ilvl) => ({
     healing: 0,
     overhealing: 0,
     healingFactor: factor,
@@ -41,13 +41,13 @@ class BaseHealerAzerite extends Analyzer {
     this.hasTrait = this.selectedCombatant.hasTrait(this.constructor.TRAIT);
     const ranks = this.selectedCombatant.traitRanks(this.constructor.TRAIT) || [];
     const healingPerTrait = ranks.map((rank) => calculateAzeriteEffects(this.constructor.TRAIT, rank)[0]);
-    const totalHealing = healingPerTrait.reduce((total, bonus) => total + bonus, 0);
+    const totalHealingPotential = healingPerTrait.reduce((total, bonus) => total + bonus, 0);
 
     this.azerite = ranks.map((rank, index) => {
-      return this.trait((healingPerTrait[index] / totalHealing), rank, healingPerTrait[index]);
+      return this.trait((healingPerTrait[index] / totalHealingPotential), healingPerTrait[index], rank);
     });
     // as we can't find out which azerite piece a trait belongs to, might as well sort it by itemlevel
-    this.azerite.sort((a, b) => parseFloat(a.itemlevel) - parseFloat(b.itemlevel));
+    this.azerite.sort((a, b) => a.itemlevel - b.itemlevel);
   }
 
   on_byPlayer_heal(event) {
@@ -63,8 +63,8 @@ class BaseHealerAzerite extends Analyzer {
     let heal = event.amount + (event.absorbed || 0);
     let overheal = (event.overheal || 0);
 
-    // Override heal / overheal with the actual trait part of the heal
-    // for traits where the healing is part of a different spell
+    // Override the healing with the part which the trait contributed,
+    // as some traits are baked into a different spell
     if(traitComponent) {
       const raw = heal + overheal;
       const relativeHealingFactor = 1 + traitComponent;
@@ -74,8 +74,7 @@ class BaseHealerAzerite extends Analyzer {
     }
 
     // https://github.com/WoWAnalyzer/WoWAnalyzer/issues/2009#issuecomment-412253156
-    // Iterating through the traits, always in the same order, attributing the Overhealing
-    // caused always first before working through the effective healing.
+    // Iterating through the traits, always in the same order
     // This way its easier to see if stacking them was a bad idea or if it didn't matter.
     const healPerTrait = this.azerite.map((trait) => (heal + overheal) * trait.healingFactor);
     for (const [index, trait] of Object.entries(this.azerite)) {
