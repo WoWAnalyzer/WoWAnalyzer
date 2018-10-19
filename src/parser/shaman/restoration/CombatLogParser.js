@@ -45,6 +45,9 @@ import HealingRain from './modules/spells/HealingRain';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
+//Azerite
+import BaseHealerAzerite from './modules/azerite/BaseHealerAzerite';
+import SwellingStream from './modules/azerite/SwellingStream';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -99,6 +102,10 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+
+    // Azerite
+    baseHealerAzerite: BaseHealerAzerite,
+    swellingStream: SwellingStream,
 
     // Shared:
     spiritWolf: SpiritWolf,
