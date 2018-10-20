@@ -26,7 +26,6 @@ import Cultivation from '../talents/Cultivation';
 import SpringBlossoms from '../talents/SpringBlossoms';
 import TreeOfLife from '../talents/TreeOfLife';
 
-//TODO - blazyb refactor deprecated classes
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
