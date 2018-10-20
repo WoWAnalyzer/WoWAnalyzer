@@ -11,7 +11,6 @@ import Lifebloom from '../Lifebloom';
 import Efflorescence from '../Efflorescence';
 import Innervate from '../Innervate';
 import WildGrowth from '../WildGrowth';
-import NaturesEssence from '../NaturesEssence';
 import ManaValues from 'parser/shared/modules/ManaValues';
 
 
@@ -28,7 +27,6 @@ class Checklist extends Analyzer {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
     wildGrowth: WildGrowth,
-    naturesEssence: NaturesEssence,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     innervate: Innervate,
@@ -50,7 +48,7 @@ class Checklist extends Analyzer {
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           nonHealingTime: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           wildGrowthRatio: this.wildGrowth.suggestionThresholds,
-          naturesEssenceLow: this.naturesEssence.suggestionThresholds,
+          wildGrowthPercentBelowRecommendedCasts: this.wildGrowth.suggestionpercentBelowRecommendedCastsThresholds,
           lifebloomUpTime: this.lifebloom.suggestionThresholds,
           efflorescenceUpTime: this.efflorescence.suggestionThresholds,
           innervateAverageManaSaved: this.innervate.averageManaSavedSuggestionThresholds,

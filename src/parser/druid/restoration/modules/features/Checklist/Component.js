@@ -49,7 +49,7 @@ class RestorationDruidChecklist extends React.PureComponent {
           name={(<>Use <SpellLink id={SPELLS.WILD_GROWTH.id} /> effectively</>)}
           description={(
             <>
-              Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.
+              Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 5 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.
             </>
           )}
         >
@@ -68,7 +68,7 @@ class RestorationDruidChecklist extends React.PureComponent {
               </>
             )}
             tooltip="This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective."
-            thresholds={thresholds.naturesEssenceLow} />
+            thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts} />
         </Rule>
         <Rule
           name="Use your healing cooldowns"
