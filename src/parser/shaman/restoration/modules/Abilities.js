@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.7,
         },
       },
       {
@@ -409,6 +409,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
+        },
       },
       {
         spell: SPELLS.EARTH_ELEMENTAL,
@@ -424,6 +431,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id),
+      },
+      {
+        spell: SPELLS.ROCKET_JUMP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        isUndetectable: true,
       },
     ];
   }
