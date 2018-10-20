@@ -29,7 +29,7 @@ class EnhancementShamanChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           name="Always be casting"
-          description={<DowntimeDescription />} 
+          description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></>} 
         >
           <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
         </Rule>
