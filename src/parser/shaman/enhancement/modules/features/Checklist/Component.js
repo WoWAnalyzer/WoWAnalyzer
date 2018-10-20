@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checklist from 'parser/shared/modules/features/Checklist2';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
 import SPELLS from 'common/SPELLS';
@@ -14,7 +15,6 @@ const DowntimeDescription = () => (
 
 class EnhancementShamanChecklist extends React.PureComponent {
   static propTypes = {
-    castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
@@ -33,6 +33,7 @@ class EnhancementShamanChecklist extends React.PureComponent {
         >
           <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
         </Rule>
+        <PreparationRule thresholds={thresholds} />
       </Checklist>
     );
   }
