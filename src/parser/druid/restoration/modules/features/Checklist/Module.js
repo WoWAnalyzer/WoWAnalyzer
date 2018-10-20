@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import ManaValues from 'parser/shared/modules/ManaValues';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Clearcasting from '../Clearcasting';
@@ -11,7 +12,6 @@ import Lifebloom from '../Lifebloom';
 import Efflorescence from '../Efflorescence';
 import Innervate from '../Innervate';
 import WildGrowth from '../WildGrowth';
-import ManaValues from 'parser/shared/modules/ManaValues';
 
 
 import Cultivation from '../../talents/Cultivation';
@@ -34,7 +34,7 @@ class Checklist extends Analyzer {
     manaValues: ManaValues,
     cultivation: Cultivation,
     springBlossoms: SpringBlossoms,
-    treeOfLife: TreeOfLife
+    treeOfLife: TreeOfLife,
   };
 
   render() {
@@ -57,7 +57,7 @@ class Checklist extends Analyzer {
           manaValues: this.manaValues.suggestionThresholds,
           cultivationPercent: this.cultivation.suggestionThresholds,
           springBlossomsPercent: this.springBlossoms.suggestionThresholds,
-          treeOfLifePercent: this.treeOfLife.suggestionThresholds
+          treeOfLifePercent: this.treeOfLife.suggestionThresholds,
         }}
       />
     );
