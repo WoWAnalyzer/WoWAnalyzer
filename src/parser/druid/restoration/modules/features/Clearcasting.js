@@ -10,6 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 const debug = false;
 const LOW_HEALTH_HEALING_THRESHOLD = 0.3;
 const MS_BUFFER = 123;
+const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 class Clearcasting extends Analyzer {
 
@@ -81,7 +82,12 @@ class Clearcasting extends Analyzer {
       this.usedProcs += 1;
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
-      this.nonCCRegrowths += 1;
+        const abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
+        if (abundance) {
+          this.nonCCRegrowths += abundance.stacks < ABUNDANCE_EXCEPTION_STACKS;
+        } else {
+          this.nonCCRegrowths += 1;
+      }
     }
   }
 

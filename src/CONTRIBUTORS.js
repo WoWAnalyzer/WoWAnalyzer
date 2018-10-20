@@ -78,6 +78,10 @@ export const blazyb = {
   nickname: 'blazyb',
   github: 'buimichael',
 };
+export const Qbz = {
+  nickname: 'Qbz',
+  github: 'Qbz23',
+};
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
