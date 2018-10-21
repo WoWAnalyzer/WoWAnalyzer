@@ -6,6 +6,12 @@ const totemSpawnDistance = 200; // 2 yards
 const ebbAndFlowMinDistance = 8;
 const ebbAndFlowMaxDistance = 40;
 
+/**
+ * Ebb and Flow:
+ * Healing Tide Totem restores up to 198 additional health each pulse, based on how close your allies are to the totem.
+ * Maximum benefit for allies within 8 yds of the totem.
+ */
+
 class EbbAndFlow extends BaseHealerAzerite {
   static dependencies = {
     statTracker: StatTracker,
@@ -13,13 +19,13 @@ class EbbAndFlow extends BaseHealerAzerite {
   static TRAIT = SPELLS.EBB_AND_FLOW.id;
   static HEAL = SPELLS.EBB_AND_FLOW.id;
 
-  healingTideTicks = [];
+  healingTideHits = [];
   healingTidePosition = {};
   traitRawHealing = 0;
 
   constructor(...args) {
     super(...args);
-    this.disableStatistic = !this.selectedCombatant.hasTrait(this.constructor.TRAIT);
+    this.disableStatistic = !this.hasTrait;
     this.traitRawHealing = this.azerite.reduce((total, trait) => total + trait.rawHealing, 0);
   }
 
@@ -30,6 +36,7 @@ class EbbAndFlow extends BaseHealerAzerite {
       return;
     }
     // totem spawns 2 yards behind and to the right of your position on cast
+    // everything gets calculated off of the totems position so this information is important to be precise
     const radians = event.facing / 100;
     const xDistance = totemSpawnDistance * Math.cos(radians);
     const yDistance = totemSpawnDistance * Math.sin(radians);
@@ -43,11 +50,18 @@ class EbbAndFlow extends BaseHealerAzerite {
       return;
     }
 
+    // The trait has a 8 - 40 yards linear falloff
+    // 100% effectiveness within 8 yards, 0% at 40 yards
     const a = this.healingTidePosition.x - event.x;
     const b = this.healingTidePosition.y - event.y;
     const distanceToPlayer = Math.sqrt(a*a + b*b) / 100;
-    this.healingTideTicks.push(distanceToPlayer);
     const hitEffectiveness = this.effectiveness(distanceToPlayer);
+    this.healingTideHits.push(hitEffectiveness);
+
+    // As we don't disable this module for the spreadsheet information
+    if (!this.hasTrait) {
+      return;
+    }
 
     const currentIntellect = this.statTracker.currentIntellectRating;
     const healingTideHealing = SPELLS.HEALING_TIDE_TOTEM_HEAL.coefficient * currentIntellect;
@@ -58,13 +72,11 @@ class EbbAndFlow extends BaseHealerAzerite {
   }
 
   effectiveness(distanceToPlayer) {
-    // 8 - 40 yards linear falloff
     return Math.min(1 - ((distanceToPlayer - ebbAndFlowMinDistance) / (ebbAndFlowMaxDistance - ebbAndFlowMinDistance)), 1);
   }
 
   get ebbAndFlowEffectiveness() {
-    const averageDistance = this.healingTideTicks.reduce((total, tick) => total + tick, 0) / this.healingTideTicks.length;
-    return this.effectiveness(averageDistance);
+    return this.healingTideHits.reduce((total, hit) => total + hit, 0) / this.healingTideHits.length;
   }
 }
 
