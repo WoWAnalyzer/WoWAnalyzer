@@ -73,7 +73,6 @@ class SoothingWaters extends BaseHealerAzerite {
   }
 
   processTrait(initialHitEvent) {
-    this.healingtotal += initialHitEvent.amount + (initialHitEvent.absorbed || 0);
     const currentIntellect = this.statTracker.currentIntellectRating;
     const initialHitHealing = SPELLS.CHAIN_HEAL.coefficient * currentIntellect;
     const traitComponent = this.traitRawHealing / (initialHitHealing + this.traitRawHealing);
