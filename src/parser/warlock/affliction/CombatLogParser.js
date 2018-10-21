@@ -22,7 +22,6 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import Talents from './modules/talents';
 import Nightfall from './modules/talents/Nightfall';
 import DrainSoul from './modules/talents/DrainSoul';
-import DrainSoulSniping from './modules/talents/DrainSoulSniping';
 import Deathbolt from './modules/talents/Deathbolt';
 import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
@@ -64,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     talents: Talents,
     nightfall: Nightfall,
     drainSoul: DrainSoul,
-    drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,

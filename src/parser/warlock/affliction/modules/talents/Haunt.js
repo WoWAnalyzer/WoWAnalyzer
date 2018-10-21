@@ -80,11 +80,17 @@ class Haunt extends Analyzer {
   subStatistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-        valueTooltip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
-      />
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</>}
+          value={`${formatPercentage(this.uptime)} %`}
+        />
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> bonus damage</>}
+          value={formatThousands(this.bonusDmg)}
+          valueTooltip={`${this.owner.formatItemDamageDone(this.bonusDmg)}<br />You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
+        />
+      </>
     );
   }
 }
