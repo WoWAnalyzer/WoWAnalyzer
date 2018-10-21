@@ -1,21 +1,15 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
-const blightborneInfusionStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [crit] = calculateAzeriteEffects(SPELLS.BLIGHTBORNE_INFUSION.id, rank);
-  obj.crit += crit;
-  return obj;
-}, {
-  crit: 0,
-});
+const blightborneInfusionStats = traits => Object.values(traits).reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.BLIGHTBORNE_INFUSION.id, rank), 0);
 
 export const STAT_TRACKER = {
-  crit: combatant => blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]).crit,
+  crit: combatant => blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]),
 };
 
 /**
@@ -34,8 +28,7 @@ class BlightborneInfusion extends Analyzer {
       return;
     }
 
-    const { crit } = blightborneInfusionStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]);
-    this.crit = crit;
+    this.crit = blightborneInfusionStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]);
   }
 
   on_byPlayer_applybuff(event) {
