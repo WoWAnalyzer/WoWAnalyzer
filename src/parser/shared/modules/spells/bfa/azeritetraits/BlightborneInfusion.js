@@ -6,7 +6,10 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
-const blightborneInfusionStats = traits => Object.values(traits).reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.BLIGHTBORNE_INFUSION.id, rank), 0);
+const blightborneInfusionStats = traits => Object.values(traits).reduce((total, rank) => {
+  const [crit] = calculateAzeriteEffects(SPELLS.BLIGHTBORNE_INFUSION.id, rank);
+  return total + crit;
+}, 0);
 
 export const STAT_TRACKER = {
   crit: combatant => blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]),
