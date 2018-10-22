@@ -1,6 +1,11 @@
 export default {
-  BLIGHTBORNE_INFUSION: { // buff
-    id: 273826,
+  BLIGHTBORNE_INFUSION: {
+    id: 273823,
+    name: 'Blightborne Infusion',
+    icon: 'ability_argus_soulbombdebuffsmall',
+  },
+  BLIGHTBORNE_INFUSION_BUFF: { // buff
+    id: 280204,
     name: 'Blightborne Infusion',
     icon: 'ability_creature_disease_05',
   },
