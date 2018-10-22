@@ -26,6 +26,8 @@ class Changelog extends React.PureComponent {
 
     const mergedChangelog = includeCore && this.state.includeCore ? [...CORE_CHANGELOG, ...changelog].sort((a, b) => b.date - a.date) : changelog;
 
+    //Check index here: SC
+
     return (
       <div style={{ padding: 0 }}>
         {includeCore && (

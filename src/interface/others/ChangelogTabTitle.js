@@ -23,6 +23,8 @@ class ChangelogTabTitle extends React.PureComponent {
         ...changelog,
       ];
 
+      //Change file to display number:  SC
+
       // TODO: Instead of showing the amount in recent times, show the amount of new changes since last view
       recentChanges = changelog.reduce((total, entry) => {
         if (((+new Date() - entry.date) / 1000) < (SECONDS_IN_DAY * DAYS_CONSIDERED_RECENT)) {

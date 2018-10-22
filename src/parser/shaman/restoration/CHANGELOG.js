@@ -9,21 +9,25 @@ export default [
     date: new Date('2018-09-13'),
     changes: <>Added support for <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> usage.</>,
     contributors: [niseko],
+    clIndex: 'RestoShaman20180913.1',
   },
   {
     date: new Date('2018-10-10'),
     changes: 'New Tab added: "Player Log Data" with exports for the Restoration Shaman Spreadsheet.',
     contributors: [niseko],
+    clIndex: 'RestoShaman20181010.1',
   },
   {
     date: new Date('2018-09-09'),
     changes: <>Added a spell breakdown for your <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> buff usage.</>,
     contributors: [niseko],
+    clIndex: 'RestoShaman20180909.1',
   },
   {
     date: new Date('2018-07-15'),
     changes: <>Added support for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</>,
     contributors: [niseko],
+    clIndex: 'RestoShaman20180715.1',
   },
   {
     date: new Date('2018-06-18'),
@@ -41,5 +45,6 @@ export default [
       </>
     ),
     contributors: [niseko],
+    clIndex: 'RestoShaman20180618.1',
   },
 ];
