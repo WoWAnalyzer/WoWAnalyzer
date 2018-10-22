@@ -338,6 +338,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
       haste: (_, item) => calculateSecondaryStatDefault(355, 35, item.itemLevel),
     },
+    [SPELLS.RAPID_ADAPTATION.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
     269887: { // Boiling Time
