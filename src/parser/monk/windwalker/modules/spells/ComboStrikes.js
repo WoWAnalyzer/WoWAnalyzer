@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatDuration } from 'common/format';
 
@@ -69,7 +69,7 @@ class ComboStrikes extends Analyzer {
     const masteryDropEvents = this.masteryDropSpellSequence.length;
 
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
         value={`${formatNumber(masteryDropEvents)}`}
@@ -108,7 +108,7 @@ class ComboStrikes extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }

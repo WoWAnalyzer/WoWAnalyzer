@@ -6,7 +6,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -315,7 +315,7 @@ class RuneTracker extends ResourceTracker {
     const timeSpentAtRuneCount = this.timeSpentAtRuneCount;
     const badThreshold = 4;
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
         value={`${formatPercentage(1 - this.runeEfficiency)} %`}
         label="Runes overcapped"
@@ -354,7 +354,7 @@ class RuneTracker extends ResourceTracker {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(1);
