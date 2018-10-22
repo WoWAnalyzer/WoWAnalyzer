@@ -9,8 +9,13 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-10-22'),
+    changes: <>Added <SpellLink id={SPELLS.COASTAL_SURGE.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-10-21'),
-    changes: <> Added <SpellLink id={SPELLS.BLIGHTBORNE_INFUSION.id} /> module.</>,
+    changes: <>Added <SpellLink id={SPELLS.BLIGHTBORNE_INFUSION.id} /> module.</>,
     contributors: [niseko],
   },
   {
