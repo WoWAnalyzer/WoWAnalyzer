@@ -78,6 +78,10 @@ export const blazyb = {
   nickname: 'blazyb',
   github: 'buimichael',
 };
+export const Qbz = {
+  nickname: 'Qbz',
+  github: 'Qbz23',
+};
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
@@ -497,4 +501,9 @@ export const Satyric = {
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/Satyric',
   }],
+};
+export const jos3p = {
+  nickname: 'jos3p',
+  github: 'jos3p',
+  discord: 'jos3p#9746',
 };

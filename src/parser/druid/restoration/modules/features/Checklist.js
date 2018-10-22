@@ -20,14 +20,12 @@ import Clearcasting from './Clearcasting';
 import Efflorescence from './Efflorescence';
 import Innervate from './Innervate';
 import Lifebloom from './Lifebloom';
-import NaturesEssence from './NaturesEssence';
 import WildGrowth from './WildGrowth';
 
 import Cultivation from '../talents/Cultivation';
 import SpringBlossoms from '../talents/SpringBlossoms';
 import TreeOfLife from '../talents/TreeOfLife';
 
-//TODO - blazyb refactor deprecated classes
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
@@ -39,7 +37,6 @@ class Checklist extends CoreChecklist {
     innervate: Innervate,
     lifebloom: Lifebloom,
     manaValues: ManaValues,
-    naturesEssence: NaturesEssence,
     wildGrowth: WildGrowth,
 
     cultivation: Cultivation,
@@ -69,7 +66,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <>Use <SpellLink id={SPELLS.WILD_GROWTH.id} /> effectively</>,
-      description: <>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</>,
+      description: <>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. When more than 5 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</>,
       requirements: () => {
         return [
           new Requirement({
@@ -79,7 +76,7 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <>Low target <SpellLink id={SPELLS.WILD_GROWTH.id} /> casts</>,
-            check: () => this.naturesEssence.suggestionThresholds,
+            check: () => this.wildGrowth.suggestionpercentBelowRecommendedCastsThresholds,
             tooltip: `This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective.`,
           }),
         ];

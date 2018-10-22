@@ -789,11 +789,6 @@ export default {
     name: 'Self Reliance',
     icon: 'achievement_guildperk_quick-and-dead',
   },
-  SERENE_SPIRIT: {
-    id: 274416,
-    name: 'Serene Spirit',
-    icon: 'ability_shaman_astralshift',
-  },
   SERRATED_JAWS: {
     id: 272717,
     name: 'Serrated Jaws',

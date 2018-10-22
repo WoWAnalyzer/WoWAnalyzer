@@ -1,8 +1,33 @@
 // import React from 'react';
 
-import { Yajinni, blazyb, fel1ne } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-10-19'), 
+    changes: 'Updated bad Regrowth usage suggestions - using a regrowth with sufficent abundance stacks is not considered bad',
+    contributors: [Qbz],
+  },
+  {
+    date: new Date('2018-10-17'),
+    changes: 'Reintroduced Wild Growth average hit tracker.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-17'),
+    changes: 'Improved Tree of Life throughput calculation (Don\'t count rejuv mana savings if player has innervate).',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-17'),
+    changes: 'Fixed some minor errors for the innervate module.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-16'),
+    changes: 'Added first version of module for premature rejuvenations with statistics and suggestions',
+    contributors: [blazyb],
+  },
   {
     date: new Date('2018-09-24'),
     changes: 'Including Grove Tending in Flourish and Photosynthesis module.',

@@ -19,6 +19,7 @@ import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
+import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
 
 const debug = false;
 
@@ -244,7 +245,7 @@ class StatTracker extends Analyzer {
 
     // region Azerite Traits
     // region General
-    [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
+    [SPELLS.BLIGHTBORNE_INFUSION_BUFF.id]: BLIGHTBORNE_INFUSION_STATS,
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },

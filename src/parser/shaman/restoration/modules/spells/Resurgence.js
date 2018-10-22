@@ -69,6 +69,7 @@ class Resurgence extends Analyzer {
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
+        position={STATISTIC_ORDER.UNIMPORTANT(90)}
         value={`${formatNumber(this.totalResurgenceGain)}`}
         label="Mana gained from Resurgence"
       >
@@ -101,7 +102,6 @@ class Resurgence extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(90);
 }
 
 export default Resurgence;
