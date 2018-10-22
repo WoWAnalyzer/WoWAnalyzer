@@ -1,4 +1,4 @@
-// Spells such as on use casts or buffs triggered by items from any dungeon
+// Spells such as on use casts or buffs triggered by items from pvp
 
 export default {
   RAPID_ADAPTATION: { //Dread Gladiator's Medallion
