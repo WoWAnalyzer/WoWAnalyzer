@@ -173,7 +173,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.2)
-      .addSuggestiong((suggest, actual, recommended) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual('${formatPercentage(actual)}% downtime')
