@@ -30,7 +30,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return 0;
     }
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
-      return Math.max(MIN_GCD, (gcd * (1 - (STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.getSteadyFocusStacks))) / (1 + this.statTracker.currentHastePercentage));
+      const steadyFocusMultiplier = 1 - STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.getSteadyFocusStacks;
+      return Math.max(MIN_GCD, (gcd * steadyFocusMultiplier) / (1 + this.statTracker.currentHastePercentage));
     }
     return Math.max(MIN_GCD, gcd);
   }
