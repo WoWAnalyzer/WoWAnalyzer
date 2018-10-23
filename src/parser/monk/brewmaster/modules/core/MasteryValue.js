@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
@@ -133,6 +133,7 @@ class MasteryValue extends Analyzer {
     stats: StatTracker,
   };
 
+  _loaded = false;
   _dodgeableSpells = {};
   _timeline = [];
   _hitCounts = {};
@@ -214,7 +215,14 @@ class MasteryValue extends Analyzer {
     return this._timeline.filter(event => event.type === 'cast' || this._dodgeableSpells[event.ability.guid]);
   }
 
-  get _expectedValues() {
+  _expectedValues = {
+    expectedDamageMitigated: 0,
+    estimatedDamageMitigated: 0,
+    meanExpectedDodge: 0,
+    noMasteryExpectedDamageMitigated: 0,
+    noMasteryMeanExpectedDodge: 0,
+  };
+  _calculateExpectedValues() {
     // expected damage mitigated according to the markov chain
     let expectedDamageMitigated = 0;
     let noMasteryExpectedDamageMitigated = 0;
@@ -404,9 +412,16 @@ class MasteryValue extends Analyzer {
     );
   }
 
+  load() {
+    this._loaded = true;
+    this._expectedValues = this._calculateExpectedValues();
+    return Promise.resolve(this._expectedValues);
+  }
+
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <LazyLoadStatisticBox
+        loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
         value={`${formatNumber(this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond)} DTPS`}
         label="Expected Mitigation by Mastery"
@@ -417,11 +432,11 @@ class MasteryValue extends Analyzer {
           <b>Expected</b> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br/>
           An ability is considered <b>dodgeable</b> if you dodged it at least once.`}
         >
-          <div style={{padding: '8px'}}>
-            {this.plot()}
-            <p>Likelihood of dodging <em>exactly</em> as much as you did with your level of Mastery.</p>
-          </div>
-      </ExpandableStatisticBox>
+        <div style={{padding: '8px'}}>
+          {this._loaded ? this.plot() : null}
+          <p>Likelihood of dodging <em>exactly</em> as much as you did with your level of Mastery.</p>
+        </div>
+      </LazyLoadStatisticBox>
     );
   }
 }

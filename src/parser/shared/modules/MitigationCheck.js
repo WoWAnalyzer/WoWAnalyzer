@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import { findByBossId } from 'raids/index';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 const debug = false;
 
@@ -86,7 +86,7 @@ class MitigationCheck extends Analyzer {
       }
     );
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label={`Soft mitigation checks passed.`}
@@ -111,7 +111,7 @@ class MitigationCheck extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }

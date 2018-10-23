@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-22'),
+    changes: <>The <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> module now loads on-demand, improving load times for lower-end devices.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-10-15'),
     changes: <>Added <SpellLink id={SPELLS.PURIFYING_BREW.id} /> checklist item.</>,
     contributors: [emallson],
