@@ -17,7 +17,6 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 const CROWS_TICK_RATE = 1000;
 const MS_BUFFER = 100;
 const CROWS_DURATION = 15000;
-const DURATION_BUFFER = 1000;
 
 class AMurderOfCrows extends Analyzer {
 
@@ -52,7 +51,7 @@ class AMurderOfCrows extends Analyzer {
      * Then it checks whether the current damage event is less than the full duration of crows, followed by a check to see if more than 1 second has passed since last tick
      * If more than 1 second has passed, we can assume that crows has been reset, and thus we the CD.
      */
-    if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && event.timestamp + MS_BUFFER < this.applicationTimestamp + CROWS_DURATION + DURATION_BUFFER && event.timestamp > this.lastDamageTick + CROWS_TICK_RATE + MS_BUFFER) {
+    if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && event.timestamp + MS_BUFFER < this.applicationTimestamp + CROWS_DURATION + MS_BUFFER && event.timestamp > this.lastDamageTick + CROWS_TICK_RATE + MS_BUFFER) {
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
     }
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_DEBUFF.id) {
