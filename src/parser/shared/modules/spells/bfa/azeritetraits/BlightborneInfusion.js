@@ -11,8 +11,9 @@ const blightborneInfusionStats = traits => Object.values(traits).reduce((total, 
   return total + crit;
 }, 0);
 
+// checking again if the player has this trait, as https://www.wowhead.com/spell=273150/ruinous-bolt can trigger the same buff but without a crit property
 export const STAT_TRACKER = {
-  crit: combatant => blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]),
+  crit: combatant => combatant.hasTrait(SPELLS.BLIGHTBORNE_INFUSION.id) ? blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]) : 0,
 };
 
 /**
