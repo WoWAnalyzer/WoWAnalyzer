@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 import CORE_CHANGELOG from 'CHANGELOG';
 
-const SECONDS_IN_DAY = 86400;
-const DAYS_CONSIDERED_RECENT = 7;
-
 class ChangelogTabTitle extends React.PureComponent {
   static contextTypes = {
     config: PropTypes.shape({
@@ -13,30 +10,51 @@ class ChangelogTabTitle extends React.PureComponent {
     }).isRequired,
   };
 
-  render() {
+  state = {
+    newItems: 0,
+    newItemsSet: false,
+  }
+
+  componentDidMount() {
     let changelog = this.context.config.changelog;
-    let recentChanges = 0;
     if (changelog instanceof Array) {
       // The changelog includes entries from the spec and core, so the count should too
       changelog = [
         ...CORE_CHANGELOG,
         ...changelog,
       ];
-
-      //Change file to display number:  SC
-
-      // TODO: Instead of showing the amount in recent times, show the amount of new changes since last view
-      recentChanges = changelog.reduce((total, entry) => {
-        if (((+new Date() - entry.date) / 1000) < (SECONDS_IN_DAY * DAYS_CONSIDERED_RECENT)) {
-          total += 1;
-        }
-        return total;
-      }, 0);
+      //this.getAndStore(changelog);
     }
+  }
 
+  getAndStore = (mergedChangelog) => {
+    const clTempStorage = JSON.parse(localStorage.getItem('WowAnalyzerCLTracker'));
+
+    if (clTempStorage === null) {
+      localStorage.setItem('WowAnalyzerCLTracker', JSON.stringify(mergedChangelog.map(e => e.clIndex)));
+      this.setState({newItems: mergedChangelog.length});
+    }
+    else {
+      let currentItem = -1;
+      let newItems = 0;
+      mergedChangelog.forEach((element) => {
+        currentItem++;
+        if(!clTempStorage.includes(element.clIndex) || clTempStorage.length === 0) {
+          clTempStorage.push(element.clIndex);
+          newItems++;
+        }
+        if(currentItem === mergedChangelog.length - 1 && !this.state.newItemsSet) {
+          localStorage.setItem('WowAnalyzerCLTracker', JSON.stringify(clTempStorage));
+          this.setState({newItems: newItems, newItemsSet: true});
+        }
+      });
+    }
+  }
+
+  render() {
     return (
       <>
-        Changelog {recentChanges > 0 && <span className="badge">{recentChanges}</span>}
+        Changelog {this.state.newItems > 0 && <span className="badge">{this.state.newItems}</span>}
       </>
     );
   }

@@ -102,7 +102,7 @@ export default [
     date: new Date('2018-09-16'),
     changes: 'Added the players azerite traits to the character pane.',
     contributors: [joshinator],
-    clIndex: 'Core20180916.1',
+    clIndex: 'Core20180916.2',
   },
   {
     date: new Date('2018-09-17'),
@@ -186,7 +186,7 @@ export default [
     date: new Date('2018-06-24'),
     changes: 'Added tracking of potion cooldowns and split Healthstone into Healthstone and health pots.',
     contributors: [Gebuz],
-    clIndex: 'Core20180624.1',
+    clIndex: 'Core20180624.4',
   },
   {
     date: new Date('2018-07-26'),

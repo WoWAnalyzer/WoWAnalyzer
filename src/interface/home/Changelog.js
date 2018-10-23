@@ -19,14 +19,13 @@ class Changelog extends React.PureComponent {
   };
   state = {
     includeCore: true,
+    mergedChangelog: null,
   };
 
   render() {
     const { changelog, limit, includeCore } = this.props;
 
     const mergedChangelog = includeCore && this.state.includeCore ? [...CORE_CHANGELOG, ...changelog].sort((a, b) => b.date - a.date) : changelog;
-
-    //Check index here: SC
 
     return (
       <div style={{ padding: 0 }}>
@@ -47,14 +46,12 @@ class Changelog extends React.PureComponent {
           {mergedChangelog
             .filter((_, i) => !limit || i < limit)
             .map(entry => {
-              const { date, changes, contributors } = entry;
+              const { date, changes, contributors, clIndex } = entry;
               const isFromCoreChangelog = CORE_CHANGELOG.includes(entry);
-              // The index of the entry provides us with a unique never changing key, which speeds up the Shared Changes toggle
-              const index = isFromCoreChangelog ? CORE_CHANGELOG.indexOf(entry) : changelog.indexOf(entry);
 
               return (
                 <li
-                  key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
+                  key={clIndex}
                   className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
                 >
                   <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
