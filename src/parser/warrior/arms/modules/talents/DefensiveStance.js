@@ -12,6 +12,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
  * and all damage you deal by 10%. Lasts 0 sec.
  */
 
+// TODO: Add a suggestion regarding having this up too little
+
 const DEFENSIVE_STANCE_DR = 0.2;
 const DEFENSIVE_STANCE_DL = 0.1;
 const MAX_WIDTH = .9;
