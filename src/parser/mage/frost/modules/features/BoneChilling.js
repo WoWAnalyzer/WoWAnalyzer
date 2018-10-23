@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 
 class BoneChilling extends Analyzer {
@@ -41,7 +41,7 @@ class BoneChilling extends Analyzer {
 
 	statistic() {
     return (
-			<StatisticBox
+			<TalentStatisticBox
   position={STATISTIC_ORDER.CORE(100)}
   icon={<SpellIcon id={SPELLS.BONE_CHILLING_TALENT.id} />}
   value={`${formatPercentage(this.uptime, 0)} %`}
