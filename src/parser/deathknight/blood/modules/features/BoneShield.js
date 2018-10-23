@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoneShieldTimesByStacks from './/BoneShieldTimesByStacks';
 
@@ -51,7 +51,7 @@ class BoneShield extends Analyzer {
   statistic() {
 
       return (
-        <ExpandableStatisticBox
+        <StatisticBox
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield uptime"
@@ -74,7 +74,7 @@ class BoneShield extends Analyzer {
               ))}
             </tbody>
           </table>
-        </ExpandableStatisticBox>
+        </StatisticBox>
 
       );
   }

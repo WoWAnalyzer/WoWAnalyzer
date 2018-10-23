@@ -83,6 +83,7 @@ import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulN
 import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
+import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 // Crafted
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
@@ -202,6 +203,7 @@ class CombatLogParser {
     quickNavigation: QuickNavigation,
     stalwartNavigation: StalwartNavigation,
     versatileNavigation: VersatileNavigation,
+    coastalSurge: CoastalSurge,
 
     // Azerite Traits
     gemhide: Gemhide,

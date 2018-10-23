@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import FuriousSlashTimesByStacks from './/FuriousSlashTimesByStacks';
 
@@ -53,7 +53,7 @@ class FuriousSlashUptime extends Analyzer {
   
   statistic() {
 	  return (
-	  <ExpandableStatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
+	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
 	  
 	    <table className="table table-condensed">
             <thead>
@@ -73,7 +73,7 @@ class FuriousSlashUptime extends Analyzer {
               ))}
             </tbody>
           </table>
-        </ExpandableStatisticBox>
+        </StatisticBox>
 		
 		);
   }

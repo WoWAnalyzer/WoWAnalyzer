@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Voidform from './Voidform';
@@ -50,7 +50,7 @@ class VoidformAverageStacks extends Analyzer {
     const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(0)}
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
         value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
@@ -75,7 +75,7 @@ class VoidformAverageStacks extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }
