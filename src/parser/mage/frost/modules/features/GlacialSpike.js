@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const DAMAGE_BUFFER = 250;
@@ -38,13 +38,15 @@ class GlacialSpike extends Analyzer {
       return;
     }
 
+    if (this.castTarget === damageTarget) {
+      this.totalCasts += 1;
+    }
+
     //It is considered a good use of Glacial Spike if either Glacial Spike lands into Winter's Chill (they used a Brain Freeze Proc with it) or the Glacial Spike cleaved and hit a second target.
     if (this.castTarget === damageTarget && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      this.totalCasts += 1;
       this.goodCasts += 1;
       this.damageTimestamp = event.timestamp;
     } else if (this.hasSplittingIce && this.castTarget !== damageTarget && event.timestamp - this.damageTimestamp < DAMAGE_BUFFER) {
-      this.totalCasts += 1;
       this.goodCasts += 1;
     }
   }
@@ -90,7 +92,7 @@ class GlacialSpike extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(90)}
         icon={<SpellIcon id={SPELLS.GLACIAL_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
