@@ -276,7 +276,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 1500,
+          static: 1500,
         },
       },
 

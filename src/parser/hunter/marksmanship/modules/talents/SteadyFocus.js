@@ -18,7 +18,7 @@ class SteadyFocus extends Analyzer {
 
   stacks = 0;
 
-  get getSteadyFocusStacks() {
+  get steadyFocusStacks() {
     return this.stacks;
   }
 
@@ -32,6 +32,7 @@ class SteadyFocus extends Analyzer {
       this.stacks += 1;
     }
   }
+
 }
 
 export default SteadyFocus;
