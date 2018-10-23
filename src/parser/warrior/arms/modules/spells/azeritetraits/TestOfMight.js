@@ -50,7 +50,9 @@ class TestOfMight extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTrait(SPELLS.TEST_OF_MIGHT.id);
-        if(!this.active) return;
+        if(!this.active) {
+            return;
+        }
 
         const { strength, traits } = testOfMightStats(this.selectedCombatant.traitsBySpellId[SPELLS.TEST_OF_MIGHT.id]);
         this.strength = strength;
@@ -58,7 +60,9 @@ class TestOfMight extends Analyzer {
     }
 
     on_byPlayer_applybuff(event) {
-        if (event.ability.guid !== SPELLS.TEST_OF_MIGHT_BUFF.id) return;
+        if (event.ability.guid !== SPELLS.TEST_OF_MIGHT_BUFF.id) {
+            return;
+        }
         this.proc += 1;
         
         this.strengthOnToM += this.strength * (this.rageSpendDuringDebuff / RAGE_PER_PROC);

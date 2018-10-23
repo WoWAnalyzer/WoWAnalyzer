@@ -29,7 +29,9 @@ class ImpendingVictory extends Analyzer {
   totalHeal = 0;
 
   on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id) return;
+    if (event.ability.guid !== SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id) {
+      return;
+    }
     this.totalHeal += event.amount;
   }
 

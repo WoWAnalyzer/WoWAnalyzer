@@ -21,13 +21,17 @@ class Avatar extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT.id);
-        if (!this.active) return;
+        if (!this.active) {
+            return;
+        }
     }
 
     totalDamages = 0;
 
     on_byPlayer_damage(event) {
-        if (event.targetIsFriendly || !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)) return;
+        if (event.targetIsFriendly || !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)) {
+            return;
+        }
         this.totalDamages += calculateEffectiveDamage(event, AVATAR_BONUS_DAMAGE);
     }
 

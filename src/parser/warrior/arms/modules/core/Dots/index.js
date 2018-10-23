@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
 import DeepWoundsUptime from './DeepWoundsUptime';
@@ -20,7 +18,7 @@ class DotUptimeStatisticBox extends Analyzer {
         position={STATISTIC_ORDER.CORE(3)}
         title="DoT uptimes">
         {this.deepwoundsUptime.subStatistic()}
-        {this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id) ? this.rendUptime.subStatistic() : null}
+        {this.rendUptime.active && this.rendUptime.subStatistic()}
       </StatisticsListBox>
     );
   }

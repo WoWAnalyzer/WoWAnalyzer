@@ -9,12 +9,9 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import ExecuteRange from '../../core/Execute/ExecuteRange';
-
 class RendUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    executeRange: ExecuteRange,
   };
 
   constructor(...args) {

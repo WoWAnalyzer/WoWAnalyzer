@@ -18,7 +18,9 @@ class SeismicWave extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SEISMIC_WAVE_DAMAGES.id) return;
+    if (event.ability.guid !== SPELLS.SEISMIC_WAVE_DAMAGES.id) {
+      return;
+    }
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

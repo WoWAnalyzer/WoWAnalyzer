@@ -20,7 +20,9 @@ class OverpowerAnalyzer extends Analyzer {
     wastedProc = 0;
 
     on_byPlayer_cast(event) {
-        if (event.ability.guid !== SPELLS.OVERPOWER.id) return;
+        if (event.ability.guid !== SPELLS.OVERPOWER.id) {
+            return;
+        }
 
         this.proc += 1;
         const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);

@@ -21,12 +21,17 @@ class StormBolt extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id);
+    if (!this.active) {
+      return;
+    }
   }
 
   stun = 0;
 
   on_byPlayer_applydebuff(event) {
-    if (event.ability.guid !== SPELLS.STORM_BOLT_TALENT_DEBUFF.id) return;
+    if (event.ability.guid !== SPELLS.STORM_BOLT_TALENT_DEBUFF.id) {
+      return;
+    }
     this.stun += 1;
   }
 

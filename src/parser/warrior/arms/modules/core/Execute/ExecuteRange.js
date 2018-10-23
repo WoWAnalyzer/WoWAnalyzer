@@ -16,7 +16,9 @@ class ExecuteRangeTracker extends Analyzer {
   enemyMap = {};
 
   on_byPlayer_damage(event) {
-    if(event.targetIsFriendly) return;
+    if(event.targetIsFriendly) {
+      return;
+    }
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     this.enemyMap[targetString] = event.hitPoints / event.maxHitPoints <= this.exec_range;
   }

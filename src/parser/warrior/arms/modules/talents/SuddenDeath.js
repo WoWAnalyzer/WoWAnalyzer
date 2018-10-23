@@ -17,24 +17,32 @@ class SuddenDeath extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS.id);
-    if (!this.active) return;
+    if (!this.active) {
+      return;
+    }
   }
 
   totalProc = 0;
   totalDamages = 0;
 
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id) return;
+    if (event.ability.guid !== SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id) {
+      return;
+    }
     this.totalProc += 1;
   }
 
   on_byPlayer_refreshbuff(event) {
-    if (event.ability.guid !== SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id) return;
+    if (event.ability.guid !== SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id) {
+      return;
+    }
     this.totalProc += 1;
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.EXECUTE_DAMAGE.id || !this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id)) return;
+    if (event.ability.guid !== SPELLS.EXECUTE_DAMAGE.id || !this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_ARMS_BUFF.id)) {
+      return;
+    }
     this.totalDamages += event.amount + (event.absorbed || 0);
   }
 

@@ -24,11 +24,15 @@ class FervorOfBattle extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id);
-        if (!this.active) return;
+        if (!this.active) {
+            return;
+        }
     }
 
     on_byPlayer_damage(event) {
-        if (event.ability.guid !== SPELLS.WHIRLWIND_DAMAGE_1.id) return;
+        if (event.ability.guid !== SPELLS.WHIRLWIND_DAMAGE_1.id) {
+            return;
+        }
         this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
     }
 

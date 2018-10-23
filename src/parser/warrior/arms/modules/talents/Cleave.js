@@ -22,7 +22,9 @@ class Cleave extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.CLEAVE_TALENT.id);
-        if (!this.active) return;
+        if (!this.active) {
+          return;
+        }
     }
 
     subStatistic() {

@@ -27,13 +27,17 @@ class Warbreaker extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id);
-        if (!this.active) return;
+        if (!this.active) {
+            return;
+        }
     }
 
     totalDamages = 0;
 
     on_byPlayer_damage(event) {
-        if (event.targetIsFriendly) return;
+        if (event.targetIsFriendly) {
+            return;
+        }
         if (event.ability.guid === SPELLS.WARBREAKER_TALENT.id) {
             this.totalDamages += (event.amount || 0) + (event.absorbed || 0);
         }

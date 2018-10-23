@@ -28,11 +28,15 @@ class ExecutionersPrecisionAnalyzer extends Analyzer {
   wastedProcs = 0;
 
   on_byPlayer_cast(event) {
-    if (SPELLS.EXECUTE.id !== event.ability.guid) return;
+    if (SPELLS.EXECUTE.id !== event.ability.guid) {
+      return;
+    }
 
     this.procs += 1;
     const enemy = this.enemies.getEntity(event);
-    if (!enemy) return;
+    if (!enemy) {
+      return;
+    }
 
     const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION_DEBUFF.id);
     if (executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
