@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9, // I don't know at what efficiency this talent becomes worth it so I'm keeping it save
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id), // replaces Colussus Smash
       },
