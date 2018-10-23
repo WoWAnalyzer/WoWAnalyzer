@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -170,7 +170,7 @@ class BarbedShot extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(17)}
         icon={<SpellIcon id={SPELLS.BARBED_SHOT.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
@@ -202,7 +202,7 @@ class BarbedShot extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 
