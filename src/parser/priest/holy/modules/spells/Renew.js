@@ -9,6 +9,7 @@ class Renew extends Analyzer {
   totalRenewHealing = 0;
   totalRenewOverhealing = 0;
   totalRenewAbsorbs = 0;
+  totalRenewTicks = 0;
 
   renewsCast = 0;
   totalRenewApplications = 0;
@@ -64,6 +65,7 @@ class Renew extends Analyzer {
       this.totalRenewHealing += event.amount || 0;
       this.totalRenewOverhealing += event.overheal || 0;
       this.totalRenewAbsorbs += event.absorbed || 0;
+      this.totalRenewTicks += 1;
     }
   }
 
