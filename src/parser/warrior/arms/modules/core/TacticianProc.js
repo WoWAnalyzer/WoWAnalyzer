@@ -31,14 +31,14 @@ class TacticianProc extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.TACTICIAN.id} />}
         value={this.totalProcs}
         label="Total Tactician Procs"
-        tooltip={`Tactician resets the cooldown on Colossus Smash and Mortal Strike. You got ${this.totalProcs} more Mortal Strike and Colossus Smash.`}
+        tooltip={`Tactician resets the cooldown on Overpower. You got ${this.totalProcs} more Overpower.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(20);
 }
 
 export default TacticianProc;

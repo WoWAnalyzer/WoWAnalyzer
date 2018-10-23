@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import ExecuteRange from '../features/ExecuteRange';
+import ExecuteRange from './ExecuteRange';
 
 class RendAnalyzer extends Analyzer {
   static dependencies = {

@@ -2,9 +2,15 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/talents/warrior';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatThousands, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+/**
+ * A defensive combat state that reduces all damage you take by 20%,
+ * and all damage you deal by 10%. Lasts 0 sec.
+ */
 
 const DEFENSIVE_STANCE_DR = 0.2;
 const DEFENSIVE_STANCE_DL = 0.1;
@@ -88,7 +94,7 @@ class DefensiveStance extends Analyzer {
 
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(60)}
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
@@ -97,6 +103,21 @@ class DefensiveStance extends Analyzer {
         footerStyle={{ overflow: 'hidden' }}
       />
     );
+  }
+  
+  suggestions(when) {
+    when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
+      .addSuggestion((suggest, dl, dr) => {
+        return suggest('You have reduced your own damage more than your damage taken during the fight. Try to reduce the uptime of Defensive Stance when you take less damage.')
+          .icon('ability_warrior_defensivestance')
+          .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
+          .recommended('Reduced damage taken should be higher than your reduced damage.');
+      });
+    when(this.totalDamageMitigated).isLessThan(1)
+      .addSuggestion((suggest) => {
+      return suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
+        .icon('ability_warrior_defensivestance');
+      });
   }
 }
 
