@@ -23,20 +23,16 @@ class RendUptime extends Analyzer {
   }
 
   get uptime() {
-      if (this.executeRange.isTargetInExecuteRange(this.enemies)) {
-        return this.enemies.getBuffUptime(SPELLS.REND_TALENT.id) / this.owner.fightDuration;
-      } else {
-          return null;
-      }
+    return this.enemies.getBuffUptime(SPELLS.REND_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.8,
-        average: 0.75,
-        major: 0.7,
+        minor: 0.7,
+        average: 0.65,
+        major: 0.6,
       },
       style: 'percentage',
     };
