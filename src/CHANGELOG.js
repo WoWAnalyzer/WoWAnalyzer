@@ -21,7 +21,6 @@ export default [
   {
     date: new Date('2018-10-22'),
     changes: <>Added <SpellLink id={SPELLS.COASTAL_SURGE.id} /> module.</>,
-
     contributors: [niseko],
   },
   {
