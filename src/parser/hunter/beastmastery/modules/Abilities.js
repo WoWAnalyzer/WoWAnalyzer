@@ -96,7 +96,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
         cooldown: 120,
         gcd: {
-          base: 1300,
+          base: 1500, //This is set to 1500 currently, but it's altered to be accurate inside the GlobalCooldown module because it is currently bugged in-game
         },
         castEfficiency: {
           suggestion: true,
