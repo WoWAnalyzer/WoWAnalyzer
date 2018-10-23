@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
-import PerformanceBar from 'common/performanceBar';
+import PerformanceBar from 'common/PerformanceBar';
 import SpellLink from 'common/SpellLink';
 
 class HealingEfficiencyBreakdown extends React.Component {
