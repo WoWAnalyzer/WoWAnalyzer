@@ -6,6 +6,7 @@ import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class EnhancementShamanChecklist extends React.PureComponent {
   static propTypes = {
@@ -17,16 +18,40 @@ class EnhancementShamanChecklist extends React.PureComponent {
   };
 
   render() {
-    const { thresholds } = this.props;
+    const { castEfficiency, combatant, thresholds } = this.props;
+
+    const AbilityRequirement = props => (
+      <GenericCastEfficiencyRequirement
+        castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
+        {...props}
+      />
+    );
 
     return (
       <Checklist>
         <Rule
           name="Always be casting"
-          description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></>} 
+          description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></>}
         >
           <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
         </Rule>
+        <Rule
+          name="Use your offensive cooldowns as often as possible"
+          description={(
+            <>
+              You should aim to use your offensive cooldowns as often as you can to maximize your damage output.{' '}
+              <a href="https://www.wowhead.com/enhancement-shaman-rotation-guide#offensive-defensive-cooldowns" target="_blank" rel="noopener noreferrer">More info.</a>
+            </>
+          )}
+         >
+          <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
+          {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && 
+            <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
+          {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && 
+            <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT} />}
+          {combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) &&
+            <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
+         </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );
