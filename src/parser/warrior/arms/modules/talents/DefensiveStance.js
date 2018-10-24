@@ -47,9 +47,7 @@ class DefensiveStance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id);
-    if (!this.active) {
-      return;
-    }
+
     this.addEventListener('damage', this.handleDamageTaken, {
       toPlayer: true,
     });
@@ -110,7 +108,7 @@ class DefensiveStance extends Analyzer {
   suggestions(when) {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => {
-        return suggest('You have reduced your own damage more than your damage taken during the fight. Try to reduce the uptime of Defensive Stance when you take less damage.')
+        return suggest('The damage you inflicted were more reduced than those you received. Try to reduce the uptime of Defensive Stance when you take less damage.')
           .icon('ability_warrior_defensivestance')
           .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
           .recommended('Reduced damage taken should be higher than your reduced damage.');

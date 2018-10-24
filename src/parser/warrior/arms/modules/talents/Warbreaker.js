@@ -27,9 +27,6 @@ class Warbreaker extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id);
-        if (!this.active) {
-            return;
-        }
     }
 
     totalDamages = 0;

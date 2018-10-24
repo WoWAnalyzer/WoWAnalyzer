@@ -17,9 +17,6 @@ class SuddenDeath extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS.id);
-    if (!this.active) {
-      return;
-    }
   }
 
   totalProc = 0;

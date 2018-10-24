@@ -21,9 +21,6 @@ class StormBolt extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id);
-    if (!this.active) {
-      return;
-    }
   }
 
   stun = 0;

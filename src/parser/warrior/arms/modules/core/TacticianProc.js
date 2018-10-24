@@ -35,7 +35,7 @@ class TacticianProc extends Analyzer {
         icon={<SpellIcon id={SPELLS.TACTICIAN.id} />}
         value={this.totalProcs}
         label="Total Tactician Procs"
-        tooltip={`Tactician resets the cooldown on Overpower. You got ${this.totalProcs} more Overpower.`}
+        tooltip={`Tactician resets the cooldown on Overpower. You got ${this.totalProcs} more Overpower casts.`}
       />
     );
   }

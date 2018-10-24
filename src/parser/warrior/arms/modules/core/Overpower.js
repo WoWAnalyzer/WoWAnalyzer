@@ -26,7 +26,7 @@ class OverpowerAnalyzer extends Analyzer {
 
         this.proc += 1;
         const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
-        if (!this.executeRange.isTargetInExecuteRange(event) && !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id)) {
+        if (!this.executeRange.isTargetInExecuteRange(event) && !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id)) {
             if (overpower !== undefined && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
                 this.wastedProc += 1;
 
@@ -34,7 +34,7 @@ class OverpowerAnalyzer extends Analyzer {
                 event.meta.isInefficientCast = true;
                 event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
             }
-        } else if (this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id)) {
+        } else if (this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id)) {
             if (overpower !== undefined && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)){
                 this.wastedProc += 1;
 
@@ -59,7 +59,7 @@ class OverpowerAnalyzer extends Analyzer {
 
     suggestions(when) {
         when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) => {
-            return suggest(<>Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available.</>)
+            return suggest(<>Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower with Mortal Strike to avoid over stacking.</>)
                 .icon(SPELLS.OVERPOWER.icon)
                 .actual(`${formatPercentage(actual)}% of Overpower stacks were wasted.`)
                 .recommended(`${formatPercentage(recommended)}% is recommended.`);

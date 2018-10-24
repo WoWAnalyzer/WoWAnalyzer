@@ -21,9 +21,6 @@ class Avatar extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT.id);
-        if (!this.active) {
-            return;
-        }
     }
 
     totalDamages = 0;

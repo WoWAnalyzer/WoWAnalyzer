@@ -17,9 +17,6 @@ class WarMachine extends Analyzer {
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT.id);
-        if (!this.active) {
-            return;
-        }
     }
 
     get uptime() {
