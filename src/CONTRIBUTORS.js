@@ -507,3 +507,12 @@ export const jos3p = {
   github: 'jos3p',
   discord: 'jos3p#9746',
 };
+export const mblanton = {
+  nickname: 'mtblanton',
+  github: 'mtblanton',
+  mains: [{
+    name: 'Harzwaz',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/Harzwaz',
+  }],
+};
