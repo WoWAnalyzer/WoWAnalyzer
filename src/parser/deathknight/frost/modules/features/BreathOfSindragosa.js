@@ -54,7 +54,7 @@ class BreathOfSindragosa extends Analyzer{
   suggestions(when){
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that 20 seconds or more.  To ensure a good duration, make you sure have 3 Runes ready and 70 Runic Power pooled before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
+        return suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that lasts20 seconds or more.  To ensure a good duration, make you sure have 3 Runes ready and 70 Runic Power pooled before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
           .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
           .actual(`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`)
           .recommended(`>${recommended} seconds is recommended`);
