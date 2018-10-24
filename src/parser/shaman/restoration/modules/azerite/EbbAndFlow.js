@@ -2,9 +2,9 @@ import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BaseHealerAzerite from './BaseHealerAzerite';
 
-const totemSpawnDistance = 200; // 2 yards
-const ebbAndFlowMinDistance = 8;
-const ebbAndFlowMaxDistance = 40;
+const TOTEM_SPAWN_DISTANCE = 200; // 2 yards
+const EBB_AND_FLOW_MINUMUM_DISTANCE = 8;
+const EBB_AND_FLOW_MAXIMUM_DISTANCE = 40;
 
 /**
  * Ebb and Flow:
@@ -31,15 +31,14 @@ class EbbAndFlow extends BaseHealerAzerite {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-
     if (spellId !== SPELLS.HEALING_TIDE_TOTEM_CAST.id) {
       return;
     }
     // totem spawns 2 yards behind and to the right of your position on cast
     // everything gets calculated off of the totems position so this information is important to be precise
     const radians = event.facing / 100;
-    const xDistance = totemSpawnDistance * Math.cos(radians);
-    const yDistance = totemSpawnDistance * Math.sin(radians);
+    const xDistance = TOTEM_SPAWN_DISTANCE * Math.cos(radians);
+    const yDistance = TOTEM_SPAWN_DISTANCE * Math.sin(radians);
 
     this.healingTidePosition = {x: event.x + xDistance, y: event.y + yDistance};
   }
@@ -72,7 +71,7 @@ class EbbAndFlow extends BaseHealerAzerite {
   }
 
   effectiveness(distanceToPlayer) {
-    return Math.min(1 - ((distanceToPlayer - ebbAndFlowMinDistance) / (ebbAndFlowMaxDistance - ebbAndFlowMinDistance)), 1);
+    return Math.min(1 - ((distanceToPlayer - EBB_AND_FLOW_MINUMUM_DISTANCE) / (EBB_AND_FLOW_MAXIMUM_DISTANCE - EBB_AND_FLOW_MINUMUM_DISTANCE)), 1);
   }
 
   get ebbAndFlowEffectiveness() {
