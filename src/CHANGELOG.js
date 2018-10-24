@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,31 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-10-23'),
+    changes: <>Added <SpellLink id={SPELLS.ARCHIVE_OF_THE_TITANS.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-23'),
+    changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_MEDALLION.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-22'),
+    changes: <>Added <SpellLink id={SPELLS.COASTAL_SURGE.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-21'),
+    changes: <>Added <SpellLink id={SPELLS.BLIGHTBORNE_INFUSION.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-17'),
+    changes: <>Fixed mana usage for innervate in cooldown tabs for healers.</>,
+    contributors: [blazyb],
+  },
   {
     date: new Date('2018-10-06'),
     changes: <>Corrected Azerite Scaling for traits with split stat scaling (e.g. <SpellLink id={SPELLS.GEMHIDE.id} />).</>,

@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { formatDuration, formatPercentage } from 'common/format';
 import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
 
@@ -29,7 +29,7 @@ class FoulBulwark extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FOUL_BULWARK_TALENT.id} />}
         value={`${this.averageFoulBullwark}%`}
         label="average Foul Bulwark buff"
@@ -52,7 +52,7 @@ class FoulBulwark extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

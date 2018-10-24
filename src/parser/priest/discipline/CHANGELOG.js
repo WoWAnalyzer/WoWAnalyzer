@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Oratio, Reglitch, Zerotorescue } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue, niseko } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-10-17'),
+    changes: `The Atonement sources tab should no longer display spells that do not cause atonement healing.`,
+    contributors: [niseko],
+  },
   {
     date: new Date('2018-09-14'),
     changes: <>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</>,

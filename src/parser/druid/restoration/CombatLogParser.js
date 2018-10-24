@@ -7,7 +7,7 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/Checklist/Module';
 
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
@@ -26,8 +26,8 @@ import Efflorescence from './modules/features/Efflorescence';
 import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
-import NaturesEssence from './modules/features/NaturesEssence';
 import ManaUsage from './modules/features/ManaUsage';
+import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
@@ -89,8 +89,8 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
-    naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    prematureRejuvenations: PrematureRejuvenations,
 
     // Talents
     stonebark: Stonebark,

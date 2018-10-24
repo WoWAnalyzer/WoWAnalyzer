@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CLEAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -104,7 +104,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SWEEPING_STRIKES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
-        cooldown: 25,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -223,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: SPELLS.CHARGE,
+        spell: [SPELLS.CHARGE, SPELLS.CHARGE_2],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
         charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEROIC_LEAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -294,7 +294,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAMSTRING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
         gcd: {
           base: 1500,
         },

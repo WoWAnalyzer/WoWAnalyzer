@@ -182,6 +182,7 @@ class CastBehavior extends Analyzer {
         <div className="row">
           <StatisticsListBox
             title={<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</span>}
+            position={STATISTIC_ORDER.CORE(40)}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.twUsageRatioChart()}
@@ -198,7 +199,6 @@ class CastBehavior extends Analyzer {
       </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
 }
 
 export default CastBehavior;

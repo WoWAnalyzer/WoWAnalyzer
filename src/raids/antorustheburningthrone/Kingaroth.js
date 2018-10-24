@@ -12,8 +12,8 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      ForgingStrike: 254919,
-    },
+    softMitigationChecks: [
+      254919, // ForgingStrike
+    ],
   },
 };

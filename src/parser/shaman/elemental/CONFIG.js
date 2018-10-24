@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { HawkCorrigan } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -12,14 +12,18 @@ export default {
   // The WoW client patch this spec was last updated to be fully compatible with.
   patchCompatibility: '8.0.1',
   // If set to  false`, the spec will show up as unsupported.
-  isSupported: false,
+  isSupported: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      <Warning>
-        Hey there! Right now the Elemental Shaman parser only holds basic functionality. What we do show should be good to use, but it does not show the complete picture.
-      </Warning>
+      Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities that I hope you find useful when playing the spec. If you have any input or suggestions please contact HawkCorrigan(HawkCorrigan#1811) on Discord.<br /><br />
+
+      <br />More resources for Elemental:<br />
+      <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">Shaman Class Discord</a> <br />
+      <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">Storm, Earth and Lava</a> <br />
+      <a href="https://www.wowhead.com/elemental-shaman-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
+      <a href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -31,15 +35,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Shaman" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
-  // footer: (
-  //   <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
-  //     <div className="panel-body text-muted">
-  //       Based on Guides from <a href="https://www.stormearthandlava.com/">Storm Earth and Lava</a>.<br />
-  //       Questions about Elementals? Visit <a href="http://www.discord.me/earthshrine">Earthshrine</a> Discord.<br />
-  //     </div>
-  //   </div>
-  // ),
 };

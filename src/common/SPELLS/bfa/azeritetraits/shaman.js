@@ -6,7 +6,12 @@
 
 export default {
   // Restoration
-  OVERFLOWING_SHORES: {
+  OVERFLOWING_SHORES_TRAIT: {
+    id: 277658,
+    name: 'Overflowing Shores',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  OVERFLOWING_SHORES_HEAL: {
     id: 278095,
     name: 'Overflowing Shores',
     icon: 'spell_nature_giftofthewaterspirit',
@@ -45,5 +50,25 @@ export default {
     id: 273597,
     name: 'Ebb and Flow',
     icon: 'ability_shaman_healingtide',
+  },
+  SERENE_SPIRIT_TRAIT: {
+    id: 274412,
+    name: 'Serene Spirit',
+    icon: 'ability_shaman_astralshift',
+  },
+  SERENE_SPIRIT_HEAL: {
+    id: 274416,
+    name: 'Serene Spirit',
+    icon: 'ability_shaman_astralshift',
+  },
+  PACK_SPIRIT_TRAIT: {
+    id: 280021,
+    name: 'Pack Spirit',
+    icon: 'spell_nature_spiritwolf',
+  },
+  PACK_SPIRIT_HEAL: {
+    id: 280205,
+    name: 'Pack Spirit',
+    icon: 'spell_nature_spiritwolf',
   },
 };

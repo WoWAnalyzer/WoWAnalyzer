@@ -51,13 +51,16 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           description={(
             <>
               Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by a flat amount and use it as a rotational filler if necessary.<br />
-              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to flat out your physical damage taken or weave them into your rotation when you're about to cap charges.
+              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges.
             </>
           )}
         >
+          <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+            name={(<><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cast efficiency</>)} 
+          />
           <Requirement
             name={(
-              <><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> efficiency</>
+              <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
             )}
             thresholds={thresholds.shieldOfTheRighteous}
           />

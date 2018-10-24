@@ -80,7 +80,7 @@ class ShadowPriestChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
-          {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) ?
+          {combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id) ?
             <AbilityRequirement spell={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> :
             <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
           }
@@ -102,6 +102,10 @@ class ShadowPriestChecklist extends React.PureComponent {
 
           {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.DARK_ASCENSION_TALENT.id} />
+          )}
+
+          {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
           )}
         </Rule>
 

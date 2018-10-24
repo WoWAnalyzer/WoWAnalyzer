@@ -95,6 +95,7 @@ class TouchOfDeath extends Analyzer {
     const averageGaleBurst = this.totalGaleBurst / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(8)}
         icon={<SpellIcon id={SPELLS.TOUCH_OF_DEATH.id} />}
         value={`${(averageGaleBurst).toFixed(2)}`}
         label={`Average Gale Burst`}
@@ -102,7 +103,6 @@ class TouchOfDeath extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default TouchOfDeath;
