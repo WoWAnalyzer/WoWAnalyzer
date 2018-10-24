@@ -20,12 +20,17 @@ export default [
   },
   {
     date: new Date('2018-09-22'),
+    changes: <React.Fragment>Added module for tracking Abundance.</React.Fragment>,
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-09-22'),
     changes: <React.Fragment>Updated azerite trait Grove Tending to also include and show mastery healing.</React.Fragment>,
     contributors: [blazyb],
   },
   {
     date: new Date('2018-09-22'),
-    changes: <React.Fragment>Added module for tracking Abundance.</React.Fragment>,
+    changes: <React.Fragment>Updated mana used module to mana tracker. HPM also includes mastery healing</React.Fragment>,
     contributors: [blazyb],
   },
   {
