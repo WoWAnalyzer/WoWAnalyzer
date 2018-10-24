@@ -48,6 +48,8 @@ import Resurgence from './modules/spells/Resurgence';
 //Azerite
 import BaseHealerAzerite from './modules/azerite/BaseHealerAzerite';
 import SwellingStream from './modules/azerite/SwellingStream';
+import EbbAndFlow from './modules/azerite/EbbAndFlow';
+import SoothingWaters from './modules/azerite/SoothingWaters';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -106,6 +108,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite
     baseHealerAzerite: BaseHealerAzerite,
     swellingStream: SwellingStream,
+    ebbAndFlow: EbbAndFlow,
+    soothingWaters: SoothingWaters,
 
     // Shared:
     spiritWolf: SpiritWolf,

@@ -824,11 +824,6 @@ export default {
     name: 'Solitary Rejuvenation',
     icon: 'spell_nature_rejuvenation',
   },
-  SOOTHING_WATERS: {
-    id: 272989,
-    name: 'Soothing Waters',
-    icon: 'spell_nature_healingwavegreater',
-  },
   SOUL_FROM_THROS: {
     id: 273825,
     name: 'Soul From Thros',

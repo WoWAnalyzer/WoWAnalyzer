@@ -27,7 +27,7 @@ export default {
     icon: 'inv_spear_04',
   },
   SURGING_TIDES: {
-    id: 279181,
+    id: 278713,
     name: 'Surging Tides',
     icon: 'spell_nature_riptide',
   },
@@ -50,6 +50,11 @@ export default {
     id: 273597,
     name: 'Ebb and Flow',
     icon: 'ability_shaman_healingtide',
+  },
+  SOOTHING_WATERS_TRAIT: {
+    id: 272989,
+    name: 'Soothing Waters',
+    icon: 'spell_nature_healingwavegreater',
   },
   SERENE_SPIRIT_TRAIT: {
     id: 274412,

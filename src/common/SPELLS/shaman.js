@@ -607,6 +607,7 @@ export default {
     icon: 'spell_nature_healingwavegreater',
     manaCost: 5000,
     color: '#203755',
+    coefficient: 1.05,
   },
   HEALING_WAVE: {
     id: 77472,
@@ -614,6 +615,7 @@ export default {
     icon: 'spell_nature_healingwavelesser',
     manaCost: 1800,
     color: '#146585',
+    coefficient: 1.55,
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
@@ -621,6 +623,7 @@ export default {
     icon: 'spell_nature_healingway',
     manaCost: 3800,
     color: '#40b3bf',
+    coefficient: 1.43,
   },
   RIPTIDE: {
     id: 61295,
@@ -666,6 +669,7 @@ export default {
     id: 114942,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
+    coefficient: 0.24,
   },
   ASCENDANCE_HEAL: {
     id: 114083,
