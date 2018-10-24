@@ -109,14 +109,14 @@ class DefensiveStance extends Analyzer {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => {
         return suggest('The damage you inflicted were more reduced than those you received. Try to reduce the uptime of Defensive Stance when you take less damage.')
-          .icon('ability_warrior_defensivestance')
+          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
           .recommended('Reduced damage taken should be higher than your reduced damage.');
       });
     when(this.totalDamageMitigated).isLessThan(1)
       .addSuggestion((suggest) => {
       return suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
-        .icon('ability_warrior_defensivestance');
+        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon);
       });
   }
 }

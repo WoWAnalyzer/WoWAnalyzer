@@ -62,7 +62,7 @@ class ExecutionersPrecisionAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.wastedExecutionersPrecisionTresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon /> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} icon /> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Executioner's Precision with Mortal Strike to avoid over stacking.</>)
+      return suggest(<>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon /> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} icon /> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Executioner's Precision with Mortal Strike to avoid over stacking, which result in a loss of damage.</>)
         .icon(SPELLS.EXECUTE.icon)
         .actual(`${formatPercentage(actual)}% of Executioner's Precisions stacks were wasted.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

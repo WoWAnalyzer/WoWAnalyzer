@@ -17,7 +17,7 @@ export default {
     <>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />
 
-      If you find any issues or have something you'd like to see added, open an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, contact us on <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.<br /><br />
+      We are always looking to improve the Arms Warrior Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or send a message to Matardarix on <a href="https://discord.gg/AxphPxU">Discord</a> (Matardarix#9847) <br /> <br />
 
       Make sure to check out the <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more specific advice or a more detailed guide than the ones available on <a href="https://www.icy-veins.com/wow/arms-warrior-pve-dps-guide">Icy-Veins</a> and <a href="https://www.wowhead.com/arms-warrior-guide">wowhead</a>.<br /><br />
     </>
