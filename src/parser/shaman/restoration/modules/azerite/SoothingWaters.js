@@ -35,21 +35,20 @@ class SoothingWaters extends BaseHealerAzerite {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-
     if (spellId !== SPELLS.CHAIN_HEAL.id) {
       return;
     }
 
     // filtering out healing events if they're not from the current cast
     if (this.chainHealEvent && event.timestamp - this.chainHealEvent.timestamp >= HEAL_WINDOW_MS) {
-      this.chainHealEvent = undefined;
+      this.chainHealEvent = null;
     }
 
     // sometimes you have heal events before the cast happens, so check here as well
     // comparing the target ID guarantees no false positives as each cast can only heal the same target once
     if (this.chainHealEvent && this.chainHealEvent.targetID === event.targetID) {
       this.processTrait(this.chainHealEvent);
-      this.chainHealEvent = undefined;
+      this.chainHealEvent = null;
     } else {
       this.chainHealTarget = event.targetID;
     }
@@ -57,7 +56,6 @@ class SoothingWaters extends BaseHealerAzerite {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-
     if (spellId !== SPELLS.CHAIN_HEAL.id) {
       return;
     }
@@ -66,7 +64,7 @@ class SoothingWaters extends BaseHealerAzerite {
     // you only have to compare the heal and target ID.
     if (this.chainHealTarget && this.chainHealTarget === event.targetID) {
       this.processTrait(event);
-      this.chainHealTarget = undefined;
+      this.chainHealTarget = null;
     } else {
       this.chainHealEvent = event;
     }
