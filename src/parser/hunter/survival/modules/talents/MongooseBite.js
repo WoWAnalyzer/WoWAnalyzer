@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -124,7 +124,7 @@ class MongooseBite extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
@@ -154,7 +154,7 @@ class MongooseBite extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { calculatePrimaryStat } from 'common/stats';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -146,7 +146,7 @@ class DarkmoonDeckBlockades extends Analyzer {
     const summary = this.staminaSummary;
     const totals = this._getSummaryTotals(summary);
     const tooltipData = (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<ItemIcon id={ITEMS.DARKMOON_DECK_BLOCKADES.id} />}
         value={this.owner.formatItemHealingDone(this.healing)}
         label="Darkmoon Deck: Blockades"
@@ -178,7 +178,7 @@ class DarkmoonDeckBlockades extends Analyzer {
             </tr>
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
     return tooltipData;
   }

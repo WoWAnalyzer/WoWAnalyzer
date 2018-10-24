@@ -75,12 +75,15 @@ import ConchofDarkWhispers from '../shared/modules/items/bfa/dungeons/ConchofDar
 import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
+// PVP
+import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 //Enchants
 import DeadlyNavigation from '../shared/modules/items/bfa/enchants/DeadlyNavigation';
 import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulNavigation';
 import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
+import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 // Crafted
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
@@ -98,6 +101,7 @@ import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/Conc
 import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
 import BlightborneInfusion from '../shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
+import ArchiveOfTheTitans from '../shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -188,6 +192,8 @@ class CombatLogParser {
     seabreeze: Seabreeze,
     galecallersBoon: GalecallersBoon,
     harlansLoadedDice: HarlansLoadedDice,
+    // PVP
+    dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
@@ -198,6 +204,7 @@ class CombatLogParser {
     quickNavigation: QuickNavigation,
     stalwartNavigation: StalwartNavigation,
     versatileNavigation: VersatileNavigation,
+    coastalSurge: CoastalSurge,
 
     // Azerite Traits
     gemhide: Gemhide,
@@ -212,6 +219,7 @@ class CombatLogParser {
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
     blightborneInfusion: BlightborneInfusion,
+    archiveOfTheTitans: ArchiveOfTheTitans,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
