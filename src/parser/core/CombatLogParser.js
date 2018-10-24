@@ -101,6 +101,7 @@ import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/Conc
 import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
 import BlightborneInfusion from '../shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
+import ArchiveOfTheTitans from '../shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -218,6 +219,7 @@ class CombatLogParser {
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
     blightborneInfusion: BlightborneInfusion,
+    archiveOfTheTitans: ArchiveOfTheTitans,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
