@@ -11,6 +11,7 @@ import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
 import Stomp from 'parser/hunter/beastmastery/modules/talents/Stomp';
 import BarbedShot from '../spells/BarbedShot';
 import BeastCleave from '../spells/BeastCleave';
+import AMurderOfCrows from '../../../shared/modules/talents/AMurderOfCrows';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
@@ -20,6 +21,7 @@ class TraitsAndTalents extends Analyzer {
     chimaeraShot: ChimaeraShot,
     stampede: Stampede,
     stomp: Stomp,
+    aMurderOfCrows: AMurderOfCrows,
   };
 
   constructor(...args) {
@@ -43,6 +45,7 @@ class TraitsAndTalents extends Analyzer {
         {this.chimaeraShot.active && this.chimaeraShot.subStatistic()}
         {this.stampede.active && this.stampede.subStatistic()}
         {this.stomp.active && this.stomp.subStatistic()}
+        {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
       </StatisticsListBox>
     );
   }
