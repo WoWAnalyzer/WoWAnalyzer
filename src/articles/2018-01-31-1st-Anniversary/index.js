@@ -8,11 +8,11 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
-import Contributor from 'Interface/Contributor/Button';
-import DiscordButton from 'Interface/common/ThirdPartyButtons/Discord';
-import DiscordLogo from 'Interface/Images/Discord-Logo+Wordmark-White.svg';
-import AntorusImage from 'raids/AntorusTheBurningThrone/Images/antorus.jpg';
-import RegularArticle from 'Interface/News/RegularArticle';
+import Contributor from 'interface/contributor/Button';
+import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
+import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
+import AntorusImage from 'raids/antorustheburningthrone/images/antorus.jpg';
+import RegularArticle from 'interface/news/RegularArticle';
 
 import Timeline from './Timeline';
 import Item from './TimelineItem';
@@ -129,7 +129,7 @@ class Article extends React.PureComponent {
 
   renderExpansion() {
     return (
-      <React.Fragment>
+      <>
         <Item title="A new layout" date="4 Feb">
           As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
 
@@ -138,7 +138,7 @@ class Article extends React.PureComponent {
           With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </Item>
 
-        <Item title={<React.Fragment>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</React.Fragment>} date="18 Mar">
+        <Item title={<>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</>} date="18 Mar">
           In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.<br /><br />
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
@@ -768,7 +768,7 @@ class Article extends React.PureComponent {
         <Item title="Added support for healer stat weights" date="24 Oct">
           <Contributor {...CONTRIBUTORS.sref} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604">added</a> a module to generate stat weights based on what actually happened in a fight. This module generates the players stat weights using the actual logged events. We keep a listing of all the player's healing spells along with which stats those spells scales with, and for each stat a heal scales with we do some simple math to find out how much the last point of that stat healed. We compare the total healing increases of each stat in order to generate weights. The simplicity of this module is pretty brilliant and makes calculating stat weights from logs pretty easy.<br /><br />
 
-          <Contributor {...CONTRIBUTORS.sref} /> wrote a full explanation of the calculation of the Restoration Druid Stat Weights <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/Parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">here</a>.<br /><br />
+          <Contributor {...CONTRIBUTORS.sref} /> wrote a full explanation of the calculation of the Restoration Druid Stat Weights <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">here</a>.<br /><br />
 
           <Image source={RestoDruidStatWeights} description="The initial Stat Weights panel" /><br />
 
@@ -975,7 +975,7 @@ class Article extends React.PureComponent {
 
           We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
-      </React.Fragment>
+      </>
     );
   }
 

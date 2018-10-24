@@ -112,10 +112,11 @@ for (let j = 0; j < num_effects; i++, j++) {
   }
   const fields = match[1].replace(' ', '').split(/,/).map(Number);
   const id = fields[0];
+  const effect_type = fields[5];
   const avg_coeff = fields[6];
 
   if (effects[id]) {
-    SPELL_DATA[effects[id]].effects[id] = { avg: avg_coeff };
+    SPELL_DATA[effects[id]].effects[id] = { type: effect_type, avg: avg_coeff };
   }
 }
 

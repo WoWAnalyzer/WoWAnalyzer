@@ -24,7 +24,8 @@ function run(command) {
 }
 
 async function main() {
-  await run('npm run script scripts/localization/extract-spells.js');
+  // TODO: Reimplement (but let's focus on everything else first)
+  // await run('npm run script scripts/localization/extract-spells.js');
 
   await run('lingui extract');
 }

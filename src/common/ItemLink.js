@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TooltipProvider from 'Interface/common/TooltipProvider';
+import TooltipProvider from 'interface/common/TooltipProvider';
 
 import ITEMS from './ITEMS';
 import getItemQualityLabel from './getItemQualityLabel';
@@ -31,6 +31,10 @@ class ItemLink extends React.PureComponent {
   render() {
     const { id, children, details, icon, ...others } = this.props;
     delete others.quality;
+
+    if (process.env.NODE_ENV === 'development' && !children && !ITEMS[id]) {
+      throw new Error(`Unknown item: ${id}`);
+    }
 
     let quality = this.props.quality;
     if (quality === undefined || quality === null) {
