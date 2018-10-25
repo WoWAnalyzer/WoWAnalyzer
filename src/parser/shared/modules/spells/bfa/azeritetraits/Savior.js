@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+import { formatNumber } from 'common/format';
 
 /**
  Your heals on targets below 50% health have a chance to heal for an additional 2100.
@@ -33,7 +34,7 @@ class Savior extends Analyzer {
         value={(
           <ItemHealingDone amount={this.healing} />
         )}
-        tooltip={`${this.procs} total heals.`}
+        tooltip={`${formatNumber(this.healing)} total healing from ${this.procs} total procs.`}
       />
     );
   }
