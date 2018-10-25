@@ -102,6 +102,11 @@ export default {
     icon: 'spell_yorsahj_bloodboil_orangeoil',
   },
   SAVIOR: {
+    id: 267883,
+    name: 'Savior',
+    icon: 'achievement_guildperk_everyones-a-hero',
+  },
+  SAVIOR_HEAL: {
     id: 269108,
     name: 'Savior',
     icon: 'achievement_guildperk_everyones-a-hero',
