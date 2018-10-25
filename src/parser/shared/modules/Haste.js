@@ -32,6 +32,7 @@ class Haste extends Analyzer {
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
+    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande

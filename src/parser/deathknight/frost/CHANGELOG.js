@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-10-22'),
+      changes: <>Added module for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /></>,
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-10-11'),
       changes: <>Fixed bugs in <SpellLink id={SPELLS.KILLING_MACHINE.id} /> module that caused it to give weird suggestions</>,
       contributors: [Khazak],
