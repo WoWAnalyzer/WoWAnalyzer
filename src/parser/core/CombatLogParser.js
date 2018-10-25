@@ -77,6 +77,8 @@ import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoo
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
+import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
+
 //Enchants
 import DeadlyNavigation from '../shared/modules/items/bfa/enchants/DeadlyNavigation';
 import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulNavigation';
@@ -194,6 +196,7 @@ class CombatLogParser {
     harlansLoadedDice: HarlansLoadedDice,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
+    dreadGladiatorsBadge: DreadGladiatorsBadge,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
