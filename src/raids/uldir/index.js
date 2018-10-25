@@ -1,7 +1,7 @@
 export default {
   // Raid Preview URL
   name: 'Uldir',
-  background: require('./images/antorus.jpg').default,
+  background: require('./images/uldir.jpg').default,
   bosses: {
     Mother: require('./Mother').default,
     FetidDevourer: require('./FetidDevourer').default,

@@ -85,7 +85,7 @@ class PrimalFireElemental extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are set to autocast and you are using Meteor.</span>)
           .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental(${unusedSpellsString})`)
+          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental (${unusedSpellsString})`)
           .recommended(`You should be using all spells of your Fire Elemental.`)
           .major(recommended+1);
       });

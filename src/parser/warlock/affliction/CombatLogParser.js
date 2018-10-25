@@ -2,6 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import GrimoireOfSacrificeNormalizer from './modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -18,15 +20,17 @@ import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
 import Talents from './modules/talents';
+import Nightfall from './modules/talents/Nightfall';
+import DrainSoul from './modules/talents/DrainSoul';
+import Deathbolt from './modules/talents/Deathbolt';
 import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
-import SoulConduit from './modules/talents/SoulConduit';
-import Deathbolt from './modules/talents/Deathbolt';
-import Haunt from './modules/talents/Haunt';
-import DrainSoul from './modules/talents/DrainSoul';
-import DrainSoulSniping from './modules/talents/DrainSoulSniping';
-import Nightfall from './modules/talents/Nightfall';
 import PhantomSingularity from './modules/talents/PhantomSingularity';
+import VileTaint from './modules/talents/VileTaint';
+import ShadowEmbrace from './modules/talents/ShadowEmbrace';
+import Haunt from './modules/talents/Haunt';
+import GrimoireOfSacrifice from './modules/talents/GrimoireOfSacrifice';
+import SoulConduit from './modules/talents/SoulConduit';
 
 import Checklist from './modules/features/Checklist/Module';
 
@@ -39,6 +43,9 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     checklist: Checklist,
     darkglare: Darkglare,
+
+    // Normalizers
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 
     // DoTs
     agonyUptime: AgonyUptime,
@@ -56,13 +63,15 @@ class CombatLogParser extends CoreCombatLogParser {
     talents: Talents,
     nightfall: Nightfall,
     drainSoul: DrainSoul,
-    drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     phantomSingularity: PhantomSingularity,
-    soulConduit: SoulConduit,
+    vileTaint: VileTaint,
+    shadowEmbrace: ShadowEmbrace,
     haunt: Haunt,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
+    soulConduit: SoulConduit,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

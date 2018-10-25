@@ -263,6 +263,19 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
         cooldown: 30,
       },
+      {
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG, 
+          SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
+          SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
+          SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
+          SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
+          SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
+          SPELLS.POLYMORPH_DIREHORN],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
     ];
   }
 }

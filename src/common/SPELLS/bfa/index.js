@@ -5,5 +5,6 @@ import AzeriteTraits from './azeritetraits';
 import Enchants from './enchants';
 import Potions from './potions';
 import Crafted from './crafted';
+import PVP from './pvp';
 
-export default safeMerge(Dungeons, Raids, AzeriteTraits, Enchants, Potions, Crafted);
+export default safeMerge(Dungeons, Raids, AzeriteTraits, Enchants, Potions, Crafted, PVP);

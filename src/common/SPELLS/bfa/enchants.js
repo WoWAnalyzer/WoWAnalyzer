@@ -50,4 +50,9 @@ export default {
     name: 'Versatile Navigation',
     icon: 'achievement_worldevent_lunar',
   },
+  COASTAL_SURGE: {
+    id: 267537,
+    name: 'Coastal Surge',
+    icon: 'ability_monk_renewingmists',
+  },
 };

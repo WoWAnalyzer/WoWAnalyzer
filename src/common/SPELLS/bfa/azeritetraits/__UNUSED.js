@@ -789,11 +789,6 @@ export default {
     name: 'Self Reliance',
     icon: 'achievement_guildperk_quick-and-dead',
   },
-  SERENE_SPIRIT: {
-    id: 274416,
-    name: 'Serene Spirit',
-    icon: 'ability_shaman_astralshift',
-  },
   SERRATED_JAWS: {
     id: 272717,
     name: 'Serrated Jaws',
@@ -828,11 +823,6 @@ export default {
     id: 274432,
     name: 'Solitary Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-  },
-  SOOTHING_WATERS: {
-    id: 272989,
-    name: 'Soothing Waters',
-    icon: 'spell_nature_healingwavegreater',
   },
   SOUL_FROM_THROS: {
     id: 273825,

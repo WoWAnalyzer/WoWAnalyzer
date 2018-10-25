@@ -17,9 +17,13 @@ class RestorationShamanSpreadsheet extends React.Component {
       table: { borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'right', padding: '20px', float: 'left', margin: '5px', borderCollapse: 'separate', borderSpacing: '10px 0' },
     };
 
+    const minutes = (parser.fightDuration / 1000 / 60);
     const getAbility = spellId => parser._modules.abilityTracker.getAbility(spellId);
     const casts = spellId => getAbility(spellId).casts;
-    const cpm = spellId => casts(spellId) / (parser.fightDuration / 1000 / 60) >= 0 ? (casts(spellId) / (parser.fightDuration / 1000 / 60)).toFixed(2) : '0';
+    const cpm = (spellId, TW = undefined) => {
+      const castAmount = TW ? getAbility(spellId).healingTwHits : casts(spellId);
+      return castAmount / minutes >= 0 ? (castAmount / minutes).toFixed(2) : '0';
+    };
     const prePotion = parser._modules.prePotion.usedPrePotion ? PRE_INTELLECT_POTION_BUFF : 0;
 
     return (
@@ -47,12 +51,14 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{parser._modules.spreadsheet.surgingTideProcsPerMinute}</td></tr>
               <tr><td>{(parser._modules.spreadsheet.spoutingSpiritsHits / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
               <tr><td>{(parser._modules.spreadsheet.overflowingShoresHits / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{parser._modules.spreadsheet.ebbAndFlowEffectiveness.toFixed(2)}</td></tr>
+              <tr><td>{parser._modules.ebbAndFlow.ebbAndFlowEffectiveness.toFixed(2)}</td></tr>
               <tr><td>{parser._modules.combatants.playerCount}</td></tr>
               <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
               <tr><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2)}</td></tr>
               <tr><td>{parser._modules.masteryEffectiveness.masteryEffectivenessPercent.toFixed(2)}</td></tr>
               <tr><td>{parser.selectedCombatant.race ? parser.selectedCombatant.race.name : 'Unknown'}</td></tr>
+              <tr><td>{cpm(SPELLS.HEALING_WAVE.id,true)}</td></tr>
+              <tr><td>{cpm(SPELLS.HEALING_SURGE_RESTORATION.id,true)}</td></tr>
             </tbody>
           </table>
       </div>

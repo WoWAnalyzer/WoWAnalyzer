@@ -7,12 +7,16 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
+import Combatants from 'parser/shared/modules/Combatants';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
 
 class HealingRain extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
   healingRainTicks = [];
 
   get averageHitsPerTick() {
@@ -50,6 +54,13 @@ class HealingRain extends Analyzer {
       return;
     }
 
+    // Filter out pets, but only if it fully overhealed as Rain will prioritize injured pets over non-injured players
+    // fully overhealing guarantees that there are not enough players in the healing rain
+    const combatant = this.combatants.players[event.targetID];
+    if (!combatant && event.overheal && event.amount === 0) {
+      return;
+    }
+
     const healingRainTick = this.healingRainTicks.find(tick => event.timestamp - BUFFER_MS <= tick.timestamp);
     if (!healingRainTick) {
       this.healingRainTicks.push({
@@ -57,7 +68,8 @@ class HealingRain extends Analyzer {
         hits: 1,
       });
     } else {
-      healingRainTick.hits = healingRainTick.hits + 1;
+      // dirty fix for partial ticks happening at the same time as a real tick
+      healingRainTick.hits = healingRainTick.hits + 1 > 6 ? healingRainTick.hits = 6 : healingRainTick.hits + 1;
     }
   }
 
@@ -70,6 +82,7 @@ class HealingRain extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
+        position={STATISTIC_ORDER.OPTIONAL()}
         label={(
           <dfn data-tip="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
             Average Healing Rain Targets
@@ -78,8 +91,6 @@ class HealingRain extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default HealingRain;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -67,8 +67,9 @@ class Resurgence extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
+        position={STATISTIC_ORDER.UNIMPORTANT(90)}
         value={`${formatNumber(this.totalResurgenceGain)}`}
         label="Mana gained from Resurgence"
       >
@@ -98,10 +99,9 @@ class Resurgence extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(90);
 }
 
 export default Resurgence;
