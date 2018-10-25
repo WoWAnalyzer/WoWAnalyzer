@@ -7,8 +7,9 @@ import { formatNumber } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill Command.
@@ -20,6 +21,7 @@ class KillerCobra extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
+    statTracker: StatTracker,
   };
 
   effectiveKillCommandResets = 0;

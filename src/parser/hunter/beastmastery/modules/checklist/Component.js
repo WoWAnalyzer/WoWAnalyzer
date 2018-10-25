@@ -9,6 +9,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist2/Preparati
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import SpellIcon from 'common/SpellIcon';
 
 class BeastMasteryChecklist extends React.PureComponent {
   static propTypes = {
@@ -34,7 +35,8 @@ class BeastMasteryChecklist extends React.PureComponent {
           name="Use core abilities as often as possible"
           description={(
             <>
-              Hello! {' '}
+              Using your core abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible, unless you need to save them for a prioirty burst phase that is coming up soon.
+              {'  '}
               <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -63,15 +65,15 @@ class BeastMasteryChecklist extends React.PureComponent {
           <Requirement name={<><SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold} />
         </Rule>
         <Rule
-          name="Talent, Cooldown and Spell efficiency"
+          name="Talent, cooldown and spell efficiency"
           description={(
             <>
-              :)))
+              You want to be using your baseline spells as efficiently as possible, as well as choosing the right talents for the given scenario. If a talent isn't being used optimally for the encounter, you should consider swapping to a different talent.
             </>
           )}
         >
-          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
-          <Requirement name={<><SpellLink id={SPELLS.COBRA_SHOT.id} /> <SpellLink id={SPELLS.KILL_COMMAND.id} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
+          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
+          <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
           {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
         </Rule>
         <Rule
@@ -82,7 +84,7 @@ class BeastMasteryChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Active time" thresholds={thresholds.downtimeSuggestionThresholds} />
+          <Requirement name={<> Active time</>} thresholds={thresholds.downtimeSuggestionThresholds} />
           <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</>} thresholds={thresholds.focusCappedSuggestionThresholds} />
         </Rule>
         <PreparationRule thresholds={thresholds} />
