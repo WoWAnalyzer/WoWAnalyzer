@@ -332,7 +332,7 @@ export default {
   },
   // Elemental Pet Spells
   WIND_GUST: {
-    id: 226180,
+    id: 157331,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
@@ -619,7 +619,7 @@ export default {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 4000,
+    manaCost: 3800,
     color: '#40b3bf',
   },
   RIPTIDE: {

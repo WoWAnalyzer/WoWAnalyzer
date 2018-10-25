@@ -1,5 +1,5 @@
-import Background from './images/Backgrounds/Aggramar.jpg';
-import Headshot from './images/Headshots/Aggramar.png';
+import Background from './images/Backgrounds/Mythrax.jpg';
+import Headshot from './images/Headshots/Mythrax.png';
 
 export default {
   id: 2135,
@@ -12,8 +12,8 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      EssenceShear: 273282,
-    },
+    softMitigationChecks: [
+      273282, // EssenceShear
+    ],
   },
 };

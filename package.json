@@ -39,7 +39,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
-    "universal-cookie": "^2.2.0"
+    "universal-cookie": "^2.2.0",
+    "victory": "^30.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

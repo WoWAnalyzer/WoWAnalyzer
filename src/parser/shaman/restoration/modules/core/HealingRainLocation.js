@@ -1,10 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-
-const healingRainDiameter = 2200; // 10% margin of error
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -16,6 +13,7 @@ class HealingRainLocation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+  healingRainDiameter = 2200; // 10% margin of error
 
   healingRainEvents = [];
   newHealingRain = false;
@@ -24,9 +22,10 @@ class HealingRainLocation extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasDeluge = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
-    const hasRebalancers = this.selectedCombatant.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
-    this.active = hasDeluge || hasRebalancers;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
+    if (this.active && this.selectedCombatant.hasTrait(SPELLS.OVERFLOWING_SHORES_TRAIT.id)) {
+      this.healingRainDiameter *= Math.pow(1.1,this.selectedCombatant.traitRanks(SPELLS.OVERFLOWING_SHORES_TRAIT.id).length);
+    }
   }
 
   on_byPlayer_heal(event) {
@@ -109,10 +108,10 @@ class HealingRainLocation extends Analyzer {
     const ellipseHeight = (maxY - minY);
 
     // If there are erroneous data, it's better to not count the rain instead of having it overvalue the effect.
-    if (ellipseHeight >= healingRainDiameter || ellipseWidth >= healingRainDiameter) {
+    if (ellipseHeight >= this.healingRainDiameter || ellipseWidth >= this.healingRainDiameter) {
       console.warn(
         'Reported Healing Rain size is too large, something went wrong.',
-        'Allowed Size:', healingRainDiameter,
+        'Allowed Size:', this.healingRainDiameter,
         'Reported Width:', ellipseWidth,
         'Reported Height:', ellipseHeight
       );
