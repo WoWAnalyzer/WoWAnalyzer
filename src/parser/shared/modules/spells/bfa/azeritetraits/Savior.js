@@ -7,6 +7,7 @@ import { formatNumber } from 'common/format';
 
 /**
  Your heals on targets below 50% health have a chance to heal for an additional 2100.
+ Example Log: /report/gqPpyXBG8mh7vHTN/41-Mythic+Mythrax+-+Kill+(9:15)/6-Spencer
  */
 class Savior extends Analyzer {
   healing = 0;
