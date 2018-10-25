@@ -43,12 +43,20 @@ class Tradewinds extends Analyzer {
     return this.totalBuffs / (this.owner.fightDuration / 60000);
   }
 
+  get uptimePct() {
+    return (this.selectedCombatant.getBuffUptime(SPELLS.TRADEWINDS.id) / this.owner.fightDuration) * 100;
+  }
+
   statistic() {
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRADEWINDS.id}
-        value={`${this.procsPerMinute.toFixed(2)} procs per minute`}
+        value={(
+          <>
+          {this.uptimePct.toFixed(0)}% uptime<br />
+          {this.procsPerMinute.toFixed(2)} procs per minute
+          </>)}
         tooltip={`Procced <b>${formatNumber(this.totalBuffs)}</b> times,
                   <b>${formatNumber(this.refreshedBuffs)}</b> were refreshes.
                 `}
