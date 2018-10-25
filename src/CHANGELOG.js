@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Fyruna } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-10-25'),
+    changes: <>Added <SpellLink id={SPELLS.TRADEWINDS.id} /> module.</>,
+    contributors: [Fyruna],
+  },
   {
     date: new Date('2018-10-24'),
     changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_BADGE.id} /> module. </>,
