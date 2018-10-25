@@ -104,6 +104,7 @@ import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedP
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
 import BlightborneInfusion from '../shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
 import ArchiveOfTheTitans from '../shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
+import Savior from '../shared/modules/spells/bfa/azeritetraits/Savior';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 
 // Uldir
@@ -225,6 +226,7 @@ class CombatLogParser {
     tidalSurge: TidalSurge,
     blightborneInfusion: BlightborneInfusion,
     archiveOfTheTitans: ArchiveOfTheTitans,
+    savior: Savior,
     tradewinds: Tradewinds,
 
     // Uldir
