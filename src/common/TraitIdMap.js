@@ -311,5 +311,5 @@ export default {
   501: 280178, // "Relational Normalization Gizmo"
   502: 280181, // "Personal Absorb-o-Tron"
   503: 280172, // "Auto-Self-Cauterizer"
-  505: 281844, // "Tradewinds"
+  505: 281843, // "Tradewinds"
 };

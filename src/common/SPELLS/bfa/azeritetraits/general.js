@@ -242,7 +242,7 @@ export default {
     icon: 'ability_mage_waterjet',
   },
   TRADEWINDS: {
-    id: 281844,
+    id: 281843,
     name: 'Tradewinds',
     icon: 'ability_skyreach_wind',
   },
