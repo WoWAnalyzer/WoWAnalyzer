@@ -241,4 +241,9 @@ export default {
     name: 'Tidal Surge',
     icon: 'ability_mage_waterjet',
   },
+  TRADEWINDS: {
+    id: 281844,
+    name: 'Tradewinds',
+    icon: 'ability_skyreach_wind',
+  },
 };
