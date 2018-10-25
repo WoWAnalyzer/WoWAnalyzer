@@ -7,6 +7,9 @@ import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';
 import BarbedShot from '../../modules/spells/BarbedShot';
+import BestialWrath from '../../modules/spells/BestialWrath';
+import KillerCobra from '../../modules/talents/KillerCobra';
+import CobraShot from '../../modules/spells/CobraShot';
 
 class Checklist extends Analyzer {
   static dependencies = {
@@ -16,6 +19,9 @@ class Checklist extends Analyzer {
     alwaysBeCasting: AlwaysBeCasting,
     timeFocusCapped: TimeFocusCapped,
     barbedShot: BarbedShot,
+    bestialWrath: BestialWrath,
+    killerCobra: KillerCobra,
+    cobraShot: CobraShot,
   };
   render() {
     return (
@@ -24,10 +30,15 @@ class Checklist extends Analyzer {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           focusCappedSuggestionThresholds: this.timeFocusCapped.suggestionThresholds,
           frenzy3StackSuggestionThreshold: this.barbedShot.frenzy3StackThreshold,
           frenzyUptimeSuggestionThreshold: this.barbedShot.frenzyUptimeThreshold,
+          bestialWrathCDREfficiencyThreshold: this.bestialWrath.cdrEfficiencyBestialWrathThreshold,
+          bestialWrathFocusThreshold: this.bestialWrath.focusOnBestialWrathCastThreshold,
+          wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
+          cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
+          wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
         }}
       />
     );

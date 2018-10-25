@@ -59,25 +59,20 @@ class BeastMasteryChecklist extends React.PureComponent {
           )}
         >
           <Requirement name={<>Uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzyUptimeSuggestionThreshold} />
-          <Requirement name={<>3 Stack Uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzy3StackSuggestionThreshold} />
+          <Requirement name={<>3 stack uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzy3StackSuggestionThreshold} />
+          <Requirement name={<><SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold} />
         </Rule>
         <Rule
-          name="Cooldown efficiency"
+          name="Talent, Cooldown and Spell efficiency"
           description={(
             <>
               :)))
             </>
           )}
         >
-        </Rule>
-        <Rule
-          name="Pick the right tools for the fight"
-          description={(
-            <>
-              :)
-            </>
-          )}
-        >
+          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
+          <Requirement name={<><SpellLink id={SPELLS.COBRA_SHOT.id} /> <SpellLink id={SPELLS.KILL_COMMAND.id} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
+          {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
         </Rule>
         <Rule
           name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping</>}
@@ -87,8 +82,8 @@ class BeastMasteryChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
-          <Requirement name="Time focus capped" thresholds={thresholds.focusCappedSuggestionThresholds} />
+          <Requirement name="Active time" thresholds={thresholds.downtimeSuggestionThresholds} />
+          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</>} thresholds={thresholds.focusCappedSuggestionThresholds} />
         </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>
