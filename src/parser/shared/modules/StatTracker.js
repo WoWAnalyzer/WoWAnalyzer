@@ -344,6 +344,20 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
     },
+    [SPELLS.RAPID_ADAPTATION.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
+    [SPELLS.DIG_DEEP.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
+      strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(385, 3174651, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+    },
+    [SPELLS.GOLDEN_LUSTER.id]: {
+      itemId: ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(380, 864, item.itemLevel),
+    },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
     269887: { // Boiling Time
