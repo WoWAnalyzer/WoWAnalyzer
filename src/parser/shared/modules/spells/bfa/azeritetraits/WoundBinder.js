@@ -52,10 +52,12 @@ class WoundBinder extends Analyzer {
   }
 
   calculateHasteAmount(targetHealthPercent = 1) {
+    // The formula is HasteGained = .34 + percentMissingHealth * .66
     return this.fullHasteValue * (BASE_HASTE_AMOUNT + ((1 - BASE_HASTE_AMOUNT) * (1 - targetHealthPercent)));
   }
 
   on_byPlayer_heal(event) {
+    // We track the last heal from the player to use for the haste calculation
     this.lastTargetHealedPercent = (event.hitPoints / event.maxHitPoints);
   }
 
