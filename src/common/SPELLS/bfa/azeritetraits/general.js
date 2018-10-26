@@ -157,6 +157,11 @@ export default {
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
   WOUNDBINDER: {
+    id: 267880,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
+  WOUNDBINDER_BUFF: {
     id: 269085,
     name: 'Woundbinder',
     icon: 'inv_misc_emberweavebandage',
