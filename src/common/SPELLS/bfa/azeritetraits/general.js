@@ -91,6 +91,16 @@ export default {
     name: 'Blessed Portents',
     icon: 'spell_holy_fanaticism',
   },
+  SYNERGISTIC_GROWTH: {
+    id: 267892,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  SYNERGISTIC_GROWTH_BUFF: {
+    id: 272090,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
   AZERITE_FORTIFICATION: {
     id: 270659,
     name: 'Azerite Fortification',
