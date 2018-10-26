@@ -107,6 +107,7 @@ import ArchiveOfTheTitans from '../shared/modules/spells/bfa/azeritetraits/Archi
 import Savior from '../shared/modules/spells/bfa/azeritetraits/Savior';
 import WoundBinder from '../shared/modules/spells/bfa/azeritetraits/WoundBinder';
 import SynergisticGrowth from '../shared/modules/spells/bfa/azeritetraits/SynergisticGrowth';
+import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChill';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -229,6 +230,7 @@ class CombatLogParser {
     savior: Savior,
     woundBinder:WoundBinder,
     synergisticGrowth: SynergisticGrowth,
+    bracingChill: BracingChill,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
