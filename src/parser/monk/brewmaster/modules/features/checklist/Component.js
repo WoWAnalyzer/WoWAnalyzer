@@ -32,6 +32,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
+          performanceMethod={PERFORMANCE_METHOD.FIRST}
           name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</>}
           description={
             <>
