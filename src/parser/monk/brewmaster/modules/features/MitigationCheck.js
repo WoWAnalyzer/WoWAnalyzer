@@ -9,7 +9,7 @@ class MitigationCheck extends CoreMitigationCheck {
                       SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
                       SPELLS.ZEN_MEDITATION.id,
                       SPELLS.DAMPEN_HARM_TALENT.id];
-    this.debuffCheck = [SPELLS.BREATH_OF_FIRE_DEBUFF.id];
+    this.debuffCheck = [];
   }
 }
 

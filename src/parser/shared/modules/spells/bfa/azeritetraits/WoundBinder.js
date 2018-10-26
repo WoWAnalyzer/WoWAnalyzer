@@ -18,6 +18,8 @@ const BASE_HASTE_AMOUNT = .34;
 /**
  Your healing effects have a chance to increase your Haste by up to 435 for 6 sec. Healing lower health targets will grant you more Haste.
 
+ There is no true documentation for how this trait works. Throeycrafters in the Holy Priest Discord have come up with this:
+
  This trait scales linearly starting at with 34% of the haste at 0% health and 100% at 100% health.
 
  Example Report: /report/yqwzpPZVhWJ6Qtj1/8-Normal+Taloc+-+Kill+(2:54)/22-Fearrful
@@ -54,7 +56,7 @@ class WoundBinder extends Analyzer {
   }
 
   calculateHasteAmount(targetHealthPercent = 1) {
-    // The formula is HasteGained = .34 + percentMissingHealth * .66
+    // The formula is HasteGained = .34 + (.66 * percentMissingHealth)
     return this.fullHasteValue * (BASE_HASTE_AMOUNT + ((1 - BASE_HASTE_AMOUNT) * (1 - targetHealthPercent)));
   }
 
