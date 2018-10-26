@@ -344,10 +344,6 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
     },
-    [SPELLS.RAPID_ADAPTATION.id]: {
-      itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
-    },
     [SPELLS.DIG_DEEP.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
       strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
