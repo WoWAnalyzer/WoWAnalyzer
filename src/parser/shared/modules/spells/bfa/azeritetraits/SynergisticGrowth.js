@@ -8,6 +8,7 @@ import StatWeights from '../../../../../druid/restoration/modules/features/StatW
 
 /**
  Casting Wild Growth grants you 165 Mastery for 10 sec sec. This cannot occur more than once every 30 sec.
+ Example Log: /report/nfVcdAMXFGBgwvzp/2-Heroic+Taloc+-+Kill+(3:55)/21-Palamx
  */
 class SynergisticGrowth extends Analyzer{
   static dependencies = {
