@@ -26,6 +26,7 @@ class DreadGladiatorsBadge extends Analyzer {
       this.statBuff = calculatePrimaryStat(385, 1746, this.selectedCombatant.getItem(ITEMS.DREAD_GLADIATORS_BADGE.id).itemLevel);
       this.abilities.add({
         spell: SPELLS.DIG_DEEP,
+        buffSpellId: SPELLS.DIG_DEEP.id,
         name: ITEMS.DREAD_GLADIATORS_BADGE.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 120,
