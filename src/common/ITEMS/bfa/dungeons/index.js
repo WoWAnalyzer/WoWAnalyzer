@@ -110,6 +110,14 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
+  //King's Rest
+  LUSTROUS_GOLDEN_PLUMAGE: {
+    id: 159617,
+    name: 'Lustrous Golden Plumage',
+    icon: 'inv_icon_feather06a',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
   // Quests.............. upscaled in beta
   ENGRANGED_DIEMETRADON_FIN: {
     id: 159764,
