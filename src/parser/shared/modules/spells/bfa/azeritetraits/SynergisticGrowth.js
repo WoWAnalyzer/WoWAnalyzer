@@ -2,9 +2,9 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import StatWeights from '../../features/StatWeights';
+import StatWeights from '../../../../../druid/restoration/modules/features/StatWeights';
 
 /**
  Casting Wild Growth grants you 165 Mastery for 10 sec sec. This cannot occur more than once every 30 sec.
