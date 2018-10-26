@@ -47,8 +47,10 @@ class WoundBinder extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WOUNDBINDER.id);
 
-    const { haste } = woundBinderStats(this.selectedCombatant.traitsBySpellId[SPELLS.WOUNDBINDER.id]);
-    this.fullHasteValue = haste;
+    if (this.active){
+      const { haste } = woundBinderStats(this.selectedCombatant.traitsBySpellId[SPELLS.WOUNDBINDER.id]);
+      this.fullHasteValue = haste;
+    }
   }
 
   calculateHasteAmount(targetHealthPercent = 1) {
