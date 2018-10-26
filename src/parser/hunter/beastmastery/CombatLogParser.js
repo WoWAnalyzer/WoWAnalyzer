@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
+import Checklist from './modules/checklist/Module';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,

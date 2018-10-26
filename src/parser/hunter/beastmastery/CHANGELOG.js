@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-10-25'),
+    changes: <>Implemented the new checklist for Beast Mastery, added a <SpellLink id={SPELLS.COBRA_SHOT.id} /> statistic and associated suggestions, and updated <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> suggestions.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-10-24'),
     changes: <>Merged the 3 <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> modules together, and added a cooldown reduction efficiency metric and suggestion to it.</>,
     contributors: [Putro],
