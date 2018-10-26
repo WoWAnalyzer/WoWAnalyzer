@@ -75,6 +75,7 @@ import ConchofDarkWhispers from '../shared/modules/items/bfa/dungeons/ConchofDar
 import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
+import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
@@ -198,6 +199,7 @@ class CombatLogParser {
     seabreeze: Seabreeze,
     galecallersBoon: GalecallersBoon,
     harlansLoadedDice: HarlansLoadedDice,
+    lustrousGoldenPlumage: LustrousGoldenPlumage,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsBadge: DreadGladiatorsBadge,

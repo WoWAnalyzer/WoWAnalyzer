@@ -171,7 +171,7 @@ class BarbedShot extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE(17)}
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
         label="3 stack uptime"
