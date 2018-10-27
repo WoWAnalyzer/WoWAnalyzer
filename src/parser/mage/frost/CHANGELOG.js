@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Sharrq, Dambroda } from 'CONTRIBUTORS';
+import { Sharrq, Dambroda, jos3p } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-10-28'),
+    changes: <>Added statistics and checklist entry for <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> if talented.</>,
+    contributors: [jos3p],
+  },
   {
     date: new Date('2018-09-21'),
     changes: <>Added statistics for <SpellLink id={SPELLS.WHITEOUT.id} /></>,
