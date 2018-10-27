@@ -10,6 +10,7 @@ import InformationIcon from 'interface/icons/Information';
 import colorForPerformance from './helpers/colorForPerformance';
 import calculateMedian from './helpers/calculateMedian';
 import average from './helpers/average';
+import harmonic from './helpers/harmonic';
 
 export const RuleContext = React.createContext();
 
@@ -19,6 +20,7 @@ export const PERFORMANCE_METHOD = {
   AVERAGE: 'AVERAGE',
   LOWEST: 'LOWEST',
   FIRST: 'FIRST',
+  HARMONIC: 'HARMONIC',
 };
 
 class Rule extends React.PureComponent {
@@ -54,7 +56,7 @@ class Rule extends React.PureComponent {
 
     switch (style) {
       case PERFORMANCE_METHOD.DEFAULT:
-        return Math.min(calculateMedian(values), average(values));
+        return Math.min(calculateMedian(values), harmonic(values));
       case PERFORMANCE_METHOD.MEDIAN:
         return calculateMedian(values);
       case PERFORMANCE_METHOD.AVERAGE:
@@ -63,6 +65,8 @@ class Rule extends React.PureComponent {
         return Math.min(...values);
       case PERFORMANCE_METHOD.FIRST:
         return values[0];
+      case PERFORMANCE_METHOD.HARMONIC:
+        return harmonic(values);
       default:
         throw new Error(`Unknown style: ${style}`);
     }
