@@ -35,9 +35,6 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import MitigationCheck from './modules/features/MitigationCheck';
 
 // Items
-import AnvilHardenedWristwraps from './modules/items/AnvilHardenedWristwraps';
-import StormstoutsLastGasp from './modules/items/StormstoutsLastGasp';
-import SalsalabimsLostTunic from './modules/items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GarothiWorldbreakerMeleeNormalizer from './normalizers/GarothiWorldbreakerMelee';
@@ -84,9 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fitToBurst: FitToBurst,
 
     // Items
-    ahw: AnvilHardenedWristwraps,
-    stormstoutsLastGasp: StormstoutsLastGasp,
-    salsalabim: SalsalabimsLostTunic,
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,

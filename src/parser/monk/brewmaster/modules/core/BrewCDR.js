@@ -9,13 +9,11 @@ import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
-import AnvilHardenedWristwraps from '../items/AnvilHardenedWristwraps';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
     ks: KegSmash,
     tp: TigerPalm,
-    wrists: AnvilHardenedWristwraps,
     bob: BlackOxBrew,
     isb: IronskinBrew,
     abilities: Abilities,
@@ -43,8 +41,6 @@ class BrewCDR extends Analyzer {
     totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr;
-    // ...and wrists
-    totalCDR += this.wrists.cdr;
     return totalCDR;
   }
 
@@ -83,10 +79,6 @@ class BrewCDR extends Analyzer {
   }
 
   statistic() {
-    let wristsDesc = "";
-    if (this.wrists.active) {
-      wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${(this.wrists.cdr / 1000).toFixed(2)}s</b> (<b>${(this.wrists.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
-    }
     let bobDesc = "";
     if (this.bob.active) {
       bobDesc = `<li>${this.bob.casts} Black Ox Brew casts — <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
@@ -104,7 +96,6 @@ class BrewCDR extends Analyzer {
               ${bocKsDesc}
               <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bobDesc}
-              ${wristsDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
             <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
