@@ -1,13 +1,15 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
+import PurifyingBrew from '../spells/PurifyingBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
 
 class BrewCDR extends Analyzer {
@@ -16,6 +18,7 @@ class BrewCDR extends Analyzer {
     tp: TigerPalm,
     bob: BlackOxBrew,
     isb: IronskinBrew,
+    pb: PurifyingBrew,
     abilities: Abilities,
   };
 
@@ -44,6 +47,10 @@ class BrewCDR extends Analyzer {
     return totalCDR;
   }
 
+  // ok emallson, for the last time *WRITE DOWN YOUR DERIVATIONS*
+  //
+  // not the derivation, but close enough i guess:
+  // https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1238#discussion_r163734298
   get cooldownReductionRatio() {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
@@ -53,6 +60,16 @@ class BrewCDR extends Analyzer {
   get cdrRequiredForUptime() {
     const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
     return 1 - this.isb.durationPerCast / (ability._cooldown(this.meanHaste) * 1000);
+  }
+
+  // the number of purifies you *could have* cast without dropping ISB
+  // if you didn't clip at all
+  get availablePurifies() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const cd = ability._cooldown(this.meanHaste);
+    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
+    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.totalCDR, 3);
+    return Math.max(castsAvailable - castsForUptime, 0);
   }
 
   get suggestionThreshold() {
@@ -65,6 +82,20 @@ class BrewCDR extends Analyzer {
         major: target * 0.9,
       },
       style: 'percentage',
+    };
+  }
+
+  get purifySuggestionThreshold() {
+    const target = Math.floor(this.availablePurifies);
+    return {
+      actual: this.pb.totalPurifies,
+      max: target,
+      isLessThan: {
+        minor: target,
+        average: 0.8 * target,
+        major: 0.6 * target,
+      },
+      style: 'number',
     };
   }
 
@@ -98,7 +129,8 @@ class BrewCDR extends Analyzer {
               ${bobDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
-            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%<br/>
+            <b>Charges Available for Purifying:</b> ${formatNumber(this.availablePurifies)} (${formatNumber(this.pb.totalPurifies)} used)`}
       />
     );
   }
