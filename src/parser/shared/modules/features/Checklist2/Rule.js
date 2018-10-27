@@ -56,7 +56,7 @@ class Rule extends React.PureComponent {
 
     switch (style) {
       case PERFORMANCE_METHOD.DEFAULT:
-        return Math.min(calculateMedian(values), harmonic(values));
+        return Math.min(calculateMedian(values), average(values));
       case PERFORMANCE_METHOD.MEDIAN:
         return calculateMedian(values);
       case PERFORMANCE_METHOD.AVERAGE:

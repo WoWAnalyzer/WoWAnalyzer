@@ -79,6 +79,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           tooltip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew." />
       </Rule>
       <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} /> effectively</>}
+        performanceMethod={PERFORMANCE_METHOD.HARMONIC}
         description={
           <>
             Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
