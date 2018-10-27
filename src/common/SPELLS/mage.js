@@ -567,6 +567,13 @@ export default {
     icon: 'ability_mage_greaterinvisibility',
   },
 
+  // Pet abilities
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
+  },
+
   //Removed in 8.0 (Keep Temporarily until not needed anymore)
   WARMTH_OF_THE_PHOENIX: {
     id: 240671,
