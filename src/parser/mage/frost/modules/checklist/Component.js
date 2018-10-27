@@ -68,6 +68,7 @@ class FrostMageChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && <Requirement name="Glacial Spike Utilization" thresholds={thresholds.glacialSpikeUtilization} />}
           {combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id) && <Requirement name="Thermal Void Avg Duration" thresholds={thresholds.thermalVoidDuration} tooltip="Thermal Void adds time to your Icy Veins every time you cast an Ice Lance that benefits from Shatter (this includes Fingers of Frost proc usage and Ice Lance's that land in Winter's Chill). Maximizing this uptime will increase your damage." />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <Requirement name="Rune of Power Uptime" thresholds={thresholds.runeOfPowerBuffUptime} tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead." />}
+          {!combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id) && <Requirement name="Water Elemental Utilization" thresholds={thresholds.waterElementalUptime} />}
         </Rule>
         <Rule
           name="Avoid downtime"
