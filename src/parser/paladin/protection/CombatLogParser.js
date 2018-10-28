@@ -12,9 +12,9 @@ import MitigationCheck from './modules/features/MitigationCheck';
 
 //Spells
 import Judgment from './modules/spells/Judgment';
+import Consecration from './modules/spells/Consecration';
 import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTiming';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
-import Consecration from './modules/features/Consecration';
 import GrandCrusader from './modules/core/GrandCrusader';
 
 //Talents
