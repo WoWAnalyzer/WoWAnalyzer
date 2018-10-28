@@ -462,7 +462,9 @@ class CombatLogParser {
     const isToPlayer = this.toPlayer(event);
     const isByPlayerPet = this.byPlayerPet(event);
     const isToPlayerPet = this.toPlayerPet(event);
+    const spellId = event.ability ? event.ability.guid : undefined;
 
+    // TODO: Refactor this to compose a function with only the necessary if-statements in the addEventListener method so this doesn't become an endless list of if-statements
     const run = options => {
       if (!isByPlayer && options.byPlayer) {
         return;
@@ -474,6 +476,9 @@ class CombatLogParser {
         return;
       }
       if (!isToPlayerPet && options.toPlayerPet) {
+        return;
+      }
+      if (options.spell !== undefined && options.spell.id !== spellId) {
         return;
       }
       try {

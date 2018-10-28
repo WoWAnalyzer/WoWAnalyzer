@@ -4,6 +4,9 @@ import Module from './Module';
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
 
+export const SELECTED_PLAYER = 1;
+export const SELECTED_PLAYER_PET = 2;
+
 class Analyzer extends Module {
   static __dangerousInvalidUsage = false;
 
@@ -24,6 +27,21 @@ class Analyzer extends Module {
       }
       const [listener, , playerFilter, pet, eventType] = match;
 
+      let by = 0;
+      if (playerFilter === 'by' && !pet) {
+        by = by | SELECTED_PLAYER;
+      }
+      if (playerFilter === 'by' && pet) {
+        by = by | SELECTED_PLAYER_PET;
+      }
+      let to = 0;
+      if (playerFilter === 'to' && !pet) {
+        to = to | SELECTED_PLAYER;
+      }
+      if (playerFilter === 'to' && pet) {
+        to = to | SELECTED_PLAYER_PET;
+      }
+
       this.addEventListener(eventType, event => {
         if (!this.active) {
           return;
@@ -31,10 +49,10 @@ class Analyzer extends Module {
 
         this[listener].call(this, event);
       }, {
-        byPlayer: playerFilter === 'by' && !pet,
-        byPlayerPet: playerFilter === 'by' && pet,
-        toPlayer: playerFilter === 'to' && !pet,
-        toPlayerPet: playerFilter === 'to' && pet,
+        by,
+        to,
+        // This only shows available filters used by the legacy method.
+        // For a full list of supported properties see the core CombatLogParser
       });
     });
   }
