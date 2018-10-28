@@ -40,7 +40,6 @@ class Waterbolt extends Analyzer {
   _waterboltHits = 0;
   wasCastStarted;
   activeTime = 0;
-  _lastCastTimestamp = 0;
   beginCastSpell = 0;
   _timestampLastFinish = 0;
   _timestampLastCast = 0;
@@ -71,8 +70,6 @@ class Waterbolt extends Analyzer {
 
   on_byPlayerPet_cast(event) {
     if (event.ability.guid === SPELLS.WATERBOLT.id) {
-      this._lastCastTimestamp = event.timestamp;
-      
       if (this.beginCastSpell.guid !== event.ability.guid && this.wasCastStarted) {
         this._waterboltsCancelled += 1;
       }
