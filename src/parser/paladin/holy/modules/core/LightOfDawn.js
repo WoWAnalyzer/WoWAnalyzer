@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class UnnamedEventThingie {
+class EventListenerDefinition {
   event;
   constructor(event) {
     this.event = event;
@@ -22,13 +22,13 @@ class UnnamedEventThingie {
   }
 }
 
-function event(name) {
-  return new UnnamedEventThingie(name);
-}
-
 const Events = {
-  cast: event('cast'),
-  heal: event('heal'),
+  get cast() {
+    return new EventListenerDefinition('cast');
+  },
+  get heal() {
+    return new EventListenerDefinition('heal');
+  },
 };
 
 class LightOfDawn extends Analyzer {
