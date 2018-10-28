@@ -25,7 +25,8 @@ const BASE_HASTE_AMOUNT = .34;
  Example Report: /report/yqwzpPZVhWJ6Qtj1/8-Normal+Taloc+-+Kill+(2:54)/22-Fearrful
  */
 class WoundBinder extends Analyzer {
-  procs = [];
+  procs = [0];
+  proccedOnce = false;
   lastTargetHealedPercent = 1;
   fullHasteValue = 0;
 
@@ -49,7 +50,7 @@ class WoundBinder extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WOUNDBINDER.id);
 
-    if (this.active){
+    if (this.active) {
       const { haste } = woundBinderStats(this.selectedCombatant.traitsBySpellId[SPELLS.WOUNDBINDER.id]);
       this.fullHasteValue = haste;
     }
@@ -70,8 +71,15 @@ class WoundBinder extends Analyzer {
     if (spellId !== SPELLS.WOUNDBINDER_BUFF.id) {
       return;
     }
-
+    if (!this.proccedOnce) {
+      this.procs.splice(0, 1);
+    }
+    this.proccedOnce = true;
     this.procs.push(this.calculateHasteAmount(this.lastTargetHealedPercent));
+  }
+
+  on_finished() {
+
   }
 
   statistic() {
@@ -80,7 +88,7 @@ class WoundBinder extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WOUNDBINDER.id}
         value={`${formatNumber(this.averageHaste)} average Haste`}
-        tooltip={`${this.procs.length} total procs for [${this.procs.map((value) => Math.floor(value)).join(', ')}] haste.`}
+        tooltip={`${this.proccedOnce ? this.procs.length : '0'} total ${this.procs.length > 1 || this.procs.length === 0 ? 'procs' : 'proc'}${this.proccedOnce ? ` for [${this.procs.map((value) => Math.floor(value)).join(', ')}] haste` : ''}. `}
       />
     );
   }
