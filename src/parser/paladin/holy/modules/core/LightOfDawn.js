@@ -11,8 +11,6 @@ class LightOfDawn extends Analyzer {
   _heals = 0;
   constructor(props) {
     super(props);
-    // addEventListener(string|EventFilter eventFilter, func handler): void
-    // we probably should autobind handler for comfort
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST), this._onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL), this._onHeal);
   }
