@@ -4,10 +4,11 @@ import SPELLS from 'common/SPELLS';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
+
+import GrandCrusader from '../core/GrandCrusader';
 
 const REDUCTION_TIME_REGULAR = 2000; // ms
 const REDUCTION_TIME_CRIT = 4000; // ms
@@ -24,8 +25,8 @@ class Judgment extends Analyzer {
   _crits = 0;
 
   static dependencies = {
-    abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
+    gc: GrandCrusader,
   };
 
   on_byPlayer_damage(event) {
@@ -53,13 +54,29 @@ class Judgment extends Analyzer {
     return this._totalCdr / (this.owner.fightDuration + this._totalCdr);
   }
 
+  // cdr percentage without extra casts from Crusader's Judgment
+  get baseCdr() {
+    if(!this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id)) {
+      return this._totalCdr;
+    }
+    
+    return (1 - this.gc._totalResets / this._casts) * this._totalCdr;
+  }
+
+  get baseCdrPercentage() {
+    return this.baseCdr / (this.owner.fightDuration + this.baseCdr);
+  }
+
   statistic() {
+    const cjTooltip = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ?
+      `<br/>Without the Crusader's Judgment talent, this would have been roughly <b>${formatPercentage(this.baseCdrPercentage)}%</b> (or ${formatNumber(this.baseCdr / 1000)}s).` : '';
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         label="Effective SotR CDR"
         value={`${formatPercentage(this.cdrPercentage)}%`}
-        tooltip={`Your Judgment casts reduced the cooldown of Shield of the Righteous by <b>${formatNumber(this._totalCdr / 1000)}s</b> over ${formatNumber(this._casts)} casts, ${formatNumber(this._crits)} of which were critical strikes.<br/>
+        tooltip={`Your Judgment casts reduced the cooldown of Shield of the Righteous by <b>${formatNumber(this._totalCdr / 1000)}s</b> over ${formatNumber(this._casts)} casts, ${formatNumber(this._crits)} of which were critical strikes.
+            ${cjTooltip}<br/>
             You wasted <b>${formatNumber(this._wastedCdr / 1000)}s</b> of cooldown reduction.`}
           />
     );
