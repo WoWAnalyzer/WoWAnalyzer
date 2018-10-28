@@ -5,8 +5,25 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+class UnnamedEventThingie {
+  event;
+  constructor(event) {
+    this.event = event;
+  }
+  by;
+  by(by) {
+    this.by = by;
+    return this;
+  }
+  spell;
+  spell(spell) {
+    this.spell = spell;
+    return this;
+  }
+}
+
 function event(name) {
-  // TODO: return fluent interface
+  return new UnnamedEventThingie(name);
 }
 
 const Events = {
@@ -28,7 +45,7 @@ class LightOfDawn extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(60)}
         icon={<SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
-        value={`${((this._heals.value / this._casts.value) || 0).toFixed(2)} players`}
+        value={`${((this._heals / this._casts) || 0).toFixed(2)} players`}
         label="Average hits per cast"
       />
     );
