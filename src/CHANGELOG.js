@@ -9,9 +9,14 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2018-10-25'),
+    date: new Date('2018-10-28'),
     changes: <>Added <SpellLink id={SPELLS.TRADEWINDS.id} /> module.</>,
     contributors: [Fyruna],
+  },
+  {
+    date: new Date('2018-10-26'),
+    changes: <>Added <ItemLink id={ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id} /> module. </>,
+    contributors: [Putro],
   },
   {
     date: new Date('2018-10-24'),

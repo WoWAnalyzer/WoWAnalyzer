@@ -277,6 +277,7 @@ class Abilities extends CoreAbilities {
        */
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

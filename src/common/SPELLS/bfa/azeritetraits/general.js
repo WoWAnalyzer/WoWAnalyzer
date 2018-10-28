@@ -91,6 +91,16 @@ export default {
     name: 'Blessed Portents',
     icon: 'spell_holy_fanaticism',
   },
+  SYNERGISTIC_GROWTH: {
+    id: 267892,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  SYNERGISTIC_GROWTH_BUFF: {
+    id: 272090,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
   AZERITE_FORTIFICATION: {
     id: 270659,
     name: 'Azerite Fortification',
@@ -157,6 +167,11 @@ export default {
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
   WOUNDBINDER: {
+    id: 267880,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
+  WOUNDBINDER_BUFF: {
     id: 269085,
     name: 'Woundbinder',
     icon: 'inv_misc_emberweavebandage',
