@@ -3,33 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
-class EventFilter {
-  event;
-  constructor(event) {
-    this.event = event;
-  }
-  by;
-  by(by) {
-    this.by = by;
-    return this;
-  }
-  spell;
-  spell(spell) {
-    this.spell = spell;
-    return this;
-  }
-}
-
-const Events = {
-  get cast() {
-    return new EventFilter('cast');
-  },
-  get heal() {
-    return new EventFilter('heal');
-  },
-};
 
 class LightOfDawn extends Analyzer {
   _casts = 0;
