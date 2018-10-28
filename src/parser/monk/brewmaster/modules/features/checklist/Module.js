@@ -39,6 +39,7 @@ class Checklist extends Analyzer {
           isb: this.isb.uptimeSuggestionThreshold,
           purifyHeavy: this.pb.purifyHeavySuggestion,
           purifyDelay: this.pb.purifyDelaySuggestion,
+          purifyCasts: this.pb.purifyCastSuggestion,
           totalCDR: this.brewcdr.suggestionThreshold,
           isbClipping: this.isb.clipSuggestionThreshold,
           bof: this.bof.suggestionThreshold,
