@@ -4,10 +4,14 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
+import BrewCDR from '../core/BrewCDR';
+import IronskinBrew from './IronSkinBrew';
 
 const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
 
@@ -33,6 +37,9 @@ class PurifyingBrew extends Analyzer {
   static dependencies = {
     brews: SharedBrews,
     spells: SpellUsable,
+    abilities: Abilities,
+    cdr: BrewCDR,
+    isb: IronskinBrew,
   };
 
   purifyAmounts = [];
@@ -90,6 +97,16 @@ class PurifyingBrew extends Analyzer {
       return 0;
     }
     return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
+  }
+
+  // the number of purifies you *could have* cast without dropping ISB
+  // if you didn't clip at all
+  get availablePurifies() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const cd = ability._cooldown(this.cdr.meanHaste);
+    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
+    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
+    return Math.max(castsAvailable - castsForUptime, 0);
   }
 
   on_addstagger(event) {
@@ -151,6 +168,20 @@ class PurifyingBrew extends Analyzer {
         major: 0.2,
       },
       style: 'percentage',
+    };
+  }
+
+  get purifyCastSuggestion() {
+    const target = Math.floor(this.availablePurifies);
+    return {
+      actual: this.totalPurifies,
+      max: target,
+      isLessThan: {
+        minor: target,
+        average: 0.8 * target,
+        major: 0.6 * target,
+      },
+      style: 'number',
     };
   }
 

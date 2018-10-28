@@ -1,15 +1,14 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
-import PurifyingBrew from '../spells/PurifyingBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
 
 class BrewCDR extends Analyzer {
@@ -18,7 +17,6 @@ class BrewCDR extends Analyzer {
     tp: TigerPalm,
     bob: BlackOxBrew,
     isb: IronskinBrew,
-    pb: PurifyingBrew,
     abilities: Abilities,
   };
 
@@ -62,16 +60,6 @@ class BrewCDR extends Analyzer {
     return 1 - this.isb.durationPerCast / (ability._cooldown(this.meanHaste) * 1000);
   }
 
-  // the number of purifies you *could have* cast without dropping ISB
-  // if you didn't clip at all
-  get availablePurifies() {
-    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
-    const cd = ability._cooldown(this.meanHaste);
-    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
-    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.totalCDR, 3);
-    return Math.max(castsAvailable - castsForUptime, 0);
-  }
-
   get suggestionThreshold() {
     const target = this.cdrRequiredForUptime;
     return {
@@ -85,20 +73,6 @@ class BrewCDR extends Analyzer {
     };
   }
 
-  get purifySuggestionThreshold() {
-    const target = Math.floor(this.availablePurifies);
-    return {
-      actual: this.pb.totalPurifies,
-      max: target,
-      isLessThan: {
-        minor: target,
-        average: 0.8 * target,
-        major: 0.6 * target,
-      },
-      style: 'number',
-    };
-  }
-
   on_changehaste(event) {
     this._totalHaste += event.oldHaste * (event.timestamp - this._lastHasteChange);
     this._lastHasteChange = event.timestamp;
@@ -107,6 +81,16 @@ class BrewCDR extends Analyzer {
 
   on_finished() {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
+  }
+
+  suggestions(when) {
+    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) => {
+      const bobText = this.bob.active ? <> and <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /></> : null;
+      return suggest(<>You are not generating enough <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> charges through your rotation to maintain the buff. Make sure you are using <SpellLink id={SPELLS.KEG_SMASH.id} />{bobText} as much as possible.</>)
+        .icon(SPELLS.IRONSKIN_BREW.icon)
+        .actual(`${formatPercentage(actual)}% CDR`)
+        .recommended(`at least ${formatPercentage(recommended)}% CDR is recommended`);
+    });
   }
 
   statistic() {
@@ -129,8 +113,7 @@ class BrewCDR extends Analyzer {
               ${bobDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
-            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%<br/>
-            <b>Charges Available for Purifying:</b> ${formatNumber(this.availablePurifies)} (${formatNumber(this.pb.totalPurifies)} used)`}
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
       />
     );
   }
