@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class EventListenerDefinition {
+class EventFilter {
   event;
   constructor(event) {
     this.event = event;
@@ -24,10 +24,10 @@ class EventListenerDefinition {
 
 const Events = {
   get cast() {
-    return new EventListenerDefinition('cast');
+    return new EventFilter('cast');
   },
   get heal() {
-    return new EventListenerDefinition('heal');
+    return new EventFilter('heal');
   },
 };
 
@@ -36,8 +36,17 @@ class LightOfDawn extends Analyzer {
   _heals = 0;
   constructor(props) {
     super(props);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST), () => { this._casts += 1; });
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL), () => { this._heals += 1; });
+    // addEventListener(string|EventFilter eventFilter, func handler): void
+    // we probably should autobind handler for comfort
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST), this._onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL), this._onHeal);
+  }
+
+  _onCast(event) {
+    this._casts += 1;
+  }
+  _onHeal(event) {
+    this._heals += 1;
   }
 
   statistic() {
