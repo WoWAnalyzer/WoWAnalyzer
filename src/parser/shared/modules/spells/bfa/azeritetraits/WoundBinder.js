@@ -78,10 +78,6 @@ class WoundBinder extends Analyzer {
     this.procs.push(this.calculateHasteAmount(this.lastTargetHealedPercent));
   }
 
-  on_finished() {
-
-  }
-
   statistic() {
     return (
       <TraitStatisticBox
