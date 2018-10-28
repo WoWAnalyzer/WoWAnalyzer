@@ -5,6 +5,12 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('28 October 2018'),
+    contributors: [emallson],
+    changes: <>Added <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cooldown reduction statistic.</>,
+  },
+
+  {
     date: new Date('10 October 2018'),
     contributors: [emallson],
     changes: <>Added tracking for which <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts are effective.</>,
