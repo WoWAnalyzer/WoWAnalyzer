@@ -22,6 +22,7 @@ import BreathOfFire from './modules/spells/BreathOfFire';
 import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
+import CelestialFortune from './modules/spells/CelestialFortune';
 // Azerite Traits
 import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
     guard: Guard,
+    cf: CelestialFortune,
 
     // Azerite Traits
     trainingOfNiuzao: TrainingOfNiuzao,
