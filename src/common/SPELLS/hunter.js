@@ -121,7 +121,7 @@ export default {
   },
   BARBED_SHOT_PET_BUFF: {
     id: 272790,
-    name: 'Barbed Shot',
+    name: 'Frenzy',
     icon: 'ability_hunter_barbedshot',
   },
   THRILL_OF_THE_HUNT_BUFF: {

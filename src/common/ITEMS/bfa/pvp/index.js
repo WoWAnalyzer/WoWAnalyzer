@@ -9,4 +9,10 @@ export default {
     icon: 'spell_arcane_rune',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  DREAD_GLADIATORS_BADGE: {
+    id: 161902,
+    name: 'Dread Gladiator\'s Badge',
+    icon: 'spell_holy_championsbond',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };

@@ -75,8 +75,11 @@ import ConchofDarkWhispers from '../shared/modules/items/bfa/dungeons/ConchofDar
 import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
+import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
+import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
+
 //Enchants
 import DeadlyNavigation from '../shared/modules/items/bfa/enchants/DeadlyNavigation';
 import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulNavigation';
@@ -102,6 +105,10 @@ import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedP
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
 import BlightborneInfusion from '../shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
 import ArchiveOfTheTitans from '../shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
+import Savior from '../shared/modules/spells/bfa/azeritetraits/Savior';
+import WoundBinder from '../shared/modules/spells/bfa/azeritetraits/WoundBinder';
+import SynergisticGrowth from '../shared/modules/spells/bfa/azeritetraits/SynergisticGrowth';
+import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChill';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -192,8 +199,10 @@ class CombatLogParser {
     seabreeze: Seabreeze,
     galecallersBoon: GalecallersBoon,
     harlansLoadedDice: HarlansLoadedDice,
+    lustrousGoldenPlumage: LustrousGoldenPlumage,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
+    dreadGladiatorsBadge: DreadGladiatorsBadge,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
@@ -220,6 +229,10 @@ class CombatLogParser {
     tidalSurge: TidalSurge,
     blightborneInfusion: BlightborneInfusion,
     archiveOfTheTitans: ArchiveOfTheTitans,
+    savior: Savior,
+    woundBinder:WoundBinder,
+    synergisticGrowth: SynergisticGrowth,
+    bracingChill: BracingChill,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,

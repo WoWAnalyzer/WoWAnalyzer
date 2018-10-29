@@ -103,6 +103,13 @@ export default {
     icon: 'ability_rogue_rollthebones02',
   },
 
+  //King's Rest
+  GOLDEN_LUSTER: {
+    id: 271107,
+    name: 'Golden Luster',
+    icon: 'ability_priest_angelicfeather',
+  },
+
   // Quests.............. upscaled in beta
   DIEMETRADON_FRENZY: {
     id: 268619,
