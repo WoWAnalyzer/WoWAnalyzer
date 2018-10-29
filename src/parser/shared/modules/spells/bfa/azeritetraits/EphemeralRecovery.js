@@ -5,8 +5,8 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 import ItemManaGained from 'interface/others/ItemManaGained';
 
 /**
- Your heals have a chance to apply Bracing Chill. Healing a target with Bracing Chill will heal for an additional 1155 and move Bracing Chill to a nearby ally (up to 6 times).
-
+ Casting a healing spell restores 12 mana over 8 sec. Stacks up to 2 times.
+ 
  Example Log: /report/qyzBLkQaXDJ7xdZN/5-Mythic+Taloc+-+Kill+(4:12)/23-포오서
  */
 class EphemeralRecovery extends Analyzer {
