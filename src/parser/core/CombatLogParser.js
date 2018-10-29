@@ -440,6 +440,16 @@ class CombatLogParser {
   triggerEvent(event) {
     this._modules.eventEmitter.triggerEvent(event);
   }
+  fabricateEvent(event = null, trigger = null) {
+    this.triggerEvent({
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
+      ...event,
+      __fabricated: true,
+    });
+  }
 
   deepDisable(module) {
     console.error('Disabling', module.constructor.name);
@@ -451,17 +461,6 @@ class CombatLogParser {
         }
       }
     );
-  }
-
-  fabricateEvent(event = null, trigger = null) {
-    this.triggerEvent({
-      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
-      // If this event was triggered you should pass it along
-      trigger: trigger ? trigger : undefined,
-      ...event,
-      __fabricated: true,
-    });
   }
 
   byPlayer(event, playerId = this.player.id) {
