@@ -108,7 +108,7 @@ class DefensiveStance extends Analyzer {
   suggestions(when) {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => {
-        return suggest('The damage you inflicted were more reduced than those you received. Try to reduce the uptime of Defensive Stance when you take less damage.')
+        return suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
           .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
           .recommended('Reduced damage taken should be higher than your reduced damage.');
