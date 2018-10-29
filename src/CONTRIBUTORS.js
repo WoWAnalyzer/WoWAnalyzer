@@ -517,7 +517,7 @@ export const Matardarix = {
     spec: SPECS.ARMS_WARRIOR,
     link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
   }],
-},
+};
 export const Streammz = {
   nickname: 'Streammz',
   github: 'Streammz',
