@@ -434,7 +434,7 @@ export default {
     id: 115356,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
-    maelstrom: 40,
+    maelstrom: 10, // 30 Maelstrom - 66% (20) = 10
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -599,6 +599,11 @@ export default {
     id: 215785,
     name: 'Hot Hand Buff',
     icon: 'spell_fire_playingwithfire',
+  },
+  ASCENDANCE_ENHANCE: {
+    id: 114051,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
   },
   // Restoration Shaman
   CHAIN_HEAL: {

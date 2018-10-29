@@ -89,6 +89,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WINDSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CRASH_LIGHTNING,
