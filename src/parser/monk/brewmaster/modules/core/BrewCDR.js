@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -9,13 +10,11 @@ import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
-import AnvilHardenedWristwraps from '../items/AnvilHardenedWristwraps';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
     ks: KegSmash,
     tp: TigerPalm,
-    wrists: AnvilHardenedWristwraps,
     bob: BlackOxBrew,
     isb: IronskinBrew,
     abilities: Abilities,
@@ -43,11 +42,13 @@ class BrewCDR extends Analyzer {
     totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr;
-    // ...and wrists
-    totalCDR += this.wrists.cdr;
     return totalCDR;
   }
 
+  // ok emallson, for the last time *WRITE DOWN YOUR DERIVATIONS*
+  //
+  // not the derivation, but close enough i guess:
+  // https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1238#discussion_r163734298
   get cooldownReductionRatio() {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
@@ -82,11 +83,17 @@ class BrewCDR extends Analyzer {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
   }
 
+  suggestions(when) {
+    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) => {
+      const bobText = this.bob.active ? <> and <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /></> : null;
+      return suggest(<>You are not generating enough <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> charges through your rotation to maintain the buff. Make sure you are using <SpellLink id={SPELLS.KEG_SMASH.id} />{bobText} as much as possible.</>)
+        .icon(SPELLS.IRONSKIN_BREW.icon)
+        .actual(`${formatPercentage(actual)}% CDR`)
+        .recommended(`at least ${formatPercentage(recommended)}% CDR is recommended`);
+    });
+  }
+
   statistic() {
-    let wristsDesc = "";
-    if (this.wrists.active) {
-      wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${(this.wrists.cdr / 1000).toFixed(2)}s</b> (<b>${(this.wrists.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
-    }
     let bobDesc = "";
     if (this.bob.active) {
       bobDesc = `<li>${this.bob.casts} Black Ox Brew casts — <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
@@ -104,7 +111,6 @@ class BrewCDR extends Analyzer {
               ${bocKsDesc}
               <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bobDesc}
-              ${wristsDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
             <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}

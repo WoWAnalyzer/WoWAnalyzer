@@ -7,9 +7,6 @@ const halfHP = 0.5;
 const rainBuffer = 2000;
 const linkBufferStart = 500;
 const linkBufferEnd = 1500;
-const totemSpawnDistance = 200; // 2 yards
-const ebbAndFlowMinDistance = 8;
-const ebbAndFlowMaxDistance = 40;
 
 class Spreadsheet extends Analyzer {
   static dependencies = {
@@ -19,24 +16,15 @@ class Spreadsheet extends Analyzer {
   potentialSurgingTideProcs = 0;
   potentialOverflowingShoresTargets = 0;
   potentialSpoutingSpiritsTargets = 0;
-  healingTideTicks = [];
 
   spiritLinkCastTimestamp = 0;
   healingRainCastTimestamp = 0;
-  healingTidePosition = {};
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.SPIRIT_LINK_TOTEM.id) {
       this.spiritLinkCastTimestamp = event.timestamp;
-    } else if (spellId === SPELLS.HEALING_TIDE_TOTEM_CAST.id) {
-      // totem spawns 2 yards behind and to the right of your position on cast
-      const radians = event.facing / 100;
-      const xDistance = totemSpawnDistance * Math.cos(radians);
-      const yDistance = totemSpawnDistance * Math.sin(radians);
-
-      this.healingTidePosition = {x: event.x + xDistance, y: event.y + yDistance};
     }
   }
 
@@ -72,18 +60,6 @@ class Spreadsheet extends Analyzer {
     // checking for a 1 second timespan shortly after SLT cast to find out how many people are inside the link when spouting spirits would heal
     if (spellId === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id && this.spiritLinkCastTimestamp <= event.timestamp - linkBufferStart && this.spiritLinkCastTimestamp >= event.timestamp - linkBufferEnd) {
       this.potentialSpoutingSpiritsTargets += 1;
-    } else if (spellId === SPELLS.HEALING_TIDE_TOTEM_HEAL.id) {
-      // noone cares about pets
-      const combatant = this.combatants.players[event.targetID];
-      if (!combatant) {
-        return;
-      }
-
-      const a = this.healingTidePosition.x - event.x;
-      const b = this.healingTidePosition.y - event.y;
-      const distanceToPlayer = Math.sqrt(a*a + b*b);
-
-      this.healingTideTicks.push(distanceToPlayer);
     }
   }
 
@@ -103,11 +79,6 @@ class Spreadsheet extends Analyzer {
   }
   get overflowingShoresHits() {
     return this.potentialOverflowingShoresTargets;
-  }
-  get ebbAndFlowEffectiveness() {
-    const averageDistance = this.healingTideTicks.reduce((total, tick) => total + tick, 0) / this.healingTideTicks.length / 100;
-    // 8 - 40 yards linear falloff
-    return Math.min(1 - ((averageDistance - ebbAndFlowMinDistance) / (ebbAndFlowMaxDistance - ebbAndFlowMinDistance)), 1);
   }
 }
 

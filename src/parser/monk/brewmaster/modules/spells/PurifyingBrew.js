@@ -2,12 +2,17 @@ import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
+import BrewCDR from '../core/BrewCDR';
+import IronskinBrew from './IronSkinBrew';
 
 const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
 
@@ -33,6 +38,9 @@ class PurifyingBrew extends Analyzer {
   static dependencies = {
     brews: SharedBrews,
     spells: SpellUsable,
+    abilities: Abilities,
+    cdr: BrewCDR,
+    isb: IronskinBrew,
   };
 
   purifyAmounts = [];
@@ -90,6 +98,16 @@ class PurifyingBrew extends Analyzer {
       return 0;
     }
     return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
+  }
+
+  // the number of purifies you *could have* cast without dropping ISB
+  // if you didn't clip at all
+  get availablePurifies() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const cd = ability._cooldown(this.cdr.meanHaste);
+    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
+    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
+    return Math.max(castsAvailable - castsForUptime, 0);
   }
 
   on_addstagger(event) {
@@ -152,6 +170,43 @@ class PurifyingBrew extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  get purifyCastSuggestion() {
+    const target = Math.floor(this.availablePurifies);
+    return {
+      actual: this.totalPurifies,
+      max: target,
+      isLessThan: {
+        minor: target,
+        average: 0.8 * target,
+        major: 0.6 * target,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${actual.toFixed(2)}s Average Delay`)
+        .recommended(`< ${recommended.toFixed(2)}s is recommended`);
+    });
+
+    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should <em>almost never</em> cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+    });
+
+    when(this.purifyCastSuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should spend brews not needed to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> on <SpellLink id={SPELLS.PURIFYING_BREW.id} />. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> has a capped duration, so spending all brews on the buff ultimately wastes resources.</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${formatNumber(actual)} casts`)
+        .recommended(<>{formatNumber(recommended)} could be cast without dropping <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>);
+    });
   }
 
   statistic() {
