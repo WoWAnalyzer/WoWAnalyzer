@@ -79,6 +79,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           tooltip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew." />
       </Rule>
       <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} /> effectively</>}
+        performanceMethod={PERFORMANCE_METHOD.HARMONIC}
         description={
           <>
             Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
@@ -93,9 +94,8 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         <Requirement name={<>Purifies with less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /></>} thresholds={thresholds.purifyHeavy} />
         <Requirement name={'Average Purification Delay'} thresholds={thresholds.purifyDelay} 
           tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
-        <AbilityRequirement spell={SPELLS.PURIFYING_BREW.id}
-          name={<><SpellLink id={SPELLS.PURIFYING_BREW.id} /> Cast Efficiency</>}
-          tooltip="A low cast efficiency indicates that brews are being wasted to capping charges.<br/>The cast efficiency of Purifying Brew is shared with Ironskin Brew." />
+        <Requirement name={<>Available <SpellLink id={SPELLS.PURIFYING_BREW.id} /> charges used</>} thresholds={thresholds.purifyCasts}
+          tooltip="While maintaining Ironskin is critical to your survival, with proper play it is possible to generate more brews than you need to maintain it. These excess brews should be spent on Purifying." />
       </Rule>
       <Rule
         name={'Top the DPS Charts'}
