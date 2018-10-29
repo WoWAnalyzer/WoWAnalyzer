@@ -4,7 +4,6 @@ import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
-import { captureException } from 'common/errorLogger';
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
@@ -119,6 +118,7 @@ import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/Constr
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+import EventEmitter from './modules/EventEmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -128,6 +128,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
@@ -434,84 +435,11 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
-  _eventListeners = {};
-  addEventListener(type, listener, module, options = null) {
-    this._eventListeners[type] = this._eventListeners[type] || [];
-    this._eventListeners[type].push({
-      ...options,
-      module,
-      listener,
-    });
+  addEventListener(...args) {
+    this._modules.eventEmitter.addEventListener(...args);
   }
   triggerEvent(event) {
-    if (process.env.NODE_ENV === 'development') {
-      if (!event.type) {
-        console.log(event);
-        throw new Error('Events should have a type. No type received. See the console for the event.');
-      }
-    }
-
-    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
-
-    if (event.timestamp) {
-      this._timestamp = event.timestamp;
-    }
-    this._event = event;
-
-    const isByPlayer = this.byPlayer(event);
-    const isToPlayer = this.toPlayer(event);
-    const isByPlayerPet = this.byPlayerPet(event);
-    const isToPlayerPet = this.toPlayerPet(event);
-    const spellId = event.ability ? event.ability.guid : undefined;
-
-    // TODO: Refactor this to compose a function with only the necessary if-statements in the addEventListener method so this doesn't become an endless list of if-statements
-    const run = options => {
-      if (!isByPlayer && options.byPlayer) {
-        return;
-      }
-      if (!isToPlayer && options.toPlayer) {
-        return;
-      }
-      if (!isByPlayerPet && options.byPlayerPet) {
-        return;
-      }
-      if (!isToPlayerPet && options.toPlayerPet) {
-        return;
-      }
-      if (options.spell !== undefined && options.spell.id !== spellId) {
-        return;
-      }
-      try {
-        options.listener(event);
-      } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
-          throw err;
-        }
-        console.error('Disabling', options.module.constructor.name, 'and child dependencies because an error occured', err);
-        // Disable this module and all active modules that have this as a dependency
-        this.deepDisable(options.module);
-        captureException(err);
-      }
-    };
-
-    {
-      // Handle on_event (listeners of all events)
-      const listeners = this._eventListeners.event;
-      if (listeners) {
-        listeners.forEach(run);
-      }
-    }
-    {
-      const listeners = this._eventListeners[event.type];
-      if (listeners) {
-        listeners.forEach(run);
-      }
-    }
-
-    this.eventHistory.push(event);
-    // Some modules need to have a primitive value to cause re-renders
-    // TODO: This can probably be removed since we only render upon completion now
-    this.eventCount += 1;
+    this._modules.eventEmitter.triggerEvent(event);
   }
 
   deepDisable(module) {

@@ -1,6 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Module from './Module';
+import EventFilter from './EventFilter';
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
 
@@ -26,7 +27,10 @@ class Analyzer extends Module {
         return;
       }
       const [listener, , playerFilter, pet, eventType] = match;
+      const filter = new EventFilter(eventType);
 
+      // This only shows available filters used by the legacy method.
+      // For a full list of supported properties see the core CombatLogParser
       let by = 0;
       if (playerFilter === 'by' && !pet) {
         by = by | SELECTED_PLAYER;
@@ -34,6 +38,7 @@ class Analyzer extends Module {
       if (playerFilter === 'by' && pet) {
         by = by | SELECTED_PLAYER_PET;
       }
+      filter.by(by);
       let to = 0;
       if (playerFilter === 'to' && !pet) {
         to = to | SELECTED_PLAYER;
@@ -41,24 +46,18 @@ class Analyzer extends Module {
       if (playerFilter === 'to' && pet) {
         to = to | SELECTED_PLAYER_PET;
       }
+      filter.to(to);
 
-      this.addEventListener(eventType, event => {
-        if (!this.active) {
-          return;
-        }
-
-        this[listener].call(this, event);
-      }, {
-        by,
-        to,
-        // This only shows available filters used by the legacy method.
-        // For a full list of supported properties see the core CombatLogParser
-      });
+      this.addEventListener(filter, this[listener]);
     });
   }
 
-  addEventListener(eventType, listener, options = null) {
-    this.owner.addEventListener(eventType, listener.bind(this), this, options);
+  /**
+   * @param {string|EventFilter} eventFilter
+   * @param {function} listener
+   */
+  addEventListener(eventFilter, listener) {
+    this.owner.addEventListener(eventFilter, listener.bind(this), this);
   }
   /**
    * Get a list of all methods of all classes in the prototype chain until this class.
