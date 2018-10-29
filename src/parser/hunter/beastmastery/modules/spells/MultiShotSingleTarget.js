@@ -62,7 +62,7 @@ class MultiShotSingleTarget extends Analyzer {
 
   get castsWithoutHitsTreshold() {
     return {
-      actual: this.castsWithoutHits + 5,
+      actual: this.castsWithoutHits,
       isGreaterThan: {
         minor: 0,
         average: 0,
