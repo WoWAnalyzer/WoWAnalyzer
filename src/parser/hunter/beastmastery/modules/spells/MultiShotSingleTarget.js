@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
@@ -16,21 +15,13 @@ class MultiShotSingleTarget extends Analyzer {
   casts = 0;
   castsWithoutHits = 0;
 
-  constructor(...args) {
-    super(...args);
-  }
-
   on_toPlayerPet_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
     }
 
-    // Refreshes? Not sure if this is needed, or if removebuff is called before this.
-    if (this.cleaveUp && this.beastCleaveHits == 0) {
-      this.castsWithoutHits++;
-    }
-
+    this.casts++;
     this.cleaveUp = true;
     this.beastCleaveHits = 0;
   }
@@ -47,6 +38,20 @@ class MultiShotSingleTarget extends Analyzer {
     this.cleaveUp = false;
   }
 
+  on_toPlayerPet_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
+      return;
+    }
+
+    this.casts++;
+    if (this.beastCleaveHits === 0) {
+      this.castsWithoutHits++;
+    }
+    
+    this.beastCleaveHits = 0;
+  }
+
   on_byPlayerPet_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
@@ -55,21 +60,27 @@ class MultiShotSingleTarget extends Analyzer {
     this.beastCleaveHits++;
   }
 
-  suggestions(when) {
-    when({
-      actual: this.castsWithoutHits,
+  get castsWithoutHitsTreshold() {
+    return {
+      actual: this.castsWithoutHits + 5,
       isGreaterThan: {
         minor: 0,
         average: 0,
-        major: 3
+        major: 3,
       },
-      style: 'number'
-    }).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You've casted <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual == 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using multi-shot.</>)
-        .icon(SPELLS.BEAST_CLEAVE_PET_BUFF.icon)
-        .actual(`${actual} cast${actual == 1 ? '' : 's'} without any Beast Cleave damage`)
-        .recommended(`0 is recommended`);
-    })
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    if (this.casts > 0) {
+      when(this.castsWithoutHitsTreshold).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>You've casted <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual === 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using multi-shot.</>)
+          .icon(SPELLS.MULTISHOT_BM.icon)
+          .actual(`${actual} cast${actual === 1 ? '' : 's'} without any Beast Cleave damage`)
+          .recommended(`${recommended} is recommended`);
+      });
+    }
   }
 }
 
