@@ -287,7 +287,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 1500,
+          static: 1500,
         },
       },
       {
@@ -304,6 +304,7 @@ class Abilities extends CoreAbilities {
        */
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

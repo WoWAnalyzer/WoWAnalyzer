@@ -19,6 +19,7 @@ import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
+import { STAT_TRACKER as ARCHIVE_OF_THE_TITANS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
 import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
 
 const debug = false;
@@ -267,6 +268,7 @@ class StatTracker extends Analyzer {
       versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
     },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
+    [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
@@ -341,6 +343,16 @@ class StatTracker extends Analyzer {
     [SPELLS.RAPID_ADAPTATION.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
+    [SPELLS.DIG_DEEP.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
+      strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(385, 3174651, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+    },
+    [SPELLS.GOLDEN_LUSTER.id]: {
+      itemId: ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(380, 864, item.itemLevel),
     },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here

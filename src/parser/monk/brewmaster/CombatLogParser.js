@@ -22,6 +22,7 @@ import BreathOfFire from './modules/spells/BreathOfFire';
 import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
+import CelestialFortune from './modules/spells/CelestialFortune';
 // Azerite Traits
 import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
@@ -35,9 +36,6 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import MitigationCheck from './modules/features/MitigationCheck';
 
 // Items
-import AnvilHardenedWristwraps from './modules/items/AnvilHardenedWristwraps';
-import StormstoutsLastGasp from './modules/items/StormstoutsLastGasp';
-import SalsalabimsLostTunic from './modules/items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GarothiWorldbreakerMeleeNormalizer from './normalizers/GarothiWorldbreakerMelee';
@@ -76,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
     guard: Guard,
+    cf: CelestialFortune,
 
     // Azerite Traits
     trainingOfNiuzao: TrainingOfNiuzao,
@@ -84,9 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fitToBurst: FitToBurst,
 
     // Items
-    ahw: AnvilHardenedWristwraps,
-    stormstoutsLastGasp: StormstoutsLastGasp,
-    salsalabim: SalsalabimsLostTunic,
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,

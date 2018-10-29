@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
+import Checklist from './modules/checklist/Module';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -22,13 +23,11 @@ import Stomp from './modules/talents/Stomp';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 
 //Spells
-import BestialWrathAverageFocus from "./modules/spells/bestialwrath/BestialWrathAverageFocus";
-import BestialWrathUptime from "./modules/spells/bestialwrath/BestialWrathUptime";
-import GainedBestialWraths from "./modules/spells/bestialwrath/GainedBestialWraths";
 import BeastCleave from './modules/spells/BeastCleave';
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
+import BestialWrath from './modules/spells/BestialWrath';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
@@ -48,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,9 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTab: FocusTab,
 
     //Spells
-    bestialWrathAverageFocus: BestialWrathAverageFocus,
-    bestialWrathUptime: BestialWrathUptime,
-    gainedBestialWraths: GainedBestialWraths,
+    bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
