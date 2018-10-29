@@ -30,6 +30,7 @@ class EventEmitter extends Module {
     });
   }
   _compileListener(eventFilter, listener, module) {
+    listener = this._prependCounter(listener);
     if (eventFilter instanceof EventFilter) {
       listener = this._prependFilters(eventFilter, listener);
     }
@@ -37,11 +38,19 @@ class EventEmitter extends Module {
     listener = this._prependActiveCheck(listener, module);
     return listener;
   }
+  _actualExecutions = 0;
+  _prependCounter(listener) {
+    return event => {
+      this._actualExecutions += 1;
+      listener(event);
+    };
+  }
   _prependActiveCheck(listener, module) {
     return function (event) {
       if (module.active) {
         listener(event);
       }
+      // TODO: Remove listener when the module is disabled
     };
   }
   _prependFilters(eventFilter, listener) {
@@ -108,6 +117,7 @@ class EventEmitter extends Module {
     };
   }
 
+  _listenersCalled = 0;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -124,6 +134,7 @@ class EventEmitter extends Module {
 
     const run = options => {
       try {
+        this._listenersCalled += 1;
         options.listener(event);
       } catch (err) {
         if (process.env.NODE_ENV === 'development') {
