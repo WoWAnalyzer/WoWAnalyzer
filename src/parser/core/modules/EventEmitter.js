@@ -16,28 +16,15 @@ class EventEmitter extends Module {
   static __dangerousInvalidUsage = false;
 
   _eventListenersByEventType = {};
+  /**
+   * @param {string|EventFilter} eventFilter
+   * @param {function} listener
+   * @param {Module} module
+   */
   addEventListener(eventFilter, listener, module) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
-    const options = {};
-    if (eventFilter instanceof EventFilter) {
-      const by = eventFilter.by();
-      if (by === SELECTED_PLAYER) {
-        options.byPlayer = true;
-      }
-      if (by === SELECTED_PLAYER_PET) {
-        options.byPlayerPet = true;
-      }
-      const to = eventFilter.to();
-      if (to === SELECTED_PLAYER) {
-        options.toPlayer = true;
-      }
-      if (to === SELECTED_PLAYER_PET) {
-        options.toPlayerPet = true;
-      }
-    }
     this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
     this._eventListenersByEventType[eventType].push({
-      ...options,
       eventFilter,
       listener: this._compileListener(eventFilter, listener, module),
     });
@@ -46,29 +33,80 @@ class EventEmitter extends Module {
     if (eventFilter instanceof EventFilter) {
       listener = this._prependFilters(eventFilter, listener);
     }
-    // We need to do this last so it's at the top level
+    // We need to prepend this last so it's at the top level (the first check)
     listener = this._prependActiveCheck(listener, module);
     return listener;
   }
   _prependActiveCheck(listener, module) {
     return function (event) {
-      if (!module.active) return;
-      listener(event);
+      if (module.active) {
+        listener(event);
+      }
     };
   }
   _prependFilters(eventFilter, listener) {
-    // const by = eventFilter.by();
-    // if (by) {
-    //   listener = this._prependByCheck(listener, by);
-    // }
+    const by = eventFilter.by();
+    if (by) {
+      listener = this._prependByCheck(listener, by);
+    }
+    const to = eventFilter.to();
+    if (to) {
+      listener = this._prependToCheck(listener, to);
+    }
+    const spell = eventFilter.spell();
+    if (spell) {
+      listener = this._prependSpellCheck(listener, spell);
+    }
     return listener;
   }
-  // _prependByCheck(listener, by) {
-  //   const requiresSelectedPlayer = by & SELECTED_PLAYER;
-  //   const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
-  //
-  //
-  // }
+  _prependByCheck(listener, by) {
+    const requiresSelectedPlayer = by & SELECTED_PLAYER;
+    const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
+
+    let check;
+    if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
+      check = event => this.owner.byPlayer(event) || this.owner.byPlayerPet(event);
+    } else if (requiresSelectedPlayer) {
+      check = event => this.owner.byPlayer(event);
+    } else if (requiresSelectedPlayerPet) {
+      check = event => this.owner.byPlayerPet(event);
+    }
+    if (!check) return listener;
+
+    return function (event) {
+      if (check(event)) {
+        listener(event);
+      }
+    };
+  }
+  _prependToCheck(listener, to) {
+    const requiresSelectedPlayer = to & SELECTED_PLAYER;
+    const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
+
+    let check;
+    if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
+      check = event => this.owner.toPlayer(event) || this.owner.toPlayerPet(event);
+    } else if (requiresSelectedPlayer) {
+      check = event => this.owner.toPlayer(event);
+    } else if (requiresSelectedPlayerPet) {
+      check = event => this.owner.toPlayerPet(event);
+    }
+    if (!check) return listener;
+
+    return function (event) {
+      if (check(event)) {
+        listener(event);
+      }
+    };
+  }
+  _prependSpellCheck(listener, spell) {
+    const spellId = spell.id;
+    return function (event) {
+      if (event.ability && event.ability.guid === spellId) {
+        listener(event);
+      }
+    };
+  }
 
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
@@ -84,26 +122,7 @@ class EventEmitter extends Module {
       this.owner._timestamp = event.timestamp;
     }
 
-    const isByPlayer = this.owner.byPlayer(event);
-    const isToPlayer = this.owner.toPlayer(event);
-    const isByPlayerPet = this.owner.byPlayerPet(event);
-    const isToPlayerPet = this.owner.toPlayerPet(event);
-
-    // TODO: Refactor this to compose a function with only the necessary if-statements in the addEventListener method so this doesn't become an endless list of if-statements
     const run = options => {
-      if (!isByPlayer && options.byPlayer) {
-        return;
-      }
-      if (!isByPlayerPet && options.byPlayerPet) {
-        return;
-      }
-      if (!isToPlayer && options.toPlayer) {
-        return;
-      }
-      if (!isToPlayerPet && options.toPlayerPet) {
-        return;
-      }
-
       try {
         options.listener(event);
       } catch (err) {
