@@ -83,7 +83,6 @@ class EventEmitter extends Module {
     if (event.timestamp) {
       this.owner._timestamp = event.timestamp;
     }
-    this.owner._event = event;
 
     const isByPlayer = this.owner.byPlayer(event);
     const isToPlayer = this.owner.toPlayer(event);

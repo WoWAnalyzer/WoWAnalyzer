@@ -275,7 +275,6 @@ class CombatLogParser {
   }
 
   _timestamp = null;
-  _event = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
