@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -53,7 +53,7 @@ class KillerCobra extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
         value={this.effectiveKillCommandResets}
