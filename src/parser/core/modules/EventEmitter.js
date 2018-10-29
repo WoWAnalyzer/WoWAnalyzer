@@ -81,9 +81,9 @@ class EventEmitter extends Module {
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
 
     if (event.timestamp) {
-      this._timestamp = event.timestamp;
+      this.owner._timestamp = event.timestamp;
     }
-    this._event = event;
+    this.owner._event = event;
 
     const isByPlayer = this.owner.byPlayer(event);
     const isToPlayer = this.owner.toPlayer(event);
