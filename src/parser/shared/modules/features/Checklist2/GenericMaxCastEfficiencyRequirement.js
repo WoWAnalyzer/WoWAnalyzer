@@ -32,18 +32,15 @@ class GenericMaxCastEfficiencyRequirement extends React.PureComponent {
     const {
       casts,
       maxCasts,
-      recommendedEfficiency: minor,
-      averageIssueEfficiency: average,
-      majorIssueEfficiency: major,
     } = this.props.castEfficiency;
 
     return {
       actual: casts,
       max: maxCasts,
       isLessThan: {
-        minor,
-        average,
-        major,
+        minor: maxCasts,
+        average: maxCasts - 1,
+        major: maxCasts - 2,
       },
       style: 'number',
     };
