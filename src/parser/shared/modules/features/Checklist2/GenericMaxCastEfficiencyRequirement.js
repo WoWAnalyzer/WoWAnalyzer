@@ -16,11 +16,8 @@ class GenericMaxCastEfficiencyRequirement extends React.PureComponent {
     spell: PropTypes.number.isRequired,
     name: PropTypes.node,
     castEfficiency: PropTypes.shape({
-      efficiency: PropTypes.number.isRequired,
-      gotMaxCasts: PropTypes.bool.isRequired,
-      recommendedEfficiency: PropTypes.number.isRequired,
-      averageIssueEfficiency: PropTypes.number.isRequired,
-      majorIssueEfficiency: PropTypes.number.isRequired,
+      casts: PropTypes.number.isRequired,
+      maxCasts: PropTypes.number.isRequired,
     }).isRequired,
   };
 
