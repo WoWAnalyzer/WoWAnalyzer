@@ -26,6 +26,7 @@ const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
 const CHINESE_REGION = 'cn';
+const BENCHMARK = false;
 
 class EventParser extends React.PureComponent {
   static propTypes = {
@@ -137,7 +138,9 @@ class EventParser extends React.PureComponent {
       // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
       events = events.filter(event => event.type !== 'combatantinfo');
       events = parser.normalize(events);
-      this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
+      if (!BENCHMARK) {
+        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
+      }
 
       const numEvents = events.length;
       // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -151,14 +154,16 @@ class EventParser extends React.PureComponent {
         }
 
         const start = Date.now();
-        while (((Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
+        while ((BENCHMARK || (Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
           parser.triggerEvent(events[eventIndex]);
           eventIndex += 1;
         }
         const progress = Math.min(1, eventIndex / numEvents);
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        // Delay the next iteration until next frame so the browser doesn't appear to be frozen
-        await sleep(0); // eslint-disable-line no-await-in-loop
+        if (!BENCHMARK) {
+          this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+          // Delay the next iteration until next frame so the browser doesn't appear to be frozen
+          await sleep(0); // eslint-disable-line no-await-in-loop
+        }
       }
       timeAvailable && console.timeEnd('player event parsing');
 

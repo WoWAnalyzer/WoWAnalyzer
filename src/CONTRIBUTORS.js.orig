@@ -507,6 +507,7 @@ export const jos3p = {
   github: 'jos3p',
   discord: 'jos3p#9746',
 };
+<<<<<<< HEAD
 export const mblanton = {
   nickname: 'mtblanton',
   github: 'mtblanton',
@@ -516,8 +517,10 @@ export const mblanton = {
     link: 'https://worldofwarcraft.com/en-us/character/turalyon/Harzwaz',
   }],
 };
+=======
 export const Streammz = {
   nickname: 'Streammz',
   github: 'Streammz',
   discord: 'Streammz#9999',
 };
+>>>>>>> 9816bc58f39d5a47afd29cb6ce58558ac5766d09
