@@ -50,7 +50,7 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{cpm(SPELLS.CHAIN_HEAL.id)}</td></tr>
               <tr><td>{parser._modules.spreadsheet.surgingTideProcsPerMinute}</td></tr>
               <tr><td>{(parser._modules.spreadsheet.spoutingSpiritsHits / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{(parser._modules.spreadsheet.overflowingShoresHits / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
+              <tr><td>{(parser._modules.overflowingShores.overflowingShoresHits / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
               <tr><td>{parser._modules.ebbAndFlow.ebbAndFlowEffectiveness.toFixed(2)}</td></tr>
               <tr><td>{parser._modules.combatants.playerCount}</td></tr>
               <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
