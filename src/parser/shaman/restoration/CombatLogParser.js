@@ -5,7 +5,10 @@ import RestorationShamanSpreadsheet from 'interface/others/RestorationShamanSpre
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
@@ -69,6 +72,9 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
     spreadsheet: Spreadsheet,
+    manaTracker: ManaTracker,
+    hpmDetails: HealingEfficiencyDetails,
+    hpmTracker: HealingEfficiencyTracker,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

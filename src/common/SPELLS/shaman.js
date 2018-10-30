@@ -697,12 +697,12 @@ export default {
     name: 'Recall Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
   },
-  EARTHEN_SHIELD_TOTEM_ABSORB: {
+  EARTHEN_WALL_TOTEM_ABSORB: {
     id: 201633,
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
-  EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
+  EARTHEN_WALL_TOTEM_SELF_DAMAGE: {
     id: 201657,
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
