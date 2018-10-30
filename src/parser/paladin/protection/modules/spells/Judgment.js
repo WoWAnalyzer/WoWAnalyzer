@@ -69,7 +69,7 @@ class Judgment extends Analyzer {
 
   statistic() {
     const cjTooltip = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ?
-      `<br/>Without the Crusader's Judgment talent, this would have been roughly <b>${formatPercentage(this.baseCdrPercentage)}%</b> (or ${formatNumber(this.baseCdr / 1000)}s).` : '';
+      `<br/>Without the Crusader's Judgment talent, your effective SotR CDR would have been roughly <b>${formatPercentage(this.baseCdrPercentage)}%</b> (or ${formatNumber(this.baseCdr / 1000)}s).` : '';
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
