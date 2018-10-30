@@ -5,7 +5,7 @@ const BUFFER = 2000;
 
 class OverflowingShores extends BaseHealerAzerite {
   potentialHits = 0;
-  healingRainCastTimestamp = 0;
+  healingRainCastTimestamp = null;
 
   static TRAIT = SPELLS.OVERFLOWING_SHORES_TRAIT.id;
   static HEAL = SPELLS.OVERFLOWING_SHORES_HEAL.id;
@@ -34,7 +34,7 @@ class OverflowingShores extends BaseHealerAzerite {
       this.potentialHits += 1;
 
       // checking how many people the initial of healing rain hits, while filtering out overheal events
-    } else if (this.healingRainCastTimestamp && spellId === SPELLS.HEALING_RAIN_HEAL.id && this.healingRainCastTimestamp <= event.timestamp && this.healingRainCastTimestamp >= event.timestamp - BUFFER) {
+    } else if (this.healingRainCastTimestamp && spellId === SPELLS.HEALING_RAIN_HEAL.id && this.healingRainCastTimestamp >= event.timestamp - BUFFER) {
       if (event.overheal) {
         return;
       }
