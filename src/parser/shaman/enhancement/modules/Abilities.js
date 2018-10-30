@@ -30,6 +30,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
+        buffSpellId: SPELLS.FERAL_SPIRIT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -165,12 +166,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODLUST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+        buffSpellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -180,6 +179,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
