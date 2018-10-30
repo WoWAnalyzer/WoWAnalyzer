@@ -47,22 +47,16 @@ class DefensiveStance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id);
-
-    this.addEventListener('damage', this.handleDamageTaken, {
-      toPlayer: true,
-    });
-    this.addEventListener('damage', this.handleDamageDone, {
-      byPlayer: true,
-    });
   }
 
-  handleDamageTaken(event) {
+  on_toPlayer_damage(event) {
     if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
       const preMitigatedDefensiveStance = (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
       this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
     }
   }
-  handleDamageDone(event) {
+
+  on_byPlayer_damage(event) {
     if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
       const damageDone = event.amount / (1 - DEFENSIVE_STANCE_DL);
       this.totalDamageLost += damageDone * DEFENSIVE_STANCE_DL;

@@ -19,6 +19,13 @@ class OverpowerAnalyzer extends Analyzer {
     proc = 0;
     wastedProc = 0;
 
+    hasEP = false;
+
+    constructor(...args) {
+        super(...args);
+        this.hasEP = this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
+    }
+
     on_byPlayer_cast(event) {
         if (event.ability.guid !== SPELLS.OVERPOWER.id) {
             return;
@@ -26,7 +33,7 @@ class OverpowerAnalyzer extends Analyzer {
 
         this.proc += 1;
         const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
-        if (!this.executeRange.isTargetInExecuteRange(event) && !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id)) {
+        if (!this.executeRange.isTargetInExecuteRange(event) && !this.hasEP) {
             if (overpower !== undefined && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
                 this.wastedProc += 1;
 
@@ -34,7 +41,7 @@ class OverpowerAnalyzer extends Analyzer {
                 event.meta.isInefficientCast = true;
                 event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
             }
-        } else if (this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id)) {
+        } else if (this.hasEP) {
             if (overpower !== undefined && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)){
                 this.wastedProc += 1;
 

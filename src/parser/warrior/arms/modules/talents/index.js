@@ -37,30 +37,22 @@ class TalentStatisticBox extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    // Deactivate this module if none of the underlying modules are active.
     this.active = Object.keys(this.constructor.dependencies)
-      .map(key => this[key])
-      .some(dependency => dependency.active);
+      .map(name => this[name].active)
+      .includes(true);
   }
 
   statistic() {
     return (
-      <StatisticsListBox
+      <StatisticsListBox title="Talents"
         position={STATISTIC_ORDER.CORE(2)}
-        title="Talents"
-        tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
-      >
-        {this.skullsplitter.active && this.skullsplitter.subStatistic()}
-        {this.suddenDeath.active && this.suddenDeath.subStatistic()}
-        {this.warMachine.active && this.warMachine.subStatistic()}
-        {this.stormBolt.active && this.stormBolt.subStatistic()}
-        {this.impendingVictory.active && this.impendingVictory.subStatistic()}
-        {this.secondWind.active && this.secondWind.subStatistic()}
-        {this.cleave.active && this.cleave.subStatistic()}
-        {this.warbreaker.active && this.warbreaker.subStatistic()}
-        {this.avatar.active && this.avatar.subStatistic()}
-        {this.angerManagement.active && this.angerManagement.subStatistic()}
-        {this.ravager.active && this.ravager.subStatistic()}
+        tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage.">
+        {
+          Object.keys(this.constructor.dependencies)
+            .map(name => this[name])
+            .filter(module => module.active)
+            .map(module => module.subStatistic())
+        }
       </StatisticsListBox>
     );
   }

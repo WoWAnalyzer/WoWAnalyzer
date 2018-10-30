@@ -48,15 +48,13 @@ class ArmWarriorChecklist extends React.PureComponent {
           description={(
             <>
                Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible. 
-               Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. {' '}
+               Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
                <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
         >
-            {!combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) && <AbilityRequirement spell={SPELLS.COLOSSUS_SMASH.id} />}
-            {combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) && <AbilityRequirement spell={SPELLS.WARBREAKER_TALENT.id} />}
-            {!combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) && <AbilityRequirement spell={SPELLS.BLADESTORM.id} />}
-            {combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_ARMS.id} />}
+            {<AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />}
+            {<AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />}
             {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
             <AbilityRequirement spell={SPELLS.MORTAL_STRIKE.id} />
             <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
@@ -66,11 +64,7 @@ class ArmWarriorChecklist extends React.PureComponent {
         </Rule>
         <Rule
           name="Use your defensive cooldowns"
-          description={(
-            <>
-              While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
-            </>
-          )}
+          description="While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally."
         >
           <AbilityRequirement spell={SPELLS.DIE_BY_THE_SWORD.id} />
           <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />

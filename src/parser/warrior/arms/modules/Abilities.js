@@ -223,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: [SPELLS.CHARGE, SPELLS.CHARGE_2],
+        spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
         charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),

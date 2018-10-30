@@ -73,14 +73,13 @@ class TestOfMight extends Analyzer {
     }
 
     on_byPlayer_cast(event) {
-        if (!event.classResources ||
-            !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) ||
-            !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
+        const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+        if (!rage || !rage.cost) { 
             return;
         }
         const target = this.enemies.getEntity(event);
         if(target !== null && target.hasBuff(SPELLS.COLOSSUS_SMASH_DEBUFF.id, event.timestamp)) {
-            this.rageSpendDuringDebuff += event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / 10;
+            this.rageSpendDuringDebuff += rage.cost / 10;
         }
     }
 
@@ -97,11 +96,7 @@ class TestOfMight extends Analyzer {
           <TraitStatisticBox
             position={STATISTIC_ORDER.OPTIONAL()}
             trait={SPELLS.TEST_OF_MIGHT.id}
-            value={(
-              <>
-                {this.averageStrength} average Strength<br />
-              </>
-            )}
+            value={`${this.averageStrength} average Strength`}
             tooltip={`Average strength grant over fight duration. <b>Uptime: ${formatPercentage(this.uptime)}%</b>.</br>
                 On average ${SPELLS.TEST_OF_MIGHT.name} has granted you <b>${formatNumber(this.totalStrength / this.proc)} strength</b> per proc.</br>
                 ${SPELLS.TEST_OF_MIGHT.name} grants a total of <b>${formatNumber(this.totalStrength)} strength</b> (over <b>${this.proc} proc</b>).`}
