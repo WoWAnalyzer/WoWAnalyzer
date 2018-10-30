@@ -20,10 +20,6 @@ class Module {
   constructor({ owner, priority, ...others }) {
     if (this.constructor.__dangerousInvalidUsage) {
       throw new TypeError('The class Module can not be used directly, you probably want to use Analyzer instead.');
-    } else if (!owner) {
-      throw new Error('Missing option: owner');
-    } else if (priority === undefined) {
-      throw new Error('Missing option: priority');
     }
 
     this.owner = owner;
