@@ -6,7 +6,7 @@ import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import GenericMaxCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericMaxCastEfficiencyRequirement';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class EnhancementShamanChecklist extends React.PureComponent {
   static propTypes = {
@@ -21,7 +21,8 @@ class EnhancementShamanChecklist extends React.PureComponent {
     const { castEfficiency, combatant, thresholds } = this.props;
 
     const AbilityRequirement = props => (
-      <GenericMaxCastEfficiencyRequirement
+      <GenericCastEfficiencyRequirement
+        isMaxCasts
         castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
         {...props}
       />
