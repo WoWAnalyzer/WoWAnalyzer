@@ -1,6 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Module from './Module';
+import EventSubscriber from './EventSubscriber';
 import EventFilter from './EventFilter';
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
@@ -59,7 +59,7 @@ function addLegacyEventListenerSupport(object) {
   });
 }
 
-class Analyzer extends Module {
+class Analyzer extends EventSubscriber {
   static __dangerousInvalidUsage = false;
 
   /**
@@ -69,14 +69,6 @@ class Analyzer extends Module {
   constructor(options) {
     super(options);
     addLegacyEventListenerSupport(this);
-  }
-
-  /**
-   * @param {string|EventFilter} eventFilter
-   * @param {function} listener
-   */
-  addEventListener(eventFilter, listener) {
-    this.owner.addEventListener(eventFilter, listener.bind(this), this);
   }
 
   get consoleMeta() {
