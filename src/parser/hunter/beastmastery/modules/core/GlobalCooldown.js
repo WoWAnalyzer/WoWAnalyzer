@@ -1,5 +1,4 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
@@ -32,7 +31,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
     abilities: Abilities,
     haste: Haste,
-    statTracker: StatTracker,
     channeling: Channeling,
   };
 
