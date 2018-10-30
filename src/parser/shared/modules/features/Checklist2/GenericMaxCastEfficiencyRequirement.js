@@ -51,8 +51,6 @@ class GenericMaxCastEfficiencyRequirement extends React.PureComponent {
       return null;
     }
 
-    console.log(thresholds);
-
     return (
       <Requirement
         name={name || <SpellLink id={spell} />}

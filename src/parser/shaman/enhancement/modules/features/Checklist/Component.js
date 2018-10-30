@@ -19,8 +19,6 @@ class EnhancementShamanChecklist extends React.PureComponent {
 
   render() {
     const { castEfficiency, combatant, thresholds } = this.props;
-    const ceForFeralSpirit = castEfficiency.getCastEfficiencyForSpellId(SPELLS.FERAL_SPIRIT.id);
-    console.log(ceForFeralSpirit);
 
     const AbilityRequirement = props => (
       <GenericMaxCastEfficiencyRequirement
