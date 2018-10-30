@@ -50,7 +50,6 @@ class EventEmitter extends Module {
       if (module.active) {
         listener(event);
       }
-      // TODO: Remove listener when the module is disabled
     };
   }
   _prependFilters(eventFilter, listener) {
