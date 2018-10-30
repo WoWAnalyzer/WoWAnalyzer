@@ -26,7 +26,7 @@ const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
 const CHINESE_REGION = 'cn';
-const BENCHMARK = false;
+const BENCHMARK = true;
 
 class EventParser extends React.PureComponent {
   static propTypes = {

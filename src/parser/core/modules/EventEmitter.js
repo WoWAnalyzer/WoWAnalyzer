@@ -78,8 +78,9 @@ class EventEmitter extends Module {
       check = event => this.owner.byPlayer(event);
     } else if (requiresSelectedPlayerPet) {
       check = event => this.owner.byPlayerPet(event);
+    } else {
+      return listener;
     }
-    if (!check) return listener;
 
     return function (event) {
       if (check(event)) {
@@ -98,8 +99,9 @@ class EventEmitter extends Module {
       check = event => this.owner.toPlayer(event);
     } else if (requiresSelectedPlayerPet) {
       check = event => this.owner.toPlayerPet(event);
+    } else {
+      return listener;
     }
-    if (!check) return listener;
 
     return function (event) {
       if (check(event)) {
@@ -119,14 +121,12 @@ class EventEmitter extends Module {
   _listenersCalled = 0;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
-      if (!event.type) {
-        console.log(event);
-        throw new Error('Events should have a type. No type received. See the console for the event.');
-      }
+      this.validateEvent(event);
     }
 
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
 
+    // TODO: Make a module that does the timestamp tracking
     if (event.timestamp) {
       this.owner._timestamp = event.timestamp;
     }
@@ -164,6 +164,12 @@ class EventEmitter extends Module {
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
+  }
+  validateEvent(event) {
+    if (!event.type) {
+      console.log(event);
+      throw new Error('Events should have a type. No type received. See the console for the event.');
+    }
   }
 }
 
