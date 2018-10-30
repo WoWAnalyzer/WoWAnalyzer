@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-10-30'),
+    changes: <>Fixed an bug with <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> suggestion not displaying the correct mana saved amount.</>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2018-09-11'),
     changes: <>Added <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> to spreadsheet tab for use importing into Monk spreadsheet.</>,
     contributors: [Anomoly],

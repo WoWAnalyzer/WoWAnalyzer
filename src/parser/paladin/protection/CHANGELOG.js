@@ -5,11 +5,15 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('28 October 2018'),
+    date: new Date('30 October 2018'),
     contributors: [emallson],
     changes: <>Added <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cooldown reduction statistic.</>,
   },
-
+  {
+    date: new Date('28 October 2018'),
+    contributors: [emallson],
+    changes: <>Converted <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> from buff uptime to hit tracking.</>,
+  },
   {
     date: new Date('10 October 2018'),
     contributors: [emallson],
