@@ -17,7 +17,7 @@ import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;
 const UNLEASH_LIFE_DURATION = 10000;
-const debug = true;
+const debug = false;
 
 const CHART_SIZE = 75;
 
@@ -52,7 +52,7 @@ class UnleashLife extends Analyzer {
   };
 
   unleashLifeCasts = 0;
-  unleashLifeRemaining = 0;
+  unleashLifeRemaining = false;
   unleashLifeHealRemaining = 0;
 
   buffedChainHealTimestamp = null;
@@ -66,75 +66,77 @@ class UnleashLife extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeHealRemaining = 1;
       this.lastUnleashLifeTimestamp = event.timestamp;
       this.healing += event.amount + (event.absorbed || 0);
     }
 
-    if(this.unleashLifeHealRemaining > 0 && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
+    if (this.unleashLifeHealRemaining > 0 && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
       debug && console.log("Heal Timed out", event.timestamp);
       this.unleashLifeHealRemaining = 0;
-      return;
     }
 
-    // Thse 3 heals only have 1 event and are handled easily
+    // Riptide HoT handling, ticks on whoever its active
+    if (spellId === SPELLS.RIPTIDE.id && this.healingBuff[spellId].playersActive.includes(event.targetID)) {
+      if (event.tick) {
+        this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
+
+        // Initial Riptide Heal without Unleash Life
+        // casting an unbuffed Riptide on a target that already has a buffed Riptide, will completely negate the buff, so we remove that person
+      } else if (!event.tick && !this.unleashLifeHealRemaining) {
+        this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID), 1);
+      }
+    }
+
+    // These 3 heals only have 1 event and are handled easily
     if (this.unleashLifeHealRemaining > 0 && ((spellId === SPELLS.HEALING_WAVE.id) || (spellId === SPELLS.HEALING_SURGE_RESTORATION.id) || (spellId === SPELLS.RIPTIDE.id && !event.tick))) {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
       this.unleashLifeHealRemaining = 0;
-      debug && console.log("Heal:",spellId);
+      debug && console.log("Heal:", spellId);
 
       // I had to move the HoT application to the heal event as the buffapply event had too many false positives
       if (spellId === SPELLS.RIPTIDE.id) {
         this.healingBuff[spellId].playersActive.push(event.targetID);
-        debug && console.log("HoT Applied:",spellId);
+        debug && console.log("HoT Applied:", spellId, event.targetID);
       }
 
-    // Chain heal has up to 4 events so there is something more going on, setting the variable to -1 to indicate that there might be more events coming
+      // Chain heal has up to 4 events, setting the variable to -1 to indicate that there might be more events coming
     } else if (spellId === SPELLS.CHAIN_HEAL.id && (this.unleashLifeHealRemaining > 0 || (this.unleashLifeHealRemaining < 0 && this.buffedChainHealTimestamp + BUFFER_MS > event.timestamp))) {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
       this.unleashLifeHealRemaining = -1;
       this.buffedChainHealTimestamp = event.timestamp;
-      debug && console.log("Heal:",spellId);
-
-    // Riptide HoT handling
-    } else if (spellId === SPELLS.RIPTIDE.id && this.healingBuff[spellId].playersActive.includes(event.targetID)) {
-      // Ticks on whoever its active
-      if (event.tick) {
-        this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
-      // Casting a Riptide without UnL on a target with a buffed Riptide will straight up remove the buff, not even the pandemic part gets anything from the increased healing
-      } else {
-        this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID),1);
-      }
+      debug && console.log("Heal:", spellId);
     }
   }
+
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeCasts += 1;
       this.unleashLifeRemaining = true;
       this.lastUnleashLifeTimestamp = event.timestamp;
       debug && console.log("New Unleash", event.timestamp);
     }
 
-    if(this.unleashLifeRemaining && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
+    if (this.unleashLifeRemaining && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
       this.unleashLifeRemaining = false;
       debug && console.log("Cast Timed out", event.timestamp);
       return;
     }
 
     const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-    if(!hasUnleashLife) {
+    if (!hasUnleashLife) {
       return;
     }
 
     if (this.unleashLifeRemaining) {
-      if(this.healingBuff[spellId]) {
+      if (this.healingBuff[spellId]) {
         this.healingBuff[spellId].castAmount += 1;
         this.unleashLifeRemaining = false;
-        debug && console.log("Cast:",spellId);
+        debug && console.log("Cast:", spellId);
       }
     }
   }
@@ -149,7 +151,7 @@ class UnleashLife extends Analyzer {
       return;
     }
 
-    this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID),1);
+    this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID), 1);
   }
 
   on_feed_heal(event) {
@@ -198,7 +200,7 @@ class UnleashLife extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-          <dfn data-tip={value}>
+            <dfn data-tip={value}>
               {formatPercentage(value / total, 0)}%
             </dfn>
           </div>
