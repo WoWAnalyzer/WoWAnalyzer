@@ -43,7 +43,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     if (spellId && ASPECT_AFFECTED_ABILTIES.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
       let unhastedAspectGCD = MAX_GCD - ASPECT_GCD_REDUCTION;
-      const hastepercent = 1 + this.statTracker.currentHastePercentage;
+      const hastepercent = 1 + this.haste.current;
       if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
         // Aspect of the wild has a GCD of 1.3s in the spelldata - this is to account for the GCD reduction of the buff it gives
         // The issue is that the buff applies before the cast event making Aspect of the Wild double dip from the GCD reduction it provides
