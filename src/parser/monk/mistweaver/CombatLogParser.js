@@ -17,7 +17,8 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import Channeling from './modules/core/Channeling';
+// import CoreChanneling from './modules/core/Channeling';
+import Channeling from './modules/features/Channeling';
 import HotTracker from './modules/core/HotTracker';
 
 // Normalizers
@@ -56,6 +57,11 @@ import RisingMist from './modules/talents/RisingMist';
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
+
+// Mana Tracker
+import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
+import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -106,6 +112,11 @@ class CombatLogParser extends CoreCombatLogParser {
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
     invigoratingBrew: InvigoratingBrew,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: HealingEfficiencyDetails,
+    hpmTracker: HealingEfficiencyTracker,
   };
 
   generateResults(...args) {

@@ -1,4 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
 import Abilities from './Abilities';
@@ -10,6 +11,7 @@ class SpellHistory extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
+    channeling: Channeling,
   };
 
   historyBySpellId = {
@@ -70,6 +72,16 @@ class SpellHistory extends Analyzer {
     const spellId = event.ability.guid;
     this._append(spellId, event);
   }
+  // do I need to add these?
+  on_byPlayer_beginchannel(event) {
+    const spellId = event.ability.guid;
+    this._append(spellId, event);
+  }
+  on_byPlayer_endchannel(event) {
+    const spellId = event.ability.guid;
+    this._append(spellId, event);
+  }
+
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);

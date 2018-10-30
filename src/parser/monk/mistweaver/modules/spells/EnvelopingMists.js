@@ -23,7 +23,10 @@ class EnvelopingMists extends Analyzer {
     combatants: Combatants,
   };
 
-  healing = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
+  totalAbsorbs = 0;
+  healingIncrease = 0;
 
   on_byPlayer_heal(event) {
     const targetId = event.targetID;
@@ -36,15 +39,19 @@ class EnvelopingMists extends Analyzer {
 
     if (this.combatants.players[targetId]) {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0) === true) {
-        this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
+        this.healingIncrease += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
         debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
+        this.totalHealing += event.amount || 0;
+        this.totalHealing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
+        this.totalOverhealing += event.overheal || 0;
+        this.totalAbsorbs += event.absorbed || 0;
       }
     }
   }
 
   on_finished() {
     if (debug) {
-      console.log(`EvM Healing Contribution: ${this.healing}`);
+      console.log(`EvM Healing Contribution: ${this.healingIncrease}`);
     }
   }
 
@@ -53,7 +60,7 @@ class EnvelopingMists extends Analyzer {
       <StatisticBox
         postion={STATISTIC_ORDER.OPTIONAL(50)}
         icon={<SpellIcon id={SPELLS.ENVELOPING_MIST.id} />}
-        value={`${formatNumber(this.healing)}`}
+        value={`${formatNumber(this.healingIncrease)}`}
         label={(
           <dfn data-tip="This is the effective healing contributed by the Eveloping Mists buff.">
             Healing Contributed
