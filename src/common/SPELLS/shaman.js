@@ -600,11 +600,6 @@ export default {
     name: 'Hot Hand Buff',
     icon: 'spell_fire_playingwithfire',
   },
-  ASCENDANCE_ENHANCE: {
-    id: 114051,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,

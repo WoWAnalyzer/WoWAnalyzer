@@ -153,6 +153,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SUNDERING_TALENT.id),
+        cooldown: 40,
       },
       {
         spell: SPELLS.REINCARNATION,
@@ -167,7 +168,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },{
+      },
+      {
+        spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+        cooldown: 180,
+      },
+      {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
