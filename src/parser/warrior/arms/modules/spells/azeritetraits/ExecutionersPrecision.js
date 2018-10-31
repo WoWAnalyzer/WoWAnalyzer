@@ -39,7 +39,7 @@ class ExecutionersPrecisionAnalyzer extends Analyzer {
     }
 
     const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION_DEBUFF.id);
-    if (executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
+    if (executionersPrecision && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
       this.wastedProcs += 1;
 
       event.meta = event.meta || {};

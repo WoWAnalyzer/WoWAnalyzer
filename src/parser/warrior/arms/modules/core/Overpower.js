@@ -42,7 +42,7 @@ class OverpowerAnalyzer extends Analyzer {
                 event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
             }
         } else if (this.hasEP) {
-            if (overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)){
+            if (overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)){
                 this.wastedProc += 1;
 
                 event.meta = event.meta || {};
