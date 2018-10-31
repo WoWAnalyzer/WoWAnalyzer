@@ -114,6 +114,10 @@ class Ability {
      * An array of healing effects that this spell cast causes.
      */
     healSpellIds: PropTypes.arrayOf(PropTypes.number),
+    /**
+     * An array of damage spell ids that this spell cast causes.
+     */
+    damageSpellIds: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;
