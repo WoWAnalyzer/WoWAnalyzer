@@ -34,7 +34,7 @@ class OverpowerAnalyzer extends Analyzer {
         this.proc += 1;
         const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
         if (!this.executeRange.isTargetInExecuteRange(event) && !this.hasEP) {
-            if (overpower !== undefined && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
+            if (overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
                 this.wastedProc += 1;
 
                 event.meta = event.meta || {};
