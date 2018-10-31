@@ -1,11 +1,14 @@
 import React from 'react';
+import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 
 const KILLER_INSTINCT_TRESHOLD = 0.35;
@@ -41,17 +44,23 @@ class KillerInstinct extends Analyzer {
   }
 
   statistic() {
-    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const dps = this.damage / this.owner.fightDuration * 1000;
-
     return (
       <TalentStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.KILLER_INSTINCT_TALENT.id} />}
-        value={<>{formatNumber(this.castsWithExecute)} casts at &lt;35% health<br />{formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS</>}
+        value={<>{formatNumber(this.castsWithExecute)} casts at &lt;35% health</>}
         label="Killer Instinct"
         tooltip={`You've casted a total of ${this.casts} Kill Commands, of which ${this.castsWithExecute} were on enemies with less than 35% of their health remaining.
                   These ${this.castsWithExecute} casts have provided you a total of ${formatNumber(this.damage)} extra damage throughout the fight.`}
+      />
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />}
+        value={<ItemDamageDone amount={this.damage} />}
       />
     );
   }

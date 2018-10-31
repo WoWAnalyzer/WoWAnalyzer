@@ -9,6 +9,7 @@ import Barrage from 'parser/hunter/shared/modules/talents/Barrage';
 import ChimaeraShot from 'parser/hunter/beastmastery/modules/talents/ChimaeraShot';
 import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
 import Stomp from 'parser/hunter/beastmastery/modules/talents/Stomp';
+import KillerInstinct from 'parser/hunter/beastmastery/modules/talents/KillerInstinct';
 import BarbedShot from '../spells/BarbedShot';
 import BeastCleave from '../spells/BeastCleave';
 import AMurderOfCrows from '../../../shared/modules/talents/AMurderOfCrows';
@@ -18,6 +19,7 @@ class TraitsAndTalents extends Analyzer {
     beastCleave: BeastCleave,
     barrage: Barrage,
     barbedShot: BarbedShot,
+    killerInstinct: KillerInstinct,
     chimaeraShot: ChimaeraShot,
     stampede: Stampede,
     stomp: Stomp,
@@ -42,6 +44,7 @@ class TraitsAndTalents extends Analyzer {
         {this.barbedShot.active && this.barbedShot.subStatistic()}
         {this.barrage.active && this.barrage.subStatistic()}
         {this.beastCleave.active && this.beastCleave.subStatistic()}
+        {this.killerInstinct.active && this.killerInstinct.subStatistic()}
         {this.chimaeraShot.active && this.chimaeraShot.subStatistic()}
         {this.stampede.active && this.stampede.subStatistic()}
         {this.stomp.active && this.stomp.subStatistic()}
