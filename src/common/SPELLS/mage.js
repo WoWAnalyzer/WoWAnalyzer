@@ -41,6 +41,11 @@ export default {
     name: 'Invisibility',
     icon: 'ability_mage_invisibility',
   },
+  INVISIBILITY_BUFF: {
+    id: 32612,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
+  },
   TIME_WARP: {
     id: 80353,
     name: 'Time Warp',
@@ -350,6 +355,11 @@ export default {
   },
   GREATER_INVISIBILITY: {
     id: 110959,
+    name: 'Greater Invisibility',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  GREATER_INVISIBILITY_BUFF: {
+    id: 110960,
     name: 'Greater Invisibility',
     icon: 'ability_mage_greaterinvisibility',
   },
