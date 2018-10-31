@@ -59,7 +59,7 @@ class RighteousProtector extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id} />}
         value={`${ this.avengingWrathReduced / 1000 } sec`}
-        label="cooldown reduction"
+        label="Righteous Protector CDR"
         tooltip={`
           Avenging Wrath reduction: ${ this.avengingWrathReduced / 1000 }s (${ this.avengingWrathReductionWasted / 1000 }s wasted)<br/>
           ${ lotpName } reduction: ${ (this.lightOfTheProtectorReduced / 1000).toFixed(0) }s (${ (this.lightOfTheProtectorReductionWasted / 1000).toFixed(0) }s wasted)

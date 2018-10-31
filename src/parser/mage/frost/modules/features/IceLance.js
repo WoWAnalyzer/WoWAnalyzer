@@ -7,14 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-
-const SHATTER_EFFECTS = [
-  SPELLS.WINTERS_CHILL.id,
-  SPELLS.FROST_NOVA.id,
-  SPELLS.ICE_NOVA_TALENT.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-  SPELLS.RING_OF_FROST_DAMAGE.id,
-];
+import { SHATTER_DEBUFFS } from '../../constants';
 
 const CAST_BUFFER_MS = 100;
 
@@ -55,7 +48,7 @@ class IceLance extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
-    if (enemy && !SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
+    if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
       this.nonShatteredCasts += 1;
     }
   }

@@ -108,12 +108,14 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.TIME_WARP,
+        buffSpellId: SPELLS.TIME_WARP.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
         cooldown: 300,
       },
       {
         spell: SPELLS.COMBUSTION,
+        buffSpellId: SPELLS.COMBUSTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
         cooldown: 120,
@@ -137,6 +139,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
+        buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -173,6 +176,7 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
+        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -220,6 +224,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SLOW_FALL,
+        buffSpellId: SPELLS.SLOW_FALL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -234,6 +239,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INVISIBILITY,
+        buffSpellId: SPELLS.INVISIBILITY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

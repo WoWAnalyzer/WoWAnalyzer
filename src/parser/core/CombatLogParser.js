@@ -109,6 +109,7 @@ import Savior from '../shared/modules/spells/bfa/azeritetraits/Savior';
 import WoundBinder from '../shared/modules/spells/bfa/azeritetraits/WoundBinder';
 import SynergisticGrowth from '../shared/modules/spells/bfa/azeritetraits/SynergisticGrowth';
 import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChill';
+import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/EphemeralRecovery';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 
 // Uldir
@@ -235,6 +236,7 @@ class CombatLogParser {
     woundBinder:WoundBinder,
     synergisticGrowth: SynergisticGrowth,
     bracingChill: BracingChill,
+    ephemeralRecovery: EphemeralRecovery,
     tradewinds: Tradewinds,
 
     // Uldir

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Fyruna } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,9 +9,14 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2018-10-28'),
+    date: new Date('2018-10-31'),
     changes: <>Added <SpellLink id={SPELLS.TRADEWINDS.id} /> module.</>,
     contributors: [Fyruna],
+  },
+  {
+    date: new Date('2018-10-26'),
+    changes: <>Added <SpellLink id={SPELLS.WOUNDBINDER.id} />, <SpellLink id={SPELLS.BRACING_CHILL.id} />, <SpellLink id={SPELLS.SYNERGISTIC_GROWTH.id} />, and <SpellLink id={SPELLS.EPHEMERAL_RECOVERY_BUFF.id} /> azerite modules. </>,
+    contributors: [Khadaj],
   },
   {
     date: new Date('2018-10-26'),
