@@ -30,9 +30,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
-        buffSpellId: SPELLS.FERAL_SPIRIT.id,
+        buffSpellId: SPELLS.FERAL_SPIRIT.id, //This won't work if Elemental Spirits is taken since that gives a different buff
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -100,6 +100,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        cooldown: 6,
       },
       {
         spell: SPELLS.FERAL_LUNGE,
@@ -138,6 +139,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
       },
       {
         spell: SPELLS.FURY_OF_AIR_TALENT,

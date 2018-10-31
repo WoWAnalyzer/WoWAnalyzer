@@ -6,8 +6,8 @@ export default [
   {
     date: new Date('2018-10-30'),
     changes: 'Small updates to various spells',
-    contributors: [mtblanton]
-  }
+    contributors: [mtblanton],
+  },
   {
     date: new Date('2018-09-16'),
     changes: 'Updated Enhancement Shaman for BfA.',
