@@ -507,7 +507,7 @@ export const jos3p = {
   github: 'jos3p',
   discord: 'jos3p#9746',
 };
-export const mblanton = {
+export const mtblanton = {
   nickname: 'mtblanton',
   github: 'mtblanton',
   mains: [{
