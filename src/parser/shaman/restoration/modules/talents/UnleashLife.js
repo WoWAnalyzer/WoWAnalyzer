@@ -127,11 +127,6 @@ class UnleashLife extends Analyzer {
       return;
     }
 
-    const hasUnleashLife = this.selectedCombatant.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-    if (!hasUnleashLife) {
-      return;
-    }
-
     if (this.unleashLifeRemaining) {
       if (this.healingBuff[spellId]) {
         this.healingBuff[spellId].castAmount += 1;
