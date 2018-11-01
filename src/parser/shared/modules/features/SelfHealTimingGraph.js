@@ -11,6 +11,9 @@ import 'common/chartjs-plugin-vertical';
  * Goal is to remove pressure from healers by selfhealing more when really needed (eg. at low health) / improving tanks reactive selfhealing timings
 */
 
+const GRAPH_PRECISION = 500;
+const TOOLTIP_TIMESTAMP = 2;
+
 class SelfHealTimingGraph extends Analyzer {
   
   _hpEvents = [];
@@ -39,25 +42,25 @@ class SelfHealTimingGraph extends Analyzer {
   }
 
   plot(selfHealSpell) {
-    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
+    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / GRAPH_PRECISION)}, (x, i) => i);
     const hpBySeconds = labels.reduce((obj, sec) => {
       obj[sec] = undefined;
       return obj;
     }, {});
 
     const selfheals = this._selfhealTimestamps.map(event => { 
-      return { seconds: Math.floor((event.timestamp - this.owner.fight.start_time) / 1000) - 1, ...event };
+      return { seconds: Math.floor((event.timestamp - this.owner.fight.start_time) / GRAPH_PRECISION) - 1, ...event };
     });
 
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return { 
-        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
+        seconds: Math.floor((timestamp - this.owner.fight.start_time) / GRAPH_PRECISION),
         ability: killingAbility,
       };
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / GRAPH_PRECISION);
 
       let percent = Math.round((hitPoints / maxHitPoints) * 100, 2);
       if (percent > 100) { //maxHitPoints cam sometimes be bigger than hitPoints (esp BDKs with often changing maxHP)
@@ -210,7 +213,7 @@ class SelfHealTimingGraph extends Analyzer {
                 ticks: {
                   fontColor: '#ccc',
                   callback: function(x) {
-                    const label = formatDuration(x, 1); // formatDuration got changed -- need 1000=1 or it blows up, but that adds a .0 to it
+                    const label = formatDuration(Math.floor(x / TOOLTIP_TIMESTAMP), 1); // formatDuration got changed -- need GRAPH_PRECISION=1 or it blows up, but that adds a .0 to it
                     return label.substring(0, label.length - 2);
                   },
                 },
