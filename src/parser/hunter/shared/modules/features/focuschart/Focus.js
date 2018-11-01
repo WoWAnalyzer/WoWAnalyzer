@@ -13,13 +13,11 @@ import Haste from 'parser/shared/modules/Haste';
 import FocusComponent from './FocusComponent';
 
 const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
-//TODO: get a "real" number approved by a MMS expert
 
 class Focus extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    playerHaste: PropTypes.number.isRequired,
     focusMax: PropTypes.number,
     focusPerSecond: PropTypes.array,
     tracker: PropTypes.number,
