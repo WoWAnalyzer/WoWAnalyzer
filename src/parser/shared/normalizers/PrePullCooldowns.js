@@ -1,7 +1,7 @@
 import Abilities from 'parser/shared/modules/Abilities';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const debug = true;
+const debug = false;
 
 // TODO maybe update the Timeline tab to show these prepull casts?
 /*
