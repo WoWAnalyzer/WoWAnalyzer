@@ -12,7 +12,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
-
+import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -137,6 +137,7 @@ class CombatLogParser {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
+    prepullNormalizer: PrePullCooldownsNormalizer,
 
     // Analyzers
     healingDone: HealingDone,
