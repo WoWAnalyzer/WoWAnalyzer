@@ -7,7 +7,6 @@ import { formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 
@@ -54,7 +53,6 @@ class KillerCobra extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
         value={this.effectiveKillCommandResets}
         label="Kill Command Resets"

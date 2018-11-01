@@ -21,6 +21,8 @@ import KillerCobra from './modules/talents/KillerCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
+import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
+import VenomousBite from './modules/talents/VenomousBite';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -79,6 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
     stampede: Stampede,
     stomp: Stomp,
     aMurderOfCrows: AMurderOfCrows,
+    venomousBite: VenomousBite,
+    thrillOfTheHunt: ThrillOfTheHunt,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,

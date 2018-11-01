@@ -6,8 +6,13 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-01'),
+    changes: <>Implemented a talent statistic module and suggestions for <SpellLink id={SPELLS.VENOMOUS_BITE_TALENT.id} /> and <SpellLink id={SPELLS.THRILL_OF_THE_HUNT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-10-29'),
-    changes: <>Implement a suggestion that checks for <SpellLink id={SPELLS.MULTISHOT_BM.id} /> usage in single target situations, warning you about multi-shot uses where no paired <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage has been dealt.</>,
+    changes: <>Implemented a suggestion that checks for <SpellLink id={SPELLS.MULTISHOT_BM.id} /> usage in single target situations, warning you about multi-shot uses where no paired <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage has been dealt.</>,
     contributors: [Streammz],
   },
   {

@@ -3,7 +3,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
@@ -25,7 +24,6 @@ class DireBeast extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.CORE(19)}
         icon={<SpellIcon id={SPELLS.DIRE_BEAST_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Dire Beast uptime"

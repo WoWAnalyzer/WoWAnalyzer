@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -19,7 +18,6 @@ const COOLDOWN_REDUCTION_MS = 1000;
 class CobraShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    abilities: Abilities,
     globalCooldown: GlobalCooldown,
   };
 
