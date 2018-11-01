@@ -7,7 +7,7 @@ import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
- * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times. *
+ * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
  * Example log: https://www.warcraftlogs.com/reports/P6F8k1xJ3GD7Rm2h#fight=20&type=summary&source=306
  */
 
@@ -74,10 +74,6 @@ class ThrillOfTheHunt extends Analyzer {
 
   on_finished(event) {
     this.handleStacks(event, this.lastThrillStack);
-  }
-
-  get percentUptimeMaxStacks() {
-    return (this.thrillStacks[MAX_THRILL_STACKS].reduce((a, b) => a + b, 0)) / this.owner.fightDuration;
   }
 
   get averageCritPercent() {
