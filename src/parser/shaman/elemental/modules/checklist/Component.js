@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist2';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellIcon from 'common/SpellIcon';
 
 class BeastMasteryChecklist extends React.PureComponent {
   static propTypes = {
