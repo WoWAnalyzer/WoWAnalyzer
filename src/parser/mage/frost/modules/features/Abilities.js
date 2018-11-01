@@ -198,7 +198,6 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
-        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
