@@ -6,12 +6,12 @@ import Icon from 'common/Icon';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import DamageValue from 'parser/shared/modules/DamageValue';
 
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Abilities from 'parser/shared/modules/Abilities';
 import Channeling from 'parser/shared/modules/Channeling';
 import Haste from 'parser/shared/modules/Haste';
+import AlwaysBeCasting from './AlwaysBeCasting';
 
 class WaterElemental extends Analyzer {
   static dependencies = {
@@ -19,6 +19,7 @@ class WaterElemental extends Analyzer {
     abilities: Abilities,
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
+    abc: AlwaysBeCasting,
   };
   
   constructor(...args) {
@@ -29,6 +30,7 @@ class WaterElemental extends Analyzer {
   _waterboltsCancelled = 0;
   _waterboltsCastStarts = 0;
   _waterboltHits = 0;
+  _waterboltDamage = 0;
   wasCastStarted;
   petActiveTime = 0;
   beginCastSpell = 0;
@@ -79,59 +81,15 @@ class WaterElemental extends Analyzer {
     if (event.ability.guid !== SPELLS.WATERBOLT.id) {
       return;
     }
-    else if (!event.targetIsFriendly) {
-      const petId = event.sourceID;
-      this._byPet[petId] = this.byPet(petId).add(event.amount, event.absorbed, event.blocked, event.overkill);
-      if (event.ability.guid === SPELLS.WATERBOLT.id) {
-        if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
-          this._timestampFirstCast = event.timestamp;
-        }
-        this._waterboltHits += 1;
+    else if (!event.targetIsFriendly && event.ability.guid === SPELLS.WATERBOLT.id) {
+      if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
+        this._timestampFirstCast = event.timestamp;
       }
+      this._waterboltHits += 1;
+      this._waterboltDamage += event.amount + (event.absorbed || 0);
     }
   }
-
-  byPet(petId) {
-    if (!this._byPet[petId]) {
-      return new DamageValue();
-    }
-    return this._byPet[petId];
-  }
-  
-  get totalByPets() {
-    return Object.keys(this._byPet)
-    .map(petId => this._byPet[petId])
-    .reduce((total, damageValue) => total.add(damageValue.regular, damageValue.absorbed, damageValue.blocked, damageValue.overkill), new DamageValue());
-  }
-  
-  // Next lines are copied from AlwaysBeCasting.js, to get downtime from player
-  get playerActiveTimePercentage() {
-    return this.playerActiveTime / this.owner.fightDuration;
-  }
-  
-  playerActiveTime = 0;
-  _lastGlobalCooldownDuration = 0;
-  on_globalcooldown(event) {
-    this._lastGlobalCooldownDuration = event.duration;
-    if (event.trigger.type === 'beginchannel') {
-      // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
-      return false;
-    }
-    this.playerActiveTime += event.duration;
-    return true;
-  }
-  on_endchannel(event) {
-    // If the channel was shorter than the GCD then use the GCD as active time
-    let amount = event.duration;
-    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
-      amount = Math.max(amount, this._lastGlobalCooldownDuration);
-    }
-    this.playerActiveTime += amount;
-    return true;
-  }
-  // end of AlwaysBeCasting.js copy
-  
-  
+    
   get petDowntimePercentage() {
     return 1 - this.petActiveTimePercentage;
   }
@@ -154,9 +112,9 @@ class WaterElemental extends Analyzer {
     return {
       actual: this.petActiveTimePercentage,
       isLessThan: {
-        minor: this.playerActiveTimePercentage - 0.10, // eg. player has 83% so the pet can have 73%
-        average: this.playerActiveTimePercentage - 0.25,
-        major: this.playerActiveTimePercentage -0.30,
+        minor: this.abc.activeTimePercentage - 0.10, // eg. player has 83% so the pet can have 73%
+        average: this.abc.activeTimePercentage - 0.25,
+        major: this.abc.activeTimePercentage -0.30,
       },
       style: 'percentage',
     };
@@ -165,11 +123,11 @@ class WaterElemental extends Analyzer {
   //checks for the time between pull and first action (begin cast/cast/damage) from pet
   get prePullSuggestionThresholds() { 
     return {
-      actual: this.prepullSummonCheck,
-      isLessThan: {
-        minor: 100,
-        average: 7500, // 100ms - 7.5 seconds after pull should give the pet time for mythrax-like pulls
-        major: 10000, // everything after 10 seconds
+      actual: Math.abs(this.prepullSummonCheck),
+      isGreaterThan: {
+        minor: 5000, // 
+        average: 10000, // 5 - 10 seconds after pull should give the player time for fetid/mythrax-like pulls
+        major: 20000, //
       },
       style: 'number',
     };
@@ -180,12 +138,12 @@ class WaterElemental extends Analyzer {
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<>
                       Your <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> uptime can be improved.
-                      The uptime of your Water Elemental should more or less mirror your own uptime, more is better.
-                      Ensure you have your Water Elemental summoned pre-pull, in range of the target and try to keep downtime from movement low.
+                      The uptime of your Water Elemental should more or less mirror your own uptime, higher being better.
+                      Ensure you have your it summoned pre-pull and that it's always attacking.
                       </>)
           .icon(SPELLS.SUMMON_WATER_ELEMENTAL.icon)
           .actual(`${formatPercentage(this.petActiveTimePercentage)}% uptime`)
-          .recommended(`Mirroring your own uptime (in this fight: ${formatPercentage(this.playerActiveTimePercentage)}%) or more is recommended`);
+          .recommended(`mirroring your own uptime (${formatPercentage(this.abc.activeTimePercentage)}% or more) is recommended`);
       });
     when(this.prePullSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
@@ -194,7 +152,7 @@ class WaterElemental extends Analyzer {
                       </>)
           .icon(SPELLS.WATERBOLT.icon)
           .actual(`${(this._timestampFirstCast === 0 ? 'Never attacked or not summoned' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`)
-          .recommended(`Summoning pre-fight is recommended`);
+          .recommended(`summoning pre-fight is recommended`);
     });
   }
 
@@ -221,14 +179,14 @@ class WaterElemental extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {`${formatNumber(this.totalByPets.effective / (this.owner.fightDuration / 1000))} DPS`}
+            {`${formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} DPS`}
           </>
         )}
         label="Water Elemental utilization"
         tooltip={`Water Elemental was casting for ${formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: ${formatPercentage(this.petDowntimePercentage)} %).<br>
                 Your Water Elemental began casting ${this.petTotalCasts} times.<br>
                 <ul>
-                  <li>${this._waterboltHits} casts dealt a total damage of ${formatThousands(this.totalByPets.effective)}.</li>
+                  <li>${this._waterboltHits} casts dealt a total damage of ${formatThousands(this._waterboltDamage)}.</li>
                   <li>${this._waterboltsCancelled} casts were cancelled.</li>
                   <li>${this.petTotalCasts - this._waterboltsCancelled - this._waterboltHits} did not hit a target in time.</li>
                 </ul>
