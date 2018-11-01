@@ -12,6 +12,7 @@ import FocusUsage from '../shared/modules/features/FocusUsage';
 import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
 
 //Talents
+import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import Barrage from '../shared/modules/talents/Barrage';
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aspectOfTheWild: AspectOfTheWild,
 
     //Talents
+    killerInstinct: KillerInstinct,
     chimaeraShot: ChimaeraShot,
     direBeast: DireBeast,
     naturalMending: NaturalMending,
