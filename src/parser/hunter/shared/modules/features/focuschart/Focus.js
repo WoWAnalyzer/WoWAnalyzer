@@ -8,6 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 
 import { formatDuration } from 'common/format';
+import Haste from 'parser/shared/modules/Haste';
 
 import FocusComponent from './FocusComponent';
 
@@ -29,6 +30,10 @@ class Focus extends React.PureComponent {
     activeFocusWastedTimeline: PropTypes.object,
   };
 
+  static dependencies = {
+    haste: Haste,
+  };
+
   render() {
     if (!this.props.tracker) {
       return (
@@ -43,7 +48,7 @@ class Focus extends React.PureComponent {
     } else if (this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER) {
       specFocusGen = 5;
     }
-    const focusGen = Math.round((specFocusGen + .1 * this.props.playerHaste / 375) * 100) / 100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot)
+    const focusGen = Math.round((specFocusGen + .1 * this.haste.current / 375) * 100) / 100;
 
     const maxFocus = this.props.focusMax;
     const { start, end } = this.props;
