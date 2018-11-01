@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
       },
       {
         spell: SPELLS.EBONBOLT_TALENT,
@@ -24,6 +25,7 @@ class Abilities extends CoreAbilities {
           suggestion: !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
           recommendedEfficiency: 0.90,
         },
+        damageSpellIds: [SPELLS.EBONBOLT_DAMAGE.id],
       },
       {
         spell: SPELLS.FLURRY,
@@ -31,6 +33,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.FLURRY_DAMAGE.id],
       },
       {
         spell: SPELLS.ICE_LANCE,
@@ -38,6 +41,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.ICE_LANCE_DAMAGE.id],
       },
       {
         spell: SPELLS.CONE_OF_COLD,
@@ -46,6 +50,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 12,
+        //damageSpellIds: [SPELLS.CONE_OF_COLD.id], //needs verification
       },
       {
         spell: SPELLS.GLACIAL_SPIKE_TALENT,
@@ -54,6 +59,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.GLACIAL_SPIKE_DAMAGE.id],
       },
       {
         spell: SPELLS.COMET_STORM_TALENT,
@@ -67,6 +73,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
       },
       {
         spell: SPELLS.ICE_NOVA_TALENT,
@@ -80,6 +87,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], //needs verification
       },
       {
         spell: SPELLS.BLIZZARD,
@@ -88,6 +96,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: haste => 8 / (1 + haste),
+        damageSpellIds: [SPELLS.BLIZZARD_DAMAGE.id],
       },
       {
         spell: SPELLS.RAY_OF_FROST_TALENT,
@@ -100,6 +109,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        //damageSpellIds: [SPELLS.RAY_OF_FROST.id], // needs verification
       },
 
       // Cooldowns
@@ -121,6 +131,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
       },
       {
         spell: SPELLS.ICY_VEINS,
@@ -270,7 +281,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG, 
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
           SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
           SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
