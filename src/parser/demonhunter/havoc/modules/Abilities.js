@@ -2,18 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Haste from 'parser/shared/modules/Haste';
-
 import CoreAbilities from 'parser/shared/modules/Abilities';
 
-
 class Abilities extends CoreAbilities {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-    haste: Haste,
-  };
-
   spellbook() {
     const combatant = this.selectedCombatant;
     return [

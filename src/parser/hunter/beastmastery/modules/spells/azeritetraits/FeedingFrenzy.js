@@ -1,12 +1,19 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber } from 'common/format';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
+import RACES from 'game/RACES';
+import HIT_TYPES from 'game/HIT_TYPES';
+import { calculateAzeriteEffects } from 'common/stats';
 
 const MS = 1000;
 const MS_BUFFER = 100;
 const ORIGINAL_FRENZY_DURATION = 8000;
+
+const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.1;
+const debug = false;
 
 /**
  * Barbed Shot deals X additional damage over its duration,
@@ -16,6 +23,9 @@ const ORIGINAL_FRENZY_DURATION = 8000;
  */
 
 class FeedingFrenzy extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
 
   extraBuffUptime = 0;
   lastBSCast = null;
@@ -24,9 +34,20 @@ class FeedingFrenzy extends Analyzer {
   timesExtended = 0;
   casts = 0;
 
+  traitBonus = 0;
+  traitDamageContribution = 0;
+  lastAttackPower = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id);
+
+    if (!this.active) return;
+
+    this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.FEEDING_FRENZY.id]
+      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.FEEDING_FRENZY.id, rank)[0], 0);
+
+    debug && console.log(`feeding frenzy bonus from items: ${this.traitBonus}`);
   }
 
   extra_BS_uptime(timestamp, lastCast) {
@@ -57,6 +78,10 @@ class FeedingFrenzy extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    if (event.attackPower !== undefined && event.attackPower > 0) {
+      this.lastAttackPower = event.attackPower;
+    }
+
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
@@ -69,6 +94,35 @@ class FeedingFrenzy extends Analyzer {
     this.lastBSCast = event.timestamp;
   }
 
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARBED_SHOT.id) {
+      return;
+    }
+
+    const damageDone = event.amount + event.absorbed;
+    const modifier = damageDone / (this.lastAttackPower * FEEDING_FRENZY_DAMAGE_COEFFICIENT + this.traitBonus);
+    const traitDamageContribution = this.traitBonus * modifier;
+
+    this.traitDamageContribution += traitDamageContribution;
+
+    if (debug) {
+      const critMultiplier = this.selectedCombatant.race === RACES.tauren ? 2.04 : 2.00;
+      const externalModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? critMultiplier : 1.0);
+
+      let estimatedDamage = this.traitBonus * (1 + this.statTracker.currentVersatilityPercentage);
+      
+      if (event.hitType === HIT_TYPES.CRIT) {
+        estimatedDamage *= critMultiplier;
+      }
+      estimatedDamage *= externalModifier;
+      console.log(`Damage: ${damageDone}, externalModifier: ${externalModifier.toFixed(3)}, estimatedDamage: ${estimatedDamage.toFixed(0)}, traitDamageContribution: ${traitDamageContribution.toFixed(0)}`);
+
+      const variation = estimatedDamage / traitDamageContribution;
+      console.log(`Matching of contribution calculations: ${(variation * 100).toFixed(1)}%`);
+    }
+  }
+
   on_finished() {
     if (this.lastBSCast !== null) {
       this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
@@ -76,17 +130,27 @@ class FeedingFrenzy extends Analyzer {
   }
 
   statistic() {
+    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.traitDamageContribution);
+    const dps = this.traitDamageContribution / this.owner.fightDuration * 1000;
+
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FEEDING_FRENZY.id}
-        value={`${formatNumber(this.extraBuffUptime / MS)}s added Frenzy Uptime`}
+        value={(
+          <>
+            {formatNumber(this.extraBuffUptime / MS)}s added Frenzy Uptime <br />
+            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
+          </>
+          )}
         tooltip={`This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br/>
                   This happened a total of ${this.timesExtended} ${this.timesExtended > 1 ? 'times' : 'time'}.
                   <ul>
                   <li>This means that you gained an average extra uptime of ${(this.extraBuffUptime / this.timesExtended / 1000).toFixed(2)}s per cast of Barbed Shot that was cast more than 8 seconds after the last one.</li>
                   <li>Out of all your Barbed Shot casts, you gained an extra ${(this.extraBuffUptime / this.casts / 1000).toFixed(2)}s of uptime per cast.</li>
                   </ul>
+                  <br />
+                  The damage portion of this trait did an additional ~ ${formatNumber(dps)} DPS, ${formatPercentage(damageThroughputPercent)} % of your overall damage.
 `}
       />
     );
