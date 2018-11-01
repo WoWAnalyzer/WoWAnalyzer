@@ -4,8 +4,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Checklist from './modules/checklist/Module';
 
-import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
-
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -29,8 +27,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
 
-    // Normalizers
-    prePullCooldowns: PrePullCooldowns,
 
     // Features
     abilities: Abilities,
