@@ -6,9 +6,14 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
-    date: new Date('2018-11-01'),
+    date: new Date('2018-11-02'),
     changes: <>Implemented a talent statistic module and suggestions for <SpellLink id={SPELLS.VENOMOUS_BITE_TALENT.id} /> and <SpellLink id={SPELLS.THRILL_OF_THE_HUNT_TALENT.id} />.</>,
     contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-31'),
+    changes: <>Implement statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
+    contributors: [Streammz],
   },
   {
     date: new Date('2018-10-29'),
