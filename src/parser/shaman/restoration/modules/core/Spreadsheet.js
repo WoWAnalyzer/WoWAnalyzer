@@ -4,7 +4,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 const halfHP = 0.5;
-const rainBuffer = 2000;
 const linkBufferStart = 500;
 const linkBufferEnd = 1500;
 
@@ -14,7 +13,6 @@ class Spreadsheet extends Analyzer {
   };
 
   potentialSurgingTideProcs = 0;
-  potentialOverflowingShoresTargets = 0;
   potentialSpoutingSpiritsTargets = 0;
 
   spiritLinkCastTimestamp = 0;
@@ -28,14 +26,6 @@ class Spreadsheet extends Analyzer {
     }
   }
 
-  on_byPlayer_begincast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
-      return;
-    }
-    this.healingRainCastTimestamp = event.timestamp;
-  }
-
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
@@ -45,13 +35,6 @@ class Spreadsheet extends Analyzer {
         return;
       }
       this.potentialSurgingTideProcs += 1;
-
-      // checking how many people the initial of healing rain hits, while filtering out overheal events
-    } else if (this.healingRainCastTimestamp && spellId === SPELLS.HEALING_RAIN_HEAL.id && this.healingRainCastTimestamp <= event.timestamp && this.healingRainCastTimestamp >= event.timestamp - rainBuffer) {
-      if (event.overheal) {
-        return;
-      }
-      this.potentialOverflowingShoresTargets += 1;
     }
   }
   
@@ -76,9 +59,6 @@ class Spreadsheet extends Analyzer {
   }
   get spoutingSpiritsHits() {
     return this.potentialSpoutingSpiritsTargets;
-  }
-  get overflowingShoresHits() {
-    return this.potentialOverflowingShoresTargets;
   }
 }
 
