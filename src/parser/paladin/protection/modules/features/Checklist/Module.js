@@ -7,7 +7,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
-import Consecration from '../Consecration';
+import Consecration from '../../spells/Consecration';
 
 import Component from './Component';
 

@@ -6,13 +6,23 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class Consecration extends Analyzer {
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.CONSECRATION_BUFF.id) / this.owner.fightDuration;
+  _hitsTaken = 0;
+  _hitsMitigated = 0;
+
+  on_toPlayer_damage(event) {
+    this._hitsTaken += 1;
+    if(this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id)) {
+      this._hitsMitigated += 1;
+    }
+  }
+
+  get pctHitsMitigated() {
+    return this._hitsMitigated / this._hitsTaken;
   }
 
   get uptimeSuggestionThresholds() {
     return {
-      actual: this.uptime,
+      actual: this.pctHitsMitigated,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -25,9 +35,9 @@ class Consecration extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Consecration uptime can be improved. Maintain it to reduce all incoming damage by a flat amount and refresh it during rotational downtime.')
+          return suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
-            .actual(`${formatPercentage(actual)}% Consecration uptime`)
+            .actual(`${formatPercentage(actual)}% of hits were mitigated by Consecration `)
             .recommended(`>${formatPercentage(recommended)}% is recommended`);
         });
   }
@@ -36,8 +46,8 @@ class Consecration extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CONSECRATION_CAST.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Consecration uptime"
+        value={`${formatPercentage(this.pctHitsMitigated)} %`}
+        label="Hits Mitigated w/ Consecration"
       />
     );
   }

@@ -92,7 +92,7 @@ class FrostMageChecklist extends React.PureComponent {
           <Requirement name="Arcane Intellect uptime" thresholds={thresholds.arcaneIntellectUptime} />
           {combatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id) && <Requirement name="Bone Chilling uptime" thresholds={thresholds.boneChillingUptime} />}
         </Rule>
-        
+
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );

@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
+import Checklist from './modules/checklist/Module';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -23,6 +24,7 @@ import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
+import MultiShotSingleTarget from "./modules/spells/MultiShotSingleTarget";
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
@@ -46,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
+    multiShotSingleTarget: MultiShotSingleTarget,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,

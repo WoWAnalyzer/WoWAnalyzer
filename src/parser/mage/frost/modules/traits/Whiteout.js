@@ -11,15 +11,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
-// Enemy debuffs that provide the triple damage multiplier onto Ice Lance
-const SHATTER_EFFECTS = [
-  SPELLS.WINTERS_CHILL.id,
-  SPELLS.FROST_NOVA.id,
-  SPELLS.ICE_NOVA_TALENT.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-  SPELLS.RING_OF_FROST_DAMAGE.id,
-];
+import { SHATTER_DEBUFFS } from '../../constants';
 
 // The number of seconds of cooldown reduction given to Frozen Orb per Ice Lance
 const FO_REDUCTION_SEC = 0.5;
@@ -98,7 +90,7 @@ class Whiteout extends Analyzer {
 
     // Check for shatter effects, these multiply the damage of Ice Lance by 3
     const enemy = this.enemies.getEntity(event);
-    if ((enemy && SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect, event.timestamp))) || this.hadFingersProc) {
+    if ((enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp))) || this.hadFingersProc) {
       estimatedBonusDamage *= 3;
     }
 

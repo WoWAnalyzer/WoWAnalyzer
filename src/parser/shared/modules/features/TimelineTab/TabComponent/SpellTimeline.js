@@ -167,7 +167,7 @@ class SpellTimeline extends React.PureComponent {
                       left,
                       width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
                     }}
-                    data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(1)}s Global Cooldown by ${event.ability.name}`}
+                    data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
                   />
                 );
               })}

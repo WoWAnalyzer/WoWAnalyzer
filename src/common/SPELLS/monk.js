@@ -395,6 +395,16 @@ export default {
     name: 'Blackout Strike',
     icon: 'ability_monk_blackoutstrike',
   },
+  CELESTIAL_FORTUNE_HEAL: {
+    id: 216521,
+    name: 'Celestial Fortune',
+    icon: 'inv_celestialserpentmount',
+  },
+  EYE_OF_THE_TIGER_HEAL: {
+    id: 196608,
+    name: 'Eye of the Tiger',
+    icon: 'ability_druid_primalprecision',
+  },
   KEG_SMASH: {
     id: 121253,
     name: 'Keg Smash',

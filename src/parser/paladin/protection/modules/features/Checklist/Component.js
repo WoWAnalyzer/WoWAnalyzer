@@ -66,7 +66,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           />
           <Requirement
             name={(
-              <><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> uptime</>
+              <>Hits Mitigated with <SpellLink id={SPELLS.CONSECRATION_CAST.id} /></>
             )}
             thresholds={thresholds.consecration}
           />
