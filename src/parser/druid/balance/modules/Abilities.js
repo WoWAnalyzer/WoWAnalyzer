@@ -33,6 +33,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 4,
+        damageSpellIds: [SPELLS.SOLAR_WRATH_MOONKIN.id],
       },
       {
         spell: SPELLS.LUNAR_STRIKE,
