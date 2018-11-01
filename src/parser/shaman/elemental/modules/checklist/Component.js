@@ -6,7 +6,7 @@ import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
-class BeastMasteryChecklist extends React.PureComponent {
+class ElementalShamanChecklist extends React.PureComponent {
   static propTypes = {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
@@ -30,9 +30,9 @@ class BeastMasteryChecklist extends React.PureComponent {
           name="Use core abilities as often as possible"
           description={(
             <>
-              Using your core abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible, unless you need to save them for a prioirty burst phase that is coming up soon.
+              Using your core abilities as often as possible can help raise your dps significantly.Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible, unless you need to save them for a priority burst phase that is coming up soon.
               {'  '}
-              <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a>
+              <a href="https://stormearthandlava.com/guide/general/priority_list.html" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
         >
@@ -51,4 +51,4 @@ class BeastMasteryChecklist extends React.PureComponent {
   }
 }
 
-export default BeastMasteryChecklist;
+export default ElementalShamanChecklist;
