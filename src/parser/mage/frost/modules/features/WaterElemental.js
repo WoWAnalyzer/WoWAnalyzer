@@ -193,7 +193,7 @@ class WaterElemental extends Analyzer {
                       Your Water Elemental should be able to cast Waterbolt right when the fight starts. Therefore, cast <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> before the fight.
                       </>)
           .icon(SPELLS.WATERBOLT.icon)
-          .actual(`${(this._timestampFirstCast === 0 ? 'Never attacked' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`)
+          .actual(`${(this._timestampFirstCast === 0 ? 'Never attacked or not summoned' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`)
           .recommended(`Summoning pre-fight is recommended`);
     });
   }
