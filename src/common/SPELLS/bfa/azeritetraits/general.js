@@ -276,4 +276,14 @@ export default {
     name: 'Tidal Surge',
     icon: 'ability_mage_waterjet',
   },
+  UNSTABLE_CATALYST: {
+    id: 281514,
+    name: 'Unstable Catalyst',
+    icon: 'inv__azerite-debuff',
+  },
+  UNSTABLE_CATALYST_BUFF: {
+    id: 281517,
+    name: 'Unstable Catalyst',
+    icon: 'inv__azerite-debuff',
+  },
 };
