@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-11-01'),
+    changes: <>Added <SpellLink id={SPELLS.BLIGHTBORNE_INFUSION.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-10-26'),
     changes: <>Added <SpellLink id={SPELLS.WOUNDBINDER.id} />, <SpellLink id={SPELLS.BRACING_CHILL.id} />, <SpellLink id={SPELLS.SYNERGISTIC_GROWTH.id} />, and <SpellLink id={SPELLS.EPHEMERAL_RECOVERY_BUFF.id} /> azerite modules. </>,
     contributors: [Khadaj],

@@ -110,6 +110,7 @@ import WoundBinder from '../shared/modules/spells/bfa/azeritetraits/WoundBinder'
 import SynergisticGrowth from '../shared/modules/spells/bfa/azeritetraits/SynergisticGrowth';
 import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChill';
 import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/EphemeralRecovery';
+import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -235,6 +236,7 @@ class CombatLogParser {
     synergisticGrowth: SynergisticGrowth,
     bracingChill: BracingChill,
     ephemeralRecovery: EphemeralRecovery,
+    swirlingSands: SwirlingSands,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
