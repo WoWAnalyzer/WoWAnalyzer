@@ -6,19 +6,10 @@ import Icon from 'common/Icon';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Abilities from 'parser/shared/modules/Abilities';
-import Channeling from 'parser/shared/modules/Channeling';
-import Haste from 'parser/shared/modules/Haste';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
 class WaterElemental extends Analyzer {
   static dependencies = {
-    haste: Haste,
-    abilities: Abilities,
-    globalCooldown: GlobalCooldown, // triggers the globalcooldown event
-    channeling: Channeling, // triggers the channeling-related events
     abc: AlwaysBeCasting,
   };
   
@@ -37,59 +28,55 @@ class WaterElemental extends Analyzer {
   _timestampLastFinish = 0;
   _timestampLastCast = 0;
   _timestampFirstCast = 0;
-  _byPet = {};
   
   on_byPlayerPet_begincast(event) {
-    if (event.ability.guid === SPELLS.WATERBOLT.id) {
-      if (this.wasCastStarted) {
-        this._waterboltsCancelled += 1;
-      }
-      if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
-        this._timestampFirstCast = event.timestamp;
-      }
-      this.beginCastSpell = event.ability;
-      this.wasCastStarted = true;
-      this._timestampLastCast = event.timestamp;
+    if (event.ability.guid !== SPELLS.WATERBOLT.id) {
+      return;
     }
+    if (this.wasCastStarted) {
+        this._waterboltsCancelled += 1;
+    }
+    if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
+      this._timestampFirstCast = event.timestamp;
+    }
+    this.beginCastSpell = event.ability;
+    this.wasCastStarted = true;
+    this._timestampLastCast = event.timestamp;
   }
   
   on_byPlayerPet_cast(event) {
     if (event.ability.guid !== SPELLS.WATERBOLT.id) {
       return;
     }
-    else {
-      if (this.beginCastSpell.guid !== event.ability.guid && this.wasCastStarted) {
+    if (this.beginCastSpell.guid !== event.ability.guid && this.wasCastStarted) {
         this._waterboltsCancelled += 1;
-      }
-      else {
-        this._waterboltsCastStarts += 1;
-        this._timestampLastFinish = event.timestamp;
-        if (this._timestampLastCast === 0) {
-          //in case casting was started before going infight
-          this._timestampLastCast = this.owner.fight.start_time;
-        }
-        if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
-          this._timestampFirstCast = event.timestamp;
-        }
-        this.petActiveTime += this._timestampLastFinish - this._timestampLastCast;
-      }
-      this.wasCastStarted = false;
     }
-  }
-  
-  on_byPlayerPet_damage(event) {
-    if (event.ability.guid !== SPELLS.WATERBOLT.id) {
-      return;
-    }
-    else if (!event.targetIsFriendly && event.ability.guid === SPELLS.WATERBOLT.id) {
+    else {
+      this._waterboltsCastStarts += 1;
+      this._timestampLastFinish = event.timestamp;
+      if (this._timestampLastCast === 0) {
+        //in case casting was started before going infight
+        this._timestampLastCast = this.owner.fight.start_time;
+      }
       if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
         this._timestampFirstCast = event.timestamp;
       }
-      this._waterboltHits += 1;
-      this._waterboltDamage += event.amount + (event.absorbed || 0);
+      this.petActiveTime += this._timestampLastFinish - this._timestampLastCast;
     }
+    this.wasCastStarted = false;
   }
-    
+  
+  on_byPlayerPet_damage(event) {
+    if (event.ability.guid !== SPELLS.WATERBOLT.id || event.targetIsFriendly) {
+      return;
+    }
+    if (this._waterboltHits === 0 && this._timestampFirstCast === 0) {
+      this._timestampFirstCast = event.timestamp;
+    }
+    this._waterboltHits += 1;
+    this._waterboltDamage += event.amount + (event.absorbed || 0);
+  }
+
   get petDowntimePercentage() {
     return 1 - this.petActiveTimePercentage;
   }
