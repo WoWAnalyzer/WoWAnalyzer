@@ -86,7 +86,7 @@ class Stampede extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0,
-        major: 1
+        major: 1,
       },
       style: 'number',
     };
@@ -110,7 +110,7 @@ class Stampede extends Analyzer {
         <StatisticBox
           position={STATISTIC_ORDER.OPTIONAL()}
           icon={<SpellIcon id={SPELLS.STAMPEDE_TALENT.id} />}
-          value={<>{this.casts.length} casts / {this.hits} hits</>}
+          value={<>{this.casts.length} {this.casts.length > 1 ? "casts" : "cast"} / {this.hits} hits</>}
           label="Stampede"
           category={STATISTIC_CATEGORY.TALENTS}
           tooltip={`You cast ${stampedePlural} in the fight, which hit enemies ${this.hits} times for an average of ${formatNumber(averageHit)} damage per hit.`}
