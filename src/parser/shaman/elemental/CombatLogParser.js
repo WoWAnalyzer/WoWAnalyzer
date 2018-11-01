@@ -21,6 +21,7 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
+import Checklist from './modules/checklist/Module';
 
 import './main.css';
 
@@ -29,6 +30,7 @@ import StaticCharge from '../shared/talents/StaticCharge';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
+    checklist: Checklist,
   };
 
 }
