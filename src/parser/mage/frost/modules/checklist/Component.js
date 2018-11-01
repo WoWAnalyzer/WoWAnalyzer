@@ -79,7 +79,7 @@ class FrostMageChecklist extends React.PureComponent {
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
-          <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
+          <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
         <Rule
           name="Maintain your buffs"
@@ -89,7 +89,7 @@ class FrostMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />
+          <Requirement name="Arcane Intellect uptime" thresholds={thresholds.arcaneIntellectUptime} />
           {combatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id) && <Requirement name="Bone Chilling uptime" thresholds={thresholds.boneChillingUptime} />}
         </Rule>
         
