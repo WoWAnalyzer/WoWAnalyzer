@@ -41,6 +41,11 @@ export default {
     name: 'Invisibility',
     icon: 'ability_mage_invisibility',
   },
+  INVISIBILITY_BUFF: {
+    id: 32612,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
+  },
   TIME_WARP: {
     id: 80353,
     name: 'Time Warp',
@@ -353,6 +358,11 @@ export default {
     name: 'Greater Invisibility',
     icon: 'ability_mage_greaterinvisibility',
   },
+  GREATER_INVISIBILITY_BUFF: {
+    id: 110960,
+    name: 'Greater Invisibility',
+    icon: 'ability_mage_greaterinvisibility',
+  },
   MASTERY_SAVANT: {
     id: 190740,
     name: 'Mastery: Savant',
@@ -565,6 +575,13 @@ export default {
     id: 251858,
     name: 'T21 4 set bonus',
     icon: 'ability_mage_greaterinvisibility',
+  },
+
+  // Pet abilities
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
   },
 
   //Removed in 8.0 (Keep Temporarily until not needed anymore)

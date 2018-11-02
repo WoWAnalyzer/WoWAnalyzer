@@ -91,6 +91,31 @@ export default {
     name: 'Blessed Portents',
     icon: 'spell_holy_fanaticism',
   },
+  SYNERGISTIC_GROWTH: {
+    id: 267892,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  SYNERGISTIC_GROWTH_BUFF: {
+    id: 272090,
+    name: 'Synergistic Growth',
+    icon: 'inv_misc_markoftheworldtree',
+  },
+  EPHEMERAL_RECOVERY: {
+    id: 267886,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
+  EPHEMERAL_RECOVERY_BUFF: {
+    id: 272570,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
+  EPHEMERAL_RECOVERY_EFFECT: {
+    id: 272572,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
   AZERITE_FORTIFICATION: {
     id: 270659,
     name: 'Azerite Fortification',
@@ -102,6 +127,11 @@ export default {
     icon: 'spell_yorsahj_bloodboil_orangeoil',
   },
   SAVIOR: {
+    id: 267883,
+    name: 'Savior',
+    icon: 'achievement_guildperk_everyones-a-hero',
+  },
+  SAVIOR_HEAL: {
     id: 269108,
     name: 'Savior',
     icon: 'achievement_guildperk_everyones-a-hero',
@@ -152,6 +182,11 @@ export default {
     icon: 'achievement_bg_killflagcarriers_grabflag_capit',
   },
   WOUNDBINDER: {
+    id: 267880,
+    name: 'Woundbinder',
+    icon: 'inv_misc_emberweavebandage',
+  },
+  WOUNDBINDER_BUFF: {
     id: 269085,
     name: 'Woundbinder',
     icon: 'inv_misc_emberweavebandage',

@@ -30,6 +30,7 @@ class SpellUsable extends CoreSpellUsable {
       this.lastPotentialTriggerForJudgment = null;
     }
   }
+
   on_toPlayer_damage(event) {
     if (super.on_toPlayer_damage) {
       super.on_toPlayer_damage(event);

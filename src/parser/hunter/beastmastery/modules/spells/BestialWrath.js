@@ -118,11 +118,11 @@ class BestialWrath extends Analyzer {
     return {
       actual: this.effectiveBWReduction / this.totalPossibleCDR,
       isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.8,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
-      style: 'percent',
+      style: 'percentage',
     };
   }
 
