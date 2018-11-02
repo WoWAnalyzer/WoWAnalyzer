@@ -26,7 +26,7 @@ class SoothingMist extends Analyzer {
       this.soomTicks += 1;
       this.lastSoomTickTimestamp = event.timestamp;
     }
-    
+
     if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp) {
       this.gustProc += 1;
       this.gustHealing += (event.amount || 0) + (event.absorbed || 0);

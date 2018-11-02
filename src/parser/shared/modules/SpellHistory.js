@@ -72,7 +72,6 @@ class SpellHistory extends Analyzer {
     const spellId = event.ability.guid;
     this._append(spellId, event);
   }
-  // do I need to add these?
   on_byPlayer_beginchannel(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);
@@ -81,7 +80,6 @@ class SpellHistory extends Analyzer {
     const spellId = event.ability.guid;
     this._append(spellId, event);
   }
-
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);

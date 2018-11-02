@@ -95,7 +95,6 @@ class CastEfficiency extends Analyzer {
     const timeSpentCasting = history
       .reduce((acc, event) => {
 
-        // TODO figure out how to handle spells that get both "casts" and "channels"... don't want to double count anything.
         if (event.type === 'begincast') {
           beginCastTimestamp = event.timestamp;
           return acc;
@@ -114,6 +113,7 @@ class CastEfficiency extends Analyzer {
           return acc;
         }
       }, 0);
+      
     return timeSpentCasting;
   }
 
@@ -148,7 +148,6 @@ class CastEfficiency extends Analyzer {
     const timeSpentCasting = this._getTimeSpentCasting({ primarySpell: { id: abilityId } });
     const gcdSpent = this._getTimeSpentOnGcd(abilityId);
 
-    // this.log("timeSpentCasting: ", timeSpentCasting, abilityId);
     return {
       timeSpentCasting,
       gcdSpent,

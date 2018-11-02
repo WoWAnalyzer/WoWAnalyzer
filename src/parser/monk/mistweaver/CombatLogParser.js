@@ -17,8 +17,7 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-// import CoreChanneling from './modules/core/Channeling';
-import Channeling from './modules/features/Channeling';
+import CoreChanneling from './modules/core/Channeling';
 import HotTracker from './modules/core/HotTracker';
 
 // Normalizers
@@ -78,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
-    channeling: Channeling,
+    channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
 
