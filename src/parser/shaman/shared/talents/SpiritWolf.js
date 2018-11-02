@@ -24,7 +24,8 @@ class SpiritWolf extends Analyzer {
       return;
     }
     const stacks = this.selectedCombatant.getBuff(SPELLS.SPIRIT_WOLF_BUFF.id).stacks;
-    this.damageReduced += event.amount / (1 - (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks)) * (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks);
+    const damageTaken = event.amount + (event.absorbed || 0);
+    this.damageReduced += damageTaken / (1 - (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks)) * (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks);
   }
 
   get totalDrps() {

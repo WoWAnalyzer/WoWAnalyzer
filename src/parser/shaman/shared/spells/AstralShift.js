@@ -17,7 +17,8 @@ class AstralShift extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.ASTRAL_SHIFT.id)) {
       return;
     }
-    this.damageReduced += event.amount / (1 - (ASTRAL_SHIFT_DR)) * (ASTRAL_SHIFT_DR);
+    const damageTaken = event.amount + (event.absorbed || 0);
+    this.damageReduced += damageTaken / (1 - (ASTRAL_SHIFT_DR)) * (ASTRAL_SHIFT_DR);
   }
 
   get totalDrps() {
