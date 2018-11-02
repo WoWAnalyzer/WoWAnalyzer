@@ -48,7 +48,7 @@ class MultiShotSingleTarget extends Analyzer {
     if (this.beastCleaveHits === 0) {
       this.castsWithoutHits++;
     }
-    
+
     this.beastCleaveHits = 0;
   }
 
@@ -75,7 +75,7 @@ class MultiShotSingleTarget extends Analyzer {
   suggestions(when) {
     if (this.casts > 0) {
       when(this.castsWithoutHitsTreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You've casted <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual === 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using multi-shot.</>)
+        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual === 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
           .icon(SPELLS.MULTISHOT_BM.icon)
           .actual(`${actual} cast${actual === 1 ? '' : 's'} without any Beast Cleave damage`)
           .recommended(`${recommended} is recommended`);

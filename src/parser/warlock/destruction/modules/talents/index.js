@@ -6,7 +6,7 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 
 import ReverseEntropy from './ReverseEntropy';
 import ChannelDemonfire from './ChannelDemonfire';
-// import FireAndBrimstone from './FireAndBrimstone';
+import FireAndBrimstone from './FireAndBrimstone';
 import Cataclysm from './Cataclysm';
 import SoulConduit from './SoulConduit';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
@@ -14,7 +14,7 @@ import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
     reverseEntropy: ReverseEntropy,
-    // fireAndBrimstone: FireAndBrimstone,
+    fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,

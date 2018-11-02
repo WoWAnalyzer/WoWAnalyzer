@@ -1,10 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
@@ -24,8 +23,7 @@ class DireBeast extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(19)}
+      <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_BEAST_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Dire Beast uptime"
