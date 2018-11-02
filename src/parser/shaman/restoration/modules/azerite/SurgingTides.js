@@ -12,10 +12,7 @@ class SurgingTides extends BaseHealerAzerite {
 
   constructor(...args) {
     super(...args);
-    this.active = this.hasTrait;
-    if (!this.active) {
-      return;
-    }
+    this.disableStatistic = !this.hasTrait;
   }
 
   on_byPlayer_absorbed(event) {
