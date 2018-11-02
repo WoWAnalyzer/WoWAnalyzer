@@ -15,6 +15,7 @@ import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 // import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
     // fireAndBrimstone: FireAndBrimstone,
+    cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
