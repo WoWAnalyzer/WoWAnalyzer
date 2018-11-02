@@ -6,6 +6,32 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-02'),
+    changes: (
+      <>Added support for all current Restoration Shaman azerite traits:
+        <ul>
+          <li><SpellLink id={SPELLS.EBB_AND_FLOW.id} /></li>
+          <li><SpellLink id={SPELLS.OVERFLOWING_SHORES_TRAIT.id} /></li>
+          <li><SpellLink id={SPELLS.SOOTHING_WATERS_TRAIT.id} /></li>
+          <li><SpellLink id={SPELLS.SPOUTING_SPIRITS.id} /></li>
+          <li><SpellLink id={SPELLS.SURGING_TIDES.id} /></li>
+          <li><SpellLink id={SPELLS.SWELLING_STREAM.id} /></li>
+        </ul>
+      </>
+    ),
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-11-01'),
+    changes: <>The <SpellLink id={SPELLS.ANCESTRAL_VIGOR.id} /> module now provides a detailed breakdown.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-11-01'),
+    changes: <>Added support for <SpellLink id={SPELLS.ASTRAL_SHIFT.id} /> damage reduction.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-09-13'),
     changes: <>Added support for <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> usage.</>,
     contributors: [niseko],
@@ -29,7 +55,7 @@ export default [
     date: new Date('2018-06-18'),
     changes: (
       <>Updated Restoration Shaman for Battle for Azeroth.<br />
-      Changes include:<br />
+        Changes include:<br />
         <ul>
           <li>Removal of old talents and artifact traits.</li>
           <li>Added a module showing the <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> uptime. The healing bonus contribution is calculated and added into the talent statistic box.</li>

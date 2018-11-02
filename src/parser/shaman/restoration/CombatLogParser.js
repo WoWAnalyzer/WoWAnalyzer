@@ -14,7 +14,6 @@ import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import ShamanAbilityTracker from './modules/core/ShamanAbilityTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
-import Spreadsheet from './modules/core/Spreadsheet';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -53,9 +52,13 @@ import BaseHealerAzerite from './modules/azerite/BaseHealerAzerite';
 import SwellingStream from './modules/azerite/SwellingStream';
 import EbbAndFlow from './modules/azerite/EbbAndFlow';
 import SoothingWaters from './modules/azerite/SoothingWaters';
+import OverflowingShores from './modules/azerite/OverflowingShores';
+import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
+import SurgingTides from './modules/azerite/SurgingTides';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
+import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -71,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
-    spreadsheet: Spreadsheet,
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
@@ -116,10 +118,14 @@ class CombatLogParser extends CoreCombatLogParser {
     swellingStream: SwellingStream,
     ebbAndFlow: EbbAndFlow,
     soothingWaters: SoothingWaters,
+    overflowingShores: OverflowingShores,
+    spoutingSpirits: SpoutingSpirits,
+    surgingTides: SurgingTides,
 
     // Shared:
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
+    astralShift: AstralShift,
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,

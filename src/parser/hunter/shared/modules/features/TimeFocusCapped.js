@@ -57,7 +57,7 @@ class TimeFocusCapped extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
-        label="Time Focus Capped"
+        label="Time focus capped"
         tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
         That's <b>  ${formatPercentage(this.getTotalWaste / this.totalGenerated)}% </b> of your total focus generated.
         <br /> For more details, see the Focus Chart tab.`}
