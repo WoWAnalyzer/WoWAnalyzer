@@ -42,6 +42,7 @@ import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import AzeriteTraits from './modules/spells/AzeriteTraits';
+import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -59,7 +60,8 @@ import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 
 // Mana Tracker
-import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
+// import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
@@ -95,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
+    renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
     azeriteTraits: AzeriteTraits,
 
@@ -115,7 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Mana Tab
     manaTracker: ManaTracker,
-    hpmDetails: HealingEfficiencyDetails,
+    hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
   };
 

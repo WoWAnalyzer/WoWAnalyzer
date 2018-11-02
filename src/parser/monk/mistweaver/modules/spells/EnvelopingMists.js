@@ -23,10 +23,17 @@ class EnvelopingMists extends Analyzer {
     combatants: Combatants,
   };
 
-  totalHealing = 0;
-  totalOverhealing = 0;
-  totalAbsorbs = 0;
   healingIncrease = 0;
+  gustHealing = 0;
+  lastCastTarget = null;
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (SPELLS.ENVELOPING_MIST.id !== spellId) {
+      return;
+    }
+    this.lastCastTarget = event.targetID;
+  }
 
   on_byPlayer_heal(event) {
     const targetId = event.targetID;
@@ -37,14 +44,15 @@ class EnvelopingMists extends Analyzer {
       return;
     }
 
+    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
+      this.gustProc += 1;
+      this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
+    }
+
     if (this.combatants.players[targetId]) {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0) === true) {
         this.healingIncrease += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
         debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
-        this.totalHealing += event.amount || 0;
-        this.totalHealing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
-        this.totalOverhealing += event.overheal || 0;
-        this.totalAbsorbs += event.absorbed || 0;
       }
     }
   }
