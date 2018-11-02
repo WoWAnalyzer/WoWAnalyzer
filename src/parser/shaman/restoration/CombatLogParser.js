@@ -51,6 +51,7 @@ import SwellingStream from './modules/azerite/SwellingStream';
 import EbbAndFlow from './modules/azerite/EbbAndFlow';
 import SoothingWaters from './modules/azerite/SoothingWaters';
 import OverflowingShores from './modules/azerite/OverflowingShores';
+import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ebbAndFlow: EbbAndFlow,
     soothingWaters: SoothingWaters,
     overflowingShores: OverflowingShores,
+    spoutingSpirits: SpoutingSpirits,
 
     // Shared:
     spiritWolf: SpiritWolf,

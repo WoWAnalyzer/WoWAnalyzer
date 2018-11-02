@@ -21,6 +21,8 @@ import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
 import { STAT_TRACKER as ARCHIVE_OF_THE_TITANS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
 import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
+import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
+import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 
 const debug = false;
 
@@ -247,6 +249,7 @@ class StatTracker extends Analyzer {
     // region Azerite Traits
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION_BUFF.id]: BLIGHTBORNE_INFUSION_STATS,
+    [SPELLS.SWIRLING_SANDS_BUFF.id]: SWIRLING_SANDS_STATS,
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
@@ -269,6 +272,7 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
+    [SPELLS.UNSTABLE_CATALYST_BUFF.id]: UNSTABLE_CATALYST_STATS,
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
