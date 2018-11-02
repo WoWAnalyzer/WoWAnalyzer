@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-01'),
+    changes: <>The <SpellLink id={SPELLS.ANCESTRAL_VIGOR.id} /> module now provides a detailed breakdown.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-11-01'),
+    changes: <>Added support for <SpellLink id={SPELLS.ASTRAL_SHIFT.id} /> damage reduction.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-09-13'),
     changes: <>Added support for <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> usage.</>,
     contributors: [niseko],
