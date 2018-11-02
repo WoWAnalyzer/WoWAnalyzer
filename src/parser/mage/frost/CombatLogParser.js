@@ -24,6 +24,7 @@ import WintersReach from './modules/traits/WintersReach';
 import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
+import WaterElemental from './modules/features/WaterElemental';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     splittingIce: SplittingIce,
     boneChilling: BoneChilling,
+    waterElemental: WaterElemental,
 
     //Traits
     wintersReach: WintersReach,

@@ -286,4 +286,14 @@ export default {
     name: 'Unstable Catalyst',
     icon: 'inv__azerite-debuff',
   },
+  SWIRLING_SANDS: {
+    id: 280429,
+    name: 'Swirling Sands',
+    icon: 'spell_sandstorm',
+  },
+  SWIRLING_SANDS_BUFF: {
+    id: 280433,
+    name: 'Swirling Sands',
+    icon: 'spell_sandstorm',
+  },
 };
