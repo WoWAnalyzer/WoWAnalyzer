@@ -55,6 +55,7 @@ import SurgingTides from './modules/azerite/SurgingTides';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
+import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shared:
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
+    astralShift: AstralShift,
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,
