@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import Havoc from './modules/features/Havoc';
+import RainOfFire from './modules/features/RainOfFire';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     havoc: Havoc,
+    rainOfFire: RainOfFire,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
