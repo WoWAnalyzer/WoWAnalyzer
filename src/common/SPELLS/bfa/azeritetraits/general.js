@@ -296,4 +296,9 @@ export default {
     name: 'Swirling Sands',
     icon: 'spell_sandstorm',
   },
+  TRADEWINDS: {
+    id: 281843,
+    name: 'Tradewinds',
+    icon: 'ability_skyreach_wind',
+  },
 };
