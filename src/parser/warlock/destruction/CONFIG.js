@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { Chizu } from 'CONTRIBUTORS';
-import SpellLink from 'common/SpellLink';
-import SPELLS from 'common/SPELLS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -20,16 +17,10 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello fellow Netherlords! While I gotta admit this tool feels more like a statistic than something that really helps you (just yet!), I hope it still is useful to you. Any suggestions as to what could be useful to see are welcome and I'll try to implement them in order for this tool to be more than just a glorified WCL log. <br /> <br />
+      Hello fellow Netherlords! With some help from <strong>Motoko</strong> from Warlock Discord, we've put together this tool to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />
 
-      As for a general rule of thumb - keep your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> up as much as you can, cast <SpellLink id={SPELLS.CONFLAGRATE.id} /> on CD. Dump shards into fat <SpellLink id={SPELLS.CHAOS_BOLT.id} /> and just overall don't forget to cast spells when you have them (<SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />, <SpellLink id={SPELLS.HAVOC.id} /> when there's something to cleave etc.). <br /> <br />
-
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoWAnalyzer Discord.<br /><br />
-
-      <Warning>
-        The Destruction Warlock analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
+      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>&nbsp;
+      or <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>, if you'd like to discuss anything about this analyzer, message me @Chizu#2873 on WoWAnalyzer Discord.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
