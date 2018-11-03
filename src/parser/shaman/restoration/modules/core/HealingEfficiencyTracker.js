@@ -9,6 +9,7 @@ import HealingDone from './HealingDone';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import UnleashLife from '../talents/UnleashLife';
+import EarthShield from '../talents/EarthShield';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -21,29 +22,44 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     resurgence: Resurgence,
     cooldownThroughputTracker: CooldownThroughputTracker,
     unleashLife: UnleashLife,
+    earthShield: EarthShield,
   };
 
   getCustomSpellStats(spellInfo, spellId) {
-    // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (this.resurgence.resurgence[spellId]) {
-      spellInfo.manaSpent -= this.resurgence.resurgence[spellId].resurgenceTotal;
-    }
-    const feeding = (this.cooldownThroughputTracker.getIndirectHealing(spellId) || 0);
-    spellInfo.healingDone += feeding; // this doesn't include healingSpellIds
-    // remove feeding
-
-    if (this.unleashLife.healingBuff[spellId]) {
-      const unlc = (this.unleashLife.healingBuff[spellId].healing || 0);
-      spellInfo.healingDone -= unlc;
+      this.getResurgenceDetails(spellInfo, spellId);
     }
     if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
-      const unle = this.unleashLife.totalBuffedHealing;
-      spellInfo.healingDone += unle;
+      this.getUnleashLifeDetails(spellInfo);
+    } else if (this.unleashLife.healingBuff[spellId]) {
+      this.getUnleashLifeBuffDetails(spellInfo, spellId);
+    } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
+      this.getEarthShieldBuffDetails(spellInfo);
     }
 
-    // add unleash extra healing thru unleash module (reworked?)
-    // remove it from the original spell
     return spellInfo;
+  }
+
+  // Resurgence "refunds" mana, so the spell is essentially cheaper
+  getResurgenceDetails(spellInfo, spellId) {
+    spellInfo.manaSpent -= this.resurgence.resurgence[spellId].resurgenceTotal;
+  }
+
+  // Healing from other spells that Unleash Life is responsible for
+  getUnleashLifeDetails(spellInfo) {
+    const unleashLifeContribution = this.unleashLife.totalBuffedHealing;
+    spellInfo.healingDone += unleashLifeContribution;
+  }
+
+  // Remove Unleash Life's contribution to the affected spells
+  getUnleashLifeBuffDetails(spellInfo, spellId) {
+    const unleashLifeContribution = (this.unleashLife.healingBuff[spellId].healing || 0);
+    spellInfo.healingDone -= unleashLifeContribution;
+  }
+
+  // Todo: Same treatment for Earth Shield as for Unleash Life and remove the healing from affected spells
+  getEarthShieldBuffDetails(spellInfo) {
+    spellInfo.healingDone += this.earthShield.buffHealing || 0;
   }
 }
 

@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-013'),
+    changes: 'New Tab added: "Mana Efficiency".',
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-11-02'),
     changes: (
       <>Added support for all current Restoration Shaman azerite traits:
