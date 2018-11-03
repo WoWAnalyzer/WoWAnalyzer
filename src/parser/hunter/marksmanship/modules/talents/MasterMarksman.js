@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -59,7 +59,7 @@ class MasterMarksman extends Analyzer {
     tooltipText += this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts > 0 ? `<li>Out of the total procs, you used ${this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts} of them on ${this.affectedSpells[SPELLS.MULTISHOT_MM.id].name}.<ul><li>This saved you a total of ${this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts * FOCUS_COST} focus.</li></ul></li>` : ``;
     tooltipText += `</ul>`;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(21)}
         icon={<SpellIcon id={SPELLS.MASTER_MARKSMAN_TALENT.id} />}
         value={`${this.usedProcs}/${this.totalProcs}`}

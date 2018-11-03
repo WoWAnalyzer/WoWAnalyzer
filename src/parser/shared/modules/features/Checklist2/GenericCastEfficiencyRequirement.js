@@ -22,6 +22,7 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
       averageIssueEfficiency: PropTypes.number.isRequired,
       majorIssueEfficiency: PropTypes.number.isRequired,
     }).isRequired,
+    isMaxCasts: PropTypes.bool,
   };
 
   get thresholds() {
@@ -29,23 +30,42 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
       captureException(new Error(`GenericCastEfficiencyRequirement requires that you pass the castEfficiency object yourself. Spell: ${this.props.spell}`));
       return null;
     }
-    const {
-      efficiency,
-      gotMaxCasts,
-      recommendedEfficiency: minor,
-      averageIssueEfficiency: average,
-      majorIssueEfficiency: major,
-    } = this.props.castEfficiency;
 
-    return {
-      actual: gotMaxCasts ? 1 : efficiency,
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-      style: 'percentage',
-    };
+    if(this.props.isMaxCasts) {
+      const {
+        casts,
+        maxCasts,
+      } = this.props.castEfficiency;
+  
+      return {
+        actual: casts,
+        max: maxCasts,
+        isLessThan: {
+          minor: maxCasts,
+          average: maxCasts - 1,
+          major: maxCasts - 2,
+        },
+        style: 'number',
+      };
+    } else {
+      const {
+        efficiency,
+        gotMaxCasts,
+        recommendedEfficiency: minor,
+        averageIssueEfficiency: average,
+        majorIssueEfficiency: major,
+      } = this.props.castEfficiency;
+
+      return {
+        actual: gotMaxCasts ? 1 : efficiency,
+        isLessThan: {
+          minor,
+          average,
+          major,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   render() {

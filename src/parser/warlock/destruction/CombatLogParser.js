@@ -14,7 +14,7 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
-// import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
@@ -40,7 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     backdraft: Backdraft,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
-    // fireAndBrimstone: FireAndBrimstone,
+    fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
