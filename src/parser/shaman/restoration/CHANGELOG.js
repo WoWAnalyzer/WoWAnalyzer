@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-11-013'),
+    date: new Date('2018-11-03'),
     changes: 'New Tab added: "Mana Efficiency".',
     contributors: [niseko],
   },
