@@ -312,4 +312,5 @@ export default {
   502: 280181, // "Personal Absorb-o-Tron"
   503: 280172, // "Auto-Self-Cauterizer"
   504: 281514, // "Unstable Catalyst"
+  505: 281843, // "Tradewinds"
 };
