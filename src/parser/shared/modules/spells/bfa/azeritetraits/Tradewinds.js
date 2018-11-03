@@ -56,11 +56,7 @@ class Tradewinds extends Analyzer {
   }
 
   handleBuff(event) {
-    if (event.ability.guid !== SPELLS.TRADEWINDS.id) {
-      return;
-    }
-
-    if (event.type === "applybuff" || event.type === "refreshbuff") {
+    if (event.ability.guid === SPELLS.TRADEWINDS.id) {
       this.procs++;
     }
   }
