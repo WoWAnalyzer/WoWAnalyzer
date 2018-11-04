@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.INFERNO_TALENT.id} /> and <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-02'),
     changes: <><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> should now correctly track bonus fragments and cleaved damage again.</>,
     contributors: [Chizu],
