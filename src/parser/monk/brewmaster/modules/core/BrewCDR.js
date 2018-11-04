@@ -45,9 +45,16 @@ class BrewCDR extends Analyzer {
     return totalCDR;
   }
 
-  // ok emallson, for the last time *WRITE DOWN YOUR DERIVATIONS*
+  // The idea here is pretty simple: we have an amount of time that has
+  // passed (fightDuration) and an amount of time that has "passed"
+  // via flat cooldown reduction on abilities (totalCDR). For example,
+  // Keg Smash effetively causes 4 seconds to "pass" when cast. So we
+  // want to know what fraction of time that has passed was caused by
+  // cooldown reduction effects, which is:
   //
-  // not the derivation, but close enough i guess:
+  // cdr% = totalCDR / (fightDuration + totalCDR)
+  //
+  // related:
   // https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1238#discussion_r163734298
   get cooldownReductionRatio() {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);

@@ -8,6 +8,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import Havoc from './modules/features/Havoc';
 import RainOfFire from './modules/features/RainOfFire';
+import Checklist from './modules/features/Checklist/Module';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -36,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     havoc: Havoc,
     rainOfFire: RainOfFire,
+    checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
