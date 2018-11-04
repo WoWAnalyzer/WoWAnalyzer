@@ -74,7 +74,7 @@ class HighTide extends Analyzer {
      * Things that are able to break the sorting: Deluge (Pls don't take it) as its undetectable, random player-based heal increases
      * (possibly encounter mechanics) if not accounted for.
      */
-    let heal = event.amount + (event.absorb || 0) + (event.overheal || 0);
+    let heal = event.amount + (event.absorbed || 0) + (event.overheal || 0);
     if (event.hitType === HIT_TYPES.CRIT) {
       const critMult = this.critEffectBonus.getBonus(event);
       heal /= critMult;

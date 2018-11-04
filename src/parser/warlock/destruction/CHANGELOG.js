@@ -12,6 +12,11 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-11-03'),
+    changes: 'Implemented Checklist for Destruction Warlocks.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-02'),
     changes: <><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> should now correctly track bonus fragments and cleaved damage again.</>,
     contributors: [Chizu],

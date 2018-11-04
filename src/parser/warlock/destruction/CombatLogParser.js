@@ -2,12 +2,14 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import SpellUsable from './modules/core/SpellUsable';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import Havoc from './modules/features/Havoc';
-import SpellUsable from './modules/core/SpellUsable';
+import Checklist from './modules/features/Checklist/Module';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -38,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     havoc: Havoc,
     backdraft: Backdraft,
+    checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
