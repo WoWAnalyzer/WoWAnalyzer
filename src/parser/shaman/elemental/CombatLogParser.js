@@ -30,6 +30,8 @@ import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
+import PackSpirit from '../shared/azerite/PackSpirit';
+import SereneSpirit from '../shared/azerite/SereneSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,6 +65,8 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
     astralShift: AstralShift,
+    packSpirit: PackSpirit,
+    sereneSpirit: SereneSpirit,
   };
 
 }
