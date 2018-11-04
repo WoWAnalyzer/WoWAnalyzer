@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> module, damage estimate to <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> and moved <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> to the rest of the talents.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-02'),
     changes: <><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> should now correctly track bonus fragments and cleaved damage again.</>,
     contributors: [Chizu],
