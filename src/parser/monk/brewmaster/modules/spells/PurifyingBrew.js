@@ -107,7 +107,7 @@ class PurifyingBrew extends Analyzer {
     const cd = ability._cooldown(this.cdr.meanHaste);
     const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
     const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
-    return Math.max(castsAvailable - castsForUptime, 0);
+    return Math.max(castsAvailable - castsForUptime, 1);
   }
 
   on_addstagger(event) {

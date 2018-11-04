@@ -170,7 +170,7 @@ class ManaTea extends Analyzer {
         </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatNumber(this.avgMTsaves)} average mana saved per Mana Tea cast`)
+        .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
     });
   }

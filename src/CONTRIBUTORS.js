@@ -268,6 +268,7 @@ export const hatra344 = {
 export const emallson = {
   nickname: 'emallson',
   github: 'emallson',
+  avatar: require('./interface/images/avatars/emallson-avatar.jpg'),
 };
 export const Gebuz = {
   nickname: 'Gebuz',
@@ -516,6 +517,15 @@ export const Matardarix = {
     name: 'Mâtârdarix',
     spec: SPECS.ARMS_WARRIOR,
     link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
+  }],
+};
+export const mtblanton = {
+  nickname: 'mtblanton',
+  github: 'mtblanton',
+  mains: [{
+    name: 'Harzwaz',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/Harzwaz',
   }],
 };
 export const Streammz = {

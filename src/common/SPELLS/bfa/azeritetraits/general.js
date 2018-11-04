@@ -101,6 +101,21 @@ export default {
     name: 'Synergistic Growth',
     icon: 'inv_misc_markoftheworldtree',
   },
+  EPHEMERAL_RECOVERY: {
+    id: 267886,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
+  EPHEMERAL_RECOVERY_BUFF: {
+    id: 272570,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
+  EPHEMERAL_RECOVERY_EFFECT: {
+    id: 272572,
+    name: 'Ephemeral Recovery',
+    icon: 'inv_gizmo_manasyphon',
+  },
   AZERITE_FORTIFICATION: {
     id: 270659,
     name: 'Azerite Fortification',
@@ -260,5 +275,30 @@ export default {
     id: 280404,
     name: 'Tidal Surge',
     icon: 'ability_mage_waterjet',
+  },
+  UNSTABLE_CATALYST: {
+    id: 281514,
+    name: 'Unstable Catalyst',
+    icon: 'inv__azerite-debuff',
+  },
+  UNSTABLE_CATALYST_BUFF: {
+    id: 281517,
+    name: 'Unstable Catalyst',
+    icon: 'inv__azerite-debuff',
+  },
+  SWIRLING_SANDS: {
+    id: 280429,
+    name: 'Swirling Sands',
+    icon: 'spell_sandstorm',
+  },
+  SWIRLING_SANDS_BUFF: {
+    id: 280433,
+    name: 'Swirling Sands',
+    icon: 'spell_sandstorm',
+  },
+  TRADEWINDS: {
+    id: 281843,
+    name: 'Tradewinds',
+    icon: 'ability_skyreach_wind',
   },
 };
