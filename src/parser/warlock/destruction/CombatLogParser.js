@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import Havoc from './modules/features/Havoc';
+import SpellUsable from './modules/core/SpellUsable';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -15,6 +16,7 @@ import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import InternalCombustion from './modules/talents/InternalCombustion';
+import Shadowburn from './modules/talents/Shadowburn';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
@@ -36,12 +38,14 @@ class CombatLogParser extends CoreCombatLogParser {
     havoc: Havoc,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    spellUsable: SpellUsable,
 
     // Talents
     backdraft: Backdraft,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
     internalCombustion: InternalCombustion,
+    shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,

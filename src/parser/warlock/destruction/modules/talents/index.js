@@ -6,6 +6,7 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 
 import ReverseEntropy from './ReverseEntropy';
 import InternalCombustion from './InternalCombustion';
+import Shadowburn from './Shadowburn';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
 import SoulConduit from './SoulConduit';
@@ -15,6 +16,7 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     reverseEntropy: ReverseEntropy,
     internalCombustion: InternalCombustion,
+    shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     channelDemonfire: ChannelDemonfire,
