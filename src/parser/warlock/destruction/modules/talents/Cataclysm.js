@@ -38,24 +38,16 @@ class Cataclysm extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  _handleImmolate(event) {
-    if (event.ability.guid !== SPELLS.IMMOLATE_DEBUFF.id) {
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.CATACLYSM_TALENT.id) {
       return;
     }
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
     }
     else {
-      debug && this.log('Immolate debuff applied outside of the 100ms buffer after cast');
+      debug && this.log('Cataclysm damage outside of the 100ms buffer after cast');
     }
-  }
-
-  on_byPlayer_applydebuff(event) {
-    this._handleImmolate(event);
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    this._handleImmolate(event);
   }
 
   on_finished() {
