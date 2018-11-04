@@ -112,6 +112,7 @@ import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChil
 import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/EphemeralRecovery';
 import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
+import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -239,6 +240,7 @@ class CombatLogParser {
     ephemeralRecovery: EphemeralRecovery,
     unstableCatalyst: UnstableCatalyst,
     swirlingSands: SwirlingSands,
+    tradewinds: Tradewinds,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
