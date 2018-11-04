@@ -4,12 +4,12 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
+import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoul from './DrainSoul';
 import VileTaint from './VileTaint';
 import ShadowEmbrace from './ShadowEmbrace';
-import GrimoireOfSacrifice from './GrimoireOfSacrifice';
 import Haunt from './Haunt';
 import Nightfall from './Nightfall';
 import PhantomSingularity from './PhantomSingularity';

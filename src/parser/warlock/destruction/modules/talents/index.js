@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
+import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import ReverseEntropy from './ReverseEntropy';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
@@ -17,6 +18,7 @@ class TalentStatisticBox extends Analyzer {
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
     grimoireOfSupremacy: GrimoireOfSupremacy,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
   };
 
   constructor(...args) {

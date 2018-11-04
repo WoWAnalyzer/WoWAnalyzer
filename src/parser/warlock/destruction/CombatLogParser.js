@@ -11,12 +11,15 @@ import Havoc from './modules/features/Havoc';
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
+import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+
 import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
+import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import Talents from './modules/talents';
 
@@ -35,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     havoc: Havoc,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 
     // Talents
     backdraft: Backdraft,
@@ -43,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     talents: Talents,
 
