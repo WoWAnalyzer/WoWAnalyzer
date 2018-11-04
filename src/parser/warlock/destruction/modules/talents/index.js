@@ -9,6 +9,7 @@ import ChannelDemonfire from './ChannelDemonfire';
 import Inferno from './Inferno';
 import FireAndBrimstone from './FireAndBrimstone';
 import SoulConduit from './SoulConduit';
+import RoaringBlaze from './RoaringBlaze';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
 class TalentStatisticBox extends Analyzer {
@@ -18,6 +19,7 @@ class TalentStatisticBox extends Analyzer {
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
+    roaringBlaze: RoaringBlaze,
     grimoireOfSupremacy: GrimoireOfSupremacy,
   };
 

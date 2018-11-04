@@ -17,6 +17,7 @@ import ReverseEntropy from './modules/talents/ReverseEntropy';
 import Inferno from './modules/talents/Inferno';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
+import RoaringBlaze from './modules/talents/RoaringBlaze';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
 import Talents from './modules/talents';
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     inferno: Inferno,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
+    roaringBlaze: RoaringBlaze,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
     talents: Talents,
