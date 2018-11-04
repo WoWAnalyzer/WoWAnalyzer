@@ -6,6 +6,7 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 
 import Flashover from './Flashover';
 import ReverseEntropy from './ReverseEntropy';
+import SoulFire from './SoulFire';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
 import SoulConduit from './SoulConduit';
@@ -15,6 +16,7 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     flashover: Flashover,
     reverseEntropy: ReverseEntropy,
+    soulFire: SoulFire,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
