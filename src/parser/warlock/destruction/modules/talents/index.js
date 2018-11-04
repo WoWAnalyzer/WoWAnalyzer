@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
+import Flashover from './Flashover';
 import ReverseEntropy from './ReverseEntropy';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
@@ -12,6 +13,7 @@ import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
+    flashover: Flashover,
     reverseEntropy: ReverseEntropy,
     fireAndBrimstone: FireAndBrimstone,
     channelDemonfire: ChannelDemonfire,

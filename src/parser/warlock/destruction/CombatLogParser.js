@@ -12,6 +12,7 @@ import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import Backdraft from './modules/features/Backdraft';
+import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
@@ -33,11 +34,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     havoc: Havoc,
+    backdraft: Backdraft,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
     // Talents
-    backdraft: Backdraft,
+    flashover: Flashover,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
     fireAndBrimstone: FireAndBrimstone,
