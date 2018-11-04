@@ -268,6 +268,7 @@ export const hatra344 = {
 export const emallson = {
   nickname: 'emallson',
   github: 'emallson',
+  avatar: require('./interface/images/avatars/emallson-avatar.jpg'),
 };
 export const Gebuz = {
   nickname: 'Gebuz',
