@@ -1,6 +1,6 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -52,11 +52,9 @@ class RotcrustedVoodooDoll extends Analyzer {
     return{
       item: ITEMS.ROTCRUSTED_VOODOO_DOLL,
       result: (
-        <>
           <dfn data-tip={`<b>${this.ticks}</b> ticks, causing <b>${formatNumber(this.damage)}</b> damage.`}>
             <ItemDamageDone amount={this.damage} />
           </dfn>
-        </>
       ),
     };
   }
