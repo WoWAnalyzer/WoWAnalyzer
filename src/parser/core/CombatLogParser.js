@@ -316,7 +316,7 @@ class CombatLogParser {
   finish() {
     this.finished = true;
     this.fabricateEvent({
-      type: 'finished',
+      type: this.constructor.finished,
     });
     console.log('Called listeners', this._modules.eventEmitter._listenersCalled, 'times, with', this._modules.eventEmitter._actualExecutions, 'actual executions.', this._modules.eventEmitter._listenersCalled - this._modules.eventEmitter._actualExecutions, 'events were filtered away');
   }
@@ -451,6 +451,7 @@ class CombatLogParser {
       timestamp: this.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
+      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       ...event,
       __fabricated: true,
     });
