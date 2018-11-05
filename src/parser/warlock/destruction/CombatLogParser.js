@@ -9,6 +9,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import Havoc from './modules/features/Havoc';
+import RainOfFire from './modules/features/RainOfFire';
 import Checklist from './modules/features/Checklist/Module';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
@@ -20,6 +21,7 @@ import ReverseEntropy from './modules/talents/ReverseEntropy';
 import InternalCombustion from './modules/talents/InternalCombustion';
 import Shadowburn from './modules/talents/Shadowburn';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
@@ -38,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     havoc: Havoc,
+    rainOfFire: RainOfFire,
     checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
@@ -50,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
+    cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,

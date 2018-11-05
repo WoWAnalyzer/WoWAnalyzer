@@ -9,6 +9,7 @@ import InternalCombustion from './InternalCombustion';
 import Shadowburn from './Shadowburn';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
+import Cataclysm from './Cataclysm';
 import SoulConduit from './SoulConduit';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
@@ -19,6 +20,7 @@ class TalentStatisticBox extends Analyzer {
     shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     grimoireOfSupremacy: GrimoireOfSupremacy,
+    cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
   };

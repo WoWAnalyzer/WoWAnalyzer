@@ -395,6 +395,22 @@ export default {
     name: 'Elaborate Planning',
     icon: 'inv_misc_map08',
   },
+  SUBTERFUGE_BUFF: {
+    id: 115192,
+    name: 'Subterfuge',
+    icon: 'rogue_subterfuge',
+  },
+  MASTER_ASSASIN_BUFF: {
+    id: 256735,
+    name: 'Master Assasin',
+    icon: 'ability_criticalstrike',
+  },
+  TOXIC_BLADE_DEBUFF: {
+    id: 245389,
+    name: 'Toxic Blade',
+    icon: 'inv_weapon_shortblade_62',
+  },
+  
 
   //Outlaw
 
