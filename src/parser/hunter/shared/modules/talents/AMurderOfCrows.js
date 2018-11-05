@@ -7,6 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Abilities from 'parser/shared/modules/Abilities';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
@@ -17,11 +18,13 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 const CROWS_TICK_RATE = 1000;
 const MS_BUFFER = 100;
 const CROWS_DURATION = 15000;
+const debug = false;
 
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
   bonusDamage = 0;
@@ -29,10 +32,42 @@ class AMurderOfCrows extends Analyzer {
   applicationTimestamp = null;
   lastDamageTick = null;
   crowsEndingTimestamp = null;
+  maxCasts = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.abilities.add({
+      spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 60,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.85,
+        maxCasts: () => this.maxCasts,
+      },
+      ...this.constructor.extraAbilityInfo,
+    });
+  }
+
+  checkForReset(event) {
+    // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
+    if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
+      // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
+      && this.applicationTimestamp && event.timestamp < this.crowsEndingTimestamp
+      // Checks to see if more than 1 second has passed since last tick
+      && event.timestamp > this.lastDamageTick + CROWS_TICK_RATE + MS_BUFFER) {
+      // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
+      this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
+      this.maxCasts += 1;
+      debug && console.log("Crows was reset at: ", event.timestamp);
+    }
   }
 
   on_byPlayer_cast(event) {
@@ -45,17 +80,25 @@ class AMurderOfCrows extends Analyzer {
     this.lastDamageTick = null;
   }
 
+  on_byPlayer_applybuff(event) {
+    this.checkForReset(event);
+  }
+
+  on_byPlayer_removebuff(event) {
+    this.checkForReset(event);
+  }
+
+  on_byPlayer_applybuffstack(event) {
+    this.checkForReset(event);
+  }
+
+  on_byPlayerPet_damage(event) {
+    this.checkForReset(event);
+  }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
-    if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
-      // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
-      && this.applicationTimestamp && event.timestamp < this.crowsEndingTimestamp
-      // Checks to see if more than 1 second has passed since last tick
-      && event.timestamp > this.lastDamageTick + CROWS_TICK_RATE + MS_BUFFER) {
-      // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
-      this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
-    }
+    this.checkForReset(event);
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_DEBUFF.id) {
       return;
     }
@@ -71,6 +114,10 @@ class AMurderOfCrows extends Analyzer {
     }
     this.lastDamageTick = event.timestamp;
     this.bonusDamage += event.amount + (event.absorbed || 0);
+  }
+
+  on_finished() {
+    this.maxCasts += Math.ceil(this.owner.fightDuration / 60000);
   }
 
   subStatistic() {

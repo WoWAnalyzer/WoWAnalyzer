@@ -78,19 +78,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
