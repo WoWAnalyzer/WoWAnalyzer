@@ -13,6 +13,11 @@ export default [
   },
   {
     date: new Date('2018-11-02'),
+    changes: <>Added modules tracking <SpellLink id={SPELLS.CATACLYSM_TALENT.id} /> and <SpellLink id={SPELLS.RAIN_OF_FIRE_CAST.id} /> effectiveness (average targets hit).</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-02'),
     changes: <><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> should now correctly track bonus fragments and cleaved damage again.</>,
     contributors: [Chizu],
   },
