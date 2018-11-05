@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
 import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
-import ReverseEntropy from './ReverseEntropy';
 import Eradication from './Eradication';
 import Flashover from './Flashover';
 import ReverseEntropy from './ReverseEntropy';
