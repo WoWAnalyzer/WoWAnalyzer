@@ -8,7 +8,12 @@ import { tsabo, Cloake, Zerotorescue, Gebuz } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-11-05'),
-    changes: <>Added Checklist.</>,
+    changes: 'Updated resource tracking to display percent instead of per minute, and added spenders to the energy tab.',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-05'),
+    changes: 'Added Checklist.',
     contributors: [Gebuz],
   },
   {
