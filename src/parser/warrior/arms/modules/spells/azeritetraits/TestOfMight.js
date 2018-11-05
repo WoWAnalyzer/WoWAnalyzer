@@ -73,6 +73,9 @@ class TestOfMight extends Analyzer {
     }
 
     on_byPlayer_cast(event) {
+        if (!event.classResources) {
+            return;
+          }
         const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
         if (!rage || !rage.cost) { 
             return;

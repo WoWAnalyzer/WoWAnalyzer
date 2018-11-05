@@ -41,6 +41,9 @@ class AngerManagement extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    if (!event.classResources) {
+      return;
+    }
     const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
     if (!rage || !rage.cost) {
       return;
@@ -69,7 +72,7 @@ class AngerManagement extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> cooldown reduction</>}
+        title={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> CDR</>}
         value={`${formatDuration((this.effectiveReduction[SPELLS.BLADESTORM.id] + this.wastedReduction[SPELLS.BLADESTORM.id]) / 1000)} min`}
         valueTooltip={this.tooltip}
       />

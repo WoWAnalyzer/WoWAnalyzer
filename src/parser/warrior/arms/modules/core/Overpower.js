@@ -33,22 +33,23 @@ class OverpowerAnalyzer extends Analyzer {
 
         this.proc += 1;
         const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
+
+        if (!(overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id))) {
+            return;
+        }
+
         if (!this.executeRange.isTargetInExecuteRange(event) && !this.hasEP) {
-            if (overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
-                this.wastedProc += 1;
+            this.wastedProc += 1;
 
-                event.meta = event.meta || {};
-                event.meta.isInefficientCast = true;
-                event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
-            }
+            event.meta = event.meta || {};
+            event.meta.isInefficientCast = true;
+            event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
         } else if (this.hasEP) {
-            if (overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)){
-                this.wastedProc += 1;
+            this.wastedProc += 1;
 
-                event.meta = event.meta || {};
-                event.meta.isInefficientCast = true;
-                event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available.';
-            }
+            event.meta = event.meta || {};
+            event.meta.isInefficientCast = true;
+            event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available.';
         }
     }
 
