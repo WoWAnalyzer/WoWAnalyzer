@@ -6,6 +6,8 @@ import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Abilities from 'parser/shared/modules/Abilities';
 
+const ACTIVATION_COOLDOWN = 120; // seconds
+
 /**
  * Rotcrusted Voodoo Doll
  * Use: Brandish the Voodoo Doll at your target, 
@@ -29,7 +31,7 @@ class RotcrustedVoodooDoll extends Analyzer {
           buffSpellId: SPELLS.ROTCRUSTED_VOODOO_DOLL_TICK.id,
           name: ITEMS.ROTCRUSTED_VOODOO_DOLL.name,
           category: Abilities.SPELL_CATEGORIES.ITEMS,
-          cooldown: 120,
+          cooldown: ACTIVATION_COOLDOWN,
           castEfficiency: {
             suggestion: true,
           },
