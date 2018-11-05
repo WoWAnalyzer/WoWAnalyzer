@@ -38,7 +38,7 @@ class RotcrustedVoodooDoll extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.ROTCRUSTED_VOODOO_DOLL_TICK.id) {
+    if ((event.ability.guid !== SPELLS.ROTCRUSTED_VOODOO_DOLL_TICK.id) && (event.ability.guid !== SPELLS.ROTCRUSTED_VOODOO_DOLL_HIT.id)) {
       return;
     }
 

@@ -27,6 +27,11 @@ export default {
     name: 'Rotcrusted Voodoo Doll',
     icon: 'inv_misc_primitive_toy05',
   },
+  ROTCRUSTED_VOODOO_DOLL_HIT: {
+    id: 271468,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
 
   // Atal'Dazar
   TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
