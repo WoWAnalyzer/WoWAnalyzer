@@ -12,15 +12,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.ENVENOM.id,
       },
       {
         spell: SPELLS.GARROTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // During the Subterfuge buff (from the talent), the spell has no cd
-        cooldown: () => combatant.hasBuff(SPELLS.SUBTERFUGE_TALENT.id) ? 0 : 6,
+        cooldown: () => combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) ? 0 : 6,
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.GARROTE.id,
       },
       {
         spell: SPELLS.MUTILATE,
@@ -42,6 +44,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.RUPTURE.id,
       },
       {
         spell: SPELLS.BLINDSIDE_TALENT,
@@ -62,8 +65,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRIMSON_TEMPEST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: null,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          static: 1000,
+        },
+        buffSpellId: SPELLS.CRIMSON_TEMPEST_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id),
       },
       // Rotational AOE
@@ -82,6 +88,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        gcd: {
+          base: 1000,
+        },
+        buffSpellId: SPELLS.VENDETTA.id,
       },
       {
         spell: SPELLS.VANISH,
@@ -90,6 +100,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? SPELLS.SUBTERFUGE_BUFF.id : SPELLS.MASTER_ASSASIN_BUFF.id,
       },
       {
         spell: SPELLS.TOXIC_BLADE_TALENT,
@@ -101,9 +112,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.TOXIC_BLADE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Use on cooldown, or delay for Vendetta if less then 10 seconds remain.',
         },
+        buffSpellId: SPELLS.TOXIC_BLADE_DEBUFF.id,
       },
       {
         spell: SPELLS.EXSANGUINATE_TALENT,
@@ -115,8 +125,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Use on cooldown, or delay for Vendetta if less then 10 seconds remain.',
         },
       },
       // Defensive
@@ -125,6 +133,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         gcd: null,
+        buffSpellId: SPELLS.CLOAK_OF_SHADOWS.id,
       },
       {
         spell: SPELLS.CRIMSON_VIAL,
@@ -133,6 +142,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        buffSpellId: SPELLS.CRIMSON_VIAL.id,
       },
       {
         spell: SPELLS.EVASION,
@@ -169,12 +179,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: null,
+        buffSpellId: SPELLS.SHADOWSTEP.id,
       },
       {
         spell: SPELLS.SPRINT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: null,
+        buffSpellId: SPELLS.SPRINT.id,
       },
       {
         spell: SPELLS.TRICKS_OF_THE_TRADE,
@@ -187,6 +199,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 2,
         gcd: null,
+        buffSpellId: SPELLS.STEALTH.id,
       },
       {
         spell: SPELLS.BLIND,
@@ -195,6 +208,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.BLIND.id,
       },
       {
         spell: SPELLS.CHEAP_SHOT,
@@ -202,6 +216,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.CHEAP_SHOT.id,
       },
       {
         spell: SPELLS.DISTRACT,
@@ -224,6 +239,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        buffSpellId: SPELLS.KIDNEY_SHOT.id,
       },
       {
         spell: SPELLS.SHROUD_OF_CONCEALMENT,
@@ -232,10 +248,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        buffSpellId: SPELLS.SHROUD_OF_CONCEALMENT.id,
       },
       {
         spell: SPELLS.SAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.SAP.id,
       },
       {
         spell: SPELLS.PICK_LOCK,
