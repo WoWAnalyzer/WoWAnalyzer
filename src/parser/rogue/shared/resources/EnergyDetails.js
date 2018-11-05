@@ -13,6 +13,30 @@ class EnergyDetails extends Analyzer {
     energyTracker: EnergyTracker,
   };
 
+  get wasted() {
+    return this.energyTracker.wasted || 0;
+  }
+
+  get total() {
+    return this.energyTracker.wasted + this.energyTracker.generated || 0;
+  }
+
+  get wastedPercent() {
+    return this.wasted / this.total || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     const energyWasted = this.energyTracker.wasted;
     const pointsWastedPerMinute = (energyWasted / this.owner.fightDuration) * 1000 * 60;

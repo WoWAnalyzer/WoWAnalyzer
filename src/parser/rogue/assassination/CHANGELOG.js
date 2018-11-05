@@ -7,6 +7,11 @@ import { tsabo, Cloake, Zerotorescue, Gebuz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-05'),
+    changes: <>Added Checklist.</>,
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-11-04'),
     changes: <>Added suggestions for <SpellLink id={SPELLS.GARROTE.id} /> and <SpellLink id={SPELLS.RUPTURE.id} /> uptime.</>,
     contributors: [Gebuz],

@@ -14,6 +14,29 @@ class ComboPointDetails extends Analyzer {
     comboPointTracker: ComboPointTracker,
   };
 
+  get wasted() {
+    return this.comboPointTracker.wasted || 0;
+  }
+
+  get total() {
+    return this.comboPointTracker.wasted + this.comboPointTracker.generated || 0;
+  }
+
+  get wastedPercent() {
+    return this.wasted / this.total || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
 
   statistic() {
     const pointsWasted = this.comboPointTracker.wasted;
