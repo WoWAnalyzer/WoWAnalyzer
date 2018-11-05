@@ -22,7 +22,7 @@ export default {
 
       I'm terribly sorry if you see your Downtime (time not spent doing anything) in negative numbers as that makes no sense but I currently have no clue as to why it happens. Any help with that from some savvy programmer would be appreciated. <br /> <br />
 
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message either @Chizu or @🥓Hordehobbs on WoWAnalyzer Discord.<br /><br />
+      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message either @Chizu or @🥓Hordehobbs on WoWAnalyzer Discord.<br /><br />
 
       <Warning>
         The Demonology Warlock analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />

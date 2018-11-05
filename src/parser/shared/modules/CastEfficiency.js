@@ -128,6 +128,8 @@ class CastEfficiency extends Analyzer {
         if (averagetimeSpentOnAbility < gcdActual) {
           return gcdActual * casts;
         }
+      } else if (ability.gcd && ability.gcd.static && averagetimeSpentOnAbility < ability.gcd.static) {
+        return ability.gcd.static * casts;
       }
     }
     return 0;
