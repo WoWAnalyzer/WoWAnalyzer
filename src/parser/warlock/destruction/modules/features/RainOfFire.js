@@ -113,7 +113,7 @@ class RainOfFire extends Analyzer {
     // first, maps the casts to the targets hit, resulting in array of array of strings
     // [].concat(...array) just flattens it into single array of strings
     const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
-    return allTargetsHit.length / this.casts.length;
+    return (allTargetsHit.length / this.casts.length) || 0;
   }
 
   statistic() {
