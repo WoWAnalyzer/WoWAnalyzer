@@ -9,6 +9,7 @@ import { formatThousands } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import RainOfFire from '../features/RainOfFire';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const FRAGMENTS_PER_CHAOS_BOLT = 20;
@@ -20,6 +21,7 @@ const FRAGMENTS_PER_RAIN_OF_FIRE = 30;
  */
 class Inferno extends Analyzer {
   static dependencies = {
+    rainOfFire: RainOfFire,
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
   };
@@ -52,7 +54,7 @@ class Inferno extends Analyzer {
         value={fragments}
         valueTooltip={`While majority of sources of Soul Shard Fragments are certain, chance based sources (Inferno and Immolate crits) make tracking the fragments 100% correctly impossible (fragment generation is NOT in logs).<br /><br />
             If you used all these bonus fragments on Chaos Bolts, they would do ${formatThousands(estimatedChaosBoltDamage)} damage (${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)}).<br />
-            If you used them on Rain of Fires, they would do ${formatThousands(estimatedRofDamage)} damage (${this.owner.formatItemDamageDone(estimatedRofDamage)}).<br />
+            If you used them on Rain of Fires, they would do ${formatThousands(estimatedRofDamage)} damage (${this.owner.formatItemDamageDone(estimatedRofDamage)}) <strong>assuming an average of ${this.rainOfFire.averageTargetsHit.toFixed(2)} targets</strong>.<br />
             Both of these estimates are based on average damage of respective spells during the fight.`}
       />
     );
