@@ -2,6 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import SpellUsable from './modules/core/SpellUsable';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -16,6 +18,8 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 import Backdraft from './modules/features/Backdraft';
 import Eradication from './modules/talents/Eradication';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
+import InternalCombustion from './modules/talents/InternalCombustion';
+import Shadowburn from './modules/talents/Shadowburn';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
@@ -40,11 +44,14 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    spellUsable: SpellUsable,
 
     // Talents
     backdraft: Backdraft,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
+    internalCombustion: InternalCombustion,
+    shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
