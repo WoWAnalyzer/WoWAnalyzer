@@ -4,10 +4,14 @@ import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Icon from 'common/Icon';
+import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 import ComboPointTracker from './ComboPointTracker';
 
+const MINOR_THRESHOLD = 0.05;
+const AVERAGE_THRESHOLD = 0.1;
+const MAJOR_THRESHOLD = 0.2;
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {
@@ -26,33 +30,41 @@ class ComboPointDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
+  get suggestionThresholdsWasted() {
+    return {
+      actual: this.wastedPercent,
+      isGreaterThan: {
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
+  }
+
   get suggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
   }
 
   statistic() {
-    const pointsWasted = this.comboPointTracker.wasted;
-    const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
     return (
       <StatisticBox
-        icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Waisted Combo Points" />}
-        value={`${pointsWastedPerMinute.toFixed(2)}`}
-        label="Wasted Combo Points per minute"
-        tooltip={`You wasted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
+        position={STATISTIC_ORDER.CORE(3)}
+        icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Wasted Combo Points" />}
+        value={`${formatPercentage(this.wastedPercent)} %`}
+        label="Wasted Combo Points"
+        tooltip={`You wasted ${this.wasted} out of ${this.total} Combo Points. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }
-
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 
   tab() {
     return {

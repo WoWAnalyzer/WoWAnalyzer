@@ -82,6 +82,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${this.missedRegenPerMinute.toFixed(1)}`}
         label="Wasted energy per minute from being capped"
@@ -109,6 +110,5 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 export default EnergyCapTracker;
