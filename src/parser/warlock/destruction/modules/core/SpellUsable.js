@@ -7,8 +7,6 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
     Burns the enemy's soul, dealing X Fire damage. Cooldown is reduced by 2 sec for every Soul Shard you spend.
  */
 
-class SpellUsable extends CoreSpellUsable {
-
 const SHADOWBURN_DEBUFF_DURATION = 5000;
 const BUFFER = 50;
 const debug = false;
@@ -31,10 +29,6 @@ class SpellUsable extends CoreSpellUsable {
     super(...args);
     this.hasSB = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
     this.hasSF = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
-  }
-
-  constructor(...args) {
-    super(...args);
   }
 
   on_byPlayer_spendresource(event) {
