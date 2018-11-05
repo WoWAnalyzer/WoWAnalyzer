@@ -72,6 +72,7 @@ class AMurderOfCrows extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    this.checkForReset(event);
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
       return;
     }
@@ -80,6 +81,10 @@ class AMurderOfCrows extends Analyzer {
     this.lastDamageTick = null;
   }
 
+  on_byPlayer_energize(event) {
+    this.checkForReset(event);
+  }
+  
   on_byPlayer_applybuff(event) {
     this.checkForReset(event);
   }
