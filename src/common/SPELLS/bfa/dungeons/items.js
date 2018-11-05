@@ -17,6 +17,16 @@ export default {
     name: 'Lingering Spore Pods',
     icon: 'spell_druid_wildmushroom_frenzy',
   },
+  ROTCRUSTED_VOODOO_DOLL_BUFF: {
+    id: 271462,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
+  ROTCRUSTED_VOODOO_DOLL_TICK: {
+    id: 271465,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
 
   // Atal'Dazar
   TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
