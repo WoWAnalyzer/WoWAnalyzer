@@ -20,6 +20,8 @@ import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
 import SoulFire from './modules/talents/SoulFire';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
+import InternalCombustion from './modules/talents/InternalCombustion';
+import Shadowburn from './modules/talents/Shadowburn';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
@@ -46,12 +48,15 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    spellUsable: SpellUsable,
 
     // Talents
     flashover: Flashover,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
     soulFire: SoulFire,
+    internalCombustion: InternalCombustion,
+    shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,

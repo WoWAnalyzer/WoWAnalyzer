@@ -12,6 +12,11 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-03'),
     changes: 'Implemented Checklist for Destruction Warlocks.',
     contributors: [Chizu],
