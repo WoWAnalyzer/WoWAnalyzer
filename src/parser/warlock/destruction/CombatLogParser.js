@@ -41,7 +41,6 @@ class CombatLogParser extends CoreCombatLogParser {
     immolateUptime: ImmolateUptime,
 
     // Core
-    spellUsable: SpellUsable,
     havoc: Havoc,
     backdraft: Backdraft,
     rainOfFire: RainOfFire,
