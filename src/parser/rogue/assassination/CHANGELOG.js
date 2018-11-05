@@ -3,9 +3,24 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { tsabo, Cloake, Zerotorescue } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Zerotorescue, Gebuz } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-11-04'),
+    changes: <>Added suggestions for <SpellLink id={SPELLS.GARROTE.id} /> and <SpellLink id={SPELLS.RUPTURE.id} /> uptime.</>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: 'Added cooldowns tab',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: 'Updated timeline with buffs & debuffs and added missing GCDs',
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-08-02'),
     changes: 'Added natural energy regen.',

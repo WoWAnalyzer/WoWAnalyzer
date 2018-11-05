@@ -7,30 +7,40 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SpellUsable from '../features/SpellUsable';
+import SpellUsable from '../../features/SpellUsable';
 
-class ExecutionAnalyzer extends Analyzer {
+/**
+ * Execute increases the damage of your next Mortal Strike against the target by 439, stacking up to 2 times.
+ */
+
+class ExecutionersPrecisionAnalyzer extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     spellUsable: SpellUsable,
   };
 
-  executes = 0;
-  wastedExecutionersPrecisions = 0;
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
+  }
+
+  procs = 0;
+  wastedProcs = 0;
 
   on_byPlayer_cast(event) {
-    if (SPELLS.EXECUTE.id !== event.ability.guid) {
+    if (event.ability.guid !== SPELLS.EXECUTE.id) {
       return;
     }
 
-    this.executes += 1;
+    this.procs += 1;
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
     }
-    const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION.id);
-    if (executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
-      this.wastedExecutionersPrecisions += 1;
+
+    const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION_DEBUFF.id);
+    if (executionersPrecision && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
+      this.wastedProcs += 1;
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -40,7 +50,7 @@ class ExecutionAnalyzer extends Analyzer {
 
   get wastedExecutionersPrecisionTresholds() {
     return {
-      actual: this.wastedExecutionersPrecisions / this.executes,
+      actual: this.wastedProcs / this.procs,
       isGreaterThan: {
         minor: 0,
         average: 0.05,
@@ -52,7 +62,7 @@ class ExecutionAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.wastedExecutionersPrecisionTresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon /> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION.id} icon /> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available.</>)
+      return suggest(<>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon /> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} icon /> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Executioner's Precision with Mortal Strike to avoid over stacking, which result in a loss of damage.</>)
         .icon(SPELLS.EXECUTE.icon)
         .actual(`${formatPercentage(actual)}% of Executioner's Precisions stacks were wasted.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -60,4 +70,4 @@ class ExecutionAnalyzer extends Analyzer {
   }
 }
 
-export default ExecutionAnalyzer;
+export default ExecutionersPrecisionAnalyzer;

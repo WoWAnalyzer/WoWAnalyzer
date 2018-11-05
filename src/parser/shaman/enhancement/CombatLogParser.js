@@ -25,6 +25,9 @@ import Sundering from './modules/talents/Sundering';
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
+import AstralShift from '../shared/spells/AstralShift';
+import PackSpirit from '../shared/azerite/PackSpirit';
+import SereneSpirit from '../shared/azerite/SereneSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,9 +59,10 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
+    astralShift: AstralShift,
+    packSpirit: PackSpirit,
+    sereneSpirit: SereneSpirit,
   };
-
-
 }
 
 export default CombatLogParser;

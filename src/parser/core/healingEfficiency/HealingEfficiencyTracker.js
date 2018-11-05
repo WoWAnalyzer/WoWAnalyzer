@@ -25,18 +25,16 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.casts = ability.casts || 0;
 
     spellInfo.healingHits = ability.healingHits || 0;
-    spellInfo.healingDone = ability.healingEffective || 0;
+    spellInfo.healingDone = (ability.healingEffective || 0) + (ability.healingAbsorbed || 0);
     spellInfo.overhealingDone = ability.healingOverheal || 0;
-    spellInfo.healingAbsorbed = ability.healingAbsorbed || 0;
 
     if (healingSpellIds) {
       for (const healingSpellId in healingSpellIds) {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
-        spellInfo.healingDone += healingAbility.healingEffective || 0;
+        spellInfo.healingDone += (healingAbility.healingEffective || 0) + (healingAbility.healingAbsorbed || 0);
         spellInfo.overhealingDone += healingAbility.healingOverheal || 0;
-        spellInfo.healingAbsorbed += healingAbility.healingAbsorbed || 0;
       }
     }
 
@@ -51,10 +49,9 @@ class HealingEfficiencyTracker extends Analyzer {
     // Now we can add custom logic for spells.
     spellInfo = this.getCustomSpellStats(spellInfo, spellId);
 
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / (spellInfo.healingDone + spellInfo.healingAbsorbed) || 0;
+    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / spellInfo.healingDone || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
-    
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
 
     spellInfo.hpm = (spellInfo.healingDone / spellInfo.manaSpent) | 0;

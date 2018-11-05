@@ -5,7 +5,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -93,7 +94,8 @@ class Tombstone extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         icon={<SpellIcon id={SPELLS.TOMBSTONE_TALENT.id} />}
         value={`${this.wastedCasts}`}
         label="Bad Casts"
@@ -133,7 +135,7 @@ class Tombstone extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+      </TalentStatisticBox>
     );
   }
 }

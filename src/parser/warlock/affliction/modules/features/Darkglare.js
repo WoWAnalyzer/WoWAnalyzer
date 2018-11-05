@@ -150,7 +150,7 @@ class Darkglare extends Analyzer {
     const isExtended = dotInfo.extendStart !== null;
     const isInExtendedWindow = dotInfo.expectedEnd <= event.timestamp && event.timestamp <= dotInfo.extendExpectedEnd;
     if (isExtended && isInExtendedWindow) {
-      this.bonusDotDamage += event.amount + (event.absorb || 0);
+      this.bonusDotDamage += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -158,7 +158,7 @@ class Darkglare extends Analyzer {
     if (event.ability.guid !== SPELLS.SUMMON_DARKGLARE_DAMAGE.id) {
       return;
     }
-    this.darkglareDamage += event.amount + (event.absorb || 0);
+    this.darkglareDamage += event.amount + (event.absorbed || 0);
   }
 
   _processDarkglareCast(event) {
