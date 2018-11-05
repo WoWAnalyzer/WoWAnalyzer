@@ -16,7 +16,9 @@ import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import Backdraft from './modules/features/Backdraft';
+import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
+import SoulFire from './modules/talents/SoulFire';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import InternalCombustion from './modules/talents/InternalCombustion';
 import Shadowburn from './modules/talents/Shadowburn';
@@ -40,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     havoc: Havoc,
+    backdraft: Backdraft,
     rainOfFire: RainOfFire,
     checklist: Checklist,
     soulShardTracker: SoulShardTracker,
@@ -47,9 +50,10 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     // Talents
-    backdraft: Backdraft,
+    flashover: Flashover,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
+    soulFire: SoulFire,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,

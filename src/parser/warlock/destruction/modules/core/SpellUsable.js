@@ -2,12 +2,20 @@ import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
+/*
+  Soul Fire (Tier 15 Destruction talent):
+    Burns the enemy's soul, dealing X Fire damage. Cooldown is reduced by 2 sec for every Soul Shard you spend.
+ */
+
 const SHADOWBURN_DEBUFF_DURATION = 5000;
 const BUFFER = 50;
 const debug = false;
+const REDUCTION_MS_PER_SHARD = 2000;
 
 class SpellUsable extends CoreSpellUsable {
   hasSB = false;
+  hasSF = false;
+
   shadowburnedEnemies = {
     /*
     [targetString]: {
@@ -20,6 +28,18 @@ class SpellUsable extends CoreSpellUsable {
   constructor(...args) {
     super(...args);
     this.hasSB = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
+    this.hasSF = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
+  }
+
+  on_byPlayer_spendresource(event) {
+    if (!this.hasSF) {
+      return;
+    }
+    if (this.isOnCooldown(SPELLS.SOUL_FIRE_TALENT.id)) {
+      // event.resourceChange is in multiples of 10 (2 shards = 20)
+      const shardsSpent = event.resourceChange / 10;
+      this.reduceCooldown(SPELLS.SOUL_FIRE_TALENT.id, shardsSpent * REDUCTION_MS_PER_SHARD);
+    }
   }
 
   _handleShadowburn(event) {

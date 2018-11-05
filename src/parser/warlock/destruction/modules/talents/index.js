@@ -4,7 +4,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
+import Flashover from './Flashover';
 import ReverseEntropy from './ReverseEntropy';
+import SoulFire from './SoulFire';
 import InternalCombustion from './InternalCombustion';
 import Shadowburn from './Shadowburn';
 import ChannelDemonfire from './ChannelDemonfire';
@@ -15,7 +17,9 @@ import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
+    flashover: Flashover,
     reverseEntropy: ReverseEntropy,
+    soulFire: SoulFire,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,

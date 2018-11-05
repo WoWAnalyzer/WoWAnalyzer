@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> and <SpellLink id={SPELLS.SOUL_FIRE_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-04'),
     changes: <>Added <SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> talent modules.</>,
     contributors: [Chizu],
   },
