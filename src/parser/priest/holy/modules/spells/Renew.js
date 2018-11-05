@@ -198,7 +198,7 @@ class Renew extends Analyzer {
             .actual(<>
               You used Renew {this.badRenews} times when another spell would have been more productive.
               Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
-            .recommended(`Two per minute is recommended, except for movement heavy fights.`);
+            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`);
         }
       );
   }
