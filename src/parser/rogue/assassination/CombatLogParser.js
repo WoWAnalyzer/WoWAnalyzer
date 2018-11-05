@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -32,6 +33,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Resource
     comboPointTracker: ComboPointTracker,

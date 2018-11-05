@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatPercentage, formatDuration } from 'common/format';
 import RuneTracker from '../../../shared/RuneTracker';
@@ -97,7 +98,8 @@ class RuneStrike extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.RUNE_STRIKE_TALENT.id} />}
         value={`${formatPercentage(this.goodCastEfficiency)}%`}
         label="good casts"
@@ -111,8 +113,6 @@ class RuneStrike extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default RuneStrike;

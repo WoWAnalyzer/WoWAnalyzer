@@ -76,7 +76,7 @@ export default {
     // This gets special treatment with the `feed_heal` event
     ignored: true,
   },
-  [SPELLS.EARTHEN_SHIELD_TOTEM_ABSORB.id]: {
+  [SPELLS.EARTHEN_WALL_TOTEM_ABSORB.id]: {
     // EST scales with INT per hit but the total absorb is limited by the players max HP
     ignored: true,
   },

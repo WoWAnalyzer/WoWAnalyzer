@@ -86,19 +86,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .85,
-        },
-      },
-      {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,

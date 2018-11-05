@@ -109,19 +109,22 @@ class RainOfFire extends Analyzer {
     return BASE_ROF_DURATION / (1 + this.haste.current);
   }
 
+  get averageTargetsHit() {
+    // first, maps the casts to the targets hit, resulting in array of array of strings
+    // [].concat(...array) just flattens it into single array of strings
+    const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
+    return (allTargetsHit.length / this.casts.length) || 0;
+  }
+
   statistic() {
     // there's no point in showing the statistic on single target fight with no ROF casts
     if (this.casts.length === 0) {
       return null;
     }
-    // first, maps the casts to the targets hit, resulting in array of array of strings
-    // [].concat(...array) just flattens it into single array of strings
-    const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
-    const averageTargetsHit = allTargetsHit.length / this.casts.length;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RAIN_OF_FIRE_CAST.id} />}
-        value={averageTargetsHit.toFixed(2)}
+        value={this.averageTargetsHit.toFixed(2)}
         label={'Average targets hit with Rain of Fire'}
         tooltip="There's a possibility of a mistake in assigning targets hit to individual casts, when there are multiple Rains of Fire overlapping."
       />
