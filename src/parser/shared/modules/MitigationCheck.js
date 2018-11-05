@@ -69,7 +69,7 @@ class MitigationCheck extends Analyzer {
   get tooltip() {
     return this.buffCheck.reduce((prev, curr) => {
       return prev + `<li>${SPELLS[curr].name}</li>`;
-    }, 'Checks if one of the following buffs were during the machanic up: <ul>') + '</ul>';
+    }, 'Checks if one of the following buffs were up during the mechanic: <ul>') + '</ul>';
   }
 
   statistic() {
