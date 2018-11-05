@@ -66,6 +66,12 @@ class MitigationCheck extends Analyzer {
     }
   }
 
+  get tooltip() {
+    return this.buffCheck.reduce((prev, curr) => {
+      return prev + `<li>${SPELLS[curr].name}</li>`;
+    }, 'Checks if one of the following buffs were during the machanic up: <ul>') + '</ul>';
+  }
+
   statistic() {
     const failSum = Array.from(this.checksFailedMap.values()).reduce((total, val) => total + val, 0);
     const passSum = Array.from(this.checksPassedMap.values()).reduce((total, val) => total + val, 0);
@@ -90,6 +96,7 @@ class MitigationCheck extends Analyzer {
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label={`Soft mitigation checks passed.`}
+        tooltip={this.tooltip}
       >
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>

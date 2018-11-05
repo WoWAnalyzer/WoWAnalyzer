@@ -3,7 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RunicPowerTracker from '../runicpower/RunicPowerTracker';
 
 class RedThirst extends Analyzer {
@@ -43,7 +44,8 @@ class RedThirst extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(7)}
         icon={<SpellIcon id={SPELLS.RED_THIRST_TALENT.id} />}
         value={`${formatNumber(this.averageReduction)} sec`}
         label="Red Thirst average reduction"
@@ -51,7 +53,6 @@ class RedThirst extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default RedThirst;
