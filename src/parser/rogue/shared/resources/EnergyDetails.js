@@ -34,6 +34,7 @@ class EnergyDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.energyTracker}
+            showSpenders
           />
         </Tab>
       ),
