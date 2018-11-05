@@ -10,15 +10,18 @@ import SoulFire from './SoulFire';
 import InternalCombustion from './InternalCombustion';
 import Shadowburn from './Shadowburn';
 import ChannelDemonfire from './ChannelDemonfire';
+import Inferno from './Inferno';
 import FireAndBrimstone from './FireAndBrimstone';
 import Cataclysm from './Cataclysm';
 import SoulConduit from './SoulConduit';
+import RoaringBlaze from './RoaringBlaze';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
     flashover: Flashover,
     reverseEntropy: ReverseEntropy,
+    inferno: Inferno,
     soulFire: SoulFire,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
@@ -27,6 +30,7 @@ class TalentStatisticBox extends Analyzer {
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
+    roaringBlaze: RoaringBlaze,
   };
 
   constructor(...args) {

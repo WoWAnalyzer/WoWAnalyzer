@@ -20,11 +20,13 @@ import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
 import SoulFire from './modules/talents/SoulFire';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
+import Inferno from './modules/talents/Inferno';
 import InternalCombustion from './modules/talents/InternalCombustion';
 import Shadowburn from './modules/talents/Shadowburn';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
+import RoaringBlaze from './modules/talents/RoaringBlaze';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import SoulConduit from './modules/talents/SoulConduit';
 import Talents from './modules/talents';
@@ -53,12 +55,14 @@ class CombatLogParser extends CoreCombatLogParser {
     flashover: Flashover,
     eradication: Eradication,
     reverseEntropy: ReverseEntropy,
+    inferno: Inferno,
     soulFire: SoulFire,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
     fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
+    roaringBlaze: RoaringBlaze,
     grimoireOfSupremacy: GrimoireOfSupremacy,
     soulConduit: SoulConduit,
     talents: Talents,
