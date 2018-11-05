@@ -9,6 +9,7 @@ import ReverseEntropy from './ReverseEntropy';
 import SoulFire from './SoulFire';
 import ChannelDemonfire from './ChannelDemonfire';
 import FireAndBrimstone from './FireAndBrimstone';
+import Cataclysm from './Cataclysm';
 import SoulConduit from './SoulConduit';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
 
@@ -18,6 +19,7 @@ class TalentStatisticBox extends Analyzer {
     reverseEntropy: ReverseEntropy,
     soulFire: SoulFire,
     fireAndBrimstone: FireAndBrimstone,
+    cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
     grimoireOfSupremacy: GrimoireOfSupremacy,
