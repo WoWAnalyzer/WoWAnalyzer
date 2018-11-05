@@ -37,7 +37,6 @@ class Vivify extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    // todo .hasBuff should use the sourceID so that things work with multiple mistweavers in the group
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
