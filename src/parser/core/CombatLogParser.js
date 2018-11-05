@@ -119,6 +119,7 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
+import EventFilter from './EventFilter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -244,6 +245,9 @@ class CombatLogParser {
   };
   // Override this with spec specific modules when extending
   static specModules = {};
+  static get finished() {
+    return new EventFilter('finished');
+  }
 
   report = null;
   // Player info from WCL - required
