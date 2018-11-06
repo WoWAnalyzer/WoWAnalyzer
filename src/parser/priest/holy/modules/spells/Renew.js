@@ -170,10 +170,10 @@ class Renew extends Analyzer {
       if (sanctifyOnCooldown && serenityOnCooldown && cohOnCooldown) {
         this.goodRenews += 1;
       } else {
-        this.badRenewReason.betterspell = (this.badRenewReason.betterspell | 0) + 1;
+        this.badRenewReason.betterspell = (this.badRenewReason.betterspell || 0) + 1;
       }
     }
-    this.badRenewReason.stationary = (this.badRenewReason.stationary | 0) + 1;
+    this.badRenewReason.stationary = (this.badRenewReason.stationary || 0) + 1;
 
     // Reset the cast history
     this.lastGCD = null;
