@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
+const MS_BUFFER=100;
 class WildGrowth extends EventsNormalizer {
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
@@ -21,7 +22,7 @@ class WildGrowth extends EventsNormalizer {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
-          if (_event.timestamp !== event.timestamp) {
+          if (Math.abs(_event.timestamp - event.timestamp) > MS_BUFFER) {
             _newEvents.reverse();
             _events = _events.concat(_newEvents);
             _newEvents = [];
@@ -71,7 +72,7 @@ class WildGrowth extends EventsNormalizer {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
-          if (_event.timestamp !== event.timestamp) {
+          if (Math.abs(_event.timestamp - event.timestamp) > MS_BUFFER) {
             _newEvents.reverse();
             _events = _events.concat(_newEvents);
             _newEvents = [];
