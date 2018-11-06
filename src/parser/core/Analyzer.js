@@ -26,6 +26,7 @@ function getAllChildMethods(obj) {
 }
 function addLegacyEventListenerSupport(object) {
   const methods = getAllChildMethods(object);
+  let hasLegacyEventListener = false;
   // Check for any methods that match the old magic method names and connect them to the new event listeners
   // Based on https://github.com/xivanalysis/xivanalysis/blob/a24b9c0ed8b341cbb8bd8144a772e95a08541f8d/src/parser/core/Module.js#L51
   methods.forEach(name => {
@@ -56,11 +57,14 @@ function addLegacyEventListenerSupport(object) {
     filter.to(to);
 
     object.addEventListener(filter, object[listener]);
+    hasLegacyEventListener = true;
   });
+  object.hasLegacyEventListener = hasLegacyEventListener;
 }
 
 class Analyzer extends EventSubscriber {
   static __dangerousInvalidUsage = false;
+  hasLegacyEventListener = false;
 
   /**
    * Called when the parser finished initializing; after all required dependencies are loaded, normalizers have ran and combatants were initialized.
@@ -69,6 +73,12 @@ class Analyzer extends EventSubscriber {
   constructor(options) {
     super(options);
     addLegacyEventListenerSupport(this);
+  }
+  addEventListener(eventFilter, listener) {
+    if (this.hasLegacyEventListener) {
+      throw new Error('You can not combine legacy event listeners with manual event listeners, use only one method.');
+    }
+    super.addEventListener(eventFilter, listener);
   }
 
   get consoleMeta() {
