@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Data('2018-11-07'),
+    date: new Date('2018-11-07'),
     changes: <>Added Rage usage tab and suggestions on rage wast, removed the doughnut chart for rage usage</>,
     contributors: [Matardarix],
   },
