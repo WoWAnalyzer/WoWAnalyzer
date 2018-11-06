@@ -1,7 +1,7 @@
 import Entities from './Entities';
 import Pet from '../../core/Pet';
 
-const debug = true;
+const debug = false;
 
 class Pets extends Entities {
   pets = {};

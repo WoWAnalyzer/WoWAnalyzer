@@ -7,6 +7,8 @@ import Analyzer from 'parser/core/Analyzer';
     https://www.warcraftlogs.com/reports/ArRBmMzpYGbV3N7g#fight=11&type=damage-done   - Ddavee - Vilefiend, Inner Demons, Nether Portal     GERMAN LOG
     https://www.warcraftlogs.com/reports/mhaYtBqvg8WTr17A#fight=1&type=damage-done    - Toned - Vilefiend, Inner Demons, Nether Portal
     https://www.warcraftlogs.com/reports/TBGRJZ9aj4FzD7wW#fight=1&type=damage-done    - Mímir - Vilefiend, Inner Demons, Nether Portal
+    https://www.warcraftlogs.com/reports/KFmxXfWN8GtrJT3Y#fight=9&type=damage-done    - Galé  - Soul Strike, Inner Demons, Nether Portal
+    https://www.warcraftlogs.com/reports/Lp8vNgYFXdmMqT21#fight=4&type=damage-done    - Cincinnatus - Soul Strike, Inner Demons, Nether Portal
  */
 /*
   REQUIRED MODULE API (old Demo issue #1806):
@@ -14,6 +16,14 @@ import Analyzer from 'parser/core/Analyzer';
     getPetDamage(petId): number
     getPermanentPetDamage(): number
  */
+const KNOWN_PETS_GUID = {
+  WILD_IMP_HOG: 55659,
+  DREADSTALKER: 98035,
+  DEMONIC_TYRANT: 135002,
+  VILEFIEND: 135816, // verified on 2 logs without Vilefiend, either I'm unlucky (and Vilefiend can be summoned from ID/NP with the same guid), but more likely is that it's the talent's Vilefiend guid
+};
+const debug = true;
+
 class NewPets extends Analyzer {
   /*
     sesbirane informace (z logu Katarinny):
@@ -99,45 +109,76 @@ class NewPets extends Analyzer {
 
   3) zatim se neda na prvni pohled zjistit, co z toho je z Inner Demons nebo Nether Portal
    */
+  _petDamage = {
+    /*
+     [pet guid]: {
+        name: string,
+        instances: {
+          [pet instance]: number
+        }
+        total: number,
+     }
+     */
+  };
+
+  on_byPlayerPet_damage(event) {
+    const petInfo = this._getPetInfo(event.sourceID);
+    if (!petInfo) {
+      debug && this.log(`Pet damage event with nonexistant pet id ${event.sourceID}`);
+      return;
+    }
+    const damage = event.amount + (event.absorbed || 0);
+    this._assertPetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
+    this._petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
+    this._petDamage[petInfo.guid].total += damage;
+  }
+
+  on_finished() {
+    this.log('this._petDamage = ', this._petDamage);
+    this.log('test this.permanentPetDamage', this.permanentPetDamage);
+  }
+
+  getPetDamage(guid) {
+    if (!this._petDamage[guid]) {
+      debug && this.log(`this.getPetDamage() called with nonexistant guid ${guid}`);
+      return 0;
+    }
+    return Object.values(this._petDamage[guid].instances).reduce((total, current) => total + current, 0);
+  }
+
+  get permanentPetDamage() {
+    // haven't observed any real rule for permanent pet guids except the fact, that they're the longest (other pet guids are either 5 or 6 digits)
+    let total = 0;
+    Object.entries(this._petDamage).filter(([guid]) => guid.length > 6).forEach(([guid, pet]) => {
+      total += Object.values(pet.instances).reduce((total, current) => total + current, 0);
+    });
+    return total;
+  }
+
+  _assertPetInstanceFieldExists(guid, name, instance) {
+    this._petDamage[guid] = this._petDamage[guid] || { name, instances: {}, total: 0 };
+    this._petDamage[guid].instances[instance] = this._petDamage[guid].instances[instance] || 0;
+  }
+
+  _getPetInfo(id, guid = false) {
+    let pet;
+    if (guid) {
+      pet = this.owner.playerPets.find(pet => pet.guid === id);
+    }
+    else {
+      pet = this.owner.playerPets.find(pet => pet.id === id);
+    }
+    if (!pet) {
+      debug && this.log(`NewPets._getPetInfo() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
+      return null;
+    }
+    return pet;
+  }
+
+  _getPetGuid(id, guid = false) {
+    const pet = this._getPetInfo(id, guid);
+    return pet ? pet.guid : null;
+  }
 }
 
 export default NewPets;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
