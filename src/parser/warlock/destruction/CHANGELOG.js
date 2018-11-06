@@ -8,17 +8,22 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> module, damage estimate to <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> and moved <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> to the rest of the talents.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-04'),
     changes: <>Added <SpellLink id={SPELLS.INFERNO_TALENT.id} /> and <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} /> talent modules.</>,
     contributors: [Chizu],
   },
   {
     date: new Date('2018-11-04'),
-    changes: <>Added <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> and <SpellLink id={SPELLS.SOUL_FIRE_TALENT.id} /> talent modules.</>,
+    changes: <>Added <SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> talent modules.</>,
     contributors: [Chizu],
   },
   {
     date: new Date('2018-11-04'),
-    changes: <>Added <SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> talent modules.</>,
+    changes: <>Added <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> and <SpellLink id={SPELLS.SOUL_FIRE_TALENT.id} /> talent modules.</>,
     contributors: [Chizu],
   },
   {

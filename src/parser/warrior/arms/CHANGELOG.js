@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-06'),
+    changes: <>Added cooldown tracker tab</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-05'),
     changes: <>New:<ul><li>Checklist</li><li>Talents module</li><li><SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> module</li><li><SpellLink id={SPELLS.SEISMIC_WAVE.id} /> module</li><li><SpellLink id={SPELLS.TEST_OF_MIGHT.id} /> module</li><li>rage usage module</li><li>suggestions regarding <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} /></li></ul>Fixed:<ul><li><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> cooldown reduction calculation</li></ul></>,
     contributors: [Matardarix],

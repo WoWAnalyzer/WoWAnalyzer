@@ -5,7 +5,7 @@ import DamageDone from 'parser/shared/modules/DamageDone';
 import Checklist from './modules/features/Checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-//import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import Channeling from './modules/features/Channeling';
 
@@ -57,7 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
-    //cooldownThroughputTracker: CooldownThroughputTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
     channeling: Channeling,
 

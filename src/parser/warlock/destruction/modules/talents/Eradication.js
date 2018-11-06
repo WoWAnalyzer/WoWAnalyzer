@@ -6,9 +6,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
@@ -131,32 +130,20 @@ class Eradication extends Analyzer {
       });
   }
 
-  get uptimeStatistic() {
+  subStatistic() {
     return (
-      <StatisticListBoxItem
-        title="Uptime"
-        value={`${formatPercentage(this.uptime)} %`}
-        valueTooltip={`Your Eradication contributed ${this.owner.formatItemDamageDone(this.bonusDmg)} (${formatNumber(this.bonusDmg)} damage).`}
-      />
-    );
-  }
-
-  get chaosBoltStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<>Buffed <SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink></>}
-        value={`${formatPercentage(this.CBpercentage)} %`}
-        valueTooltip={`${this._buffedCB} / ${this._totalCB}`}
-      />
-    );
-  }
-
-  statistic() {
-    return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} />}>
-        {this.uptimeStatistic}
-        {this.chaosBoltStatistic}
-      </StatisticsListBox>
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime</>}
+          value={`${formatPercentage(this.uptime)} %`}
+          valueTooltip={`Bonus damage: ${formatThousands(this.bonusDmg)} (${this.owner.formatItemDamageDone(this.bonusDmg)}).`}
+        />
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink> buffed by <SpellLink id={SPELLS.ERADICATION_TALENT.id} /></>}
+          value={`${formatPercentage(this.CBpercentage)} %`}
+          valueTooltip={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}
+        />
+      </>
     );
   }
 }

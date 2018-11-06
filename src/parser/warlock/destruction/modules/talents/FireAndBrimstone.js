@@ -73,7 +73,7 @@ class FireAndBrimstone extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> bonus fragments</>}
         value={this.bonusFragments}
-        valueTooltip={`Your Fire and Brimstone talent also contributed ${formatThousands(this.bonusDmg)} bonus cleave damage (${this.owner.formatItemDamageDone(this.bonusDmg)}).`}
+        valueTooltip={`Bonus cleave damage: ${formatThousands(this.bonusDmg)} (${this.owner.formatItemDamageDone(this.bonusDmg)}).`}
       />
     );
   }
