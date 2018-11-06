@@ -96,15 +96,16 @@ class Checklist extends CoreChecklist {
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</>,
+            name: <><SpellLink id={SPELLS.MARROWREND.id} /> Efficiency</>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <><SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> efficiency</>,
+            name: <><SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> Efficiency</>,
             check: () => this.runeStrike.cooldownReductionThresholds,
+            when: this.selectedCombatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
           }),
           new Requirement({
-            name: <>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></>,
+            name: <><SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency</>,
             check: () => this.deathsCaress.averageCastSuggestionThresholds,
           }),
         ];

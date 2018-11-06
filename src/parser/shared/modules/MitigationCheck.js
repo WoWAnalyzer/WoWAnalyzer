@@ -10,6 +10,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import { findByBossId } from 'raids/index';
 import StatisticBox from 'interface/others/StatisticBox';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const debug = false;
 
@@ -52,7 +53,8 @@ class MitigationCheck extends Analyzer {
     if (this.checks.includes(spell) && !event.tick) {
       debug && console.log(this.buffCheck);
       debug && console.log(this.debuffCheck);
-      if (this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e))) {
+      if (this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e)) || event.hitType === HIT_TYPES.MISS || event.hitType === HIT_TYPES.DODGE || event.hitType === HIT_TYPES.PARRY || event.hitType === HIT_TYPES.IMMUNE) {
+        // pass checked if buff was up or the damage missed
         this.checksPassedMap.set(spell, this.checksPassedMap.get(spell) + 1);
       } else {
         const enemy = this.enemies.getEntities()[event.sourceID];
