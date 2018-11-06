@@ -20,7 +20,11 @@ const KNOWN_PETS_GUID = {
   WILD_IMP_HOG: 55659,
   DREADSTALKER: 98035,
   DEMONIC_TYRANT: 135002,
-  VILEFIEND: 135816, // verified on 2 logs without Vilefiend, either I'm unlucky (and Vilefiend can be summoned from ID/NP with the same guid), but more likely is that it's the talent's Vilefiend guid
+  // verified on 2 logs without Vilefiend, either I'm unlucky (and Vilefiend can be summoned from ID/NP with the same guid), but more likely is that it's the talent's Vilefiend guid
+  // according to https://www.wowhead.com/spell=267217/nether-portal#comments:id=2581624 though, it can't be summoned from it?
+  VILEFIEND: 135816,
+  GRIMOIRE_FELGUARD: 17252,
+  // anything else is from ID/NP or permanent
 };
 const debug = true;
 
@@ -134,6 +138,66 @@ class NewPets extends Analyzer {
     this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
     this.petDamage[petInfo.guid].total += damage;
   }
+
+  /*
+      Timeline handling:
+        - need to somehow store "active" pets at the time (to be able to get pets at a certain timestamp)
+        - permanent pet most likely won't have cast/summon event as it was summoned prepull
+        - pet sources:
+          - Hand of Guldan - Wild Imps
+          - Call Dreadstalkers - Dreadstalker
+          - Summon Vilefiend - Vilefiend
+          - Summon Demonic Tyrant - Demonic Tyrant
+          - Felguard - Grimoire: Felguard
+          - Inner Demons - passively every 12 seconds - Wild Imp + 10% chance of another demon - track last inner demon summon + "tick" period?
+          - Nether Portal - 20 second player buff - every time a player spends soul shards, summons a demon
+
+          Bilescourge Bombers talent doesn't summon a pet - it's damage events from player
+
+        - pet durations (awaiting confirmation from warlock DC):
+          - HOG Wild Imps - see below
+          - Dreadstalkers - 12s
+          - Vilefiend - 15s
+          - Demonic Tyrant - 15s + buffs other pets (only HOG imps, Dreadstalkers, Vilefiend?, Grimoire: Felguard? or also pets from ID/NP?) by 15s
+          - Grimoire: Felguard - 15s
+          - Inner Demons - Wild Imps behave same as HOG, random demons seem to be 15 seconds
+          - Nether Portal - seem to be 15 seconds
+        - apparently when it comes to Wild Imp duration, things get tricky:
+          - they spawn with 100 energy, casting Firebolts (reduced by haste)
+          - each Firebolt costs 20 energy
+          - they despawn when they run out of energy (5 firebolts) OR after 15 seconds (if they got nothing to attack)
+          => if there's something to attack, it's basically 10 seconds duration, reduced by haste
+          - but it's up to 20 seconds
+        - Demonic Tyrant feat. Wild Imps
+          - maybe extends their duration as well, but more importantly,
+          - DT freezes WI energy (in WI cast events, the "cost" field in classResources is removed, the casts are essentially free)
+          - therefore they get the bonus Firebolts out before running out of time
+        - one thing to notice - casts from Wild Imps (whether HOG or ID) actually have classResources field with the energy inside, when they're extended with DT, the "cost" field is removed
+
+        - Demonic Tyrant extends other pets - not random pets! should extend HOG Imps (see previous lines), Dreadstalkers, Vilefiend, Grimoire: Felguard, Inner Demons Imps
+        - Implosion kills Wild Imps (doesn't produce instakill events anymore, but safe to say, after Implosion cast event, they start flying (interrupting their casts) and after travel time, implode)
+        => after Implosion cast/damage, kill Wild Imps
+
+        - SUMMON EVENTS (ability guid, pet type, source)
+          - 104317 - Wild Imp - Hand of Guldan (triggered 0.4s after HOG damage event, with each imp arriving 0.4s after the previous one)
+          - 193331, 193332 - Dreadstalker - Call Dreadstalkers
+          - 264119 - Vilefiend - Summon Vilefiend
+          - 111898 - Felguard - Grimoire: Felguard
+          - 265187 - Demonic Tyrant - Summon Demonic Tyrant
+
+          - 279910 - Wild Imp - Inner Demons
+
+          - 267992 - Bilescourge - Nether Portal, Inner Demons
+          - 267988 - Vicious Hellhound - Nether Portal, Inner Demons
+          - 267994 - Shivarra - Nether Portal, Inner Demons
+          - 267996 - Darkhound - Nether Portal, Inner Demons
+          - 267987 - Illidari Satyr - Nether Portal, Inner Demons
+          - 267991 - Void Terror - Nether Portal, Inner Demons
+          - 268001 - Ur'zul - Nether Portal, Inner Demons
+          - 267995 - Wrathguard - Nether Portal, Inner Demons
+          - 267989 - Eye of Gul'dan - Nether Portal, Inner Demons
+          (unconfirmed by me - 267986 - Prince Malchezaar - Nether Portal, Inner Demons?)
+   */
 
   on_finished() {
     this.log('this.petDamage = ', this.petDamage);
