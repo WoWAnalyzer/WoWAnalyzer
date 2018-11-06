@@ -15,6 +15,8 @@ import Rejuvenation from './modules/core/Rejuvenation';
 import HotTracker from './modules/core/hottracking/HotTracker';
 import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
 import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
+import RestoDruidAbilityTracker from './modules/core/RestoDruidAbilityTracker';
+import SpellManaCost from './modules/core/SpellManaCost';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
@@ -27,6 +29,7 @@ import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import ManaUsage from './modules/features/ManaUsage';
+import HPMTracker from './modules/features/HPMTracker';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 
 import CenarionWard from './modules/talents/CenarionWard';
@@ -49,6 +52,11 @@ import SynergisticGrowth from './modules/items/azeritetraits/SynergisticGrowth';
 
 import StatWeights from './modules/features/StatWeights';
 
+// Mana Tracker
+import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from '../../core/healingEfficiency/HealingEfficiencyTracker';
+import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 
@@ -66,6 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
+    restoDruidAbilityTracker: RestoDruidAbilityTracker,
+    spellManaCost: SpellManaCost,
 
     // Checklist
     checklist: Checklist,
@@ -91,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     manaUsage: ManaUsage,
     prematureRejuvenations: PrematureRejuvenations,
+    hpmTracker: HPMTracker,
 
     // Talents
     stonebark: Stonebark,
@@ -113,6 +124,11 @@ class CombatLogParser extends CoreCombatLogParser {
     synergisticGrowth: SynergisticGrowth,
 
     statWeights: StatWeights,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: HealingEfficiencyDetails,
+    hpmTracker2: HealingEfficiencyTracker,
   };
 }
 
