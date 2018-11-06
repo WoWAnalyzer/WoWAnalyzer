@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import PETS from './PETS';
 
@@ -253,8 +254,33 @@ class NewPets extends Analyzer {
     // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
   }
 
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.IMPLOSION_DAMAGE.id) {
+      return;
+    }
+    // handle Implosion, killing imps
+  }
+
   on_byPlayerPet_cast(event) {
     // handle Wild Imp energy
+    if (!this._wildImpIds.includes(event.sourceID)) {
+      return;
+    }
+    const pet = this._getPetFromTimeline(event.sourceID, event.sourceInstance);
+    if (!pet) {
+      debug && this.error('Wild Imp from cast event not in timeline!', event);
+      return;
+    }
+    const energyResource = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.ENERGY.id);
+    if (!energyResource) {
+      debug && this.error('Wild Imp doesn\'t have energy class resource field', event);
+      return;
+    }
+    const newEnergy = energyResource.amount - (energyResource.cost || 0);
+    pet.currentEnergy = newEnergy;
+    if (pet.currentEnergy === 0) {
+      pet.realDespawn = event.timestamp;
+    }
   }
 
   // API
