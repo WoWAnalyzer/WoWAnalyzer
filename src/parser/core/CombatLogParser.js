@@ -210,7 +210,7 @@ class CombatLogParser {
     harlansLoadedDice: HarlansLoadedDice,
     lustrousGoldenPlumage: LustrousGoldenPlumage,
     rezansGleamingEye: RezansGleamingEye,
-    rotcrustedvoodoodoll: RotcrustedVoodooDoll,
+    rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsBadge: DreadGladiatorsBadge,

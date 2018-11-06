@@ -48,8 +48,8 @@ class RotcrustedVoodooDoll extends Analyzer {
     this.ticks += 1;
   }
 
-  item(){
-    return{
+  item() {
+    return {
       item: ITEMS.ROTCRUSTED_VOODOO_DOLL,
       result: (
           <dfn data-tip={`<b>${this.ticks}</b> ticks, causing <b>${formatNumber(this.damage)}</b> damage.`}>
