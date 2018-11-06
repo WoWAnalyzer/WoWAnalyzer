@@ -20,6 +20,17 @@ import PETS from './PETS';
     getPermanentPetDamage(): number
  */
 
+// TODO extract magic numbers to SPELLS probably
+const SUMMON_TO_ABILITY_MAP = {
+  104317: SPELLS.HAND_OF_GULDAN_CAST.id,
+  193331: SPELLS.CALL_DREADSTALKERS.id,
+  193332: SPELLS.CALL_DREADSTALKERS.id,
+  264119: SPELLS.SUMMON_VILEFIEND_TALENT.id,
+  111898: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
+  265187: SPELLS.SUMMON_DEMONIC_TYRANT.id,
+  279910: SPELLS.INNER_DEMONS_TALENT.id,
+};
+const BUFFER = 150;
 const debug = true;
 
 class NewPets extends Analyzer {
@@ -178,8 +189,9 @@ class NewPets extends Analyzer {
      }
      */
   };
-
   petTimeline = [];
+  _lastIDtick = null;
+  _lastSpendResource = null;
   _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
   _petsAffectedByDemonicTyrant = []; // dynamic because of talents
 
@@ -220,13 +232,32 @@ class NewPets extends Analyzer {
       instance: event.targetInstance,
       spawn: event.timestamp,
       expectedDespawn: event.timestamp + this._getPetDuration(event.targetID),
+      summonedBy: this._getSummonSpell(event),
     };
     if (this._wildImpIds.includes(pet.id)) {
       pet.currentEnergy = 100;
       pet.realDespawn = null; // they can despawn "prematurely" due to their mechanics
     }
     this.petTimeline.push(pet);
+    if (this._getSummonSpell(event) === SPELLS.INNER_DEMONS_TALENT.id) {
+      this._lastIDtick = event.timestamp;
+    }
   }
+
+  on_byPlayer_spendresource(event) {
+    this._lastSpendResource = event.timestamp;
+  }
+
+  on_byPlayer_cast(event) {
+    // handle Demonic Tyrant cast (including Demonic Consumption talent (kills imps, no events *whatsoever*))
+    // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
+  }
+
+  on_byPlayerPet_cast(event) {
+    // handle Wild Imp energy
+  }
+
+  // API
 
   get currentPets() {
     return this._getPets();
@@ -263,30 +294,30 @@ class NewPets extends Analyzer {
     return guid.toString().length > 6;
   }
 
-  _getPetInfo(id, guid = false) {
+  _getPetInfo(id, isGuid = false) {
     let pet;
-    if (guid) {
+    if (isGuid) {
       pet = this.owner.playerPets.find(pet => pet.guid === id);
     }
     else {
       pet = this.owner.playerPets.find(pet => pet.id === id);
     }
     if (!pet) {
-      debug && this.error(`NewPets._getPetInfo() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
+      debug && this.error(`NewPets._getPetInfo() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
       return null;
     }
     return pet;
   }
 
-  _getPetGuid(id, guid = false) {
-    const pet = this._getPetInfo(id, guid);
+  _getPetGuid(id, isGuid = false) {
+    const pet = this._getPetInfo(id, isGuid);
     return pet ? pet.guid : null;
   }
 
-  _getPetDuration(id, guid = false) {
-    const pet = this._getPetInfo(id, guid);
+  _getPetDuration(id, isGuid = false) {
+    const pet = this._getPetInfo(id, isGuid);
     if (!pet) {
-      debug && this.error(`NewPets._getPetDuration() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
+      debug && this.error(`NewPets._getPetDuration() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
       return -1;
     }
     if (this._isPermanentPet(pet.guid)) {
@@ -342,6 +373,19 @@ class NewPets extends Analyzer {
     this.petDamage[guid].instances[instance] = this.petDamage[guid].instances[instance] || 0;
   }
 
+  _getSummonSpell(event) {
+    if (!SUMMON_TO_ABILITY_MAP[event.ability.guid]) {
+      if (event.timestamp <= this._lastIDtick + BUFFER) {
+        return SPELLS.INNER_DEMONS_TALENT.id;
+      }
+      if (this.selectedCombatant.hasBuff(SPELLS.NETHER_PORTAL_BUFF.id) && event.timestamp <= this._lastSpendResource + BUFFER) {
+        return SPELLS.NETHER_PORTAL_TALENT.id;
+      }
+      debug && this.error('Unknown source of summon event', event);
+      return -1;
+    }
+    return SUMMON_TO_ABILITY_MAP[event.ability.guid];
+  }
 }
 
 export default NewPets;

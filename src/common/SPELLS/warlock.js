@@ -380,6 +380,11 @@ export default {
     name: 'Multi-Slash',
     icon: 'ability_rogue_murderspree',
   },
+  NETHER_PORTAL_BUFF: {
+    id: 267218,
+    name: 'Nether Portal',
+    icon: 'inv_netherportal',
+  },
   // TODO: possibly even more
   // Nether Portal pet abilities
   // also can be summoned via Inner Demons
