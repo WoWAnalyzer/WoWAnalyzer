@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-09-28'),
+    date: new Date('2018-11-06'),
     changes: <>Updated the <SpellLink id={SPELLS.DEATHS_CARESS.id} />-usage module to check more accurately if a cast was bad or not (by checking available ranged spells and the distance between the player and the enemy).</>,
     contributors: [joshinator],
   },
