@@ -5,7 +5,7 @@ import PETS from 'common/PETS';
 // tracks individual pet (as in pet type) damage, summed together across pet instances
 // also tracks pet summons and despawns and provides getPets(timestamp)
 const debug = false;
-class Pets extends Analyzer {
+class OldPets extends Analyzer {
   // Keys are ids in PETS.js
   petDamage = {
     [PETS.WILDIMP_ON_DREADSTALKER.id]: {},
@@ -136,4 +136,4 @@ class Pets extends Analyzer {
   }
 }
 
-export default Pets;
+export default OldPets;

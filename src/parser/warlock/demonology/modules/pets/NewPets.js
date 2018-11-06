@@ -1,4 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+
+import PETS from './PETS';
 
 /*
   TEST LOGS:
@@ -16,16 +19,7 @@ import Analyzer from 'parser/core/Analyzer';
     getPetDamage(petId): number
     getPermanentPetDamage(): number
  */
-const KNOWN_PETS_GUID = {
-  WILD_IMP_HOG: 55659,
-  DREADSTALKER: 98035,
-  DEMONIC_TYRANT: 135002,
-  // verified on 2 logs without Vilefiend, either I'm unlucky (and Vilefiend can be summoned from ID/NP with the same guid), but more likely is that it's the talent's Vilefiend guid
-  // according to https://www.wowhead.com/spell=267217/nether-portal#comments:id=2581624 though, it can't be summoned from it?
-  VILEFIEND: 135816,
-  GRIMOIRE_FELGUARD: 17252,
-  // anything else is from ID/NP or permanent
-};
+
 const debug = true;
 
 class NewPets extends Analyzer {
@@ -113,31 +107,6 @@ class NewPets extends Analyzer {
 
   3) zatim se neda na prvni pohled zjistit, co z toho je z Inner Demons nebo Nether Portal
    */
-  petDamage = {
-    /*
-     [pet guid]: {
-        name: string,
-        instances: {
-          [pet instance]: number
-        }
-        total: number,
-     }
-     */
-  };
-
-  petTimeline = [];
-
-  on_byPlayerPet_damage(event) {
-    const petInfo = this._getPetInfo(event.sourceID);
-    if (!petInfo) {
-      debug && this.log(`Pet damage event with nonexistant pet id ${event.sourceID}`);
-      return;
-    }
-    const damage = event.amount + (event.absorbed || 0);
-    this._assertPetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
-    this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
-    this.petDamage[petInfo.guid].total += damage;
-  }
 
   /*
       Timeline handling:
@@ -197,16 +166,75 @@ class NewPets extends Analyzer {
           - 267995 - Wrathguard - Nether Portal, Inner Demons
           - 267989 - Eye of Gul'dan - Nether Portal, Inner Demons
           (unconfirmed by me - 267986 - Prince Malchezaar - Nether Portal, Inner Demons?)
+    */
+  petDamage = {
+    /*
+     [pet guid]: {
+        name: string,
+        instances: {
+          [pet instance]: number
+        }
+        total: number,
+     }
+     */
+  };
+
+  petTimeline = [];
+  _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
+  _petsAffectedByDemonicTyrant = []; // dynamic because of talents
+
+  constructor(...args) {
+    super(...args);
+    this._initializeWildImps();
+    this._initializeDemonicTyrantPets();
+  }
+
+  on_byPlayerPet_damage(event) {
+    const petInfo = this._getPetInfo(event.sourceID);
+    if (!petInfo) {
+      debug && this.error(`Pet damage event with nonexistant pet id ${event.sourceID}`);
+      return;
+    }
+    const damage = event.amount + (event.absorbed || 0);
+    this._ensurePetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
+    this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
+    this.petDamage[petInfo.guid].total += damage;
+  }
+
+    /*
+      General algorithm?
+        - all summonable pets have their own summon event, that makes recording their START easy
+        - duration however, not so much
+        - store `expectedDespawn` timestamp
+        - store `source` (or somewhere store IDs of pets affected by Demonic Tyrant)
+        - for Wild Imps, probably store the 15 second limit, but also store `casts` (or maybe better `currentEnergy` because of Demonic Tyrant, where energy should stay the same but casts would rise), when energy drops to 0, despawn
+        - on Implosion, forcefully kill all active Wild Imps
+        - on Demonic Tyrant, iterate through all pets affected, extend their expectedDespawn
+
+      There's no real way to know, when actually pets despawn (no events whatsoever), so I have to rely on their durations + Wild Imp energy for their "real" despawn
    */
 
-  on_finished() {
-    this.log('this.petDamage = ', this.petDamage);
-    this.log('test this.permanentPetDamage', this.permanentPetDamage);
+  on_byPlayer_summon(event) {
+    const pet = {
+      id: event.targetID,
+      instance: event.targetInstance,
+      spawn: event.timestamp,
+      expectedDespawn: event.timestamp + this._getPetDuration(event.targetID),
+    };
+    if (this._wildImpIds.includes(pet.id)) {
+      pet.currentEnergy = 100;
+      pet.realDespawn = null; // they can despawn "prematurely" due to their mechanics
+    }
+    this.petTimeline.push(pet);
+  }
+
+  get currentPets() {
+    return this._getPets();
   }
 
   getPetDamage(guid) {
     if (!this.petDamage[guid]) {
-      debug && this.log(`this.getPetDamage() called with nonexistant guid ${guid}`);
+      debug && this.error(`this.getPetDamage() called with nonexistant guid ${guid}`);
       return 0;
     }
     return Object.values(this.petDamage[guid].instances).reduce((total, current) => total + current, 0);
@@ -221,9 +249,18 @@ class NewPets extends Analyzer {
     return total;
   }
 
-  _assertPetInstanceFieldExists(guid, name, instance) {
-    this.petDamage[guid] = this.petDamage[guid] || { name, instances: {}, total: 0 };
-    this.petDamage[guid].instances[instance] = this.petDamage[guid].instances[instance] || 0;
+  // HELPER METHODS
+
+  _getPets(timestamp = this.owner.currentTimestamp) {
+    return this.petTimeline.filter(pet => pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
+  }
+
+  _getPetFromTimeline(id, instance) {
+    return this.petTimeline.find(pet => pet.id === id && pet.instance === instance);
+  }
+
+  _isPermanentPet(guid) {
+    return guid.toString().length > 6;
   }
 
   _getPetInfo(id, guid = false) {
@@ -235,7 +272,7 @@ class NewPets extends Analyzer {
       pet = this.owner.playerPets.find(pet => pet.id === id);
     }
     if (!pet) {
-      debug && this.log(`NewPets._getPetInfo() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
+      debug && this.error(`NewPets._getPetInfo() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
       return null;
     }
     return pet;
@@ -245,6 +282,66 @@ class NewPets extends Analyzer {
     const pet = this._getPetInfo(id, guid);
     return pet ? pet.guid : null;
   }
+
+  _getPetDuration(id, guid = false) {
+    const pet = this._getPetInfo(id, guid);
+    if (!pet) {
+      debug && this.error(`NewPets._getPetDuration() called with nonexistant pet ${guid ? 'gu' : ''}id ${id}`);
+      return -1;
+    }
+    if (this._isPermanentPet(pet.guid)) {
+      debug && this.error('Called _getPetDuration() for permanent pet guid');
+      return Infinity;
+    }
+    if (!PETS[pet.guid]) {
+      debug && this.error('Encountered pet unknown to PETS.js', pet);
+      return -1;
+    }
+    return PETS[pet.guid].duration;
+  }
+
+  _initializeWildImps() {
+    // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
+    this._wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
+    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
+      // and Inner Demons passively summons these Wild Imps
+      this._wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
+    }
+    // basically player would have to be dead from the beginning to end to not have these recorded
+    // (and even then it's probably fine, because it takes the info from parser.playerPets, which is cross-fight)
+  }
+
+  _toId(guid) {
+    return this._getPetInfo(guid, true).id;
+  }
+
+  _toGuid(id) {
+    return this._getPetInfo(id).guid;
+  }
+
+  _initializeDemonicTyrantPets() {
+    const usedPetGuids = [
+      PETS.DREADSTALKER.guid,
+      PETS.DEMONIC_TYRANT.guid,
+    ];
+    if (this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id)) {
+      usedPetGuids.push(PETS.VILEFIEND.guid);
+    }
+    if (this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id)) {
+      usedPetGuids.push(PETS.GRIMOIRE_FELGUARD.guid);
+    }
+
+    this._petsAffectedByDemonicTyrant = [
+      ...this._wildImpIds,
+      ...usedPetGuids.map(guid => this._toId(guid)),
+    ];
+  }
+
+  _ensurePetInstanceFieldExists(guid, name, instance) {
+    this.petDamage[guid] = this.petDamage[guid] || { name, instances: {}, total: 0 };
+    this.petDamage[guid].instances[instance] = this.petDamage[guid].instances[instance] || 0;
+  }
+
 }
 
 export default NewPets;

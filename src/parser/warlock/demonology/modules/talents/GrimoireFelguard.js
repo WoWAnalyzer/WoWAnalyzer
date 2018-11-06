@@ -10,12 +10,12 @@ import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import DemoPets from '../core/Pets';
+import OldPets from '../pets/OldPets';
 
 class GrimoireFelguard extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    demoPets: DemoPets,
+    oldPets: OldPets,
   };
 
   constructor(...args) {
@@ -25,7 +25,7 @@ class GrimoireFelguard extends Analyzer {
 
   statistic() {
     // TODO: Probably fix felguard GUID in PETS
-    const damage = this.demoPets.getTotalPetDamage(PETS.GRIMOIRE_FELGUARD.id);
+    const damage = this.oldPets.getTotalPetDamage(PETS.GRIMOIRE_FELGUARD.id);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}
