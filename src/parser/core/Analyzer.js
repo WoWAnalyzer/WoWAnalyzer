@@ -1,12 +1,11 @@
 import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EventSubscriber from './EventSubscriber';
-import EventFilter from './EventFilter';
+import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+
+export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
-
-export const SELECTED_PLAYER = 1;
-export const SELECTED_PLAYER_PET = 2;
 
 /**
  * Get a list of all methods of all classes in the prototype chain until this class.

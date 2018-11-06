@@ -1,8 +1,5 @@
 import Module from './Module';
 
-/**
- * 
- */
 class EventSubscriber extends Module {
   static __dangerousInvalidUsage = false;
 
