@@ -246,7 +246,7 @@ describe('Core/Analyzer', () => {
         }
       }
       expect(() => {
-        const myModule = new MyModule({ owner: parser });
+        new MyModule({ owner: parser });
       }).toThrow();
     });
   });
