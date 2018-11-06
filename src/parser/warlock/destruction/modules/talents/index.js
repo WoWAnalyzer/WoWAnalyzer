@@ -4,6 +4,8 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
+import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
+import Eradication from './Eradication';
 import Flashover from './Flashover';
 import ReverseEntropy from './ReverseEntropy';
 import SoulFire from './SoulFire';
@@ -21,6 +23,7 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     flashover: Flashover,
     reverseEntropy: ReverseEntropy,
+    eradication: Eradication,
     inferno: Inferno,
     soulFire: SoulFire,
     internalCombustion: InternalCombustion,
@@ -30,6 +33,7 @@ class TalentStatisticBox extends Analyzer {
     cataclysm: Cataclysm,
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
     roaringBlaze: RoaringBlaze,
   };
 

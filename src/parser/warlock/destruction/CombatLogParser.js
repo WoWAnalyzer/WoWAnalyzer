@@ -15,6 +15,8 @@ import Checklist from './modules/features/Checklist/Module';
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
+import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+
 import Backdraft from './modules/features/Backdraft';
 import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
@@ -28,6 +30,7 @@ import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
 import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
+import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import Talents from './modules/talents';
 
@@ -49,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
     spellUsable: SpellUsable,
 
     // Talents
@@ -64,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channelDemonfire: ChannelDemonfire,
     roaringBlaze: RoaringBlaze,
     grimoireOfSupremacy: GrimoireOfSupremacy,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     talents: Talents,
 
