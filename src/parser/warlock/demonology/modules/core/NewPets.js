@@ -109,7 +109,7 @@ class NewPets extends Analyzer {
 
   3) zatim se neda na prvni pohled zjistit, co z toho je z Inner Demons nebo Nether Portal
    */
-  _petDamage = {
+  petDamage = {
     /*
      [pet guid]: {
         name: string,
@@ -121,6 +121,8 @@ class NewPets extends Analyzer {
      */
   };
 
+  petTimeline = [];
+
   on_byPlayerPet_damage(event) {
     const petInfo = this._getPetInfo(event.sourceID);
     if (!petInfo) {
@@ -129,35 +131,35 @@ class NewPets extends Analyzer {
     }
     const damage = event.amount + (event.absorbed || 0);
     this._assertPetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
-    this._petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
-    this._petDamage[petInfo.guid].total += damage;
+    this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
+    this.petDamage[petInfo.guid].total += damage;
   }
 
   on_finished() {
-    this.log('this._petDamage = ', this._petDamage);
+    this.log('this.petDamage = ', this.petDamage);
     this.log('test this.permanentPetDamage', this.permanentPetDamage);
   }
 
   getPetDamage(guid) {
-    if (!this._petDamage[guid]) {
+    if (!this.petDamage[guid]) {
       debug && this.log(`this.getPetDamage() called with nonexistant guid ${guid}`);
       return 0;
     }
-    return Object.values(this._petDamage[guid].instances).reduce((total, current) => total + current, 0);
+    return Object.values(this.petDamage[guid].instances).reduce((total, current) => total + current, 0);
   }
 
   get permanentPetDamage() {
     // haven't observed any real rule for permanent pet guids except the fact, that they're the longest (other pet guids are either 5 or 6 digits)
     let total = 0;
-    Object.entries(this._petDamage).filter(([guid]) => guid.length > 6).forEach(([guid, pet]) => {
+    Object.entries(this.petDamage).filter(([guid]) => guid.length > 6).forEach(([guid, pet]) => {
       total += Object.values(pet.instances).reduce((total, current) => total + current, 0);
     });
     return total;
   }
 
   _assertPetInstanceFieldExists(guid, name, instance) {
-    this._petDamage[guid] = this._petDamage[guid] || { name, instances: {}, total: 0 };
-    this._petDamage[guid].instances[instance] = this._petDamage[guid].instances[instance] || 0;
+    this.petDamage[guid] = this.petDamage[guid] || { name, instances: {}, total: 0 };
+    this.petDamage[guid].instances[instance] = this.petDamage[guid].instances[instance] || 0;
   }
 
   _getPetInfo(id, guid = false) {
