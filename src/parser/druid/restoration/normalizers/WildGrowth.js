@@ -66,6 +66,30 @@ class WildGrowth extends EventsNormalizer {
           _newEvents = [];
         }
       }
+      // for WG apply buff events we look backwards through the events and any events of flourish we push forward
+      if (event.type === 'applybuff' && event.ability.guid === SPELLS.WILD_GROWTH.id) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
+          const _event = _events[_idx];
+
+          if (_event.timestamp !== event.timestamp) {
+            _newEvents.reverse();
+            _events = _events.concat(_newEvents);
+            _newEvents = [];
+            break;
+          }
+
+          if ((_event.type === 'applybuff' || _event.type === 'cast') && _event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
+            _events.splice(_idx, 1);
+            _newEvents.push(_event);
+          }
+        }
+
+        if (_newEvents.length) {
+          _newEvents.reverse();
+          _events = _events.concat(_newEvents);
+          _newEvents = [];
+        }
+      }
     });
 
     return _events;

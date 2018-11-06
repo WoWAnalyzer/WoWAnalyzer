@@ -104,6 +104,48 @@ describe('RestoDruid/Modules/Normalizers/WildGrowth', () => {
       ],
       result: [2, 1, 4, 3, 6, 5],
     },
+    {
+      // 10: test that WG and Flourish buffs are reordering correctly
+      playerId: 1,
+      events: [
+        { testid: 1, timestamp: 1, targetID: null, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'cast' },
+        { testid: 2, timestamp: 1, targetID: null, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'cast' },
+        { testid: 3, timestamp: 1, targetID: 1, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'applybuff' },
+        { testid: 4, timestamp: 1, targetID: 2, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 5, timestamp: 1, targetID: 3, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 6, timestamp: 1, targetID: 4, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 7, timestamp: 1, targetID: 5, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+      ],
+      result: [1, 4, 5, 6, 7,  2, 3],
+    },
+    {
+      // 11: test that WG and Flourish buffs are reordering correctly #2
+      playerId: 1,
+      events: [
+        { testid: 1, timestamp: 1, targetID: null, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'cast' },
+        { testid: 3, timestamp: 1, targetID: 1, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'applybuff' },
+        { testid: 2, timestamp: 1, targetID: null, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'cast' },
+        { testid: 4, timestamp: 1, targetID: 2, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 5, timestamp: 1, targetID: 3, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 6, timestamp: 1, targetID: 4, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 7, timestamp: 1, targetID: 5, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+      ],
+      result: [1, 4, 5, 6, 7,  3, 2],
+    },
+    {
+      // 12: test that WG and Flourish buffs are in order and no orderings are made
+      playerId: 1,
+      events: [
+        { testid: 1, timestamp: 1, targetID: null, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'cast' },
+        { testid: 4, timestamp: 1, targetID: 2, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 5, timestamp: 1, targetID: 3, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 6, timestamp: 1, targetID: 4, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 7, timestamp: 1, targetID: 5, ability: { guid: SPELLS.WILD_GROWTH.id }, type: 'applybuff' },
+        { testid: 3, timestamp: 1, targetID: 1, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'applybuff' },
+        { testid: 2, timestamp: 1, targetID: null, ability: { guid: SPELLS.FLOURISH_TALENT.id }, type: 'cast' },
+      ],
+      result: [1, 4, 5, 6, 7,  3, 2],
+    },
   ];
 
   reorderScenarios.forEach((scenario, idx) => {
