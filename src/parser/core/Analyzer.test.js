@@ -246,6 +246,7 @@ describe('Core/Analyzer', () => {
         }
       }
       expect(() => {
+        // eslint-disable-next-line no-new
         new MyModule({ owner: parser });
       }).toThrow();
     });
