@@ -82,17 +82,16 @@ const PETS = {
     duration: INNER_DEMON_NETHER_PORTAL_DURATION,
     summonIds: [267995],
   },
-  // TODO: fill in guids
-  // EYE_OF_GULDAN: {
-  //   guid: ,
-  //   duration: INNER_DEMON_NETHER_PORTAL_DURATION,
-  //   summonIds: [267989],
-  // },
-  // PRINCE_MALCHEZAAR: {
-  //   guid: ,
-  //   duration: INNER_DEMON_NETHER_PORTAL_DURATION,
-  //   summonIds: [267986],
-  // },
+  EYE_OF_GULDAN: {
+    guid: 136401,
+    duration: INNER_DEMON_NETHER_PORTAL_DURATION,
+    summonIds: [267989],
+  },
+  PRINCE_MALCHEZAAR: {
+    guid: 136397,
+    duration: INNER_DEMON_NETHER_PORTAL_DURATION,
+    summonIds: [267986],
+  },
 };
 
 export default indexByGuid(PETS);

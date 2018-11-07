@@ -465,6 +465,78 @@ export default {
     icon: 'inv_polearm_2h_fellord_04',
   },
 
+  // Demonology pet summons (ability IDs from 'summon' events)
+  WILD_IMP_HOG_SUMMON: {
+    id: 104317,
+    name: 'Wild Imp',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  DREADSTALKER_SUMMON_1: {
+    id: 193331,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  DREADSTALKER_SUMMON_2: {
+    id: 193332,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  WILD_IMP_ID_SUMMON: {
+    id: 279910,
+    name: 'Wild Imp',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  BILESCOURGE_SUMMON: {
+    id: 267992,
+    name: 'Summon Bilescourge',
+    icon: 'ability_hunter_pet_bat',
+  },
+  VICIOUS_HELLHOUND_SUMMON: {
+    id: 267988,
+    name: 'Summon Vicious Hellhound',
+    icon: 'inv_felhound3_shadow_fire',
+  },
+  SHIVARRA_SUMMON: {
+    id: 267994,
+    name: 'Summon Shivarra',
+    icon: 'achievement_shivan',
+  },
+  DARKHOUND_SUMMON: {
+    id: 267996,
+    name: 'Summon Darkhound',
+    icon: 'inv_felhound3_shadow_mount',
+  },
+  ILLIDARI_SATYR_SUMMON: {
+    id: 267987,
+    name: 'Summon Illidari Satyr',
+    icon: 'classicon_warlock',
+  },
+  VOID_TERROR_SUMMON: {
+    id: 267991,
+    name: 'Summon Void Terror',
+    icon: 'inv_pet_voidhound',
+  },
+  URZUL_SUMMON: {
+    id: 268001,
+    name: 'Summon Ur\'zul',
+    icon: 'inv_soulhoundmount_blue',
+  },
+  WRATHGUARD_SUMMON: {
+    id: 267995,
+    name: 'Summon Wrathguard',
+    icon: 'spell_warlock_summonwrathguard',
+  },
+  EYE_OF_GULDAN_SUMMON: {
+    id: 267989,
+    name: 'Summon Eyes of Gul\'dan',
+    icon: 'inv_pet_inquisitoreye',
+  },
+  PRINCE_MALCHEZAAR_SUMMON: {
+    id: 267986,
+    name: 'Summon Prince Malchezaar',
+    icon: 'achievement_boss_princemalchezaar_02',
+  },
+
   // -----------
   // DESTRUCTION
   // -----------

@@ -21,18 +21,19 @@ import PETS from './PETS';
     getPermanentPetDamage(): number
  */
 
-// TODO extract magic numbers to SPELLS probably
 const SUMMON_TO_ABILITY_MAP = {
-  104317: SPELLS.HAND_OF_GULDAN_CAST.id,
-  193331: SPELLS.CALL_DREADSTALKERS.id,
-  193332: SPELLS.CALL_DREADSTALKERS.id,
-  264119: SPELLS.SUMMON_VILEFIEND_TALENT.id,
-  111898: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
-  265187: SPELLS.SUMMON_DEMONIC_TYRANT.id,
-  279910: SPELLS.INNER_DEMONS_TALENT.id,
+  [SPELLS.WILD_IMP_HOG_SUMMON.id]: SPELLS.HAND_OF_GULDAN_CAST.id,
+  [SPELLS.DREADSTALKER_SUMMON_1.id]: SPELLS.CALL_DREADSTALKERS.id,
+  [SPELLS.DREADSTALKER_SUMMON_2.id]: SPELLS.CALL_DREADSTALKERS.id,
+  [SPELLS.SUMMON_VILEFIEND_TALENT.id]: SPELLS.SUMMON_VILEFIEND_TALENT.id,
+  [SPELLS.GRIMOIRE_FELGUARD_TALENT.id]: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
+  [SPELLS.SUMMON_DEMONIC_TYRANT.id]: SPELLS.SUMMON_DEMONIC_TYRANT.id,
+  [SPELLS.WILD_IMP_ID_SUMMON.id]: SPELLS.INNER_DEMONS_TALENT.id,
+  // the rest is from Inner Demons / Nether Portal and assigned in _getSummonSpell()
 };
 const BUFFER = 150;
 const IMPLOSION_BUFFER = 50;
+const DEMONIC_TYRANT_EXTENSION = 15000;
 const debug = true;
 
 class NewPets extends Analyzer {
@@ -192,6 +193,7 @@ class NewPets extends Analyzer {
      */
   };
   petTimeline = [];
+  _hasDemonicConsumption = false;
   _lastIDtick = null;
   _lastSpendResource = null;
   _lastImplosionDamage = null;
@@ -207,6 +209,7 @@ class NewPets extends Analyzer {
     super(...args);
     this._initializeWildImps();
     this._initializeDemonicTyrantPets();
+    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
   }
 
   on_byPlayerPet_damage(event) {
@@ -261,7 +264,6 @@ class NewPets extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    // handle Demonic Tyrant cast (including Demonic Consumption talent (kills imps, no events *whatsoever*))
     // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
     this._lastPlayerPosition = {
       x: event.x,
@@ -279,7 +281,16 @@ class NewPets extends Analyzer {
       this._lastImplosionCast = event.timestamp;
     }
     else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
-
+      // extend current pets (not random ones from ID/NP) by 15 seconds
+      this.currentPets
+        .filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id))
+        .forEach(pet => {
+          pet.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
+          // if player has Demonic Consumption talent, kill all imps
+          if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
+            pet.realDespawn = event.timestamp;
+          }
+        });
     }
   }
 
@@ -309,7 +320,6 @@ class NewPets extends Analyzer {
       });
     if (imps.length === 0) {
       debug && this.error('Error during calculating Implosion distance for imps');
-      // why?
       if (!this._getPets(this._lastImplosionCast).some(pet => this._wildImpIds.includes(pet.id))) {
         debug && this.error('No imps');
         return;
@@ -353,9 +363,12 @@ class NewPets extends Analyzer {
     return this._getPets();
   }
 
-  getPetDamage(guid) {
+  getPetDamage(id, isGuid = true) {
+    // isGuid = true, because it's more convenient to call this with getPetDamage(PETS.SOME_PET.guid)
+    // because you know what you're looking for (pet IDs change, GUIDs don't)
+    const guid = isGuid ? id : this._toGuid(id);
     if (!this.petDamage[guid]) {
-      debug && this.error(`this.getPetDamage() called with nonexistant guid ${guid}`);
+      debug && this.error(`this.getPetDamage() called with nonexistant ${isGuid ? 'gu' : ''}id ${id}`);
       return 0;
     }
     return Object.values(this.petDamage[guid].instances).reduce((total, current) => total + current, 0);
@@ -368,6 +381,10 @@ class NewPets extends Analyzer {
       total += Object.values(pet.instances).reduce((total, current) => total + current, 0);
     });
     return total;
+  }
+
+  getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
+    return this._getPets(timestamp).filter(pet => petId ? pet.id === petId : true).length;
   }
 
   // HELPER METHODS
