@@ -240,6 +240,18 @@ class NewPets extends Analyzer {
     this._ensurePetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
     this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
     this.petDamage[petInfo.guid].total += damage;
+    // if it was damage from permanent pet, register it in timeline and put in the beginning
+    if (this._isPermanentPet(petInfo.guid) && !this.petTimeline.find(pet => pet.id === event.sourceID)) {
+      this.petTimeline.unshift({
+        name: petInfo.name,
+        id: event.sourceID,
+        instance: event.instance,
+        spawn: this.owner.fight.start_time,
+        expectedDespawn: Infinity, // TODO: pets can die, how to detect this?
+        realDespawn: null,
+        summonedBy: null,
+      });
+    }
   }
 
     /*
