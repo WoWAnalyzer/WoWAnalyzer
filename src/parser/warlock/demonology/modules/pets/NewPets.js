@@ -32,6 +32,7 @@ const SUMMON_TO_ABILITY_MAP = {
   279910: SPELLS.INNER_DEMONS_TALENT.id,
 };
 const BUFFER = 150;
+const IMPLOSION_BUFFER = 50;
 const debug = true;
 
 class NewPets extends Analyzer {
@@ -193,6 +194,7 @@ class NewPets extends Analyzer {
   petTimeline = [];
   _lastIDtick = null;
   _lastSpendResource = null;
+  _lastImplosionDamage = null;
   _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
   _petsAffectedByDemonicTyrant = []; // dynamic because of talents
 
@@ -236,6 +238,9 @@ class NewPets extends Analyzer {
       summonedBy: this._getSummonSpell(event),
     };
     if (this._wildImpIds.includes(pet.id)) {
+      pet.x = null;
+      pet.y = null;
+      pet.distanceFromImplosionTarget = null;
       pet.currentEnergy = 100;
       pet.realDespawn = null; // they can despawn "prematurely" due to their mechanics
     }
@@ -252,13 +257,39 @@ class NewPets extends Analyzer {
   on_byPlayer_cast(event) {
     // handle Demonic Tyrant cast (including Demonic Consumption talent (kills imps, no events *whatsoever*))
     // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
+    if (event.ability.guid === SPELLS.IMPLOSION_CAST.id) {
+      const imps = this.currentPets.filter(pet => this._wildImpIds.includes(pet.id));
+      if (imps.some(imp => imp.x === null || imp.y === null)) {
+        debug && this.error('Implosion cast, some imps don\'t have coordinates', imps);
+        return;
+      }
+      imps.forEach(imp => {
+        imp.distanceFromImplosionTarget = Math.sqrt((imp.x - event.x) * (imp.x - event.x) + (imp.y - event.y) * (imp.y - event.y));
+      });
+    }
+    else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
+
+    }
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.IMPLOSION_DAMAGE.id) {
       return;
     }
+    if (this._lastImplosionDamage && event.timestamp <= this._lastImplosionDamage + IMPLOSION_BUFFER) {
+      // Implosion is an AOE, discard any damage events that are at same timestamp as the first one encountered
+       return;
+    }
     // handle Implosion, killing imps
+    // there's no connection of Implosion event to individual imp
+    // but since Implosion pretty much "tells" Imps to start travelling at the same speed towards the target, I could order them by their distance from the target (probably at the time of the cast, so the order doesn't change)
+    // then at each individual damage event, erase the imp with least distance
+    // since it's AOE, discard every event that comes after that in a small buffer
+    const imps = this.currentPets
+      .filter(pet => this._wildImpIds.includes(pet.id) && pet.distanceFromImplosionTarget !== null) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count
+      .sort((imp1, imp2) => imp1.distanceFromImplosionTarget - imp2.distanceFromImplosionTarget);
+    imps[0].realDespawn = event.timestamp;
+    this._lastImplosionDamage = event.timestamp;
   }
 
   on_byPlayerPet_cast(event) {
@@ -276,6 +307,8 @@ class NewPets extends Analyzer {
       debug && this.error('Wild Imp doesn\'t have energy class resource field', event);
       return;
     }
+    pet.x = event.x;
+    pet.y = event.y;
     const newEnergy = energyResource.amount - (energyResource.cost || 0);
     pet.currentEnergy = newEnergy;
     if (pet.currentEnergy === 0) {
