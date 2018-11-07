@@ -30,18 +30,6 @@ class EnergyDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
-  get suggestionThresholdsWasted() {
-    return {
-      actual: this.wastedPercent,
-      isGreaterThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
-  }
-
   get suggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
@@ -60,7 +48,7 @@ class EnergyDetails extends Analyzer {
         position={STATISTIC_ORDER.CORE(2)}
         icon={<Icon icon="ability_warrior_decisivestrike" alt="Wasted Energy" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Wasted Generator Energy"
+        label="Wasted generator Energy"
         tooltip={`You wasted ${this.wasted} out of ${this.total} Energy from generators. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );

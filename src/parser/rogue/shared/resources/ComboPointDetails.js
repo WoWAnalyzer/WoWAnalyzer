@@ -30,18 +30,6 @@ class ComboPointDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
-  get suggestionThresholdsWasted() {
-    return {
-      actual: this.wastedPercent,
-      isGreaterThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
-  }
-
   get suggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
