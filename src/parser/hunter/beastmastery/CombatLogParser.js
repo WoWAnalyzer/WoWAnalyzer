@@ -24,6 +24,7 @@ import Stomp from './modules/talents/Stomp';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import VenomousBite from './modules/talents/VenomousBite';
+import OneWithThePack from './modules/talents/OneWithThePack';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     venomousBite: VenomousBite,
     thrillOfTheHunt: ThrillOfTheHunt,
+    oneWithThePack: OneWithThePack,
 
     //Traits and talents
     traitsAndTalents: TraitsAndTalents,
