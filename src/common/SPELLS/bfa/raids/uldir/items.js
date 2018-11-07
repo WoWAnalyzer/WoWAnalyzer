@@ -48,7 +48,7 @@ export default {
     name: "Wasting Infection",
     icon: 'ability_ironmaidens_whirlofblood',
   },
-  CRITICAL_PROWESS: {
+  CRITICAL_PROWESS: { // Syringe of Bloodborne Infirmity
     id: 278108,
     name: "Critical Prowess",
     icon: "ability_rogue_bloodsplatter",

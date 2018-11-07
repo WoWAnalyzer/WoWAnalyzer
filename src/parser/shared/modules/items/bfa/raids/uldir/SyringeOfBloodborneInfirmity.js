@@ -57,13 +57,10 @@ class SyringeOfBloodborneInfirmity extends Analyzer{
         return {
             item: ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY,
             result: (
-                <>
-                <dfn data-tip={`Hit <b>${this.hits}</b> time, causing <b>${formatNumber(this.damage)}</b> damage.<br />Buff procced <b>${this.buffTriggerCount()}</b> times.`}>
+                <dfn data-tip={`Hit <b>${this.hits}</b> times, causing <b>${formatNumber(this.damage)}</b> damage.<br />Buff procced <b>${this.buffTriggerCount()}</b> times (<b>${formatPercentage(this.totalBuffUptime())}%</b> uptime).`}>
                     <ItemDamageDone amount={this.damage} /><br />
-                    {formatNumber(this.averageStatGain())} average Critical Strike<br />
-                    {formatPercentage(this.totalBuffUptime())}% uptime
+                    {formatNumber(this.averageStatGain())} average Critical Strike
                 </dfn>
-                </>
             ),
         };
     }
