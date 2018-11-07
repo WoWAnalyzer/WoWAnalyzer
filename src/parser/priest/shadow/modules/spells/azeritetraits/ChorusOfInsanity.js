@@ -56,6 +56,7 @@ class ChorusOfInsanity extends Analyzer {
 
   fabricateFirstStack(event) {
     this.owner.fabricateEvent({
+      ...event,
       timestamp: this.lastTimestamp,
       type: 'applybuffstack',
       currentStacks: event.currentStacks + 1,
