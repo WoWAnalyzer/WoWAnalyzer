@@ -20,6 +20,8 @@ import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
+// azerite
+import ChorusOfInsanity from './modules/spells/azeritetraits/ChorusOfInsanity';
 // talents
 import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
@@ -56,6 +58,9 @@ class CombatLogParser extends MainCombatLogParser {
     voidformAverageStacks: VoidformAverageStacks,
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
+
+    // azerite
+    chorusOfInsanity: ChorusOfInsanity,
 
     // talents:
     twistOfFate: TwistOfFate,
