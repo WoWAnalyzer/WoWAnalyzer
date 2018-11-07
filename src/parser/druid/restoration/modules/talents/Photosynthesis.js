@@ -150,7 +150,7 @@ class Photosynthesis extends Analyzer {
         value={`${formatPercentage(totalPercent)} %`}
         label={'Photosynthesis'}
         tooltip={`
-            Healing contribution (right now random lifebloom blooms are not accounted for, thus potentially showing lower value than the actual gain).
+            Healing contribution
             <ul>
               <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))} %</b></li>
               <li>Wild Growth: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))} %</b></li>
