@@ -2,9 +2,10 @@ import React from 'react';
 
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -38,9 +39,9 @@ class ElaboratePlanning extends Analyzer {
       <TalentStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.ELABORATE_PLANNING_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        value={<ItemDamageDone amount={this.bonusDmg} />}
         label="Elaborate Planning"
-        tooltip={`${formatPercentage(this.percentUptime)} % uptime. Elaborate Planning contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
+        tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
       />
     );
   }
