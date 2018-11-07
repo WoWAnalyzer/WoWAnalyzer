@@ -192,7 +192,25 @@ class NewPets extends Analyzer {
      }
      */
   };
-  petTimeline = [];
+  petTimeline = [
+    /*
+      {
+        name: string,
+        id: number,
+        instance: number | undefined (sometimes),
+        spawn: timestamp,
+        expectedDespawn: timestamp,
+        summonedBy: spellId,
+
+        // in case of Wild Imps, they have additional properties:
+        x: number,
+        y: number,
+        shouldImplode: boolean,
+        currentEnergy: number,
+        realDespawn: timestamp
+      }
+     */
+  ];
   _hasDemonicConsumption = false;
   _lastIDtick = null;
   _lastSpendResource = null;
@@ -265,10 +283,7 @@ class NewPets extends Analyzer {
 
   on_byPlayer_cast(event) {
     // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
-    this._lastPlayerPosition = {
-      x: event.x,
-      y: event.y,
-    };
+    this._updatePlayerPosition(event);
     if (event.ability.guid === SPELLS.IMPLOSION_CAST.id) {
       const imps = this.currentPets.filter(pet => this._wildImpIds.includes(pet.id));
       if (imps.some(imp => imp.x === null || imp.y === null)) {
@@ -355,6 +370,23 @@ class NewPets extends Analyzer {
     if (pet.currentEnergy === 0) {
       pet.realDespawn = event.timestamp;
     }
+  }
+
+  // to update player position more accurately (based on DistanceMoved)
+  on_toPlayer_damage(event) {
+    this._updatePlayerPosition(event);
+  }
+
+  on_toPlayer_energize(event) {
+    this._updatePlayerPosition(event);
+  }
+
+  on_toPlayer_heal(event) {
+    this._updatePlayerPosition(event);
+  }
+
+  on_toPlayer_absorbed(event) {
+    this._updatePlayerPosition(event);
   }
 
   // API
@@ -496,6 +528,16 @@ class NewPets extends Analyzer {
 
   _getDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  }
+
+  _updatePlayerPosition(event) {
+    if (!event.x || !event.y) {
+      return;
+    }
+    if (this._lastPlayerPosition.x !== event.x || this._lastPlayerPosition.y !== event.y) {
+      this._lastPlayerPosition.x = event.x;
+      this._lastPlayerPosition.y = event.y;
+    }
   }
 }
 
