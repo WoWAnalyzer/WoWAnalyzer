@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
@@ -28,12 +28,7 @@ export const STAT_TRACKER = {
  */
 class ChorusOfInsanity extends Analyzer {
   crit = 0;
-  totalCrit = 0;
   lastTimestamp = 0;
-
-  chorusProcs = 0;
-  currentStacks = 0;
-
   pendingStack = false;
 
   constructor(...args) {
@@ -48,53 +43,23 @@ class ChorusOfInsanity extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    this.handleStacks(event);
+    this.pendingStack = true;
+    this.lastTimestamp = event.timestamp;
   }
 
   on_byPlayer_removebuffstack(event) {
-    this.handleStacks(event);
+    if (this.pendingStack) {
+      this.fabricateFirstStack(event);
+      this.pendingStack = false;
+    }
   }
 
-  on_byPlayer_refreshbuff(event) {
-    this.handleStacks(event);
-  }
-
-  handleStacks(event) {
-    if (event.ability.guid !== SPELLS.CHORUS_OF_INSANITY_BUFF.id) {
-      return;
-    }
-
-    if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
-      const uptimeOnStack = event.timestamp - this.lastTimestamp;
-
-      // The first stack only has an apply event, so I have no reference of how many stacks you start with.
-      // This check adds the first tick.
-      if (this.pendingStack) {
-        this.totalCrit += (this.currentStacks + 1) * this.crit * uptimeOnStack;
-        this.pendingStack = false;
-      }
-
-      this.totalCrit += this.currentStacks * this.crit * uptimeOnStack;
-    }
-
-    if (event.type === 'applybuff') {
-      this.chorusProcs += 1;
-      this.pendingStack = true;
-    } else if (event.type === 'removebuff') {
-      this.currentStacks = 0;
-    } else {
-      this.currentStacks = event.stack;
-    }
-
-    this.lastTimestamp = event.timestamp;
+  fabricateFirstStack(event) {
+    this.owner.fabricateEvent({
+      timestamp: this.lastTimestamp,
+      type: 'applybuffstack',
+      currentStacks: event.currentStacks + 1,
+    }, event);
   }
 
   get uptime() {
@@ -102,7 +67,12 @@ class ChorusOfInsanity extends Analyzer {
   }
 
   get averageCrit() {
-    return (this.totalCrit / this.owner.fightDuration).toFixed(0);
+    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.CHORUS_OF_INSANITY_BUFF.id) / this.owner.fightDuration;
+    return averageStacks * this.crit;
+  }
+
+  get buffTriggerCount() {
+    return this.selectedCombatant.getBuffTriggerCount(SPELLS.CHORUS_OF_INSANITY_BUFF.id);
   }
 
   statistic() {
@@ -110,10 +80,10 @@ class ChorusOfInsanity extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CHORUS_OF_INSANITY.id}
-        value={`${this.averageCrit} average Crit`}
+        value={`${formatNumber(this.averageCrit)} average Crit`}
         tooltip={`
           ${SPELLS.CHORUS_OF_INSANITY.name} grants <b>${this.crit} crit per stack</b><br/>
-          You procced ${SPELLS.CHORUS_OF_INSANITY.name} <b>${this.chorusProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
+          You procced ${SPELLS.CHORUS_OF_INSANITY.name} <b>${this.buffTriggerCount} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
         `}
       />
     );
