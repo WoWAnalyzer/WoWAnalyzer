@@ -14,6 +14,9 @@ const CATCH_ALL_EVENT = 'event';
  */
 class EventEmitter extends Module {
   static __dangerousInvalidUsage = false;
+  static get catchAllEvent() {
+    return new EventFilter(CATCH_ALL_EVENT);
+  }
 
   _eventListenersByEventType = {};
   /**
