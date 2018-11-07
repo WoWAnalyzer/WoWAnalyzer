@@ -244,10 +244,11 @@ class NewPets extends Analyzer {
     if (this._isPermanentPet(petInfo.guid) && !this.petTimeline.find(pet => pet.id === event.sourceID)) {
       this.petTimeline.unshift({
         name: petInfo.name,
+        guid: petInfo.guid,
         id: event.sourceID,
         instance: event.instance,
         spawn: this.owner.fight.start_time,
-        expectedDespawn: Infinity, // TODO: pets can die, how to detect this?
+        expectedDespawn: Infinity, // permanent pets can die but unless they make a 'death' event, there's no real way to detect it
         realDespawn: null,
         summonedBy: null,
       });
@@ -268,8 +269,17 @@ class NewPets extends Analyzer {
    */
 
   on_byPlayer_summon(event) {
+    const petInfo = this._getPetInfo(event.targetID);
+    if (this._isPermanentPet(petInfo.guid)) {
+      // we summoned a new permanent pet, find last permanent entry in timeline, forcefully despawn it
+      const permanentPets = this.petTimeline.filter(pet => this._isPermanentPet(pet.guid));
+      if (permanentPets.length > 0) {
+        permanentPets[permanentPets.length - 1].realDespawn = event.timestamp;
+      }
+    }
     const pet = {
-      name: this._getPetInfo(event.targetID).name,
+      name: petInfo.name,
+      guid: petInfo.guid,
       id: event.targetID,
       instance: event.targetInstance,
       spawn: event.timestamp,
@@ -472,7 +482,7 @@ class NewPets extends Analyzer {
       return -1;
     }
     if (this._isPermanentPet(pet.guid)) {
-      debug && this.error('Called _getPetDuration() for permanent pet guid');
+      debug && this.log('Called _getPetDuration() for permanent pet guid');
       return Infinity;
     }
     if (!PETS[pet.guid]) {
