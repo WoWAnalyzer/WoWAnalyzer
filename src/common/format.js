@@ -69,11 +69,3 @@ export function formatMilliseconds(duration) {
 
   return response;
 }
-
-/**
- *
- */
-export function formatAverageTargetsHit(casts, hits, unique = 0) {
-
-  return 0;
-}
