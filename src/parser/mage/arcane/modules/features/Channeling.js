@@ -13,10 +13,9 @@ class Channeling extends CoreChanneling {
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.EVOCATION.id) {
-      if (this.isChannelingSpell(SPELLS.EVOCATION.id)) {
-        this.endChannel(event);
-      }
+    // This will resolve potential issues with evocation showing longer channel times
+    if (event.ability.guid === SPELLS.EVOCATION.id && this.isChannelingSpell(SPELLS.EVOCATION.id)) {
+      this.endChannel(event);
     }
   }
 
