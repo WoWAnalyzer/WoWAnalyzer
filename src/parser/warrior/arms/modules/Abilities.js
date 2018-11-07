@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/shared/modules/Abilities';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
@@ -17,7 +18,10 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) ? 0.7 : 0.6,
+          recommendedEfficiency: 0.8,
+          // Assuming the exec phase duration is 35% of the fight with massacre talent & 20% otherwise
+          // Mortal Strike should be use in execution range with Executioner's Precision Trait so it doesn't reduce the max casts
+          maxCasts: cooldown => calculateMaxCasts(cooldown, (this.owner.fightDuration * (combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) ? 1 : (combatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? 0.65 : 0.8)))),
         },
       },
       {

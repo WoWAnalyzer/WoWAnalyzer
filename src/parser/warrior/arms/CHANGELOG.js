@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-11-07'),
+    changes: <>Fixed Mortal Strike cast efficiency with Execute phase</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-07'),
     changes: <>Added Rage usage tab and suggestions on rage wast, removed the doughnut chart for rage usage</>,
     contributors: [Matardarix],
   },
