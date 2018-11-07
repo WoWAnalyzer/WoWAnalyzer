@@ -195,6 +195,11 @@ class NewPets extends Analyzer {
   _lastIDtick = null;
   _lastSpendResource = null;
   _lastImplosionDamage = null;
+  _lastImplosionCast = null;
+  _lastPlayerPosition = {
+    x: 0,
+    y: 0,
+  };
   _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
   _petsAffectedByDemonicTyrant = []; // dynamic because of talents
 
@@ -231,6 +236,7 @@ class NewPets extends Analyzer {
 
   on_byPlayer_summon(event) {
     const pet = {
+      name: this._getPetInfo(event.targetID).name,
       id: event.targetID,
       instance: event.targetInstance,
       spawn: event.timestamp,
@@ -238,9 +244,9 @@ class NewPets extends Analyzer {
       summonedBy: this._getSummonSpell(event),
     };
     if (this._wildImpIds.includes(pet.id)) {
-      pet.x = null;
-      pet.y = null;
-      pet.distanceFromImplosionTarget = null;
+      pet.x = this._lastPlayerPosition.x;
+      pet.y = this._lastPlayerPosition.y;
+      pet.shouldImplode = false;
       pet.currentEnergy = 100;
       pet.realDespawn = null; // they can despawn "prematurely" due to their mechanics
     }
@@ -257,6 +263,10 @@ class NewPets extends Analyzer {
   on_byPlayer_cast(event) {
     // handle Demonic Tyrant cast (including Demonic Consumption talent (kills imps, no events *whatsoever*))
     // log with Demonic Consumption https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done
+    this._lastPlayerPosition = {
+      x: event.x,
+      y: event.y,
+    };
     if (event.ability.guid === SPELLS.IMPLOSION_CAST.id) {
       const imps = this.currentPets.filter(pet => this._wildImpIds.includes(pet.id));
       if (imps.some(imp => imp.x === null || imp.y === null)) {
@@ -264,8 +274,9 @@ class NewPets extends Analyzer {
         return;
       }
       imps.forEach(imp => {
-        imp.distanceFromImplosionTarget = Math.sqrt((imp.x - event.x) * (imp.x - event.x) + (imp.y - event.y) * (imp.y - event.y));
+        imp.shouldImplode = true;
       });
+      this._lastImplosionCast = event.timestamp;
     }
     else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
 
@@ -274,6 +285,10 @@ class NewPets extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.IMPLOSION_DAMAGE.id) {
+      return;
+    }
+    if (!event.x || !event.y) {
+      debug && this.error('Implosion damage event doesn\'t have a target position', event);
       return;
     }
     if (this._lastImplosionDamage && event.timestamp <= this._lastImplosionDamage + IMPLOSION_BUFFER) {
@@ -285,9 +300,25 @@ class NewPets extends Analyzer {
     // but since Implosion pretty much "tells" Imps to start travelling at the same speed towards the target, I could order them by their distance from the target (probably at the time of the cast, so the order doesn't change)
     // then at each individual damage event, erase the imp with least distance
     // since it's AOE, discard every event that comes after that in a small buffer
-    const imps = this.currentPets
-      .filter(pet => this._wildImpIds.includes(pet.id) && pet.distanceFromImplosionTarget !== null) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count
-      .sort((imp1, imp2) => imp1.distanceFromImplosionTarget - imp2.distanceFromImplosionTarget);
+    const imps = this._getPets(this._lastImplosionCast)
+      .filter(pet => this._wildImpIds.includes(pet.id) && pet.shouldImplode) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count
+      .sort((imp1, imp2) => {
+        const distance1 = this._getDistance(imp1.x, imp1.y, event.x, event.y);
+        const distance2 = this._getDistance(imp2.x, imp2.y, event.x, event.y);
+        return distance1 - distance2;
+      });
+    if (imps.length === 0) {
+      debug && this.error('Error during calculating Implosion distance for imps');
+      // why?
+      if (!this._getPets(this._lastImplosionCast).some(pet => this._wildImpIds.includes(pet.id))) {
+        debug && this.error('No imps');
+        return;
+      }
+      if (!this._getPets(this._lastImplosionCast).some(pet => this._wildImpIds.includes(pet.id) && pet.shouldImplode)) {
+        debug && this.error('No implodable imps');
+      }
+      return;
+    }
     imps[0].realDespawn = event.timestamp;
     this._lastImplosionDamage = event.timestamp;
   }
@@ -444,6 +475,10 @@ class NewPets extends Analyzer {
       return -1;
     }
     return SUMMON_TO_ABILITY_MAP[event.ability.guid];
+  }
+
+  _getDistance(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   }
 }
 
