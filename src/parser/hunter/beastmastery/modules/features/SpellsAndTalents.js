@@ -10,11 +10,12 @@ import ChimaeraShot from 'parser/hunter/beastmastery/modules/talents/ChimaeraSho
 import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
 import Stomp from 'parser/hunter/beastmastery/modules/talents/Stomp';
 import KillerInstinct from 'parser/hunter/beastmastery/modules/talents/KillerInstinct';
+import AspectOfTheBeast from 'parser/hunter/beastmastery/modules/talents/AspectOfTheBeast';
 import BarbedShot from '../spells/BarbedShot';
 import BeastCleave from '../spells/BeastCleave';
 import AMurderOfCrows from '../../../shared/modules/talents/AMurderOfCrows';
 
-class TraitsAndTalents extends Analyzer {
+class SpellsAndTalents extends Analyzer {
   static dependencies = {
     beastCleave: BeastCleave,
     barrage: Barrage,
@@ -24,6 +25,7 @@ class TraitsAndTalents extends Analyzer {
     stampede: Stampede,
     stomp: Stomp,
     aMurderOfCrows: AMurderOfCrows,
+    aspectOfTheBeast: AspectOfTheBeast,
   };
 
   constructor(...args) {
@@ -38,8 +40,8 @@ class TraitsAndTalents extends Analyzer {
     return (
       <StatisticsListBox
         position={STATISTIC_ORDER.CORE(12)}
-        title="Spells, Traits and Talents"
-        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
+        title="Spells and Talents"
+        tooltip="This provides an overview of the damage contributions of various spells and talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
         {this.barbedShot.active && this.barbedShot.subStatistic()}
         {this.barrage.active && this.barrage.subStatistic()}
@@ -49,9 +51,10 @@ class TraitsAndTalents extends Analyzer {
         {this.stampede.active && this.stampede.subStatistic()}
         {this.stomp.active && this.stomp.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
+        {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}
       </StatisticsListBox>
     );
   }
 }
 
-export default TraitsAndTalents;
+export default SpellsAndTalents;

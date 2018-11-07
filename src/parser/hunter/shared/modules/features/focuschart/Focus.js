@@ -5,7 +5,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
 
 import { formatDuration } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
@@ -13,11 +12,12 @@ import Haste from 'parser/shared/modules/Haste';
 import FocusComponent from './FocusComponent';
 
 const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
-
+//TODO: Purge the entire focuschart folder and implement the more modern implementation
 class Focus extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    playerHaste: PropTypes.number.isRequired,
     focusMax: PropTypes.number,
     focusPerSecond: PropTypes.array,
     tracker: PropTypes.number,
@@ -40,13 +40,7 @@ class Focus extends React.PureComponent {
         </div>
       );
     }
-    let specFocusGen = 10; //Focus generation for Beast Mastery
-    if (this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER) {
-      specFocusGen = 3;
-    } else if (this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER) {
-      specFocusGen = 5;
-    }
-    const focusGen = Math.round((specFocusGen + .1 * this.haste.current / 375) * 100) / 100;
+    const focusGen = Math.round((10 + .1 * this.props.playerHaste / 375) * 100) / 100;
 
     const maxFocus = this.props.focusMax;
     const { start, end } = this.props;

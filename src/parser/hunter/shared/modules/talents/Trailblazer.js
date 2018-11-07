@@ -3,7 +3,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
@@ -25,7 +24,6 @@ class Trailblazer extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.TRAILBLAZER_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Trailblazer uptime"
