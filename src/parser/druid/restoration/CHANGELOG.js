@@ -4,7 +4,12 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-10-19'), 
+    date: new Date('2018-11-07'),
+    changes: 'Added support for random LB blooms in Photosynthesis.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-19'),
     changes: 'Updated bad Regrowth usage suggestions - using a regrowth with sufficent abundance stacks is not considered bad',
     contributors: [Qbz],
   },
