@@ -85,10 +85,10 @@ class ChorusOfInsanity extends Analyzer {
       this.totalCrit += this.currentStacks * this.crit * uptimeOnStack;
     }
 
-    if (event.type === "applybuff") {
+    if (event.type === 'applybuff') {
       this.chorusProcs += 1;
       this.pendingStack = true;
-    } else if (event.type === "removebuff") {
+    } else if (event.type === 'removebuff') {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;
@@ -113,7 +113,7 @@ class ChorusOfInsanity extends Analyzer {
         value={`${this.averageCrit} average Crit`}
         tooltip={`
           ${SPELLS.CHORUS_OF_INSANITY.name} grants <b>${this.crit} crit per stack</b><br/>
-          You procced <b>${SPELLS.CHORUS_OF_INSANITY.name} ${this.chorusProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
+          You procced ${SPELLS.CHORUS_OF_INSANITY.name} <b>${this.chorusProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
         `}
       />
     );
