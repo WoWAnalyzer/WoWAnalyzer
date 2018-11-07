@@ -9,6 +9,10 @@ import Icon from 'common/Icon';
 
 import AstralPowerTracker from './AstralPowerTracker';
 
+const MINOR_THRESHOLD = 0;
+const AVERAGE_THRESHOLD = 0.02;
+const MAJOR_THRESHOLD = 0.05;
+
 class AstralPowerDetails extends Analyzer {
   static dependencies = {
     astralPowerTracker: AstralPowerTracker,
@@ -34,9 +38,9 @@ class AstralPowerDetails extends Analyzer {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
-        minor: 0,
-        average: 0.02,
-        major: 0.05,
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -46,9 +50,9 @@ class AstralPowerDetails extends Analyzer {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
-        minor: 1.00,
-        average: 0.98,
-        major: 0.95,
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
       },
       style: 'percentage',
     };
@@ -67,14 +71,14 @@ class AstralPowerDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(1)}
         icon={<Icon icon="ability_druid_cresentburn" />}
-        value={`${this.wastedPerMinute.toFixed(2)}`}
-        label="Overcapped Astral Power per minute"
-        tooltip={`${this.wasted} out of ${this.total} (${formatPercentage(this.wastedPercent)}%) Astral Power wasted.`}
+        value={`${formatPercentage(this.wastedPercent)} %`}
+        label="Overcapped Astral Power"
+        tooltip={`${this.wasted} out of ${this.total} Astral Power wasted.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   tab() {
     return {
