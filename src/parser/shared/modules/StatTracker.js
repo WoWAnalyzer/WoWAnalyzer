@@ -24,6 +24,7 @@ import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/module
 import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
 import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Tradewinds';
+import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 
 const debug = false;
 
@@ -304,6 +305,9 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
     [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
+    // endregion
+    // region Priest
+    [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
