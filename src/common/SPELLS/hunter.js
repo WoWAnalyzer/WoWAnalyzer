@@ -510,7 +510,7 @@ export default {
   MEND_PET: {
     id: 136,
     name: 'Mend Pet',
-    icon: '"ability_hunter_mendpet',
+    icon: 'ability_hunter_mendpet',
   },
   TAR_TRAP: {
     id: 187698,
