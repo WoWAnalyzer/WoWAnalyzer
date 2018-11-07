@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { Anomoly } from 'CONTRIBUTORS';
+import { Anomoly, Gao } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2018-11-2'),
+    changes: <>Added the mana efficiency tab. Updated the Env:Viv cast ratio picture sizes.</>,
+    contributors: [Gao],
+  },
   {
     date: new Date('2018-10-30'),
     changes: <>Fixed an bug with <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> suggestion not displaying the correct mana saved amount.</>,

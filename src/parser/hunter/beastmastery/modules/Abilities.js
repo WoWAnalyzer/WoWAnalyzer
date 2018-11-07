@@ -264,6 +264,14 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
       },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       /**
        * Racials until we find a better solution
