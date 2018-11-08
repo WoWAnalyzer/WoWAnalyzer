@@ -350,7 +350,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.findModule(dependencyClass);
+        const dependencyModule = this.getModule(dependencyClass);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -360,7 +360,7 @@ class CombatLogParser {
     }
     return [availableDependencies, missingDependencies];
   }
-  _loadModule(desiredModuleName, moduleClass, options) {
+  loadModule(desiredModuleName, moduleClass, options) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -397,7 +397,7 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this._loadModule(desiredModuleName, moduleClass, {
+        this.loadModule(desiredModuleName, moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
@@ -428,7 +428,7 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  findModule(type) {
+  getModule(type) {
     return Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
