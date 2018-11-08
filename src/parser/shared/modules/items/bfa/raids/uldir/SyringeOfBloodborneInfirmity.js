@@ -11,7 +11,7 @@ import Analyzer from 'parser/core/Analyzer';
  * Equip: Your attacks have a chance to cause Wasting Infection, dealing 2424 Shadow damage over 12 sec. 
  * Attacking an enemy suffering from Wasting Infection grants you 89 Critical Strike for 6 sec, stacking up to 5 times.
  * 
- * Exemple log: /report/mx1NKYzjwQncGk4J/33-Mythic+Fetid+Devourer+-+Kill+(4:47)/6-Jaelaw/
+ * Example log: /report/mx1NKYzjwQncGk4J/33-Mythic+Fetid+Devourer+-+Kill+(4:47)/6-Jaelaw/
  */
 
 class SyringeOfBloodborneInfirmity extends Analyzer{
