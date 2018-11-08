@@ -22,6 +22,12 @@ import PETS from './PETS';
  */
 
 const SUMMON_TO_ABILITY_MAP = {
+  // TODO: are these 5 base summons correct?
+  [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
+  [SPELLS.SUMMON_VOIDWALKER.id]: SPELLS.SUMMON_VOIDWALKER.id,
+  [SPELLS.SUMMON_FELHUNTER.id]: SPELLS.SUMMON_FELHUNTER.id,
+  [SPELLS.SUMMON_SUCCUBUS.id]: SPELLS.SUMMON_SUCCUBUS.id,
+  [SPELLS.SUMMON_FELGUARD.id]: SPELLS.SUMMON_FELGUARD.id,
   [SPELLS.WILD_IMP_HOG_SUMMON.id]: SPELLS.HAND_OF_GULDAN_CAST.id,
   [SPELLS.DREADSTALKER_SUMMON_1.id]: SPELLS.CALL_DREADSTALKERS.id,
   [SPELLS.DREADSTALKER_SUMMON_2.id]: SPELLS.CALL_DREADSTALKERS.id,
@@ -244,6 +250,7 @@ class NewPets extends Analyzer {
     // if it was damage from permanent pet, register it in timeline and put in the beginning
     if (this._isPermanentPet(petInfo.guid) && !this.petTimeline.find(pet => pet.id === event.sourceID)) {
       test && this.log('Permanent pet damage, not in timeline, adding to the front');
+      // TODO: might also be solved with a normalizer, putting a summon to the front
       this.petTimeline.unshift({
         name: petInfo.name,
         guid: petInfo.guid,
@@ -450,6 +457,16 @@ class NewPets extends Analyzer {
 
   getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
     return this._getPets(timestamp).filter(pet => petId ? pet.id === petId : true).length;
+  }
+
+  get petsBySummonAbility() {
+    return this.petTimeline.reduce((obj, pet) => {
+      const key = pet.summonedBy || 'unknown';
+      const spellName = pet.summonedBy ? SPELLS[pet.summonedBy].name : 'unknown';
+      obj[key] = obj[key] || { spellName, pets: [] };
+      obj[key].pets.push(pet);
+      return obj;
+    }, {});
   }
 
   // HELPER METHODS
