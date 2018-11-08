@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
-import HealingDone from 'parser/monk/brewmaster/modules/core/HealingDone';
 
 describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   const events = [
