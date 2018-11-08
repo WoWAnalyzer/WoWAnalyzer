@@ -374,7 +374,6 @@ class Pets extends Analyzer {
   _initializeDemonicTyrantPets() {
     const usedPetGuids = [
       PETS.DREADSTALKER.guid,
-      PETS.DEMONIC_TYRANT.guid,
     ];
     if (this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id)) {
       usedPetGuids.push(PETS.VILEFIEND.guid);
