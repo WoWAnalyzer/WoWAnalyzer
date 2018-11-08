@@ -4,18 +4,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import PETS from './PET_INFO';
 
-/*
-  TEST LOGS:
-    https://www.warcraftlogs.com/reports/4cBHbZACxz3ywnpk#fight=24&type=damage-done   - Flappslock - THE EVIL ONE (Bilescourge, Vilefiend, Inner Demons, Nether Portal)
-    https://www.warcraftlogs.com/reports/QhqzaZTRmWj8d76p#fight=3&type=damage-done    - Katarinna - Vilefiend, Inner Demons, Nether Portal
-    https://www.warcraftlogs.com/reports/ArRBmMzpYGbV3N7g#fight=11&type=damage-done   - Ddavee - Vilefiend, Inner Demons, Nether Portal     GERMAN LOG
-    https://www.warcraftlogs.com/reports/mhaYtBqvg8WTr17A#fight=1&type=damage-done    - Toned - Vilefiend, Inner Demons, Nether Portal
-    https://www.warcraftlogs.com/reports/TBGRJZ9aj4FzD7wW#fight=1&type=damage-done    - Mímir - Vilefiend, Inner Demons, Nether Portal
-    https://www.warcraftlogs.com/reports/KFmxXfWN8GtrJT3Y#fight=9&type=damage-done    - Galé  - Soul Strike, Inner Demons, Nether Portal
-    https://www.warcraftlogs.com/reports/Lp8vNgYFXdmMqT21#fight=4&type=damage-done    - Cincinnatus - Soul Strike, Inner Demons, Nether Portal
-    https://www.warcraftlogs.com/reports/bWY1nNdZAX8y7JPQ#fight=6&type=damage-done    - with Demonic Consumption
- */
-
 const SUMMON_TO_ABILITY_MAP = {
   // TODO: are these 5 base summons correct?
   [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
