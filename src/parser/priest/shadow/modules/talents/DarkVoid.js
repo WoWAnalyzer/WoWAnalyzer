@@ -62,8 +62,6 @@ class DarkVoid extends Analyzer {
         value={<ItemDamageDone amount={this.totalDamage} />}
         label={`${SPELLS.DARK_VOID_TALENT.name}`}
         tooltip={`
-          Average targets hit: ${formatNumber(this.averageTargetsHit)}<br />
-          ${SPELLS.SHADOW_WORD_PAIN.name} Applications: ${this.dvSwpApplications}<br />
           Damage from ${SPELLS.DARK_VOID_TALENT.name}: ${formatNumber(this.dvDamage)}<br />
           Damage from ${SPELLS.SHADOW_WORD_PAIN.name}: ${formatNumber(this.swpDamage)}
         `}
