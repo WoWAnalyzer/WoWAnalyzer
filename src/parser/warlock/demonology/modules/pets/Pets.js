@@ -1,4 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
@@ -26,7 +27,6 @@ const SUMMON_TO_ABILITY_MAP = {
   // the rest is from Inner Demons / Nether Portal and assigned in _getSummonSpell()
 };
 const BUFFER = 150;
-const IMPLOSION_BUFFER = 50;
 const debug = false;
 const test = false;
 
@@ -39,6 +39,7 @@ class Pets extends Analyzer {
   _lastSpendResource = null;
   _lastImplosionDamage = null;
   _lastImplosionCast = null;
+  _implosionTargetsHit = [];
   _lastPlayerPosition = {
     x: 0,
     y: 0,
@@ -119,6 +120,7 @@ class Pets extends Analyzer {
         imp.shouldImplode = true;
       });
       this._lastImplosionCast = event.timestamp;
+      this._implosionTargetsHit = [];
     }
     else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
       // extend current pets (not random ones from ID/NP) by 15 seconds
@@ -143,11 +145,20 @@ class Pets extends Analyzer {
       debug && this.error('Implosion damage event doesn\'t have a target position', event);
       return;
     }
-    if (this._lastImplosionDamage && event.timestamp <= this._lastImplosionDamage + IMPLOSION_BUFFER) {
-      // Implosion is an AOE, discard any damage events that are at same timestamp as the first one encountered
-      test && this.log('Implosion damage ignored, too soon');
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    if (this._implosionTargetsHit.length === 0) {
+      test && this.log(`First Implosion damage after cast on ${target}`);
+    }
+    else if (this._implosionTargetsHit.includes(target)) {
+      test && this.log(`Implosion damage on ${target}, already marked => new imp exploded, reset array, marked`);
+    }
+    else if (this._implosionTargetsHit.length > 0 && !this._implosionTargetsHit.includes(target)) {
+      this._implosionTargetsHit.push(target);
+      test && this.log(`Implosion damage on ${target}, not hit yet, marked, skipped`);
       return;
     }
+    this._implosionTargetsHit = [target];
+
     // handle Implosion
     // Implosion pulls all Wild Imps towards target, exploding them and dealing AoE damage
     // there's no connection of each damage event to individual Wild Imp, so take Imps that were present at the Implosion cast, order them by the distance from the target and kill them in this order (they should be travelling with the same speed)
