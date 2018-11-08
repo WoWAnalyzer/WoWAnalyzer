@@ -2,10 +2,15 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
+import Timeline from './Timeline';
+import TimelinePet from './TimelinePet';
+import PetDamage from './PetDamage';
+import { isPermanentPet } from './helpers';
 import PETS from './PET_INFO';
 
 const SUMMON_TO_ABILITY_MAP = {
   // TODO: are these 5 base summons correct?
+  // TODO: verify glyphed versions
   [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
   [SPELLS.SUMMON_VOIDWALKER.id]: SPELLS.SUMMON_VOIDWALKER.id,
   [SPELLS.SUMMON_FELHUNTER.id]: SPELLS.SUMMON_FELHUNTER.id,
@@ -22,41 +27,12 @@ const SUMMON_TO_ABILITY_MAP = {
 };
 const BUFFER = 150;
 const IMPLOSION_BUFFER = 50;
-const DEMONIC_TYRANT_EXTENSION = 15000;
 const debug = false;
 const test = false;
 
 class Pets extends Analyzer {
-  petDamage = {
-    /*
-     [pet guid]: {
-        name: string,
-        instances: {
-          [pet instance]: number
-        }
-        total: number,
-     }
-     */
-  };
-  petTimeline = [
-    /*
-      {
-        name: string,
-        id: number,
-        instance: number | undefined (sometimes),
-        spawn: timestamp,
-        expectedDespawn: timestamp,
-        summonedBy: spellId,
-
-        // in case of Wild Imps, they have additional properties:
-        x: number,
-        y: number,
-        shouldImplode: boolean,
-        currentEnergy: number,
-        realDespawn: timestamp
-      }
-     */
-  ];
+  damage = new PetDamage();
+  timeline = new Timeline();
 
   _hasDemonicConsumption = false;
   _lastIDtick = null;
@@ -86,23 +62,12 @@ class Pets extends Analyzer {
       return;
     }
     const damage = event.amount + (event.absorbed || 0);
-    this._ensurePetInstanceFieldExists(petInfo.guid, petInfo.name, event.sourceInstance);
-    this.petDamage[petInfo.guid].instances[event.sourceInstance] += damage;
-    this.petDamage[petInfo.guid].total += damage;
+    this.damage.addDamage(petInfo, event.sourceInstance, damage);
     // if it was damage from permanent pet, register it in timeline and put in the beginning
-    if (this._isPermanentPet(petInfo.guid) && !this.petTimeline.find(pet => pet.id === event.sourceID)) {
+    if (isPermanentPet(petInfo.guid) && !this.timeline.find(pet => pet.id === event.sourceID)) {
       test && this.log('Permanent pet damage, not in timeline, adding to the front');
       // TODO: might also be solved with a normalizer, putting a summon to the front
-      this.petTimeline.unshift({
-        name: petInfo.name,
-        guid: petInfo.guid,
-        id: event.sourceID,
-        instance: event.instance,
-        spawn: this.owner.fight.start_time,
-        expectedDespawn: Infinity,
-        realDespawn: null,
-        summonedBy: null,
-      });
+      this.timeline.pushPermanentPetToStart(petInfo, event.sourceID, event.sourceInstance, this.owner.fight.start_time);
     }
   }
 
@@ -110,34 +75,27 @@ class Pets extends Analyzer {
 
   on_byPlayer_summon(event) {
     const petInfo = this._getPetInfo(event.targetID);
-    if (this._isPermanentPet(petInfo.guid)) {
+    if (!petInfo) {
+      debug && this.error('Summoned unknown pet', event);
+      return;
+    }
+    if (isPermanentPet(petInfo.guid)) {
       test && this.log('Permanent pet summon');
       // we summoned a new permanent pet, find last permanent entry in timeline, forcefully despawn it
-      const permanentPets = this.petTimeline.filter(pet => this._isPermanentPet(pet.guid));
-      if (permanentPets.length > 0) {
-        test && this.log('Despawning last permanent pet');
-        permanentPets[permanentPets.length - 1].realDespawn = event.timestamp; // not entirely accurate, pet could've died earlier, but there's probably no way of detecting it
-      }
+      this.timeline.tryDespawnLastPermanentPet(event.timestamp);
     }
-    const pet = {
-      name: petInfo.name,
-      guid: petInfo.guid,
-      id: event.targetID,
-      instance: event.targetInstance,
-      spawn: event.timestamp,
-      expectedDespawn: event.timestamp + this._getPetDuration(event.targetID),
-      summonedBy: this._getSummonSpell(event),
-    };
+    const pet = new TimelinePet(petInfo,
+                                event.targetID,
+                                event.targetInstance,
+                                event.timestamp,
+                                this._getPetDuration(event.targetID),
+                                this._getSummonSpell(event));
     if (this._wildImpIds.includes(pet.id)) {
       // Wild Imps need few additional properties
-      pet.x = this._lastPlayerPosition.x; // position due to Implosion
-      pet.y = this._lastPlayerPosition.y;
-      pet.shouldImplode = false;
-      pet.currentEnergy = 100; // energy because they can despawn "prematurely" due to their mechanics
-      pet.realDespawn = null;
+      pet.setWildImpProperties(this._lastPlayerPosition);
     }
     test && this.log('Pet summoned', pet);
-    this.petTimeline.push(pet);
+    this.timeline.addPet(pet);
     if (this._getSummonSpell(event) === SPELLS.INNER_DEMONS_TALENT.id) {
       this._lastIDtick = event.timestamp;
     }
@@ -167,11 +125,11 @@ class Pets extends Analyzer {
       const affectedPets = this.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
       test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
       affectedPets.forEach(pet => {
-        pet.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
+        pet.extend();
         // if player has Demonic Consumption talent, kill all imps
         if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
           test && this.log('Wild Imp killed because Demonic Consumption', pet);
-          pet.realDespawn = event.timestamp;
+          pet.despawn(event.timestamp);
         }
       });
     }
@@ -212,7 +170,7 @@ class Pets extends Analyzer {
       }
       return;
     }
-    imps[0].realDespawn = event.timestamp;
+    imps[0].despawn(event.timestamp);
     this._lastImplosionDamage = event.timestamp;
   }
 
@@ -231,12 +189,11 @@ class Pets extends Analyzer {
       debug && this.error('Wild Imp doesn\'t have energy class resource field', event);
       return;
     }
-    pet.x = event.x;
-    pet.y = event.y;
+    pet.updatePosition(event);
     const newEnergy = energyResource.amount - (energyResource.cost || 0); // if Wild Imp is extended by Demonic Tyrant, their casts are essentially free, and the 'cost' field is not present in the event
     pet.currentEnergy = newEnergy;
     if (pet.currentEnergy === 0) {
-      pet.realDespawn = event.timestamp;
+      pet.despawn(event.timestamp);
       test && this.log('Despawning Wild Imp', pet);
     }
   }
@@ -271,48 +228,33 @@ class Pets extends Analyzer {
     // isGuid = true, because it's more convenient to call this with getPetDamage(PETS.SOME_PET.guid)
     // because you know what you're looking for (pet IDs change, GUIDs don't)
     const guid = isGuid ? id : this._toGuid(id);
-    if (!this.petDamage[guid]) {
+    if (!this.damage.hasEntry(guid)) {
       debug && this.error(`this.getPetDamage() called with nonexistant ${isGuid ? 'gu' : ''}id ${id}`);
       return 0;
     }
-    return Object.values(this.petDamage[guid].instances).reduce((total, current) => total + current, 0);
+    return this.damage.getDamageForGuid(guid);
   }
 
   get permanentPetDamage() {
-    // haven't observed any real rule for permanent pet guids except the fact, that they're the longest (other pet guids are either 5 or 6 digits)
-    let total = 0;
-    Object.entries(this.petDamage).filter(([guid]) => guid.length > 6).forEach(([guid, pet]) => {
-      total += Object.values(pet.instances).reduce((total, current) => total + current, 0);
-    });
-    return total;
+    return this.damage.permanentPetDamage;
   }
 
   getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
-    return this._getPets(timestamp).filter(pet => petId ? pet.id === petId : true).length;
+    return this.timeline.getPetsAtTimestamp(timestamp).filter(pet => petId ? pet.id === petId : true).length;
   }
 
   get petsBySummonAbility() {
-    return this.petTimeline.reduce((obj, pet) => {
-      const key = pet.summonedBy || 'unknown';
-      const spellName = pet.summonedBy ? SPELLS[pet.summonedBy].name : 'unknown';
-      obj[key] = obj[key] || { spellName, pets: [] };
-      obj[key].pets.push(pet);
-      return obj;
-    }, {});
+    return this.timeline.groupPetsBySummonAbility();
   }
 
   // HELPER METHODS
 
   _getPets(timestamp = this.owner.currentTimestamp) {
-    return this.petTimeline.filter(pet => pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
+    return this.timeline.getPetsAtTimestamp(timestamp);
   }
 
   _getPetFromTimeline(id, instance) {
-    return this.petTimeline.find(pet => pet.id === id && pet.instance === instance);
-  }
-
-  _isPermanentPet(guid) {
-    return guid.toString().length > 6;
+    return this.timeline.find(pet => pet.id === id && pet.instance === instance);
   }
 
   _getPetInfo(id, isGuid = false) {
@@ -341,12 +283,12 @@ class Pets extends Analyzer {
       debug && this.error(`NewPets._getPetDuration() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
       return -1;
     }
-    if (this._isPermanentPet(pet.guid)) {
-      debug && this.log('Called _getPetDuration() for permanent pet guid');
+    if (isPermanentPet(pet.guid)) {
+      debug && this.log('Called _getPetDuration() for permanent pet guid', pet);
       return Infinity;
     }
     if (!PETS[pet.guid]) {
-      debug && this.error('Encountered pet unknown to PETS.js', pet);
+      debug && this.error('Encountered pet unknown to PET_INFO.js', pet);
       return -1;
     }
     return PETS[pet.guid].duration;
@@ -388,11 +330,6 @@ class Pets extends Analyzer {
     ];
   }
 
-  _ensurePetInstanceFieldExists(guid, name, instance) {
-    this.petDamage[guid] = this.petDamage[guid] || { name, instances: {}, total: 0 };
-    this.petDamage[guid].instances[instance] = this.petDamage[guid].instances[instance] || 0;
-  }
-
   _getSummonSpell(event) {
     if (!SUMMON_TO_ABILITY_MAP[event.ability.guid]) {
       if (event.timestamp <= this._lastIDtick + BUFFER) {
@@ -415,10 +352,8 @@ class Pets extends Analyzer {
     if (!event.x || !event.y) {
       return;
     }
-    if (this._lastPlayerPosition.x !== event.x || this._lastPlayerPosition.y !== event.y) {
-      this._lastPlayerPosition.x = event.x;
-      this._lastPlayerPosition.y = event.y;
-    }
+    this._lastPlayerPosition.x = event.x;
+    this._lastPlayerPosition.y = event.y;
   }
 }
 
