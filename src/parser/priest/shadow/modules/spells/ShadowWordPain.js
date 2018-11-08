@@ -12,6 +12,20 @@ import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 
 const MS_BUFFER = 100;
 
+/*
+  Shadow word pain can be created by:
+
+  Hard casting
+  Misery
+  Dark Void
+
+  Shadow Word pain can be refreshed by:
+
+  Hard casting
+  Misery
+  Dark Void
+  Void Bolt
+ */
 class ShadowWordPain extends Analyzer {
   static dependencies = {
     enemies: Enemies,
