@@ -35,6 +35,7 @@ const BUFFER = 150;
 const IMPLOSION_BUFFER = 50;
 const DEMONIC_TYRANT_EXTENSION = 15000;
 const debug = true;
+const test = true;
 
 class NewPets extends Analyzer {
   /*
@@ -242,6 +243,7 @@ class NewPets extends Analyzer {
     this.petDamage[petInfo.guid].total += damage;
     // if it was damage from permanent pet, register it in timeline and put in the beginning
     if (this._isPermanentPet(petInfo.guid) && !this.petTimeline.find(pet => pet.id === event.sourceID)) {
+      test && this.log('Permanent pet damage, not in timeline, adding to the front');
       this.petTimeline.unshift({
         name: petInfo.name,
         guid: petInfo.guid,
@@ -271,9 +273,11 @@ class NewPets extends Analyzer {
   on_byPlayer_summon(event) {
     const petInfo = this._getPetInfo(event.targetID);
     if (this._isPermanentPet(petInfo.guid)) {
+      test && this.log('Permanent pet summon');
       // we summoned a new permanent pet, find last permanent entry in timeline, forcefully despawn it
       const permanentPets = this.petTimeline.filter(pet => this._isPermanentPet(pet.guid));
       if (permanentPets.length > 0) {
+        test && this.log('Despawning last permanent pet');
         permanentPets[permanentPets.length - 1].realDespawn = event.timestamp;
       }
     }
@@ -293,6 +297,7 @@ class NewPets extends Analyzer {
       pet.currentEnergy = 100;
       pet.realDespawn = null; // they can despawn "prematurely" due to their mechanics
     }
+    test && this.log('Pet summoned', pet);
     this.petTimeline.push(pet);
     if (this._getSummonSpell(event) === SPELLS.INNER_DEMONS_TALENT.id) {
       this._lastIDtick = event.timestamp;
@@ -308,6 +313,7 @@ class NewPets extends Analyzer {
     this._updatePlayerPosition(event);
     if (event.ability.guid === SPELLS.IMPLOSION_CAST.id) {
       const imps = this.currentPets.filter(pet => this._wildImpIds.includes(pet.id));
+      test && this.log('Implosion cast, current imps', JSON.parse(JSON.stringify(imps)));
       if (imps.some(imp => imp.x === null || imp.y === null)) {
         debug && this.error('Implosion cast, some imps don\'t have coordinates', imps);
         return;
@@ -319,15 +325,16 @@ class NewPets extends Analyzer {
     }
     else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
       // extend current pets (not random ones from ID/NP) by 15 seconds
-      this.currentPets
-        .filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id))
-        .forEach(pet => {
-          pet.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
-          // if player has Demonic Consumption talent, kill all imps
-          if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
-            pet.realDespawn = event.timestamp;
-          }
-        });
+      const affectedPets = this.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
+      test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
+      affectedPets.forEach(pet => {
+        pet.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
+        // if player has Demonic Consumption talent, kill all imps
+        if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
+          test && this.log('Wild Imp killed because Demonic Consumption', pet);
+          pet.realDespawn = event.timestamp;
+        }
+      });
     }
   }
 
@@ -341,7 +348,8 @@ class NewPets extends Analyzer {
     }
     if (this._lastImplosionDamage && event.timestamp <= this._lastImplosionDamage + IMPLOSION_BUFFER) {
       // Implosion is an AOE, discard any damage events that are at same timestamp as the first one encountered
-       return;
+      test && this.log('Implosion damage ignored, too soon');
+      return;
     }
     // handle Implosion, killing imps
     // there's no connection of Implosion event to individual imp
@@ -349,12 +357,13 @@ class NewPets extends Analyzer {
     // then at each individual damage event, erase the imp with least distance
     // since it's AOE, discard every event that comes after that in a small buffer
     const imps = this._getPets(this._lastImplosionCast)
-      .filter(pet => this._wildImpIds.includes(pet.id) && pet.shouldImplode) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count
+      .filter(pet => this._wildImpIds.includes(pet.id) && pet.shouldImplode && !pet.realDespawn) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count
       .sort((imp1, imp2) => {
         const distance1 = this._getDistance(imp1.x, imp1.y, event.x, event.y);
         const distance2 = this._getDistance(imp2.x, imp2.y, event.x, event.y);
         return distance1 - distance2;
       });
+    test && this.log('Implosion damage, Imps to be imploded: ', JSON.parse(JSON.stringify(imps)));
     if (imps.length === 0) {
       debug && this.error('Error during calculating Implosion distance for imps');
       if (!this._getPets(this._lastImplosionCast).some(pet => this._wildImpIds.includes(pet.id))) {
@@ -389,8 +398,10 @@ class NewPets extends Analyzer {
     pet.y = event.y;
     const newEnergy = energyResource.amount - (energyResource.cost || 0);
     pet.currentEnergy = newEnergy;
+    test && this.log('Wild Imp', pet, ' new energy', pet.currentEnergy);
     if (pet.currentEnergy === 0) {
       pet.realDespawn = event.timestamp;
+      test && this.log('Despawning Wild Imp', pet);
     }
   }
 
