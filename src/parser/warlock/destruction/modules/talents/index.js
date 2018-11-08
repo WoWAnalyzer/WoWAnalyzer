@@ -4,33 +4,37 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
+import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import Flashover from './Flashover';
-import ReverseEntropy from './ReverseEntropy';
+import Eradication from './Eradication';
 import SoulFire from './SoulFire';
+import ReverseEntropy from './ReverseEntropy';
 import InternalCombustion from './InternalCombustion';
 import Shadowburn from './Shadowburn';
-import ChannelDemonfire from './ChannelDemonfire';
 import Inferno from './Inferno';
 import FireAndBrimstone from './FireAndBrimstone';
 import Cataclysm from './Cataclysm';
-import SoulConduit from './SoulConduit';
 import RoaringBlaze from './RoaringBlaze';
 import GrimoireOfSupremacy from './GrimoireOfSupremacy';
+import SoulConduit from './SoulConduit';
+import ChannelDemonfire from './ChannelDemonfire';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
     flashover: Flashover,
-    reverseEntropy: ReverseEntropy,
-    inferno: Inferno,
+    eradication: Eradication,
     soulFire: SoulFire,
+    reverseEntropy: ReverseEntropy,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
+    inferno: Inferno,
     fireAndBrimstone: FireAndBrimstone,
-    grimoireOfSupremacy: GrimoireOfSupremacy,
     cataclysm: Cataclysm,
-    channelDemonfire: ChannelDemonfire,
-    soulConduit: SoulConduit,
     roaringBlaze: RoaringBlaze,
+    grimoireOfSupremacy: GrimoireOfSupremacy,
+    grimoireOfSacrifice: GrimoireOfSacrifice,
+    soulConduit: SoulConduit,
+    channelDemonfire: ChannelDemonfire,
   };
 
   constructor(...args) {

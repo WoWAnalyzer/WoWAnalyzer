@@ -5,6 +5,10 @@ import Ability from './Ability';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
 
+/**
+ * @property {AbilityTracker} abilityTracker
+ * @property {Haste} haste
+ */
 class Abilities extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,

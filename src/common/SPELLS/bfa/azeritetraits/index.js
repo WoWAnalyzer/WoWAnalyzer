@@ -9,5 +9,6 @@ import DeathKnight from './deathknight';
 import Priest from './priest';
 import Druid from './druid';
 import Warrior from './warrior';
+import Rogue from './rogue';
 
-export default safeMerge(General, Hunter, Paladin, Shaman, Warlock, Monk, DeathKnight, Priest, Druid, Warrior);
+export default safeMerge(General, Hunter, Paladin, Shaman, Warlock, Monk, DeathKnight, Priest, Druid, Warrior, Rogue);

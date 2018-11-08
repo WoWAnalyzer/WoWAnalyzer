@@ -36,6 +36,11 @@ export default {
         name: 'Lord of War',
         icon: 'ability_warrior_colossussmash',
     },
+    LORD_OF_WAR_ENERGIZE: {
+        id: 279203,
+        name: 'Lord of War',
+        icon: 'ability_warrior_colossussmash',
+    },
     SEISMIC_WAVE: {
         id: 277639,
         name: 'Seismic Wave',

@@ -3,6 +3,10 @@ import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import Analyzer from './Analyzer';
 
 describe('Core/Analyzer', () => {
+  let parser;
+  beforeEach(() => {
+    parser = new TestCombatLogParser();
+  });
   describe('module defining', () => {
     it('owner is availabe as property', () => {
       const myOwner = {};
@@ -31,10 +35,6 @@ describe('Core/Analyzer', () => {
     });
   });
   describe('triggerEvent', () => {
-    let parser;
-    beforeEach(() => {
-      parser = new TestCombatLogParser();
-    });
     it('calls the event handler on the class if it exists', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {
@@ -233,6 +233,22 @@ describe('Core/Analyzer', () => {
         type: 'success',
       });
       expect(on_success.mock.instances[0]).toBe(myModule);
+    });
+  });
+  describe('add event listener', () => {
+    it('doesn\'t allow combining event listening methods', () => {
+      class MyModule extends Analyzer {
+        constructor(options) {
+          super(options);
+          this.addEventListener('success', this.on_success);
+        }
+        on_success() {
+        }
+      }
+      expect(() => {
+        // eslint-disable-next-line no-new
+        new MyModule({ owner: parser });
+      }).toThrow();
     });
   });
 });
