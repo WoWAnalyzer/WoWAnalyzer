@@ -360,6 +360,11 @@ class CombatLogParser {
     }
     return [availableDependencies, missingDependencies];
   }
+  /**
+   * @param {string} desiredModuleName
+   * @param {Module} moduleClass
+   * @param {object} [options]
+   */
   loadModule(desiredModuleName, moduleClass, options) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
@@ -374,6 +379,7 @@ class CombatLogParser {
       });
     }
     this._modules[desiredModuleName] = module;
+    return module;
   }
   initializeModules(modules, iteration = 0) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
+import HealingDone from 'parser/monk/brewmaster/modules/core/HealingDone';
 
 describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   const events = [
@@ -35,21 +36,20 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
     { type: 'heal', timestamp: 426, ability: { guid: SPELLS.HEALING_RAIN_HEAL.id }, targetID: 2 },
   ];
   let parser;
-  let healingRain;
+  let module;
   const players = [1,2];
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    healingRain = new HealingRain({
-      owner: parser,
+    module = parser.loadModule('healingRain', HealingRain, {
       combatants: {
         players,
       },
     });
   });
 
-  it(`can detect ticks`, () => {
+  it('can detect ticks', () => {
     parser.processEvents(events);
-    expect(healingRain.healingRainTicks.length).toEqual(5);
-    expect(healingRain.averageHitsPerTick).toEqual(4);
+    expect(module.healingRainTicks.length).toEqual(5);
+    expect(module.averageHitsPerTick).toEqual(4);
   });
 });
