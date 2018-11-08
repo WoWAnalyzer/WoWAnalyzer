@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-11-07'),
-    changes: <>Fixed Mortal Strike cast efficiency with Execute phase</>,
+    changes: <>Modified <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> analysis to get it more accurate with the execution phase.</>,
     contributors: [Matardarix],
   },
   {
