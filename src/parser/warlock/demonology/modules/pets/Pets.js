@@ -37,7 +37,6 @@ class Pets extends Analyzer {
   _hasDemonicConsumption = false;
   _lastIDtick = null;
   _lastSpendResource = null;
-  _lastImplosionDamage = null;
   _lastImplosionCast = null;
   _implosionTargetsHit = [];
   _lastPlayerPosition = {
@@ -182,7 +181,6 @@ class Pets extends Analyzer {
       return;
     }
     imps[0].despawn(event.timestamp);
-    this._lastImplosionDamage = event.timestamp;
   }
 
   on_byPlayerPet_cast(event) {
