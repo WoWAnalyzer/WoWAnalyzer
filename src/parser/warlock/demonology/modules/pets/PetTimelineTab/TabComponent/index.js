@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Tab from 'interface/others/Tab';
 
@@ -8,14 +9,19 @@ import SPELLS from 'common/SPELLS';
 import PetTimeline from './PetTimeline';
 
 class TimelineTab extends React.PureComponent {
+  static propTypes = {
+    selectedCombatant: PropTypes.object,
+  };
+
   render() {
+    const { selectedCombatant, ...others } = this.props;
     return (
       <Tab style={{ padding: '10px 22px 0' }}>
         <div className="text-muted">
-          This timeline shows the pets you have summoned over the fight, together with key spell casts like <SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} />, <SpellLink id={SPELLS.IMPLOSION_CAST.id} /> or <SpellLink id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />.
+          This timeline shows the pets you have summoned over the fight, together with key spell casts like {selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id) && <><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} />, </>}<SpellLink id={SPELLS.IMPLOSION_CAST.id} /> or <SpellLink id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />.
         </div>
         <PetTimeline
-          {...this.props}
+          {...others}
           style={{
             marginTop: 10,
             marginLeft: -22,

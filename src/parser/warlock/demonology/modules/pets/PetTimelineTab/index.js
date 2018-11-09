@@ -21,6 +21,7 @@ class PetTimelineTab extends Analyzer {
       order: 3,
       render: () => (
         <TabComponent
+          selectedCombatant={this.selectedCombatant}
           start={this.owner.fight.start_time}
           end={this.owner.currentTimestamp >= 0 ? this.owner.currentTimestamp : this.owner.fight.end_time}
           deaths={this.deathTracker.deaths}
