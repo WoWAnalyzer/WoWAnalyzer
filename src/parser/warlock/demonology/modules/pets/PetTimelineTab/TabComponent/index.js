@@ -14,14 +14,14 @@ class TimelineTab extends React.PureComponent {
   };
 
   render() {
-    const { selectedCombatant, ...others } = this.props;
+    const { selectedCombatant } = this.props;
     return (
       <Tab style={{ padding: '10px 22px 0' }}>
         <div className="text-muted">
           This timeline shows the pets you have summoned over the fight, together with key spell casts like {selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id) && <><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} />, </>}<SpellLink id={SPELLS.IMPLOSION_CAST.id} /> or <SpellLink id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />.
         </div>
         <PetTimeline
-          {...others}
+          {...this.props}
           style={{
             marginTop: 10,
             marginLeft: -22,

@@ -22,6 +22,7 @@ const NEARBY_CAST_COUNT = 3;
 
 class PetTimeline extends React.PureComponent {
   static propTypes = {
+    selectedCombatant: PropTypes.object,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     deaths: PropTypes.array.isRequired,
@@ -77,45 +78,44 @@ class PetTimeline extends React.PureComponent {
   }
 
   get importantEvents() {
-    const { historyBySpellId } = this.props;
+    const { historyBySpellId, selectedCombatant } = this.props;
     // these casts are extracted manually with flag "important"
+    const importantEvents = [];
     const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id];
     const tyrantCasts = this.filterHistoryCasts(SPELLS.SUMMON_DEMONIC_TYRANT.id);
     const implosionCasts = this.filterHistoryCasts(SPELLS.IMPLOSION_CAST.id);
-    const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
-    const netherPortalWindows = netherPortalCasts.map(cast => ({
-      type: 'duration',
-      timestamp: cast.timestamp,
-      endTimestamp: cast.timestamp + NETHER_PORTAL_DURATION,
-    }));
-    const castsDuringNetherPortal = [];
-    if (netherPortalCasts.length > 0) {
-      // iterate through all spells
-      Object.keys(historyBySpellId)
-        .filter(key => !manualCastIds.includes(Number(key))) // filter out casts we got manually
-        .map(key => historyBySpellId[key])
-        .forEach(historyArray => {
-          // filter casts and only those, that fall into any Nether Portal window
-          const casts = historyArray
-            .filter(event => event.type === 'cast'
-              && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                && event.timestamp <= window.endTimestamp))
-            .map(event => ({
-              type: 'cast',
-              timestamp: event.timestamp,
-              abilityId: event.ability.guid,
-              abilityName: event.ability.name,
-            }));
-          castsDuringNetherPortal.push(...casts);
-        });
+    importantEvents.push(...tyrantCasts, ...implosionCasts);
+    if (selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id)) {
+      const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
+      const netherPortalWindows = netherPortalCasts.map(cast => ({
+        type: 'duration',
+        timestamp: cast.timestamp,
+        endTimestamp: cast.timestamp + NETHER_PORTAL_DURATION,
+      }));
+      const castsDuringNetherPortal = [];
+      if (netherPortalCasts.length > 0) {
+        // iterate through all spells
+        Object.keys(historyBySpellId)
+          .filter(key => !manualCastIds.includes(Number(key))) // filter out casts we got manually
+          .map(key => historyBySpellId[key])
+          .forEach(historyArray => {
+            // filter casts and only those, that fall into any Nether Portal window
+            const casts = historyArray
+              .filter(event => event.type === 'cast'
+                && netherPortalWindows.some(window => window.timestamp <= event.timestamp
+                  && event.timestamp <= window.endTimestamp))
+              .map(event => ({
+                type: 'cast',
+                timestamp: event.timestamp,
+                abilityId: event.ability.guid,
+                abilityName: event.ability.name,
+              }));
+            castsDuringNetherPortal.push(...casts);
+          });
+      }
+      importantEvents.push(...netherPortalCasts, ...netherPortalWindows, ...castsDuringNetherPortal);
     }
-    return [
-      ...tyrantCasts,
-      ...implosionCasts,
-      ...netherPortalCasts,
-      ...netherPortalWindows,
-      ...castsDuringNetherPortal,
-    ].sort((event1, event2) => event1.timestamp - event2.timestamp);
+    return importantEvents.sort((event1, event2) => event1.timestamp - event2.timestamp);
   }
 
   decorateCloseCasts(events) {
