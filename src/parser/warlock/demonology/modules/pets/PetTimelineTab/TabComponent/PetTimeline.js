@@ -146,7 +146,9 @@ class PetTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, deaths, resurrections } = this.props;
+    const { start, end, deaths, resurrections, ...others } = this.props;
+    delete others.historyBySpellId;
+    delete others.petTimeline;
     const pets = this.pets;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
@@ -164,7 +166,7 @@ class PetTimeline extends React.PureComponent {
     const totalWidth = seconds * secondWidth;
 
     return (
-      <div className="spell-timeline flex">
+      <div className="spell-timeline flex" {...others}>
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
