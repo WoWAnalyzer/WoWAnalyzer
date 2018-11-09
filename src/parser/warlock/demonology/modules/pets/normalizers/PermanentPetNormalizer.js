@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { PET_DAMAGE_TO_SUMMON_MAP, PERMANENT_PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
+import { isPermanentPet } from '../helpers';
 
 class PermanentPetNormalizer extends EventsNormalizer {
   // Warlock Pets.js depends on `summon` events for their inner works
@@ -18,6 +19,9 @@ class PermanentPetNormalizer extends EventsNormalizer {
       }
       if (event.type === 'damage' && event.ability && PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]) {
         const petId = event.sourceID;
+        if (!this._verifyPermanentPet(petId)) {
+          continue;
+        }
         const petInstance = event.sourceInstance;
         const spell = SPELLS[PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]];
         // first event we encountered is a permanent pet damage - fabricate a summon event for it
@@ -41,6 +45,12 @@ class PermanentPetNormalizer extends EventsNormalizer {
       }
     }
     return events;
+  }
+
+  _verifyPermanentPet(id) {
+    // Grimoire: Felguard seems to have the same ability IDs as regular Felguard
+    const guid = this.owner.playerPets.find(pet => pet.id === id).guid;
+    return isPermanentPet(guid);
   }
 }
 

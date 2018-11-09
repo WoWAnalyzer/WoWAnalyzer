@@ -155,6 +155,9 @@ class PetTimeline extends React.PureComponent {
 
   filterHistoryCasts(id) {
     const { historyBySpellId } = this.props;
+    if (!historyBySpellId[id]) {
+      return [];
+    }
     return historyBySpellId[id]
       .filter(event => event.type === 'cast')
       .map(event => ({
