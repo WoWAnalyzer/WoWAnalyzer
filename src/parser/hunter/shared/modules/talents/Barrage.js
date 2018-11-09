@@ -59,7 +59,7 @@ class Barrage extends Analyzer {
         value={<>
           <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts} hits={this.hits} /> <br />
-          <AverageTargetsHit casts={this.casts} hits={this.hits} unique />
+          <AverageTargetsHit casts={this.casts} hits={this.hits} unique approximate />
         </>}
         label="Barrage"
       />
