@@ -168,7 +168,7 @@ class PetTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, deaths, resurrections, ...others } = this.props;
+    const { start, end, deaths, resurrections, selectedCombatant, ...others } = this.props;
     delete others.historyBySpellId;
     delete others.petTimeline;
     const pets = this.pets;
@@ -240,6 +240,7 @@ class PetTimeline extends React.PureComponent {
             <PetRow
               key={spellId}
               className="lane"
+              hasDemonicConsumption={selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)}
               tyrantCasts={tyrantCastTimestamps}
               pets={pets[spellId].pets}
               start={start}
