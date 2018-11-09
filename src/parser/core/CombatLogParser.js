@@ -118,6 +118,7 @@ import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/Vigila
 import InoculatingExtract from '../shared/modules/items/bfa/raids/uldir/InoculatingExtract';
 import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticCorpuscle';
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
+import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -250,6 +251,7 @@ class CombatLogParser {
     inoculatingExtract: InoculatingExtract,
     freneticCorpuscle: FreneticCorpuscle,
     constructOvercharger: ConstructOvercharger,
+    syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -348,7 +350,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.findModule(dependencyClass);
+        const dependencyModule = this.getModule(dependencyClass);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -358,7 +360,12 @@ class CombatLogParser {
     }
     return [availableDependencies, missingDependencies];
   }
-  _loadModule(desiredModuleName, moduleClass, options) {
+  /**
+   * @param {string} desiredModuleName
+   * @param {Module} moduleClass
+   * @param {object} [options]
+   */
+  loadModule(desiredModuleName, moduleClass, options) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -372,6 +379,7 @@ class CombatLogParser {
       });
     }
     this._modules[desiredModuleName] = module;
+    return module;
   }
   initializeModules(modules, iteration = 0) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
@@ -395,7 +403,7 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this._loadModule(desiredModuleName, moduleClass, {
+        this.loadModule(desiredModuleName, moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
@@ -426,7 +434,7 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  findModule(type) {
+  getModule(type) {
     return Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
@@ -459,8 +467,8 @@ class CombatLogParser {
       timestamp: this.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       ...event,
+      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       __fabricated: true,
     });
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -12,6 +12,11 @@ export default [
     date: new Date('2018-11-09'),
     changes: 'Added an AverageTargetsHit module for general usage.',
     contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-06'),
+    changes: <>Added <ItemLink id={ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY.id} /> module.</>,
+    contributors: [Matardarix],
   },
   {
     date: new Date('2018-11-02'),
