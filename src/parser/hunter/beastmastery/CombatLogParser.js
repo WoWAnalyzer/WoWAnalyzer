@@ -24,6 +24,9 @@ import Stomp from './modules/talents/Stomp';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import VenomousBite from './modules/talents/VenomousBite';
+import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
+import SpittingCobra from './modules/talents/SpittingCobra';
+import ScentOfBlood from './modules/talents/ScentOfBlood';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -38,7 +41,7 @@ import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Traits and talents
-import TraitsAndTalents from './modules/features/TraitsAndTalents';
+import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
@@ -85,9 +88,12 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     venomousBite: VenomousBite,
     thrillOfTheHunt: ThrillOfTheHunt,
+    aspectOfTheBeast: AspectOfTheBeast,
+    spittingCobra: SpittingCobra,
+    scentOfBlood: ScentOfBlood,
 
     //Traits and talents
-    traitsAndTalents: TraitsAndTalents,
+    spellssAndTalents: SpellsAndTalents,
 
     //Azerite Traits
     danceOfDeath: DanceOfDeath,

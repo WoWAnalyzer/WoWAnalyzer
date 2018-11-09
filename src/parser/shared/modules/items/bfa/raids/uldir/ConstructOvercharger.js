@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import { calculateSecondaryStatDefault} from 'common/stats';
+import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -11,31 +11,31 @@ import Analyzer from 'parser/core/Analyzer';
  * Equip: Your attacks have a chance to increase your Haste by X for 10 sec, stacking up to 8 times.
  */
 
-class ConstructOvercharger extends Analyzer{
+class ConstructOvercharger extends Analyzer {
   statBuff = 0;
 
-  constructor(...args){
+  constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.CONSTRUCT_OVERCHARGER.id);
-    if(this.active){
-      this.statBuff = calculateSecondaryStatDefault(355, 35, this.selectedCombatant.getItem(ITEMS.CONSTRUCT_OVERCHARGER.id).itemLevel);
+    if (this.active) {
+      this.statBuff = calculateSecondaryStatDefault(385, 60, this.selectedCombatant.getItem(ITEMS.CONSTRUCT_OVERCHARGER.id).itemLevel);
     }
   }
 
-  averageStatGain(){
+  averageStatGain() {
     const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.TITANIC_OVERCHARGE.id) / this.owner.fightDuration;
     return averageStacks * this.statBuff;
   }
 
-  totalBuffUptime(){
-    return this.selectedCombatant.getBuffUptime(SPELLS.TITANIC_OVERCHARGE.id)/this.owner.fightDuration;
+  totalBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.TITANIC_OVERCHARGE.id) / this.owner.fightDuration;
   }
 
-  buffTriggerCount(){
+  buffTriggerCount() {
     return this.selectedCombatant.getBuffTriggerCount(SPELLS.TITANIC_OVERCHARGE.id);
   }
 
-  item(){
+  item() {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
       result: (

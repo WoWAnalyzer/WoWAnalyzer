@@ -1,6 +1,5 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -48,7 +47,6 @@ class KillerInstinct extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.KILLER_INSTINCT_TALENT.id} />}
         value={<>{formatNumber(this.castsWithExecute)} casts at &lt;35% health</>}
         label="Killer Instinct"
