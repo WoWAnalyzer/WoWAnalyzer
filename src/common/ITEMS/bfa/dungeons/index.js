@@ -51,6 +51,12 @@ export default {
     icon: 'inv_potiond_5',
     quality: ITEM_QUALITIES.BLUE,
   },
+  REZANS_GLEAMING_EYE: {
+    id: 158712,
+    name: 'Rezan\'s Gleaming Eye',
+    icon: 'ability_hunter_aspectoftheviper',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 
   // Waycrest Manor
   BALEFIRE_BRANCH: {
