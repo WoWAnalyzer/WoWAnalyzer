@@ -459,8 +459,8 @@ class CombatLogParser {
       timestamp: this.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       ...event,
+      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       __fabricated: true,
     });
   }
