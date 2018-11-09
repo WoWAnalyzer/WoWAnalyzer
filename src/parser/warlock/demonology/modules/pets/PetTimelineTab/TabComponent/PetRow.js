@@ -54,14 +54,11 @@ class PetRow extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                {pet.summonAbility && (
-                  <SpellIcon
-                    id={pet.summonAbility}
-                    className={iconClass}
-                    data-tip={iconTooltip}
-                  />
-                )}
-                {!pet.summonAbility && <Icon icon="inv_misc_questionmark" />}
+                <SpellIcon
+                  id={pet.summonAbility}
+                  className={iconClass}
+                  data-tip={iconTooltip}
+                />
               </div>
               <div
                 key={`${index}-duration`}

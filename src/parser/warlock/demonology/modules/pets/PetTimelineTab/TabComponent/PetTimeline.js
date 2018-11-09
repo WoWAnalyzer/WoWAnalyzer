@@ -73,7 +73,6 @@ class PetTimeline extends React.PureComponent {
     let events = this.importantEvents;
     events = this.decorateCloseCasts(events);
     events = this.decorateImplosionCasts(events);
-    console.log(events);
     return events;
   }
 
@@ -204,8 +203,7 @@ class PetTimeline extends React.PureComponent {
           </div>
           {Object.keys(pets).map(spellId => (
             <div className="lane" key={spellId}>
-              {spellId !== 'unknown' && <SpellLink id={spellId} />}
-              {spellId === 'unknown' && <dfn data-tip="Most likely a permanent pet">Unknown</dfn>}
+              <SpellLink id={Number(spellId)} />
             </div>
           ))}
         </div>

@@ -8,28 +8,8 @@ import TimelinePet from './TimelinePet';
 import PetDamage from './PetDamage';
 import { isPermanentPet } from './helpers';
 import PETS from './PET_INFO';
+import { SUMMON_TO_SPELL_MAP } from './CONSTANTS';
 
-const SUMMON_TO_ABILITY_MAP = {
-  [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
-  [SPELLS.FEL_IMP_SUMMON.id]: SPELLS.SUMMON_IMP.id,
-  [SPELLS.SUMMON_VOIDWALKER.id]: SPELLS.SUMMON_VOIDWALKER.id,
-  [SPELLS.VOIDLORD_SUMMON.id]: SPELLS.SUMMON_VOIDWALKER.id,
-  [SPELLS.SUMMON_FELHUNTER.id]: SPELLS.SUMMON_FELHUNTER.id,
-  [SPELLS.OBSERVER_SUMMON.id]: SPELLS.SUMMON_FELHUNTER.id,
-  [SPELLS.SUMMON_SUCCUBUS.id]: SPELLS.SUMMON_SUCCUBUS.id,
-  [SPELLS.SHADOW_SUCCUBUS_SUMMON.id]: SPELLS.SUMMON_SUCCUBUS.id,
-  [SPELLS.SHIVARRA_PERMANENT_SUMMON.id]: SPELLS.SUMMON_SUCCUBUS.id,
-  [SPELLS.SUMMON_FELGUARD.id]: SPELLS.SUMMON_FELGUARD.id,
-  [SPELLS.WRATHGUARD_PERMANENT_SUMMON.id]: SPELLS.SUMMON_FELGUARD.id,
-  [SPELLS.WILD_IMP_HOG_SUMMON.id]: SPELLS.HAND_OF_GULDAN_CAST.id,
-  [SPELLS.DREADSTALKER_SUMMON_1.id]: SPELLS.CALL_DREADSTALKERS.id,
-  [SPELLS.DREADSTALKER_SUMMON_2.id]: SPELLS.CALL_DREADSTALKERS.id,
-  [SPELLS.SUMMON_VILEFIEND_TALENT.id]: SPELLS.SUMMON_VILEFIEND_TALENT.id,
-  [SPELLS.GRIMOIRE_FELGUARD_TALENT.id]: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
-  [SPELLS.SUMMON_DEMONIC_TYRANT.id]: SPELLS.SUMMON_DEMONIC_TYRANT.id,
-  [SPELLS.WILD_IMP_ID_SUMMON.id]: SPELLS.INNER_DEMONS_TALENT.id,
-  // the rest is from Inner Demons / Nether Portal and assigned in _getSummonSpell()
-};
 const BUFFER = 150;
 const debug = false;
 const test = false;
@@ -67,12 +47,6 @@ class Pets extends Analyzer {
     }
     const damage = event.amount + (event.absorbed || 0);
     this.damage.addDamage(petInfo, event.sourceInstance, damage);
-    // if it was damage from permanent pet, register it in timeline and put in the beginning
-    if (isPermanentPet(petInfo.guid) && !this.timeline.find(pet => pet.id === event.sourceID)) {
-      test && this.log('Permanent pet damage, not in timeline, adding to the front');
-      // TODO: might also be solved with a normalizer, putting a summon to the front
-      this.timeline.pushPermanentPetToStart(petInfo, event.sourceID, event.sourceInstance, this.owner.fight.start_time);
-    }
   }
 
   // Pet timeline
@@ -345,7 +319,7 @@ class Pets extends Analyzer {
   }
 
   _getSummonSpell(event) {
-    if (!SUMMON_TO_ABILITY_MAP[event.ability.guid]) {
+    if (!SUMMON_TO_SPELL_MAP[event.ability.guid]) {
       if (event.timestamp <= this._lastIDtick + BUFFER) {
         return SPELLS.INNER_DEMONS_TALENT.id;
       }
@@ -355,7 +329,7 @@ class Pets extends Analyzer {
       debug && this.error('Unknown source of summon event', event);
       return -1;
     }
-    return SUMMON_TO_ABILITY_MAP[event.ability.guid];
+    return SUMMON_TO_SPELL_MAP[event.ability.guid];
   }
 
   _getDistance(x1, y1, x2, y2) {

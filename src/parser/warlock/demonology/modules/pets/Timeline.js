@@ -23,7 +23,7 @@ class Timeline {
   }
 
   tryDespawnLastPermanentPet(timestamp) {
-    const permanentPets = this.petTimeline.filter(pet => isPermanentPet(pet.guid));
+    const permanentPets = this.timeline.filter(pet => isPermanentPet(pet.guid));
     if (permanentPets.length > 0) {
       debug && console.log('Despawning last permanent pet');
       permanentPets[permanentPets.length - 1].despawn(timestamp); // not entirely accurate, pet could've died earlier, but there's probably no way of detecting it
