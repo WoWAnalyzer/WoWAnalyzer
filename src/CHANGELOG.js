@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-11-09'),
+    changes: <>Added <ItemLink id={ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id} /> module.</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-06'),
     changes: <>Added <ItemLink id={ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY.id} /> module.</>,
     contributors: [Matardarix],
