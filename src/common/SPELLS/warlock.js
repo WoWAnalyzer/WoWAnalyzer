@@ -536,6 +536,37 @@ export default {
     name: 'Summon Prince Malchezaar',
     icon: 'achievement_boss_princemalchezaar_02',
   },
+  // Glyphed permanent pet summons
+  FEL_IMP_SUMMON: {
+    id: 112866,
+    name: 'Summon Fel Imp',
+    icon: 'spell_warlock_summonimpoutland',
+  },
+  VOIDLORD_SUMMON: {
+    id: 112867,
+    name: 'Summon Voidlord',
+    icon: 'warlock_summon_-voidlord',
+  },
+  OBSERVER_SUMMON: {
+    id: 112869,
+    name: 'Summon Observer',
+    icon: 'warlock_summon_-beholder',
+  },
+  SHADOW_SUCCUBUS_SUMMON: {
+    id: 240266,
+    name: 'Summon Shadow Succubus',
+    icon: 'spell_shadow_summonsuccubus',
+  },
+  SHIVARRA_PERMANENT_SUMMON: {
+    id: 112868,
+    name: 'Summon Shivarra',
+    icon: 'warlock_summon_-shivan',
+  },
+  WRATHGUARD_PERMANENT_SUMMON: {
+    id: 112870,
+    name: 'Summon Wrathguard',
+    icon: 'spell_warlock_summonwrathguard',
+  },
 
   // -----------
   // DESTRUCTION
