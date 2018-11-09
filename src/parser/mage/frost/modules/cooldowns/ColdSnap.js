@@ -18,14 +18,15 @@ class ColdSnap extends Analyzer {
 
   constructor(props) {
     super(props);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLD_SNAP), (event) => {
-        ABILITY_RESETS.forEach(spellId => {
-          if (this.spellUsable.isOnCooldown(spellId)) {
-            this.spellUsable.endCooldown(spellId);
-          }
-        });
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLD_SNAP), this._resetCooldowns);
+  }
+
+  _resetCooldowns() {
+    ABILITY_RESETS.forEach(spellId => {
+      if (this.spellUsable.isOnCooldown(spellId)) {
+        this.spellUsable.endCooldown(spellId);
       }
-    );
+    });
   }
 
 }
