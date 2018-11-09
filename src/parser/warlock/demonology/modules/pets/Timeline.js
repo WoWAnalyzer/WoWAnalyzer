@@ -13,7 +13,7 @@ class Timeline {
   }
 
   pushPermanentPetToStart(petInfo, id, instance, timestamp) {
-    const pet = new TimelinePet(petInfo, id, instance, timestamp, Infinity, null);
+    const pet = new TimelinePet(petInfo, id, instance, timestamp, Infinity, null, null);
     this.timeline.unshift(pet);
   }
 

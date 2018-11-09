@@ -93,7 +93,8 @@ class Pets extends Analyzer {
                                 event.targetInstance,
                                 event.timestamp,
                                 this._getPetDuration(event.targetID),
-                                this._getSummonSpell(event));
+                                this._getSummonSpell(event),
+                                event.ability.guid);
     if (this._wildImpIds.includes(pet.id)) {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
