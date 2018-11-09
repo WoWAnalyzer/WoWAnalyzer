@@ -45,7 +45,7 @@ class GarroteUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GARROTE.id} />}
         value={`${formatPercentage(this.percentUptime)} %`}
-        label="Garrote Uptime"
+        label="Garrote uptime"
       />
     );
   }

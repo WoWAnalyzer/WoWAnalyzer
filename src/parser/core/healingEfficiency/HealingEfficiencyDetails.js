@@ -14,14 +14,14 @@ class HealingEfficiencyDetails extends Analyzer {
     return {
       title: 'Mana Efficiency',
       url: 'mana-efficiency',
-      render: () => (
-        <Tab>
+      render: () => {
+        return [(<Tab>
           <HealingEfficiencyBreakdown
             tracker={this.healingEfficiencyTracker}
             showSpenders
           />
-        </Tab>
-      ),
+        </Tab>), null];
+      },
     };
   }
 }

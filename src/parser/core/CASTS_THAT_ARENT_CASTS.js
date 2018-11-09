@@ -27,4 +27,6 @@ export default [
   255724, // proc from a Legion Antorus trinket
   SPELLS.GALECALLERS_BOON_CAST.id, //This can be used off GCD
   SPELLS.MUTILATE_OFFHAND.id, // Mutilate off hand
+  SPELLS.DIRE_BEAST_SECONDARY_WITH_SCENT.id, //A secondary cast event from Dire Beast talent
+  SPELLS.DIRE_BEAST_SECONDARY_WITHOUT_SCENT.id, //A secondary cast event from Dire Beast talent
 ];
