@@ -67,8 +67,8 @@ class PetTimeline extends React.PureComponent {
   get keyEvents() {
     // shows important events in first row - Tyrant, Implosion, Nether Portal cast and duration, casts during Nether Portal
     const { historyBySpellId } = this.props;
-    // in case of casts, I need timestamp, ability guid
-    // in case of duration, I need timestamp, end timestamp
+    // these casts are extracted manually with flag "important"
+    const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id];
     const tyrantCasts = this.filterHistoryCasts(SPELLS.SUMMON_DEMONIC_TYRANT.id);
     const implosionCasts = this.filterHistoryCasts(SPELLS.IMPLOSION_CAST.id);
     const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
@@ -80,27 +80,53 @@ class PetTimeline extends React.PureComponent {
     const castsDuringNetherPortal = [];
     if (netherPortalCasts.length > 0) {
       // iterate through all spells
-      Object.values(historyBySpellId).forEach(historyArray => {
-        // filter casts and only those, that fall into any Nether Portal window
-        const casts = historyArray
-          .filter(event => event.type === 'cast'
-                        && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                                                          && event.timestamp <= window.endTimestamp))
-          .map(event => ({
-            type: 'cast',
-            timestamp: event.timestamp,
-            abilityId: event.ability.guid,
-          }));
-        castsDuringNetherPortal.push(...casts);
+      Object.keys(historyBySpellId)
+        .filter(key => !manualCastIds.includes(Number(key))) // filter out casts we got manually
+        .map(key => historyBySpellId[key])
+        .forEach(historyArray => {
+          // filter casts and only those, that fall into any Nether Portal window
+          const casts = historyArray
+            .filter(event => event.type === 'cast'
+                          && netherPortalWindows.some(window => window.timestamp <= event.timestamp
+                                                            && event.timestamp <= window.endTimestamp))
+            .map(event => ({
+              type: 'cast',
+              timestamp: event.timestamp,
+              abilityId: event.ability.guid,
+              abilityName: event.ability.name,
+            }));
+          castsDuringNetherPortal.push(...casts);
       });
     }
-    return [
+    const events = [
       ...tyrantCasts,
       ...implosionCasts,
       ...netherPortalCasts,
       ...netherPortalWindows,
       ...castsDuringNetherPortal,
     ].sort((event1, event2) => event1.timestamp - event2.timestamp);
+    // iterate through each cast, look if there are another casts very nearby, if so, mark them
+    for (let i = 0; i < events.length; i += 1) {
+      const event = events[i];
+      if (event.type !== 'cast') {
+        continue;
+      }
+      // check 3 surrounding casts on both sides, if they are within 500ms, mark their names
+      const minI = Math.max(i - 3, 0);
+      const maxI = Math.min(i + 3, events.length - 1);
+      const leftLimit = event.timestamp - 500;
+      const rightLimit = event.timestamp + 500;
+      for (let j = minI; j <= maxI; j += 1) {
+        if (j === i || events[j].type !== 'cast') {
+          continue;
+        }
+        if (leftLimit <= events[j].timestamp && events[j].timestamp <= rightLimit) {
+          event.nearbyCasts = event.nearbyCasts || [];
+          event.nearbyCasts.push(events[j].abilityName);
+        }
+      }
+    }
+    return events;
   }
 
   filterHistoryCasts(id) {
@@ -112,6 +138,7 @@ class PetTimeline extends React.PureComponent {
         important: true,
         timestamp: event.timestamp,
         abilityId: event.ability.guid,
+        abilityName: event.ability.name,
       }));
   }
 

@@ -28,7 +28,11 @@ class KeyCastsRow extends React.PureComponent {
                   zIndex: (event.important) ? 20 : 10,
                 }}
               >
-                <SpellIcon id={event.abilityId} className={event.important && 'enhanced'} />
+                <SpellIcon
+                  id={event.abilityId}
+                  className={event.important && 'enhanced'}
+                  data-tip={event.nearbyCasts ? `This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.` : ''}
+                />
               </div>
             );
           }
