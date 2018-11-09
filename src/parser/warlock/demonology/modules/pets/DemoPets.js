@@ -7,7 +7,7 @@ import Timeline from './Timeline';
 import TimelinePet from './TimelinePet';
 import PetDamage from './PetDamage';
 import { isPermanentPet } from './helpers';
-import PETS from './PETS_temp';
+import PETS from './PETS';
 import { SUMMON_TO_SPELL_MAP } from './CONSTANTS';
 
 const BUFFER = 150;

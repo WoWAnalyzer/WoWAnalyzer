@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import PETS from 'parser/warlock/demonology/modules/pets/PETS_temp';
+import PETS from './PETS';
 
 export const PERMANENT_PET_SUMMON_ABILITY_IDS = [
   SPELLS.SUMMON_IMP.id,

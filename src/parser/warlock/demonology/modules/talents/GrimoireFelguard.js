@@ -10,7 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import DemoPets from '../pets/DemoPets';
-import PETS from '../pets/PETS_temp';
+import PETS from '../pets/PETS';
 
 class GrimoireFelguard extends Analyzer {
   static dependencies = {

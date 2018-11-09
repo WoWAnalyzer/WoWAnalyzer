@@ -14,7 +14,7 @@ import SpellLink from 'common/SpellLink';
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
 import './PetTimeline.css';
-import PETS from '../../PETS_temp';
+import PETS from '../../PETS';
 
 const NETHER_PORTAL_DURATION = 20000;
 const NEARBY_CASTS_BUFFER = 250;
