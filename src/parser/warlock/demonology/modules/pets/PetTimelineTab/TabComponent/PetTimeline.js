@@ -15,6 +15,8 @@ import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
 
 const NETHER_PORTAL_DURATION = 20000;
+const NEARBY_CASTS_BUFFER = 250;
+const NEARBY_CAST_COUNT = 3;
 
 class PetTimeline extends React.PureComponent {
   static propTypes = {
@@ -112,10 +114,10 @@ class PetTimeline extends React.PureComponent {
         continue;
       }
       // check 3 surrounding casts on both sides, if they are within 500ms, mark their names
-      const minI = Math.max(i - 3, 0);
-      const maxI = Math.min(i + 3, events.length - 1);
-      const leftLimit = event.timestamp - 500;
-      const rightLimit = event.timestamp + 500;
+      const minI = Math.max(i - NEARBY_CAST_COUNT, 0);
+      const maxI = Math.min(i + NEARBY_CAST_COUNT, events.length - 1);
+      const leftLimit = event.timestamp - NEARBY_CASTS_BUFFER;
+      const rightLimit = event.timestamp + NEARBY_CASTS_BUFFER;
       for (let j = minI; j <= maxI; j += 1) {
         if (j === i || events[j].type !== 'cast') {
           continue;
