@@ -13,6 +13,7 @@ import SpellLink from 'common/SpellLink';
 
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
+import PETS from '../../PET_INFO';
 
 const NETHER_PORTAL_DURATION = 20000;
 const NEARBY_CASTS_BUFFER = 250;
@@ -68,6 +69,14 @@ class PetTimeline extends React.PureComponent {
 
   get keyEvents() {
     // shows important events in first row - Tyrant, Implosion, Nether Portal cast and duration, casts during Nether Portal
+    let events = this.importantEvents;
+    events = this.decorateCloseCasts(events);
+    events = this.decorateImplosionCasts(events);
+    console.log(events);
+    return events;
+  }
+
+  get importantEvents() {
     const { historyBySpellId } = this.props;
     // these casts are extracted manually with flag "important"
     const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id];
@@ -89,8 +98,8 @@ class PetTimeline extends React.PureComponent {
           // filter casts and only those, that fall into any Nether Portal window
           const casts = historyArray
             .filter(event => event.type === 'cast'
-                          && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                                                            && event.timestamp <= window.endTimestamp))
+              && netherPortalWindows.some(window => window.timestamp <= event.timestamp
+                && event.timestamp <= window.endTimestamp))
             .map(event => ({
               type: 'cast',
               timestamp: event.timestamp,
@@ -98,22 +107,25 @@ class PetTimeline extends React.PureComponent {
               abilityName: event.ability.name,
             }));
           castsDuringNetherPortal.push(...casts);
-      });
+        });
     }
-    const events = [
+    return [
       ...tyrantCasts,
       ...implosionCasts,
       ...netherPortalCasts,
       ...netherPortalWindows,
       ...castsDuringNetherPortal,
     ].sort((event1, event2) => event1.timestamp - event2.timestamp);
-    // iterate through each cast, look if there are another casts very nearby, if so, mark them
+  }
+
+  decorateCloseCasts(events) {
+    // iterate through each cast, look if there are another casts very nearby, if so, save their names
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       if (event.type !== 'cast') {
         continue;
       }
-      // check 3 surrounding casts on both sides, if they are within 500ms, mark their names
+      // check N surrounding casts on both sides, if they are within BUFFER, save their names
       const minI = Math.max(i - NEARBY_CAST_COUNT, 0);
       const maxI = Math.min(i + NEARBY_CAST_COUNT, events.length - 1);
       const leftLimit = event.timestamp - NEARBY_CASTS_BUFFER;
@@ -128,6 +140,16 @@ class PetTimeline extends React.PureComponent {
         }
       }
     }
+    return events;
+  }
+
+  decorateImplosionCasts(events) {
+    const { petTimeline } = this.props;
+    events.filter(event => event.type === 'cast' && event.abilityId === SPELLS.IMPLOSION_CAST.id)
+      .forEach(cast => {
+        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => pet.guid === PETS.WILD_IMP_HOG.guid || pet.guid === PETS.WILD_IMP_INNER_DEMONS.guid).length;
+        cast.extraInfo = `Imploded ${impCount} Wild Imp${impCount > 1 ? 's' : ''}`;
+      });
     return events;
   }
 

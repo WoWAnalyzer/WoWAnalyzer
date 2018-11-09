@@ -19,6 +19,13 @@ class KeyCastsRow extends React.PureComponent {
         {events.map((event, index) => {
           if (event.type === 'cast') {
             const left = (event.timestamp - start) / 1000 * secondWidth;
+            const tooltipInfo = [];
+            if (event.extraInfo) {
+              tooltipInfo.push(event.extraInfo);
+            }
+            if (event.nearbyCasts) {
+              tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
+            }
             return (
               <div
                 key={index}
@@ -31,7 +38,7 @@ class KeyCastsRow extends React.PureComponent {
                 <SpellIcon
                   id={event.abilityId}
                   className={event.important && 'enhanced'}
-                  data-tip={event.nearbyCasts ? `This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.` : ''}
+                  data-tip={tooltipInfo.join('\n')}
                 />
               </div>
             );
