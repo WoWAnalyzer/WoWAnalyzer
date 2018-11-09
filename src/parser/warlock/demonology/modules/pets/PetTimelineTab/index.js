@@ -4,14 +4,14 @@ import Analyzer from 'parser/core/Analyzer';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 
-import Pets from '../Pets';
+import DemoPets from '../DemoPets';
 import TabComponent from './TabComponent';
 
 class PetTimelineTab extends Analyzer {
   static dependencies = {
     spellHistory: SpellHistory,
     deathTracker: DeathTracker,
-    pets: Pets,
+    demoPets: DemoPets,
   };
 
   tab() {
@@ -25,7 +25,7 @@ class PetTimelineTab extends Analyzer {
           start={this.owner.fight.start_time}
           end={this.owner.currentTimestamp >= 0 ? this.owner.currentTimestamp : this.owner.fight.end_time}
           deaths={this.deathTracker.deaths}
-          petTimeline={this.pets.timeline}
+          petTimeline={this.demoPets.timeline}
           resurrections={this.deathTracker.resurrections}
           historyBySpellId={this.spellHistory.historyBySpellId}
         />

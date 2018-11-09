@@ -7,14 +7,14 @@ import Timeline from './Timeline';
 import TimelinePet from './TimelinePet';
 import PetDamage from './PetDamage';
 import { isPermanentPet } from './helpers';
-import PETS from './PET_INFO';
+import PETS from './PETS_temp';
 import { SUMMON_TO_SPELL_MAP } from './CONSTANTS';
 
 const BUFFER = 150;
 const debug = false;
 const test = false;
 
-class Pets extends Analyzer {
+class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
 
@@ -345,4 +345,4 @@ class Pets extends Analyzer {
   }
 }
 
-export default Pets;
+export default DemoPets;

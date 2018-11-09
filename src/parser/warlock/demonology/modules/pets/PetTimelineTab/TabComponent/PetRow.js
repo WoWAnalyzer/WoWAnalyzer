@@ -3,18 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-import PETS from '../../PET_INFO';
-
-const WILD_IMP_GUIDS = [
-  PETS.WILD_IMP_HOG.guid,
-  PETS.WILD_IMP_INNER_DEMONS.guid,
-];
-const PETS_AFFECTED_BY_DEMONIC_TYRANT = [
-  ...WILD_IMP_GUIDS,
-  PETS.DREADSTALKER.guid,
-  PETS.VILEFIEND.guid,
-  PETS.GRIMOIRE_FELGUARD.guid,
-];
+import { PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS, WILD_IMP_GUIDS } from '../../CONSTANTS';
 
 class PetRow extends React.PureComponent {
   static propTypes = {
@@ -36,7 +25,7 @@ class PetRow extends React.PureComponent {
           const barLeft = (pet.spawn - start) / 1000 * secondWidth;
           const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
           const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
-          const isEmpowered = PETS_AFFECTED_BY_DEMONIC_TYRANT.includes(pet.guid) && tyrantCasts.some(cast => pet.spawn <= cast && cast <= (pet.realDespawn || pet.expectedDespawn));
+          const isEmpowered = PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS.includes(pet.guid) && tyrantCasts.some(cast => pet.spawn <= cast && cast <= (pet.realDespawn || pet.expectedDespawn));
           const isWildImp = WILD_IMP_GUIDS.includes(pet.guid);
           let iconClass;
           let iconTooltip;

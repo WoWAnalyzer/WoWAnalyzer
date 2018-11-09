@@ -8,7 +8,7 @@ const indexByGuid = obj => {
   return obj;
 };
 
-const PET_INFO = {
+const PETS = {
   WILD_IMP_HOG: {
     guid: 55659,
     duration: 15000, // maximum duration, realistically is handled differently
@@ -78,4 +78,4 @@ const PET_INFO = {
   },
 };
 
-export default indexByGuid(PET_INFO);
+export default indexByGuid(PETS);

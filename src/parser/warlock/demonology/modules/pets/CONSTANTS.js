@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import PETS from 'parser/warlock/demonology/modules/pets/PETS_temp';
 
 export const PERMANENT_PET_SUMMON_ABILITY_IDS = [
   SPELLS.SUMMON_IMP.id,
@@ -6,6 +7,18 @@ export const PERMANENT_PET_SUMMON_ABILITY_IDS = [
   SPELLS.SUMMON_FELHUNTER.id,
   SPELLS.SUMMON_SUCCUBUS.id,
   SPELLS.SUMMON_FELGUARD.id,
+];
+
+export const WILD_IMP_GUIDS = [
+  PETS.WILD_IMP_HOG.guid,
+  PETS.WILD_IMP_INNER_DEMONS.guid,
+];
+
+export const PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS = [
+  ...WILD_IMP_GUIDS,
+  PETS.DREADSTALKER.guid,
+  PETS.VILEFIEND.guid,
+  PETS.GRIMOIRE_FELGUARD.guid,
 ];
 
 export const SUMMON_TO_SPELL_MAP = {
