@@ -4,7 +4,12 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-10-19'), 
+    date: new Date('2018-11-09'),
+    changes: 'Added checklist and suggestions for WG with high initial overhealing.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2018-10-19'),
     changes: 'Updated bad Regrowth usage suggestions - using a regrowth with sufficent abundance stacks is not considered bad',
     contributors: [Qbz],
   },

@@ -53,7 +53,7 @@ class RestorationDruidChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement 
+          <Requirement
             name={(
               <>
                 <SpellLink id={SPELLS.WILD_GROWTH.id} /> / <SpellLink id={SPELLS.REJUVENATION.id} /> ratio
@@ -61,7 +61,7 @@ class RestorationDruidChecklist extends React.PureComponent {
             )}
             tooltip="This is your ratio of Wild Growth casts to Rejuvenation casts. If this number is too low, it probably indicates you were missing good opportunities to cast Wild Growth."
             thresholds={thresholds.wildGrowthRatio} />
-          <Requirement 
+          <Requirement
             name={(
               <>
                 Low target <SpellLink id={SPELLS.WILD_GROWTH.id} /> casts
@@ -69,6 +69,14 @@ class RestorationDruidChecklist extends React.PureComponent {
             )}
             tooltip="This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective."
             thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts} />
+          <Requirement
+            name={(
+              <>
+                High initial overhealing <SpellLink id={SPELLS.WILD_GROWTH.id} />
+              </>
+            )}
+            tooltip="This is your percent of Wild Growth casts that has high initial overhealing. Wild Growh does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs."
+            thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts2} />
         </Rule>
         <Rule
           name="Use your healing cooldowns"
@@ -103,19 +111,19 @@ class RestorationDruidChecklist extends React.PureComponent {
           )}
         >
           {!combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && (
-            <Requirement 
+            <Requirement
               name={(<><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime</>)}
               thresholds={thresholds.lifebloomUpTime}
             />
           )}
           {combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && (
-            <Requirement 
+            <Requirement
               name={(<><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime</>)}
               tooltip="This requirement is more stringent because you have The Dark Titans Advice equipped"
               thresholds={thresholds.lifebloomUpTime}
             />
           )}
-          <Requirement 
+          <Requirement
             name={(<><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime</>)}
             thresholds={thresholds.efflorescenceUpTime}
           />
@@ -125,7 +133,7 @@ class RestorationDruidChecklist extends React.PureComponent {
           description={(
             <>
               Casting on targets who don't need healing or recklessly using inefficienct heals can result in running out of mana well before an encounter ends. Adapt your spell use to the situation, and as a rule of thumb try and keep your current mana percentage just above the bosses health percentage.
-            </> 
+            </>
           )}
           >
           <Requirement
