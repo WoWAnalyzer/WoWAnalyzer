@@ -13,6 +13,7 @@ import SpellLink from 'common/SpellLink';
 
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
+import './PetTimeline.css';
 import PETS from '../../PET_INFO';
 
 const NETHER_PORTAL_DURATION = 20000;
@@ -184,8 +185,9 @@ class PetTimeline extends React.PureComponent {
     // 28 for each timeline row
     const rows = Object.keys(pets).length + 1; // +1 for key events
     const totalHeight = 9 + 4 + 36 + 28 * rows;
-
     const totalWidth = seconds * secondWidth;
+
+    const tyrantCastTimestamps = pets[SPELLS.SUMMON_DEMONIC_TYRANT.id].pets.map(pet => pet.spawn);
 
     return (
       <div className="spell-timeline flex" {...others}>
@@ -240,6 +242,7 @@ class PetTimeline extends React.PureComponent {
             <PetRow
               key={spellId}
               className="lane"
+              tyrantCasts={tyrantCastTimestamps}
               pets={pets[spellId].pets}
               start={start}
               totalWidth={totalWidth}
