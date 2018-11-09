@@ -62,13 +62,13 @@ class Blindside extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.badMutilates,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.25 * this.owner.fightDuration / 1000 / 60,
-        major: 0.5 * this.owner.fightDuration / 1000 / 60,
+      actual: this.efficiency,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -78,7 +78,7 @@ class Blindside extends Analyzer {
       return suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
         .actual(`You used Mutilate ${this.badMutilates} times when Blindside was available`)
-        .recommended(`${recommended} is recommended`);
+        .recommended(`0 is recommended`);
     });
   }
 
