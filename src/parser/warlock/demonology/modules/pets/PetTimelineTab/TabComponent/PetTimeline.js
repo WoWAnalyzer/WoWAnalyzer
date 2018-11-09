@@ -4,14 +4,17 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import ReactTooltip from 'react-tooltip';
 import 'gemini-scrollbar/gemini-scrollbar.css';
 
+import 'parser/shared/modules/features/TimelineTab/TabComponent/SpellTimeline.css';
+import DeathEvents from 'parser/shared/modules/features/TimelineTab/TabComponent/DeathEvents';
+
 import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
-import DeathEvents from './DeathEvents';
 
-import './PetTimeline.css';
+const NETHER_PORTAL_DURATION = 20000;
 
 class PetTimeline extends React.PureComponent {
   static propTypes = {
@@ -20,6 +23,7 @@ class PetTimeline extends React.PureComponent {
     deaths: PropTypes.array.isRequired,
     resurrections: PropTypes.array.isRequired,
     petTimeline: PropTypes.object,
+    historyBySpellId: PropTypes.object,
   };
 
   constructor() {
@@ -60,6 +64,57 @@ class PetTimeline extends React.PureComponent {
     return petTimeline.groupPetsBySummonAbility();
   }
 
+  get keyEvents() {
+    // shows important events in first row - Tyrant, Implosion, Nether Portal cast and duration, casts during Nether Portal
+    const { historyBySpellId } = this.props;
+    // in case of casts, I need timestamp, ability guid
+    // in case of duration, I need timestamp, end timestamp
+    const tyrantCasts = this.filterHistoryCasts(SPELLS.SUMMON_DEMONIC_TYRANT.id);
+    const implosionCasts = this.filterHistoryCasts(SPELLS.IMPLOSION_CAST.id);
+    const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
+    const netherPortalWindows = netherPortalCasts.map(cast => ({
+      type: 'duration',
+      timestamp: cast.timestamp,
+      endTimestamp: cast.timestamp + NETHER_PORTAL_DURATION,
+    }));
+    const castsDuringNetherPortal = [];
+    if (netherPortalCasts.length > 0) {
+      // iterate through all spells
+      Object.values(historyBySpellId).forEach(historyArray => {
+        // filter casts and only those, that fall into any Nether Portal window
+        const casts = historyArray
+          .filter(event => event.type === 'cast'
+                        && netherPortalWindows.some(window => window.timestamp <= event.timestamp
+                                                          && event.timestamp <= window.endTimestamp))
+          .map(event => ({
+            type: 'cast',
+            timestamp: event.timestamp,
+            abilityId: event.ability.guid,
+          }));
+        castsDuringNetherPortal.push(...casts);
+      });
+    }
+    return [
+      ...tyrantCasts,
+      ...implosionCasts,
+      ...netherPortalCasts,
+      ...netherPortalWindows,
+      ...castsDuringNetherPortal,
+    ].sort((event1, event2) => event1.timestamp - event2.timestamp);
+  }
+
+  filterHistoryCasts(id) {
+    const { historyBySpellId } = this.props;
+    return historyBySpellId[id]
+      .filter(event => event.type === 'cast')
+      .map(event => ({
+        type: 'cast',
+        important: true,
+        timestamp: event.timestamp,
+        abilityId: event.ability.guid,
+      }));
+  }
+
   gemini = null;
   render() {
     const { start, end, deaths, resurrections } = this.props;
@@ -74,7 +129,7 @@ class PetTimeline extends React.PureComponent {
     // 4 for margin
     // 36 for the ruler
     // 28 for each timeline row
-    const rows = Object.keys(pets).length;
+    const rows = Object.keys(pets).length + 1; // +1 for key events
     const totalHeight = 9 + 4 + 36 + 28 * rows;
 
     const totalWidth = seconds * secondWidth;
@@ -84,10 +139,13 @@ class PetTimeline extends React.PureComponent {
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
-              {[1, 2, 3, 5, 10].map(zoom => (
+              {[1, 1.5, 2, 2.5, 3, 5].map(zoom => (
                 <button key={zoom} className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
               ))}
             </div>
+          </div>
+          <div className="lane" key="casts">
+            Key casts
           </div>
           {Object.keys(pets).map(spellId => (
             <div className="lane" key={spellId}>
@@ -117,6 +175,14 @@ class PetTimeline extends React.PureComponent {
               );
             })}
           </div>
+          <KeyCastsRow
+            key="keyCastsRow"
+            className="lane"
+            events={this.keyEvents}
+            start={start}
+            totalWidth={totalWidth}
+            secondWidth={secondWidth}
+          />
           {Object.keys(pets).map(spellId => (
             <PetRow
               key={spellId}
