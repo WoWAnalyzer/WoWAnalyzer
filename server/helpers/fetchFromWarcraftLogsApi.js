@@ -1,6 +1,12 @@
 import querystring from 'querystring';
 import { RequestError } from 'request-promise-native/errors';
 
+import { warcraftLogsApiResponseLatencyHistogram } from 'helpers/metrics';
+import RequestTimeoutError from 'helpers/request/RequestTimeoutError';
+import RequestSocketTimeoutError from 'helpers/request/RequestSocketTimeoutError';
+import RequestConnectionResetError from 'helpers/request/RequestConnectionResetError';
+import RequestUnknownError from 'helpers/request/RequestUnknownError';
+
 import retryingRequest from './retryingRequest';
 import WarcraftLogsApiError from './WarcraftLogsApiError';
 
@@ -26,8 +32,9 @@ function tryJsonParse(string) {
   }
   return json;
 }
-export default async function fetchFromWarcraftLogsApi(path, query, attempt = 1) {
+export default async function fetchFromWarcraftLogsApi(path, query, metricLabels) {
   const url = getWclApiUrl(path, query);
+  let end;
   try {
     const jsonString = await retryingRequest({
       url,
@@ -39,6 +46,25 @@ export default async function fetchFromWarcraftLogsApi(path, query, attempt = 1)
       // we'll be making several requests, so pool connections
       forever: true,
       timeout: TIMEOUT,
+      onBeforeAttempt: () => {
+        end = warcraftLogsApiResponseLatencyHistogram.startTimer(metricLabels);
+      },
+      onFailure: err => {
+        if (err instanceof RequestTimeoutError) {
+          end({ statusCode: 'timeout' });
+        } else if (err instanceof RequestSocketTimeoutError) {
+          end({ statusCode: 'socket timeout' });
+        } else if (err instanceof RequestConnectionResetError) {
+          end({ statusCode: 'connection reset' });
+        } else if (err instanceof RequestUnknownError) {
+          end({ statusCode: 'unknown' });
+        } else {
+          end({ statusCode: err.statusCode });
+        }
+      },
+      onSuccess: () => {
+        end({ statusCode: 200 });
+      },
     });
 
     // WCL maintenance mode returns 200 http code :(
@@ -57,19 +83,14 @@ export default async function fetchFromWarcraftLogsApi(path, query, attempt = 1)
     if (err instanceof WarcraftLogsApiError) {
       // Already the correct format, pass it along
       throw err;
-    } else if (err instanceof RequestError) {
-      // An error occured connecting or during the transmission
-      const code = err.error.code;
-      switch (code) {
-        case 'ETIMEDOUT':
-          throw new WarcraftLogsApiError(504, 'Warcraft Logs took too long to respond.', err);
-        case 'ECONNRESET':
-          throw new WarcraftLogsApiError(504, 'Warcraft Logs disconnected', err);
-        case 'ESOCKETTIMEDOUT':
-          throw new WarcraftLogsApiError(504, 'Warcraft Logs disconnected', err);
-        default:
-          throw new WarcraftLogsApiError(500, 'An unknown error occured.', err);
-      }
+    } else if (err instanceof RequestTimeoutError) {
+      throw new WarcraftLogsApiError(504, 'Warcraft Logs took too long to respond.', err);
+    } else if (err instanceof RequestConnectionResetError) {
+      throw new WarcraftLogsApiError(504, 'Warcraft Logs disconnected', err);
+    } else if (err instanceof RequestSocketTimeoutError) {
+      throw new WarcraftLogsApiError(504, 'Warcraft Logs disconnected', err);
+    } else if (err instanceof RequestUnknownError) {
+      throw new WarcraftLogsApiError(500, 'An unknown error occured.', err);
     }
 
     const statusCode = err.statusCode || 500;
