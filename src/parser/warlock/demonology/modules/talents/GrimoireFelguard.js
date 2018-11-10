@@ -9,13 +9,13 @@ import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Pets from '../pets/Pets';
-import PET_INFO from '../pets/PET_INFO';
+import DemoPets from '../pets/DemoPets';
+import PETS from '../pets/PETS';
 
 class GrimoireFelguard extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    pets: Pets,
+    demoPets: DemoPets,
   };
 
   constructor(...args) {
@@ -24,7 +24,7 @@ class GrimoireFelguard extends Analyzer {
   }
 
   statistic() {
-    const damage = this.pets.getPetDamage(PET_INFO.GRIMOIRE_FELGUARD.guid);
+    const damage = this.demoPets.getPetDamage(PETS.GRIMOIRE_FELGUARD.guid);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}

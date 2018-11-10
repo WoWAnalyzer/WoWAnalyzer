@@ -109,6 +109,38 @@ export default {
     icon: 'spell_shadow_demonictactics',
   },
 
+  // Permanent pet damage abilities
+  IMP_FIREBOLT: {
+    id: 3110,
+    name: 'Firebolt',
+    icon: 'spell_fire_firebolt',
+  },
+  VOIDWALKER_CONSUMING_SHADOWS: {
+    id: 3716,
+    name: 'Consuming Shadows',
+    icon: 'spell_shadow_gathershadows',
+  },
+  FELHUNTER_SHADOW_BITE: {
+    id: 54049,
+    name: 'Shadow Bite',
+    icon: 'spell_shadow_soulleech_3',
+  },
+  SUCCUBUS_LASH_OF_PAIN: {
+    id: 7814,
+    name: 'Lash of Pain',
+    icon: 'spell_shadow_curse',
+  },
+  FELGUARD_LEGION_STRIKE: {
+    id: 30213,
+    name: 'Legion Strike',
+    icon: 'inv_axe_09',
+  },
+  FELGUARD_PURSUIT: {
+    id: 30153,
+    name: 'Pursuit',
+    icon: 'ability_rogue_sprint',
+  },
+
   // --------------
   // Shared talents
   // --------------

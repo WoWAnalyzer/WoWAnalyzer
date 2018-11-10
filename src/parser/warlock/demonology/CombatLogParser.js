@@ -12,7 +12,10 @@ import DoomUptime from './modules/features/DoomUptime';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import Pets from './modules/pets/Pets';
+
+import DemoPets from './modules/pets/DemoPets';
+import PetTimelineTab from './modules/pets/PetTimelineTab';
+import PermanentPetNormalizer from './modules/pets/normalizers/PermanentPetNormalizer';
 
 import DemonicCalling from './modules/talents/DemonicCalling';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
@@ -33,7 +36,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    pets: Pets,
+    demoPets: DemoPets,
+    petTimelineTab: PetTimelineTab,
+    permanentPetNormalizer: PermanentPetNormalizer,
 
     // Talents
     demonicCalling: DemonicCalling,
