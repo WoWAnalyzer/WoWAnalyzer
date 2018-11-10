@@ -138,6 +138,21 @@ class Pets extends Analyzer {
         }
       });
     }
+    else if (event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id) {
+      const currentImps = this.currentPets
+        .filter(pet => this._wildImpIds.includes(pet.id) && !pet.shouldImplode)
+        .sort((imp1, imp2) => (imp1.currentEnergy - imp2.currentEnergy) || (imp1.spawn - imp2.spawn));
+      test && this.log(`Power Siphon cast, current imps (sorted Energy ASC, Spawn ASC)`, JSON.parse(JSON.stringify(currentImps)));
+      if (currentImps.length === 0) {
+        // game won't let you cast Power Siphon without available Wild Imps, if cast went through and we don't have Imps, we've done something wrong
+        debug && this.error('Something wrong, no Imps found on Power Siphon cast');
+        return;
+      }
+      currentImps.slice(0, 2).forEach(imp => {
+        imp.despawn(event.timestamp);
+        test && this.log(`Despawning imp`, imp);
+      });
+    }
   }
 
   on_byPlayer_damage(event) {
@@ -195,6 +210,10 @@ class Pets extends Analyzer {
     const pet = this._getPetFromTimeline(event.sourceID, event.sourceInstance);
     if (!pet) {
       debug && this.error('Wild Imp from cast event not in timeline!', event);
+      return;
+    }
+    if (pet.realDespawn && event.timestamp >= pet.realDespawn) {
+      debug && this.error('Wild Imp casted something after despawn', pet, event);
       return;
     }
     const energyResource = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.ENERGY.id);
