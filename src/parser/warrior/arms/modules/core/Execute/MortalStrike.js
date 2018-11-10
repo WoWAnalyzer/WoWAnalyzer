@@ -16,12 +16,13 @@ class MortalStrikeAnalyzer extends Analyzer {
     executeRange: ExecuteRange,
   };
 
-  mortalStrikesOutsideExecuteRage = 0;    
+  mortalStrikesOutsideExecuteRange = 0;    
   mortalStrikesInExecuteRange = 0;
 
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
+    
   }
 
   on_byPlayer_cast(event) {
@@ -36,7 +37,7 @@ class MortalStrikeAnalyzer extends Analyzer {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'This Mortal Strike was used on a target in Execute range.';
     } else {
-      this.mortalStrikesOutsideExecuteRage += 1;
+      this.mortalStrikesOutsideExecuteRange += 1;
     }
   }
 
@@ -45,7 +46,7 @@ class MortalStrikeAnalyzer extends Analyzer {
     const max = calculateMaxCasts(cd, this.owner.fightDuration - this.executeRange.executionPhaseDuration());
       
     return {
-      actual: this.mortalStrikesOutsideExecuteRage / max,
+      actual: this.mortalStrikesOutsideExecuteRange / max,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
