@@ -10,7 +10,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2018-11-09'),
+<<<<<<< HEAD
     changes: <>Added <ItemLink id={ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id} /> module.</>,
+=======
+    changes: <>Added <ItemLink id={ITEMS.REZANS_GLEAMING_EYE.id} /> module.</>,
+>>>>>>> upstream/master
     contributors: [Matardarix],
   },
   {
