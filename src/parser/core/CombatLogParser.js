@@ -76,6 +76,7 @@ import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoo
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
 import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
+import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
@@ -209,6 +210,7 @@ class CombatLogParser {
     harlansLoadedDice: HarlansLoadedDice,
     lustrousGoldenPlumage: LustrousGoldenPlumage,
     rezansGleamingEye: RezansGleamingEye,
+    rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsBadge: DreadGladiatorsBadge,
