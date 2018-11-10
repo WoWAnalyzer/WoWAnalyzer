@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -108,7 +107,6 @@ class Stampede extends Analyzer {
       const stampedePlural = this.casts.length === 1 ? `1 Stampede` : `a total of ${this.casts.length} Stampedes`;
       return (
         <StatisticBox
-          position={STATISTIC_ORDER.OPTIONAL()}
           icon={<SpellIcon id={SPELLS.STAMPEDE_TALENT.id} />}
           value={<>{this.casts.length} {this.casts.length > 1 ? "casts" : "cast"} / {this.hits} hits</>}
           label="Stampede"

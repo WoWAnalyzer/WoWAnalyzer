@@ -24,6 +24,11 @@ export default {
     name: 'Touch of the Voodoo',
     icon: 'ability_shaman_repulsiontotem',
   },
+  REZANS_GLEAMING_EYE_BUFF: { // Rezan's Gleaming Eye
+    id: 271103,
+    name: 'Rezan\'s Gleaming Eye',
+    icon: 'ability_hunter_aspectoftheviper',
+  },
 
   // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE_BUFF: {

@@ -8,6 +8,7 @@ import SpellHistory from 'parser/shared/modules/SpellHistory';
 import { i18n } from 'interface/RootLocalizationProvider';
 import Tab from 'interface/others/Tab';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
@@ -25,6 +26,7 @@ class CastEfficiency extends Analyzer {
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
+    channeling: Channeling,
   };
 
   /**
@@ -89,8 +91,10 @@ class CastEfficiency extends Analyzer {
     }
 
     let beginCastTimestamp = null;
+    let beginChannelTimestamp = null;
     const timeSpentCasting = history
       .reduce((acc, event) => {
+
         if (event.type === 'begincast') {
           beginCastTimestamp = event.timestamp;
           return acc;
@@ -98,11 +102,18 @@ class CastEfficiency extends Analyzer {
           const castTime = beginCastTimestamp ? (event.timestamp - beginCastTimestamp) : 0;
           beginCastTimestamp = null;
           return acc + castTime;
+        } else if (event.type === 'beginchannel') {
+          beginChannelTimestamp = event.timestamp;
+          return acc;
+        } else if (event.type === 'endchannel') {
+          const channelTime = beginChannelTimestamp ? (event.timestamp - beginChannelTimestamp) : 0;
+          beginCastTimestamp = null;
+          return acc + channelTime;
         } else {
           return acc;
         }
       }, 0);
-
+      
     return timeSpentCasting;
   }
 

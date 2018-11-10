@@ -139,7 +139,7 @@ export default {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-    manaCost: 80,
+    manaCost: 400,
   },
   SOOTHING_MIST_STATUE: {
     id: 198533,
