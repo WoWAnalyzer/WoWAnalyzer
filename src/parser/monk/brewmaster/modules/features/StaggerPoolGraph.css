@@ -1,0 +1,24 @@
+.rv-discrete-color-legend.horizontal {
+    position: absolute;
+    top: 0;
+    left: 35%;
+}
+
+.rv-discrete-color-legend-item__title {
+    color: #fff;
+    display: inline-block !important;
+    margin-left: 1em !important;
+}
+
+.rv-discrete-color-legend-item__color {
+    vertical-align: bottom !important;
+}
+
+.death-line .rv-crosshair__line {
+    background: red;
+    width: 2px;
+}
+
+.tooltip-crosshair .rv-crosshair__line {
+    background: white;
+}
