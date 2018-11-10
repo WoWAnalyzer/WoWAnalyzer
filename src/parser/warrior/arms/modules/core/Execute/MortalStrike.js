@@ -16,7 +16,7 @@ class MortalStrikeAnalyzer extends Analyzer {
     executeRange: ExecuteRange,
   };
 
-  mortalStrikes = 0;    
+  mortalStrikesOutsideExecuteRage = 0;    
   mortalStrikesInExecuteRange = 0;
 
   constructor(...args) {
@@ -29,13 +29,14 @@ class MortalStrikeAnalyzer extends Analyzer {
       return;
     }
 
-    this.mortalStrikes += 1;
     if(this.executeRange.isTargetInExecuteRange(event)) {
       this.mortalStrikesInExecuteRange += 1;
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'This Mortal Strike was used on a target in Execute range.';
+    } else {
+      this.mortalStrikesOutsideExecuteRage += 1;
     }
   }
 
@@ -44,7 +45,7 @@ class MortalStrikeAnalyzer extends Analyzer {
     const max = calculateMaxCasts(cd, this.owner.fightDuration - this.executeRange.executionPhaseDuration());
       
     return {
-      actual: this.mortalStrikes / max,
+      actual: this.mortalStrikesOutsideExecuteRage / max,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
