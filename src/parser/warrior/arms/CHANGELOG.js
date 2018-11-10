@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-11-07'),
+    date: new Date('2018-11-10'),
     changes: <>Modified <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> analysis to get it more accurate with the execution phase.</>,
     contributors: [Matardarix],
   },
