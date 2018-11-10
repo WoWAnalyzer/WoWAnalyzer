@@ -81,10 +81,11 @@ class PetTimeline extends React.PureComponent {
     const { historyBySpellId, selectedCombatant } = this.props;
     // these casts are extracted manually with flag "important"
     const importantEvents = [];
-    const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id];
+    const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id, SPELLS.POWER_SIPHON_TALENT.id];
     const tyrantCasts = this.filterHistoryCasts(SPELLS.SUMMON_DEMONIC_TYRANT.id);
     const implosionCasts = this.filterHistoryCasts(SPELLS.IMPLOSION_CAST.id);
-    importantEvents.push(...tyrantCasts, ...implosionCasts);
+    const powerSiphonCasts = this.filterHistoryCasts(SPELLS.POWER_SIPHON_TALENT.id);
+    importantEvents.push(...tyrantCasts, ...implosionCasts, ...powerSiphonCasts);
     if (selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id)) {
       const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
       const netherPortalWindows = netherPortalCasts.map(cast => ({
