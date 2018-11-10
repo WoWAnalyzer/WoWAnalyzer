@@ -1,6 +1,6 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
-import { PET_DAMAGE_TO_SUMMON_MAP, PERMANENT_PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
+import { PERMANENT_PET_DAMAGE_TO_SUMMON_MAP, PERMANENT_PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
 import { isPermanentPet } from '../helpers';
 
 class PermanentPetNormalizer extends EventsNormalizer {
@@ -17,13 +17,13 @@ class PermanentPetNormalizer extends EventsNormalizer {
         // first event we encountered was summon of permanent pet - pet was summoned after pull, return
         break;
       }
-      if (event.type === 'damage' && event.ability && PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]) {
+      if (event.type === 'damage' && event.ability && PERMANENT_PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]) {
         const petId = event.sourceID;
         if (!this._verifyPermanentPet(petId)) {
           continue;
         }
         const petInstance = event.sourceInstance;
-        const spell = SPELLS[PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]];
+        const spell = SPELLS[PERMANENT_PET_DAMAGE_TO_SUMMON_MAP[event.ability.guid]];
         // first event we encountered is a permanent pet damage - fabricate a summon event for it
         const fabricatedEvent = {
           timestamp: this.owner.fight.start_time,
