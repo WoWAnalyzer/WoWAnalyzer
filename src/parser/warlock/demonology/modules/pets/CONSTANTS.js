@@ -37,6 +37,11 @@ export const TEMPORARY_PET_SUMMON_ABILITY_IDS = [
   SPELLS.PRINCE_MALCHEZAAR_SUMMON.id,
 ];
 
+export const PET_SUMMON_ABILITY_IDS = [
+  ...PERMANENT_PET_SUMMON_ABILITY_IDS,
+  ...TEMPORARY_PET_SUMMON_ABILITY_IDS,
+];
+
 export const PET_GUID_TO_SUMMON_ABILITY_MAP = {
   [PETS.WILD_IMP_HOG.guid]: SPELLS.WILD_IMP_HOG_SUMMON.id,
   [PETS.DREADSTALKER.guid]: SPELLS.DREADSTALKER_SUMMON_1.id, // technically there are 2 summon abilities but they get mapped to same spell anyway
@@ -90,7 +95,7 @@ export const SUMMON_TO_SPELL_MAP = {
   // the rest is from Inner Demons / Nether Portal and assigned in DemoPets._getSummonSpell()
 };
 
-export const PERMANENT_PET_DAMAGE_TO_SUMMON_MAP = {
+export const PERMANENT_PET_ABILITIES_TO_SUMMON_MAP = {
   // melee is ignored (can be 4 different pets)
   [SPELLS.IMP_FIREBOLT.id]: SPELLS.SUMMON_IMP.id,
   [SPELLS.VOIDWALKER_CONSUMING_SHADOWS.id]: SPELLS.SUMMON_VOIDWALKER.id,
@@ -99,4 +104,5 @@ export const PERMANENT_PET_DAMAGE_TO_SUMMON_MAP = {
   [SPELLS.FELGUARD_PURSUIT.id]: SPELLS.SUMMON_FELGUARD.id,
   [SPELLS.FELSTORM_DAMAGE.id]: SPELLS.SUMMON_FELGUARD.id,
   [SPELLS.FELGUARD_LEGION_STRIKE.id]: SPELLS.SUMMON_FELGUARD.id,
+  [SPELLS.FELSTORM_BUFF.id]: SPELLS.SUMMON_FELGUARD.id,
 };

@@ -1,16 +1,16 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
-import { PET_GUID_TO_SUMMON_ABILITY_MAP, TEMPORARY_PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
+import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_GUID_TO_SUMMON_ABILITY_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
 import { isPermanentPet } from '../helpers';
 
 const MAX_TEMPORARY_PET_DURATION = 30000;
 const CHECKED_EVENT_TYPES = ['begincast', 'cast', 'damage'];
 const debug = false;
 
-class TemporaryPetNormalizer extends EventsNormalizer {
+class PrepullPetNormalizer extends EventsNormalizer {
   // Warlock DemoPets.js depends on `summon` events for their inner works
-  // Sometimes it happens, that some temporary pets exist at the combat start, but without their `summon` event
+  // Sometimes it happens, that some pets exist at the combat start, but without their `summon` event
   // Which means that for the module they don't exists, which in turn messes up other mechanics (such as casting Power Siphon (which NEEDS Wild Imps) when we shouldn't have any)
   // This can happen most likely because of 2 things - trash mobs right before boss (pets didn't disappear yet), or because of Inner Demons (which periodically summons pets even outside of combat)
 
@@ -29,9 +29,9 @@ class TemporaryPetNormalizer extends EventsNormalizer {
         break;
       }
       debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Event`, event);
-      if (event.type === 'summon' && event.ability && TEMPORARY_PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
+      if (event.type === 'summon' && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
         summonedPets.push(encodeTargetString(event.targetID, event.targetInstance));
-        debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Temporary pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
+        debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
       }
       else if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event)) {
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) begincast, cast or damage event`);
@@ -41,14 +41,20 @@ class TemporaryPetNormalizer extends EventsNormalizer {
         if (!summonedPets.includes(petString)) {
           debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet ${petString} not summoned yet`);
           // fabricate event for it, push to summonedPets
-          // only check temporary pets
           // TODO: merge normalizers if possible
+          let spell;
           if (this._verifyPermanentPet(petId)) {
-            debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Permanent pet, ignoring`);
-            continue;
+            // probably needs a few more spells
+            if (!PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]) {
+              debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown ability`, event);
+              continue;
+            }
+            spell = SPELLS[PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]];
           }
-          const guid = this._getPetGuid(petId);
-          const spell = SPELLS[PET_GUID_TO_SUMMON_ABILITY_MAP[guid]];
+          else {
+            const guid = this._getPetGuid(petId);
+            spell = SPELLS[PET_GUID_TO_SUMMON_ABILITY_MAP[guid]];
+          }
           const fabricatedEvent = {
             timestamp: this.owner.fight.start_time,
             type: 'summon',
@@ -88,4 +94,4 @@ class TemporaryPetNormalizer extends EventsNormalizer {
   }
 }
 
-export default TemporaryPetNormalizer;
+export default PrepullPetNormalizer;

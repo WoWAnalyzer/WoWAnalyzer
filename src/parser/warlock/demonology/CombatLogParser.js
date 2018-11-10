@@ -15,8 +15,7 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import DemoPets from './modules/pets/DemoPets';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
-import PermanentPetNormalizer from './modules/pets/normalizers/PermanentPetNormalizer';
-import TemporaryPetNormalizer from './modules/pets/normalizers/TemporaryPetNormalizer';
+import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
 import DemonicCalling from './modules/talents/DemonicCalling';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
@@ -39,8 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardDetails: SoulShardDetails,
     demoPets: DemoPets,
     petTimelineTab: PetTimelineTab,
-    permanentPetNormalizer: PermanentPetNormalizer,
-    temporaryPetNormalizer: TemporaryPetNormalizer,
+    prepullPetNormalizer: PrepullPetNormalizer,
 
     // Talents
     demonicCalling: DemonicCalling,
