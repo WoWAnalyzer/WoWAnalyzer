@@ -20,6 +20,7 @@ export function createServer() {
       res.setHeader('Content-Type', register.contentType);
       res.write(register.metrics());
       res.end();
+      return;
     }
     res.statusCode = 404;
     res.statusMessage = 'Not found';
