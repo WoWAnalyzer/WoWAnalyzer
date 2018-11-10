@@ -12,6 +12,8 @@ const ACTIVATION_COOLDOWN = 120; // seconds
  * Rotcrusted Voodoo Doll
  * Use: Brandish the Voodoo Doll at your target, 
  * dealing X Shadow damage over 6 sec, and an additional X Shadow damage after 6 sec. (2 Min Cooldown)
+ * 
+ * Example log: /report/hYkG1MtKyxB8cPRZ/3-Heroic+Taloc+-+Kill+(3:49)/9-Qt/abilities
  */
 class RotcrustedVoodooDoll extends Analyzer {
   static dependencies = {
