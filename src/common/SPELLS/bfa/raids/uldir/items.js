@@ -29,7 +29,7 @@ export default {
   },
 
   //Zek'voz
-  VOIDED_SECTOR: { // Disc of Systematic Regression
+  VOIDED_SECTORS: { // Disc of Systematic Regression
     id: 278153,
     name: 'Voided Sector',
     icon: 'creatureportrait_nexus_floating_disc',

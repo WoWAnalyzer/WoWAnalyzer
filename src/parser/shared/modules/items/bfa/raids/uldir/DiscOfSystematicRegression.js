@@ -24,7 +24,7 @@ class DiscOfSystematicRegression extends Analyzer {
 
     on_byPlayer_damage(event){
         const spellId = event.ability.guid;
-        if(spellId === SPELLS.VOIDED_SECTOR.id){
+        if(spellId === SPELLS.VOIDED_SECTORS.id){
             this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
             this.hits += 1;
         }
