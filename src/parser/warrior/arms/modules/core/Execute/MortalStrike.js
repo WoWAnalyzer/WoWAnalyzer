@@ -22,7 +22,6 @@ class MortalStrikeAnalyzer extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
-    
   }
 
   on_byPlayer_cast(event) {
