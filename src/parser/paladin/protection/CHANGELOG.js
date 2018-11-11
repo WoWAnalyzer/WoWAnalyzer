@@ -7,7 +7,7 @@ export default [
   {
     date: new Date('11 November 2018'),
     contributors: [emallson],
-    changes: <>Added <SpellLink id={SPELLS.LIGHT_OF_THE_PROTECTOR.id} /> / <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} /> delay and overheal tracking.</>
+    changes: <>Added <SpellLink id={SPELLS.LIGHT_OF_THE_PROTECTOR.id} /> / <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} /> delay and overheal tracking.</>,
   },
   {
     date: new Date('30 October 2018'),

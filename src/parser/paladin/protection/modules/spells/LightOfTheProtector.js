@@ -1,13 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'interface/others/StatisticBox';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
 import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtector';
@@ -156,6 +153,6 @@ export default class LightOfTheProtector extends Analyzer {
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
         .actual(`${formatPercentage(actual)}% Overhealing`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-    })
+    });
   }
 }
