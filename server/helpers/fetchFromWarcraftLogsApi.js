@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import { RequestError } from 'request-promise-native/errors';
 
 import { warcraftLogsApiResponseLatencyHistogram } from 'helpers/metrics';
 import RequestTimeoutError from 'helpers/request/RequestTimeoutError';
