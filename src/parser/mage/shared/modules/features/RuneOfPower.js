@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -100,7 +100,7 @@ class RuneOfPower extends Analyzer {
   statistic() {
     if (!this.showStatistic) return null;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}

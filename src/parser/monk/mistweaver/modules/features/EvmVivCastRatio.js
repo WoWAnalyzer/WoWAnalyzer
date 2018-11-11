@@ -27,8 +27,8 @@ class CastRatio extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(10)}
-        //icon={}
-        value={<React.Fragment><SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> {evmCasts} : <SpellIcon id={SPELLS.VIVIFY.id} /> {vivCasts}</React.Fragment>}
+        icon={<React.Fragment><SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} /> </React.Fragment>}
+        value={<React.Fragment>{evmCasts} : {vivCasts}</React.Fragment>}
         label={(
           <dfn data-tip={``}>
             Enveloping Mist to Vivify Casts

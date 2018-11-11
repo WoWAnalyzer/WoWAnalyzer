@@ -9,7 +9,8 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import { findByBossId } from 'raids/index';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const debug = false;
 
@@ -52,7 +53,8 @@ class MitigationCheck extends Analyzer {
     if (this.checks.includes(spell) && !event.tick) {
       debug && console.log(this.buffCheck);
       debug && console.log(this.debuffCheck);
-      if (this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e))) {
+      if (this.buffCheck.some((e) => this.selectedCombatant.hasBuff(e)) || event.hitType === HIT_TYPES.IMMUNE) {
+        // pass checked if buff was up or the damage missed
         this.checksPassedMap.set(spell, this.checksPassedMap.get(spell) + 1);
       } else {
         const enemy = this.enemies.getEntities()[event.sourceID];
@@ -64,6 +66,12 @@ class MitigationCheck extends Analyzer {
         }
       }
     }
+  }
+
+  get tooltip() {
+    return this.buffCheck.reduce((prev, curr) => {
+      return prev + `<li>${SPELLS[curr].name}</li>`;
+    }, 'Checks if one of the following buffs were up during the mechanic: <ul>') + '</ul>';
   }
 
   statistic() {
@@ -86,10 +94,11 @@ class MitigationCheck extends Analyzer {
       }
     );
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label={`Soft mitigation checks passed.`}
+        tooltip={this.tooltip}
       >
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
@@ -111,7 +120,7 @@ class MitigationCheck extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }

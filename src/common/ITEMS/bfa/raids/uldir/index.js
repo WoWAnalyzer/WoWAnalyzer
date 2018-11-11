@@ -36,6 +36,12 @@ export default {
     icon: "inv_wand_29",
     quality: ITEM_QUALITIES.PURPLE,
   },
+  SYRINGE_OF_BLOODBORNE_INFIRMITY: {
+    id: 160655,
+    name: "Syringe of Bloodborne Infirmity",
+    icon: "trade_archaeology_bloodysatyrscepter",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   //Zul Reborn
 
   // Mythrax

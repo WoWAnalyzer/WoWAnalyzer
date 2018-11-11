@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 const MAX_STACKS = 3;
 const HASTE_PER_STACK = 3;
@@ -80,7 +80,7 @@ class Starlord extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.STARLORD_TALENT.id} />}
         value={`${this.averageHaste} %`}
         label="Average haste gained"
@@ -103,7 +103,7 @@ class Starlord extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(5);

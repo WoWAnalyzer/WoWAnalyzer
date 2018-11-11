@@ -9,7 +9,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
@@ -144,7 +144,7 @@ class Wellspring extends Analyzer {
     const nth = (number) => ["st","nd","rd"][((number+90)%100-10)%10-1]||"th";
 
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
         label="Wellspring target efficiency"
         value={`${formatPercentage(this.wellspringEfficiency)} %`}
@@ -172,7 +172,7 @@ class Wellspring extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

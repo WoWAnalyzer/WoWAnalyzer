@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -73,7 +73,7 @@ class LethalShots extends Analyzer {
     tooltipText += this.RFUsage > 0 ? `<li>Out of the total procs, you used ${this.RFUsage} of them on Rapid Fires.</li>` : ``;
     tooltipText += `</ul>`;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.LETHAL_SHOTS_TALENT.id} />}
         value={`${this.totalUsage}/${this.totalProcs}`}

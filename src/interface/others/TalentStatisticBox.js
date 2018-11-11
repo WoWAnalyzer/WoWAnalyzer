@@ -16,7 +16,7 @@ const TalentStatisticBox = ({ talent, icon, label, value, tooltip, containerProp
     <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
       <div className="panel statistic-box item" {...others}>
         <div className="panel-body flex">
-          <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
+          <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>
             {icon || <SpellIcon id={talent} />}
           </div>
           <div className="flex-main">

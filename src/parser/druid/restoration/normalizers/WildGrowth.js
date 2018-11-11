@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
+const MS_BUFFER=100;
 class WildGrowth extends EventsNormalizer {
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
@@ -21,7 +22,7 @@ class WildGrowth extends EventsNormalizer {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
-          if (_event.timestamp !== event.timestamp) {
+          if (Math.abs(_event.timestamp - event.timestamp) > MS_BUFFER) {
             _newEvents.reverse();
             _events = _events.concat(_newEvents);
             _newEvents = [];
@@ -55,6 +56,30 @@ class WildGrowth extends EventsNormalizer {
           if (_event.type === 'applybuff'
             && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].includes(_event.ability.guid)
             && _event.targetID === event.targetID) {
+            _events.splice(_idx, 1);
+            _newEvents.push(_event);
+          }
+        }
+
+        if (_newEvents.length) {
+          _newEvents.reverse();
+          _events = _events.concat(_newEvents);
+          _newEvents = [];
+        }
+      }
+      // for WG apply buff events we look backwards through the events and any events of flourish we push forward
+      if (event.type === 'applybuff' && event.ability.guid === SPELLS.WILD_GROWTH.id) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
+          const _event = _events[_idx];
+
+          if (Math.abs(_event.timestamp - event.timestamp) > MS_BUFFER) {
+            _newEvents.reverse();
+            _events = _events.concat(_newEvents);
+            _newEvents = [];
+            break;
+          }
+
+          if ((_event.type === 'applybuff' || _event.type === 'cast') && _event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }

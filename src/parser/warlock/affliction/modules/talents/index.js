@@ -4,13 +4,12 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
+import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import AbsoluteCorruption from './AbsoluteCorruption';
 import Deathbolt from './Deathbolt';
 import DrainSoul from './DrainSoul';
-import DrainSoulSniping from './DrainSoulSniping';
 import VileTaint from './VileTaint';
 import ShadowEmbrace from './ShadowEmbrace';
-import GrimoireOfSacrifice from './GrimoireOfSacrifice';
 import Haunt from './Haunt';
 import Nightfall from './Nightfall';
 import PhantomSingularity from './PhantomSingularity';
@@ -21,7 +20,6 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     nightfall: Nightfall,
     drainSoul: DrainSoul,
-    drainSoulSniping: DrainSoulSniping,
     deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,

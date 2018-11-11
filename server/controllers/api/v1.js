@@ -22,6 +22,19 @@ async function cacheWclApiResponse(cacheKey, response, responseTime) {
     lastAccessedAt: Sequelize.fn('NOW'),
   });
 }
+function determineCategory(path) {
+  if (path.includes('/events/')) {
+    return 'events';
+  } else if (path.includes('/fights/')) {
+    return 'fights';
+  } else if (path.includes('/tables/')) {
+    return 'tables';
+  } else if (path.includes('/character/')) {
+    return 'character';
+  } else {
+    return 'other';
+  }
+}
 
 const router = Express.Router();
 router.get('/*', async (req, res) => {
@@ -67,7 +80,7 @@ router.get('/*', async (req, res) => {
     }
 
     const wclStart = Date.now();
-    const wclResponse = await fetchFromWarcraftLogsApi(path, query);
+    const wclResponse = await fetchFromWarcraftLogsApi(path, query, { category: determineCategory(path) });
     const wclResponseTime = Date.now() - wclStart;
     console.log('wcl response time:', wclResponseTime, 'ms');
     // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.

@@ -75,6 +75,9 @@ class Abilities extends CoreAbilities {
         cooldown: haste => brew_cooldown / (1 + haste),
         charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
         gcd: null,
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,

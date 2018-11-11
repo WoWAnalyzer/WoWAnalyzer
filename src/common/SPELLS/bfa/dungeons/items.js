@@ -17,12 +17,42 @@ export default {
     name: 'Lingering Spore Pods',
     icon: 'spell_druid_wildmushroom_frenzy',
   },
+  ROTCRUSTED_VOODOO_DOLL_BUFF: {
+    id: 271462,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
+  ROTCRUSTED_VOODOO_DOLL_TICK: {
+    id: 271465,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
+  ROTCRUSTED_VOODOO_DOLL_HIT: {
+    id: 271468,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
 
   // Atal'Dazar
+  TOUCH_OF_GOLD: { // My'das Talisman
+    id: 265954,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
+  TOUCH_OF_GOLD_DAMAGE: { // My'das Talisman
+    id: 265953,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
   TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
     id: 266018,
     name: 'Touch of the Voodoo',
     icon: 'ability_shaman_repulsiontotem',
+  },
+  REZANS_GLEAMING_EYE_BUFF: { // Rezan's Gleaming Eye
+    id: 271103,
+    name: 'Rezan\'s Gleaming Eye',
+    icon: 'ability_hunter_aspectoftheviper',
   },
 
   // Temple of Sethraliss
@@ -101,6 +131,13 @@ export default {
     id: 267326,
     name: 'Loaded Die - Mastery',
     icon: 'ability_rogue_rollthebones02',
+  },
+
+  //King's Rest
+  GOLDEN_LUSTER: {
+    id: 271107,
+    name: 'Golden Luster',
+    icon: 'ability_priest_angelicfeather',
   },
 
   // Quests.............. upscaled in beta

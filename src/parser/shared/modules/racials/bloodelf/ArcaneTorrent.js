@@ -17,7 +17,7 @@ class ArcaneTorrent extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.castEfficiency = options.castEfficiency || this.castEfficiency;
+    this.castEfficiency = (options.castEfficiency === undefined) ? this.castEfficiency : options.castEfficiency;
 
     this.abilities.add({
       spell: [SPELLS.ARCANE_TORRENT_MANA1, SPELLS.ARCANE_TORRENT_MANA2, SPELLS.ARCANE_TORRENT_MANA3, SPELLS.ARCANE_TORRENT_RAGE, SPELLS.ARCANE_TORRENT_ENERGY, SPELLS.ARCANE_TORRENT_RUNIC_POWER, SPELLS.ARCANE_TORRENT_MONK, SPELLS.ARCANE_TORRENT_FOCUS, SPELLS.ARCANE_TORRENT_FURY],
