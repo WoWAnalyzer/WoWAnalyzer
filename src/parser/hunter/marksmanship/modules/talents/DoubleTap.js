@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -56,7 +56,7 @@ class DoubleTap extends Analyzer {
     tooltipText += `</ul>`;
 
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(18)}
         icon={<SpellIcon id={SPELLS.DOUBLE_TAP_TALENT.id} />}
         value={(

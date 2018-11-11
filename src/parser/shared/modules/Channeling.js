@@ -3,6 +3,7 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
 
+
 class Channeling extends Analyzer {
   _currentChannel = null;
 

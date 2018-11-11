@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
@@ -61,7 +61,7 @@ class SoulFragmentsConsume extends Analyzer {
     const overcap= this.soulFragmentsTracker.soulsWasted;
     const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
         value={`${this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls} Souls`}
@@ -91,7 +91,7 @@ class SoulFragmentsConsume extends Analyzer {
             </tr>
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
 
     );
   }

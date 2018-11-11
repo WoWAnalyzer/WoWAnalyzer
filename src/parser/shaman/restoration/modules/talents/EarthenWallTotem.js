@@ -31,7 +31,7 @@ class EarthenWallTotem extends Analyzer {
   on_toPlayerPet_damage(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.EARTHEN_SHIELD_TOTEM_SELF_DAMAGE.id) {
+    if (spellId !== SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE.id) {
       return;
     }
 

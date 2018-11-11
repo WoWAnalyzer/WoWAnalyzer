@@ -43,6 +43,17 @@ export default {
     icon: "inv_potiond_4",
   },
 
+  WASTING_INFECTION: { // Syringe of Bloodborne Infirmity
+    id: 278110,
+    name: "Wasting Infection",
+    icon: 'ability_ironmaidens_whirlofblood',
+  },
+  CRITICAL_PROWESS: { // Syringe of Bloodborne Infirmity
+    id: 278108,
+    name: "Critical Prowess",
+    icon: "ability_rogue_bloodsplatter",
+  },
+
   //Zul Reborn
 
   // Mythrax

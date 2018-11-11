@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'parser/core/Analyzer';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -155,7 +155,7 @@ class GrandCrusader extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.GRAND_CRUSADER.id} />}
         value={`${this._totalResets} Resets`}
         label={"Grand Crusader"}
@@ -166,7 +166,7 @@ class GrandCrusader extends Analyzer {
           {this.plot()}
           <p>Likelihood of having <em>exactly</em> as many resets as you did with your traits and talents.</p>
         </div>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }

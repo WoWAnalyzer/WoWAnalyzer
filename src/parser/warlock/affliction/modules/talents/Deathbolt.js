@@ -27,7 +27,7 @@ class Deathbolt extends Analyzer {
       <StatisticListBoxItem
         title={<>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</>}
         value={formatThousands(avg)}
-        valueTooltip={`Total Deathbolt damage: ${formatThousands(total)}`}
+        valueTooltip={`${this.owner.formatItemDamageDone(total)}<br />Total damage done with Deathbolt: ${formatThousands(total)}`}
       />
     );
   }

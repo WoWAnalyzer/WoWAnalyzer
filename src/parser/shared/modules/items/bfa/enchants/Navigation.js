@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatDuration, formatPercentage } from 'common/format';
@@ -130,7 +130,7 @@ class Navigation extends Analyzer {
     const buffStacks = this.cleanStacks;
     const maxStackBuffDuration = this.maxStackBuffUptime();
     const tooltipData = (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={this.constructor.smallBuffId} />}
         value={this.averageStat}
         label={`average ${this.constructor.primaryStat} gained`}
@@ -171,7 +171,7 @@ class Navigation extends Analyzer {
             </tr>
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
     return tooltipData;
   }

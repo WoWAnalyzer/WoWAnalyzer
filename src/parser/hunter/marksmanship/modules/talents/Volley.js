@@ -8,7 +8,7 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 /**
@@ -115,7 +115,7 @@ class Volley extends Analyzer {
     tooltipText += `</li></ul>`;
 
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(23)}
         icon={<SpellIcon id={SPELLS.VOLLEY_TALENT.id} />}
         value={`${this.procs}`}

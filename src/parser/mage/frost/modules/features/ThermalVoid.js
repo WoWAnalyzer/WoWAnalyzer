@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 
 class ThermalVoid extends Analyzer {
@@ -67,7 +67,7 @@ class ThermalVoid extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
         value={`${formatNumber(this.averageDurationSeconds)}s`}
