@@ -27,13 +27,13 @@ export class TimelinePet {
   instance = null;
   spawn = null;
   expectedDespawn = null;
+  realDespawn = null;
+  despawnedBy = null;
   summonAbility = null;
   summonedBy = null;
   // difference between summonAbility and summonedBy:
   // summonAbility is the summon ability itself (Summon Wild Imp, Summon Shivarra, Summon Vicious Hellhound, Summon Prince Malchezaar, ...)
   // summonedBy is the "source" from player's perspective - whether it's Hand of Gul'dan, Nether Portal, Inner Demons, ...
-  realDespawn = null;
-  despawnedBy = null;
   history = [];
   // is used for highlighting in timeline
   meta = {

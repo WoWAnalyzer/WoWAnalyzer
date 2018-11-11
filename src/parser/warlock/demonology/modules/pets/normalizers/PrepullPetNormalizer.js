@@ -12,7 +12,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
   // Warlock DemoPets.js depends on `summon` events for their inner works
   // Sometimes it happens, that some pets exist at the combat start, but without their `summon` event
   // Which means that for the module they don't exists, which in turn messes up other mechanics (such as casting Power Siphon (which NEEDS Wild Imps) when we shouldn't have any)
-  // This can happen most likely because of 2 things - trash mobs right before boss (pets didn't disappear yet), or because of Inner Demons (which periodically summons pets even outside of combat)
+  // This can happen most likely because of 2 things - permanent pet summoned pre-pull, trash mobs right before boss (pets didn't disappear yet), or because of Inner Demons (which periodically summons pets even outside of combat)
 
   // This normalizer looks at first 30 seconds (because that's hypothetically the longest any temporary pet can live, given a 15 second duration and 15 second extension via Demonic Tyrant, realistically lower because of GCD and cast time of DT)
   // And if it finds begincast, cast or damage events from a pet that isn't summoned yet, fabricates a summon event for them
@@ -41,10 +41,8 @@ class PrepullPetNormalizer extends EventsNormalizer {
         if (!summonedPets.includes(petString)) {
           debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet ${petString} not summoned yet`);
           // fabricate event for it, push to summonedPets
-          // TODO: merge normalizers if possible
           let spell;
           if (this._verifyPermanentPet(petId)) {
-            // probably needs a few more spells
             if (!PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]) {
               debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown ability`, event);
               continue;

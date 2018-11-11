@@ -61,7 +61,6 @@ class DemoPets extends Analyzer {
     }
     if (isPermanentPet(petInfo.guid)) {
       test && this.log('Permanent pet summon');
-      // we summoned a new permanent pet, find last permanent entry in timeline, forcefully despawn it
       this.timeline.tryDespawnLastPermanentPet(event.timestamp);
     }
     const pet = new TimelinePet(petInfo,
@@ -78,7 +77,7 @@ class DemoPets extends Analyzer {
     test && this.log('Pet summoned', pet);
     this.timeline.addPet(pet);
     pet.pushHistory(event.timestamp, 'Summoned', event);
-    if (this._getSummonSpell(event) === SPELLS.INNER_DEMONS_TALENT.id) {
+    if (pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id) {
       this._lastIDtick = event.timestamp;
     }
   }
@@ -108,6 +107,10 @@ class DemoPets extends Analyzer {
       debug && this.error('Implosion damage event doesn\'t have a target position', event);
       return;
     }
+    // Pairing damage events with Imploded Wild Imps
+    // First target hit kills an imp and marks the target
+    // Consequent target hits just mark the target (part of the same AOE explosion)
+    // Next hit on already marked target means new imp explosion
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this._implosionTargetsHit.length === 0) {
       test && this.log(`First Implosion damage after cast on ${target}`);
@@ -294,6 +297,8 @@ class DemoPets extends Analyzer {
     if (!event.activeImpsAfterCast || event.activeImpsAfterCast.length === 0) {
       debug && this.error('Power Siphon cast didn\'t have any active imps after cast', event);
     }
+    // gets current imps that aren't "scheduled for implosion"
+    // filters out only those that aren't active after the cast (they can't be killed because they're casting in the future)
     const currentImps = this.currentPets
       .filter(pet => this._wildImpIds.includes(pet.id) && !pet.shouldImplode)
       .sort((imp1, imp2) => (imp1.currentEnergy - imp2.currentEnergy) || (imp1.spawn - imp2.spawn));
@@ -307,6 +312,7 @@ class DemoPets extends Analyzer {
       debug && this.error('Something wrong, no Imps found on Power Siphon cast');
       return;
     }
+    // kill up to 2 imps
     filtered.slice(0, 2).forEach(imp => {
       imp.despawn(event.timestamp, DESPAWN_REASONS.POWER_SIPHON);
       imp.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.POWER_SIPHON);

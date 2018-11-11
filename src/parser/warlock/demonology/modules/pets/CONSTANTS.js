@@ -42,6 +42,7 @@ export const PET_SUMMON_ABILITY_IDS = [
   ...TEMPORARY_PET_SUMMON_ABILITY_IDS,
 ];
 
+// used to map begincast, cast and damage from pre-pull summoned pets to their summon event abilities
 export const PET_GUID_TO_SUMMON_ABILITY_MAP = {
   [PETS.WILD_IMP_HOG.guid]: SPELLS.WILD_IMP_HOG_SUMMON.id,
   [PETS.DREADSTALKER.guid]: SPELLS.DREADSTALKER_SUMMON_1.id, // technically there are 2 summon abilities but they get mapped to same spell anyway
@@ -73,6 +74,7 @@ export const PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS = [
   PETS.GRIMOIRE_FELGUARD.guid,
 ];
 
+// used to map summon ability id to summon spell ID (either spell that player casts or a talent)
 export const SUMMON_TO_SPELL_MAP = {
   [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
   [SPELLS.FEL_IMP_SUMMON.id]: SPELLS.SUMMON_IMP.id,
@@ -95,6 +97,7 @@ export const SUMMON_TO_SPELL_MAP = {
   // the rest is from Inner Demons / Nether Portal and assigned in DemoPets._getSummonSpell()
 };
 
+// used for mapping pre-pull permanent pets to summon abilities
 export const PERMANENT_PET_ABILITIES_TO_SUMMON_MAP = {
   // melee is ignored (can be 4 different pets)
   [SPELLS.IMP_FIREBOLT.id]: SPELLS.SUMMON_IMP.id,

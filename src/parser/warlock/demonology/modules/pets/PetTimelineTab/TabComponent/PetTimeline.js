@@ -70,7 +70,7 @@ class PetTimeline extends React.PureComponent {
   }
 
   get keyEvents() {
-    // shows important events in first row - Tyrant, Implosion, Nether Portal cast and duration, casts during Nether Portal
+    // shows important events in first row - Tyrant, Implosion, Power Siphon, Nether Portal cast and duration, casts during Nether Portal
     let events = this.importantEvents;
     events = this.decorateCloseCasts(events);
     events = this.decorateImplosionCasts(events);
@@ -104,7 +104,7 @@ class PetTimeline extends React.PureComponent {
             const casts = historyArray
               .filter(event => event.type === 'cast'
                 && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                  && event.timestamp <= window.endTimestamp))
+                                                  && event.timestamp <= window.endTimestamp))
               .map(event => ({
                 type: 'cast',
                 timestamp: event.timestamp,

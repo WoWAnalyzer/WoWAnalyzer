@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import { TimelinePet, DESPAWN_REASONS } from './TimelinePet';
+import { DESPAWN_REASONS } from './TimelinePet';
 import { isPermanentPet } from './helpers';
 
 const debug = true;
@@ -10,11 +10,6 @@ class Timeline {
 
   addPet(pet) {
     this.timeline.push(pet);
-  }
-
-  pushPermanentPetToStart(petInfo, id, instance, timestamp) {
-    const pet = new TimelinePet(petInfo, id, instance, timestamp, Infinity, null, null);
-    this.timeline.unshift(pet);
   }
 
   find(filter) {

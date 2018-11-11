@@ -17,8 +17,6 @@ const PETS = {
     guid: 98035,
     duration: 12000,
   },
-  // verified on 2 logs without Vilefiend, either I'm unlucky (and Vilefiend can be summoned from ID/NP with the same guid), but more likely is that it's the talent's Vilefiend guid
-  // according to https://www.wowhead.com/spell=267217/nether-portal#comments:id=2581624 though, it can't be summoned from it?
   VILEFIEND: {
     guid: 135816,
     duration: 15000,
@@ -34,7 +32,7 @@ const PETS = {
   // Inner Demons and Nether Portal demons
   WILD_IMP_INNER_DEMONS: {
     guid: 143622,
-    duration: INNER_DEMON_NETHER_PORTAL_DURATION, // follows the same rules as HOG Wild Imps though
+    duration: INNER_DEMON_NETHER_PORTAL_DURATION,
   },
   BILESCOURGE: {
     guid: 136404,

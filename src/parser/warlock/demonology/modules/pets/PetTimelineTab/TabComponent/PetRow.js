@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-
 class PetRow extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
