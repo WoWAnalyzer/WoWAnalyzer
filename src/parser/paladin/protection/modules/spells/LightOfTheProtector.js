@@ -8,6 +8,8 @@ import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import HIT_TYPES from 'game/HIT_TYPES';
+import { formatNumber, formatPercentage } from 'common/format';
 import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtector';
 
 const HEAL_DELAY_THRESHOLD = 2000;
@@ -23,6 +25,9 @@ export default class LightOfTheProtector extends Analyzer {
   _delays = [];
 
   _activeSpell = SPELLS.LIGHT_OF_THE_PROTECTOR;
+
+  _overhealing = 0;
+  _actualHealing = 0;
 
   constructor(props) {
     super(props);
@@ -75,7 +80,20 @@ export default class LightOfTheProtector extends Analyzer {
   }
 
   _countHeal(event) {
+    const overhealing = event.overheal || 0;
+    this._overhealing += overhealing;
+    this._actualHealing += event.amount;
 
+    if(overhealing === 0 || event.hitType === HIT_TYPES.CRIT) {
+      return; // not gonna penalize overhealing on crits because it heals for SO MUCH
+    }
+
+    const meta = event.meta || {
+      inefficientCastReason: `This ${this._activeSpell.name} cast was inefficient because:`,
+    };
+    meta.inefficientCastReason += `<br/> - You cast it while at high health, causing it to overheal for ${formatNumber(overhealing)}.`;
+    meta.isInefficientCast = true;
+    event.meta = meta;
   }
 
   get avgDelay() {
@@ -84,6 +102,22 @@ export default class LightOfTheProtector extends Analyzer {
     }
 
     return this._delays.reduce((sum, delay) => sum + delay, 0) / this._delays.length;
+  }
+
+  get overhealRatio() {
+    return this._overhealing / (this._overhealing + this._actualHealing);
+  }
+
+  get overhealSuggestion() {
+    return {
+      actual: this.overhealRatio,
+      isGreaterThan: {
+        minor: 0.10,
+        average: 0.20,
+        major: 0.30,
+      },
+      style: 'percentage',
+    };
   }
 
   get delaySuggestion() {
@@ -105,5 +139,12 @@ export default class LightOfTheProtector extends Analyzer {
         .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`);
     });
+
+    when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should avoid casting <SpellLink id={this._activeSpell.id} /> while at very high health to avoid overhealing.</>)
+        .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
+        .actual(`${formatPercentage(actual)}% Overhealing`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+    })
   }
 }
