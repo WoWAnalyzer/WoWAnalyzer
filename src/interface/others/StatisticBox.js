@@ -71,7 +71,7 @@ class StatisticBox extends React.PureComponent {
         <div className="panel statistic-box expandable" {...others}>
           <div className="panel-body">
             <div className="flex">
-              <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
+              <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>
                 {icon}
               </div>
               <div className="flex-main" style={{ position: 'relative', paddingLeft: 16 }}>
