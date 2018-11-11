@@ -1,6 +1,6 @@
 import React from 'react';
-import { Line as LineChart } from 'react-chartjs-2';
-import 'common/chartjs-plugin-vertical';
+import PropTypes from 'prop-types';
+import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, LineSeries, AreaSeries, MarkSeries, Highlight, DiscreteColorLegend, Crosshair } from 'react-vis';
 
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -8,7 +8,112 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 
+import '../../../../../../node_modules/react-vis/dist/style.css';
+import './StaggerPoolGraph.css';
 import StaggerFabricator from '../core/StaggerFabricator';
+
+const COLORS = {
+  death: 'red',
+  purify: '#00ff96',
+  stagger: 'rgb(240, 234, 214)',
+  hp: 'rgb(255, 139, 45)',
+  maxHp: 'rgb(183, 76, 75)',
+};
+
+class StaggerGraph extends React.Component {
+  static propTypes = {
+    stagger: PropTypes.array.isRequired,
+    hp: PropTypes.array.isRequired,
+    maxHp: PropTypes.array.isRequired,
+    purifies: PropTypes.array.isRequired,
+    deaths: PropTypes.array.isRequired,
+    startTime: PropTypes.number.isRequired,
+  };
+
+  state = {
+    hover: null,
+    xDomain: null,
+    dragging: false,
+  };
+
+  render() {
+    const {stagger, hp, maxHp, purifies, deaths, startTime} = this.props;
+    const {xDomain} = this.state;
+    return (
+      <XYPlot height={400}
+        className={'graph'}
+        animation xDomain={xDomain && [xDomain.left, xDomain.right]}
+        style={{
+          fill: '#fff',
+          stroke: '#fff',
+        }}>
+        <DiscreteColorLegend
+          orientation="horizontal"
+          strokeWidth={2}
+          items={[
+            { title: 'Stagger', color: COLORS.stagger },
+            { title: 'Purify', color: COLORS.purify },
+            { title: 'Health', color: COLORS.hp },
+            { title: 'Max Health', color: COLORS.maxHp },
+          ]} />
+        <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
+        <YAxis title="Health" tickFormat={value => formatNumber(value)} />
+        <AreaSeries
+          data={hp}
+          color={COLORS.hp}
+          style={{strokeWidth: 2, fillOpacity: 0.2}}
+        />
+        <AreaSeries 
+          data={stagger} 
+          color={COLORS.stagger} 
+          style={{strokeWidth: 2, fillOpacity: 0.2}}
+          onNearestX={d => this.setState({hover: d})}
+          onSeriesMouseOut={d => this.setState({hover: null})}
+        />
+        <LineSeries
+          data={maxHp}
+          color={COLORS.maxHp}
+          strokeWidth={2}
+        />
+        {deaths.map(({x}, idx) => (
+          <Crosshair 
+            key={`death-${idx}`} 
+            values={[{x}]} 
+            className="death-line">
+            <React.Fragment />
+          </Crosshair>
+        ))}
+        {!this.state.dragging && this.state.hover && (
+          <Crosshair
+            className="tooltip-crosshair"
+            values={[this.state.hover]}
+            titleFormat={([ v ]) => ({ title: 'Stagger', value: formatNumber(v.y) })}
+            itemsFormat={([ v ]) => {
+              const entries = [
+                { title: 'Health', value: `${formatNumber(v.hp)} / ${formatNumber(v.maxHp)}` },
+              ];
+              const purify = purifies.find(({x}) => Math.abs(x - v.x) < 500);
+              if(purify) {
+                entries.push({ title: 'Purified', value: formatNumber(purify.amount) });
+              }
+              return entries;
+            }}
+          />
+        )}
+        <Highlight
+          enableY={false}
+          onBrushStart={() => this.setState({dragging: true})}
+          onBrushEnd={area => this.setState({xDomain: area, dragging: false})}
+        />
+        <MarkSeries
+          data={purifies}
+          color={COLORS.purify}
+          onValueClick={d => this.setState({xDomain: { left: d.x - 10000, right: d.x + 10000 }})}
+        />
+      </XYPlot>
+    );
+  }
+}
 
 /**
  * A graph of staggered damage (and related quantities) over time.
@@ -28,10 +133,12 @@ class StaggerPoolGraph extends Analyzer {
   _hpEvents = [];
   _staggerEvents = [];
   _deathEvents = [];
-  _purifyTimestamps = [];
+  _purifyEvents = [];
+  _lastHp = 0;
+  _lastMaxHp = 0;
 
   on_addstagger(event) {
-    this._staggerEvents.push(event);
+    this._staggerEvents.push({...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
   }
 
   on_removestagger(event) {
@@ -39,10 +146,10 @@ class StaggerPoolGraph extends Analyzer {
       // record the *previous* timestamp for purification. this will
       // make the purifies line up with peaks in the plot, instead of
       // showing up *after* peaks
-      this._purifyTimestamps.push(this._staggerEvents[this._staggerEvents.length-1].timestamp);
+      this._purifyEvents.push({...event, previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp});
     }
 
-    this._staggerEvents.push(event);
+    this._staggerEvents.push({...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
   }
 
   on_toPlayer_death(event) {
@@ -51,219 +158,54 @@ class StaggerPoolGraph extends Analyzer {
 
   on_toPlayer_damage(event) {
     this._hpEvents.push(event);
+    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
+    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
   }
 
   on_toPlayer_heal(event) {
     this._hpEvents.push(event);
+    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
+    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
   }
 
   plot() {
-    // x indices
-    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 500) }, (x, i) => i);
-
-    // somethingByLabels are all objects mapping from label ->
-    // something, where if a value is unknown for that timestamp it is
-    // undefined (the key is still present).
-    const poolByLabels = labels.reduce((obj, sec) => {
-      obj[sec] = undefined;
-      return obj;
-    }, {});
-    const hpByLabels = Object.assign({}, poolByLabels);
-
-    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 500));
-    const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
-      return {
-        label: Math.floor((timestamp - this.owner.fight.start_time) / 500),
-        ability: killingAbility,
-      };
+    const stagger = this._staggerEvents.map(({timestamp, newPooledDamage, hitPoints, maxHitPoints}) => { 
+      return { 
+        x: timestamp,
+        y: newPooledDamage,
+        hp: hitPoints,
+        maxHp: maxHitPoints,
+      }; 
     });
 
-    this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
-      const label = Math.floor((timestamp - this.owner.fight.start_time) / 500);
-      // show the peak rather than left or right edge of the bin. this
-      // can cause display issues if there is a rapid sequence of
-      // hit->purify->hit but has the upside of making purifies after
-      // big hits (aka good purifies) very visible.
-      //
-      // note for future me: upping resolution from 1s -> 500ms
-      // eliminated the issue mentioned above
-      poolByLabels[label] = (poolByLabels[label] > newPooledDamage) ? poolByLabels[label] : newPooledDamage;
-    });
+    const purifies = this._purifyEvents.map(({previousTimestamp, newPooledDamage, amount}) => ({ x: previousTimestamp, y: newPooledDamage + amount, amount }));
 
-    this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
-      const label = Math.floor((timestamp - this.owner.fight.start_time) / 500);
-      // we fill in the blanks later if hitPoints is not defined
-      if (!!hitPoints) {
-        hpByLabels[label] = { hitPoints, maxHitPoints };
-      }
-    });
+    const hp = this._hpEvents.filter(({hitPoints}) => hitPoints !== undefined)
+      .map(({timestamp, hitPoints}) => {
+        return {
+          x: timestamp,
+          y: hitPoints,
+        };
+      });
 
-    // fill in blanks. after deaths hp and stagger should be set to
-    // zero. in periods of no activity, the same hp/stagger should be
-    // preserved.
-    //
-    // you might wonder "but i thought stagger ticked twice a second? so
-    // either you're dead or damage is incoming!" Friendo, let me
-    // introduce you to the joy of stagger pausing: BoC + ISB pauses the
-    // dot for 3 seconds so we may have gaps where we are *not* dead and
-    // also not taking damage
-    let lastPoolContents = 0;
-    let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
-    for (const label in labels) {
-      if (poolByLabels[label] === undefined) {
-        poolByLabels[label] = lastPoolContents;
-      } else {
-        lastPoolContents = poolByLabels[label];
-      }
+    const maxHp = this._hpEvents.filter(({maxHitPoints}) => maxHitPoints !== undefined)
+      .map(({timestamp, maxHitPoints}) => {
+        return {
+          x: timestamp,
+          y: maxHitPoints,
+        };
+      });
 
-      if (hpByLabels[label] === undefined) {
-        hpByLabels[label] = lastHpContents;
-      } else {
-        lastHpContents = hpByLabels[label];
-      }
-
-      if (!!deaths.find(event => event.label === Number(label))) {
-        lastPoolContents = 0;
-        lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
-      }
-    }
-
-    const deathsByLabels = Object.keys(hpByLabels).map(label => {
-      const deathEvent = deaths.find(event => event.label === Number(label));
-      if (!!deathEvent) {
-        return { hp: hpByLabels[label].maxHitPoints, ...deathEvent };
-      } else {
-        return undefined;
-      }
-    });
-
-    const labelIndices = Object.keys(poolByLabels).reduce ((obj, label, index) => { obj[label] = index; return obj; }, {});
-
-    // some labels are referred to later for drawing tooltips
-    const DEATH_LABEL = 'Player Death';
-    const PURIFY_LABEL = 'Purifying Brew Cast';
-    const HP_LABEL = 'Health';
-    const STAGGER_LABEL = 'Stagger Pool Size';
-    const chartData = {
-      labels,
-      datasets: [
-        {
-          label: DEATH_LABEL,
-          borderColor: '#ff2222',
-          borderWidth: 2,
-          data: deathsByLabels.map(obj => !!obj ? obj.hp : undefined),
-          pointStyle: 'line',
-          verticalLine: true,
-        },
-        {
-          label: 'Max Health',
-          data: Object.values(hpByLabels).map(({ maxHitPoints }) => maxHitPoints),
-          backgroundColor: 'rgba(255, 139, 45, 0.0)',
-          borderColor: 'rgb(183, 76, 75)',
-          borderWidth: 2,
-          pointStyle: 'line',
-        },
-        {
-          label: HP_LABEL,
-          data: Object.values(hpByLabels).map(({ hitPoints }) => hitPoints),
-          backgroundColor: 'rgba(255, 139, 45, 0.2)',
-          borderColor: 'rgb(255, 139, 45)',
-          borderWidth: 2,
-          pointStyle: 'rect',
-        },
-        {
-          label: PURIFY_LABEL,
-          backgroundColor: '#00ff96',
-          data: purifies.map(label => { return { x: labelIndices[String(label)], y: poolByLabels[String(label)] }; }),
-          type: 'scatter',
-          pointRadius: 4,
-          showLine: false,
-        },
-        {
-          label: STAGGER_LABEL,
-          data: Object.values(poolByLabels),
-          backgroundColor: 'rgba(240, 234, 214, 0.2)',
-          borderColor: 'rgb(240, 234, 214)',
-          borderWidth: 2,
-          pointStyle: 'rect',
-        },
-      ],
-    };
-
-    function safeAbilityName(ability) {
-      if (ability === undefined || ability.name === undefined) {
-        return 'an Unknown Ability';
-      } else {
-        return ability.name;
-      }
-    }
-
-    // labels an item in the tooltip
-    function labelItem(tooltipItem, data) {
-      const { index } = tooltipItem;
-      const dataset = data.datasets[tooltipItem.datasetIndex];
-      switch (dataset.label) {
-        case DEATH_LABEL:
-          return `Player died when hit by ${safeAbilityName(deathsByLabels[index].ability)} at ${formatNumber(deathsByLabels[index].hp)} HP.`;
-        case PURIFY_LABEL:
-          return `Purifying Brew cast with ${formatNumber(tooltipItem.yLabel)} damage staggered.`;
-        default:
-          return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}`;
-      }
-    }
-
+    const deaths = this._deathEvents.map(({timestamp}) => ({x: timestamp}));
     return (
       <div className="graph-container">
-        <LineChart
-          data={chartData}
-          height={100}
-          width={300}
-          options={{
-            tooltips: {
-              callbacks: {
-                label: labelItem.bind(this),
-              },
-            },
-            legend: {
-              labels: {
-                usePointStyle: true,
-                fontColor: '#ccc',
-              },
-            },
-            animation: {
-              duration: 0,
-            },
-            elements: {
-              line: {
-                tension: 0,
-              },
-              point: {
-                radius: 0,
-                hitRadius: 4,
-                hoverRadius: 4,
-              },
-            },
-            scales: {
-              xAxes: [{
-                labelString: 'Time',
-                ticks: {
-                  fontColor: '#ccc',
-                  callback: function (x) {
-                    const label = formatDuration(Math.floor(x/2), 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
-                    return label.substring(0, label.length - 2);
-                  },
-                },
-              }],
-              yAxes: [{
-                labelString: 'Damage',
-                ticks: {
-                  fontColor: '#ccc',
-                  callback: formatNumber,
-                },
-              }],
-            },
-          }}
-        />
+        <StaggerGraph 
+          startTime={this.owner.fight.start_time}
+          stagger={stagger} 
+          hp={hp} 
+          maxHp={maxHp} 
+          purifies={purifies}
+          deaths={deaths} />
       </div>
     );
   }
