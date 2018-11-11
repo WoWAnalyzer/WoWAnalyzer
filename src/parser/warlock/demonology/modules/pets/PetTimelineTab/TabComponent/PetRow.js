@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-import { PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS, WILD_IMP_GUIDS } from '../../CONSTANTS';
 
 class PetRow extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    hasDemonicConsumption: PropTypes.bool,
-    tyrantCasts: PropTypes.array,
     pets: PropTypes.array,
     start: PropTypes.number.isRequired,
     totalWidth: PropTypes.number.isRequired,
@@ -17,7 +14,7 @@ class PetRow extends React.PureComponent {
   };
 
   render() {
-    const { className, hasDemonicConsumption, tyrantCasts, pets, start, totalWidth, secondWidth } = this.props;
+    const { className, pets, start, totalWidth, secondWidth } = this.props;
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {pets.map((pet, index) => {
@@ -25,21 +22,6 @@ class PetRow extends React.PureComponent {
           const barLeft = (pet.spawn - start) / 1000 * secondWidth;
           const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
           const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
-          const isEmpowered = PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS.includes(pet.guid) && tyrantCasts.some(cast => pet.spawn <= cast && cast <= (pet.realDespawn || pet.expectedDespawn));
-          const isWildImp = WILD_IMP_GUIDS.includes(pet.guid);
-          let iconClass;
-          let iconTooltip;
-          if (pet.shouldImplode) {
-            iconClass = 'inefficient';
-            iconTooltip = 'This Wild Imp was later imploded';
-          }
-          // Pet is empowered by Demonic Tyrant if:
-          //  - it's not a Wild Imp (Dreadstalkers, Vilefiend, Grimoire: Felguard)
-          //  - it's a Wild Imp without Demonic Consumption talent (Demonic Consumption kills Wild Imps)
-          else if (isEmpowered && (!isWildImp || (isWildImp && !hasDemonicConsumption))) {
-            iconClass = 'empowered';
-            iconTooltip = 'This pet was later empowered with Demonic Tyrant';
-          }
           return (
             <>
               <div
@@ -52,8 +34,8 @@ class PetRow extends React.PureComponent {
               >
                 <SpellIcon
                   id={pet.summonAbility}
-                  className={iconClass}
-                  data-tip={iconTooltip}
+                  className={pet.meta.iconClass}
+                  data-tip={pet.meta.tooltip}
                 />
               </div>
               <div

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import Timeline from './Timeline';
-import { TimelinePet, DESPAWN_REASONS } from './TimelinePet';
+import { TimelinePet, DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from './TimelinePet';
 import PetDamage from './PetDamage';
 import { isPermanentPet } from './helpers';
 import PETS from './PETS';
@@ -145,6 +145,7 @@ class DemoPets extends Analyzer {
       return;
     }
     imps[0].despawn(event.timestamp, DESPAWN_REASONS.IMPLOSION);
+    imps[0].setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.IMPLODED);
     imps[0].pushHistory(event.timestamp, 'Killed by Implosion', event);
   }
 
@@ -171,6 +172,10 @@ class DemoPets extends Analyzer {
     const oldEnergy = pet.currentEnergy;
     const newEnergy = energyResource.amount - (energyResource.cost || 0); // if Wild Imp is extended by Demonic Tyrant, their casts are essentially free, and the 'cost' field is not present in the event
     pet.currentEnergy = newEnergy;
+    if (oldEnergy === pet.currentEnergy) {
+      // Imp was empowered at least once, mark as empowered
+      pet.setMeta(META_CLASSES.EMPOWERED, META_TOOLTIPS.EMPOWERED);
+    }
     pet.pushHistory(event.timestamp, 'Cast', event, 'old energy', oldEnergy, 'new energy', pet.currentEnergy);
 
     if (pet.currentEnergy === 0) {
@@ -278,6 +283,7 @@ class DemoPets extends Analyzer {
       if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
         test && this.log('Wild Imp killed because Demonic Consumption', pet);
         pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
+        pet.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.DEMONIC_CONSUMPTION);
         pet.pushHistory(event.timestamp, 'Killed by Demonic Consumption', event);
       }
     });
@@ -303,6 +309,7 @@ class DemoPets extends Analyzer {
     }
     filtered.slice(0, 2).forEach(imp => {
       imp.despawn(event.timestamp, DESPAWN_REASONS.POWER_SIPHON);
+      imp.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.POWER_SIPHON);
       imp.pushHistory(event.timestamp, 'Killed by Power Siphon', event);
       test && this.log(`Despawning imp`, imp);
     });

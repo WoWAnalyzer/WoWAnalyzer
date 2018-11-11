@@ -1,5 +1,17 @@
 const DEMONIC_TYRANT_EXTENSION = 15000;
 
+export const META_CLASSES = {
+  EMPOWERED: 'empowered',
+  DESTROYED: 'inefficient',
+};
+
+export const META_TOOLTIPS = {
+  EMPOWERED: 'This pet was empowered by Demonic Tyrant',
+  IMPLODED: 'This Wild Imp was later Imploded',
+  DEMONIC_CONSUMPTION: 'This Wild Imp was later killed with Demonic Consumption',
+  POWER_SIPHON: 'This Wild Imp was later killed by Power Siphon',
+};
+
 export const DESPAWN_REASONS = {
   ZERO_ENERGY: 'Killed by having 0 energy',
   IMPLOSION: 'Killed with Implosion',
@@ -23,6 +35,11 @@ export class TimelinePet {
   realDespawn = null;
   despawnedBy = null;
   history = [];
+  // is used for highlighting in timeline
+  meta = {
+    iconClass: '',
+    tooltip: '',
+  };
 
   // Wild Imp properties
   x = null; // position due to Implosion
@@ -65,5 +82,11 @@ export class TimelinePet {
   extend() {
     // ASSUME full duration, but it gets updated for Wild Imps, on Demonic Power buff remove (their extend mechanic works differently)
     this.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
+    this.setMeta(META_CLASSES.EMPOWERED, META_TOOLTIPS.EMPOWERED);
+  }
+
+  setMeta(iconClass, tooltip) {
+    this.meta.iconClass = iconClass;
+    this.meta.tooltip = tooltip;
   }
 }

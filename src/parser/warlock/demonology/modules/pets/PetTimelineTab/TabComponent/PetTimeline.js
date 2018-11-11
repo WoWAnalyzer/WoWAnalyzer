@@ -14,7 +14,7 @@ import SpellLink from 'common/SpellLink';
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
 import './PetTimeline.css';
-import PETS from '../../PETS';
+import { WILD_IMP_GUIDS } from '../../CONSTANTS';
 
 const NETHER_PORTAL_DURATION = 20000;
 const NEARBY_CASTS_BUFFER = 250;
@@ -148,7 +148,7 @@ class PetTimeline extends React.PureComponent {
     const { petTimeline } = this.props;
     events.filter(event => event.type === 'cast' && event.abilityId === SPELLS.IMPLOSION_CAST.id)
       .forEach(cast => {
-        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => pet.guid === PETS.WILD_IMP_HOG.guid || pet.guid === PETS.WILD_IMP_INNER_DEMONS.guid).length;
+        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => WILD_IMP_GUIDS.includes(pet.guid)).length;
         cast.extraInfo = `Imploded ${impCount} Wild Imp${impCount > 1 ? 's' : ''}`;
       });
     return events;
@@ -172,7 +172,8 @@ class PetTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, deaths, resurrections, selectedCombatant, ...others } = this.props;
+    const { start, end, deaths, resurrections, ...others } = this.props;
+    delete others.selectedCombatant;
     delete others.historyBySpellId;
     delete others.petTimeline;
     const pets = this.pets;
@@ -189,8 +190,6 @@ class PetTimeline extends React.PureComponent {
     const rows = Object.keys(pets).length + 1; // +1 for key events
     const totalHeight = 9 + 4 + 36 + 28 * rows;
     const totalWidth = seconds * secondWidth;
-
-    const tyrantCastTimestamps = pets[SPELLS.SUMMON_DEMONIC_TYRANT.id].pets.map(pet => pet.spawn);
 
     return (
       <div className="spell-timeline flex" {...others}>
@@ -244,8 +243,6 @@ class PetTimeline extends React.PureComponent {
             <PetRow
               key={spellId}
               className="lane"
-              hasDemonicConsumption={selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)}
-              tyrantCasts={tyrantCastTimestamps}
               pets={pets[spellId].pets}
               start={start}
               totalWidth={totalWidth}
