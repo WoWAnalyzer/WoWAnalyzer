@@ -17,6 +17,8 @@ import DemoPets from './modules/pets/DemoPets';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
+import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
+
 import DemonicCalling from './modules/talents/DemonicCalling';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
@@ -39,6 +41,9 @@ class CombatLogParser extends CoreCombatLogParser {
     demoPets: DemoPets,
     petTimelineTab: PetTimelineTab,
     prepullPetNormalizer: PrepullPetNormalizer,
+
+    // Normalizers
+    powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
     demonicCalling: DemonicCalling,
