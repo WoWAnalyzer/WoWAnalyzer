@@ -28,7 +28,7 @@ class ArmWarriorChecklist extends React.PureComponent {
     if (this.props.combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id)) {
       this.msDescription = <>When you're using <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> you should try to cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> as often as possible. When the target is in <SpellLink id={SPELLS.EXECUTE.id} /> range try to use Mortal Strike at 2 stacks of Executioner's Precision to avoid wasting stacks.</>;
     } else {
-      this.msDescription = <>Mortal Strike shouldn't be used during the execution phase if you don't have the <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} />. You should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead.</>;
+      this.msDescription = <>Mortal Strike shouldn't be used during the execution phase if you don't have the <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} />. You should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.</>;
     }
   }
 

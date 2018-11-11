@@ -31,7 +31,7 @@ class ExecuteRangeTracker extends Analyzer {
       this.execPhaseStart = event.timestamp;
     }
 
-    if (!this.isTargetInExecuteRange(event) && this.isExecPhase) {
+    if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.execPhaseStart + 2000) {
       this.isExecPhase = false;
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
     }
