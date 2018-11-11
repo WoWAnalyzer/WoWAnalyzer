@@ -17,6 +17,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
       hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
+    extras: PropTypes.object.isRequired,
   };
 
   render(){
@@ -71,6 +72,12 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             thresholds={thresholds.consecration}
           />
         </Rule>
+        <Rule name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}>
+          <AbilityRequirement name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>} 
+            spell={this.props.extras.lotpAbility.id} />
+          <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
+          <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
+        </Rule>
 
         <Rule
           name="Use your defensive cooldowns."
@@ -78,8 +85,6 @@ class ProtectionPaladinChecklist extends React.PureComponent{
         >
           <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id} />
           <AbilityRequirement spell={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} />
-          {combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) && <AbilityRequirement spell={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />}
-          {!combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) && <AbilityRequirement spell={SPELLS.LIGHT_OF_THE_PROTECTOR.id} />}
         </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>
