@@ -4,6 +4,8 @@ import DeathDowntime from './DeathDowntime';
 
 /**
  * Combines all the downtime modules into one value.
+ *
+ * @property {DeathDowntime} deathDowntime
  */
 class TotalDowntime extends Analyzer {
   static dependencies = {

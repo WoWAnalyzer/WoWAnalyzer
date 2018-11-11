@@ -42,8 +42,7 @@ describe('Core/Analyzer', () => {
           on_success();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -51,8 +50,7 @@ describe('Core/Analyzer', () => {
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -65,8 +63,7 @@ describe('Core/Analyzer', () => {
           on_event();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -91,8 +88,7 @@ describe('Core/Analyzer', () => {
           on_toPlayerPet_test();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -121,8 +117,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -151,8 +146,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -181,8 +175,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -211,8 +204,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -228,11 +220,11 @@ describe('Core/Analyzer', () => {
           on_success.call(this);
         }
       }
-      const myModule = new MyModule({ owner: parser });
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
-      expect(on_success.mock.instances[0]).toBe(myModule);
+      expect(on_success.mock.instances[0]).toBe(parser.getModule(MyModule));
     });
   });
   describe('add event listener', () => {
@@ -246,8 +238,7 @@ describe('Core/Analyzer', () => {
         }
       }
       expect(() => {
-        // eslint-disable-next-line no-new
-        new MyModule({ owner: parser });
+        parser.loadModule('myModule', MyModule);
       }).toThrow();
     });
   });

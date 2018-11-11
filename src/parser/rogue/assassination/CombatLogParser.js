@@ -24,6 +24,9 @@ import RuptureUptime from './modules/spells/RuptureUptime';
 //Talents
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
+import MasterPoisoner from './modules/talents/MasterPoisoner';
+
+import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +60,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     blindside: Blindside,
     elaboratePlanning: ElaboratePlanning,
+    masterPoisoner: MasterPoisoner,
+
+    // Traits
+    SharpenedBlades: SharpenedBlades,
   };
 }
 
