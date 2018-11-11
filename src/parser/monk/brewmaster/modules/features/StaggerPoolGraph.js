@@ -21,7 +21,7 @@ const COLORS = {
 };
 
 class StaggerGraph extends React.Component {
-  propTypes = {
+  static propTypes = {
     stagger: PropTypes.array.required,
     hp: PropTypes.array.required,
     maxHp: PropTypes.array.required,
