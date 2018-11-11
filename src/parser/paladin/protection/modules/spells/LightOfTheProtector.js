@@ -14,6 +14,17 @@ import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtect
 
 const HEAL_DELAY_THRESHOLD = 2000;
 
+/**
+ * Light of the Protector / Hand of the Protector shared analysis
+ *
+ * Many of the behaviors are shared between the two abilities, and this
+ * module handles those.
+ *
+ * Behavior specific to HotP should be placed in a separate
+ * HandOfTheProtector module.
+ *
+ * Sample Log: https://www.warcraftlogs.com/reports/WP3FTxYwkLXyVRac/#fight=2&source=20
+ */
 export default class LightOfTheProtector extends Analyzer {
   static dependencies = {
     spells: SpellUsable,
