@@ -12,8 +12,8 @@ import { SUMMON_TO_SPELL_MAP } from './CONSTANTS';
 
 const BUFFER = 150;
 const DEMONIC_POWER_DURATION = 15000;
-const debug = true;
-const test = true;
+const debug = false;
+const test = false;
 
 class DemoPets extends Analyzer {
   damage = new PetDamage();

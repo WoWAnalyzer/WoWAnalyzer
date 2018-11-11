@@ -3,7 +3,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import { WILD_IMP_GUIDS } from '../../pets/CONSTANTS';
 
-const debug = true;
+const debug = false;
 const CHECKED_EVENT_TYPES = ['begincast', 'cast'];
 
 class PowerSiphonNormalizer extends EventsNormalizer {
