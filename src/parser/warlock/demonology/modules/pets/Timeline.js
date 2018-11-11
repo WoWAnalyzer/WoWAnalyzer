@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import TimelinePet from './TimelinePet';
+import { TimelinePet, DESPAWN_REASONS } from './TimelinePet';
 import { isPermanentPet } from './helpers';
 
 const debug = true;
@@ -26,7 +26,7 @@ class Timeline {
     const permanentPets = this.timeline.filter(pet => isPermanentPet(pet.guid));
     if (permanentPets.length > 0) {
       debug && console.log('Despawning last permanent pet');
-      permanentPets[permanentPets.length - 1].despawn(timestamp); // not entirely accurate, pet could've died earlier, but there's probably no way of detecting it
+      permanentPets[permanentPets.length - 1].despawn(timestamp, DESPAWN_REASONS.NEW_PERMANENT_PET); // not entirely accurate, pet could've died earlier, but there's probably no way of detecting it
     }
   }
 

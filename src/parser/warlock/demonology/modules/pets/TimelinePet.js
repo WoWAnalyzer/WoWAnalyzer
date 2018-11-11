@@ -1,6 +1,14 @@
 const DEMONIC_TYRANT_EXTENSION = 15000;
 
-class TimelinePet {
+export const DESPAWN_REASONS = {
+  ZERO_ENERGY: 'Killed by having 0 energy',
+  IMPLOSION: 'Killed with Implosion',
+  DEMONIC_CONSUMPTION: 'Killed with Demonic Consumption',
+  POWER_SIPHON: 'Killed with Power Siphon',
+  NEW_PERMANENT_PET: 'Killed by summoning new permanent pet',
+};
+
+export class TimelinePet {
   name = 'unknown';
   guid = null;
   id = null;
@@ -9,10 +17,12 @@ class TimelinePet {
   expectedDespawn = null;
   summonAbility = null;
   summonedBy = null;
-  realDespawn = null;
   // difference between summonAbility and summonedBy:
   // summonAbility is the summon ability itself (Summon Wild Imp, Summon Shivarra, Summon Vicious Hellhound, Summon Prince Malchezaar, ...)
   // summonedBy is the "source" from player's perspective - whether it's Hand of Gul'dan, Nether Portal, Inner Demons, ...
+  realDespawn = null;
+  despawnedBy = null;
+  history = [];
 
   // Wild Imp properties
   x = null; // position due to Implosion
@@ -43,12 +53,16 @@ class TimelinePet {
     this.y = event.y;
   }
 
-  despawn(timestamp) {
+  despawn(timestamp, reason) {
     this.realDespawn = timestamp;
+    this.despawnedBy = reason;
+  }
+
+  pushHistory(...contents) {
+    this.history.push([...contents]);
   }
 
   extend() {
     this.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
   }
 }
-export default TimelinePet;
