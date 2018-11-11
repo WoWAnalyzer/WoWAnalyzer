@@ -8,6 +8,7 @@ import SpellHistory from 'parser/shared/modules/SpellHistory';
 import { i18n } from 'interface/RootLocalizationProvider';
 import Tab from 'interface/others/Tab';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
@@ -25,6 +26,7 @@ class CastEfficiency extends Analyzer {
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
+    channeling: Channeling,
   };
 
   /**
@@ -89,8 +91,10 @@ class CastEfficiency extends Analyzer {
     }
 
     let beginCastTimestamp = null;
+    let beginChannelTimestamp = null;
     const timeSpentCasting = history
       .reduce((acc, event) => {
+
         if (event.type === 'begincast') {
           beginCastTimestamp = event.timestamp;
           return acc;
@@ -98,12 +102,58 @@ class CastEfficiency extends Analyzer {
           const castTime = beginCastTimestamp ? (event.timestamp - beginCastTimestamp) : 0;
           beginCastTimestamp = null;
           return acc + castTime;
+        } else if (event.type === 'beginchannel') {
+          beginChannelTimestamp = event.timestamp;
+          return acc;
+        } else if (event.type === 'endchannel') {
+          const channelTime = beginChannelTimestamp ? (event.timestamp - beginChannelTimestamp) : 0;
+          beginCastTimestamp = null;
+          return acc + channelTime;
         } else {
           return acc;
         }
       }, 0);
-
+      
     return timeSpentCasting;
+  }
+
+  _getTimeSpentOnGcd(spellId) {
+    const ability = this.abilities.getAbility(spellId);
+
+    if (ability) {
+      const cdInfo = this._getCooldownInfo(ability);
+
+      let casts;
+      if (ability.castEfficiency.casts) {
+        casts = ability.castEfficiency.casts(this.abilityTracker.getAbility(spellId), this.owner);
+      } else {
+        casts = cdInfo.casts;
+      }
+
+      const averagetimeSpentOnAbility = this._getTimeSpentCasting(ability) / casts;
+      // If the abilities GCD is longer than the time spent casting, use the GCD
+      if (ability.gcd && ability.gcd.base) {
+        const gcdReduction = ability.gcd.base * this.haste.current;
+        const gcdActual = ability.gcd.base - gcdReduction;
+
+        if (averagetimeSpentOnAbility < gcdActual) {
+          return gcdActual * casts;
+        }
+      } else if (ability.gcd && ability.gcd.static && averagetimeSpentOnAbility < ability.gcd.static) {
+        return ability.gcd.static * casts;
+      }
+    }
+    return 0;
+  }
+
+  getTimeSpentCasting(abilityId) {
+    const timeSpentCasting = this._getTimeSpentCasting({ primarySpell: { id: abilityId } });
+    const gcdSpent = this._getTimeSpentOnGcd(abilityId);
+
+    return {
+      timeSpentCasting,
+      gcdSpent,
+    };
   }
 
   /**

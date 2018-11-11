@@ -24,7 +24,7 @@ class RuleOfThrees extends Analyzer {
 		if (spellId !== SPELLS.ARCANE_BARRAGE.id) {
 			return;
 		}
-		if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id)) {
+		if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id,event.timestamp + 1)) {
 			debug && this.log("Arcane Barrage with Rule of Threes Buff");
 			this.barrageWithRuleOfThrees += 1;
 		}

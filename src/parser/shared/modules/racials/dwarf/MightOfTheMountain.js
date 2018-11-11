@@ -119,7 +119,7 @@ class MightOfTheMountain extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
         value={value}
-        label="Racial contribution"
+        label="Dwarf crit racial"
         tooltip={`The racial contributed ${this.owner.formatItemDamageDone(this.damage)} and ${this.owner.formatItemHealingDone(this.healing)}.`}
       />
     );

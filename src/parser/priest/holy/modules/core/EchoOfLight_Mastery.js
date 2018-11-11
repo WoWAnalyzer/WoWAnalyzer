@@ -1,6 +1,6 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -154,7 +154,7 @@ class EchoOfLight_Mastery extends Analyzer {
   statistic() {
     const percOfTotalHealingDone = this.owner.getPercentageOfTotalHealingDone(this.healing);
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
         value={`${formatNumber(this.healing)}`}
         label={(
@@ -194,7 +194,7 @@ class EchoOfLight_Mastery extends Analyzer {
 
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

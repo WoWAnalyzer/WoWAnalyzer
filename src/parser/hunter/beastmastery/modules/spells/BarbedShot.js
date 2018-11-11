@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -116,7 +116,7 @@ class BarbedShot extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id) / this.owner.fightDuration;
   }
 
-  get direFrenzyUptimeThreshold() {
+  get frenzyUptimeThreshold() {
     return {
       actual: this.percentUptimePet,
       isLessThan: {
@@ -128,7 +128,7 @@ class BarbedShot extends Analyzer {
     };
   }
 
-  get direFrenzy3StackThreshold() {
+  get frenzy3StackThreshold() {
     if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
       return {
         actual: this.percentUptimeMaxStacks,
@@ -153,14 +153,14 @@ class BarbedShot extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.direFrenzyUptimeThreshold)
+    when(this.frenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
           .icon(SPELLS.BARBED_SHOT.icon)
           .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
-    when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
+    when(this.frenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
         .icon(SPELLS.BARBED_SHOT.icon)
         .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
@@ -170,9 +170,9 @@ class BarbedShot extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
-        position={STATISTIC_ORDER.CORE(17)}
-        icon={<SpellIcon id={SPELLS.BARBED_SHOT.id} />}
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
+        icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
         label="3 stack uptime"
         tooltip={`
@@ -202,7 +202,7 @@ class BarbedShot extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

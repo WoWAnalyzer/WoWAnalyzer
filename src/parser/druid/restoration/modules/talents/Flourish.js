@@ -1,6 +1,6 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -241,7 +241,7 @@ class Flourish extends Analyzer {
     const increasedRatePercent = this.owner.getPercentageOfTotalHealingDone(this.increasedRateTotalHealing);
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.totalExtensionHealing + this.increasedRateTotalHealing);
     return(
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Flourish Healing"
@@ -328,7 +328,7 @@ class Flourish extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

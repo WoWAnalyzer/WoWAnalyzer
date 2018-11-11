@@ -799,11 +799,6 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_shadowbolt',
   },
-  SHARPENED_BLADES: {
-    id: 272913,
-    name: 'Sharpened Blades',
-    icon: 'inv_throwingknife_07',
-  },
   SHELLSHOCK: {
     id: 274357,
     name: 'Shellshock',
@@ -823,11 +818,6 @@ export default {
     id: 274432,
     name: 'Solitary Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-  },
-  SOOTHING_WATERS: {
-    id: 272989,
-    name: 'Soothing Waters',
-    icon: 'spell_nature_healingwavegreater',
   },
   SOUL_FROM_THROS: {
     id: 273825,

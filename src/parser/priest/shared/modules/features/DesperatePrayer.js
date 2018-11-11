@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -57,7 +57,7 @@ class DesperatePrayer extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         value={`${this.desperatePrayerUsages.length}`}
         label={`Desperate Prayer Usage(s)`}
         icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
@@ -82,7 +82,7 @@ class DesperatePrayer extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

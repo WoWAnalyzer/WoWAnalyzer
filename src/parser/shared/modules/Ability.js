@@ -110,13 +110,17 @@ class Ability {
      * The ability's primary coefficient for calculating its damage or healing from the player's attackpower or spellpower.
      */
     primaryCoefficient: PropTypes.number,
+    /**
+     * An array of healing effects that this spell cast causes.
+     */
+    healSpellIds: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;
 
   spell = null;
   get primarySpell() {
-    if(this.spell instanceof Array) {
+    if (this.spell instanceof Array) {
       return this.spell[0];
     } else {
       return this.spell;

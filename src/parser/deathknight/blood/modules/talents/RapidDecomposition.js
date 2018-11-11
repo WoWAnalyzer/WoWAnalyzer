@@ -3,7 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class RapidDecomposition extends Analyzer {
 
@@ -31,7 +32,8 @@ class RapidDecomposition extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.RAPID_DECOMPOSITION_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
         label="Rapid Decomposition"
@@ -40,8 +42,6 @@ class RapidDecomposition extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
-
 }
 
 export default RapidDecomposition;

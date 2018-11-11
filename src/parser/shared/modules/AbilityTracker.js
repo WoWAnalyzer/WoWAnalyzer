@@ -58,6 +58,12 @@ class HealingTracker extends AbilityTracker {
   on_byPlayer_absorbed(event) {
     this.on_byPlayer_heal(event);
   }
+  on_byPlayerPet_heal(event) {
+    this.on_byPlayer_heal(event);
+  }
+  on_byPlayerPet_absorbed(event) {
+    this.on_byPlayer_heal(event);
+  }
 }
 class DamageTracker extends HealingTracker {
   on_byPlayer_damage(event) {

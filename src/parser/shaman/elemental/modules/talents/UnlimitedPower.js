@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import UnlimitedPowerTimesByStacks from 'parser/shaman/elemental/modules/talents/UnlimitedPowerTimesByStacks';
 
 const HASTE_PER_STACK = 0.02;
@@ -37,7 +37,7 @@ class UnlimitedPower extends Analyzer {
   statistic() {
 
       return (
-        <ExpandableStatisticBox
+        <StatisticBox
           icon={<SpellIcon id={SPELLS.UNLIMITED_POWER_TALENT.id} />}
           value={`${formatPercentage(this.averageHaste)} %`}
           label={`Unlimited Power Average Haste Gain (Uptime ${formatPercentage(this.uptime)}%) `}
@@ -60,7 +60,7 @@ class UnlimitedPower extends Analyzer {
               ))}
             </tbody>
           </table>
-        </ExpandableStatisticBox>
+        </StatisticBox>
 
       );
   }
