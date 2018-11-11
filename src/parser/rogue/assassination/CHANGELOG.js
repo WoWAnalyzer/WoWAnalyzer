@@ -7,6 +7,11 @@ import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-09'),
+    changes: <>Added <SpellLink id={SPELLS.POISON_BOMB_TALENT.id} /> module and updated <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> and <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> modules.</>,
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-11-11'),
     changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
     contributors: [Aelexe],
