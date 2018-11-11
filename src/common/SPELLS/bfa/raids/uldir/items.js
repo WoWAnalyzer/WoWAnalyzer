@@ -29,6 +29,11 @@ export default {
   },
 
   //Zek'voz
+  VOIDED_SECTORS: { // Disc of Systematic Regression
+    id: 278153,
+    name: 'Voided Sector',
+    icon: 'creatureportrait_nexus_floating_disc',
+  },
 
   //Vectis
   MUTATING_ANTIBODY: {

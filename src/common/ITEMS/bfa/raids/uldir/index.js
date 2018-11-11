@@ -28,6 +28,12 @@ export default {
   },
 
   //Zek'voz
+  DISC_OF_SYSTEMATIC_REGRESSION: {
+    id: 160650,
+    name: 'Disc of Systematic Regression',
+    icon: 'creatureportrait_nexus_floating_disc',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 
   //Vectis
   INOCULATING_EXTRACT: {
