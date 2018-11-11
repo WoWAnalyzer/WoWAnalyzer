@@ -72,7 +72,14 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             thresholds={thresholds.consecration}
           />
         </Rule>
-        <Rule name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}>
+        <Rule 
+          name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}
+          description={( 
+            <>
+            Using <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
+            </> 
+          )}
+        >
           <AbilityRequirement name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>} 
             spell={this.props.extras.lotpAbility.id} />
           <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
