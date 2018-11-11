@@ -3,9 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { tsabo, Cloake, Zerotorescue, Gebuz } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
+    contributors: [Aelexe],
+  },
   {
     date: new Date('2018-11-05'),
     changes: 'Updated resource tracking to display percent instead of per minute, and added spenders to the energy tab.',
