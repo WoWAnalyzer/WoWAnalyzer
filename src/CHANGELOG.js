@@ -9,11 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-<<<<<<< HEAD
-    date: new Date('2018-11-10'),
+    date: new Date('2018-11-11'),
     changes: <>Added <ItemLink id={ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id} /> module.</>,
     contributors: [Matardarix],
-=======
+  },
+  {
     date: new Date('2018-11-11'),
     changes: <>Added <ItemLink id={ITEMS.MYDAS_TALISMAN.id} /> module.</>,
     contributors: [Aelexe],
@@ -22,7 +22,6 @@ export default [
     date: new Date('2018-11-10'),
     changes: <>Added <ItemLink id={ITEMS.ROTCRUSTED_VOODOO_DOLL.id} /> module.</>,
     contributors: [jos3p],
->>>>>>> upstream/master
   },
   {
     date: new Date('2018-11-09'),
