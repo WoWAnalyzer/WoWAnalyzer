@@ -18,6 +18,7 @@ class ExecuteRangeTracker extends Analyzer {
   isExecPhase = false;
   execPhaseStart = 0;
   execPhaseDuration = 0;
+  lastHitInExecPhase = 0;
 
   on_byPlayer_damage(event) {
     if(event.targetIsFriendly) {
@@ -26,12 +27,16 @@ class ExecuteRangeTracker extends Analyzer {
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     this.enemyMap[targetString] = event.hitPoints / event.maxHitPoints <= this.execRange;
 
+    if (this.isTargetInExecuteRange(event)) {
+      this.lastHitInExecPhase = event.timestamp;
+    }
+
     if (this.isTargetInExecuteRange(event) && !this.isExecPhase) {
       this.isExecPhase = true;
       this.execPhaseStart = event.timestamp;
     }
 
-    if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.execPhaseStart + 2000) {
+    if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.lastHitInExecPhase + 2000) {
       this.isExecPhase = false;
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
     }
