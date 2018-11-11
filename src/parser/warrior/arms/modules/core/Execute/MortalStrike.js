@@ -43,9 +43,10 @@ class MortalStrikeAnalyzer extends Analyzer {
   get goodMortalStrikeThresholds() {
     const cd = this.abilities.getAbility(SPELLS.MORTAL_STRIKE.id).cooldown;
     const max = calculateMaxCasts(cd, this.owner.fightDuration - this.executeRange.executionPhaseDuration());
+    const maxCast = this.mortalStrikesOutsideExecuteRange / max > 1 ? this.mortalStrikesOutsideExecuteRange : max;
       
     return {
-      actual: this.mortalStrikesOutsideExecuteRange / max,
+      actual: this.mortalStrikesOutsideExecuteRange / maxCast,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
@@ -58,9 +59,10 @@ class MortalStrikeAnalyzer extends Analyzer {
   get badMortalStrikeThresholds() {
     const cd = this.abilities.getAbility(SPELLS.MORTAL_STRIKE.id).cooldown;
     const max = calculateMaxCasts(cd, this.executeRange.executionPhaseDuration());
+    const maxCast = this.mortalStrikesInExecuteRange / max > 1 ? this.mortalStrikesInExecuteRange : max;
 
     return {
-      actual: this.mortalStrikesInExecuteRange / max,
+      actual: this.mortalStrikesInExecuteRange / maxCast,
       isGreaterThan: {
         minor: 0,
         average: 0.05,
