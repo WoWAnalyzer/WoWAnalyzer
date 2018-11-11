@@ -22,12 +22,12 @@ const COLORS = {
 
 class StaggerGraph extends React.Component {
   static propTypes = {
-    stagger: PropTypes.array.required,
-    hp: PropTypes.array.required,
-    maxHp: PropTypes.array.required,
-    purifies: PropTypes.array.required,
-    deaths: PropTypes.array.required,
-    startTime: PropTypes.number.required,
+    stagger: PropTypes.array.isRequired,
+    hp: PropTypes.array.isRequired,
+    maxHp: PropTypes.array.isRequired,
+    purifies: PropTypes.array.isRequired,
+    deaths: PropTypes.array.isRequired,
+    startTime: PropTypes.number.isRequired,
   };
 
   state = {
