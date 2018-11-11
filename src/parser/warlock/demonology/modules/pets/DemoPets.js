@@ -11,6 +11,7 @@ import PETS from './PETS';
 import { SUMMON_TO_SPELL_MAP } from './CONSTANTS';
 
 const BUFFER = 150;
+const DEMONIC_POWER_DURATION = 15000;
 const debug = true;
 const test = true;
 
@@ -27,6 +28,7 @@ class DemoPets extends Analyzer {
     x: 0,
     y: 0,
   };
+  _lastDemonicTyrantCast = null;
   _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
   _petsAffectedByDemonicTyrant = []; // dynamic because of talents
 
@@ -75,7 +77,7 @@ class DemoPets extends Analyzer {
     }
     test && this.log('Pet summoned', pet);
     this.timeline.addPet(pet);
-    pet.pushHistory('Summoned', event);
+    pet.pushHistory(event.timestamp, 'Summoned', event);
     if (this._getSummonSpell(event) === SPELLS.INNER_DEMONS_TALENT.id) {
       this._lastIDtick = event.timestamp;
     }
@@ -143,7 +145,7 @@ class DemoPets extends Analyzer {
       return;
     }
     imps[0].despawn(event.timestamp, DESPAWN_REASONS.IMPLOSION);
-    imps[0].pushHistory('Killed by Implosion', event);
+    imps[0].pushHistory(event.timestamp, 'Killed by Implosion', event);
   }
 
   on_byPlayerPet_cast(event) {
@@ -169,13 +171,32 @@ class DemoPets extends Analyzer {
     const oldEnergy = pet.currentEnergy;
     const newEnergy = energyResource.amount - (energyResource.cost || 0); // if Wild Imp is extended by Demonic Tyrant, their casts are essentially free, and the 'cost' field is not present in the event
     pet.currentEnergy = newEnergy;
-    pet.pushHistory('Cast', event, 'old energy', oldEnergy, 'new energy', pet.currentEnergy);
+    pet.pushHistory(event.timestamp, 'Cast', event, 'old energy', oldEnergy, 'new energy', pet.currentEnergy);
 
     if (pet.currentEnergy === 0) {
       pet.despawn(event.timestamp, DESPAWN_REASONS.ZERO_ENERGY);
-      pet.pushHistory('Killed by 0 energy', event);
-      this.log('Despawning Wild Imp', pet);
+      pet.pushHistory(event.timestamp, 'Killed by 0 energy', event);
+      test && this.log('Despawning Wild Imp', pet);
     }
+  }
+
+  on_toPlayer_removebuff(event) {
+    if (event.ability.guid !== SPELLS.DEMONIC_POWER.id) {
+      return;
+    }
+    // Demonic Tyrant effect faded, update imps' expected despawn
+    this._demonicTyrantBuffEnd = event.timestamp;
+    const actualBuffTime = event.timestamp - this._lastDemonicTyrantCast;
+    this.currentPets
+      .filter(pet => this._wildImpIds.includes(pet.id))
+      .forEach(imp => {
+        // original duration = spawn + 15
+        // extended duration on DT cast = (spawn + 15) + 15
+        // real duration = (spawn + 15) + actualBuffTime
+        const old = imp.expectedDespawn;
+        imp.expectedDespawn = imp.spawn + PETS.WILD_IMP_HOG.duration + actualBuffTime;
+        imp.pushHistory(event.timestamp, 'Updated expected despawn from', old, 'to', imp.expectedDespawn);
+      });
   }
 
   // to update player position more accurately (based on DistanceMoved)
@@ -239,7 +260,7 @@ class DemoPets extends Analyzer {
     }
     imps.forEach(imp => {
       imp.shouldImplode = true;
-      imp.pushHistory('Marked for implosion', event);
+      imp.pushHistory(event.timestamp, 'Marked for implosion', event);
     });
     this._lastImplosionCast = event.timestamp;
     this._implosionTargetsHit = [];
@@ -247,42 +268,43 @@ class DemoPets extends Analyzer {
 
   _handleDemonicTyrantCast(event) {
     // extend current pets (not random ones from ID/NP) by 15 seconds
+    this._lastDemonicTyrantCast = event.timestamp;
     const affectedPets = this.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
     test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
     affectedPets.forEach(pet => {
       pet.extend();
-      pet.pushHistory('Extended with Demonic Tyrant', event);
+      pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
       // if player has Demonic Consumption talent, kill all imps
       if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
         test && this.log('Wild Imp killed because Demonic Consumption', pet);
         pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
-        pet.pushHistory('Killed by Demonic Consumption', event);
+        pet.pushHistory(event.timestamp, 'Killed by Demonic Consumption', event);
       }
     });
-    this.log('Pets after Demonic Tyrant cast', JSON.parse(JSON.stringify(this.currentPets)));
+    test && this.log('Pets after Demonic Tyrant cast', JSON.parse(JSON.stringify(this.currentPets)));
   }
 
   _handlePowerSiphonCast(event) {
     if (!event.activeImpsAfterCast || event.activeImpsAfterCast.length === 0) {
-      this.error('Power Siphon cast didn\'t have any active imps after cast', event);
+      debug && this.error('Power Siphon cast didn\'t have any active imps after cast', event);
     }
     const currentImps = this.currentPets
       .filter(pet => this._wildImpIds.includes(pet.id) && !pet.shouldImplode)
       .sort((imp1, imp2) => (imp1.currentEnergy - imp2.currentEnergy) || (imp1.spawn - imp2.spawn));
     const filtered = currentImps
       .filter(imp => !event.activeImpsAfterCast.includes(encodeTargetString(imp.id, imp.instance)));
-    this.log('POWER SIPHON cast', event.timestamp, ', current imps, sorted', JSON.parse(JSON.stringify(currentImps)));
-    this.log('Imps that AREN\'T active after PS cast, sorted', JSON.parse(JSON.stringify(filtered)));
+    test && this.log('POWER SIPHON cast', event.timestamp, ', current imps, sorted', JSON.parse(JSON.stringify(currentImps)));
+    test && this.log('Imps that AREN\'T active after PS cast, sorted', JSON.parse(JSON.stringify(filtered)));
     // doesn't really make sense - sometimes you have loads of imps to sacrifice, but it doesn't pick them (because they're active after the cast)
     if (filtered.length === 0) {
       // game won't let you cast Power Siphon without available Wild Imps, if cast went through and we don't have Imps, we've done something wrong
-      this.error('Something wrong, no Imps found on Power Siphon cast');
+      debug && this.error('Something wrong, no Imps found on Power Siphon cast');
       return;
     }
     filtered.slice(0, 2).forEach(imp => {
       imp.despawn(event.timestamp, DESPAWN_REASONS.POWER_SIPHON);
-      imp.pushHistory('Killed by Power Siphon', event);
-      this.log(`Despawning imp`, imp);
+      imp.pushHistory(event.timestamp, 'Killed by Power Siphon', event);
+      test && this.log(`Despawning imp`, imp);
     });
   }
 
@@ -327,6 +349,13 @@ class DemoPets extends Analyzer {
     if (!PETS[pet.guid]) {
       debug && this.error('Encountered pet unknown to PET_INFO.js', pet);
       return -1;
+    }
+    // for imps, take Demonic Tyrant in consideration
+    // if player doesn't have the buff, it's 15 seconds
+    if (this._wildImpIds.includes(pet.id) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id)) {
+      // if player has the buff, it takes the remaining buff time + 15 seconds
+      const remainingBuffTime = (this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION) - this.owner.currentTimestamp;
+      return PETS[pet.guid].duration + remainingBuffTime;
     }
     return PETS[pet.guid].duration;
   }

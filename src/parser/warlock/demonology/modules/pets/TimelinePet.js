@@ -63,6 +63,7 @@ export class TimelinePet {
   }
 
   extend() {
+    // ASSUME full duration, but it gets updated for Wild Imps, on Demonic Power buff remove (their extend mechanic works differently)
     this.expectedDespawn += DEMONIC_TYRANT_EXTENSION;
   }
 }
