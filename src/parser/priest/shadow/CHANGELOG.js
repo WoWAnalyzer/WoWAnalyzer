@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-08'),
+    changes: <>Added <SpellLink id={SPELLS.DARK_VOID_TALENT.id} />.</>,
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2018-11-07'),
     changes: <>Fixed the last proc of <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> in the checklist. Added azerite trait <SpellLink id={SPELLS.CHORUS_OF_INSANITY.id} />.</>,
     contributors: [Khadaj],

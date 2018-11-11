@@ -58,6 +58,16 @@ class AssassinationRogueChecklist extends React.PureComponent {
         >
           <Requirement name="Energy efficiency" thresholds={thresholds.energyEfficiency} />
           <Requirement name="Combo Point efficiency" thresholds={thresholds.comboPointEfficiency} />
+          {combatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> efficiency
+                </>
+              )}
+              thresholds={thresholds.blindsideEfficiency}
+            />
+          )}
         </Rule>
         <Rule
           name="Use your cooldowns"

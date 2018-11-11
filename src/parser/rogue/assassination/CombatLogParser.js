@@ -31,6 +31,7 @@ import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
 //Talents
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
+import MasterPoisoner from './modules/talents/MasterPoisoner';
 import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     blindside: Blindside,
     elaboratePlanning: ElaboratePlanning,
+    masterPoisoner: MasterPoisoner,
     nightstalker: Nightstalker,
     subterfuge: Subterfuge,
     masterAssassin: MasterAssassin,
