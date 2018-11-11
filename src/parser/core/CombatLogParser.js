@@ -66,6 +66,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 // Dungeons
+import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from '../shared/modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
@@ -201,6 +202,7 @@ class CombatLogParser {
     firstMatesSpyglass: FirstMatesSpyglass,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
+    mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,

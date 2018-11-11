@@ -34,6 +34,16 @@ export default {
   },
 
   // Atal'Dazar
+  TOUCH_OF_GOLD: { // My'das Talisman
+    id: 265954,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
+  TOUCH_OF_GOLD_DAMAGE: { // My'das Talisman
+    id: 265953,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
   TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
     id: 266018,
     name: 'Touch of the Voodoo',
