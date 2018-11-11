@@ -8,6 +8,8 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/P
 import GarroteUptime from '../../spells/GarroteUptime';
 import RuptureUptime from '../../spells/RuptureUptime';
 
+import Blindside from '../../talents/Blindside';
+
 import EnergyDetails from '../../../../shared/resources/EnergyDetails';
 import ComboPointDetails from '../../../../shared/resources/ComboPointDetails';
 
@@ -21,6 +23,8 @@ class Checklist extends Analyzer {
 
     garroteUptime: GarroteUptime,
     ruptureUptime: RuptureUptime,
+
+    blindside: Blindside,
 
     energyDetails: EnergyDetails,
     comboPointDetails: ComboPointDetails,
@@ -36,6 +40,9 @@ class Checklist extends Analyzer {
 
           garroteUptime: this.garroteUptime.suggestionThresholds,
           ruptureUptime: this.ruptureUptime.suggestionThresholds,
+
+          blindsideEfficiency: this.blindside.suggestionThresholds,
+
           energyEfficiency: this.energyDetails.suggestionThresholds,
           comboPointEfficiency: this.comboPointDetails.suggestionThresholds,
         }}

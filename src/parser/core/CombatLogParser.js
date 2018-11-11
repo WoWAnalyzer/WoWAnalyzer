@@ -66,6 +66,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 // Dungeons
+import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from '../shared/modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
@@ -76,6 +77,7 @@ import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoo
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
 import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
+import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
@@ -201,6 +203,7 @@ class CombatLogParser {
     firstMatesSpyglass: FirstMatesSpyglass,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
+    mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
@@ -210,6 +213,7 @@ class CombatLogParser {
     harlansLoadedDice: HarlansLoadedDice,
     lustrousGoldenPlumage: LustrousGoldenPlumage,
     rezansGleamingEye: RezansGleamingEye,
+    rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsBadge: DreadGladiatorsBadge,

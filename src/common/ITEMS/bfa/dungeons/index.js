@@ -39,6 +39,12 @@ export default {
   },
 
   // Atal'Dazar
+  MYDAS_TALISMAN: {
+    id: 158319,
+    name: 'My\'das Talisman',
+    icon: 'inv_offhand_draenei_a_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
   REVITALIZING_VOODOO_TOTEM: {
     id: 158320,
     name: 'Revitalizing Voodoo Totem',

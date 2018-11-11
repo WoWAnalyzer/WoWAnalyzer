@@ -11,6 +11,12 @@ export const blizzardApiResponseLatencyHistogram = new Prometheus.Histogram({
   labelNames: ['region', 'category', 'statusCode'],
 });
 
+export const warcraftLogsApiResponseLatencyHistogram = new Prometheus.Histogram({
+  name: 'warcraftlogs_api_response_latency',
+  help: 'The latency of responses from the Warcraft Logs API',
+  labelNames: ['category', 'statusCode'],
+});
+
 export function createServer() {
   const port = process.env.METRICS_PORT || 8000;
   http.createServer((req, res) => {
@@ -20,6 +26,7 @@ export function createServer() {
       res.setHeader('Content-Type', register.contentType);
       res.write(register.metrics());
       res.end();
+      return;
     }
     res.statusCode = 404;
     res.statusMessage = 'Not found';

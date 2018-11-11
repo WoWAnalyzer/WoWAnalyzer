@@ -1,5 +1,5 @@
-import request from 'request-promise-native';
-import { RequestError } from 'request-promise-native/errors';
+import request from 'helpers/request';
+import RequestError from 'helpers/request/RequestError';
 
 import sleep from './sleep';
 

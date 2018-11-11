@@ -17,8 +17,33 @@ export default {
     name: 'Lingering Spore Pods',
     icon: 'spell_druid_wildmushroom_frenzy',
   },
+  ROTCRUSTED_VOODOO_DOLL_BUFF: {
+    id: 271462,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
+  ROTCRUSTED_VOODOO_DOLL_TICK: {
+    id: 271465,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
+  ROTCRUSTED_VOODOO_DOLL_HIT: {
+    id: 271468,
+    name: 'Rotcrusted Voodoo Doll',
+    icon: 'inv_misc_primitive_toy05',
+  },
 
   // Atal'Dazar
+  TOUCH_OF_GOLD: { // My'das Talisman
+    id: 265954,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
+  TOUCH_OF_GOLD_DAMAGE: { // My'das Talisman
+    id: 265953,
+    name: 'Touch of Gold',
+    icon: 'inv_gauntlets_60',
+  },
   TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
     id: 266018,
     name: 'Touch of the Voodoo',
