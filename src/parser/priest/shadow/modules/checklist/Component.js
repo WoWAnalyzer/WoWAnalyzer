@@ -44,10 +44,16 @@ class ShadowPriestChecklist extends React.PureComponent {
       const requirements = [];
 
       for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex++) {
+        const thresholds = props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex]);
+        // If you end the fight in voidform, we want to mark that voidform as green.
+        if (props.voidform.voidforms[voidFormIndex].excluded) {
+          thresholds.isLessThan = { minor: 0 };
+        }
+
         requirements.push(<Requirement
           key={voidFormIndex}
           name={`Voidform #${voidFormIndex + 1} stacks`}
-          thresholds={props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex])}
+          thresholds={thresholds}
         />);
 
       }
