@@ -9,7 +9,7 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2018-11-09'),
+    date: new Date('2018-11-12'),
     changes: 'Added an AverageTargetsHit module for general usage.',
     contributors: [Putro],
   },
