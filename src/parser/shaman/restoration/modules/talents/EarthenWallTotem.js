@@ -32,7 +32,8 @@ class EarthenWallTotem extends Analyzer {
     this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_WALL_TOTEM_TALENT), this._onCast);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE), this._onTotemDamageTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE), this._updateTotemHealth);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_ABSORB), this._onAbsorbed);
   }
 
   _onCast(event) {
@@ -48,7 +49,7 @@ class EarthenWallTotem extends Analyzer {
     };
   }
 
-  _onTotemDamageTaken(event) {
+  _updateTotemHealth(event) {
     if (this.prePullCast) {
       this.earthenWallTotems[this.castNumber] = {
         potentialHealing: event.maxHitPoints, // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
@@ -64,8 +65,10 @@ class EarthenWallTotem extends Analyzer {
       this.isMaghar = true; // likely
       this.earthenWallTotems[this.castNumber].potentialHealing = event.maxHitPoints;
     }
+  }
 
-    this.earthenWallTotems[this.castNumber].effectiveHealing += event.amount + (event.absorbed || 0);
+  _onAbsorbed(event) {
+    this.earthenWallTotems[this.castNumber].effectiveHealing += event.amount;
   }
 
   get totalEffectiveHealing() {
@@ -102,7 +105,8 @@ class EarthenWallTotem extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         label={"Earthen Wall Totem efficiency"}
-        tooltip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.totalPotentialHealing)}, which absorbed a total of ${formatNumber(this.totalEffectiveHealing)} damage.`}
+        tooltip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.totalPotentialHealing)}, which absorbed a total of ${formatNumber(this.totalEffectiveHealing)} damage.<br/><br/>
+        This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.`}
       >
         <table className="table table-condensed">
           <thead>
