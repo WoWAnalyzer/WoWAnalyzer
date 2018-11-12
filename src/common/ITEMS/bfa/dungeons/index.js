@@ -64,6 +64,14 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
+  // The MOTHERLODE!!
+  AZEROKKS_RESONATING_HEART: {
+    id: 159612,
+    name: 'Azerokk\'s Resonating Heart',
+    icon: 'inv_enchant_shardshadowfrostlarge',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
   // Waycrest Manor
   BALEFIRE_BRANCH: {
     id: 159630,
