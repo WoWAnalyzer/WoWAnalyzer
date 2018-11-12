@@ -5,47 +5,41 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
+import { ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES } from '../../constants';
 
-const DAMAGE_BONUS = 0.1;
+const DAMAGE_BONUS = 0.3;
 
-class ElaboratePlanning extends Analyzer {
+class MasterPoisoner extends Analyzer {
 
   bonusDmg = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ELABORATE_PLANNING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_POISONER_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) || !ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.includes(spellId)) {
+    if (!ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES.includes(spellId)) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
-  }
-
-  get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ELABORATE_PLANNING_BUFF.id) / this.owner.fightDuration;
   }
 
   statistic() {
     return (
       <TalentStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.ELABORATE_PLANNING_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.MASTER_POISONER_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Elaborate Planning"
-        tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
+        label="Master Poisoner"
       />
     );
   }
 
 }
 
-export default ElaboratePlanning;
+export default MasterPoisoner;
