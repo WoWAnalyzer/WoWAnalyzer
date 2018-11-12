@@ -799,11 +799,6 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_shadowbolt',
   },
-  SHARPENED_BLADES: {
-    id: 272913,
-    name: 'Sharpened Blades',
-    icon: 'inv_throwingknife_07',
-  },
   SHELLSHOCK: {
     id: 274357,
     name: 'Shellshock',

@@ -16,8 +16,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) ? 0.7 : 0.6,
+          suggestion: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id) ? true : false,
+          recommendedEfficiency: 0.8,
         },
       },
       {

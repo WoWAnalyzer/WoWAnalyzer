@@ -45,7 +45,7 @@ class RuptureUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RUPTURE.id} />}
         value={`${formatPercentage(this.percentUptime)} %`}
-        label="Rupture Uptime"
+        label="Rupture uptime"
       />
     );
   }

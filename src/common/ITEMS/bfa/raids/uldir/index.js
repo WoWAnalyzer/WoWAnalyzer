@@ -28,12 +28,24 @@ export default {
   },
 
   //Zek'voz
+  DISC_OF_SYSTEMATIC_REGRESSION: {
+    id: 160650,
+    name: 'Disc of Systematic Regression',
+    icon: 'creatureportrait_nexus_floating_disc',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 
   //Vectis
   INOCULATING_EXTRACT: {
     id: 160649,
     name: "Inoculating Extract",
     icon: "inv_wand_29",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+  SYRINGE_OF_BLOODBORNE_INFIRMITY: {
+    id: 160655,
+    name: "Syringe of Bloodborne Infirmity",
+    icon: "trade_archaeology_bloodysatyrscepter",
     quality: ITEM_QUALITIES.PURPLE,
   },
   //Zul Reborn
