@@ -49,7 +49,7 @@ class Checklist extends Analyzer {
           nonHealingTime: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           wildGrowthRatio: this.wildGrowth.suggestionThresholds,
           wildGrowthPercentBelowRecommendedCasts: this.wildGrowth.suggestionpercentBelowRecommendedCastsThresholds,
-          wildGrowthPercentBelowRecommendedCasts2: this.wildGrowth.suggestionpercentBelowRecommendedCasts2Thresholds,
+          wildGrowthPercentBelowRecommendedPrecasts: this.wildGrowth.suggestionpercentBelowRecommendedPrecastsThresholds,
           lifebloomUpTime: this.lifebloom.suggestionThresholds,
           efflorescenceUpTime: this.efflorescence.suggestionThresholds,
           innervateAverageManaSaved: this.innervate.averageManaSavedSuggestionThresholds,

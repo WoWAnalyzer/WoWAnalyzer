@@ -143,7 +143,7 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  get suggestionpercentBelowRecommendedCasts2Thresholds() {
+  get suggestionpercentBelowRecommendedPrecastsThresholds() {
     return {
       actual: this.percentBelowRecommendedCasts2,
       isGreaterThan: {
@@ -156,7 +156,7 @@ class WildGrowth extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionpercentBelowRecommendedCasts2Thresholds)
+    when(this.suggestionpercentBelowRecommendedPrecastsThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your initial healing from <SpellLink id={SPELLS.WILD_GROWTH.id} /> were doing too much overhealing. <SpellLink id={SPELLS.WILD_GROWTH.id} /> does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs.
         </>)

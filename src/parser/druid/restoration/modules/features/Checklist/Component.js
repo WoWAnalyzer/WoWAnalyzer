@@ -75,8 +75,8 @@ class RestorationDruidChecklist extends React.PureComponent {
                 High initial overhealing <SpellLink id={SPELLS.WILD_GROWTH.id} />
               </>
             )}
-            tooltip="This is your percent of Wild Growth casts that has high initial overhealing. Wild Growh does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs."
-            thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts2} />
+            tooltip="This is your percent of Wild Growth casts that has high initial overhealing. Wild Growth does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs."
+            thresholds={thresholds.wildGrowthPercentBelowRecommendedPrecasts} />
         </Rule>
         <Rule
           name="Use your healing cooldowns"
