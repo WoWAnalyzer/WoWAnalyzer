@@ -68,7 +68,7 @@ class AnimalCompanion extends Analyzer {
               <th>Pet</th>
               <th>Damage</th>
               <th>DPS</th>
-              <th>Without AC</th>
+              <th>Main pet?</th>
             </tr>
           </thead>
           <tbody>
@@ -77,7 +77,7 @@ class AnimalCompanion extends Analyzer {
                 <td>{pet.petName}</td>
                 <td>{formatNumber(pet.damage)}</td>
                 <td>{formatNumber(pet.damage / (this.owner.fightDuration / 1000))}</td>
-                <td>{pet.petName === this.mainPetName ? formatNumber((pet.damage - this.packAlpha.packAlphaDamageContribution) * (5 / 3)) : 0}</td>
+                <td>{pet.petName === this.mainPetName ? 'Yes' : 'No'}</td>
               </tr>
             ))}
           </tbody>
