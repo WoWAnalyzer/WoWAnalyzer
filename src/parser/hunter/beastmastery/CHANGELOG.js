@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-11-13'),
-    changes: <> Implemented talent statistic module for <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} />. </>,
+    changes: <> Implemented talent statistic module for <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} /> & an azerite power module for <SpellLink id={SPELLS.PACK_ALPHA.id} />. </>,
     contributors: [Putro],
   },
   {
