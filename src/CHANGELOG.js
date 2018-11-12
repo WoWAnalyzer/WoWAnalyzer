@@ -9,9 +9,14 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2018-11-11'),
+    date: new Date('2018-11-12'),
     changes: 'Added an AverageTargetsHit module for general usage.',
     contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added <ItemLink id={ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id} /> module.</>,
+    contributors: [Matardarix],
   },
   {
     date: new Date('2018-11-11'),
