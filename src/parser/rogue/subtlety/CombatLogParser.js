@@ -30,6 +30,7 @@ import FindWeakness from "./modules/talents/FindWeakness";
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
+import Inevitability from './modules/azeritetraits/Inevitability';
 import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -75,7 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     findWeakness: FindWeakness,
 
     // Traits
-    SharpenedBlades: SharpenedBlades,
+    inevitability: Inevitability,
+    sharpenedBlades: SharpenedBlades,
   };
 }
 
