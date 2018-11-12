@@ -66,6 +66,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 // Dungeons
+import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from '../shared/modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
@@ -75,6 +76,8 @@ import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
+import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
+import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
@@ -119,6 +122,7 @@ import InoculatingExtract from '../shared/modules/items/bfa/raids/uldir/Inoculat
 import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticCorpuscle';
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
+import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -199,6 +203,7 @@ class CombatLogParser {
     firstMatesSpyglass: FirstMatesSpyglass,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
+    mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
@@ -207,6 +212,8 @@ class CombatLogParser {
     galecallersBoon: GalecallersBoon,
     harlansLoadedDice: HarlansLoadedDice,
     lustrousGoldenPlumage: LustrousGoldenPlumage,
+    rezansGleamingEye: RezansGleamingEye,
+    rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsBadge: DreadGladiatorsBadge,
@@ -252,6 +259,7 @@ class CombatLogParser {
     freneticCorpuscle: FreneticCorpuscle,
     constructOvercharger: ConstructOvercharger,
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
+    discOfSystematicRegression: DiscOfSystematicRegression,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

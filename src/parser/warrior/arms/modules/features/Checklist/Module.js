@@ -8,7 +8,8 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/P
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import DeepWoundsUptime from '../../core/Dots/DeepWoundsUptime';
 import RendUptime from '../../core/Dots/RendUptime';
-
+import MortalStrike from '../../core/Execute/MortalStrike';
+import ExecutionersPrecision from '../../spells/azeritetraits/ExecutionersPrecision';
 
 import Component from './Component';
 
@@ -21,6 +22,8 @@ class Checklist extends Analyzer {
 
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
+    mortalStrike: MortalStrike,
+    executionersPrecision: ExecutionersPrecision,
   };
 
   render() {
@@ -34,6 +37,9 @@ class Checklist extends Analyzer {
           deepWounds: this.deepWoundsUptime.suggestionThresholds,
           rend: this.rendUptime.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
+          badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
+          executionersPrecision: this.executionersPrecision.wastedExecutionersPrecisionTresholds,
         }}
       />
     );
