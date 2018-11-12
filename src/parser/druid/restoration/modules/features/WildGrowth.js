@@ -95,7 +95,7 @@ class WildGrowth extends Analyzer {
     return this.wgHits.filter(hits => hits < RECOMMENDED_HIT_THRESHOLD).length;
   }
 
-  get belowRecommendedCasts2() {
+  get belowRecommendedPrecasts() {
     return this.wgHistory.filter(wg => wg.badPrecast === true).length;
   }
 
@@ -115,8 +115,8 @@ class WildGrowth extends Analyzer {
     return (this.belowRecommendedCasts / this.wgs) || 0;
   }
 
-  get percentBelowRecommendedCasts2() {
-    return (this.belowRecommendedCasts2 / this.wgs) || 0;
+  get percentBelowRecommendedPrecasts() {
+    return (this.belowRecommendedPrecasts / this.wgs) || 0;
   }
 
   get suggestionThresholds() {
@@ -145,7 +145,7 @@ class WildGrowth extends Analyzer {
 
   get suggestionpercentBelowRecommendedPrecastsThresholds() {
     return {
-      actual: this.percentBelowRecommendedCasts2,
+      actual: this.percentBelowRecommendedPrecasts,
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
