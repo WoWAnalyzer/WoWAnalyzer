@@ -4,8 +4,8 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format'; 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class HealingWave extends Analyzer {
   static dependencies = {
@@ -28,7 +28,8 @@ class HealingWave extends Analyzer {
 
   _isInefficientCastEvent(event) {
     const hasTidalWave = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, -1);
-    if (hasTidalWave) {
+    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp, -1);
+    if (hasTidalWave || hasFlashFlood) {
       return false;
     }
 
@@ -51,7 +52,7 @@ class HealingWave extends Analyzer {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack is a lot more efficient compared to casting a full-length Healing Wave.';
+      event.meta.inefficientCastReason = 'Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.';
     }
   }
 

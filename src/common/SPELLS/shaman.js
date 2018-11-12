@@ -332,7 +332,7 @@ export default {
   },
   // Elemental Pet Spells
   WIND_GUST: {
-    id: 226180,
+    id: 157331,
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
@@ -346,7 +346,7 @@ export default {
     name: 'Call Lightning',
     icon: 'ability_vehicle_electrocharge',
   },
-  METEOR: {
+  FIRE_ELEMENTAL_METEOR: {
     id: 117588,
     name: 'Meteor',
     icon: 'spell_mage_meteor',
@@ -355,6 +355,11 @@ export default {
     id: 57984,
     name: 'Fire Elemental Fire Blast',
     icon: 'spell_fire_fireball',
+  },
+  FIRE_ELEMENTAL_IMMOLATE: {
+    id: 118297,
+    name: 'Fire Elemental Immolate',
+    icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
   ROCKBITER: {
@@ -602,6 +607,7 @@ export default {
     icon: 'spell_nature_healingwavegreater',
     manaCost: 5000,
     color: '#203755',
+    coefficient: 1.05,
   },
   HEALING_WAVE: {
     id: 77472,
@@ -609,13 +615,15 @@ export default {
     icon: 'spell_nature_healingwavelesser',
     manaCost: 1800,
     color: '#146585',
+    coefficient: 1.55,
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 4000,
+    manaCost: 3800,
     color: '#40b3bf',
+    coefficient: 1.43,
   },
   RIPTIDE: {
     id: 61295,
@@ -661,6 +669,7 @@ export default {
     id: 114942,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
+    coefficient: 0.24,
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -688,12 +697,12 @@ export default {
     name: 'Recall Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
   },
-  EARTHEN_SHIELD_TOTEM_ABSORB: {
+  EARTHEN_WALL_TOTEM_ABSORB: {
     id: 201633,
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
-  EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
+  EARTHEN_WALL_TOTEM_SELF_DAMAGE: {
     id: 201657,
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',

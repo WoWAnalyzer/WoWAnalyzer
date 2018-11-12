@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
@@ -182,6 +182,7 @@ class CastBehavior extends Analyzer {
         <div className="row">
           <StatisticsListBox
             title={<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</span>}
+            position={STATISTIC_ORDER.CORE(40)}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.twUsageRatioChart()}
@@ -198,7 +199,6 @@ class CastBehavior extends Analyzer {
       </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
 }
 
 export default CastBehavior;

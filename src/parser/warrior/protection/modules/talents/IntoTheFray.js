@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
@@ -13,7 +13,6 @@ const HASTE_PER_STACK = 3;
 //update haste per stack in ./core/Haste.js aswell
 
 class IntoTheFray extends Analyzer {
-
   buffStacks = [];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
@@ -83,7 +82,7 @@ class IntoTheFray extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.INTO_THE_FRAY_TALENT.id} />}
         value={`${this.averageHaste}%`}
         label="average haste gained"
@@ -106,7 +105,7 @@ class IntoTheFray extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

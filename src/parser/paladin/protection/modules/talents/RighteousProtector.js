@@ -2,8 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const REDUCTION_TIME = 3000; // ms
@@ -59,7 +59,7 @@ class RighteousProtector extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id} />}
         value={`${ this.avengingWrathReduced / 1000 } sec`}
-        label="cooldown reduction"
+        label="Righteous Protector CDR"
         tooltip={`
           Avenging Wrath reduction: ${ this.avengingWrathReduced / 1000 }s (${ this.avengingWrathReductionWasted / 1000 }s wasted)<br/>
           ${ lotpName } reduction: ${ (this.lightOfTheProtectorReduced / 1000).toFixed(0) }s (${ (this.lightOfTheProtectorReductionWasted / 1000).toFixed(0) }s wasted)

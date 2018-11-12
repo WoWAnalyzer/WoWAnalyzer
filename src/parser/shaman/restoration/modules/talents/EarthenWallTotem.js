@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -31,7 +31,7 @@ class EarthenWallTotem extends Analyzer {
   on_toPlayerPet_damage(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.EARTHEN_SHIELD_TOTEM_SELF_DAMAGE.id) {
+    if (spellId !== SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE.id) {
       return;
     }
 

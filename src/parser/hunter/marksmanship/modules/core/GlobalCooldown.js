@@ -1,8 +1,8 @@
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
-import StatTracker from 'parser/core/modules/StatTracker';
-import Channeling from 'parser/core/modules/Channeling';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus';
 import Abilities from '../Abilities';
 
@@ -30,7 +30,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return 0;
     }
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
-      return Math.max(MIN_GCD, (gcd * (1 - (STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.getSteadyFocusStacks))) / (1 + this.statTracker.currentHastePercentage));
+      const steadyFocusMultiplier = 1 - STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.steadyFocusStacks;
+      return Math.max(MIN_GCD, (gcd * steadyFocusMultiplier));
     }
     return Math.max(MIN_GCD, gcd);
   }

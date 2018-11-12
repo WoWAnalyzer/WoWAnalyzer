@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 class PrayerOfMending extends Analyzer {
   totalPoMHealing = 0;
   totalPoMOverhealing = 0;
+  totalPoMAbsorption = 0;
   pomCasts = 0;
   salvCasts = 0;
   pomHealTicks = 0;
@@ -29,6 +30,10 @@ class PrayerOfMending extends Analyzer {
     return this.totalPoMOverhealing / this.pomHealTicks;
   }
 
+  get averagePomTickAbsorption() {
+    return this.totalPoMAbsorption / this.pomHealTicks;
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -48,6 +53,7 @@ class PrayerOfMending extends Analyzer {
       this.pomHealTicks++;
       this.totalPoMHealing += event.amount || 0;
       this.totalPoMOverhealing += event.overheal || 0;
+      this.totalPoMAbsorption += event.absorbed || 0;
     }
     if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.pomTicksFromSalv += 2;

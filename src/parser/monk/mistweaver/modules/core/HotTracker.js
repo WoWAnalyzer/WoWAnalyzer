@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/core/modules/Combatants';
-import Haste from 'parser/core/modules/Haste';
+import Combatants from 'parser/shared/modules/Combatants';
+import Haste from 'parser/shared/modules/Haste';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 const PANDEMIC_FACTOR = 1.3;

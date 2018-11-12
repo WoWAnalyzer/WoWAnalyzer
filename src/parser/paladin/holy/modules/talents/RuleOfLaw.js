@@ -1,13 +1,13 @@
 import React from 'react';
+import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
-
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -33,22 +33,22 @@ class RuleOfLaw extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
-  statistic({ i18n }) {
+  statistic() {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(31)}
         icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label={i18n.t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`}
+        label={i18n._(t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`)}
       />
     );
   }

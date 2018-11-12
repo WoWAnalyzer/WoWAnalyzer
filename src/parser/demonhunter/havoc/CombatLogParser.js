@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import EyeBeamNormalizer from './normalizers/EyeBeam';
 import Channeling from './modules/core/Channeling';
@@ -55,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     moargBionicStabilizers: MoargBionicStabilizers,
     soulOfTheSlayer: SoulOfTheSlayer,
     angerOfTheHalfGiants: AngerOfTheHalfGiants,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

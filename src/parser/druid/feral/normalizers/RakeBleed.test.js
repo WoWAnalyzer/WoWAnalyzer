@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 import RakeBleed from './RakeBleed';
 
@@ -174,7 +174,7 @@ describe('Druid/Feral/Normalizers/RakeBleed', () => {
   ];
   reorderScenarios.forEach(scenario => {
     it(scenario.it, () => {
-      const parser = new RakeBleed();
+      const parser = new RakeBleed({});
       expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });

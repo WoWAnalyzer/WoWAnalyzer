@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import Abilities from 'parser/core/modules/Abilities';
-import Combatants from 'parser/core/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Abilities from 'parser/shared/modules/Abilities';
+import Combatants from 'parser/shared/modules/Combatants';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
-import Consecration from '../Consecration';
+import Consecration from '../../spells/Consecration';
 
 import Component from './Component';
 

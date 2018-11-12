@@ -4,10 +4,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
+import { i18n } from 'interface/RootLocalizationProvider';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import DocumentTitle from 'interface/common/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
@@ -111,7 +113,7 @@ class PlayerSelection extends React.PureComponent {
     });
   }
   renderLoading() {
-    return <ActivityIndicator text="Fetching player info..." />;
+    return <ActivityIndicator text={i18n._(t`Fetching player info...`)} />;
   }
   render() {
     const { report, fight, playerName, playerId } = this.props;
@@ -134,22 +136,22 @@ class PlayerSelection extends React.PureComponent {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
-          alert(`It appears like another "${playerName}" is in this log, please select the correct one`);
+          alert(i18n._(t`It appears like another "${playerName}" is in this log, please select the correct one`));
         } else if (!combatant) {
-          alert('Player data does not seem to be available for the selected player in this fight.');
+          alert(i18n._(t`Player data does not seem to be available for the selected player in this fight.`));
         } else if (!combatant.specID) {
-          alert('The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.');
+          alert(i18n._(t`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
         }
       }
       return (
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={`/report/${report.code}`} data-tip="Back to fight selection">
+              <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
               </Link>
             </div>
-            Player selection
+            <Trans>Player selection</Trans>
           </h1>
 
           <PlayerSelectionPanel
@@ -162,12 +164,12 @@ class PlayerSelection extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <>
         {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={`${getFightName(report, fight)} by ${player.name} in ${report.title}`} />
+        <DocumentTitle title={i18n._(t`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
 
         {this.props.children(player, combatant, combatants)}
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -42,8 +42,9 @@ class LazyLoadStatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { value, ...others } = this.props;
+    const { value, children, ...others } = this.props;
     delete others.loader;
+    delete others.children;
 
     return (
       <StatisticBox
@@ -51,7 +52,9 @@ class LazyLoadStatisticBox extends React.PureComponent {
         value={this.state.loaded ? value : (this.state.loading ? 'Loading...' : 'Click to load')}
         style={{ cursor: this.state.loaded ? undefined : 'pointer' }}
         {...others}
-      />
+      >
+        {this.state.loaded ? children : null}
+      </StatisticBox>
     );
   }
 }

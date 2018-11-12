@@ -1,5 +1,5 @@
 import React from 'react';
-import CoreChanneling from 'parser/core/modules/Channeling';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -16,6 +16,7 @@ class SoothingMist extends Analyzer {
 
   soomTicks = 0;
   gustProc = 0;
+  gustHealing = 0;
   lastSoomTickTimestamp = 0;
 
   on_byPlayer_heal(event) {
@@ -28,6 +29,7 @@ class SoothingMist extends Analyzer {
 
     if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp) {
       this.gustProc += 1;
+      this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -55,9 +57,9 @@ class SoothingMist extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest) => {
         return suggest(
-          <React.Fragment>
+          <>
             You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.SOOTHING_MIST.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);

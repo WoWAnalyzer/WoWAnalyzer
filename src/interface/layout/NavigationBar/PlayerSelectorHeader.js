@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Trans } from '@lingui/macro';
 
 import { getCombatants } from 'interface/selectors/combatants';
 import { getReport } from 'interface/selectors/report';
@@ -29,12 +30,12 @@ class PlayerSelectorHeader extends SelectorBase {
 
     return (
       <div ref={this.ref} {...others}>
-        <a onClick={this.handleClick}>{selectedPlayerName}</a>
+        <a onClick={this.handleClick}>{selectedPlayerName}</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
         {this.state.show && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
-                <h2>Select the player you wish to analyze</h2>
+                <h2><Trans>Select the player you wish to analyze</Trans></h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
                 <PlayerSelectionPanelList

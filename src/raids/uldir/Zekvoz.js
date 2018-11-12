@@ -12,9 +12,9 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks:{
-      VoidLash: 265264,
-      Shatter: 265237,
-    },
+    softMitigationChecks: [
+      265264, // VoidLash
+      265237, // Shatter
+    ],
   },
 };

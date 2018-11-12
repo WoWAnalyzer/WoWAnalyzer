@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -29,7 +29,7 @@ class SunfireUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</React.Fragment>)
+      return suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
         .icon(SPELLS.SUNFIRE.icon)
         .actual(`${formatPercentage(actual)}% Sunfire uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

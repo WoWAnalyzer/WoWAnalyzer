@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -67,9 +67,9 @@ class Haunt extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.HAUNT_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Haunt uptime.`)
@@ -80,11 +80,17 @@ class Haunt extends Analyzer {
   subStatistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <StatisticListBoxItem
-        title={<React.Fragment><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</React.Fragment>}
-        value={`${formatPercentage(this.uptime)} %`}
-        valueTooltip={`Your Haunt talent contributed ${formatThousands(this.bonusDmg)} total damage with its 10% damage buff (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total damage done). You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
-      />
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</>}
+          value={`${formatPercentage(this.uptime)} %`}
+        />
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> bonus damage</>}
+          value={formatThousands(this.bonusDmg)}
+          valueTooltip={`${this.owner.formatItemDamageDone(this.bonusDmg)}<br />You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
+        />
+      </>
     );
   }
 }

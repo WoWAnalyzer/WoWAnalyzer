@@ -8,11 +8,12 @@ object looks like:
   "263962": { // spell ID
     "name": "Resounding Protection", // spell name
     "effect_list": [
-      707038 // id of spell effects -- currently unused
+      707038 // id of spell effects -- used for consistent sorting
     ],
     "scaling_type": -1, // the scaling type used, typically either -1, -7, or -8
     "effects": {
       "707038": {
+        "type": 4, // certain effect types (aka 189) have distinct scaling types
         "avg": 10.883929 // effect scale factor
       }
     }

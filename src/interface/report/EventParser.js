@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
+import sleep from 'common/sleep';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { setReportProgress } from 'interface/actions/reportProgress';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 
-import Odyn from './Results/images/odyn.jpg';
+import Ghuun from './images/Ghuun.gif';
 import handleApiError from './handleApiError';
 import './EventParser.css';
 
@@ -25,6 +26,7 @@ const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
 const CHINESE_REGION = 'cn';
+const BENCHMARK = false;
 
 class EventParser extends React.PureComponent {
   static propTypes = {
@@ -136,7 +138,9 @@ class EventParser extends React.PureComponent {
       // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
       events = events.filter(event => event.type !== 'combatantinfo');
       events = parser.normalize(events);
-      this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
+      if (!BENCHMARK) {
+        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
+      }
 
       const numEvents = events.length;
       // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -150,14 +154,16 @@ class EventParser extends React.PureComponent {
         }
 
         const start = Date.now();
-        while (((Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
+        while ((BENCHMARK || (Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
           parser.triggerEvent(events[eventIndex]);
           eventIndex += 1;
         }
         const progress = Math.min(1, eventIndex / numEvents);
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        // Delay the next iteration until next frame so the browser doesn't appear to be frozen
-        await this.timeout(0); // eslint-disable-line no-await-in-loop
+        if (!BENCHMARK) {
+          this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+          // Delay the next iteration until next frame so the browser doesn't appear to be frozen
+          await sleep(0); // eslint-disable-line no-await-in-loop
+        }
       }
       timeAvailable && console.timeEnd('player event parsing');
 
@@ -191,7 +197,7 @@ class EventParser extends React.PureComponent {
       const progress = Math.min(1, step * stepInterval / expectedDuration);
       this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress));
       // eslint-disable-next-line no-await-in-loop
-      await this.timeout(stepInterval);
+      await sleep(stepInterval);
       step += 1;
     }
   }
@@ -238,9 +244,6 @@ class EventParser extends React.PureComponent {
       this.setState(newState, resolve);
     });
   }
-  timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
   reset() {
     this.setState({
@@ -279,7 +282,7 @@ class EventParser extends React.PureComponent {
       <div className="event-parser-loading-text">
         <Trans>Loading...</Trans><br /><br />
 
-        <img src={Odyn} alt="Odyn" style={{ maxWidth: 300 }} />
+        <img src={Ghuun} alt="Ghuun" style={{ transform: 'scaleX(-1)' }} />
       </div>
     );
   }

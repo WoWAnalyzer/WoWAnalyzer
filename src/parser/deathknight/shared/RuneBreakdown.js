@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
-import ResourceBreakdown from 'parser/core/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.

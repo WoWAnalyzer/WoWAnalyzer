@@ -14,6 +14,7 @@ class HolyWordSalvation extends Analyzer {
   salvTicks = 0;
   healingFromSalv = 0;
   overhealingFromSalv = 0;
+  absorptionFromSalv = 0;
 
   static dependencies = {
     renew: Renew,
@@ -21,11 +22,19 @@ class HolyWordSalvation extends Analyzer {
   };
 
   get renewCount() {
-    return this.renew.renewsFromSalv;
+    return this.renew.renewsFromSalvation;
   }
 
   get healingFromRenew() {
     return this.renew.healingFromRenew(this.renewCount);
+  }
+
+  get overHealingFromRenew() {
+    return this.renew.overhealingFromRenew(this.renewCount);
+  }
+
+  get absorptionFromRenew() {
+    return this.renew.absorptionFromRenew(this.renewCount);
   }
 
   get pomCount() {
@@ -36,8 +45,24 @@ class HolyWordSalvation extends Analyzer {
     return this.prayerOfMending.averagePomTickHeal * this.pomCount;
   }
 
+  get overHealingFromPom() {
+    return this.prayerOfMending.averagePomTickOverheal * this.pomCount;
+  }
+
+  get absorptionFromPom() {
+    return this.prayerOfMending.averagePomTickAbsorption * this.pomCount;
+  }
+
   get totalHealing() {
     return this.healingFromSalv + this.healingFromRenew + this.healingFromPom;
+  }
+
+  get totalOverHealing() {
+    return this.overhealingFromSalv + this.overHealingFromRenew + this.overHealingFromPom;
+  }
+
+  get totalAbsorbed() {
+    return this.absorptionFromSalv + this.absorptionFromRenew + this.absorptionFromPom;
   }
 
   constructor(...args) {
@@ -51,6 +76,7 @@ class HolyWordSalvation extends Analyzer {
     if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.healingFromSalv += event.amount | 0;
       this.overhealingFromSalv += event.overhealing | 0;
+      this.absorptionFromSalv += event.absorbed || 0;
       this.salvTicks += 1;
     }
   }

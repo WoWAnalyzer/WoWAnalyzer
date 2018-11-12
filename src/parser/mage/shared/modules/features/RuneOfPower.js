@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -78,7 +78,7 @@ class RuneOfPower extends Analyzer {
     if (this.showSuggestion) {
       when(this.damageSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</React.Fragment>)
+          return suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
             .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
@@ -87,7 +87,7 @@ class RuneOfPower extends Analyzer {
     if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</React.Fragment>)
+          return suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .actual(`Average ${this.roundedSecondsPerCast}s standing in each Rune of Power`)
             .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`);
@@ -100,7 +100,7 @@ class RuneOfPower extends Analyzer {
   statistic() {
     if (!this.showStatistic) return null;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}

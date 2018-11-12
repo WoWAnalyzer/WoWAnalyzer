@@ -10,6 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 const debug = false;
 const LOW_HEALTH_HEALING_THRESHOLD = 0.3;
 const MS_BUFFER = 123;
+const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 class Clearcasting extends Analyzer {
 
@@ -25,6 +26,7 @@ class Clearcasting extends Analyzer {
   nonCCRegrowths = 0;
   totalRegrowths = 0;
   lowHealthRegrowthsNoCC = 0;
+  abundanceRegrowthsNoCC = 0;
 
   constructor(...args) {
     super(...args);
@@ -82,6 +84,10 @@ class Clearcasting extends Analyzer {
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
       this.nonCCRegrowths += 1;
+      const abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
+      if (abundance) {
+        this.abundanceRegrowthsNoCC += abundance.stacks >= ABUNDANCE_EXCEPTION_STACKS;
+      }
     }
   }
 
@@ -124,7 +130,7 @@ class Clearcasting extends Analyzer {
   }
 
   get nonCCRegrowthsPerMinute() {
-    return (this.nonCCRegrowths - this.lowHealthRegrowthsNoCC) / (this.owner.fightDuration / 60000);
+    return (this.nonCCRegrowths - (this.lowHealthRegrowthsNoCC + this.abundanceRegrowthsNoCC)) / (this.owner.fightDuration / 60000);
   }
 
   get nonCCRegrowthsSuggestionThresholds() {
@@ -142,14 +148,14 @@ class Clearcasting extends Analyzer {
   suggestions(when) {
     when(this.clearcastingUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
           .icon(SPELLS.CLEARCASTING_BUFF.icon)
           .actual(`You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`)
           .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`);
       });
     when(this.nonCCRegrowthsSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</React.Fragment>)
+        return suggest(<><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</>)
           .icon(SPELLS.REGROWTH.icon)
           .actual(`You cast ${this.nonCCRegrowthsPerMinute.toFixed(1)} Regrowths per minute without a Clearcasting proc.`)
           .recommended(`${recommended.toFixed(1)} CPM is recommended`);
@@ -169,7 +175,8 @@ class Clearcasting extends Analyzer {
               <li>Expired: <b>${this.expiredProcs}</b></li>
             </ul>
             <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</b>
-            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health, so they have been disregarded as bad Regrowth(s).
+            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health and
+            <b>${this.abundanceRegrowthsNoCC}</b> of these were cast with more than ${ABUNDANCE_EXCEPTION_STACKS} stacks of abundance, so they have been disregarded as bad Regrowth(s).
             Using a clearcasting proc as soon as you get it should be one of your top priorities.
             Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
             Spending your GCD on a free spell also helps with mana management in the long run.<br />

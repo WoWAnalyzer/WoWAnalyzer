@@ -97,7 +97,7 @@ describe('Paladin/Holy/Normalizers/BeaconOfVirtue', () => {
 
   reorderScenarios.forEach(scenario => {
     it(scenario.it, () => {
-      const parser = new BeaconOfVirtue();
+      const parser = new BeaconOfVirtue({});
       expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });

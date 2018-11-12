@@ -1,5 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 import Haste from './modules/core/Haste';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
@@ -8,7 +8,7 @@ import LunarEmpowermentNormalizer from './normalizers/LunarEmpowermentNormalizer
 import SolarEmpowermentNormalizer from './normalizers/SolarEmpowermentNormalizer';
 
 //Features
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/Checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from './modules/features/CancelledCasts';
 import Abilities from './modules/Abilities';

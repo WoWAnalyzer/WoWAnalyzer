@@ -1,38 +1,43 @@
 import React from 'react';
 
-import { Oratio, Reglitch, Zerotorescue } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue, niseko } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-17'),
+    changes: `The Atonement sources tab should no longer display spells that do not cause atonement healing.`,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-09-14'),
-    changes: <React.Fragment>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</React.Fragment>,
+    changes: <>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-07-31'),
-    changes: <React.Fragment>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</React.Fragment>,
+    changes: <>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</>,
     contributors: [Oratio],
   },
   {
     date: new Date('2018-07-26'),
-    changes: <React.Fragment>Added support for the new <SpellLink id={SPELLS.PENANCE_CAST.id} /> event, thanks Blizzard.</React.Fragment>,
+    changes: <>Added support for the new <SpellLink id={SPELLS.PENANCE_CAST.id} /> event, thanks Blizzard.</>,
     contributors: [Reglitch],
   },
   {
     date: new Date('2018-07-19'),
-    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> bug.</React.Fragment>,
+    changes: <>Fixed <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> bug.</>,
     contributors: [Oratio],
   },
   {
     date: new Date('2018-07-24'),
-    changes: <React.Fragment>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />.</React.Fragment>,
+    changes: <>Fix crash when using <SpellLink id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />.</>,
     contributors: [Reglitch],
   },
   {
     date: new Date('2018-07-18'),
-    changes: <React.Fragment>Now with 100% more Batle for Azeroth.</React.Fragment>,
+    changes: <>Now with 100% more Batle for Azeroth.</>,
     contributors: [Reglitch],
   },
 ];

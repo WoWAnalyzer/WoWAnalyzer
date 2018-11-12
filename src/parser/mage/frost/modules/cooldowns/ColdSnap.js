@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 const ABILITY_RESETS = [
 	SPELLS.ICE_BARRIER.id,
@@ -10,19 +12,23 @@ const ABILITY_RESETS = [
   ];
 
 class ColdSnap extends Analyzer {
-	static dependencies = {
-		spellUsable: SpellUsable,
-	}
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
 
-  	on_byPlayer_cast(event) {
-		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.COLD_SNAP.id) {
-			return;
-		}
-		ABILITY_RESETS.forEach(spell => {
-			if (this.spellUsable.isOnCooldown(spell)) { this.spellUsable.endCooldown(spell); }
-		});
+  constructor(props) {
+    super(props);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLD_SNAP), this._resetCooldowns);
   }
+
+  _resetCooldowns() {
+    ABILITY_RESETS.forEach(spellId => {
+      if (this.spellUsable.isOnCooldown(spellId)) {
+        this.spellUsable.endCooldown(spellId);
+      }
+    });
+  }
+
 }
 
 export default ColdSnap;

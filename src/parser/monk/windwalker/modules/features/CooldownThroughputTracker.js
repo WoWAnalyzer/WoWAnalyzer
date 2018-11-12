@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 const debug = false;
 
@@ -25,13 +25,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
     {
       spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
-      duration: 20,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

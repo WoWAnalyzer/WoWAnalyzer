@@ -5,12 +5,12 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -153,7 +153,7 @@ class HuntersMark extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(19)}
         icon={<SpellIcon id={SPELLS.HUNTERS_MARK_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}

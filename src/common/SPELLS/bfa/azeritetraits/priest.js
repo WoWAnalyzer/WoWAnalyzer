@@ -79,4 +79,14 @@ export default {
     name: 'Twist Magic',
     icon: 'spell_nature_nullifydisease',
   },
+  CHORUS_OF_INSANITY: {
+    id: 278661,
+    name: 'Chorus of Insanity',
+    icon: 'spell_priest_void-flay',
+  },
+  CHORUS_OF_INSANITY_BUFF: {
+    id: 279572,
+    name: 'Chorus of Insanity',
+    icon: 'spell_priest_void-flay',
+  },
 };

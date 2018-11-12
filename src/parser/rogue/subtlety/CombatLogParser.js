@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -29,6 +29,8 @@ import DarkShadowContribution from "./modules/talents/DarkShadow/DarkShadowContr
 import FindWeakness from "./modules/talents/FindWeakness";
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
+
+import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -71,6 +73,9 @@ class CombatLogParser extends CoreCombatLogParser {
     darkShadowContribution: DarkShadowContribution,
     darkShadowNightblade: DarkShadowNightblade,
     findWeakness: FindWeakness,
+
+    // Traits
+    SharpenedBlades: SharpenedBlades,
   };
 }
 

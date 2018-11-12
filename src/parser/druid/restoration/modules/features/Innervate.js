@@ -7,19 +7,9 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-const BASE_MANA = 20000;
-const WILD_GROWTH_BASE_MANA = 0.34;
-const EFFLORESCENCE_BASE_MANA = 0.216;
-const CENARION_WARD_BASE_MANA = 0.092;
-const REJUVENATION_BASE_MANA = 0.105;
-const LIFEBLOOM_BASE_MANA = 0.12;
-const SWIFTMEND_BASE_MANA = 0.14;
-const TRANQUILITY_BASE_MANA = 0.184;
-const REGROWTH_BASE_MANA = 0.14;
+const debug = false;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
-const debug = false;
-// TODO - Refactor mana values to use the ones in SPELLS to avoid duplication of the same data so it's easier to maintain.
 class Innervate extends Analyzer {
   manaSaved = 0;
   wildGrowths = 0;
@@ -64,55 +54,53 @@ class Innervate extends Analyzer {
         this.depleted = true;
       }
       if (SPELLS.REJUVENATION.id === spellId) {
-        this.addToManaSaved(REJUVENATION_BASE_MANA);
+        if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+          this.manaSaved += SPELLS.REJUVENATION.manaCost * (1 - TOL_REJUVENATION_REDUCTION);
+        } else {
+          this.manaSaved += SPELLS.REJUVENATION.manaCost;
+        }
         this.castsUnderInnervate += 1;
         this.rejuvenations += 1;
       }
       if (SPELLS.WILD_GROWTH.id === spellId) {
-        this.addToManaSaved(WILD_GROWTH_BASE_MANA);
+        this.manaSaved += SPELLS.WILD_GROWTH.manaCost;
         this.castsUnderInnervate += 1;
         this.wildGrowths += 1;
       }
       if (SPELLS.EFFLORESCENCE_CAST.id === spellId) {
-        this.addToManaSaved(EFFLORESCENCE_BASE_MANA);
+        this.manaSaved += SPELLS.EFFLORESCENCE_CAST.manaCost;
         this.castsUnderInnervate += 1;
         this.efflorescences += 1;
       }
-      if (SPELLS.CENARION_WARD_HEAL === spellId) {
-        this.addToManaSaved(CENARION_WARD_BASE_MANA);
+      if (SPELLS.CENARION_WARD_TALENT.id === spellId) {
+        this.manaSaved += SPELLS.CENARION_WARD_TALENT.manaCost;
         this.castsUnderInnervate += 1;
         this.cenarionWards += 1;
       }
       if (SPELLS.REGROWTH.id === spellId) {
-        this.addToManaSaved(REGROWTH_BASE_MANA);
+        if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
+          this.freeRegrowths += 1;
+        } else {
+          this.manaSaved += SPELLS.REGROWTH.manaCost;
+        }
         this.castsUnderInnervate += 1;
         this.regrowths += 1;
       }
       if (SPELLS.LIFEBLOOM_HOT_HEAL.id === spellId) {
-        this.addToManaSaved(LIFEBLOOM_BASE_MANA);
+        this.manaSaved += SPELLS.LIFEBLOOM_HOT_HEAL.manaCost;
         this.castsUnderInnervate += 1;
         this.lifeblooms += 1;
       }
       if (SPELLS.SWIFTMEND.id === spellId) {
-        this.addToManaSaved(SWIFTMEND_BASE_MANA);
+        this.manaSaved += SPELLS.SWIFTMEND.manaCost;
         this.castsUnderInnervate += 1;
         this.swiftmends += 1;
       }
-      if (SPELLS.TRANQUILITY_HEAL.id === spellId) {
-        this.addToManaSaved(TRANQUILITY_BASE_MANA);
+      if (SPELLS.TRANQUILITY_CAST.id === spellId) {
+        this.manaSaved += SPELLS.TRANQUILITY_CAST.manaCost;
         this.castsUnderInnervate += 1;
         this.tranquilities += 1;
       }
-    }
-  }
-
-  addToManaSaved(spellBaseMana) {
-    if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
-      this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - TOL_REJUVENATION_REDUCTION));
-    } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
-      this.freeRegrowths += 1;
-    } else {
-      this.manaSaved += (BASE_MANA * spellBaseMana);
     }
   }
 
@@ -175,8 +163,8 @@ class Innervate extends Analyzer {
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</React.Fragment>)
+        return suggest(<>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
           .recommended(`>${formatNumber(recommended)} is recommended`);
@@ -184,7 +172,7 @@ class Innervate extends Analyzer {
 
     when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</React.Fragment>)
+        return suggest(<>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`~${this.wholeSecondsCapped} seconds capped`)
           .recommended(`${recommended} is recommended`);

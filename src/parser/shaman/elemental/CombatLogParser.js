@@ -1,11 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';
-import FireElemental from './modules/features/FireElemental';
+import StormFireElemental from './modules/features/StormFireElemental';
 
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
@@ -24,10 +24,14 @@ import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesBy
 
 import './main.css';
 
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
+import AstralShift from '../shared/spells/AstralShift';
+import PackSpirit from '../shared/azerite/PackSpirit';
+import SereneSpirit from '../shared/azerite/SereneSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -37,7 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     flameShock: FlameShock,
     overload: Overload,
-    fireElemental: FireElemental,
+    stormfireElemental: StormFireElemental,
 
     // Talents
     aftershock: Aftershock,
@@ -55,10 +59,14 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
 
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
+    astralShift: AstralShift,
+    packSpirit: PackSpirit,
+    sereneSpirit: SereneSpirit,
   };
 
 }

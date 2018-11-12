@@ -1,19 +1,16 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
-
+import DamageDone from 'parser/shared/modules/DamageDone';
 // core
 import Haste from './modules/core/Haste';
 import AbilityTracker from './modules/core/AbilityTracker';
 import Insanity from './modules/core/Insanity';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
-
 // spells:
 import Mindbender from './modules/spells/Mindbender';
 import Shadowfiend from './modules/spells/Shadowfiend';
@@ -21,11 +18,16 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import Voidform from './modules/spells/Voidform';
 import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
-import VoidTorrent from './modules/spells/VoidTorrent';
 import Dispersion from './modules/spells/Dispersion';
 import CallToTheVoid from './modules/spells/CallToTheVoid';
-import TwistOfFate from './modules/spells/TwistOfFate';
-
+// azerite
+import ChorusOfInsanity from './modules/spells/azeritetraits/ChorusOfInsanity';
+// talents
+import TwistOfFate from './modules/talents/TwistOfFate';
+import VoidTorrent from './modules/talents/VoidTorrent';
+import ShadowCrash from './modules/talents/ShadowCrash';
+import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import DarkVoid from './modules/talents/DarkVoid';
 // items:
 import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
 import AnundsSearedShackles from './modules/items/AnundsSearedShackles';
@@ -55,10 +57,18 @@ class CombatLogParser extends MainCombatLogParser {
     shadowWordPain: ShadowWordPain,
     voidform: Voidform,
     voidformAverageStacks: VoidformAverageStacks,
-    voidTorrent: VoidTorrent,
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
+
+    // azerite
+    chorusOfInsanity: ChorusOfInsanity,
+
+    // talents:
     twistOfFate: TwistOfFate,
+    voidTorrent: VoidTorrent,
+    shadowCrash: ShadowCrash,
+    auspiciousSpirits: AuspiciousSpirits,
+    darkVoid: DarkVoid,
 
     // items:
     twinsPainfulTouch: TwinsPainfulTouch,

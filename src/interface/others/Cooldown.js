@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
 
@@ -137,7 +138,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:void(0)" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
                   </div>
                 </div>
               </div>
@@ -163,8 +165,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                   </div>
                 </div>
               </div>
@@ -194,8 +196,8 @@ class Cooldown extends React.Component {
                     )}
                   </div>
                 ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
               </div>
             )}
           </div>
@@ -239,7 +241,12 @@ class Cooldown extends React.Component {
                       );
                     }
                     case BUILT_IN_SUMMARY_TYPES.MANA: {
-                      const manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
+                      let manaUsed = 0;
+                      if(cooldown.spell.id === SPELLS.INNERVATE.id) {
+                        manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
+                      } else {
+                        manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
+                      }
                       return (
                         <div className="col-md-4 text-center" key="mana">
                           <div style={{ fontSize: '2em' }}>{formatNumber(manaUsed)}</div>

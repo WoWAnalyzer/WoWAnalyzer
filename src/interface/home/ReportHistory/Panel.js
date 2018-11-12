@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Trans } from '@lingui/macro';
 
 import { getReportHistory } from 'interface/selectors/reportHistory';
 
@@ -22,7 +23,7 @@ class Panel extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <h2>Recently viewed</h2>
+          <h2><Trans>Recently viewed</Trans></h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <ReportHistory reportHistory={reportHistory} />

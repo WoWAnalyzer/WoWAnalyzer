@@ -10,8 +10,8 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 

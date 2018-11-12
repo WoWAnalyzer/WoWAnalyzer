@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 9,
       },
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 9,
       },
@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 10,
       },
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 10,
       },
@@ -143,9 +143,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.9,
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
-            <React.Fragment>
+            <>
               Your <SpellLink id={SPELLS.NEW_MOON_TALENT.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
-            </React.Fragment>
+            </>
           ),
         },
         timelineSortIndex: 11,

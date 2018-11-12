@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -58,9 +58,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
-            <React.Fragment>
+            <>
               <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most damage.
-            </React.Fragment>
+            </>
           ),
         },
       },
@@ -68,19 +68,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXPLOSIVE_SHOT_DETONATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
-      },
-      {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
       },
       {
         spell: SPELLS.HUNTERS_MARK_TALENT,
@@ -142,7 +129,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -257,12 +246,43 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DISMISS_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       /**
        * Racials until we find a better solution
        */
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

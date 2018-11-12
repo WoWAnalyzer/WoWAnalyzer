@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Combatants from 'parser/core/modules/Combatants';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -23,7 +23,17 @@ class EnvelopingMists extends Analyzer {
     combatants: Combatants,
   };
 
-  healing = 0;
+  healingIncrease = 0;
+  gustHealing = 0;
+  lastCastTarget = null;
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (SPELLS.ENVELOPING_MIST.id !== spellId) {
+      return;
+    }
+    this.lastCastTarget = event.targetID;
+  }
 
   on_byPlayer_heal(event) {
     const targetId = event.targetID;
@@ -34,9 +44,14 @@ class EnvelopingMists extends Analyzer {
       return;
     }
 
+    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
+      this.gustProc += 1;
+      this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
+    }
+
     if (this.combatants.players[targetId]) {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0) === true) {
-        this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
+        this.healingIncrease += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
         debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
       }
     }
@@ -44,7 +59,7 @@ class EnvelopingMists extends Analyzer {
 
   on_finished() {
     if (debug) {
-      console.log(`EvM Healing Contribution: ${this.healing}`);
+      console.log(`EvM Healing Contribution: ${this.healingIncrease}`);
     }
   }
 
@@ -53,7 +68,7 @@ class EnvelopingMists extends Analyzer {
       <StatisticBox
         postion={STATISTIC_ORDER.OPTIONAL(50)}
         icon={<SpellIcon id={SPELLS.ENVELOPING_MIST.id} />}
-        value={`${formatNumber(this.healing)}`}
+        value={`${formatNumber(this.healingIncrease)}`}
         label={(
           <dfn data-tip="This is the effective healing contributed by the Eveloping Mists buff.">
             Healing Contributed

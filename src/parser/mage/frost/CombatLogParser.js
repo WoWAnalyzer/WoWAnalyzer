@@ -1,7 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Checklist from './modules/checklist/Module';
+
+import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -21,10 +24,14 @@ import WintersReach from './modules/traits/WintersReach';
 import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
+import WaterElemental from './modules/features/WaterElemental';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
+
+    // Normalizers
+    prePullCooldowns: PrePullCooldowns,
 
     // Features
     abilities: Abilities,
@@ -42,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     splittingIce: SplittingIce,
     boneChilling: BoneChilling,
+    waterElemental: WaterElemental,
 
     //Traits
     wintersReach: WintersReach,
@@ -50,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
 	  //Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class DesperatePrayer extends Analyzer {
 
@@ -57,7 +57,7 @@ class DesperatePrayer extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         value={`${this.desperatePrayerUsages.length}`}
         label={`Desperate Prayer Usage(s)`}
         icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
@@ -82,7 +82,7 @@ class DesperatePrayer extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 
@@ -91,7 +91,7 @@ class DesperatePrayer extends Analyzer {
     if (!boss || !boss.fight.disableDeathSuggestion) {
       when(this.deathsWithDPReady).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</React.Fragment>)
+          return suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
             .icon(SPELLS.DESPERATE_PRAYER.icon)
             .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
             .recommended(`0 is recommended`);

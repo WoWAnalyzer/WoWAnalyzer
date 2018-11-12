@@ -2,12 +2,24 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import CoreChanneling from 'parser/shared/modules/Channeling';
+
 
 import Analyzer from 'parser/core/Analyzer';
 
 const debug = false;
 
 class EssenceFont extends Analyzer {
+  static dependencies = {
+    channeling: CoreChanneling,
+  };
+
+  totalHealing = 0;
+  totalOverhealing = 0;
+  totalAbsorbs = 0;
+
+  channelTime = 0;
+
   castEF = 0;
   targetsEF = 0;
   efHotHeal = 0;
@@ -17,11 +29,24 @@ class EssenceFont extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id && event.tick === true) {
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id && event.tick === true) {
       this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
       this.efHotOverheal += event.overheal || 0;
     }
+
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      this.totalHealing += event.amount || 0;
+      this.totalOverhealing += event.overheal || 0;
+      this.totalAbsorbs += event.absorbed || 0;
+    }
+
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.totalHealing += event.amount || 0;
+      this.totalOverhealing += event.overheal || 0;
+      this.totalAbsorbs += event.absorbed || 0;
+    }
   }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -55,6 +80,10 @@ class EssenceFont extends Analyzer {
     }
   }
 
+  get efHotHealing() {
+    return (this.efHotHeal);
+  }
+
   get efHotOverhealing() {
     return (this.efHotOverheal / (this.efHotHeal + this.efHotOverheal)).toFixed(4);
   }
@@ -81,9 +110,9 @@ class EssenceFont extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.ESSENCE_FONT.icon)
           .actual(`${this.avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`)

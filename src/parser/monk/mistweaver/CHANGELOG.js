@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly } from 'CONTRIBUTORS';
+import { Anomoly, Gao } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -8,13 +8,23 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
-    date: new Date('2018-09-11'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> to spreadsheet tab for use importing into Monk spreadsheet.</React.Fragment>,
+    date: new Date('2018-11-2'),
+    changes: <>Added the mana efficiency tab. Updated the Env:Viv cast ratio picture sizes.</>,
+    contributors: [Gao],
+  },
+  {
+    date: new Date('2018-10-30'),
+    changes: <>Fixed an bug with <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> suggestion not displaying the correct mana saved amount.</>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2018-09-11'),
-    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SOOTHING_MIST.id} /> channeling time to be taken into account with Downtime statistic and suggestion.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> to spreadsheet tab for use importing into Monk spreadsheet.</>,
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2018-09-11'),
+    changes: <>Fixed <SpellLink id={SPELLS.SOOTHING_MIST.id} /> channeling time to be taken into account with Downtime statistic and suggestion.</>,
     contributors: [Anomoly],
   },
   {
@@ -34,12 +44,12 @@ export default [
   },
   {
     date: new Date('2018-09-05'),
-    changes: <React.Fragment>Fixed mana cost of all spells. Updated suggestion for <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> usage and removed <SpellLink id={SPELLS.SOOTHING_MIST.id} /> suggestion from the analyzer.</React.Fragment>,
+    changes: <>Fixed mana cost of all spells. Updated suggestion for <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> usage and removed <SpellLink id={SPELLS.SOOTHING_MIST.id} /> suggestion from the analyzer.</>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2018-07-22'),
-    changes: <React.Fragment>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</React.Fragment>,
+    changes: <>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</>,
     contributors: [Anomoly],
   },
   {

@@ -1,12 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static SPELL_CATEGORIES = {
-    ...CoreAbilities.SPELL_CATEGORIES,
-    DOTS: 'Dot',
-  };
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
@@ -104,7 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLAME_SHOCK,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },

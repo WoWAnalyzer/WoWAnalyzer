@@ -53,7 +53,7 @@ dotenvFiles.forEach(dotenvFile => {
 // By default only missing spells are updated. If this is set to true everything will be refreshed. Useful after patches.
 const updateEverything = false;
 
-const languages = require(path.resolve(appDirectory, 'src/common/languages')).default;
+const languages = require(path.resolve(appDirectory, 'src/localization')).default;
 const SPELLS = require(path.resolve(appDirectory, 'src/common/SPELLS')).default;
 // SPELLS gets enhanced but that introduces some duplication, so group everything by spell id
 const spellIds = Object.keys(SPELLS)

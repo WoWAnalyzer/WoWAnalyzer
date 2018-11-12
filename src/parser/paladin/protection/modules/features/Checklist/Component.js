@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/core/modules/features/Checklist2';
-import Rule from 'parser/core/modules/features/Checklist2/Rule';
-import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/core/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/core/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist2';
+import Rule from 'parser/shared/modules/features/Checklist2/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class ProtectionPaladinChecklist extends React.PureComponent{
   static propTypes = {
@@ -44,26 +44,29 @@ class ProtectionPaladinChecklist extends React.PureComponent{
 
         <Rule
           name={(
-            <React.Fragment>
+            <>
               Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> and <SpellLink id={SPELLS.CONSECRATION_CAST.id} />
-            </React.Fragment>
+            </>
           )}
           description={(
-            <React.Fragment>
+            <>
               Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by a flat amount and use it as a rotational filler if necessary.<br />
-              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to flat out your physical damage taken or weave them into your rotation when you're about to cap charges.
-            </React.Fragment>
+              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges.
+            </>
           )}
         >
+          <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+            name={(<><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cast efficiency</>)} 
+          />
           <Requirement
             name={(
-              <React.Fragment><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> efficiency</React.Fragment>
+              <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
             )}
             thresholds={thresholds.shieldOfTheRighteous}
           />
           <Requirement
             name={(
-              <React.Fragment><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> uptime</React.Fragment>
+              <>Hits Mitigated with <SpellLink id={SPELLS.CONSECRATION_CAST.id} /></>
             )}
             thresholds={thresholds.consecration}
           />

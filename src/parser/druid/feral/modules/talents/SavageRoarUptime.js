@@ -31,9 +31,9 @@ class SavageRoarUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> will need refreshing soon.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -47,11 +47,10 @@ class SavageRoarUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Savage Roar uptime"
+        position={STATISTIC_ORDER.OPTIONAL(0)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default SavageRoarUptime;

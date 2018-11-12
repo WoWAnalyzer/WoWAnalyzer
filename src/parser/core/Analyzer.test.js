@@ -1,36 +1,40 @@
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Analyzer from './Analyzer';
 
-describe('Core.CombatLogParser', () => {
+describe('Core/Analyzer', () => {
+  let parser;
+  beforeEach(() => {
+    parser = new TestCombatLogParser();
+  });
   describe('module defining', () => {
     it('owner is availabe as property', () => {
       const myOwner = {};
       // noinspection JSCheckFunctionSignatures
-      const myModule = new Analyzer(myOwner, {}, null);
+      const myModule = new Analyzer({
+        owner: myOwner,
+      });
 
       expect(myModule.owner).toBe(myOwner);
     });
     it('dependencies are available as properties', () => {
       const myDependency = {};
-      const myModule = new Analyzer(null, {
+      const myModule = new Analyzer({
         myDependency,
-      }, null);
+      });
 
       expect(myModule.myDependency).toBe(myDependency);
     });
     it('priority is availabe as property', () => {
       const priority = 27;
-      const myModule = new Analyzer(null, {}, priority);
+      const myModule = new Analyzer({
+        priority,
+      });
 
       expect(myModule.priority).toBe(priority);
     });
   });
   describe('triggerEvent', () => {
-    let parser;
-    beforeEach(() => {
-      parser = new TestCombatLogParser();
-    });
     it('calls the event handler on the class if it exists', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {
@@ -38,8 +42,7 @@ describe('Core.CombatLogParser', () => {
           on_success();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -47,8 +50,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -61,8 +63,7 @@ describe('Core.CombatLogParser', () => {
           on_event();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -87,8 +88,7 @@ describe('Core.CombatLogParser', () => {
           on_toPlayerPet_test();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -117,8 +117,7 @@ describe('Core.CombatLogParser', () => {
         }
       }
       parser.byPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -147,8 +146,7 @@ describe('Core.CombatLogParser', () => {
         }
       }
       parser.toPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -177,8 +175,7 @@ describe('Core.CombatLogParser', () => {
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -207,8 +204,7 @@ describe('Core.CombatLogParser', () => {
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -224,11 +220,26 @@ describe('Core.CombatLogParser', () => {
           on_success.call(this);
         }
       }
-      const myModule = new MyModule(parser);
+      parser.loadModule('myModule', MyModule);
       parser.triggerEvent({
         type: 'success',
       });
-      expect(on_success.mock.instances[0]).toBe(myModule);
+      expect(on_success.mock.instances[0]).toBe(parser.getModule(MyModule));
+    });
+  });
+  describe('add event listener', () => {
+    it('doesn\'t allow combining event listening methods', () => {
+      class MyModule extends Analyzer {
+        constructor(options) {
+          super(options);
+          this.addEventListener('success', this.on_success);
+        }
+        on_success() {
+        }
+      }
+      expect(() => {
+        parser.loadModule('myModule', MyModule);
+      }).toThrow();
     });
   });
 });

@@ -13,11 +13,11 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Tab from 'interface/others/Tab';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import Channeling from './modules/core/Channeling';
+import CoreChanneling from './modules/core/Channeling';
 import HotTracker from './modules/core/HotTracker';
 
 // Normalizers
@@ -31,6 +31,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
+import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -40,6 +41,7 @@ import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import AzeriteTraits from './modules/spells/AzeriteTraits';
+import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -56,6 +58,12 @@ import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 
+// Mana Tracker
+import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
+// import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
+import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -69,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
-    channeling: Channeling,
+    channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
 
@@ -80,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
     statValues: StatValues,
+    evmVivCastRatio: EvmVivCastRatio,
 
     // Spells
     essenceFont: EssenceFont,
@@ -87,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
     vivify: Vivify,
+    renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
     azeriteTraits: AzeriteTraits,
 
@@ -104,6 +114,11 @@ class CombatLogParser extends CoreCombatLogParser {
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
     invigoratingBrew: InvigoratingBrew,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: MistweaverHealingEfficiencyDetails,
+    hpmTracker: HealingEfficiencyTracker,
   };
 
   generateResults(...args) {

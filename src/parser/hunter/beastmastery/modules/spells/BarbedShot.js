@@ -7,9 +7,9 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
@@ -106,7 +106,8 @@ class BarbedShot extends Analyzer {
 
   get percentUptimePet() {
     //this removes the time spent without the pet having the frenzy buff
-    const petUptime = this.barbedShotStacks.slice(1).flatten().reduce((totalUptime, stackUptime) => totalUptime + stackUptime, 0);
+    const flattenArray = this.barbedShotStacks.slice(1).reduce((acc, val) => acc.concat(val), []);
+    const petUptime = flattenArray.reduce((totalUptime, stackUptime) => totalUptime + stackUptime, 0);
     return petUptime / this.owner.fightDuration;
   }
 
@@ -115,7 +116,7 @@ class BarbedShot extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id) / this.owner.fightDuration;
   }
 
-  get direFrenzyUptimeThreshold() {
+  get frenzyUptimeThreshold() {
     return {
       actual: this.percentUptimePet,
       isLessThan: {
@@ -127,7 +128,7 @@ class BarbedShot extends Analyzer {
     };
   }
 
-  get direFrenzy3StackThreshold() {
+  get frenzy3StackThreshold() {
     if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
       return {
         actual: this.percentUptimeMaxStacks,
@@ -152,15 +153,15 @@ class BarbedShot extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.direFrenzyUptimeThreshold)
+    when(this.frenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </React.Fragment>)
+        return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
           .icon(SPELLS.BARBED_SHOT.icon)
           .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
-    when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </React.Fragment>)
+    when(this.frenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
         .icon(SPELLS.BARBED_SHOT.icon)
         .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -169,9 +170,9 @@ class BarbedShot extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
-        position={STATISTIC_ORDER.CORE(17)}
-        icon={<SpellIcon id={SPELLS.BARBED_SHOT.id} />}
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(15)}
+        icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
         label="3 stack uptime"
         tooltip={`
@@ -201,7 +202,7 @@ class BarbedShot extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

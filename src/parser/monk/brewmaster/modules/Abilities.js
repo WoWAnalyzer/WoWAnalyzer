@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -75,6 +75,9 @@ class Abilities extends CoreAbilities {
         cooldown: haste => brew_cooldown / (1 + haste),
         charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
         gcd: null,
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
@@ -196,6 +199,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+      },
+      {
+        spell: SPELLS.PROVOKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SPEAR_HAND_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
       },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {

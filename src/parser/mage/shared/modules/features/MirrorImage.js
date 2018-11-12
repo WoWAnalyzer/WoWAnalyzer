@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
@@ -54,7 +54,7 @@ class MirrorImage extends Analyzer {
   suggestions(when) {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</React.Fragment>)
+        return suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.MIRROR_IMAGE_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
@@ -63,7 +63,7 @@ class MirrorImage extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.MIRROR_IMAGE_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}

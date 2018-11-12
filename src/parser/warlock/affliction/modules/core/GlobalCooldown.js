@@ -1,4 +1,4 @@
-import CoreGlobalCooldown from 'parser/core/modules/GlobalCooldown';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 import SPELLS from 'common/SPELLS';
 

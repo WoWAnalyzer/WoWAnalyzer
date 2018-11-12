@@ -1,34 +1,34 @@
 import SPELLS from 'common/SPELLS';
-import { damageTaken, buffsApplied, SimpleFight } from 'tests/parser/guardian/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { damageTaken, buffsApplied, SimpleFight } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import IronFur from './IronFur';
 
 describe('Core.IronFur', () => {
   let parser;
-  let ironfur;
+  let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.URSOCS_ENDURANCE.id]: 0 };
-    ironfur = new IronFur(parser);
+    module = parser.loadModule('ironfur', IronFur);
   });
   it('track last ironfur time with noevents', () => {
-    expect(ironfur.overallIronfurUptime).toBe(0);
+    expect(module.overallIronfurUptime).toBe(0);
   });
   it('track physical hits under ironfur with only damage', () => {
     parser.processEvents(damageTaken);
-    expect(ironfur.hitsMitigated).toBe(0);
+    expect(module.hitsMitigated).toBe(0);
   });
   it('track physical hits with ironfur up with only ironfur', () => {
     parser.processEvents(buffsApplied);
-    expect(ironfur.hitsMitigated).toBe(0);
+    expect(module.hitsMitigated).toBe(0);
   });
   it('track physical hits while ironfur is up in a simple fight', () => {
     parser.processEvents(SimpleFight);
-    expect(ironfur.hitsMitigated).toBe(12);
+    expect(module.hitsMitigated).toBe(12);
   });
   it('track physical hits outside of ironfur in a simple fight', () => {
     parser.processEvents(SimpleFight);
-    expect(ironfur.hitsUnmitigated).toBe(3);
+    expect(module.hitsUnmitigated).toBe(3);
   });
 });

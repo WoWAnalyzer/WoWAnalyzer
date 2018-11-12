@@ -9,6 +9,10 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
+const LC_MANA_PER_SECOND_RETURN_AVERAGE = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
+const LC_MANA_PER_SECOND_RETURN_MAJOR = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
+
 const debug = false;
 
 class Lifecycles extends Analyzer {
@@ -53,9 +57,9 @@ class Lifecycles extends Analyzer {
     return {
       actual: this.manaSaved,
       isLessThan: {
-        minor: 20000,
-        average: 17000,
-        major: 14000,
+        minor: LC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
+        average: LC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
+        major: LC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
       },
       style: 'number',
     };
@@ -64,9 +68,9 @@ class Lifecycles extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <React.Fragment>
+          <>
             Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.
-          </React.Fragment>
+          </>
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
           .actual(`${formatNumber(actual)} mana saved through Lifecycles`)

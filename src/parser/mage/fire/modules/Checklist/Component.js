@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/core/modules/features/Checklist2';
-import Rule from 'parser/core/modules/features/Checklist2/Rule';
-import Requirement from 'parser/core/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/core/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/core/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist2';
+import Rule from 'parser/shared/modules/features/Checklist2/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
 class FireMageChecklist extends React.PureComponent {
   static propTypes = {
@@ -33,9 +33,9 @@ class FireMageChecklist extends React.PureComponent {
         <Rule
           name="Use your cooldowns"
           description={(
-            <React.Fragment>
+            <>
               Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
-            </React.Fragment>
+            </>
           )}
         >
           <AbilityRequirement spell={SPELLS.COMBUSTION.id} />
@@ -50,9 +50,9 @@ class FireMageChecklist extends React.PureComponent {
         <Rule
           name="Use Combustion effectively"
           description={(
-            <React.Fragment>
+            <>
               Using <SpellLink id={SPELLS.COMBUSTION.id} /> properly is one of the most important aspects of playing Fire well. Therefore it is critical that you make the most of the time that you have while Combustion is active. This include things such as not wasting time or GCDs while Combustion is active and ensuring that you properly setup for your "Combustion Window".
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Fire Blast Charges" thresholds={thresholds.fireBlastCombustionCharges} tooltip="When Combustion is getting close to becomming available, it is important to save a couple Fire Blast charges to be used during the Combustion Window. This will help ensure that you can get as many Hot Streak procs as possible during Combustion." />
@@ -65,9 +65,9 @@ class FireMageChecklist extends React.PureComponent {
         <Rule
           name="Use your procs effectively"
           description={(
-            <React.Fragment>
+            <>
               Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that you manage your procs correctly to ensure that you get the most out of them.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Hot Streak Proc Utilization" thresholds={thresholds.hotStreakUtilization} tooltip="Your Hot Streak Utilization. The bulk of your rotation revolves around successfully converting Heating Up procs into Hot Streak and using those Hot Streak procs effectively. Unless it is unavoidable, you should never let your Hot Streak procs expire without using them." />
@@ -87,9 +87,9 @@ class FireMageChecklist extends React.PureComponent {
         <Rule
           name="Avoid downtime"
           description={(
-            <React.Fragment>
+            <>
               As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
@@ -98,9 +98,9 @@ class FireMageChecklist extends React.PureComponent {
         <Rule
           name="Maintain your buffs"
           description={(
-            <React.Fragment>
+            <>
               You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible.
-            </React.Fragment>
+            </>
           )}
         >
           <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />

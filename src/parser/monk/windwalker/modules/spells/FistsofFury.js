@@ -16,7 +16,6 @@ class FistsofFury extends Analyzer {
   previousTickTimestamp = null;
   fistsTickNumber = 0;
   fistsCastNumber = 0;
-  averageTicks = 0;
 
   isNewFistsTick(timestamp) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
@@ -28,8 +27,6 @@ class FistsofFury extends Analyzer {
       return;
     }
     this.fistsCastNumber += 1;
-    // average ticks is calculated here in case you don't hit any ticks during a cast'
-    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
   }
 
   on_byPlayer_damage(event) {
@@ -39,8 +36,12 @@ class FistsofFury extends Analyzer {
     }
     this.fistsTickNumber += 1;
     this.previousTickTimestamp = event.timestamp;
-    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
   }
+
+  get averageTicks() {
+    return this.fistsTickNumber / this.fistsCastNumber;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.averageTicks,
@@ -64,15 +65,14 @@ class FistsofFury extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
         value={this.averageTicks.toFixed(2)}
-        label={(
-          <React.Fragment>You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast.</React.Fragment>
-        )}
+        label="Average Fists of Fury Ticks"
+        tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default FistsofFury;

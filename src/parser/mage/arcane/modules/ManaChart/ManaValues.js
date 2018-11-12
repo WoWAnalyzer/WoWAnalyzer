@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import DeathTracker from 'parser/core/modules/DeathTracker';
+import DeathTracker from 'parser/shared/modules/DeathTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 

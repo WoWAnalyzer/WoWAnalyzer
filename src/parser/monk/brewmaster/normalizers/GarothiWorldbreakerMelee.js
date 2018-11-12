@@ -1,5 +1,5 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import SPELLS from 'common/SPELLS';
 import GarothiWorldbreaker from 'raids/antorustheburningthrone/GarothiWorldbreaker';
 

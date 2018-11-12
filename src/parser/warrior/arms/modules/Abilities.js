@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
@@ -14,6 +14,10 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 6 / (1 + haste),
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id) ? true : false,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -47,6 +51,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         enabled: !combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id),
       },
       {
@@ -75,14 +83,14 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6, // I don't know at what efficiency this talent becomes worth it so I'm keeping it save
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id), // replaces Colussus Smash
       },
       {
         spell: SPELLS.CLEAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -96,7 +104,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SWEEPING_STRIKES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
-        cooldown: 25,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -115,6 +123,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
+        },
         enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
       },
       {
@@ -123,6 +135,10 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id), // Replaces Bladestorm
       },
@@ -177,14 +193,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 6,
         gcd: null,
-        castEfficiency: {
-          // TODO: Add a statistic to show how much damage was lost due to defensive stance
-          // TODO: Add a suggestion regarding having this up too much
-          // TODO: Add a suggestion regarding having this up too little, and then deactivate the cast efficiency since uptime is more accurate
-          suggestion: true,
-          recommendedEfficiency: 0.4,
-          extraSuggestion: 'If you\'re using this talent over something that passively increases your mobility or survivability, you better use it.',
-        },
         enabled: combatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id),
       },
       {
@@ -193,6 +201,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         gcd: null,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.4,
+        },
       },
       {
         spell: SPELLS.RALLYING_CRY,
@@ -228,7 +240,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEROIC_LEAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -282,7 +294,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAMSTRING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
         gcd: {
           base: 1500,
         },

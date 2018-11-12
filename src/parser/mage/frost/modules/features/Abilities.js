@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -13,25 +13,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.EBONBOLT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
-        castEfficiency: {
-          //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          disabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      {
-        spell: SPELLS.FLURRY,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.ICE_LANCE,
@@ -39,17 +21,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: 2,
       },
       {
-        spell: SPELLS.CONE_OF_COLD,
+        spell: SPELLS.FLURRY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        cooldown: 12,
-        castEfficiency: {
-          disabled: true,
-        },
+        timelineSortIndex: 3,
       },
       {
         spell: SPELLS.GLACIAL_SPIKE_TALENT,
@@ -58,6 +38,20 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: 4,
+      },
+      {
+        spell: SPELLS.RAY_OF_FROST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 80,
+        enabled: combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+        timelineSortIndex: 4, // Shares talent row with Glacial Spike
       },
       {
         spell: SPELLS.COMET_STORM_TALENT,
@@ -71,6 +65,37 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        timelineSortIndex: 5,
+      },
+      {
+        spell: SPELLS.EBONBOLT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
+        castEfficiency: {
+          //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
+          suggestion: !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+          recommendedEfficiency: 0.90,
+        },
+        timelineSortIndex: 6,
+      },
+      {
+        spell: SPELLS.BLIZZARD,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: haste => 8 / (1 + haste),
+        timelineSortIndex: 7,
+      },
+      {
+        spell: SPELLS.CONE_OF_COLD,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 12,
+        timelineSortIndex: 8,
       },
       {
         spell: SPELLS.ICE_NOVA_TALENT,
@@ -84,42 +109,10 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
-      },
-      {
-        spell: SPELLS.BLIZZARD,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: haste => 8 / (1 + haste),
-        castEfficiency: {
-          suggestion: false,
-          disabled: true,
-        },
-      },
-      {
-        spell: SPELLS.RAY_OF_FROST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 80,
-        enabled: combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
+        timelineSortIndex: 9,
       },
 
-      // Cooldowns
-      {
-        spell: SPELLS.TIME_WARP,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 300,
-        castEfficiency: {
-          disabled: true,
-        },
-      },
+      // Cooldowns; start at sortindex 15
       {
         spell: SPELLS.FROZEN_ORB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -131,18 +124,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
-      },
-      {
-        spell: SPELLS.ICY_VEINS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
+        timelineSortIndex: 15,
       },
       {
         spell: SPELLS.MIRROR_IMAGE_TALENT,
@@ -156,9 +138,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        timelineSortIndex: 16,
       },
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
+        buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -170,6 +154,29 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        timelineSortIndex: 16, // Shares talent row with Mirror Image
+      },
+      {
+        spell: SPELLS.ICY_VEINS,
+        buffSpellId: SPELLS.ICY_VEINS.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        timelineSortIndex: 17,
+      },
+      {
+        spell: SPELLS.TIME_WARP,
+        buffSpellId: SPELLS.TIME_WARP.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
+        cooldown: 300,
+        timelineSortIndex: 18,
       },
 
       //Defensives
@@ -181,9 +188,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.ICE_BLOCK,
@@ -193,14 +197,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          disabled: true,
-        },
       },
 
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
+        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -211,9 +213,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.BLINK,
@@ -223,9 +222,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
         cooldown: 15,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
@@ -234,18 +230,12 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 24,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.REMOVE_CURSE,
@@ -254,12 +244,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 8,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SLOW_FALL,
+        buffSpellId: SPELLS.SLOW_FALL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -274,23 +262,18 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INVISIBILITY,
+        buffSpellId: SPELLS.INVISIBILITY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 300,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.COLD_SNAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 300,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SUMMON_WATER_ELEMENTAL,
@@ -300,8 +283,18 @@ class Abilities extends CoreAbilities {
         },
         enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
         cooldown: 30,
-        castEfficiency: {
-          disabled: true,
+      },
+      {
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
+          SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
+          SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
+          SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
+          SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
+          SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
+          SPELLS.POLYMORPH_DIREHORN],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
         },
       },
     ];

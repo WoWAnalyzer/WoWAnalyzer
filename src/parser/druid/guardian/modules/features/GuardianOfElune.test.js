@@ -1,36 +1,36 @@
-import { damageTaken, buffsApplied, SimpleFight } from 'tests/parser/guardian/fixtures/SimpleFight';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import { damageTaken, buffsApplied, SimpleFight } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import GuardianOfElune from './GuardianOfElune';
 
 describe('Features.GuardianOfElune', () => {
   let parser;
-  let guardian;
+  let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    guardian = new GuardianOfElune(parser);
+    module = parser.loadModule('guardianOfElune', GuardianOfElune);
   });
   it('trach GoE procs with no events', () => {
-    expect(guardian.GoEProcsTotal).toBe(0);
+    expect(module.GoEProcsTotal).toBe(0);
   });
   it('trach GoE procs with only damage events', () => {
     parser.processEvents(damageTaken);
-    expect(guardian.GoEProcsTotal).toBe(0);
+    expect(module.GoEProcsTotal).toBe(0);
   });
   it('track GoE procs with only buffs applied', () => {
     parser.processEvents(buffsApplied);
-    expect(guardian.GoEProcsTotal).toBe(2);
+    expect(module.GoEProcsTotal).toBe(2);
   });
   it('track GoE procs over a simple fight', () => {
     parser.processEvents(SimpleFight);
-    expect(guardian.GoEProcsTotal).toBe(2);
+    expect(module.GoEProcsTotal).toBe(2);
   });
   it('track consumed GoE procs over a simple fight', () => {
     parser.processEvents(SimpleFight);
-    expect(guardian.consumedGoEProc).toBe(1);
+    expect(module.consumedGoEProc).toBe(1);
   });
   it('track last proc time', () => {
     parser.processEvents(SimpleFight);
-    expect(guardian.lastGoEProcTime).toBe(11500);
+    expect(module.lastGoEProcTime).toBe(11500);
   });
 });

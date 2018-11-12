@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -36,9 +36,9 @@ class MoonfireUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <React.Fragment>
+        <>
           Your <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> uptime can be improved. You should refresh the DoT once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. If you're finding keeping track of all the DoTs a challenge you might want to switch talents to <SpellLink id={SPELLS.BLOOD_SCENT_TALENT.id} /> until you've had more practice.
-        </React.Fragment>
+        </>
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -53,11 +53,10 @@ class MoonfireUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptime)} %`}
         label="Moonfire uptime"
+        position={STATISTIC_ORDER.OPTIONAL(2)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default MoonfireUptime;

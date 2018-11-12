@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
@@ -95,7 +95,7 @@ class BirdOfPrey extends Analyzer {
 
   suggestions(when) {
     when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</React.Fragment>)
+      return suggest(<>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</>)
         .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of abilities extending CA were used on your pets target`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

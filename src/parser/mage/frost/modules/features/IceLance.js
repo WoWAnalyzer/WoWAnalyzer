@@ -4,17 +4,10 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import EnemyInstances, { encodeTargetString } from 'parser/core/modules/EnemyInstances';
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-
-const SHATTER_EFFECTS = [
-  SPELLS.WINTERS_CHILL.id,
-  SPELLS.FROST_NOVA.id,
-  SPELLS.ICE_NOVA_TALENT.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-  SPELLS.RING_OF_FROST_DAMAGE.id,
-];
+import { SHATTER_DEBUFFS } from '../../constants';
 
 const CAST_BUFFER_MS = 100;
 
@@ -55,7 +48,7 @@ class IceLance extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
-    if (enemy && !SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
+    if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
       this.nonShatteredCasts += 1;
     }
   }
@@ -126,7 +119,7 @@ class IceLance extends Analyzer {
   suggestions(when) {
     when(this.nonShatteredSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(this.nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</React.Fragment>)
+        return suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(this.nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.nonShatteredPercent)}% missed`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

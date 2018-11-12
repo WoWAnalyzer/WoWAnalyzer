@@ -7,13 +7,53 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> module, damage estimate to <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> and moved <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> to the rest of the talents.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.INFERNO_TALENT.id} /> and <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: <>Added <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> and <SpellLink id={SPELLS.SOUL_FIRE_TALENT.id} /> talent modules.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-03'),
+    changes: 'Implemented Checklist for Destruction Warlocks.',
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <>Added modules tracking <SpellLink id={SPELLS.CATACLYSM_TALENT.id} /> and <SpellLink id={SPELLS.RAIN_OF_FIRE_CAST.id} /> effectiveness (average targets hit).</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> should now correctly track bonus fragments and cleaved damage again.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-10-02'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stack tracker.</React.Fragment>,
+    changes: <>Fixed <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> to snapshot the debuff on cast instead of damage.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-10-02'),
+    changes: <>Added <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stack tracker.</>,
     contributors: [Chizu],
   },
   {
     date: new Date('2018-10-01'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime tracking.</React.Fragment>,
+    changes: <>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime tracking.</>,
     contributors: [Chizu],
   },
   {

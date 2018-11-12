@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
@@ -94,7 +94,7 @@ class SpiritBombSoulsConsume extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</React.Fragment>)
+        return suggest(<>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</>)
           .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
           .actual(`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -103,7 +103,7 @@ class SpiritBombSoulsConsume extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(this.percentGoodCasts)} %`}
@@ -125,7 +125,7 @@ class SpiritBombSoulsConsume extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 

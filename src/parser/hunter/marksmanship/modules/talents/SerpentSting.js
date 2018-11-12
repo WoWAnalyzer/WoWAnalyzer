@@ -6,9 +6,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -42,7 +42,7 @@ class SerpentSting extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(22)}
         icon={<SpellIcon id={SPELLS.SERPENT_STING_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}

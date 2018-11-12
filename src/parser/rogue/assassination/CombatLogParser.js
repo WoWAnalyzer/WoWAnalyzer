@@ -1,8 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Checklist from './modules/features/Checklist/Module';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -22,6 +24,9 @@ import RuptureUptime from './modules/spells/RuptureUptime';
 //Talents
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
+import MasterPoisoner from './modules/talents/MasterPoisoner';
+
+import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -32,6 +37,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cooldownThroughputTracker: CooldownThroughputTracker,
+    checklist: Checklist,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -53,6 +60,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     blindside: Blindside,
     elaboratePlanning: ElaboratePlanning,
+    masterPoisoner: MasterPoisoner,
+
+    // Traits
+    SharpenedBlades: SharpenedBlades,
   };
 }
 

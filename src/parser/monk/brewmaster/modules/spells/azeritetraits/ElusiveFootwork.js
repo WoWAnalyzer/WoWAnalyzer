@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
@@ -42,7 +42,9 @@ class ElusiveFootwork extends Analyzer {
       return;
     }
 
-    this._ebStacksGenerated += 1;
+    if(event.hitType === HIT_TYPES.CRIT) {
+      this._ebStacksGenerated += 1;
+    }
     this._bonusDamage += this._expectedBonusDamage(event);
     this._casts += 1;
   }

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellManaCost from 'parser/core/modules/SpellManaCost';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 
 import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../constants';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import resourceSuggest from 'parser/core/modules/resourcetracker/ResourceSuggest';
+import resourceSuggest from 'parser/shared/modules/resourcetracker/ResourceSuggest';
 
 import EnergyTracker from '../../../shared/resources/EnergyTracker';
 
@@ -19,7 +19,7 @@ class Energy extends Analyzer {
       minor: 0.05,
       avg: 0.1, 
       major: 0.15,
-      extraSuggestion: <React.Fragment>Try to spend energy before using <SpellLink id={SPELLS.VENDETTA.id} /> </React.Fragment>,
+      extraSuggestion: <>Try to spend energy before using <SpellLink id={SPELLS.VENDETTA.id} /> </>,
     });
   }
 }

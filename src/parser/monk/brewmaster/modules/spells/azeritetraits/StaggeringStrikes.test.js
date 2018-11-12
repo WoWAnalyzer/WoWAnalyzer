@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TestCombatLogParser from 'tests/TestCombatLogParser';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import StaggeringStrikes from './StaggeringStrikes';
 import StaggerFabricator from '../../core/StaggerFabricator';
 
@@ -35,8 +35,9 @@ describe('Brewmaster.Spells.AzeriteTraits.StaggeringStrikes', () => {
     parser._combatant.traitsBySpellId = {
       [SPELLS.STAGGERING_STRIKES.id]: RANKS,
     };
-    ss = new StaggeringStrikes(parser);
-    ss.fab = new StaggerFabricator(parser);
+    ss = parser.loadModule('staggeringStrikes', StaggeringStrikes, {
+      fab: new StaggerFabricator({ owner: parser }),
+    });
   });
 
   it('should correctly calculate stagger removed by BoS', () => {

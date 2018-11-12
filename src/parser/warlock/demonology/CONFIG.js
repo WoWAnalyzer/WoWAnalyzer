@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Chizu, Hordehobbs } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -16,18 +17,18 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <React.Fragment>
+    <>
       Hello fellow Netherlords! Currently this spec is still in development as I have yet to add the Demonology legendaries, keep that in mind. While I gotta admit this tool feels more like a statistic than something that really helps you (just yet!), I hope it still is useful to you. Any suggestions as to what could be useful to see are welcome and I'll try to implement them in order for this tool to be more than just a glorified WCL log. <br /> <br />
 
       I'm terribly sorry if you see your Downtime (time not spent doing anything) in negative numbers as that makes no sense but I currently have no clue as to why it happens. Any help with that from some savvy programmer would be appreciated. <br /> <br />
 
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message either @Chizu or @🥓Hordehobbs on WoWAnalyzer Discord.<br /><br />
+      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message either @Chizu or @🥓Hordehobbs on WoWAnalyzer Discord.<br /><br />
 
       <Warning>
         The Demonology Warlock analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
-    </React.Fragment>
+    </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/hMn6w8afHVDLgFBZ/11-Heroic+Vectis+-+Kill+(6:45)/14-Sharora',
@@ -38,7 +39,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Warlock" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "DemonologyWarlock" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

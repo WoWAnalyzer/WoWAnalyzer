@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/core/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 import Mastery from './/Mastery';
 

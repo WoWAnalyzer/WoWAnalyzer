@@ -28,7 +28,12 @@ export default {
     icon: 'ability_warrior_savageblow',
   },
   EXECUTE: {
-    id: 163201,
+    id: 281000,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  EXECUTE_DAMAGE: {
+    id: 260798,
     name: 'Execute',
     icon: 'inv_sword_48',
   },
@@ -78,7 +83,7 @@ export default {
     name: 'Charge',
     icon: 'ability_warrior_charge',
   },
-  CHARGE_DAMAGE: {
+  CHARGE_2: {
     id: 126664,
     name: 'Charge',
     icon: 'ability_warrior_charge',
@@ -139,11 +144,26 @@ export default {
     name: 'Touch of Zakajz',
     icon: 'ability_warrior_colossussmash',
   },
+  MASTERY_DEEP_WOUNDS: {
+    id: 262111,
+    name: 'Mastery: Deep Wounds',
+    icon: 'ability_backstab',
+  },
+  MASTERY_DEEP_WOUNDS_DEBUFF: {
+    id: 262115,
+    name: 'Deep Wounds',
+    icon: 'ability_backstab',
+  },
   // Talents
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: "In For The Kill",
     icon: "ability_blackhand_marked4death",
+  },
+  SUDDEN_DEATH_TALENT_ARMS_BUFF: { 
+    id: 52437, 
+    name: "Sudden Death", 
+    icon: "abilty_warrior_improveddisciplines",
   },
 
   // Arms Tier Sets
@@ -229,7 +249,7 @@ export default {
     name: 'Piercing Howl',
     icon: 'spell_shadow_deathscream',
   },
-  HEROIC_LEAP_FURY: {
+  HEROIC_LEAP: {
     id: 52174,
     name: 'Heroic Leap',
     icon: 'ability_heroicleap',
@@ -403,11 +423,6 @@ export default {
     icon: 'ability_warrior_shieldreflection',
   },
   //Utility Spells
-  HEROIC_LEAP: {
-    id: 6544,
-    name: 'Heroic Leap',
-    icon: 'ability_heroicleap',
-  },
   HEROIC_THROW: {
     id: 57755,
     name: 'Heroic Throw',
@@ -522,5 +537,25 @@ export default {
     id: 202539,
     name: "Furious Slash",
     icon: "ability_warrior_weaponmastery",
+  },
+  WAR_MACHINE_TALENT_BUFF: {
+    id: 262232,
+    name: "War Machine",
+    icon: "ability_hunter_rapidkilling",
+  },
+  STORM_BOLT_TALENT_DEBUFF: {
+    id: 132169,
+    name: "Storm Bolt",
+    icon: "warrior_talent_icon_stormbolt",
+  },
+  IMPENDING_VICTORY_TALENT_HEAL: {
+    id: 202166,
+    name: "Impending Victory",
+    icon: "spell_impending_victory",
+  },
+  SECOND_WIND_TALENT_HEAL: {
+    id: 202147,
+    name: 'Second Wind',
+    icon: 'ability_hunter_harass',
   },
 };

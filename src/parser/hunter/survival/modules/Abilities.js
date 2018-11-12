@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -84,19 +84,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: .85,
         },
         timelineSortIndex: 6,
-      },
-      {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .85,
-        },
       },
       {
         spell: SPELLS.STEEL_TRAP_TALENT,
@@ -287,6 +274,22 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
+          static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
           base: 1500,
         },
       },
@@ -296,6 +299,7 @@ class Abilities extends CoreAbilities {
        */
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

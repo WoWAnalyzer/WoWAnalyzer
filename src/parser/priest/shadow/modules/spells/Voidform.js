@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import Haste from 'parser/core/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tab from 'interface/others/Tab';
 
@@ -215,8 +215,8 @@ class Voidform extends Analyzer {
     return (voidform) => ({
       actual: voidform.stacks.length,
       isLessThan: {
-        minor: 22,
-        average: 20,
+        minor: 20,
+        average: 19,
         major: 18,
       },
       style: 'number',

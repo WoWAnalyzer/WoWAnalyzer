@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -86,12 +86,10 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.TIME_WARP,
+        buffSpellId: SPELLS.TIME_WARP.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
         cooldown: 300,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.ARCANE_FAMILIAR_TALENT,
@@ -101,12 +99,10 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 10,
         enabled: combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.ARCANE_POWER,
+        buffSpellId: SPELLS.ARCANE_POWER.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -119,6 +115,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EVOCATION,
+        buffSpellId: SPELLS.EVOCATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -131,6 +128,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRESENCE_OF_MIND,
+        buffSpellId: SPELLS.PRESENCE_OF_MIND.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
         cooldown: 60,
@@ -154,6 +152,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
+        buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -176,9 +175,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.ICE_BLOCK,
@@ -188,14 +184,12 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 240,
-        castEfficiency: {
-          disabled: true,
-        },
       },
 
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
+        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -209,9 +203,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 30,
         charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SLOW,
@@ -225,9 +216,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 22,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.BLINK,
@@ -237,9 +225,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 15,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
@@ -248,18 +233,12 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 24,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.REMOVE_CURSE,
@@ -268,12 +247,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 8,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SLOW_FALL,
+        buffSpellId: SPELLS.SLOW_FALL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -288,13 +265,24 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GREATER_INVISIBILITY,
+        buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 120,
-        castEfficiency: {
-          disabled: true,
+      },
+      {
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG, 
+          SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
+          SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
+          SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
+          SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
+          SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
+          SPELLS.POLYMORPH_DIREHORN],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
         },
       },
     ];

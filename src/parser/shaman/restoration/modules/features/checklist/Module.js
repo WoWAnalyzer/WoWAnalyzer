@@ -1,15 +1,16 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import CastEfficiency from 'parser/core/modules/CastEfficiency';
-import Combatants from 'parser/core/modules/Combatants';
-import ManaValues from 'parser/core/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/core/modules/features/Checklist2/PreparationRuleAnalyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+import ManaValues from 'parser/shared/modules/ManaValues';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import TidalWaves from '../TidalWaves';
 import ChainHeal from '../../spells/ChainHeal';
 import HealingRain from '../../spells/HealingRain';
+import Wellspring from '../../talents/Wellspring';
 import HealingSurge from '../../spells/HealingSurge';
 import HealingWave from '../../spells/HealingWave';
 
@@ -25,6 +26,7 @@ class Checklist extends Analyzer {
     tidalWaves: TidalWaves,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
+    wellspring: Wellspring,
     healingSurge: HealingSurge,
     healingWave: HealingWave,
   };
@@ -44,6 +46,7 @@ class Checklist extends Analyzer {
           unbuffedHealingWavesThresholds: this.healingWave.suggestedThreshold,
           chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
           healingRainTargetThreshold: this.healingRain.suggestionThreshold,
+          wellspringTargetThreshold: this.wellspring.suggestionThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
         }}
       />

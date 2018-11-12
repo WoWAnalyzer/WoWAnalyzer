@@ -6,10 +6,10 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import Enemies from 'parser/core/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -175,13 +175,13 @@ class SerpentSting extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) ? <React.Fragment>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</React.Fragment> : ''}.</React.Fragment>)
+      return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}.</>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
     when(this.refreshingThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</React.Fragment>)
+      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
         .recommended(`<${recommended} is recommended`);

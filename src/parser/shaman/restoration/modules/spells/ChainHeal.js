@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import AbilityTracker from 'parser/core/modules/AbilityTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -70,6 +70,7 @@ class ChainHeal extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
         value={this.avgHits.toFixed(2)}
+        position={STATISTIC_ORDER.OPTIONAL(70)}
         label={(
           <dfn data-tip={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${this.casts} Chain Heals, which healed an average of ${this.avgHits.toFixed(2)} out of ${this.maxTargets} targets.`}>
             Average Chain Heal targets
@@ -78,7 +79,6 @@ class ChainHeal extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 }
 
 export default ChainHeal;

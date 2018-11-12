@@ -5,7 +5,7 @@ import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -61,7 +61,7 @@ class HolyWordsReductionBySpell extends Analyzer {
     const reductionBySpell = this.reductionBySpell;
 
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
         value={`${formatPercentage(reductionRatio)} %`}
@@ -93,7 +93,7 @@ class HolyWordsReductionBySpell extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
 
     );
   }

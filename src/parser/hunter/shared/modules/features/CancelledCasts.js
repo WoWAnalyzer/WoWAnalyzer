@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CoreCancelledCasts from 'parser/core/modules/CancelledCasts';
+import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -33,7 +33,7 @@ class CancelledCasts extends CoreCancelledCasts {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</React.Fragment>)
+        return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

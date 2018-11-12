@@ -2,22 +2,58 @@ import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Abilities from 'parser/shared/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatisticBox from 'interface/others/StatisticBox';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
+import BrewCDR from '../core/BrewCDR';
+import IronskinBrew from './IronSkinBrew';
+
+const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
+
+function markupPurify(event, delay, hasHeavyStagger) {
+  const msgs = [];
+  if(delay > PURIFY_DELAY_THRESHOLD) {
+    msgs.push(`<li>You delayed casting it for <b>${(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>`);
+  }
+  if(!hasHeavyStagger) {
+    msgs.push(`<li>You cast without reaching at least Heavy Stagger, which is <em>almost always</em> inefficient.</li>`);
+  }
+
+  if(msgs.length === 0) {
+    return;
+  }
+  const meta = event.meta || {};
+  meta.isInefficientCast = true;
+  meta.inefficientCastReason = `This Purifying Brew cast was inefficient because:<ul>${msgs.join('')}</ul>`;
+  event.meta = meta;
+}
 
 class PurifyingBrew extends Analyzer {
   static dependencies = {
     brews: SharedBrews,
+    spells: SpellUsable,
+    abilities: Abilities,
+    cdr: BrewCDR,
+    isb: IronskinBrew,
   };
 
   purifyAmounts = [];
+  purifyDelays = [];
 
   heavyPurifies = 0;
 
+  // used to track heavy stagger for when the debuff drops just before the
+  // cast event happens
   _heavyStaggerDropped = false;
+
+  _lastHit = null;
+  _msTilPurify = 0;
 
   on_byPlayer_removedebuff(event) {
     if (event.ability.guid === SPELLS.HEAVY_STAGGER_DEBUFF.id) {
@@ -57,17 +93,120 @@ class PurifyingBrew extends Analyzer {
     return this.purifyAmounts.length;
   }
 
+  get avgPurifyDelay() {
+    if(this.purifyDelays.length === 0) {
+      return 0;
+    }
+    return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
+  }
+
+  // the number of purifies you *could have* cast without dropping ISB
+  // if you didn't clip at all
+  get availablePurifies() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const cd = ability._cooldown(this.cdr.meanHaste);
+    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
+    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
+    return Math.max(castsAvailable - castsForUptime, 1);
+  }
+
+  on_addstagger(event) {
+    this._lastHit = event;
+    this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id) ? 0 : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
+  }
+
   on_removestagger(event) {
+    if(this._lastHit === null) {
+      if(event.amount > 0) {
+        console.warn('Stagger removed but player hasn\'t been hit yet', event);
+      }
+      return; // no hit yet
+    }
+    // tracking gap from peak --- ideally you want to purify as close to
+    // a peak as possible, but if no purify charges are available we
+    // want to get the new pooled amount
+    const gap = event.timestamp - this._lastHit.timestamp;
+    if(event.trigger.ability && event.trigger.ability.guid === SPELLS.STAGGER.id && this._msTilPurify - gap > 0) {
+      this._msTilPurify = Math.max(0, this._msTilPurify - gap);
+      this._lastHit = event;
+    }
+
+    // tracking purification
     if (!event.trigger.ability || event.trigger.ability.guid !== SPELLS.PURIFYING_BREW.id) {
-      // reset this, death or another ability took us out of heavy stagger
+      // reset this, if we lost heavy stagger then death or another ability took us out of heavy stagger
       this._heavyStaggerDropped = false;
       return;
     }
     this.purifyAmounts.push(event.amount);
-    if (this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped) {
+    const delay = event.timestamp - this._lastHit.timestamp - this._msTilPurify;
+    this.purifyDelays.push(delay);
+    const hasHeavyStagger = this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
+    markupPurify(event.trigger, delay, hasHeavyStagger);
+    if (hasHeavyStagger) {
       this.heavyPurifies += 1;
     }
     this._heavyStaggerDropped = false;
+  }
+
+  get purifyDelaySuggestion() {
+    return {
+      actual: this.avgPurifyDelay / 1000,
+      isGreaterThan: {
+        minor: 1,
+        average: PURIFY_DELAY_THRESHOLD / 1000,
+        major: PURIFY_DELAY_THRESHOLD / 1000 + 1,
+      },
+      style: 'seconds',
+    };
+  }
+
+  get purifyHeavySuggestion() {
+    return {
+      actual: this.badPurifies / this.totalPurifies,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.15,
+        major: 0.2,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get purifyCastSuggestion() {
+    const target = Math.floor(this.availablePurifies);
+    return {
+      actual: this.totalPurifies,
+      max: target,
+      isLessThan: {
+        minor: target,
+        average: 0.8 * target,
+        major: 0.6 * target,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${actual.toFixed(2)}s Average Delay`)
+        .recommended(`< ${recommended.toFixed(2)}s is recommended`);
+    });
+
+    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should <em>almost never</em> cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+    });
+
+    when(this.purifyCastSuggestion).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You should spend brews not needed to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> on <SpellLink id={SPELLS.PURIFYING_BREW.id} />. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> has a capped duration, so spending all brews on the buff ultimately wastes resources.</>)
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(`${formatNumber(actual)} casts`)
+        .recommended(<>{formatNumber(recommended)} could be cast without dropping <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>);
+    });
   }
 
   statistic() {
@@ -78,11 +217,11 @@ class PurifyingBrew extends Analyzer {
         label="Avg. Mitigation per Purifying Brew"
         tooltip={`Purifying Brew removed <b>${formatNumber(this.totalPurified)}</b> damage in total over ${this.totalPurifies} casts.<br/>
                   The smallest purify removed <b>${formatNumber(this.minPurify)}</b> and the largest purify removed <b>${formatNumber(this.maxPurify)}</b>.<br/>
-                  You purified <b>${this.badPurifies}</b> (${formatPercentage(this.badPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.`}
+                  You purified <b>${this.badPurifies}</b> (${formatPercentage(this.badPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br/>
+                  Your purifies were delayed from the nearest peak by <b>${(this.avgPurifyDelay / 1000).toFixed(2)}s</b> on average.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default PurifyingBrew;

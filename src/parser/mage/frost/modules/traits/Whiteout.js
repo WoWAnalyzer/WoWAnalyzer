@@ -7,19 +7,11 @@ import {calculateAzeriteEffects} from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import HIT_TYPES from 'parser/core/HIT_TYPES';
-import EnemyInstances from 'parser/core/modules/EnemyInstances';
-import SpellUsable from 'parser/core/modules/SpellUsable';
-import StatTracker from 'parser/core/modules/StatTracker';
-
-// Enemy debuffs that provide the triple damage multiplier onto Ice Lance
-const SHATTER_EFFECTS = [
-  SPELLS.WINTERS_CHILL.id,
-  SPELLS.FROST_NOVA.id,
-  SPELLS.ICE_NOVA_TALENT.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-  SPELLS.RING_OF_FROST_DAMAGE.id,
-];
+import HIT_TYPES from 'game/HIT_TYPES';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import { SHATTER_DEBUFFS } from '../../constants';
 
 // The number of seconds of cooldown reduction given to Frozen Orb per Ice Lance
 const FO_REDUCTION_SEC = 0.5;
@@ -98,7 +90,7 @@ class Whiteout extends Analyzer {
 
     // Check for shatter effects, these multiply the damage of Ice Lance by 3
     const enemy = this.enemies.getEntity(event);
-    if ((enemy && SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect, event.timestamp))) || this.hadFingersProc) {
+    if ((enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp))) || this.hadFingersProc) {
       estimatedBonusDamage *= 3;
     }
 
@@ -111,10 +103,10 @@ class Whiteout extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WHITEOUT.id}
         value={(
-          <React.Fragment>
+          <>
             {formatNumber(this.totalWhiteoutDamage / this.owner.fightDuration * 1000)} DPS<br />
             {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} sec. CD reduction<br />
-          </React.Fragment>
+          </>
         )}
         tooltip={
           `DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.</i><br />

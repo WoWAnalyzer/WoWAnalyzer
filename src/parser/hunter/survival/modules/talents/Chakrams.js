@@ -4,9 +4,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import SpellUsable from 'parser/core/modules/SpellUsable';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { encodeTargetString } from 'parser/core/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import StatTracker from 'parser/core/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';

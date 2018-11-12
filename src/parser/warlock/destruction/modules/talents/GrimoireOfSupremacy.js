@@ -51,9 +51,9 @@ class GrimoireOfSupremacy extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<React.Fragment>Average <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stacks</React.Fragment>}
+        title={<>Average <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stacks</>}
         value={this.averageStacks.toFixed(2)}
-        valueTooltip={`Bonus Chaos Bolt damage: ${formatThousands(this.damage)}. Note that due to Destruction Mastery, this is only an estimate (not taking Mastery into account).`}
+        valueTooltip={`Bonus Chaos Bolt damage: ${formatThousands(this.damage)} (${this.owner.formatItemDamageDone(this.damage)}). Note that due to Destruction Mastery, this is only an <strong>estimate</strong> (not taking Mastery into account).`}
       />
     );
   }

@@ -4,8 +4,8 @@ import Tab from 'interface/others/Tab';
 import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/core/modules/features/LowHealthHealing';
-import HealingDone from 'parser/core/modules/HealingDone';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import Abilities from './modules/Abilities';
 
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -44,6 +44,10 @@ import SacredFlame from './modules/spells/azeritetraits/SacredFlame';
 import WordOfMending from './modules/spells/azeritetraits/WordOfMending';
 import Sanctum from '../shared/modules/spells/azeritetraits/Sanctum';
 import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
+// Mana Tracker
+import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
+import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -118,6 +122,11 @@ class CombatLogParser extends CoreCombatLogParser {
     wordOfMending: WordOfMending,
     sanctum: Sanctum,
     twistMagic: TwistMagic,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: HealingEfficiencyDetails,
+    hpmTracker: HealingEfficiencyTracker,
   };
 
   generateResults(...args) {

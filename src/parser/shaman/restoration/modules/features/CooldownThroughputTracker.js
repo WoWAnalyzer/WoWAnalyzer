@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/core/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../constants';
 
@@ -270,7 +270,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.absorb || 0) + (event.overheal || 0);
+    const healingDone = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;

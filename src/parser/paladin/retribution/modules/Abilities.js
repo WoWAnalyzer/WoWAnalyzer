@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -110,6 +110,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INQUISITION_TALENT,
+        buffSpellId: SPELLS.INQUISITION_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

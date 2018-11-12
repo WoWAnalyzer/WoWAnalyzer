@@ -1,5 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/core/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/DamageDone';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/features/Abilities';
@@ -11,6 +11,8 @@ import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
 
 import ArcaneCharges from './normalizers/ArcaneCharges';
+import ArcanePowerNormalizer from './normalizers/ArcanePower';
+import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
 
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcanePower from './modules/features/ArcanePower';
@@ -32,7 +34,9 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     arcaneCharges: ArcaneCharges,
-    
+    arcanePowerNormalizer: ArcanePowerNormalizer,
+    prePullCooldowns: PrePullCooldowns,
+
     // Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
