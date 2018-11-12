@@ -21,7 +21,7 @@ const MAX_DELAY = 30;
 class FervorOfBattle extends Analyzer {
     
     bonusDamage = 0;
-    lastSlamCast = 0;
+    lastWhirlwindCast = 0;
 
     constructor(...args) {
         super(...args);
@@ -30,8 +30,8 @@ class FervorOfBattle extends Analyzer {
 
     on_byPlayer_cast(event) {
         const guid = event.ability.guid;
-        if (guid !== SPELLS.SLAM.id) {
-            this.lastSlamCast = event.timestamp;
+        if (guid !== SPELLS.WHIRLWIND.id) {
+            this.lastWhirlwindCast = event.timestamp;
         }
     }
 
@@ -43,7 +43,7 @@ class FervorOfBattle extends Analyzer {
 
         if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id) {
             this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
-        } else if (event.timestamp - this.lastSlamCast < MAX_DELAY) {
+        } else if (event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
            this.bonusDamage += event.amount;
         }
         
