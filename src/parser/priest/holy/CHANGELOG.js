@@ -4,6 +4,16 @@ import { niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-05'),
+    changes: 'Adding Renew suggestion.',
+    contributors: [Khadaj],
+  },
+  {
+    date: new Date('2018-10-22'),
+    changes: 'Adding mana efficiency tab.',
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2018-09-13'),
     changes: 'Adding Holy Priest Azerite traits.',
     contributors: [Khadaj],

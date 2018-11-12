@@ -139,7 +139,7 @@ export default {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-    manaCost: 80,
+    manaCost: 400,
   },
   SOOTHING_MIST_STATUE: {
     id: 198533,
@@ -394,6 +394,16 @@ export default {
     id: 205523,
     name: 'Blackout Strike',
     icon: 'ability_monk_blackoutstrike',
+  },
+  CELESTIAL_FORTUNE_HEAL: {
+    id: 216521,
+    name: 'Celestial Fortune',
+    icon: 'inv_celestialserpentmount',
+  },
+  EYE_OF_THE_TIGER_HEAL: {
+    id: 196608,
+    name: 'Eye of the Tiger',
+    icon: 'ability_druid_primalprecision',
   },
   KEG_SMASH: {
     id: 121253,

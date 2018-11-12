@@ -95,7 +95,7 @@ describe('Core/CombatLogParser', () => {
       expect(Object.keys(parser._modules).length).toBe(0);
     });
   });
-  describe('findModule', () => {
+  describe('getModule', () => {
     it('finds a module by type', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
@@ -106,9 +106,9 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.findModule(MyModule)).toBe(parser._modules.test);
-      expect(parser.findModule(MyModule)).toBeInstanceOf(MyModule);
-      expect(parser.findModule(MyModule)).toBe(myModule);
+      expect(parser.getModule(MyModule)).toBe(parser._modules.test);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyModule)).toBe(myModule);
     });
     it('finds a submodule even when looking for the parent module', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
@@ -120,11 +120,11 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.findModule(MyModule)).toBe(parser._modules.test);
-      expect(parser.findModule(MyModule)).toBeInstanceOf(MySubModule);
-      expect(parser.findModule(MyModule)).toBe(mySubModule);
-      expect(parser.findModule(MySubModule)).toBeInstanceOf(MySubModule);
-      expect(parser.findModule(MySubModule)).toBe(mySubModule);
+      expect(parser.getModule(MyModule)).toBe(parser._modules.test);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MySubModule);
+      expect(parser.getModule(MyModule)).toBe(mySubModule);
+      expect(parser.getModule(MySubModule)).toBeInstanceOf(MySubModule);
+      expect(parser.getModule(MySubModule)).toBe(mySubModule);
     });
     it('returns undefined is module doesn\'t exist', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
@@ -133,7 +133,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.findModule(MyModule)).toBe(undefined);
+      expect(parser.getModule(MyModule)).toBe(undefined);
     });
   });
   describe('module dependencies', () => {
