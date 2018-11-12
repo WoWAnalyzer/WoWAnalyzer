@@ -15,7 +15,7 @@ import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
 const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
-const BLOOM_BUFFER_MS = 32;
+const BLOOM_BUFFER_MS = 100;
 
 /*
 While your Lifebloom is on yourself, your periodic heals heal 20% faster.
@@ -49,49 +49,33 @@ class Photosynthesis extends Analyzer {
   }
 
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
+  on_byPlayer_cast(event) {
+    if (event.ability.guid === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
       this.lastRealBloomTimestamp = event.timestamp;
     }
   }
 
 
   on_byPlayer_removebuff(event){
-    const spellId = event.ability.guid;
-    if(spellId !== SPELLS.LIFEBLOOM_HOT_HEAL.id) {
-      return;
+    if(event.ability.guid === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
+      this.lastRealBloomTimestamp = event.timestamp;
     }
-    this.lastRealBloomTimestamp = event.timestamp;
+
   }
 
+  randomProccs = 0;
+  naturalProccs = 0;
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
     // Lifebloom random bloom procc
-    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS)){
-      //this.lifebloomIncrease += amount;
-      // TODO - Fix the implementation of lifebloom random proccs. Some information gathered:
-      /*
-          // LB timing out, natural proc
-          00:00:48.609 removeBuff
-          00:00:48.609 heal (bloom)
-          00:00:49.894 gainBuff
-          00:00:49.894 cast
-
-          // Refreshing LB pandemic
-          00:01:04.076 heal (bloom)
-          00:01:04.077 refreshBuff
-          00:01:04.077 cast
-
-          // Random procs
-          00:04:55.725 cast
-          00:04:55.725 gainBuff
-          00:04:56.720 heal (bloom)
-          00:04:57.377 heal (bloom)
-          00:04:59.043 heal (bloom)
-       */
+    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id){
+      if(this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
+        this.lifebloomIncrease += event.amount;
+        this.randomProccs++;
+      } else {
+        this.naturalProccs++;
+      }
     }
 
     // Yes it actually buffs efflorescence, confirmed by Voulk and Bastas
@@ -166,7 +150,7 @@ class Photosynthesis extends Analyzer {
         value={`${formatPercentage(totalPercent)} %`}
         label={'Photosynthesis'}
         tooltip={`
-            Healing contribution (right now random lifebloom blooms are not accounted for, thus potentially showing lower value than the actual gain).
+            Healing contribution
             <ul>
               <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))} %</b></li>
               <li>Wild Growth: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))} %</b></li>
@@ -180,7 +164,7 @@ class Photosynthesis extends Analyzer {
               <li>Grove Tending: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</b></li>
               <hr>
               <li>Total HoT increase part: <b>${formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
-              <li>Lifebloom random bloom: <b>NOT YET IMPLEMENTED</b></li>
+              <li>Lifebloom random bloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b> (Random proccs: ${this.randomProccs}, Natural proccs: ${this.naturalProccs})</li>
             </ul>
             Lifebloom uptime
             <ul>
