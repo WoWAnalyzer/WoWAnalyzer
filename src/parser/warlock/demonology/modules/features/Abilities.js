@@ -67,6 +67,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.DOOM_TALENT.id),
+        buffSpellId: SPELLS.DOOM_TALENT.id,
       },
       {
         spell: SPELLS.SHADOW_BOLT_DEMO,
@@ -198,6 +199,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0.10,
         },
+        buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
 
       // Utility
@@ -208,6 +210,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.BURNING_RUSH_TALENT.id,
       },
       {
         spell: SPELLS.DRAIN_LIFE,
