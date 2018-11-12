@@ -31,7 +31,7 @@ class ElementalShamanChecklist extends React.PureComponent {
           description={(
             <>
               Using your core abilities as often as possible can help raise your dps significantly.Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible, unless you need to save them for a priority burst phase that is coming up soon.
-              {'  '}
+              {'\u00a0'}
               <a href="https://stormearthandlava.com/guide/general/priority_list.html" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
