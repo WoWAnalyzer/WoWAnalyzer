@@ -6,8 +6,23 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-08'),
+    changes: <> Implemented a module for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} />, <SpellLink id={SPELLS.SCENT_OF_BLOOD_TALENT.id} /> and updated the module for <SpellLink id={SPELLS.DIRE_BEAST_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <>Implemented a talent statistic module and suggestions for <SpellLink id={SPELLS.VENOMOUS_BITE_TALENT.id} /> and <SpellLink id={SPELLS.THRILL_OF_THE_HUNT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-31'),
+    changes: <>Implement statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
+    contributors: [Streammz],
+  },
+  {
     date: new Date('2018-10-29'),
-    changes: <>Implement a suggestion that checks for <SpellLink id={SPELLS.MULTISHOT_BM.id} /> usage in single target situations, warning you about multi-shot uses where no paired <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage has been dealt.</>,
+    changes: <>Implemented a suggestion that checks for <SpellLink id={SPELLS.MULTISHOT_BM.id} /> usage in single target situations, warning you about multi-shot uses where no paired <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage has been dealt.</>,
     contributors: [Streammz],
   },
   {

@@ -26,12 +26,14 @@ Now you need to pull a copy of the codebase onto your computer. Make a fork of t
 
 When cloning finishes, open a command window to the source and run the command `npm install`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter an **Application Name** (this is required) and copy the **public key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
 
+Optionally if you're on a bash compatible machine, you can run `bin/setup` for an interactive setup of this application.
+
 Once all that's done you're ready to fire up the development server! Just run the command `npm start` in the project root. The first start will take another minute.
 
 <table align="center">
   <tr>
     <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
-    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow the above steps, skipping all `npm` commands, and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running. The app will be available at <a href="http://localhost:3000/">http://localhost:3000/</a>.</td>
+    <td>Alternatively <b>there's a Docker container available</b> so you don't have to install any software other than Git (and your IDE with its dependencies which likely includes Node.js). Follow the above steps, skipping all `npm` commands, and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running. The app will be available at <a href="http://localhost:3000/">http://localhost:3000/</a>.</td>
   </tr>
 </table>
 

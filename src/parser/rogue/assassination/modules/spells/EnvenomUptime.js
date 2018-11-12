@@ -19,7 +19,7 @@ class EnvenomUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ENVENOM.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label="Envenom Uptime"
+        label="Envenom uptime"
       />
     );
   }

@@ -3,7 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -62,7 +63,8 @@ class Hemostasis extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.HEMOSTASIS_TALENT.id} />}
         value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
         label="Death Strikes with Hemostasis"
@@ -73,7 +75,6 @@ class Hemostasis extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default Hemostasis;

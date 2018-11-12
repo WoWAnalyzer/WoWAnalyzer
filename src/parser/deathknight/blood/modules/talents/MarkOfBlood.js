@@ -5,7 +5,8 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class MarkOfBlood extends Analyzer {
   static dependencies = {
@@ -45,15 +46,14 @@ class MarkOfBlood extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(6)}
         icon={<SpellIcon id={SPELLS.MARK_OF_BLOOD_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Mark Of Blood Uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default MarkOfBlood;

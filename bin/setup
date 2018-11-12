@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "== Installing Dependencies =="
+npm install
+
+echo "== Copying .env.local if needed =="
+if [ ! -f .env.local ]; then
+  read -sp "Please enter your Warcraft Logs Public Api Key: " api_key
+  cp .env.local.example .env.local
+  sed -i s/INSERT_YOUR_OWN_API_KEY_HERE/$api_key/ .env.local
+fi

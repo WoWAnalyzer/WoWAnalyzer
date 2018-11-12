@@ -41,7 +41,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Fight Length (s)</td><td>{Math.floor(parser.fightDuration / 1000)}</td></tr>
             <tr><td>Renewing Mists per Vivify</td><td>{parser._modules.vivify.averageRemPerVivify.toFixed(2) || ''}</td></tr>
             <tr><td>Renewing Mist Average Duration</td><td>{((getAbility(SPELLS.RENEWING_MIST_HEAL.id).healingHits / getAbility(SPELLS.RENEWING_MIST.id).casts) * 2).toFixed(2) || ''}</td></tr>
-            <tr><td>Total Healing from Enveloping Mist Healing Bonus</td><td>{parser._modules.envelopingMists.healing.toFixed(2) || ''}</td></tr>
+            <tr><td>Total Healing from Enveloping Mist Healing Bonus</td><td>{parser._modules.envelopingMists.healingIncrease.toFixed(2) || ''}</td></tr>
             <tr><td>Total healing from Life Cocoon HoT Bonus</td><td>{parser._modules.lifeCocoon.healing.toFixed(2)}</td></tr>
             <tr><td>Essence Font Bolts per Cast</td><td>{parser._modules.essenceFont.avgTargetsHitPerEF.toFixed(2) || ''}</td></tr>
             <tr><td>Essence Font HoT Effectiveness</td><td>{parser._modules.essenceFont.efHotOverlap}</td></tr>

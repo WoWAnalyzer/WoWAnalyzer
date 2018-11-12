@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -86,7 +87,8 @@ class Bonestorm extends Analyzer {
   statistic() {
 
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(7)}
         icon={<SpellIcon id={SPELLS.BONESTORM_TALENT.id} />}
         value={`${ formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage)) } %`}
         label="of your total damage"
@@ -94,7 +96,6 @@ class Bonestorm extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Bonestorm;
