@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -19,7 +19,7 @@ const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
 class EarthenWallTotem extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    combatants: Combatants,
   };
 
   earthenWallTotems = [];
@@ -69,6 +69,11 @@ class EarthenWallTotem extends Analyzer {
   }
 
   _onAbsorbed(event) {
+    // Filtering out pets as healing on them is pointless, sadly
+    const combatant = this.combatants.players[event.targetID];
+    if (!combatant) {
+      return;
+    }
     this.earthenWallTotems[this.castNumber].effectiveHealing += event.amount;
   }
 
@@ -107,7 +112,8 @@ class EarthenWallTotem extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         label={"Earthen Wall Totem efficiency"}
         tooltip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.totalPotentialHealing)}, which absorbed a total of ${formatNumber(this.totalEffectiveHealing)} damage.<br/><br/>
-        This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.`}
+        This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br/><br/>
+        <b>Pet healing is filtered out.</b>`}
       >
         <table className="table table-condensed">
           <thead>
@@ -141,6 +147,7 @@ class EarthenWallTotem extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing))} %`}
+        valueTooltip="Pet healing is filtered out"
       />
     );
   }
