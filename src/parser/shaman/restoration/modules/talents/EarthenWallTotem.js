@@ -15,6 +15,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const RECOMMENDED_EFFICIENCY = 0.75;
+const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
 class EarthenWallTotem extends Analyzer {
   static dependencies = {
@@ -43,7 +44,7 @@ class EarthenWallTotem extends Analyzer {
 
     this.castNumber += 1;
     this.earthenWallTotems[this.castNumber] = {
-      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints * 1.1) : event.maxHitPoints,
+      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints * (1+MAGHAR_ORC_PET_HEALTH_INCREASE)) : event.maxHitPoints,
       effectiveHealing: 0,
       timestamp: event.timestamp,
     };
@@ -59,8 +60,8 @@ class EarthenWallTotem extends Analyzer {
       this.prePullCast = false;
     }
 
-    // If for some reason something goes wrong with the race detection
-    // The reason this isn't always using the totems health, is that I need to account for totems that never had damage taken events
+    // If for some reason something goes wrong with the race detection, this should be the only reason for differences in health
+    // The reason this isn't always using the totems health, is that you need to account for totems that never had damage taken events (0% efficiency)
     if (event.maxHitPoints && this.earthenWallTotems[this.castNumber].potentialHealing !== event.maxHitPoints) {
       this.isMaghar = true; // likely
       this.earthenWallTotems[this.castNumber].potentialHealing = event.maxHitPoints;
