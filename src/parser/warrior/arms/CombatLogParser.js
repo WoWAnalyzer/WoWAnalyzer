@@ -36,7 +36,7 @@ import SuddenDeath from './modules/talents/SuddenDeath';
 import WarMachine from './modules/talents/WarMachine';
 import StormBolt from './modules/talents/StormBolt';
 import ImpendingVictory from './modules/talents/ImpendingVictory';
-//import FervorOfBattle from './modules/talents/FervorOfBattle';
+import FervorOfBattle from './modules/talents/FervorOfBattle';
 import SecondWind from './modules/talents/SecondWind';
 import Cleave from './modules/talents/Cleave';
 import Warbreaker from './modules/talents/Warbreaker';
@@ -88,7 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     warMachine: WarMachine,
     stormBolt: StormBolt,
     impendingVictory: ImpendingVictory,
-    //fervorOfBattle: FervorOfBattle,
+    fervorOfBattle: FervorOfBattle,
     secondWind: SecondWind,
     cleave: Cleave,
     warbreaker: Warbreaker,

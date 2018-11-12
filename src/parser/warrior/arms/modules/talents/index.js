@@ -9,7 +9,7 @@ import SuddenDeath from './SuddenDeath';
 import WarMachine from './WarMachine';
 import StormBolt from './StormBolt';
 import ImpendingVictory from './ImpendingVictory';
-//import FervorOfBattle from './FervorOfBattle';
+import FervorOfBattle from './FervorOfBattle';
 import SecondWind from './SecondWind';
 import Cleave from './Cleave';
 import Warbreaker from './Warbreaker';
@@ -17,7 +17,6 @@ import Avatar from './Avatar';
 import Ravager from './Ravager';
 
 // Rend statistics are in '../core/Dots'
-// TODO: Fervor of Battle -> Slam damage
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
@@ -26,7 +25,7 @@ class TalentStatisticBox extends Analyzer {
     warMachine: WarMachine,
     stormBolt: StormBolt,
     impendingVictory: ImpendingVictory,
-    //fervorOfBattle: FervorOfBattle,
+    fervorOfBattle: FervorOfBattle,
     secondWind: SecondWind,
     cleave: Cleave,
     warbreaker: Warbreaker,
