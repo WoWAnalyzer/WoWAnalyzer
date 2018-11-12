@@ -9,6 +9,11 @@ export default [
     contributors: [blazyb],
   },
   {
+    date: new Date('2018-11-07'),
+    changes: 'Added support for random LB blooms in Photosynthesis.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-11-06'),
     changes: 'Fixed a minor bug with Flourish module and ordering of event being skewed.',
     contributors: [blazyb],
