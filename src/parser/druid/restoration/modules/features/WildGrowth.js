@@ -9,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 
-const MS_BUFFER = 200;
 const RECOMMENDED_HIT_THRESHOLD = 5;
 const PRECAST_PERIOD = 3000;
 const PRECAST_THRESHOLD = 0.5;
@@ -20,9 +19,6 @@ class WildGrowth extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  lastWgCast = 0;
-  wgCounter = 0;
-  wgHits = [];
   wgHistory = [];
   wgTracker = {};
 
@@ -67,32 +63,18 @@ class WildGrowth extends Analyzer {
       return;
     }
     this.wgTracker.wgBuffs.push(event.targetID);
-
-    // We check all "recent" WG applications by the player and assume that all WGs applied within a small timeframe to be applied by the same cast.
-    // TODO - refactor below snippet (and related code) and use wgHistory array instead.
-    if(this.lastWgCast === 0) {
-      this.lastWgCast = event.timestamp;
-    }
-    if(event.timestamp - this.lastWgCast < MS_BUFFER) {
-      this.wgCounter++;
-    } else {
-      this.wgHits.push(this.wgCounter);
-      this.lastWgCast = event.timestamp;
-      this.wgCounter = 1;
-    }
   }
 
   on_finished() {
-    this.wgHits.push(this.wgCounter);
     this.wgHistory.push(this.wgTracker);
   }
 
   get averageEffectiveHits() {
-    return (this.wgHits.reduce((a, b) => a + b, 0) / this.wgs) || 0;
+    return (this.wgHistory.reduce((a,b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;
   }
 
   get belowRecommendedCasts() {
-    return this.wgHits.filter(hits => hits < RECOMMENDED_HIT_THRESHOLD).length;
+    return this.wgHistory.filter(wg => wg.wgBuffs.length < RECOMMENDED_HIT_THRESHOLD).length;
   }
 
   get belowRecommendedPrecasts() {
@@ -169,7 +151,7 @@ class WildGrowth extends Analyzer {
         return suggest(<>You sometimes cast <SpellLink id={SPELLS.WILD_GROWTH.id} /> on too few targets. <SpellLink id={SPELLS.WILD_GROWTH.id} /> is not mana efficient when hitting few targets, you should only cast it when you can hit at least {RECOMMENDED_HIT_THRESHOLD} wounded targets. Make sure you are not casting on a primary target isolated from the raid. <SpellLink id={SPELLS.WILD_GROWTH.id} /> has a maximum hit radius, the injured raiders could have been out of range. Also, you should never pre-hot with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
         </>)
           .icon(SPELLS.WILD_GROWTH.icon)
-          .actual(`${formatPercentage(this.percentBelowRecommendedCasts, 0)}% casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`)
+          .actual(`${formatPercentage(this.percentBelowRecommendedCasts, 0)}% of your casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`)
           .recommended(`never casting on fewer than ${RECOMMENDED_HIT_THRESHOLD} is recommended`);
       });
     when(this.suggestionThresholds)
