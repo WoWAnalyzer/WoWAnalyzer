@@ -11,18 +11,20 @@ class AverageTargetsHit extends React.PureComponent {
 
   render() {
     const { casts, hits, unique, approximate } = this.props;
+    let averageHits = (hits / casts).toFixed(1) || 0;
+    if (isNaN(averageHits)) {
+      averageHits = 0;
+    }
     if (!unique) {
-      const averageHits = (hits / casts).toFixed(1);
       return (
         <>
-          {approximate && '≈'}{averageHits}{' avg '}{averageHits > 1 ? 'targets hit' : 'target hit'}
+          {approximate && '≈'}{averageHits}{' average '}{averageHits > 1 ? ' hits per cast' : 'target per cast'}
         </>
       );
     } else {
-      const averageHits = (hits / casts).toFixed(1);
       return (
         <>
-          {approximate && '≈'}{averageHits}{' avg unique '}{averageHits > 1 ? 'targets/cast' : 'target/cast'}
+          {approximate && '≈'}{averageHits}{' unique '}{averageHits > 1 ? 'targets per cast' : 'target per cast'}
         </>
       );
     }

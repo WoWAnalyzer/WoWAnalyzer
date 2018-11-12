@@ -348,7 +348,7 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.TITANIC_OVERCHARGE.id]: {
       itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
-      haste: (_, item) => calculateSecondaryStatDefault(355, 35, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(385, 60, item.itemLevel),
     },
     [SPELLS.RAPID_ADAPTATION.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,

@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-12'),
+    changes: <> Implemented talent statistic modules for <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> and <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-11-07'),
     changes: <>Implemented talent statistic modules for <SpellLink id={SPELLS.ONE_WITH_THE_PACK_TALENT.id} /> and <SpellLink id={SPELLS.STOMP_TALENT.id} />.</>,
     contributors: [Putro],
@@ -22,7 +27,7 @@ export default [
   },
   {
     date: new Date('2018-10-31'),
-    changes: <>Implement statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
+    changes: <>Implemented statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
     contributors: [Streammz],
   },
   {
