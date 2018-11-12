@@ -23,6 +23,8 @@ class FervorOfBattle extends Analyzer {
     bonusDamage = 0;
     lastWhirlwindCast = 0;
 
+    whirlwind = 0;
+
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id);
@@ -37,16 +39,17 @@ class FervorOfBattle extends Analyzer {
 
     on_byPlayer_damage(event) {
         const guid = event.ability.guid;
-        if (guid !== SPELLS.WHIRLWIND_DAMAGE_1.id && guid !== SPELLS.SLAM.id) {
+        if (guid !== SPELLS.WHIRLWIND_DAMAGE_1.id && 
+            guid !== SPELLS.WHIRLWIND_DAMAGE_2_3.id && 
+            guid !== SPELLS.SLAM.id) {
             return;
         }
 
-        if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id) {
+        if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id || guid === SPELLS.WHIRLWIND_DAMAGE_2_3.id) {
             this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
-        } else if (event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
+        } else if (guid === SPELLS.SLAM.id && event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
            this.bonusDamage += event.amount;
         }
-        
     }
 
     get dps() {
