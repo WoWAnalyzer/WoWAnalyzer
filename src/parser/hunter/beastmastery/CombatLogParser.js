@@ -28,7 +28,6 @@ import OneWithThePack from './modules/talents/OneWithThePack';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import SpittingCobra from './modules/talents/SpittingCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
-import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -94,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     aspectOfTheBeast: AspectOfTheBeast,
     spittingCobra: SpittingCobra,
     scentOfBlood: ScentOfBlood,
-    animalCompanion: AnimalCompanion,
 
     //Traits and talents
     spellssAndTalents: SpellsAndTalents,
