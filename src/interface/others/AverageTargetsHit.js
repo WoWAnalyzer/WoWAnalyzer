@@ -10,7 +10,7 @@ class AverageTargetsHit extends React.PureComponent {
 
   render() {
     const { casts, hits, approximate } = this.props;
-    const averageHits = (hits / casts).toFixed(1);
+    const averageHits = ((hits / casts) || 0).toFixed(1);
     return (
       <>
         {approximate && '≈'}{averageHits}{' average '}{averageHits > 1 ? 'targets hit' : 'target hit'}
@@ -20,3 +20,7 @@ class AverageTargetsHit extends React.PureComponent {
 }
 
 export default AverageTargetsHit;
+
+AverageTargetsHit.defaultProps = {
+  approximate: false,
+};

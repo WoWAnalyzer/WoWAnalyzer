@@ -1,11 +1,16 @@
 import React from 'react';
 
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer from 'parser/core/Analyzer';
 
-const BLINDSIDE_EXECUTE = 0.3; 
+const BLINDSIDE_EXECUTE = 0.3;
+const MS_BUFFER = 100;
 
 /**
  * Exploits the vulnerability of foes with less than 30% health.
@@ -22,21 +27,29 @@ class Blindside extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
   }
 
+  casts = 0
   badMutilates = 0
+
+  get efficiency() {
+    return (this.casts / this.casts + this.badMutilates) || 1;
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    if (spellId === SPELLS.BLINDSIDE_TALENT.id) {
+      this.casts += 1;
+    }
     if (spellId !== SPELLS.MUTILATE.id) {
       return;
     }
     
     //Sometimes buff event is before the cast. 
-    if(this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - 100)) {
+    if(this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
       this.registerBadMutilate(event, "you had a Blindside Proc");
     }    
     const target = this.enemies.getEntity(event);
     if(target && target.hpPercent < BLINDSIDE_EXECUTE) {
-      this.registerBadMutilate(event, `health of your target was > ${BLINDSIDE_EXECUTE}% `);
+      this.registerBadMutilate(event, `health of your target was < ${BLINDSIDE_EXECUTE}% `);
     }
   }
 
@@ -49,13 +62,13 @@ class Blindside extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.badMutilates,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.25 * this.owner.fightDuration / 1000 / 60,
-        major: 0.5 * this.owner.fightDuration / 1000 / 60,
+      actual: this.efficiency,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -65,8 +78,20 @@ class Blindside extends Analyzer {
       return suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
         .actual(`You used Mutilate ${this.badMutilates} times when Blindside was available`)
-        .recommended(`${recommended} is recommended`);
+        .recommended(`0 is recommended`);
     });
+  }
+
+  statistic() {
+    return (
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        icon={<SpellIcon id={SPELLS.BLINDSIDE_TALENT.id} />}
+        value={`${formatPercentage(this.efficiency)} %.`}
+        label="Blindside efficiency"
+        tooltip={`The efficiency is the number of Blindside casts divided by the number of Blindside casts plus the number of Mutilate casts while Blindside was available.`}
+      />
+    );
   }
 }
 

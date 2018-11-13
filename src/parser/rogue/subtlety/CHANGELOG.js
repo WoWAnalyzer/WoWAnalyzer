@@ -1,8 +1,21 @@
-// import React from 'react';
+import React from 'react';
 
-import { Zerotorescue, tsabo, Gebuz } from 'CONTRIBUTORS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+
+import { Zerotorescue, tsabo, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-11-13'),
+    changes: <>Fixed cooldown tracking for <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> when targets die with the debuff.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
+    contributors: [Aelexe],
+  },
   {
     date: new Date('2018-11-05'),
     changes: 'Updated resource tracking to display percent instead of per minute, and added spenders to the energy tab.',

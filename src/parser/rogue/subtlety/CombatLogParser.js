@@ -4,6 +4,7 @@ import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
+import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -30,6 +31,8 @@ import FindWeakness from "./modules/talents/FindWeakness";
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
+import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -37,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -71,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
     darkShadowContribution: DarkShadowContribution,
     darkShadowNightblade: DarkShadowNightblade,
     findWeakness: FindWeakness,
+
+    // Traits
+    SharpenedBlades: SharpenedBlades,
   };
 }
 
