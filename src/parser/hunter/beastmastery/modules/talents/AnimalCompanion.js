@@ -36,30 +36,28 @@ class AnimalCompanion extends Analyzer {
     if (!foundPet) {
       this.pets.push({ petName: sourcePet.name, sourceID: event.sourceID, damage: damage });
     } else {
-      const indexOfPet = this.pets.findIndex(index => index.sourceID === event.sourceID);
-      this.pets[indexOfPet].damage += damage;
+      foundPet.damage += damage;
     }
   }
 
   on_finished() {
-    let max = -Infinity;
-    let x;
-    for (x in this.pets) {
-      if (this.pets[x].damage > max) {
-        max = this.pets[x].damage;
-        this.mainPetName = this.pets[x].petName;
+    let max = 0;
+    this.pets.forEach(pet => {
+      if (pet.damage > max) {
+        max = pet.damage;
+        this.mainPetName = pet.petName;
       }
-    }
+    });
   }
 
   statistic() {
-    const totalDamage = this.pets.reduce((totalDamage, petDamage) => ({ damage: totalDamage.damage + petDamage.damage }));
+    const totalDamage = this.pets.map(pet => pet.damage).reduce((total, current) => total + current, 0);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ANIMAL_COMPANION_TALENT.id} />}
-        value={<>{formatNumber(totalDamage.damage)} / {formatNumber(totalDamage.damage / (this.owner.fightDuration / 1000))} DPS</>}
+        value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
         label="Animal Companion"
-        tooltip={`Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way.`}
+        tooltip="Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way."
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <table className="table table-condensed">
