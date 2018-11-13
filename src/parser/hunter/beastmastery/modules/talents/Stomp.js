@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
@@ -45,7 +44,6 @@ class Stomp extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.STOMP_TALENT.id} />}
         value={<>
           <ItemDamageDone amount={this.damage} /> <br />
