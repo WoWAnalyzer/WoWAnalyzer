@@ -11,7 +11,7 @@ export default [
     contributors: [Putro],
   },
   {
-    date: new Date('2018-11-12'),
+    date: new Date('2018-11-13'),
     changes: <> Implemented talent statistic modules for <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> and <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id} />.</>,
     contributors: [Putro],
   },
