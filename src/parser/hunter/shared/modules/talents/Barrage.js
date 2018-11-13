@@ -47,7 +47,7 @@ class Barrage extends Analyzer {
     if (spellId !== SPELLS.BARRAGE_TALENT.id) {
       return;
     }
-    this.casts.push({ damage: 0, hits: 0 });
+    this.casts.push({ hits: 0 });
     this.uniqueTargets = [];
   }
 
@@ -58,13 +58,12 @@ class Barrage extends Analyzer {
     }
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {
-      this.uniqueTargetsHit++;
+      this.uniqueTargetsHit += 1;
       this.uniqueTargets.push(damageTarget);
     }
     const damage = event.amount + (event.absorbed || 0);
     if (this.currentCast !== null) {
       this.currentCast.hits += 1;
-      this.currentCast.damage += damage;
     }
     this.hits += 1;
     this.damage += damage;
@@ -93,7 +92,7 @@ class Barrage extends Analyzer {
 
   suggestions(when) {
     when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? "times" : "time"} throughout the fight. This means </>)
+      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? "times" : "time"} throughout the fight. This means you didn't hit all ${BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
         .icon(SPELLS.BARRAGE_TALENT.icon)
         .actual(`${actual} inefficient ${actual > 1 ? "casts" : "cast"}`)
         .recommended(`${recommended} is recommended`);
