@@ -38,7 +38,7 @@ class WildernessSurvival extends Analyzer {
   }
 
   get effectiveCDRInSeconds() {
-    return this.effectiveWSReductionMs / 1000;
+    return (this.effectiveWSReductionMs / 1000).toFixed(1);
   }
 
   get wastedCDRInSeconds() {

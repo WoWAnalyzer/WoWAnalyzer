@@ -215,17 +215,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
+        gcd: null,
+      },
+      {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
         gcd: null,
       },
       {

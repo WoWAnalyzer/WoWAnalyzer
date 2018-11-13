@@ -1,10 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
 /**
  * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
@@ -13,11 +15,22 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
  */
 
 class Stomp extends Analyzer {
+
   damage = 0;
+  hits = 0;
+  casts = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARBED_SHOT.id && spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
+      return;
+    }
+    this.casts += 1;
   }
 
   on_byPlayerPet_damage(event) {
@@ -25,14 +38,20 @@ class Stomp extends Analyzer {
     if (spellId !== SPELLS.STOMP_DAMAGE.id) {
       return;
     }
+    this.hits += 1;
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.STOMP_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        icon={<SpellIcon id={SPELLS.STOMP_TALENT.id} />}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          <AverageTargetsHit casts={this.casts} hits={this.hits} />
+        </>}
+        label="Stomp"
       />
     );
   }
