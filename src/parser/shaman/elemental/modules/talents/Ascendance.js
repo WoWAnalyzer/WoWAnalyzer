@@ -63,7 +63,7 @@ class Ascendance extends Analyzer {
 
     if(spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
       this.justEnteredAcendance = true;
-      this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]++;
+      this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id] += 1;
     }
 
     if(this.justEnteredAcendance){
