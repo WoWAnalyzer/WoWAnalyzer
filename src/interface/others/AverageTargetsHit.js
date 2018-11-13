@@ -11,10 +11,7 @@ class AverageTargetsHit extends React.PureComponent {
 
   render() {
     const { casts, hits, unique, approximate } = this.props;
-    let averageHits = (hits / casts).toFixed(1) || 0;
-    if (isNaN(averageHits)) {
-      averageHits = 0;
-    }
+    const averageHits = ((hits / casts) || 0).toFixed(1);
     if (!unique) {
       return (
         <>
@@ -32,3 +29,7 @@ class AverageTargetsHit extends React.PureComponent {
 }
 
 export default AverageTargetsHit;
+
+AverageTargetsHit.defaultProps = {
+  approximate: false,
+};

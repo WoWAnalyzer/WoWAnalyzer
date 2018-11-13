@@ -6,7 +6,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const REDUCTION_TIME = 3000; // ms
+export const REDUCTION_TIME = 3000; // ms
 
 /**
  * Shield of the Righteous reduces the remaining cooldown on Light of the Protector and Avenging Wrath by 3 sec.
