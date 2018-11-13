@@ -33,3 +33,4 @@ export default AverageTargetsHit;
 AverageTargetsHit.defaultProps = {
   approximate: false,
 };
+
