@@ -36,10 +36,10 @@ describe('Brewmaster.Spells.AzeriteTraits.StaggeringStrikes', () => {
     parser._combatant.traitsBySpellId = {
       [SPELLS.STAGGERING_STRIKES.id]: RANKS,
     };
-    const fab = parser.loadModule('staggerFabricator', StaggerFabricator, {
+    const fab = parser.loadModule(StaggerFabricator, {
       eventEmitter: parser.getModule(EventEmitter),
     });
-    ss = parser.loadModule('staggeringStrikes', StaggeringStrikes, {
+    ss = parser.loadModule(StaggeringStrikes, {
       fab,
     });
   });

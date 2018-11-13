@@ -10,7 +10,7 @@ describe('Mage/Shared/Items/ShardOfTheExodar', () => {
   });
 
   it('counts freshly applied Bloodlusts', () => {
-    const module = parser.loadModule('shardOfTheExodar', ShardOfTheExodar);
+    const module = parser.loadModule(ShardOfTheExodar);
     const makeEvent = spellId => ({
       type: 'applybuff',
       targetID: parser.playerId,

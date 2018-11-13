@@ -42,7 +42,7 @@ describe('Core/Analyzer', () => {
           on_success();
         }
       }
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -50,7 +50,7 @@ describe('Core/Analyzer', () => {
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -63,7 +63,7 @@ describe('Core/Analyzer', () => {
           on_event();
         }
       }
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -88,7 +88,7 @@ describe('Core/Analyzer', () => {
           on_toPlayerPet_test();
         }
       }
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -117,7 +117,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayer = jest.fn(() => false);
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -146,7 +146,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayer = jest.fn(() => false);
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -175,7 +175,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -204,7 +204,7 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'test',
       });
@@ -220,7 +220,7 @@ describe('Core/Analyzer', () => {
           on_success.call(this);
         }
       }
-      parser.loadModule('myModule', MyModule);
+      parser.loadModule(MyModule);
       parser.triggerEvent({
         type: 'success',
       });
@@ -238,7 +238,7 @@ describe('Core/Analyzer', () => {
         }
       }
       expect(() => {
-        parser.loadModule('myModule', MyModule);
+        parser.loadModule(MyModule);
       }).toThrow();
     });
   });

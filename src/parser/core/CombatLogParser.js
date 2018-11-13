@@ -372,11 +372,11 @@ class CombatLogParser {
     return [availableDependencies, missingDependencies];
   }
   /**
-   * @param {string} desiredModuleName
    * @param {Module} moduleClass
    * @param {object} [options]
+   * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
    */
-  loadModule(desiredModuleName, moduleClass, options) {
+  loadModule(moduleClass, options, desiredModuleName = `module${Object.keys(this._modules).length}`) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -389,6 +389,7 @@ class CombatLogParser {
         module[key] = options[key];
       });
     }
+    // TODO: Remove module naming
     this._modules[desiredModuleName] = module;
     return module;
   }
@@ -414,11 +415,11 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this.loadModule(desiredModuleName, moduleClass, {
+        this.loadModule(moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
-        });
+        }, desiredModuleName);
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);

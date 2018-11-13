@@ -21,7 +21,7 @@ describe('core/Modules/SpellUsable', () => {
     };
 
     eventEmitter = parser.getModule(EventEmitter);
-    module = parser.loadModule('spellUsable', SpellUsable, {
+    module = parser.loadModule(SpellUsable, {
       eventEmitter,
       abilities: abilitiesMock,
     });
