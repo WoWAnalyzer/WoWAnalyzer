@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class AverageTargetsHit extends React.PureComponent {
   static propTypes = {
-    casts: PropTypes.string.isRequired,
-    hits: PropTypes.string.isRequired,
+    casts: PropTypes.number.isRequired,
+    hits: PropTypes.number.isRequired,
     approximate: PropTypes.bool,
   };
 
