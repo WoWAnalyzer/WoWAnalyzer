@@ -46,7 +46,7 @@ class ChimaeraShot extends Analyzer {
       <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
         value={<>
-          <AverageTargetsHit casts={this.casts} hits={this.hits} /> <br />
+          <AverageTargetsHit casts={this.casts} hits={this.hits} />
         </>}
         label="Chimaera Shot"
       />
