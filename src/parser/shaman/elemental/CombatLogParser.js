@@ -21,6 +21,7 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
+import Checklist from './modules/checklist/Module';
 
 import './main.css';
 
@@ -32,6 +33,7 @@ import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
+    checklist: Checklist,
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,

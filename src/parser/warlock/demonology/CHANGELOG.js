@@ -4,6 +4,11 @@ import { Chizu, Hordehobbs } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-12'),
+    changes: 'Certain buffs or debuffs now show in timeline.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-09-21'),
     changes: 'Removed all legendaries and tier set modules.',
     contributors: [Chizu],
