@@ -85,7 +85,10 @@ class Channeling extends Analyzer {
   // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
   history = [];
   on_endchannel(event) {
-    this.history.push(event);
+    // If you don't have a beginchannel event, the event will have the start of the fight as the beginchannel. This messes up a number of other modules.
+    if (event.beginChannel){
+      this.history.push(event);
+    }
   }
 
   // TODO: Re-implement below

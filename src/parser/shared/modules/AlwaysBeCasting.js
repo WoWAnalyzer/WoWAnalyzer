@@ -47,6 +47,10 @@ class AlwaysBeCasting extends Analyzer {
     return true;
   }
   on_endchannel(event) {
+    // If you don't have a beginchannel event, the event will have the start of the fight as the beginchannel. This messes up a number of other modules.
+    if (!event.beginChannel){
+      return false;
+    }
     // If the channel was shorter than the GCD then use the GCD as active time
     let amount = event.duration;
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
