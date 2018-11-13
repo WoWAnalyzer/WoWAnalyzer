@@ -24,7 +24,7 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event, ability) {
-    if (this.isChannelingSpell(SPELLS.MIND_FLAY.id) || this.isChannelingSpell(SPELLS.VOID_TORRENT_TALENT.id)) {
+    if (this.isChannelingSpell(SPELLS.VOID_TORRENT_TALENT.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else:', event.ability.name);
       this.endChannel(event);
