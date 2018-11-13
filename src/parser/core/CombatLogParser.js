@@ -336,7 +336,7 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.fabricateEvent({
+    this.getModule(EventEmitter).fabricateEvent({
       type: this.constructor.finished,
     });
     console.log('Called listeners', this._modules.eventEmitter._listenersCalled, 'times, with', this._modules.eventEmitter._actualExecutions, 'actual executions.', this._modules.eventEmitter._listenersCalled - this._modules.eventEmitter._actualExecutions, 'events were filtered away');
@@ -361,7 +361,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass);
+        const dependencyModule = this.getModule(dependencyClass, false);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -445,10 +445,14 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  getModule(type) {
-    return Object.keys(this._modules)
+  getModule(type, required = true) {
+    const module = Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
+    if (required && !module) {
+      throw new Error(`Module not found: ${type.name}`);
+    }
+    return module;
   }
 
   normalize(events) {
@@ -471,17 +475,6 @@ class CombatLogParser {
   }
   triggerEvent(event) {
     this._modules.eventEmitter.triggerEvent(event);
-  }
-  fabricateEvent(event = null, trigger = null) {
-    this.triggerEvent({
-      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
-      // If this event was triggered you should pass it along
-      trigger: trigger ? trigger : undefined,
-      ...event,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
-      __fabricated: true,
-    });
   }
 
   deepDisable(module) {

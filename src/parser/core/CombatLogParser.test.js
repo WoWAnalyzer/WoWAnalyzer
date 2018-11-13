@@ -126,14 +126,15 @@ describe('Core/CombatLogParser', () => {
       expect(parser.getModule(MySubModule)).toBeInstanceOf(MySubModule);
       expect(parser.getModule(MySubModule)).toBe(mySubModule);
     });
-    it('returns undefined is module doesn\'t exist', () => {
+    it('throws when a requested module doesn\'t exist', () => {
+      // We don't want it to fail silently as this could lead to unexpected bugs
       class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           onemore: {},
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.getModule(MyModule)).toBe(undefined);
+      expect(() => parser.getModule(MyModule)).toThrow();
     });
   });
   describe('module dependencies', () => {

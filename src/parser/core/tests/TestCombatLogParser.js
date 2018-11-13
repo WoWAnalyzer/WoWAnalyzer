@@ -7,7 +7,6 @@ class TestCombatLogParser extends CombatLogParser {
   byPlayer = jest.fn(() => true);
   toPlayerPet = jest.fn(() => true);
   byPlayerPet = jest.fn(() => true);
-  fabricateEvent = jest.fn(super.fabricateEvent);
   triggerEvent = jest.fn(super.triggerEvent);
 
   get currentTimestamp() {
