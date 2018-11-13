@@ -27,6 +27,8 @@ import VenomousBite from './modules/talents/VenomousBite';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import SpittingCobra from './modules/talents/SpittingCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
+import BornToBeWild from '../shared/modules/talents/BornToBeWild';
+import BindingShot from '../shared/modules/talents/BindingShot';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -91,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     aspectOfTheBeast: AspectOfTheBeast,
     spittingCobra: SpittingCobra,
     scentOfBlood: ScentOfBlood,
+    bornToBeWild: BornToBeWild,
+    bindingShot: BindingShot,
 
     //Traits and talents
     spellssAndTalents: SpellsAndTalents,
