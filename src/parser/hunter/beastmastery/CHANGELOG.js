@@ -11,6 +11,16 @@ export default [
     contributors: [Putro],
   },
   {
+    date: new Date('2018-11-13'),
+    changes: <> Implemented talent statistic modules for <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> and <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-07'),
+    changes: <>Implemented talent statistic modules for <SpellLink id={SPELLS.ONE_WITH_THE_PACK_TALENT.id} /> and <SpellLink id={SPELLS.STOMP_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-11-08'),
     changes: <> Implemented a module for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} />, <SpellLink id={SPELLS.SCENT_OF_BLOOD_TALENT.id} /> and updated the module for <SpellLink id={SPELLS.DIRE_BEAST_TALENT.id} />.</>,
     contributors: [Putro],
@@ -22,7 +32,7 @@ export default [
   },
   {
     date: new Date('2018-10-31'),
-    changes: <>Implement statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
+    changes: <>Implemented statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
     contributors: [Streammz],
   },
   {

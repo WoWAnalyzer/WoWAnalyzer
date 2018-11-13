@@ -15,6 +15,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import Judgment from './modules/spells/Judgment';
 import Consecration from './modules/spells/Consecration';
 import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTiming';
+import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
 
@@ -36,6 +37,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     grandCrusader: GrandCrusader,
+
+    // Spells
+    lightOfTheProtector: LightOfTheProtector,
 
     // Features
     abilities: Abilities,
