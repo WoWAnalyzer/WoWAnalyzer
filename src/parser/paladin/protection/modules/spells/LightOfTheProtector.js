@@ -113,7 +113,7 @@ export default class LightOfTheProtector extends Analyzer {
   }
 
   get overhealRatio() {
-    return this._overhealing / (this._overhealing + this._actualHealing);
+    return (this._overhealing / (this._overhealing + this._actualHealing)) || 0;
   }
 
   get overhealSuggestion() {
