@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-14'),
+    changes: <> Created a module for <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> and <SpellLink id={SPELLS.BINDING_SHOT_TALENT.id} />. </>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-11-08'),
     changes: <> Implemented a module for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} />, <SpellLink id={SPELLS.SCENT_OF_BLOOD_TALENT.id} /> and updated the module for <SpellLink id={SPELLS.DIRE_BEAST_TALENT.id} />.</>,
     contributors: [Putro],
