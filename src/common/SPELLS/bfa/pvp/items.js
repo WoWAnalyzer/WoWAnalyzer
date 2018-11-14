@@ -6,4 +6,9 @@ export default {
     name: 'Rapid Adaptation',
     icon: 'spell_holy_championsbond',
   },
+  DIG_DEEP: {
+    id: 277185,
+    name: 'Dig Deep',
+    icon: 'inv_misc_horn_03.jpg',
+  },
 };

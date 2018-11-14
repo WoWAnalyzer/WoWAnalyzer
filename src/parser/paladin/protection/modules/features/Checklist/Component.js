@@ -17,6 +17,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
       hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
+    extras: PropTypes.object.isRequired,
   };
 
   render(){
@@ -66,10 +67,23 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           />
           <Requirement
             name={(
-              <><SpellLink id={SPELLS.CONSECRATION_CAST.id} /> uptime</>
+              <>Hits Mitigated with <SpellLink id={SPELLS.CONSECRATION_CAST.id} /></>
             )}
             thresholds={thresholds.consecration}
           />
+        </Rule>
+        <Rule 
+          name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}
+          description={( 
+            <>
+            Using <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
+            </> 
+          )}
+        >
+          <AbilityRequirement name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>} 
+            spell={this.props.extras.lotpAbility.id} />
+          <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
+          <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
         </Rule>
 
         <Rule
@@ -78,8 +92,6 @@ class ProtectionPaladinChecklist extends React.PureComponent{
         >
           <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id} />
           <AbilityRequirement spell={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} />
-          {combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) && <AbilityRequirement spell={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />}
-          {!combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) && <AbilityRequirement spell={SPELLS.LIGHT_OF_THE_PROTECTOR.id} />}
         </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>

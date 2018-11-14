@@ -2,7 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import GrimoireOfSacrificeNormalizer from './modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -29,7 +29,7 @@ import PhantomSingularity from './modules/talents/PhantomSingularity';
 import VileTaint from './modules/talents/VileTaint';
 import ShadowEmbrace from './modules/talents/ShadowEmbrace';
 import Haunt from './modules/talents/Haunt';
-import GrimoireOfSacrifice from './modules/talents/GrimoireOfSacrifice';
+import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 
 import Checklist from './modules/features/Checklist/Module';

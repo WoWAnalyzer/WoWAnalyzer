@@ -1,10 +1,55 @@
 import React from 'react';
 
-import { Putro } from 'CONTRIBUTORS';
+import { Putro, Streammz } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  {
+    date: new Date('2018-11-13'),
+    changes: <> Implemented talent statistic module for <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} /> & an azerite power module for <SpellLink id={SPELLS.PACK_ALPHA.id} />. </>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-13'),
+    changes: <> Implemented talent statistic modules for <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> and <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-07'),
+    changes: <>Implemented talent statistic modules for <SpellLink id={SPELLS.ONE_WITH_THE_PACK_TALENT.id} /> and <SpellLink id={SPELLS.STOMP_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-08'),
+    changes: <> Implemented a module for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} />, <SpellLink id={SPELLS.SCENT_OF_BLOOD_TALENT.id} /> and updated the module for <SpellLink id={SPELLS.DIRE_BEAST_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <>Implemented a talent statistic module and suggestions for <SpellLink id={SPELLS.VENOMOUS_BITE_TALENT.id} /> and <SpellLink id={SPELLS.THRILL_OF_THE_HUNT_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-31'),
+    changes: <>Implemented statistics for the talent <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />.</>,
+    contributors: [Streammz],
+  },
+  {
+    date: new Date('2018-10-29'),
+    changes: <>Implemented a suggestion that checks for <SpellLink id={SPELLS.MULTISHOT_BM.id} /> usage in single target situations, warning you about multi-shot uses where no paired <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage has been dealt.</>,
+    contributors: [Streammz],
+  },
+  {
+    date: new Date('2018-10-25'),
+    changes: <>Implemented the new checklist for Beast Mastery, added a <SpellLink id={SPELLS.COBRA_SHOT.id} /> statistic and associated suggestions, and updated <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> suggestions.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-24'),
+    changes: <>Merged the 3 <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> modules together, and added a cooldown reduction efficiency metric and suggestion to it.</>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-09-20'),
     changes: <>Added two azerite trait modules, one for <SpellLink id={SPELLS.PRIMAL_INSTINCTS.id} /> and an initial version for <SpellLink id={SPELLS.FEEDING_FRENZY.id} /></>,

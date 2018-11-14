@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import makeWclUrl from 'common/makeWclUrl';
 
@@ -59,15 +60,11 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener('damage', this.handlePassiveTransfer, {
-      toPlayer: true,
-    });
-    this.addEventListener('damage', this.handleHealthUpdate, {
-      toPlayer: true,
-    });
-    this.addEventListener('heal', this.handleHealthUpdate, {
-      toPlayer: true,
-    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.handlePassiveTransfer);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handleHealthUpdate);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.handleHealthUpdate);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleApplyAuraMastery);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleRemoveAuraMastery);
   }
 
   // TODO: Account for passive damage transferred during Divine Shield
@@ -96,20 +93,12 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
   }
   isAuraMasteryActive = false;
   isTransferring = false;
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.AURA_MASTERY.id) {
-      return;
-    }
+  handleApplyAuraMastery() {
     this.isAuraMasteryActive = true;
     // TODO: Suggestion when user popped AM without meeting the health requirement
     this.updateTransferringState(this.hasSufficientHealth);
   }
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.AURA_MASTERY.id) {
-      return;
-    }
+  handleRemoveAuraMastery() {
     this.isAuraMasteryActive = false;
     this.updateTransferringState(false);
   }

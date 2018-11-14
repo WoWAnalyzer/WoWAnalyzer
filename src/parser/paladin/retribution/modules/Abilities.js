@@ -110,6 +110,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INQUISITION_TALENT,
+        buffSpellId: SPELLS.INQUISITION_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

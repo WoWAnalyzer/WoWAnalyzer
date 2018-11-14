@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
+import Checklist from './modules/checklist/Module';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -11,6 +12,7 @@ import FocusUsage from '../shared/modules/features/FocusUsage';
 import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
 
 //Talents
+import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import Barrage from '../shared/modules/talents/Barrage';
@@ -20,34 +22,42 @@ import KillerCobra from './modules/talents/KillerCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
+import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
+import VenomousBite from './modules/talents/VenomousBite';
+import OneWithThePack from './modules/talents/OneWithThePack';
+import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
+import SpittingCobra from './modules/talents/SpittingCobra';
+import ScentOfBlood from './modules/talents/ScentOfBlood';
+import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
-import BestialWrathAverageFocus from "./modules/spells/bestialwrath/BestialWrathAverageFocus";
-import BestialWrathUptime from "./modules/spells/bestialwrath/BestialWrathUptime";
-import GainedBestialWraths from "./modules/spells/bestialwrath/GainedBestialWraths";
 import BeastCleave from './modules/spells/BeastCleave';
+import MultiShotSingleTarget from "./modules/spells/MultiShotSingleTarget";
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
+import BestialWrath from './modules/spells/BestialWrath';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Traits and talents
-import TraitsAndTalents from './modules/features/TraitsAndTalents';
+import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
+import PackAlpha from './modules/spells/azeritetraits/PackAlpha';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,15 +71,15 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTab: FocusTab,
 
     //Spells
-    bestialWrathAverageFocus: BestialWrathAverageFocus,
-    bestialWrathUptime: BestialWrathUptime,
-    gainedBestialWraths: GainedBestialWraths,
+    bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
+    multiShotSingleTarget: MultiShotSingleTarget,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
 
     //Talents
+    killerInstinct: KillerInstinct,
     chimaeraShot: ChimaeraShot,
     direBeast: DireBeast,
     naturalMending: NaturalMending,
@@ -79,15 +89,22 @@ class CombatLogParser extends CoreCombatLogParser {
     stampede: Stampede,
     stomp: Stomp,
     aMurderOfCrows: AMurderOfCrows,
-
+    venomousBite: VenomousBite,
+    thrillOfTheHunt: ThrillOfTheHunt,
+    oneWithThePack: OneWithThePack,
+    aspectOfTheBeast: AspectOfTheBeast,
+    spittingCobra: SpittingCobra,
+    scentOfBlood: ScentOfBlood,
+    animalCompanion: AnimalCompanion,
     //Traits and talents
-    traitsAndTalents: TraitsAndTalents,
+    spellssAndTalents: SpellsAndTalents,
 
     //Azerite Traits
     danceOfDeath: DanceOfDeath,
     hazeOfRage: HazeOfRage,
     feedingFrenzy: FeedingFrenzy,
     primalInstincts: PrimalInstincts,
+    packAlpha: PackAlpha,
   };
 }
 

@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
               <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
         },
       },
       {
@@ -78,25 +78,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
         cooldown: 120,
         gcd: {
-          base: 1300, //see here: https://www.wowhead.com/spell=193530/aspect-of-the-wild
+          base: 1500, //This is set to 1500 currently, but it's altered to be accurate inside the GlobalCooldown module because it is currently bugged in-game
         },
         castEfficiency: {
           suggestion: true,
@@ -113,7 +100,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.75,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -139,7 +126,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -228,17 +215,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
+        gcd: null,
+      },
+      {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
         gcd: null,
       },
       {
@@ -257,12 +250,35 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DISMISS_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       /**
        * Racials until we find a better solution
        */
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

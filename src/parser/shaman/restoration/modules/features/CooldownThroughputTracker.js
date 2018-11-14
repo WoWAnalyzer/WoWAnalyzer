@@ -270,7 +270,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.absorb || 0) + (event.overheal || 0);
+    const healingDone = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;

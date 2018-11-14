@@ -32,6 +32,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
+          performanceMethod={PERFORMANCE_METHOD.FIRST}
           name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</>}
           description={
             <>
@@ -78,6 +79,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           tooltip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew." />
       </Rule>
       <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} /> effectively</>}
+        performanceMethod={PERFORMANCE_METHOD.HARMONIC}
         description={
           <>
             Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
@@ -92,15 +94,14 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         <Requirement name={<>Purifies with less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /></>} thresholds={thresholds.purifyHeavy} />
         <Requirement name={'Average Purification Delay'} thresholds={thresholds.purifyDelay} 
           tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
-        <AbilityRequirement spell={SPELLS.PURIFYING_BREW.id}
-          name={<><SpellLink id={SPELLS.PURIFYING_BREW.id} /> Cast Efficiency</>}
-          tooltip="A low cast efficiency indicates that brews are being wasted to capping charges.<br/>The cast efficiency of Purifying Brew is shared with Ironskin Brew." />
+        <Requirement name={<>Available <SpellLink id={SPELLS.PURIFYING_BREW.id} /> charges used</>} thresholds={thresholds.purifyCasts}
+          tooltip="While maintaining Ironskin is critical to your survival, with proper play it is possible to generate more brews than you need to maintain it. These excess brews should be spent on Purifying." />
       </Rule>
       <Rule
         name={'Top the DPS Charts'}
         description={
           <>
-            While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a <a href="http://www.peakofserenity.com/brewmaster/improving-brewmaster-dps/">correct DPS rotation</a> also provides optimal brew generation. <strong>However, if you are dying, ignore this checklist item!</strong> As much as we may enjoy padding for those sweet orange parses, not-wiping takes precedence.
+            While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a <a href="https://www.peakofserenity.com/bfa/brewmaster/guide/">correct DPS rotation</a> also provides optimal brew generation. <strong>However, if you are dying, ignore this checklist item!</strong> As much as we may enjoy padding for those sweet orange parses, not-wiping takes precedence.
           </>
         } >
         <AbilityRequirement spell={SPELLS.KEG_SMASH.id} />

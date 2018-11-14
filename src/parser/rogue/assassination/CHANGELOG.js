@@ -3,9 +3,49 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { tsabo, Cloake, Zerotorescue } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2018-11-13'),
+    changes: <>Fixed cooldown tracking for <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> when targets die with the debuff.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-09'),
+    changes: <>Added <SpellLink id={SPELLS.POISON_BOMB_TALENT.id} /> module and updated <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> and <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> modules.</>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-05'),
+    changes: 'Updated resource tracking to display percent instead of per minute, and added spenders to the energy tab.',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-05'),
+    changes: 'Added Checklist.',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: <>Added suggestions for <SpellLink id={SPELLS.GARROTE.id} /> and <SpellLink id={SPELLS.RUPTURE.id} /> uptime.</>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: 'Added cooldowns tab',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-11-04'),
+    changes: 'Updated timeline with buffs & debuffs and added missing GCDs',
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-08-02'),
     changes: 'Added natural energy regen.',

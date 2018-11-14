@@ -6,6 +6,7 @@ class MitigationCheck extends CoreMitigationCheck {
   constructor(...args){
     super(...args);
     this.buffCheck = [SPELLS.BLOOD_SHIELD.id,
+                      SPELLS.BONE_SHIELD.id,
                       SPELLS.ANTI_MAGIC_SHELL.id,
                       SPELLS.VAMPIRIC_BLOOD.id,
                       SPELLS.ICEBOUND_FORTITUDE.id,

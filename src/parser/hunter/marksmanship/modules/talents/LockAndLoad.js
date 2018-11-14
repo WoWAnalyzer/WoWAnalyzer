@@ -5,9 +5,10 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Abilities from 'parser/shared/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -143,7 +144,7 @@ class LockAndLoad extends Analyzer {
     tooltipText += `</li></ul>`;
 
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(24)}
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
