@@ -7,6 +7,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-14'),
+    changes: <>Added a suggestion on using <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available.</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-12'),
+    changes: <>Added <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> in Talents module.</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-10'),
     changes: <>Modified <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> analysis to get it more accurate with the execution phase.</>,
     contributors: [Matardarix],

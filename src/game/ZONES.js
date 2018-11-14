@@ -27,7 +27,7 @@ const ZONES = [
       },
       {
         "id": 2136,
-        "name": "Zek'voz, Herald of N'zoth",
+        "name": "Zek'voz",
         "npcID": 134445
       },
       {
@@ -37,12 +37,12 @@ const ZONES = [
       },
       {
         "id": 2145,
-        "name": "Zul, Reborn",
+        "name": "Zul",
         "npcID": 138967
       },
       {
         "id": 2135,
-        "name": "Mythrax the Unraveler",
+        "name": "Mythrax",
         "npcID": 134546
       },
       {

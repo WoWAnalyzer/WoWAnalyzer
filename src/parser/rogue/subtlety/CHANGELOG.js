@@ -12,6 +12,11 @@ export default [
     contributors: [Aelexe],
   },
   {
+    date: new Date('2018-11-13'),
+    changes: <>Fixed cooldown tracking for <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> when targets die with the debuff.</>,
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-11-11'),
     changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
     contributors: [Aelexe],

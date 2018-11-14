@@ -139,7 +139,7 @@ class EventEmitter extends Module {
         this._listenersCalled += 1;
         options.listener(event);
       } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV !== 'production') {
           throw err;
         }
         console.error('Disabling', options.module.constructor.name, 'and child dependencies because an error occured', err);

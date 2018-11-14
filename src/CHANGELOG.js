@@ -9,6 +9,16 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-11-14'),
+    changes: <>Added <SpellLink id={SPELLS.GIFT_OF_THE_NAARU_MAGE.id} /> to ability list.</>,
+    contributors: [Dambroda],
+  },
+  {
+    date: new Date('2018-11-13'),
+    changes: 'Added an AverageTargetsHit module for general usage.',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: <>Added <ItemLink id={ITEMS.AZEROKKS_RESONATING_HEART.id} /> module.</>,
     contributors: [Aelexe],

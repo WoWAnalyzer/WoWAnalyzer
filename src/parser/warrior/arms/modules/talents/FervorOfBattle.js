@@ -11,26 +11,45 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 /**
  * Whirlwind deals 10% increased damage, and Slams your primary target.
+ * 
+ * Example log: /report/cM1Kmp3qW8Yvkang/1-LFR+Zul+-+Kill+(4:21)/22-Gorrtil/events
  */
 
 const WHIRLWIND_DAMAGE_BONUS = 0.1;
+const MAX_DELAY = 30;
 
-// TODO : Add Slam cast by Fervor of Battle to dps.
-// (Slam that the player didn't cast)
 class FervorOfBattle extends Analyzer {
     
     bonusDamage = 0;
+    lastWhirlwindCast = 0;
+
+    whirlwind = 0;
 
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id);
     }
 
+    on_byPlayer_cast(event) {
+        const guid = event.ability.guid;
+        if (guid === SPELLS.WHIRLWIND.id) {
+            this.lastWhirlwindCast = event.timestamp;
+        }
+    }
+
     on_byPlayer_damage(event) {
-        if (event.ability.guid !== SPELLS.WHIRLWIND_DAMAGE_1.id) {
+        const guid = event.ability.guid;
+        if (guid !== SPELLS.WHIRLWIND_DAMAGE_1.id && 
+            guid !== SPELLS.WHIRLWIND_DAMAGE_2_3.id && 
+            guid !== SPELLS.SLAM.id) {
             return;
         }
-        this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
+
+        if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id || guid === SPELLS.WHIRLWIND_DAMAGE_2_3.id) {
+            this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
+        } else if (guid === SPELLS.SLAM.id && event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
+           this.bonusDamage += event.amount + (event.absorbed || 0);
+        }
     }
 
     get dps() {
@@ -42,7 +61,7 @@ class FervorOfBattle extends Analyzer {
           <StatisticListBoxItem
             title={<><SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage</>}
             value={`${formatThousands(this.dps)} DPS`}
-            valueTooltip={`Your Fervor of Battle contributed ${formatThousands(this.bonusDamage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))} %).<br /><br />Note: This only accounts for the passive 10% increased damage of Whirlwind.`}
+            valueTooltip={`Your Fervor of Battle contributed ${formatThousands(this.bonusDamage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))} %).`}
           />
         );
     }

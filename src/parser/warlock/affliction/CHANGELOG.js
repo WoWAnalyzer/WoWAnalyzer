@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-12'),
+    changes: 'Certain buffs or debuffs now show in timeline.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-10-15'),
     changes: <>Added <SpellLink id={SPELLS.VILE_TAINT_TALENT.id} />, <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> and <SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> modules.</>,
     contributors: [Chizu],
