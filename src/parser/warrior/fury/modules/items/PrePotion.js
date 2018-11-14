@@ -23,12 +23,12 @@ class PrePotion extends Analyzer {
   usedPrePotion = false;
   usedSecondPotion = false;
 
-  prePotionId = 0
-  secondPotionId = 0
+  prePotionId = 0;
+  secondPotionId = 0;
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(PRE_POTIONS.includes(spellId) && event.prepull) {
+    if (PRE_POTIONS.includes(spellId) && event.prepull) {
       this.usedPrePotion = true;
       this.prePotionId = spellId;
     }
@@ -58,7 +58,7 @@ class PrePotion extends Analyzer {
           .staticImportance(SUGGESTION_IMPORTANCE.AVERAGE);
       });
     when(this.usedSecondPotion).isFalse()
-      .addSuggestion((suggest) => {          
+      .addSuggestion((suggest) => {
         return suggest(<span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_THE_OLD_WAR.id} /> you increase your DPS significantly.</span>)
           .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.AVERAGE);
@@ -67,9 +67,9 @@ class PrePotion extends Analyzer {
     when((this.usedPrePotion && this.prePotionId !== SPELLS.POTION_OF_THE_OLD_WAR.ID) || (this.secondPotionId !== SPELLS.POTION_OF_THE_OLD_WAR.id)).isTrue()
       .addSuggestion((suggest) => {
         return suggest(<span>Generally <ItemLink id={ITEMS.POTION_OF_THE_OLD_WAR.id} /> is recommended although <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be better in certain situations such as AOE encounters.</span>)
-        .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-    });
+          .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
+          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+      });
   }
 }
 

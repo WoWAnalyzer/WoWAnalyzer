@@ -6,7 +6,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import MissedRampage from '../../spells/MissedRampage';
+import Rampage from '../../core/Rampage';
 
 import Component from './Component';
 
@@ -15,7 +15,7 @@ class Checklist extends Analyzer {
     alwaysBeCasting: AlwaysBeCasting,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    missedRampage: MissedRampage,
+    rampage: Rampage,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 
@@ -28,7 +28,7 @@ class Checklist extends Analyzer {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          missedRampage: this.missedRampage.suggestionThresholds,
+          missedRampage: this.rampage.missedSuggestionThresholds,
         }}
       />
     );

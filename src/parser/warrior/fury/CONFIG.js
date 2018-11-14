@@ -1,5 +1,4 @@
 import React from 'react';
-
 // import { Zerotorescue } from 'CONTRIBUTORS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
