@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-14'),
+    changes: 'Added support for Azerite trait Rampant Growth',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-11-07'),
     changes: 'Added support for random LB blooms in Photosynthesis.',
     contributors: [blazyb],
