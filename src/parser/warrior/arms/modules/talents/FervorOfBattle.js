@@ -32,7 +32,7 @@ class FervorOfBattle extends Analyzer {
 
     on_byPlayer_cast(event) {
         const guid = event.ability.guid;
-        if (guid !== SPELLS.WHIRLWIND.id) {
+        if (guid === SPELLS.WHIRLWIND.id) {
             this.lastWhirlwindCast = event.timestamp;
         }
     }
@@ -48,7 +48,7 @@ class FervorOfBattle extends Analyzer {
         if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id || guid === SPELLS.WHIRLWIND_DAMAGE_2_3.id) {
             this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
         } else if (guid === SPELLS.SLAM.id && event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
-           this.bonusDamage += event.amount;
+           this.bonusDamage += event.amount + (event.absorbed || 0);
         }
     }
 
