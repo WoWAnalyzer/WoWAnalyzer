@@ -22,21 +22,13 @@ class AngerManagement extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  cooldownsAffected = [
-    SPELLS.RECKLESSNESS.id,
-  ];
-
   totalRageSpend = 0;
-  wastedReduction = {};
-  effectiveReduction = {};
+  wastedReduction = 0;
+  effectiveReduction = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
-    this.cooldownsAffected.forEach(e => {
-      this.wastedReduction[e] = 0;
-      this.effectiveReduction[e] = 0;
-    });
   }
 
   on_byPlayer_cast(event) {
@@ -48,24 +40,19 @@ class AngerManagement extends Analyzer {
       return;
     }
 
+    const recklessness = SPELLS.RECKLESSNESS.id;
     const rageSpend = rage.cost / 10;
     const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
-    this.cooldownsAffected.forEach(e => {
-      if (!this.spellUsable.isOnCooldown(e)) {
-        this.wastedReduction[e] += reduction;
-      } else {
-        const effectiveReduction = this.spellUsable.reduceCooldown(e, reduction);
-        this.effectiveReduction[e] += effectiveReduction;
-        this.wastedReduction[e] += reduction - effectiveReduction;
-      }
-    });
-    this.totalRageSpend += rageSpend;
-  }
 
-  get tooltip() {
-    return this.cooldownsAffected.reduce((a, e) => {
-      return `${a}${SPELLS[e].name}: ${formatDuration(this.effectiveReduction[e] / 1000)} reduction (${formatDuration(this.wastedReduction[e] / 1000)} wasted)<br>`;
-    }, '');
+    if (!this.spellUsable.isOnCooldown(recklessness)) {
+        this.wastedReduction += reduction;
+    } else {
+        const effectiveReduction = this.spellUsable.reduceCooldown(recklessness, reduction);
+        this.effectiveReduction += effectiveReduction;
+        this.wastedReduction += reduction - effectiveReduction;
+      }
+
+    this.totalRageSpend += rageSpend;
   }
 
   statistic() {
@@ -73,9 +60,9 @@ class AngerManagement extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(4)}
         icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration((this.effectiveReduction[this.cooldownsAffected[0]] + this.wastedReduction[this.cooldownsAffected[0]]) / 1000)} min`}
+        value={`${formatDuration((this.effectiveReduction + this.wastedReduction) / 1000)} min`}
         label="Possible cooldown reduction"
-        tooltip={this.tooltip}
+        tooltip={`Recklessness: ${formatDuration(this.effectiveReduction / 1000)} reduction (${formatDuration(this.wastedReduction / 1000)} wasted)`}
       />
     );
   }

@@ -7,25 +7,29 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-const RAMPAGE_HITS_PER_CAST = 4;
 const GENERATORS = [
   SPELLS.RAGING_BLOW.id,
   SPELLS.BLOODTHIRST.id,
   SPELLS.EXECUTE.id,
 ];
+// Rampage is in fact 5 separate spells cast in this sequence
+const RAMPAGE = [
+  SPELLS.RAMPAGE_1.id,
+  SPELLS.RAMPAGE_2.id,
+  SPELLS.RAMPAGE_3.id,
+  SPELLS.RAMPAGE_4.id,
+];
+const RAMPAGE_HITS_PER_CAST = 4;
 
 class Rampage extends Analyzer {
-  // Rampage is in fact 5 separate spells cast in this sequence
-  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id];
   counter = {};
-
   missedRampages = 0;
 
   constructor(...args) {
     super(...args);
-    for (let i = 0; i < this.rampage.length; i++) {
-      this.counter[this.rampage[i]] = 0;
-    }
+    RAMPAGE.forEach(id => {
+      this.counter[id] = 0;
+    });
   }
 
   isGenerator(spellId) {
@@ -44,7 +48,7 @@ class Rampage extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (!this.rampage.includes(event.ability.guid)) {
+    if (!RAMPAGE.includes(event.ability.guid)) {
       return;
     }
     this.counter[event.ability.guid] += 1;
@@ -52,7 +56,7 @@ class Rampage extends Analyzer {
 
   get cancelledsuggestionThresholds() {
     const max = Object.values(this.counter).reduce((max, current) => current > max ? current : max, 0);
-    const wasted = Object.keys(this.counter).reduce((acc, current) => acc + max - this.counter[current], 0);
+    const wasted = Object.keys(this.counter).reduce((total, current) => total + (max - current), 0);
 
     return {
       actual: wasted / (max * RAMPAGE_HITS_PER_CAST),
