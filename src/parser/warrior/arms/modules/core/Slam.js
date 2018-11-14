@@ -29,7 +29,7 @@ class Slam extends Analyzer {
 
   get badCastSuggestionThresholds() {
     return {
-      actual: this.badCast / this.totalCast ,
+      actual: (this.badCast / this.totalCast) || 0,
       isGreaterThan: {
         minor: 0,
         average: 0.5,
