@@ -41,7 +41,7 @@ class Slam extends Analyzer {
 
   suggestions(when) {
     when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You shouldn't cast <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available as Mortal Strike is more rage efficient.</>)
+      return suggest(<>Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available as it is more rage efficient.</>)
         .icon(SPELLS.SLAM.icon)
         .actual(`${formatPercentage(actual)}% of your Slam were used while Mortal Strike or Overpower were available.`)
         .recommended(`${recommended}% is recommended`);
