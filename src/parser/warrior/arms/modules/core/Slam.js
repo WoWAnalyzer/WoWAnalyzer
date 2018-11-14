@@ -17,10 +17,10 @@ class Slam extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SLAM), this._badCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SLAM), this._onSlamCast);
   }
 
-  _badCast() {
+  _onSlamCast() {
     this.totalCast += 1;
     if (this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
       this.badCast += 1;
