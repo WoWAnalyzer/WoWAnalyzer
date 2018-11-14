@@ -28,8 +28,9 @@ class Ascendance extends Analyzer {
     }
   }
 
-  justEnteredAcendance = false;
+  justEnteredAscendance = false;
   badFSAscendence = 0;
+  checkDelay = 0;
 
   numCasts = {
     [SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]: 0,
@@ -44,16 +45,12 @@ class Ascendance extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id);
   }
 
-  get rawUpdate() {
+  get AscendanceUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) / this.owner.fightDuration;
   }
 
-  get AscendanceUptime() {
-    return this.rawUpdate;
-  }
-
   get averageLavaBurstCasts() {
-    return this.numCasts[SPELLS.LAVA_BURST.id]/this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id];
+    return (this.numCasts[SPELLS.LAVA_BURST.id]/this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]) || 0;
   }
 
   on_byPlayer_cast(event) {
@@ -62,15 +59,8 @@ class Ascendance extends Analyzer {
 
 
     if(spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-      this.justEnteredAcendance = true;
+      this.justEnteredAscendance = true;
       this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]++;
-    }
-
-    if(this.justEnteredAcendance){
-      this.justEnteredAcendance=false;
-      if(target && target.getBuffUptime(SPELLS.FLAME_SHOCK.id) < ASCENDANCE_DURATION){
-        this.badFSAscendence++;
-      }
     }
 
 
@@ -85,6 +75,17 @@ class Ascendance extends Analyzer {
     const gcd = this._resolveAbilityGcdField(ability.gcd);
     if(!gcd){
       return;
+    }
+
+    if(this.justEnteredAscendance){
+      if(target){
+        this.justEnteredAscendance=false;
+        if(target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end-event.timestamp < ASCENDANCE_DURATION) {
+          this.badFSAscendence++;
+        }
+      } else {
+        this.checkDelay+=gcd;
+      }
     }
 
     if (this.numCasts[spellId] !== undefined) {
