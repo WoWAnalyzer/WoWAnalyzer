@@ -30,6 +30,7 @@ import SpittingCobra from './modules/talents/SpittingCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
@@ -51,6 +52,7 @@ import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
+import PackAlpha from './modules/spells/azeritetraits/PackAlpha';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,7 +99,8 @@ class CombatLogParser extends CoreCombatLogParser {
     scentOfBlood: ScentOfBlood,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
-
+    animalCompanion: AnimalCompanion,
+    
     //Traits and talents
     spellssAndTalents: SpellsAndTalents,
 
@@ -106,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hazeOfRage: HazeOfRage,
     feedingFrenzy: FeedingFrenzy,
     primalInstincts: PrimalInstincts,
+    packAlpha: PackAlpha,
   };
 }
 
