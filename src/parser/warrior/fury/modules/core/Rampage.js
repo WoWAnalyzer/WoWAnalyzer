@@ -56,7 +56,7 @@ class Rampage extends Analyzer {
 
   get cancelledsuggestionThresholds() {
     const max = Object.values(this.counter).reduce((max, current) => current > max ? current : max, 0);
-    const wasted = Object.keys(this.counter).reduce((total, current) => total + (max - current), 0);
+    const wasted = Object.values(this.counter).reduce((total, current) => total + (max - current), 0);
 
     return {
       actual: wasted / (max * RAMPAGE_HITS_PER_CAST),
