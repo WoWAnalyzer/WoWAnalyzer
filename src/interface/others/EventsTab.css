@@ -42,7 +42,7 @@
 .events-tab .applydebuff, .events-tab .removedebuff, .events-tab .refreshdebuff, .events-tab .applydebuffstack, .events-tab .removedebuffstack {
   color: #ffe200;
 }
-.events-tab .overheal, .events-tab .NPC, .events-tab .combatantinfo {
+.events-tab .overheal, .events-tab .NPC, .events-tab .combatantinfo, .events-tab .Pet {
   color: gray;
 }
 .events-tab .effect {
