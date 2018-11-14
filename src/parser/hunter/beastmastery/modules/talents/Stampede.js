@@ -79,7 +79,7 @@ class Stampede extends Analyzer {
     });
   }
 
-  get stampedeInefficientCastsTreshold() {
+  get stampedeInefficientCastsThreshold() {
     return {
       actual: this.inefficientCasts,
       isGreaterThan: {
@@ -92,7 +92,7 @@ class Stampede extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.stampedeInefficientCastsTreshold)
+    when(this.stampedeInefficientCastsThreshold)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? "times" : "time"} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
           .icon(SPELLS.STAMPEDE_TALENT.icon)

@@ -197,13 +197,13 @@ class ThunderFocusTea extends Analyzer {
     }
   }
 
-  get incorrectTFTCasts() {
+  get incorrectTftCasts() {
     return this.castsUnderTft - (this.castsTftViv + this.castsTftRem);
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.incorrectTFTCasts,
+      actual: this.incorrectTftCasts,
       isGreaterThan: {
         minor: 1,
         average: 1.5,

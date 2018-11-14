@@ -64,6 +64,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        buffSpellId: SPELLS.SHADOWBURN_TALENT.id,
       },
       {
         spell: SPELLS.IMMOLATE,
@@ -71,6 +72,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.IMMOLATE_DEBUFF.id,
       },
       {
         spell: SPELLS.INCINERATE,
@@ -89,6 +91,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
         },
+        buffSpellId: SPELLS.HAVOC.id,
       },
       {
         spell: SPELLS.RAIN_OF_FIRE_CAST,
@@ -128,6 +131,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        buffSpellId: SPELLS.DARK_SOUL_INSTABILITY_TALENT.id,
       },
 
       // Defensive
@@ -158,6 +162,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0.10,
         },
+        buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
 
       // Utility
@@ -168,6 +173,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.BURNING_RUSH_TALENT.id,
       },
       {
         spell: SPELLS.DRAIN_LIFE,
