@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { DESPAWN_REASONS } from './TimelinePet';
 import { isPermanentPet } from './helpers';
 
-const debug = true;
+const debug = false;
 
 class Timeline {
   timeline = [];
