@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
-
 // Features
 import Checklist from './modules/features/Checklist/Module';
 import Abilities from './modules/Abilities';
@@ -8,25 +7,21 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import Channeling from './modules/features/Channeling';
-
 // Resource
 import RageTracker from './modules/features/RageTracker';
 import RageDetail from './modules/features/RageDetails';
-
 // Core
 import TacticianProc from './modules/core/TacticianProc';
 import Overpower from './modules/core/Overpower';
-
+import Slam from './modules/core/Slam';
 // Execute Range
 import Rend from './modules/core/Execute/Rend';
 import MortalStrike from './modules/core/Execute/MortalStrike';
 import ExecuteRange from './modules/core/Execute/ExecuteRange';
-
 // Dots
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
 import RendUptime from './modules/core/Dots/RendUptime';
 import DotUptimes from './modules/core/Dots';
-
 // Talents
 import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
@@ -42,7 +37,6 @@ import Cleave from './modules/talents/Cleave';
 import Warbreaker from './modules/talents/Warbreaker';
 import Avatar from './modules/talents/Avatar';
 import Ravager from './modules/talents/Ravager';
-
 // Azerite Traits
 import ExecutionersPrecision from './modules/spells/azeritetraits/ExecutionersPrecision';
 import SeismicWave from './modules/spells/azeritetraits/SeismicWave';
@@ -68,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     tacticianProc: TacticianProc,
     overpower: Overpower,
+    slam: Slam,
 
     // Execute range
     executeRange: ExecuteRange,
