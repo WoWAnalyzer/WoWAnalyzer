@@ -281,7 +281,7 @@ class CombatLogParser {
 
   adjustForDowntime = true;
   get hasDowntime() {
-    return this._modules.totalDowntime.totalBaseDowntime > 0;
+    return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
   _modules = {};
@@ -304,7 +304,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -315,7 +315,7 @@ class CombatLogParser {
     }, {});
   }
   get selectedCombatant() {
-    return this._modules.combatants.selected;
+    return this.getModule(Combatants).selected;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
@@ -339,7 +339,7 @@ class CombatLogParser {
     this.getModule(EventEmitter).fabricateEvent({
       type: this.constructor.finished,
     });
-    console.log('Called listeners', this._modules.eventEmitter._listenersCalled, 'times, with', this._modules.eventEmitter._actualExecutions, 'actual executions.', this._modules.eventEmitter._listenersCalled - this._modules.eventEmitter._actualExecutions, 'events were filtered away');
+    console.log('Called listeners', this.getModule(EventEmitter)._listenersCalled, 'times, with', this.getModule(EventEmitter)._actualExecutions, 'actual executions.', this.getModule(EventEmitter)._listenersCalled - this.getModule(EventEmitter)._actualExecutions, 'events were filtered away');
   }
 
   _getModuleClass(config) {
@@ -472,10 +472,10 @@ class CombatLogParser {
   eventCount = 0;
   eventHistory = [];
   addEventListener(...args) {
-    this._modules.eventEmitter.addEventListener(...args);
+    this.getModule(EventEmitter).addEventListener(...args);
   }
   triggerEvent(event) {
-    this._modules.eventEmitter.triggerEvent(event);
+    this.getModule(EventEmitter).triggerEvent(event);
   }
 
   deepDisable(module) {
@@ -504,7 +504,7 @@ class CombatLogParser {
   }
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this._modules.healingDone.total.effective;
+    return healingDone / this.getModule(HealingDone).total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -513,7 +513,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this._modules.damageDone.total.effective;
+    return damageDone / this.getModule(DamageDone).total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

@@ -1,8 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';
@@ -11,7 +13,7 @@ import BestialWrath from '../../modules/spells/BestialWrath';
 import KillerCobra from '../../modules/talents/KillerCobra';
 import CobraShot from '../../modules/spells/CobraShot';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,

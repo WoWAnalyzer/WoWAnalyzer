@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/shared/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -11,9 +11,7 @@ import Consecration from '../../spells/Consecration';
 
 import Component from './Component';
 
-
-
-class Checklist extends Analyzer{
+class Checklist extends BaseChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,

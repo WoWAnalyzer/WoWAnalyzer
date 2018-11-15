@@ -1,4 +1,5 @@
 import CombatLogParser from './CombatLogParser';
+import HealingDone from 'parser/shared/modules/HealingDone';
 
 class MyModule {}
 const myModule = new MyModule();
@@ -39,7 +40,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('loads spec modules', () => {
@@ -49,7 +50,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
-      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('spec modules override default modules', () => {
@@ -62,7 +63,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser._modules.myModule).toBeInstanceOf(MySubModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MySubModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('only instantiates the overriding module', () => {
@@ -91,7 +92,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser._modules.myModule).toBe(undefined);
+      expect(parser.getModule(MyModule, false)).toBe(undefined);
       expect(Object.keys(parser._modules).length).toBe(0);
     });
   });
@@ -106,7 +107,6 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.getModule(MyModule)).toBe(parser._modules.test);
       expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(parser.getModule(MyModule)).toBe(myModule);
     });
@@ -120,7 +120,6 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.getModule(MyModule)).toBe(parser._modules.test);
       expect(parser.getModule(MyModule)).toBeInstanceOf(MySubModule);
       expect(parser.getModule(MyModule)).toBe(mySubModule);
       expect(parser.getModule(MySubModule)).toBeInstanceOf(MySubModule);
@@ -144,7 +143,7 @@ describe('Core/CombatLogParser', () => {
       parser.initializeModules({
         myModule: MyModule,
       });
-      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
     });
     it('loads a module with a dependency', () => {
       class MyChildModule {
@@ -158,8 +157,8 @@ describe('Core/CombatLogParser', () => {
         myChildModule: MyChildModule,
       });
       expect(Object.keys(parser._modules).length).toBe(2);
-      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
-      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyChildModule)).toBeInstanceOf(MyChildModule);
     });
     it('delays loading a module until its dependencies are available', () => {
       class MyChildModule {
@@ -173,8 +172,8 @@ describe('Core/CombatLogParser', () => {
         myParentModule: MyModule,
       });
       expect(Object.keys(parser._modules).length).toBe(2);
-      expect(parser._modules.myParentModule).toBeInstanceOf(MyModule);
-      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyChildModule)).toBeInstanceOf(MyChildModule);
     });
     it('throws when a module being depended on is not used by the CombatLogParser', () => {
       class MyChildModule {
@@ -201,8 +200,8 @@ describe('Core/CombatLogParser', () => {
         myChildModule: MyChildModule,
       });
       expect(Object.keys(parser._modules).length).toBe(2);
-      expect(parser._modules.myModule).toBeInstanceOf(MySubModule);
-      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(parser.getModule(MySubModule)).toBeInstanceOf(MySubModule);
+      expect(parser.getModule(MyChildModule)).toBeInstanceOf(MyChildModule);
     });
     it('passes the dependencies as a prop to the module', () => {
       const MyChildModule = jest.fn();
@@ -214,7 +213,7 @@ describe('Core/CombatLogParser', () => {
         myModule: MyModule,
         myChildModule: MyChildModule,
       });
-      expect(parser._modules.myChildModule.parent).toBeInstanceOf(MyModule);
+      expect(parser.getModule(MyChildModule).parent).toBeInstanceOf(MyModule);
     });
     it('automatically prioritizes execution order of modules based on dependency requirements', () => {
       const MyAlternativeModule = jest.fn();
@@ -230,9 +229,9 @@ describe('Core/CombatLogParser', () => {
         myParentModule: MyParentModule,
       });
       // 2 = priority
-      expect(parser._modules.myAlternativeModule.priority).toBe(0);
-      expect(parser._modules.myParentModule.priority).toBe(1);
-      expect(parser._modules.myChildModule.priority).toBe(2);
+      expect(parser.getModule(MyAlternativeModule).priority).toBe(0);
+      expect(parser.getModule(MyParentModule).priority).toBe(1);
+      expect(parser.getModule(MyChildModule).priority).toBe(2);
     });
   });
   describe('implementation', () => {

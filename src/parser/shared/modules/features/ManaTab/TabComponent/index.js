@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ManaValues from 'parser/shared/modules/ManaValues';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import Tab from 'interface/others/Tab';
 
 import ManaLevelGraph from './ManaLevelGraph';
@@ -14,7 +16,7 @@ const Mana = ({ parser }) => (
       actorId={parser.playerId}
       start={parser.fight.start_time}
       end={parser.fight.end_time}
-      manaUpdates={parser._modules.manaValues.manaUpdates}
+      manaUpdates={parser.getModule(ManaValues).manaUpdates}
       currentTimestamp={parser.currentTimestamp}
     /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
 
@@ -22,8 +24,8 @@ const Mana = ({ parser }) => (
     <ManaUsageGraph
       start={parser.fight.start_time}
       end={parser.fight.end_time}
-      healingBySecond={parser._modules.healingDone.bySecond}
-      manaUpdates={parser._modules.manaValues.manaUpdates}
+      healingBySecond={parser.getModule(HealingDone).bySecond}
+      manaUpdates={parser.getModule(ManaValues).manaUpdates}
       timestamp={parser.currentTimestamp}
     /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
   </Tab>
