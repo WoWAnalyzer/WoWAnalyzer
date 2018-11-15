@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-11-12'),
+    date: new Date('2018-11-15'),
     changes: <>The <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> module now provides efficiency details on individual casts, and filters out healing on pets.</>,
     contributors: [niseko],
   },
