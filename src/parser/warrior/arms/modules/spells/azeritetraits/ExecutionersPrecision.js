@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-
 import SpellUsable from '../../features/SpellUsable';
 
 /**
@@ -47,7 +46,7 @@ class ExecutionersPrecisionAnalyzer extends Analyzer {
       return;
     }
 
-    if ((ep.stacks !== 2 && op.stacks !== 2) || (ep.stacks !== 2 && op.stacks === 2) || (ep.stacks === 2 && op.stacks !== 2)) {
+    if (ep.stacks !== 2 || op.stacks !== 2) {
       this.badMortalStrikeOnExecPhase += 1;
 
       event.meta = event.meta || {};
