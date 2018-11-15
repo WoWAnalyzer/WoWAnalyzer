@@ -5,10 +5,10 @@ import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const BUFF_DURATION = 20000;
 const debug = false;
@@ -44,7 +44,6 @@ class DemonicCalling extends Analyzer {
   }
 
   removeDemonicCallingBuff(event) {
-    // TODO same check as in refresh
     if (event.timestamp >= this._expectedBuffEnd) {
       // the buff fell off, another wasted instant
       this.wastedProcs += 1;
@@ -75,12 +74,11 @@ class DemonicCalling extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEMONIC_CALLING_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<>Wasted <SpellLink id={SPELLS.DEMONIC_CALLING_TALENT.id} /> procs</>}
         value={this.wastedProcs}
-        label="Wasted cheaper Dreadstalkers"
       />
     );
   }

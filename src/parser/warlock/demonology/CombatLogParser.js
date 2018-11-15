@@ -19,6 +19,7 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 
+import TalentStatisticBox from './modules/talents';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    talents: TalentStatisticBox,
     demonicCalling: DemonicCalling,
     grimoireFelguard: GrimoireFelguard,
 
