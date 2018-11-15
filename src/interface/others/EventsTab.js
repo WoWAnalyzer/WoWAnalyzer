@@ -123,6 +123,10 @@ class EventsTab extends React.Component {
     if (enemy) {
       return enemy;
     }
+    const pet = this.props.parser.playerPets.find(pet => pet.id === id);
+    if (pet) {
+      return pet;
+    }
     return null;
   }
   renderEntity(entity) {
