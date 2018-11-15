@@ -29,9 +29,8 @@ const MAX_GCD = 1500;
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
-    abilities: Abilities,
+    ...CoreGlobalCooldown.dependencies,
     haste: Haste,
-    channeling: Channeling,
   };
 
   getGlobalCooldownDuration(spellId) {
