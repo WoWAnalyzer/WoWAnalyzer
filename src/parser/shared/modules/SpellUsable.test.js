@@ -36,14 +36,14 @@ describe('core/Modules/SpellUsable', () => {
       });
     };
     triggerHasteChange = () => {
-      parser.triggerEvent({
+      eventEmitter.triggerEvent({
         type: 'changehaste',
         // We don't need more; the new Haste is pulled straight from the Haste module
         timestamp: parser.currentTimestamp,
       });
     };
   });
-  const triggerTestEvent = () => parser.triggerEvent({
+  const triggerTestEvent = () => eventEmitter.triggerEvent({
     type: 'test',
     timestamp: parser.currentTimestamp,
   });

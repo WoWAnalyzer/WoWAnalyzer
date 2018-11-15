@@ -474,9 +474,6 @@ class CombatLogParser {
   addEventListener(...args) {
     this.getModule(EventEmitter).addEventListener(...args);
   }
-  triggerEvent(event) {
-    this.getModule(EventEmitter).triggerEvent(event);
-  }
 
   deepDisable(module) {
     console.error('Disabling', module.constructor.name);

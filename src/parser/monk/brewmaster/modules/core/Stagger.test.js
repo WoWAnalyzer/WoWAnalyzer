@@ -8,13 +8,15 @@ import Stagger from './Stagger';
 
 describe('Brewmaster.Stagger', () => {
   let parser;
+  let eventEmitter;
   let module;
   let fab;
   beforeEach(() => {
     parser = new TestCombatLogParser();
+    eventEmitter = parser.getModule(EventEmitter);
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.STAGGERING_AROUND.id]: 0 };
     fab = parser.loadModule(StaggerFabricator, {
-      eventEmitter: parser.getModule(EventEmitter),
+      eventEmitter,
     });
     module = parser.loadModule(Stagger, {
       fab,
@@ -49,7 +51,7 @@ describe('Brewmaster.Stagger', () => {
   });
   it('Tracks the amount of stagger missing from the fight', () => {
     parser.processEvents(EarlyFinish, fab, module);
-    parser.triggerEvent({
+    eventEmitter.triggerEvent({
       type: 'finished',
     });
     expect(module.staggerMissingFromFight).toBe(484);
