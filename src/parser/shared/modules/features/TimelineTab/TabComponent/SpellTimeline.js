@@ -195,10 +195,11 @@ class SpellTimeline extends React.PureComponent {
           )}
           {this.spells.map(spellId => {
             let combinedBuffEvents = [];
-            if (abilities.getBuffSpellId(spellId) && abilities.getBuffSpellId(spellId) instanceof Array) {
-              abilities.getBuffSpellId(spellId).forEach(spell => Array.prototype.push.apply(combinedBuffEvents, buffEvents[spell]));
-            } else if (abilities.getBuffSpellId(spellId)) {
-              combinedBuffEvents = buffEvents[abilities.getBuffSpellId(spellId)];
+            const buffSpellId = abilities.getBuffSpellId(spellId);
+            if (buffSpellId && buffSpellId instanceof Array) {
+              buffSpellId.forEach(spell => Array.prototype.push.apply(combinedBuffEvents, buffEvents[spell]));
+            } else if (buffSpellId) {
+              combinedBuffEvents = buffEvents[buffSpellId];
             }
             return (
               <SpellRow
