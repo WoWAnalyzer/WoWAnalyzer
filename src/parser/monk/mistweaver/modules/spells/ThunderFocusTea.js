@@ -153,7 +153,7 @@ class ThunderFocusTea extends Analyzer {
         value: this.castsTftViv,
       },
       {
-        color: '#00aedb',
+        color: '#db00db',
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST.id,
         value: this.castsTftRem,
