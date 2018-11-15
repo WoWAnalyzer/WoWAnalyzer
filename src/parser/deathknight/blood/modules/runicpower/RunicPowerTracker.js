@@ -6,6 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 class RunicPowerTracker extends ResourceTracker {
   static dependencies = {
     spellUsable: SpellUsable,
+    ...ResourceTracker.dependencies,
   };
 
   totalCooldownReduction = 0;
@@ -36,12 +37,12 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   reduceCooldown(cost) {
-    if (!this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id)){
+    if (!this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id)) {
       return;
     }
     const COOLDOWN_REDUCTION_MS = 1000 / 10;
     const reduction = cost * COOLDOWN_REDUCTION_MS;
-    if (!this.spellUsable.isOnCooldown(SPELLS.VAMPIRIC_BLOOD.id)){
+    if (!this.spellUsable.isOnCooldown(SPELLS.VAMPIRIC_BLOOD.id)) {
       this.totalCooldownReductionWasted += reduction;
     } else {
       const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.VAMPIRIC_BLOOD.id, reduction);
@@ -50,11 +51,11 @@ class RunicPowerTracker extends ResourceTracker {
     }
   }
 
-  get cooldownReduction(){
+  get cooldownReduction() {
     return this.totalCooldownReduction;
   }
 
-  get cooldownReductionWasted(){
+  get cooldownReductionWasted() {
     return this.totalCooldownReductionWasted;
   }
 

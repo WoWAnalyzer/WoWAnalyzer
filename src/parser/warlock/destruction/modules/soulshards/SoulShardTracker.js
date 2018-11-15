@@ -20,7 +20,9 @@ const INFERNAL_DURATION = 30000;
 const INFERNAL_FRAGMENT_TICK_PERIOD = 500;
 
 class SoulShardTracker extends ResourceTracker {
+
   static dependencies = {
+    ...ResourceTracker.dependencies,
     enemies: Enemies,
   };
 

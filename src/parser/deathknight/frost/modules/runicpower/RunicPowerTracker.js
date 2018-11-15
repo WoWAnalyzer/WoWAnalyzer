@@ -3,6 +3,10 @@ import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTrack
 
 class RunicPowerTracker extends ResourceTracker {
 
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
+
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.RUNIC_POWER;

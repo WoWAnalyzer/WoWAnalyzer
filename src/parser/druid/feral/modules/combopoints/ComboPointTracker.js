@@ -6,6 +6,11 @@ import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTrack
 const PRIMAL_FURY_WINDOW = 50; //ms
 
 class ComboPointTracker extends ResourceTracker {
+
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
+
   /**
    * A critical hit from a generator triggers Primal Fury which gives an extra combo point.
    * A Feral druid should always build up 5 combo points and crits are unpredictable.

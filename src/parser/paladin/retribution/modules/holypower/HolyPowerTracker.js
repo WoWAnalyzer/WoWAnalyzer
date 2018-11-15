@@ -3,6 +3,11 @@ import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTrack
 import SPELLS from 'common/SPELLS';
 
 class HolyPowerTracker extends ResourceTracker {
+
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
+
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.HOLY_POWER;

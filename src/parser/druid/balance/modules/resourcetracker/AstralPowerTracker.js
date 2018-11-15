@@ -6,6 +6,11 @@ const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
 const SOUL_OF_THE_FOREST_REDUCTION = 10;
 
 class AstralPowerTracker extends ResourceTracker {
+
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
+
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.ASTRAL_POWER;

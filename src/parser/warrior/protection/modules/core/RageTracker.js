@@ -12,6 +12,7 @@ const RAGE_PER_MELEE_HIT_TAKEN = 3;
 class RageTracker extends ResourceTracker {
   static dependencies = {
     spellUsable: SpellUsable,
+    ...ResourceTracker.dependencies,
   };
 
   vengeanceRageSaved = 0;
@@ -49,7 +50,7 @@ class RageTracker extends ResourceTracker {
     if (event.ability.guid !== SPELLS.MELEE.id) {
       return;
     }
-    
+
     this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
   }
 

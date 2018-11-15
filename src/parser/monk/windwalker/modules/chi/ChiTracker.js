@@ -3,6 +3,11 @@ import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTrack
 import SPELLS from 'common/SPELLS';
 
 class ChiTracker extends ResourceTracker {
+
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
+
   maxChi = 5;
 
   constructor(...args) {
@@ -23,7 +28,7 @@ class ChiTracker extends ResourceTracker {
 
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
     if (spellId === SPELLS.BLACKOUT_KICK.id) {
-        cost = 1;     
+      cost = 1;
     }
     return cost;
   }

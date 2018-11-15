@@ -7,31 +7,32 @@ import SPELLS from 'common/SPELLS';
 const RAGE_PER_MELEE_HIT = 25;
 
 class RageUsage extends ResourceTracker {
-    static dependencies = {
-		  spellUsable: SpellUsable,
-    };
+  static dependencies = {
+    spellUsable: SpellUsable,
+    ...ResourceTracker.dependencies,
+  };
 
-    lastMeleeTaken = 0;
-    
-    constructor(...args) {
-      super(...args);
-      this.resource = RESOURCE_TYPES.RAGE;
-    }
+  lastMeleeTaken = 0;
 
-    getReducedCost(event) {
-      if (!this.getResource(event).cost) {
-        return 0;
-      }
-      const cost = this.getResource(event).cost / 10;
-      return cost;
-    }
+  constructor(...args) {
+    super(...args);
+    this.resource = RESOURCE_TYPES.RAGE;
+  }
 
-    on_byPlayer_damage(event) {
-      if (event.ability.guid !== SPELLS.MELEE.id) {
-        return;
-      }      
-      this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+  getReducedCost(event) {
+    if (!this.getResource(event).cost) {
+      return 0;
     }
+    const cost = this.getResource(event).cost / 10;
+    return cost;
+  }
+
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.MELEE.id) {
+      return;
+    }
+    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+  }
 }
 
 export default RageUsage;
