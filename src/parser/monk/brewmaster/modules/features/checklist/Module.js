@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
@@ -14,7 +14,7 @@ import BlackoutCombo from '../../spells/BlackoutCombo';
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     castEfficiency: CastEfficiency,

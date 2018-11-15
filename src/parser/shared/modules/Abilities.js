@@ -110,7 +110,11 @@ class Abilities extends Analyzer {
    */
   getSpellBuffAbility(spellId) {
     return this.activeAbilities.find(ability => {
-      return ability.buffSpellId === spellId;
+      if (ability.buffSpellId instanceof Array) {
+        return ability.buffSpellId.some(spell => spell === spellId);
+      } else {
+        return ability.buffSpellId === spellId;
+      }
     });
   }
 

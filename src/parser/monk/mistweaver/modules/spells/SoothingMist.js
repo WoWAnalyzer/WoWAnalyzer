@@ -16,7 +16,7 @@ class SoothingMist extends Analyzer {
 
   soomTicks = 0;
   gustProc = 0;
-  gustHealing = 0;
+  gustsHealing = 0;
   lastSoomTickTimestamp = 0;
 
   on_byPlayer_heal(event) {
@@ -29,7 +29,7 @@ class SoothingMist extends Analyzer {
 
     if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp) {
       this.gustProc += 1;
-      this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 

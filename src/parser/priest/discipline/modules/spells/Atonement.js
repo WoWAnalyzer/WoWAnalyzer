@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 
@@ -18,6 +19,7 @@ const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     combatants: Combatants,
     atonementApplicationSource: AtonementApplicationSource,
   };
@@ -72,7 +74,7 @@ class Atonement extends Analyzer {
     this.currentAtonementTargets.push(atonement);
     this.totalAtones += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'atonement_applied',
       timestamp: event.timestamp,
       sourceID: event.sourceID,
@@ -98,7 +100,7 @@ class Atonement extends Analyzer {
     if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
       debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
-      this.owner.fabricateEvent({
+      this.eventEmitter.fabricateEvent({
         type: 'atonement_refresh_improper',
         timestamp: event.timestamp,
         sourceID: event.sourceID,
@@ -118,7 +120,7 @@ class Atonement extends Analyzer {
     this.totalAtones += 1;
     this.totalAtonementRefreshes += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'atonement_refresh',
       timestamp: event.timestamp,
       sourceID: event.sourceID,
@@ -136,7 +138,7 @@ class Atonement extends Analyzer {
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     debug && console.log(`%c${this.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'atonement_faded',
       timestamp: event.timestamp,
       sourceID: event.sourceID,

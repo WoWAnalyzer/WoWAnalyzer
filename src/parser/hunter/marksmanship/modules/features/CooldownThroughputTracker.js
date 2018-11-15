@@ -4,7 +4,7 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.TRUESHOT,
       summary: [
@@ -14,7 +14,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
+    ...CoreCooldownThroughputTracker.ignoredSpells,
     SPELLS.BINDING_SHOT_STUN.id,
     SPELLS.BINDING_SHOT_TETHER.id,
   ];
