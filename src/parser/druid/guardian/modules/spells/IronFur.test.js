@@ -10,7 +10,7 @@ describe('Core.IronFur', () => {
   beforeEach(() => {
     parser = new TestCombatLogParser();
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.URSOCS_ENDURANCE.id]: 0 };
-    module = parser.loadModule(IronFur);
+    module = parser.loadModule('ironfur', IronFur);
   });
   it('track last ironfur time with noevents', () => {
     expect(module.overallIronfurUptime).toBe(0);

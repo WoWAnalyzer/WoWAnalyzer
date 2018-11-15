@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS/index';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import SpellUsable from './SpellUsable';
 
@@ -8,7 +7,6 @@ describe('core/Modules/SpellUsable', () => {
   let module;
   let parser;
   let abilitiesMock;
-  let eventEmitter;
   let triggerCast;
   let triggerHasteChange;
   beforeEach(() => {
@@ -20,13 +18,11 @@ describe('core/Modules/SpellUsable', () => {
       getAbility: jest.fn((id) => ({spell: {id: id}})),
     };
 
-    eventEmitter = parser.getModule(EventEmitter);
-    module = parser.loadModule(SpellUsable, {
-      eventEmitter,
+    module = parser.loadModule('spellUsable', SpellUsable, {
       abilities: abilitiesMock,
     });
     triggerCast = (spellId, extra) => {
-      eventEmitter.triggerEvent({
+      parser.triggerEvent({
         type: 'cast',
         ability: {
           guid: spellId,
@@ -36,14 +32,14 @@ describe('core/Modules/SpellUsable', () => {
       });
     };
     triggerHasteChange = () => {
-      eventEmitter.triggerEvent({
+      parser.triggerEvent({
         type: 'changehaste',
         // We don't need more; the new Haste is pulled straight from the Haste module
         timestamp: parser.currentTimestamp,
       });
     };
   });
-  const triggerTestEvent = () => eventEmitter.triggerEvent({
+  const triggerTestEvent = () => parser.triggerEvent({
     type: 'test',
     timestamp: parser.currentTimestamp,
   });
@@ -125,7 +121,7 @@ describe('core/Modules/SpellUsable', () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 5000;
-      eventEmitter.fabricateEvent = jest.fn();
+      parser.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
       // It does NOT report when this happens, as it's normal behavior.
@@ -195,12 +191,10 @@ describe('core/Modules/SpellUsable', () => {
   describe('custom events', () => {
     // Custom event tests are separate to keep the above tests much simpler and cleaner. Their separation isn't *that* weird.
     it('a new spell going on cooldown triggers an `updatespellusable` event indicating the spell going on cooldown', () => {
-      eventEmitter.fabricateEvent = jest.fn();
-
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
-      const call = eventEmitter.fabricateEvent.mock.calls[0];
+      expect(parser.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parser.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -223,12 +217,12 @@ describe('core/Modules/SpellUsable', () => {
     });
     it('casting a spell already on cooldown before the cooldown runs out restarts the cooldown and fires both endcooldown and begincooldown events', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
-      eventEmitter.fabricateEvent = jest.fn();
+      parser.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(2);
+      expect(parser.fabricateEvent).toHaveBeenCalledTimes(2);
       {
-        const call = eventEmitter.fabricateEvent.mock.calls[0];
+        const call = parser.fabricateEvent.mock.calls[0];
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -250,7 +244,7 @@ describe('core/Modules/SpellUsable', () => {
         });
       }
       {
-        const call = eventEmitter.fabricateEvent.mock.calls[1];
+        const call = parser.fabricateEvent.mock.calls[1];
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -275,11 +269,11 @@ describe('core/Modules/SpellUsable', () => {
     it('using another charge of a spell already on cooldown triggers an `updatespellusable` event indicating the charge going on cooldown', () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
-      eventEmitter.fabricateEvent = jest.fn();
+      parser.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
-      const call = eventEmitter.fabricateEvent.mock.calls[0];
+      expect(parser.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parser.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -304,11 +298,11 @@ describe('core/Modules/SpellUsable', () => {
       parser.currentTimestamp = 0;
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 10000;
-      eventEmitter.fabricateEvent = jest.fn();
+      parser.fabricateEvent = jest.fn();
       triggerTestEvent();
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
-      const call = eventEmitter.fabricateEvent.mock.calls[0];
+      expect(parser.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parser.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -335,12 +329,12 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 10000;
-      eventEmitter.fabricateEvent = jest.fn();
+      parser.fabricateEvent = jest.fn();
       triggerTestEvent();
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(2);
+      expect(parser.fabricateEvent).toHaveBeenCalledTimes(2);
       {
-        const call = eventEmitter.fabricateEvent.mock.calls[0];
+        const call = parser.fabricateEvent.mock.calls[0];
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -362,7 +356,7 @@ describe('core/Modules/SpellUsable', () => {
         });
       }
       {
-        const call = eventEmitter.fabricateEvent.mock.calls[1];
+        const call = parser.fabricateEvent.mock.calls[1];
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {

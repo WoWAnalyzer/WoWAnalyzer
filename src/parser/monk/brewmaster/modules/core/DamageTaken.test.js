@@ -8,7 +8,7 @@ describe('Brewmaster/DamageTaken', () => {
   let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule(DamageTaken);
+    module = parser.loadModule('damageTaken', DamageTaken);
   });
   it('damage taken with no events', () => {
     expect(module.total.regular).toBe(0);

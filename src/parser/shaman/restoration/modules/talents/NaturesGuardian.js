@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-
 /**
  * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
  * Cannot occur more than once every 45 sec.
@@ -18,7 +18,6 @@ import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
  */
 class NaturesGuardian extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
   healing = 0;
@@ -35,7 +34,7 @@ class NaturesGuardian extends Analyzer {
       return;
     }
 
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       ...event,
       type: 'cast',
       ability: {

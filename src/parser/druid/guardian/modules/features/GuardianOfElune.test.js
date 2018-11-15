@@ -8,7 +8,7 @@ describe('Features.GuardianOfElune', () => {
   let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule(GuardianOfElune);
+    module = parser.loadModule('guardianOfElune', GuardianOfElune);
   });
   it('trach GoE procs with no events', () => {
     expect(module.GoEProcsTotal).toBe(0);

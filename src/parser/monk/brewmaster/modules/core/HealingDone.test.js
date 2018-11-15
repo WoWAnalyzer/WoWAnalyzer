@@ -10,7 +10,7 @@ describe('Brewmaster/HealingDone', () => {
   let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule(HealingDone);
+    module = parser.loadModule('healingDone', HealingDone);
   });
   it('healing done with no events', () => {
     expect(module.total.regular).toBe(0);

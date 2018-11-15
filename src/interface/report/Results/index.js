@@ -22,10 +22,6 @@ import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { i18n } from 'interface/RootLocalizationProvider';
-import Combatants from 'parser/shared/modules/Combatants';
-import Checklist from 'parser/shared/modules/features/Checklist2/Module';
-import CharacterTab from 'parser/shared/modules/features/CharacterTab';
-import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 
 import FightNavigationBar from '../FightNavigationBar';
 import ResultsWarning from './ResultsWarning';
@@ -74,7 +70,7 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: !props.parser.getModule(Checklist, false) ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
+      mainTab: !props.parser._modules.checklist ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -179,10 +175,10 @@ class Results extends React.PureComponent {
 
   renderChecklist() {
     const parser = this.props.parser;
-    const checklist = parser.getModule(Checklist, false);
+    const modules = parser._modules;
     return (
-      checklist ? (
-        checklist.render()
+      modules.checklist ? (
+        modules.checklist.render()
       ) : (
         <div className="item-divider" style={{ padding: '10px 22px' }}>
           <div className="alert alert-danger">
@@ -196,8 +192,7 @@ class Results extends React.PureComponent {
     const { parser, selectedDetailsTab, makeTabUrl, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
-    const characterTab = parser.getModule(CharacterTab);
-    const encounterPanel = parser.getModule(EncounterPanel);
+    const modules = parser._modules;
     const config = this.context.config;
 
     const results = parser.generateResults({
@@ -295,8 +290,8 @@ class Results extends React.PureComponent {
                   <ErrorBoundary>
                     {this.state.mainTab === MAIN_TAB.CHECKLIST && this.renderChecklist()}
                     {this.state.mainTab === MAIN_TAB.SUGGESTIONS && <SuggestionsTab issues={results.issues} />}
-                    {this.state.mainTab === MAIN_TAB.CHARACTER && characterTab.render()}
-                    {this.state.mainTab === MAIN_TAB.STATS && encounterPanel.render()}
+                    {this.state.mainTab === MAIN_TAB.CHARACTER && modules.characterTab.render()}
+                    {this.state.mainTab === MAIN_TAB.STATS && modules.encounterPanel.render()}
                   </ErrorBoundary>
                 </div>
               </div>
@@ -334,8 +329,8 @@ class Results extends React.PureComponent {
     const { parser, characterProfile } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
-    const combatants = parser.getModule(Combatants);
-    const selectedCombatant = combatants.selected;
+    const modules = parser._modules;
+    const selectedCombatant = modules.combatants.selected;
 
     return (
       <>

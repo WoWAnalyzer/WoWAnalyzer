@@ -1,5 +1,4 @@
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const debug = false;
 
@@ -7,10 +6,6 @@ const APPLY = 'apply';
 const REMOVE = 'remove';
 
 class Entities extends Analyzer {
-  static dependencies = {
-    eventEmitter: EventEmitter,
-  };
-
   getEntities() {
     throw new Error('Not implemented');
   }
@@ -139,7 +134,7 @@ class Entities extends Analyzer {
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
   _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       ...buff,
       type: buff.isDebuff ? 'changedebuffstack' : 'changebuffstack',
       timestamp,

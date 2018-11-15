@@ -1,8 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
-
 import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
@@ -23,16 +21,15 @@ const STAGGER_THRESHOLDS = {
  * tick, purify, and stagger absorb generates one event.
  */
 class StaggerFabricator extends Analyzer {
-  static dependencies = {
-    eventEmitter: EventEmitter,
-    ht: HighTolerance,
-    haste: Haste,
-  };
-
   // causes an orb consumption to clear 5% of stagger
   _hasTier20_4pc = false;
   _staggerPool = 0;
   _lastKnownMaxHp = 0;
+
+  static dependencies = {
+    ht: HighTolerance,
+    haste: Haste,
+  };
 
   constructor(...args) {
     super(...args);
@@ -50,8 +47,8 @@ class StaggerFabricator extends Analyzer {
   addStagger(event, amount) {
     this._staggerPool += amount;
     const staggerEvent = this._fab(EVENT_STAGGER_POOL_ADDED, event, amount);
-    this.eventEmitter.fabricateEvent(staggerEvent, event);
-    if (this.ht && this.ht.active) {
+    this.owner.fabricateEvent(staggerEvent, event);
+    if(this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
     }
   }
@@ -65,8 +62,8 @@ class StaggerFabricator extends Analyzer {
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
     const staggerEvent = this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount, overage);
-    this.eventEmitter.fabricateEvent(staggerEvent, event);
-    if (this.ht && this.ht.active) {
+    this.owner.fabricateEvent(staggerEvent, event);
+    if(this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
     }
     return amount + overage;
@@ -133,17 +130,17 @@ class StaggerFabricator extends Analyzer {
   _updateHaste(sourceEvent, staggerEvent) {
     let currentBuff;
     const staggerRatio = staggerEvent.newPooledDamage / (sourceEvent.maxHitPoints || this._lastKnownMaxHp);
-    if (staggerRatio === 0) {
+    if(staggerRatio === 0) {
       currentBuff = null;
-    } else if (staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
+    } else if(staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
       currentBuff = SPELLS.LIGHT_STAGGER_DEBUFF.id;
-    } else if (staggerRatio < STAGGER_THRESHOLDS.HEAVY) {
+    } else if(staggerRatio < STAGGER_THRESHOLDS.HEAVY) {
       currentBuff = SPELLS.MODERATE_STAGGER_DEBUFF.id;
     } else {
       currentBuff = SPELLS.HEAVY_STAGGER_DEBUFF.id;
     }
 
-    if (currentBuff !== this._previousBuff) {
+    if(currentBuff !== this._previousBuff) {
       this._previousBuff && this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
       currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
       this._previousBuff = currentBuff;
