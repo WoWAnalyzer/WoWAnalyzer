@@ -41,7 +41,13 @@ class PrePullCooldowns extends EventsNormalizer {
     // TODO what filtering should we use to determine what spells we care about?
     for (const ability of this.abilities.activeAbilities) {
       if (ability.buffSpellId) {
-        buffSpells.push({ castId: ability.spell.id, buffId: ability.buffSpellId });
+        if(ability.buffSpellId instanceof Array) {
+          ability.buffSpellId.forEach(buffId => {
+            buffSpells.push({ castId: ability.spell.id, buffId: buffId });
+          });
+        } else {
+          buffSpells.push({ castId: ability.spell.id, buffId: ability.buffSpellId });
+        }
       }
       if (ability.damageSpellIds) {
         damageSpells.push({ castId: ability.spell.id, damageIds: ability.damageSpellIds });
