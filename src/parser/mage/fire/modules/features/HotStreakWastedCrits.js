@@ -60,6 +60,9 @@ class HotStreakWastedCrits extends Analyzer {
       debug && this.log("Wasted Crit Ignored");
     } else if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
       this.wastedCrits += 1;
+      this.lastCastEvent.meta = this.lastCastEvent.meta || {};
+      this.lastCastEvent.meta.isInefficientCast = true;
+      this.lastCastEvent.meta.inefficientCastReason = "This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak.";
       debug && this.log("Wasted Crit");
     }
   }
