@@ -5,12 +5,14 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 
 import Dreadlash from './Dreadlash';
+import DemonicStrength from './DemonicStrength';
 import DemonicCalling from './DemonicCalling';
 import GrimoireFelguard from './GrimoireFelguard';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
     dreadlash: Dreadlash,
+    demonicStrength: DemonicStrength,
     demonicCalling: DemonicCalling,
     grimoireFelguard: GrimoireFelguard,
   };

@@ -21,6 +21,7 @@ import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNorm
 
 import TalentStatisticBox from './modules/talents';
 import Dreadlash from './modules/talents/Dreadlash';
+import DemonicStrength from './modules/talents/DemonicStrength';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     talents: TalentStatisticBox,
     dreadlash: Dreadlash,
+    demonicStrength: DemonicStrength,
     demonicCalling: DemonicCalling,
     grimoireFelguard: GrimoireFelguard,
 
