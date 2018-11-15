@@ -141,9 +141,7 @@ class PrePullCooldowns extends EventsNormalizer {
     let totalGCD = 0;
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];
-      const ability = this.abilities.getAbility(event.ability.guid);
-      const gcd = (ability && ability.gcd && ability.gcd.base) || 1500;
-      totalGCD += gcd;
+      totalGCD += 1500;
       event.timestamp = firstTimestamp - totalGCD;
       event.classResources = precastClassResources;
     }
