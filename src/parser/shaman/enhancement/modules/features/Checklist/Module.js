@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
@@ -9,28 +9,26 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     alwaysBeCasting: AlwaysBeCasting,
-  }
+  };
 
   render() {
     return (
-      <>
-        <Component 
-          combatant={this.combatants.selected}
-          castEfficiency={this.castEfficiency}
-          thresholds={{
-          ...this.preparationRuleAnalyzer.thresholds,
+      <Component
+        combatant={this.combatants.selected}
+        castEfficiency={this.castEfficiency}
+        thresholds={{
+        ...this.preparationRuleAnalyzer.thresholds,
 
-          alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
-        }}
-        />
-      </>
+        alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
+      }}
+      />
     );
   }
 }
