@@ -113,6 +113,13 @@ class EventEmitter extends Module {
     };
   }
   _prependSpellCheck(listener, spell) {
+    if(spell instanceof Array) {
+      return function(event) {
+        if (event.ability && spell.some(s => s.id === event.ability.guid)) {
+          listener(event);
+        }
+      };
+    }
     const spellId = spell.id;
     return function (event) {
       if (event.ability && event.ability.guid === spellId) {
