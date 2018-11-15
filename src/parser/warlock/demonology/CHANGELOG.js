@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: <>Added <SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> talent module and modified <SpellLink id={SPELLS.DOOM_TALENT.id} /> module to also show damage done by the talent.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: 'Certain buffs or debuffs now show in timeline.',
     contributors: [Chizu],
