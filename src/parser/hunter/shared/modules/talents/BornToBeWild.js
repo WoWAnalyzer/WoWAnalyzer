@@ -23,12 +23,24 @@ const debug = false;
 
 class BornToBeWild extends Analyzer {
 
-  _effectiveCheetahCDR = 0;
-  _effectiveTurtleCDR = 0;
-  _effectiveEagleCDR = 0;
-  _lastCheetahCast = null;
-  _lastTurtleCast = null;
-  _lastEagleCast = null;
+  _spells = {
+    [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
+      effectiveCDR: 0,
+      lastCast: null,
+      baseCD: BASELINE_TURTLE_CHEETAH_CD,
+    },
+    [SPELLS.ASPECT_OF_THE_TURTLE.id]: {
+      effectiveCDR: 0,
+      lastCast: null,
+      baseCD: BASELINE_TURTLE_CHEETAH_CD,
+    },
+    [SPELLS.ASPECT_OF_THE_EAGLE.id]: {
+      effectiveCDR: 0,
+      lastCast: null,
+      baseCD: BASELINE_EAGLE_CD,
+    },
+  };
+
   hasEagle = false;
 
   constructor(...args) {
@@ -42,42 +54,29 @@ class BornToBeWild extends Analyzer {
     if (!AFFECTED_SPELLS.includes(spellId)) {
       return;
     }
-    if (spellId === SPELLS.ASPECT_OF_THE_CHEETAH.id) {
-      debug && console.log(event.timestamp, "Cheetah cast - time since last cast: ", this._lastCheetahCast ? (event.timestamp - this._lastCheetahCast) / 1000 : 'no previous cast');
-      if (this._lastCheetahCast && event.timestamp < this._lastCheetahCast + BASELINE_TURTLE_CHEETAH_CD) {
-        this._effectiveCheetahCDR += BASELINE_TURTLE_CHEETAH_CD - (event.timestamp - this._lastCheetahCast);
-      }
-      this._lastCheetahCast = event.timestamp;
-      return;
+    const spell = this._spells[spellId];
+    debug && console.log(event.timestamp, `${SPELLS[spellId].name} cast - time since last cast: `, spell.lastCast ? (event.timestamp - spell.lastCast) / 1000 : 'no previous cast');
+    if (spell.lastCast && event.timestamp < spell.lastCast + spell.baseCD) {
+      spell.effectiveCDR += spell.baseCD - (event.timestamp - spell.lastCast);
     }
-    if (spellId === SPELLS.ASPECT_OF_THE_TURTLE.id) {
-      debug && console.log(event.timestamp, "Turtle cast - time since last cast: ", this._lastTurtleCast ? (event.timestamp - this._lastTurtleCast) / 1000 : 'no previous cast');
-      if (this._lastTurtleCast && event.timestamp < this._lastTurtleCast + BASELINE_TURTLE_CHEETAH_CD) {
-        this._effectiveTurtleCDR += BASELINE_TURTLE_CHEETAH_CD - (event.timestamp - this._lastTurtleCast);
-      }
-      this._lastTurtleCast = event.timestamp;
-      return;
-    }
-    if (spellId === SPELLS.ASPECT_OF_THE_EAGLE.id) {
-      debug && console.log(event.timestamp, "Eagle cast - time since last cast: ", this._lastEagleCast ? (event.timestamp - this._lastEagleCast) / 1000 : 'no previous cast');
-      if (this._lastEagleCast && event.timestamp < this._lastEagleCast + BASELINE_EAGLE_CD) {
-        this._effectiveEagleCDR += BASELINE_EAGLE_CD - (event.timestamp - this._lastEagleCast);
-      }
-      this._lastEagleCast = event.timestamp;
-    }
+    spell.lastCast = event.timestamp;
+  }
+
+  get effectiveTotalCDR() {
+    return Object.values(this._spells).map(spell => spell.effectiveCDR).reduce((total, current) => total + current, 0);
   }
 
   statistic() {
     return (
       <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.BORN_TO_BE_WILD_TALENT.id} />}
-        value={`${formatNumber((this._effectiveCheetahCDR + this._effectiveEagleCDR + this._effectiveTurtleCDR) / 1000)}s total effective CDR`}
+        value={`${formatNumber(this.effectiveTotalCDR / 1000)}s total effective CDR`}
         label="Born To Be Wild"
         tooltip={`Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.
                 <ul>
-                  ${this.hasEagle ? `<li>Aspect of the Eagle: ${formatNumber(this._effectiveEagleCDR / 1000)}s</li>` : ``}
-                  <li>Aspect of the Cheetah: ${formatNumber(this._effectiveCheetahCDR / 1000)}s</li>
-                  <li>Aspect of the Turtle: ${formatNumber(this._effectiveTurtleCDR / 1000)}s</li>
+                  ${this.hasEagle ? `<li>Aspect of the Eagle: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_EAGLE.id].effectiveCDR / 1000)}s</li>` : ``}
+                  <li>Aspect of the Cheetah: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_CHEETAH.id].effectiveCDR / 1000)}s</li>
+                  <li>Aspect of the Turtle: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_TURTLE.id].effectiveCDR / 1000)}s</li>
                 </ul>
        `} />
     );
