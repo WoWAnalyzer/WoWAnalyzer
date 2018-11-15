@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class Judgment extends Analyzer {
   static dependencies = {
-    enemies: Enemies,
+    enemies: EnemyInstances,
   };
   templarsVerdictConsumptions = 0;
   divineStormConsumptions = 0;
