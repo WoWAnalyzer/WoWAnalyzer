@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed <SpellLink id={SPELLS.DEMONIC_CALLING_TALENT.id} /> and <SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> modules.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: 'Certain buffs or debuffs now show in timeline.',
     contributors: [Chizu],

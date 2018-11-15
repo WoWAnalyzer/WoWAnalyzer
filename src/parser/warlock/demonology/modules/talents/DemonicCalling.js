@@ -1,6 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -9,38 +11,44 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const BUFF_DURATION = 20000;
+const debug = false;
 
 class DemonicCalling extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
   wastedProcs = 0;
   _expectedBuffEnd = undefined;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CALLING_TALENT.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CALLING_BUFF), this.applyDemonicCallingBuff);
+    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CALLING_BUFF), this.refreshDemonicCallingBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CALLING_BUFF), this.removeDemonicCallingBuff);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.DEMONIC_CALLING_BUFF.id) {
-      return;
+  applyDemonicCallingBuff(event) {
+    debug && this.log('DC applied');
+    this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
+  }
+
+  refreshDemonicCallingBuff(event) {
+    debug && this.log('DC refreshed');
+    if (this.spellUsable.isAvailable(SPELLS.CALL_DREADSTALKERS.id)) {
+      this.wastedProcs += 1;
+      debug && this.log('Dreadstalkers were available, wasted proc');
     }
     this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
   }
 
-  on_toPlayer_refreshbuff(event) {
-    if (event.ability.guid !== SPELLS.DEMONIC_CALLING_BUFF.id) {
-      return;
-    }
-    this.wastedProcs += 1;
-    this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
-  }
-
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.DEMONIC_CALLING_BUFF.id) {
-      return;
-    }
+  removeDemonicCallingBuff(event) {
+    // TODO same check as in refresh
     if (event.timestamp >= this._expectedBuffEnd) {
       // the buff fell off, another wasted instant
       this.wastedProcs += 1;
+      debug && this.log('DC fell off, wasted proc');
     }
   }
 
