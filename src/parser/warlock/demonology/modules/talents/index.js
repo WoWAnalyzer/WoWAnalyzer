@@ -6,6 +6,7 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsL
 
 import Dreadlash from './Dreadlash';
 import DemonicStrength from './DemonicStrength';
+import BilescourgeBombers from './BilescourgeBombers';
 import DemonicCalling from './DemonicCalling';
 import GrimoireFelguard from './GrimoireFelguard';
 
@@ -13,6 +14,7 @@ class TalentStatisticBox extends Analyzer {
   static dependencies = {
     dreadlash: Dreadlash,
     demonicStrength: DemonicStrength,
+    bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
     grimoireFelguard: GrimoireFelguard,
   };
