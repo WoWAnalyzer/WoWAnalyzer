@@ -5,7 +5,6 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
@@ -31,9 +30,6 @@ const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
-  static dependencies = {
-    eventEmitter: EventEmitter,
-  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -793,7 +789,7 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,

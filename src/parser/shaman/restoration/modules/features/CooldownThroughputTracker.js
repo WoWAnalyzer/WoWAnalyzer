@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../constants';
@@ -28,10 +28,6 @@ import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } fro
 // 134k healing during and around Ascendance, but ascendance did 156k
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  static dependencies = {
-    ...CoreCooldownThroughputTracker.dependencies,
-    eventEmitter: EventEmitter,
-  };
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
@@ -114,7 +110,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
       const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
 
-      this.eventEmitter.fabricateEvent({
+      this.owner.fabricateEvent({
         ...event,
         type: 'feed_heal',
         feed: eventFeed,

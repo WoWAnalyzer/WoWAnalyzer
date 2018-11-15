@@ -1,24 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import StaggerFabricator from './StaggerFabricator';
 import Stagger from './Stagger';
 
 describe('Brewmaster.Stagger', () => {
   let parser;
-  let eventEmitter;
   let module;
   let fab;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    eventEmitter = parser.getModule(EventEmitter);
     parser.selectedCombatant.traitsBySpellId = { [SPELLS.STAGGERING_AROUND.id]: 0 };
-    fab = parser.loadModule(StaggerFabricator, {
-      eventEmitter,
-    });
-    module = parser.loadModule(Stagger, {
+    fab = parser.loadModule('staggerFabricator', StaggerFabricator);
+    module = parser.loadModule('stagger', Stagger, {
       fab,
     });
   });
@@ -51,7 +46,7 @@ describe('Brewmaster.Stagger', () => {
   });
   it('Tracks the amount of stagger missing from the fight', () => {
     parser.processEvents(EarlyFinish, fab, module);
-    eventEmitter.triggerEvent({
+    parser.triggerEvent({
       type: 'finished',
     });
     expect(module.staggerMissingFromFight).toBe(484);

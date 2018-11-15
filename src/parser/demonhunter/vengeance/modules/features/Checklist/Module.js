@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BaseModule from 'parser/shared/modules/features/Checklist2/Module';
+import Analyzer from 'parser/core/Analyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
@@ -24,7 +24,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 
 import Component from './Component';
 
-class Checklist extends BaseModule {
+class Checklist extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,

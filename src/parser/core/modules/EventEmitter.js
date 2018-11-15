@@ -131,7 +131,7 @@ class EventEmitter extends Module {
   _listenersCalled = 0;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
-      this._validateEvent(event);
+      this.validateEvent(event);
     }
 
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
@@ -175,18 +175,7 @@ class EventEmitter extends Module {
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
   }
-  fabricateEvent(event = null, trigger = null) {
-    this.triggerEvent({
-      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
-      // If this event was triggered you should pass it along
-      trigger: trigger ? trigger : undefined,
-      ...event,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
-      __fabricated: true,
-    });
-  }
-  _validateEvent(event) {
+  validateEvent(event) {
     if (!event.type) {
       console.log(event);
       throw new Error('Events should have a type. No type received. See the console for the event.');

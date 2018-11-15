@@ -285,7 +285,7 @@ class CombatLogParser {
 
   adjustForDowntime = true;
   get hasDowntime() {
-    return this.getModule(TotalDowntime).totalBaseDowntime > 0;
+    return this._modules.totalDowntime.totalBaseDowntime > 0;
   }
 
   _modules = {};
@@ -308,7 +308,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0);
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -319,7 +319,7 @@ class CombatLogParser {
     }, {});
   }
   get selectedCombatant() {
-    return this.getModule(Combatants).selected;
+    return this._modules.combatants.selected;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
@@ -340,10 +340,10 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.getModule(EventEmitter).fabricateEvent({
+    this.fabricateEvent({
       type: this.constructor.finished,
     });
-    console.log('Called listeners', this.getModule(EventEmitter)._listenersCalled, 'times, with', this.getModule(EventEmitter)._actualExecutions, 'actual executions.', this.getModule(EventEmitter)._listenersCalled - this.getModule(EventEmitter)._actualExecutions, 'events were filtered away');
+    console.log('Called listeners', this._modules.eventEmitter._listenersCalled, 'times, with', this._modules.eventEmitter._actualExecutions, 'actual executions.', this._modules.eventEmitter._listenersCalled - this._modules.eventEmitter._actualExecutions, 'events were filtered away');
   }
 
   _getModuleClass(config) {
@@ -365,7 +365,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass, false);
+        const dependencyModule = this.getModule(dependencyClass);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -376,11 +376,11 @@ class CombatLogParser {
     return [availableDependencies, missingDependencies];
   }
   /**
+   * @param {string} desiredModuleName
    * @param {Module} moduleClass
    * @param {object} [options]
-   * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
    */
-  loadModule(moduleClass, options, desiredModuleName = `module${Object.keys(this._modules).length}`) {
+  loadModule(desiredModuleName, moduleClass, options) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -393,7 +393,6 @@ class CombatLogParser {
         module[key] = options[key];
       });
     }
-    // TODO: Remove module naming
     this._modules[desiredModuleName] = module;
     return module;
   }
@@ -419,11 +418,11 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this.loadModule(moduleClass, {
+        this.loadModule(desiredModuleName, moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
-        }, desiredModuleName);
+        });
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -450,14 +449,10 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  getModule(type, required = true) {
-    const module = Object.keys(this._modules)
+  getModule(type) {
+    return Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
-    if (required && !module) {
-      throw new Error(`Module not found: ${type.name}`);
-    }
-    return module;
   }
 
   normalize(events) {
@@ -476,7 +471,21 @@ class CombatLogParser {
   eventCount = 0;
   eventHistory = [];
   addEventListener(...args) {
-    this.getModule(EventEmitter).addEventListener(...args);
+    this._modules.eventEmitter.addEventListener(...args);
+  }
+  triggerEvent(event) {
+    this._modules.eventEmitter.triggerEvent(event);
+  }
+  fabricateEvent(event = null, trigger = null) {
+    this.triggerEvent({
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
+      ...event,
+      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
+      __fabricated: true,
+    });
   }
 
   deepDisable(module) {
@@ -505,7 +514,7 @@ class CombatLogParser {
   }
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this.getModule(HealingDone).total.effective;
+    return healingDone / this._modules.healingDone.total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -514,7 +523,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this.getModule(DamageDone).total.effective;
+    return damageDone / this._modules.damageDone.total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

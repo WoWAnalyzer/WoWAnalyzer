@@ -1,11 +1,9 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+import SPELLS from 'common/SPELLS';
 import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
     deathDowntime: DeathDowntime,
   };
 
@@ -29,7 +27,7 @@ class SpiritOfRedemption extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id) {
       this.sorStartTime = event.timestamp;
-      this.eventEmitter.fabricateEvent({
+      this.owner.fabricateEvent({
         ...event,
         type: 'cast',
       }, event);

@@ -5,7 +5,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const chorusOfInsanityStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.CHORUS_OF_INSANITY.id, rank);
@@ -28,9 +27,6 @@ export const STAT_TRACKER = {
  * Example log: /report/VAZhnPRdxL12w3fG/1-Mythic+G'huun+-+Kill+(8:43)/6-Rxc
  */
 class ChorusOfInsanity extends Analyzer {
-  static dependencies = {
-    eventEmitter: EventEmitter,
-  };
   crit = 0;
   lastTimestamp = 0;
   pendingStack = false;
@@ -59,7 +55,7 @@ class ChorusOfInsanity extends Analyzer {
   }
 
   fabricateFirstStack(event) {
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       ...event,
       timestamp: this.lastTimestamp,
       type: 'applybuffstack',

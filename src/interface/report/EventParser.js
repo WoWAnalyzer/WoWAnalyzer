@@ -10,7 +10,6 @@ import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import sleep from 'common/sleep';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { setReportProgress } from 'interface/actions/reportProgress';
@@ -147,7 +146,6 @@ class EventParser extends React.PureComponent {
       // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
       const maxBatchDuration = 60; // ms
 
-      const eventEmitter = parser.getModule(EventEmitter);
       timeAvailable && console.time('player event parsing');
       let eventIndex = 0;
       while (eventIndex < numEvents) {
@@ -157,7 +155,7 @@ class EventParser extends React.PureComponent {
 
         const start = Date.now();
         while ((BENCHMARK || (Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
-          eventEmitter.triggerEvent(events[eventIndex]);
+          parser.triggerEvent(events[eventIndex]);
           eventIndex += 1;
         }
         const progress = Math.min(1, eventIndex / numEvents);

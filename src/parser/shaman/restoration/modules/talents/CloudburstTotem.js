@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
@@ -21,7 +21,6 @@ const DELAY_MS = 200;
 
 class CloudburstTotem extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
   healing = 0;
@@ -65,7 +64,7 @@ class CloudburstTotem extends Analyzer {
   }
 
   _createFabricatedEvent(event, type) {
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       ...event,
       ability: {
         ...event.ability,

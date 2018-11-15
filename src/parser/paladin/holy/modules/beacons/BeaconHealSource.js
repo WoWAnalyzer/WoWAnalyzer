@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
@@ -12,7 +11,6 @@ const debug = false;
 
 class BeaconHealSource extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
     combatants: Combatants,
     beaconTargets: BeaconTargets,
     beaconTransferFactor: BeaconTransferFactor,
@@ -64,7 +62,7 @@ class BeaconHealSource extends Analyzer {
       if (age > 500) {
         this.warn('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
 
-        this.eventEmitter.fabricateEvent({
+        this.owner.fabricateEvent({
           ...healEvent,
           // Set the timestamp so we don't jump around in time (since healEvent's timestamp will be atleast 500ms in the past)
           timestamp: beaconTransferEvent.timestamp,
@@ -93,7 +91,7 @@ class BeaconHealSource extends Analyzer {
     }
 
     // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       ...beaconTransferEvent,
       type: 'beacontransfer',
       originalHeal: matchedHeal,

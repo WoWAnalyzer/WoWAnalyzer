@@ -1,8 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import HIT_TYPES from 'game/HIT_TYPES';
+import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.
 const debug = false;
@@ -54,7 +53,6 @@ const verboseDebug = false;
  
  class RegenResourceCapTracker extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
     haste: Haste,
     // Needed for the `resourceCost` prop of events
     spellResourceCost: SpellResourceCost,
@@ -567,7 +565,7 @@ const verboseDebug = false;
       throw new Error(`fabricateBeginCap called without required parameter. time: ${time}`);
     }
     verboseDebug && console.log(`${this.owner.formatTimestamp(time, 3)} begin cap`);
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       type: 'beginresourcecap',
       timestamp: time,
       sourceID: this.owner.playerId,
@@ -586,7 +584,7 @@ const verboseDebug = false;
       throw new Error(`fabricateEndCap called without required parameter. time: ${time}`);
     }
     verboseDebug && console.log(`${this.owner.formatTimestamp(time, 3)} end cap`);
-    this.eventEmitter.fabricateEvent({
+    this.owner.fabricateEvent({
       type: 'endresourcecap',
       timestamp: time,
       sourceID: this.owner.playerId,

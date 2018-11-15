@@ -9,8 +9,6 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import getItemQualityLabel from 'common/getItemQualityLabel';
 
-import Combatants from 'parser/shared/modules/Combatants';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { GEAR_SLOTS } from 'parser/core/Combatant';
 
 // Source: https://stackoverflow.com/a/20079910/684353
@@ -281,7 +279,7 @@ class DevelopmentTab extends React.Component {
 
     window.parser = parser;
 
-    const combatant = parser.selectedCombatant;
+    const combatant = parser._modules.combatants.selected;
 
     return (
       <>
@@ -296,28 +294,25 @@ class DevelopmentTab extends React.Component {
           <div className="col-md-6">
             Modules:
             <ul className="list">
-              {Object.values(parser._modules)
-                .map((moduleClass, index) => {
-                  const module = parser.getModule(moduleClass);
-                  return (
-                    <li key={index} className="flex">
-                      <div className="flex-main">
-                        <Code dump={module}>{module.name}</Code>
-                      </div>
-                      <div className="flex-main" style={{ color: module.active ? 'green' : 'red' }}>
-                        {module.active ? 'Active' : 'Inactive'}
-                      </div>
-                    </li>
-                  );
-                })}
+              {Object.keys(parser._modules)
+                .map(moduleName => (
+                  <li key={moduleName} className="flex">
+                    <div className="flex-main">
+                      <Code dump={parser._modules[moduleName]}>{moduleName}</Code>
+                    </div>
+                    <div className="flex-main" style={{ color: parser._modules[moduleName].active ? 'green' : 'red' }}>
+                      {parser._modules[moduleName].active ? 'Active' : 'Inactive'}
+                    </div>
+                  </li>
+                ))}
             </ul>
-            Access them in the console by clicking on the names.
+            Access them in the console with: <code>parser._modules.*moduleName*</code> or by clicking on the names.
           </div>
           <div className="col-md-6">
             Pre-combat buffs:
             <ul className="list">
               {combatant._combatantInfo.auras.map((aura, i) => {
-                const source = parser.getModule(Combatants).players[aura.source];
+                const source = parser._modules.combatants.players[aura.source];
                 const spec = source && SPECS[source.specId];
                 const specClassName = spec && spec.className.replace(' ', '');
 
@@ -332,12 +327,12 @@ class DevelopmentTab extends React.Component {
               })}
             </ul>
           </div>
-          {parser.getModule(AbilityTracker) && (
+          {parser._modules.abilityTracker && (
             <div className="col-md-6">
               All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
               <ul className="list">
-                {Object.keys(parser.getModule(AbilityTracker).abilities)
-                  .map(key => parser.getModule(AbilityTracker).abilities[key])
+                {Object.keys(parser._modules.abilityTracker.abilities)
+                  .map(key => parser._modules.abilityTracker.abilities[key])
                   .sort((a, b) => (b.casts || 0) - (a.casts || 0))
                   .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
               </ul>

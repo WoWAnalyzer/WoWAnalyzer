@@ -1,14 +1,11 @@
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import Analyzer from './Analyzer';
 
 describe('Core/Analyzer', () => {
   let parser;
-  let eventEmitter;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    eventEmitter = parser.getModule(EventEmitter);
   });
   describe('module defining', () => {
     it('owner is availabe as property', () => {
@@ -45,16 +42,16 @@ describe('Core/Analyzer', () => {
           on_success();
         }
       }
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'success',
       });
       expect(on_success).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'success',
       });
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
@@ -66,8 +63,8 @@ describe('Core/Analyzer', () => {
           on_event();
         }
       }
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_event).toBeCalled();
@@ -91,8 +88,8 @@ describe('Core/Analyzer', () => {
           on_toPlayerPet_test();
         }
       }
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -120,8 +117,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayer = jest.fn(() => false);
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).not.toBeCalled();
@@ -149,8 +146,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayer = jest.fn(() => false);
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -178,8 +175,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -207,8 +204,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -223,8 +220,8 @@ describe('Core/Analyzer', () => {
           on_success.call(this);
         }
       }
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
+      parser.loadModule('myModule', MyModule);
+      parser.triggerEvent({
         type: 'success',
       });
       expect(on_success.mock.instances[0]).toBe(parser.getModule(MyModule));
@@ -241,7 +238,7 @@ describe('Core/Analyzer', () => {
         }
       }
       expect(() => {
-        parser.loadModule(MyModule);
+        parser.loadModule('myModule', MyModule);
       }).toThrow();
     });
   });

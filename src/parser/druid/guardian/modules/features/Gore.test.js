@@ -13,7 +13,7 @@ describe('Druid/Guardian/Gore', () => {
   let parser;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule(Gore, {
+    module = parser.loadModule('gore', Gore, {
       spellUsable: mockSpellUsable,
     });
   });

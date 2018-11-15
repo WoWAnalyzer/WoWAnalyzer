@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
+import Analyzer from 'parser/core/Analyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
@@ -20,9 +20,10 @@ import NightbladeUptime from '../../core/NightbladeUptime';
 import DarkShadowNightblade from '../../talents/DarkShadow/DarkShadowNightblade';
 import FindWeakness from '../../talents/FindWeakness';
 
+
 import Component from './Component';
 
-class Checklist extends BaseChecklist {
+class Checklist extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
