@@ -18,7 +18,17 @@ class CombatPotion extends Potion {
     SPELLS.COASTAL_REJUVENATION_POTION,
   ];
   static recommendedEfficiency = 0;
-  // TODO: Add to buffSpellId so their uptime is shown on the timeline, but this requires changing buffSpellId to support receiving an array
+  static extraAbilityInfo = {
+    buffSpellId: [
+      SPELLS.BATTLE_POTION_OF_INTELLECT.id,
+      SPELLS.BATTLE_POTION_OF_STRENGTH.id,
+      SPELLS.BATTLE_POTION_OF_AGILITY.id,
+      SPELLS.BATTLE_POTION_OF_STAMINA.id,
+      SPELLS.POTION_OF_RISING_DEATH.id,
+      SPELLS.POTION_OF_BURSTING_BLOOD.id,
+      SPELLS.STEELSKIN_POTION.id,
+      SPELLS.COASTAL_REJUVENATION_POTION.id],
+  }
 }
 
 export default CombatPotion;
