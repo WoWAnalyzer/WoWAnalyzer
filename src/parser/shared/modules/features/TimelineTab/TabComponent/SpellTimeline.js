@@ -198,6 +198,7 @@ class SpellTimeline extends React.PureComponent {
             const buffSpellId = abilities.getBuffSpellId(spellId);
             if (buffSpellId && buffSpellId instanceof Array) {
               buffSpellId.forEach(spell => buffEvents[spell] && spellBuffEvents.push(...buffEvents[spell]));
+              if(spellBuffEvents.length < 1) spellBuffEvents = null;
             } else {
               spellBuffEvents = buffEvents[buffSpellId];
             }
