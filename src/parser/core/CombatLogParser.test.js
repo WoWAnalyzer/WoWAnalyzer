@@ -1,5 +1,4 @@
 import CombatLogParser from './CombatLogParser';
-import HealingDone from 'parser/shared/modules/HealingDone';
 
 class MyModule {}
 const myModule = new MyModule();
