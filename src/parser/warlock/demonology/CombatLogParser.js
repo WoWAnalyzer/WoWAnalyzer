@@ -20,6 +20,7 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 
 import DemonicCalling from './modules/talents/DemonicCalling';
+import PowerSiphon from './modules/talents/PowerSiphon';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     demonicCalling: DemonicCalling,
+    powerSiphon: PowerSiphon,
     grimoireFelguard: GrimoireFelguard,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
