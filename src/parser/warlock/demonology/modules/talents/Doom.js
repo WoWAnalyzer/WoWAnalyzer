@@ -1,23 +1,31 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class DoomUptime extends Analyzer {
+class Doom extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
+  damage = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOOM_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_TALENT), this.handleDoomDamage);
+  }
+
+  handleDoomDamage(event) {
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   get uptime() {
@@ -46,12 +54,14 @@ class DoomUptime extends Analyzer {
       });
   }
 
+  // TODO: remake into Talent statistic box once the PR is merged
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOOM_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Doom uptime"
+        tooltip={`Doom damage: ${formatThousands(this.damage)} (${this.owner.formatItemDamageDone(this.damage)})`}
       />
     );
   }
@@ -59,4 +69,4 @@ class DoomUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
-export default DoomUptime;
+export default Doom;

@@ -6,10 +6,10 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import DoomUptime from '../DoomUptime';
 import Felstorm from '../Felstorm';
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
+import Doom from '../../talents/Doom';
 
 import Component from './Component';
 
@@ -20,10 +20,10 @@ class Checklist extends Analyzer {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
-    doomUptime: DoomUptime,
     felstorm: Felstorm,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
+    doom: Doom,
   };
 
   render() {
@@ -34,7 +34,7 @@ class Checklist extends Analyzer {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          doom: this.doomUptime.suggestionThresholds,
+          doom: this.doom.suggestionThresholds,
           felstorm: this.felstorm.suggestionThresholds,
           soulShards: this.soulShardDetails.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
