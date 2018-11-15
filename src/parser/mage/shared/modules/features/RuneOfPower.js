@@ -127,7 +127,7 @@ class RuneOfPower extends Analyzer {
 
   }
 
-  showStatistic = false;
+  showStatistic = true;
   statistic() {
     if (!this.hasROP || !this.showStatistic) return null;
 
