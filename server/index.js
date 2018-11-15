@@ -3,6 +3,8 @@ import compression from 'compression';
 import fs from 'fs';
 import BodyParser from 'body-parser';
 
+import { createServer } from 'helpers/metrics';
+
 import loadDotEnv from './config/env';
 import configureRaven from './configureRaven';
 import configureSession from './configureSession';
@@ -24,4 +26,5 @@ app.use(require('./controllers').default);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);
+  createServer();
 });

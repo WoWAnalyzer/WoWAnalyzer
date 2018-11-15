@@ -106,13 +106,21 @@ class Ability {
      * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
      */
     isUndetectable: PropTypes.bool,
+    /**
+     * The ability's primary coefficient for calculating its damage or healing from the player's attackpower or spellpower.
+     */
+    primaryCoefficient: PropTypes.number,
+    /**
+     * An array of healing effects that this spell cast causes.
+     */
+    healSpellIds: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;
 
   spell = null;
   get primarySpell() {
-    if(this.spell instanceof Array) {
+    if (this.spell instanceof Array) {
       return this.spell[0];
     } else {
       return this.spell;

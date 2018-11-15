@@ -1,6 +1,7 @@
 import React from 'react';
 
 // import { Zerotorescue } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -29,7 +30,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'http://wow-analyzer.docker/report/XxGPJ8Y1dWcqV79T/6-Heroic+Vectis+-+Kill+(6:49)/14-Garoddon',
+  exampleReport: '/report/XxGPJ8Y1dWcqV79T/6-Heroic+Vectis+-+Kill+(6:49)/14-Garoddon',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -37,7 +38,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Warrior" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "FuryWarrior" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

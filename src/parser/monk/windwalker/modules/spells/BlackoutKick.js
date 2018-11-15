@@ -90,6 +90,7 @@ class BlackoutKick extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.BLACKOUT_KICK.id} />}
         value={(
           <span style={{ fontsize: '75%' }}>
@@ -116,7 +117,6 @@ class BlackoutKick extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BlackoutKick;

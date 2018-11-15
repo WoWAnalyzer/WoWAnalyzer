@@ -76,7 +76,7 @@ export default {
     // This gets special treatment with the `feed_heal` event
     ignored: true,
   },
-  [SPELLS.EARTHEN_SHIELD_TOTEM_ABSORB.id]: {
+  [SPELLS.EARTHEN_WALL_TOTEM_ABSORB.id]: {
     // EST scales with INT per hit but the total absorb is limited by the players max HP
     ignored: true,
   },
@@ -119,12 +119,14 @@ export default {
   },
 
   // Azerite Traits
-  [SPELLS.OVERFLOWING_SHORES.id]:{
+  [SPELLS.OVERFLOWING_SHORES_HEAL.id]:{
     crit: true,
+    mastery: true,
     vers: true,
   },
   [SPELLS.SWELLING_STREAM_HEAL.id]:{
     crit: true,
+    mastery: true,
     vers: true,
   },
   [SPELLS.SURGING_TIDES_ABSORB.id]:{
@@ -132,6 +134,23 @@ export default {
   },
   [SPELLS.SPOUTING_SPIRITS_HEAL.id]:{
     crit: true,
+    mastery: true,
+    vers: true,
+  },
+  [SPELLS.CONCENTRATED_MENDING_HEALING.id]: {
+    crit: true,
+    hasteHpm: true,
+    vers: true,
+  },
+  [SPELLS.SERENE_SPIRIT_HEAL.id]: {
+    crit: true,
+    mastery: true,
+    vers: true,
+  },
+  [SPELLS.PACK_SPIRIT_HEAL.id]: {
+    crit: true,
+    mastery: true,
+    hasteHpm: true,
     vers: true,
   },
 };

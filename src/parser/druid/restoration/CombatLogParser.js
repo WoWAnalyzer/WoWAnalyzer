@@ -7,7 +7,7 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/Checklist/Module';
 
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
@@ -26,8 +26,8 @@ import Efflorescence from './modules/features/Efflorescence';
 import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
-import NaturesEssence from './modules/features/NaturesEssence';
 import ManaUsage from './modules/features/ManaUsage';
+import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
@@ -45,7 +45,6 @@ import GroveTending from './modules/items/azeritetraits/GroveTending';
 import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
 import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
-import SynergisticGrowth from './modules/items/azeritetraits/SynergisticGrowth';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -89,8 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
-    naturesEssence: NaturesEssence,
     manaUsage: ManaUsage,
+    prematureRejuvenations: PrematureRejuvenations,
 
     // Talents
     stonebark: Stonebark,
@@ -110,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     laserMatrix: LaserMatrix,
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
-    synergisticGrowth: SynergisticGrowth,
 
     statWeights: StatWeights,
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric } from 'CONTRIBUTORS';
+import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,101 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-11-14'),
+    changes: <>Added <SpellLink id={SPELLS.GIFT_OF_THE_NAARU_MAGE.id} /> to ability list.</>,
+    contributors: [Dambroda],
+  },
+  {
+    date: new Date('2018-11-13'),
+    changes: 'Added an AverageTargetsHit module for general usage.',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-12'),
+    changes: <>Added <ItemLink id={ITEMS.AZEROKKS_RESONATING_HEART.id} /> module.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added <ItemLink id={ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id} /> module.</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-11'),
+    changes: <>Added <ItemLink id={ITEMS.MYDAS_TALISMAN.id} /> module.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-10'),
+    changes: <>Added <ItemLink id={ITEMS.ROTCRUSTED_VOODOO_DOLL.id} /> module.</>,
+    contributors: [jos3p],
+  },
+  {
+    date: new Date('2018-11-09'),
+    changes: <>Added <ItemLink id={ITEMS.REZANS_GLEAMING_EYE.id} /> module.</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-06'),
+    changes: <>Added <ItemLink id={ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY.id} /> module.</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <>Added <SpellLink id={SPELLS.TRADEWINDS.id} /> module.</>,
+    contributors: [Fyruna],
+  },
+  {
+    date: new Date('2018-11-02'),
+    changes: <>Added <SpellLink id={SPELLS.UNSTABLE_CATALYST.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-11-01'),
+    changes: <>Added <SpellLink id={SPELLS.SWIRLING_SANDS.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-26'),
+    changes: <>Added <SpellLink id={SPELLS.WOUNDBINDER.id} />, <SpellLink id={SPELLS.BRACING_CHILL.id} />, <SpellLink id={SPELLS.SYNERGISTIC_GROWTH.id} />, and <SpellLink id={SPELLS.EPHEMERAL_RECOVERY_BUFF.id} /> azerite modules. </>,
+    contributors: [Khadaj],
+  },
+  {
+    date: new Date('2018-10-26'),
+    changes: <>Added <ItemLink id={ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id} /> module. </>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-24'),
+    changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_BADGE.id} /> module. </>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-10-23'),
+    changes: <>Added <SpellLink id={SPELLS.ARCHIVE_OF_THE_TITANS.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-23'),
+    changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_MEDALLION.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-22'),
+    changes: <>Added <SpellLink id={SPELLS.COASTAL_SURGE.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-21'),
+    changes: <>Added <SpellLink id={SPELLS.BLIGHTBORNE_INFUSION.id} /> module.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-10-17'),
+    changes: <>Fixed mana usage for innervate in cooldown tabs for healers.</>,
+    contributors: [blazyb],
+  },
   {
     date: new Date('2018-10-06'),
     changes: <>Corrected Azerite Scaling for traits with split stat scaling (e.g. <SpellLink id={SPELLS.GEMHIDE.id} />).</>,

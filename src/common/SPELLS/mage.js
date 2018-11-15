@@ -41,6 +41,11 @@ export default {
     name: 'Invisibility',
     icon: 'ability_mage_invisibility',
   },
+  INVISIBILITY_BUFF: {
+    id: 32612,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
+  },
   TIME_WARP: {
     id: 80353,
     name: 'Time Warp',
@@ -71,6 +76,72 @@ export default {
     name: 'Remove Curse',
     icon: 'spell_nature_removecurse',
   },
+  POLYMORPH_SHEEP: {
+    id: 118,
+    name: 'Polymorph',
+    icon: 'spell_nature_polymorph',
+  },
+  POLYMORPH_PIG: {
+    id: 28272,
+    name: 'Polymorph',
+    icon: 'spell_magic_polymorphpig',
+  },
+  POLYMORPH_BLACK_CAT: {
+    id: 61305,
+    name: 'Polymorph',
+    icon: 'achievement_halloween_cat_01',
+  },
+  POLYMORPH_MONKEY: {
+    id: 161354,
+    name: 'Polymorph',
+    icon: 'ability_hunter_aspectofthemonkey',
+  },
+  POLYMORPH_RABBIT: {
+    id: 61721,
+    name: 'Polymorph',
+    icon: 'spell_magic_polymorphrabbit',
+  },
+  POLYMORPH_POLAR_BEAR_CUB: {
+    id: 161353,
+    name: 'Polymorph',
+    icon: 'inv_pet_babyblizzardbear',
+  },
+  POLYMORPH_PORCUPINE: {
+    id: 126819,
+    name: 'Polymorph',
+    icon: 'inv_pet_porcupine',
+  },
+  POLYMORPH_TURTLE: {
+    id: 28271,
+    name: 'Polymorph',
+    icon: 'ability_hunter_pet_turtle',
+  }, 
+  POLYMORPH_TURKEY: {
+    id: 61780,
+    name: 'Polymorph',
+    icon: 'achievement_worldevent_thanksgiving',
+  }, 
+  POLYMORPH_PENGUIN: {
+    id: 161355,
+    name: 'Polymorph',
+    icon: 'inv_misc_penguinpet',
+  }, 
+  POLYMORPH_BUMBLEBEE: {
+    id: 277792,
+    name: 'Polymorph',
+    icon: 'inv_bee_default',
+  }, 
+  POLYMORPH_PEACOCK: {
+    id: 161372,
+    name: 'Polymorph',
+    icon: 'inv_pet_peacock_gold',
+  }, 
+  POLYMORPH_DIREHORN: {
+    id: 277787,
+    name: 'Polymorph',
+    icon: 'inv_pet_direhorn',
+  }, 
+
 
   //Frost
   MASTERY_ICICLES: {
@@ -287,6 +358,11 @@ export default {
     name: 'Greater Invisibility',
     icon: 'ability_mage_greaterinvisibility',
   },
+  GREATER_INVISIBILITY_BUFF: {
+    id: 110960,
+    name: 'Greater Invisibility',
+    icon: 'ability_mage_greaterinvisibility',
+  },
   MASTERY_SAVANT: {
     id: 190740,
     name: 'Mastery: Savant',
@@ -499,6 +575,13 @@ export default {
     id: 251858,
     name: 'T21 4 set bonus',
     icon: 'ability_mage_greaterinvisibility',
+  },
+
+  // Pet abilities
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
   },
 
   //Removed in 8.0 (Keep Temporarily until not needed anymore)

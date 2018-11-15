@@ -10,6 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 const debug = false;
 const LOW_HEALTH_HEALING_THRESHOLD = 0.3;
 const MS_BUFFER = 123;
+const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 class Clearcasting extends Analyzer {
 
@@ -25,6 +26,7 @@ class Clearcasting extends Analyzer {
   nonCCRegrowths = 0;
   totalRegrowths = 0;
   lowHealthRegrowthsNoCC = 0;
+  abundanceRegrowthsNoCC = 0;
 
   constructor(...args) {
     super(...args);
@@ -82,6 +84,10 @@ class Clearcasting extends Analyzer {
       debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
       this.nonCCRegrowths += 1;
+      const abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
+      if (abundance) {
+        this.abundanceRegrowthsNoCC += abundance.stacks >= ABUNDANCE_EXCEPTION_STACKS;
+      }
     }
   }
 
@@ -124,7 +130,7 @@ class Clearcasting extends Analyzer {
   }
 
   get nonCCRegrowthsPerMinute() {
-    return (this.nonCCRegrowths - this.lowHealthRegrowthsNoCC) / (this.owner.fightDuration / 60000);
+    return (this.nonCCRegrowths - (this.lowHealthRegrowthsNoCC + this.abundanceRegrowthsNoCC)) / (this.owner.fightDuration / 60000);
   }
 
   get nonCCRegrowthsSuggestionThresholds() {
@@ -169,7 +175,8 @@ class Clearcasting extends Analyzer {
               <li>Expired: <b>${this.expiredProcs}</b></li>
             </ul>
             <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</b>
-            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health, so they have been disregarded as bad Regrowth(s).
+            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health and
+            <b>${this.abundanceRegrowthsNoCC}</b> of these were cast with more than ${ABUNDANCE_EXCEPTION_STACKS} stacks of abundance, so they have been disregarded as bad Regrowth(s).
             Using a clearcasting proc as soon as you get it should be one of your top priorities.
             Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
             Spending your GCD on a free spell also helps with mana management in the long run.<br />

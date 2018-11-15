@@ -1,6 +1,6 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -221,7 +221,7 @@ class Flourish extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
-          .actual(`${formatPercentage(this.wildGrowthCasts / this.flourishCount, 0)}% WGs extended.`)
+          .actual(`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
 
@@ -230,7 +230,7 @@ class Flourish extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
-            .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
+            .actual(`${this.cwsExtended}/${this.flourishCount} CWs extended.`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);
         });
     }
@@ -241,7 +241,7 @@ class Flourish extends Analyzer {
     const increasedRatePercent = this.owner.getPercentageOfTotalHealingDone(this.increasedRateTotalHealing);
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.totalExtensionHealing + this.increasedRateTotalHealing);
     return(
-      <ExpandableStatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Flourish Healing"
@@ -328,7 +328,7 @@ class Flourish extends Analyzer {
             }
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

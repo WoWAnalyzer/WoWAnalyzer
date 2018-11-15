@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { Trans } from '@lingui/macro';
 
 import getWipeCount from 'common/getWipeCount';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -56,7 +57,7 @@ class FightSelectionPanelList extends Component {
             </li>
           ))}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.
+          <Trans>You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
         </li>
       </ul>
     );

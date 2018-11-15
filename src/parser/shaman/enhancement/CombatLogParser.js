@@ -7,6 +7,7 @@ import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
 import Flametongue from './modules/core/Flametongue';
 import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Rockbiter from './modules/core/Rockbiter';
@@ -21,8 +22,12 @@ import Landslide from './modules/talents/Landslide';
 import SearingAssault from './modules/talents/SearingAssault';
 import Sundering from './modules/talents/Sundering';
 
+import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
+import AstralShift from '../shared/spells/AstralShift';
+import PackSpirit from '../shared/azerite/PackSpirit';
+import SereneSpirit from '../shared/azerite/SereneSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -31,9 +36,11 @@ class CombatLogParser extends CoreCombatLogParser {
     flametongue: Flametongue,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Talents
@@ -47,13 +54,15 @@ class CombatLogParser extends CoreCombatLogParser {
     searingAssault: SearingAssault,
     sundering: Sundering,
 
+    spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
+    astralShift: AstralShift,
+    packSpirit: PackSpirit,
+    sereneSpirit: SereneSpirit,
   };
-
-
 }
 
 export default CombatLogParser;

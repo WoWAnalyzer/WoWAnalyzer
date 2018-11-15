@@ -38,6 +38,8 @@ import SwipeHitCount from './modules/spells/SwipeHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Shadowmeld from './modules/racials/Shadowmeld';
 
+import WildFleshrending from './modules/azeritetraits/WildFleshrending';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -84,6 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+
+    // azerite traits
+    wildFleshrending: WildFleshrending,
   };
 }
 

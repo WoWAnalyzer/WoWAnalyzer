@@ -90,6 +90,9 @@ class RestoShamanChecklist extends React.PureComponent {
         >
           <Requirement name={(<>Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</>)} thresholds={thresholds.chainHealTargetThresholds} />
           <Requirement name={(<>Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</>)} thresholds={thresholds.healingRainTargetThreshold} />
+          {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
+            <Requirement name={(<>Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency</>)} thresholds={thresholds.wellspringTargetThreshold} />
+          )}
         </Rule>
         <Rule
           name="Try to avoid being inactive for a large portion of the fight"

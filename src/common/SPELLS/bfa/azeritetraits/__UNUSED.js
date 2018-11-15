@@ -44,7 +44,7 @@ export default {
     name: 'Arrowstorm',
     icon: 'inv_spear_07',
   },
-  ASPECT_OF_THE_CHEETAH: {
+  ASPECT_OF_THE_CHEETAH_AZERITE: {
     id: 263829,
     name: 'Aspect of the Cheetah',
     icon: 'ability_mount_jungletiger',
@@ -789,11 +789,6 @@ export default {
     name: 'Self Reliance',
     icon: 'achievement_guildperk_quick-and-dead',
   },
-  SERENE_SPIRIT: {
-    id: 274416,
-    name: 'Serene Spirit',
-    icon: 'ability_shaman_astralshift',
-  },
   SERRATED_JAWS: {
     id: 272717,
     name: 'Serrated Jaws',
@@ -803,11 +798,6 @@ export default {
     id: 272944,
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_shadowbolt',
-  },
-  SHARPENED_BLADES: {
-    id: 272913,
-    name: 'Sharpened Blades',
-    icon: 'inv_throwingknife_07',
   },
   SHELLSHOCK: {
     id: 274357,
@@ -828,11 +818,6 @@ export default {
     id: 274432,
     name: 'Solitary Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-  },
-  SOOTHING_WATERS: {
-    id: 272989,
-    name: 'Soothing Waters',
-    icon: 'spell_nature_healingwavegreater',
   },
   SOUL_FROM_THROS: {
     id: 273825,

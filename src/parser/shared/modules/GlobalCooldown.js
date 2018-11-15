@@ -7,6 +7,7 @@ import Haste from './Haste';
 import Channeling from './Channeling';
 
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
+const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
@@ -121,8 +122,7 @@ class GlobalCooldown extends Analyzer {
     }
     if (gcd.base) {
       const baseGCD = this._resolveAbilityGcdField(gcd.base);
-      // The minimum GCD duration is pretty much always with 100% Haste: 50% of the base duration. There is no known case of it ever being 0.
-      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || (baseGCD / 2);
+      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
       return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
     throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);

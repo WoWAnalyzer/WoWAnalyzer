@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -74,7 +74,7 @@ class SplittingIce extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.SPLITTING_ICE_TALENT.id} />}
         value={`${this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %`}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import retryingPromise from 'common/retryingPromise';
 import { hasPremium } from 'interface/selectors/user';
 import Ad from 'interface/common/Ad';
 import makeNewsUrl from 'interface/news/makeUrl';
@@ -16,7 +17,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 import './Header.css';
 
-const CharacterSearch = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default));
+const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -70,12 +71,11 @@ class Header extends React.PureComponent {
                 </div>
               )}
                 
-              {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
-                {' '}| <a href="https://legion.wowanalyzer.com/">Legion analyzer</a>
-                {' '}| <a href="https://prepatch.wowanalyzer.com/">Prepatch analyzer</a>
+                {' '}| <a href="https://legion.wowanalyzer.com/"><Trans>Legion analyzer</Trans></a>
+                {' '}| <a href="https://prepatch.wowanalyzer.com/"><Trans>Prepatch analyzer</Trans></a>
                 {' '}| <Link to="/premium"><Trans>Premium</Trans></Link>
                 {' '}| <LanguageSwitcher />
               </div>

@@ -57,6 +57,21 @@ export default {
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
+  DIRE_BEAST_GENERATOR: {
+    id: 120694,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  DIRE_BEAST_SECONDARY_WITH_SCENT: { // Dire Beast ID with Scent of Blood talent
+    id: 132764,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SECONDARY_WITHOUT_SCENT: { // Dire Beast ID without Scent of Blood talent
+    id: 219199,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
   STAMPEDE_DAMAGE: {
     id: 201594,
     name: 'Stampede',
@@ -94,34 +109,34 @@ export default {
     name: 'Bestial Wrath Buff',
     icon: 'ability_druid_ferociousbite',
   },
-  BARBED_SHOT_BUFF: {
+  BARBED_SHOT_BUFF: { //1st stack of Barbed Shot on the player
     id: 246152,
-    name: 'Barbed Shot',
+    name: 'Barbed Shot 1',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_BUFF_STACK_2: { //2nd stack of Barbed Shot on the player
     id: 246851,
-    name: 'Barbed Shot',
+    name: 'Barbed Shot 2',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_BUFF_STACK_3: { //3rd stack of Barbed Shot on the player
     id: 246852,
-    name: 'Barbed Shot',
+    name: 'Barbed Shot 3',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_BUFF_STACK_4: { //4th stack of Barbed Shot on the player
     id: 246853,
-    name: 'Barbed Shot',
+    name: 'Barbed Shot 4',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_BUFF_STACK_5: { //5th stack of Barbed Shot on the player
     id: 246854,
-    name: 'Barbed Shot',
+    name: 'Barbed Shot 5',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_PET_BUFF: {
     id: 272790,
-    name: 'Barbed Shot',
+    name: 'Frenzy',
     icon: 'ability_hunter_barbedshot',
   },
   THRILL_OF_THE_HUNT_BUFF: {
@@ -402,7 +417,7 @@ export default {
     name: 'A Murder of Crows',
     icon: 'ability_hunter_murderofcrows',
   },
-  BINDING_SHOT_STUN: {
+  BINDING_SHOT_ROOT: {
     id: 117526,
     name: 'Binding Shot Stun',
     icon: 'spell_shaman_bindelemental',
@@ -487,10 +502,15 @@ export default {
     name: 'Misdrection',
     icon: 'ability_hunter_misdirection',
   },
-  REVIVE_PET_AND_MEND_PET: {
+  REVIVE_PET: {
     id: 982,
     name: 'Revive Pet',
     icon: 'ability_hunter_beastsoothe',
+  },
+  MEND_PET: {
+    id: 136,
+    name: 'Mend Pet',
+    icon: 'ability_hunter_mendpet',
   },
   TAR_TRAP: {
     id: 187698,
@@ -554,5 +574,19 @@ export default {
     name: 'Survival of the Fittest',
     icon: 'spell_nature_spiritarmor',
   },
-
+  CLAW: {
+    id: 16827,
+    name: 'Claw',
+    icon: 'ability_druid_rake',
+  },
+  SMACK: {
+    id: 49966,
+    name: 'Smack',
+    icon: 'ability_druid_bash',
+  },
+  BITE: {
+    id: 17253,
+    name: 'Bite',
+    icon: 'ability_druid_ferociousbite',
+  },
 };

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ExpandableStatisticBox from 'interface/others/ExpandableStatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -109,7 +109,7 @@ class BlurOfTalons extends Analyzer {
 
   statistic() {
     return (
-      <ExpandableStatisticBox
+      <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         icon={<SpellIcon id={SPELLS.BLUR_OF_TALONS.id} />}
@@ -137,7 +137,7 @@ class BlurOfTalons extends Analyzer {
             ))}
           </tbody>
         </table>
-      </ExpandableStatisticBox>
+      </StatisticBox>
     );
   }
 }

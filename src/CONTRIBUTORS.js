@@ -78,6 +78,10 @@ export const blazyb = {
   nickname: 'blazyb',
   github: 'buimichael',
 };
+export const Qbz = {
+  nickname: 'Qbz',
+  github: 'Qbz23',
+};
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
@@ -264,6 +268,7 @@ export const hatra344 = {
 export const emallson = {
   nickname: 'emallson',
   github: 'emallson',
+  avatar: require('./interface/images/avatars/emallson-avatar.jpg'),
 };
 export const Gebuz = {
   nickname: 'Gebuz',
@@ -497,4 +502,34 @@ export const Satyric = {
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/Satyric',
   }],
+};
+export const jos3p = {
+  nickname: 'jos3p',
+  github: 'jos3p',
+  discord: 'jos3p#9746',
+};
+export const Matardarix = {
+  nickname: 'Matardarix',
+  github: 'matardarix',
+  discord: 'Matardarix#9847',
+  avatar: require('./interface/images/avatars/matardarix-avatar.jpg'),
+  mains: [{
+    name: 'Mâtârdarix',
+    spec: SPECS.ARMS_WARRIOR,
+    link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
+  }],
+};
+export const mtblanton = {
+  nickname: 'mtblanton',
+  github: 'mtblanton',
+  mains: [{
+    name: 'Harzwaz',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/Harzwaz',
+  }],
+};
+export const Streammz = {
+  nickname: 'Streammz',
+  github: 'Streammz',
+  discord: 'Streammz#9999',
 };

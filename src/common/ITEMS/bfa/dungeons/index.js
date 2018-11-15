@@ -39,6 +39,12 @@ export default {
   },
 
   // Atal'Dazar
+  MYDAS_TALISMAN: {
+    id: 158319,
+    name: 'My\'das Talisman',
+    icon: 'inv_offhand_draenei_a_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
   REVITALIZING_VOODOO_TOTEM: {
     id: 158320,
     name: 'Revitalizing Voodoo Totem',
@@ -49,6 +55,20 @@ export default {
     id: 159610,
     name: 'Vessel of Skittering Shadows',
     icon: 'inv_potiond_5',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+  REZANS_GLEAMING_EYE: {
+    id: 158712,
+    name: 'Rezan\'s Gleaming Eye',
+    icon: 'ability_hunter_aspectoftheviper',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
+  // The MOTHERLODE!!
+  AZEROKKS_RESONATING_HEART: {
+    id: 159612,
+    name: 'Azerokk\'s Resonating Heart',
+    icon: 'inv_enchant_shardshadowfrostlarge',
     quality: ITEM_QUALITIES.BLUE,
   },
 
@@ -107,6 +127,14 @@ export default {
     id: 155881,
     name: 'Harlan\'s Loaded Dice',
     icon: 'inv_misc_dice_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
+  //King's Rest
+  LUSTROUS_GOLDEN_PLUMAGE: {
+    id: 159617,
+    name: 'Lustrous Golden Plumage',
+    icon: 'inv_icon_feather06a',
     quality: ITEM_QUALITIES.BLUE,
   },
 

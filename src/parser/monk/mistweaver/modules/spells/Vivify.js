@@ -7,18 +7,23 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+const debug = false;
+
 class Vivify extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    combatants: Combatants,
   };
 
   remVivifyHealCount = 0;
   remVivifyHealing = 0;
+  gustHealing = 0;
   lastCastTarget = null;
 
   on_byPlayer_cast(event) {
@@ -31,6 +36,11 @@ class Vivify extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+
+    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
+    }
+
     if (SPELLS.VIVIFY.id !== spellId || this.lastCastTarget === event.targetID) {
       this.lastCastTarget = null; // Null out Target in case Vivify target also had REM on them
       return;
@@ -55,6 +65,12 @@ class Vivify extends Analyzer {
       },
       style: 'number',
     };
+  }
+
+  on_finished() {
+    if (debug) {
+      console.log(this.remVivifyHealing, this.gustHealing);
+    }
   }
 
   suggestions(when) {

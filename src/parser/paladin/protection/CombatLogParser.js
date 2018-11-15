@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import DamageTaken from 'parser/shared/modules/DamageTaken';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -12,9 +13,10 @@ import MitigationCheck from './modules/features/MitigationCheck';
 
 //Spells
 import Judgment from './modules/spells/Judgment';
+import Consecration from './modules/spells/Consecration';
 import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTiming';
+import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
-import Consecration from './modules/features/Consecration';
 import GrandCrusader from './modules/core/GrandCrusader';
 
 //Talents
@@ -36,6 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     grandCrusader: GrandCrusader,
 
+    // Spells
+    lightOfTheProtector: LightOfTheProtector,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -54,6 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousProtector: RighteousProtector,
     judgment: Judgment,
     seraphim: Seraphim,
+
+    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

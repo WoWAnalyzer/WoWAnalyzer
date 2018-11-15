@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import isAtonement from '../modules/core/isAtonement';
+import { DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT } from '../constants';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
 
@@ -15,7 +16,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
 
       fixedEvents.push(event);
 
-      if(event.type === "damage" && event.sourceIsFriendly && !event.targetIsFriendly){
+      if(event.type === "damage" && event.sourceIsFriendly && !event.targetIsFriendly && DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT.includes(event.ability.guid)){
         _damageEventIndexes.push(eventIndex);
         _encounteredTargetIDs = [];
         return;

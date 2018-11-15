@@ -3,10 +3,6 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/shared/modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static SPELL_CATEGORIES = {
-    ...CoreAbilities.SPELL_CATEGORIES,
-    DOTS: 'Dot',
-  };
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
@@ -33,7 +29,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.CHAIN_LIGHTNING,
@@ -76,7 +77,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -93,18 +94,32 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.STORMKEEPER_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.STORMKEEPER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
         spell: SPELLS.STORM_ELEMENTAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.9,
         },
       },
+
       {
         spell: SPELLS.FLAME_SHOCK,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },

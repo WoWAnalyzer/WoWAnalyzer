@@ -44,10 +44,16 @@ class ShadowPriestChecklist extends React.PureComponent {
       const requirements = [];
 
       for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex++) {
+        const thresholds = props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex]);
+        // If you end the fight in voidform, we want to mark that voidform as green.
+        if (props.voidform.voidforms[voidFormIndex].excluded) {
+          thresholds.isLessThan = { minor: 0 };
+        }
+
         requirements.push(<Requirement
           key={voidFormIndex}
           name={`Voidform #${voidFormIndex + 1} stacks`}
-          thresholds={props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex])}
+          thresholds={thresholds}
         />);
 
       }
@@ -80,7 +86,7 @@ class ShadowPriestChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
-          {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) ?
+          {combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id) ?
             <AbilityRequirement spell={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> :
             <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
           }
@@ -102,6 +108,10 @@ class ShadowPriestChecklist extends React.PureComponent {
 
           {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.DARK_ASCENSION_TALENT.id} />
+          )}
+
+          {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
           )}
         </Rule>
 

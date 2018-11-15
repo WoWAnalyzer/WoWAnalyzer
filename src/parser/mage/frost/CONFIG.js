@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { Sharrq, Dambroda } from 'CONTRIBUTORS';
+import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -15,12 +18,14 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more. If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello Everyone! We are always looking to improve the Frost Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to us on Discord (Sharrq#7530 or Sref#3865) <br /><br />
+      Welcome to the Frost Mage analyzer! We hope the suggestions and statistics displayed here will help you improve your gameplay. Playing a Frost Mage revolves heavily around making the most of your talents (like <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> or <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} />) and procs (like <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> and <SpellLink id={SPELLS.FINGERS_OF_FROST.id} />), so that's the majority of what you'll see analyzed here.<br /><br />
 
-      Additionally, if you need further assistance in improving your gameplay as a Frost Mage, you can refer to the following resources:<br />
+      We are always looking to improve, so if you encounter any issues or have any suggestions, please <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new?labels=Mage" target="_blank" rel="noopener noreferrer">open an issue</a> on GitHub or send us a message on the <a href="https://wowanalyzer.com/discord" target="_blank" rel="noopener noreferrer">WoWAnalyzer Discord</a>.<br /><br />
+
+      If you would like more information on improving your Frost Mage gameplay, check out these additional resources:<br />
       <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">Mage Class Discord</a> <br />
-      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">Altered Time (Mage Forums/Guides)</a> <br />
-      <a href="https://www.icy-veins.com/wow/frost-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Frost Mage Guide)</a>
+      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">Altered Time (Mage forums & guides)</a> <br />
+      <a href="https://www.icy-veins.com/wow/frost-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Frost Mage guide)</a>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -32,7 +37,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "Mage" */).then(exports => exports.default),
+  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "FrostMage" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

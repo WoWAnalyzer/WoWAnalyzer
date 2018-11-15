@@ -91,11 +91,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </>,
-            check: () => this.barbedShot.direFrenzyUptimeThreshold,
+            check: () => this.barbedShot.frenzyUptimeThreshold,
           }),
           new Requirement({
             name: <>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </>,
-            check: () => this.barbedShot.direFrenzy3StackThreshold,
+            check: () => this.barbedShot.frenzy3StackThreshold,
           }),
         ];
       },

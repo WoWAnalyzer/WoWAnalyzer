@@ -5,7 +5,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -28,16 +28,12 @@ class ChannelDemonfire extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
-  }
-
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}>Channel Demonfire gain</SpellLink>}
-        value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={`Your Channel Demonfire contributed ${formatThousands(this.damage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%).`}
+        title={<><SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} /> damage</>}
+        value={formatThousands(this.damage)}
+        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
       />
     );
   }

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import retryingPromise from 'common/retryingPromise';
+
 class ArticleLoader extends React.PureComponent {
   static propTypes = {
     fileName: PropTypes.string.isRequired,
@@ -22,14 +24,14 @@ class ArticleLoader extends React.PureComponent {
   }
 
   load(fileName) {
-    return import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.js`)
+    return retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.js`)
       .then(exports => exports.default)
       .then(article => {
         this.setState({
           article,
           showLoader: false,
         });
-      });
+      }));
   }
 
   render() {

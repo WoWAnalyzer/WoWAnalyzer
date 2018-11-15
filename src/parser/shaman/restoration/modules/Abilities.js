@@ -20,6 +20,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 0.90 : 0.70,
         },
+        healSpellIds: [
+          SPELLS.SURGING_TIDES_ABSORB.id,
+        ],
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
@@ -37,6 +40,10 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
         },
+        healSpellIds: [
+          SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
+          SPELLS.SWELLING_STREAM_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.ASTRAL_SHIFT,
@@ -52,7 +59,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_RAIN_CAST,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 10,
         timelineSortIndex: 17,
         gcd: {
@@ -64,10 +71,14 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.50,
           recommendedEfficiency: 0.70,
         },
+        healSpellIds: [
+          SPELLS.HEALING_RAIN_HEAL.id,
+          SPELLS.OVERFLOWING_SHORES_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.WELLSPRING_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
         timelineSortIndex: 20,
         gcd: {
@@ -80,11 +91,14 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.50,
           recommendedEfficiency: 0.70,
         },
+        healSpellIds: [
+          SPELLS.WELLSPRING_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 16,
@@ -98,10 +112,14 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
         },
+        healSpellIds: [
+          SPELLS.CLOUDBURST_TOTEM_HEAL.id,
+          SPELLS.SWELLING_STREAM_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.EARTHEN_WALL_TOTEM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         timelineSortIndex: 20,
         gcd: {
@@ -114,11 +132,14 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
         },
+        healSpellIds: [
+          SPELLS.EARTHEN_WALL_TOTEM_ABSORB.id,
+        ],
       },
       {
         spell: SPELLS.UNLEASH_LIFE_TALENT,
         buffSpellId: SPELLS.UNLEASH_LIFE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         timelineSortIndex: 5,
         gcd: {
@@ -147,6 +168,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.5,
           recommendedEfficiency: 0.8,
         },
+        healSpellIds: [
+          SPELLS.ASCENDANCE_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
@@ -160,8 +184,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.7,
         },
+        healSpellIds: [
+          SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.SPIRIT_LINK_TOTEM,
@@ -176,6 +203,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.4,
           recommendedEfficiency: 0.6,
         },
+        healSpellIds: [
+          SPELLS.SPOUTING_SPIRITS_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.HEALING_WAVE,
@@ -377,6 +407,9 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id),
         timelineSortIndex: 80,
+        healSpellIds: [
+          SPELLS.EARTH_SHIELD_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.TREMOR_TOTEM,
@@ -389,7 +422,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOWNPOUR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 35, // CD changes depending on amount of effective targets hit (0 = 5s, 6 = 35s)
         gcd: {
           base: 1500,
@@ -409,6 +442,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
+        },
       },
       {
         spell: SPELLS.EARTH_ELEMENTAL,
@@ -424,6 +464,19 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id),
+        healSpellIds: [
+          SPELLS.NATURES_GUARDIAN_HEAL.id,
+        ],
+      },
+      {
+        spell: SPELLS.ROCKET_JUMP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        isUndetectable: true,
       },
     ];
   }

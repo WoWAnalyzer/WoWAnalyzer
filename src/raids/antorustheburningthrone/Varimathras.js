@@ -12,9 +12,9 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: {
-      ShadowStrike: 243960,
-      ShadowStrikeN: 257644, //N difficulty Shadow Strike that does not cleave.
-    },
+    softMitigationChecks: [
+      243960, // ShadowStrike
+      257644, // ShadowStrikeN - N difficulty Shadow Strike that does not cleave.
+    ],
   },
 };

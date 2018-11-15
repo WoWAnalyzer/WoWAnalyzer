@@ -6,6 +6,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-10-11'),
+    changes: <>Fixed <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> Normalizer to not put energize events after <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> and added Normalizer to sort the <SpellLink id={SPELLS.ARCANE_POWER.id} /> cast before the buff application</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2018-10-11'),
+    changes: <>Redid <SpellLink id={SPELLS.ARCANE_POWER.id} /> Utilization to count each pre-req separately. Also updated tooltip and suggestion to show which checks were failed.</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2018-10-11'),
+    changes: <>Fixed <SpellLink id={SPELLS.RULE_OF_THREES_TALENT.id} /> bug</>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-08-28'),
     changes: <>Added support for <SpellLink id={SPELLS.GALVANIZING_SPARK.id} /> and <SpellLink id={SPELLS.ANOMALOUS_IMPACT.id} /></>,
     contributors: [Sharrq],

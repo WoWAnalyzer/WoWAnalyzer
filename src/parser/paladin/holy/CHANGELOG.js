@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-10'),
+    changes: <>Fixed a crash when using <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-10-10'),
+    changes: <>Fixed a rare bug in the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> damage reduction analysis where an immunity at the exact right time could throw off the analysis.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-09-16'),
     changes: <>Added <SpellLink id={SPELLS.BEACON_OF_LIGHT_HEAL.id} /> healing lost from missing beacons as well as beacon line of sighting.</>,
     contributors: [Zerotorescue],

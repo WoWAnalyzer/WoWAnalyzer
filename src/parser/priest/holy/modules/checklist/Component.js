@@ -50,8 +50,8 @@ class HolyPriestChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.DIVINE_STAR_TALENT.id} />
           )}
-          {combatant.hasTalent(SPELLS.HALO_HEAL.id) && (
-            <AbilityRequirement spell={SPELLS.HALO_HEAL.id} />
+          {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
           )}
           {combatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />

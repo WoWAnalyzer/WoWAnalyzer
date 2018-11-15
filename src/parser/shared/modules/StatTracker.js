@@ -19,6 +19,12 @@ import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
+import { STAT_TRACKER as ARCHIVE_OF_THE_TITANS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
+import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
+import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
+import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
+import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Tradewinds';
+import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 
 const debug = false;
 
@@ -244,7 +250,8 @@ class StatTracker extends Analyzer {
 
     // region Azerite Traits
     // region General
-    [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
+    [SPELLS.BLIGHTBORNE_INFUSION_BUFF.id]: BLIGHTBORNE_INFUSION_STATS,
+    [SPELLS.SWIRLING_SANDS_BUFF.id]: SWIRLING_SANDS_STATS,
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
@@ -266,6 +273,9 @@ class StatTracker extends Analyzer {
       versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
     },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
+    [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
+    [SPELLS.UNSTABLE_CATALYST_BUFF.id]: UNSTABLE_CATALYST_STATS,
+    [SPELLS.TRADEWINDS.id]: TRADEWINDS_STATS,
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
@@ -295,6 +305,9 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
     [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
+    // endregion
+    // region Priest
+    [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
@@ -335,7 +348,21 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.TITANIC_OVERCHARGE.id]: {
       itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
-      haste: (_, item) => calculateSecondaryStatDefault(355, 35, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(385, 60, item.itemLevel),
+    },
+    [SPELLS.RAPID_ADAPTATION.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
+    [SPELLS.DIG_DEEP.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
+      strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(385, 3174651, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
+    },
+    [SPELLS.GOLDEN_LUSTER.id]: {
+      itemId: ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(380, 864, item.itemLevel),
     },
     // region Quests
     // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here

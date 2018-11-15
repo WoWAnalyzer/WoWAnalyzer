@@ -1,7 +1,14 @@
 # This greatly speeds up the build process if the user already has run `npm install` locally
 node_modules
+build
+server/node_modules
+server/build
 
 # Unused files
+.docker
+.docker*
+.travis
+.travis.yml
 Docker*
 *.md
 # .git is very slow and we don't need it for anything but `npm test`
