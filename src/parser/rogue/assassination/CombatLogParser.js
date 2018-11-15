@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -27,6 +28,7 @@ import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
 import MasterPoisoner from './modules/talents/MasterPoisoner';
 
+// Traits
 import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -66,6 +68,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Traits
     SharpenedBlades: SharpenedBlades,
+
+    // Racials
+    arcaneTorrent: [ArcaneTorrent, {
+      gcd: 1000,
+    }],
   };
 }
 

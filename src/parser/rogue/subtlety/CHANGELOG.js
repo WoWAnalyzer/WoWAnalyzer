@@ -7,7 +7,7 @@ import { Zerotorescue, tsabo, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-11-13'),
+    date: new Date('2018-11-15'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,
     contributors: [Aelexe],
   },

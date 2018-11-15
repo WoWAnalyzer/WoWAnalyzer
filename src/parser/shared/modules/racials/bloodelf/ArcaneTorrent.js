@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import SPECS from 'game/SPECS';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/shared/modules/Abilities';
 
@@ -9,20 +8,18 @@ class ArcaneTorrent extends Analyzer {
     abilities: Abilities,
   };
 
+  gcd = 1500;
   castEfficiency = 0.8;
   extraSuggestion = null;
 
   constructor(options) {
     super(options);
     this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.BloodElf;
-    
     if (!this.active) {
       return;
     }
 
-    const specID = this.selectedCombatant._combatantInfo.specID;
-    const isRogue = (specID === SPECS.ASSASSINATION_ROGUE.id || specID === SPECS.OUTLAW_ROGUE.id || specID === SPECS.SUBTLETY_ROGUE.id);
-
+    this.gcd = (options.gcd === undefined) ? this.gcd : options.gcd;
     this.castEfficiency = (options.castEfficiency === undefined) ? this.castEfficiency : options.castEfficiency;
 
     this.abilities.add({
@@ -30,7 +27,7 @@ class ArcaneTorrent extends Analyzer {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 90,
       gcd: {
-        base: isRogue? 1000 : 1500,
+        base: this.gcd,
       },
       timelineSortIndex: 35,
       castEfficiency: {
