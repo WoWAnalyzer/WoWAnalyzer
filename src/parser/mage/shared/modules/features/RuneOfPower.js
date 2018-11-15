@@ -15,7 +15,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 /*
  * If Rune of Power is substantially better than the rest of the row, enable
  * ROP talent suggestion. At time of writing, it's a substantial increase over
- * incanters flow for fire and arcane in almost all situations.
+ * incanters flow for fire and arcane in all situations.
  */
 const SUGGEST_ROP = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true, [SPECS.FIRE_MAGE.id]: true };
 
@@ -87,6 +87,7 @@ class RuneOfPower extends Analyzer {
     };
   }
 
+  showSuggestion = true;
   suggestions(when) {
     if (!this.hasROP) {
       when(SUGGEST_ROP[this.selectedCombatant.specId]).isTrue()
@@ -99,6 +100,10 @@ class RuneOfPower extends Analyzer {
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
         });
+      return;
+    }
+
+    if(!this.showSuggestion) {
       return;
     }
 
@@ -122,8 +127,9 @@ class RuneOfPower extends Analyzer {
 
   }
 
+  showStatistic = false;
   statistic() {
-    if (!this.hasROP) return null;
+    if (!this.hasROP || !this.showStatistic) return null;
 
     return (
       <TalentStatisticBox
