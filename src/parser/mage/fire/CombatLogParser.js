@@ -14,11 +14,15 @@ import Abilities from './modules/features/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 
+import BlasterMaster from './modules/traits/BlasterMaster';
+
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import Kindling from './modules/features/Kindling';
 import HotStreak from './modules/features/HotStreak';
+import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
+import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
@@ -45,6 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     cancelledCasts: CancelledCasts,
     hotStreak: HotStreak,
+    hotStreakPreCasts: HotStreakPreCasts,
+    hotStreakWastedCrits: HotStreakWastedCrits,
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
@@ -52,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
+
+    //Traits
+    blasterMaster: BlasterMaster,
 
     // Talents
     mirrorImage: MirrorImage,

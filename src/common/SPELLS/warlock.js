@@ -109,6 +109,38 @@ export default {
     icon: 'spell_shadow_demonictactics',
   },
 
+  // Permanent pet damage abilities
+  IMP_FIREBOLT: {
+    id: 3110,
+    name: 'Firebolt',
+    icon: 'spell_fire_firebolt',
+  },
+  VOIDWALKER_CONSUMING_SHADOWS: {
+    id: 3716,
+    name: 'Consuming Shadows',
+    icon: 'spell_shadow_gathershadows',
+  },
+  FELHUNTER_SHADOW_BITE: {
+    id: 54049,
+    name: 'Shadow Bite',
+    icon: 'spell_shadow_soulleech_3',
+  },
+  SUCCUBUS_LASH_OF_PAIN: {
+    id: 7814,
+    name: 'Lash of Pain',
+    icon: 'spell_shadow_curse',
+  },
+  FELGUARD_LEGION_STRIKE: {
+    id: 30213,
+    name: 'Legion Strike',
+    icon: 'inv_axe_09',
+  },
+  FELGUARD_PURSUIT: {
+    id: 30153,
+    name: 'Pursuit',
+    icon: 'ability_rogue_sprint',
+  },
+
   // --------------
   // Shared talents
   // --------------
@@ -380,6 +412,11 @@ export default {
     name: 'Multi-Slash',
     icon: 'ability_rogue_murderspree',
   },
+  NETHER_PORTAL_BUFF: {
+    id: 267218,
+    name: 'Nether Portal',
+    icon: 'inv_netherportal',
+  },
   // TODO: possibly even more
   // Nether Portal pet abilities
   // also can be summoned via Inner Demons
@@ -458,6 +495,109 @@ export default {
     id: 270557,
     name: 'Soul Strike',
     icon: 'inv_polearm_2h_fellord_04',
+  },
+
+  // Demonology pet summons (ability IDs from 'summon' events)
+  WILD_IMP_HOG_SUMMON: {
+    id: 104317,
+    name: 'Wild Imp',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  DREADSTALKER_SUMMON_1: {
+    id: 193331,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  DREADSTALKER_SUMMON_2: {
+    id: 193332,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  WILD_IMP_ID_SUMMON: {
+    id: 279910,
+    name: 'Wild Imp',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  BILESCOURGE_SUMMON: {
+    id: 267992,
+    name: 'Summon Bilescourge',
+    icon: 'ability_hunter_pet_bat',
+  },
+  VICIOUS_HELLHOUND_SUMMON: {
+    id: 267988,
+    name: 'Summon Vicious Hellhound',
+    icon: 'inv_felhound3_shadow_fire',
+  },
+  SHIVARRA_SUMMON: {
+    id: 267994,
+    name: 'Summon Shivarra',
+    icon: 'achievement_shivan',
+  },
+  DARKHOUND_SUMMON: {
+    id: 267996,
+    name: 'Summon Darkhound',
+    icon: 'inv_felhound3_shadow_mount',
+  },
+  ILLIDARI_SATYR_SUMMON: {
+    id: 267987,
+    name: 'Summon Illidari Satyr',
+    icon: 'classicon_warlock',
+  },
+  VOID_TERROR_SUMMON: {
+    id: 267991,
+    name: 'Summon Void Terror',
+    icon: 'inv_pet_voidhound',
+  },
+  URZUL_SUMMON: {
+    id: 268001,
+    name: 'Summon Ur\'zul',
+    icon: 'inv_soulhoundmount_blue',
+  },
+  WRATHGUARD_SUMMON: {
+    id: 267995,
+    name: 'Summon Wrathguard',
+    icon: 'spell_warlock_summonwrathguard',
+  },
+  EYE_OF_GULDAN_SUMMON: {
+    id: 267989,
+    name: 'Summon Eyes of Gul\'dan',
+    icon: 'inv_pet_inquisitoreye',
+  },
+  PRINCE_MALCHEZAAR_SUMMON: {
+    id: 267986,
+    name: 'Summon Prince Malchezaar',
+    icon: 'achievement_boss_princemalchezaar_02',
+  },
+  // Glyphed permanent pet summons
+  FEL_IMP_SUMMON: {
+    id: 112866,
+    name: 'Summon Fel Imp',
+    icon: 'spell_warlock_summonimpoutland',
+  },
+  VOIDLORD_SUMMON: {
+    id: 112867,
+    name: 'Summon Voidlord',
+    icon: 'warlock_summon_-voidlord',
+  },
+  OBSERVER_SUMMON: {
+    id: 112869,
+    name: 'Summon Observer',
+    icon: 'warlock_summon_-beholder',
+  },
+  SHADOW_SUCCUBUS_SUMMON: {
+    id: 240266,
+    name: 'Summon Shadow Succubus',
+    icon: 'spell_shadow_summonsuccubus',
+  },
+  SHIVARRA_PERMANENT_SUMMON: {
+    id: 112868,
+    name: 'Summon Shivarra',
+    icon: 'warlock_summon_-shivan',
+  },
+  WRATHGUARD_PERMANENT_SUMMON: {
+    id: 112870,
+    name: 'Summon Wrathguard',
+    icon: 'spell_warlock_summonwrathguard',
   },
 
   // -----------

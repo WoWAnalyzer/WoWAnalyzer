@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-11-14'),
+    changes: <>Added <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown chart. Fixed bug with the ReM and Vivify mana efficiency.</>,
+    contributors: [Gao],
+  },
+  {
     date: new Date('2018-11-2'),
     changes: <>Added the mana efficiency tab. Updated the Env:Viv cast ratio picture sizes.</>,
     contributors: [Gao],

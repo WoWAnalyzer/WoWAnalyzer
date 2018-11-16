@@ -1,8 +1,6 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
-import Abilities from '../Abilities';
 
 const ASPECT_AFFECTED_ABILTIES = [
   SPELLS.KILL_COMMAND.id,
@@ -29,9 +27,8 @@ const MAX_GCD = 1500;
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
-    abilities: Abilities,
+    ...CoreGlobalCooldown.dependencies,
     haste: Haste,
-    channeling: Channeling,
   };
 
   getGlobalCooldownDuration(spellId) {

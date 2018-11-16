@@ -62,11 +62,11 @@ class DancingRuneWeapon extends Analyzer {
 
   spellLinks(id, index) {
     if (id === SPELLS.CONSUMPTION_TALENT.id) {
-      return <span>and (if in AoE)<SpellLink id={id} /></span>;
+      return <React.Fragment key={id}>and (if in AoE)<SpellLink id={id} /></React.Fragment>;
     } else if (index + 2 === ALLOWED_CASTS_DURING_DRW.length) {
-      return <span><SpellLink id={id} /> </span>;
+      return <React.Fragment key={id}><SpellLink id={id} /> </React.Fragment>;
     } else {
-      return <span><SpellLink id={id} />, </span>;
+      return <React.Fragment key={id}><SpellLink id={id} />, </React.Fragment>;
     }
   }
 
