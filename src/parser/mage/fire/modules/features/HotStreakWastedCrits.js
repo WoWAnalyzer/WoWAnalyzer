@@ -31,17 +31,15 @@ class HotStreakWastedCrits extends Analyzer {
   constructor(...args) {
     super(...args);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForPyromaniacProc);
 
   }
 
-  //When a spell that contributes towards Hot Streak is cast, get the event info to use for excluding the cleaves from Phoenix Flames on the damage event
+  //When a spell that contributes towards Hot Streak is cast, get the event info to use for excluding the cleaves from Phoenix Flames on the damage event.
+  //If a Hot Streak Contributor was cast then Pyromaniac didnt proc, so set it to false (Pyromaniac procs when Hot Streak is used, so if something was cast, then it didnt proc)
   _onCast(event) {
-    if (!HOT_STREAK_CONTRIBUTORS.includes(event.ability.guid) && event.ability.guid !== SPELLS.FLAMESTRIKE.id) {
-      return;
-    }
     this.lastCastEvent = event;
     this.pyromaniacProc = false;
   }
@@ -52,17 +50,17 @@ class HotStreakWastedCrits extends Analyzer {
     const spellId = event.ability.guid;
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id) || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && castTarget !== damageTarget)) {
+    if (event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,null,-50) || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && castTarget !== damageTarget)) {
       return;
     }
 
     if (this.hasPyromaniacProc) {
       debug && this.log("Wasted Crit Ignored");
-    } else if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
+    } else {
       this.wastedCrits += 1;
       this.lastCastEvent.meta = this.lastCastEvent.meta || {};
       this.lastCastEvent.meta.isInefficientCast = true;
-      this.lastCastEvent.meta.inefficientCastReason = "This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak.";
+      this.lastCastEvent.meta.inefficientCastReason = "This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.";
       debug && this.log("Wasted Crit");
     }
   }

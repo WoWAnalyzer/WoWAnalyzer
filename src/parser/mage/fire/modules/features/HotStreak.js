@@ -19,15 +19,14 @@ class HotStreak extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onHotStreakSpenderCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakApplied);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakRemoved);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForExpiredProcs);
 
   }
 
   //When Pyroblast is cast, get the timestamp. This is used for determining if pyroblast was cast immediately before Hot Streak was removed.
-  onPyroblastCast(event) {
+  onHotStreakSpenderCast(event) {
     this.castTimestamp = event.timestamp;
   }
 
@@ -36,10 +35,7 @@ class HotStreak extends Analyzer {
     this.totalHotStreakProcs += 1;
   }
 
-  onHotStreakRemoved(event) {
-    this.hotStreakRemoved = event.timestamp;
-  }
-
+  //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
   checkForExpiredProcs(event) {
     if (!this.castTimestamp || this.castTimestamp + PROC_WINDOW_MS < event.timestamp) {
       debug && this.log("Hot Streak proc expired");
