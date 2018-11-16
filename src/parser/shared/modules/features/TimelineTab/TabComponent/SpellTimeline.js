@@ -193,18 +193,28 @@ class SpellTimeline extends React.PureComponent {
               })}
             </div>
           )}
-          {this.spells.map(spellId => (
-            <SpellRow
-              key={spellId}
-              className="lane"
-              events={historyBySpellId[spellId] || []}
-              buffEvents={buffEvents[abilities.getBuffSpellId(spellId)]}
-              start={start}
-              totalWidth={totalWidth}
-              secondWidth={secondWidth}
-              showCooldowns={showCooldowns}
-            />
-          ))}
+          {this.spells.map(spellId => {
+            let spellBuffEvents = [];
+            const buffSpellId = abilities.getBuffSpellId(spellId);
+            if (buffSpellId && buffSpellId instanceof Array) {
+              buffSpellId.forEach(spell => buffEvents[spell] && spellBuffEvents.push(...buffEvents[spell]));
+              spellBuffEvents = spellBuffEvents.length > 0 ? spellBuffEvents : null;
+            } else {
+              spellBuffEvents = buffEvents[buffSpellId];
+            }
+            return (
+              <SpellRow
+                key={spellId}
+                className="lane"
+                events={historyBySpellId[spellId] || []}
+                buffEvents={spellBuffEvents}
+                start={start}
+                totalWidth={totalWidth}
+                secondWidth={secondWidth}
+                showCooldowns={showCooldowns}
+              />
+            );
+          })}
           <DeathEvents
             start={start}
             secondWidth={secondWidth}

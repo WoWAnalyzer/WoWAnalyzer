@@ -128,6 +128,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
       {
         spell: SPELLS.POWER_SIPHON_TALENT,

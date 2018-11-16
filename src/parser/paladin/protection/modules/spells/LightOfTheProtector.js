@@ -60,6 +60,9 @@ export default class LightOfTheProtector extends Analyzer {
   // update the delay based on SotR cast with the RP talent, which
   // reduces LotP/HotP CD by 3s
   _updateDelayRP(event) {
+    if(!this._lastHit || this._msTilHeal === 0) {
+      return;
+    }
     const delayFromHit = event.timestamp - this._lastHit.timestamp;
     this._msTilHeal -= RP_REDUCTION_TIME;
     // we couldn't cast the heal before the current event happened

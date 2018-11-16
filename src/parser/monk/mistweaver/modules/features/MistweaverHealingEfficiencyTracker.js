@@ -51,12 +51,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getSoothingMistDetails(spellInfo) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
     spellInfo.manaSpent = this.soothingMist.soomTicks * SPELLS.SOOTHING_MIST.manaCost;
-    spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustHealing;
+    spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }
 
   getEnvelopingMistsDetails(spellInfo) {
-    spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustHealing + this.envelopingMists.healingIncrease;
+    spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustsHealing + this.envelopingMists.healingIncrease;
     return spellInfo;
   }
 
@@ -70,7 +70,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getRenewingMistDetails(spellInfo) {
     // Vivify splashes due to ReM should be attributed to ReM's value, because without casting ReM, you wouldn't get the splash.
-    spellInfo.healingDone = this.renewingMist.totalHealing + this.vivify.remVivifyHealing + this.renewingMist.gustHealing;
+    spellInfo.healingDone = this.renewingMist.totalHealing + this.vivify.remVivifyHealing + this.renewingMist.gustsHealing;
     spellInfo.overhealingDone = this.renewingMist.totalOverhealing;
     spellInfo.healingAbsorbed = this.renewingMist.totalAbsorbs;
     spellInfo.healingHits = this.renewingMist.healingHits;
@@ -79,7 +79,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getVivifyDetails(spellInfo) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
-    spellInfo.healingDone = spellInfo.healingDone + this.vivify.gustHealing - this.vivify.remVivifyHealing;
+    spellInfo.healingDone = spellInfo.healingDone + this.vivify.gustsHealing - this.vivify.remVivifyHealing;
     return spellInfo;
   }
 }

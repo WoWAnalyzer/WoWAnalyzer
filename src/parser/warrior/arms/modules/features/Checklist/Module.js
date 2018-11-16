@@ -39,7 +39,7 @@ class Checklist extends Analyzer {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
           badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
-          executionersPrecision: this.executionersPrecision.wastedExecutionersPrecisionTresholds,
+          badMortalStrikeWithEP: this.executionersPrecision.badMortalStrikeCastThresholds,
         }}
       />
     );
