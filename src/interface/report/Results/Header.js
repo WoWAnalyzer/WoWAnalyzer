@@ -7,6 +7,11 @@ import getBossName from 'common/getBossName';
 import SpecIcon from 'common/SpecIcon';
 
 import SkullRaidMarker from './images/skull-raidmarker.png';
+import ChecklistIcon from 'interface/icons/Checklist';
+import SuggestionIcon from 'interface/icons/Suggestion';
+import StatisticsIcon from 'interface/icons/Statistics';
+import TimelineIcon from 'interface/icons/Timeline';
+import ArmorIcon from 'interface/icons/Armor';
 
 class Headers extends React.PureComponent {
   static propTypes = {
@@ -29,18 +34,50 @@ class Headers extends React.PureComponent {
 
     return (
       <header>
-        <div className={`player ${spec.className.replace(' ', '')}`}>
-          {playerIcon ? <img src={playerIcon} alt="" /> : <SpecIcon id={spec.id} style={{ marginTop: 0 }} />}{' '}
-          <Textfit mode="single" max={80}>
-            {playerName}
-          </Textfit>
-        </div>
-        <div className="versus"><Trans>versus</Trans></div>
+        <div className="background" style={{ backgroundImage: `url(${boss.background})` }} />
         <div className="boss">
-          <img src={boss ? boss.headshot : SkullRaidMarker} alt="" />
-          <Textfit mode="single" max={80}>
-            {getBossName(fight)}
-          </Textfit>
+          {getBossName(fight)}
+        </div>
+
+        <div className="flex tab-selection">
+          <div>
+            <ul>
+              <li>
+                <ChecklistIcon />
+                <Trans>Checklist</Trans>
+              </li>
+              <li>
+                <SuggestionIcon />
+                <Trans>Suggestions</Trans>
+              </li>
+              <li>
+                <StatisticsIcon />
+                <Trans>Statistics</Trans>
+              </li>
+              <li>
+                <TimelineIcon />
+                <Trans>Timeline</Trans>
+              </li>
+              <li>
+                Abilities
+              </li>
+              <li>
+                Focus Chart
+              </li>
+              <li>
+                Cooldowns
+              </li>
+              <li>
+                Events
+              </li>
+              <li>
+                <ArmorIcon /> <Trans>Character</Trans>
+              </li>
+              <li>
+                About
+              </li>
+            </ul>
+          </div>
         </div>
       </header>
     );

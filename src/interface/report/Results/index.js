@@ -11,6 +11,7 @@ import ChecklistIcon from 'interface/icons/Checklist';
 import SuggestionIcon from 'interface/icons/Suggestion';
 import ArmorIcon from 'interface/icons/Armor';
 import StatisticsIcon from 'interface/icons/Statistics';
+import TimelineIcon from 'interface/icons/Timeline';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
@@ -83,35 +84,6 @@ class Results extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
-  renderMainTabLabel(tab) {
-    switch (tab) {
-      case MAIN_TAB.CHECKLIST:
-        return (
-          <>
-            <ChecklistIcon /> <Trans>Checklist</Trans>
-          </>
-        );
-      case MAIN_TAB.SUGGESTIONS:
-        return (
-          <>
-            <SuggestionIcon /> <Trans>Suggestions</Trans>
-          </>
-        );
-      case MAIN_TAB.CHARACTER:
-        return (
-          <>
-            <ArmorIcon /> <Trans>Character</Trans>
-          </>
-        );
-      case MAIN_TAB.STATS:
-        return (
-          <>
-            <StatisticsIcon /> <Trans>Statistics</Trans>
-          </>
-        );
-      default: return tab;
-    }
-  }
   renderFightDowntimeToggle() {
     return (
       <div className="toggle-control" style={{ marginTop: 5 }}>
@@ -231,73 +203,12 @@ class Results extends React.PureComponent {
 
     return (
       <div key={this.state.adjustForDowntime}>
-        <div className="row">
-          <div className="col-md-4">
-            <About config={config} />
-
-            <div>
-              <a
-                href={makeWclUrl(report.code, { fight: fight.id, source: parser.playerId })}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 24 }}
-                data-tip={i18n._(t`View the original report`)}
-              >
-                <img src="/img/wcl.png" alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-              </a>
-              {' '}
-              <a
-                href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 24 }}
-                data-tip={i18n._(t`View insights and timelines for raid encounters`)}
-              >
-                <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-              </a>
-              {' '}
-              {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
-                <Link 
-                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
-                  data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
-                  className="btn"
-                  style={{ fontSize: 24 }}
-                >
-                  <img src="/favicon.png" alt="WoWAnalyzer logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
-                </Link>
-              )}
-            </div>
-          </div>
-          <div className="col-md-8">
-            <div className="panel tabbed">
-              <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-                <div className="navigation item-divider">
-                  <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {Object.values(MAIN_TAB).map(tab => (
-                      <button
-                        key={tab}
-                        className={this.state.mainTab === tab ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => {
-                          this.setState({
-                            mainTab: tab,
-                          });
-                        }}
-                      >
-                        {this.renderMainTabLabel(tab)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <ResultsWarning warning={this.warning} />
-                  <ErrorBoundary>
-                    {this.state.mainTab === MAIN_TAB.CHECKLIST && this.renderChecklist()}
-                    {this.state.mainTab === MAIN_TAB.SUGGESTIONS && <SuggestionsTab issues={results.issues} />}
-                    {this.state.mainTab === MAIN_TAB.CHARACTER && characterTab.render()}
-                    {this.state.mainTab === MAIN_TAB.STATS && encounterPanel.render()}
-                  </ErrorBoundary>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel">
+                <div className="panel-body" style={{ padding: 0 }}>
+                  {this.renderChecklist()}
                 </div>
               </div>
             </div>
@@ -309,24 +220,6 @@ class Results extends React.PureComponent {
             <Ad format="leaderboard" />
           </div>
         )}
-
-        {this.renderStatistics(results.statistics)}
-
-        {!premium && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-            <Ad format="leaderboard" />
-          </div>
-        )}
-
-        <StatisticsSectionTitle>
-          <Trans>Details</Trans>
-        </StatisticsSectionTitle>
-
-        <DetailsTabPanel
-          tabs={results.tabs}
-          selected={selectedDetailsTab}
-          makeTabUrl={makeTabUrl}
-        />
       </div>
     );
   }
@@ -338,24 +231,17 @@ class Results extends React.PureComponent {
     const selectedCombatant = combatants.selected;
 
     return (
-      <>
-        {/* TODO: Put this in a higher component such as ConfigLoader to make it easier to switch fights early */}
-        <FightNavigationBar />
+      <div className="results">
+        <Header
+          config={config}
+          playerName={selectedCombatant.name}
+          playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
+          boss={parser.boss}
+          fight={fight}
+        />
 
-        <div className="container">
-          <div className="results">
-            <Header
-              config={config}
-              playerName={selectedCombatant.name}
-              playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
-              boss={parser.boss}
-              fight={fight}
-            />
-
-            {this.renderContent()}
-          </div>
-        </div>
-      </>
+        {this.renderContent()}
+      </div>
     );
   }
 }

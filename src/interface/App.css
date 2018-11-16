@@ -24,11 +24,10 @@ body {
 }
 .container {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1200px;
 }
 @media (min-width: 1200px) {
   .container {
-    padding: 0 60px;
   }
   .hpadding-lg-30 {
     padding-left: 30px;

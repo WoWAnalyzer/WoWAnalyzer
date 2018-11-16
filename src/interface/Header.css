@@ -26,7 +26,7 @@
   pointer-events: none;
 }
 .app:not(.show-report-selecter) > header {
-  margin-top: -440px;
+  margin-top: -535px;
   margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
