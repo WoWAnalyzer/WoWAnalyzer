@@ -13,6 +13,8 @@ import StatisticBox from 'interface/others/StatisticBox';
 import DemoPets from '../pets/DemoPets';
 
 const BONUS_DAMAGE_PER_PET = 0.05;
+const MAX_TRAVEL_TIME = 3000; // Shadow Bolt is the slowest, takes around 2 seconds to land from max distance, add a little more to account for target movement
+const debug = false;
 /*
   Sacrificed Souls:
     Shadow Bolt and Demonbolt deal 5% additional damage per demon you have summoned.
@@ -24,17 +26,42 @@ class SacrificedSouls extends Analyzer {
 
   _shadowBoltDamage = 0;
   _demonboltDamage = 0;
+  _queue = [];
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SACRIFICED_SOULS_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHADOW_BOLT_DEMO, SPELLS.DEMONBOLT]), this.handleCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHADOW_BOLT_DEMO, SPELLS.DEMONBOLT]), this.handleDamage);
   }
 
-  // TODO: rework into on cast snapshotting if necessary
-  handleDamage(event) {
+  // essentially same snapshotting mechanic as in Destruction's Eradication
+  handleCast(event) {
     const bonus = this.demoPets.getPetCount() * BONUS_DAMAGE_PER_PET;
-    const bonusDamage = calculateEffectiveDamage(event, bonus);
+    this._queue.push({
+      timestamp: event.timestamp,
+      spellId: event.ability.guid,
+      targetID: event.targetID,
+      targetInstance: event.targetInstance,
+      bonus,
+    });
+    debug && this.log('Pushed a cast into queue', JSON.parse(JSON.stringify(this._queue)));
+  }
+
+  handleDamage(event) {
+    // filter out old casts if there are any
+    this._queue = this._queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
+    const castIndex = this._queue
+      .findIndex(cast => cast.targetID === event.targetID
+                      && cast.targetInstance === event.targetInstance
+                      && cast.spellId === event.ability.guid);
+    if (castIndex === -1) {
+      debug && this.error('Encountered damage event with no cast associated. Queue', JSON.parse(JSON.stringify(this._queue)), 'event', event);
+      return;
+    }
+    debug && this.log('Paired damage event', event, 'with queued cast', JSON.parse(JSON.stringify(this._queue[castIndex])));
+    const bonusDamage = calculateEffectiveDamage(event, this._queue[castIndex].bonus);
+    this._queue.splice(castIndex, 1);
     if (event.ability.guid === SPELLS.SHADOW_BOLT_DEMO.id) {
       this._shadowBoltDamage += bonusDamage;
     } else {
