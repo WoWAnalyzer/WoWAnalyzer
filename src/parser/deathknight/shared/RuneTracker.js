@@ -336,7 +336,7 @@ class RuneTracker extends ResourceTracker {
           <tbody>
             { //split into good and bad number of runes available
               this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
-                <tr>
+                <tr key={index}>
                   <th>{index}</th>
                   <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
                   <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
@@ -345,7 +345,7 @@ class RuneTracker extends ResourceTracker {
             }
             {
               this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
-                <tr>
+                <tr key={index + badThreshold}>
                   <th style={{ color: 'red' }}>{index + badThreshold}</th>
                   <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
                   <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
