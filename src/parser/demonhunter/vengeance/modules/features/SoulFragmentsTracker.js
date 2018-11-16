@@ -20,11 +20,6 @@ class SoulFragmentsTracker extends Analyzer {
       return;
     }
 
-    const old = event.oldStacks;
-    const neww = event.newStacks;
-    console.log("New stacks", neww);
-    console.log("Old stacks", old);
-
     this.currentSouls = event.newStacks;
 
     if (event.oldStacks > MAX_SOUL_FRAGMENTS) {
