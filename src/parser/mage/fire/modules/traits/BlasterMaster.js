@@ -71,8 +71,8 @@ class BlasterMaster extends Analyzer {
       actual: this.averageStacksPerCombustion,
       isLessThan: {
         minor: 4,
-        average: 3.5,
-        major: 3,
+        average: 3,
+        major: 2,
       },
       style: 'number',
     };
@@ -84,7 +84,7 @@ class BlasterMaster extends Analyzer {
         return suggest(<>On average, you got {this.averageStacksPerCombustion.toFixed(2)} stacks of <SpellLink id={SPELLS.BLASTER_MASTER.id} /> per <SpellLink id={SPELLS.COMBUSTION.id} /> cast. In order to maximize the use of the trait, you should aim for getting to 4 stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to <a href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png" target="_blank" rel="noopener noreferrer">this graphic</a></>)
           .icon(SPELLS.BLASTER_MASTER.icon)
           .actual(`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`)
-          .recommended(`<${formatNumber(recommended)}% is recommended`);
+          .recommended(`${formatNumber(recommended)} is recommended`);
       });
   }
 
