@@ -14,6 +14,8 @@ import Abilities from './modules/features/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 
+import BlasterMaster from './modules/traits/BlasterMaster';
+
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
@@ -52,6 +54,9 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
+
+    //Traits
+    blasterMaster: BlasterMaster,
 
     // Talents
     mirrorImage: MirrorImage,
