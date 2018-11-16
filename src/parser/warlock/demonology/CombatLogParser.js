@@ -22,6 +22,7 @@ import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNorm
 import DemonicCalling from './modules/talents/DemonicCalling';
 import FromTheShadows from './modules/talents/FromTheShadows';
 import SoulStrike from './modules/talents/SoulStrike';
+import SummonVilefiend from './modules/talents/SummonVilefiend';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicCalling: DemonicCalling,
     fromTheShadows: FromTheShadows,
     soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
     grimoireFelguard: GrimoireFelguard,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
