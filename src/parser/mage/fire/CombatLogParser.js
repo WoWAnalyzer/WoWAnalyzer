@@ -21,6 +21,8 @@ import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import Kindling from './modules/features/Kindling';
 import HotStreak from './modules/features/HotStreak';
+import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
+import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
@@ -47,6 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     cancelledCasts: CancelledCasts,
     hotStreak: HotStreak,
+    hotStreakPreCasts: HotStreakPreCasts,
+    hotStreakWastedCrits: HotStreakWastedCrits,
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
