@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const TON_SCALE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 1,
@@ -68,7 +69,7 @@ class TrainingOfNiuzao extends Analyzer {
     const moderateMastery = TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id] * this.mastery;
     const heavyMastery = TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id] * this.mastery;
 
-    // the `this.owner._modules.statTracker` bit is used because atm
+    // the `this.owner.getModule(StatTracker)` bit is used because atm
     // StatTracker ALSO imports this module so that the mastery
     // calculation isn't done inline over there. it is possible to
     // import StatTracker, but not to set it as a dependency.
@@ -76,7 +77,7 @@ class TrainingOfNiuzao extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRAINING_OF_NIUZAO.id}
-        value={`${formatPercentage(this.owner._modules.statTracker.masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
+        value={`${formatPercentage(this.owner.getModule(StatTracker).masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
         tooltip={`Contribution Breakdown:
           <ul>
           <li>No Stagger: <b>${formatPercentage(1 - lightUptime - moderateUptime - heavyUptime)}%</b> of the fight.</li>

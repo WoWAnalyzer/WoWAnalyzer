@@ -1,4 +1,5 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 class TestCombatLogParser extends CombatLogParser {
   static defaultModules = {};
@@ -7,8 +8,6 @@ class TestCombatLogParser extends CombatLogParser {
   byPlayer = jest.fn(() => true);
   toPlayerPet = jest.fn(() => true);
   byPlayerPet = jest.fn(() => true);
-  fabricateEvent = jest.fn(super.fabricateEvent);
-  triggerEvent = jest.fn(super.triggerEvent);
 
   get currentTimestamp() {
     return super.currentTimestamp;
@@ -44,7 +43,7 @@ class TestCombatLogParser extends CombatLogParser {
   }
 
   processEvents(events) {
-    events.forEach(event => this.triggerEvent(event));
+    events.forEach(event => this.getModule(EventEmitter).triggerEvent(event));
   }
 }
 

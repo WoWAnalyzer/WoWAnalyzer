@@ -12,7 +12,7 @@ describe('Brewmaster.IronskinBrew', () => {
   let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule('isb', IronSkinBrew, {
+    module = parser.loadModule(IronSkinBrew, {
       enemies: ENEMIES,
       brews: {
         consumeCharge: () => {},

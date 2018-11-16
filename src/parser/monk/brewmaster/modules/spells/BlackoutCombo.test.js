@@ -9,7 +9,7 @@ describe('Brewmaster.BlackoutCombo', () => {
   let module;
   beforeEach(() => {
     parser = new TestCombatLogParser();
-    module = parser.loadModule('blackoutCombo', BlackoutCombo);
+    module = parser.loadModule(BlackoutCombo);
   });
   it('blackout combo is active by default', () => {
     expect(module.active).toBe(true);

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import Abilities from './Abilities';
 
@@ -15,6 +15,7 @@ function spellName(spellId) {
 
 class SpellUsable extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     abilities: Abilities,
   };
 
@@ -291,7 +292,7 @@ class SpellUsable extends Analyzer {
       }
     }
 
-    this.owner.fabricateEvent(event);
+    this.eventEmitter.fabricateEvent(event);
   }
 
   on_byPlayer_cast(event) {
