@@ -17,6 +17,11 @@ class Timeline {
     return this.timeline.find(filter);
   }
 
+  filter(predicate) {
+    // forward
+    return this.timeline.filter(predicate);
+  }
+
   tryDespawnLastPermanentPet(timestamp) {
     const permanentPets = this.timeline.filter(pet => isPermanentPet(pet.guid));
     if (permanentPets.length > 0) {

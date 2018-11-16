@@ -21,6 +21,7 @@ import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNorm
 
 import DemonicCalling from './modules/talents/DemonicCalling';
 import SoulConduit from './modules/talents/SoulConduit';
+import InnerDemons from './modules/talents/InnerDemons';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     demonicCalling: DemonicCalling,
     soulConduit: SoulConduit,
+    innerDemons: InnerDemons,
     grimoireFelguard: GrimoireFelguard,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
