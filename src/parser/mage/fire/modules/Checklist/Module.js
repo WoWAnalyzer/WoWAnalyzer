@@ -11,6 +11,8 @@ import CombustionPyroclasm from '../features/CombustionPyroclasm';
 import CombustionSpellUsage from '../features/CombustionSpellUsage';
 import HeatingUp from '../features/HeatingUp';
 import HotStreak from '../features/HotStreak';
+import HotStreakWastedCrits from '../features/HotStreakWastedCrits';
+import HotStreakPreCasts from '../features/HotStreakPreCasts';
 import Pyroclasm from '../features/Pyroclasm';
 import SearingTouch from '../features/SearingTouch';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
@@ -29,6 +31,8 @@ class Checklist extends Analyzer {
     combustionSpellUsage: CombustionSpellUsage,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
+    hotStreakWastedCrits: HotStreakWastedCrits,
+    hotStreakPreCasts: HotStreakPreCasts,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
     castEfficiency: CastEfficiency,
@@ -56,8 +60,8 @@ class Checklist extends Analyzer {
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,
           phoenixFlamesHeatingUpUsage: this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,
-          hotStreakWastedCrits: this.hotStreak.wastedCritsThresholds,
-          hotStreakPreCasts: this.hotStreak.castBeforeHotStreakThresholds,
+          hotStreakWastedCrits: this.hotStreakWastedCrits.wastedCritsThresholds,
+          hotStreakPreCasts: this.hotStreakPreCasts.castBeforeHotStreakThresholds,
           pyroclasmUtilization: this.pyroclasm.procUtilizationThresholds,
           searingTouchUtilization: this.searingTouch.suggestionThreshold,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
