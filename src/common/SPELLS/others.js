@@ -629,6 +629,11 @@ export default {
     name: 'Rising Tides',
     icon: 'inv_7_0raid_trinket_04a',
   },
+  VANQUISHED_TENDRIL_OF_GHUUN_SUMMON: {
+    id: 278163,
+    name: 'Vanquished Tendril of G\'huun',
+    icon: 'achievement_nazmir_boss_ghuun',
+  },
   // Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,

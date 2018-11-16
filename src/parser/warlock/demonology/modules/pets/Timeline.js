@@ -36,8 +36,9 @@ class Timeline {
 
   groupPetsBySummonAbility() {
     return this.timeline.reduce((obj, pet) => {
-      const key = pet.summonedBy || 'unknown';
-      const spellName = pet.summonedBy ? SPELLS[pet.summonedBy].name : 'unknown';
+      // if pet is summoned by unknown spell, it gets summonedBy = -1
+      const key = pet.summonedBy !== -1 ? pet.summonedBy : 'unknown';
+      const spellName = (SPELLS[pet.summonedBy] && SPELLS[pet.summonedBy].name) || 'unknown';
       obj[key] = obj[key] || { spellName, pets: [] };
       obj[key].pets.push(pet);
       return obj;
