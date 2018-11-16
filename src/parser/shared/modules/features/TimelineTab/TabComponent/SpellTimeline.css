@@ -98,7 +98,11 @@
   box-shadow: 0 0 11px red;
   border-radius: 2px;
 }
-
+.spell-timeline .events .cancelled {
+  box-sizing: content-box;
+  filter: grayscale(100%);
+  box-shadow: 0 0 11px grey;
+}
 .spell-timeline .events .enhanced {
   border: 2px solid rgb(226, 226, 226);
   box-sizing: content-box;

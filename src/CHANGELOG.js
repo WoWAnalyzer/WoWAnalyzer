@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-11-16'),
+    changes: 'Added cancelled casts to the timeline.',
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-11-14'),
     changes: <>Added <SpellLink id={SPELLS.GIFT_OF_THE_NAARU_MAGE.id} /> to ability list.</>,
     contributors: [Dambroda],

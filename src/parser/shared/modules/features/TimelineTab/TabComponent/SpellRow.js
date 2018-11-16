@@ -95,6 +95,28 @@ class SpellRow extends React.PureComponent {
               </div>
             );
           }
+          if (event.type === 'begincast' && event.isCancelled) {
+            const top = buffEvents ? 1 : -1;
+            const height = 22; // only used if buffEvents
+            const offset = 6 * secondWidth; // moving the cast slightly so it doesn't get fully covered up
+            return (
+              <div
+                key={index}
+                style={{
+                  left: (event.timestamp + offset - start) / 1000 * secondWidth,
+                  top, // without this, icon vertical positioning slightly off...
+                  zIndex: 8,
+                }}
+              >
+                <SpellIcon
+                  id={event.ability.guid}
+                  className={'cancelled'}
+                  data-tip={`This ${event.ability.name} cast was cancelled`}
+                  style={buffEvents ? { height } : {}}
+                />
+              </div>
+            );
+          }
           if (showCooldowns && event.type === 'updatespellusable' && (event.trigger === 'endcooldown' || event.trigger === 'restorecharge')) {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
