@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox from 'interface/others/StatisticBox';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
