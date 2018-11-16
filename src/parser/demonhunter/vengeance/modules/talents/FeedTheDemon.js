@@ -27,9 +27,9 @@ class FeedTheDemon extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
+    if (spellId !== SPELLS.CONSUME_SOUL_VDH.id) {
       return;
     }
     if (!this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id)){
