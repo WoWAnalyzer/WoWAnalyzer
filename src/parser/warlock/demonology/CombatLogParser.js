@@ -24,6 +24,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import InnerDemons from './modules/talents/InnerDemons';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
+import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     innerDemons: InnerDemons,
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
+    demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
