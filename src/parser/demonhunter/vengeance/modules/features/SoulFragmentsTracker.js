@@ -9,18 +9,21 @@ class SoulFragmentsTracker extends Analyzer {
   soulsGenerated = 0;
 
   // souls generated above the maximum 5 that can be held
-  soulsWasted = 0;
+  overcap = 0;
 
   soulsSpent = 0;
   currentSouls = 0;
-
-  soulsConsumedBySpell = [];
 
   on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
     }
+
+    const old = event.oldStacks;
+    const neww = event.newStacks;
+    console.log("New stacks", neww);
+    console.log("Old stacks", old);
 
     this.currentSouls = event.newStacks;
 
@@ -35,14 +38,14 @@ class SoulFragmentsTracker extends Analyzer {
       this.soulsSpent += spent;
       return;
     }
-    
+
     // souls are being generated
     const gained = event.newStacks - event.oldStacks;
     this.soulsGenerated += gained;
-    
+
     if (event.newStacks > MAX_SOUL_FRAGMENTS) {
       // generating souls above the max
-      this.soulsWasted += (event.newStacks - MAX_SOUL_FRAGMENTS);
+      this.overcap += (event.newStacks - MAX_SOUL_FRAGMENTS);
     }
   }
 }
