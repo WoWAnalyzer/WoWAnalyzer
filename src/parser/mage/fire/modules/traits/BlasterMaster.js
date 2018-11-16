@@ -93,9 +93,9 @@ class BlasterMaster extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLASTER_MASTER.id}
-        value={(<>{this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion<br /></>)}
+        value={`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`}
         tooltip={
-          `Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you shoud aim to get to 4 stacks of the Blaster Master during Combustion. For additional information on how to adjust your rotation to accomplish this, refer to the Mage Discord or the link in the Suggestion.`
+          `Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to 4 stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion.`
         }
       />
     );
