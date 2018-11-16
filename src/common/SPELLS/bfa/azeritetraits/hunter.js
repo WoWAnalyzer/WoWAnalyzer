@@ -41,6 +41,11 @@ export default {
     name: 'Primal Instincts',
     icon: 'spell_nature_protectionformnature',
   },
+  PACK_ALPHA: {
+    id: 278528,
+    name: 'Pack Alpha',
+    icon: 'ability_hunter_pet_wolf',
+  },
 
   //Marksmanship
   STEADY_AIM: {

@@ -8,6 +8,7 @@ class ArcaneTorrent extends Analyzer {
     abilities: Abilities,
   };
 
+  gcd = 1500;
   castEfficiency = 0.8;
   extraSuggestion = null;
 
@@ -17,6 +18,8 @@ class ArcaneTorrent extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    this.gcd = (options.gcd === undefined) ? this.gcd : options.gcd;
     this.castEfficiency = (options.castEfficiency === undefined) ? this.castEfficiency : options.castEfficiency;
 
     this.abilities.add({
@@ -24,7 +27,7 @@ class ArcaneTorrent extends Analyzer {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 90,
       gcd: {
-        base: 1500,
+        base: this.gcd,
       },
       timelineSortIndex: 35,
       castEfficiency: {

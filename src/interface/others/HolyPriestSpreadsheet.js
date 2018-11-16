@@ -1,6 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingReceived from 'parser/priest/holy/modules/features/HealingReceived';
+import DamageTaken from 'parser/shared/modules/DamageTaken';
+import DeathTracker from 'parser/shared/modules/DeathTracker';
+import ManaValues from 'parser/shared/modules/ManaValues';
+import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
+import HealingTargetTracker from 'parser/priest/holy/modules/features/HealingTargetTracker';
+import CosmicRipple from 'parser/priest/holy/modules/talents/45/CosmicRipple';
 
 class HolyPriestSpreadsheet extends React.Component {
   static propTypes = {
@@ -15,7 +26,7 @@ class HolyPriestSpreadsheet extends React.Component {
       table: { borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px' },
     };
 
-    const getAbility = spellId => parser._modules.abilityTracker.getAbility(spellId);
+    const getAbility = spellId => parser.getModule(AbilityTracker).getAbility(spellId);
 
     const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(5);
 
@@ -38,7 +49,7 @@ class HolyPriestSpreadsheet extends React.Component {
     };
 
     const castEfficiency = (spellId) => {
-      const efficiency = parser._modules.CastEfficiency.getCastEfficiencyForSpellId(spellId, true);
+      const efficiency = parser.getModule(CastEfficiency).getCastEfficiencyForSpellId(spellId, true);
 
       if (!efficiency) {
         return 'N/A';
@@ -173,23 +184,23 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Healing Done</td>
-                <td>{parser._modules.healingDone._total._regular}</td>
+                <td>{parser.getModule(HealingDone)._total._regular}</td>
               </tr>
               <tr>
                 <td>Self Healing</td>
-                <td>{parser._modules.healingReceived.HealingReceivedSelf}</td>
+                <td>{parser.getModule(HealingReceived).HealingReceivedSelf}</td>
               </tr>
               <tr>
                 <td>Damage Taken</td>
-                <td>{parser._modules.damageTaken._total._regular}</td>
+                <td>{parser.getModule(DamageTaken)._total._regular}</td>
               </tr>
               <tr>
                 <td>Deaths</td>
-                <td>{parser._modules.deathTracker.deaths.length}</td>
+                <td>{parser.getModule(DeathTracker).deaths.length}</td>
               </tr>
               <tr>
                 <td>Ending Mana</td>
-                <td>{parser._modules.manaValues.endingMana}</td>
+                <td>{parser.getModule(ManaValues).endingMana}</td>
               </tr>
               <tr>
                 <td>Fight Length</td>
@@ -197,19 +208,19 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Sanctify CDR (s)</td>
-                <td>{parser._modules.holyWordSanctify.rawReduction / 1000}</td>
+                <td>{parser.getModule(HolyWordSanctify).rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR (s)</td>
-                <td>{parser._modules.holyWordSerenity.rawReduction / 1000}</td>
+                <td>{parser.getModule(HolyWordSerenity).rawReduction / 1000}</td>
               </tr>
               <tr>
                 <td>Sanctify CDR wasted (s)</td>
-                <td>{parser._modules.holyWordSanctify.overcast / 1000}</td>
+                <td>{parser.getModule(HolyWordSanctify).overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Serenity CDR wasted (s)</td>
-                <td>{parser._modules.holyWordSerenity.overcast / 1000}</td>
+                <td>{parser.getModule(HolyWordSerenity).overcast / 1000}</td>
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
@@ -254,11 +265,11 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Total Raw Healing</td>
-                <td>{parser._modules.healingTargetTracker.rawHealingDoneTotal}</td>
+                <td>{parser.getModule(HealingTargetTracker).rawHealingDoneTotal}</td>
               </tr>
               <tr>
                 <td>Total Raw Self Healing</td>
-                <td>{parser._modules.healingTargetTracker.rawHealingDoneToSelf}</td>
+                <td>{parser.getModule(HealingTargetTracker).rawHealingDoneToSelf}</td>
               </tr>
 
             </tbody>
@@ -359,7 +370,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>{parser._modules.CosmicRipple.totalHits/parser._modules.CosmicRipple.totalRipples}</td>
+                <td>{parser.getModule(CosmicRipple).totalHits/parser.getModule(CosmicRipple).totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>

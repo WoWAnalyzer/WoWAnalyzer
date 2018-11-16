@@ -221,6 +221,11 @@ export default {
     name: 'Feast of Souls Heal',
     icon: 'spell_shadow_soulleech',
   },
+  CONSUME_SOUL_VDH: {
+    id: 203794,
+    name: 'Consume Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
 
   // Havoc
   //T21 Bonus

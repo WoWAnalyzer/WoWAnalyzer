@@ -554,6 +554,16 @@ export default {
     name: 'Galvanizing Spark',
     icon: 'spell_arcane_arcane03',
   },
+  BLASTER_MASTER: {
+    id: 274596,
+    name: 'Blaster Master',
+    icon: 'spell_fire_fireball',
+  },
+  BLASTER_MASTER_BUFF: {
+    id: 274598,
+    name: 'Blaster Master',
+    icon: 'spell_fire_fireball',
+  },
 
   //Tier Sets
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {

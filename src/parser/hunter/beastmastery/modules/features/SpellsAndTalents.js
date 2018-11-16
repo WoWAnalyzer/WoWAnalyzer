@@ -8,7 +8,6 @@ import Analyzer from 'parser/core/Analyzer';
 import Barrage from 'parser/hunter/shared/modules/talents/Barrage';
 import ChimaeraShot from 'parser/hunter/beastmastery/modules/talents/ChimaeraShot';
 import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
-import Stomp from 'parser/hunter/beastmastery/modules/talents/Stomp';
 import KillerInstinct from 'parser/hunter/beastmastery/modules/talents/KillerInstinct';
 import AspectOfTheBeast from 'parser/hunter/beastmastery/modules/talents/AspectOfTheBeast';
 import BarbedShot from '../spells/BarbedShot';
@@ -23,7 +22,6 @@ class SpellsAndTalents extends Analyzer {
     killerInstinct: KillerInstinct,
     chimaeraShot: ChimaeraShot,
     stampede: Stampede,
-    stomp: Stomp,
     aMurderOfCrows: AMurderOfCrows,
     aspectOfTheBeast: AspectOfTheBeast,
   };
@@ -49,7 +47,6 @@ class SpellsAndTalents extends Analyzer {
         {this.killerInstinct.active && this.killerInstinct.subStatistic()}
         {this.chimaeraShot.active && this.chimaeraShot.subStatistic()}
         {this.stampede.active && this.stampede.subStatistic()}
-        {this.stomp.active && this.stomp.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}
       </StatisticsListBox>

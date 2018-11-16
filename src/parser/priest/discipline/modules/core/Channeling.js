@@ -4,6 +4,8 @@ import Penance from '../spells/Penance';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
+const debug = false;
+
 class Channeling extends CoreChanneling {
   static dependencies = {
     ...CoreChanneling.dependencies,
@@ -58,7 +60,7 @@ class Channeling extends CoreChanneling {
   cancelChannel(event, ability) {
     if (this.isChannelingSpell(SPELLS.PENANCE.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      this.log(
+      debug && this.debug(
         'Marking',
         this._currentChannel.ability.name,
         'as ended since we started casting something else:',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/shared/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -8,12 +8,11 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/P
 
 import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
 import Consecration from '../../spells/Consecration';
+import LightOfTheProtector from '../../spells/LightOfTheProtector';
 
 import Component from './Component';
 
-
-
-class Checklist extends Analyzer{
+class Checklist extends BaseChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,
@@ -21,6 +20,7 @@ class Checklist extends Analyzer{
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
+    lotp: LightOfTheProtector,
   };
 
   render(){
@@ -28,10 +28,15 @@ class Checklist extends Analyzer{
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
+        extras={{
+          lotpAbility: this.lotp._activeSpell,
+        }}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           consecration: this.consecration.uptimeSuggestionThresholds,
           shieldOfTheRighteous: this.shieldOfTheRighteous.suggestionThresholds,
+          lotpDelay: this.lotp.delaySuggestion,
+          lotpOverheal: this.lotp.overhealSuggestion,
         }}
       />
     );

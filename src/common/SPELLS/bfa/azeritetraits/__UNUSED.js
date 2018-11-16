@@ -44,7 +44,7 @@ export default {
     name: 'Arrowstorm',
     icon: 'inv_spear_07',
   },
-  ASPECT_OF_THE_CHEETAH: {
+  ASPECT_OF_THE_CHEETAH_AZERITE: {
     id: 263829,
     name: 'Aspect of the Cheetah',
     icon: 'ability_mount_jungletiger',

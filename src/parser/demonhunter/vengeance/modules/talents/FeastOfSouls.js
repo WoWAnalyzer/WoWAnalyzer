@@ -2,7 +2,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatNumber, formatPercentage } from 'common/format';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
@@ -28,7 +29,7 @@ class FeastOfSouls extends Analyzer {
   statistic() {
     const overHealPercent = this.overHeal/(this.overHeal + this.heal);
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(8)}
         icon={<SpellIcon id={SPELLS.FEAST_OF_SOULS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.heal)}`}

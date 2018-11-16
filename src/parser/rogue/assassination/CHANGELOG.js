@@ -7,6 +7,16 @@ import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-11-13'),
+    changes: <>Fixed cooldown tracking for <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> when targets die with the debuff.</>,
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-11-09'),
     changes: <>Added <SpellLink id={SPELLS.POISON_BOMB_TALENT.id} /> module and updated <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> and <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> modules.</>,
     contributors: [Gebuz],

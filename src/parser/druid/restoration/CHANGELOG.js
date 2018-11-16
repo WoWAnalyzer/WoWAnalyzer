@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: 'Improved flourish module to discount overhealing, resulting in slightly lower values.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-11-09'),
     changes: 'Added checklist and suggestions for WG with high initial overhealing.',
     contributors: [blazyb],
