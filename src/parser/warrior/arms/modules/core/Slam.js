@@ -32,7 +32,7 @@ class Slam extends Analyzer {
       actual: (this.badCast / this.totalCast) || 0,
       isGreaterThan: {
         minor: 0,
-        average: 0.5,
+        average: 0.05,
         major: 0.1,
       },
       style: 'percentage',

@@ -1,9 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Channeling from 'parser/shared/modules/Channeling';
-
-import Abilities from '../Abilities';
-import Haste from './Haste';
 
 const STARLORD_MULTIPLIER = 0.85;
 const NEW_MOON_MULTIPLIER = 2/3;
@@ -13,12 +9,6 @@ const NEW_MOON_MULTIPLIER = 2/3;
  * Since Solar Wrath cast time == GCD the GCD needs to be reduced.
  */
 class GlobalCooldown extends CoreGlobalCooldown {
-  static dependencies = {
-    abilities: Abilities,
-    haste: Haste,
-    channeling: Channeling,
-  };
-
   getGlobalCooldownDuration(spellId) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if ((spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.selectedCombatant.hasBuff(SPELLS.SOLAR_EMP_BUFF.id))

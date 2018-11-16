@@ -12,7 +12,7 @@ class RenewingMist extends Analyzer {
   totalHealing = 0;
   totalOverhealing = 0;
   totalAbsorbs = 0;
-  gustHealing = 0;
+  gustsHealing = 0;
   lastCastTarget = null;
   healingHits = 0;
 

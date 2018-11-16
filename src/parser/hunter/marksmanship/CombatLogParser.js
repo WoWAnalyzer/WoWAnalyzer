@@ -35,6 +35,8 @@ import SerpentSting from './modules/talents/SerpentSting';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
+import BornToBeWild from '../shared/modules/talents/BornToBeWild';
+import BindingShot from '../shared/modules/talents/BindingShot';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
@@ -88,6 +90,8 @@ class CombatLogParser extends CoreCombatLogParser {
     steadyFocus: SteadyFocus,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
+    bornToBeWild: BornToBeWild,
+    bindingShot: BindingShot,
 
     //Azerite Traits
     steadyAim: SteadyAim,

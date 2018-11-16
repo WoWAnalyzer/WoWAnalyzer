@@ -22,12 +22,12 @@ class SliceAndDiceUptime extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SLICE_AND_DICE_TALENT.id} />}
+        position={STATISTIC_ORDER.CORE(100)}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Slice and Dice uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(100);
 }
 
 export default SliceAndDiceUptime;
