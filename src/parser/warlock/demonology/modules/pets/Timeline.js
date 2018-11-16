@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import { DESPAWN_REASONS } from './TimelinePet';
 import { isPermanentPet } from './helpers';
+import PETS from './PETS';
 
 const debug = false;
 
@@ -31,7 +32,9 @@ class Timeline {
   }
 
   getPetsAtTimestamp(timestamp) {
-    return this.timeline.filter(pet => pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
+    // Warlock pet check so this doesn't pick up things like Vanquished Tendrils of G'huun (trinket, spawns a pet that timeline picks up)
+    return this.timeline.filter(pet => this._isWarlockPet(pet.guid) &&
+      pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
   }
 
   groupPetsBySummonAbility() {
@@ -43,6 +46,10 @@ class Timeline {
       obj[key].pets.push(pet);
       return obj;
     }, {});
+  }
+
+  _isWarlockPet(guid) {
+    return isPermanentPet(guid) || !!PETS[guid];
   }
 }
 
