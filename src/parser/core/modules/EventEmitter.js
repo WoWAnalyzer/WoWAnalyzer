@@ -178,7 +178,7 @@ class EventEmitter extends Module {
   fabricateEvent(event = null, trigger = null) {
     this.triggerEvent({
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
+      timestamp: this.owner.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
       ...event,
