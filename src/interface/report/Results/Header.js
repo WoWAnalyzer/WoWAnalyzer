@@ -91,12 +91,28 @@ class Headers extends React.PureComponent {
     return (
       <header>
         <div className="background" style={{ backgroundImage: `url(${boss.background})` }} />
-        <div className="boss">
-          <div className="difficulty">
-            {getDifficulty(fight)}
+        <div className="container">
+          <div className="boss">
+            <div className="difficulty">
+              {getDifficulty(fight)}
+            </div>
+            <div className="name">
+              {getBossName(fight, false)}
+            </div>
           </div>
-          <div className="name">
-            {getBossName(fight, false)}
+          <div className="player">
+            <div className="avatar">
+              <img src={playerIcon} alt="" />
+            </div>
+            <div className={`name ${spec.className.replace(' ', '')}`}>
+              {playerName}
+            </div>
+            <div className="title">
+              Famed Slayer of G'huun
+            </div>
+            <div className="spec">
+              {spec.specName} {spec.className}
+            </div>
           </div>
         </div>
 

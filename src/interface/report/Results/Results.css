@@ -204,6 +204,7 @@
 }
 .tab-selection ul > li {
   flex: 1 1 auto;
+  position: relative;
 }
 .tab-selection ul > li a {
   display: inline-block;
@@ -211,6 +212,16 @@
   font-weight: 400;
   color: #fff;
   border: 2px solid transparent;
+}
+.tab-selection ul > li a:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
 }
 .tab-selection svg {
   display: block;
@@ -254,19 +265,49 @@ nav.global {
   background-size: cover;
   z-index: 0;
 }
+.results > header .container {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
 .results > header .boss {
   line-height: 1;
   position: absolute;
   bottom: 130px;
-  left: 50%;
-  transform: translateX(-600px);
 }
 .results > header .boss .difficulty {
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
   font-size: 1.5em;
   font-weight: 600;
 }
 .results > header .boss .name {
+  color: #f8b700;
+  font-size: 3em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.results > header .player {
+  line-height: 1;
+  position: relative;
+  top: 30px;
+  width: 50%;
+}
+.results > header .player .avatar {
+  float: left;
+  margin-right: 15px;
+}
+.results > header .player .title {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.results > header .player .spec {
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 3px;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+.results > header .player .name {
   color: #f8b700;
   font-size: 3em;
   font-weight: 800;
