@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import Masonry from 'react-masonry-component';
-import Toggle from 'react-toggle';
 import { Trans, t } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -15,22 +12,19 @@ import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { i18n } from 'interface/RootLocalizationProvider';
 import Combatants from 'parser/shared/modules/Combatants';
 import Checklist from 'parser/shared/modules/features/Checklist2/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 
-import FightNavigationBar from '../FightNavigationBar';
+import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
-import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
-import StatisticsSectionTitle from './StatisticsSectionTitle';
 import SuggestionsTab from './SuggestionsTab';
+import Statistics from './Statistics';
 import './Results.css';
-import ChangelogTab from 'interface/others/ChangelogTab';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -79,62 +73,6 @@ class Results extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
-  renderFightDowntimeToggle() {
-    return (
-      <div className="toggle-control" style={{ marginTop: 5 }}>
-        <Toggle
-          defaultChecked={this.state.adjustForDowntime}
-          icons={false}
-          onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
-          id="adjust-for-downtime-toggle"
-        />
-        <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</dfn>)</Trans>
-        </label>
-      </div>
-    );
-  }
-  renderStatisticGroupName(key) {
-    switch (key) {
-      case STATISTIC_CATEGORY.GENERAL: return i18n._(t`Statistics`);
-      case STATISTIC_CATEGORY.TALENTS: return i18n._(t`Talents`);
-      case STATISTIC_CATEGORY.AZERITE_POWERS: return i18n._(t`Azerite Powers`);
-      case STATISTIC_CATEGORY.ITEMS: return i18n._(t`Items`);
-      default: throw new Error(`Unknown category: ${key}`);
-    }
-  }
-  renderStatistics(statistics) {
-    const parser = this.props.parser;
-
-    const groups = statistics.reduce((obj, statistic) => {
-      const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
-      obj[category] = obj[category] || [];
-      obj[category].push(statistic);
-      return obj;
-    }, {});
-
-    return (
-      <>
-        {Object.keys(groups).map(name => {
-          const statistics = groups[name];
-          return (
-            <React.Fragment key={name}>
-              <StatisticsSectionTitle
-                rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
-              >
-                {this.renderStatisticGroupName(name)}
-              </StatisticsSectionTitle>
-
-              <Masonry className="row statistics">
-                {statistics.sort((a, b) => a.props.position - b.props.position)}
-              </Masonry>
-            </React.Fragment>
-          );
-        })}
-      </>
-    );
-  }
-
   get warning() {
     const parser = this.props.parser;
     const boss = parser.boss;
@@ -161,8 +99,6 @@ class Results extends React.PureComponent {
   }
   renderContent(selectedTab, results) {
     const { parser } = this.props;
-    const report = parser.report;
-    const fight = parser.fight;
     const characterTab = parser.getModule(CharacterTab);
     const encounterPanel = parser.getModule(EncounterPanel);
     const config = this.context.config;
@@ -173,7 +109,7 @@ class Results extends React.PureComponent {
       case 'suggestions':
         return <SuggestionsTab issues={results.issues} />;
       case 'statistics':
-        return this.renderStatistics(results.statistics);
+        return <Statistics parser={parser}>{results.statistics}</Statistics>;
       case 'events':
         return <EventsTab parser={parser} />;
       case 'character':
