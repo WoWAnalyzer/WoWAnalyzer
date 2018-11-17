@@ -13,10 +13,13 @@ import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
+import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import Checklist from 'parser/shared/modules/features/Checklist2/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Abilities from 'parser/shared/modules/Abilities';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
@@ -24,6 +27,7 @@ import Header from './Header';
 import About from './About';
 import SuggestionsTab from './SuggestionsTab';
 import Statistics from './Statistics';
+import StatisticsSectionTitle from './StatisticsSectionTitle';
 import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
@@ -101,6 +105,8 @@ class Results extends React.PureComponent {
     const { parser } = this.props;
     const characterTab = parser.getModule(CharacterTab);
     const encounterPanel = parser.getModule(EncounterPanel);
+    const castEfficiency = parser.getModule(CastEfficiency);
+    const abilities = parser.getModule(Abilities);
     const config = this.context.config;
 
     switch (selectedTab) {
@@ -109,7 +115,16 @@ class Results extends React.PureComponent {
       case 'suggestions':
         return <SuggestionsTab issues={results.issues} />;
       case 'statistics':
-        return <Statistics parser={parser}>{results.statistics}</Statistics>;
+        return (
+          <>
+            <Statistics parser={parser}>{results.statistics}</Statistics>
+            <StatisticsSectionTitle>Abilities</StatisticsSectionTitle>
+            <CastEfficiencyComponent
+              categories={abilities.constructor.SPELL_CATEGORIES}
+              abilities={castEfficiency.getCastEfficiency()}
+            />
+          </>
+        );
       case 'events':
         return <EventsTab parser={parser} />;
       case 'character':

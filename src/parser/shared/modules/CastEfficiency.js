@@ -1,14 +1,10 @@
 import React from 'react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
-import { i18n } from 'interface/RootLocalizationProvider';
-import Tab from 'interface/others/Tab';
-import AbilitiesIcon from 'interface/icons/Abilities';
-import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Channeling from 'parser/shared/modules/Channeling';
 
 import Abilities from '../../core/modules/Abilities';
@@ -314,23 +310,6 @@ class CastEfficiency extends Analyzer {
           .staticImportance(ability.castEfficiency.importance);
       });
     });
-  }
-
-  tab() {
-    return {
-      title: i18n._(t`Abilities`),
-      icon: AbilitiesIcon,
-      url: 'abilities',
-      order: 20,
-      render: () => (
-        <Tab>
-          <CastEfficiencyComponent
-            categories={this.abilities.constructor.SPELL_CATEGORIES}
-            abilities={this.getCastEfficiency()}
-          />
-        </Tab>
-      ),
-    };
   }
 }
 
