@@ -30,6 +30,7 @@ import About from './About';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import SuggestionsTab from './SuggestionsTab';
 import './Results.css';
+import ChangelogTab from 'interface/others/ChangelogTab';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -158,73 +159,42 @@ class Results extends React.PureComponent {
       )
     );
   }
-  renderContent() {
-    const { parser, selectedTab, makeTabUrl, premium, characterProfile } = this.props;
+  renderContent(selectedTab, results) {
+    const { parser } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const characterTab = parser.getModule(CharacterTab);
     const encounterPanel = parser.getModule(EncounterPanel);
     const config = this.context.config;
 
-    const results = parser.generateResults({
-      i18n, // TODO: Remove and use singleton
-      adjustForDowntime: this.state.adjustForDowntime,
-    });
-
-    results.tabs.push({
-      title: i18n._(t`Events`),
-      url: 'events',
-      order: 99999,
-      render: () => (
-        <EventsTab
-          parser={parser}
-        />
-      ),
-    });
-    if (process.env.NODE_ENV === 'development') {
-      results.tabs.push({
-        title: i18n._(t`Development`),
-        url: 'development',
-        order: 100000,
-        render: () => (
-          <DevelopmentTab
-            parser={parser}
-            results={results}
-          />
-        ),
-      });
+    switch (selectedTab) {
+      case 'checklist':
+        return this.renderChecklist();
+      case 'suggestions':
+        return <SuggestionsTab issues={results.issues} />;
+      case 'statistics':
+        return this.renderStatistics(results.statistics);
+      case 'events':
+        return <EventsTab parser={parser} />;
+      case 'character':
+        return <>{characterTab.render()}{encounterPanel.render()}</>;
+      case 'about':
+        return <><About config={config} /><ChangelogTab /></>;
+      default:
+        return results.tabs.find(tab => tab.url === selectedTab).render();
     }
-
-    return (
-      <div key={this.state.adjustForDowntime}>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="panel">
-                <div className="panel-body" style={{ padding: 0 }}>
-                  {(!selectedTab || selectedTab === 'checklist') && this.renderChecklist()}
-                  {selectedTab === 'suggestions' && <SuggestionsTab issues={results.issues} />}
-                  {selectedTab === 'character' && <>{characterTab.render()}{encounterPanel.render()}</>}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {!premium && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-            <Ad format="leaderboard" />
-          </div>
-        )}
-      </div>
-    );
   }
   render() {
-    const { parser, characterProfile, makeTabUrl, selectedTab } = this.props;
+    const { parser, characterProfile, makeTabUrl, selectedTab, premium } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
     const combatants = parser.getModule(Combatants);
     const selectedCombatant = combatants.selected;
+
+    const results = parser.generateResults({
+      i18n, // TODO: Remove and use singleton
+      adjustForDowntime: this.state.adjustForDowntime,
+    });
 
     return (
       <div className="results">
@@ -236,9 +206,28 @@ class Results extends React.PureComponent {
           fight={fight}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
+          tabs={results.tabs}
         />
 
-        {this.renderContent()}
+        <div key={this.state.adjustForDowntime}>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="panel">
+                  <div className="panel-body" style={{ padding: 0 }}>
+                    {this.renderContent(selectedTab, results)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {!premium && (
+            <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+              <Ad format="leaderboard" />
+            </div>
+          )}
+        </div>
       </div>
     );
   }

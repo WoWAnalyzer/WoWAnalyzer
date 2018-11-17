@@ -540,12 +540,6 @@ class CombatLogParser {
     const results = new ParseResults();
 
     results.tabs = [];
-    results.tabs.push({
-      title: <ChangelogTabTitle />,
-      url: 'changelog',
-      order: 1000,
-      render: () => <ChangelogTab />,
-    });
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)

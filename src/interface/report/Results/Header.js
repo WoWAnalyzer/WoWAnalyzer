@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
 import getDifficulty from 'common/getDifficulty';
@@ -13,6 +13,7 @@ import TimelineIcon from 'interface/icons/Timeline';
 import ArmorIcon from 'interface/icons/Armor';
 
 import SkullRaidMarker from './images/skull-raidmarker.png';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 class Headers extends React.PureComponent {
   static propTypes = {
@@ -30,10 +31,15 @@ class Headers extends React.PureComponent {
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     selectedTab: PropTypes.string.isRequired,
+    tabs: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.node.isRequired,
+      url: PropTypes.string.isRequired,
+      order: PropTypes.number,
+    })).isRequired,
   };
 
   render() {
-    const { config: { spec }, playerName, playerIcon, boss, fight, makeTabUrl, selectedTab } = this.props;
+    const { config: { spec }, playerName, playerIcon, boss, fight, makeTabUrl, selectedTab, tabs } = this.props;
 
     const pages = [
       {
@@ -51,26 +57,11 @@ class Headers extends React.PureComponent {
         name: <Trans>Statistics</Trans>,
         url: 'statistics',
       },
-      {
-        icon: TimelineIcon,
-        name: <Trans>Timeline</Trans>,
-        url: 'timeline',
-      },
-      {
-        icon: TimelineIcon,
-        name: <Trans>Abilities</Trans>,
-        url: 'abilities',
-      },
-      {
-        icon: TimelineIcon,
-        name: <Trans>Focus Chart</Trans>,
-        url: 'focus-chart',
-      },
-      {
-        icon: TimelineIcon,
-        name: <Trans>Cooldowns</Trans>,
-        url: 'cooldowns',
-      },
+      ...tabs.sort((a, b) => a.order - b.order).map(tab => ({
+        icon: tab.icon || TimelineIcon,
+        name: tab.title,
+        url: tab.url,
+      })),
       {
         icon: TimelineIcon,
         name: <Trans>Events</Trans>,
@@ -87,6 +78,19 @@ class Headers extends React.PureComponent {
         url: 'about',
       },
     ];
+    // if (process.env.NODE_ENV === 'development') {
+    //   results.tabs.push({
+    //     title: i18n._(t`Development`),
+    //     url: 'development',
+    //     order: 100000,
+    //     render: () => (
+    //       <DevelopmentTab
+    //         parser={parser}
+    //         results={results}
+    //       />
+    //     ),
+    //   });
+    // }
 
     return (
       <header>
