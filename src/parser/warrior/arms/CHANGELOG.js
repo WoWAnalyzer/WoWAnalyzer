@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed Overpower events where stacks were applied before casts</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-14'),
     changes: <>Added a suggestion on using <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available.</>,
     contributors: [Matardarix],

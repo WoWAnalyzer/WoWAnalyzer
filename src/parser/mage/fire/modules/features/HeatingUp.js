@@ -191,6 +191,7 @@ class HeatingUp extends Analyzer {
     } else {
       return (
         <StatisticBox
+          position={STATISTIC_ORDER.CORE(14)}
           icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
           value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
           label="Heating Up Utilization"

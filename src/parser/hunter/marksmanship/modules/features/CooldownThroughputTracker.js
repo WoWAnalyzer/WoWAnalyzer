@@ -15,10 +15,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.BINDING_SHOT_STUN.id,
     SPELLS.BINDING_SHOT_TETHER.id,
+    SPELLS.BINDING_SHOT_ROOT.id,
   ];
 }
 
 export default CooldownThroughputTracker;
-

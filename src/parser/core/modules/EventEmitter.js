@@ -14,7 +14,7 @@ const CATCH_ALL_EVENT = 'event';
  */
 class EventEmitter extends Module {
   static __dangerousInvalidUsage = false;
-  static get catchAllEvent() {
+  static get catchAll() {
     return new EventFilter(CATCH_ALL_EVENT);
   }
 
@@ -175,10 +175,10 @@ class EventEmitter extends Module {
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
   }
-  fabricateEvent(event = null, trigger = null) {
+  fabricateEvent(event, trigger = null) {
     this.triggerEvent({
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
+      timestamp: this.owner.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
       ...event,
