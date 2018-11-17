@@ -179,72 +179,12 @@
 
 
 
-.tab-selection {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.4);
-  padding: 0 15px;
-}
-.tab-selection > div {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px 0;
-  text-align: center;
-}
-.tab-selection ul {
-  width: 100%;
-  list-style: none;
-  padding: 0;
-  display: flex;
-}
-.tab-selection ul > li {
-  flex: 1 1 auto;
-  position: relative;
-}
-.tab-selection ul > li a {
-  display: inline-block;
-  padding: 10px;
-  font-weight: 400;
-  color: #fff;
-  border: 2px solid transparent;
-}
-.tab-selection ul > li a:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-}
-.tab-selection svg {
-  display: block;
-  margin: 0 auto;
-  font-size: 24px;
-  color: #f8b700;
-}
-.tab-selection ul > li a:hover {
-  border-top: 2px solid rgba(248, 183, 0, 0.7);
-  border-bottom: 2px solid rgba(248, 183, 0, 0.7);
-  text-decoration: none;
-}
-.tab-selection ul > li a:focus {
-  text-decoration: none;
-}
-.tab-selection ul > li.active a {
-  border-top: 2px solid rgba(248, 183, 0, 1);
-  border-bottom: 2px solid rgba(248, 183, 0, 1);
-}
 
+/*TODO: Permanent solution */
 nav.global {
   display: none;
 }
+
 .results > header {
   position: relative;
   background: #150a0a;
@@ -288,13 +228,20 @@ nav.global {
 }
 .results > header .player {
   line-height: 1;
-  position: relative;
-  top: 30px;
-  width: 50%;
+  margin-top: 20px;
+  margin-left: -10px;
+  padding: 10px;
+  display: flex;
+  float: left; /* makes the div auto-size without changing the display prop */
+  border: 1px solid transparent;
 }
 .results > header .player .avatar {
   float: left;
   margin-right: 15px;
+  flex: 0;
+}
+.results > header .player .details {
+  flex: 1;
 }
 .results > header .player .title {
   color: #fff;
@@ -312,4 +259,134 @@ nav.global {
   font-size: 3em;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.tab-selection {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+  padding: 0 15px;
+}
+.tab-selection > div {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 0;
+  text-align: center;
+}
+.tab-selection ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+.tab-selection ul > li {
+  flex: 1 1 auto;
+  position: relative;
+}
+.tab-selection ul > li a {
+  display: inline-block;
+  padding: 10px;
+  font-weight: 400;
+  color: #fff;
+  border: 2px solid transparent;
+}
+.tab-selection ul > li a:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+}
+.tab-selection ul > li a:hover:before, .tab-selection ul > li.active a:before {
+  background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
+.tab-selection svg {
+  display: block;
+  margin: 0 auto;
+  font-size: 24px;
+  color: #f8b700;
+}
+.tab-selection ul > li a:hover {
+  border-top: 2px solid rgba(248, 183, 0, 0.7);
+  border-bottom: 2px solid rgba(248, 183, 0, 0.7);
+  text-decoration: none;
+}
+.tab-selection ul > li a:focus {
+  text-decoration: none;
+}
+.tab-selection ul > li.active a {
+  border-top: 2px solid rgba(248, 183, 0, 1);
+  border-bottom: 2px solid rgba(248, 183, 0, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ghuun easter egg. TODO: Chunk this */
+.tab-selection > div {
+  position: relative;
+}
+.tab-selection > div > ul {
+  animation: GhuunMenuBar 1.5s linear;
+}
+.tab-selection > div:before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 0%;
+  top: 8px;
+  height: 100%;
+  background-image: url(../images/Ghuun.gif);
+  background-repeat: no-repeat;
+  transform: scaleX(-1) translateX(50%);
+  width: 130px;
+  animation: Ghuun 1.5s linear forwards;
+}
+@keyframes Ghuun {
+  0% {
+    left: 0%;
+  }
+  99% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes GhuunMenuBar {
+  0% {
+    clip-path: inset(0% 100% 0% 0%);
+  }
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
 }

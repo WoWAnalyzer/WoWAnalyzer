@@ -234,7 +234,7 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedTab: getResultTab(state),
+  selectedTab: getResultTab(state) || 'checklist',
   premium: hasPremium(state),
 });
 

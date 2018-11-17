@@ -110,14 +110,16 @@ class Headers extends React.PureComponent {
             <div className="avatar">
               <img src={playerIcon} alt="" />
             </div>
-            <div className={`name ${spec.className.replace(' ', '')}`}>
-              {playerName}
-            </div>
-            <div className="title">
-              Famed Slayer of G'huun
-            </div>
-            <div className="spec">
-              {spec.specName} {spec.className}
+            <div className="details">
+              <div className={`name ${spec.className.replace(' ', '')}`}>
+                {playerName}
+              </div>
+              <div className="title">
+                Famed Slayer of G'huun
+              </div>
+              <div className="spec">
+                {spec.specName} {spec.className}
+              </div>
             </div>
           </div>
         </div>
