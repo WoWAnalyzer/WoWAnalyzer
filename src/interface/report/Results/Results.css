@@ -180,15 +180,20 @@
 
 
 .tab-selection {
-  border-bottom: 4px solid rgba(0, 0, 0, 0.4);
-  /*background: #150a0a;*/
-  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.4);
 }
 .tab-selection > div {
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
+  text-align: center;
 }
 .tab-selection ul {
   width: 100%;
@@ -198,7 +203,12 @@
 }
 .tab-selection ul > li {
   flex: 1 1 auto;
+}
+.tab-selection ul > li a {
+  display: inline-block;
   padding: 10px;
+  color: #fff;
+  font-weight: 400;
 }
 .tab-selection svg {
   display: block;
@@ -225,27 +235,26 @@ nav.global {
   height: 100%;
   max-width: 1400px;
   background-repeat: no-repeat;
-  background-position: center -50px;
+  background-position: center -50px; /* TODO: -50px for taloc/mother, but center for Vectis */
   mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
   background-size: cover;
   z-index: 0;
 }
 .results > header .boss {
-  font-size: 3em;
   line-height: 1;
-  font-weight: 800;
-  color: #f8b700;
-  text-transform: uppercase;
   position: absolute;
   bottom: 130px;
   left: 50%;
   transform: translateX(-600px);
 }
-.results > header .tab-selection {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
+.results > header .boss .difficulty {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.results > header .boss .name {
+  color: #f8b700;
+  font-size: 3em;
+  font-weight: 800;
+  text-transform: uppercase;
 }

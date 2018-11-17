@@ -208,7 +208,9 @@ class Results extends React.PureComponent {
             <div className="col-md-12">
               <div className="panel">
                 <div className="panel-body" style={{ padding: 0 }}>
-                  {this.renderChecklist()}
+                  {(!selectedDetailsTab || selectedDetailsTab === 'checklist') && this.renderChecklist()}
+                  {selectedDetailsTab === 'suggestions' && <SuggestionsTab issues={results.issues} />}
+                  {selectedDetailsTab === 'character' && <>{characterTab.render()}{encounterPanel.render()}</>}
                 </div>
               </div>
             </div>
@@ -224,7 +226,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, characterProfile } = this.props;
+    const { parser, characterProfile, makeTabUrl } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
     const combatants = parser.getModule(Combatants);
@@ -238,6 +240,7 @@ class Results extends React.PureComponent {
           playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
           boss={parser.boss}
           fight={fight}
+          makeTabUrl={makeTabUrl}
         />
 
         {this.renderContent()}
