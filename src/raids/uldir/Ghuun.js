@@ -6,6 +6,7 @@ export default {
   id: 2122,
   name: 'G\'huun',
   background: Background,
+  backgroundPosition: 'center center',
   headshot: Headshot,
   icon: 'achievement_nazmir_boss_ghuun',
   fight: {

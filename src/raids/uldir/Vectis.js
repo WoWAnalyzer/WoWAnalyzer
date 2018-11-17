@@ -5,6 +5,7 @@ export default {
   id: 2134,
   name: 'Vectis',
   background: Background,
+  backgroundPosition: 'center center',
   headshot: Headshot,
   icon: 'achievement_nazmir_boss_bloodofghuun',
   fight: {

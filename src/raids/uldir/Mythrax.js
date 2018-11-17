@@ -5,6 +5,7 @@ export default {
   id: 2135,
   name: 'Mythrax the Unraveler',
   background: Background,
+  backgroundPosition: 'center center',
   headshot: Headshot,
   icon: 'achievement_nazmir_boss_mythraxtheunraveler',
   fight: {

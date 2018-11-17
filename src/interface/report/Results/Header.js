@@ -96,7 +96,7 @@ class Headers extends React.PureComponent {
 
     return (
       <header>
-        <div className="background" style={{ backgroundImage: `url(${boss.background})` }} />
+        <div className="background" style={{ backgroundImage: `url(${boss.background})`, backgroundPosition: boss.backgroundPosition }} />
         <div className="container">
           <div className="boss">
             <div className="difficulty">
