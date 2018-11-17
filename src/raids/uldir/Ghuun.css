@@ -1,0 +1,42 @@
+/* Ghuun easter egg */
+.boss-2122 .tab-selection > div {
+  position: relative;
+}
+.boss-2122 .tab-selection > div > ul {
+  animation: GhuunMenuBar 1.5s linear;
+}
+.boss-2122 .tab-selection > div:before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 0%;
+  top: 8px;
+  height: 100%;
+  background-image: url(./images/Ghuun.gif);
+  background-repeat: no-repeat;
+  transform: scaleX(-1) translateX(50%);
+  width: 130px;
+  animation: Ghuun 1.5s linear forwards;
+  pointer-events: none;
+}
+@keyframes Ghuun {
+  0% {
+    left: 0%;
+  }
+  99% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes GhuunMenuBar {
+  0% {
+    clip-path: inset(0% 100% 0% 0%);
+  }
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}

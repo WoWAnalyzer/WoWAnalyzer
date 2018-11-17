@@ -1,5 +1,6 @@
 import Background from './images/Backgrounds/Ghuun.jpg';
 import Headshot from './images/Headshots/Ghuun.png';
+import './Ghuun.css';
 
 export default {
   id: 2122,

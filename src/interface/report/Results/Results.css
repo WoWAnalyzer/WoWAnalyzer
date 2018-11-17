@@ -3,7 +3,6 @@
   margin-bottom: -20px; /* .panel (which the statisticboxes are) has a 20px margin-bottom, so remove extra padding from the last row*/
 }
 .statistics-section-title {
-  margin-top: 40px;
   margin-bottom: 20px;
 }
 .statistics-section-title h1 {
@@ -325,68 +324,4 @@ nav.global {
 .tab-selection ul > li.active a {
   border-top: 2px solid rgba(248, 183, 0, 1);
   border-bottom: 2px solid rgba(248, 183, 0, 1);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Ghuun easter egg. TODO: Chunk this */
-.tab-selection > div {
-  position: relative;
-}
-.tab-selection > div > ul {
-  animation: GhuunMenuBar 1.5s linear;
-}
-.tab-selection > div:before {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  left: 0%;
-  top: 8px;
-  height: 100%;
-  background-image: url(../images/Ghuun.gif);
-  background-repeat: no-repeat;
-  transform: scaleX(-1) translateX(50%);
-  width: 130px;
-  animation: Ghuun 1.5s linear forwards;
-}
-@keyframes Ghuun {
-  0% {
-    left: 0%;
-  }
-  99% {
-    left: 100%;
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-@keyframes GhuunMenuBar {
-  0% {
-    clip-path: inset(0% 100% 0% 0%);
-  }
-  100% {
-    clip-path: inset(0% 0% 0% 0%);
-  }
 }

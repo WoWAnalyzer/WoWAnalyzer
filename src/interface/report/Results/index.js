@@ -197,7 +197,7 @@ class Results extends React.PureComponent {
     });
 
     return (
-      <div className="results">
+      <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
           playerName={selectedCombatant.name}
