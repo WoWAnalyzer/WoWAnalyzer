@@ -60,12 +60,12 @@ class SpellRow extends React.PureComponent {
   render() {
     const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
+
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
           const meta = event.meta || {};
           if (event.type === 'cast') {
-            
             let castClassName;
             let castReason;
             if (meta.isInefficientCast) {
@@ -75,22 +75,15 @@ class SpellRow extends React.PureComponent {
               castClassName = 'enhanced';
               castReason = meta.enhancedCastReason;
             }
-            const top = buffEvents ? 1 : -1;
-            const height = 22; // only used if buffEvents
             return (
               <div
                 key={index}
-                style={{
-                  left: (event.timestamp - start) / 1000 * secondWidth,
-                  top, // without this, icon vertical positioning slightly off...
-                  zIndex: 10,
-                }}
+                className={`cast ${buffEvents ? 'with-buff' : ''} ${castClassName || ''}`}
+                style={{ left: (event.timestamp - start) / 1000 * secondWidth }}
               >
                 <SpellIcon
                   id={event.ability.guid}
-                  className={castClassName}
                   data-tip={castReason}
-                  style={buffEvents ? { height } : {}}
                 />
               </div>
             );
@@ -99,17 +92,13 @@ class SpellRow extends React.PureComponent {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
-            const height = buffEvents ? 22 : '';
-            const top = buffEvents ? 4 : '';
             return (
               <div
                 key={index}
+                className={`cooldown ${buffEvents ? 'with-buff' : ''}`}
                 style={{
                   left,
                   width,
-                  height,
-                  top,
-                  background: 'rgba(150, 150, 150, 0.4)',
                 }}
                 data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
                 data-effect="float"
