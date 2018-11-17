@@ -439,6 +439,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
     },
+    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
+      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
+      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
+    },
     // endregion
     // region Raids
     [SPELLS.UNCONTAINED_POWER.id]: {
