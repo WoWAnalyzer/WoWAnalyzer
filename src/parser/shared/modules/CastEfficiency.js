@@ -319,6 +319,7 @@ class CastEfficiency extends Analyzer {
     return {
       title: i18n._(t`Abilities`),
       url: 'abilities',
+      order: 20,
       render: () => (
         <Tab>
           <CastEfficiencyComponent

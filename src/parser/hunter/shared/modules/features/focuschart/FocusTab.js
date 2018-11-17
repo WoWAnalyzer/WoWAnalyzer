@@ -17,6 +17,7 @@ class FocusTab extends Analyzer {
     return {
       title: 'Focus Chart',
       url: 'focus',
+      order: 100,
       render: () => (
         <Tab style={{ padding: '15px 22px' }}>
           <FocusChart
