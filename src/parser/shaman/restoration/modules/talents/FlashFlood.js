@@ -241,7 +241,7 @@ class FlashFlood extends Analyzer {
         title={<span><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</span>}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
-        containerProps={{ className: 'col-lg-3 col-md-4 col-sm-6 col-xs-12' }}
+        containerProps={{ className: 'col-md-4 col-sm-6 col-xs-12' }}
       >
         <div className="flex">
           <div className="flex-main">

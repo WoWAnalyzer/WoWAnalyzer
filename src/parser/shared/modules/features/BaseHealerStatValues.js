@@ -417,7 +417,7 @@ class BaseHealerStatValues extends Analyzer {
     const results = this._prepareResults();
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
-        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div className="col-lg-4 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items">
             <div className="panel-heading">
               <h2>

@@ -13,6 +13,10 @@ class Statistics extends React.PureComponent {
     parser: PropTypes.object.isRequired,
     children: PropTypes.arrayOf(PropTypes.node).isRequired,
   };
+  state = {
+    // TODO: Implement
+    adjustForDowntime: false,
+  };
 
   renderFightDowntimeToggle() {
     return (

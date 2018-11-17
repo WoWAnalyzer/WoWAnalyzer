@@ -13,7 +13,7 @@ const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps,
   delete others.category;
   delete others.position;
   return (
-    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
+    <div className="col-md-4 col-sm-6 col-xs-12" {...containerProps}>
       <div className="panel statistic-box item" {...others}>
         <div className="panel-body flex">
           <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>

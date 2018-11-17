@@ -284,7 +284,6 @@ class UnleashLife extends Analyzer {
     return (
       <StatisticsListBox
         title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</span>}
-        containerProps={{ className: 'col-lg-3 col-md-4 col-sm-6 col-xs-12' }}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(15)}
       >
