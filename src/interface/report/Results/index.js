@@ -7,12 +7,6 @@ import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
 import { Trans, t } from '@lingui/macro';
 
-import ChecklistIcon from 'interface/icons/Checklist';
-import SuggestionIcon from 'interface/icons/Suggestion';
-import ArmorIcon from 'interface/icons/Armor';
-import StatisticsIcon from 'interface/icons/Statistics';
-import TimelineIcon from 'interface/icons/Timeline';
-
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
@@ -50,7 +44,7 @@ const MAIN_TAB = {
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
-    selectedDetailsTab: PropTypes.string,
+    selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
     premium: PropTypes.bool,
     characterProfile: PropTypes.shape({
@@ -165,7 +159,7 @@ class Results extends React.PureComponent {
     );
   }
   renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, premium, characterProfile } = this.props;
+    const { parser, selectedTab, makeTabUrl, premium, characterProfile } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const characterTab = parser.getModule(CharacterTab);
@@ -208,9 +202,9 @@ class Results extends React.PureComponent {
             <div className="col-md-12">
               <div className="panel">
                 <div className="panel-body" style={{ padding: 0 }}>
-                  {(!selectedDetailsTab || selectedDetailsTab === 'checklist') && this.renderChecklist()}
-                  {selectedDetailsTab === 'suggestions' && <SuggestionsTab issues={results.issues} />}
-                  {selectedDetailsTab === 'character' && <>{characterTab.render()}{encounterPanel.render()}</>}
+                  {(!selectedTab || selectedTab === 'checklist') && this.renderChecklist()}
+                  {selectedTab === 'suggestions' && <SuggestionsTab issues={results.issues} />}
+                  {selectedTab === 'character' && <>{characterTab.render()}{encounterPanel.render()}</>}
                 </div>
               </div>
             </div>
@@ -226,7 +220,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, characterProfile, makeTabUrl } = this.props;
+    const { parser, characterProfile, makeTabUrl, selectedTab } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
     const combatants = parser.getModule(Combatants);
@@ -241,6 +235,7 @@ class Results extends React.PureComponent {
           boss={parser.boss}
           fight={fight}
           makeTabUrl={makeTabUrl}
+          selectedTab={selectedTab}
         />
 
         {this.renderContent()}
@@ -250,7 +245,7 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedDetailsTab: getResultTab(state),
+  selectedTab: getResultTab(state),
   premium: hasPremium(state),
 });
 

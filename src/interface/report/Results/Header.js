@@ -29,10 +29,11 @@ class Headers extends React.PureComponent {
     }),
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
+    selectedTab: PropTypes.string.isRequired,
   };
 
   render() {
-    const { config: { spec }, playerName, playerIcon, boss, fight, makeTabUrl } = this.props;
+    const { config: { spec }, playerName, playerIcon, boss, fight, makeTabUrl, selectedTab } = this.props;
 
     const pages = [
       {
@@ -104,7 +105,7 @@ class Headers extends React.PureComponent {
             <ul>
               {pages.map(({ icon: Icon, name, url }) => {
                 return (
-                  <li key={url}>
+                  <li key={url} className={url === selectedTab ? 'active' : undefined}>
                     <Link to={makeTabUrl(url)}>
                       <Icon />
                       {name}

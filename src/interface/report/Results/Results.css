@@ -187,12 +187,13 @@
   z-index: 2;
   text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
   border-bottom: 5px solid rgba(0, 0, 0, 0.4);
+  padding: 0 15px;
 }
 .tab-selection > div {
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15px;
+  padding: 15px 0;
   text-align: center;
 }
 .tab-selection ul {
@@ -207,14 +208,27 @@
 .tab-selection ul > li a {
   display: inline-block;
   padding: 10px;
-  color: #fff;
   font-weight: 400;
+  color: #fff;
+  border: 2px solid transparent;
 }
 .tab-selection svg {
   display: block;
   margin: 0 auto;
   font-size: 1.5em;
   color: #f8b700;
+}
+.tab-selection ul > li a:hover {
+  border-top: 2px solid rgba(248, 183, 0, 0.7);
+  border-bottom: 2px solid rgba(248, 183, 0, 0.7);
+  text-decoration: none;
+}
+.tab-selection ul > li a:focus {
+  text-decoration: none;
+}
+.tab-selection ul > li.active a {
+  border-top: 2px solid rgba(248, 183, 0, 1);
+  border-bottom: 2px solid rgba(248, 183, 0, 1);
 }
 
 nav.global {
