@@ -7,6 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import { i18n } from 'interface/RootLocalizationProvider';
 import Tab from 'interface/others/Tab';
+import AbilitiesIcon from 'interface/icons/Abilities';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Channeling from 'parser/shared/modules/Channeling';
 
@@ -318,6 +319,7 @@ class CastEfficiency extends Analyzer {
   tab() {
     return {
       title: i18n._(t`Abilities`),
+      icon: AbilitiesIcon,
       url: 'abilities',
       order: 20,
       render: () => (

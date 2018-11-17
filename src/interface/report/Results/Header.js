@@ -11,6 +11,8 @@ import SuggestionIcon from 'interface/icons/Suggestion';
 import StatisticsIcon from 'interface/icons/Statistics';
 import TimelineIcon from 'interface/icons/Timeline';
 import ArmorIcon from 'interface/icons/Armor';
+import EventsIcon from 'interface/icons/Events';
+import AboutIcon from 'interface/icons/About';
 
 import SkullRaidMarker from './images/skull-raidmarker.png';
 import { i18n } from 'interface/RootLocalizationProvider';
@@ -63,7 +65,7 @@ class Headers extends React.PureComponent {
         url: tab.url,
       })),
       {
-        icon: TimelineIcon,
+        icon: EventsIcon,
         name: <Trans>Events</Trans>,
         url: 'events',
       },
@@ -73,7 +75,7 @@ class Headers extends React.PureComponent {
         url: 'character',
       },
       {
-        icon: TimelineIcon,
+        icon: AboutIcon,
         name: <Trans>About</Trans>,
         url: 'about',
       },

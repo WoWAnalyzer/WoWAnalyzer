@@ -253,9 +253,11 @@ ul {
 svg {
   height: 1em;
   fill: currentColor;
-  stroke: currentColor;
   vertical-align: middle;
   margin-top: -0.15em;
+}
+svg.stroke {
+  stroke: currentColor;
 }
 img.icon {
   height: 1.2em;

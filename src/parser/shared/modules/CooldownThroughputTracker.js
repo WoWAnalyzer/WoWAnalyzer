@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 
 import Tab from 'interface/others/Tab';
+import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
@@ -121,6 +122,7 @@ class CooldownThroughputTracker extends Analyzer {
   tab() {
     return {
       title: 'Cooldowns',
+      icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
         <Tab>

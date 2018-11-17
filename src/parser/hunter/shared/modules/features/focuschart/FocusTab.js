@@ -3,6 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Tab from 'interface/others/Tab';
+import FocusChartIcon from 'interface/icons/Vision';
 
 import FocusChart from './Focus';
 import FocusTracker from './FocusTracker';
@@ -17,6 +18,7 @@ class FocusTab extends Analyzer {
     return {
       title: 'Focus Chart',
       url: 'focus',
+      icon: FocusChartIcon,
       order: 100,
       render: () => (
         <Tab style={{ padding: '15px 22px' }}>

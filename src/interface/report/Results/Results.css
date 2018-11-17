@@ -226,7 +226,7 @@
 .tab-selection svg {
   display: block;
   margin: 0 auto;
-  font-size: 1.5em;
+  font-size: 24px;
   color: #f8b700;
 }
 .tab-selection ul > li a:hover {
