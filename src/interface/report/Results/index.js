@@ -145,16 +145,10 @@ class Results extends React.PureComponent {
           tabs={results.tabs}
         />
 
-        <div key={this.state.adjustForDowntime}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="panel">
-                  <div className="panel-body" style={{ padding: 0 }}>
-                    {this.renderContent(selectedTab, results)}
-                  </div>
-                </div>
-              </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12" key={this.state.adjustForDowntime}>
+              {this.renderContent(selectedTab, results)}
             </div>
           </div>
 
