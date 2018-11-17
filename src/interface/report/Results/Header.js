@@ -46,13 +46,8 @@ class Headers extends React.PureComponent {
     const pages = [
       {
         icon: ChecklistIcon,
-        name: <Trans>Checklist</Trans>,
-        url: 'checklist',
-      },
-      {
-        icon: SuggestionIcon,
-        name: <Trans>Suggestions</Trans>,
-        url: 'suggestions',
+        name: <Trans>Overview</Trans>,
+        url: 'overview',
       },
       {
         icon: StatisticsIcon,

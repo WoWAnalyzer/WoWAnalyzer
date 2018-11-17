@@ -25,7 +25,7 @@ import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import About from './About';
-import SuggestionsTab from './SuggestionsTab';
+import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import './Results.css';
@@ -68,7 +68,6 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: !props.parser.getModule(Checklist, false) ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
@@ -110,10 +109,15 @@ class Results extends React.PureComponent {
     const config = this.context.config;
 
     switch (selectedTab) {
-      case 'checklist':
-        return this.renderChecklist();
-      case 'suggestions':
-        return <SuggestionsTab issues={results.issues} />;
+      case 'overview':
+        return (
+          <>
+            <h2>Checklist</h2><br />
+            {this.renderChecklist()}
+            <div className="section-divider" />
+            <Suggestions issues={results.issues} />
+          </>
+        );
       case 'statistics':
         return (
           <>
@@ -179,7 +183,7 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedTab: getResultTab(state) || 'checklist',
+  selectedTab: getResultTab(state) || 'overview',
   premium: hasPremium(state),
 });
 
