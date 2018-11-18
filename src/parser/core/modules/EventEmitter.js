@@ -175,13 +175,22 @@ class EventEmitter extends Module {
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
 
+    this.runFinally();
+
+    return event;
+  }
+  _finally = null;
+  finally(func) {
+    this._finally = this._finally || [];
+    this._finally.push(func);
+  }
+  runFinally() {
     if (this._finally) {
       const currentBatch = this._finally;
+      // Reset before running so if an item calls another event, it doesn't do the same finally multiple times
       this._finally = null;
       currentBatch.forEach(item => item());
     }
-
-    return event;
   }
   fabricateEvent(event, trigger = null) {
     const fabricatedEvent = {
@@ -203,12 +212,6 @@ class EventEmitter extends Module {
       console.log(event);
       throw new Error('Events should have a type. No type received. See the console for the event.');
     }
-  }
-
-  _finally = null;
-  finally(func) {
-    this._finally = this._finally || [];
-    this._finally.push(func);
   }
 }
 
