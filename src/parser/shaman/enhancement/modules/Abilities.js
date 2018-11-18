@@ -168,6 +168,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODLUST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
