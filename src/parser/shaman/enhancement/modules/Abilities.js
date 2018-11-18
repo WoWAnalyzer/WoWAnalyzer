@@ -30,6 +30,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
+        buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental Spirits buffs
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id, 
+        ], 
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
@@ -41,18 +46,18 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.WIND_SHEAR,
-        category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.ROCKBITER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -60,42 +65,42 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBRAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id), // 1.5 / (1 + haste)
+        enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id),
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FLAMETONGUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.STORMSTRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.LAVA_LASH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.WINDSTRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CRASH_LIGHTNING,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },

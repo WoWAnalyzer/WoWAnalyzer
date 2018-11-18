@@ -393,10 +393,25 @@ export default {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
-  FERAL_SPIRIT_BUFF: {
+  FERAL_SPIRIT_MAELSTROM_BUFF: {
     id: 190185,
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
+  },
+  ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON: {
+    id: 224125,
+    name: 'Molten Weapon',
+    icon: 'item_summon_cinderwolf',
+  },
+  ELEMENTAL_SPIRITS_BUFF_ICY_EDGE: {
+    id: 224126,
+    name: 'Icy Edge',
+    icon: 'inv_mount_spectralwolf',
+  },
+  ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE: {
+    id: 224127,
+    name: 'Crackling Surge',
+    icon: 'spell_beastmaster_wolf',
   },
   STORMSTRIKE: {
     id: 17364,
