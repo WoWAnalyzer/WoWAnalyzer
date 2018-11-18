@@ -45,7 +45,7 @@ class Timeline extends React.PureComponent {
     return Math.ceil(this.duration / 1000);
   }
   get secondWidth() {
-    return 80 / this.state.zoom;
+    return 120 / this.state.zoom;
   }
   get totalWidth() {
     return this.seconds * this.secondWidth;
@@ -171,7 +171,7 @@ class Timeline extends React.PureComponent {
 
     return (
       <div className="spell-timeline" style={{ width: this.totalWidth, padding: `${this.centerOffset + castWindows.size * this.laneHeight}px 0 ${this.centerOffset + others.size * this.laneHeight}px 0` }}>
-        <div className="casts cooldowns">
+        <div className="cooldowns cast-windows">
           {this.renderLanes(castWindows, true)}
         </div>
         <div className="time-line">
@@ -182,6 +182,41 @@ class Timeline extends React.PureComponent {
           })}
         </div>
         <div className="casts">
+          {parser.eventHistory.filter(event => event.type === 'cast' && this.isApplicableCastEvent(event)).map(event => {
+            const left = this.getOffsetLeft(event.timestamp);
+
+            return (
+              <SpellLink
+                key={`cast-${left}`}
+                id={event.ability.guid}
+                icon={false}
+                className="cast"
+                style={{ left }}
+              >
+                {/*<div style={{ height: level * 30 + 55, top: negative ? 0 : undefined, bottom: negative ? undefined : 0 }} />*/}
+                <Icon
+                  icon={event.ability.abilityIcon.replace('.jpg', '')}
+                  alt={event.ability.name}
+                />
+              </SpellLink>
+            );
+          })}
+          {parser.eventHistory.filter(event => event.type === 'globalcooldown').map(event => {
+            const left = this.getOffsetLeft(event.timestamp);
+            const fightDuration = (event.timestamp - start) / 1000;
+
+            return (
+              <div
+                key={`gcd-${left}`}
+                id={event.ability.guid}
+                className="gcd"
+                style={{ left, width: event.duration / 1000 * this.secondWidth }}
+                data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
+              />
+            );
+          })}
+        </div>
+        <div className="cooldowns">
           {this.renderLanes(others, false)}
         </div>
       </div>
