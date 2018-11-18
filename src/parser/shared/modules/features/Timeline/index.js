@@ -50,7 +50,7 @@ class Timeline extends React.PureComponent {
   get totalWidth() {
     return this.seconds * this.secondWidth;
   }
-  laneHeight = 22;
+  laneHeight = 28;
   centerOffset = 25;
 
   isApplicableEvent(event) {
@@ -126,29 +126,10 @@ class Timeline extends React.PureComponent {
   getOffsetTop(index) {
     return this.centerOffset + index * this.laneHeight;
   }
-  getOffsetLeft(timestamp, start) {
-    return (timestamp - start) / 1000 * this.secondWidth;
+  getOffsetLeft(timestamp) {
+    return (timestamp - this.props.start) / 1000 * this.secondWidth;
   }
 
-  renderLane([spellId, events], index, growUp) {
-    const firstEvent = events[0];
-    const left = this.getOffsetLeft(firstEvent.timestamp, this.props.start);
-    return (
-      <Lane
-        key={spellId}
-        spellId={spellId}
-        style={{
-          top: this.getOffsetTop(index) * (growUp ? -1 : 1),
-          left,
-          width: this.totalWidth - left,
-        }}
-        timestampOffset={firstEvent.timestamp}
-        secondWidth={this.secondWidth}
-      >
-        {events}
-      </Lane>
-    );
-  }
 
   getSortIndex([spellId, events]) {
     const ability = this.props.abilities.getAbility(spellId);
@@ -157,6 +138,22 @@ class Timeline extends React.PureComponent {
     } else {
       return ability.timelineSortIndex;
     }
+  }
+  renderLane([spellId, events], index, growUp) {
+    return (
+      <Lane
+        key={spellId}
+        spellId={spellId}
+        style={{
+          top: this.getOffsetTop(index) * (growUp ? -1 : 1),
+          width: this.totalWidth,
+        }}
+        timestampOffset={this.props.start}
+        secondWidth={this.secondWidth}
+      >
+        {events}
+      </Lane>
+    );
   }
   renderLanes(eventsBySpellId, growUp) {
     return Array.from(eventsBySpellId)

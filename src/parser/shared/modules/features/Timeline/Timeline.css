@@ -27,8 +27,12 @@
 }
 .spell-timeline .casts > .lane {
   position: absolute;
-  height: 18px;
+  left: 0;
+  height: 22px;
   background: rgba(255, 255, 255, 0.1);
+}
+.spell-timeline .casts > .lane:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.04);
 }
 .spell-timeline .casts > .lane > * {
   position: absolute;
@@ -49,20 +53,24 @@
   position: absolute;
   left: 0;
 }
-.spell-timeline .cooldown {
+.spell-timeline .casts > .lane > .legend {
+  left: -26px;
+  filter: grayscale(100%);
+}
+.spell-timeline .casts > .lane > .cooldown {
   background: rgba(150, 150, 150, 0.4);
-  height: 18px;
+  height: 100%;
   border-radius: 3px;
   background: #f8b700;
   box-shadow: 0 0 4px #f8b700;
   z-index: 2;
 }
-.spell-timeline .recharge {
+.spell-timeline .casts > .lane > .recharge {
   width: 3px;
   background: rgba(250, 250, 250, 0.6);
   z-index: 4;
 }
-.spell-timeline .cast {
+.spell-timeline .casts > .lane > .cast {
   z-index: 3;
 }
 /*.spell-timeline .time-line > *:before, .spell-timeline .time-line > *:after {*/

@@ -86,11 +86,20 @@ class Lane extends React.PureComponent {
   render() {
     const { children, style } = this.props;
 
+    const ability = children[0].ability;
+
     return (
       <div
         className="lane"
         style={style}
       >
+        <div className="legend">
+          <Icon
+            icon={ability.abilityIcon.replace('.jpg', '')}
+            alt={ability.name}
+          />
+        </div>
+
         {children.map(event => this.renderEvent(event))}
       </div>
     );
