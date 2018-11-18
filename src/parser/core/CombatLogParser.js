@@ -85,6 +85,7 @@ import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/Azerok
 
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
+import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
 
 //Enchants
@@ -223,6 +224,7 @@ class CombatLogParser {
     azerokksResonatingHeart: AzerokksResonatingHeart,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
+    dreadGladiatorsInsignia: DreadGladiatorsInsignia,
     dreadGladiatorsBadge: DreadGladiatorsBadge,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
