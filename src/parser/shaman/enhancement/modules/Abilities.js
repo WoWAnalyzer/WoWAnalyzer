@@ -175,6 +175,11 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: SPELLS.HEROISM,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
+      },
+      {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
         buffSpellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
