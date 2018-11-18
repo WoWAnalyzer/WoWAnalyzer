@@ -48,7 +48,7 @@ class Casts extends React.PureComponent {
         key={`cast-${event.ability.guid}-${left}`}
         id={event.ability.guid}
         icon={false}
-        className={`cast ${hoist ? 'off-gcd' : ''}`}
+        className={`cast ${hoist ? 'off-gcd' : ''} ${event.isCancelled ? 'cancelled' : ''}`}
         style={{ left }}
       >
         {hoist && (

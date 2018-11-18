@@ -62,9 +62,23 @@
   border-radius: 50%;
   margin-top: 0;
   height: 100%;
-  position: absolute;
-  top: 0;
   display: block;
+}
+.spell-timeline .casts a.cancelled:before {
+  content: '❌';
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 800;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: red;
+}
+.spell-timeline .casts a.cancelled img {
+  border-color: red;
 }
 .spell-timeline .casts a.off-gcd {
   top: -35px;
@@ -79,7 +93,7 @@
   background: #f8b700;
 }
 .spell-timeline .casts .gcd {
-  border-radius: 3px;
+  border-radius: 5px;
   background: #f8b700;
   box-shadow: 0 0 3px #000;
   z-index: 2;
