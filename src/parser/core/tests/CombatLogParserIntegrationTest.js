@@ -42,7 +42,7 @@ export default function integrationTest(parserClass, reportPath, combatantInfoPa
       events = JSON.parse(zlib.unzipSync(fs.readFileSync(eventPath)).toString()).events;
     });
 
-    let _console = {};
+    const _console = {};
     beforeEach(() => {
       if(suppressWarn) {
         _console.warn = console.warn;

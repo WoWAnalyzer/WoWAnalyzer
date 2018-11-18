@@ -1,5 +1,5 @@
-import CombatLogParser from './CombatLogParser';
 import integrationTest from 'parser/core/tests/CombatLogParserIntegrationTest';
+import CombatLogParser from './CombatLogParser';
 
 const FIGHT_ID = 1;
 const PLAYER_ID = 1;
