@@ -4,57 +4,86 @@
 /* Time indicator */
 .spell-timeline .time-line {
   white-space: nowrap;
-  height: 16px;
-  border-bottom: 1px solid #fff;
+  height: 32px;
 }
 .spell-timeline .time-line > * {
   height: 100%;
   float: left;
-  border-left: 1px solid #fff;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
   padding-left: 3px;
   line-height: 1;
   font-size: 14px;
   position: relative;
-  top: 8px;
+}
+.spell-timeline .time-line > *:first-of-type {
+  border-left: none;
+}
+.spell-timeline .time-line > *:first-of-type:before {
+  content: '';
 }
 .spell-timeline .time-line > *:before {
   content: attr(data-duration);
   position: absolute;
   left: 0;
-  top: 18px;
+  top: 33px;
   transform: translateX(-50%);
   color: rgba(200, 200, 200, 0.8);
+}
+.spell-timeline .time-line > *:after {
+  content: '';
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 22px;
+  height: 7px;
+  left: 50%;
 }
 /* Casts indicators */
 .spell-timeline .casts {
   width: 100%;
-  top: -1px;
-  height: 17px;
+  border-radius: 10px;
+  top: -32px;
+  height: 22px;
+  background: rgba(255, 255, 255, .15);
+  box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+  box-sizing: content-box;
 }
 .spell-timeline .casts > * {
   position: absolute;
-  top: -8px;
   height: 100%;
 }
 .spell-timeline .casts a {
   z-index: 3;
-}
-.spell-timeline .casts a img {
-  border-radius: 50%;
-  border: 1px solid #f8b700;
-  margin-top: 0;
-  height: 22px;
-  position: relative;
-  top: -2px;
   display: block;
 }
+.spell-timeline .casts a img {
+  border: 1px solid #f8b700;
+  border-radius: 2px;
+  margin-top: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: block;
+}
+.spell-timeline .casts a.off-gcd {
+  top: -35px;
+}
+.spell-timeline .casts a.off-gcd img {
+}
+.spell-timeline .casts a.off-gcd .time-indicator {
+  position: absolute;
+  top: 7px;
+  height: 42px;
+  width: 1px;
+  background: #fff;
+}
 .spell-timeline .casts .gcd {
-  border-radius: 6px;
-  background: rgba(248, 183, 0, 0.8);
-  box-shadow: 0 0 2px rgba(248, 183, 0, 0.8);
+  border-radius: 5px;
+  background: #f8b700;
+  box-shadow: 0 0 3px #f8b700;
   z-index: 2;
-  height: 12px;
-  top: -5px;
+  height: 10px;
+  top: 6px;
 }
 /* Cooldown lanes */
 .spell-timeline .cooldowns {

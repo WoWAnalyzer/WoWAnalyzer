@@ -22,10 +22,10 @@ class Lane extends React.PureComponent {
       case 'updatespellusable':
         if (event.trigger === 'restorecharge') {
           return (
-            <>
+            <React.Fragment key={`restorecharge-${event.timestamp}`}>
               {this.renderCooldown(event)}
               {this.renderRecharge(event)}
-            </>
+            </React.Fragment>
           );
         } else {
           return this.renderCooldown(event);
@@ -36,11 +36,12 @@ class Lane extends React.PureComponent {
   }
   renderCast(event) {
     const left = this.getOffsetLeft(event.timestamp);
+    const spellId = event.ability.guid;
 
     return (
       <SpellLink
-        key={`cast-${left}`}
-        id={event.ability.guid}
+        key={`cast-${spellId}-${left}`}
+        id={spellId}
         icon={false}
         className="cast"
         style={{ left }}

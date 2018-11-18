@@ -500,7 +500,7 @@ class CombatLogParser {
   }
 
   byPlayer(event, playerId = this.player.id) {
-    return (event.sourceID === playerId);
+    return event.sourceID === playerId;
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);

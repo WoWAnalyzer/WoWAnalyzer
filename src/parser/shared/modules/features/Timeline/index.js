@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDuration } from 'common/format';
 
-import './Timeline.css';
-import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
-import Abilities from 'parser/shared/modules/Abilities';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import Lane from 'parser/shared/modules/features/Timeline/Lane';
+import Casts from './Casts';
+import Lane from './Lane';
+import './Timeline.css';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -59,6 +56,8 @@ class Timeline extends React.PureComponent {
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
         return this.isApplicableUpdateSpellUsableEvent(event);
+      case 'globalcooldown':
+        return true;
       default:
         return false;
     }
@@ -130,7 +129,6 @@ class Timeline extends React.PureComponent {
     return (timestamp - this.props.start) / 1000 * this.secondWidth;
   }
 
-
   getSortIndex([spellId, events]) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability || ability.timelineSortIndex === undefined) {
@@ -166,59 +164,34 @@ class Timeline extends React.PureComponent {
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
-    const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
-    const { castWindows, others } = this.separateCastWindows(eventsBySpellId);
+    // const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
+    // const { castWindows, others } = this.separateCastWindows(eventsBySpellId);
 
     return (
-      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `${this.centerOffset + castWindows.size * this.laneHeight}px 0 ${this.centerOffset + others.size * this.laneHeight}px 0` }}>
-        <div className="cooldowns cast-windows">
-          {this.renderLanes(castWindows, true)}
-        </div>
+      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 80px 0` }}>
+        {/*<div className="cooldowns cast-windows">*/}
+          {/*{this.renderLanes(castWindows, true)}*/}
+        {/*</div>*/}
         <div className="time-line">
           {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
             return (
-              <div key={second} style={{ width: this.secondWidth * skipInterval }} data-duration={formatDuration(second)} />
-            );
-          })}
-        </div>
-        <div className="casts">
-          {parser.eventHistory.filter(event => event.type === 'cast' && this.isApplicableCastEvent(event)).map(event => {
-            const left = this.getOffsetLeft(event.timestamp);
-
-            return (
-              <SpellLink
-                key={`cast-${event.ability.guid}-${left}`}
-                id={event.ability.guid}
-                icon={false}
-                className="cast"
-                style={{ left }}
-              >
-                {/*<div style={{ height: level * 30 + 55, top: negative ? 0 : undefined, bottom: negative ? undefined : 0 }} />*/}
-                <Icon
-                  icon={event.ability.abilityIcon.replace('.jpg', '')}
-                  alt={event.ability.name}
-                />
-              </SpellLink>
-            );
-          })}
-          {parser.eventHistory.filter(event => event.type === 'globalcooldown').map(event => {
-            const left = this.getOffsetLeft(event.timestamp);
-            const fightDuration = (event.timestamp - start) / 1000;
-
-            return (
               <div
-                key={`gcd-${left}`}
-                id={event.ability.guid}
-                className="gcd"
-                style={{ left, width: event.duration / 1000 * this.secondWidth }}
-                data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
+                key={second}
+                style={{ width: this.secondWidth * skipInterval }}
+                data-duration={formatDuration(second)}
               />
             );
           })}
         </div>
-        <div className="cooldowns">
-          {this.renderLanes(others, false)}
-        </div>
+        <Casts
+          start={start}
+          secondWidth={this.secondWidth}
+        >
+          {parser.eventHistory.filter(event => this.isApplicableEvent(event))}
+        </Casts>
+        {/*<div className="cooldowns">*/}
+          {/*{this.renderLanes(others, false)}*/}
+        {/*</div>*/}
       </div>
     );
   }
