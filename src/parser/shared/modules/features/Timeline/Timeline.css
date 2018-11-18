@@ -80,15 +80,18 @@
 .spell-timeline .casts a.cancelled img {
   border-color: red;
 }
-.spell-timeline .casts a.off-gcd {
+/*noinspection CssOverwrittenProperties*/
+.spell-timeline .casts a.hoist {
+  --level: 0;
   top: -35px;
+  top: calc(-35px + var(--level) * -30px);
 }
-.spell-timeline .casts a.off-gcd img {
-}
-.spell-timeline .casts a.off-gcd .time-indicator {
+/*noinspection CssOverwrittenProperties*/
+.spell-timeline .casts a.hoist .time-indicator {
   position: absolute;
   top: 7px;
   height: 50px;
+  height: calc(50px + var(--level) * 30px);
   width: 1px;
   background: #f8b700;
 }
