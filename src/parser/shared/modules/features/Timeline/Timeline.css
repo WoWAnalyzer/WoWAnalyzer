@@ -58,7 +58,8 @@
 }
 .spell-timeline .casts a img {
   border: 1px solid #f8b700;
-  border-radius: 2px;
+  box-shadow: 0 0 3px #000;
+  border-radius: 50%;
   margin-top: 0;
   height: 100%;
   position: absolute;
@@ -73,14 +74,14 @@
 .spell-timeline .casts a.off-gcd .time-indicator {
   position: absolute;
   top: 7px;
-  height: 42px;
+  height: 50px;
   width: 1px;
-  background: #fff;
+  background: #f8b700;
 }
 .spell-timeline .casts .gcd {
-  border-radius: 5px;
+  border-radius: 3px;
   background: #f8b700;
-  box-shadow: 0 0 3px #f8b700;
+  box-shadow: 0 0 3px #000;
   z-index: 2;
   height: 10px;
   top: 6px;
