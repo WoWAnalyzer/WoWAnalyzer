@@ -194,6 +194,11 @@ class EventEmitter extends Module {
       currentBatch.forEach(item => item());
     }
   }
+  /**
+   * @param {object} event
+   * @param {object|null} trigger
+   * @returns {object} The event that was triggered.
+   */
   fabricateEvent(event, trigger = null) {
     const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
@@ -208,10 +213,10 @@ class EventEmitter extends Module {
       this.finally(() => {
         this.triggerEvent(fabricatedEvent);
       });
+      return fabricatedEvent;
     } else {
-      this.triggerEvent(fabricatedEvent);
+      return this.triggerEvent(fabricatedEvent);
     }
-    return fabricatedEvent;
   }
   _validateEvent(event) {
     if (!event.type) {
