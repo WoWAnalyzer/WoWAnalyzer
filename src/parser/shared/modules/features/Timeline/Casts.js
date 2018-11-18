@@ -25,6 +25,8 @@ class Casts extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
+      case 'begincast':
+        return this.renderCast(event);
       case 'cast':
         return this.renderCast(event);
       case 'globalcooldown':
@@ -35,16 +37,21 @@ class Casts extends React.PureComponent {
   }
   renderCast(event) {
     const left = this.getOffsetLeft(event.timestamp);
+    if (event.channel) {
+      return null;
+    }
+
+    const hoist = !event.globalCooldown && event.type !== 'begincast';
 
     return (
       <SpellLink
         key={`cast-${event.ability.guid}-${left}`}
         id={event.ability.guid}
         icon={false}
-        className={`cast ${!event.globalCooldown ? 'off-gcd' : ''}`}
+        className={`cast ${hoist ? 'off-gcd' : ''}`}
         style={{ left }}
       >
-        {!event.globalCooldown && (
+        {hoist && (
           <div className="time-indicator" />
         )}
         <Icon

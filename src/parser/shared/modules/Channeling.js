@@ -37,7 +37,7 @@ class Channeling extends Analyzer {
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
-    this.eventEmitter.fabricateEvent({
+    event.channel = this.eventEmitter.fabricateEvent({
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
