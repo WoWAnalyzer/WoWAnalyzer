@@ -1,4 +1,5 @@
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import fs from 'fs';
 import zlib from 'zlib';
@@ -70,6 +71,12 @@ export default function integrationTest(parserClass, reportPath, combatantInfoPa
         combatantInfoEvents
       );
       events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
+      parser.finish();
+      const results = parser.generateResults({
+        i18n,
+        adjustForDowntime: false,
+      });
+      expect(results).toBeTruthy();
     });
   };
 }
