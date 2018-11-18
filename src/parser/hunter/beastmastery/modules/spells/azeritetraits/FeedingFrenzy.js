@@ -42,7 +42,9 @@ class FeedingFrenzy extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id);
 
-    if (!this.active) return;
+    if (!this.active) {
+      return;
+    }
 
     this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.FEEDING_FRENZY.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.FEEDING_FRENZY.id, rank)[0], 0);
@@ -111,7 +113,7 @@ class FeedingFrenzy extends Analyzer {
       const externalModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? critMultiplier : 1.0);
 
       let estimatedDamage = this.traitBonus * (1 + this.statTracker.currentVersatilityPercentage);
-      
+
       if (event.hitType === HIT_TYPES.CRIT) {
         estimatedDamage *= critMultiplier;
       }
@@ -142,7 +144,7 @@ class FeedingFrenzy extends Analyzer {
             {formatNumber(this.extraBuffUptime / MS)}s added Frenzy Uptime <br />
             {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
           </>
-          )}
+        )}
         tooltip={`This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br/>
                   This happened a total of ${this.timesExtended} ${this.timesExtended > 1 ? 'times' : 'time'}.
                   <ul>

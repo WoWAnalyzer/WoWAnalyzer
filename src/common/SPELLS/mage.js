@@ -554,6 +554,16 @@ export default {
     name: 'Galvanizing Spark',
     icon: 'spell_arcane_arcane03',
   },
+  BLASTER_MASTER: {
+    id: 274596,
+    name: 'Blaster Master',
+    icon: 'spell_fire_fireball',
+  },
+  BLASTER_MASTER_BUFF: {
+    id: 274598,
+    name: 'Blaster Master',
+    icon: 'spell_fire_fireball',
+  },
 
   //Tier Sets
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
@@ -575,6 +585,13 @@ export default {
     id: 251858,
     name: 'T21 4 set bonus',
     icon: 'ability_mage_greaterinvisibility',
+  },
+
+  // Pet abilities
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
   },
 
   //Removed in 8.0 (Keep Temporarily until not needed anymore)

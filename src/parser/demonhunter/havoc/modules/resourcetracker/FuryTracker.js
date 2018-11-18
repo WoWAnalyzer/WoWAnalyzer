@@ -8,6 +8,7 @@ const DOG_COOLDOWN_REDUCTION_MS = 1000/30;
 
 class FuryTracker extends ResourceTracker {
 	static dependencies = {
+		...ResourceTracker.dependencies,
 		spellUsable: SpellUsable,
 	};
 

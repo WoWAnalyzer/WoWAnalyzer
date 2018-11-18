@@ -1,8 +1,15 @@
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import Analyzer from './Analyzer';
 
 describe('Core/Analyzer', () => {
+  let parser;
+  let eventEmitter;
+  beforeEach(() => {
+    parser = new TestCombatLogParser();
+    eventEmitter = parser.getModule(EventEmitter);
+  });
   describe('module defining', () => {
     it('owner is availabe as property', () => {
       const myOwner = {};
@@ -31,10 +38,6 @@ describe('Core/Analyzer', () => {
     });
   });
   describe('triggerEvent', () => {
-    let parser;
-    beforeEach(() => {
-      parser = new TestCombatLogParser();
-    });
     it('calls the event handler on the class if it exists', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {
@@ -42,18 +45,16 @@ describe('Core/Analyzer', () => {
           on_success();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'success',
       });
       expect(on_success).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'success',
       });
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
@@ -65,9 +66,8 @@ describe('Core/Analyzer', () => {
           on_event();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_event).toBeCalled();
@@ -91,9 +91,8 @@ describe('Core/Analyzer', () => {
           on_toPlayerPet_test();
         }
       }
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -121,9 +120,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).not.toBeCalled();
@@ -151,9 +149,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayer = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -181,9 +178,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -211,9 +207,8 @@ describe('Core/Analyzer', () => {
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
-      // eslint-disable-next-line no-new
-      new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'test',
       });
       expect(on_byPlayer_test).toBeCalled();
@@ -228,11 +223,26 @@ describe('Core/Analyzer', () => {
           on_success.call(this);
         }
       }
-      const myModule = new MyModule({ owner: parser });
-      parser.triggerEvent({
+      parser.loadModule(MyModule);
+      eventEmitter.triggerEvent({
         type: 'success',
       });
-      expect(on_success.mock.instances[0]).toBe(myModule);
+      expect(on_success.mock.instances[0]).toBe(parser.getModule(MyModule));
+    });
+  });
+  describe('add event listener', () => {
+    it('doesn\'t allow combining event listening methods', () => {
+      class MyModule extends Analyzer {
+        constructor(options) {
+          super(options);
+          this.addEventListener('success', this.on_success);
+        }
+        on_success() {
+        }
+      }
+      expect(() => {
+        parser.loadModule(MyModule);
+      }).toThrow();
     });
   });
 });

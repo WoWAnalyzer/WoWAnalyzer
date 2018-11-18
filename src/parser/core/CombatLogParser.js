@@ -4,7 +4,6 @@ import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
-import { captureException } from 'common/errorLogger';
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
@@ -58,15 +57,19 @@ import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
+// Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
+import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 // Dungeons
+import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
 import FangsOfIntertwinedEssence from '../shared/modules/items/bfa/dungeons/FangsOfIntertwinedEssence';
@@ -76,8 +79,13 @@ import Seabreeze from '../shared/modules/items/bfa/dungeons/Seabreeze';
 import GalecallersBoon from '../shared/modules/items/bfa/dungeons/GalecallersBoon';
 import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoadedDice';
 import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
+import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
+import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
+import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
+
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
+import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
 
 //Enchants
@@ -110,16 +118,23 @@ import WoundBinder from '../shared/modules/spells/bfa/azeritetraits/WoundBinder'
 import SynergisticGrowth from '../shared/modules/spells/bfa/azeritetraits/SynergisticGrowth';
 import BracingChill from '../shared/modules/spells/bfa/azeritetraits/BracingChill';
 import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/EphemeralRecovery';
+import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
+import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
+import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
 import InoculatingExtract from '../shared/modules/items/bfa/raids/uldir/InoculatingExtract';
 import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticCorpuscle';
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
+import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
+import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+import EventEmitter from './modules/EventEmitter';
+import EventFilter from './EventFilter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -129,6 +144,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
@@ -184,6 +200,7 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    giftOfTheNaaru: GiftOfTheNaaru,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
 
@@ -193,6 +210,7 @@ class CombatLogParser {
     firstMatesSpyglass: FirstMatesSpyglass,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
+    mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
     balefireBranch: BalefireBranch,
@@ -201,8 +219,12 @@ class CombatLogParser {
     galecallersBoon: GalecallersBoon,
     harlansLoadedDice: HarlansLoadedDice,
     lustrousGoldenPlumage: LustrousGoldenPlumage,
+    rezansGleamingEye: RezansGleamingEye,
+    rotcrustedVoodooDoll: RotcrustedVoodooDoll,
+    azerokksResonatingHeart: AzerokksResonatingHeart,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
+    dreadGladiatorsInsignia: DreadGladiatorsInsignia,
     dreadGladiatorsBadge: DreadGladiatorsBadge,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
@@ -235,6 +257,9 @@ class CombatLogParser {
     synergisticGrowth: SynergisticGrowth,
     bracingChill: BracingChill,
     ephemeralRecovery: EphemeralRecovery,
+    unstableCatalyst: UnstableCatalyst,
+    swirlingSands: SwirlingSands,
+    tradewinds: Tradewinds,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -242,9 +267,14 @@ class CombatLogParser {
     inoculatingExtract: InoculatingExtract,
     freneticCorpuscle: FreneticCorpuscle,
     constructOvercharger: ConstructOvercharger,
+    syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
+    discOfSystematicRegression: DiscOfSystematicRegression,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
+  static get finished() {
+    return new EventFilter('finished');
+  }
 
   report = null;
   // Player info from WCL - required
@@ -257,7 +287,7 @@ class CombatLogParser {
 
   adjustForDowntime = true;
   get hasDowntime() {
-    return this._modules.totalDowntime.totalBaseDowntime > 0;
+    return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
   _modules = {};
@@ -276,12 +306,11 @@ class CombatLogParser {
   }
 
   _timestamp = null;
-  _event = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -292,7 +321,7 @@ class CombatLogParser {
     }, {});
   }
   get selectedCombatant() {
-    return this._modules.combatants.selected;
+    return this.getModule(Combatants).selected;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
@@ -313,9 +342,10 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.fabricateEvent({
-      type: 'finished',
+    this.getModule(EventEmitter).fabricateEvent({
+      type: this.constructor.finished,
     });
+    console.log('Called listeners', this.getModule(EventEmitter)._listenersCalled, 'times, with', this.getModule(EventEmitter)._actualExecutions, 'actual executions.', this.getModule(EventEmitter)._listenersCalled - this.getModule(EventEmitter)._actualExecutions, 'events were filtered away');
   }
 
   _getModuleClass(config) {
@@ -337,7 +367,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.findModule(dependencyClass);
+        const dependencyModule = this.getModule(dependencyClass, false);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -347,7 +377,12 @@ class CombatLogParser {
     }
     return [availableDependencies, missingDependencies];
   }
-  _loadModule(desiredModuleName, moduleClass, options) {
+  /**
+   * @param {Module} moduleClass
+   * @param {object} [options]
+   * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
+   */
+  loadModule(moduleClass, options, desiredModuleName = `module${Object.keys(this._modules).length}`) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -360,7 +395,9 @@ class CombatLogParser {
         module[key] = options[key];
       });
     }
+    // TODO: Remove module naming
     this._modules[desiredModuleName] = module;
+    return module;
   }
   initializeModules(modules, iteration = 0) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
@@ -384,11 +421,11 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this._loadModule(desiredModuleName, moduleClass, {
+        this.loadModule(moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
-        });
+        }, desiredModuleName);
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -415,10 +452,14 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  findModule(type) {
-    return Object.keys(this._modules)
+  getModule(type, required = true) {
+    const module = Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
+    if (required && !module) {
+      throw new Error(`Module not found: ${type.name}`);
+    }
+    return module;
   }
 
   normalize(events) {
@@ -436,79 +477,8 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory = [];
-  _eventListeners = {};
-  addEventListener(type, listener, module, options = null) {
-    this._eventListeners[type] = this._eventListeners[type] || [];
-    this._eventListeners[type].push({
-      ...options,
-      module,
-      listener,
-    });
-  }
-  triggerEvent(event) {
-    if (process.env.NODE_ENV === 'development') {
-      if (!event.type) {
-        console.log(event);
-        throw new Error('Events should have a type. No type received. See the console for the event.');
-      }
-    }
-
-    // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
-
-    if (event.timestamp) {
-      this._timestamp = event.timestamp;
-    }
-    this._event = event;
-
-    const isByPlayer = this.byPlayer(event);
-    const isToPlayer = this.toPlayer(event);
-    const isByPlayerPet = this.byPlayerPet(event);
-    const isToPlayerPet = this.toPlayerPet(event);
-
-    const run = options => {
-      if (!isByPlayer && options.byPlayer) {
-        return;
-      }
-      if (!isToPlayer && options.toPlayer) {
-        return;
-      }
-      if (!isByPlayerPet && options.byPlayerPet) {
-        return;
-      }
-      if (!isToPlayerPet && options.toPlayerPet) {
-        return;
-      }
-      try {
-        options.listener(event);
-      } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
-          throw err;
-        }
-        console.error('Disabling', options.module.constructor.name, 'and child dependencies because an error occured', err);
-        // Disable this module and all active modules that have this as a dependency
-        this.deepDisable(options.module);
-        captureException(err);
-      }
-    };
-
-    {
-      // Handle on_event (listeners of all events)
-      const listeners = this._eventListeners.event;
-      if (listeners) {
-        listeners.forEach(run);
-      }
-    }
-    {
-      const listeners = this._eventListeners[event.type];
-      if (listeners) {
-        listeners.forEach(run);
-      }
-    }
-
-    this.eventHistory.push(event);
-    // Some modules need to have a primitive value to cause re-renders
-    // TODO: This can probably be removed since we only render upon completion now
-    this.eventCount += 1;
+  addEventListener(...args) {
+    this.getModule(EventEmitter).addEventListener(...args);
   }
 
   deepDisable(module) {
@@ -521,17 +491,6 @@ class CombatLogParser {
         }
       }
     );
-  }
-
-  fabricateEvent(event = null, trigger = null) {
-    this.triggerEvent({
-      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
-      // If this event was triggered you should pass it along
-      trigger: trigger ? trigger : undefined,
-      ...event,
-      __fabricated: true,
-    });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -548,7 +507,7 @@ class CombatLogParser {
   }
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this._modules.healingDone.total.effective;
+    return healingDone / this.getModule(HealingDone).total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -557,7 +516,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this._modules.damageDone.total.effective;
+    return damageDone / this.getModule(DamageDone).total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

@@ -15,6 +15,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id) ? true : false,
+          recommendedEfficiency: 0.8,
+        },
       },
       {
         spell: SPELLS.OVERPOWER,
@@ -47,6 +51,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         enabled: !combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id),
       },
       {
@@ -75,7 +83,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6, // I don't know at what efficiency this talent becomes worth it so I'm keeping it save
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id), // replaces Colussus Smash
       },
@@ -115,6 +123,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
+        },
         enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
       },
       {
@@ -123,6 +135,10 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id), // Replaces Bladestorm
       },
@@ -177,14 +193,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 6,
         gcd: null,
-        castEfficiency: {
-          // TODO: Add a statistic to show how much damage was lost due to defensive stance
-          // TODO: Add a suggestion regarding having this up too much
-          // TODO: Add a suggestion regarding having this up too little, and then deactivate the cast efficiency since uptime is more accurate
-          suggestion: true,
-          recommendedEfficiency: 0.4,
-          extraSuggestion: 'If you\'re using this talent over something that passively increases your mobility or survivability, you better use it.',
-        },
         enabled: combatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id),
       },
       {
@@ -193,6 +201,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         gcd: null,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.4,
+        },
       },
       {
         spell: SPELLS.RALLYING_CRY,
@@ -211,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: [SPELLS.CHARGE, SPELLS.CHARGE_2],
+        spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
         charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),

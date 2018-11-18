@@ -5,6 +5,7 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
@@ -21,11 +22,18 @@ import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
 import { STAT_TRACKER as ARCHIVE_OF_THE_TITANS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
 import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
+import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
+import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
+import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Tradewinds';
+import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
+  static dependencies = {
+    eventEmitter: EventEmitter,
+  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -247,6 +255,7 @@ class StatTracker extends Analyzer {
     // region Azerite Traits
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION_BUFF.id]: BLIGHTBORNE_INFUSION_STATS,
+    [SPELLS.SWIRLING_SANDS_BUFF.id]: SWIRLING_SANDS_STATS,
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
@@ -269,6 +278,8 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
+    [SPELLS.UNSTABLE_CATALYST_BUFF.id]: UNSTABLE_CATALYST_STATS,
+    [SPELLS.TRADEWINDS.id]: TRADEWINDS_STATS,
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
@@ -298,6 +309,9 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
     [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
+    // endregion
+    // region Priest
+    [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
@@ -338,11 +352,17 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.TITANIC_OVERCHARGE.id]: {
       itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
-      haste: (_, item) => calculateSecondaryStatDefault(355, 35, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(385, 60, item.itemLevel),
     },
     [SPELLS.RAPID_ADAPTATION.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
+    [SPELLS.TASTE_OF_VICTORY.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_INSIGNIA.id,
+      strength: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
     },
     [SPELLS.DIG_DEEP.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
@@ -418,6 +438,10 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
+      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
+      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
     },
     // endregion
     // region Raids
@@ -779,7 +803,7 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,

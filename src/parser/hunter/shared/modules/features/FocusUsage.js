@@ -43,7 +43,7 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.CHAKRAMS_TALENT.id,
   SPELLS.SERPENT_STING_SV.id,
   //shared
-  SPELLS.REVIVE_PET_AND_MEND_PET.id,
+  SPELLS.REVIVE_PET.id,
   SPELLS.A_MURDER_OF_CROWS_TALENT.id,
   SPELLS.BARRAGE_TALENT.id,
 ];
@@ -168,10 +168,10 @@ class FocusUsage extends Analyzer {
       color: '#ecda4c',
     },
     //SHARED
-    [SPELLS.REVIVE_PET_AND_MEND_PET.id]: {
+    [SPELLS.REVIVE_PET.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.REVIVE_PET_AND_MEND_PET.name,
+      name: SPELLS.REVIVE_PET.name,
       color: '#ec0003',
     },
     [SPELLS.A_MURDER_OF_CROWS_TALENT.id]: {

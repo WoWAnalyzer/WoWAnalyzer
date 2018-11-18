@@ -4,6 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -15,7 +16,7 @@ import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
 import RestlessBlades from './modules/core/RestlessBlades';
-import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
+import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -23,6 +24,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -35,16 +37,17 @@ class CombatLogParser extends CoreCombatLogParser {
     spellEnergyCost: SpellEnergyCost,
 
     //Core
-    sliceAndDiceUptime: SliceAndDiceUptime,
     restlessBlades: RestlessBlades,
     //Items
 
     //Casts
-    
+
     //Talents
+    sliceAndDiceUptime: SliceAndDiceUptime,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [ArcaneTorrent, {
+      gcd: 1000,
       castEfficiency: 0.5,
       extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
     }],

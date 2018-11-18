@@ -1,9 +1,13 @@
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
 
 class Channeling extends Analyzer {
+  static dependencies = {
+    eventEmitter: EventEmitter,
+  };
   _currentChannel = null;
 
   beginChannel(event, ability = event.ability) {
@@ -19,7 +23,7 @@ class Channeling extends Analyzer {
       sourceID: event.sourceID,
     };
     this._currentChannel = channelingEvent;
-    this.owner.fabricateEvent(channelingEvent, event);
+    this.eventEmitter.fabricateEvent(channelingEvent, event);
     debug && this.log('Beginning channel of', ability.name);
   }
   endChannel(event) {
@@ -33,7 +37,7 @@ class Channeling extends Analyzer {
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
@@ -45,7 +49,7 @@ class Channeling extends Analyzer {
     debug && this.log('Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'cancelchannel',
       ability,
       sourceID: event.sourceID,

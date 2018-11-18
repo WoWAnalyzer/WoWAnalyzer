@@ -70,19 +70,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
         spell: SPELLS.HUNTERS_MARK_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
@@ -142,7 +129,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -220,17 +209,23 @@ class Abilities extends CoreAbilities {
 
       },
       {
+        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
+        gcd: null,
+      },
+      {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
+        cooldown: () => {
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
+        },
         gcd: null,
       },
       {
@@ -277,6 +272,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
         },
       },
 

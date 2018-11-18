@@ -3,7 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from "common/format";
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const MINIMUM_ABSORB_THRESHOLD = 0.05;
 
@@ -49,7 +50,8 @@ class WillOfTheNecropolis extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         icon={<SpellIcon id={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}`}
         label="Will Of The Necropolis"
@@ -60,8 +62,6 @@ class WillOfTheNecropolis extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
-
 }
 
 export default WillOfTheNecropolis;

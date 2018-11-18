@@ -86,19 +86,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .85,
-        },
-      },
-      {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
@@ -170,8 +157,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: () => {
-          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 90 * (1 - (hasBornToBeWild ? 0.2 : 0));
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 90 * (1 - bornToBeWildCDR);
         },
         gcd: null,
       },
@@ -179,8 +166,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => {
-          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * (1 - (hasBornToBeWild ? 0.2 : 0));
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
         },
         gcd: null,
       },
@@ -190,8 +177,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: () => {
-          const hasBornToBeWild = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
-          return 180 * hasBornToBeWild ? 0.8 : 1;
+          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
+          return 180 * (1 - bornToBeWildCDR);
         },
         gcd: null,
       },
@@ -294,6 +281,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INTIMIDATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MEND_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
         gcd: {
           base: 1500,
         },

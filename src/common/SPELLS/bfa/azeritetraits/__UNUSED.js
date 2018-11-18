@@ -44,7 +44,7 @@ export default {
     name: 'Arrowstorm',
     icon: 'inv_spear_07',
   },
-  ASPECT_OF_THE_CHEETAH: {
+  ASPECT_OF_THE_CHEETAH_AZERITE: {
     id: 263829,
     name: 'Aspect of the Cheetah',
     icon: 'ability_mount_jungletiger',
@@ -798,11 +798,6 @@ export default {
     id: 272944,
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_shadowbolt',
-  },
-  SHARPENED_BLADES: {
-    id: 272913,
-    name: 'Sharpened Blades',
-    icon: 'inv_throwingknife_07',
   },
   SHELLSHOCK: {
     id: 274357,
