@@ -8,6 +8,7 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import Abilities from 'parser/shared/modules/Abilities';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import Lane from 'parser/shared/modules/features/Timeline/Lane';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -84,12 +85,10 @@ class Timeline extends React.PureComponent {
   }
   /**
    * @param {object[]} events
-   * @returns {Map<int, array>} Events grouped by spell. The order of the map is determined by when a spell was first cast. The first spell will be the first spell ever cast.
+   * @returns {Map<int, object[]>} Events grouped by spell id.
    */
   getEventsBySpellId(events) {
-    // Maintaining insertion order is important because it tells us which spell was cast first
     const eventsBySpellId = new Map();
-
     events.forEach(event => {
       if (!this.isApplicableEvent(event)) {
         return;
@@ -104,71 +103,25 @@ class Timeline extends React.PureComponent {
     return eventsBySpellId;
   }
   /**
-   * Separate cooldowns from the rest of the spells.
-   * @param {Map<int, array>} eventsBySpellId
-   * @returns {{cooldowns: Map<int, array>, others: Map<int, array>}}
+   * Separate cast windows from the rest of the spells.
+   * @param {Map<int, object[]>} eventsBySpellId
+   * @returns {{castWindows: Map<int, object[]>, others: Map<int, object[]>}}
    */
-  separateCooldowns(eventsBySpellId) {
+  separateCastWindows(eventsBySpellId) {
     const abilities = this.props.abilities;
-    const cooldowns = new Map();
+    const castWindows = new Map();
     const others = new Map();
 
     eventsBySpellId.forEach((value, spellId) => {
       const ability = abilities.getAbility(spellId);
-      if (ability && ability.category === Abilities.SPELL_CATEGORIES.COOLDOWNS) {
-        cooldowns.set(spellId, value);
+      if (ability && ability.timelineSortIndex < 0) {
+        castWindows.set(spellId, value);
       } else {
         others.set(spellId, value);
       }
     });
 
-    return { cooldowns, others };
-  }
-  renderEvent(event, timestampOffset) {
-    switch (event.type) {
-      case 'cast':
-        return this.renderCastEvent(event, timestampOffset);
-      case 'updatespellusable':
-        return this.renderUpdateSpellUsableEvent(event, timestampOffset);
-      default:
-        return null;
-    }
-  }
-  renderCastEvent(event, timestampOffset) {
-    const left = this.getOffsetLeft(event.timestamp, timestampOffset);
-
-    return (
-      <SpellLink
-        key={`cast-${left}`}
-        id={event.ability.guid}
-        icon={false}
-        className="cast"
-        style={{ left }}
-      >
-        {/*<div style={{ height: level * 30 + 55, top: negative ? 0 : undefined, bottom: negative ? undefined : 0 }} />*/}
-        <Icon
-          icon={event.ability.abilityIcon.replace('.jpg', '')}
-          alt={event.ability.name}
-        />
-      </SpellLink>
-    );
-  }
-  renderUpdateSpellUsableEvent(event, timestampOffset) {
-    const left = this.getOffsetLeft(event.start, timestampOffset);
-    const maxWidth = this.totalWidth - left; // don't expand beyond the container width
-    const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * this.secondWidth);
-    return (
-      <div
-        key={`cooldown-${left}`}
-        className="cooldown"
-        style={{
-          left,
-          width,
-        }}
-        data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
-        data-effect="float"
-      />
-    );
+    return { castWindows, others };
   }
   getOffsetTop(index) {
     return this.centerOffset + index * this.laneHeight;
@@ -176,24 +129,39 @@ class Timeline extends React.PureComponent {
   getOffsetLeft(timestamp, start) {
     return (timestamp - start) / 1000 * this.secondWidth;
   }
+
   renderLane([spellId, events], index, growUp) {
-    const top = this.getOffsetTop(index) * (growUp ? -1 : 1);
     const firstEvent = events[0];
     const left = this.getOffsetLeft(firstEvent.timestamp, this.props.start);
-
     return (
-      <div
+      <Lane
         key={spellId}
-        className="lane"
+        spellId={spellId}
         style={{
-          top,
+          top: this.getOffsetTop(index) * (growUp ? -1 : 1),
           left,
           width: this.totalWidth - left,
         }}
+        timestampOffset={firstEvent.timestamp}
+        secondWidth={this.secondWidth}
       >
-        {events.map(event => this.renderEvent(event, firstEvent.timestamp))}
-      </div>
+        {events}
+      </Lane>
     );
+  }
+
+  getSortIndex(spellId) {
+    const ability = this.props.abilities.getAbility(spellId);
+    if (!ability || ability.timelineSortIndex === undefined) {
+      return spellId;
+    } else {
+      return ability.timelineSortIndex;
+    }
+  }
+  renderLanes(eventsBySpellId, growUp) {
+    return Array.from(eventsBySpellId)
+      .sort((a, b) => this.getSortIndex(growUp ? b[0] : a[0]) - this.getSortIndex(growUp ? a[0] : b[0]))
+      .map((item, index) => this.renderLane(item, index, growUp));
   }
 
   render() {
@@ -202,12 +170,12 @@ class Timeline extends React.PureComponent {
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
-    const { cooldowns, others } = this.separateCooldowns(eventsBySpellId);
+    const { castWindows, others } = this.separateCastWindows(eventsBySpellId);
 
     return (
       <div className="spell-timeline" style={{ width: this.totalWidth, padding: '80px 0 400px 0' }}>
         <div className="casts cooldowns">
-          {Array.from(cooldowns, (item, index) => this.renderLane(item, index, true))}
+          {this.renderLanes(castWindows, true)}
         </div>
         <div className="time-line">
           {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
@@ -217,7 +185,7 @@ class Timeline extends React.PureComponent {
           })}
         </div>
         <div className="casts">
-          {Array.from(others, (item, index) => this.renderLane(item, index, false))}
+          {this.renderLanes(others, false)}
         </div>
       </div>
     );

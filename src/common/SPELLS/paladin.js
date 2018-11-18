@@ -17,7 +17,7 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
-  JUDGMENT_CAST_ALT: {
+  JUDGMENT_CAST_HOLY: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',

@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: [SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_ALT],
+        spell: [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 25,
+        timelineSortIndex: -1,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
       },
       {
@@ -183,7 +183,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
-        timelineSortIndex: 33,
+        timelineSortIndex: -3,
       },
       {
         spell: SPELLS.AVENGING_WRATH,
@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        timelineSortIndex: 32,
+        timelineSortIndex: -2,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
@@ -206,7 +206,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        timelineSortIndex: 32,
+        timelineSortIndex: -2,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
@@ -219,7 +219,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.6,
         },
-        timelineSortIndex: 34,
+        timelineSortIndex: -4,
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
