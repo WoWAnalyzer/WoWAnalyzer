@@ -1,0 +1,4398 @@
+{
+    "fights": [
+        {
+            "id": 1,
+            "start_time": 96,
+            "end_time": 106393,
+            "boss": 0,
+            "name": "Corrupted Watcher"
+        },
+        {
+            "id": 2,
+            "start_time": 137406,
+            "end_time": 142661,
+            "boss": 0,
+            "name": "Malformed Creation"
+        },
+        {
+            "id": 3,
+            "start_time": 142861,
+            "end_time": 152128,
+            "boss": 0,
+            "name": "Fetid Devourer"
+        },
+        {
+            "id": 4,
+            "start_time": 155154,
+            "end_time": 195566,
+            "boss": 0,
+            "name": "Malformed Creation"
+        },
+        {
+            "id": 5,
+            "start_time": 195586,
+            "end_time": 206783,
+            "boss": 0,
+            "name": "Fetid Devourer"
+        },
+        {
+            "id": 6,
+            "start_time": 209994,
+            "end_time": 256303,
+            "boss": 0,
+            "name": "Malformed Creation"
+        },
+        {
+            "id": 7,
+            "start_time": 274744,
+            "end_time": 281334,
+            "boss": 0,
+            "name": "Fetid Devourer"
+        },
+        {
+            "id": 8,
+            "start_time": 281352,
+            "end_time": 286164,
+            "boss": 0,
+            "name": "Fetid Devourer"
+        },
+        {
+            "id": 9,
+            "start_time": 338868,
+            "end_time": 512798,
+            "boss": 2128,
+            "size": 13,
+            "difficulty": 4,
+            "kill": true,
+            "partial": 3,
+            "bossPercentage": 0,
+            "fightPercentage": 0,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Fetid Devourer"
+        },
+        {
+            "id": 10,
+            "start_time": 560922,
+            "end_time": 738886,
+            "boss": 0,
+            "name": "Corrupted Watcher"
+        },
+        {
+            "id": 11,
+            "start_time": 787890,
+            "end_time": 953641,
+            "boss": 0,
+            "name": "Speaker Obara"
+        },
+        {
+            "id": 12,
+            "start_time": 1064534,
+            "end_time": 1371954,
+            "boss": 2134,
+            "size": 13,
+            "difficulty": 4,
+            "kill": true,
+            "partial": 3,
+            "bossPercentage": 0,
+            "fightPercentage": 0,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Vectis"
+        },
+        {
+            "id": 13,
+            "start_time": 1537165,
+            "end_time": 1683777,
+            "boss": 0,
+            "name": "Corrupted Watcher"
+        },
+        {
+            "id": 14,
+            "start_time": 1698668,
+            "end_time": 1726347,
+            "boss": 0,
+            "name": "Nazmani Warmother"
+        },
+        {
+            "id": 15,
+            "start_time": 1753545,
+            "end_time": 1857693,
+            "boss": 0,
+            "name": "Silithid Hunter-Killer"
+        },
+        {
+            "id": 16,
+            "start_time": 1876421,
+            "end_time": 1930588,
+            "boss": 0,
+            "name": "C'Thraxxi Breaker"
+        },
+        {
+            "id": 17,
+            "start_time": 2063922,
+            "end_time": 2527617,
+            "boss": 2136,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 180,
+            "fightPercentage": 180,
+            "lastPhaseForPercentageDisplay": 3,
+            "name": "Zek'voz"
+        },
+        {
+            "id": 18,
+            "start_time": 2573250,
+            "end_time": 2573268,
+            "boss": 0,
+            "name": "Nazmani Weevil"
+        },
+        {
+            "id": 19,
+            "start_time": 2667544,
+            "end_time": 3148818,
+            "boss": 2136,
+            "size": 13,
+            "difficulty": 4,
+            "kill": true,
+            "partial": 3,
+            "bossPercentage": 0,
+            "fightPercentage": 0,
+            "lastPhaseForPercentageDisplay": 3,
+            "name": "Zek'voz"
+        },
+        {
+            "id": 20,
+            "start_time": 3791470,
+            "end_time": 3819589,
+            "boss": 0,
+            "name": "Nazmani Dominator"
+        },
+        {
+            "id": 21,
+            "start_time": 3834111,
+            "end_time": 3955582,
+            "boss": 0,
+            "name": "Nazmani Dominator"
+        },
+        {
+            "id": 22,
+            "start_time": 3967481,
+            "end_time": 3995854,
+            "boss": 0,
+            "name": "Nazmani Bloodweaver"
+        },
+        {
+            "id": 23,
+            "start_time": 4016268,
+            "end_time": 4085142,
+            "boss": 0,
+            "name": "Nazmani Dominator"
+        },
+        {
+            "id": 24,
+            "start_time": 4097452,
+            "end_time": 4265400,
+            "boss": 0,
+            "name": "Nazmani Dominator"
+        },
+        {
+            "id": 25,
+            "start_time": 4276148,
+            "end_time": 4407734,
+            "boss": 0,
+            "name": "Nazmani Dominator"
+        },
+        {
+            "id": 26,
+            "start_time": 4661793,
+            "end_time": 4667260,
+            "boss": 0,
+            "name": "Zul"
+        },
+        {
+            "id": 27,
+            "start_time": 4667265,
+            "end_time": 4670062,
+            "boss": 0,
+            "name": "Zul"
+        },
+        {
+            "id": 28,
+            "start_time": 4754395,
+            "end_time": 5055804,
+            "boss": 2145,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 3160,
+            "fightPercentage": 3160,
+            "lastPhaseForPercentageDisplay": 2,
+            "name": "Zul"
+        },
+        {
+            "id": 29,
+            "start_time": 5412426,
+            "end_time": 5554626,
+            "boss": 2145,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 6008,
+            "fightPercentage": 6008,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Zul"
+        },
+        {
+            "id": 30,
+            "start_time": 5667487,
+            "end_time": 5908943,
+            "boss": 2145,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 4856,
+            "fightPercentage": 4856,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Zul"
+        },
+        {
+            "id": 31,
+            "start_time": 6035312,
+            "end_time": 6336792,
+            "boss": 2145,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 1899,
+            "fightPercentage": 1899,
+            "lastPhaseForPercentageDisplay": 2,
+            "name": "Zul"
+        },
+        {
+            "id": 32,
+            "start_time": 6491897,
+            "end_time": 6815579,
+            "boss": 2145,
+            "size": 13,
+            "difficulty": 4,
+            "kill": true,
+            "partial": 3,
+            "bossPercentage": 0,
+            "fightPercentage": 0,
+            "lastPhaseForPercentageDisplay": 2,
+            "name": "Zul"
+        },
+        {
+            "id": 33,
+            "start_time": 6967708,
+            "end_time": 6977744,
+            "boss": 0,
+            "name": "Mythrax"
+        },
+        {
+            "id": 34,
+            "start_time": 7269078,
+            "end_time": 7624908,
+            "boss": 2135,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 3187,
+            "fightPercentage": 3187,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Mythrax"
+        },
+        {
+            "id": 35,
+            "start_time": 7721312,
+            "end_time": 7823621,
+            "boss": 2135,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 7023,
+            "fightPercentage": 7023,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Mythrax"
+        },
+        {
+            "id": 36,
+            "start_time": 7938527,
+            "end_time": 8131070,
+            "boss": 2135,
+            "size": 13,
+            "difficulty": 4,
+            "kill": false,
+            "partial": 3,
+            "bossPercentage": 6312,
+            "fightPercentage": 6312,
+            "lastPhaseForPercentageDisplay": 1,
+            "name": "Mythrax"
+        }
+    ],
+    "lang": "en",
+    "friendlies": [
+        {
+            "name": "Vision of Madness",
+            "id": 114,
+            "guid": 139487,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 34,
+                    "instances": 14,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Trash Chute Stalker",
+            "id": 40,
+            "guid": 139826,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 6,
+                    "groups": 3
+                }
+            ]
+        },
+        {
+            "name": "Dekz",
+            "id": 8,
+            "guid": 135021678,
+            "type": "Hunter",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Noxx",
+            "id": 3,
+            "guid": 129766763,
+            "type": "Monk",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Blood Ritual",
+            "id": 33,
+            "guid": 143012,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 25,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Zuuna",
+            "id": 5,
+            "guid": 91276502,
+            "type": "Paladin",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Mortu\u00fas",
+            "id": 10,
+            "guid": 91326741,
+            "type": "DeathKnight",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Bemmie",
+            "id": 14,
+            "guid": 128872124,
+            "type": "Paladin",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Nocthalia",
+            "id": 6,
+            "guid": 131362912,
+            "type": "Priest",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Calinka",
+            "id": 7,
+            "guid": 96807480,
+            "type": "Mage",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Prexona",
+            "id": 1,
+            "guid": 120939554,
+            "type": "DeathKnight",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 33
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Morgoth",
+            "id": 16,
+            "guid": 96650827,
+            "type": "Priest",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Descobane",
+            "id": 11,
+            "guid": 135933887,
+            "type": "Mage",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Redzack",
+            "id": 13,
+            "guid": 125236743,
+            "type": "Warlock",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Soulharvest",
+            "id": 4,
+            "guid": 133590626,
+            "type": "Warlock",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 8
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 18
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        },
+        {
+            "name": "Aeliria",
+            "id": 12,
+            "guid": 98564227,
+            "type": "Rogue",
+            "fights": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                },
+                {
+                    "id": 4
+                },
+                {
+                    "id": 5
+                },
+                {
+                    "id": 6
+                },
+                {
+                    "id": 7
+                },
+                {
+                    "id": 9
+                },
+                {
+                    "id": 10
+                },
+                {
+                    "id": 11
+                },
+                {
+                    "id": 12
+                },
+                {
+                    "id": 13
+                },
+                {
+                    "id": 14
+                },
+                {
+                    "id": 15
+                },
+                {
+                    "id": 16
+                },
+                {
+                    "id": 17
+                },
+                {
+                    "id": 19
+                },
+                {
+                    "id": 20
+                },
+                {
+                    "id": 21
+                },
+                {
+                    "id": 22
+                },
+                {
+                    "id": 23
+                },
+                {
+                    "id": 24
+                },
+                {
+                    "id": 25
+                },
+                {
+                    "id": 26
+                },
+                {
+                    "id": 27
+                },
+                {
+                    "id": 28
+                },
+                {
+                    "id": 29
+                },
+                {
+                    "id": 30
+                },
+                {
+                    "id": 31
+                },
+                {
+                    "id": 32
+                },
+                {
+                    "id": 34
+                },
+                {
+                    "id": 35
+                },
+                {
+                    "id": 36
+                }
+            ]
+        }
+    ],
+    "enemies": [
+        {
+            "name": "Nazmani Crusher",
+            "id": 92,
+            "guid": 139051,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 27,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 4
+                },
+                {
+                    "id": 29,
+                    "instances": 2
+                },
+                {
+                    "id": 30,
+                    "instances": 4
+                },
+                {
+                    "id": 31,
+                    "instances": 4
+                },
+                {
+                    "id": 32,
+                    "instances": 3
+                }
+            ]
+        },
+        {
+            "name": "Warmother Ye'du",
+            "id": 61,
+            "guid": 142242,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 13,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Faceless Devourer",
+            "id": 47,
+            "guid": 136510,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 2
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Defiler",
+            "id": 55,
+            "guid": 142150,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 11,
+                    "instances": 4,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Vision of Madness",
+            "id": 114,
+            "guid": 139487,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 34,
+                    "instances": 14,
+                    "groups": 2
+                },
+                {
+                    "id": 36,
+                    "instances": 10,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Bloodhexer",
+            "id": 94,
+            "guid": 139057,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 26,
+                    "instances": 1,
+                    "groups": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 7,
+                    "groups": 4
+                },
+                {
+                    "id": 29,
+                    "instances": 5,
+                    "groups": 3
+                },
+                {
+                    "id": 30,
+                    "instances": 7,
+                    "groups": 5
+                },
+                {
+                    "id": 31,
+                    "instances": 7,
+                    "groups": 5
+                },
+                {
+                    "id": 32,
+                    "instances": 7,
+                    "groups": 4
+                }
+            ]
+        },
+        {
+            "name": "Guardian of Yogg-Saron",
+            "id": 83,
+            "guid": 135083,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 3,
+                    "groups": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Corruption Corpuscle",
+            "id": 41,
+            "guid": 133492,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 6,
+                    "groups": 3
+                }
+            ]
+        },
+        {
+            "name": "Fetid Devourer",
+            "id": 32,
+            "guid": 133298,
+            "type": "Boss",
+            "fights": [
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 7,
+                    "instances": 1
+                },
+                {
+                    "id": 8,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Warmother",
+            "id": 30,
+            "guid": 136502,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 2,
+                    "groups": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Bloodthirsty Crawg",
+            "id": 91,
+            "guid": 139059,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 25,
+                    "instances": 4,
+                    "groups": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 24,
+                    "groups": 6
+                },
+                {
+                    "id": 29,
+                    "instances": 16,
+                    "groups": 4
+                },
+                {
+                    "id": 30,
+                    "instances": 24,
+                    "groups": 5
+                },
+                {
+                    "id": 31,
+                    "instances": 24,
+                    "groups": 6
+                },
+                {
+                    "id": 32,
+                    "instances": 20,
+                    "groups": 5
+                }
+            ]
+        },
+        {
+            "name": "Projection of Yogg-Saron",
+            "id": 79,
+            "guid": 135129,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 1,
+                    "groups": 3
+                },
+                {
+                    "id": 19,
+                    "instances": 1,
+                    "groups": 4
+                }
+            ]
+        },
+        {
+            "name": "C'Thraxxi Breaker",
+            "id": 70,
+            "guid": 141266,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 16,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Animated Rot",
+            "id": 44,
+            "guid": 136509,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 14,
+                    "groups": 3
+                }
+            ]
+        },
+        {
+            "name": "Mythrax the Unraveler",
+            "id": 109,
+            "guid": 134546,
+            "type": "Boss",
+            "fights": [
+                {
+                    "id": 33,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Forgotten One",
+            "id": 65,
+            "guid": 141267,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 15,
+                    "instances": 3,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Nerubian Voidweaver",
+            "id": 78,
+            "guid": 135824,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 9,
+                    "groups": 3
+                },
+                {
+                    "id": 19,
+                    "instances": 9,
+                    "groups": 4
+                }
+            ]
+        },
+        {
+            "name": "Oblivion Sphere",
+            "id": 111,
+            "guid": 138492,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 33,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 17
+                },
+                {
+                    "id": 35,
+                    "instances": 7
+                },
+                {
+                    "id": 36,
+                    "instances": 8
+                }
+            ]
+        },
+        {
+            "name": "Malformed Creation",
+            "id": 31,
+            "guid": 142219,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 7,
+                    "groups": 2
+                },
+                {
+                    "id": 2,
+                    "instances": 3,
+                    "groups": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 3,
+                    "groups": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 14,
+                    "groups": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 10,
+                    "groups": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 8,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Faceless Voidseeker",
+            "id": 64,
+            "guid": 140599,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 15,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Corrupted Watcher",
+            "id": 2,
+            "guid": 136493,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Silithid Warrior",
+            "id": 77,
+            "guid": 134503,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 12,
+                    "groups": 2
+                },
+                {
+                    "id": 19,
+                    "instances": 12,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Reaver",
+            "id": 28,
+            "guid": 136495,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 2,
+                    "groups": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 4,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Animated Ichor",
+            "id": 100,
+            "guid": 139195,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 4,
+                    "groups": 4
+                },
+                {
+                    "id": 29,
+                    "instances": 1,
+                    "groups": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 5,
+                    "groups": 4
+                },
+                {
+                    "id": 31,
+                    "instances": 3,
+                    "groups": 3
+                },
+                {
+                    "id": 32,
+                    "instances": 3,
+                    "groups": 3
+                }
+            ]
+        },
+        {
+            "name": "Plague Amalgam",
+            "id": 58,
+            "guid": 135016,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 12,
+                    "instances": 10,
+                    "groups": 4
+                }
+            ]
+        },
+        {
+            "name": "Vectis",
+            "id": 53,
+            "guid": 134442,
+            "type": "Boss",
+            "fights": [
+                {
+                    "id": 12,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Silithid Hunter-Killer",
+            "id": 62,
+            "guid": 140594,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 15,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Zek'voz",
+            "id": 74,
+            "guid": 134445,
+            "type": "Boss",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Orb of Corruption",
+            "id": 85,
+            "guid": 135310,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 2
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Projection of C'thun",
+            "id": 76,
+            "guid": 134726,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 1,
+                    "groups": 3
+                },
+                {
+                    "id": 19,
+                    "instances": 1,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Veinsplitter",
+            "id": 9,
+            "guid": 142800,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 21,
+                    "instances": 60,
+                    "groups": 1
+                },
+                {
+                    "id": 22,
+                    "instances": 38,
+                    "groups": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 40,
+                    "groups": 2
+                },
+                {
+                    "id": 24,
+                    "instances": 35,
+                    "groups": 4
+                },
+                {
+                    "id": 25,
+                    "instances": 20,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Supplicant",
+            "id": 54,
+            "guid": 142149,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 11,
+                    "instances": 13,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Blight Recluse",
+            "id": 37,
+            "guid": 139630,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 2
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "N'raqi Destroyer",
+            "id": 112,
+            "guid": 139381,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 34,
+                    "instances": 4,
+                    "groups": 3
+                },
+                {
+                    "id": 36,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Pool of Darkness",
+            "id": 96,
+            "guid": 139171,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 11,
+                    "groups": 11
+                },
+                {
+                    "id": 29,
+                    "instances": 4,
+                    "groups": 5
+                },
+                {
+                    "id": 30,
+                    "instances": 8,
+                    "groups": 10
+                },
+                {
+                    "id": 31,
+                    "instances": 10,
+                    "groups": 8
+                },
+                {
+                    "id": 32,
+                    "instances": 13,
+                    "groups": 12
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Bloodweaver",
+            "id": 23,
+            "guid": 142801,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 21,
+                    "instances": 12,
+                    "groups": 1
+                },
+                {
+                    "id": 22,
+                    "instances": 7,
+                    "groups": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 8,
+                    "groups": 3
+                },
+                {
+                    "id": 24,
+                    "instances": 7,
+                    "groups": 3
+                },
+                {
+                    "id": 25,
+                    "instances": 4,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Warped Projection",
+            "id": 80,
+            "guid": 135888,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Qiraji Scarab",
+            "id": 63,
+            "guid": 140591,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 15,
+                    "instances": 9,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Coagulated Blood",
+            "id": 45,
+            "guid": 136507,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 12,
+                    "groups": 3
+                }
+            ]
+        },
+        {
+            "name": "Speaker Obara",
+            "id": 56,
+            "guid": 142207,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 11,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Ascendant",
+            "id": 59,
+            "guid": 136499,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 13,
+                    "instances": 2,
+                    "groups": 1
+                }
+            ]
+        },
+        {
+            "name": "Zul",
+            "id": 93,
+            "guid": 138967,
+            "type": "Boss",
+            "fights": [
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Chosen",
+            "id": 27,
+            "guid": 136496,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 3,
+                    "groups": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 4,
+                    "groups": 2
+                }
+            ]
+        },
+        {
+            "name": "Void Tendril",
+            "id": 66,
+            "guid": 142004,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 15,
+                    "instances": 2
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Weevil",
+            "id": 42,
+            "guid": 130217,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 18,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Nazmani Dominator",
+            "id": 24,
+            "guid": 142802,
+            "type": "NPC",
+            "fights": [
+                {
+                    "id": 20,
+                    "instances": 5,
+                    "groups": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 7,
+                    "groups": 3
+                },
+                {
+                    "id": 23,
+                    "instances": 4,
+                    "groups": 2
+                },
+                {
+                    "id": 24,
+                    "instances": 4,
+                    "groups": 2
+                },
+                {
+                    "id": 25,
+                    "instances": 2,
+                    "groups": 2
+                }
+            ]
+        }
+    ],
+    "friendlyPets": [
+        {
+            "name": "Garloz",
+            "id": 15,
+            "guid": 40512024,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 1
+                },
+                {
+                    "id": 7,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Kragnos",
+            "id": 86,
+            "guid": 40512022,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 25,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Geisterbestie",
+            "id": 19,
+            "guid": 43688882,
+            "type": "Pet",
+            "petOwner": 8,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 1
+                },
+                {
+                    "id": 7,
+                    "instances": 1
+                },
+                {
+                    "id": 8,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 20,
+                    "instances": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 22,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 25,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 27,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Darkglare",
+            "id": 38,
+            "guid": 103673,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 2
+                },
+                {
+                    "id": 17,
+                    "instances": 2
+                },
+                {
+                    "id": 19,
+                    "instances": 2
+                },
+                {
+                    "id": 28,
+                    "instances": 2
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 2
+                },
+                {
+                    "id": 32,
+                    "instances": 2
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Risen Skulker",
+            "id": 17,
+            "guid": 99541,
+            "type": "Pet",
+            "petOwner": 10,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 20,
+                    "instances": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Demonic Gateway",
+            "id": 72,
+            "guid": 59271,
+            "type": "Pet",
+            "petOwner": 4,
+            "fights": [
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Shadowfiend",
+            "id": 39,
+            "guid": 19668,
+            "type": "Pet",
+            "petOwner": 16,
+            "fights": [
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 2
+                },
+                {
+                    "id": 17,
+                    "instances": 2
+                },
+                {
+                    "id": 19,
+                    "instances": 3
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 2
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 2
+                },
+                {
+                    "id": 32,
+                    "instances": 2
+                },
+                {
+                    "id": 34,
+                    "instances": 2
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Bloodworm",
+            "id": 21,
+            "guid": 99773,
+            "type": "Pet",
+            "petOwner": 1,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 6
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 2
+                },
+                {
+                    "id": 9,
+                    "instances": 15
+                },
+                {
+                    "id": 10,
+                    "instances": 9
+                },
+                {
+                    "id": 11,
+                    "instances": 13
+                },
+                {
+                    "id": 12,
+                    "instances": 23
+                },
+                {
+                    "id": 13,
+                    "instances": 10
+                },
+                {
+                    "id": 14,
+                    "instances": 4
+                },
+                {
+                    "id": 15,
+                    "instances": 8
+                },
+                {
+                    "id": 16,
+                    "instances": 3
+                },
+                {
+                    "id": 17,
+                    "instances": 42
+                },
+                {
+                    "id": 19,
+                    "instances": 39
+                },
+                {
+                    "id": 21,
+                    "instances": 2
+                },
+                {
+                    "id": 24,
+                    "instances": 3
+                },
+                {
+                    "id": 25,
+                    "instances": 9
+                },
+                {
+                    "id": 28,
+                    "instances": 14
+                },
+                {
+                    "id": 29,
+                    "instances": 12
+                },
+                {
+                    "id": 30,
+                    "instances": 14
+                },
+                {
+                    "id": 31,
+                    "instances": 15
+                },
+                {
+                    "id": 32,
+                    "instances": 21
+                },
+                {
+                    "id": 34,
+                    "instances": 16
+                },
+                {
+                    "id": 35,
+                    "instances": 6
+                },
+                {
+                    "id": 36,
+                    "instances": 12
+                }
+            ]
+        },
+        {
+            "name": "Zhaajhom",
+            "id": 57,
+            "guid": 40512020,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Wasserelementar",
+            "id": 22,
+            "guid": 43615750,
+            "type": "Pet",
+            "petOwner": 11,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 1
+                },
+                {
+                    "id": 7,
+                    "instances": 1
+                },
+                {
+                    "id": 8,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 20,
+                    "instances": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 22,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 25,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Rune Weapon",
+            "id": 35,
+            "guid": 27893,
+            "type": "Pet",
+            "petOwner": 1,
+            "fights": [
+                {
+                    "id": 6,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 2
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 3
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 4
+                },
+                {
+                    "id": 19,
+                    "instances": 4
+                },
+                {
+                    "id": 20,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 25,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 2
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 2
+                },
+                {
+                    "id": 31,
+                    "instances": 2
+                },
+                {
+                    "id": 32,
+                    "instances": 3
+                },
+                {
+                    "id": 34,
+                    "instances": 3
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 2
+                }
+            ]
+        },
+        {
+            "name": "Darkglare",
+            "id": 34,
+            "guid": 103673,
+            "type": "Pet",
+            "petOwner": 4,
+            "fights": [
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 2
+                },
+                {
+                    "id": 17,
+                    "instances": 2
+                },
+                {
+                    "id": 19,
+                    "instances": 2
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 2
+                },
+                {
+                    "id": 34,
+                    "instances": 2
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Black Ox Statue",
+            "id": 95,
+            "guid": 61146,
+            "type": "Pet",
+            "petOwner": 3,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 3
+                },
+                {
+                    "id": 29,
+                    "instances": 2
+                },
+                {
+                    "id": 30,
+                    "instances": 4
+                },
+                {
+                    "id": 31,
+                    "instances": 4
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Demonic Gateway",
+            "id": 71,
+            "guid": 59262,
+            "type": "Pet",
+            "petOwner": 4,
+            "fights": [
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Flaajhom",
+            "id": 20,
+            "guid": 43300299,
+            "type": "Pet",
+            "petOwner": 4,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 2,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 6,
+                    "instances": 1
+                },
+                {
+                    "id": 7,
+                    "instances": 1
+                },
+                {
+                    "id": 8,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 20,
+                    "instances": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 22,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 25,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 27,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Felsh\u00fcter",
+            "id": 18,
+            "guid": 23474386,
+            "type": "Pet",
+            "petOwner": 10,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 1
+                },
+                {
+                    "id": 3,
+                    "instances": 1
+                },
+                {
+                    "id": 4,
+                    "instances": 1
+                },
+                {
+                    "id": 5,
+                    "instances": 1
+                },
+                {
+                    "id": 9,
+                    "instances": 1
+                },
+                {
+                    "id": 10,
+                    "instances": 1
+                },
+                {
+                    "id": 11,
+                    "instances": 1
+                },
+                {
+                    "id": 12,
+                    "instances": 1
+                },
+                {
+                    "id": 13,
+                    "instances": 1
+                },
+                {
+                    "id": 14,
+                    "instances": 1
+                },
+                {
+                    "id": 15,
+                    "instances": 1
+                },
+                {
+                    "id": 16,
+                    "instances": 1
+                },
+                {
+                    "id": 17,
+                    "instances": 1
+                },
+                {
+                    "id": 19,
+                    "instances": 1
+                },
+                {
+                    "id": 21,
+                    "instances": 1
+                },
+                {
+                    "id": 23,
+                    "instances": 1
+                },
+                {
+                    "id": 24,
+                    "instances": 1
+                },
+                {
+                    "id": 26,
+                    "instances": 1
+                },
+                {
+                    "id": 27,
+                    "instances": 1
+                },
+                {
+                    "id": 28,
+                    "instances": 1
+                },
+                {
+                    "id": 29,
+                    "instances": 1
+                },
+                {
+                    "id": 30,
+                    "instances": 1
+                },
+                {
+                    "id": 31,
+                    "instances": 1
+                },
+                {
+                    "id": 32,
+                    "instances": 1
+                },
+                {
+                    "id": 34,
+                    "instances": 1
+                },
+                {
+                    "id": 35,
+                    "instances": 1
+                },
+                {
+                    "id": 36,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Army of the Dead",
+            "id": 25,
+            "guid": 24207,
+            "type": "Pet",
+            "petOwner": 10,
+            "fights": [
+                {
+                    "id": 1,
+                    "instances": 4
+                },
+                {
+                    "id": 9,
+                    "instances": 16
+                },
+                {
+                    "id": 10,
+                    "instances": 4
+                },
+                {
+                    "id": 12,
+                    "instances": 20
+                },
+                {
+                    "id": 13,
+                    "instances": 4
+                },
+                {
+                    "id": 14,
+                    "instances": 4
+                },
+                {
+                    "id": 17,
+                    "instances": 25
+                },
+                {
+                    "id": 19,
+                    "instances": 28
+                },
+                {
+                    "id": 26,
+                    "instances": 5
+                },
+                {
+                    "id": 28,
+                    "instances": 20
+                },
+                {
+                    "id": 29,
+                    "instances": 12
+                },
+                {
+                    "id": 30,
+                    "instances": 16
+                },
+                {
+                    "id": 31,
+                    "instances": 19
+                },
+                {
+                    "id": 32,
+                    "instances": 17
+                },
+                {
+                    "id": 34,
+                    "instances": 20
+                },
+                {
+                    "id": 35,
+                    "instances": 12
+                },
+                {
+                    "id": 36,
+                    "instances": 8
+                }
+            ]
+        }
+    ],
+    "enemyPets": [
+        {
+            "name": "Minion of Zul",
+            "id": 105,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 10,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 34
+                },
+                {
+                    "id": 31,
+                    "instances": 40
+                },
+                {
+                    "id": 32,
+                    "instances": 50
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 107,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 16,
+            "fights": [
+                {
+                    "id": 29,
+                    "instances": 9
+                },
+                {
+                    "id": 32,
+                    "instances": 12
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 103,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 5,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 30
+                },
+                {
+                    "id": 29,
+                    "instances": 6
+                },
+                {
+                    "id": 31,
+                    "instances": 28
+                },
+                {
+                    "id": 32,
+                    "instances": 18
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 106,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 8,
+            "fights": [
+                {
+                    "id": 29,
+                    "instances": 4
+                },
+                {
+                    "id": 30,
+                    "instances": 21
+                },
+                {
+                    "id": 31,
+                    "instances": 18
+                },
+                {
+                    "id": 32,
+                    "instances": 3
+                }
+            ]
+        },
+        {
+            "name": "Living Infection",
+            "id": 50,
+            "guid": 141749,
+            "type": "Pet",
+            "petOwner": 7,
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Living Infection",
+            "id": 52,
+            "guid": 141749,
+            "type": "Pet",
+            "petOwner": 14,
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Shadowfiend",
+            "id": 39,
+            "guid": 19668,
+            "type": "Pet",
+            "petOwner": 16,
+            "fights": [
+                {
+                    "id": 35,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Living Infection",
+            "id": 51,
+            "guid": 141749,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 101,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 13,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 9
+                },
+                {
+                    "id": 30,
+                    "instances": 3
+                },
+                {
+                    "id": 31,
+                    "instances": 32
+                },
+                {
+                    "id": 32,
+                    "instances": 34
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 104,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 7,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 22
+                },
+                {
+                    "id": 29,
+                    "instances": 12
+                },
+                {
+                    "id": 30,
+                    "instances": 24
+                },
+                {
+                    "id": 31,
+                    "instances": 24
+                },
+                {
+                    "id": 32,
+                    "instances": 38
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 99,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 11,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 26
+                },
+                {
+                    "id": 30,
+                    "instances": 15
+                },
+                {
+                    "id": 31,
+                    "instances": 36
+                },
+                {
+                    "id": 32,
+                    "instances": 30
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 102,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 4,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 18
+                },
+                {
+                    "id": 31,
+                    "instances": 6
+                },
+                {
+                    "id": 32,
+                    "instances": 46
+                }
+            ]
+        },
+        {
+            "name": "Living Infection",
+            "id": 48,
+            "guid": 141749,
+            "type": "Pet",
+            "petOwner": 5,
+            "fights": [
+                {
+                    "id": 10,
+                    "instances": 1
+                }
+            ]
+        },
+        {
+            "name": "Minion of Zul",
+            "id": 98,
+            "guid": 139185,
+            "type": "Pet",
+            "petOwner": 12,
+            "fights": [
+                {
+                    "id": 28,
+                    "instances": 3
+                },
+                {
+                    "id": 30,
+                    "instances": 9
+                },
+                {
+                    "id": 31,
+                    "instances": 21
+                },
+                {
+                    "id": 32,
+                    "instances": 22
+                }
+            ]
+        }
+    ],
+    "phases": [
+        {
+            "boss": 2135,
+            "phases": [
+                "Stage One: Oblivion's Call",
+                "Stage Two: Ancient Awakening"
+            ]
+        },
+        {
+            "boss": 2134,
+            "phases": [
+                "Stage One: Probing Its Hosts",
+                "Stage Two: Spreading Pandemic"
+            ]
+        },
+        {
+            "boss": 2128,
+            "phases": []
+        },
+        {
+            "boss": 2145,
+            "phases": [
+                "Stage One: The Forces of Blood",
+                "Stage Two: Zul, Awakened"
+            ]
+        },
+        {
+            "boss": 2136,
+            "phases": [
+                "Stage One: Chaos",
+                "Stage Two: Deception",
+                "Stage Three: Corruption"
+            ]
+        }
+    ],
+    "title": "Uldir HC",
+    "owner": "Bemmie",
+    "start": 1537985772615,
+    "end": 1537994051837,
+    "zone": 19,
+    "exportedCharacters": [
+        {
+            "id": 119459,
+            "name": "Aeliria",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 23894321,
+            "name": "Bemmie",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 17350749,
+            "name": "Calinka",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 34219888,
+            "name": "Dekz",
+            "server": "Mannoroth",
+            "region": "EU"
+        },
+        {
+            "id": 34446819,
+            "name": "Descobane",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 23894319,
+            "name": "Morgoth",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 898499,
+            "name": "Mortu\u00fas",
+            "server": "Mannoroth",
+            "region": "EU"
+        },
+        {
+            "id": 27731738,
+            "name": "Nocthalia",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 30583107,
+            "name": "Noxx",
+            "server": "Nefarian",
+            "region": "EU"
+        },
+        {
+            "id": 34405323,
+            "name": "Prexona",
+            "server": "Mannoroth",
+            "region": "EU"
+        },
+        {
+            "id": 16706282,
+            "name": "Redzack",
+            "server": "Mannoroth",
+            "region": "EU"
+        },
+        {
+            "id": 31945124,
+            "name": "Soulharvest",
+            "server": "Gorgonnash",
+            "region": "EU"
+        },
+        {
+            "id": 898496,
+            "name": "Zuuna",
+            "server": "Mannoroth",
+            "region": "EU"
+        }
+    ]
+}
