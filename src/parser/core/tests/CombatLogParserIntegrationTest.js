@@ -63,7 +63,12 @@ export default function integrationTest(parserClass, reportPath, combatantInfoPa
     });
 
     it('should parse the example report without crashing', () => {
-      const parser = new parserClass(report, report.friendlies[playerId], report.fights[fightId], combatantInfoEvents);
+      const parser = new parserClass(
+        report, 
+        report.friendlies.find(({id}) => id === playerId),
+        report.fights.find(({id}) => id === fightId),
+        combatantInfoEvents
+      );
       events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
     });
   };
