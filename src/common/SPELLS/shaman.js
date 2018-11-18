@@ -393,6 +393,11 @@ export default {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
+  FERAL_SPIRIT_BUFF: {
+    id: 190185,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
   STORMSTRIKE: {
     id: 17364,
     name: 'Stormstrike',
@@ -424,11 +429,6 @@ export default {
     id: 187890,
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
-  },
-  FERAL_SPIRIT_BUFF: {
-    id: 190185,
-    name: 'Feral Spirit',
-    icon: 'spell_shaman_feralspirit',
   },
   WINDSTRIKE: {
     id: 115356,

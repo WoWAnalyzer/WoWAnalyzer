@@ -30,7 +30,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
-        buffSpellId: SPELLS.FERAL_SPIRIT.id, //This won't work if Elemental Spirits is taken since that gives a different buff
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
