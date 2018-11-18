@@ -314,7 +314,7 @@ nav.global {
   color: #f8b700;
 }
 .tab-selection ul > li a:hover {
-  border-top: 2px solid rgba(248, 183, 0, 0.7);
+  border-top: 2px solid rgba(250, 183, 0, 0.7);
   border-bottom: 2px solid rgba(248, 183, 0, 0.7);
   text-decoration: none;
 }
@@ -322,6 +322,6 @@ nav.global {
   text-decoration: none;
 }
 .tab-selection ul > li.active a {
-  border-top: 2px solid rgba(248, 183, 0, 1);
-  border-bottom: 2px solid rgba(248, 183, 0, 1);
+  border-top: 2px solid #f8b700;
+  border-bottom: 2px solid #f8b700;
 }

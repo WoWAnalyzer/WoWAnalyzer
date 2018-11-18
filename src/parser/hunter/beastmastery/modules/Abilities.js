@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.BESTIAL_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         buffSpellId: SPELLS.BESTIAL_WRATH.id,
         gcd: {
@@ -79,7 +79,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
         cooldown: 120,
         gcd: {

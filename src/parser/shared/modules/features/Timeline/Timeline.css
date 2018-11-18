@@ -1,0 +1,81 @@
+.spell-timeline .time-line {
+  white-space: nowrap;
+  height: 10px;
+  border-bottom: 1px solid #fff;
+  position: relative;
+}
+.spell-timeline .time-line > * {
+  height: 100%;
+  display: inline-block;
+  border-left: 1px solid #fff;
+  padding-left: 3px;
+  line-height: 1;
+  font-size: 12px;
+  position: relative;
+  transform: translateY(-50%);
+}
+.spell-timeline .time-line > *:before {
+  content: attr(data-duration);
+  position: absolute;
+  left: 0;
+  top: 14px;
+  transform: translateX(-50%);
+  color: rgba(200, 200, 200, 0.8);
+}
+.spell-timeline .casts {
+  position: relative;
+}
+.spell-timeline .casts > .lane {
+  position: absolute;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.spell-timeline .casts > .lane > * {
+  position: absolute;
+  top: 0;
+  display: block;
+  height: 100%;
+}
+.spell-timeline .casts > .lane .cooldown {
+  z-index: 2;
+}
+.spell-timeline .casts > .lane .cast {
+  z-index: 3;
+}
+.spell-timeline .casts > .lane img {
+  height: 100%;
+  margin: 0;
+  display: block;
+  /*transform: translateX(-50%);*/
+}
+.spell-timeline .casts > a > div:first-child {
+  content: '';
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  left: 0;
+}
+.spell-timeline .cooldown {
+  background: rgba(150, 150, 150, 0.4);
+  height: 18px;
+  border-radius: 3px;
+  background: #f8b700;
+  box-shadow: 0 0 4px #f8b700;
+}
+/*.spell-timeline .time-line > *:before, .spell-timeline .time-line > *:after {*/
+  /*content: '';*/
+  /*position: absolute;*/
+  /*left: 50%;*/
+  /*bottom: 0;*/
+  /*height: 16px;*/
+  /*border-left: 1px solid #fff;*/
+/*}*/
+/*.spell-timeline .time-line.interval-3 > *:before {*/
+  /*left: 33%;*/
+/*}*/
+/*.spell-timeline .time-line.interval-3 > *:after {*/
+  /*left: 66%;*/
+/*}*/
+/*.spell-timeline .time-line:not(.interval-3) > *:after {*/
+  /*display: none;*/
+/*}*/
