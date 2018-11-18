@@ -150,17 +150,17 @@ class Timeline extends React.PureComponent {
     );
   }
 
-  getSortIndex(spellId) {
+  getSortIndex([spellId, events]) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability || ability.timelineSortIndex === undefined) {
-      return spellId;
+      return 1000 - events.length;
     } else {
       return ability.timelineSortIndex;
     }
   }
   renderLanes(eventsBySpellId, growUp) {
     return Array.from(eventsBySpellId)
-      .sort((a, b) => this.getSortIndex(growUp ? b[0] : a[0]) - this.getSortIndex(growUp ? a[0] : b[0]))
+      .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
       .map((item, index) => this.renderLane(item, index, growUp));
   }
 
@@ -173,7 +173,7 @@ class Timeline extends React.PureComponent {
     const { castWindows, others } = this.separateCastWindows(eventsBySpellId);
 
     return (
-      <div className="spell-timeline" style={{ width: this.totalWidth, padding: '80px 0 400px 0' }}>
+      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `${this.centerOffset + castWindows.size * this.laneHeight}px 0 ${this.centerOffset + others.size * this.laneHeight}px 0` }}>
         <div className="casts cooldowns">
           {this.renderLanes(castWindows, true)}
         </div>

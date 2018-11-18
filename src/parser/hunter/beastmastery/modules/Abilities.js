@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         buffSpellId: SPELLS.BESTIAL_WRATH.id,
+        timelineSortIndex: -1,
         gcd: {
           base: 1500,
         },
@@ -82,6 +83,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
         cooldown: 120,
+        timelineSortIndex: -1,
         gcd: {
           base: 1500, //This is set to 1500 currently, but it's altered to be accurate inside the GlobalCooldown module because it is currently bugged in-game
         },
