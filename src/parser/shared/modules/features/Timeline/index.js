@@ -187,7 +187,7 @@ class Timeline extends React.PureComponent {
 
             return (
               <SpellLink
-                key={`cast-${left}`}
+                key={`cast-${event.ability.guid}-${left}`}
                 id={event.ability.guid}
                 icon={false}
                 className="cast"

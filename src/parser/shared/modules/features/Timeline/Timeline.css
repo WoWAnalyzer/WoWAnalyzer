@@ -40,19 +40,21 @@
   z-index: 3;
 }
 .spell-timeline .casts a img {
-  border-radius: 3px;
-  border: 1px solid #000;
+  border-radius: 50%;
+  border: 1px solid #f8b700;
   margin-top: 0;
-  height: 19px;
+  height: 22px;
   position: relative;
-  top: -1px;
+  top: -2px;
   display: block;
 }
 .spell-timeline .casts .gcd {
-  border-radius: 3px;
-  background: rgba(248, 183, 0, 0.75);
-  box-shadow: 0 0 4px rgba(248, 183, 0, 0.75);
+  border-radius: 6px;
+  background: rgba(248, 183, 0, 0.8);
+  box-shadow: 0 0 2px rgba(248, 183, 0, 0.8);
   z-index: 2;
+  height: 12px;
+  top: -5px;
 }
 /* Cooldown lanes */
 .spell-timeline .cooldowns {
