@@ -19,7 +19,7 @@ class DemonicCalling extends Analyzer {
   };
 
   wastedProcs = 0;
-  _expectedBuffEnd = undefined;
+  _expectedBuffEnd = null;
 
   constructor(...args) {
     super(...args);

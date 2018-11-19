@@ -448,11 +448,6 @@ export default {
     name: 'Demonic Calling',
     icon: 'ability_warlock_impoweredimp',
   },
-  DOOM_DAMAGE: {
-    id: 265469,
-    name: 'Doom',
-    icon: 'spell_shadow_auraofdarkness',
-  },
   FROM_THE_SHADOWS_DEBUFF: {
     id: 270569,
     name: 'From the Shadows',

@@ -8,6 +8,8 @@ import Dreadlash from './Dreadlash';
 import DemonicStrength from './DemonicStrength';
 import BilescourgeBombers from './BilescourgeBombers';
 import DemonicCalling from './DemonicCalling';
+import PowerSiphon from './PowerSiphon';
+import Doom from './Doom';
 import GrimoireFelguard from './GrimoireFelguard';
 
 class TalentStatisticBox extends Analyzer {
@@ -16,6 +18,8 @@ class TalentStatisticBox extends Analyzer {
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    powerSiphon: PowerSiphon,
+    doom: Doom,
     grimoireFelguard: GrimoireFelguard,
   };
 
