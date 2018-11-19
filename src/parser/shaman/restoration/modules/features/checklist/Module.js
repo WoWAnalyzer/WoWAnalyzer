@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import ManaValues from 'parser/shared/modules/ManaValues';
@@ -16,7 +16,7 @@ import HealingWave from '../../spells/HealingWave';
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,

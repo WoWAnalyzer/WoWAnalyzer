@@ -2,6 +2,7 @@ import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
@@ -15,9 +16,12 @@ import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 const debug = false;
 
 const FLOURISH_EXTENSION = 8000;
-
+const FLOURISH_HEALING_INCREASE = 1;
+/*
+  Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
+  and increases the rate of your heal over time effects by 100% for 8 sec.
+ */
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
-// TODO - blazyb add Tranq HoT
 class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTracker,
@@ -62,39 +66,38 @@ class Flourish extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    const amount = event.amount + (event.absorbed || 0);
 
     if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
-          this.increasedRateRejuvenationHealing += amount / 2;
+          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.REJUVENATION_GERMINATION.id:
-          this.increasedRateRejuvenationHealing += amount / 2;
+          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.WILD_GROWTH.id:
-          this.increasedRateWildGrowthHealing += amount / 2;
+          this.increasedRateWildGrowthHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.CENARION_WARD_HEAL.id:
-          this.increasedRateCenarionWardHealing += amount / 2;
+          this.increasedRateCenarionWardHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.CULTIVATION.id:
-          this.increasedRateCultivationHealing += amount / 2;
+          this.increasedRateCultivationHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.LIFEBLOOM_HOT_HEAL.id:
-          this.increasedRateLifebloomHealing += amount / 2;
+          this.increasedRateLifebloomHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.GROVE_TENDING.id:
-          this.increasedRateGroveTendingHealing += amount / 2;
+          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
-            this.increasedRateRegrowthHealing += amount / 2;
+            this.increasedRateRegrowthHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           }
           break;
         case SPELLS.TRANQUILITY_HEAL.id:
           if (event.tick === true) {
-            this.increasedRateTranqHealing += amount / 2;
+            this.increasedRateTranqHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           }
           break;
         default:
@@ -104,7 +107,7 @@ class Flourish extends Analyzer {
       if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
         return;
       }
-      this.increasedRateTotalHealing += amount / 2;
+      this.increasedRateTotalHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
     }
   }
 
@@ -305,7 +308,7 @@ class Flourish extends Analyzer {
             }
           </ul>
           <br>
-          The Healing column shows how much additional healing was done by the 6 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.`
+          The Healing column shows how much additional healing was done by the 8 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.`
         }
       >
         <table className="table table-condensed">

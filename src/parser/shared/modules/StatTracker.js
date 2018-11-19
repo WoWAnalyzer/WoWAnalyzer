@@ -5,6 +5,7 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
@@ -30,6 +31,9 @@ const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
+  static dependencies = {
+    eventEmitter: EventEmitter,
+  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -354,6 +358,12 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
     },
+    [SPELLS.TASTE_OF_VICTORY.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_INSIGNIA.id,
+      strength: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+    },
     [SPELLS.DIG_DEEP.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
       strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
@@ -428,6 +438,10 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
+      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
+      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
     },
     // endregion
     // region Raids
@@ -789,7 +803,7 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,

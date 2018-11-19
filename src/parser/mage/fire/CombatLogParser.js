@@ -5,7 +5,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import Scorch from './normalizers/Scorch';
 import PyroclasmBuff from './normalizers/PyroclasmBuff';
-import PrePullCooldowns from '../shared/normalizers/PrePullCooldowns';
 
 import Checklist from './modules/Checklist/Module';
 
@@ -13,6 +12,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/features/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
+
+import BlasterMaster from './modules/traits/BlasterMaster';
 
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
@@ -35,7 +36,6 @@ class CombatLogParser extends CoreCombatLogParser {
     FlameStrikeNormalizer: FlamestrikeNormalizer,
     scorch: Scorch,
     pyroclasmBuff: PyroclasmBuff,
-    prePullCooldowns: PrePullCooldowns,
 
     //Checklist
     checklist: Checklist,
@@ -56,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
+
+    //Traits
+    blasterMaster: BlasterMaster,
 
     // Talents
     mirrorImage: MirrorImage,

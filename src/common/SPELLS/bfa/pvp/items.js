@@ -6,6 +6,11 @@ export default {
     name: 'Rapid Adaptation',
     icon: 'spell_holy_championsbond',
   },
+  TASTE_OF_VICTORY: { //Dread Gladiator's Insignia
+    id: 277181,
+    name: 'Taste of Victory',
+    icon: 'spell_holy_divinepurpose',
+  },
   DIG_DEEP: {
     id: 277185,
     name: 'Dig Deep',

@@ -5,8 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -29,6 +28,7 @@ const RUNE_IDS = [
  */
 class RuneTracker extends ResourceTracker {
   static dependencies = {
+    ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
     castEfficiency: CastEfficiency,
     abilities: Abilities,
@@ -134,7 +134,7 @@ class RuneTracker extends ResourceTracker {
   }
 
   // add passive rune regeneration and RC/4p21blood
-  addPassiveRuneRegeneration() { 
+  addPassiveRuneRegeneration() {
     let passiveRunesGained = this.runesMaxCasts;
     let passiveRunesWasted = this.runesWasted;
     //add runic corruption gained (and subtract it from passive regn)
@@ -336,7 +336,7 @@ class RuneTracker extends ResourceTracker {
           <tbody>
             { //split into good and bad number of runes available
               this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
-                <tr>
+                <tr key={index}>
                   <th>{index}</th>
                   <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
                   <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
@@ -345,7 +345,7 @@ class RuneTracker extends ResourceTracker {
             }
             {
               this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
-                <tr>
+                <tr key={index + badThreshold}>
                   <th style={{ color: 'red' }}>{index + badThreshold}</th>
                   <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
                   <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>

@@ -14,7 +14,7 @@ describe('core/Modules/Ability', () => {
       current: 0,
     };
 
-    abilitiesMock = parserMock.loadModule('abilities', Abilities, {
+    abilitiesMock = parserMock.loadModule(Abilities, {
       haste: hasteMock,
     });
   });

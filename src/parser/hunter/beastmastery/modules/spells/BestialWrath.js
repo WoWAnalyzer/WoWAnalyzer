@@ -28,19 +28,9 @@ class BestialWrath extends Analyzer {
   wastedBWReduction = 0;
   casts = 0;
   accumulatedFocusAtBWCast = 0;
-  prepullBW = 0;
-  startFocusForCombatant = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (this.prepullBW > 0 && this.startFocusForCombatant === 0) {
-      event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource.amount > this.startFocusForCombatant) {
-          this.startFocusForCombatant += classResource.amount;
-          this.accumulatedFocusAtBWCast += this.startFocusForCombatant;
-        }
-      });
-    }
     if (spellId === SPELLS.BESTIAL_WRATH.id) {
       this.casts += 1;
       this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
@@ -57,16 +47,6 @@ class BestialWrath extends Analyzer {
     } else {
       this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
     }
-  }
-
-  on_byPlayer_applybuff(event) {
-    const buffId = event.ability.guid;
-    if (buffId !== SPELLS.BESTIAL_WRATH.id || !event.prepull) {
-      return;
-    }
-    this.casts += 1;
-    this.prepullBW += 1;
-    this.spellUsable.beginCooldown(SPELLS.BESTIAL_WRATH.id, this.owner.fight.start_time);
   }
 
   get percentUptime() {
