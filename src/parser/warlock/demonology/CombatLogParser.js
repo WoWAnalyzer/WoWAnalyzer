@@ -31,6 +31,9 @@ import SummonVilefiend from './modules/talents/SummonVilefiend';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import Doom from './modules/talents/Doom';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
+import SacrificedSouls from './modules/talents/SacrificedSouls';
+import DemonicConsumption from './modules/talents/DemonicConsumption';
+import NetherPortal from './modules/talents/NetherPortal';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -66,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphon: PowerSiphon,
     doom: Doom,
     grimoireFelguard: GrimoireFelguard,
+    sacrificedSouls: SacrificedSouls,
+    demonicConsumption: DemonicConsumption,
+    netherPortal: NetherPortal,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

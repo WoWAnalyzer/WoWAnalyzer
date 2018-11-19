@@ -31,7 +31,6 @@ class InnerDemons extends Analyzer {
     return wildImps + other;
   }
 
-  // count Imposion damage? not technically Inner Demon damage though..
   statistic() {
     const damage = this.damage;
     return (
