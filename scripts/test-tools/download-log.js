@@ -45,7 +45,7 @@ function request_events(log_id, player_id, cb, meta, fight, combatants) {
   }).on('error', console.error);
 }
 
-function write_log(key, cb, meta, combatants, events) {
+function write_log(key, fight_id, player_id, cb, meta, combatants, events) {
   const path = `test-logs/${key}.json.gz`;
   const out = fs.createWriteStream(path);
   const compress = zlib.createGzip();
@@ -54,7 +54,11 @@ function write_log(key, cb, meta, combatants, events) {
   compress.write(JSON.stringify({
     meta, 
     combatants: combatants.events,
-    events: events.events
+    events: events.events,
+    contents: {
+      fight_id: Number(fight_id),
+      player_id: Number(player_id),
+    },
   }));
   compress.end();
   cb(path);
@@ -65,4 +69,4 @@ const [key, log_id, fight_id, player_id]= argv.slice(2, argv.length);
 request_fight(log_id, 
   request_combatants.bind(null, log_id, fight_id, 
     request_events.bind(null, log_id, player_id,
-      write_log.bind(null, key, (path) => console.log(`wrote ${path}`)))));
+      write_log.bind(null, key, fight_id, player_id, (path) => console.log(`wrote ${path}`)))));

@@ -6,7 +6,5 @@ const PLAYER_ID = 1;
 
 describe('The Protection Paladin Analyzer', integrationTest(
   CombatLogParser,
-  'prot-pally-example',
-  FIGHT_ID,
-  PLAYER_ID
+  'prot-pally-example'
 ));

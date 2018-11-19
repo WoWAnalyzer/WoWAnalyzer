@@ -6,7 +6,5 @@ const PLAYER_ID = 3;
 
 describe('The Brewmaster Analyzer', integrationTest(
   CombatLogParser,
-  'brm-example',
-  FIGHT_ID,
-  PLAYER_ID
+  'brm-example'
 ));

@@ -21,15 +21,11 @@ import { loadLogSync } from './log-tools';
  * See the Brewmaster analyzer for a worked example.
  *
  * @param {object} parserClass - (uninstantiated) CombatLogParser subclass to test.
- * @param {string} reportPath - Path to the report JSON.
- * @param {string} combatantInfoPath - Path to the combatant info JSON.
- * @param {string} eventPath - Path to the gzipped combat event JSON.
- * @param {number} fightId - ID of the fight to parse.
- * @param {number} playerId - ID of the player to render.
+ * @param {string} key - Key identifying which log from `test-logs` to load
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, key, fightId, playerId, suppressWarn=true, suppressLog=true) {
+export default function integrationTest(parserClass, key, suppressWarn=true, suppressLog=true) {
   return () => {
     let log;
     beforeAll(() => {
@@ -58,8 +54,8 @@ export default function integrationTest(parserClass, key, fightId, playerId, sup
     });
 
     it('should parse the example report without crashing', () => {
-      const friendlies = log.meta.friendlies.find(({id}) => id === playerId);
-      const fight = log.meta.fights.find(({id}) => id === fightId);
+      const friendlies = log.meta.friendlies.find(({id}) => id === log.contents.player_id);
+      const fight = log.meta.fights.find(({id}) => id === log.contents.fight_id);
       const parser = new parserClass(
         log.meta, 
         friendlies,
