@@ -95,12 +95,16 @@ class RampantGrowth extends Analyzer{
 
     // If target has LB and Regrowth and is not marked under the ban period, credit all regrowth HoT.
     if(combatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 200, null, this.owner.playerId)) {
-      if(this.banPeriod < event.timestamp) {
+      if (this.banPeriod < event.timestamp) {
         this.healingFromFreeRegrowthHoT += event.amount;
+        // No need to check the healing from HoT increase as it's already included in the statement above
+        return;
       } else {
         this.discountHealing += event.amount;
       }
-    } else if(event.hitType === HIT_TYPES.CRIT) {
+    }
+    // Even if we are in the "banPeriod" the increased HoT healing still applies and should be credited.
+    if(event.hitType === HIT_TYPES.CRIT) {
       this.healingFromHotIncrease += Math.max((this.healingIncreasePerTick * CRIT_EFFECT) - (event.overheal || 0), 0);
     } else {
       this.healingFromHotIncrease += Math.max((this.healingIncreasePerTick) - (event.overheal || 0), 0);
