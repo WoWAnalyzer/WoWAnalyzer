@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
@@ -10,6 +11,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import { mapIdsToSpells } from 'parser/warlock/shared/helpers';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
@@ -24,27 +26,28 @@ class UnstableAfflictionUptime extends Analyzer {
   _buffStart = 0;
   _count = 0;
 
-  on_byPlayer_applydebuff(event) {
-    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS)]), this.onUAapply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS)]), this.onUAremove);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onUAapply(event) {
     if (this._count === 0) {
       this._buffStart = event.timestamp;
     }
     this._count += 1;
   }
 
-  on_byPlayer_removedebuff(event) {
-    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
-      return;
-    }
+  onUAremove(event) {
     this._count -= 1;
     if (this._count === 0) {
       this.buffedTime += event.timestamp - this._buffStart;
     }
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;

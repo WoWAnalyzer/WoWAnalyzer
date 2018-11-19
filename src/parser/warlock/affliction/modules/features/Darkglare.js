@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
@@ -11,7 +11,9 @@ import { formatThousands } from 'common/format';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import { mapIdsToSpells } from 'parser/warlock/shared/helpers';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
+import Events from 'parser/core/Events';
 
 const BONUS_DURATION = 8000;
 const UNSTABLE_AFFLICTION_DURATION = 8000;
@@ -85,21 +87,22 @@ class Darkglare extends Analyzer {
           this._dotDurations[id] *= CREEPING_DEATH_COEFFICIENT;
       });
     }
+
+    // event listeners
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotApply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotRemove);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DARKGLARE), this._processDarkglareCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this._processDotCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SUMMON_DARKGLARE_DAMAGE), this.onDarkglareDamage);
   }
 
-  on_byPlayer_applydebuff(event) {
-    const spellId = event.ability.guid;
-    if (!DOT_DEBUFF_IDS.includes(spellId)) {
-      return;
-    }
+  onDotApply(event) {
     this._resetDotOnTarget(event);
   }
 
-  on_byPlayer_removedebuff(event) {
+  onDotRemove(event) {
     const spellId = event.ability.guid;
-    if (!DOT_DEBUFF_IDS.includes(spellId)) {
-      return;
-    }
     // possible Mythrax or other shenanigans with dotting Mind Controlled players
     if (event.targetIsFriendly) {
       return;
@@ -117,22 +120,8 @@ class Darkglare extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
+  onDotDamage(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.SUMMON_DARKGLARE.id) {
-      this._processDarkglareCast(event);
-      return;
-    }
-    if (DOT_DEBUFF_IDS.includes(spellId)) {
-      this._processDotCast(event);
-    }
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (!DOT_DEBUFF_IDS.includes(spellId)) {
-      return;
-    }
     if (event.targetIsFriendly) {
       return;
     }
@@ -154,10 +143,7 @@ class Darkglare extends Analyzer {
     }
   }
 
-  on_byPlayerPet_damage(event) {
-    if (event.ability.guid !== SPELLS.SUMMON_DARKGLARE_DAMAGE.id) {
-      return;
-    }
+  onDarkglareDamage(event) {
     this.darkglareDamage += event.amount + (event.absorbed || 0);
   }
 
