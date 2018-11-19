@@ -88,6 +88,7 @@ class AoWProcTracker extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.ART_OF_WAR.id} />}
         value={`${formatPercentage(this.consumedProcsPercent)}%`}
         label="Art of War procs used"
@@ -95,7 +96,6 @@ class AoWProcTracker extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default AoWProcTracker;

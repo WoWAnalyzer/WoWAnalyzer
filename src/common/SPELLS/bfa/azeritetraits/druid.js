@@ -9,7 +9,7 @@ export default {
     name: 'Autumn Leaves',
     icon: 'spell_nature_rejuvenation',
   },
-  RAMPANTH_GROWTH_TRAIT: {
+  RAMPANT_GROWTH_TRAIT: {
     id: 278515,
     name: 'Rampant Growth',
     icon: 'spell_nature_resistnature',

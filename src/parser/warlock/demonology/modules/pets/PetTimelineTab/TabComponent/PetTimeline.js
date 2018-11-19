@@ -10,6 +10,7 @@ import DeathEvents from 'parser/shared/modules/features/TimelineTab/TabComponent
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Icon from 'common/Icon';
 
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
@@ -206,7 +207,12 @@ class PetTimeline extends React.PureComponent {
           </div>
           {Object.keys(pets).map(spellId => (
             <div className="lane" key={spellId}>
-              <SpellLink id={Number(spellId)} />
+              {spellId !== 'unknown' && <SpellLink id={Number(spellId)} />}
+              {spellId === 'unknown' && (
+                <>
+                  <Icon icon="inv_misc_questionmark" /> Unknown pet
+                </>
+              )}
             </div>
           ))}
         </div>

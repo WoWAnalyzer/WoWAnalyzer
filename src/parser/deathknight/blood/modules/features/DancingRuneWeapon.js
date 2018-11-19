@@ -35,13 +35,6 @@ class DancingRuneWeapon extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
-    // start DRWs cooldown when used pre-pull
-    if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON_BUFF.id && event.prepull) {
-      this.spellUsable.beginCooldown(SPELLS.DANCING_RUNE_WEAPON.id, this.owner.fight.start_time);
-    }
-  }
-
   get goodDRWCasts() {
     return this.castsDuringDRW.filter((val, index) => {
       return ALLOWED_CASTS_DURING_DRW.includes(val);

@@ -101,10 +101,16 @@ class Entity {
       .reduce((totalUptime, buff) => {
         let startTime;
         let startStacks;
-        const buffUptime = buff.stackHistory.reduce((stackUptime, stack) => {
-          const result = !startTime ? 0 : (stack.timestamp - startTime) * startStacks;
+        const buffUptime = buff.stackHistory.reduce((stackUptime, stack, idx, arr) => {
+          let result = !startTime ? 0 : (stack.timestamp - startTime) * startStacks;
           startTime = stack.timestamp;
           startStacks = stack.stacks;
+          if (buff.end === null && idx === arr.length - 1) {
+            // If the buff instance didn't end (usually because it was still active at the end of the fight) we need to manually account for it
+            const finalStackUptime = this.owner.currentTimestamp - startTime;
+            const weighted = finalStackUptime * startStacks;
+            result += weighted;
+          }
           return stackUptime + result;
         }, 0);
         return totalUptime + buffUptime;

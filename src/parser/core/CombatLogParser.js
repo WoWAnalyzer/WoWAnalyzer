@@ -11,7 +11,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
-
+import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -153,6 +153,7 @@ class CombatLogParser {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
+    prepullNormalizer: PrePullCooldownsNormalizer,
 
     // Analyzers
     healingDone: HealingDone,
@@ -342,10 +343,11 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.getModule(EventEmitter).fabricateEvent({
+    const emitter = this.getModule(EventEmitter);
+    emitter.fabricateEvent({
       type: this.constructor.finished,
     });
-    console.log('Called listeners', this.getModule(EventEmitter)._listenersCalled, 'times, with', this.getModule(EventEmitter)._actualExecutions, 'actual executions.', this.getModule(EventEmitter)._listenersCalled - this.getModule(EventEmitter)._actualExecutions, 'events were filtered away');
+    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
   }
 
   _getModuleClass(config) {

@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-19'),
+    changes: <>Added <SpellLink id={SPELLS.DEATH_THROES.id} /> module.</>,
+    contributors: [Khadaj],
+  },
+  {
+    date: new Date('2018-11-19'),
+    changes: <>Added <SpellLink id={SPELLS.VAMPIRIC_EMBRACE.id} /> module.</>,
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2018-11-08'),
     changes: <>Added <SpellLink id={SPELLS.DARK_VOID_TALENT.id} />.</>,
     contributors: [Khadaj],

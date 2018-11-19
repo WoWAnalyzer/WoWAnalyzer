@@ -2,6 +2,7 @@ import CoreAbilities from 'parser/shared/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SPELLS from 'common/SPELLS';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from 'parser/warlock/affliction/constants';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,6 +15,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: [...UNSTABLE_AFFLICTION_DEBUFF_IDS],
       },
       {
         spell: SPELLS.DEATHBOLT_TALENT,

@@ -36,10 +36,12 @@ class SerpentSting extends Analyzer {
   accumulatedTimeBetweenRefresh = 0;
   accumulatedPercentRemainingOnRefresh = 0;
   hasVV = false;
+  hasBoP = false;
+  uptimeRequired = 0.95;
 
   constructor(...args) {
     super(...args);
-    this.hasMB = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
+    this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -150,36 +152,47 @@ class SerpentSting extends Analyzer {
   }
 
   get uptimeThreshold() {
-    if (this.hasMB) {
+    if (this.hasBoP && !this.hasVV) {
       return {
         actual: this.uptimePercentage,
-        isLessThan: {
-          minor: 0.7,
-          average: 0.65,
-          major: 0.6,
-        },
-        style: 'percentage',
-      };
-    } else {
-      return {
-        actual: this.uptimePercentage,
-        isLessThan: {
-          minor: 0.950,
-          average: 0.90,
-          major: 0.85,
+        isGreaterThan: {
+          minor: 0.35,
+          average: 0.425,
+          major: 0.50,
         },
         style: 'percentage',
       };
     }
+    if (this.hasBoP && this.hasVV) {
+      this.uptimeRequired -= 0.3;
+    }
+    return {
+      actual: this.uptimePercentage,
+      isLessThan: {
+        minor: this.uptimeRequired,
+        average: this.uptimeRequired - 0.05,
+        major: this.uptimeRequired - 0.1,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id) ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}.</>)
-        .icon(SPELLS.SERPENT_STING_SV.icon)
-        .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+    if (this.hasBoP && !this.hasVV) {
+      when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, as thus a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>)
+          .icon(SPELLS.SERPENT_STING_SV.icon)
+          .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+      });
+    } else {
+      when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.hasVV ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}. During <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, you shouldn't be refreshing <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> at all{this.hasVV ? <> unless there's less than 50% remaining of the debuff and you have <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> active</> : ''}.</>)
+          .icon(SPELLS.SERPENT_STING_SV.icon)
+          .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+      });
+    }
     when(this.refreshingThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</>)
         .icon(SPELLS.SERPENT_STING_SV.icon)

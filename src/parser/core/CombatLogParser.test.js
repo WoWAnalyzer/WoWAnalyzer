@@ -1,3 +1,4 @@
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import CombatLogParser from './CombatLogParser';
 
 class MyModule {}
@@ -237,6 +238,15 @@ describe('Core/CombatLogParser', () => {
     it('has a default config that works', () => {
       const parser = new CombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
       expect(Object.keys(parser._modules).length).toBeGreaterThan(0);
+    });
+  });
+  describe('emits static events', () => {
+    it('emits finished event', () => {
+      const onFinish = jest.fn();
+      const parser = new TestCombatLogParser();
+      parser.addEventListener(CombatLogParser.finished, onFinish, { active: true });
+      parser.finish();
+      expect(onFinish).toHaveBeenCalled();
     });
   });
 });

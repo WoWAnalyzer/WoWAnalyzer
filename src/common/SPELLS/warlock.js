@@ -359,12 +359,6 @@ export default {
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
-  // TODO: check Wrathguard and Terrorguard glyphs
-  WRATHSTORM_BUFF: {
-    id: 115831,
-    name: 'Wrathstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
   // also important for Dreadlash talent
   DREADBITE: {
     id: 271971,
@@ -454,11 +448,6 @@ export default {
     name: 'Demonic Calling',
     icon: 'ability_warlock_impoweredimp',
   },
-  DOOM_DAMAGE: {
-    id: 265469,
-    name: 'Doom',
-    icon: 'spell_shadow_auraofdarkness',
-  },
   FROM_THE_SHADOWS_DEBUFF: {
     id: 270569,
     name: 'From the Shadows',
@@ -495,6 +484,11 @@ export default {
     id: 270557,
     name: 'Soul Strike',
     icon: 'inv_polearm_2h_fellord_04',
+  },
+  DEMONIC_METEOR_SHARD_GEN: {
+    id: 281592,
+    name: 'Demonic Meteor', // Wowhead shows a spell Soul Shard with SS icon, that doesn't explain anything
+    icon: 'ability_warlock_handofguldan', // this at least fixes the SpellLink, if not the tooltip
   },
 
   // Demonology pet summons (ability IDs from 'summon' events)

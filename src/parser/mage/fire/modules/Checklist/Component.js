@@ -95,18 +95,10 @@ class FireMageChecklist extends React.PureComponent {
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
           <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
-        <Rule
-          name="Maintain your buffs"
-          description={(
-            <>
-              You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible.
-            </>
-          )}
-        >
-          <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />
-        </Rule>
-        
-        <PreparationRule thresholds={thresholds} />
+
+        <PreparationRule thresholds={thresholds}>
+          <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />
+        </PreparationRule>
       </Checklist>
     );
   }
