@@ -30,7 +30,7 @@ class VampiricEmbrace extends Analyzer {
         icon={<SpellIcon id={SPELLS.VAMPIRIC_EMBRACE.id} />}
         value={<ItemHealingDone amount={this.healingDone} />}
         label="Vampiric Embrace healing"
-        tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts} cast(s).`}
+        tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts || 0} cast(s).`}
       />
     );
   }
