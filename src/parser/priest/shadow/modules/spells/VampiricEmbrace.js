@@ -9,6 +9,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
 
+// Example log: /report/TzhG7rkfJAWP8MQp/32-Mythic+G'huun+-+Wipe+11+(8:21)/16-Constiince/changelog
 class VampiricEmbrace extends Analyzer {
   static dependencies = {
     abilityTracker: DamageTracker,
