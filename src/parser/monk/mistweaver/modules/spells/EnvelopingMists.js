@@ -24,7 +24,7 @@ class EnvelopingMists extends Analyzer {
   };
 
   healingIncrease = 0;
-  gustHealing = 0;
+  gustsHealing = 0;
   lastCastTarget = null;
 
   on_byPlayer_cast(event) {
@@ -46,7 +46,7 @@ class EnvelopingMists extends Analyzer {
 
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
       this.gustProc += 1;
-      this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
 
     if (this.combatants.players[targetId]) {

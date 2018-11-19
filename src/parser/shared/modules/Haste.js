@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
@@ -9,6 +9,7 @@ const debug = false;
 
 class Haste extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     statTracker: StatTracker,
   };
 
@@ -195,7 +196,7 @@ class Haste extends Analyzer {
       newHaste,
     };
     debug && console.log('changehaste', fabricatedEvent);
-    this.owner.fabricateEvent(fabricatedEvent, event);
+    this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 
   static addHaste(baseHaste, hasteGain) {

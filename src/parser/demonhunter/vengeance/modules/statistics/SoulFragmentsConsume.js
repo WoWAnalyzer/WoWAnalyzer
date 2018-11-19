@@ -17,7 +17,7 @@ class SoulFragmentsConsume extends Analyzer {
   };
 
   castTimestamp = undefined;
-  totalSoulsConsumed = 0;
+  totalSoulsConsumedBySpells = 0;
 
   soulsConsumedBySpell = {};
 
@@ -46,7 +46,7 @@ class SoulFragmentsConsume extends Analyzer {
     if (this.castTimestamp !== undefined && (event.timestamp - this.castTimestamp) < REMOVE_STACK_BUFFER) {
       const consumed = event.oldStacks - event.newStacks;
       this.soulsConsumedBySpell[this.trackedSpell].souls += consumed;
-      this.totalSoulsConsumed += consumed;
+      this.totalSoulsConsumedBySpells += consumed;
     }
   }
 
@@ -58,13 +58,12 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   statistic() {
-    const overcap= this.soulFragmentsTracker.soulsWasted;
-    const soulsByTouch =this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls - this.soulFragmentsTracker.soulsWasted - this.totalSoulsConsumed;
+    const soulsByTouch = this.soulFragmentsTracker.soulsGenerated - this.totalSoulsConsumedBySpells;
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
-        value={`${this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.currentSouls} Souls`}
+        value={`${this.soulFragmentsTracker.soulsSpent} Souls`}
         label="Consumed"
       >
         <table className="table table-condensed">
@@ -83,7 +82,7 @@ class SoulFragmentsConsume extends Analyzer {
             ))}
             <tr>
               <th>Overcapped</th>
-              <td>{overcap}</td>
+              <td>{this.soulFragmentsTracker.overcap}</td>
             </tr>
             <tr>
               <th>By Touch</th>

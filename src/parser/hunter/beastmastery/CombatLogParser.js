@@ -28,6 +28,8 @@ import OneWithThePack from './modules/talents/OneWithThePack';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import SpittingCobra from './modules/talents/SpittingCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
+import BornToBeWild from '../shared/modules/talents/BornToBeWild';
+import BindingShot from '../shared/modules/talents/BindingShot';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
@@ -95,7 +97,10 @@ class CombatLogParser extends CoreCombatLogParser {
     aspectOfTheBeast: AspectOfTheBeast,
     spittingCobra: SpittingCobra,
     scentOfBlood: ScentOfBlood,
+    bornToBeWild: BornToBeWild,
+    bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
+    
     //Traits and talents
     spellssAndTalents: SpellsAndTalents,
 

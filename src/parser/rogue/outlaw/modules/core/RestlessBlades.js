@@ -7,6 +7,19 @@ import Analyzer from 'parser/core/Analyzer';
  * Restless Blades
  * Finishing moves reduce the remaining cooldown of Adrenaline Rush, Between the Eyes, Sprint, Grappling Hook, Ghostly Strike, Marked for Death, Blade Rush, Killing Spree and Vanish by 1 sec per combo point spent.
  */
+
+const AFFECTED_ABILITIES =
+  [SPELLS.ADRENALINE_RUSH.id,
+    SPELLS.BETWEEN_THE_EYES.id,
+    SPELLS.SPRINT.id,
+    SPELLS.GRAPPLING_HOOK.id,
+    SPELLS.GHOSTLY_STRIKE_TALENT.id,
+    SPELLS.MARKED_FOR_DEATH_TALENT.id,
+    SPELLS.BLADE_RUSH_TALENT.id,
+    SPELLS.KILLING_SPREE_TALENT.id,
+    SPELLS.VANISH.id,
+  ];
+
 class RestlessBlades extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -24,15 +37,7 @@ class RestlessBlades extends Analyzer {
     }
     const amount = cdr * spent;
 
-    this.reduceCooldown(SPELLS.ADRENALINE_RUSH.id, amount);
-    this.reduceCooldown(SPELLS.BETWEEN_THE_EYES.id, amount);
-    this.reduceCooldown(SPELLS.SPRINT.id, amount);
-    this.reduceCooldown(SPELLS.GRAPPLING_HOOK.id, amount);
-    this.reduceCooldown(SPELLS.GHOSTLY_STRIKE_TALENT.id, amount);
-    this.reduceCooldown(SPELLS.MARKED_FOR_DEATH_TALENT.id, amount);
-    this.reduceCooldown(SPELLS.BLADE_RUSH_TALENT.id, amount);
-    this.reduceCooldown(SPELLS.KILLING_SPREE_TALENT.id, amount);
-    this.reduceCooldown(SPELLS.VANISH.id, amount);
+    AFFECTED_ABILITIES.forEach(spell => this.reduceCooldown(spell, amount));
   }
 
   reduceCooldown(spellId, amount) {
