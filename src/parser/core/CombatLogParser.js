@@ -343,9 +343,11 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.getModule(EventEmitter).fabricateEvent({
+    const emitter = this.getModule(EventEmitter);
+    emitter.fabricateEvent({
       type: this.constructor.finished,
     });
+    emitter.runFinally();
     console.log('Called listeners', this.getModule(EventEmitter)._listenersCalled, 'times, with', this.getModule(EventEmitter)._actualExecutions, 'actual executions.', this.getModule(EventEmitter)._listenersCalled - this.getModule(EventEmitter)._actualExecutions, 'events were filtered away');
   }
 
