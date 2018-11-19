@@ -98,8 +98,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Azerite Traits
     steadyAim: SteadyAim,
 
-    //Traits and talents
-    traitsAndTalents: SpellsAndTalents,
+    //Spells and Talents
+    spellsAndTalents: SpellsAndTalents,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
