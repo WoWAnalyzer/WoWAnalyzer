@@ -155,7 +155,7 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab style={{ padding: 0 }}>
             <Feeding
-              cooldownThroughputTracker={this._modules.cooldownThroughputTracker}
+              cooldownThroughputTracker={this.getModule(CooldownThroughputTracker)}
             />
           </Tab>
         ),

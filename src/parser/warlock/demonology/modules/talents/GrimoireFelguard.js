@@ -4,10 +4,11 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatThousands } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import { formatThousands } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -23,14 +24,13 @@ class GrimoireFelguard extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 
-  statistic() {
+  subStatistic() {
     const damage = this.demoPets.getPetDamage(PETS.GRIMOIRE_FELGUARD.guid);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}
-        value={`${formatNumber(damage / this.owner.fightDuration * 1000)} DPS`}
-        label="Grimoire: Felguard damage"
-        tooltip={`Your Grimoire: Felguard did ${formatThousands(damage)} damage (${this.owner.formatItemDamageDone(damage)}).`}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> damage</>}
+        value={formatThousands(damage)}
+        valueTooltip={this.owner.formatItemDamageDone(damage)}
       />
     );
   }

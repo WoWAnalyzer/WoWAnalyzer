@@ -11,6 +11,16 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-11-15'),
+    changes: <>Updated Checklist rules and added talent modules for the first row - <SpellLink id={SPELLS.DREADLASH_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_STRENGTH_TALENT.id} /> and <SpellLink id={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} /></>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed <SpellLink id={SPELLS.DEMONIC_CALLING_TALENT.id} /> and <SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> modules.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: 'Certain buffs or debuffs now show in timeline.',
     contributors: [Chizu],

@@ -7,7 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-const debug = true;
+const debug = false;
 
 const PROC_WINDOW_MS = 200;
 const FIRESTARTER_HEALTH_THRESHOLD = 0.90;
@@ -22,7 +22,6 @@ const HOT_STREAK_CONTRIBUTORS = [
 ];
 
 class HotStreakPreCasts extends Analyzer {
-
   lastCastTimestamp = 0;
   hotStreakRemoved = 0;
   pyroclasmProcRemoved = 0;

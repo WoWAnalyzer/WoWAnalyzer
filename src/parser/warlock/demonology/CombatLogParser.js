@@ -19,6 +19,10 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 
+import TalentStatisticBox from './modules/talents';
+import Dreadlash from './modules/talents/Dreadlash';
+import DemonicStrength from './modules/talents/DemonicStrength';
+import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import SoulConduit from './modules/talents/SoulConduit';
 import InnerDemons from './modules/talents/InnerDemons';
@@ -48,6 +52,10 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    talents: TalentStatisticBox,
+    dreadlash: Dreadlash,
+    demonicStrength: DemonicStrength,
+    bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
     soulConduit: SoulConduit,
     innerDemons: InnerDemons,

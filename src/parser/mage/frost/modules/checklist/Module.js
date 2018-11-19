@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
@@ -20,7 +20,7 @@ import WaterElemental from '../features/WaterElemental';
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,

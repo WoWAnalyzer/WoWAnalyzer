@@ -5,6 +5,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class RunicPowerTracker extends ResourceTracker {
   static dependencies = {
+    ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
   };
 
@@ -57,7 +58,6 @@ class RunicPowerTracker extends ResourceTracker {
   get cooldownReductionWasted(){
     return this.totalCooldownReductionWasted;
   }
-
 }
 
 export default RunicPowerTracker;
