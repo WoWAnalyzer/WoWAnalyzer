@@ -1,10 +1,8 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
@@ -39,12 +37,12 @@ class DrainSoul extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN), this.onDrainSoulEnergize);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onDrainSoulRemove);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
   }
 
-  onDrainSoulEnergize(event) {
+  on_byPlayer_energize(event) {
+    if (event.ability.guid !== SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) {
+      return;
+    }
     this.mobsSniped += 1;
     if (this._lastEnergize !== event.timestamp) {
       this._lastEnergize = event.timestamp;
@@ -52,7 +50,10 @@ class DrainSoul extends Analyzer {
     }
   }
 
-  onDrainSoulRemove(event) {
+  on_byPlayer_removedebuff(event) {
+    if (event.ability.guid !== SPELLS.DRAIN_SOUL_TALENT.id) {
+      return;
+    }
     if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
@@ -65,7 +66,7 @@ class DrainSoul extends Analyzer {
     }
   }
 
-  onFinished() {
+  on_finished() {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
       .filter(enemy => enemy.type === 'NPC')

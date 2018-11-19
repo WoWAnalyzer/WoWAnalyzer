@@ -1,9 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
@@ -28,12 +26,12 @@ class VileTaint extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintApply);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
   }
 
-  onVileTaintCast(event) {
+  on_byPlayer_cast(event) {
+    if (event.ability.guid !== SPELLS.VILE_TAINT_TALENT.id) {
+      return;
+    }
     if (this._castTimestamp !== null) {
       // we've casted VT at least once, so we should add the current (at this time the previous) cast first before resetting the counter
       this.casts.push(this._currentCastCount);
@@ -42,7 +40,10 @@ class VileTaint extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  onVileTaintApply(event) {
+  on_byPlayer_applydebuff(event) {
+    if (event.ability.guid !== SPELLS.VILE_TAINT_TALENT.id) {
+      return;
+    }
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
     }
@@ -51,7 +52,7 @@ class VileTaint extends Analyzer {
     }
   }
 
-  onFinished() {
+  on_finished() {
     // on each cast, the previous one is saved, so the "results" of the last VT cast in fight aren't saved, so do it on fight end
     this.casts.push(this._currentCastCount);
   }
