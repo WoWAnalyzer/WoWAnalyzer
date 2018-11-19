@@ -233,15 +233,16 @@ class DemoPets extends Analyzer {
     return this._getPets();
   }
 
-  getPetDamage(id, isGuid = true) {
+  getPetDamage(id, instance = null, isGuid = true) {
+    // if instance = null, returns total damage from all instances, otherwise from a specific instance
     // isGuid = true, because it's more convenient to call this with getPetDamage(PETS.SOME_PET.guid)
     // because you know what you're looking for (pet IDs change, GUIDs don't)
     const guid = isGuid ? id : this._toGuid(id);
-    if (!this.damage.hasEntry(guid)) {
+    if (!this.damage.hasEntry(guid, instance)) {
       debug && this.error(`this.getPetDamage() called with nonexistant ${isGuid ? 'gu' : ''}id ${id}`);
       return 0;
     }
-    return this.damage.getDamageForGuid(guid);
+    return this.damage.getDamageForGuid(guid, instance);
   }
 
   get permanentPetDamage() {

@@ -19,14 +19,17 @@ class PetDamage {
     this.pets[petInfo.guid].total += amount;
   }
 
-  getDamageForGuid(guid) {
-    return Object.values(this.pets[guid].instances).reduce((total, current) => total + current, 0);
+  getDamageForGuid(guid, instance) {
+    if (instance === null) {
+      return this.pets[guid].total;
+    }
+    return this.pets[guid].instances[instance];
   }
 
   get permanentPetDamage() {
     return Object.keys(this.pets)
       .filter(guid => isPermanentPet(guid))
-      .map(guid => this.getDamageForGuid(guid))
+      .map(guid => this.getDamageForGuid(guid, null))
       .reduce((total, current) => total + current, 0);
   }
 
@@ -35,8 +38,11 @@ class PetDamage {
     this.pets[guid].instances[instance] = this.pets[guid].instances[instance] || 0;
   }
 
-  hasEntry(guid) {
-    return !!this.pets[guid];
+  hasEntry(guid, instance) {
+    if (instance === null) {
+      return !!this.pets[guid];
+    }
+    return this.pets[guid] && this.pets[guid].instances[instance] !== undefined;
   }
 }
 

@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2018-11-16'),
+    changes: <>Added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> and <SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> modules. Fixed the Pet Timeline if it encounters an unknown pet.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-16'),
     changes: <>Added talent modules for <SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} />, <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> and <SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} />.</>,
     contributors: [Chizu],
   },

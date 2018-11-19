@@ -23,6 +23,8 @@ import Dreadlash from './modules/talents/Dreadlash';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
+import SoulConduit from './modules/talents/SoulConduit';
+import InnerDemons from './modules/talents/InnerDemons';
 import FromTheShadows from './modules/talents/FromTheShadows';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
@@ -56,6 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    soulConduit: SoulConduit,
+    innerDemons: InnerDemons,
     fromTheShadows: FromTheShadows,
     soulStrike: SoulStrike,
     summonVilefiend: SummonVilefiend,
