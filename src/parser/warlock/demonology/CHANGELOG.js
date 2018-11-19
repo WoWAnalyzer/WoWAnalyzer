@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-19'),
+    changes: 'Consolidated various talent boxes into one Talents statistic box.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-16'),
     changes: <>Added <SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> and <SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> modules.</>,
     contributors: [Chizu],

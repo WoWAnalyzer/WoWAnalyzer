@@ -28,7 +28,7 @@ class SoulStrike extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  statistic() {
+  subStatistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
     return (
       <>

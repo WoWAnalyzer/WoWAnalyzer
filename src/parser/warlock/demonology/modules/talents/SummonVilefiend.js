@@ -23,7 +23,7 @@ class SummonVilefiend extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id);
   }
 
-  statistic() {
+  subStatistic() {
     const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
     return (
       <StatisticListBoxItem

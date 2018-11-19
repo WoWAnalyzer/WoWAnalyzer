@@ -37,7 +37,7 @@ class FromTheShadows extends Analyzer {
     this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
-  statistic() {
+  subStatistic() {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} /> bonus damage</>}
