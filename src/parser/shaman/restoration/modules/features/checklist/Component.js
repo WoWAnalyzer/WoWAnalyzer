@@ -88,10 +88,17 @@ class RestoShamanChecklist extends React.PureComponent {
           name="Target AOE spells effectively"
           description="As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration."
         >
-          <Requirement name={(<>Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</>)} thresholds={thresholds.chainHealTargetThresholds} />
-          <Requirement name={(<>Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</>)} thresholds={thresholds.healingRainTargetThreshold} />
+          {thresholds.chainHealTargetThresholds.actual > 0 && (
+            <Requirement name={(<>Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</>)} thresholds={thresholds.chainHealTargetThresholds} />
+          )}
+          {thresholds.healingRainTargetThreshold.actual > 0 && (
+            <Requirement name={(<>Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</>)} thresholds={thresholds.healingRainTargetThreshold} />
+          )}
           {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
             <Requirement name={(<>Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency</>)} thresholds={thresholds.wellspringTargetThreshold} />
+          )}
+          {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && (
+            <Requirement name={(<>Average <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency</>)} thresholds={thresholds.ewtTargetThreshold} />
           )}
         </Rule>
         <Rule

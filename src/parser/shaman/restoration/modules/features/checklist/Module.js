@@ -11,6 +11,7 @@ import TidalWaves from '../TidalWaves';
 import ChainHeal from '../../spells/ChainHeal';
 import HealingRain from '../../spells/HealingRain';
 import Wellspring from '../../talents/Wellspring';
+import EarthenWallTotem from '../../talents/EarthenWallTotem';
 import HealingSurge from '../../spells/HealingSurge';
 import HealingWave from '../../spells/HealingWave';
 
@@ -27,6 +28,7 @@ class Checklist extends BaseChecklist {
     chainHeal: ChainHeal,
     healingRain: HealingRain,
     wellspring: Wellspring,
+    earthenWallTotem: EarthenWallTotem,
     healingSurge: HealingSurge,
     healingWave: HealingWave,
   };
@@ -47,6 +49,7 @@ class Checklist extends BaseChecklist {
           chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
           healingRainTargetThreshold: this.healingRain.suggestionThreshold,
           wellspringTargetThreshold: this.wellspring.suggestionThreshold,
+          ewtTargetThreshold: this.earthenWallTotem.suggestionThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
         }}
       />
