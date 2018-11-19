@@ -81,11 +81,11 @@ class RampantGrowth extends Analyzer{
       && combatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 200, null, this.owner.playerId)
       && combatant.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 200, null, this.owner.playerId)
       && getSpellInfo(spellId).mastery) {
+      const oneMasteryStackHealing = this.mastery.decomposeHeal(event).oneStack;
       if(this.banPeriod < event.timestamp) {
-        const oneMasteryStackHealing = this.mastery.decomposeHeal(event).oneStack;
         this.healingFromFreeRegrowthMastery += (oneMasteryStackHealing || 0);
       } else {
-        this.discountHealing += this.mastery.decomposeHeal(event).oneStack;
+        this.discountHealing += (oneMasteryStackHealing || 0);
       }
     }
 
