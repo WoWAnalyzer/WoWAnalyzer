@@ -84,4 +84,14 @@ export default {
     name: 'Chorus of Insanity',
     icon: 'spell_priest_void-flay',
   },
+  DEATH_THROES: {
+    id: 278659,
+    name: 'Death Throes',
+    icon: 'spell_shadow_haunting',
+  },
+  DEATH_THROES_ENERGIZE: {
+    id: 278941,
+    name: 'Death Throes',
+    icon: 'spell_shadow_haunting',
+  },
 };
