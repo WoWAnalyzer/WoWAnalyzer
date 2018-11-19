@@ -12,8 +12,7 @@ import { formatThousands } from 'common/format';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { mapIdsToSpells } from 'parser/warlock/shared/helpers';
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const BONUS_DURATION = 8000;
 const UNSTABLE_AFFLICTION_DURATION = 8000;
@@ -22,7 +21,7 @@ const DOTS_AFFECTED_BY_CREEPING_DEATH = [
   SPELLS.AGONY,
   SPELLS.CORRUPTION_DEBUFF,
   SPELLS.SIPHON_LIFE_TALENT,
-  ...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS),
+  ...UNSTABLE_AFFLICTION_DEBUFFS,
 ];
 const DOT_DEBUFFS = [
   SPELLS.PHANTOM_SINGULARITY_TALENT,
@@ -79,8 +78,8 @@ class Darkglare extends Analyzer {
     if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }
-    UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
-      this._dotDurations[id] = UNSTABLE_AFFLICTION_DURATION;
+    UNSTABLE_AFFLICTION_DEBUFFS.forEach(spell => {
+      this._dotDurations[spell.id] = UNSTABLE_AFFLICTION_DURATION;
     });
     if (this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)) {
       DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(spell => {

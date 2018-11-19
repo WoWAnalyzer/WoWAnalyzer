@@ -2,13 +2,14 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'parser/monk/brewmaster/modules/core/GetDamageBonus';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -61,7 +62,7 @@ class ShadowEmbrace extends Analyzer {
     if (!shadowEmbrace) {
       return;
     }
-    this.damage += getDamageBonus(event, shadowEmbrace.stacks * BONUS_PER_STACK);
+    this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * BONUS_PER_STACK);
   }
 
   on_byPlayer_changedebuffstack(event) {
