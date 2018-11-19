@@ -5,11 +5,11 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 class Doom extends Analyzer {
   static dependencies = {
@@ -54,15 +54,19 @@ class Doom extends Analyzer {
       });
   }
 
-  // TODO: remake into Talent statistic box once the PR is merged
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DOOM_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Doom uptime"
-        tooltip={`Doom damage: ${formatThousands(this.damage)} (${this.owner.formatItemDamageDone(this.damage)})`}
-      />
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> damage</>}
+          value={formatThousands(this.damage)}
+          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        />
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime</>}
+          value={`${formatPercentage(this.uptime)} %`}
+        />
+      </>
     );
   }
 

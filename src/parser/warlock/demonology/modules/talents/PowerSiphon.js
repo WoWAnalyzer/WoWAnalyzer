@@ -5,9 +5,9 @@ import Events from 'parser/core/Events';
 import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import SpellLink from 'common/SpellLink';
 
 const BUFFER = 350;
 
@@ -51,14 +51,12 @@ class PowerSiphon extends Analyzer {
     return (this.totalCores / this.casts.length) || 0;
   }
 
-  // TODO: remake into subStatistic once previous PR is merged
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.POWER_SIPHON_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.DEMONIC_CORE_BUFF.id} /> stacks gained</>}
         value={this.totalCores}
-        label="Demonic Core stacks gained"
-        tooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
+        valueTooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
       />
     );
   }
