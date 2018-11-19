@@ -347,7 +347,6 @@ class CombatLogParser {
     emitter.fabricateEvent({
       type: this.constructor.finished,
     });
-    emitter.runFinally();
     console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
   }
 

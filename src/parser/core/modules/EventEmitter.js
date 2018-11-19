@@ -129,6 +129,7 @@ class EventEmitter extends Module {
   }
 
   _listenersCalled = 0;
+  _isHandlingEvent = false;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       this._validateEvent(event);
@@ -156,6 +157,7 @@ class EventEmitter extends Module {
       }
     };
 
+    this._isHandlingEvent = true;
     {
       // Handle on_event (listeners of all events)
       const listeners = this._eventListenersByEventType[CATCH_ALL_EVENT];
@@ -169,6 +171,7 @@ class EventEmitter extends Module {
         listeners.forEach(run);
       }
     }
+    this._isHandlingEvent = false;
 
     this.owner.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
@@ -202,9 +205,13 @@ class EventEmitter extends Module {
       type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       __fabricated: true,
     };
-    this.finally(() => {
+    if (this._isHandlingEvent) {
+      this.finally(() => {
+        this.triggerEvent(fabricatedEvent);
+      });
+    } else {
       this.triggerEvent(fabricatedEvent);
-    });
+    }
     return fabricatedEvent;
   }
   _validateEvent(event) {
