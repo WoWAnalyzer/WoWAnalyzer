@@ -17,6 +17,14 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 const RECOMMENDED_EFFICIENCY = 0.75;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
+/**
+ * Earthen Wall Totem
+ * Summons a totem with the players health for 15 sec. 
+ * Some damage from each attack against allies within 10 yards of the totem is redirected to the totem.
+ * 
+ * https://user-images.githubusercontent.com/2842471/48328510-96fb0d00-e644-11e8-8eb8-d2d2c40373a2.png
+ * The efficiency can go higher than 100% as the totem doesn't instantly realize that it absorbed more damage than its supposed to.
+ */
 class EarthenWallTotem extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -112,7 +120,7 @@ class EarthenWallTotem extends Analyzer {
       isLessThan: {
         minor: 0.75,
         average: 0.6,
-        major: 0.5,
+        major: 0.45,
       },
       style: 'percentage',
     };
