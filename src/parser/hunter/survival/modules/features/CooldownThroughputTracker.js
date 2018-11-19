@@ -6,12 +6,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.MONGOOSE_FURY,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
       spell: SPELLS.COORDINATED_ASSAULT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
