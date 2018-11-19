@@ -25,7 +25,7 @@ const REGROWTH_DURATION = 12000;
  4. For every Regrowth cast, if the target has LB "ban" all credits from point 2 and 3 for the next 12 seconds.
  */
 
-class RampanthGrowth extends Analyzer{
+class RampantGrowth extends Analyzer{
   static dependencies = {
     statWeights: StatWeights,
     mastery: Mastery,
@@ -44,13 +44,13 @@ class RampanthGrowth extends Analyzer{
 
   constructor(...args){
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.RAMPANTH_GROWTH_TRAIT.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.RAMPANT_GROWTH_TRAIT.id);
     if(this.active) {
-      this.avgItemLevel = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANTH_GROWTH_TRAIT.id]
-        .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANTH_GROWTH_TRAIT.id].length;
-      this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANTH_GROWTH_TRAIT.id].length;
-      this.healingIncreasePerTick = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANTH_GROWTH_TRAIT.id]
-        .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.RAMPANTH_GROWTH_TRAIT.id, rank)[0], 0);
+      this.avgItemLevel = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANT_GROWTH_TRAIT.id]
+        .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANT_GROWTH_TRAIT.id].length;
+      this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANT_GROWTH_TRAIT.id].length;
+      this.healingIncreasePerTick = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANT_GROWTH_TRAIT.id]
+        .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.RAMPANT_GROWTH_TRAIT.id, rank)[0], 0);
     }
   }
 
@@ -85,7 +85,7 @@ class RampanthGrowth extends Analyzer{
         const oneMasteryStackHealing = this.mastery.decomposeHeal(event).oneStack;
         this.healingFromFreeRegrowthMastery += (oneMasteryStackHealing || 0);
       } else {
-        this.discountHealing +=this.mastery.decomposeHeal(event).oneStack;
+        this.discountHealing += this.mastery.decomposeHeal(event).oneStack;
       }
     }
 
@@ -120,7 +120,7 @@ class RampanthGrowth extends Analyzer{
     return(
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.RAMPANTH_GROWTH_TRAIT.id}
+        trait={SPELLS.RAMPANT_GROWTH_TRAIT.id}
         value={(
           <>
             {formatPercentage(throughputPercent)} %<br />
@@ -138,4 +138,4 @@ class RampanthGrowth extends Analyzer{
   }
 }
 
-export default RampanthGrowth;
+export default RampantGrowth;
