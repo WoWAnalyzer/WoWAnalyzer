@@ -8,7 +8,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Felstorm from './modules/features/Felstorm';
 import Checklist from './modules/features/Checklist/Module';
 
-import DoomUptime from './modules/features/DoomUptime';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -26,6 +25,11 @@ import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import SoulConduit from './modules/talents/SoulConduit';
 import InnerDemons from './modules/talents/InnerDemons';
+import FromTheShadows from './modules/talents/FromTheShadows';
+import SoulStrike from './modules/talents/SoulStrike';
+import SummonVilefiend from './modules/talents/SummonVilefiend';
+import PowerSiphon from './modules/talents/PowerSiphon';
+import Doom from './modules/talents/Doom';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -37,9 +41,6 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     felstorm: Felstorm,
     checklist: Checklist,
-
-    // DoTs
-    doomUptime: DoomUptime,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -59,6 +60,11 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicCalling: DemonicCalling,
     soulConduit: SoulConduit,
     innerDemons: InnerDemons,
+    fromTheShadows: FromTheShadows,
+    soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
+    powerSiphon: PowerSiphon,
+    doom: Doom,
     grimoireFelguard: GrimoireFelguard,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

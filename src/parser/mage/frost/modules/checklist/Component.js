@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist2';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
@@ -81,19 +80,9 @@ class FrostMageChecklist extends React.PureComponent {
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
           <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
-        <Rule
-          name="Maintain your buffs"
-          description={(
-            <>
-              You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also ensure that you are maximizing your uptime of <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> if you are talented into it.
-            </>
-          )}
-        >
-          <Requirement name="Arcane Intellect uptime" thresholds={thresholds.arcaneIntellectUptime} />
-          {combatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id) && <Requirement name="Bone Chilling uptime" thresholds={thresholds.boneChillingUptime} />}
-        </Rule>
-
-        <PreparationRule thresholds={thresholds} />
+        <PreparationRule thresholds={thresholds}>
+          <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />
+        </PreparationRule>
       </Checklist>
     );
   }
