@@ -9,6 +9,11 @@ export default [
     contributors: [blazyb],
   },
   {
+    date: new Date('2018-11-14'),
+    changes: 'Added support for Azerite trait Rampant Growth',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-11-09'),
     changes: 'Added checklist and suggestions for WG with high initial overhealing.',
     contributors: [blazyb],
