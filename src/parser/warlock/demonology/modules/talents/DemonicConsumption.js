@@ -45,7 +45,7 @@ class DemonicConsumption extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<>Bonus Tyrant damage from <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /></>}
+        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> damage</>}
         value={formatThousands(this.damage)}
         valueTooltip={this.owner.formatItemDamageDone(this.damage)}
       />
