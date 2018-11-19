@@ -95,7 +95,7 @@ class PreciseShots extends Analyzer {
         icon={<SpellIcon id={SPELLS.PRECISE_SHOTS.id} />}
         value={`${this.buffsGained} buffs used`}
         label={`Precise Shots`}
-        tooltip={`You wasted atleast ${this.minOverwrittenProcs} and up to ${this.maxOverwrittenProcs} procs by casting Aimed Shot when you already had Precise Shots active`}
+        tooltip={`You wasted between ${this.minOverwrittenProcs} and ${this.maxOverwrittenProcs} Precise Shots procs by casting Aimed Shot when you already had Precise Shots active`}
       />
     );
   }
