@@ -14,6 +14,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.FIREBALL.id],
       },
       {
         spell: SPELLS.PYROBLAST,
@@ -21,6 +22,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.PYROBLAST.id],
       },
       {
         spell: SPELLS.SCORCH,
@@ -66,6 +68,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        damageSpellIds: [SPELLS.METEOR_DAMAGE.id],
       },
       {
         spell: SPELLS.DRAGONS_BREATH,
@@ -176,7 +179,6 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
-        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -247,7 +249,7 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
       },
       {
-        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG, 
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
           SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
           SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,

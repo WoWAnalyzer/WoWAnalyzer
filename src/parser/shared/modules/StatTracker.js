@@ -358,6 +358,12 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
     },
+    [SPELLS.TASTE_OF_VICTORY.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_INSIGNIA.id,
+      strength: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+    },
     [SPELLS.DIG_DEEP.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
       strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
@@ -432,6 +438,10 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
+      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
+      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
     },
     // endregion
     // region Raids

@@ -174,9 +174,26 @@ class EventEmitter extends Module {
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
+
+    this.runFinally();
+
+    return event;
+  }
+  _finally = null;
+  finally(func) {
+    this._finally = this._finally || [];
+    this._finally.push(func);
+  }
+  runFinally() {
+    if (this._finally) {
+      const currentBatch = this._finally;
+      // Reset before running so if an item calls another event, it doesn't do the same finally multiple times
+      this._finally = null;
+      currentBatch.forEach(item => item());
+    }
   }
   fabricateEvent(event, trigger = null) {
-    this.triggerEvent({
+    const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
       timestamp: this.owner.currentTimestamp,
       // If this event was triggered you should pass it along
@@ -184,7 +201,11 @@ class EventEmitter extends Module {
       ...event,
       type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       __fabricated: true,
+    };
+    this.finally(() => {
+      this.triggerEvent(fabricatedEvent);
     });
+    return fabricatedEvent;
   }
   _validateEvent(event) {
     if (!event.type) {

@@ -115,32 +115,32 @@ export default {
     id: 28271,
     name: 'Polymorph',
     icon: 'ability_hunter_pet_turtle',
-  }, 
+  },
   POLYMORPH_TURKEY: {
     id: 61780,
     name: 'Polymorph',
     icon: 'achievement_worldevent_thanksgiving',
-  }, 
+  },
   POLYMORPH_PENGUIN: {
     id: 161355,
     name: 'Polymorph',
     icon: 'inv_misc_penguinpet',
-  }, 
+  },
   POLYMORPH_BUMBLEBEE: {
     id: 277792,
     name: 'Polymorph',
     icon: 'inv_bee_default',
-  }, 
+  },
   POLYMORPH_PEACOCK: {
     id: 161372,
     name: 'Polymorph',
     icon: 'inv_pet_peacock_gold',
-  }, 
+  },
   POLYMORPH_DIREHORN: {
     id: 277787,
     name: 'Polymorph',
     icon: 'inv_pet_direhorn',
-  }, 
+  },
 
 
   //Frost
@@ -526,6 +526,11 @@ export default {
   //Azerite Traits
   GLACIAL_ASSAULT: {
     id: 279855,
+    name: 'Glacial Assault',
+    icon: 'spell_mage_cometstorm2',
+  },
+  GLACIAL_ASSAULT_DAMAGE: {
+    id: 279856,
     name: 'Glacial Assault',
     icon: 'spell_mage_cometstorm2',
   },
