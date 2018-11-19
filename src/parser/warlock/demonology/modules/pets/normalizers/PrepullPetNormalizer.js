@@ -44,13 +44,17 @@ class PrepullPetNormalizer extends EventsNormalizer {
           let spell;
           if (this._verifyPermanentPet(petId)) {
             if (!PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]) {
-              debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown ability`, event);
+              debug && console.error(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown ability`, event);
               continue;
             }
             spell = SPELLS[PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]];
           }
           else {
             const guid = this._getPetGuid(petId);
+            if (!PET_GUID_TO_SUMMON_ABILITY_MAP[guid]) {
+              debug && console.error(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown pet`, event);
+              continue;
+            }
             spell = SPELLS[PET_GUID_TO_SUMMON_ABILITY_MAP[guid]];
           }
           const fabricatedEvent = {

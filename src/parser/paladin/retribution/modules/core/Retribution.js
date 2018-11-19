@@ -36,6 +36,7 @@ class Retribution extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.UNIMPORTANT()}
         icon={<SpellIcon id={SPELLS.RETRIBUTION_BUFF.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
@@ -43,7 +44,6 @@ class Retribution extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default Retribution;

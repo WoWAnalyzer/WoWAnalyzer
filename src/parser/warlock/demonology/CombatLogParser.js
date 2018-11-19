@@ -8,7 +8,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Felstorm from './modules/features/Felstorm';
 import Checklist from './modules/features/Checklist/Module';
 
-import DoomUptime from './modules/features/DoomUptime';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -19,8 +18,22 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 
+import TalentStatisticBox from './modules/talents';
+import Dreadlash from './modules/talents/Dreadlash';
+import DemonicStrength from './modules/talents/DemonicStrength';
+import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
+import SoulConduit from './modules/talents/SoulConduit';
+import InnerDemons from './modules/talents/InnerDemons';
+import FromTheShadows from './modules/talents/FromTheShadows';
+import SoulStrike from './modules/talents/SoulStrike';
+import SummonVilefiend from './modules/talents/SummonVilefiend';
+import PowerSiphon from './modules/talents/PowerSiphon';
+import Doom from './modules/talents/Doom';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
+import SacrificedSouls from './modules/talents/SacrificedSouls';
+import DemonicConsumption from './modules/talents/DemonicConsumption';
+import NetherPortal from './modules/talents/NetherPortal';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -31,9 +44,6 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     felstorm: Felstorm,
     checklist: Checklist,
-
-    // DoTs
-    doomUptime: DoomUptime,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -46,8 +56,22 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    talents: TalentStatisticBox,
+    dreadlash: Dreadlash,
+    demonicStrength: DemonicStrength,
+    bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    soulConduit: SoulConduit,
+    innerDemons: InnerDemons,
+    fromTheShadows: FromTheShadows,
+    soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
+    powerSiphon: PowerSiphon,
+    doom: Doom,
     grimoireFelguard: GrimoireFelguard,
+    sacrificedSouls: SacrificedSouls,
+    demonicConsumption: DemonicConsumption,
+    netherPortal: NetherPortal,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

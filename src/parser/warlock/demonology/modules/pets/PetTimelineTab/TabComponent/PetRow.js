@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 
 class PetRow extends React.PureComponent {
   static propTypes = {
@@ -21,6 +23,7 @@ class PetRow extends React.PureComponent {
           const barLeft = (pet.spawn - start) / 1000 * secondWidth;
           const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
           const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
+          const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
           return (
             <>
               <div
@@ -31,11 +34,19 @@ class PetRow extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                <SpellIcon
-                  id={pet.summonAbility}
-                  className={pet.meta.iconClass}
-                  data-tip={pet.meta.tooltip}
-                />
+                {isSummonAbilityKnown && (
+                  <SpellIcon
+                    id={pet.summonAbility}
+                    className={pet.meta.iconClass}
+                    data-tip={pet.meta.tooltip}
+                  />
+                )}
+                {!isSummonAbilityKnown && (
+                  <Icon
+                    icon="inv_misc_questionmark"
+                    data-tip={pet.name}
+                  />
+                )}
               </div>
               <div
                 key={`${index}-duration`}

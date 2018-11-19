@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import { DESPAWN_REASONS } from './TimelinePet';
 import { isPermanentPet } from './helpers';
+import PETS from './PETS';
 
 const debug = false;
 
@@ -17,6 +18,11 @@ class Timeline {
     return this.timeline.find(filter);
   }
 
+  filter(predicate) {
+    // forward
+    return this.timeline.filter(predicate);
+  }
+
   tryDespawnLastPermanentPet(timestamp) {
     const permanentPets = this.timeline.filter(pet => isPermanentPet(pet.guid));
     if (permanentPets.length > 0) {
@@ -26,17 +32,24 @@ class Timeline {
   }
 
   getPetsAtTimestamp(timestamp) {
-    return this.timeline.filter(pet => pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
+    // Warlock pet check so this doesn't pick up things like Vanquished Tendrils of G'huun (trinket, spawns a pet that timeline picks up)
+    return this.timeline.filter(pet => this._isWarlockPet(pet.guid) &&
+      pet.spawn <= timestamp && timestamp <= (pet.realDespawn || pet.expectedDespawn));
   }
 
   groupPetsBySummonAbility() {
     return this.timeline.reduce((obj, pet) => {
-      const key = pet.summonedBy || 'unknown';
-      const spellName = pet.summonedBy ? SPELLS[pet.summonedBy].name : 'unknown';
+      // if pet is summoned by unknown spell, it gets summonedBy = -1
+      const key = pet.summonedBy !== -1 ? pet.summonedBy : 'unknown';
+      const spellName = (SPELLS[pet.summonedBy] && SPELLS[pet.summonedBy].name) || 'unknown';
       obj[key] = obj[key] || { spellName, pets: [] };
       obj[key].pets.push(pet);
       return obj;
     }, {});
+  }
+
+  _isWarlockPet(guid) {
+    return isPermanentPet(guid) || !!PETS[guid];
   }
 }
 

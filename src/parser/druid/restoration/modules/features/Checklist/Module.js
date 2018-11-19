@@ -43,11 +43,12 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          
+
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           nonHealingTime: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           wildGrowthRatio: this.wildGrowth.suggestionThresholds,
           wildGrowthPercentBelowRecommendedCasts: this.wildGrowth.suggestionpercentBelowRecommendedCastsThresholds,
+          wildGrowthPercentBelowRecommendedPrecasts: this.wildGrowth.suggestionpercentBelowRecommendedPrecastsThresholds,
           lifebloomUpTime: this.lifebloom.suggestionThresholds,
           efflorescenceUpTime: this.efflorescence.suggestionThresholds,
           innervateAverageManaSaved: this.innervate.averageManaSavedSuggestionThresholds,

@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-18'),
+    changes: <>Removed <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> uptime from checklist and updated the module to calculate damage instead of uptime.</>,
+    contributors: [Dambroda],
+  },
+  {
     date: new Date('2018-10-29'),
     changes: <>Rewrote <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> module. Inefficient casts are now shown in timeline.</>,
     contributors: [Dambroda],

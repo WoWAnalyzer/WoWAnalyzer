@@ -5,7 +5,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
-import BoneChilling from '../features/BoneChilling';
 import BrainFreeze from '../features/BrainFreeze';
 import GlacialSpike from '../features/GlacialSpike';
 import IceLance from '../features/IceLance';
@@ -24,7 +23,6 @@ class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    boneChilling: BoneChilling,
     brainFreeze: BrainFreeze,
     glacialSpike: GlacialSpike,
     iceLance: IceLance,
@@ -48,7 +46,6 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          boneChillingUptime: this.boneChilling.suggestionThresholds,
           brainFreezeUtilization: this.brainFreeze.utilSuggestionThresholds,
           brainFreezeOverwrites: this.brainFreeze.overwriteSuggestionThresholds,
           brainFreezeExpired: this.brainFreeze.expiredSuggestionThresholds,

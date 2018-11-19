@@ -109,3 +109,17 @@ export const PERMANENT_PET_ABILITIES_TO_SUMMON_MAP = {
   [SPELLS.FELGUARD_LEGION_STRIKE.id]: SPELLS.SUMMON_FELGUARD.id,
   [SPELLS.FELSTORM_BUFF.id]: SPELLS.SUMMON_FELGUARD.id,
 };
+
+// random pets that can be summoned from Inner Demons/Nether Portal. Does NOT include Wild Imps summoned by Inner Demons, those are not random
+export const RANDOM_PET_GUIDS = [
+  PETS.BILESCOURGE.guid,
+  PETS.VICIOUS_HELLHOUND.guid,
+  PETS.SHIVARRA.guid,
+  PETS.DARKHOUND.guid,
+  PETS.ILLIDARI_SATYR.guid,
+  PETS.VOID_TERROR.guid,
+  PETS.URZUL.guid,
+  PETS.WRATHGUARD.guid,
+  PETS.EYE_OF_GULDAN.guid,
+  PETS.PRINCE_MALCHEZAAR.guid,
+];

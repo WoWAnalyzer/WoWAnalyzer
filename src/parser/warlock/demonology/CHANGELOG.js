@@ -6,6 +6,36 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-16'),
+    changes: <>Added <SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> and <SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> modules.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-16'),
+    changes: <>Added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /> and <SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> modules. Fixed the Pet Timeline if it encounters an unknown pet.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-16'),
+    changes: <>Added talent modules for <SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} />, <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> and <SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} />.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-15'),
+    changes: <>Added <SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> talent module and modified <SpellLink id={SPELLS.DOOM_TALENT.id} /> module to also show damage done by the talent.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-15'),
+    changes: <>Updated Checklist rules and added talent modules for the first row - <SpellLink id={SPELLS.DREADLASH_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_STRENGTH_TALENT.id} /> and <SpellLink id={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} /></>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed <SpellLink id={SPELLS.DEMONIC_CALLING_TALENT.id} /> and <SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> modules.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: 'Certain buffs or debuffs now show in timeline.',
     contributors: [Chizu],

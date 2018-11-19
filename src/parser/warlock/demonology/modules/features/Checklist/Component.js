@@ -44,9 +44,19 @@ class DemonologyWarlockChecklist extends React.PureComponent {
 
     return (
       <Checklist>
-        <Rule name="Use your core spells">
+        <Rule
+          name="Use your core spells"
+          description={<>Demonology has a lot of short cooldowns that make up majority of your rotation, such as <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> or Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} />. Try to use them as much as possible.</>}
+        >
           <AbilityRequirement spell={SPELLS.CALL_DREADSTALKERS.id} />
+          <Requirement
+            name={(<SpellLink id={SPELLS.FELSTORM_BUFF.id} />)}
+            thresholds={thresholds.felstorm}
+          />
+          {combatant.hasTalent(SPELLS.BILESCOURGE_BOMBERS_TALENT.id) && <AbilityRequirement spell={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id) && <AbilityRequirement spell={SPELLS.POWER_SIPHON_TALENT.id} />}
           {combatant.hasTalent(SPELLS.DOOM_TALENT.id) && <DotUptime id={SPELLS.DOOM_TALENT.id} thresholds={thresholds.doom} />}
+          {combatant.hasTalent(SPELLS.SOUL_STRIKE_TALENT.id) && <AbilityRequirement spell={SPELLS.SOUL_STRIKE_TALENT.id} />}
         </Rule>
         <Rule
           name="Don't cap your Soul Shards"
@@ -63,14 +73,10 @@ class DemonologyWarlockChecklist extends React.PureComponent {
           description="Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can."
         >
           <AbilityRequirement spell={SPELLS.SUMMON_DEMONIC_TYRANT.id} />
-          {combatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id) && <AbilityRequirement spell={SPELLS.NETHER_PORTAL_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id) && <AbilityRequirement spell={SPELLS.POWER_SIPHON_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id) && <AbilityRequirement spell={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}
           {combatant.hasTalent(SPELLS.DEMONIC_STRENGTH_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMONIC_STRENGTH_TALENT.id} />}
-          <Requirement
-            name={(<SpellLink id={SPELLS.FELSTORM_BUFF.id} icon />)}
-            thresholds={thresholds.felstorm}
-          />
+          {combatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id) && <AbilityRequirement spell={SPELLS.SUMMON_VILEFIEND_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id) && <AbilityRequirement spell={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id) && <AbilityRequirement spell={SPELLS.NETHER_PORTAL_TALENT.id} />}
         </Rule>
         <Rule
           name="Use your utility and defensive spells"
@@ -89,7 +95,7 @@ class DemonologyWarlockChecklist extends React.PureComponent {
           name="Always be casting"
           description={(
             <>
-              You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.
+              You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like <SpellLink id={SPELLS.DEMONBOLT.id} /> (with Demonic Core) or <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.
             </>
           )}
         >

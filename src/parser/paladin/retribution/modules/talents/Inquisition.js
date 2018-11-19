@@ -64,6 +64,7 @@ class Inquisition extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.INQUISITION_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)}%`}
         label="Damage done while buffed"
@@ -71,7 +72,6 @@ class Inquisition extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Inquisition;
