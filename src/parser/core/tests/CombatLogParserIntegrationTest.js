@@ -1,8 +1,6 @@
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { i18n } from 'interface/RootLocalizationProvider';
-
-import fs from 'fs';
-import zlib from 'zlib';
+import { loadLogSync } from './log-tools';
 
 /**
  * Generates an integration test for a spec's CombatLogParser instance.
@@ -31,15 +29,11 @@ import zlib from 'zlib';
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, reportPath, combatantInfoPath, eventPath, fightId, playerId, suppressWarn=true, suppressLog=true) {
+export default function integrationTest(parserClass, key, fightId, playerId, suppressWarn=true, suppressLog=true) {
   return () => {
-    let report;
-    let combatantInfoEvents;
-    let events; 
+    let log;
     beforeAll(() => {
-      report = JSON.parse(fs.readFileSync(reportPath).toString());
-      combatantInfoEvents = JSON.parse(fs.readFileSync(combatantInfoPath).toString()).events;
-      events = JSON.parse(zlib.unzipSync(fs.readFileSync(eventPath)).toString()).events;
+      log = loadLogSync(key);
     });
 
     const _console = {};
@@ -64,13 +58,15 @@ export default function integrationTest(parserClass, reportPath, combatantInfoPa
     });
 
     it('should parse the example report without crashing', () => {
+      const friendlies = log.meta.friendlies.find(({id}) => id === playerId);
+      const fight = log.meta.fights.find(({id}) => id === fightId);
       const parser = new parserClass(
-        report, 
-        report.friendlies.find(({id}) => id === playerId),
-        report.fights.find(({id}) => id === fightId),
-        combatantInfoEvents
+        log.meta, 
+        friendlies,
+        fight,
+        log.combatants
       );
-      events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
+      log.events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
       parser.finish();
       const results = parser.generateResults({
         i18n,

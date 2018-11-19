@@ -6,9 +6,7 @@ const PLAYER_ID = 3;
 
 describe('The Brewmaster Analyzer', integrationTest(
   CombatLogParser,
-  __dirname + '/test-fixtures/example/meta.json',
-  __dirname + '/test-fixtures/example/combatant-info.json',
-  __dirname + '/test-fixtures/example/events.json.gz',
+  'brm-example',
   FIGHT_ID,
   PLAYER_ID
 ));
