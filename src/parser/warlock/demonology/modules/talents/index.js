@@ -8,6 +8,9 @@ import Dreadlash from './Dreadlash';
 import DemonicStrength from './DemonicStrength';
 import BilescourgeBombers from './BilescourgeBombers';
 import DemonicCalling from './DemonicCalling';
+import FromTheShadows from './FromTheShadows';
+import SoulStrike from './SoulStrike';
+import SummonVilefiend from './SummonVilefiend';
 import PowerSiphon from './PowerSiphon';
 import Doom from './Doom';
 import GrimoireFelguard from './GrimoireFelguard';
@@ -18,6 +21,9 @@ class TalentStatisticBox extends Analyzer {
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    fromTheShadows: FromTheShadows,
+    soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
     powerSiphon: PowerSiphon,
     doom: Doom,
     grimoireFelguard: GrimoireFelguard,

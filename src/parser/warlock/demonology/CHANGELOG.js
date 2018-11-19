@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-16'),
+    changes: <>Added talent modules for <SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} />, <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> and <SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} />.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Added <SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> talent module and modified <SpellLink id={SPELLS.DOOM_TALENT.id} /> module to also show damage done by the talent.</>,
     contributors: [Chizu],

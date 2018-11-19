@@ -23,6 +23,9 @@ import Dreadlash from './modules/talents/Dreadlash';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
+import FromTheShadows from './modules/talents/FromTheShadows';
+import SoulStrike from './modules/talents/SoulStrike';
+import SummonVilefiend from './modules/talents/SummonVilefiend';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import Doom from './modules/talents/Doom';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
@@ -53,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    fromTheShadows: FromTheShadows,
+    soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
     powerSiphon: PowerSiphon,
     doom: Doom,
     grimoireFelguard: GrimoireFelguard,

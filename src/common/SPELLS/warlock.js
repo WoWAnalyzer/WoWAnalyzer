@@ -485,6 +485,11 @@ export default {
     name: 'Soul Strike',
     icon: 'inv_polearm_2h_fellord_04',
   },
+  DEMONIC_METEOR_SHARD_GEN: {
+    id: 281592,
+    name: 'Demonic Meteor', // Wowhead shows a spell Soul Shard with SS icon, that doesn't explain anything
+    icon: 'ability_warlock_handofguldan', // this at least fixes the SpellLink, if not the tooltip
+  },
 
   // Demonology pet summons (ability IDs from 'summon' events)
   WILD_IMP_HOG_SUMMON: {
