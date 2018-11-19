@@ -1,4 +1,13 @@
 /**
+ * Downloads a log for use in testing spec parsers. All the metadata
+ * necessary for loading and parsing is included in the output.
+ *
+ * This script should be run from the root of the repository.
+ *
+ * This script will only function of the log has been loaded recently by
+ * the API, which can be accomplished by loading up the desired log in
+ * the analyzer (either on localhost or on the main site).
+ *
  * Usage:
  *  node download-log.js <key> <log-id> <fight-id> <player-id>
  *
