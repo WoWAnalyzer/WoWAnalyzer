@@ -202,7 +202,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
