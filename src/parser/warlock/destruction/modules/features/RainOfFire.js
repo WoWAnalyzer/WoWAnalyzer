@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Haste from 'parser/shared/modules/Haste';
 
@@ -29,10 +30,13 @@ class RainOfFire extends Analyzer {
      */
   ];
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.RAIN_OF_FIRE_CAST.id) {
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_CAST), this.onRainCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_DAMAGE), this.onRainDamage);
+  }
+
+  onRainCast(event) {
     this.casts.push({
       timestamp: event.timestamp,
       expectedEnd: event.timestamp + this._expectedRoFduration,
@@ -42,10 +46,7 @@ class RainOfFire extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
-      return;
-    }
+  onRainDamage(event) {
     // filter ROF that should be still active
     const filtered = this.casts.filter(cast => event.timestamp <= cast.expectedEnd + BUFFER);
     const target = encodeTargetString(event.targetID, event.targetInstance);

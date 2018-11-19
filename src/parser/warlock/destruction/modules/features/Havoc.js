@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -16,7 +17,12 @@ class Havoc extends Analyzer {
 
   damage = 0;
 
-  on_byPlayer_damage(event) {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp)) {
       return;

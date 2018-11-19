@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -23,19 +24,17 @@ class Flashover extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE), this.onConflagrateDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE), this.onConflagrateCast);
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemoveBuffStack);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemoveBuff);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.CONFLAGRATE.id) {
-      return;
-    }
+  onConflagrateDamage(event) {
     this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.CONFLAGRATE.id) {
-      return;
-    }
+  onConflagrateCast() {
     if (this._currentStacks <= MAX_STACKS - STACKS_PER_CAST) {
       // We don't waste the base Backdraft stack, nor the bonus one
       this._currentStacks += STACKS_PER_CAST;
@@ -50,18 +49,12 @@ class Flashover extends Analyzer {
     debug && this.log(`Stacks after conflag cast: ${this._currentStacks}`);
   }
 
-  on_toPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
-      return;
-    }
+  onBackdraftRemoveBuffStack() {
     this._currentStacks -= 1;
     debug && this.log(`Remove buff stack, current: ${this._currentStacks}`);
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
-      return;
-    }
+  onBackdraftRemoveBuff() {
     this._currentStacks = 0;
     debug && this.log(`Remove buff, current: ${this._currentStacks}`);
   }

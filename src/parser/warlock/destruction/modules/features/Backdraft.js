@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -25,12 +26,13 @@ class Backdraft extends Analyzer {
     super(...args);
     this._maxStacks = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
     this._stacksPerApplication = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 2 : 1;
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE), this.onConflagrateCast);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemoveStack);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemove);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.CONFLAGRATE.id) {
-      return;
-    }
+  onConflagrateCast(event) {
     this._currentStacks += this._stacksPerApplication;
     if (this._currentStacks > this._maxStacks) {
       debug && console.log('backdraft stack waste at ', event.timestamp);
@@ -40,17 +42,11 @@ class Backdraft extends Analyzer {
     this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
   }
 
-  on_toPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
-      return;
-    }
+  onBackdraftRemoveStack() {
     this._currentStacks -= 1;
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
-      return;
-    }
+  onBackdraftRemove(event) {
     if (event.timestamp >= this._expectedBuffEnd - REMOVEBUFF_TOLERANCE) {
       // if the buff expired when it "should", we wasted some stacks
       debug && console.log('backdraft stack waste at ', event.timestamp);
