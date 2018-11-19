@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import PETS from '../pets/PETS';
 import DemoPets from '../pets/DemoPets';
@@ -26,11 +26,10 @@ class SummonVilefiend extends Analyzer {
   statistic() {
     const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SUMMON_VILEFIEND_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} /> damage</>}
         value={formatThousands(damage)}
-        label="Vilefiend damage"
-        tooltip={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={this.owner.formatItemDamageDone(damage)}
       />
     );
   }

@@ -4,10 +4,10 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -31,13 +31,17 @@ class SoulStrike extends Analyzer {
   statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SOUL_STRIKE_TALENT.id} />}
-        value={formatThousands(this.damage)}
-        label="Soul Strike damage"
-        tooltip={`${this.owner.formatItemDamageDone(this.damage)}<br />
-                  Shards gained from the talent: ${shardsGained}`}
-      />
+      <>
+        <StatisticListBoxItem
+          title={<><SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> damage</>}
+          value={formatThousands(this.damage)}
+          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        />
+        <StatisticListBoxItem
+          title={<>Shards generated with <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /></>}
+          value={shardsGained}
+        />
+      </>
     );
   }
 }

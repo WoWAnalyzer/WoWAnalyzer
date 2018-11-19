@@ -3,12 +3,13 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
+import SpellLink from 'common/SpellLink';
+
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const DAMAGE_BONUS = 0.2;
 /*
@@ -36,14 +37,12 @@ class FromTheShadows extends Analyzer {
     this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
-  // TODO: rework later
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FROM_THE_SHADOWS_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} /> bonus damage</>}
         value={formatThousands(this.damage)}
-        label="Bonus From the Shadows damage"
-        tooltip={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
       />
     );
   }
