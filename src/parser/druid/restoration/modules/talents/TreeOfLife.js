@@ -45,7 +45,6 @@ class TreeOfLife extends Analyzer {
     rejuvenation: Rejuvenation,
   };
 
-  hasTol = false;
   lastTolCast = null;
 
   lastTolApply = null;
@@ -62,8 +61,7 @@ class TreeOfLife extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasTol = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
-    this.active = this.hasTol;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
   }
 
   // gets the appropriate accumulator for tallying this event
@@ -118,9 +116,6 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       this.lastTolApply = event.timestamp;
-      if (event.prepull && this.hasTol) {
-        this.lastTolCast = event.timestamp; // if player has ToL talent and buff was present on pull, assume it was from a precast
-      }
     }
   }
 
@@ -171,10 +166,6 @@ class TreeOfLife extends Analyzer {
   }
 
   suggestions(when) {
-    if (!this.hasTol) {
-      return;
-    }
-
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
@@ -185,10 +176,6 @@ class TreeOfLife extends Analyzer {
   }
 
   statistic() {
-    if (!this.hasTol) {
-      return null;
-    }
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
