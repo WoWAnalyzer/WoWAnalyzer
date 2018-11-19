@@ -15,7 +15,7 @@ import { mapIdsToSpells } from 'parser/warlock/shared/helpers';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
-
+const UA_DEBUFF_SPELLS = [...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS)];
 class UnstableAfflictionUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -28,8 +28,8 @@ class UnstableAfflictionUptime extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS)]), this.onUAapply);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS)]), this.onUAremove);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(UA_DEBUFF_SPELLS), this.onUAapply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(UA_DEBUFF_SPELLS), this.onUAremove);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

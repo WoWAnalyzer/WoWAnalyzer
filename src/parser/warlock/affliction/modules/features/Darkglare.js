@@ -3,6 +3,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -13,19 +14,18 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { mapIdsToSpells } from 'parser/warlock/shared/helpers';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
-import Events from 'parser/core/Events';
 
 const BONUS_DURATION = 8000;
 const UNSTABLE_AFFLICTION_DURATION = 8000;
 const CREEPING_DEATH_COEFFICIENT = 0.85; // Creeping Death talent shortens duration and period of certain dots by 15%
 const DOTS_AFFECTED_BY_CREEPING_DEATH = [
-  SPELLS.AGONY.id,
-  SPELLS.CORRUPTION_DEBUFF.id,
-  SPELLS.SIPHON_LIFE_TALENT.id,
-  ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
+  SPELLS.AGONY,
+  SPELLS.CORRUPTION_DEBUFF,
+  SPELLS.SIPHON_LIFE_TALENT,
+  ...mapIdsToSpells(UNSTABLE_AFFLICTION_DEBUFF_IDS),
 ];
-const DOT_DEBUFF_IDS = [
-  SPELLS.PHANTOM_SINGULARITY_TALENT.id,
+const DOT_DEBUFFS = [
+  SPELLS.PHANTOM_SINGULARITY_TALENT,
   ...DOTS_AFFECTED_BY_CREEPING_DEATH,
 ];
 const debug = false;
@@ -83,17 +83,17 @@ class Darkglare extends Analyzer {
       this._dotDurations[id] = UNSTABLE_AFFLICTION_DURATION;
     });
     if (this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)) {
-      DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(id => {
-          this._dotDurations[id] *= CREEPING_DEATH_COEFFICIENT;
+      DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(spell => {
+          this._dotDurations[spell.id] *= CREEPING_DEATH_COEFFICIENT;
       });
     }
 
     // event listeners
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotApply);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotRemove);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this.onDotApply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this.onDotRemove);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DARKGLARE), this._processDarkglareCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this._processDotCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([...mapIdsToSpells(DOT_DEBUFF_IDS)]), this.onDotDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this._processDotCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this.onDotDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SUMMON_DARKGLARE_DAMAGE), this.onDarkglareDamage);
   }
 
@@ -178,7 +178,7 @@ class Darkglare extends Analyzer {
     // if it's a dot, refresh its data in this.dots
     const spellId = event.ability.guid;
     // Corruption cast has different spell ID than the debuff (it's not in DOT_DEBUFF_IDS)
-    if (!DOT_DEBUFF_IDS.includes(spellId) && spellId !== SPELLS.CORRUPTION_CAST.id) {
+    if (!DOT_DEBUFFS.some(spell => spell.id === spellId) && spellId !== SPELLS.CORRUPTION_CAST.id){
       return;
     }
     if (event.targetIsFriendly) {
