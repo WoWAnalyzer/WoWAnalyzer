@@ -359,12 +359,6 @@ export default {
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
-  // TODO: check Wrathguard and Terrorguard glyphs
-  WRATHSTORM_BUFF: {
-    id: 115831,
-    name: 'Wrathstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
   // also important for Dreadlash talent
   DREADBITE: {
     id: 271971,

@@ -194,19 +194,20 @@ class SpellTimeline extends React.PureComponent {
             </div>
           )}
           {this.spells.map(spellId => {
-            let combinedBuffEvents = [];
+            let spellBuffEvents = [];
             const buffSpellId = abilities.getBuffSpellId(spellId);
             if (buffSpellId && buffSpellId instanceof Array) {
-              buffSpellId.forEach(spell => Array.prototype.push.apply(combinedBuffEvents, buffEvents[spell]));
-            } else if (buffSpellId) {
-              combinedBuffEvents = buffEvents[buffSpellId];
+              buffSpellId.forEach(spell => buffEvents[spell] && spellBuffEvents.push(...buffEvents[spell]));
+              spellBuffEvents = spellBuffEvents.length > 0 ? spellBuffEvents : null;
+            } else {
+              spellBuffEvents = buffEvents[buffSpellId];
             }
             return (
               <SpellRow
                 key={spellId}
                 className="lane"
                 events={historyBySpellId[spellId] || []}
-                buffEvents={combinedBuffEvents.length ? combinedBuffEvents : null}
+                buffEvents={spellBuffEvents}
                 start={start}
                 totalWidth={totalWidth}
                 secondWidth={secondWidth}

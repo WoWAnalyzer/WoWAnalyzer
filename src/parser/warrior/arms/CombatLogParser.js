@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
+// Normalizers
+import OverpowerStacks from './normalizers/OverpowerStacks';
 // Features
 import Checklist from './modules/features/Checklist/Module';
 import Abilities from './modules/Abilities';
@@ -44,6 +46,9 @@ import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    overpowerStacks: OverpowerStacks,
+
     // WarriorCore
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,

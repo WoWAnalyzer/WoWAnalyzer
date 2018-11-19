@@ -1,4 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
@@ -6,6 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
  */
 class ResourceTracker extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     // Optional dependency for the `resourceCost` prop of events
     // spellResourceCost: SpellResourceCost,
   };
@@ -137,7 +139,7 @@ class ResourceTracker extends Analyzer {
   }
 
   triggerSpendEvent(spent, event) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'spendresource',
       timestamp: event.timestamp,
       sourceID: event.sourceID,

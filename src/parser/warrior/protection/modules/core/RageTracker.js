@@ -1,7 +1,6 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
@@ -10,10 +9,6 @@ const RAGE_PER_MELEE_HIT = 2;
 const RAGE_PER_MELEE_HIT_TAKEN = 3;
 
 class RageTracker extends ResourceTracker {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
   vengeanceRageSaved = 0;
   lastMeleeTaken = 0;
 
@@ -49,7 +44,7 @@ class RageTracker extends ResourceTracker {
     if (event.ability.guid !== SPELLS.MELEE.id) {
       return;
     }
-    
+
     this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
   }
 
@@ -67,7 +62,6 @@ class RageTracker extends ResourceTracker {
   get rageSavedByVengeance() {
     return this.vengeanceRageSaved.toFixed(0);
   }
-
 }
 
 export default RageTracker;
