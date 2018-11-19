@@ -106,6 +106,18 @@ class EarthenWallTotem extends Analyzer {
       });
   }
 
+  get suggestionThreshold() {
+    return {
+      actual: this.earthenWallEfficiency,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.6,
+        major: 0.5,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     const casts = this.earthenWallTotems.filter((cast => cast.timestamp > 0)).length;
     const nth = (number) => ["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th";
