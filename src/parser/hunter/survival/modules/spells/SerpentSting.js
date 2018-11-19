@@ -183,7 +183,7 @@ class SerpentSting extends Analyzer {
         return suggest(<>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, as thus a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
     } else {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
