@@ -477,10 +477,11 @@ export const Dambroda = {
   nickname: 'Dambroda',
   github: 'Dambroda',
   discord: 'Dambroda#1290',
+  avatar: require('./interface/images/avatars/Dambroda-avatar.jpg'),
   mains: [{
     name: 'Dambroma',
     spec: SPECS.FROST_MAGE,
-    link: 'https://worldofwarcraft.com/en-us/character/lightbringer/dambroma',
+    link: 'https://worldofwarcraft.com/en-us/character/stormrage/dambroma',
   }],
 };
 export const Nalhan = {
@@ -491,7 +492,7 @@ export const Nalhan = {
     name: 'Doughmaker',
     spec: SPECS.DISCIPLINE_PRIEST,
     link: 'http://us.battle.net/wow/character/arthas/Doughmaker',
-  }], 
+  }],
 };
 export const Satyric = {
   nickname: 'Satyric',
