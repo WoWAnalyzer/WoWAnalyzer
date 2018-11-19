@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import getDamageBonus from 'parser/mage/shared/modules/GetDamageBonus';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const BONUS_DAMAGE = 2.25;
 const CAST_BUFFER = 250;
@@ -126,7 +126,7 @@ class Pyroclasm extends Analyzer {
       return;
     }
       if (this.isBuffed === true) {
-        this.damage += getDamageBonus(event, BONUS_DAMAGE);
+        this.damage += calculateEffectiveDamage(event, BONUS_DAMAGE);
         this.isBuffed = false;
         debug && this.log("Pyroblast Damage");
       } else {
