@@ -30,7 +30,7 @@ export const STAT_TRACKER = {
  * Eternal Rune Weapon
  * Gain x strength while Dancing Rune Weapon is up
  * Every rune spend during DRW extends it's duration by .5sec up to a max of 5sec
- * 
+ *
  * The strength and bonus duration stacks with multiple traits while the 5sec cap remains the same
  * one trait  would provide 100 strength & .5sec per rune up to 5sec
  * two traits would provide 200 strength &  1sec per rune up to 5sec
@@ -54,12 +54,6 @@ class EternalRuneWeapon extends Analyzer {
     const { strength, traits } = eternalRuneWeaponStats(this.selectedCombatant.traitsBySpellId[SPELLS.ETERNAL_RUNE_WEAPON.id]);
     this.strength = strength;
     this.traits = traits;
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id && event.prepull) {
-      this.bonusDurations.push([]);
-    }
   }
 
   on_byPlayer_cast(event) {
