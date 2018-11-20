@@ -7,6 +7,11 @@ import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-20'),
+    changes: <>Added Bleed snapshot tracking and support for <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />, <SpellLink id={SPELLS.SUBTERFUGE_TALENT.id} /> and <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />.</>,
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,
     contributors: [Aelexe],
@@ -18,7 +23,7 @@ export default [
   },
   {
     date: new Date('2018-11-09'),
-    changes: <>Added <SpellLink id={SPELLS.POISON_BOMB_TALENT.id} /> module and updated <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> and <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> modules.</>,
+    changes: <>Added <SpellLink id={SPELLS.MASTER_POISONER_TALENT.id} /> module and updated <SpellLink id={SPELLS.ELABORATE_PLANNING_TALENT.id} /> and <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> modules.</>,
     contributors: [Gebuz],
   },
   {

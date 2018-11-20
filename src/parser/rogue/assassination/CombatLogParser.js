@@ -8,6 +8,9 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/Checklist/Module';
 import SpellUsable from '../shared/SpellUsable';
 
+//Normalizers
+import GarroteNormalizer from './normalizers/GarroteNormalizer';
+
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
 import ComboPoints from './modules/core/ComboPoints';
@@ -23,16 +26,26 @@ import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
 
+import GarroteSnapshot from './modules/features/GarroteSnapshot';
+import RuptureSnapshot from './modules/features/RuptureSnapshot';
+import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
+
 //Talents
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
 import MasterPoisoner from './modules/talents/MasterPoisoner';
+import Nightstalker from './modules/talents/Nightstalker';
+import Subterfuge from './modules/talents/Subterfuge';
+import MasterAssassin from './modules/talents/MasterAssassin';
 
 // Traits
 import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Normalizers
+    garroteNormalizer: GarroteNormalizer,
+
     //Trackers
     enemyHpTracker: EnemyHpTracker,
 
@@ -59,12 +72,19 @@ class CombatLogParser extends CoreCombatLogParser {
     garroteUptime: GarroteUptime,
     ruptureUptime: RuptureUptime,
 
+    garroteSnapshot: GarroteSnapshot,
+    ruptureSnapshot: RuptureSnapshot,
+    crimsonTempestSnapshot: CrimsonTempestSnapshot,
+
     //Casts
 
     //Talents
     blindside: Blindside,
     elaboratePlanning: ElaboratePlanning,
     masterPoisoner: MasterPoisoner,
+    nightstalker: Nightstalker,
+    subterfuge: Subterfuge,
+    masterAssassin: MasterAssassin,
 
     // Traits
     SharpenedBlades: SharpenedBlades,
