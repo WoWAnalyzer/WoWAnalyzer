@@ -15,6 +15,7 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 import DemoPets from './modules/pets/DemoPets';
 import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
 import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
+import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demoPets: DemoPets,
     petDamageHandler: PetDamageHandler,
     petSummonHandler: PetSummonHandler,
+    wildImpEnergyHandler: WildImpEnergyHandler,
     petTimelineTab: PetTimelineTab,
     prepullPetNormalizer: PrepullPetNormalizer,
 
