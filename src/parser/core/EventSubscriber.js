@@ -8,6 +8,9 @@ class EventSubscriber extends Module {
    * @param {function} listener
    */
   addEventListener(eventFilter, listener) {
+    if (!this.active) {
+      return;
+    }
     this.owner.addEventListener(eventFilter, listener.bind(this), this);
   }
 }
