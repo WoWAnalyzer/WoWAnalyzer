@@ -10,7 +10,7 @@ class PetDamageHandler extends Analyzer {
   };
 
   on_byPlayerPet_damage(event) {
-    const petInfo = this._getPetInfo(event.sourceID);
+    const petInfo = this.demoPets._getPetInfo(event.sourceID);
     if (!petInfo) {
       debug && this.error(`Pet damage event with nonexistant pet id ${event.sourceID}`);
       return;
@@ -19,20 +19,6 @@ class PetDamageHandler extends Analyzer {
     this.demoPets.damage.addDamage(petInfo, event.sourceInstance, damage);
   }
 
-  _getPetInfo(id, isGuid = false) {
-    let pet;
-    if (isGuid) {
-      pet = this.owner.playerPets.find(pet => pet.guid === id);
-    }
-    else {
-      pet = this.owner.playerPets.find(pet => pet.id === id);
-    }
-    if (!pet) {
-      debug && this.error(`NewPets._getPetInfo() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
-      return null;
-    }
-    return pet;
-  }
 }
 
 export default PetDamageHandler;
