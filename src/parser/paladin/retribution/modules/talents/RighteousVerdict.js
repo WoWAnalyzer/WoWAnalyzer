@@ -64,6 +64,7 @@ class RighteousVerdict extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
         value={formatNumber(this.damageDone)}
         label="Damage Done"
@@ -74,7 +75,6 @@ class RighteousVerdict extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default RighteousVerdict;

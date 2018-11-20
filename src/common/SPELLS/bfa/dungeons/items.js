@@ -89,6 +89,13 @@ export default {
     icon: 'ability_shaman_fortifyingwaters',
   },
 
+  // The MOTHERLODE!!
+  BENEFICIAL_VIBRATIONS: { // Azerokk's Resonating Heart
+    id: 268439,
+    name: 'Beneficial Vibrations',
+    icon: 'inv_enchant_shardshadowfrostlarge',
+  },
+
   // Waycrest Manor
   KINDLED_SOUL: { // buff from trinket Balefire Branch
     id: 268998,

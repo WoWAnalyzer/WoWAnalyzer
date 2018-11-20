@@ -8,8 +8,8 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class SoulBarrier extends Analyzer {
   static dependencies = {
@@ -84,7 +84,7 @@ class SoulBarrier extends Analyzer {
   statistic() {
     const avgBuffLength = (this.totalBuffLength / this.casts) / 1000;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         position={STATISTIC_ORDER.CORE(7)}
         icon={<SpellIcon id={SPELLS.SOUL_BARRIER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}

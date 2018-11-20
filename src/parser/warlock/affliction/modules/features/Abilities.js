@@ -2,6 +2,7 @@ import CoreAbilities from 'parser/shared/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SPELLS from 'common/SPELLS';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from 'parser/warlock/affliction/constants';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,6 +15,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: [...UNSTABLE_AFFLICTION_DEBUFF_IDS],
       },
       {
         spell: SPELLS.DEATHBOLT_TALENT,
@@ -42,6 +44,7 @@ class Abilities extends CoreAbilities {
           // TODO: possibly implement Haunt resets via SpellUsable?
           extraSuggestion: 'This estimate may not be correct sometimes because of Haunt\'s resets. The real amount of possible Haunts will be higher if there were adds on this fight.',
         },
+        buffSpellId: SPELLS.HAUNT_TALENT.id,
       },
       {
         spell: SPELLS.AGONY,
@@ -49,6 +52,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.AGONY.id,
       },
       {
         spell: SPELLS.CORRUPTION_CAST,
@@ -56,6 +60,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
         spell: SPELLS.SIPHON_LIFE_TALENT,
@@ -64,6 +69,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.SIPHON_LIFE_TALENT.id,
       },
       {
         spell: SPELLS.SHADOW_BOLT_AFFLI,
@@ -92,6 +98,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
         },
+        buffSpellId: SPELLS.PHANTOM_SINGULARITY_TALENT.id,
       },
       {
         spell: SPELLS.SEED_OF_CORRUPTION_DEBUFF,
@@ -111,6 +118,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
         },
+        buffSpellId: SPELLS.VILE_TAINT_TALENT.id,
       },
 
       // Cooldowns
@@ -138,6 +146,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        buffSpellId: SPELLS.DARK_SOUL_MISERY_TALENT.id,
       },
 
       // Defensive
@@ -168,6 +177,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0.10,
         },
+        buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
 
       // Utility
@@ -178,6 +188,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.BURNING_RUSH_TALENT.id,
       },
       {
         spell: SPELLS.DRAIN_LIFE,

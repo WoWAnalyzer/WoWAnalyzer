@@ -11,7 +11,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
-
+import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -57,9 +57,12 @@ import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
+// Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
+import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA
@@ -78,8 +81,11 @@ import HarlansLoadedDice from '../shared/modules/items/bfa/dungeons/HarlansLoade
 import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/LustrousGoldenPlumage';
 import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
 import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
+import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
+
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
+import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
 import DreadGladiatorsBadge from '../shared/modules/items/bfa/pvp/DreadGladiatorsBadge';
 
 //Enchants
@@ -122,6 +128,7 @@ import InoculatingExtract from '../shared/modules/items/bfa/raids/uldir/Inoculat
 import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticCorpuscle';
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
+import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -146,6 +153,7 @@ class CombatLogParser {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
+    prepullNormalizer: PrePullCooldownsNormalizer,
 
     // Analyzers
     healingDone: HealingDone,
@@ -193,6 +201,7 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    giftOfTheNaaru: GiftOfTheNaaru,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
 
@@ -213,8 +222,10 @@ class CombatLogParser {
     lustrousGoldenPlumage: LustrousGoldenPlumage,
     rezansGleamingEye: RezansGleamingEye,
     rotcrustedVoodooDoll: RotcrustedVoodooDoll,
+    azerokksResonatingHeart: AzerokksResonatingHeart,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
+    dreadGladiatorsInsignia: DreadGladiatorsInsignia,
     dreadGladiatorsBadge: DreadGladiatorsBadge,
     // Crafted
     darkmoonDeckTides: DarkmoonDeckTides,
@@ -258,6 +269,7 @@ class CombatLogParser {
     freneticCorpuscle: FreneticCorpuscle,
     constructOvercharger: ConstructOvercharger,
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
+    discOfSystematicRegression: DiscOfSystematicRegression,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -276,7 +288,7 @@ class CombatLogParser {
 
   adjustForDowntime = true;
   get hasDowntime() {
-    return this._modules.totalDowntime.totalBaseDowntime > 0;
+    return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
   _modules = {};
@@ -299,7 +311,7 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this._modules.totalDowntime.totalBaseDowntime : 0);
+    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0);
   }
   finished = false;
 
@@ -310,7 +322,7 @@ class CombatLogParser {
     }, {});
   }
   get selectedCombatant() {
-    return this._modules.combatants.selected;
+    return this.getModule(Combatants).selected;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
@@ -331,10 +343,11 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
-    this.fabricateEvent({
+    const emitter = this.getModule(EventEmitter);
+    emitter.fabricateEvent({
       type: this.constructor.finished,
     });
-    console.log('Called listeners', this._modules.eventEmitter._listenersCalled, 'times, with', this._modules.eventEmitter._actualExecutions, 'actual executions.', this._modules.eventEmitter._listenersCalled - this._modules.eventEmitter._actualExecutions, 'events were filtered away');
+    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
   }
 
   _getModuleClass(config) {
@@ -356,7 +369,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass);
+        const dependencyModule = this.getModule(dependencyClass, false);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -367,11 +380,11 @@ class CombatLogParser {
     return [availableDependencies, missingDependencies];
   }
   /**
-   * @param {string} desiredModuleName
    * @param {Module} moduleClass
    * @param {object} [options]
+   * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
    */
-  loadModule(desiredModuleName, moduleClass, options) {
+  loadModule(moduleClass, options, desiredModuleName = `module${Object.keys(this._modules).length}`) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -384,6 +397,7 @@ class CombatLogParser {
         module[key] = options[key];
       });
     }
+    // TODO: Remove module naming
     this._modules[desiredModuleName] = module;
     return module;
   }
@@ -409,11 +423,11 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this.loadModule(desiredModuleName, moduleClass, {
+        this.loadModule(moduleClass, {
           ...options,
           ...availableDependencies,
           priority,
-        });
+        }, desiredModuleName);
       } else {
         debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -440,10 +454,14 @@ class CombatLogParser {
       .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
-  getModule(type) {
-    return Object.keys(this._modules)
+  getModule(type, required = true) {
+    const module = Object.keys(this._modules)
       .map(key => this._modules[key])
       .find(module => module instanceof type);
+    if (required && !module) {
+      throw new Error(`Module not found: ${type.name}`);
+    }
+    return module;
   }
 
   normalize(events) {
@@ -462,21 +480,7 @@ class CombatLogParser {
   eventCount = 0;
   eventHistory = [];
   addEventListener(...args) {
-    this._modules.eventEmitter.addEventListener(...args);
-  }
-  triggerEvent(event) {
-    this._modules.eventEmitter.triggerEvent(event);
-  }
-  fabricateEvent(event = null, trigger = null) {
-    this.triggerEvent({
-      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
-      timestamp: this.currentTimestamp,
-      // If this event was triggered you should pass it along
-      trigger: trigger ? trigger : undefined,
-      ...event,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
-      __fabricated: true,
-    });
+    this.getModule(EventEmitter).addEventListener(...args);
   }
 
   deepDisable(module) {
@@ -505,7 +509,7 @@ class CombatLogParser {
   }
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this._modules.healingDone.total.effective;
+    return healingDone / this.getModule(HealingDone).total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -514,7 +518,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this._modules.damageDone.total.effective;
+    return damageDone / this.getModule(DamageDone).total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

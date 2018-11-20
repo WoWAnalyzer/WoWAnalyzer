@@ -44,6 +44,7 @@ class HolyPowerDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(4)}
         icon={(
           <img
             src={WastedHPIcon}
@@ -72,7 +73,6 @@ class HolyPowerDetails extends Analyzer {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default HolyPowerDetails;

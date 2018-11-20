@@ -417,7 +417,7 @@ export default {
     name: 'A Murder of Crows',
     icon: 'ability_hunter_murderofcrows',
   },
-  BINDING_SHOT_STUN: {
+  BINDING_SHOT_ROOT: {
     id: 117526,
     name: 'Binding Shot Stun',
     icon: 'spell_shaman_bindelemental',
@@ -574,5 +574,19 @@ export default {
     name: 'Survival of the Fittest',
     icon: 'spell_nature_spiritarmor',
   },
-
+  CLAW: {
+    id: 16827,
+    name: 'Claw',
+    icon: 'ability_druid_rake',
+  },
+  SMACK: {
+    id: 49966,
+    name: 'Smack',
+    icon: 'ability_druid_bash',
+  },
+  BITE: {
+    id: 17253,
+    name: 'Bite',
+    icon: 'ability_druid_ferociousbite',
+  },
 };

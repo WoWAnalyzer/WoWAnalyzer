@@ -95,9 +95,12 @@ class Ability {
      */
     timelineSortIndex: PropTypes.number,
     /**
-     * The buff belonging to the ability. Setting this will display the buff on the timeline.
+     * The buff(s) belonging to the ability. Setting this will display the buff on the timeline.
      */
-    buffSpellId: PropTypes.number,
+    buffSpellId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.number),
+    ]),
     /**
      * A boolean to indicate the spell is a defensive.
      */
@@ -114,6 +117,10 @@ class Ability {
      * An array of healing effects that this spell cast causes.
      */
     healSpellIds: PropTypes.arrayOf(PropTypes.number),
+    /**
+     * An array of damage spell ids that this spell cast causes.
+     */
+    damageSpellIds: PropTypes.arrayOf(PropTypes.number),
   };
 
   _owner = null;

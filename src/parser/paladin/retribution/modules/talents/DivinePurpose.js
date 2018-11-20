@@ -34,13 +34,13 @@ class DivinePurpose extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} />}
         value={`${formatNumber(this.divinePurposeProcs)}`}
         label="Divine Purpose procs"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default DivinePurpose;

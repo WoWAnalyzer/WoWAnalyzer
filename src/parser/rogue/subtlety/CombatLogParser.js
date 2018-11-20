@@ -1,9 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
+import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -39,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -76,6 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Traits
     SharpenedBlades: SharpenedBlades,
+
+    // Racials
+    arcaneTorrent: [ArcaneTorrent, {
+      gcd: 1000,
+    }],
   };
 }
 

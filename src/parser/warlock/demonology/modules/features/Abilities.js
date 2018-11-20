@@ -67,6 +67,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.DOOM_TALENT.id),
+        buffSpellId: SPELLS.DOOM_TALENT.id,
       },
       {
         spell: SPELLS.SHADOW_BOLT_DEMO,
@@ -91,7 +92,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -127,6 +129,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
       {
         spell: SPELLS.POWER_SIPHON_TALENT,
@@ -198,6 +201,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0.10,
         },
+        buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
 
       // Utility
@@ -208,6 +212,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.BURNING_RUSH_TALENT.id,
       },
       {
         spell: SPELLS.DRAIN_LIFE,

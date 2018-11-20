@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
@@ -13,7 +13,7 @@ import ExecutionersPrecision from '../../spells/azeritetraits/ExecutionersPrecis
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
@@ -39,7 +39,7 @@ class Checklist extends Analyzer {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
           badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
-          executionersPrecision: this.executionersPrecision.wastedExecutionersPrecisionTresholds,
+          badMortalStrikeWithEP: this.executionersPrecision.badMortalStrikeCastThresholds,
         }}
       />
     );

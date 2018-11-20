@@ -32,6 +32,7 @@ import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
+import MasteryStats from './modules/features/MasteryStats';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -89,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     statValues: StatValues,
     evmVivCastRatio: EvmVivCastRatio,
+    masteryStats: MasteryStats,
 
     // Spells
     essenceFont: EssenceFont,

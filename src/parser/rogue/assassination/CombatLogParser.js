@@ -1,10 +1,12 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import DamageDone from 'parser/shared/modules/DamageDone';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/Checklist/Module';
+import SpellUsable from '../shared/SpellUsable';
 
 //Normalizers
 import GarroteNormalizer from './normalizers/GarroteNormalizer';
@@ -36,6 +38,7 @@ import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
+// Traits
 import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -52,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    spellUsable: SpellUsable,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -84,6 +88,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Traits
     SharpenedBlades: SharpenedBlades,
+
+    // Racials
+    arcaneTorrent: [ArcaneTorrent, {
+      gcd: 1000,
+    }],
   };
 }
 
