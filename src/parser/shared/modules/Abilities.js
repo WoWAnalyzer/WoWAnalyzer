@@ -1,4 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import EventSubscriber from 'parser/core/EventSubscriber';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 import Ability from './Ability';
@@ -9,7 +10,7 @@ import Haste from './Haste';
  * @property {AbilityTracker} abilityTracker
  * @property {Haste} haste
  */
-class Abilities extends Analyzer {
+class Abilities extends EventSubscriber {
   static dependencies = {
     abilityTracker: AbilityTracker,
     haste: Haste,
@@ -124,8 +125,7 @@ class Abilities extends Analyzer {
       return;
     }
     const spellId = event.ability.guid;
-    if (spellId === 1) {
-      // Melee (auto attack)
+    if (spellId === SPELLS.MELEE.id) { // auto attack
       return;
     }
     const ability = this.getAbility(event.ability.guid);
