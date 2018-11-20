@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 import DemoPets from './index';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
+import { isWildImp } from '../helpers';
 
 const test = false;
 const debug = false;
@@ -26,7 +27,7 @@ class ImplosionHandler extends Analyzer {
 
   onImplosionCast(event) {
     // Mark current Wild Imps as "implodable"
-    const imps = this.demoPets.currentPets.filter(pet => this.demoPets.wildImpIds.includes(pet.id));
+    const imps = this.demoPets.currentPets.filter(pet => isWildImp(pet.guid));
     test && this.log('Implosion cast, current imps', JSON.parse(JSON.stringify(imps)));
     if (imps.some(imp => imp.x === null || imp.y === null)) {
       debug && this.error('Implosion cast, some imps don\'t have coordinates', imps);
@@ -67,7 +68,7 @@ class ImplosionHandler extends Analyzer {
     // Implosion pulls all Wild Imps towards target, exploding them and dealing AoE damage
     // there's no connection of each damage event to individual Wild Imp, so take Imps that were present at the Implosion cast, order them by the distance from the target and kill them in this order (they should be travelling with the same speed)
     const imps = this.demoPets._getPets(this._lastCast) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count, that's why I use Implosion cast timestamp instead of current pets
-      .filter(pet => this.demoPets.wildImpIds.includes(pet.id) && pet.shouldImplode && !pet.realDespawn)
+      .filter(pet => isWildImp(pet.guid) && pet.shouldImplode && !pet.realDespawn)
       .sort((imp1, imp2) => {
         const distance1 = this._getDistance(imp1.x, imp1.y, event.x, event.y);
         const distance2 = this._getDistance(imp2.x, imp2.y, event.x, event.y);
@@ -76,11 +77,11 @@ class ImplosionHandler extends Analyzer {
     test && this.log('Implosion damage, Imps to be imploded: ', JSON.parse(JSON.stringify(imps)));
     if (imps.length === 0) {
       debug && this.error('Error during calculating Implosion distance for imps');
-      if (!this.demoPets._getPets(this._lastCast).some(pet => this.demoPets.wildImpIds.includes(pet.id))) {
+      if (!this.demoPets._getPets(this._lastCast).some(pet => isWildImp(pet.guid))) {
         debug && this.error('No imps');
         return;
       }
-      if (!this.demoPets._getPets(this._lastCast).some(pet => this.demoPets.wildImpIds.includes(pet.id) && pet.shouldImplode)) {
+      if (!this.demoPets._getPets(this._lastCast).some(pet => isWildImp(pet.guid) && pet.shouldImplode)) {
         debug && this.error('No implodable imps');
       }
       return;

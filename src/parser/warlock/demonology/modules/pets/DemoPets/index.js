@@ -1,22 +1,13 @@
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 
 import Timeline from '../Timeline';
 import PetDamage from '../PetDamage';
-import PETS from '../PETS';
 
 const debug = false;
 
 class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
-
-  wildImpIds = []; // important for different handling of duration, these IDs change from log to log
-
-  constructor(...args) {
-    super(...args);
-    this.initializeWildImps();
-  }
 
   // API
 
@@ -71,21 +62,6 @@ class DemoPets extends Analyzer {
       return null;
     }
     return pet;
-  }
-
-  initializeWildImps() {
-    // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
-    this.wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
-    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
-      // and Inner Demons passively summons these Wild Imps
-      this.wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
-    }
-    // basically player would have to be dead from the beginning to end to not have these recorded
-    // (and even then it's probably fine, because it takes the info from parser.playerPets, which is cross-fight)
-  }
-
-  _toId(guid) {
-    return this._getPetInfo(guid, true).id;
   }
 
   _toGuid(id) {

@@ -1,10 +1,12 @@
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import DemoPets from './index';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
+import PETS from '../PETS';
 
 const debug = false;
 const test = false;
@@ -14,14 +16,17 @@ class WildImpEnergyHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
+  _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
+
   constructor(...args) {
     super(...args);
+    this.initializeWildImps();
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET), this.onPetCast);
   }
 
   onPetCast(event) {
     // handle Wild Imp energy - they should despawn when their energy reaches 0
-    if (!this.demoPets.wildImpIds.includes(event.sourceID)) {
+    if (!this._wildImpIds.includes(event.sourceID)) {
       return;
     }
     const pet = this.demoPets._getPetFromTimeline(event.sourceID, event.sourceInstance);
@@ -53,6 +58,21 @@ class WildImpEnergyHandler extends Analyzer {
       pet.pushHistory(event.timestamp, 'Killed by 0 energy', event);
       test && this.log('Despawning Wild Imp', pet);
     }
+  }
+
+  initializeWildImps() {
+    // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
+    this._wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
+    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
+      // and Inner Demons passively summons these Wild Imps
+      this._wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
+    }
+    // basically player would have to be dead from the beginning to end to not have these recorded
+    // (and even then it's probably fine, because it takes the info from parser.playerPets, which is cross-fight)
+  }
+
+  _toId(guid) {
+    return this.demoPets._getPetInfo(guid, true).id;
   }
 }
 

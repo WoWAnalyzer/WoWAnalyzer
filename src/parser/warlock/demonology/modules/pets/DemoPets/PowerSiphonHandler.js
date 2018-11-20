@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 import DemoPets from './index';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
+import { isWildImp } from '../helpers';
 
 const debug = false;
 const test = false;
@@ -28,7 +29,7 @@ class PowerSiphonHandler extends Analyzer {
     // gets current imps that aren't "scheduled for implosion"
     // filters out only those that aren't active after the cast (they can't be killed because they're casting in the future)
     const currentImps = this.demoPets.currentPets
-      .filter(pet => this.demoPets.wildImpIds.includes(pet.id) && !pet.shouldImplode)
+      .filter(pet => isWildImp(pet.guid) && !pet.shouldImplode)
       .sort((imp1, imp2) => (imp1.currentEnergy - imp2.currentEnergy) || (imp1.spawn - imp2.spawn));
     const filtered = currentImps
       .filter(imp => !event.activeImpsAfterCast.includes(encodeTargetString(imp.id, imp.instance)));

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import DemoPets from './index';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
 import PETS from '../PETS';
+import { isWildImp } from '../helpers';
 
 const test = false;
 
@@ -29,13 +30,13 @@ class DemonicTyrantHandler extends Analyzer {
   onDemonicTyrantCast(event) {
     // extend current pets (not random ones from ID/NP) by 15 seconds
     this._lastCast = event.timestamp;
-    const affectedPets = this.demoPets.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
+    const affectedPets = this.demoPets.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.guid));
     test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
     affectedPets.forEach(pet => {
       pet.extend();
       pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
       // if player has Demonic Consumption talent, kill all imps
-      if (this._hasDemonicConsumption && this.demoPets.wildImpIds.includes(pet.id)) {
+      if (this._hasDemonicConsumption && isWildImp(pet.guid)) {
         test && this.log('Wild Imp killed because Demonic Consumption', pet);
         pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
         pet.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.DEMONIC_CONSUMPTION);
@@ -49,7 +50,7 @@ class DemonicTyrantHandler extends Analyzer {
     // Demonic Tyrant effect faded, update imps' expected despawn
     const actualBuffTime = event.timestamp - this._lastCast;
     this.demoPets.currentPets
-      .filter(pet => this.demoPets.wildImpIds.includes(pet.id))
+      .filter(pet => isWildImp(pet.guid))
       .forEach(imp => {
         // original duration = spawn + 15
         // extended duration on DT cast = (spawn + 15) + 15
@@ -61,20 +62,19 @@ class DemonicTyrantHandler extends Analyzer {
   }
 
   _initializeDemonicTyrantPets() {
-    const usedPetGuids = [
+    this._petsAffectedByDemonicTyrant = [
+      PETS.WILD_IMP_HOG.guid,
       PETS.DREADSTALKER.guid,
     ];
     if (this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id)) {
-      usedPetGuids.push(PETS.VILEFIEND.guid);
+      this._petsAffectedByDemonicTyrant.push(PETS.VILEFIEND.guid);
     }
     if (this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id)) {
-      usedPetGuids.push(PETS.GRIMOIRE_FELGUARD.guid);
+      this._petsAffectedByDemonicTyrant.push(PETS.GRIMOIRE_FELGUARD.guid);
     }
-
-    this._petsAffectedByDemonicTyrant = [
-      ...this.demoPets.wildImpIds,
-      ...usedPetGuids.map(guid => this.demoPets._toId(guid)),
-    ];
+    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
+      this._petsAffectedByDemonicTyrant.push(PETS.WILD_IMP_INNER_DEMONS.guid);
+    }
   }
 }
 
