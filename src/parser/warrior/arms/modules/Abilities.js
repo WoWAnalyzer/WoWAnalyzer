@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id) ? true : false,
+          suggestion: !!combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id),
           recommendedEfficiency: 0.8,
         },
       },
@@ -28,6 +28,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.OVERPOWER.id,
       },
       {
         spell: SPELLS.SLAM,
@@ -103,11 +104,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWEEPING_STRIKES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        buffSpellId: SPELLS.SWEEPING_STRIKES.id,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
+        buffSpellId: SPELLS.SWEEPING_STRIKES.id,
       },
       {
         spell: SPELLS.WHIRLWIND,
@@ -176,7 +177,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEADLY_CALM_TALENT,
-        buffSpellId: SPELLS.DEADLY_CALM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: null,
@@ -185,19 +185,19 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id),
+        buffSpellId: SPELLS.DEADLY_CALM_TALENT.id,
       },
       // Defensive
       {
         spell: SPELLS.DEFENSIVE_STANCE_TALENT,
-        buffSpellId: SPELLS.DEFENSIVE_STANCE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 6,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id),
+        buffSpellId: SPELLS.DEFENSIVE_STANCE_TALENT.id,
       },
       {
         spell: SPELLS.DIE_BY_THE_SWORD,
-        buffSpellId: SPELLS.DIE_BY_THE_SWORD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         gcd: null,
@@ -205,11 +205,11 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.4,
         },
+        buffSpellId: SPELLS.DIE_BY_THE_SWORD.id,
       },
       {
         spell: SPELLS.RALLYING_CRY,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -220,6 +220,7 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
           extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
         },
+        buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
       },
       // Utility
       {
@@ -271,9 +272,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BERSERKER_RAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        buffSpellId: SPELLS.BERSERKER_RAGE,
         cooldown: 60,
         gcd: null,
+        buffSpellId: SPELLS.BERSERKER_RAGE.id,
       },
       {
         spell: SPELLS.HEROIC_THROW,
