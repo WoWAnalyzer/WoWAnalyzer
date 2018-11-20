@@ -1,9 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events from 'parser/core/Events';
+import CombatLogParser from 'parser/core/CombatLogParser';
 
 class ThermalVoid extends Analyzer {
   casts = 0;
@@ -13,17 +17,20 @@ class ThermalVoid extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
-  }
-
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.ICY_VEINS.id) {
-      this.casts += 1;
-      this.buffApplied = event.timestamp;
+    if (!this.active) {
+      return;
     }
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ICY_VEINS), this.onApplyIcyVeins);
+    this.addEventListener(CombatLogParser.finish, this.onFinish);
+
   }
 
-  on_finished() {
+  onApplyIcyVeins(event) {
+    this.casts += 1;
+    this.buffApplied = event.timestamp;
+  }
+
+  onFinish() {
     if (this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id)) {
       this.casts -= 1;
       this.extraUptime = this.owner.currentTimestamp - this.buffApplied;
@@ -42,32 +49,10 @@ class ThermalVoid extends Analyzer {
     return this.averageDuration / 1000;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.averageDuration / 1000,
-      isLessThan: {
-        minor: 40,
-        average: 37,
-        major: 33,
-      },
-      style: 'number',
-    };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> duration boost can be improved. Make sure you use <SpellLink id={SPELLS.FROZEN_ORB.id} /> during <SpellLink id={SPELLS.ICY_VEINS.id} /> in order to get extra <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> Procs</>)
-          .icon(SPELLS.ICY_VEINS.icon)
-          .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
-          .recommended(`${formatNumber(recommended)} is recommended`);
-      });
-  }
-
   statistic() {
     return (
       <TalentStatisticBox
-        talent={SPELLS.ICY_VEINS.id}
+        talent={SPELLS.THERMAL_VOID_TALENT.id}
         position={STATISTIC_ORDER.CORE(100)}
         value={`${formatNumber(this.averageDurationSeconds)}s`}
         label="Avg Icy Veins Duration"
