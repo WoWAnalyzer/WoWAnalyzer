@@ -10,7 +10,9 @@ import StatisticBox from 'interface/others/StatisticBox';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
-import { RANDOM_PET_GUIDS } from '../pets/CONSTANTS';
+
+// random pets that can be summoned from Inner Demons/Nether Portal. Does NOT include Wild Imps summoned by Inner Demons, those are not random
+const RANDOM_PET_GUIDS = Object.values(PETS).filter(pet => pet.isRandom).map(pet => pet.guid);
 
 class InnerDemons extends Analyzer {
   static dependencies = {
