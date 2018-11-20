@@ -14,7 +14,6 @@ const test = false;
     TEST LOG - http://localhost:3000/report/3WQ2BFC4AJPqDLra/13-LFR+Mythrax+-+Kill+(4:22)/260-Grogar
 
     BEFORE REFACTOR - data that should remain the same!
-      _demonicTyrantBuffEnd: 54150759
     ​	_hasDemonicConsumption: false
     ​	_implosionTargetsHit: [ "33.0" ]
     ​	_lastDemonicTyrantCast: 54135785
@@ -47,18 +46,13 @@ class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
 
-  _hasDemonicConsumption = false;
   _lastImplosionCast = null;
   _implosionTargetsHit = [];
-  _lastDemonicTyrantCast = null;
   _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
-  _petsAffectedByDemonicTyrant = []; // dynamic because of talents
 
   constructor(...args) {
     super(...args);
     this._initializeWildImps();
-    this._initializeDemonicTyrantPets();
-    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
   }
 
   // Pet timeline
@@ -66,9 +60,6 @@ class DemoPets extends Analyzer {
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.IMPLOSION_CAST.id) {
       this._handleImplosionCast(event);
-    }
-    else if (event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
-      this._handleDemonicTyrantCast(event);
     }
   }
 
@@ -125,24 +116,6 @@ class DemoPets extends Analyzer {
     imps[0].pushHistory(event.timestamp, 'Killed by Implosion', event);
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.DEMONIC_POWER.id) {
-      return;
-    }
-    // Demonic Tyrant effect faded, update imps' expected despawn
-    this._demonicTyrantBuffEnd = event.timestamp;
-    const actualBuffTime = event.timestamp - this._lastDemonicTyrantCast;
-    this.currentPets
-      .filter(pet => this._wildImpIds.includes(pet.id))
-      .forEach(imp => {
-        // original duration = spawn + 15
-        // extended duration on DT cast = (spawn + 15) + 15
-        // real duration = (spawn + 15) + actualBuffTime
-        const old = imp.expectedDespawn;
-        imp.expectedDespawn = imp.spawn + PETS.WILD_IMP_HOG.duration + actualBuffTime;
-        imp.pushHistory(event.timestamp, 'Updated expected despawn from', old, 'to', imp.expectedDespawn);
-      });
-  }
 
   // API
 
@@ -192,25 +165,6 @@ class DemoPets extends Analyzer {
     this._implosionTargetsHit = [];
   }
 
-  _handleDemonicTyrantCast(event) {
-    // extend current pets (not random ones from ID/NP) by 15 seconds
-    this._lastDemonicTyrantCast = event.timestamp;
-    const affectedPets = this.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
-    test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
-    affectedPets.forEach(pet => {
-      pet.extend();
-      pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
-      // if player has Demonic Consumption talent, kill all imps
-      if (this._hasDemonicConsumption && this._wildImpIds.includes(pet.id)) {
-        test && this.log('Wild Imp killed because Demonic Consumption', pet);
-        pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
-        pet.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.DEMONIC_CONSUMPTION);
-        pet.pushHistory(event.timestamp, 'Killed by Demonic Consumption', event);
-      }
-    });
-    test && this.log('Pets after Demonic Tyrant cast', JSON.parse(JSON.stringify(this.currentPets)));
-  }
-
   _getPets(timestamp = this.owner.currentTimestamp) {
     return this.timeline.getPetsAtTimestamp(timestamp);
   }
@@ -251,23 +205,6 @@ class DemoPets extends Analyzer {
 
   _toGuid(id) {
     return this._getPetInfo(id).guid;
-  }
-
-  _initializeDemonicTyrantPets() {
-    const usedPetGuids = [
-      PETS.DREADSTALKER.guid,
-    ];
-    if (this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id)) {
-      usedPetGuids.push(PETS.VILEFIEND.guid);
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id)) {
-      usedPetGuids.push(PETS.GRIMOIRE_FELGUARD.guid);
-    }
-
-    this._petsAffectedByDemonicTyrant = [
-      ...this._wildImpIds,
-      ...usedPetGuids.map(guid => this._toId(guid)),
-    ];
   }
 
   _getDistance(x1, y1, x2, y2) {

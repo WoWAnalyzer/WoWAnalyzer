@@ -17,6 +17,7 @@ import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
 import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
 import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
 import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
+import DemonicTyrantHandler from './modules/pets/DemoPets/DemonicTyrantHandler';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     petSummonHandler: PetSummonHandler,
     wildImpEnergyHandler: WildImpEnergyHandler,
     powerSiphonHandler: PowerSiphonHandler,
+    demonicTyrantHandler: DemonicTyrantHandler,
     petTimelineTab: PetTimelineTab,
     prepullPetNormalizer: PrepullPetNormalizer,
 
