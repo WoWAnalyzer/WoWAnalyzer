@@ -84,8 +84,12 @@ class FuriousSlash extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
-
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(59)}
+        icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />}
+        value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`}
+        label="Furious Slash Max Stack Buff Uptime"
+      >
         <table className="table table-condensed">
           <thead>
             <tr>
@@ -105,10 +109,8 @@ class FuriousSlash extends Analyzer {
           </tbody>
         </table>
       </StatisticBox>
-
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(59); //4 IS A PLACEHOLDER VALUE!
 }
 
 export default FuriousSlash;
