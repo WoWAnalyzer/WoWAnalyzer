@@ -13,6 +13,8 @@ import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import DemoPets from './modules/pets/DemoPets';
+import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
+import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
@@ -48,7 +50,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+
+    // Pets
     demoPets: DemoPets,
+    petDamageHandler: PetDamageHandler,
+    petSummonHandler: PetSummonHandler,
     petTimelineTab: PetTimelineTab,
     prepullPetNormalizer: PrepullPetNormalizer,
 
