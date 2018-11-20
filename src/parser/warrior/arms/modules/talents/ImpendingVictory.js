@@ -1,16 +1,14 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Events from 'parser/core/Events';
 
 /**
- * Instantly attack the target, causing [ 39.31% of Attack Power ] damage 
+ * Instantly attack the target, causing [ 39.31% of Attack Power ] damage
  * and healing you for 20% of your maximum health.
  *
  * Killing an enemy that yields experience or honor resets the cooldown of Impending Victory.
@@ -21,20 +19,17 @@ class ImpendingVictory extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
+  totalHeal = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT), this._onImpendingVictoryHeal);
   }
 
-  totalHeal = 0;
-
-  on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id) {
-      return;
-    }
+  _onImpendingVictoryHeal(event) {
     this.totalHeal += event.amount;
   }
-
 
   subStatistic() {
     const impendingVictory = this.abilityTracker.getAbility(SPELLS.IMPENDING_VICTORY_TALENT.id);

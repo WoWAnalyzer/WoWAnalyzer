@@ -1,13 +1,11 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber } from 'common/format';
-
-import Analyzer from 'parser/core/Analyzer';
+import { formatNumber, formatThousands } from 'common/format';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Events from 'parser/core/Events';
 
 /**
  * Hurls your weapon at an enemy, causing [ 16.38% of Attack Power ] Physical damage and stunning for 4 sec.
@@ -18,17 +16,15 @@ class StormBolt extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
+  stun = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT_DEBUFF), this._onStun);
   }
 
-  stun = 0;
-
-  on_byPlayer_applydebuff(event) {
-    if (event.ability.guid !== SPELLS.STORM_BOLT_TALENT_DEBUFF.id) {
-      return;
-    }
+  _onStun() {
     this.stun += 1;
   }
 

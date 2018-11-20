@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/talents/warrior';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatThousands, formatNumber } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import { formatNumber, formatThousands } from 'common/format';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -24,15 +25,15 @@ class DefensiveStance extends Analyzer {
   }
   damageTradeoff() {
     let tradeoff = this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
-    if(tradeoff > MAX_WIDTH) {
+    if (tradeoff > MAX_WIDTH) {
       tradeoff = MAX_WIDTH;
     }
-    else if(tradeoff < 1 - MAX_WIDTH) {
+    else if (tradeoff < 1 - MAX_WIDTH) {
       tradeoff = 1 - MAX_WIDTH;
     }
     return tradeoff;
   }
-  
+
   totalDamageMitigated = 0;
   totalDamageLost = 0;
 
@@ -47,17 +48,19 @@ class DefensiveStance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
   }
 
-  on_toPlayer_damage(event) {
-    if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
+  _onDamageTaken(event) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
       const preMitigatedDefensiveStance = (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
       this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
     }
   }
 
-  on_byPlayer_damage(event) {
-    if(this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
+  _onDamageDealt(event) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
       const damageDone = event.amount / (1 - DEFENSIVE_STANCE_DL);
       this.totalDamageLost += damageDone * DEFENSIVE_STANCE_DL;
     }
@@ -98,7 +101,7 @@ class DefensiveStance extends Analyzer {
       />
     );
   }
-  
+
   suggestions(when) {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => {
@@ -109,8 +112,8 @@ class DefensiveStance extends Analyzer {
       });
     when(this.totalDamageMitigated).isLessThan(1)
       .addSuggestion((suggest) => {
-      return suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
-        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon);
+        return suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
+          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon);
       });
   }
 }
