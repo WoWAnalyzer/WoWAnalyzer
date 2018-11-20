@@ -27,9 +27,7 @@ class MasterAssassin extends Analyzer {
     if (!this.active) {
       return;
     }
-    ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.forEach(e => {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(e), this.addBonusDamageIfBuffed);
-    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
   }
 
   addBonusDamageIfBuffed(event) {

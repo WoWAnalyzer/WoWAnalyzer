@@ -23,9 +23,7 @@ class MasterPoisoner extends Analyzer {
     if (!this.active) {
       return;
     }
-    ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES.forEach(e => {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(e), this.addBonusDamage);
-    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES), this.addBonusDamage);
   }
 
   addBonusDamage(event) {

@@ -29,12 +29,8 @@ class Nightstalker extends Analyzer {
     if (!this.active) {
       return;
     }
-    ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.forEach(e => {
-      if (NIGHTSTALKER_BLACKLIST.includes(e)) {
-        return;
-      }
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(e), this.addBonusDamageIfBuffed);
-    });
+    const allowedAbilities = ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.filter(spell => !NIGHTSTALKER_BLACKLIST.includes(spell));
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(allowedAbilities), this.addBonusDamageIfBuffed);
   }
 
   addBonusDamageIfBuffed(event) {
