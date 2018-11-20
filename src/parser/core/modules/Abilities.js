@@ -1,15 +1,14 @@
-import Analyzer from 'parser/core/Analyzer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import Module from 'parser/core/Module';
 
 import Ability from './Ability';
-import AbilityTracker from './AbilityTracker';
-import Haste from './Haste';
+import AbilityTracker from '../../shared/modules/AbilityTracker';
+import Haste from '../../shared/modules/Haste';
 
 /**
  * @property {AbilityTracker} abilityTracker
  * @property {Haste} haste
  */
-class Abilities extends Analyzer {
+class Abilities extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     haste: Haste,
@@ -116,22 +115,6 @@ class Abilities extends Analyzer {
         return ability.buffSpellId === spellId;
       }
     });
-  }
-
-  // Validate that all spells castable by the player is in the spellbook
-  on_byPlayer_cast(event) {
-    if (!event.ability) {
-      return;
-    }
-    const spellId = event.ability.guid;
-    if (spellId === 1) {
-      // Melee (auto attack)
-      return;
-    }
-    const ability = this.getAbility(event.ability.guid);
-    if (!ability && !CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
-      console.warn('Ability missing from spellbook:', event.ability);
-    }
   }
 }
 

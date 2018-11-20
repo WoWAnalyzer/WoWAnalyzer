@@ -11,6 +11,7 @@ import RuptureUptime from '../../spells/RuptureUptime';
 import Blindside from '../../talents/Blindside';
 
 import EnergyDetails from '../../../../shared/resources/EnergyDetails';
+import EnergyCapTracker from '../../../../shared/resources/EnergyCapTracker';
 import ComboPointDetails from '../../../../shared/resources/ComboPointDetails';
 
 import Component from './Component';
@@ -27,6 +28,7 @@ class Checklist extends BaseChecklist {
     blindside: Blindside,
 
     energyDetails: EnergyDetails,
+    energyCapTracker: EnergyCapTracker,
     comboPointDetails: ComboPointDetails,
   };
 
@@ -44,6 +46,7 @@ class Checklist extends BaseChecklist {
           blindsideEfficiency: this.blindside.suggestionThresholds,
 
           energyEfficiency: this.energyDetails.suggestionThresholds,
+          energyCapEfficiency: this.energyCapTracker.suggestionThresholds,
           comboPointEfficiency: this.comboPointDetails.suggestionThresholds,
         }}
       />

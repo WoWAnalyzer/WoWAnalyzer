@@ -22,7 +22,9 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import Haste from '../shared/modules/Haste';
 import StatTracker from '../shared/modules/StatTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
-import Abilities from '../shared/modules/Abilities';
+import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
+import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import SpellUsable from '../shared/modules/SpellUsable';
 import SpellHistory from '../shared/modules/SpellHistory';
@@ -171,6 +173,8 @@ class CombatLogParser {
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
+    abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,

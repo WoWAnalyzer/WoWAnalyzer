@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? SPELLS.SUBTERFUGE_BUFF.id : SPELLS.MASTER_ASSASIN_BUFF.id,
+        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? SPELLS.SUBTERFUGE_BUFF.id : SPELLS.MASTER_ASSASSIN_BUFF.id,
       },
       {
         spell: SPELLS.TOXIC_BLADE_TALENT,
@@ -193,13 +193,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: null,
-      },
-      {
-        spell: SPELLS.STEALTH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 2,
-        gcd: null,
-        buffSpellId: SPELLS.STEALTH.id,
       },
       {
         spell: SPELLS.BLIND,

@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from './Abilities';
+import Abilities from '../../core/modules/Abilities';
 
 // add 500ms so buffs don't have a gap at the end of the timeline
 const FILLER = 500;

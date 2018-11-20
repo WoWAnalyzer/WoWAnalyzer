@@ -2,7 +2,7 @@ import React from 'react';
 
 //Core
 import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
 import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
 import PrePotion from 'parser/shared/modules/items/PrePotion';

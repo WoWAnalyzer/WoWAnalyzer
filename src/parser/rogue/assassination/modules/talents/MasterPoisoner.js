@@ -5,7 +5,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES } from '../../constants';
@@ -19,13 +20,13 @@ class MasterPoisoner extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_POISONER_TALENT.id);
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (!ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES.includes(spellId)) {
+    if (!this.active) {
       return;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES), this.addBonusDamage);
+  }
+
+  addBonusDamage(event) {
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 

@@ -18,7 +18,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.MASTER_ASSASIN_BUFF,
+      spell: SPELLS.MASTER_ASSASSIN_BUFF,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

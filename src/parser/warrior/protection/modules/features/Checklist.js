@@ -3,7 +3,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';

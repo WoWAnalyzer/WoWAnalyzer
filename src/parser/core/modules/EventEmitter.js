@@ -13,7 +13,6 @@ const CATCH_ALL_EVENT = 'event';
  * - firing event listeners
  */
 class EventEmitter extends Module {
-  static __dangerousInvalidUsage = false;
   static get catchAll() {
     return new EventFilter(CATCH_ALL_EVENT);
   }

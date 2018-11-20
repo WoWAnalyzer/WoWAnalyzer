@@ -43,13 +43,13 @@ class GarroteUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<SpellIcon id={SPELLS.GARROTE.id} />}
         value={`${formatPercentage(this.percentUptime)} %`}
         label="Garrote uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(110);
 
 }
 

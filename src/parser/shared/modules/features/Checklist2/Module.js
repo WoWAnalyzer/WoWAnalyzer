@@ -1,9 +1,7 @@
 import Module from 'parser/core/Module';
 
 class ChecklistModule extends Module {
-  static __dangerousInvalidUsage = false;
-  static dependencies = {
-  };
+  static dependencies = {};
 
   render() {
     // Override this method and return your component
