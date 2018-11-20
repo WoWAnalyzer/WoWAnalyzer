@@ -11,6 +11,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 // Talents
 import AngerManagement from './modules/talents/AngerManagement';
+import FuriousSlash from './modules/talents/FuriousSlash';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -29,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     angerManagement: AngerManagement,
+    furiousSlashUptime: FuriousSlash,
   };
 }
 
