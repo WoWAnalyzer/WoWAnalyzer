@@ -11,7 +11,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'interface/others/StatisticBox';
 
 import DemoPets from '../pets/DemoPets';
-import { WILD_IMP_GUIDS } from '../pets/CONSTANTS';
+import { isWildImp } from '../pets/helpers';
 
 const DAMAGE_BONUS_PER_ENERGY = 0.0025; // 0.25% per point of energy
 const debug = false;
@@ -32,7 +32,7 @@ class DemonicConsumption extends Analyzer {
   }
 
   handleCast() {
-    const imps = this.demoPets.currentPets.filter(pet => WILD_IMP_GUIDS.includes(pet.guid) && !pet.shouldImplode);
+    const imps = this.demoPets.currentPets.filter(pet => isWildImp(pet.guid) && !pet.shouldImplode);
     debug && this.log('Imps on Tyrant cast', JSON.parse(JSON.stringify(imps)));
     this._currentBonus = imps.map(imp => imp.currentEnergy).reduce((total, current) => total + current, 0) * DAMAGE_BONUS_PER_ENERGY;
     debug && this.log('Current bonus: ', this._currentBonus);

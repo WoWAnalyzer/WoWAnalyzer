@@ -15,7 +15,6 @@ const PETS = {
     guid: 55659,
     duration: 15000, // maximum duration, realistically is handled differently
     summonAbility: SPELLS.WILD_IMP_HOG_SUMMON.id,
-    isWildImp: true,
     isAffectedByDemonicTyrant: true,
     summonSpell: SPELLS.HAND_OF_GULDAN_CAST.id,
   },
@@ -51,7 +50,6 @@ const PETS = {
     guid: 143622,
     duration: INNER_DEMON_NETHER_PORTAL_DURATION,
     summonAbility: SPELLS.WILD_IMP_ID_SUMMON.id,
-    isWildImp: true,
     isAffectedByDemonicTyrant: true,
     summonSpell: SPELLS.INNER_DEMONS_TALENT.id,
   },

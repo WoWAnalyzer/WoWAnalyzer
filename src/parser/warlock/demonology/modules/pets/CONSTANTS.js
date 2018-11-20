@@ -62,18 +62,6 @@ export const PET_GUID_TO_SUMMON_ABILITY_MAP = {
   [PETS.PRINCE_MALCHEZAAR.guid]: SPELLS.PRINCE_MALCHEZAAR_SUMMON.id,
 };
 
-export const WILD_IMP_GUIDS = [
-  PETS.WILD_IMP_HOG.guid,
-  PETS.WILD_IMP_INNER_DEMONS.guid,
-];
-
-export const PETS_AFFECTED_BY_DEMONIC_TYRANT_GUIDS = [
-  ...WILD_IMP_GUIDS,
-  PETS.DREADSTALKER.guid,
-  PETS.VILEFIEND.guid,
-  PETS.GRIMOIRE_FELGUARD.guid,
-];
-
 // used to map summon ability id to summon spell ID (either spell that player casts or a talent)
 export const SUMMON_TO_SPELL_MAP = {
   [SPELLS.SUMMON_IMP.id]: SPELLS.SUMMON_IMP.id,
