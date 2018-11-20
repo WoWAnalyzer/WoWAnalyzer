@@ -1,4 +1,7 @@
 import Module from './Module';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+
+export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
 class EventSubscriber extends Module {
   /**
