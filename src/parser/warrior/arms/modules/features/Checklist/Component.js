@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
 import Checklist from 'parser/shared/modules/features/Checklist2';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
@@ -21,7 +19,7 @@ class ArmWarriorChecklist extends React.PureComponent {
   };
 
   msDescription = null;
-  
+
   constructor(...args) {
     super(...args);
 
@@ -51,41 +49,41 @@ class ArmWarriorChecklist extends React.PureComponent {
 
     return (
       <Checklist>
-        <Rule 
+        <Rule
           name="Use core abilities and offensive cooldowns as often as possible"
           description={(
             <>
-               Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible. 
-               Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
-               <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
+              Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible.
+              Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
+              <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
         >
-            {<AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />}
-            {<AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />}
-            {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
-            <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
-            {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
-            {combatant.hasTalent(SPELLS.REND_TALENT.id) && <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />}
-            {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />}
+          {<AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />}
+          {<AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />}
+          {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
+          <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
+          {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.REND_TALENT.id) && <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />}
+          {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />}
         </Rule>
-        
-        <Rule 
+
+        <Rule
           name={(<>Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently</>)}
           description={(
             this.msDescription
           )}
         >
           {!combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) && (
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)} 
-            thresholds={thresholds.goodMortalStrike} 
-          />)}
+            <Requirement
+              name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
+              thresholds={thresholds.goodMortalStrike}
+            />)}
           {!combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) && (
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
-            thresholds={thresholds.badMortalStrike} 
-          />)}
+            <Requirement
+              name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
+              thresholds={thresholds.badMortalStrike}
+            />)}
           {combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) && <AbilityRequirement spell={SPELLS.MORTAL_STRIKE.id} />}
           {combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id) && (
             <Requirement

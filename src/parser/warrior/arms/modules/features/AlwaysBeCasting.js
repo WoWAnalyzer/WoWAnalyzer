@@ -14,7 +14,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
