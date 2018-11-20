@@ -151,7 +151,7 @@ class PrePullCooldowns extends EventsNormalizer {
   _resolveAbilityGcd(id) {
     const ability = this.abilities.getAbility(id);
     const gcdProp = ability.gcd;
-    if (gcdProp === null) {
+    if (!gcdProp) {
       return 0;
     }
     if (typeof gcdProp.static === 'number') {
