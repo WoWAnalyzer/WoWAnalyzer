@@ -55,7 +55,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   get wastedPercent() {
-    return this.missedRegen / this.naturalRegen || 0;
+    return (this.missedRegen / this.naturalRegen) || 0;
   }
 
   get suggestionThresholds() {
