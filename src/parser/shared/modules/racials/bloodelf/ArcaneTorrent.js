@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {

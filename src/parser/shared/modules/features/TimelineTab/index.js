@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Channeling from 'parser/shared/modules/Channeling';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 const BASE_ITEM_LEVEL = 335;
 const BASE_PRIMARY_STAT_BUFF = 462;

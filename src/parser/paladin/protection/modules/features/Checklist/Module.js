@@ -2,7 +2,7 @@ import React from 'react';
 
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 

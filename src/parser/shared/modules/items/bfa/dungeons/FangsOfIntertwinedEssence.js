@@ -5,7 +5,7 @@ import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import ItemManaGained from 'interface/others/ItemManaGained';
 
 const MAX_RESTORES_PER_USE = 6;

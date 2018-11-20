@@ -22,7 +22,7 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import Haste from '../shared/modules/Haste';
 import StatTracker from '../shared/modules/StatTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
-import Abilities from '../shared/modules/Abilities';
+import Abilities from './modules/Abilities';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import SpellUsable from '../shared/modules/SpellUsable';

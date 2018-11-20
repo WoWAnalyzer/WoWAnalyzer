@@ -1,4 +1,4 @@
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;

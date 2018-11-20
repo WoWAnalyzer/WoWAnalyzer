@@ -4,7 +4,7 @@ import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import Abilities from './Abilities';
 import Ability from './Ability';
 
-describe('core/Modules/Abilities', () => {
+describe('core/modules/Abilities', () => {
   let module;
   let parserMock;
   let hasteMock;

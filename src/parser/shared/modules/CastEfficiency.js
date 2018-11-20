@@ -10,7 +10,7 @@ import Tab from 'interface/others/Tab';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Channeling from 'parser/shared/modules/Channeling';
 
-import Abilities from './Abilities';
+import Abilities from '../../core/modules/Abilities';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
 

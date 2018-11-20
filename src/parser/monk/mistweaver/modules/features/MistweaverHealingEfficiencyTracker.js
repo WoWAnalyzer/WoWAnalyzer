@@ -6,7 +6,7 @@ import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEffic
 import SPELLS from 'common/SPELLS/index';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import EssenceFont from 'parser/monk/mistweaver/modules/spells/EssenceFont';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
 import EnvelopingMists from 'parser/monk/mistweaver/modules/spells/EnvelopingMists';

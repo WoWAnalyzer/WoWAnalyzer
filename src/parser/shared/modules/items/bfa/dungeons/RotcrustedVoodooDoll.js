@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 const ACTIVATION_COOLDOWN = 120; // seconds
 

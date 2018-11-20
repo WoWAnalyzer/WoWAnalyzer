@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Heals the target for 20% of the caster's total health over 5 sec.

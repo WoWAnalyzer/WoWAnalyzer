@@ -6,7 +6,7 @@ import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const ACTIVATION_COOLDOWN = 90; // seconds
