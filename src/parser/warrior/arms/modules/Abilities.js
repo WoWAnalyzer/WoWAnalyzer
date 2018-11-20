@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id),
       },
       {
-        spell: SPELLS.EXECUTE,
+        spell: [SPELLS.EXECUTE, SPELLS.EXECUTE_GLYPHED],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

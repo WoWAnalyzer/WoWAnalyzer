@@ -1,14 +1,12 @@
 import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Abilities from 'parser/shared/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-
+import Events from 'parser/core/Events';
 import ExecuteRange from './ExecuteRange';
-
 
 class MortalStrikeAnalyzer extends Analyzer {
   static dependencies = {
@@ -16,20 +14,17 @@ class MortalStrikeAnalyzer extends Analyzer {
     executeRange: ExecuteRange,
   };
 
-  mortalStrikesOutsideExecuteRange = 0;    
+  mortalStrikesOutsideExecuteRange = 0;
   mortalStrikesInExecuteRange = 0;
 
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MORTAL_STRIKE), this._onMortalStrikeCast);
   }
 
-  on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.MORTAL_STRIKE.id) {
-      return;
-    }
-
-    if(this.executeRange.isTargetInExecuteRange(event)) {
+  _onMortalStrikeCast(event) {
+    if (this.executeRange.isTargetInExecuteRange(event)) {
       this.mortalStrikesInExecuteRange += 1;
 
       event.meta = event.meta || {};
@@ -44,7 +39,7 @@ class MortalStrikeAnalyzer extends Analyzer {
     const cd = this.abilities.getAbility(SPELLS.MORTAL_STRIKE.id).cooldown;
     const max = calculateMaxCasts(cd, this.owner.fightDuration - this.executeRange.executionPhaseDuration());
     const maxCast = this.mortalStrikesOutsideExecuteRange / max > 1 ? this.mortalStrikesOutsideExecuteRange : max;
-      
+
     return {
       actual: this.mortalStrikesOutsideExecuteRange / maxCast,
       isLessThan: {

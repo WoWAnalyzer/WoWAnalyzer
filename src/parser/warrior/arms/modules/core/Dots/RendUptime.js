@@ -6,6 +6,10 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+/**
+ * Example report: /report/gXbFvNaJTBf39jYV/1-LFR+Taloc+-+Kill+(4:06)/4-Dimentionz
+ */
+
 class RendUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,

@@ -28,6 +28,11 @@ export default {
     icon: 'ability_warrior_savageblow',
   },
   EXECUTE: {
+    id: 163201,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  EXECUTE_GLYPHED: {
     id: 281000,
     name: 'Execute',
     icon: 'inv_sword_48',
