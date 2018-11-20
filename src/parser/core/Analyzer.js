@@ -61,7 +61,6 @@ function addLegacyEventListenerSupport(object) {
 }
 
 class Analyzer extends EventSubscriber {
-  static __dangerousInvalidUsage = false;
   hasLegacyEventListener = false;
 
   /**

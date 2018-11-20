@@ -1,8 +1,6 @@
 import Module from './Module';
 
 class EventSubscriber extends Module {
-  static __dangerousInvalidUsage = false;
-
   /**
    * @param {string|EventFilter} eventFilter
    * @param {function} listener
