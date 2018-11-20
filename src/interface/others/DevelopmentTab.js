@@ -297,12 +297,11 @@ class DevelopmentTab extends React.Component {
             Modules:
             <ul className="list">
               {Object.values(parser._modules)
-                .map((moduleClass, index) => {
-                  const module = parser.getModule(moduleClass);
+                .map((module, index) => {
                   return (
                     <li key={index} className="flex">
                       <div className="flex-main">
-                        <Code dump={module}>{module.name}</Code>
+                        <Code dump={module}>{module.constructor.name}</Code>
                       </div>
                       <div className="flex-main" style={{ color: module.active ? 'green' : 'red' }}>
                         {module.active ? 'Active' : 'Inactive'}
