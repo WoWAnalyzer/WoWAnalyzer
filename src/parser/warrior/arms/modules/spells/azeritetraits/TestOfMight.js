@@ -60,7 +60,7 @@ class TestOfMight extends Analyzer {
     this.traits = traits;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEST_OF_MIGHT), this._onTestOfMightBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEST_OF_MIGHT_BUFF), this._onTestOfMightBuff);
   }
 
   _onCast(event) {

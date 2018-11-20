@@ -128,6 +128,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
         enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
+        buffSpellId: SPELLS.BLADESTORM.id,
       },
       {
         spell: SPELLS.RAVAGER_TALENT_ARMS,
