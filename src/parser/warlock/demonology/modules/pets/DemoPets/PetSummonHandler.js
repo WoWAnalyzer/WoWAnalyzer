@@ -41,7 +41,7 @@ class PetSummonHandler extends Analyzer {
       event.targetInstance,
       event.timestamp,
       this._getPetDuration(event.targetID),
-      this._getSummonSpell(event), // needs SUMMON_TO_SPELL_MAP, _lastIDtick, BUFFER, _lastSpendResource
+      this._getSummonSpell(event),
       event.ability.guid);
     if (this.demoPets.wildImpIds.includes(pet.id)) {
       // Wild Imps need few additional properties
