@@ -15,43 +15,32 @@ const PETS = {
     guid: 55659,
     duration: 15000, // maximum duration, realistically is handled differently
     summonAbility: SPELLS.WILD_IMP_HOG_SUMMON.id,
-    isAffectedByDemonicTyrant: true,
-    summonSpell: SPELLS.HAND_OF_GULDAN_CAST.id,
   },
   DREADSTALKER: {
     guid: 98035,
     duration: 12000,
-    summonAbility: [SPELLS.DREADSTALKER_SUMMON_1.id, SPELLS.DREADSTALKER_SUMMON_2.id],
-    isAffectedByDemonicTyrant: true,
-    summonSpell: SPELLS.CALL_DREADSTALKERS.id,
+    summonAbility: SPELLS.DREADSTALKER_SUMMON_1.id,
   },
   VILEFIEND: {
     guid: 135816,
     duration: 15000,
     summonAbility: SPELLS.SUMMON_VILEFIEND_TALENT.id,
-    isAffectedByDemonicTyrant: true,
-    summonSpell: SPELLS.SUMMON_VILEFIEND_TALENT.id,
   },
   GRIMOIRE_FELGUARD: {
     guid: 17252,
     duration: 15000,
     summonAbility: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
-    isAffectedByDemonicTyrant: true,
-    summonSpell: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
   },
   DEMONIC_TYRANT: {
     guid: 135002,
     duration: 15000,
     summonAbility: SPELLS.SUMMON_DEMONIC_TYRANT.id,
-    summonSpell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
   },
   // Inner Demons and Nether Portal demons
   WILD_IMP_INNER_DEMONS: {
     guid: 143622,
     duration: INNER_DEMON_NETHER_PORTAL_DURATION,
     summonAbility: SPELLS.WILD_IMP_ID_SUMMON.id,
-    isAffectedByDemonicTyrant: true,
-    summonSpell: SPELLS.INNER_DEMONS_TALENT.id,
   },
   BILESCOURGE: {
     guid: 136404,
