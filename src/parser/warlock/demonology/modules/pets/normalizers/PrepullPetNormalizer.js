@@ -3,7 +3,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
 import { isPermanentPet } from '../helpers';
-import PETS from 'parser/warlock/demonology/modules/pets/PETS';
+import PETS from '../PETS';
 
 const MAX_TEMPORARY_PET_DURATION = 30000;
 const CHECKED_EVENT_TYPES = ['begincast', 'cast', 'damage'];
