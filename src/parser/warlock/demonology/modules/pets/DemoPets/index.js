@@ -19,7 +19,7 @@ const debug = false;
     ​	_lastPlayerPosition: { x: 24331, y: 23459 }
     ​	_lastSpendResource: 54168237
     ​	_petsAffectedByDemonicTyrant: [ 287, 264, 276, 285 ]
-    ​	_wildImpIds: [ 287, 264 ]
+    ​	wildImpIds: [ 287, 264 ]
       timeline.length = 148
       // guid, name and total
       damage.pets = {
@@ -43,11 +43,11 @@ class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
 
-  _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
+  wildImpIds = []; // important for different handling of duration, these IDs change from log to log
 
   constructor(...args) {
     super(...args);
-    this._initializeWildImps();
+    this.initializeWildImps();
   }
 
   // API
@@ -105,12 +105,12 @@ class DemoPets extends Analyzer {
     return pet;
   }
 
-  _initializeWildImps() {
+  initializeWildImps() {
     // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
-    this._wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
+    this.wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
     if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
       // and Inner Demons passively summons these Wild Imps
-      this._wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
+      this.wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
     }
     // basically player would have to be dead from the beginning to end to not have these recorded
     // (and even then it's probably fine, because it takes the info from parser.playerPets, which is cross-fight)

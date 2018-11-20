@@ -43,7 +43,7 @@ class PetSummonHandler extends Analyzer {
       this._getPetDuration(event.targetID),
       this._getSummonSpell(event), // needs SUMMON_TO_SPELL_MAP, _lastIDtick, BUFFER, _lastSpendResource
       event.ability.guid);
-    if (this.demoPets._wildImpIds.includes(pet.id)) {
+    if (this.demoPets.wildImpIds.includes(pet.id)) {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
@@ -103,7 +103,7 @@ class PetSummonHandler extends Analyzer {
     }
     // for imps, take Demonic Tyrant in consideration
     // if player doesn't have the buff, it's 15 seconds
-    if (this.demoPets._wildImpIds.includes(pet.id) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id)) {
+    if (this.demoPets.wildImpIds.includes(pet.id) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id)) {
       // if player has the buff, it takes the remaining buff time + 15 seconds
       const remainingBuffTime = (this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION) - this.owner.currentTimestamp;
       return PETS[pet.guid].duration + remainingBuffTime;

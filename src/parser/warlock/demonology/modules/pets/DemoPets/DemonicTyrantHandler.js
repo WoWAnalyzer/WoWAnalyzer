@@ -34,7 +34,7 @@ class DemonicTyrantHandler extends Analyzer {
       pet.extend();
       pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
       // if player has Demonic Consumption talent, kill all imps
-      if (this._hasDemonicConsumption && this.demoPets._wildImpIds.includes(pet.id)) {
+      if (this._hasDemonicConsumption && this.demoPets.wildImpIds.includes(pet.id)) {
         test && this.log('Wild Imp killed because Demonic Consumption', pet);
         pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
         pet.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.DEMONIC_CONSUMPTION);
@@ -51,7 +51,7 @@ class DemonicTyrantHandler extends Analyzer {
     // Demonic Tyrant effect faded, update imps' expected despawn
     const actualBuffTime = event.timestamp - this._lastDemonicTyrantCast;
     this.demoPets.currentPets
-      .filter(pet => this.demoPets._wildImpIds.includes(pet.id))
+      .filter(pet => this.demoPets.wildImpIds.includes(pet.id))
       .forEach(imp => {
         // original duration = spawn + 15
         // extended duration on DT cast = (spawn + 15) + 15
@@ -74,7 +74,7 @@ class DemonicTyrantHandler extends Analyzer {
     }
 
     this._petsAffectedByDemonicTyrant = [
-      ...this.demoPets._wildImpIds,
+      ...this.demoPets.wildImpIds,
       ...usedPetGuids.map(guid => this.demoPets._toId(guid)),
     ];
   }

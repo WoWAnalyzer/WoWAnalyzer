@@ -15,7 +15,7 @@ class WildImpEnergyHandler extends Analyzer {
 
   on_byPlayerPet_cast(event) {
     // handle Wild Imp energy - they should despawn when their energy reaches 0
-    if (!this.demoPets._wildImpIds.includes(event.sourceID)) {
+    if (!this.demoPets.wildImpIds.includes(event.sourceID)) {
       return;
     }
     const pet = this.demoPets._getPetFromTimeline(event.sourceID, event.sourceInstance);
