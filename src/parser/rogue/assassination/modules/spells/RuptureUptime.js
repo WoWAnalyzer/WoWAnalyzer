@@ -43,13 +43,13 @@ class RuptureUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.RUPTURE.id} />}
         value={`${formatPercentage(this.percentUptime)} %`}
         label="Rupture uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(100);
 
 }
 

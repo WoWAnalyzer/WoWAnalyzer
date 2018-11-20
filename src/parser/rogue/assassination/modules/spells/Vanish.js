@@ -17,13 +17,13 @@ class EnvenomUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE(12)}
         icon={<SpellIcon id={SPELLS.ENVENOM.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Envenom uptime"
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(120);
 
 }
 
