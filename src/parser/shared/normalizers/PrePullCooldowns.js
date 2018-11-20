@@ -3,7 +3,6 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;
 
-// TODO maybe update the Timeline tab to show these prepull casts?
 /*
  * This normalizer attempts to track all potentially relevant casts that
  * happened before the pull. It then fabricates cast events in order to help
@@ -141,12 +140,28 @@ class PrePullCooldowns extends EventsNormalizer {
     let totalGCD = 0;
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];
-      totalGCD += 1500;
+      totalGCD += this._resolveAbilityGcd(event.ability.guid);
       event.timestamp = firstTimestamp - totalGCD;
       event.classResources = precastClassResources;
     }
     events.unshift(...prepullCasts);
     return events;
+  }
+
+  _resolveAbilityGcd(id) {
+    const ability = this.abilities.getAbility(id);
+    const gcdProp = ability.gcd;
+    if (gcdProp === null) {
+      return 0;
+    }
+    if (typeof gcdProp.static === 'number') {
+      return gcdProp.static;
+    }
+    if (typeof gcdProp.base === 'number') {
+      return gcdProp.base;
+    }
+    // We can't resolve the gcd functions because this is a normalizer, so if no flat numbers are set we just assume worst-case
+    return 1500;
   }
 
   static _fabricateCastEvent(event, abilityId = null) {
