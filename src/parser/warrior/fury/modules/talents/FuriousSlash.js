@@ -28,7 +28,7 @@ class FuriousSlash extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FURIOUS_SLASH_TALENT.id || event.hit_type === HIT_TYPES.DODGE || event.hit_type === HIT_TYPES.DODGE) {
+    if (spellId !== SPELLS.FURIOUS_SLASH_TALENT.id || event.hit_type === HIT_TYPES.DODGE) {
       return;
     }
     let stack = null;

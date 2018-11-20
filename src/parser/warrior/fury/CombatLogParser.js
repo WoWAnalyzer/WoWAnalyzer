@@ -10,7 +10,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 // Talents
-import FrothingBerserker from './modules/talents/FrothingBerserker';
 import AngerManagement from './modules/talents/AngerManagement';
 import FuriousSlash from './modules/talents/FuriousSlash';
 
@@ -30,12 +29,8 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     // Talents
-    frothingBerserker: FrothingBerserker,
     angerManagement: AngerManagement,
     furiousSlash: FuriousSlash,
-
-    // Overrides default PrePotion
-    //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
   };
 }
 
