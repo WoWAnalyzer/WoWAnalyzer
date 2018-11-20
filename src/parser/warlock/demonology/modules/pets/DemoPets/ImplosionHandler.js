@@ -1,5 +1,6 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 
@@ -17,10 +18,13 @@ class ImplosionHandler extends Analyzer {
   _lastCast = null;
   _targetsHit = [];
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.IMPLOSION_CAST.id) {
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_CAST), this.onImplosionCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_DAMAGE), this.onImplosionDamage);
+  }
+
+  onImplosionCast(event) {
     // Mark current Wild Imps as "implodable"
     const imps = this.demoPets.currentPets.filter(pet => this.demoPets.wildImpIds.includes(pet.id));
     test && this.log('Implosion cast, current imps', JSON.parse(JSON.stringify(imps)));
@@ -36,10 +40,7 @@ class ImplosionHandler extends Analyzer {
     this._targetsHit = [];
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.IMPLOSION_DAMAGE.id) {
-      return;
-    }
+  onImplosionDamage(event) {
     if (!event.x || !event.y) {
       debug && this.error('Implosion damage event doesn\'t have a target position', event);
       return;

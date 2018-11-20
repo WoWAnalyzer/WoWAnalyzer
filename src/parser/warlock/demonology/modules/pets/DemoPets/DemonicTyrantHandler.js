@@ -1,6 +1,8 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
+
 import DemoPets from './index';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
 import PETS from '../PETS';
@@ -20,12 +22,11 @@ class DemonicTyrantHandler extends Analyzer {
     super(...args);
     this._initializeDemonicTyrantPets();
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.onDemonicTyrantCast);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_POWER), this.onDemonicPowerRemove);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SUMMON_DEMONIC_TYRANT.id) {
-      return;
-    }
+  onDemonicTyrantCast(event) {
     // extend current pets (not random ones from ID/NP) by 15 seconds
     this._lastCast = event.timestamp;
     const affectedPets = this.demoPets.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
@@ -44,10 +45,7 @@ class DemonicTyrantHandler extends Analyzer {
     test && this.log('Pets after Demonic Tyrant cast', JSON.parse(JSON.stringify(this.demoPets.currentPets)));
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.DEMONIC_POWER.id) {
-      return;
-    }
+  onDemonicPowerRemove(event) {
     // Demonic Tyrant effect faded, update imps' expected despawn
     const actualBuffTime = event.timestamp - this._lastCast;
     this.demoPets.currentPets

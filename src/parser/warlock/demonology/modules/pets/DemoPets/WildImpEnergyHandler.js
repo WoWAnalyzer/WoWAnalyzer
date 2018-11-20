@@ -1,4 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
@@ -13,7 +14,12 @@ class WildImpEnergyHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  on_byPlayerPet_cast(event) {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET), this.onPetCast);
+  }
+
+  onPetCast(event) {
     // handle Wild Imp energy - they should despawn when their energy reaches 0
     if (!this.demoPets.wildImpIds.includes(event.sourceID)) {
       return;

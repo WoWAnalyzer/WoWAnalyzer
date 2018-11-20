@@ -1,4 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import DemoPets from './index';
 
@@ -9,7 +10,12 @@ class PetDamageHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  on_byPlayerPet_damage(event) {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+  }
+
+  onPetDamage(event) {
     const petInfo = this.demoPets._getPetInfo(event.sourceID);
     if (!petInfo) {
       debug && this.error(`Pet damage event with nonexistant pet id ${event.sourceID}`);

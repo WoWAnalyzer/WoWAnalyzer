@@ -1,5 +1,6 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 
@@ -17,12 +18,10 @@ class PowerSiphonHandler extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_SIPHON_TALENT), this.onPowerSiphonCast);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.POWER_SIPHON_TALENT.id) {
-      return;
-    }
+  onPowerSiphonCast(event) {
     if (!event.activeImpsAfterCast || event.activeImpsAfterCast.length === 0) {
       debug && this.error('Power Siphon cast didn\'t have any active imps after cast', event);
     }
