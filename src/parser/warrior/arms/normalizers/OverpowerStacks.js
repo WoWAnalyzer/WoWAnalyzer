@@ -1,11 +1,9 @@
 import SPELLS from 'common/SPELLS';
-
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class OverpowerNormalizer extends EventsNormalizer {
 
   //Ensures that the apply buff event for Overpower is sorted after the Overpower.
-
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {

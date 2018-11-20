@@ -1,12 +1,9 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 class DeepWoundsUptime extends Analyzer {
@@ -31,17 +28,12 @@ class DeepWoundsUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
-          <>
-            Your <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime can be improved. Try to use your core abilities more often to apply <SpellLink id={SPELLS.DEEP_WOUNDS.id} /> on your target
-          </>
-        )
-          .icon(SPELLS.MASTERY_DEEP_WOUNDS.icon)
-          .actual(`${formatPercentage(actual)}% Deep Wounds uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>Your <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime can be improved. Try to use your core abilities more often to apply <SpellLink id={SPELLS.DEEP_WOUNDS.id} /> on your target</>)
+        .icon(SPELLS.MASTERY_DEEP_WOUNDS.icon)
+        .actual(`${formatPercentage(actual)}% Deep Wounds uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   subStatistic() {

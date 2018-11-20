@@ -1,5 +1,4 @@
 import React from 'react';
-
 import SPECS from 'game/SPECS';
 import CHANGELOG from './CHANGELOG';
 import { Matardarix } from '../../../CONTRIBUTORS';

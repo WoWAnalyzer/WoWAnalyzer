@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Events from 'parser/core/Events';
 import ExecuteRange from 'parser/warrior/arms/modules/core/Execute/ExecuteRange';
 import { formatPercentage } from 'common/format';
@@ -66,7 +65,7 @@ class ExecutionersPrecisionAnalyzer extends Analyzer {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     when(this.badMortalStrikeCastThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> during the <SpellLink id={SPELLS.EXECUTE.id} /> phase when you don't have 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> and 2 stacks of <SpellLink id={SPELLS.OVERPOWER.id} />.</>)
