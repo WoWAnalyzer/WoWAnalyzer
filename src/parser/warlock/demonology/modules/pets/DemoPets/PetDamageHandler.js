@@ -18,7 +18,6 @@ class PetDamageHandler extends Analyzer {
     const damage = event.amount + (event.absorbed || 0);
     this.demoPets.damage.addDamage(petInfo, event.sourceInstance, damage);
   }
-
 }
 
 export default PetDamageHandler;

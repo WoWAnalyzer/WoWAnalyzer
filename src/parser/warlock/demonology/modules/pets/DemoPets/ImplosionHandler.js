@@ -14,8 +14,8 @@ class ImplosionHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  _lastImplosionCast = null;
-  _implosionTargetsHit = [];
+  _lastCast = null;
+  _targetsHit = [];
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.IMPLOSION_CAST.id) {
@@ -32,8 +32,8 @@ class ImplosionHandler extends Analyzer {
       imp.shouldImplode = true;
       imp.pushHistory(event.timestamp, 'Marked for implosion', event);
     });
-    this._lastImplosionCast = event.timestamp;
-    this._implosionTargetsHit = [];
+    this._lastCast = event.timestamp;
+    this._targetsHit = [];
   }
 
   on_byPlayer_damage(event) {
@@ -49,23 +49,23 @@ class ImplosionHandler extends Analyzer {
     // Consequent target hits just mark the target (part of the same AOE explosion)
     // Next hit on already marked target means new imp explosion
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    if (this._implosionTargetsHit.length === 0) {
+    if (this._targetsHit.length === 0) {
       test && this.log(`First Implosion damage after cast on ${target}`);
     }
-    else if (this._implosionTargetsHit.includes(target)) {
+    else if (this._targetsHit.includes(target)) {
       test && this.log(`Implosion damage on ${target}, already marked => new imp exploded, reset array, marked`);
     }
-    else if (this._implosionTargetsHit.length > 0 && !this._implosionTargetsHit.includes(target)) {
-      this._implosionTargetsHit.push(target);
+    else if (this._targetsHit.length > 0 && !this._targetsHit.includes(target)) {
+      this._targetsHit.push(target);
       test && this.log(`Implosion damage on ${target}, not hit yet, marked, skipped`);
       return;
     }
-    this._implosionTargetsHit = [target];
+    this._targetsHit = [target];
 
     // handle Implosion
     // Implosion pulls all Wild Imps towards target, exploding them and dealing AoE damage
     // there's no connection of each damage event to individual Wild Imp, so take Imps that were present at the Implosion cast, order them by the distance from the target and kill them in this order (they should be travelling with the same speed)
-    const imps = this.demoPets._getPets(this._lastImplosionCast) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count, that's why I use Implosion cast timestamp instead of current pets
+    const imps = this.demoPets._getPets(this._lastCast) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count, that's why I use Implosion cast timestamp instead of current pets
       .filter(pet => this.demoPets.wildImpIds.includes(pet.id) && pet.shouldImplode && !pet.realDespawn)
       .sort((imp1, imp2) => {
         const distance1 = this._getDistance(imp1.x, imp1.y, event.x, event.y);
@@ -75,11 +75,11 @@ class ImplosionHandler extends Analyzer {
     test && this.log('Implosion damage, Imps to be imploded: ', JSON.parse(JSON.stringify(imps)));
     if (imps.length === 0) {
       debug && this.error('Error during calculating Implosion distance for imps');
-      if (!this.demoPets._getPets(this._lastImplosionCast).some(pet => this.demoPets.wildImpIds.includes(pet.id))) {
+      if (!this.demoPets._getPets(this._lastCast).some(pet => this.demoPets.wildImpIds.includes(pet.id))) {
         debug && this.error('No imps');
         return;
       }
-      if (!this.demoPets._getPets(this._lastImplosionCast).some(pet => this.demoPets.wildImpIds.includes(pet.id) && pet.shouldImplode)) {
+      if (!this.demoPets._getPets(this._lastCast).some(pet => this.demoPets.wildImpIds.includes(pet.id) && pet.shouldImplode)) {
         debug && this.error('No implodable imps');
       }
       return;

@@ -12,7 +12,7 @@ class DemonicTyrantHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  _lastDemonicTyrantCast = null;
+  _lastCast = null;
   _hasDemonicConsumption = false;
   _petsAffectedByDemonicTyrant = [];
 
@@ -27,7 +27,7 @@ class DemonicTyrantHandler extends Analyzer {
       return;
     }
     // extend current pets (not random ones from ID/NP) by 15 seconds
-    this._lastDemonicTyrantCast = event.timestamp;
+    this._lastCast = event.timestamp;
     const affectedPets = this.demoPets.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.id));
     test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
     affectedPets.forEach(pet => {
@@ -49,7 +49,7 @@ class DemonicTyrantHandler extends Analyzer {
       return;
     }
     // Demonic Tyrant effect faded, update imps' expected despawn
-    const actualBuffTime = event.timestamp - this._lastDemonicTyrantCast;
+    const actualBuffTime = event.timestamp - this._lastCast;
     this.demoPets.currentPets
       .filter(pet => this.demoPets.wildImpIds.includes(pet.id))
       .forEach(imp => {
