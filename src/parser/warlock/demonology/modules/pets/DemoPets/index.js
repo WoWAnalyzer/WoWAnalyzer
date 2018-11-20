@@ -7,38 +7,6 @@ import PETS from '../PETS';
 
 const debug = false;
 
-  /*
-    TEST LOG - http://localhost:3000/report/3WQ2BFC4AJPqDLra/13-LFR+Mythrax+-+Kill+(4:22)/260-Grogar
-
-    BEFORE REFACTOR - data that should remain the same!
-    ​	_hasDemonicConsumption: false
-    ​	_implosionTargetsHit: [ "33.0" ]
-    ​	_lastDemonicTyrantCast: 54135785
-    ​	_lastIDtick: 54169689
-    ​	_lastImplosionCast: 54151999
-    ​	_lastPlayerPosition: { x: 24331, y: 23459 }
-    ​	_lastSpendResource: 54168237
-    ​	_petsAffectedByDemonicTyrant: [ 287, 264, 276, 285 ]
-    ​	wildImpIds: [ 287, 264 ]
-      timeline.length = 148
-      // guid, name and total
-      damage.pets = {
-        55659 - Wild Imp, 199027
-        98035 - Dreadstalker, 364343
-        135002 - Demonic Tyrant, 114633
-        135816 - Vilefiend, 187418
-        136398 - Illidari Satyr, 4139
-        136402 - Urzul, 19825
-        136403 - Void Terror, 35451
-        136404 - Bilescourge, 13010
-        136406 - Shivarra, 9502
-        136407 - Wrathguard, 20836
-        136408 - Darkhound, 18047
-        143622 - Wild Imp, 51730
-        36961778 - Flaatom, 343638
-
-      }
- */
 class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
