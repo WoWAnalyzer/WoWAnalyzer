@@ -31,12 +31,10 @@ class Benediction extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.BENEDICTION_TALENT.id} />}
+        talent={SPELLS.BENEDICTION_TALENT.id}
         value={(
           <ItemHealingDone amount={this.healingFromBenedictionRenews} />
         )}
-        label="Benediction"
         tooltip={`${this.renewsFromBenediction} total Renews from Benediction`}
         position={STATISTIC_ORDER.CORE(6)}
       />

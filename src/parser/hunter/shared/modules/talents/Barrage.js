@@ -102,12 +102,11 @@ class Barrage extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.BARRAGE_TALENT.id} />}
+        talent={SPELLS.BARRAGE_TALENT.id}
         value={<>
           <AverageTargetsHit casts={this.casts.length} hits={this.hits} /> <br />
           <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique approximate />
         </>}
-        label="Barrage"
       />
     );
   }

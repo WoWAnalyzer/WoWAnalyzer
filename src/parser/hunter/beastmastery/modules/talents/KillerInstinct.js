@@ -47,9 +47,8 @@ class KillerInstinct extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.KILLER_INSTINCT_TALENT.id} />}
+        talent={SPELLS.KILLER_INSTINCT_TALENT.id}
         value={<>{formatNumber(this.castsWithExecute)} casts at &lt;35% health</>}
-        label="Killer Instinct"
         tooltip={`You cast a total of ${this.casts} Kill Commands, of which ${this.castsWithExecute} were on enemies with less than 35% of their health remaining.
                   These ${this.castsWithExecute} casts provided you a total of ${formatNumber(this.damage)} extra damage throughout the fight.`}
       />

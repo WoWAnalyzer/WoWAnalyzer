@@ -117,12 +117,10 @@ class VoidTorrent extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
+        talent={SPELLS.VOID_TORRENT_TALENT.id}
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
         value={<ItemDamageDone amount={this.damage} />}
         tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
-        label="Void Torrent"
       />
     );
   }

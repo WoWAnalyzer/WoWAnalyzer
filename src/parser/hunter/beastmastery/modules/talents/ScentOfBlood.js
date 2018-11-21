@@ -63,13 +63,12 @@ class ScentOfBlood extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.SCENT_OF_BLOOD_TALENT.id} />}
+        talent={SPELLS.SCENT_OF_BLOOD_TALENT.id}
         value={
           <>
             gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
           </>
         }
-        label="Scent of Blood"
         tooltip={`
             <ul>
             <li>You wasted ${this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>

@@ -52,8 +52,8 @@ class CallingTheShots extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.CALLING_THE_SHOTS_TALENT.id}
         position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />}
         value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s`}
         label="Trueshot CDR"
         tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaning on CD.`} />

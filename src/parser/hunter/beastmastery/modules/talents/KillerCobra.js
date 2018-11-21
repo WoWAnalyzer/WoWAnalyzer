@@ -53,7 +53,7 @@ class KillerCobra extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
+        talent={SPELLS.KILLER_COBRA_TALENT.id}
         value={this.effectiveKillCommandResets}
         label="Kill Command Resets"
         tooltip={`You wasted ${formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown. </br> `}

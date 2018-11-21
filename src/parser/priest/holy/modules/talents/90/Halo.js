@@ -47,15 +47,13 @@ class Halo extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.HALO_TALENT.id} />}
+        talent={SPELLS.HALO_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.haloHealing} /><br />
             <ItemDamageDone amount={this.haloDamage} />
           </>
         )}
-        label="Halo"
         tooltip={`Halos Cast: ${this.haloCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />

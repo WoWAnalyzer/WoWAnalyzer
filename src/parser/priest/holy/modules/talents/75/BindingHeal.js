@@ -66,12 +66,10 @@ class BindingHeal extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.BINDING_HEAL_TALENT.id} />}
+        talent={SPELLS.BINDING_HEAL_TALENT.id}
         value={(
           <ItemHealingDone amount={this.bindingHealHealing} />
         )}
-        label="Binding Heal"
         tooltip={`
           Casts:&#9;${this.bindingHealCasts}<br />
           Self Healing:&#9;${formatThousands(this.bindingHealSelfHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />

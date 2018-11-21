@@ -32,14 +32,11 @@ class Enlightenment extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} />}
+        talent={SPELLS.ENLIGHTENMENT_TALENT.id}
         value={(
           <ItemManaGained amount={this.enlightenmentMana} />
         )}
-        label="Enlightment"
         position={STATISTIC_ORDER.CORE(1)}
       />
 

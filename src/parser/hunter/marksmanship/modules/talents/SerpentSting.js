@@ -43,8 +43,8 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.SERPENT_STING_TALENT.id}
         position={STATISTIC_ORDER.CORE(22)}
-        icon={<SpellIcon id={SPELLS.SERPENT_STING_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting Uptime"
       />

@@ -51,12 +51,11 @@ class CircleOfHealing extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />}
+        talent={SPELLS.CIRCLE_OF_HEALING_TALENT.id}
+
         value={(
           <ItemHealingDone amount={this.circleOfHealingHealing} />
         )}
-        label="Circle of Healing"
         tooltip={`
           Coh Casts: ${this.circleOfHealingCasts}<br />
           Total Healing: ${formatThousands(this.circleOfHealingHealing)} (${formatPercentage(this.overHealPercent)}% OH)<br />

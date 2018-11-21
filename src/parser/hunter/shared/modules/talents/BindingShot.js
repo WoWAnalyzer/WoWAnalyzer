@@ -34,9 +34,9 @@ class BindingShot extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.BINDING_SHOT_TALENT.id} />}
+        talent={SPELLS.BINDING_SHOT_TALENT.id}
         value={`${this._roots} roots / ${this._applications} possible`}
-        label="Binding Shot" />
+      />
     );
   }
 }

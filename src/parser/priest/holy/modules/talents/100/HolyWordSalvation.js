@@ -83,14 +83,11 @@ class HolyWordSalvation extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.HOLY_WORD_SALVATION_TALENT.id} />}
+        talent={SPELLS.HOLY_WORD_SALVATION_TALENT.id}
         value={(
           <ItemHealingDone amount={this.totalHealing} />
         )}
-        label="Holy Word: Salvation"
         tooltip={`
           Healing from Salv: ${formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
           Healing from Renews: ${formatThousands(this.healingFromRenew + this.absorptionFromRenew)}<br />
@@ -98,7 +95,6 @@ class HolyWordSalvation extends Analyzer {
         `}
         position={STATISTIC_ORDER.CORE(7)}
       />
-
     );
   }
 }

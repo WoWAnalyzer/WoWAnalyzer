@@ -26,10 +26,9 @@ class Subterfuge extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.SUBTERFUGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.SUBTERFUGE_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDamage} />}
-        label="Subterfuge"
       />
     );
   }

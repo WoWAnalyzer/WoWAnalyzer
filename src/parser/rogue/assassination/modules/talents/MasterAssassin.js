@@ -43,10 +43,9 @@ class MasterAssassin extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MASTER_ASSASSIN_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.MASTER_ASSASSIN_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDamage} />}
-        label="Master Assassin"
       />
     );
   }

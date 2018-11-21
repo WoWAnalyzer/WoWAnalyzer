@@ -104,7 +104,7 @@ class VenomousBite extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.VENOMOUS_BITE_TALENT.id} />}
+        talent={SPELLS.VENOMOUS_BITE_TALENT.id}
         value={(
           <>
             {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s

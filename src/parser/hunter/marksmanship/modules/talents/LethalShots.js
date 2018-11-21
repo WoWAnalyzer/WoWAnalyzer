@@ -74,8 +74,8 @@ class LethalShots extends Analyzer {
     tooltipText += `</ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.LETHAL_SHOTS_TALENT.id}
         position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.LETHAL_SHOTS_TALENT.id} />}
         value={`${this.totalUsage}/${this.totalProcs}`}
         label="utilised LS procs"
         tooltip={tooltipText} />

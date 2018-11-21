@@ -47,15 +47,13 @@ class DivineStar extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.DIVINE_STAR_TALENT.id} />}
+        talent={SPELLS.DIVINE_STAR_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.divineStarHealing} /><br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>
         )}
-        label="Divine Star"
         tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />

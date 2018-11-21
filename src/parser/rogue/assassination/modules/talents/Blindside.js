@@ -14,7 +14,7 @@ const MS_BUFFER = 100;
 
 /**
  * Exploits the vulnerability of foes with less than 30% health.
- * 
+ *
  * Mutilate has a 25% chance to make your next Blindside free and usable on any target, regardless of their health.
  */
 class Blindside extends Analyzer {
@@ -42,11 +42,11 @@ class Blindside extends Analyzer {
     if (spellId !== SPELLS.MUTILATE.id) {
       return;
     }
-    
-    //Sometimes buff event is before the cast. 
+
+    //Sometimes buff event is before the cast.
     if(this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
       this.registerBadMutilate(event, "you had a Blindside Proc");
-    }    
+    }
     const target = this.enemies.getEntity(event);
     if(target && target.hpPercent < BLINDSIDE_EXECUTE) {
       this.registerBadMutilate(event, `health of your target was < ${BLINDSIDE_EXECUTE}% `);
@@ -85,8 +85,8 @@ class Blindside extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.BLINDSIDE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.BLINDSIDE_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)} %.`}
         label="Blindside efficiency"
         tooltip={`The efficiency is the number of Blindside casts divided by the number of Blindside casts plus the number of Mutilate casts while Blindside was available.`}

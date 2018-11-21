@@ -57,10 +57,8 @@ class DarkVoid extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.DARK_VOID_TALENT.id} />}
+        talent={SPELLS.DARK_VOID_TALENT.id}
         value={<ItemDamageDone amount={this.totalDamage} />}
-        label={`${SPELLS.DARK_VOID_TALENT.name}`}
         tooltip={`
           Damage from ${SPELLS.DARK_VOID_TALENT.name}: ${formatNumber(this.dvDamage)}<br />
           Damage from ${SPELLS.SHADOW_WORD_PAIN.name}: ${formatNumber(this.swpDamage)}

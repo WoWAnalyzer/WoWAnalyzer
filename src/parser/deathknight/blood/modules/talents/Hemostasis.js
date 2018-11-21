@@ -64,8 +64,8 @@ class Hemostasis extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.HEMOSTASIS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.HEMOSTASIS_TALENT.id} />}
         value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
         label="Death Strikes with Hemostasis"
         tooltip={`

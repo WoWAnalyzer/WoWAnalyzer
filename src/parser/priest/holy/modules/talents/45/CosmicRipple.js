@@ -40,12 +40,10 @@ class CosmicRipple extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
+        talent={SPELLS.COSMIC_RIPPLE_HEAL.id}
         value={(
           <ItemHealingDone amount={this.totalHealing} />
         )}
-        label="Cosmic Ripple"
         position={STATISTIC_ORDER.CORE(3)}
       />
 

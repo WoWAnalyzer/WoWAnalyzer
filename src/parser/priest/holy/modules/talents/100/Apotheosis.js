@@ -45,15 +45,13 @@ class Apotheosis extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.APOTHEOSIS_TALENT.id} />}
+        talent={SPELLS.APOTHEOSIS_TALENT.id}
         value={(
           <>
             <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
             {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
           </>
         )}
-        label="Apotheosis"
         tooltip={`
           Serenity: ${this.sanctify.apotheosisCooldownReduction / 1000}s CDR | ${this.sanctify.apotheosisManaReduction} Mana saved <br />
           Sanctify: ${this.serenity.apotheosisCooldownReduction / 1000}s CDR | ${this.serenity.apotheosisManaReduction} Mana saved <br />

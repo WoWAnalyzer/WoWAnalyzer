@@ -44,8 +44,8 @@ class Heartbreaker extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.HEARTBREAKER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.HEARTBREAKER_TALENT.id} />}
         value={`${this.totalRPGained}`}
         label="Runic Power gained"
         tooltip={`

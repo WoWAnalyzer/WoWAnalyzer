@@ -33,10 +33,9 @@ class RapidDecomposition extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.RAPID_DECOMPOSITION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.RAPID_DECOMPOSITION_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
-        label="Rapid Decomposition"
         tooltip={`<strong>Blood Plague:</strong> ${this.owner.formatItemDamageDone(this.bpDamage)}</br>
                   <strong>Death And Decay:</strong> ${this.owner.formatItemDamageDone(this.dndDamage)}`}
       />

@@ -116,10 +116,9 @@ class Volley extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.VOLLEY_TALENT.id}
         position={STATISTIC_ORDER.CORE(23)}
-        icon={<SpellIcon id={SPELLS.VOLLEY_TALENT.id} />}
-        value={`${this.procs}`}
-        label="Volley procs"
+        value={`${this.procs} procs`}
         tooltip={tooltipText}
       />
     );

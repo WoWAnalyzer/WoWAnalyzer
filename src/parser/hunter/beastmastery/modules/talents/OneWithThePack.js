@@ -39,9 +39,8 @@ class OneWithThePack extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.ONE_WITH_THE_PACK_TALENT.id} />}
+        talent={SPELLS.ONE_WITH_THE_PACK_TALENT.id}
         value={`≈${(this.procChances * WILD_CALL_RESET_PERCENT).toFixed(1)} resets`}
-        label="One With The Pack"
         tooltip={`Since there is no way to track Wild Call resets, this is an approximation of how many resets One With The Pack granted you.`}
       />
     );

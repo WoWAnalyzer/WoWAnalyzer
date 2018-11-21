@@ -35,10 +35,8 @@ class AuspiciousSpirits extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.AUSPICIOUS_SPIRITS_TALENT.id} />}
+        talent={SPELLS.AUSPICIOUS_SPIRITS_TALENT.id}
         value={<ItemDamageDone amount={this.damage / SPIRIT_DAMAGE_MULTIPLIER} />}
-        label={SPELLS.AUSPICIOUS_SPIRITS_TALENT.name}
         tooltip={`
         ${formatNumber(this.insanity)} Insanity generated.<br /><br />
         The damage displayed is the additional damage you gained from taking this talent. The Spirits are doing roughly twice as much overall damage.

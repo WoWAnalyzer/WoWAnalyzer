@@ -33,10 +33,9 @@ class MasterPoisoner extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MASTER_POISONER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.MASTER_POISONER_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Master Poisoner"
       />
     );
   }

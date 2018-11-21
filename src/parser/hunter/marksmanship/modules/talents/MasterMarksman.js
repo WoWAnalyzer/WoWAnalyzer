@@ -60,8 +60,8 @@ class MasterMarksman extends Analyzer {
     tooltipText += `</ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.MASTER_MARKSMAN_TALENT.id}
         position={STATISTIC_ORDER.CORE(21)}
-        icon={<SpellIcon id={SPELLS.MASTER_MARKSMAN_TALENT.id} />}
         value={`${this.usedProcs}/${this.totalProcs}`}
         label="utilised MM buffs"
         tooltip={tooltipText} />

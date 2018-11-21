@@ -45,8 +45,8 @@ class RedThirst extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.RED_THIRST_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        icon={<SpellIcon id={SPELLS.RED_THIRST_TALENT.id} />}
         value={`${formatNumber(this.averageReduction)} sec`}
         label="Red Thirst average reduction"
         tooltip={`${formatNumber(this.reduction)} sec total effective reduction and ${formatNumber(this.wastedReduction)} sec (${formatPercentage(this.wastedPercent)}%) wasted reduction.`}

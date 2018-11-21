@@ -66,8 +66,8 @@ class Chakrams extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.CHAKRAMS_TALENT.id}
         position={STATISTIC_ORDER.CORE(21)}
-        icon={<SpellIcon id={SPELLS.CHAKRAMS_TALENT.id} />}
         value={`${this.averageTargetsHit}`}
         label="Average targets hit"
       />

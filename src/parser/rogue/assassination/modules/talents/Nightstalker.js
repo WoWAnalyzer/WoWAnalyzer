@@ -47,10 +47,9 @@ class Nightstalker extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.NIGHTSTALKER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.NIGHTSTALKER_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDamageTotal} />}
-        label="Nightstalker"
       />
     );
   }

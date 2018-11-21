@@ -140,8 +140,8 @@ class VipersVenom extends Analyzer {
     tooltip += `</ul></li></ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.VIPERS_VENOM_TALENT.id}
         position={STATISTIC_ORDER.CORE(22)}
-        icon={<SpellIcon id={SPELLS.VIPERS_VENOM_TALENT.id} />}
         value={`${this.procs}`}
         label="Viper's Venom procs"
         tooltip={tooltip}

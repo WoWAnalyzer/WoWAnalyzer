@@ -34,10 +34,8 @@ class AngelicFeather extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ANGELIC_FEATHER_TALENT.id} />}
+        talent={SPELLS.ANGELIC_FEATHER_TALENT.id}
         value={`${this.angelicFeatherCasts} Feather(s) cast`}
-        label="Angelic Feather"
         position={STATISTIC_ORDER.CORE(2)}
       />
     );

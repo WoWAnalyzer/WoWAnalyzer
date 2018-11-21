@@ -79,8 +79,8 @@ class Bloodworms extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.BLOODWORMS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        icon={<SpellIcon id={SPELLS.BLOODWORMS_TALENT.id} />}
         value={this.owner.formatItemHealingDone(this.totalHealing)}
         label="Bloodworm Stats"
         tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>

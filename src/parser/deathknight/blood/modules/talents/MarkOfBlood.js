@@ -47,8 +47,8 @@ class MarkOfBlood extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MARK_OF_BLOOD_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        icon={<SpellIcon id={SPELLS.MARK_OF_BLOOD_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Mark Of Blood Uptime"
       />

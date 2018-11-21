@@ -78,14 +78,13 @@ class DireBeast extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.DIRE_BEAST_TALENT.id} />}
+        talent={SPELLS.DIRE_BEAST_TALENT.id}
         value={
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             gained {formatPercentage(HASTE_PERCENT / this.owner.fightDuration * this.uptime)}% haste <br />
             gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
           </>}
-        label="Dire Beast"
         tooltip={`
             You had ${formatPercentage(this.uptime / this.owner.fightDuration)}% uptime on the Dire Beast haste buff. <br />
             You wasted ${this.focusWasted} focus by being too close to focus cap when Dire Beast gave you focus.`}

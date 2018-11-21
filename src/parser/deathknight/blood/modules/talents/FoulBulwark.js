@@ -30,8 +30,8 @@ class FoulBulwark extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.FOUL_BULWARK_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        icon={<SpellIcon id={SPELLS.FOUL_BULWARK_TALENT.id} />}
         value={`${this.averageFoulBullwark}%`}
         label="average Foul Bulwark buff"
       >

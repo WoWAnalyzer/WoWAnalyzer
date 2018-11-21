@@ -41,10 +41,9 @@ class ElaboratePlanning extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.ELABORATE_PLANNING_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.ELABORATE_PLANNING_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Elaborate Planning"
         tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
       />
     );

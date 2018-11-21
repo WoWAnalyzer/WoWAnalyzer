@@ -44,12 +44,11 @@ class Stomp extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.STOMP_TALENT.id} />}
+        talent={SPELLS.STOMP_TALENT.id}
         value={<>
           <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts} hits={this.hits} />
         </>}
-        label="Stomp"
       />
     );
   }

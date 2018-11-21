@@ -46,14 +46,13 @@ class SpittingCobra extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.SPITTING_COBRA_TALENT.id} />}
+        talent={SPELLS.SPITTING_COBRA_TALENT.id}
         value={
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
           </>
         }
-        label="Spitting Cobra"
         tooltip={`You wasted ${this.focusWasted} focus by being too close to focus cap when Spitting Cobra gave you focus.`}
       />
     );

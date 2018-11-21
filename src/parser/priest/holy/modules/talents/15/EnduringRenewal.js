@@ -78,14 +78,12 @@ class EnduringRenewal extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
+        talent={SPELLS.ENDURING_RENEWAL_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.healing} />
           </>
         )}
-        label="Enduring Renewal"
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
         position={STATISTIC_ORDER.CORE(1)}
       />
