@@ -51,7 +51,7 @@ class Checklist extends BaseChecklist {
           comboStrikes: this.comboStrikes.suggestionThresholds,
           blackoutKick: this.blackoutKick.suggestionThresholds,
 
-          hitcombo: this.hitCombo.suggestionThresholds,
+          hitCombo: this.hitCombo.suggestionThresholds,
           energizingElixir: this.energizingElixir.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
        }}
