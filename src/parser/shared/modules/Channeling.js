@@ -22,6 +22,7 @@ class Channeling extends Analyzer {
       ability,
       sourceID: event.sourceID,
     };
+    event.channel = channelingEvent;
     this._currentChannel = channelingEvent;
     this.eventEmitter.fabricateEvent(channelingEvent, event);
     debug && this.log('Beginning channel of', ability.name);

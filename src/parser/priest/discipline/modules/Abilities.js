@@ -6,7 +6,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.PENANCE_CAST,
+        spell: [SPELLS.PENANCE_CAST, SPELLS.PENANCE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 9,
         gcd: {

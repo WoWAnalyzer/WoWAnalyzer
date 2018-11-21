@@ -55,6 +55,7 @@ class Timeline extends React.PureComponent {
       case 'begincast':
       case 'cast':
       case 'endchannel':
+      case 'beginchannel': // TODO: OK THIS WOKRS BUT REALLY NEED TO CLEAN THIS UP SINCE IT'S MESSY AND LIKELY DUPLICATES FROM CAST AND STUFF
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
         return this.isApplicableUpdateSpellUsableEvent(event);

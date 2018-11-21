@@ -53,6 +53,7 @@ class GlobalCooldown extends Analyzer {
     const isOnGCD = this.isOnGlobalCooldown(spellId);
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
     const isCancelled = event.trigger.isCancelled;
+    this.log(event.ability.name, event.ability.guid, isOnGCD, isCancelled)
     if (isOnGCD && !isCancelled) {
       event.globalCooldown = this.triggerGlobalCooldown(event);
     }

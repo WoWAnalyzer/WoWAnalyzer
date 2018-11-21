@@ -29,6 +29,7 @@ class Casts extends React.PureComponent {
     switch (event.type) {
       case 'begincast':
       case 'cast':
+      case 'beginchannel':
         return this.renderCast(event);
       case 'endchannel':
         return this.renderChannel(event);
@@ -63,7 +64,7 @@ class Casts extends React.PureComponent {
 
     return (
       <SpellLink
-        key={`cast-${event.ability.guid}-${left}`}
+        key={`cast-${left}-${event.ability.guid}`}
         id={event.ability.guid}
         icon={false}
         className={`cast ${hoist ? 'hoist' : ''} ${event.isCancelled ? 'cancelled' : ''}`}
@@ -89,8 +90,7 @@ class Casts extends React.PureComponent {
 
     return (
       <div
-        key={`channel-${left}`}
-        id={event.ability.guid}
+        key={`channel-${left}-${event.ability.guid}`}
         className="channel"
         style={{ left, width: event.duration / 1000 * this.props.secondWidth }}
         data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
@@ -104,8 +104,7 @@ class Casts extends React.PureComponent {
 
     return (
       <div
-        key={`gcd-${left}`}
-        id={event.ability.guid}
+        key={`gcd-${left}-${event.ability.guid}`}
         className="gcd"
         style={{ left, width: event.duration / 1000 * this.props.secondWidth }}
         data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}

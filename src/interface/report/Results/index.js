@@ -19,7 +19,7 @@ import Checklist from 'parser/shared/modules/features/Checklist2/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
