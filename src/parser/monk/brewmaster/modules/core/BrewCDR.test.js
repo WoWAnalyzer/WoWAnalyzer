@@ -1,8 +1,12 @@
 import snapshotTest from 'parser/core/tests/snapshotTest';
+import { suppressLogging } from 'parser/core/tests/log-tools';
 import CombatLogParser from '../../CombatLogParser';
 import BrewCDR from './BrewCDR';
 
 describe('BrewCDR', () => {
-  snapshotTest(CombatLogParser, BrewCDR, 'brm-example');
-  snapshotTest(CombatLogParser, BrewCDR, 'brm-example', function cooldownReductionRatio(ana) { return ana.cooldownReductionRatio; });
+  suppressLogging(true, true, false);
+
+  it('should match the statistic snapshot', snapshotTest(CombatLogParser, BrewCDR, 'brm-example'));
+  it('should match the cdr snapshot', 
+    snapshotTest(CombatLogParser, BrewCDR, 'brm-example', (ana) => ana.cooldownReductionRatio));
 });

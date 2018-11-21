@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { loadLogSync, suppressLogging, parseLog } from './log-tools';
+import { loadLogSync, parseLog } from './log-tools';
 
 function statistic(analyzer) {
   const result = renderer.create(analyzer.statistic()).toJSON();
@@ -13,25 +13,18 @@ function statistic(analyzer) {
  * function (default: statistic()) matches the snapshotted value. See
  * the docs linked above for information on how to update a snapshot.
  *
+ * Honestly no longer sure this deserves its own function.
+ *
  * @param {object} parserClass - CombatLogParser class. Uninstantiated
  * @param {object} moduleClass - Analyzer or other module. Uninstantiated
  * @param {string} key - Log identifier
  * @param {function} propFn - Function returning serializable output to be tested for consistency. Optional.
- * @param {boolean} suppressLog - Suppress console.log
- * @param {boolean} suppressWarn - Suppress console.warn
  */
-export default function snapshotTest(parserClass, moduleClass, key, 
-  propFn = statistic, suppressLog = true, suppressWarn = true) {
-  let log;
-  beforeAll(() => {
-    log = loadLogSync(key);
-  });
-
-  suppressLogging(suppressLog, suppressWarn, false);
-
-  it(`should match the ${propFn.name} snapshot`, () => {
+export default function snapshotTest(parserClass, moduleClass, key, propFn = statistic) {
+  return () => {
+    const log = loadLogSync(key);
     const parser = parseLog(parserClass, log);
     const result = propFn(parser.getModule(moduleClass));
     expect(result).toMatchSnapshot();
-  });
+  };
 }

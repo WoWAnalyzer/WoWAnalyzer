@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BrewCDR should match the cooldownReductionRatio snapshot 1`] = `0.34592463516500815`;
+exports[`BrewCDR should match the cdr snapshot 1`] = `0.34592463516500815`;
 
 exports[`BrewCDR should match the statistic snapshot 1`] = `
 <div
