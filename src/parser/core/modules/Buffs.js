@@ -33,11 +33,11 @@ class Buffs extends Module {
   }
 
   /**
-   * Add an ability to the list of active buffs.
+   * Add a buff to the list of active buffs.
    * @param {object} options An object with all the properties and their values that gets passed to the Buff class.
    */
   add(options) {
-    const buff = new this.constructor.ABILITY_CLASS(options);
+    const buff = new this.constructor.BUFF_CLASS(options);
     this.activeBuffs.push(buff);
   }
 }
