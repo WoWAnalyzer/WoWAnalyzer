@@ -21,7 +21,7 @@ function request_fight(log_id, cb) {
   const fight_url = `https://wowanalyzer.com/api/v1/report/fights/${log_id}?translate=true`;
   https.get(fight_url, (res) => {
     let data = '';
-    res.on('data', (chunk) => data += chunk.toString());
+    res.on('data', chunk => { data += chunk.toString(); });
     res.on('end', () => cb(JSON.parse(data)));
   }).on('error', console.error);
 }
@@ -31,7 +31,7 @@ function request_combatants(log_id, fight_id, cb, meta) {
   const combatant_info_url = `https://wowanalyzer.com/api/v1/report/events/${log_id}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
   https.get(combatant_info_url, (res) => {
     let data = '';
-    res.on('data', (chunk) => data += chunk.toString());
+    res.on('data', chunk => { data += chunk.toString(); });
     res.on('end', () => cb(meta, fight, JSON.parse(data)));
   }).on('error', console.error);
 }
@@ -40,7 +40,7 @@ function request_events(log_id, player_id, cb, meta, fight, combatants) {
   const log_url = `https://wowanalyzer.com/api/v1/report/events/${log_id}?start=${fight.start_time}&end=${fight.end_time}&actorid=${player_id}&translate=true`;
   https.get(log_url, (res) => {
     let data = '';
-    res.on('data', (chunk) => data += chunk.toString());
+    res.on('data', chunk => { data += chunk.toString(); });
     res.on('end', () => cb(meta, combatants, JSON.parse(data)));
   }).on('error', console.error);
 }

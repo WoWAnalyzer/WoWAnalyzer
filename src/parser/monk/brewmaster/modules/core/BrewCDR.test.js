@@ -1,6 +1,6 @@
+import snapshotTest from 'parser/core/tests/snapshotTest';
 import CombatLogParser from '../../CombatLogParser';
 import BrewCDR from './BrewCDR';
-import snapshotTest from 'parser/core/tests/snapshotTest';
 
 describe('BrewCDR', () => {
   snapshotTest(CombatLogParser, BrewCDR, 'brm-example');

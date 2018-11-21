@@ -1,5 +1,5 @@
-import { loadLogSync, suppressLogging, parseLog } from './log-tools';
 import renderer from 'react-test-renderer';
+import { loadLogSync, suppressLogging, parseLog } from './log-tools';
 
 function statistic(analyzer) {
   const result = renderer.create(analyzer.statistic()).toJSON();

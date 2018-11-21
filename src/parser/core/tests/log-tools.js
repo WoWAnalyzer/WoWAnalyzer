@@ -37,7 +37,7 @@ export function suppressLogging(log, warn, error) {
 
   afterEach(() => {
     Object.keys(_console)
-      .forEach(key => console[key] = _console[key]);
+      .forEach(key => { console[key] = _console[key]; });
   });
 }
 
