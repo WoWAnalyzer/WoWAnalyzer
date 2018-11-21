@@ -150,7 +150,7 @@ class PrePullCooldowns extends EventsNormalizer {
 
   _resolveAbilityGcd(id) {
     let ability = this.abilities.getAbility(id);
-    if(!ability) {
+    if (!ability) {
       ability = this.abilities.getSpellBuffAbility(id);
     }
     const gcdProp = ability.gcd;
