@@ -1,5 +1,15 @@
 import Module from 'parser/core/Module';
 
+export const Duration = {
+  STATIC: duration => duration,
+  AT_MOST: duration => duration,
+  HASTED: duration => function () {
+    return () => duration / this.haste.current;
+  },
+  PERMANENT: () => 'PERMANENT',
+};
+
+// TODO: Make a separate but similar Debuffs module
 class Buffs extends Module {
   /**
    * This will be called *once* during initialization. This isn't nearly as well worked out as the Abilities modules and was in fact extremely rushed. So I have no clue if you should include all buffs here, or just important ones. We'll figure it out later.
