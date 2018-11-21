@@ -1,13 +1,14 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+
+/**
+ * Example report: /report/gXbFvNaJTBf39jYV/1-LFR+Taloc+-+Kill+(4:06)/4-Dimentionz
+ */
 
 class RendUptime extends Analyzer {
   static dependencies = {
@@ -15,8 +16,8 @@ class RendUptime extends Analyzer {
   };
 
   constructor(...args) {
-      super(...args);
-      this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
   }
 
   get uptime() {
@@ -36,17 +37,12 @@ class RendUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
-          <>
-            Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it ! 
-          </>
-        )
-          .icon(SPELLS.REND_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Rend uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
+        .icon(SPELLS.REND_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% Rend uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   subStatistic() {

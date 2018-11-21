@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {

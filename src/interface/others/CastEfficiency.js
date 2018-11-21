@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 const CastEfficiency = ({ categories, abilities }) => {
   if (!abilities) {

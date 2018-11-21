@@ -2,7 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
-import Abilities from './Abilities';
+import Abilities from '../../core/modules/Abilities';
 
 const GCD_MATCH_BUFFER_MS = 150;
 const RESET_BUFFER_PERCENT = 0.5;

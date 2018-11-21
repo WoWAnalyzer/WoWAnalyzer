@@ -41,17 +41,20 @@ class LoneWolf extends Analyzer {
   damage = 0;
   lwApplicationTimestamp = 0;
   loneWolfModifier = 0;
+  lwAppliedOrRemoved = false;
 
   constructor(...args) {
     super(...args);
     this.active = true;
   }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
       return;
     }
     this.lwApplicationTimestamp = event.timestamp;
+    this.lwAppliedOrRemoved = true;
   }
 
   on_byPlayer_removebuff(event) {
@@ -60,10 +63,11 @@ class LoneWolf extends Analyzer {
       return;
     }
     this.loneWolfModifier = 0;
+    this.lwAppliedOrRemoved = true;
   }
 
   on_byPlayer_damage(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
+    if (this.lwAppliedOrRemoved && !this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
       return;
     }
     if (!AFFECTED_SPELLS.includes(event.ability.guid)) {
@@ -77,7 +81,7 @@ class LoneWolf extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this.loneWolfModifier);
   }
 
-  on_finished() { //TODO: WCL is currently having issues with blizzard not reporting LW uptime if it was up through the fight. Possibly check for pet damage, and if none - assume LW was up for the entirety of the fight.
+  on_finished() {
     if (this.damage === 0) {
       this.active = false;
     }

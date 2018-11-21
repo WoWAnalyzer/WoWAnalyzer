@@ -1,7 +1,6 @@
-class Module {
-  // This is a flag that should only be overwritten by Core classes that provide some type of module, it informs users they have extended the wrong class. You usually want to use Analyzer instead of directly using Module; Module provides no functionality and does not get fed any events.
-  static __dangerousInvalidUsage = true;
+import { formatMilliseconds } from 'common/format';
 
+class Module {
   static dependencies = {};
 
   /** @var {CombatLogParser} */
@@ -18,10 +17,6 @@ class Module {
    * @param {object} options
    */
   constructor({ owner, priority, ...others }) {
-    if (this.constructor.__dangerousInvalidUsage) {
-      throw new TypeError('The class Module can not be used directly, you probably want to use Analyzer instead.');
-    }
-
     this.owner = owner;
     this.priority = priority;
 
@@ -30,6 +25,23 @@ class Module {
     Object.keys(others).forEach(key => {
       this[key] = others[key];
     });
+  }
+
+  get consoleMeta() {
+    const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
+    return [fightDuration, `(module: ${this.constructor.name})`];
+  }
+  debug(...args) {
+    console.debug(...this.consoleMeta, ...args);
+  }
+  log(...args) {
+    console.log(...this.consoleMeta, ...args);
+  }
+  warn(...args) {
+    console.warn(...this.consoleMeta, ...args);
+  }
+  error(...args) {
+    console.error(...this.consoleMeta, ...args);
   }
 }
 

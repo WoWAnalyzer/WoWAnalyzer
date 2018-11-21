@@ -1,14 +1,12 @@
 import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
 import { formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Events from 'parser/core/Events';
 
 /**
  * Every 20 Rage you spend reduces the remaining cooldown on Colossus Smash and Bladestorm by 1 sec.
@@ -23,13 +21,13 @@ class AngerManagement extends Analyzer {
   };
 
   cooldownsAffected = [
-    this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id, 
+    this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id,
     SPELLS.BLADESTORM.id,
   ];
 
   totalRageSpend = 0;
-  wastedReduction = { };
-  effectiveReduction = { };
+  wastedReduction = {};
+  effectiveReduction = {};
 
   constructor(...args) {
     super(...args);
@@ -38,9 +36,11 @@ class AngerManagement extends Analyzer {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
   }
 
-  on_byPlayer_cast(event) {
+  _onCast(event) {
     if (!event.classResources) {
       return;
     }
