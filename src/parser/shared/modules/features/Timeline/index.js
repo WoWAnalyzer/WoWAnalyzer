@@ -53,8 +53,8 @@ class Timeline extends React.PureComponent {
   isApplicableEvent(event) {
     switch (event.type) {
       case 'begincast':
-        return this.isApplicableCastEvent(event);
       case 'cast':
+      case 'endchannel':
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
         return this.isApplicableUpdateSpellUsableEvent(event);

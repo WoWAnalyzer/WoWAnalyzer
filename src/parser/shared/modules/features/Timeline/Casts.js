@@ -28,9 +28,10 @@ class Casts extends React.PureComponent {
   renderEvent(event) {
     switch (event.type) {
       case 'begincast':
-        return this.renderCast(event);
       case 'cast':
         return this.renderCast(event);
+      case 'endchannel':
+        return this.renderChannel(event);
       case 'globalcooldown':
         return this.renderGlobalCooldown(event);
       default:
@@ -40,16 +41,18 @@ class Casts extends React.PureComponent {
   _lastHoisted = null;
   _level = 0;
   renderCast(event) {
-    const left = this.getOffsetLeft(event.timestamp);
     if (event.channel) {
       return null;
     }
 
-    const hoist = !event.globalCooldown && event.type !== 'begincast';
+    const left = this.getOffsetLeft(event.timestamp);
+    // Hoist abilities off the GCD above the main bar
+    const hoist = event.type === 'cast' && !event.globalCooldown;
     let level = 0;
     if (hoist) {
+      // Avoid overlapping icons
       const margin = left - this._lastHoisted;
-      if (margin < ICON_WIDTH) {
+      if (this._lastHoisted && margin < ICON_WIDTH) {
         this._level += 1;
         level = this._level;
       } else {
@@ -77,6 +80,21 @@ class Casts extends React.PureComponent {
           alt={event.ability.name}
         />
       </SpellLink>
+    );
+  }
+  renderChannel(event) {
+    const start = this.props.start;
+    const left = this.getOffsetLeft(event.start);
+    const fightDuration = (event.timestamp - start) / 1000;
+
+    return (
+      <div
+        key={`channel-${left}`}
+        id={event.ability.guid}
+        className="channel"
+        style={{ left, width: event.duration / 1000 * this.props.secondWidth }}
+        data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
+      />
     );
   }
   renderGlobalCooldown(event) {

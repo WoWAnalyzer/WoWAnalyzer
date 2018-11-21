@@ -103,6 +103,14 @@
   height: 10px;
   top: 6px;
 }
+.spell-timeline .casts .channel {
+  border-radius: 5px;
+  background: #505ff8;
+  box-shadow: 0 0 3px #000;
+  z-index: 2;
+  height: 10px;
+  top: 6px;
+}
 /* Cooldown lanes */
 .spell-timeline .cooldowns {
   display: none; /* disabled for now, hide behind toggle at some point */
