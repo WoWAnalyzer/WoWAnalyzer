@@ -92,9 +92,9 @@ class HolyWordSalvation extends Analyzer {
         )}
         label="Holy Word: Salvation"
         tooltip={`
-          Healing from Salv: ${formatThousands(this.healingFromSalv)}<br />
-          Healing from Renews: ${formatThousands(this.healingFromRenew)}<br />
-          Healing from PoMs: ${formatThousands(this.healingFromPom)}
+          Healing from Salv: ${formatThousands(this.healingFromSalv + this.overhealingFromSalv + this.absorptionFromSalv)}<br />
+          Healing from Renews: ${formatThousands(this.healingFromRenew + this.overHealingFromRenew+ this.absorptionFromRenew)}<br />
+          Healing from PoMs: ${formatThousands(this.healingFromPom + this.overHealingFromPom + this.absorptionFromPom)}
         `}
         position={STATISTIC_ORDER.CORE(7)}
       />
