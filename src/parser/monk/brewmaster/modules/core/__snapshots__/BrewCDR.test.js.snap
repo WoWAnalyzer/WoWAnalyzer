@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrewCDR should match the cooldownReductionRatio snapshot 1`] = `0.34592463516500815`;
+
+exports[`BrewCDR should match the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=100780"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Effective Brew CDR
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Your cooldowns were reduced by: <ul>
+              <li>31 Keg Smash casts— <b>105.59s</b> (<b>18.41s</b> wasted)</li>
+              
+              <li>66 Tiger Palm hits — <b>57.00s</b> (<b>9.00s</b> wasted)</li>
+              
+            </ul>
+            <b>Total cooldown reduction:</b> 162.59s.</b><br/>
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 25.88%"
+            >
+              34.59%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

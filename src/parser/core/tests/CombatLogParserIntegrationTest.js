@@ -1,6 +1,5 @@
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import { i18n } from 'interface/RootLocalizationProvider';
-import { loadLogSync } from './log-tools';
+import { loadLogSync, suppressLogging, parseLog } from './log-tools';
 
 /**
  * Generates an integration test for a spec's CombatLogParser instance.
@@ -32,38 +31,10 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
       log = loadLogSync(key);
     });
 
-    const _console = {};
-    beforeEach(() => {
-      if(suppressWarn) {
-        _console.warn = console.warn;
-        console.warn = () => undefined;
-      }
-      if(suppressLog) {
-        _console.log = console.log;
-        console.log = () => undefined;
-      }
-    });
-
-    afterEach(() => {
-      if(suppressWarn) {
-        console.warn = _console.warn;
-      }
-      if(suppressLog) {
-        console.log = _console.log;
-      }
-    });
+    suppressLogging(suppressLog, suppressWarn, false);
 
     it('should parse the example report without crashing', () => {
-      const friendlies = log.meta.friendlies.find(({id}) => id === log.contents.player_id);
-      const fight = log.meta.fights.find(({id}) => id === log.contents.fight_id);
-      const parser = new parserClass(
-        log.meta, 
-        friendlies,
-        fight,
-        log.combatants
-      );
-      log.events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
-      parser.finish();
+      const parser = parseLog(parserClass, log);
       const results = parser.generateResults({
         i18n,
         adjustForDowntime: false,
