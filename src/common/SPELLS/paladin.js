@@ -54,6 +54,11 @@ export default {
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
+  DIVINE_STEED_BUFF_ALT_3: { // Silvermoon charger I think - https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx/#fight=2&source=37&type=auras
+    id: 221886,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
   HAND_OF_RECKONING: {
     id: 62124,
     name: 'Hand of Reckoning',
