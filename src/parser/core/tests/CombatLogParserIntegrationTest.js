@@ -1,5 +1,16 @@
 import { i18n } from 'interface/RootLocalizationProvider';
 import { loadLogSync, suppressLogging, parseLog } from './log-tools';
+import { statistic, expectSnapshot } from './snapshotTest';
+
+function integrationSnapshot(analyzer, parser) {
+  if(!analyzer.active) {
+    return 'module inactive';
+  }
+  if(!analyzer.statistic || analyzer.statistic() === undefined) {
+    return 'module has no statistic method';
+  }
+  return statistic(analyzer, parser);
+}
 
 /**
  * Generates an integration test for a spec's CombatLogParser instance.
@@ -40,6 +51,35 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
         adjustForDowntime: false,
       });
       expect(results).toBeTruthy();
+    });
+
+    describe('analyzers', () => {
+      let parser;
+      beforeAll(() => {
+        // suppressing logging here always
+        const _console = {
+          log: console.log,
+          warn: console.warn,
+        };
+        console.log = () => undefined;
+        console.warn = () => undefined;
+
+        parser = parseLog(parserClass, log);
+
+        Object.keys(_console).forEach(key => { console[key] = _console[key]; });
+      });
+
+      Object.values(parserClass.specModules).forEach(moduleClass => {
+        if(moduleClass instanceof Array) {
+          // cannot call parser._getModuleClass at this point in
+          // execution, so we handle the case manually
+          moduleClass = moduleClass[0];
+        }
+        describe(moduleClass.name, () => {
+          suppressLogging(suppressLog, suppressWarn, false);
+          it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationSnapshot));
+        });
+      });
     });
   };
 }
