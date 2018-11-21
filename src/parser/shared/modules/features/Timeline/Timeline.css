@@ -15,12 +15,6 @@
   font-size: 14px;
   position: relative;
 }
-.spell-timeline .time-line > *:first-of-type {
-  border-left: none;
-}
-.spell-timeline .time-line > *:first-of-type:before {
-  content: '';
-}
 .spell-timeline .time-line > *:before {
   content: attr(data-duration);
   position: absolute;
@@ -37,6 +31,16 @@
   top: 22px;
   height: 7px;
   left: 50%;
+}
+.spell-timeline .time-line > *:first-of-type {
+  top: 14px;
+  height: calc(100% - 14px);
+}
+.spell-timeline .time-line > *:first-of-type:before {
+  top: calc(33px - 14px);
+}
+.spell-timeline .time-line > *:first-of-type:after {
+  top: calc(22px - 14px);
 }
 /* Casts indicators */
 .spell-timeline .casts {
