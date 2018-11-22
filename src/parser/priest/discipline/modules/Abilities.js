@@ -185,6 +185,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANGELIC_FEATHER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
+        charges: 3,
         gcd: {
           base: 1500,
         },
