@@ -52,10 +52,7 @@ class Timeline extends React.PureComponent {
 
   isApplicableEvent(event) {
     switch (event.type) {
-      case 'begincast':
       case 'cast':
-      case 'endchannel':
-      case 'beginchannel': // TODO: OK THIS WOKRS BUT REALLY NEED TO CLEAN THIS UP SINCE IT'S MESSY AND LIKELY DUPLICATES FROM CAST AND STUFF
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
         return this.isApplicableUpdateSpellUsableEvent(event);
@@ -189,9 +186,8 @@ class Timeline extends React.PureComponent {
         <Casts
           start={start}
           secondWidth={this.secondWidth}
-        >
-          {parser.eventHistory.filter(event => this.isApplicableEvent(event))}
-        </Casts>
+          parser={parser}
+        />
         {/*<div className="cooldowns">*/}
           {/*{this.renderLanes(others, false)}*/}
         {/*</div>*/}

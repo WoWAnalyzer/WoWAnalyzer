@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const ICON_WIDTH = 22;
 
@@ -11,9 +12,11 @@ class Casts extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
-    children: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string.isRequired,
-    })).isRequired,
+    parser: PropTypes.shape({
+      eventHistory: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string.isRequired,
+      })).isRequired,
+    }).isRequired,
   };
 
   constructor() {
@@ -23,6 +26,33 @@ class Casts extends React.PureComponent {
 
   getOffsetLeft(timestamp) {
     return (timestamp - this.props.start) / 1000 * this.props.secondWidth;
+  }
+
+  isApplicableEvent(event) {
+    switch (event.type) {
+      case 'begincast':
+      case 'cast':
+      case 'endchannel':
+      case 'beginchannel': // TODO: OK THIS WOKRS BUT REALLY NEED TO CLEAN THIS UP SINCE IT'S MESSY AND LIKELY DUPLICATES FROM CAST AND STUFF
+        return this.isApplicableCastEvent(event);
+      case 'globalcooldown':
+        return true;
+      default:
+        return false;
+    }
+  }
+  isApplicableCastEvent(event) {
+    const parser = this.props.parser;
+
+    if (!parser.byPlayer(event)) {
+      // Ignore pet/boss casts
+      return false;
+    }
+    const spellId = event.ability.guid;
+    if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+      return false;
+    }
+    return true;
   }
 
   renderEvent(event) {
@@ -112,11 +142,11 @@ class Casts extends React.PureComponent {
     );
   }
   render() {
-    const { children } = this.props;
+    const { parser } = this.props;
 
     return (
       <div className="casts">
-        {children.map(this.renderEvent)}
+        {parser.eventHistory.filter(event => this.isApplicableEvent(event)).map(this.renderEvent)}
       </div>
     );
   }
