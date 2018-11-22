@@ -17,7 +17,7 @@ export const STAT_TRACKER = {
   intellect: combatant => wrackingBrillianceStats(combatant.traitsBySpellId[SPELLS.WRACKING_BRILLIANCE.id]),
 };
 
-const debug = true;
+const debug = false;
 
 class WrackingBrilliance extends Analyzer {
   intellect = 0;
