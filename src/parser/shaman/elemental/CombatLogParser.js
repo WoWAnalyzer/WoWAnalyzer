@@ -23,6 +23,10 @@ import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
 import Checklist from './modules/checklist/Module';
 
+import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
+import LavaShock from './modules/azerite/LavaShock';
+import SynapseShock from './modules/azerite/SynapseShock';
+
 import './main.css';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -60,6 +64,11 @@ class CombatLogParser extends CoreCombatLogParser {
     stormkeeper: Stormkeeper,
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
+    echoOfTheElementals: EchoOfTheElementals,
+
+    // Azerite
+    lavaShock: LavaShock,
+    synapseShock: SynapseShock,
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
