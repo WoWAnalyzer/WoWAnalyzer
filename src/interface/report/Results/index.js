@@ -33,13 +33,6 @@ import './Results.css';
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
 
-const MAIN_TAB = {
-  CHECKLIST: 'CHECKLIST',
-  SUGGESTIONS: 'SUGGESTIONS',
-  CHARACTER: 'CHARACTER',
-  STATS: 'STATS',
-};
-
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -72,6 +65,9 @@ class Results extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    ReactTooltip.rebuild();
+  }
   componentDidUpdate() {
     ReactTooltip.rebuild();
   }
