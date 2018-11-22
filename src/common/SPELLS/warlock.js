@@ -290,6 +290,10 @@ export default {
     id: 275378,
     name: 'Cascading Calamity',
     icon: 'spell_shadow_unstableaffliction_3',
+  WRACKING_BRILLIANCE_BUFF: {
+    id: 272893,
+    name: 'Wracking Brilliance',
+    icon: 'spell_shadow_felmending',
   },
   // -----------
   // DEMONOLOGY
