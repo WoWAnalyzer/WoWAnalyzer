@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
@@ -75,8 +74,8 @@ class SplittingIce extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.SPLITTING_ICE_TALENT.id}
         position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.SPLITTING_ICE_TALENT.id} />}
         value={`${this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %`}
         label="Splitting Ice damage"
         tooltip={`This is all the secondary target damage summed with the portion of primary target damage attributable to Splitting Ice.${this.hasGlacialSpike ? ' Because only the icicles inside each Glacial Spike are boosted, the damage bonus to Glacial Spike is estimated.' : ''}

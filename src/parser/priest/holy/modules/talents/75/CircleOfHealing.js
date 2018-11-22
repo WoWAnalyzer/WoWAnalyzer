@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
@@ -51,12 +49,11 @@ class CircleOfHealing extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />}
+        talent={SPELLS.CIRCLE_OF_HEALING_TALENT.id}
+
         value={(
           <ItemHealingDone amount={this.circleOfHealingHealing} />
         )}
-        label="Circle of Healing"
         tooltip={`
           Coh Casts: ${this.circleOfHealingCasts}<br />
           Total Healing: ${formatThousands(this.circleOfHealingHealing)} (${formatPercentage(this.overHealPercent)}% OH)<br />

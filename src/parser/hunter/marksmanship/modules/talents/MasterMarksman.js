@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
@@ -60,8 +59,8 @@ class MasterMarksman extends Analyzer {
     tooltipText += `</ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.MASTER_MARKSMAN_TALENT.id}
         position={STATISTIC_ORDER.CORE(21)}
-        icon={<SpellIcon id={SPELLS.MASTER_MARKSMAN_TALENT.id} />}
         value={`${this.usedProcs}/${this.totalProcs}`}
         label="utilised MM buffs"
         tooltip={tooltipText} />

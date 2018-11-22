@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -41,8 +40,8 @@ class Gluttony extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.GLUTTONY_TALENT.id}
         position={STATISTIC_ORDER.CORE(7)}
-        icon={<SpellIcon id={SPELLS.GLUTTONY_TALENT.id} />}
         value={`${this.gluttonyProcs}`}
         label="Gluttony procs"
       />

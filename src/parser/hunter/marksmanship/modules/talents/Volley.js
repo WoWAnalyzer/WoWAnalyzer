@@ -7,7 +7,6 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -116,10 +115,9 @@ class Volley extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.VOLLEY_TALENT.id}
         position={STATISTIC_ORDER.CORE(23)}
-        icon={<SpellIcon id={SPELLS.VOLLEY_TALENT.id} />}
-        value={`${this.procs}`}
-        label="Volley procs"
+        value={`${this.procs} procs`}
         tooltip={tooltipText}
       />
     );

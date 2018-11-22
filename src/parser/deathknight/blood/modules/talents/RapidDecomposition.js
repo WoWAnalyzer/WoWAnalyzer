@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -33,10 +32,9 @@ class RapidDecomposition extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.RAPID_DECOMPOSITION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.RAPID_DECOMPOSITION_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
-        label="Rapid Decomposition"
         tooltip={`<strong>Blood Plague:</strong> ${this.owner.formatItemDamageDone(this.bpDamage)}</br>
                   <strong>Death And Decay:</strong> ${this.owner.formatItemDamageDone(this.dndDamage)}`}
       />

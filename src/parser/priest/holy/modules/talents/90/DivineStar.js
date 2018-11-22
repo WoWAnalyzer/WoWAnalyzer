@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -47,15 +45,13 @@ class DivineStar extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.DIVINE_STAR_TALENT.id} />}
+        talent={SPELLS.DIVINE_STAR_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.divineStarHealing} /><br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>
         )}
-        label="Divine Star"
         tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />

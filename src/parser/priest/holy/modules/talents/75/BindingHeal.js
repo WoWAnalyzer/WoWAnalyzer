@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
@@ -66,12 +64,10 @@ class BindingHeal extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.BINDING_HEAL_TALENT.id} />}
+        talent={SPELLS.BINDING_HEAL_TALENT.id}
         value={(
           <ItemHealingDone amount={this.bindingHealHealing} />
         )}
-        label="Binding Heal"
         tooltip={`
           Casts:&#9;${this.bindingHealCasts}<br />
           Self Healing:&#9;${formatThousands(this.bindingHealSelfHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />

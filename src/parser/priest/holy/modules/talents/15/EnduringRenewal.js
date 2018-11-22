@@ -1,10 +1,8 @@
 import React from 'react';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
@@ -78,14 +76,12 @@ class EnduringRenewal extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
+        talent={SPELLS.ENDURING_RENEWAL_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.healing} />
           </>
         )}
-        label="Enduring Renewal"
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
         position={STATISTIC_ORDER.CORE(1)}
       />

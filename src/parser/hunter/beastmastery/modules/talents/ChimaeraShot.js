@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
 /**
@@ -44,11 +43,10 @@ class ChimaeraShot extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
+        talent={SPELLS.CHIMAERA_SHOT_TALENT.id}
         value={<>
           <AverageTargetsHit casts={this.casts} hits={this.hits} />
         </>}
-        label="Chimaera Shot"
       />
     );
   }

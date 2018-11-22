@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
@@ -39,7 +38,7 @@ class Bonestorm extends Analyzer {
   }
 
   get goodBonestormCasts() {
-    const goodCasts = this.bsCasts.filter((val, index) => {
+    const goodCasts = this.bsCasts.filter((val) => {
       return val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM;
     });
     return goodCasts.length;
@@ -88,8 +87,8 @@ class Bonestorm extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.BONESTORM_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        icon={<SpellIcon id={SPELLS.BONESTORM_TALENT.id} />}
         value={`${ formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage)) } %`}
         label="of your total damage"
         tooltip={`${ this.BonestormTooltip }`}
