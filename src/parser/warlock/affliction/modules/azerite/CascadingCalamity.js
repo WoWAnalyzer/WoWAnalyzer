@@ -16,6 +16,10 @@ export const STAT_TRACKER = {
   haste: combatant => cascadingCalamityStats(combatant.traitsBySpellId[SPELLS.CASCADING_CALAMITY.id]),
 };
 
+/*
+  Cascading Calamity:
+    Casting Unstable Affliction on a target affected by your Unstable Affliction increases your Haste by X for 15 sec
+ */
 class CascadingCalamity extends Analyzer {
   haste = 0;
   constructor(...args) {
