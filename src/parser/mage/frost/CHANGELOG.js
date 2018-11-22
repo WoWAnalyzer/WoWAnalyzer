@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-22'),
+    changes: <>Removed <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> from checklist and updated the module to better show what the talent provides.</>,
+    contributors: [Dambroda],
+  },
+  {
     date: new Date('2018-11-18'),
     changes: <>Removed <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> uptime from checklist and updated the module to calculate damage instead of uptime.</>,
     contributors: [Dambroda],
