@@ -10,7 +10,6 @@ body {
   background: url(images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background: #111517;
   color: #fff;
-  padding-top: 48px;
 }
 @media (max-width: 1200px) {
   body {
@@ -36,11 +35,6 @@ body {
 }
 #app-mount {
   min-height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 #app-mount > .app {
   min-height: calc(100% + 410px);
