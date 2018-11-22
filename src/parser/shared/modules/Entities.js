@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
 
@@ -10,6 +11,14 @@ class Entities extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
+
+  static get changedebuffstack() {
+    return new EventFilter('changedebuffstack');
+  }
+
+  static get changebuffstack() {
+    return new EventFilter('changebuffstack');
+  }
 
   getEntities() {
     throw new Error('Not implemented');
