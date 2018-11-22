@@ -10,4 +10,9 @@ export default {
     name: 'Explosive Potential',
     icon: 'inv__implosion',
   },
+  INEVITABLE_DEMISE: {
+    id: 273521,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
 };

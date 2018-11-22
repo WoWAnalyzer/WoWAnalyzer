@@ -285,6 +285,12 @@ export default {
     icon: 'spell_shadow_soulleech_2',
   },
 
+  // Affliction Azerite Trait effects
+  INEVITABLE_DEMISE_BUFF: {
+    id: 273525,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
   // -----------
   // DEMONOLOGY
   // -----------
