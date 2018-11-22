@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
@@ -25,10 +23,8 @@ class LightOfTheNaaru extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id} />}
+        talent={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}
         value={`${Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction`}
-        label="Light of the Naaru"
         tooltip={`
           Serenity: ${Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
           Sanctify: ${Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />

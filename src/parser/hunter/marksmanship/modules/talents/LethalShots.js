@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
@@ -74,8 +73,8 @@ class LethalShots extends Analyzer {
     tooltipText += `</ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.LETHAL_SHOTS_TALENT.id}
         position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.LETHAL_SHOTS_TALENT.id} />}
         value={`${this.totalUsage}/${this.totalProcs}`}
         label="utilised LS procs"
         tooltip={tooltipText} />

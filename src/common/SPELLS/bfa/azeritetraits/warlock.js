@@ -10,4 +10,9 @@ export default {
     name: 'Explosive Potential',
     icon: 'inv__implosion',
   },
+  WRACKING_BRILLIANCE: {
+    id: 272891,
+    name: 'Wracking Brilliance',
+    icon: 'spell_shadow_felmending',
+  },
 };

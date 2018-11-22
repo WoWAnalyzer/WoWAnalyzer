@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -47,10 +46,9 @@ class Nightstalker extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.NIGHTSTALKER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.NIGHTSTALKER_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDamageTotal} />}
-        label="Nightstalker"
       />
     );
   }

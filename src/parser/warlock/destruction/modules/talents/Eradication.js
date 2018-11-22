@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -40,15 +41,12 @@ class Eradication extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]), this.onTravelSpellCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    // only queue spells with travel time
+  onTravelSpellCast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.INCINERATE.id && spellId !== SPELLS.CHAOS_BOLT.id) {
-      return;
-    }
-
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
       return;
@@ -62,7 +60,7 @@ class Eradication extends Analyzer {
     debug && console.log('Pushed a buffed cast into queue', JSON.parse(JSON.stringify(this.queue)));
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCINERATE.id || spellId === SPELLS.CHAOS_BOLT.id) {
       this._handleTravelSpellDamage(event);

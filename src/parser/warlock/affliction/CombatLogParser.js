@@ -34,6 +34,8 @@ import SoulConduit from './modules/talents/SoulConduit';
 
 import Checklist from './modules/features/Checklist/Module';
 
+import WrackingBrilliance from './modules/azerite/WrackingBrilliance';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -73,6 +75,8 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
 
+    // Azerite Traits
+    wrackingBrilliance: WrackingBrilliance,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };

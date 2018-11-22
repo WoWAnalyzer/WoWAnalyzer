@@ -285,6 +285,12 @@ export default {
     icon: 'spell_shadow_soulleech_2',
   },
 
+  // Affliction Azerite Trait effects
+  WRACKING_BRILLIANCE_BUFF: {
+    id: 272893,
+    name: 'Wracking Brilliance',
+    icon: 'spell_shadow_felmending',
+  },
   // -----------
   // DEMONOLOGY
   // -----------

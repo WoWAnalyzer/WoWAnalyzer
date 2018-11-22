@@ -1,7 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
 /**
@@ -34,9 +33,9 @@ class BindingShot extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.BINDING_SHOT_TALENT.id} />}
+        talent={SPELLS.BINDING_SHOT_TALENT.id}
         value={`${this._roots} roots / ${this._applications} possible`}
-        label="Binding Shot" />
+      />
     );
   }
 }

@@ -6,7 +6,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -53,8 +52,8 @@ class SpiritBombFrailtyDebuff extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.SPIRIT_BOMB_TALENT.id}
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(this.uptime)}%`}
         label="Spirit Bomb debuff uptime"
         tooltip={`Total damage was ${formatThousands(spiritBombDamage)}.<br/>

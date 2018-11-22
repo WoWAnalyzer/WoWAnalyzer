@@ -3,8 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 
@@ -44,21 +42,15 @@ class Perseverance extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.PERSEVERANCE_TALENT.id} />}
-        value={(
-          <ItemHealingDone amount={this.totalDamageReduced} />
-        )}
-        label="Perseverance"
+        talent={SPELLS.PERSEVERANCE_TALENT.id}
+        value={<ItemHealingDone amount={this.totalDamageReduced} />}
         tooltip={`
           Perseverance Uptime: ${formatPercentage(this.uptime)}%<br />
           Damage Reduced: ${formatThousands(this.totalDamageReduced)}
           `}
         position={STATISTIC_ORDER.CORE(2)}
       />
-
     );
   }
 }

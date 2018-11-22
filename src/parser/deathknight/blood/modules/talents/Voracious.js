@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -31,9 +30,10 @@ class Voracious extends Analyzer {
 
   statistic() {
     return (
+
       <TalentStatisticBox
+        talent={SPELLS.VORACIOUS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        icon={<SpellIcon id={SPELLS.VORACIOUS_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Voracious uptime"
       />
