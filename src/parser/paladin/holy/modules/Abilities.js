@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
         },
-        timelineSortIndex: 10,
+        timelineSortIndex: 1,
       },
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST],
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        timelineSortIndex: 15,
+        timelineSortIndex: 3,
         enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       },
       {
@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 15,
+        timelineSortIndex: 3,
         enabled: combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
       },
       {
@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: -1,
+        timelineSortIndex: 25,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
       },
       {
@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 11,
+        timelineSortIndex: 4,
         enabled: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
         isDefensive: true,
       },
@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: null,
         charges: 2,
-        timelineSortIndex: 30,
+        timelineSortIndex: 11,
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
       },
       {
@@ -185,7 +185,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
-        timelineSortIndex: -3,
+        timelineSortIndex: 33,
       },
       {
         spell: SPELLS.AVENGING_WRATH,
@@ -198,7 +198,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        timelineSortIndex: -2,
+        timelineSortIndex: 32,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
@@ -212,7 +212,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        timelineSortIndex: -2,
+        timelineSortIndex: 32,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
@@ -227,7 +227,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.6,
         },
-        timelineSortIndex: -4,
+        timelineSortIndex: 34,
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
@@ -268,7 +268,7 @@ class Abilities extends CoreAbilities {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
-        timelineSortIndex: 1,
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
@@ -281,7 +281,7 @@ class Abilities extends CoreAbilities {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => castCount.healingIolHits || 0,
         },
-        timelineSortIndex: 1,
+        timelineSortIndex: 10,
       },
       {
         spell: SPELLS.HOLY_LIGHT,

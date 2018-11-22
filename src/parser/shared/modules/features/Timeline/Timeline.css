@@ -119,11 +119,11 @@
 .spell-timeline .cooldowns .lane {
   position: absolute;
   left: 0;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.1);
+  height: 16px;
+  /*background: rgba(255, 255, 255, 0.1);*/
 }
 .spell-timeline .cooldowns .lane:nth-of-type(odd) {
-  background: rgba(255, 255, 255, 0.04);
+  /*background: rgba(255, 255, 255, 0.04);*/
 }
 .spell-timeline .cooldowns .lane > * {
   position: absolute;
@@ -135,7 +135,8 @@
   height: 100%;
   margin: 0;
   display: block;
-  /*transform: translateX(-50%);*/
+  border: 1px solid #f8b700;
+  box-shadow: 0 0 3px #000;
 }
 .spell-timeline .cooldowns .lane a > div:first-child {
   content: '';
@@ -145,12 +146,14 @@
   left: 0;
 }
 .spell-timeline .cooldowns .lane > .legend {
-  left: -26px;
+  left: -20px;
   filter: grayscale(100%);
+  display: none;
 }
 .spell-timeline .cooldowns .lane > .cooldown {
   background: rgba(150, 150, 150, 0.4);
-  height: 100%;
+  height: 60%;
+  top: 20%;
   border-radius: 3px;
   background: #f8b700;
   box-shadow: 0 0 4px #f8b700;

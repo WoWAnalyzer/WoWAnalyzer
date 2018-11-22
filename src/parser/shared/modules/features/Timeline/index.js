@@ -47,8 +47,8 @@ class Timeline extends React.PureComponent {
   get totalWidth() {
     return this.seconds * this.secondWidth;
   }
-  laneHeight = 28;
-  centerOffset = 25;
+  laneHeight = 18;
+  centerOffset = 15;
 
   isApplicableEvent(event) {
     switch (event.type) {
@@ -56,8 +56,6 @@ class Timeline extends React.PureComponent {
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
         return this.isApplicableUpdateSpellUsableEvent(event);
-      case 'globalcooldown':
-        return true;
       default:
         return false;
     }
@@ -71,6 +69,10 @@ class Timeline extends React.PureComponent {
     }
     const spellId = event.ability.guid;
     if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+      return false;
+    }
+    const ability = this.props.abilities.getAbility(spellId);
+    if (!ability || !ability.cooldown) {
       return false;
     }
     return true;
