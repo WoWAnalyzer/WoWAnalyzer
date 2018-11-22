@@ -19,6 +19,10 @@ export const STAT_TRACKER = {
 
 const debug = false;
 
+/*
+  Wracking Brilliance:
+    Every other Soul Shard your Agony generates also increases your Intellect by X for 6 sec.
+ */
 class WrackingBrilliance extends Analyzer {
   intellect = 0;
 
