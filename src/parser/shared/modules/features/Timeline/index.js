@@ -164,14 +164,10 @@ class Timeline extends React.PureComponent {
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
-    // const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
-    // const { castWindows, others } = this.separateCastWindows(eventsBySpellId);
+    const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
     return (
-      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 80px 0` }}>
-        {/*<div className="cooldowns cast-windows">*/}
-          {/*{this.renderLanes(castWindows, true)}*/}
-        {/*</div>*/}
+      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${eventsBySpellId.size * 30}px 0` }}>
         <div className="time-line">
           {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
             return (
@@ -188,9 +184,9 @@ class Timeline extends React.PureComponent {
           secondWidth={this.secondWidth}
           parser={parser}
         />
-        {/*<div className="cooldowns">*/}
-          {/*{this.renderLanes(others, false)}*/}
-        {/*</div>*/}
+        <div className="cooldowns">
+          {this.renderLanes(eventsBySpellId, false)}
+        </div>
       </div>
     );
   }

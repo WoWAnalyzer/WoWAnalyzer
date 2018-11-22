@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -250,10 +250,14 @@ class SpellUsable extends Analyzer {
     const cooldown = this._currentCooldowns[spellId];
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
     const maxCharges = this.abilities.getMaxCharges(spellId) || 1;
+    const spell = SPELLS[spellId];
+
     return {
       type: 'updatespellusable',
       ability: {
         guid: spellId,
+        name: spell ? spell.name : undefined,
+        abilityIcon: spell ? spell.icon : undefined,
       },
       trigger,
       timestamp,

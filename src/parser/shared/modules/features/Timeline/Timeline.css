@@ -116,9 +116,6 @@
   top: 6px;
 }
 /* Cooldown lanes */
-.spell-timeline .cooldowns {
-  display: none; /* disabled for now, hide behind toggle at some point */
-}
 .spell-timeline .cooldowns .lane {
   position: absolute;
   left: 0;
