@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';

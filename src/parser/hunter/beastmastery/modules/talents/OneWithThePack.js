@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 
 /**
  * Wild Call has a 20% increased chance to reset the cooldown of Barbed Shot.
@@ -13,7 +12,6 @@ import SpellIcon from 'common/SpellIcon';
  *
  * Wild Call: Your auto shot critical strikes have a 20% chance to reset the cooldown of Barbed Shot.
  */
-
 const WILD_CALL_RESET_PERCENT = 0.2;
 
 class OneWithThePack extends Analyzer {

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
 /**

@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { formatNumber } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS/index';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
 
 //Worms last 15 sec. But sometimes lag and such makes them expire a little bit early.

@@ -8,7 +8,6 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';

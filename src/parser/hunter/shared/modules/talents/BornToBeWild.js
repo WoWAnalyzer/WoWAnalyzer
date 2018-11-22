@@ -1,7 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import SPECS from 'game/SPECS';
 import { formatNumber } from 'common/format';

@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';

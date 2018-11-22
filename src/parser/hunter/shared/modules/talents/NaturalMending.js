@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';

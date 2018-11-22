@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';

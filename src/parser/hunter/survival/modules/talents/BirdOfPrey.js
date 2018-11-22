@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 const EXTENSION_PER_CAST = 1500;

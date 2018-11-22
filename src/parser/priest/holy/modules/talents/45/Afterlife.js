@@ -1,10 +1,8 @@
 import React from 'react';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 const SPIRIT_OF_REDEMPTION_DURATION = 15000;

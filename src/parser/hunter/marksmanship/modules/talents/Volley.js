@@ -7,7 +7,6 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 

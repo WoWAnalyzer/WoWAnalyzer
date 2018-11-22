@@ -3,7 +3,6 @@ import React from 'react';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
@@ -27,8 +26,8 @@ class Blindside extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
   }
 
-  casts = 0
-  badMutilates = 0
+  casts = 0;
+  badMutilates = 0;
 
   get efficiency() {
     return (this.casts / this.casts + this.badMutilates) || 1;

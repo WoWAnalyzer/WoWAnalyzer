@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';

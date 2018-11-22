@@ -1,11 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
