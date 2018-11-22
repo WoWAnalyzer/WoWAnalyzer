@@ -28,19 +28,6 @@ class Casts extends React.PureComponent {
     return (timestamp - this.props.start) / 1000 * this.props.secondWidth;
   }
 
-  isApplicableEvent(event) {
-    switch (event.type) {
-      case 'begincast':
-      case 'cast':
-      case 'endchannel':
-      case 'beginchannel': // TODO: OK THIS WOKRS BUT REALLY NEED TO CLEAN THIS UP SINCE IT'S MESSY AND LIKELY DUPLICATES FROM CAST AND STUFF
-        return this.isApplicableCastEvent(event);
-      case 'globalcooldown':
-        return true;
-      default:
-        return false;
-    }
-  }
   isApplicableCastEvent(event) {
     const parser = this.props.parser;
 
@@ -57,10 +44,18 @@ class Casts extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
-      case 'begincast':
       case 'cast':
+        if (this.isApplicableCastEvent(event)) {
+          return this.renderCast(event);
+        } else {
+          return null;
+        }
       case 'beginchannel':
-        return this.renderCast(event);
+        if (this.isApplicableCastEvent(event)) {
+          return this.renderBeginChannel(event);
+        } else {
+          return null;
+        }
       case 'endchannel':
         return this.renderChannel(event);
       case 'globalcooldown':
@@ -77,8 +72,9 @@ class Casts extends React.PureComponent {
     }
 
     const left = this.getOffsetLeft(event.timestamp);
+
     // Hoist abilities off the GCD above the main bar
-    const hoist = event.type === 'cast' && !event.globalCooldown;
+    const hoist = !event.globalCooldown;
     let level = 0;
     if (hoist) {
       // Avoid overlapping icons
@@ -92,24 +88,39 @@ class Casts extends React.PureComponent {
       this._lastHoisted = left;
     }
 
+    return this.renderIcon(event, {
+      className: hoist ? 'hoist' : undefined,
+      style: {
+        '--level': level > 0 ? level : undefined,
+      },
+      children: hoist ? (
+        <div className="time-indicator" />
+      ) : undefined,
+    });
+  }
+  renderBeginChannel(event) {
+    return this.renderIcon(event, {
+      className: event.isCancelled ? 'cancelled' : undefined,
+    });
+  }
+  renderIcon(event, { className = '', style = {}, children } = {}) {
+    const left = this.getOffsetLeft(event.timestamp);
     return (
       <SpellLink
         key={`cast-${left}-${event.ability.guid}`}
         id={event.ability.guid}
         icon={false}
-        className={`cast ${hoist ? 'hoist' : ''} ${event.isCancelled ? 'cancelled' : ''}`}
+        className={`cast ${className}`}
         style={{
           left,
-          '--level': level > 0 ? level : undefined,
+          ...style,
         }}
       >
-        {hoist && (
-          <div className="time-indicator" />
-        )}
         <Icon
           icon={event.ability.abilityIcon.replace('.jpg', '')}
           alt={event.ability.name}
         />
+        {children}
       </SpellLink>
     );
   }
@@ -146,7 +157,7 @@ class Casts extends React.PureComponent {
 
     return (
       <div className="casts">
-        {parser.eventHistory.filter(event => this.isApplicableEvent(event)).map(this.renderEvent)}
+        {parser.eventHistory.map(this.renderEvent)}
       </div>
     );
   }

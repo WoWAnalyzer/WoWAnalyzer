@@ -7,10 +7,6 @@ const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance t
 const debug = false;
 
 class Channeling extends CoreChanneling {
-  static dependencies = {
-    ...CoreChanneling.dependencies,
-  };
-
   _previousPenanceTimestamp = this.owner.fight.start_time - PENANCE_MINIMUM_RECAST_TIME;
   _hasCastigation = null;
   _bolt = 0;

@@ -4,6 +4,8 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
 
+// TODO: KILL THIS MODULE. It hasn't hold well with time, and it should probably be replaced with a normalizer. This normalizer could remove invalid `cast` events and maybe even go so far as to remove the `begincast` event entirely in favor of our own system to be easier to work with. This module also duplicates some logic from the CancelledCasts normalizer.
+
 class Channeling extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
@@ -21,6 +23,7 @@ class Channeling extends Analyzer {
       timestamp: event.timestamp,
       ability,
       sourceID: event.sourceID,
+      isCancelled: event.isCancelled,
     };
     event.channel = channelingEvent;
     this._currentChannel = channelingEvent;
