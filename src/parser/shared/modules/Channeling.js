@@ -27,8 +27,8 @@ class Channeling extends Analyzer {
     };
     event.channel = channelingEvent;
     this._currentChannel = channelingEvent;
-    this.eventEmitter.fabricateEvent(channelingEvent, event);
     debug && this.log('Beginning channel of', ability.name);
+    this.eventEmitter.fabricateEvent(channelingEvent, event);
   }
   endChannel(event) {
     const currentChannel = this._currentChannel;
@@ -41,7 +41,8 @@ class Channeling extends Analyzer {
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
-    event.channel = this.eventEmitter.fabricateEvent({
+    debug && this.log('Ending channel of', ability.name);
+    return this.eventEmitter.fabricateEvent({
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
@@ -50,7 +51,6 @@ class Channeling extends Analyzer {
       start,
       beginChannel: currentChannel,
     }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
-    debug && this.log('Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
     this.eventEmitter.fabricateEvent({
@@ -79,7 +79,8 @@ class Channeling extends Analyzer {
     if (!this.isChannelingSpell(event.ability.guid)) {
       this.cancelChannel(event, this._currentChannel.ability);
     } else {
-      this.endChannel(event);
+      // Add info to the cast-event related to this channel so it can be used easily
+      event.channel = this.endChannel(event);
     }
   }
   isChanneling() {
