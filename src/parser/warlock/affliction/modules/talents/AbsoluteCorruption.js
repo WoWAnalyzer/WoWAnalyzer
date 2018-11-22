@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Events from 'parser/core/Events';
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -17,12 +18,10 @@ class AbsoluteCorruption extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF), this.onCorruptionDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.CORRUPTION_DEBUFF.id) {
-      return;
-    }
+  onCorruptionDamage(event) {
     this.bonusDmg += calculateEffectiveDamage(event, AC_DAMAGE_BONUS);
   }
 
