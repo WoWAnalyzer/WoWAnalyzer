@@ -127,7 +127,7 @@ class Casts extends React.PureComponent {
   renderChannel(event) {
     const start = this.props.start;
     const left = this.getOffsetLeft(event.start);
-    const fightDuration = (event.timestamp - start) / 1000;
+    const fightDuration = (event.start - start) / 1000;
 
     return (
       <div
