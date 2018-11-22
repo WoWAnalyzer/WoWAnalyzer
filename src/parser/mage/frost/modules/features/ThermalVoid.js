@@ -1,15 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatNumber } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import StatisticBox from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import SpellIcon from 'common/SpellIcon';
 
 const BASE_DUR = 20; // The standard duration of IV
 
@@ -18,54 +12,27 @@ const BASE_DUR = 20; // The standard duration of IV
  * Your Ice Lances against frozen targets extend your Icy Veins by an additional 1 sec.
  */
 class ThermalVoid extends Analyzer {
-  activeCast = null;
-  casts = [];
-  buffApplied = 0;
-  extraUptime = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
-  onApplyIcyVeins(event) {
-    // In the event that you get IV to refresh due to extended uptime. This maybe will only have ever happened in legion
-    if (this.activeCast !== null) {
-      this.activeCast.finish = event.timestamp;
-    }
-    this.activeCast = { start: event.timestamp, finish: null };
-    this.casts.push(this.activeCast);
-  }
-
-  onRemoveIcyVeins(event) {
-    this.casts.push({ start: event, finish: null });
-    this.buffApplied = event.timestamp;
-  }
-
-  onFinish() {
-
-  }
-
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
-  }
-
-  get averageDuration() {
-    return this.uptime / this.casts;
-  }
-
-  get averageDurationSeconds() {
-    return this.averageDuration / 1000;
-  }
-
   statistic() {
     const hist = this.selectedCombatant.getBuffHistory(SPELLS.ICY_VEINS.id);
+    if(!hist || hist.length === 0) {
+      return null;
+    }
+
     let totalIncrease = 0;
+    let totalDuration = 0; // We could use getBuffUptime but we are doing the math anyway
     const castRows = hist.map((buff, idx) => {
       const end = buff.end || this.owner.currentTimestamp;
       const castTime = (buff.start - this.owner.fight.start_time) / 1000;
       const duration = (end - buff.start) / 1000;
-      const increase = duration - BASE_DUR;
+      totalDuration += duration;
+      // If the buff ended early because of death or fight end, don't blame the talent
+      const increase = Math.max(0, duration - BASE_DUR);
       totalIncrease += increase;
       return (
         <tr key={idx}>
@@ -77,12 +44,10 @@ class ThermalVoid extends Analyzer {
     });
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.THERMAL_VOID_TALENT.id} />}
-        label={`<SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} icon={false} /> average extension`}
-        value={`${formatDuration(totalIncrease / hist.length)}`}
-        tooltip="Icy Veins Casts that do not complete before the fight ends are removed from this statistic"
-        category={STATISTIC_CATEGORY.TALENTS}
+      <TalentStatisticBox
+        talent={SPELLS.THERMAL_VOID_TALENT.id}
+        value={<><SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds</>}
+        tooltip="Extension times include the base 10 second increase from the talent."
       >
         <table className="table table-condensed">
           <thead>
@@ -94,14 +59,14 @@ class ThermalVoid extends Analyzer {
           </thead>
           <tbody>
             {castRows}
-            <tr key="total">
-              <th>Total</th>
-              <th>--</th>
-              <th>{formatDuration(totalIncrease)}</th>
+            <tr key="avg">
+              <th>Average</th>
+              <th>{formatDuration(totalDuration / hist.length)}</th>
+              <th>{formatDuration(totalIncrease / hist.length)}</th>
             </tr>
           </tbody>
         </table>
-      </StatisticBox>
+      </TalentStatisticBox>
     );
   }
 }
