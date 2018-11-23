@@ -10,6 +10,11 @@ export default {
     name: 'Explosive Potential',
     icon: 'inv__implosion',
   },
+  CASCADING_CALAMITY: {
+    id: 275372,
+    name: 'Cascading Calamity',
+    icon: 'spell_shadow_unstableaffliction_3',
+  },
   WRACKING_BRILLIANCE: {
     id: 272891,
     name: 'Wracking Brilliance',

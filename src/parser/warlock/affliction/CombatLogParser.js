@@ -34,6 +34,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 
 import Checklist from './modules/features/Checklist/Module';
 
+import CascadingCalamity from './modules/azerite/CascadingCalamity';
 import WrackingBrilliance from './modules/azerite/WrackingBrilliance';
 import DreadfulCalling from './modules/azerite/DreadfulCalling';
 
@@ -77,8 +78,10 @@ class CombatLogParser extends CoreCombatLogParser {
     soulConduit: SoulConduit,
 
     // Azerite Traits
+    cascadingCalamity: CascadingCalamity,
     wrackingBrilliance: WrackingBrilliance,
     dreadfulCalling: DreadfulCalling,
+
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
