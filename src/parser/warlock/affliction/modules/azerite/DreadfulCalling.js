@@ -4,6 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -12,7 +13,6 @@ import { formatThousands } from 'common/format';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
-import { calculateBonusAzeriteDamage } from 'parser/warlock/shared/helpers';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const CDR_PER_CAST = 1000;
@@ -67,9 +67,9 @@ class DreadfulCalling extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.DREADFUL_CALLING.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={`Estimated bonus Unstable Affliction damage: ${formatThousands(this.damage)}<br />
-                The damage is an approximation using current Intellect values at given time.<br /><br />
-                You also reduced your Summon Darkglare cooldown by ${this.effectiveCDRseconds} seconds`}
+        tooltip={`Estimated bonus Unstable Affliction damage: ${formatThousands(this.damage)}<br />You also reduced your Summon Darkglare cooldown by ${this.effectiveCDRseconds} seconds<br /><br />
+                The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account lowered cooldown of Darkglare.
+                Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.`}
       />
     );
   }
