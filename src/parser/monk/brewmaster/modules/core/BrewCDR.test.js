@@ -6,7 +6,6 @@ import BrewCDR from './BrewCDR';
 describe('BrewCDR', () => {
   suppressLogging(true, true, false);
 
-  it('should match the statistic snapshot', snapshotTest(CombatLogParser, BrewCDR, 'brm-example'));
   it('should match the cdr snapshot', 
     snapshotTest(CombatLogParser, BrewCDR, 'brm-example', (ana) => ana.cooldownReductionRatio));
 });

@@ -1,8 +1,34 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
+import { i18n } from 'interface/RootLocalizationProvider';
 import { loadLogSync, parseLog } from './log-tools';
 
-function statistic(analyzer) {
-  const result = renderer.create(analyzer.statistic()).toJSON();
+class ParserContextProvider extends React.PureComponent {
+  static propTypes = {
+    parser: PropTypes.object,
+    children: PropTypes.node,
+  };
+
+  static childContextTypes = {
+    parser: PropTypes.object,
+  };
+
+  getChildContext() {
+    return {
+      parser: this.props.parser,
+    };
+  }
+
+  render() {
+    console.log(this.props.children);
+    return this.props.children;
+  }
+}
+
+export function statistic(analyzer, parser=null) {
+  const stat = analyzer.statistic({ i18n });
+  const result = renderer.create(<ParserContextProvider parser={parser}>{stat}</ParserContextProvider>).toJSON();
   return result;
 } 
 
@@ -24,7 +50,11 @@ export default function snapshotTest(parserClass, moduleClass, key, propFn = sta
   return () => {
     const log = loadLogSync(key);
     const parser = parseLog(parserClass, log);
-    const result = propFn(parser.getModule(moduleClass));
-    expect(result).toMatchSnapshot();
+    expectSnapshot(parser, moduleClass, propFn);
   };
+}
+
+export function expectSnapshot(parser, moduleClass, propFn = statistic) {
+    const result = propFn(parser.getModule(moduleClass), parser);
+    expect(result).toMatchSnapshot();
 }

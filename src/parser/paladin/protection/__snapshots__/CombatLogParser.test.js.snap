@@ -1,0 +1,743 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Protection Paladin Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>65.23%</b> of your time casting something.</li>
+        <li>You spent <b>34.77%</b> of your time casting nothing at all.</li>
+        "
+            >
+              34.77 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>65.23%</b> of your time casting something."
+          style={
+            Object {
+              "width": "65.22732602595921%",
+            }
+          }
+        >
+          <img
+            alt="Active time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>34.77%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Protection Paladin Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers Consecration matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=26573"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_innerfire.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Hits Mitigated w/ Consecration
+          </div>
+          <div
+            className="value"
+          >
+            70.90 %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Sword"
+            src="/img/sword.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total damage done: <b>1,696,522</b> "
+            >
+              5,248 DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Shield"
+            src="/img/shield.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage taken
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="The total damage taken was 3,909,576 (0 overkill)."
+            >
+              12k DTPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+        data-tip="Damage taken by type:
+      <ul>
+      <li><b>Physical</b>: 1,189,673 (30.43%)</li>
+      <li><b>Magic</b>: 2,719,903 (69.57%)</li>
+      </ul>
+      Damage taken by magic school:
+      <ul>
+        <li><b>Physical</b>: 1,189,673 (30.43%)</li><li><b>Nature</b>: 2,523,545 (64.55%)</li><li><b>Shadow</b>: 196,358 (5.02%)</li>
+      </ul>
+      Click the bar to switch between simple and detailed mode."
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+      >
+        <div
+          className="spell-school-1-bg"
+          style={
+            Object {
+              "width": "30.429719232980762%",
+            }
+          }
+        />
+        <div
+          className="spell-school-32-bg"
+          style={
+            Object {
+              "width": "69.57028076701923%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers GrandCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=85043"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_helmet_74.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Grand Crusader
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Grand Crusader reset the cooldown of Avenger's Shield at least 11 times. 11 are inferred from using it before its cooldown normally be up.<br/>
+            You had 83 chances for Grand Crusader to trigger with a 15% chance to trigger."
+            >
+              11 Resets
+            </dfn>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Healing done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total healing done: <b>1,478,097</b>"
+            >
+              4,572 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-healing-bg"
+          data-tip="Regular healing done, not including absorbs. You did a total of 889k regular healing (58.40% of raw healing)."
+          style={
+            Object {
+              "width": "58.404904830229796%",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+          />
+        </div>
+        <div
+          className="stat-healing-absorbs-bg"
+          data-tip="Healing by absorbs. This only includes damage prevented by absorbs. You did a total of 461k healing with absorbs (30.33% of raw healing)."
+          style={
+            Object {
+              "width": "30.327144236476126%",
+            }
+          }
+        >
+          <img
+            alt="Absorb Healing"
+            src="/img/absorbed.png"
+          />
+        </div>
+        <div
+          className="stat-negative-absorbs-bg"
+          data-tip="Absorbed healing. This only includes healing that gets absorbed by debuffs. You had a total of 128k healing absorbed (8.42% of raw healing)."
+          style={
+            Object {
+              "width": "8.419200506888544%",
+            }
+          }
+        >
+          <img
+            alt="Absorbed Healing"
+            src="/img/negative-absorbed.png"
+          />
+        </div>
+        <div
+          className="remainder stat-overhealing-bg"
+          data-tip="Overhealing. You did a total of 43k overhealing (2.85 % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers."
+        >
+          <img
+            alt="Overhealing"
+            src="/img/overhealing.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers InspiringVanguard matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Protection Paladin Analyzer analyzers Judgment matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=53600"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Effective SotR CDR
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Your Judgment casts reduced the cooldown of Shield of the Righteous by <b>106s</b> over 44 casts, 12 of which were critical strikes.
+            <br/>
+            You wasted <b>0s</b> of cooldown reduction."
+            >
+              24.69%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers LightOfTheProtector matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers LightOfTheProtectorTiming matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers MitigationCheck matches the statistic snapshot 1`] = `null`;
+
+exports[`The Protection Paladin Analyzer analyzers RighteousProtector matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Protection Paladin Analyzer analyzers Seraphim matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Protection Paladin Analyzer analyzers ShieldOfTheRighteous matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=53600"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Physical damage mitigated
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Shield of the Righteous usage breakdown:
+            <ul>
+                <li>You were hit <b>20</b> times with your Shield of the Righteous buff (<b>364,724</b> damage).</li>
+                <li>You were hit <b>26</b> times <b><i>without</i></b> your Shield of the Righteous buff (<b>824,949</b> damage).</li>
+            </ul>
+            <b>43.48%</b> of physical attacks were mitigated with Shield of the Righteous (<b>30.66%</b> of physical damage taken).<br/>
+            <b>11</b> of your 32 casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges)."
+            >
+              30.66%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Protection Paladin Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;

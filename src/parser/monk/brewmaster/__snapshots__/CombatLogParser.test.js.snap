@@ -1,0 +1,1049 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Brewmaster Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>58.39%</b> of your time casting something.</li>
+        <li>You spent <b>41.61%</b> of your time casting nothing at all.</li>
+        "
+            >
+              41.61 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>58.39%</b> of your time casting something."
+          style={
+            Object {
+              "width": "58.38917441936113%",
+            }
+          }
+        >
+          <img
+            alt="Active time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>41.61%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers BlackOxBrew matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers BlackoutCombo matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers BreathOfFire matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=100780"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Effective Brew CDR
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Your cooldowns were reduced by: <ul>
+              <li>31 Keg Smash casts— <b>105.59s</b> (<b>18.41s</b> wasted)</li>
+              
+              <li>66 Tiger Palm hits — <b>57.00s</b> (<b>9.00s</b> wasted)</li>
+              
+            </ul>
+            <b>Total cooldown reduction:</b> 162.59s.</b><br/>
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 25.88%"
+            >
+              34.59%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=216521"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_celestialserpentmount.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Celestial Fortune Healing
+          </div>
+          <div
+            className="value"
+          >
+            1,982 HPS
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Sword"
+            src="/img/sword.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total damage done: <b>1,711,282</b> "
+            >
+              5,567 DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Shield"
+            src="/img/shield.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage taken
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="The total damage taken was 4,244,362 (0 overkill)."
+            >
+              14k DTPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+        data-tip="Damage taken by type:
+      <ul>
+      <li><b>Physical</b>: 2,075,386 (48.90%)</li>
+      <li><b>Magic</b>: 2,168,976 (51.10%)</li>
+      </ul>
+      Damage taken by magic school:
+      <ul>
+        <li><b>Physical</b>: 2,075,386 (48.90%)</li><li><b>Nature</b>: 1,856,517 (43.74%)</li><li><b>Shadow</b>: 312,459 (7.36%)</li>
+      </ul>
+      Click the bar to switch between simple and detailed mode."
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+      >
+        <div
+          className="spell-school-1-bg"
+          style={
+            Object {
+              "width": "48.89747858453167%",
+            }
+          }
+        />
+        <div
+          className="spell-school-32-bg"
+          style={
+            Object {
+              "width": "51.102521415468324%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers ElusiveFootwork matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers FitToBurst matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers GarothiWorldbreakerMelee matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers Guard matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Healing done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total healing done: <b>1,624,806</b>"
+            >
+              5,285 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-healing-bg"
+          data-tip="Regular healing done, not including absorbs. You did a total of 1.44m regular healing (74.65% of raw healing)."
+          style={
+            Object {
+              "width": "74.64725935818505%",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+          />
+        </div>
+        <div
+          className="stat-healing-absorbs-bg"
+          data-tip="Healing by absorbs. This only includes damage prevented by absorbs. You did a total of 97k healing with absorbs (5.02% of raw healing)."
+          style={
+            Object {
+              "width": "5.020635049532912%",
+            }
+          }
+        >
+          <img
+            alt="Absorb Healing"
+            src="/img/absorbed.png"
+          />
+        </div>
+        <div
+          className="stat-negative-absorbs-bg"
+          data-tip="Absorbed healing. This only includes healing that gets absorbed by debuffs. You had a total of 85k healing absorbed (4.37% of raw healing)."
+          style={
+            Object {
+              "width": "4.37259259910591%",
+            }
+          }
+        >
+          <img
+            alt="Absorbed Healing"
+            src="/img/negative-absorbed.png"
+          />
+        </div>
+        <div
+          className="remainder stat-overhealing-bg"
+          data-tip="Overhealing. You did a total of 309k overhealing (15.96 % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers."
+        >
+          <img
+            alt="Overhealing"
+            src="/img/overhealing.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers HealingReceived matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=196737"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/monk_ability_avertharm.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Avg. Haste from High Tolerance
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="You spent: <ul>
+              <li><b>81s</b> (26.25%) without Stagger.</li>
+              <li><b>108s</b> (35.23%) in Light Stagger.</li>
+              <li><b>97s</b> (31.66%) in Moderate Stagger.</li>
+              <li><b>21s</b> (6.87%) in Heavy Stagger.</li>
+            </ul>"
+            >
+              7.65%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=115308"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Hits Mitigated w/ Ironskin Brew
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
+            <ul>
+                <li>You were hit <b>137</b> times with your Ironskin Brew buff (<b>2,408,958</b> damage).</li>
+                <li>You were hit <b>1</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>15,189</b> damage).</li>
+            </ul>
+            <b>99.28%</b> of attacks were mitigated with Ironskin Brew.<br/>
+            <b>90.42%</b> uptime on the Ironskin Brew buff."
+            >
+              99.28%
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers IronskinBrew matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers KegSmash matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=117906"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_shuffle.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Expected Mitigation by Mastery
+          </div>
+          <div
+            className="value"
+          >
+            Click to load
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers MitigationCheck matches the statistic snapshot 1`] = `null`;
+
+exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=119582"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Avg. Mitigation per Purifying Brew
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Purifying Brew removed <b>387k</b> damage in total over 6 casts.<br/>
+                  The smallest purify removed <b>13k</b> and the largest purify removed <b>95k</b>.<br/>
+                  You purified <b>2</b> (33.33%) times without reaching Heavy Stagger.<br/>
+                  Your purifies were delayed from the nearest peak by <b>2.19s</b> on average."
+            >
+              64k
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers RushingJadeWind matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers SharedBrews matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=115308"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage staggered
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Incoming damage added to stagger:
+          <ul>
+            <li>Total physical damage added to stagger: 1,452,326</li>
+            <li>Total magical damage added to stagger: 855,778</li>
+          </ul>
+          Damage taken from stagger:
+          <ul>
+            <li>Total damage from stagger dot: 1,736,876 (75.25% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: 446,937 (19.36% of total staggered)</li>
+          </ul>
+        "
+            >
+              2.31m 
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers StaggerFabricator matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers StaggerPoolGraph matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic-box item"
+  >
+    <div
+      className="panel-body flex"
+    >
+      <div
+        className="flex-sub statistic-icon"
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <a
+          href="http://wowhead.com/spell=273464"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+           
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
+          />
+        </a>
+      </div>
+      <div
+        className="flex-main"
+      >
+        <div
+          className="slabel"
+        >
+          <a
+            href="http://wowhead.com/spell=273464"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Staggering Strikes
+          </a>
+        </div>
+        <dfn
+          className="value"
+          data-tip="Your Blackout Strike casts each remove 1,877 staggered damage.
+            
+            A total of 34 casts removed 60k staggered damage (3,754 overhealed)."
+        >
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          3.70 % / 195 HPS
+        </dfn>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers TigerPalm matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the statistic snapshot 1`] = `"module inactive"`;
