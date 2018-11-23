@@ -179,7 +179,7 @@
 }
 /*noinspection CssOverwrittenProperties*/
 .spell-timeline .buffs .buff {
-  border-radius: 5px;
+  border-top-right-radius: 5px;
   background: rgba(149, 171, 255, 0.2);
   box-shadow: 0 0 3px #000;
   z-index: 2;

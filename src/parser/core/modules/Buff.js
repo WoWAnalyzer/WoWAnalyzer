@@ -26,13 +26,13 @@ class Ability {
       PropTypes.func,
       PropTypes.number,
       PropTypes.oneOf([PERMANENT]),
-    ]).isRequired,
+    ]),
     /**
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. Defaults to true.
      */
     enabled: PropTypes.bool,
     /**
-     * The spells that trigger this buff. Defaults to the same spell as the buff (this is most commonly the same spell).
+     * The spells that trigger this buff. Defaults to the same spell as the buff (this is most commonly the same spell). Only configure this if it's different.
      */
     triggeredBy: PropTypes.oneOfType([
       PropTypes.shape({
@@ -47,7 +47,7 @@ class Ability {
       })),
     ]),
     /**
-     * Whether the spell should be highlighted on the timeline. You should only highlight important buffs that affect your cast behavior. Defaults to false.
+     * Whether the spell should be highlighted on the timeline. You should only highlight important buffs that may affect your cast behavior. Defaults to false.
      */
     timelineHightlight: PropTypes.bool,
   };

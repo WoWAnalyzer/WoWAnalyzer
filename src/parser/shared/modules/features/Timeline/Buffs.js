@@ -98,7 +98,8 @@ class Buffs extends React.PureComponent {
           width: (event.timestamp - applied) / 1000 * this.props.secondWidth,
           '--level': level > 0 ? level : undefined,
         }}
-        data-tip={`${formatDuration(fightDuration, 3)}: ${(duration / 1000).toFixed(2)}s uptime on ${event.ability.name}`}
+        data-tip={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
+        data-effect="float"
       />
     );
   }
