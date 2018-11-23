@@ -1,3 +1,6 @@
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import BaseHealerAzerite from './BaseHealerAzerite';
 
@@ -7,39 +10,38 @@ class OverflowingShores extends BaseHealerAzerite {
   potentialHits = 0;
   healingRainCastTimestamp = null;
 
-  static TRAIT = SPELLS.OVERFLOWING_SHORES_TRAIT.id;
-  static HEAL = SPELLS.OVERFLOWING_SHORES_HEAL.id;
+  static TRAIT = SPELLS.OVERFLOWING_SHORES_TRAIT;
+  static HEAL = SPELLS.OVERFLOWING_SHORES_HEAL;
 
   constructor(...args) {
     super(...args);
     this.disableStatistic = !this.hasTrait;
+    this.moreInformation = "The size increase of Healing Rain is not factored into the healing";
+
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this._onRainBegincast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this._onRainHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._onOverflowingShoresHeal);
   }
 
-  on_byPlayer_begincast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
+  _onRainBegincast(event) {
+    if (event.isCancelled) {
       return;
     }
     this.healingRainCastTimestamp = event.timestamp;
   }
 
-  on_byPlayer_heal(event) {
-    super.on_byPlayer_heal(event);
-
-    const spellId = event.ability.guid;
-    if (this.hasTrait) {
-      if (spellId !== SPELLS.OVERFLOWING_SHORES_HEAL.id) {
-        return;
-      }
-      this.potentialHits += 1;
-
-      // checking how many people the initial of healing rain hits, while filtering out overheal events
-    } else if (this.healingRainCastTimestamp && spellId === SPELLS.HEALING_RAIN_HEAL.id && this.healingRainCastTimestamp >= event.timestamp - BUFFER) {
+  _onRainHeal(event) {
+    // checking how many people the initial of healing rain hits, while filtering out overheal events
+    if (!this.hasTrait && this.healingRainCastTimestamp && this.healingRainCastTimestamp >= event.timestamp - BUFFER) {
       if (event.overheal) {
         return;
       }
       this.potentialHits += 1;
     }
+  }
+
+  _onOverflowingShoresHeal() {
+    this.potentialHits += 1;
   }
 
   get overflowingShoresHits() {
