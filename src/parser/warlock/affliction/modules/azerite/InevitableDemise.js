@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Entities from 'parser/shared/modules/Entities';
 import Events from 'parser/core/Events';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -14,14 +13,13 @@ import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 const DRAIN_LIFE_SP_COEFFICIENT = 0.12; // taken from Simcraft SpellDataDump
-const debug = true;
+const debug = false;
 
 class InevitableDemise extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
 
-  _currentStacks = 0;
   damagePerStack = 0;
   damage = 0;
 
@@ -45,21 +43,15 @@ class InevitableDemise extends Analyzer {
 
     debug && this.log(`Total damage per tick - before DR: ${damageBeforeDR}, trait count: ${traitCount}, after DR: ${this.damagePerStack}`);
 
-    this.addEventListener(Entities.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INEVITABLE_DEMISE_BUFF), this.onIDChangeBuffStack);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_LIFE), this.onDrainLifeDamage);
   }
 
-  onIDChangeBuffStack(event) {
-    this._currentStacks = event.newStacks;
-  }
-
   onDrainLifeDamage(event) {
-    const buff = this.selectedCombatant.getBuff(SPELLS.INEVITABLE_DEMISE_BUFF);
+    const buff = this.selectedCombatant.getBuff(SPELLS.INEVITABLE_DEMISE_BUFF.id);
     const currentStacks = buff ? buff.stacks : 0;
-    debug && this.log(`Current stacks - getBuff: ${currentStacks}, manually: ${this._currentStacks}`);
     const totalDamage = event.amount + (event.absorbed || 0);
-    const bonusDamage = calculateBonusAzeriteDamage(event, this._currentStacks * this.damagePerStack, DRAIN_LIFE_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
-    debug && this.log(`Drain Life damage, current stacks: ${this._currentStacks}, current bonus base damage: ${this._currentStacks * this.damagePerStack}, total damage: ${totalDamage}, Drain damage: ${totalDamage - bonusDamage}, bonus damage: ${bonusDamage}`);
+    const bonusDamage = calculateBonusAzeriteDamage(event, currentStacks * this.damagePerStack, DRAIN_LIFE_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    debug && this.log(`Drain Life damage, current stacks: ${currentStacks}, current bonus base damage: ${currentStacks * this.damagePerStack}, total damage: ${totalDamage}, Drain damage: ${totalDamage - bonusDamage}, bonus damage: ${bonusDamage}`);
     this.damage += bonusDamage;
   }
 
