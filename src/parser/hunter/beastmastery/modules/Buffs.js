@@ -19,6 +19,11 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
+        spell: SPELLS.ASPECT_OF_THE_TURTLE,
+        duration: BuffDuration.STATIC(20000),
+        timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
+      },
+      {
         spell: Object.keys(BLOODLUST_BUFFS).map(spellId => SPELLS[spellId]),
         duration: BuffDuration.STATIC(40000),
         timelineHightlight: true,
