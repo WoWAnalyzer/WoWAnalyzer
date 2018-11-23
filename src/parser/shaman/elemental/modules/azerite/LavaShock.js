@@ -1,12 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox from 'interface/others/StatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-
 
 class EchoOfTheElementals extends Analyzer {
   procs = 0;
@@ -19,14 +16,14 @@ class EchoOfTheElementals extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.guid !== SPELLS.EARTH_SHOCK.id) {
+    if (event.ability.guid !== SPELLS.EARTH_SHOCK.id) {
       return;
     }
-    const buff = this.selectedCombatant.getBuff(274353);
+    const buff = this.selectedCombatant.getBuff(SPELLS.LAVA_SHOCK_BUFF.id);
     if (buff === undefined) {
       return;
     }
-    this.damageGained+= buff.stacks*1;
+    this.damageGained+= buff.stacks*this.selectedCombatant.traitsBySpellId[SPELLS.LAVA_SHOCK.id];
     this.procs+=1;
   }
 
@@ -42,7 +39,7 @@ class EchoOfTheElementals extends Analyzer {
             {formatNumber(this.procs)} procs
           </>
         )}
-        tooltip={`Lava Shock <b>${this.damageGained}</b> did damage after <b>${formatNumber(this.procs)}</b> procs.`}
+        tooltip={`Lava Shock did <b>${this.damageGained}</b> damage after <b>${formatNumber(this.procs)}</b> procs.`}
       />
     );
   }

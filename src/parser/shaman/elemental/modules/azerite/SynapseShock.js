@@ -101,7 +101,7 @@ class SynapseShock extends Analyzer {
             {formatNumber(this.avgIntellect)} Average Intellect <br />
           </>
         )}
-        tooltip={`Synapse Shock granted <b>${this.avgIntellect}</b> intellect for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
+        tooltip={`Synapse Shock granted an average of <b>${formatNumber(this.avgIntellect)}</b> intellect throughout the fight.`}
       >
         <table className="table table-condensed">
           <thead>
@@ -114,7 +114,7 @@ class SynapseShock extends Analyzer {
           <tbody>
             {this.synShockStacks.map((e, i) => (
               <tr key={i}>
-                <th>{(i * synapseShockStats(this.selectedCombatant.traitsBySpellId[SPELLS.SYNAPSE_SHOCK.id]).intellect).toFixed(0)}%</th>
+                <th>{(i * synapseShockStats(this.selectedCombatant.traitsBySpellId[SPELLS.SYNAPSE_SHOCK.id]).intellect).toFixed(0)} int</th>
                 <td>{formatDuration(e.reduce((a, b) => a+b, 0) / 1000)}</td>
                 <td>{formatPercentage(e.reduce((a,b) => a+b, 0)/this.owner.fightDuration)}%</td>
               </tr>

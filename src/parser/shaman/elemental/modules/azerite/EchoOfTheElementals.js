@@ -21,15 +21,15 @@ class EchoOfTheElementals extends Analyzer {
 
   elementalData = {
     FireElemental: {
-      summon: 275385, //SPELLS.EMBER_ELEMENTAL.id, //275385
+      summon: SPELLS.EMBER_ELEMENTAL_SUMMON.id,
       damageSpells: [
-        275382, //SPELLS.EMBER_BLAST.id, //275382
+        SPELLS.EMBER_BLAST.id,
       ],
     },
     StormElemental: {
-      summon: 274386,//SPELLS.SPARK_ELEMENTAL.id, //274386
+      summon: SPELLS.SPARK_ELEMENTAL_SUMMON.id,
       damageSpells: [
-        275384, //SPELLS.SHOCKING_BLAST.id, //275384
+        SPELLS.SHOCKING_BLAST.id,
       ],
     },
   };
@@ -56,8 +56,8 @@ class EchoOfTheElementals extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ECHO_OF_THE_ELEMENTALS.id}
-        value={(<>`${formatNumber(this.damageGained)} damage`</>)}
-        tooltip={`Lots of Numbers`}
+        value={(<>{formatNumber(this.damageGained)} damage</>)}
+        tooltip={`Echo Of The Elemental did ${this.damageGained} with ${this.procs} summons`}
       />
     );
   }
