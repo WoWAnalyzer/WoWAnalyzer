@@ -92,7 +92,7 @@
   top: calc(54px + var(--level) * 25px);
 }
 .spell-timeline .casts a.lower img {
-  border-color: rgba(255, 255, 255, 0.8);
+  border-color: #ecb000;
   transform: translateX(-50%);
   z-index: 2;
   position: relative;
@@ -104,18 +104,15 @@
   height: 50px;
   height: calc(45px + var(--level) * 25px);
   width: 1px;
-  background: rgba(255, 255, 255, 0.8);
+  background: #ecb000;
 }
 .spell-timeline .casts a.lower .time-indicator:before {
   content: '';
-
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-
-  border-bottom: 5px solid rgba(255, 255, 255, 0.8);
-
+  border-bottom: 5px solid #ecb000;
   position: absolute;
   top: 0;
   left: 50%;
@@ -131,7 +128,10 @@
 }
 .spell-timeline .casts .channel {
   border-radius: 5px;
-  background: #505ff8;
+  /*background: #505ff8;*/
+  /*background: #9f710f;*/
+  background-color: #9f710f;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecb000' fill-opacity='0.6' fill-rule='evenodd'%3E%3Cpath d='M0 10L10 0H5L0 5M10 10V5L5 10'/%3E%3C/g%3E%3C/svg%3E");
   box-shadow: 0 0 3px #000;
   z-index: 2;
   height: 10px;
@@ -180,6 +180,7 @@
 /*noinspection CssOverwrittenProperties*/
 .spell-timeline .buffs .buff {
   border-top-right-radius: 5px;
+  /*background: hsla(41, 1%, 52%, 0.2);*/
   background: rgba(149, 171, 255, 0.2);
   box-shadow: 0 0 3px #000;
   z-index: 2;
