@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -133,8 +132,8 @@ class RuneOfPower extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.RUNE_OF_POWER_TALENT.id}
         position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Rune of Power damage"
         tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.`}

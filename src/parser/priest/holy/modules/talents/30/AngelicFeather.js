@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
@@ -34,10 +32,8 @@ class AngelicFeather extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ANGELIC_FEATHER_TALENT.id} />}
+        talent={SPELLS.ANGELIC_FEATHER_TALENT.id}
         value={`${this.angelicFeatherCasts} Feather(s) cast`}
-        label="Angelic Feather"
         position={STATISTIC_ORDER.CORE(2)}
       />
     );

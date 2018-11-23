@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -29,12 +30,10 @@ class Shadowburn extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this.onShadowburnDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SHADOWBURN_TALENT.id) {
-      return;
-    }
+  onShadowburnDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

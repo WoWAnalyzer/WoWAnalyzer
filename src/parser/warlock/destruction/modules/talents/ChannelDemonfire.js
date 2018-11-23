@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -19,12 +20,10 @@ class ChannelDemonfire extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE), this.onCDFdamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.CHANNEL_DEMONFIRE_DAMAGE.id) {
-      return;
-    }
+  onCDFdamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 

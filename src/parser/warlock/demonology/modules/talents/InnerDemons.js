@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -31,14 +31,13 @@ class InnerDemons extends Analyzer {
     return wildImps + other;
   }
 
-  statistic() {
+  subStatistic() {
     const damage = this.damage;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INNER_DEMONS_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> damage</>}
         value={formatThousands(damage)}
-        label="Damage from Inner Demons pets"
-        tooltip={`${this.owner.formatItemDamageDone(damage)}<br />
+        valueTooltip={`${this.owner.formatItemDamageDone(damage)}<br />
                   Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps`}
       />
     );

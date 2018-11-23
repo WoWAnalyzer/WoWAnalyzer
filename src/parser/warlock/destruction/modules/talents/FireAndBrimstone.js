@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SpellLink from 'common/SpellLink';
@@ -21,12 +22,11 @@ class FireAndBrimstone extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE), this.onIncinerateCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE), this.onIncinerateDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.INCINERATE.id) {
-      return;
-    }
+  onIncinerateCast(event) {
     debug && this.log(`Storing Incinerate cast on ${event.targetID}, ${event.targetInstance}`);
     this._primaryTargets.push({
       timestamp: event.timestamp,
@@ -35,10 +35,7 @@ class FireAndBrimstone extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.INCINERATE.id) {
-      return;
-    }
+  onIncinerateDamage(event) {
     // should find FIRST (oldest) Incinerate cast, so even though you can fire multiple Incinerates before the first hits, this should pair the events correctly even if they have the same ID and instance
     const primaryTargetEventIndex = this._primaryTargets.findIndex(primary => primary.targetID === event.targetID && primary.targetInstance === event.targetInstance);
     if (primaryTargetEventIndex !== -1) {

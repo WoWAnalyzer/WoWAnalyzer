@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
@@ -10,10 +11,9 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../constants';
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
-
 class UnstableAfflictionUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -24,32 +24,33 @@ class UnstableAfflictionUptime extends Analyzer {
   _buffStart = 0;
   _count = 0;
 
-  on_byPlayer_applydebuff(event) {
-    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAapply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAremove);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onUAapply(event) {
     if (this._count === 0) {
       this._buffStart = event.timestamp;
     }
     this._count += 1;
   }
 
-  on_byPlayer_removedebuff(event) {
-    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
-      return;
-    }
+  onUAremove(event) {
     this._count -= 1;
     if (this._count === 0) {
       this.buffedTime += event.timestamp - this._buffStart;
     }
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
     }
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.every(id => !enemy.hasBuff(id))) {
+    if (UNSTABLE_AFFLICTION_DEBUFFS.every(spell => !enemy.hasBuff(spell.id))) {
       return;
     }
     this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
@@ -60,13 +61,14 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   get suggestionThresholds() {
-    // TODO: adjust for Cascading Calamity (+5%)
+    // raises the thresholds by 5% if player has Cascading Calamity trait
+    const cascadingCalamityBonus = this.selectedCombatant.hasTrait(SPELLS.CASCADING_CALAMITY.id) ? 0.05 : 0;
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.7,
-        average: 0.6,
-        major: 0.5,
+        minor: 0.7 + cascadingCalamityBonus,
+        average: 0.6 + cascadingCalamityBonus,
+        major: 0.5 + cascadingCalamityBonus,
       },
       style: 'percentage',
     };

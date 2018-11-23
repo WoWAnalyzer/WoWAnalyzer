@@ -5,10 +5,10 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 
@@ -73,7 +73,7 @@ class SacrificedSouls extends Analyzer {
     return this._shadowBoltDamage + this._demonboltDamage;
   }
 
-  statistic() {
+  subStatistic() {
     let powerSiphonTooltip = '';
     const hasPS = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
     if (hasPS) {
@@ -81,11 +81,10 @@ class SacrificedSouls extends Analyzer {
                             the number of Imps we sacrifice in code doesn't agree with what happens in logs. Therefore, this value is most likely a little wrong.`;
     }
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SACRIFICED_SOULS_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus damage</>}
         value={`${formatThousands(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
-        label="Bonus damage from Sacrificed Souls"
-        tooltip={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}<br />
+        valueTooltip={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}<br />
                   Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)}<br />
                   Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)}
                   ${powerSiphonTooltip}`}

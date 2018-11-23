@@ -154,11 +154,6 @@ export default {
     name: 'Bulwark of the Masses',
     icon: 'inv_shield_pandariaquest_b_02',
   },
-  CASCADING_CALAMITY: {
-    id: 275378,
-    name: 'Cascading Calamity',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
   CONTAMINANT: {
     id: 269308,
     name: 'Contaminant',
@@ -1043,11 +1038,6 @@ export default {
     id: 273346,
     name: 'Winter\'s Reach',
     icon: 'ability_warlock_burningembersblue',
-  },
-  WRACKING_BRILLIANCE: {
-    id: 272891,
-    name: 'Wracking Brilliance',
-    icon: 'spell_shadow_felmending',
   },
   ZEALOTRY: {
     id: 270596,

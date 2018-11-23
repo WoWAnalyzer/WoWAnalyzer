@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events from 'parser/core/Events';
+import CombatLogParser from 'parser/core/CombatLogParser';
+
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-
-import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import SpellLink from 'common/SpellLink';
+
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 const BUFFER = 100;
@@ -24,12 +26,12 @@ class Cataclysm extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CATACLYSM_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmDamage);
+    this.addEventListener(CombatLogParser.finished, this.onFinished);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.CATACLYSM_TALENT.id) {
-      return;
-    }
+  onCataclysmCast(event) {
     if (this._castTimestamp !== null) {
       // we've casted Cataclysm at least once, so we should add the current (at this time the previous) cast first before resetting the counter
       this.casts.push(this._currentCastCount);
@@ -38,10 +40,7 @@ class Cataclysm extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.CATACLYSM_TALENT.id) {
-      return;
-    }
+  onCataclysmDamage(event) {
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
     }
@@ -50,7 +49,7 @@ class Cataclysm extends Analyzer {
     }
   }
 
-  on_finished() {
+  onFinished() {
     // on each cast, the previous one is saved, so the "results" of the last Cataclysm cast in fight aren't saved, so do it on fight end
     this.casts.push(this._currentCastCount);
   }

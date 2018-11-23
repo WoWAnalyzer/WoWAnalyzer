@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -33,10 +32,9 @@ class MasterPoisoner extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MASTER_POISONER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.MASTER_POISONER_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Master Poisoner"
       />
     );
   }

@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
@@ -63,13 +62,12 @@ class ScentOfBlood extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.SCENT_OF_BLOOD_TALENT.id} />}
+        talent={SPELLS.SCENT_OF_BLOOD_TALENT.id}
         value={
           <>
             gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
           </>
         }
-        label="Scent of Blood"
         tooltip={`
             <ul>
             <li>You wasted ${this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>

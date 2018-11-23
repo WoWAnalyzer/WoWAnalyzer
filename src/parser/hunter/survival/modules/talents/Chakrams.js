@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -66,8 +65,8 @@ class Chakrams extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.CHAKRAMS_TALENT.id}
         position={STATISTIC_ORDER.CORE(21)}
-        icon={<SpellIcon id={SPELLS.CHAKRAMS_TALENT.id} />}
         value={`${this.averageTargetsHit}`}
         label="Average targets hit"
       />

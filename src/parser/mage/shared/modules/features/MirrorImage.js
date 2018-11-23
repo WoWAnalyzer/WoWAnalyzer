@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
@@ -64,8 +63,8 @@ class MirrorImage extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MIRROR_IMAGE_TALENT.id}
         position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.MIRROR_IMAGE_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Mirror Image damage"
         tooltip={`This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>.`}

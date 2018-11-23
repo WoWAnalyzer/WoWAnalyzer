@@ -1,10 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
+
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 /*
   Internal Combustion (Tier 30 Destruction talent):
@@ -16,13 +19,10 @@ class InternalCombustion extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTERNAL_COMBUSTION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_COMBUSTION_DAMAGE), this.onInternalCombustionDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.INTERNAL_COMBUSTION_DAMAGE.id) {
-      return;
-    }
-
+  onInternalCombustionDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

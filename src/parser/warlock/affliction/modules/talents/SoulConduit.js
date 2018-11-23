@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
@@ -8,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
@@ -24,13 +25,12 @@ class SoulConduit extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUnstableAfflictionDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
-      this._totalTicks += 1;
-      this._totalUAdamage += event.amount + (event.absorbed || 0);
-    }
+  onUnstableAfflictionDamage(event) {
+    this._totalTicks += 1;
+    this._totalUAdamage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

@@ -6,9 +6,9 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 import { WILD_IMP_GUIDS } from '../pets/CONSTANTS';
@@ -42,13 +42,12 @@ class DemonicConsumption extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this._currentBonus);
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> damage</>}
         value={formatThousands(this.damage)}
-        label="Bonus Demonic Tyrant damage"
-        tooltip={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
       />
     );
   }

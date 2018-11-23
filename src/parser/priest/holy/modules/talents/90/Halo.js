@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -47,15 +45,13 @@ class Halo extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.HALO_TALENT.id} />}
+        talent={SPELLS.HALO_TALENT.id}
         value={(
           <>
             <ItemHealingDone amount={this.haloHealing} /><br />
             <ItemDamageDone amount={this.haloDamage} />
           </>
         )}
-        label="Halo"
         tooltip={`Halos Cast: ${this.haloCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />

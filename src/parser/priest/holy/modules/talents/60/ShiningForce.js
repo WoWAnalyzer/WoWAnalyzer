@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
 // Example Log: /report/NcKyHD94nrj31tG2/10-Mythic+Zek'voz+-+Kill+(9:35)/3-旧时印月
@@ -33,10 +31,8 @@ class ShiningForce extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.SHINING_FORCE_TALENT.id} />}
+        talent={SPELLS.SHINING_FORCE_TALENT.id}
         value={`${this.shiningForceHits} Knock Back(s)`}
-        label="Shining Force"
         position={STATISTIC_ORDER.CORE(4)}
       />
 

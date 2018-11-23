@@ -54,7 +54,7 @@ class PowerSiphon extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DEMONIC_CORE_BUFF.id} /> stacks gained</>}
+        title={<><SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> bonus Cores</>}
         value={this.totalCores}
         valueTooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
       />

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS/index';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import { formatThousands } from 'common/format';
 
 //Worms last 15 sec. But sometimes lag and such makes them expire a little bit early.
@@ -79,8 +78,8 @@ class Bloodworms extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.BLOODWORMS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        icon={<SpellIcon id={SPELLS.BLOODWORMS_TALENT.id} />}
         value={this.owner.formatItemHealingDone(this.totalHealing)}
         label="Bloodworm Stats"
         tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>

@@ -3,7 +3,6 @@ import React from 'react';
 import { Chizu } from 'CONTRIBUTORS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -11,7 +10,7 @@ export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Chizu],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '8.0',
+  patchCompatibility: '8.0.1',
   // If set to  false`, the spec will show up as unsupported.
   isSupported: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
@@ -21,11 +20,6 @@ export default {
       Hello fellow Netherlords! Currently this spec is still in development by me with help of <strong>Motoko</strong> from Warlock Discord. Stay tuned, features will be added over time.<br /> <br />
 
       If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a> or <a href="https://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>, if you'd like to discuss anything about this analyzer, message me at @Chizu#2873 on WoWAnalyzer Discord.<br /><br />
-
-      <Warning>
-        The Demonology Warlock analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

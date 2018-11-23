@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
@@ -53,7 +52,7 @@ class KillerCobra extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
+        talent={SPELLS.KILLER_COBRA_TALENT.id}
         value={this.effectiveKillCommandResets}
         label="Kill Command Resets"
         tooltip={`You wasted ${formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown. </br> `}

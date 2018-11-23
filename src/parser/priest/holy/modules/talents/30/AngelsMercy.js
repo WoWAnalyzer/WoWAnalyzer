@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
 const DESPERATE_PRAYER_BASE_COOLDOWN = 90000;
@@ -37,10 +35,8 @@ class AngelsMercy extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ANGELS_MERCY_TALENT.id} />}
+        talent={SPELLS.ANGELS_MERCY_TALENT.id}
         value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used`}
-        label="Angels Mercy"
         tooltip={`
           Desperate Prayers cast: ${this.desperatePrayersCast}<br />
         `}
